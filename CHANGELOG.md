@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unreleased
+## 25.4.0
 
 ### Added
 
@@ -26,11 +26,24 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-5498 - Fixed typo in account page
 - SC-7842 - Fixed typo on about page
 - SC-7874 - remove access to removed env variables
+- SC-8075 Fixed nbc landing page ghost
 - SC-7793 - Set/activate new ldap route in administration page
 
 ### Changed
 
-- update location of commons
+- update location of common
+
+## 25.3.2
+
+### Fixed
+
+- SC-8075 Fixed nbc landing page ghost
+
+## 25.3.1
+
+### Fixed
+
+- SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
 ## 25.3.0
 >>>>>>> 25.3.0
 ### Added
