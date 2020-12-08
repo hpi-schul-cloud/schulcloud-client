@@ -62,7 +62,9 @@ const getNumberForWeekday = (weekday, res) => {
 	return weekdayNames.indexOf(weekday);
 };
 
-const findAllWeekEvents = (start, end, weekDay, until) => {
+const findAllWeekEvents = (start, end, wkst, until) => {
+	const weekDay = getNumberForFullCalendarWeekday(wkst);
+
 	let lastStartEvent;
 	const weekEvents = [];
 	let weekNr = 0;
@@ -85,7 +87,8 @@ const findAllWeekEvents = (start, end, weekDay, until) => {
 			.utcOffset(startUTCOffset)
 			.day(weekDay)
 			.hour(startHours)
-			.minute(startMinutes);
+			.minute(startMinutes)
+			.second(0);
 
 		const endEvent = moment(end)
 			.add(weekNr, 'weeks')
@@ -93,7 +96,8 @@ const findAllWeekEvents = (start, end, weekDay, until) => {
 			.utcOffset(startUTCOffset)
 			.day(weekDay)
 			.hour(endHours)
-			.minute(endMinutes);
+			.minute(endMinutes)
+			.second(0);
 
 		if (startEvent.isAfter(untilMoment)) {
 			break;
@@ -113,7 +117,6 @@ const findAllWeekEvents = (start, end, weekDay, until) => {
 const createRecurringEvents = (recurringEvent) => {
 	const { start, end } = recurringEvent;
 	const { wkst, until } = recurringEvent.included[0].attributes;
-
 	const allWeekEvents = findAllWeekEvents(start, end, wkst, until);
 
 	return allWeekEvents.map((event) => ({
