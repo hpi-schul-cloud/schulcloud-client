@@ -59,7 +59,6 @@ describe('Recurring Event Helper tests', () => {
 		const weekDay = 'TH';
 
 		const recurringEvents = recurringEventsHelper.findAllWeekEvents(startTime, endTime, weekDay, until);
-		console.log(recurringEvents.map((e) => timesHelper.dateToDateTimeString(e.start)));
 		expect(timesHelper.dateToDateTimeString(recurringEvents[0].start)).to.be.equal('26.10.2017 12:00');
 		expect(timesHelper.dateToDateTimeString(recurringEvents[0].end)).to.be.equal('26.10.2017 12:45');
 
