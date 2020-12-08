@@ -52,14 +52,14 @@ describe('Recurring Event Helper tests', () => {
 		expect(recurringEventsHelper.getNumberForWeekday(i18nHelper.i18next.t('global.text.monday'), res)).to.equal(0);
 	});
 
-	it('find all week events', () => {
-		// eslint-disable-next-line max-len
+	it('findAllWeekEvents', () => {
 		const startTime = '2017-10-20T10:00:00.000Z';
 		const endTime = '2017-10-20T10:45:00.000Z';
 		const until = '2017-11-21T00:00:00.000Z';
-		const weekDay1 = 'thursday';
+		const weekDay = 'TH';
 
-		const recurringEvents = recurringEventsHelper.findAllWeekEvents(startTime, endTime, weekDay1, until);
+		const recurringEvents = recurringEventsHelper.findAllWeekEvents(startTime, endTime, weekDay, until);
+		console.log(recurringEvents.map((e) => timesHelper.dateToDateTimeString(e.start)));
 		expect(timesHelper.dateToDateTimeString(recurringEvents[0].start)).to.be.equal('26.10.2017 12:00');
 		expect(timesHelper.dateToDateTimeString(recurringEvents[0].end)).to.be.equal('26.10.2017 12:45');
 
@@ -76,6 +76,9 @@ describe('Recurring Event Helper tests', () => {
 
 		expect(timesHelper.dateToDateTimeString(recurringEvents[1].start)).to.equal('02.11.2017 12:00');
 		expect(timesHelper.dateToDateTimeString(recurringEvents[1].end)).to.equal('02.11.2017 12:45');
+
+		expect(timesHelper.dateToDateTimeString(recurringEvents[2].start)).to.equal('09.11.2017 12:00');
+		expect(timesHelper.dateToDateTimeString(recurringEvents[2].end)).to.equal('09.11.2017 12:45');
 
 		expect(timesHelper.dateToDateTimeString(recurringEvents[3].start)).to.equal('16.11.2017 12:00');
 		expect(timesHelper.dateToDateTimeString(recurringEvents[3].end)).to.equal('16.11.2017 12:45');
