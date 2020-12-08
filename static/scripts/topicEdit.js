@@ -7,6 +7,7 @@ import {
 } from 'react-sortable-hoc';
 import './calendar';
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';
 
 /**
@@ -184,7 +185,7 @@ const SortableList = SortableContainer(({
         <div>
             {items.map((value, index) => (
                 <SortableItem
-                    key={`item-${value._id}`}
+                    key={`item-${value._id ? value._id : value.key}`}
                     onUpdate={onUpdate.bind(this, index)}
                     onRemove={onRemove.bind(this, index)}
                     addOnSortEndCallback={addOnSortEndCallback.bind(this)}
@@ -267,6 +268,7 @@ class TopicBlockList extends React.Component {
 			title: '',
 			content: {},
 			hidden: false,
+			key: shortid.generate(),
 		};
 		if (block.component === 'Etherpad') {
 			block.etherpadBaseUrl = this.state.etherpadBaseUrl;
