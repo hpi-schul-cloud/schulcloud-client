@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## 26.0.0
+### Fixed
+
+- SC-8075 Fixed nbc landing page ghost
+
 ## 25.3.2
 
 ### Fixed
