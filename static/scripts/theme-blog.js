@@ -8,7 +8,9 @@ const fetchContent = () => {
 
 	const placeGhostOnPage = (ghostHtml) => {
 		$(`.${ghostTheme}-blog .loading`).remove();
-		$(`.${ghostTheme}-blog .content`).html(stripHtml($(ghostHtml).children('code')[0].innerHTML,
+		const ghostContent = $(ghostHtml).children('code').length > 0 ? $(ghostHtml).children('code')[0].innerHTML
+			: ghostHtml;
+		$(`.${ghostTheme}-blog .content`).html(stripHtml(ghostContent,
 			{ onlyStripTags: ['script', 'style'] }));
 		$(`.${ghostTheme}-blog .content`).css('opacity', '1');
 	};
