@@ -1,5 +1,5 @@
 const promBundle = require('express-prom-bundle');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 // should contain all ressources (files/folders) within static folder
 const STATIC_RESSOURCES = [
