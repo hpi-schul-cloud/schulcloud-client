@@ -185,7 +185,7 @@
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
 			"default": false,
-			"description": "If enabled, user will see messages/incidents from e.g status.schul-cloud"
+			"description": "If enabled, user will see messages/incidents from e.g status.hpi-schul-cloud"
 		},
 		"GHOST_API_KEY": {
 			"type": "string",

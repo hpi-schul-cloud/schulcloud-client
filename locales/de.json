@@ -88,7 +88,7 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
 			},
 			"text": {
-				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{short_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
+				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{shortTitle}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
 				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
 				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
 			}
@@ -569,8 +569,11 @@
 				"authentication": "Authentifizierung",
 				"changeOfClasses": "Änderung von Klassen/neue Klassen",
 				"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer",
+				"chooseACounty": "Bitte wählen Sie den Kreis, zu dem die Schule gehört",
 				"className": "Klassenname:",
 				"cloudStorageProvider": "Cloud-Storage-Anbieter",
+				"county": "Kreis",
+				"counties": "Kreise",
 				"currentSchoolYear": "Aktuelles Schuljahr:",
 				"dataProtectionAdd": "Datenschutzerklärung hinzufügen",
 				"duringTheSchoolYear": "Während des Schuljahres",
@@ -604,6 +607,9 @@
 			"link": {
 				"moreInfo": "Mehr Infos",
 				"matrixHelpPage": "Hilfeartikel zum Messenger"
+			},
+			"placeholder": {
+				"chooseCounty": "Wählen Sie einen Kreis"
 			},
 			"text": {
 				"LDAPChanges": "du kannst die notwendigen Änderungen für das neue Schuljahr im\nLDAP vornehmen (neue Nutzer, Update der Klassen)",
@@ -802,7 +808,7 @@
 		},
 		"text": {
 			"MINTECSchoolsAnd": "<a href='https://www.mint-ec.de' target='_blank'>MINT-EC</a> ist das nationale Excellence-Netzwerk von Schulen mit Sekundarstufe II und ausgeprägtem Profil in Mathematik, Informatik, Naturwissenschaften und Technik (MINT). Seit 2017 nehmen Schulen aus dem Netzwerk am Projekt HPI Schul-Cloud teil.",
-			"MINTECSchoolsAndOther": "Hier können sich MINT-EC-Schulen und auch Schulen die keinem Länderprojekt angehören anmelden, die dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
+			"SchoolsAndOther": "Hier können sich Schulen anmelden, die keinem Länderprojekt angehören und dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
 			"contactUsToRegister": "Kontaktieren Sie bitte entweder Frau Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de</a> oder Herrn Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de</a>, um den Registrierungsprozess einzuleiten.",
 			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
 			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
@@ -1870,10 +1876,16 @@
 		"help_fromInviteExternalMember": {
 			"button": {
 				"externalExperts": "Externe Experten",
-				"teachersFromOtherSchools": "Lehrer von anderen Schulen"
+				"externalExpertsN21": "Externe Expert:innen",
+				"teachersFromOtherSchools": "Lehrer von anderen Schulen",
+				"teachersFromOtherSchoolsN21": "Lehrkräfte anderer Schulen"
 			},
 			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
+			},
+			"label": {
+				"lowerSaxonyRegistration": "Über die Interessenbekundung <a href=\"https://www.n-21.de/nbc/interessenbekundung\">(https://www.n-21.de/nbc/interessenbekundung)</a> melden sich Schulen – durch die Schulleitung – für die Niedersächsische Bildungscloud an.",
+				"pedagogicalExperts": "Verwende für die Einladung von pädagogischem Personal als externe Experten bitte keine E-Mail-Adressen, die bereits im schulischen Kontext genutzt werden und für deren Registrierung in der Niedersächsischen Bildungscloud benötigt werden."
 			}
 		},
 		"language_hint": {
@@ -2125,6 +2137,7 @@
 			"due": "Fällig",
 			"till": "bis",
 			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
+			"loading": "laden...",
 			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
 			"noAssignment": "Keine Zuordnung",
 			"noDescriptionAvailable": "keine Beschreibung vorhanden",
@@ -2841,7 +2854,7 @@
 					"deleteMember": "Teilnehmer löschen",
 					"editMember": "Teilnehmer bearbeiten",
 					"email": "E-Mail",
-					"inviteExternExpert": "Externen Experten einladen",
+					"inviteExternExpert": "Externen Expert:innen einladen",
 					"inviteTeacherByEmail": "Lehrer per E-Mail einladen",
 					"inviteTeacherFromOtherSchool": "Lehrer anderer Schulen einladen",
 					"invitedOn": "Eingeladen am",
@@ -2861,7 +2874,7 @@
 					"externExpert": "externer Experte",
 					"externTeacher": "Lehrer anderer Schule (Team-Admin)",
 					"federalState": "Bundesland",
-					"insertEmailOfExpertToInvite": "Gib die E-Mail des Experten ein, an welchen die Einladung verschickt wird.",
+					"insertEmailOfExpertToInvite": "Externe Expert:innen verfügen aus Sicherheitsgründen nur über eingeschränkte Berechtigungen - beispielsweise können sie nicht an Videokonferenzen teilnehmen und keine Kurse anlegen. Um eine schulfremde Expert:in einzuladen, gib ihre E-Mail-Adresse ein, an die die Einladung verschickt werden soll:",
 					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert einen anderen Eigentümer",
 					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
 					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
@@ -2873,7 +2886,7 @@
 					"sendInvitationAgain": "Einladung erneut versenden"
 				},
 				"placeholder": {
-					"insertEmail": "E-Mail eingeben",
+					"insertEmail": "Eingabefeld für E-Mail-Adresse",
 					"selectFederalState": "Bundesland auswählen",
 					"selectPersons": "Personen auswählen",
 					"selectRole": "Rolle angeben",

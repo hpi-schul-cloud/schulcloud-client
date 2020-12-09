@@ -892,7 +892,6 @@ class TopicNexboard extends TopicBlock {
      */
 	constructor(props) {
 		super(props);
-		// console.log(content);
 
 		this.state = {
 			newBoard: 0,
