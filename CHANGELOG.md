@@ -32,6 +32,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - update location of common
 
+## 25.3.4
+
+- SC-8004 add prometheus api metrics
+
 ## 25.3.2
 
 ### Fixed
