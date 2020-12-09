@@ -7,19 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## 25.3.2
-
-### Fixed
-
-- SC-8075 Fixed nbc landing page ghost
-
-## 25.3.1
-
-### Fixed
-
-- SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
-
-## Unreleased
+## 25.4.0
 
 ### Added
 
@@ -38,10 +26,23 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-5498 - Fixed typo in account page
 - SC-7842 - Fixed typo on about page
 - SC-7874 - remove access to removed env variables
+- SC-8075 Fixed nbc landing page ghost
 
 ### Changed
 
-- update location of commons
+- update location of common
+
+## 25.3.2
+
+### Fixed
+
+- SC-8075 Fixed nbc landing page ghost
+
+## 25.3.1
+
+### Fixed
+
+- SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
 ## 25.3.0
 >>>>>>> 25.3.0
 ### Added
@@ -81,6 +82,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6951 removes via text from embeded course content
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
+- SC-7474 pull docker container for tests if commit id exists on docker hub
 
 
 ## 25.2.7
