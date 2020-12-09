@@ -14,6 +14,7 @@ const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
 const { Configuration } = require('@schul-cloud/commons');
+const prometheus = require('./helpers/prometheus');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 const { nonceValueSet } = require('./helpers/csp');
 
@@ -60,6 +61,9 @@ if (Configuration.has('SENTRY_DSN')) {
 	});
 	app.use(Sentry.Handlers.requestHandler());
 }
+
+// setup prometheus metrics
+prometheus(app);
 
 // template stuff
 const authHelper = require('./helpers/authentication');

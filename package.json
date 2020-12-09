@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "25.3.3",
+	"version": "25.3.4",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -76,6 +76,7 @@
 		"encoding-japanese": "^1.0.30",
 		"express": "^4.17.1",
 		"express-fileupload": "^1.1.6",
+		"express-prom-bundle": "^6.3.0",
 		"express-session": "^1.16.2",
 		"feedr": "^2.13.5",
 		"font-awesome": "^4.7.0",
@@ -111,6 +112,7 @@
 		"oauth-1.0a": "^2.1.0",
 		"path.join": "^1.0.0",
 		"postcss-loader": "^3.0.0",
+		"prom-client": "^12.0.0",
 		"query-string": "^5.0.1",
 		"querystring": "^0.2.0",
 		"raw-loader": "^3.1.0",
