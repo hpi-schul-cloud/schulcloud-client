@@ -32,6 +32,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - update location of common
 
+## 25.3.4
+
+- SC-8004 add prometheus api metrics
+
 ## 25.3.3
 ### Fixed
 - SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation. 
