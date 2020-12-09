@@ -441,6 +441,43 @@
 			"type": "boolean",
 			"default": false,
 			"description": "enable the /versions route"
+		},
+		"FEATURE_PROMETHEUS_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Feature flag to enable prometheus api metrics"
+		},
+		"PROMETHEUS": {
+			"type": "object",
+			"description": "Prometheus metrics options used by prometheus-api-metrics",
+			"properties": {
+				"COLLECT_DEFAULT_METRICS": {
+					"type": "boolean",
+					"default": true,
+					"description": "include default nodejs (heap-/eventloop/...) and process related metrics"
+				},
+				"INCLUDE_STATUS_CODE": {
+					"type": "boolean",
+					"default": true,
+					"description": "include http status code for http_request_duration_seconds metric"
+				},
+				"INCLUDE_METHOD": {
+					"type": "boolean",
+					"default": true,
+					"description": "include http method type for http_request_duration_seconds metric"
+				},
+				"INCLUDE_PATH": {
+					"type": "boolean",
+					"default": true,
+					"description": "include path with id's replaced for http_request_duration_seconds metric"
+				},
+				"METRIC_TYPE": {
+					"type": "string",
+					"enum": ["summary", "histogram"],
+					"description": "metric types supported for http_request_duration_seconds metric"
+				}
+			},
+			"required": ["COLLECT_DEFAULT_METRICS", "INCLUDE_STATUS_CODE", "INCLUDE_METHOD", "INCLUDE_PATH", "METRIC_TYPE"]
 		}
 	},
 	"allOf": [
@@ -449,6 +486,9 @@
 		},
 		{
 			"$ref": "#/definitions/MESSENGER_ENABLED"
+		},
+		{
+			"$ref": "#/definitions/FEATURE_PROMETHEUS_ENABLED"
 		}
 	],
 	"definitions": {
@@ -478,6 +518,18 @@
 				"required": [
 					"MATRIX_MESSENGER"
 				]
+			}
+		},
+		"FEATURE_PROMETHEUS_ENABLED": {
+			"if": {
+				"properties": {
+					"FEATURE_PROMETHEUS_ENABLED": {
+						"const": true
+					}
+				}
+			},
+			"then": {
+				"required": ["PROMETHEUS"]
 			}
 		}
 	},
