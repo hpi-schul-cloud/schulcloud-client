@@ -1,8 +1,10 @@
 const chai = require('chai');
 
 const { expect } = chai;
+const moment = require('moment-timezone');
 const recurringEventsHelper = require('../../../helpers/recurringEvents');
 const i18nHelper = require('../../../helpers/i18n');
+const timesHelper = require('../../../helpers/timesHelper');
 
 const recurringEvent = {
 	type: 'event',
@@ -12,14 +14,14 @@ const recurringEvent = {
 			id: '6fb22753-0764-4494-ae04-ba352e293ae9-rrule',
 			attributes: {
 				freq: 'WEEKLY',
-				until: '2017-06-21T00:00:00.000Z',
+				until: '2017-11-21T00:00:00.000Z',
 				wkst: 'TH',
 			},
 		},
 	],
 	allDay: false,
-	start: 1493632800000,
-	end: 1493635500000,
+	start: new Date('2017-10-20T10:00:00.000Z').getTime(),
+	end: new Date('2017-10-20T10:45:00.000Z').getTime(),
 	url: '',
 	summary: 'Geografie',
 	title: 'Geografie',
@@ -30,6 +32,10 @@ const recurringEvent = {
 const res = { $t: i18nHelper.getInstance({}) };
 
 describe('Recurring Event Helper tests', () => {
+	before(() => {
+		moment.tz.setDefault('Europe/Berlin');
+	});
+
 	it('getIsoWeekdayForNumber', () => {
 		expect(recurringEventsHelper.getIsoWeekdayForNumber(0)).to.equal('MO');
 	});
@@ -46,9 +52,41 @@ describe('Recurring Event Helper tests', () => {
 		expect(recurringEventsHelper.getNumberForWeekday(i18nHelper.i18next.t('global.text.monday'), res)).to.equal(0);
 	});
 
-	it('createRecurringEvents', () => {
+	it('findAllWeekEvents', () => {
+		const startTime = '2017-10-20T10:00:00.000Z';
+		const endTime = '2017-10-20T10:45:00.000Z';
+		const until = '2017-11-21T00:00:00.000Z';
+		const weekDay = 'TH';
+
+		const recurringEvents = recurringEventsHelper.findAllWeekEvents(startTime, endTime, weekDay, until);
+		expect(timesHelper.dateToDateTimeString(recurringEvents[0].start)).to.be.equal('26.10.2017 12:00');
+		expect(timesHelper.dateToDateTimeString(recurringEvents[0].end)).to.be.equal('26.10.2017 12:45');
+
+		expect(timesHelper.dateToDateTimeString(recurringEvents[1].start)).to.equal('02.11.2017 12:00');
+		expect(timesHelper.dateToDateTimeString(recurringEvents[1].end)).to.equal('02.11.2017 12:45');
+	});
+
+	/**
+	 * In this test the times are so taken that the first events are in the summer time
+	 * and last events in the winter time.
+	 * Winter time change in 2017 was on 29.10.2017
+	 */
+	it('createRecurringEvents summer time change', () => {
 		const recurringEvents = recurringEventsHelper.createRecurringEvents(recurringEvent);
-		// 7 mondays from 1st May 2017 to 21first June 2017
-		expect(recurringEvents.length).to.equal(7);
+		expect(recurringEvents.length).to.be.equal(4);
+
+		// summer time event
+		expect(timesHelper.dateToDateTimeString(recurringEvents[0].start)).to.equal('26.10.2017 12:00');
+		expect(timesHelper.dateToDateTimeString(recurringEvents[0].end)).to.equal('26.10.2017 12:45');
+
+		// winter time events
+		expect(timesHelper.dateToDateTimeString(recurringEvents[1].start)).to.equal('02.11.2017 12:00');
+		expect(timesHelper.dateToDateTimeString(recurringEvents[1].end)).to.equal('02.11.2017 12:45');
+
+		expect(timesHelper.dateToDateTimeString(recurringEvents[2].start)).to.equal('09.11.2017 12:00');
+		expect(timesHelper.dateToDateTimeString(recurringEvents[2].end)).to.equal('09.11.2017 12:45');
+
+		expect(timesHelper.dateToDateTimeString(recurringEvents[3].start)).to.equal('16.11.2017 12:00');
+		expect(timesHelper.dateToDateTimeString(recurringEvents[3].end)).to.equal('16.11.2017 12:45');
 	});
 });
