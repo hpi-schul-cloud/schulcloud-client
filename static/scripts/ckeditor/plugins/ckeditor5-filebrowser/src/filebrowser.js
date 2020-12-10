@@ -17,6 +17,7 @@ const createFilebrowserModal = (editor, t, dialogTitle, onCreate, additionalInpu
 
 	const dialogContent = `<label for="url-input" style="display: none">${t('URL')}:</label>
 		<input type="hidden" id="url-input">
+		<input type="hidden" id="editor-id">
 		<button type="button" id="browseServerButton">${t('Browse Server')}</button><br>${additionalInput}`;
 
 	ckeditorFilebrowserDialog.find('.modal-body').html(dialogContent);
@@ -26,6 +27,7 @@ const createFilebrowserModal = (editor, t, dialogTitle, onCreate, additionalInpu
 	});
 	ckeditorFilebrowserDialog.appendTo('body').modal('show');
 
+	document.getElementById('editor-id').value = editor.id;
 	window.addEventListener('message', (e) => {
 		document.getElementById('url-input').value = e.data;
 	});
@@ -87,8 +89,10 @@ export default class FileBrowserPlugin extends Plugin {
 							src: imageUrl,
 							alt: imageAltText,
 						});
-
-						editor.model.insertContent(imageElement, editor.model.document.selection);
+						const lastOpenedEditorId = document.getElementById('editor-id').value;
+						if (lastOpenedEditorId === editor.id) {
+							editor.model.insertContent(imageElement, editor.model.document.selection);
+						}
 					});
 				};
 				createFilebrowserModal(editor, t, dialogTitle, onCreate, additionalInput);
