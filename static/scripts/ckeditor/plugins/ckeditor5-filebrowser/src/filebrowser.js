@@ -121,8 +121,10 @@ export default class FileBrowserPlugin extends Plugin {
 							controls: 'true',
 							controlslist: 'nodownload',
 						});
-
-						editor.model.insertContent(videoElement, editor.model.document.selection);
+						const lastOpenedEditorId = document.getElementById('editor-id').value;
+						if (lastOpenedEditorId === editor.id) {
+							editor.model.insertContent(videoElement, editor.model.document.selection);
+						}
 					});
 				};
 				createFilebrowserModal(editor, t, dialogTitle, onCreate);
@@ -151,8 +153,10 @@ export default class FileBrowserPlugin extends Plugin {
 							controls: 'true',
 							controlslist: 'nodownload',
 						});
-
-						editor.model.insertContent(audioElement, editor.model.document.selection);
+						const lastOpenedEditorId = document.getElementById('editor-id').value;
+						if (lastOpenedEditorId === editor.id) {
+							editor.model.insertContent(audioElement, editor.model.document.selection);
+						}
 					});
 				};
 				createFilebrowserModal(editor, t, dialogTitle, onCreate);
