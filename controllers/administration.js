@@ -2931,7 +2931,7 @@ router.use(
 			if (editable) {
 				tableActions = tableActions.concat([
 					{
-						link: item.type === 'ldap' ? `/administration/systems/ldap/edit/${item._id}`
+						link: item.type === 'ldap' ? `/administration/ldap/config?id=${item._id}`
 							: `/administration/systems/${item._id}`,
 						class: item.type === 'ldap' ? 'btn-edit-ldap' : 'btn-edit',
 						icon: 'edit',
@@ -3224,141 +3224,13 @@ router.post(
 							},
 						})
 						.then(() => {
-							res.redirect(`/administration/systems/ldap/edit/${system._id}`);
+							res.redirect(`/administration/ldap/config?id=${system._id}`);
 						})
 						.catch((err) => {
 							next(err);
 						});
 				});
 		}
-	},
-);
-router.get(
-	'/systems/ldap/edit/:id',
-	permissionsHelper.permissionsChecker('ADMIN_VIEW'),
-	async (req, res, next) => {
-		try {
-			const system = await Promise.resolve(
-				api(req).get(`/systems/${req.params.id}`),
-			);
-			res.render('administration/ldap-edit', {
-				title: res.$t('administration.controller.link.editLDAP'),
-				system,
-			});
-		} catch (err) {
-			next(err);
-		}
-	},
-);
-// Verify
-router.post(
-	'/systems/ldap/edit/:id',
-	permissionsHelper.permissionsChecker('ADMIN_VIEW'),
-	async (req, res, next) => {
-		const system = await Promise.resolve(
-			api(req).get(`/systems/${req.params.id}`),
-		);
-
-		// Classes active
-		let classesPath = req.body.classpath;
-		if (req.body.activateclasses !== 'on') {
-			classesPath = '';
-		}
-
-		let ldapURL = req.body.ldapurl.trim();
-		if (!ldapURL.startsWith('ldaps')) {
-			if (ldapURL.startsWith('ldap')) {
-				ldapURL = ldapURL.replace('ldap', 'ldaps');
-			} else {
-				ldapURL = `ldaps://${ldapURL}`;
-			}
-		}
-
-		api(req)
-			.patch(`/systems/${system._id}`, {
-				json: {
-					alias: req.body.ldapalias,
-					ldapConfig: {
-						active: false, // Don't switch of by verify
-						url: ldapURL,
-						rootPath: req.body.rootpath,
-						searchUser: req.body.searchuser,
-						searchUserPassword: req.body.searchuserpassword,
-						provider: req.body.ldaptype,
-						providerOptions: {
-							schoolName: res.locals.currentSchoolData.name,
-							userPathAdditions: req.body.userpath,
-							classPathAdditions: classesPath,
-							roleType: req.body.roletype,
-							userAttributeNameMapping: {
-								givenName: req.body.givenName,
-								sn: req.body.sn,
-								dn: req.body.dn,
-								uuid: req.body.uuid,
-								uid: req.body.uid,
-								mail: req.body.mail,
-								role: req.body.role,
-							},
-							roleAttributeNameMapping: {
-								roleStudent: req.body.studentrole,
-								roleTeacher: req.body.teacherrole,
-								roleAdmin: req.body.adminrole,
-								roleNoSc: req.body.noscrole,
-							},
-							classAttributeNameMapping: {
-								description: req.body.classdescription,
-								dn: req.body.classdn,
-								uniqueMember: req.body.classuniquemember,
-							},
-						},
-					},
-				},
-			})
-			.then(() => {
-				api(req)
-					.get(`/ldap/${system._id}`)
-					.then((data) => {
-						res.json(data);
-					});
-			})
-			.catch(() => {
-				res.json('{}');
-			});
-	},
-);
-
-// Activate
-router.post(
-	'/systems/ldap/activate/:id',
-	permissionsHelper.permissionsChecker('ADMIN_VIEW'),
-	async (req, res, next) => {
-		// Find LDAP-System
-		const school = await Promise.resolve(
-			api(req).get(`/schools/${res.locals.currentSchool}`, {
-				qs: {
-					$populate: ['systems'],
-				},
-			}),
-		);
-		const system = school.systems.filter(
-			// eslint-disable-next-line no-shadow
-			(system) => system._id === req.params.id,
-		);
-
-		api(req)
-			.patch(`/ldap/${system[0]._id}`, {
-				json: {
-					ldapConfig: {
-						active: true,
-					},
-				},
-			})
-			.then(() => {
-				res.json('success');
-			})
-			.catch(() => {
-				res.json('error');
-			});
 	},
 );
 
