@@ -20,7 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
 - SC-6619 - fixed text for registration in all other schools
-- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's 
+- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's
 
 ### Fixed
 
@@ -32,6 +32,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7842 - Fixed typo on about page
 - SC-7874 - remove access to removed env variables
 - SC-8075 Fixed nbc landing page ghost
+- SC-7793 - Set/activate new ldap route in administration page
 
 ### Changed
 
