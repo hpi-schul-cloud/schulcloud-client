@@ -62,8 +62,8 @@
             {{/unless}}
 
             {{#unless hasImportHash}}<button class="btn btn-sm btn-secondary pull-right" id="edit-consent"
-                type="button">{{$t "global.button.edit" }}<i style="margin-left:10px"
-                    class="fa fa-edit"></i></button>{{/unless}}
+                type="button"> <i style="margin-right: 3px" class="fa fa-edit"></i>
+                {{$t "global.button.edit" }}</button>{{/unless}}
             <h2 class="h5">{{$t "administration.button.consent" }} {{{consentStatusIcon}}}</h2>
             <div class="row" id="consents-overview">
                 {{#unless editTeacher}}
