@@ -121,8 +121,8 @@ describe('createRecurringEvents', () => {
 		const recurringEvents = recurringEventsHelper.createRecurringEvents(recurringEventStartingAtTheFirstCourseDay);
 		expect(timesHelper.dateToDateTimeString(recurringEvents[0].start)).to.equal('11.12.2020 11:00');
 		recurringEvents.forEach((event) => {
-			expect(event.start.isSameOrAfter(moment(startTime))).to.be.true;
-			expect(event.start.isSameOrBefore(moment(untilTime))).to.be.true;
+			expect(event.start.isSameOrAfter(moment(startTime))).to.equal(true);
+			expect(event.start.isSameOrBefore(moment(untilTime))).to.equal(true);
 		});
 	});
 });
