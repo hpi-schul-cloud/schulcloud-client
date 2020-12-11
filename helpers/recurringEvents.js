@@ -20,7 +20,7 @@ const getIsoWeekdayForNumber = (weekdayNum) => {
  * @returns {number} - number of weekday
  */
 const getNumberForFullCalendarWeekday = (weekday) => {
-	const weekdayNames = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+	const weekdayNames = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 	return weekdayNames.indexOf(weekday);
 };
 
