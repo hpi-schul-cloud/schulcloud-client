@@ -89,4 +89,39 @@ describe('Recurring Event Helper tests', () => {
 		expect(timesHelper.dateToDateTimeString(recurringEvents[3].start)).to.equal('16.11.2017 12:00');
 		expect(timesHelper.dateToDateTimeString(recurringEvents[3].end)).to.equal('16.11.2017 12:45');
 	});
+
+	it('createRecurringEvents start at the first course day', () => {
+		const startTime = new Date('2020-12-11T10:00:00.000Z').getTime();
+		const endTime = new Date('2020-12-11T10:45:00.000Z').getTime();
+		const untilTime = '2020-12-21T00:00:00.000Z';
+		const recurringEventStartingAtTheFirstCourseDay = {
+			type: 'event',
+			included: [
+				{
+					type: 'rrule',
+					id: '6fb22753-0764-4494-ae04-ba352e293ae9-rrule',
+					attributes: {
+						freq: 'WEEKLY',
+						until: untilTime,
+						wkst: 'FR',
+					},
+				},
+			],
+			allDay: false,
+			start: startTime,
+			end: endTime,
+			url: '',
+			summary: 'Geografie',
+			title: 'Geografie',
+			location: 'Paul-Gerhardt-Gymnasium',
+			description: 'Test',
+		};
+
+		const recurringEvents = recurringEventsHelper.createRecurringEvents(recurringEventStartingAtTheFirstCourseDay);
+		expect(timesHelper.dateToDateTimeString(recurringEvents[0].start)).to.equal('11.12.2020 11:00');
+		recurringEvents.forEach((event) => {
+			expect(event.start.isSameOrAfter(moment(startTime))).to.be.true;
+			expect(event.start.isSameOrBefore(moment(untilTime))).to.be.true;
+		});
+	});
 });
