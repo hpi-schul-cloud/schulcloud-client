@@ -3,13 +3,14 @@
  */
 
 const express = require('express');
+const { Configuration } = require('@schul-cloud/commons');
 const logger = require('../helpers/logger');
 
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 const timesHelper = require('../helpers/timesHelper');
-const { Configuration } = require('@schul-cloud/commons');
+
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
 const { error, warn } = require('../helpers/logger');
@@ -30,30 +31,10 @@ const filterRequestInfos = (err) => {
 	return err;
 };
 
-router.get('/', (req, res, next) => {
-	// we display time from 7 to 17
-	const timeStart = 7;
-	const timeEnd = 17;
-	const numHours = timeEnd - timeStart;
-	const numMinutes = numHours * 60;
-	const hours = [];
-
-	for (let j = 0; j <= numHours; j += 1) {
-		hours.push(j + timeStart);
-	}
-	const start = timesHelper.currentDate();
-	start.set({ hour: timeStart, minute: 0, second: 0 });
-	const end = timesHelper.currentDate();
-	end.set({ hour: timeEnd, minute: 0, second: 0 });
-
-	const currentTime = timesHelper.currentDate();
-	// eslint-disable-next-line max-len
-	const currentTotalMinutes = ((currentTime.hours() - timeStart) * 60) + currentTime.minutes();
-	let currentTimePercentage = 100 * (currentTotalMinutes / numMinutes);
-	if (currentTimePercentage < 0) currentTimePercentage = 0;
-	else if (currentTimePercentage > 100) currentTimePercentage = 100;
-
-	let eventsPromise = api(req)
+const getCalendarEvents = (req, res, {
+	numMinutes, timeStart, start, end,
+}) => {
+	return api(req)
 		.get('/calendar/', {
 			qs: {
 				all: 'false', // must set to false to use from and until request
@@ -95,21 +76,21 @@ router.get('/', (req, res, next) => {
 				const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
 
 				event.comment = `${timesHelper.formatDate(eventStart, 'kk:mm')}
-				- ${timesHelper.formatDate(eventEnd, 'kk:mm', true)}`;
+	- ${timesHelper.formatDate(eventEnd, 'kk:mm', true)}`;
 				event.style = {
 					left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
 					width: 100 * (eventDuration / numMinutes), // percent
 				};
 
 				if (event && (!event.url || event.url === '')) {
-					// add team or course url to event, otherwise just link to the calendar
+				// add team or course url to event, otherwise just link to the calendar
 					try {
 						if (event.hasOwnProperty('x-sc-courseId')) {
-							// create course link
+						// create course link
 							event.url = `/courses/${event['x-sc-courseId']}`;
 							event.alt = res.$t('dashboard.img_alt.showCourse');
 						} else if (event.hasOwnProperty('x-sc-teamId')) {
-							// create team link
+						// create team link
 							event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
 							event.alt = res.$t('dashboard.img_alt.showAppointmentInTeam');
 						} else {
@@ -128,11 +109,41 @@ router.get('/', (req, res, next) => {
 			error(filterRequestInfos(err));
 			return [];
 		});
+};
 
-	if (Configuration.get('SKIP_CALENDAR_DASHBOARD_REQUEST') === true) {
-		/** @override */
-		eventsPromise = Promise.resolve([]);
+router.get('/', (req, res, next) => {
+	// we display time from 7 to 17
+	const timeStart = 7;
+	const timeEnd = 17;
+	const numHours = timeEnd - timeStart;
+	const numMinutes = numHours * 60;
+	const hours = [];
+
+	for (let j = 0; j <= numHours; j += 1) {
+		hours.push(j + timeStart);
 	}
+	const start = timesHelper.currentDate();
+	start.set({ hour: timeStart, minute: 0, second: 0 });
+	const end = timesHelper.currentDate();
+	end.set({ hour: timeEnd, minute: 0, second: 0 });
+
+	const currentTime = timesHelper.currentDate();
+	// eslint-disable-next-line max-len
+	const currentTotalMinutes = ((currentTime.hours() - timeStart) * 60) + currentTime.minutes();
+	let currentTimePercentage = 100 * (currentTotalMinutes / numMinutes);
+	if (currentTimePercentage < 0) currentTimePercentage = 0;
+	else if (currentTimePercentage > 100) currentTimePercentage = 100;
+
+	const timeOptions = {
+		numMinutes,
+		timeStart,
+		start,
+		end,
+	};
+
+	const show = Configuration.get('CALENDAR_SERVICE_ENABLED') === true
+		&& Configuration.get('CALENDAR_DASHBOARD_ENABLED') === true;
+	const eventsPromise = show ? getCalendarEvents(req, res, timeOptions) : Promise.resolve([]);
 
 	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req)
