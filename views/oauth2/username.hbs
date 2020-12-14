@@ -5,6 +5,10 @@
         <link rel="stylesheet" href="/fonts/ptsans/ptsans.css" />
         <link rel="stylesheet" href="/styles/oauth2/username.css" />
     {{/block}}
+    {{#block "scripts" mode="append"}}
+        <script src="/scripts/all.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="/scripts/oauth2.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    {{/block}}
 </head>
 <body>
 <div class="depseudo"><div class="cloud-logo"></div><a title="{{infoText}}">{{shortName}}</a></div>
