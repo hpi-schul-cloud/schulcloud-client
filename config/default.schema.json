@@ -185,7 +185,7 @@
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
 			"default": false,
-			"description": "If enabled, user will see messages/incidents from e.g status.schul-cloud"
+			"description": "If enabled, user will see messages/incidents from e.g status.hpi-schul-cloud"
 		},
 		"GHOST_API_KEY": {
 			"type": "string",
@@ -478,6 +478,11 @@
 				}
 			},
 			"required": ["COLLECT_DEFAULT_METRICS", "INCLUDE_STATUS_CODE", "INCLUDE_METHOD", "INCLUDE_PATH", "METRIC_TYPE"]
+		},
+		"SKIP_CALENDAR_DASHBOARD_REQUEST": {
+			"type": "boolean",
+			"default": false,
+			"description": "It skip the calendar request for dashboard."
 		}
 	},
 	"allOf": [

@@ -9,7 +9,7 @@ const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 const timesHelper = require('../helpers/timesHelper');
-
+const { Configuration } = require('@schul-cloud/commons');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
 const { error, warn } = require('../helpers/logger');
@@ -53,7 +53,7 @@ router.get('/', (req, res, next) => {
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
-	const eventsPromise = api(req)
+	let eventsPromise = api(req)
 		.get('/calendar/', {
 			qs: {
 				all: 'false', // must set to false to use from and until request
@@ -128,6 +128,11 @@ router.get('/', (req, res, next) => {
 			error(filterRequestInfos(err));
 			return [];
 		});
+
+	if (Configuration.get('SKIP_CALENDAR_DASHBOARD_REQUEST') === true) {
+		/** @override */
+		eventsPromise = Promise.resolve([]);
+	}
 
 	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req)
