@@ -479,10 +479,15 @@
 			},
 			"required": ["COLLECT_DEFAULT_METRICS", "INCLUDE_STATUS_CODE", "INCLUDE_METHOD", "INCLUDE_PATH", "METRIC_TYPE"]
 		},
-		"SKIP_CALENDAR_DASHBOARD_REQUEST": {
+		"CALENDAR_DASHBOARD_ENABLED": {
 			"type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "It skip the calendar request for dashboard."
+		},
+		"CALENDAR_SERVICE_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "To start the application with calendar service."
 		}
 	},
 	"allOf": [
