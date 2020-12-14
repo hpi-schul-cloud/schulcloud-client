@@ -29,7 +29,7 @@ then
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/%-*/}
   JIRA_TICKET_ID=$JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID
 	# export DOCKERTAG=naming convention feature-<Jira id>-latest
-	export DOCKERTAG=$( echo "feature_"$JIRA_TICKET_ID"_latest")
+	export DOCKERTAG="feature_${JIRA_TICKET_ID}_latest"
 elif  [[ "$TRAVIS_BRANCH" =~ ^hotfix\/[A-Z]+-[0-9]+-[a-zA-Z_]+$ ]]
 then
   	# extract JIRA_TICKET_ID from TRAVIS_BRANCH
@@ -39,7 +39,7 @@ then
 	JIRA_TICKET_ID=${JIRA_TICKET_ID/%-*/}
   JIRA_TICKET_ID=$JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID
 	# export DOCKERTAG=naming convention feature-<Jira id>-latest
-	export DOCKERTAG=$( echo "hotfix_"$JIRA_TICKET_ID"_latest")
+	export DOCKERTAG="hotfix_${JIRA_TICKET_ID}_latest"
 else
 # Check for naming convention <branch>/<JIRA-Ticket ID>-<Jira_Summary>
 # OPS-1664
