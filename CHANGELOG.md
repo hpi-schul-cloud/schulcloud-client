@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Added
+
+- SC-5287 - Iframe depseudonymization for Safari
+
 ## 25.5.0
 
 ### Fixed
