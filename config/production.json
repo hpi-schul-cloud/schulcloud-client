@@ -2,7 +2,9 @@
 	"$schema": "./default.schema.json",
 	"COOKIE": {
 		"HOST_ONLY": true,
-		"SECURE": true
+		"SECURE": true,
+		"SAME_SITE": "None"
 	},
-	"LERNSTORE_MODE": "LEGACY"
+	"LERNSTORE_MODE": "LEGACY",
+	"FEATURE_SHOW_VERSION_ENABLED": true
 }

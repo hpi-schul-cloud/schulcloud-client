@@ -30,32 +30,76 @@ function buildandpush {
   docker push schulcloud/schulcloud-client:$DOCKERTAG
   docker push schulcloud/schulcloud-client:$GIT_SHA
 
-  if [[ "$TRAVIS_BRANCH" = "master" || release* && "$TRAVIS_PULL_REQUEST" = "false" ]]
+  # 
+  # if [[ "$TRAVIS_BRANCH" = "master" || release* && "$TRAVIS_PULL_REQUEST" = "false" ]]
+  # 
+  # "$TRAVIS_BRANCH" = "master" || release* -> is always true, will be removed.
+
+  if [[ "$TRAVIS_PULL_REQUEST" = "false" ]]
   then
-  # build container n21 theme
-  docker build -t schulcloud/schulcloud-client-n21:$DOCKERTAG -t schulcloud/schulcloud-client-n21:$GIT_SHA -f Dockerfile.n21 .
-  docker push schulcloud/schulcloud-client-n21:$DOCKERTAG
-  docker push schulcloud/schulcloud-client-n21:$GIT_SHA
+    # build container n21 theme
+    docker build -t schulcloud/schulcloud-client-n21:$DOCKERTAG -t schulcloud/schulcloud-client-n21:$GIT_SHA -f Dockerfile.n21 .
+    docker push schulcloud/schulcloud-client-n21:$DOCKERTAG
+    docker push schulcloud/schulcloud-client-n21:$GIT_SHA
 
-  # build container open theme
-  docker build -t schulcloud/schulcloud-client-open:$DOCKERTAG -t schulcloud/schulcloud-client-open:$GIT_SHA -f Dockerfile.open .
-  docker push schulcloud/schulcloud-client-open:$DOCKERTAG
-  docker push schulcloud/schulcloud-client-open:$GIT_SHA
+    # build container open theme
+    docker build -t schulcloud/schulcloud-client-open:$DOCKERTAG -t schulcloud/schulcloud-client-open:$GIT_SHA -f Dockerfile.open .
+    docker push schulcloud/schulcloud-client-open:$DOCKERTAG
+    docker push schulcloud/schulcloud-client-open:$GIT_SHA
 
-  # build container brb theme
-  docker build -t schulcloud/schulcloud-client-brb:$DOCKERTAG -t schulcloud/schulcloud-client-brb:$GIT_SHA -f Dockerfile.brb .
-  docker push schulcloud/schulcloud-client-brb:$DOCKERTAG
-  docker push schulcloud/schulcloud-client-brb:$GIT_SHA
+    # build container brb theme
+    docker build -t schulcloud/schulcloud-client-brb:$DOCKERTAG -t schulcloud/schulcloud-client-brb:$GIT_SHA -f Dockerfile.brb .
+    docker push schulcloud/schulcloud-client-brb:$DOCKERTAG
+    docker push schulcloud/schulcloud-client-brb:$GIT_SHA
 
-  # build container thr theme
-  docker build -t schulcloud/schulcloud-client-thr:$DOCKERTAG -t schulcloud/schulcloud-client-thr:$GIT_SHA -f Dockerfile.thr .
-  docker push schulcloud/schulcloud-client-thr:$DOCKERTAG
-  docker push schulcloud/schulcloud-client-thr:$GIT_SHA
+    # build container thr theme
+    docker build -t schulcloud/schulcloud-client-thr:$DOCKERTAG -t schulcloud/schulcloud-client-thr:$GIT_SHA -f Dockerfile.thr .
+    docker push schulcloud/schulcloud-client-thr:$DOCKERTAG
+    docker push schulcloud/schulcloud-client-thr:$GIT_SHA
 
-  # build container int theme
-  docker build -t schulcloud/schulcloud-client-int:$DOCKERTAG -t schulcloud/schulcloud-client-int:$GIT_SHA -f Dockerfile.int .
-  docker push schulcloud/schulcloud-client-int:$DOCKERTAG
-  docker push schulcloud/schulcloud-client-int:$GIT_SHA
+    # build container int theme
+    docker build -t schulcloud/schulcloud-client-int:$DOCKERTAG -t schulcloud/schulcloud-client-int:$GIT_SHA -f Dockerfile.int .
+    docker push schulcloud/schulcloud-client-int:$DOCKERTAG
+    docker push schulcloud/schulcloud-client-int:$GIT_SHA
+
+    # build container demo theme
+    docker build -t "schulcloud/schulcloud-client-demo:$DOCKERTAG" -t "schulcloud/schulcloud-client-demo:$GIT_SHA" -f Dockerfile.demo .
+    docker push "schulcloud/schulcloud-client-demo:$DOCKERTAG"
+    docker push "schulcloud/schulcloud-client-demo:$GIT_SHA"
+  fi
+
+  # If branch is develop, add and push additional docker tags
+  if [[ "$TRAVIS_BRANCH" = "develop" ]]
+  then
+    docker tag schulcloud/schulcloud-client:$DOCKERTAG schulcloud/schulcloud-client:develop_latest
+    docker push schulcloud/schulcloud-client:develop_latest
+  fi
+
+  if [[ "$TRAVIS_BRANCH" = "develop" && "$TRAVIS_PULL_REQUEST" = "false" ]]
+  then
+    # build container n21 theme
+    docker tag schulcloud/schulcloud-client-n21:$DOCKERTAG schulcloud/schulcloud-client-n21:develop_latest
+    docker push schulcloud/schulcloud-client-n21:develop_latest
+
+    # build container open theme
+    docker tag schulcloud/schulcloud-client-open:$DOCKERTAG schulcloud/schulcloud-client-open:develop_latest
+    docker push schulcloud/schulcloud-client-open:develop_latest
+
+    # build container brb theme
+    docker tag schulcloud/schulcloud-client-brb:$DOCKERTAG schulcloud/schulcloud-client-brb:develop_latest
+    docker push schulcloud/schulcloud-client-brb:develop_latest
+
+    # build container thr theme
+    docker tag schulcloud/schulcloud-client-thr:$DOCKERTAG schulcloud/schulcloud-client-thr:develop_latest
+    docker push schulcloud/schulcloud-client-thr:develop_latest
+
+    # build container int theme
+    docker tag schulcloud/schulcloud-client-int:$DOCKERTAG schulcloud/schulcloud-client-int:develop_latest
+    docker push schulcloud/schulcloud-client-int:develop_latest
+
+    # build container demo theme
+    docker tag schulcloud/schulcloud-client-demo:$DOCKERTAG schulcloud/schulcloud-client-demo:develop_latest
+    docker push schulcloud/schulcloud-client-demo:develop_latest
   fi
 }
 

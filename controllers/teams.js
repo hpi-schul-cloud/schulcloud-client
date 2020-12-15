@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -11,10 +11,11 @@ const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const logger = require('../helpers/logger');
+const timesHelper = require('../helpers/timesHelper');
+
 
 const {
-	CALENDAR_SERVICE_ENABLED, ROCKETCHAT_SERVICE_ENABLED,
-	ROCKET_CHAT_URI,
+	CALENDAR_SERVICE_ENABLED,
 } = require('../config/global');
 
 const router = express.Router();
@@ -147,6 +148,13 @@ const editTeamHandler = async (req, res, next) => {
 		}
 	}
 
+	let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
+	const rocketChatDeprecated = Configuration.has('ROCKET_CHAT_DEPRECATION_DATE');
+	if (rocketChatDeprecated) {
+		const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
+		if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
+	}
+
 	teamPromise.then((team) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
 			return next(new Error(res.$t('global.text.403')));
@@ -163,6 +171,8 @@ const editTeamHandler = async (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
+			instanceUsesRocketChat,
+			rocketChatDeprecated,
 		});
 	});
 };
@@ -222,22 +232,12 @@ const copyCourseHandler = (req, res, next) => {
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
-			const duration = moment.duration(time.startTime);
+			const duration = timesHelper.duration(time.startTime);
 			time.startTime = `${`00${duration.hours()}`.slice(
 				-2,
 			)}:${`00${duration.minutes()}`.slice(-2)}`;
 			time.count = count;
 		});
-
-		// format course start end until date
-		if (course.startDate) {
-			course.startDate = moment(new Date(course.startDate).getTime()).format(
-				'DD.MM.YYYY',
-			);
-			course.untilDate = moment(new Date(course.untilDate).getTime()).format(
-				'DD.MM.YYYY',
-			);
-		}
 
 		// preselect current teacher when creating new course
 		if (!req.params.teamId) {
@@ -338,45 +338,9 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-router.post('/', async (req, res, next) => {
-	// map course times to fit model
-	(req.body.times || []).forEach((time) => {
-		time.startTime = moment.duration(time.startTime, 'HH:mm').asMilliseconds();
-		time.duration = time.duration * 60 * 1000;
-	});
-
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
-
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
-	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
-	}
-
-	req.body.features = [];
-	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
-		if (req.body[feature] === 'true') {
-			req.body.features.push(feature);
-		}
-		delete req.body[feature];
-	});
-
-	api(req)
-		.post('/teams/', {
-			json: req.body, // TODO: sanitize
-		})
-		.then((course) => {
-			res.redirect(`/teams/${course._id}`);
-		})
-		.catch((err) => {
-			logger.warn(err); // todo add req.body
-			res.sendStatus(500);
-		});
-});
+router.post('/', (req, res, next) => api(req).post('/teams/', {
+	json: req.body, // TODO: sanitize
+}).then((team) => res.redirect(`/teams/${team._id}`)).catch(next));
 
 router.post('/copy/:teamId', (req, res, next) => {
 	// map course times to fit model
@@ -439,13 +403,8 @@ router.get('/:teamId/json', (req, res, next) => {
 				$populate: ['ltiToolIds'],
 			},
 		}),
-		api(req).get('/lessons/', {
-			qs: {
-				teamId: req.params.teamId,
-			},
-		}),
 	])
-		.then(([result, team, lessons]) => {
+		.then(([result, team]) => {
 			const { data: roles } = result;
 
 			team.filePermission = team.filePermission.map((permission) => {
@@ -454,7 +413,7 @@ router.get('/:teamId/json', (req, res, next) => {
 				return permission;
 			});
 
-			res.json({ team, lessons });
+			res.json({ team });
 		})
 		.catch((e) => {
 			logger.warn(e);
@@ -474,14 +433,6 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 		}),
 	]).then(([course]) => res.json({ course }));
 });
-
-function sortFunction(a, b) {
-	if (a.displayAt === b.displayAt) {
-		return 0;
-	}
-
-	return a.displayAt < b.displayAt ? 1 : -1;
-}
 
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
@@ -508,7 +459,11 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		});
 
-		const instanceUsesRocketChat = ROCKETCHAT_SERVICE_ENABLED;
+		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
+		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
+			const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
+			if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
+		}
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (
 			res.locals.currentSchoolData.features || []
@@ -525,7 +480,7 @@ router.get('/:teamId', async (req, res, next) => {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
 				);
-				const rocketChatURL = ROCKET_CHAT_URI;
+				const rocketChatURL = Configuration.get('ROCKET_CHAT_URI');
 				rocketChatCompleteURL = `${rocketChatURL}/group/${
 					rocketChatChannel.channelName
 				}`;
@@ -604,7 +559,7 @@ router.get('/:teamId', async (req, res, next) => {
 		files
 			.sort((a, b) => {
 				if (b && b.updatedAt && a && a.updatedAt) {
-					return new Date(b.updatedAt) - new Date(a.updatedAt);
+					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
 			})
@@ -615,7 +570,7 @@ router.get('/:teamId', async (req, res, next) => {
 		directories
 			.sort((a, b) => {
 				if (b && b.updatedAt && a && a.updatedAt) {
-					return new Date(b.updatedAt) - new Date(a.updatedAt);
+					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
 			})
@@ -627,18 +582,18 @@ router.get('/:teamId', async (req, res, next) => {
 					target: req.params.teamId,
 					targetModel: 'teams',
 					displayAt: {
-						$lte: new Date().getTime(),
+						$lte: timesHelper.now(),
 					},
+					sort: '-displayAt',
+					$limit: 3,
 				},
 			})
 			.then((newsres) => newsres.data
 				.map((n) => {
 					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
-					n.secondaryTitle = moment(n.displayAt).fromNow();
+					n.secondaryTitle = timesHelper.fromNow(n.displayAt);
 					return n;
-				})
-				.sort(sortFunction)
-				.slice(0, 4))
+				}))
 			.catch((err) => {
 				logger.error(
 					`
@@ -659,8 +614,8 @@ router.get('/:teamId', async (req, res, next) => {
 			});
 			events = events
 				.map((event) => {
-					const start = moment(event.start).utc();
-					const end = moment(event.end).utc();
+					const start = timesHelper.fromUTC(event.start);
+					const end = timesHelper.fromUTC(event.end);
 					event.day = start.format('D');
 					event.month = start
 						.format('MMM')
@@ -745,7 +700,7 @@ router.patch('/:teamId', async (req, res, next) => {
 	// map course times to fit model
 	req.body.times = req.body.times || [];
 	req.body.times.forEach((time) => {
-		time.startTime = moment.duration(time.startTime).asMilliseconds();
+		time.startTime = timesHelper.duration(time.startTime).asMilliseconds();
 		time.duration = time.duration * 60 * 1000;
 	});
 
@@ -818,16 +773,10 @@ router.delete('/:teamId', async (req, res, next) => {
 });
 
 router.post('/:teamId/events/', (req, res, next) => {
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(
-		req.body.startDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = moment(
-		req.body.endDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
+	req.body.startDate = timesHelper.dateTimeStringToMoment(req.body.startDate)
+		.toISOString(true);
+	req.body.endDate = timesHelper.dateTimeStringToMoment(req.body.endDate)
+		.toISOString(true);
 
 	// filter params
 	req.body.scopeId = req.params.teamId;
@@ -841,16 +790,10 @@ router.post('/:teamId/events/', (req, res, next) => {
 });
 
 router.put('/events/:eventId', (req, res, next) => {
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.startDate = moment(
-		req.body.startDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
-	// eslint-disable-next-line no-underscore-dangle
-	req.body.endDate = moment(
-		req.body.endDate,
-		'DD.MM.YYYY HH:mm',
-	)._d.toLocalISOString();
+	req.body.startDate = timesHelper.dateTimeStringToMoment(req.body.startDate)
+		.toISOString(true);
+	req.body.endDate = timesHelper.dateTimeStringToMoment(req.body.endDate)
+		.toISOString(true);
 
 	api(req)
 		.put(`/calendar/${req.params.eventId}`, {
@@ -1121,7 +1064,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 		const bodyInvitations = team.invitedUserIds.map((invitation) => [
 			invitation.email,
-			moment(invitation.createdAt).format('DD.MM.YYYY'),
+			timesHelper.dateToDateString(invitation.createdAt),
 			roleTranslations[invitation.role],
 			{
 				payload: {
@@ -1131,11 +1074,11 @@ router.get('/:teamId/members', async (req, res, next) => {
 			invitationActions,
 		]);
 
-		// checks for user's 'STUDENT_LIST' permission and filters student users
 		const filteredUsers = users.filter((user) => {
-			const { _id } = roles.filter((role) => role.name === 'student')[0];
-			return !res.locals.currentUser.permissions.includes('STUDENT_LIST')
-				? !user.roles.includes(_id) : user;
+			const { _id: studentRoleId } = roles.find((role) => role.name === 'student');
+			return res.locals.currentUser.permissions.includes('STUDENT_LIST')
+				|| !user.roles.includes(studentRoleId)
+				|| res.locals.currentSchoolData.isTeamCreationByStudentsEnabled;
 		});
 
 		res.render(

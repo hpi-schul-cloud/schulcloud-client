@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="name">Name (Pflichtfeld):</label>
+    <label for="name">{{$t "courses._course.tools.label.nameTool"}}</label>
     <input id="name" class="form-control" type="text" name="name" required="required" value="{{name}}" />
 </div>
 <div class="form-group">
@@ -8,7 +8,7 @@
 </div>
 <!-- <div class="form-group">
     <label for="privacy_permission">Privatsphäre:</label>
-    <select class="form-control" required="required" name="privacy_permission" value="{{privacy_permission}}">
+    <select id="privacy_permission" class="form-control no-bootstrap" required="required" name="privacy_permission" value="{{privacy_permission}}">
         <option value="anonymous">Anonym</option>
         <option value="e-mail">Nur E-Mail</option>
         <option value="name">Nur Name</option>
@@ -16,13 +16,13 @@
     </select>
 </div> -->
 <div class="form-group">
-    <p>Sonstige Einstellungen:</label>
+    <label>{{$t "courses._course.tools.label.otherSettings"}}</label>
     <div class="custom-fields">
     </div>
     <div class="new-custom-field">
-        <label for="key"Label for key</label>
+        <label for="key">Label for key</label>
         <input id="key" class="new-custom-field-key" type="text" placeholder="Key">
-        <label for="value"></label>
+        <label for="value">Label for value</label>
         <input id="value" class="new-custom-field-value" type="text" placeholder="Value" >
         <i class="fa fa-plus new-custom-field-add" aria-label="add"></i>
     </div>

@@ -7,11 +7,301 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unreleased
+## 25.4.0
 
+### Added
+
+- SC-7542 - Add kreis to school edit.
+- SC-6825 - change collapsable icon fix
+- SC-6825 - change collapsable icon
+- SC-6619 - fixed text for registration in all other schools
+- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's
+
+### Fixed
+
+- SC-7900 - Fixed text for inviting experts
+- SC-7983 - Fixed that topic is now choosable after select of course
+- SC-7771 - Fixed hint for teachers when editing a course - fix
+- SC-7771 - Fixed hint for teachers when editing a course
+- SC-5498 - Fixed typo in account page
+- SC-7842 - Fixed typo on about page
+- SC-7874 - remove access to removed env variables
+- SC-8075 Fixed nbc landing page ghost
+- SC-7793 - Set/activate new ldap route in administration page
+
+### Changed
+
+- update location of common
+
+## 25.3.4
+
+- SC-8004 add prometheus api metrics
+
+## 25.3.3
+### Fixed
+- SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation. 
+  This change has fixed the issue so that every course starts at the stable time regardless daylight saving time changes
+
+## 25.3.2
+### Fixed
+- SC-8075 Fixed nbc landing page ghost
+
+## 25.3.1
+### Fixed
+- SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
+
+## 25.3.0
+### Added
+
+- SC-6662 - Add data-testid in homework for integration test
+- SC-7571 - fixed registration link generation (performance issues)
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
+- SC-6293 - added option to school admin to disable lernstore for students
+- SC-7413 - Add winston handler for logging unhandled rejection and exceptions
+- SC-5942 - Add trim() before email for password recovery got send to server
+- OPS-1297 - Added Changelog github action
+- SC-6596 - Added school option to allow students to create chat rooms
+
+### Fixed
+
+- SC-1589 - Fixed error handling on team creation
+- SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files
+- SC-7667 - Fixed help desk displays my own local time
+- SC-7652 - Fixed teacher creates a calendar in team then Dashboard empty
+- SC-7353 - fixed course sharing between teachers
+- SC-7645 - Fixed team calendar timezone bug
+- SC-7666 - Fixed rss translation key
+- SC-5555 - Fixed class names not being visible in course creation in some cases
+- SC-7463 - Fixed undefined value when requesting school systems login
+- SC-7392 fix create event for teams / courses
+- SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
+- SC-6721 - fixed classes list in course administration
+- SC-7084 - changed file permission name Mitglied to Teilnehmer
+- SC-5501 - fixed grammar issue for password recovery request
+- SC-7589 - fixed correct display for age while first login and change of sentence structure for clearance
+- SC-7538 - fixed and enabled sorting on /files
+
+### Changed
+
+- SC-7530 rename SHOW_VERSION to FEATURE_SHOW_VERSION_ENABLED
+- update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
+- SC-6951 removes via text from embeded course content
+- SC-6870 use don't show again checkbox value even if the admin goes to the settings page
+- IMP-160 rename integration test repository
+- SC-7474 pull docker container for tests if commit id exists on docker hub
+
+## 25.2.7
+
+### Fixed
+
+- SC-8042 update sort order of students by creating classes
+
+## 25.2.6
+
+### Fixed
+
+- SC-8027 Fixed school login event listener issue
+
+## 25.2.5
+
+### Fixed
+
+- SC-8000 revert SC-7493 due it causes logout issues in registration and for thr
+
+## 25.2.4
+
+### Fixed
+
+- SC-7878 reverted dropdowns and multiselects to the old widget
+
+## 25.2.3
+
+### Added
+
+- SC-6727 Change email addresses for tickets for Niedersachsen
+
+## 25.2.2
+
+### Fixed
+
+- SC-7881 restored fix done in SC-7463 which fixed logging in with external systems
+
+## 25.2.1
+
+### Fixed
+
+- SC-7803 comments out mocha test for legacy lern-store
+
+## 25.2.0
+
+### Fixed
+
+- SC-7453 fixed course/team event handling
+- SC-7392 fix create event for teams / courses
+- SC-7653 Workaround for winter/summer time issue
+- SC-7590 Fixed missing permission for enabling consent by teachers
+- SC-7151 Fixing sentence structure while registration for parents
+- SC-7350 Fix invalid date
+- SC-7182 do not allow to open office files in new windows
+
+### Changed
+
+- SC-6973 Small improvments for logging and error handling
+- SC-6060 Cookie configuration
+- SC-4209 Choose the same move icon for course topics and topic editor
+
+### Added
+
+- SC-6870 - Added UX improvements for Matrix messenger announcement
+- SC-7083 - Added input to get the school id from admin
+
+## [25.1.7] - 2020-10-27
+
+### Fixed
+
+- SC-7502 - Fixed disabled attribute definition on registration link buttons
+
+## [25.1.6] - 2020-10-21
+
+### Added
+
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
+
+## [25.1.5] - 2020-10-27
+
+### Fixed
+
+- SC-7490 fixed get request for landing pages which are not from ghost
+
+## [25.1.4] - 2020-10-26
+
+### Fixed
+
+- SC-6735 additional fix - administration remove consent triggers import hash generation
+
+## [25.1.3] - 2020-10-21
+
+### Fixed
+
+- SC-6735 administration remove consent triggers import hash generation
+
+## [25.1.2] - 2020-10-20
+
+### Fixed
+
+- SC-7437 fixed display of user name on qr codes
+
+## [25.1.1] - 2020-10-15
+
+### Fixed
+
+- SC-7085 fixed importHash error when asking parent consent
+
+## [25.0.7] - 2020-10-09
+
+### Fixed
+
+- SC-7171 fix asking for confirmation after consent update
+
+### Added
+
+ - SC-6582 Add bidirectional messenger settings for course creation
+
+## [25.0.6] - 2020-10-01
+
+### Added
+
+- SC-6973 add importHash to registrationPins post request
+
+## [25.0.5] - 2020-09-30
+
+### Fixed
+
+- SC-6945 Add requirement for etherpad section title to fix null matching error
+
+## [25.0.4] - 2020-09-30
+
+### Changed
+
+- SC-6567 clear and improve logging in error case
+- SC-5858 removed chosen library from the code (Accessibility issues)
+
+## [25.0.3] - 2020-09-29
+
+### Fixed
+
+- SC-6940 hanndle undefined in language detection
+
+## [25.0.2] - 2020-09-29
+
+### Fixed
+
+  - SC-6927 Admins can delete teachers again
+
+## [25.0.1] - 2020-09-28
+
+
+### Fixed
+
+  - SC-6932 added translation keys instead of hardcoded strings for sidebar items
+
+## [24.5.7] - 2020-09-22
+
+### Fixed
+
+  - SC-6845 Fixed reset of consent property if inputs disabled
+
+## [24.5.6] - 2020-09-22
+
+### Fixed
+
+  - SC-6823 - Fixed inserting media in comments for homework correction
+
+## [24.5.5] - 2020-09-22
+
+### Fixed
+
+  - SC-6630 Fixed email validation using an undefined value when inviting experts to a team.
+
+## [24.5.4] - 2020-09-21
+
+### Fixed
+
+  - SC-6762 Fix file upload permissions for evaluation
+
+## [24.5.3] - 2020-09-18
+
+### Fixed
+
+  - SC-6761 Fixed messenger activation in courses
+
+## [24.5.2] - 2020-09-16
+
+### Fixed
+
+  - SC-6637 Updated CSS of QR codes to avoid broken print layout
+
+## [24.5.1] - 2020-09-14
+
+### Fixed
+
+  - SC-6761 Fixed individual registration emails
+
+## [24.4.2] - 2020-09-09
+
+### Fixed
+- SC-6533 - Login not possible if admin reset password
+
+  - SC-5707 Added detection of browser language
+  - SC-5706 Added language selection within teacher registration
   - SC-6019 Added tabbar to classes administration
   - SC-5955 Changed links to Lernen.cloud
   - SC-5644 navigation and the general structure of pages made more accessible (a11y)
+  - SC-6245 If students can create teams, they can also invite other students to teams
+
+## [24.4.1] - 2020-9-01
+
+  - SC-6526 Fixed inserting files in CKEditor for topics
 
 ## [24.4.0] - 2020-8-31
 

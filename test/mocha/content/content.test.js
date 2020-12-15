@@ -1,54 +1,65 @@
-'use strict';
-
-const assert = require('assert');
-const { Configuration } = require('@schul-cloud/commons');
-const app = require('../../../app');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const chai = require('chai');
-const expect = chai.expect;
 const chaiHttp = require('chai-http');
+const app = require('../../../app');
+
+const { expect } = chai;
 const loginHelper = require('../helper/login-helper');
+
 chai.use(chaiHttp);
 
-describe('Content tests', function () {
-    before(function (done) {
-        this.server = app.listen(3031);
-        this.server.once('listening', () => {
-            loginHelper.login(app).then(res => {
-                this.agent = res.agent;
-                done();
-            });
-        });
-    });
+const { i18next } = require('../../../helpers/i18n');
 
-    after(function (done) {
-        this.server.close(done);
-    });
+const expectedStringContentStore = i18next.t('content.headline.contentStore');
+const expectedStringResultsFound = i18next.t(
+	'content.headline.nSearchResultsFoundWith',
+	{ searchResultsTotal: '', query: 'Mathe' },
+).trim();
+const expectedStringNoResultsFound = i18next.t('content.headline.noResultsFoundWith', { query: 'Mathe' });
 
-    it('GET /content', function () {
+describe('Content tests', () => {
+	before((done) => {
+		this.server = app.listen(3031);
+		this.server.once('listening', () => {
+			loginHelper.login(app).then((res) => {
+				this.agent = res.agent;
+				done();
+			});
+		});
+	});
+
+	after((done) => {
+		this.server.close(done);
+	});
+
+	/*
+	// should use the client content route, not server
+	it('GET /content', () => {
 		expect(Configuration.get('LERNSTORE_MODE'), 'LERNSTORE_MODE not set!').to.be.not.equal('DISABLED');
-            return new Promise((resolve, reject) => {
-                this.agent
-                    .get('/content/')
-                    .end((err, res) => {
-                        expect(res.statusCode).to.equal(200);
-                        expect(res.text).to.contain('Lern-Store');
-                        resolve();
-                    });
-            });
-    });
+		return new Promise((resolve) => {
+			this.agent
+				.get('/content/')
+				.end((err, res) => {
+					expect(res.statusCode).to.equal(200);
+					expect(res.text).to.contain(expectedStringContentStore);
+					resolve();
+				});
+		});
+	});
 
-    it('GET /content/?q=Mathe', function () {
+	it('GET /content/?q=Mathe', () => {
 		expect(Configuration.get('LERNSTORE_MODE'), 'LERNSTORE_MODE not set!').to.be.not.equal('DISABLED');
-            return new Promise((resolve, reject) => {
-                this.agent
-                    .get('/content/?q=Mathe')
-                    .end((err, res) => {
-                        expect(res.statusCode).to.equal(200);
-                        expect(res.text).to.contain('Lern-Store');
-                        expect(res.text).to.contain('Suchergebnisse für "Mathe"');
-                        expect(res.text).not.to.contain('keine Ergebnisse');
-                        resolve();
-                    });
-            });
-    });
+		return new Promise((resolve) => {
+			this.agent
+				.get('/content/?q=Mathe')
+				.end((err, res) => {
+					expect(res.statusCode).to.equal(200);
+					expect(res.text).to.contain(expectedStringContentStore);
+					expect(res.text).to.contain(expectedStringResultsFound);
+					expect(res.text).not.to.contain(expectedStringNoResultsFound);
+					resolve();
+				});
+		});
+	});
+	*/
 });

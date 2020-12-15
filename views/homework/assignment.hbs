@@ -10,8 +10,8 @@
                 $(this).parent('.usersubmission:not(.clicked)').toggleClass('active');
                 $('.usersubmission.clicked').removeClass('clicked');
 
-                $('.usersubmission td:last-of-type i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-left');
-                $('.usersubmission.active td:last-of-type i.fa-chevron-left').removeClass('fa-chevron-left').addClass('fa-chevron-down');
+                $('.usersubmission td:last-of-type i.fa-chevron-up').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+                $('.usersubmission.active td:last-of-type i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-up');
             });
 
             // change tab
@@ -70,9 +70,9 @@
 				{{#if (userHasRole "student")}}
 				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
 				{{/if}}
-                {{availableDateF}} ({{availableTimeF}}) |
+                {{i18nDateTime availableDate}}
                 {{#if dueDate}}
-                    bis: {{dueDateF}} ({{dueTimeF}})
+                    {{$t "homework.text.till"}}: {{timeToString dueDate}}
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}
@@ -93,7 +93,7 @@
             {{#if courseId._id}}
                 <div class="col-sm-12">
                     <div class="pull-right">
-                        <a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
+                        <a id="courseId" href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
                             <i class="fa fa-folder-open"></i>
                             {{$t "homework.button.toTheCourseFiles" }}
                         </a>
@@ -156,7 +156,6 @@
             </div>
         </section>
 
-		{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}
-		{{/embed}}
+		{{#embed "lib/components/modal-actions" class="ckeditor-filebrowser-dialog"}}{{/embed}}
     {{/content}}
 {{/extend}}

@@ -2,10 +2,12 @@
 const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
+
+const timesHelper = require('../../timesHelper');
 
 moment.locale('de');
 
@@ -168,13 +170,14 @@ const helpers = () => ({
 	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
-		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW') || !isNonOerContent) {
+		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW')
+			|| !isNonOerContent) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
-	timeFromNow: (date, opts) => moment(date).fromNow(),
+	timeFromNow: (date) => timesHelper.fromNow(date),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
 			format = 'YYYY.MM.DD';
@@ -185,19 +188,12 @@ const helpers = () => ({
 			.subtract(days, 'days')
 			.format(format);
 	},
-	dateToPicker: (date, opts) => moment(date).format('DD.MM.YYYY'),
-	dateTimeToPicker: (date, opts) => moment(date).format('DD.MM.YYYY HH:mm'),
-	timeToString: (date, opts) => {
-		const now = moment();
-		const d = moment(date);
-		if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
-			return `${moment(date).format('DD.MM.YYYY')}(${moment(date).format('HH:mm')})`;
-		}
-		return moment(date).fromNow();
-	},
-	currentYear() {
-		return new Date().getFullYear();
-	},
+	dateToPicker: (date) => timesHelper.formatDate(date, i18n.getInstance()('format.dateToPicker')),
+	dateTimeToPicker: (date) => timesHelper.formatDate(date, i18n.getInstance()('format.dateTimeToPicker')),
+	i18nDate: (date) => timesHelper.dateToDateString(date),
+	i18nDateTime: (date) => timesHelper.dateToDateTimeString(date, true),
+	timeToString: (date) => timesHelper.timeToString(date),
+	currentYear: () => timesHelper.currentDate().year(),
 	concat() {
 		const arg = Array.prototype.slice.call(arguments, 0);
 		arg.pop();
@@ -207,15 +203,15 @@ const helpers = () => ({
 		console.log(data);
 	},
 	castStatusCodeToString: (statusCode, data) => {
-		console.log(statusCode);
 		if (statusCode >= 500) {
 			return i18n.getInstance(data.data.local.currentUser)('global.text.internalProblem');
 		}
 		if (statusCode >= 400) {
-			if ([400, 401, 402, 403, 404].includes(statusCode)) {
+			if ([400, 401, 402, 403, 404, 408].includes(statusCode)) {
 				return i18n.getInstance(data.data.local.currentUser)('global.text.'.concat(statusCode.toString()));
 			}
 		}
+
 		if (statusCode > 300) {
 			return i18n.getInstance(data.data.local.currentUser)('global.text.pageMoved');
 		}
@@ -287,6 +283,7 @@ const helpers = () => ({
 		});
 		return dict;
 	},
+	isset: (value) => !!value,
 });
 
 module.exports = helpers;

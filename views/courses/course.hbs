@@ -19,49 +19,47 @@
 <div class="dropdown dropdown-course minimal-button">
   {{#inArray "COURSE_EDIT" scopedCoursePermission}}
   <button class="btn btn-sm dropdown-toggle btn-course-dropdown" title="{{$t "global.label.more"}}" data-toggle="dropdown">
-    {{#if ../name}}
     <h1 class="h4" id="page-title" class="course-headline">
       {{{stripOnlyScript ../name}}}
-      <i class="fa fa-ellipsis-v i-cog"></i>
+      <i class="fa fa-ellipsis-v i-cog" aria-hidden="true"></i>
       {{#if ../isArchived}}<small class="count-badge" data-badge="Archiv" /></small>{{/if}}
     </h1>
-    {{/if}}
   </button>
   {{else}}
-  {{#if ../name}}
   <h1 class="h4" id="page-title" class="course-headline">
     {{{stripOnlyScript ../name}}}
     {{#if ../isArchived}}<small class="count-badge" data-badge="Archiv" /></small>{{/if}}
-  </h1>
-  {{/if}}
-  {{/inArray}}
-  <div class="dropdown-menu dropdown-menu dropdown-menu-course">
-    <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
-      <i class="fa fa-edit" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.editDeleteCourse"}}
-    </a>
-    {{#unless ../isArchived}}
-    <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
-      <i class="fa fa-envelope" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.inviteToCourse"}}
-    </a>
-    <a href="#" class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
-      <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.shareCourse"}}
-    </a>
-    {{/unless}}
-    <a href="/courses/{{../_id}}/copy" class="dropdown-item">
-      <i class="fa fa-clone" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.duplicateCourse"}}
-    </a>
-  </div>
+    <h1>
+      {{/inArray}}
+      <div class="dropdown-menu dropdown-menu dropdown-menu-course">
+        <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
+          <i class="fa fa-edit" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.editDeleteCourse"}}
+        </a>
+        {{#unless ../isArchived}}
+        <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
+          <i class="fa fa-envelope" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.inviteToCourse"}}
+        </a>
+        <a href="#" class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
+          <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.shareCourse"}}
+        </a>
+        {{/unless}}
+        <a href="/courses/{{../_id}}/copy" class="dropdown-item">
+          <i class="fa fa-clone" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.duplicateCourse"}}
+        </a>
+      </div>
 </div>
 <div class="row description">
   <div class="col-sm-12">
     {{#if description}}
     <p class="lead">{{$t "courses._course.text.courseDescription"}} {{{stripOnlyScript description}}}</p>
     {{/if}}
-    {{#unless ../isArchived}}{{#if nextEvent}}
-    <p class="text-muted">{{$t "courses._course.text.nextClass"}} {{nextEvent}}</p>
-    {{/if}}{{/unless}}
+    {{#unless ../isArchived}}
+        {{#if nextEvent}}
+    <p class="text-muted">{{$t "courses._course.text.nextClass"}} {{i18nDateTime nextEvent}}</p>
+        {{/if}}
+    {{/unless}}
     <a href="{{filesUrl}}" class="btn btn-add btn-secondary pull-right">
-      <i class="fa fa-folder-open"></i>
+      <i class="fa fa-folder-open" aria-hidden="true"></i>
       {{$t "courses._course.link.toCourseFiles"}}
     </a>
   </div>
@@ -69,10 +67,10 @@
 <section class="section-course">
   <div class="tabContainer" data-active-tab={{activeTab}}>
     <div class="tabs" data-max-width="1024">
-      <button class="tab" aria-label="{{$t "courses._course.tab_label.topics"}}" data-testid="topics" data-tab="js-topics">
-        <span class="text">{{$t "courses._course.tab_label.topics"}}
+      <button class="tab" data-testid="topics" data-tab="js-topics" type="button">
+        <span class="text">{{$t "courses._course.tab_label.topics"}}</span>
       </button>
-      <button class="tab" aria-label="{{$t "courses._course.tab_label.tasks"}}" data-testid="hometasks" data-tab="js-homeworks">
+      <button class="tab" data-testid="hometasks" data-tab="js-homeworks" type="button">
         {{#if isTeacher}}
         <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge"
             data-badge="{{ add (arrayLength ../privateHomeworks) ( add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) ) }}" /></span>
@@ -81,11 +79,11 @@
             data-badge="{{ add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) }}" /></span>
         {{/if}}
       </button>
-      <button class="tab" aria-label="{{$t "courses._course.tab_label.tools"}}" data-testid="tools" data-tab="js-tools">
+      <button class="tab" data-testid="tools" data-tab="js-tools" type="button">
         <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge"
             data-badge="{{../ltiToolIds.length}}" /></span>
       </button>
-      <button class="tab" aria-label="{{$t "courses._course.tab_label.groups"}}" data-testid="groups" data-tab="js-groups">
+      <button class="tab" data-testid="groups" data-tab="js-groups" type="button">
         <span class="text">{{$t "courses._course.tab_label.groups"}} <span class="count-badge"
             data-badge="{{../courseGroups.length}}" /></span>
       </button>

@@ -9,13 +9,13 @@ services:
   - docker
 env:
   global:
+    - DOCKER_COMPOSE_VERSION=1.27.4 #needed for e2e-tests
     - GIT_SHA=$( git rev-parse HEAD )
     - SC_DEMO_USER_PASSWORD=Schulcloud1!
     - BACKEND_URL=http://localhost:3030
     - PUBLIC_BACKEND_URL=http://localhost:3030
     - FEATURE_TEAMS_ENABLED=true
     - LERNSTORE_MODE=LEGACY
-    - BRANCH_NAME=${TRAVIS_PULL_REQUEST_BRANCH:=$TRAVIS_BRANCH}
 stages:
   - name: Test
     if: NOT (commit_message =~ /(skip-test-stage)/)
@@ -32,19 +32,37 @@ jobs:
         # move client into subdirectory
         - mkdir -p schulcloud-client
         - mv !(schulcloud-client) schulcloud-client
-        # fetch switch_branch script
-        - curl https://gist.github.com/schul-cloud-bot/a849c38804174f99ca7818782bf03c00/raw/switch_branch.sh > switch_branch.sh
-        - chmod 700 switch_branch.sh
-        # clone other required repositories and try to switch to branch with same name as current one
-        - git clone https://github.com/schul-cloud/schulcloud-server.git schulcloud-server
-        - bash switch_branch.sh "schulcloud-server" "$BRANCH_NAME"
-        - git clone https://github.com/schul-cloud/docker-compose.git docker-compose
-        - bash switch_branch.sh "docker-compose" "$BRANCH_NAME"
+        # Clone other required repositories and try to switch to branch with same name as current one
+        # If current branch is hotfix, switch to branch master
+        - |
+          git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
+          cd schulcloud-server
+          if [[ $TRAVIS_PULL_REQUEST_BRANCH = hotfix* ]]
+          then
+            echo "Originating branch hotfix detected. Force testing against Server master."
+            git checkout master
+          else
+            git checkout "$TRAVIS_PULL_REQUEST_BRANCH" || git checkout "$TRAVIS_BRANCH"
+          fi
+          echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
+          cd ..
+        - |
+          git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
+          cd docker-compose
+          if [[ $TRAVIS_PULL_REQUEST_BRANCH = hotfix* ]]
+          then
+            echo "Originating branch hotfix detected. Force testing against Server master."
+            git checkout master
+          else
+            git checkout "$TRAVIS_PULL_REQUEST_BRANCH" || git checkout "$TRAVIS_BRANCH"
+          fi
+          echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
+          cd ..
       install:
         # boot server
         - cd docker-compose
-        - docker-compose -f docker-compose.integration-test-Build.yml build server
-        - docker-compose -f docker-compose.integration-test-Build.yml up -d server
+        - docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
+        - docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
         - cd ..
         # client packages are needed for mocha
         - cd schulcloud-client && npm ci && cd ..
@@ -52,13 +70,17 @@ jobs:
         # seed database
         - cd schulcloud-server && npm install && npm run setup && npm run seed && cd ..
       script: cd schulcloud-client && npm run mocha && cd ..
-    - script: curl "https://raw.githubusercontent.com/hpi-schul-cloud/integration-tests/master/scripts/ci/fetch.travis.sh" | bash
-      name: Integration
-      env:
-        - IT_CLIENT_HOST=nuxtclient
-        - IT_CLIENT_PORT=4000
+    - script: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/fetch.travis.sh" | bash
+      name: end-to-end-tests
+      before_install:
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
       install:
         - echo "skipping install"
+      after_failure:
+        - cat /home/travis/.npm/_logs/*debug.log
     - stage: Build
       name: Build All Instances
       language: generic

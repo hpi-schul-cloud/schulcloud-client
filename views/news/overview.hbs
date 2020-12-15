@@ -2,7 +2,7 @@
 {{#content "page"}}
 <div class="route-news">
     {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
-    <a href="/news/new" class="btn btn-primary btn-add create pull-right mb-2">
+    <a href="/news/new" data-testid="create-news-btn" class="btn btn-primary btn-add create pull-right mb-2">
         <i class="fa fa-plus" aria-hidden="true"></i> {{$t "news.button.addNews" }}
     </a>
     {{/userHasPermission}}
@@ -22,26 +22,26 @@
     <div class="sectionsContainer">
         <div class="sections">
             <div class="section" data-section="a">
-                {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
+                {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text=($t 'dashboard.link.continueReading')}}
                 <div class="container">
                     {{> "lib/components/pagination" settings=pagination }}
                 </div>
             </div>
             <div class="section" data-section="b">
-                {{> 'dashboard/components/card_section' section-id="news" title="" content=unpublishedNews.data link-text="Weiterlesen"}}
+                {{> 'dashboard/components/card_section' section-id="news" title="" content=unpublishedNews.data link-text=($t 'dashboard.link.continueReading')}}
             </div>
         </div>
     </div>
     {{else}}
     <div>
-        {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
+        {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text=($t 'dashboard.link.continueReading')}}
         <div class="container">
             {{> "lib/components/pagination" settings=pagination }}
         </div>
     </div>
     {{/if}}
 </div>
-{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+{{#embed "lib/components/modal" class="delete-modal" title="${res.$t('global.text.areYousure')}"}}
 {{#content "body"}}
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary btn-close">

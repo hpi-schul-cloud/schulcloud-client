@@ -1,5 +1,5 @@
 <div class="error-header-wrapper pb-3">
-    <img class="error-header-image" src="/images/broken-pen.svg" alt="" role="presentation" />
+    {{> 'lib/components/svg_error_content' role="presentation"}}
     <h2 class="error-header-code">{{error.statusCode}}</h2>
     <p class="error-header-text">
         {{#if error.statusCode}}
@@ -18,7 +18,7 @@
         <span class="hide">{{$t "lib.error.button.hideDetails" }}</span>
     </button>
     <div id="error-details" class="collapse card error-card">
-        <div class="card-header">{{$t "lib.error.heading.errorDetails" }} <br />
+        <div class="card-header">{{$t "lib.error.headline.errorDetails" }} <br />
             <code style="padding:0 0 0 0;">{{message}}</code>
         </div>
         {{#unlessEnv "NODE_ENV" "production"}}

@@ -7,6 +7,8 @@ import {
 } from './helpers/queryStringParameter';
 import printQRs from './helpers/printQRs';
 
+const datetime = require('./datetime/datetime');
+
 /* global populateModalForm */
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -144,7 +146,7 @@ $(document).ready(() => {
 		e.preventDefault();
 		const entry = $(this).attr('href');
 		$.getJSON(entry, (result) => {
-			result.createdAt = new Date(result.createdAt).toLocaleString();
+			result.createdAt = datetime.toDateTimeString(result.createdAt, true);
 			populateModalForm($editModal, {
 				action: entry,
 				title: $t('global.button.edit'),

@@ -4,7 +4,7 @@ const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const createToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];

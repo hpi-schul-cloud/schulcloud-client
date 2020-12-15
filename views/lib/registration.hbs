@@ -1,16 +1,16 @@
-<main id="main-content" class="container pt-3 mt-5 text-center">
-			<div class="error-header-wrapper">
-			<img class="error-header-image w-100 h-100" src="/images/broken-pen.svg" alt="" role="presentation" />
-			<h1 class="h1 error-header-code text-center">{{{$t "registration.headline.invalidLink"}}}</h1>
-			<p class="error-header-text text-center">
-				{{{$t "registration.text.invalidLink"}}}
-			</p>
+<main id="main-content" class="container text-center">
+    <div class="error-header-wrapper">
+        {{> 'lib/components/svg_error_content' role="presentation"}}
+        <h1 class="h1 error-header-code text-center">{{{$t "registration.headline.invalidLink"}}}</h1>
+        <p class="error-header-text text-center">
+            {{{$t "registration.text.invalidLink"}}}
+        </p>
 
-				<div class="hidden iframe">
-					<p>
-						{{{$t "registration.text.invalidLinkEmbeddedWebsite"}}}<a href="{{baseUrl}}"
-																												rel="noopener noreferrer" target="_blank">{{{$t "registration.text.invalidLinkOpenWebsite"}}} </a>.
-					</p>
-				</div>
-			</div>
+        <div class="hidden iframe">
+            <p>
+                {{{$t "registration.text.invalidLinkEmbeddedWebsite"}}}
+                <a href="{{baseUrl}}" rel="noopener noreferrer" target="_blank">{{{$t "registration.text.invalidLinkOpenWebsite"}}} </a>.
+            </p>
+        </div>
+    </div>
 </main>

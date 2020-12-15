@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable max-classes-per-file */
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -6,6 +7,7 @@ import {
 } from 'react-sortable-hoc';
 import './calendar';
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';
 
 /**
@@ -63,7 +65,8 @@ class TopicBlockWrapper extends React.Component {
      */
 	render() {
 		const DragHandle = SortableHandle(() => (
-                <span className="input-group-addon">
+				<span tabindex={0} className="input-group-addon"
+					aria-label={$t('topic.topicEdit.aria_label.moveSectionWithKeys')}>
                     <i className="fa fa-arrows move-handle" />
                 </span>
 		));
@@ -76,23 +79,29 @@ class TopicBlockWrapper extends React.Component {
 
                             <span className="input-group-btn">
                                 <i className="fa fa-arrows move-handle" />
-                                <a className="btn btn-secondary hidden-toggle"
+                                <button className="btn btn-secondary hidden-toggle"
                                    onClick={this.toggleHidden.bind(this)}
                                    data-toggle="tooltip"
                                    data-placement="top"
-                                   title={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
-                                   data-original-title={this.props.hidden ? $t('topic.topicEdit.label.openSection') : $t('topic.topicEdit.label.lockSection')}
+                                   aria-label={
+										this.props.hidden ? $t('topic.topicEdit.label.openSection')
+											: $t('topic.topicEdit.label.lockSection')}
+                                   data-original-title={
+										this.props.hidden ? $t('topic.topicEdit.label.openSection')
+											: $t('topic.topicEdit.label.lockSection')}
                                 >
                                     <i className={`fa fa-eye${this.props.hidden ? '-slash' : ''}`} />
-                                </a>
+                                </button>
                             </span>
 
                             <input
+								aria-label={$t('topic.topicEdit.input.sectionTitle')}
                                 placeholder={$t('topic.topicEdit.input.sectionTitle')}
                                 value={this.props.title}
                                 className="form-control"
                                 onChange={this.updateTitle.bind(this)}
-                                name={`contents[${this.props.position}][title]`}
+								name={`contents[${this.props.position}][title]`}
+								required
                             />
                             <input
                                 value={this.props.hidden}
@@ -111,13 +120,21 @@ class TopicBlockWrapper extends React.Component {
                             />
 
                             <div className="input-group-btn">
-                                <button className="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+								<button
+									aria-label={$t('global.label.settings')}
+									className="btn btn-secondary dropdown-toggle"
+									type="button"
+									data-toggle="dropdown">
                                     <i className="fa fa-cog"></i>
                                 </button>
                                 <div className="dropdown-menu dropdown-menu-right">
-                                    <a className="dropdown-item text-danger" onClick={this.onRemoveWithCallback.bind(this)}>
-                                        <span><i className="fa fa-trash" /> {$t('global.button.remove')}</span>
-                                    </a>
+                                    <button
+										className="dropdown-item text-danger"
+										onClick={this.onRemoveWithCallback.bind(this)}>
+                                        <span>
+											<i className="fa fa-trash" aria-hidden="true"/> {$t('global.button.remove')}
+										</span>
+                                    </button>
                                 </div>
                             </div>
 
@@ -168,7 +185,7 @@ const SortableList = SortableContainer(({
         <div>
             {items.map((value, index) => (
                 <SortableItem
-                    key={`item-${index}`}
+                    key={`item-${value._id ? value._id : value.key}`}
                     onUpdate={onUpdate.bind(this, index)}
                     onRemove={onRemove.bind(this, index)}
                     addOnSortEndCallback={addOnSortEndCallback.bind(this)}
@@ -251,6 +268,7 @@ class TopicBlockList extends React.Component {
 			title: '',
 			content: {},
 			hidden: false,
+			key: shortid.generate(),
 		};
 		if (block.component === 'Etherpad') {
 			block.etherpadBaseUrl = this.state.etherpadBaseUrl;
@@ -303,17 +321,60 @@ class TopicBlockList extends React.Component {
                     onRemove={this.removeBlock.bind(this)}
                     onSortEnd={this.onSortEnd.bind(this)}
                     addOnSortEndCallback={this.addOnSortEndCallback.bind(this)}
-                    useDragHandle={true}
+					useDragHandle={true}
+					keyCodes={{
+						lift: [32, 13],
+						drop: [32, 13],
+						cancel: [27],
+						up: [38, 87],
+						down: [40, 83],
+					}}
                 />
 
                 <div className="form-group">
-                    <div className="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}>{`+ ${$t('topic.topicEdit.button.text')}`}</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>{`+ ${$t('topic.topicEdit.button.material')}`}</button>
-                        {neXboardEnabled ? <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button> : '' }
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>{`+ ${$t('global.headline.task')}`}</button>
+                    <div className="btn-group" role="group" aria-label={$t('topic.topicEdit.aria_label.chooseContent')}>
+						<button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicText)}>
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('topic.topicEdit.button.text')}`}
+						</button>
+						<button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
+						</button>
+                        <button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicResources)}>
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('topic.topicEdit.button.material')}`}
+						</button>
+						{neXboardEnabled ? <button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicNexboard)}>
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('topic.topicEdit.button.neXboard')}`}
+							</button> : '' }
+						<button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicEtherpad)}>
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('topic.topicEdit.button.etherpad')}`}
+						</button>
+                        <button
+							type="button"
+							className="btn btn-secondary"
+							onClick={this.addBlock.bind(this, TopicInternal)}>
+								<i aria-label={$t('global.button.add')}>+</i>
+								{` ${$t('global.headline.task')}`}
+						</button>
                     </div>
                 </div>
             </div>
@@ -476,7 +537,9 @@ class TopicResource extends React.Component {
                     <p className="card-text">{(this.props.resource || {}).description}</p>
                 </div>
                 <div className="card-footer">
-                    <small className="text-muted">via {(this.props.resource || {}).client}</small>
+					{/* Show proper provider.
+					TODO: show a real provider instead of Schul-cloud once they are available */}
+                    {/* <small className="text-muted">via {(this.props.resource || {}).client}</small> */}
                     <a className="btn-remove-resource" onClick={this.props.onRemove}><i
                         className="fa fa-trash-o"></i></a>
                 </div>
@@ -652,15 +715,16 @@ class TopicGeoGebra extends TopicBlock {
 		return (
             <div className="input-group">
                 <span className="input-group-btn">
-                    <a
+                    <span
                         className="btn btn-secondary geo-gebra-info"
-                        href="#"
                         data-toggle="tooltip"
+                        tabindex="0"
                         data-placement="top"
-                        title={$t('topic.topicEdit.label.youllFindTheIdOn')}><i className="fa fa-info-circle" /></a>
+                        title={$t('topic.topicEdit.label.youllFindTheIdOn')}><i className="fa fa-info-circle" /></span>
                 </span>
                 <input
-                    className="form-control"
+					className="form-control"
+					aria-label={$t('topic.topicEdit.aria_label.geoGebraID')}
                     id={this.editorId}
                     onChange={this.updateMaterialId.bind(this)}
                     value={(this.props.content || {}).materialId}
@@ -733,17 +797,22 @@ class TopicInternal extends TopicBlock {
 	render() {
 		return (
             <div>
-                <label>Interner Link</label><br/>
+                <label for={`internLinkInput${this.props.position}`}>
+					{$t('topic.topicEdit.label.internLink')}
+				</label><br/>
                 <div className="input-group">
                     <span className="input-group-btn">
-                        <a
+                        <span
                             className="btn btn-secondary geo-gebra-info"
-                            href="#"
                             data-toggle="tooltip"
+                            tabindex="0"
                             data-placement="top"
-                            title={$t('topic.topicEdit.label.theLinkHasToBeginWith', {'baseUrl' : this.state.baseUrl})}><i className="fa fa-info-circle" /></a>
+                            title={$t('topic.topicEdit.label.theLinkHasToBeginWith', { baseUrl: this.state.baseUrl })}>
+								<i className="fa fa-info-circle" />
+						</span>
                     </span>
                     <input
+						id={`internLinkInput${this.props.position}`}
                         className="form-control"
                         name={`contents[${this.props.position}][content][url]`}
                         pattern={this.state.pattern}
@@ -797,8 +866,11 @@ class TopicEtherpad extends TopicBlock {
                         value={this.props.content.title}/>
                 </div>
                 <div className="form-group">
-                    <label>{$t('topic.topicEdit.label.descriptionEtherpad')}</label>
-                    <textarea className="form-control"
+                    <label for={`EtherpadDescInput${this.props.position}`}>
+						{$t('topic.topicEdit.label.descriptionEtherpad')}
+					</label>
+					<textarea className="form-control"
+						id={`EtherpadDescInput${this.props.position}`}
                         name={`contents[${this.props.position}][content][description]`}
                         placeholder={$t('topic.topicEdit.input.createsListInEtherpad')}>
                         {this.props.content.description}
@@ -822,7 +894,6 @@ class TopicNexboard extends TopicBlock {
      */
 	constructor(props) {
 		super(props);
-		// console.log(content);
 
 		this.state = {
 			newBoard: 0,

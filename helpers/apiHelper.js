@@ -1,5 +1,5 @@
 const rp = require('request-promise');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 if (Configuration.has('REQUEST_TIMEOUT_MS') !== true) {
 	throw new Error('REQUEST_TIMEOUT_MS missing in Configuration');
