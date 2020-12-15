@@ -482,7 +482,7 @@
 		"CALENDAR_DASHBOARD_ENABLED": {
 			"type": "boolean",
 			"default": true,
-			"description": "If true it display calendar shedular events in dashboard. Otherwise the request is skipped and load with empty events."
+			"description": "If true calendar events are displayed on the dashboard. Otherwise the request is skipped."
 		},
 		"CALENDAR_SERVICE_ENABLED": {
 			"type": "boolean",
