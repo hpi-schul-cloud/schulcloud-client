@@ -9,15 +9,15 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## 25.3.5
 
-### Added
+### Added 2020-13-16
 
-- new env `SKIP_CALENDAR_DASHBOARD_REQUEST` for performance reasons
+- SC-8220 - new env `SKIP_CALENDAR_DASHBOARD_REQUEST` for performance reasons
 
 ## 25.3.4
 
 ### Added
 
-- SC-8004 add prometheus api metrics
+- SC-8004 - add prometheus api metrics
 
 ## 25.3.3
 
