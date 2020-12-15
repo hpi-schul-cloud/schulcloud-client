@@ -740,7 +740,7 @@ const skipRegistration = (req, res, next) => {
 	}).then(() => {
 		res.render('administration/users_registrationcomplete', {
 			title: res.$t('administration.controller.text.agreementSuccessfullyDeclared'),
-			submitLabel: res.$t('global.button.back'),
+			submitLabel: res.$t('global.button.done'),
 			users: [
 				{
 					email: req.body.email,
