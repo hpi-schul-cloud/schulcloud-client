@@ -14,8 +14,8 @@ $(document).ready(function() {
         }
     }
 
-    if (password) password.onchange = validatePassword;
-    if (confirm_password) confirm_password.onkeyup = validatePassword;
+    if (password?.length > 0) password.onchange = validatePassword;
+    if (confirm_password?.length > 0) confirm_password.onkeyup = validatePassword;
 
     // TODO: replace with something cooler
     var reloadSite = function() {
