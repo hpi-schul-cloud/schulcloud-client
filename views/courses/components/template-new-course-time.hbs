@@ -1,7 +1,7 @@
 <!-- just for copying, add input names programmatically! -->
 <tr class="new-course-time-template">
-    <td><button type="button" aria-label="{{$t "global.headline.delete"}}">
-            <i class="fa fa-trash-o course-time-delete" aria-hidden="true"></i>
+    <td><button type="button" class="course-time-delete" aria-label="{{$t "global.headline.delete"}}" data-id="{{this._id}}">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button></td>
     <td>
         <select id="weekday" class="form-control new-course-time-template-weekday" type="text">
