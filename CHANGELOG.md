@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## 25.3.5
+## 25.3.5 - 2020-13-16
 
-### Added 2020-13-16
+### Added
 
 - SC-8220 - new env `SKIP_CALENDAR_DASHBOARD_REQUEST` for performance reasons
 
