@@ -33,85 +33,83 @@ const filterRequestInfos = (err) => {
 
 const getCalendarEvents = (req, res, {
 	numMinutes, timeStart, start, end,
-}) => {
-	return api(req)
-		.get('/calendar/', {
-			qs: {
-				all: 'false', // must set to false to use from and until request
-				from: start.toISOString(true),
-				until: end.toISOString(true),
-			},
-		})
-		.then((eve) => Promise.all(
-			eve.map((event) => recurringEventsHelper.mapEventProps(event, req)),
-		))
-		.then((evnts) => {
-			const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
-			const flatEvents = [].concat(...mappedEvents);
-			const events = flatEvents.filter((event) => {
-				const eventStart = timesHelper.fromUTC(event.start);
-				const eventEnd = timesHelper.fromUTC(event.end);
+}) => api(req)
+	.get('/calendar/', {
+		qs: {
+			all: 'false', // must set to false to use from and until request
+			from: start.toISOString(true),
+			until: end.toISOString(true),
+		},
+	})
+	.then((eve) => Promise.all(
+		eve.map((event) => recurringEventsHelper.mapEventProps(event, req)),
+	))
+	.then((evnts) => {
+		const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
+		const flatEvents = [].concat(...mappedEvents);
+		const events = flatEvents.filter((event) => {
+			const eventStart = timesHelper.fromUTC(event.start);
+			const eventEnd = timesHelper.fromUTC(event.end);
 
-				return eventStart.isBefore(end) && eventEnd.isAfter(start);
-			});
-
-			return (events || []).map((event) => {
-				let eventStart = timesHelper.fromUTC(event.start);
-				let eventEnd = timesHelper.fromUTC(event.end);
-
-				// cur events that are too long
-				if (eventEnd.isAfter(end)) {
-					eventEnd = end;
-					event.end = eventEnd.toISOString(true);
-				}
-
-				if (eventStart.isBefore(start)) {
-					eventStart = start;
-					event.start = eventEnd.toISOString(true);
-				}
-
-				// subtract timeStart so we can use these values for left alignment
-				const eventStartRelativeMinutes = ((eventStart.hours() - timeStart) * 60) + eventStart.minutes();
-				const eventEndRelativeMinutes = ((eventEnd.hours() - timeStart) * 60) + eventEnd.minutes();
-				const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
-
-				event.comment = `${timesHelper.formatDate(eventStart, 'kk:mm')}
-	- ${timesHelper.formatDate(eventEnd, 'kk:mm', true)}`;
-				event.style = {
-					left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
-					width: 100 * (eventDuration / numMinutes), // percent
-				};
-
-				if (event && (!event.url || event.url === '')) {
-				// add team or course url to event, otherwise just link to the calendar
-					try {
-						if (event.hasOwnProperty('x-sc-courseId')) {
-						// create course link
-							event.url = `/courses/${event['x-sc-courseId']}`;
-							event.alt = res.$t('dashboard.img_alt.showCourse');
-						} else if (event.hasOwnProperty('x-sc-teamId')) {
-						// create team link
-							event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
-							event.alt = res.$t('dashboard.img_alt.showAppointmentInTeam');
-						} else {
-							event.url = '/calendar';
-							event.alt = res.$t('dashboard.img_alt.showCalendar');
-						}
-					} catch (err) {
-						error(filterRequestInfos(err));
-					}
-				}
-
-				return event;
-			}).sort((a, b) => b.style.left - a.style.left);
-		})
-		.catch((err) => {
-			error(filterRequestInfos(err));
-			return [];
+			return eventStart.isBefore(end) && eventEnd.isAfter(start);
 		});
-};
 
-router.get('/', (req, res, next) => {
+		return (events || []).map((event) => {
+			let eventStart = timesHelper.fromUTC(event.start);
+			let eventEnd = timesHelper.fromUTC(event.end);
+
+			// cur events that are too long
+			if (eventEnd.isAfter(end)) {
+				eventEnd = end;
+				event.end = eventEnd.toISOString(true);
+			}
+
+			if (eventStart.isBefore(start)) {
+				eventStart = start;
+				event.start = eventEnd.toISOString(true);
+			}
+
+			// subtract timeStart so we can use these values for left alignment
+			const eventStartRelativeMinutes = ((eventStart.hours() - timeStart) * 60) + eventStart.minutes();
+			const eventEndRelativeMinutes = ((eventEnd.hours() - timeStart) * 60) + eventEnd.minutes();
+			const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
+
+			event.comment = `${timesHelper.formatDate(eventStart, 'kk:mm')}
+	- ${timesHelper.formatDate(eventEnd, 'kk:mm', true)}`;
+			event.style = {
+				left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
+				width: 100 * (eventDuration / numMinutes), // percent
+			};
+
+			if (event && (!event.url || event.url === '')) {
+				// add team or course url to event, otherwise just link to the calendar
+				try {
+					if (event.hasOwnProperty('x-sc-courseId')) {
+						// create course link
+						event.url = `/courses/${event['x-sc-courseId']}`;
+						event.alt = res.$t('dashboard.img_alt.showCourse');
+					} else if (event.hasOwnProperty('x-sc-teamId')) {
+						// create team link
+						event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
+						event.alt = res.$t('dashboard.img_alt.showAppointmentInTeam');
+					} else {
+						event.url = '/calendar';
+						event.alt = res.$t('dashboard.img_alt.showCalendar');
+					}
+				} catch (err) {
+					error(filterRequestInfos(err));
+				}
+			}
+
+			return event;
+		}).sort((a, b) => b.style.left - a.style.left);
+	})
+	.catch((err) => {
+		error(filterRequestInfos(err));
+		return [];
+	});
+
+const getTimeOptions = () => {
 	// we display time from 7 to 17
 	const timeStart = 7;
 	const timeEnd = 17;
@@ -134,12 +132,20 @@ router.get('/', (req, res, next) => {
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
-	const timeOptions = {
+	return {
+		hours,
+		currentTime,
+		currentTimePercentage,
 		numMinutes,
 		timeStart,
 		start,
 		end,
 	};
+};
+
+router.get('/', (req, res, next) => {
+	const timeOptions = getTimeOptions();
+	const {	hours, currentTime, currentTimePercentage } = timeOptions;
 
 	const show = Configuration.get('CALENDAR_SERVICE_ENABLED') === true
 		&& Configuration.get('CALENDAR_DASHBOARD_ENABLED') === true;
