@@ -77,7 +77,9 @@ const findAllWeekEvents = (start, end, wkst, until) => {
 	const endHours = endMoment.hour();
 	const endMinutes = endMoment.minutes();
 
-	const untilMoment = timesHelper.fromUTC(until);
+	const untilMoment = timesHelper.fromUTC(until)
+		.hour(startHours)
+		.minute(startMinutes);
 
 	do {
 		const startEvent = moment(start)
