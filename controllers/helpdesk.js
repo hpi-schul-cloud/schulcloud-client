@@ -5,7 +5,7 @@ const logger = require('winston');
 const fileUpload = require('express-fileupload');
 const UAParser = require('ua-parser-js');
 const moment = require('moment');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const redirectHelper = require('../helpers/redirect');
 const api = require('../api');

@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const logger = require('../helpers/logger');
 
 const router = express.Router();
