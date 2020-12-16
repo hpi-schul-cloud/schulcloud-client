@@ -921,8 +921,7 @@
 			},
 			"global": {
 				"label": {
-					"studentParticipant": "Schüler:in / Teilnehmer:in",
-					"courseName": "Name des Kurses"
+					"studentParticipant": "Schüler:in / Teilnehmer:in"
 				}
 			},
 			"groups": {

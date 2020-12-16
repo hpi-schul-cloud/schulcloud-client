@@ -921,8 +921,7 @@
 			},
 			"global": {
 				"label": {
-					"studentParticipant": "Student / Participant",
-					"courseName": "Course name"
+					"studentParticipant": "Student / Participant"
 				}
 			},
 			"groups": {
