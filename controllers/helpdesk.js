@@ -5,13 +5,14 @@ const logger = require('winston');
 const fileUpload = require('express-fileupload');
 const UAParser = require('ua-parser-js');
 const moment = require('moment');
+const { Configuration } = require('@schul-cloud/commons');
+
 const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE } = require('../config/global');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const timesHelper = require('../helpers/timesHelper');
 
-const { CALENDAR_SERVICE_ENABLED } = require('../config/global');
 
 const permissionsHelper = require('../helpers/permissions');
 
@@ -123,6 +124,7 @@ const getTableActionsSend = (item, path, state, res) => {
 	return actions;
 };
 
+/** TODO: @CeEv must look into it */
 /**
  * creates an event for a created course. following params has to be included in @param data for creating the event:
  * startDate {Date} - the date the course is first take place
@@ -137,7 +139,7 @@ const getTableActionsSend = (item, path, state, res) => {
 const createEventsForData = (data, service, req, res) => {
 	// can just run if a calendar service is running on the environment and the course have a teacher
 	if (
-		CALENDAR_SERVICE_ENABLED
+		Configuration.get('CALENDAR_SERVICE_ENABLED') === true
 		&& service === 'courses'
 		&& data.teacherIds[0]
 		&& data.times.length > 0
