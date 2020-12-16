@@ -21,7 +21,7 @@ const timesHelper = require('../helpers/timesHelper');
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const { CALENDAR_SERVICE_ENABLED, HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
+const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
@@ -134,7 +134,7 @@ const mapTimeProps = (req, res, next) => {
 const createEventsForData = (data, service, req, res) => {
 	// can just run if a calendar service is running on the environment and the course have a teacher
 	if (
-		CALENDAR_SERVICE_ENABLED
+		Configuration.get('CALENDAR_SERVICE_ENABLED') === true
 		&& service === 'courses'
 		&& data.teacherIds[0]
 		&& data.times.length > 0
@@ -169,7 +169,7 @@ const createEventsForData = (data, service, req, res) => {
  * @param service {string}
  */
 const deleteEventsForData = (service) => (req, res, next) => {
-	if (CALENDAR_SERVICE_ENABLED && service === 'courses') {
+	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true && service === 'courses') {
 		return api(req)
 			.get(`courses/${req.params.id}`)
 			.then((course) => {
@@ -740,7 +740,7 @@ const skipRegistration = (req, res, next) => {
 	}).then(() => {
 		res.render('administration/users_registrationcomplete', {
 			title: res.$t('administration.controller.text.agreementSuccessfullyDeclared'),
-			submitLabel: res.$t('global.button.back'),
+			submitLabel: res.$t('global.button.done'),
 			users: [
 				{
 					email: req.body.email,

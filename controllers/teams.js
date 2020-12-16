@@ -13,11 +13,6 @@ const api = require('../api');
 const logger = require('../helpers/logger');
 const timesHelper = require('../helpers/timesHelper');
 
-
-const {
-	CALENDAR_SERVICE_ENABLED,
-} = require('../config/global');
-
 const router = express.Router();
 moment.locale('de');
 
@@ -67,7 +62,7 @@ const getSelectOptions = (req, service, query) => api(req)
  * @param teamId {string} - the id of the course the events will be deleted
  */
 const deleteEventsForTeam = async (req, res, teamId) => {
-	if (CALENDAR_SERVICE_ENABLED) {
+	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		const events = await api(req).get('/calendar/', {
 			qs: {
 				'scope-id': teamId,
