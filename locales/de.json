@@ -2211,7 +2211,8 @@
 				"devOps": "DevOps",
 				"generalInquiries": "Allgemeine Anfragen:",
 				"mobileApp": "Mobile App",
-				"privacy": "Datenschutz:",
+				"privacy": "General data protection inquiries:",
+				"privacy_responsible_person": "Datenschutzbeauftragter:",
 				"subscribeTheNewsletter": "Newsletter abonnieren",
 				"support": "Support:"
 			},
