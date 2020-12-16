@@ -128,6 +128,8 @@ const createRecurringEvents = (recurringEvent) => {
 		color: recurringEvent.color,
 		start: event.start,
 		end: event.end,
+		eventId: recurringEvent._id,
+		id: recurringEvent.id,
 	}));
 };
 
