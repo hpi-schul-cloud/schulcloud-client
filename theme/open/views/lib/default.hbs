@@ -41,13 +41,13 @@
 	{{/block}}
 
 	{{#block "styles"}}
-	<link rel="preload" href="/fonts/ptsans/ptsans-regular.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="/fonts/ptsans/ptsans-bold.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="/fonts/ptsans/ptsans-italic.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="/vendor-optimized/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font"
+	<link rel="preload" href="{{getVersionedPath '/fonts/ptsans/ptsans-regular.woff2'}}" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="{{getVersionedPath '/fonts/ptsans/ptsans-bold.woff2'}}" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="{{getVersionedPath '/fonts/ptsans/ptsans-italic.woff2'}}" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="{{getVersionedPath '/vendor-optimized/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0'}}" as="font"
 		type="font/woff" crossorigin>
-	<link rel="stylesheet" href="/fonts/ptsans/ptsans.css" />
-	<link rel="stylesheet" href="/styles/lib/base.css" />
+	<link rel="stylesheet" href="{{getVersionedPath '/fonts/ptsans/ptsans.css'}}" />
+	<link rel="stylesheet" href="{{getVersionedPath '/styles/lib/base.css'}}" />
 	{{/block}}
 
 	{{#block "scripts"}}
