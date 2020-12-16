@@ -6,6 +6,9 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
+const path = require('path');
+const staticify = require('staticify')(path.join(__dirname, '../../..', `build/${Globals.SC_THEME}`));
+// const staticifyLocales = require('staticify')(path.join(__dirname, '../../..', 'locales'));
 
 const timesHelper = require('../../timesHelper');
 
@@ -177,6 +180,8 @@ const helpers = () => ({
 		return options.inverse(this);
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
+	getVersionedPath: (path) => staticify.getVersionedPath(path),
+	//getVersionedPathLocale: (path) => staticifyLocales.getVersionedPath(path),
 	timeFromNow: (date) => timesHelper.fromNow(date),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
