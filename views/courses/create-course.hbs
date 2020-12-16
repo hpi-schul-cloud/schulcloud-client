@@ -203,9 +203,10 @@
             <section data-panel="section-3" data-testid="section-3-area">
               <div class="final-step">
                 {{> 'courses/components/svg_create_course' }}
-                  <h2 class="h4">{{$t "courses.add.headline.done"}}</h2>
-                  <h2 class="h5 text-muted">{{$t "courses.add.headline.whatToDoCourses"}}</h3>
-                  <div class="course-features">
+                    <div>
+                        <h2 class="h4">{{$t "courses.add.headline.done"}}</h2>
+                        <h3 class="h5 text-muted">{{$t "courses.add.headline.whatToDoCourses"}}</h3>
+                        <div class="course-features">
                     <a class="h6" id="addclass-create-topic" href="#">{{$t "courses.add.link.createTopics"}}</a>
                     <p class="text-muted">
                       {{$t "courses.add.text.contentOfClass"}}
@@ -216,7 +217,7 @@
                       {{$t "courses.add.text.giveExercisesAndGetResults"}}
                     </p>
                   </div>
-                </div>
+                    </div>
               </div>
 
               <div class="pull-right">
