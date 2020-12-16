@@ -159,6 +159,7 @@ router.get('/redirect/:id', (req, res, next) => api(req)({
 }).catch(next));
 
 router.post('/addToLesson', (req, res, next) => {
+	console.log('addtolesson!');
 	api(req).post('/materials/', {
 		json: req.body,
 	}).then((material) => {
