@@ -20,6 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-6975 - Fixed button text on declare consent
 - SC-7900 - Fixed text for inviting experts
 - SC-7983 - Fixed that topic is now choosable after select of course
 - SC-7771 - Fixed hint for teachers when editing a course - fix
@@ -34,24 +35,38 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - update location of common
 
+## 25.3.5 - 2020-13-16
+
+### Added
+
+- SC-8220 - new env `SKIP_CALENDAR_DASHBOARD_REQUEST` for performance reasons
+
 ## 25.3.4
 
-- SC-8004 add prometheus api metrics
+### Added
+
+- SC-8004 - add prometheus api metrics
 
 ## 25.3.3
+
 ### Fixed
+
 - SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation. 
   This change has fixed the issue so that every course starts at the stable time regardless daylight saving time changes
 
 ## 25.3.2
+
 ### Fixed
+
 - SC-8075 Fixed nbc landing page ghost
 
 ## 25.3.1
+
 ### Fixed
 - SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
 
 ## 25.3.0
+
 ### Added
 
 - SC-6662 - Add data-testid in homework for integration test
