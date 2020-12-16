@@ -127,14 +127,16 @@ if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, `build/${themeName}`)));
-//this is now done by the cahcing middleware
+
 app.use('/locales', express.static(path.join(__dirname, 'locales')));
 
 const staticify = require('staticify')(path.join(__dirname, `build/${themeName}`));
 const staticifyLocales = require('staticify')(path.join(__dirname, 'locales'));
 app.use(staticify.middleware);
 //app.use(staticifyLocales.middleware);
+
+//backup
+app.use(express.static(path.join(__dirname, `build/${themeName}`)));
 
 let sessionStore;
 const redisUrl = REDIS_URI;

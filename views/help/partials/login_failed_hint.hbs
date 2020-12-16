@@ -4,9 +4,9 @@
 			<div class="steps">
 				<li> {{$t "login.text.loginFailedFirstHint"}}</li>
 				<p>{{ $t "login.text.loginFailedFirstHintText"}}</p>
-					<img class="browser" src="/images/chrome.png" alt="Firefox" height="42" width="42">
-					<img class="browser" src="/images/firefox.png" alt="Chrome" height="42" width="42">
-					<img class="browser" src="/images/safari.png" alt="Safari" height="42" width="42">
+					<img class="browser" src="{{getVersionedPath '/images/chrome.png'}}" alt="Firefox" height="42" width="42">
+					<img class="browser" src="{{getVersionedPath '/images/firefox.png'}}" alt="Chrome" height="42" width="42">
+					<img class="browser" src="{{getVersionedPath '/images/safari.png'}}" alt="Safari" height="42" width="42">
 			</div>
 			<div class="steps">
 				<li> {{$t "login.text.loginFailedSecondHint"}}</li>
@@ -18,17 +18,17 @@
 			<div class="steps">
 				<li> {{$t "login.text.loginFailedFourthHint"}}</li>
 				<p>{{ $t "login.text.loginFailedFourthHintText"}}</p>
-				<img class="screenshot"src="/images/login-fail.png" alt={{$t "login.text.loginFailedScreenshot"}}>
+				<img class="screenshot"src="{{getVersionedPath '/images/login-fail.png'}}" alt={{$t "login.text.loginFailedScreenshot"}}>
 			</div>
 			<div class="steps">
 				<li>{{$t "login.text.loginFailedFithHint"}}</li>
 				<p>{{ $t "login.text.loginFailedFithHintText"}}</p>
 				<div class="logo-container">
-					<a href="https://schul-cloud.org/"><img class="sc-logo" src="/images/schulcoud-logo.png" alt={{$t "loginFailedLogoSchulCloud" }} target="_blank" width="200"></a>
-					<a href="https://brandenburg.schul-cloud.org"><img class="sc-logo" src="/images/brb-logo.png" alt={{$t "loginFailedLogoBrandenburg" }} target="_blank" width="200"></a>
-					<a href="https://schulcloud-thueringen.de"><img class="sc-logo" src="/images/thr-logo.png" alt={{$t "loginFailedLogoTühringen" }} target="_blank" width="200"></a>
-					<a href="https://niedersachsen.cloud/"><img class="sc-logo" src="/images/n21-logo.png" alt={{$t "loginFailedLogoNiedersachsen" }} target="_blank" width="200"></a>
-					<a href="https://open.schul-cloud.org/"><img class="sc-logo" src="/images/open-logo.png" alt={{$t "loginFailedLogoOpen" }} target="_blank" width="200"></a>
+					<a href="https://schul-cloud.org/"><img class="sc-logo" src="{{getVersionedPath 'images/schulcoud-logo.png'}}" alt={{$t "loginFailedLogoSchulCloud" }} target="_blank" width="200"></a>
+					<a href="https://brandenburg.schul-cloud.org"><img class="sc-logo" src="{{getVersionedPath '/images/brb-logo.png'}}" alt={{$t "loginFailedLogoBrandenburg" }} target="_blank" width="200"></a>
+					<a href="https://schulcloud-thueringen.de"><img class="sc-logo" src="{{getVersionedPath '/images/thr-logo.png'}}" alt={{$t "loginFailedLogoTühringen" }} target="_blank" width="200"></a>
+					<a href="https://niedersachsen.cloud/"><img class="sc-logo" src="{{getVersionedPath '/images/n21-logo.png'}}" alt={{$t "loginFailedLogoNiedersachsen" }} target="_blank" width="200"></a>
+					<a href="https://open.schul-cloud.org/"><img class="sc-logo" src="{{getVersionedPath '/images/open-logo.png'}}" alt={{$t "loginFailedLogoOpen" }} target="_blank" width="200"></a>
 				</div>
 			</div>
 	{{/if}}
