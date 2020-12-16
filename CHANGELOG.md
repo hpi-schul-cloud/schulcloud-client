@@ -24,6 +24,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7848 - Fixed no autofill of password in user settings
 - SC-6975 - Fixed button text on declare consent
 - SC-7900 - Fixed text for inviting experts
 - SC-7983 - Fixed that topic is now choosable after select of course
