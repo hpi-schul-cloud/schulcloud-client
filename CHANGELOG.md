@@ -40,6 +40,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - update location of common
+- SC-7889 - User receives consent screen at first login after new upload of privacy agreement
 
 ## 25.3.5 - 2020-13-16
 
