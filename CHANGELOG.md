@@ -35,6 +35,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7842 - Fixed typo on about page
 - SC-7874 - remove access to removed env variables
 - SC-8075 Fixed nbc landing page ghost
+- The common import after hotfix merge
 - SC-7793 - Set/activate new ldap route in administration page
 
 ### Changed
