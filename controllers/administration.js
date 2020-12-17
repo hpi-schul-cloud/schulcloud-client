@@ -1597,7 +1597,8 @@ const renderClassEdit = (req, res, next) => {
 			const mode = req.locals.mode;
 			Promise.all(promises).then(
 				([teachers, gradeLevels, currentClass]) => {
-					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
+					let schoolyears = getSelectableYears(res.locals.currentSchoolData);
+					schoolyears = schoolyears.sort((a, b) => a.startDate.localeCompare(b.startDate));
 
 					const allSchoolYears = res.locals.currentSchoolData.years.schoolYears
 						.sort((a, b) => b.startDate.localeCompare(a.startDate));
