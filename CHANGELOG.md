@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## 25.4.0
+
+### Added
+
+- SC-7542 - Add kreis to school edit.
+- SC-6825 - change collapsable icon fix
+- SC-6825 - change collapsable icon
+- SC-6619 - fixed text for registration in all other schools
+- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's 
+
+### Fixed
+
+- SC-7900 - Fixed text for inviting experts
+- SC-7983 - Fixed that topic is now choosable after select of course
+- SC-7771 - Fixed hint for teachers when editing a course - fix
+- SC-7771 - Fixed hint for teachers when editing a course
+- SC-5498 - Fixed typo in account page
+- SC-7842 - Fixed typo on about page
+- SC-7874 - remove access to removed env variables
+- SC-8075 Fixed nbc landing page ghost
+- The common import after hotfix merge
+
+### Changed
+
+- update location of common
+
 ## 25.3.5 - 2020-13-16
 
 ### Added
@@ -77,6 +103,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
 
+
 ## 25.2.7
 
 ### Fixed
@@ -131,6 +158,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7350 Fix invalid date
 - SC-7182 do not allow to open office files in new windows
 
+### Changed
+
+- SC-6973 Small improvments for logging and error handling
 - SC-6060 Cookie configuration
 - SC-4209 Choose the same move icon for course topics and topic editor
 

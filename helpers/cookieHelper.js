@@ -1,4 +1,4 @@
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const cookieDefaults = {
 	httpOnly: Configuration.get('COOKIE__HTTP_ONLY'),
