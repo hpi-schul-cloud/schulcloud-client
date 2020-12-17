@@ -20,6 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7126 - Fixed sort of years on create class select
 - SC-7848 - Fixed no autofill of password in user settings
 - SC-6975 - Fixed button text on declare consent
 - SC-7900 - Fixed text for inviting experts
