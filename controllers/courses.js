@@ -2,6 +2,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const { EDITOR_URL } = require('../config/global');
@@ -15,7 +16,7 @@ const timesHelper = require('../helpers/timesHelper');
 const OPTIONAL_COURSE_FEATURES = ['messenger'];
 
 const router = express.Router();
-const { CALENDAR_SERVICE_ENABLED, HOST } = require('../config/global');
+const { HOST } = require('../config/global');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
@@ -37,7 +38,7 @@ const markSelected = (options, values = []) => options.map((option) => {
  */
 const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
-	if (CALENDAR_SERVICE_ENABLED) {
+	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		return Promise.all(
 			course.times.map((time) => {
 				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
@@ -82,7 +83,7 @@ const createEventsForCourse = (req, res, course) => {
  * @param courseId {string} - the id of the course the events will be deleted
  */
 const deleteEventsForCourse = (req, res, courseId) => {
-	if (CALENDAR_SERVICE_ENABLED) {
+	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		return api(req)
 			.get(`courses/${courseId}`)
 			.then((course) => Promise.all(
