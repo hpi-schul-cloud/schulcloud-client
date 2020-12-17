@@ -130,10 +130,14 @@ app.use(cookieParser());
 
 app.use('/locales', express.static(path.join(__dirname, 'locales')));
 
-const staticify = require('staticify')(path.join(__dirname, `build/${themeName}`));
-const staticifyLocales = require('staticify')(path.join(__dirname, 'locales'));
-app.use(staticify.middleware);
-//app.use(staticifyLocales.middleware);
+try {
+	const staticify = require('staticify')(path.join(__dirname, `build/${themeName}`));
+	//const staticifyLocales = require('staticify')(path.join(__dirname, 'locales'));
+	app.use(staticify.middleware);
+	//app.use(staticifyLocales.middleware);
+} catch (error) {
+	logger.info(`Couldnt find build dir on startup`);
+}
 
 //backup
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
