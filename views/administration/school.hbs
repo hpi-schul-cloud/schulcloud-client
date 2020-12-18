@@ -247,13 +247,16 @@
                                 </div>
                             {{/ifConfig}}
                         {{/ifConfig}}
+
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
                         <div class="form-group"
-								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" true}}{{else}}
-									{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}{{else}}
-										hidden
-									{{/ifConfig}}>
-								{{/ifConfig}}>
+							{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
+								hidden
+							{{/ifConfig}}
+							{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}
+								hidden
+							{{/ifConfig}}
+						>
 							<label>
 								<input
 									id="messenger"
@@ -277,7 +280,17 @@
                         {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
                         <div id="messenger-sub-options" class="pl-3">
                             {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
-                            <div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__STUDENT_ROOM_CREATION" false}}hidden{{/ifConfig}}">
+                            <div class="form-group"
+								{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
+									hidden
+								{{/ifConfig}}
+							 	{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}
+								 	hidden
+								{{/ifConfig}}
+								{{#ifConfig "MATRIX_MESSENGER__STUDENT_ROOM_CREATION" false}}
+									hidden
+								{{/ifConfig}}
+							 >
                                 <label>
                                     <input
                                         type="checkbox"
@@ -296,7 +309,17 @@
 									{{$t "administration.school.text.messengerStudentRoomCreate" }}
 								</p>
                             </div>
-							<div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED" false}}hidden{{/ifConfig}}">
+							<div class="form-group"
+								{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
+									hidden
+								{{/ifConfig}}
+								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}
+									hidden
+								{{/ifConfig}}
+								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED" false}}
+									hidden
+								{{/ifConfig}}
+							>
                                 <label>
                                     <input
                                         type="checkbox"
