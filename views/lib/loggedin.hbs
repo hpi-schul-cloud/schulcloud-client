@@ -1,11 +1,11 @@
 {{#extend "lib/default"}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="{{ getVersionedPath '/styles/lib/loggedin.css'}}"/>
-        <link rel="stylesheet" href="{{ getVersionedPath '/styles/lib/feedback-button.css'}}"/>
-        <link rel="stylesheet" href="{{ getVersionedPath '/styles/lib/forms/form-auto-logout-alert.css'}}" />
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/lib/loggedin.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/lib/feedback-button.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/lib/forms/form-auto-logout-alert.css'}}" />
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
 			{{#inArray "messenger" @root.currentSchoolData.features}}
-				<link rel="stylesheet" href="{{ getVersionedPath '/styles/lib/chatLoggedin.css'}}"/>
+				<link rel="stylesheet" href="{{getVersionedPath '/styles/lib/chatLoggedin.css'}}"/>
 			{{/inArray}}
 		{{/ifConfig}}
 		<noscript>
@@ -20,13 +20,13 @@
 	{{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="{{ getVersionedPath '/scripts/loggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{ getVersionedPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
-        <script src="{{ getVersionedPath '/scripts/messenger/welcome.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script type="text/javascript" src="{{ getVersionedPath '/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML'}}" nonce="{{nonceValue}}" defer></script>
-        <script type="text/javascript" src="{{ getVersionedPath '/vendor/feathersjs/feathers.js'}}" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/loggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/messenger/welcome.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script type="text/javascript" src="{{getVersionedPath '/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML'}}" nonce="{{nonceValue}}" defer></script>
+        <script type="text/javascript" src="{{getVersionedPath '/vendor/feathersjs/feathers.js'}}" nonce="{{nonceValue}}" defer></script>
         {{#if @root.currentUser.preferences.enterthecloud}}
-            <script type="text/javascript" src="{{ getVersionedPath '/vendor/enterthecloud.min.js'}}" nonce="{{nonceValue}}" defer></script>
+            <script type="text/javascript" src="{{getVersionedPath '/vendor/enterthecloud.min.js'}}" nonce="{{nonceValue}}" defer></script>
         {{/if}}
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
             {{#inArray "messenger" @root.currentSchoolData.features}}
@@ -35,7 +35,7 @@
                     window.userLanguage = '{{ @root.userLanguage }}';
                     window.matrixBlockRoomCreation = {{ @root.matrixBlockRoomCreation }};
                 </script>
-                <script src="{{ getVersionedPath '/scripts/chatLoggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+                <script src="{{getVersionedPath '/scripts/chatLoggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
             {{/inArray}}
         {{/ifConfig}}
     {{/content}}

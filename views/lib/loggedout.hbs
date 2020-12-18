@@ -1,12 +1,12 @@
 {{#extend "lib/default"}}
     {{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="{{ getVersionedPath '/styles/homepage/homepage.css'}}"/>
+		<link rel="stylesheet" href="{{getVersionedPath '/styles/homepage/homepage.css'}}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="{{ getVersionedPath '/scripts/loggedout.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/loggedout.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-            <script src="{{ getVersionedPath '/scripts/chatLoggedout.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+            <script src="{{getVersionedPath '/scripts/chatLoggedout.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         {{/ifConfig}}
     {{/content}}
 

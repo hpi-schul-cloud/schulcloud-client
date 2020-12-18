@@ -1,7 +1,7 @@
 {{#extend "lib/loggedout"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="{{ getVersionedPath '/styles/homepage/index.css'}}" />
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/homepage/index.css'}}" />
     {{/content}}
 
     {{#content "scripts" mode="append"}}
@@ -9,8 +9,8 @@
         <script nonce="{{nonceValue}}">
             window.production = '{{ @root.production }}';
         </script>
-        <script src="{{ getVersionedPath '/scripts/theme-blog.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{ getVersionedPath '/scripts/blog-fetch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/theme-blog.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/blog-fetch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
