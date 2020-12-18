@@ -1,14 +1,14 @@
 {{#extend "lib/loggedin"}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/calendar/fullcalendar.min.css"/>
-        <link rel="stylesheet" href="/styles/calendar/daygrid.min.css"/>
-        <link rel="stylesheet" href="/styles/calendar/timegrid.min.css"/>
-        <link rel="stylesheet" href="/styles/calendar/calendar.css"/>
-        <link rel="stylesheet" href="/styles/lib/toggle/bootstrap-toogle.min.css"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/calendar/fullcalendar.min.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/calendar/daygrid.min.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/calendar/timegrid.min.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/calendar/calendar.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/lib/toggle/bootstrap-toogle.min.css'}}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/calendar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/calendar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}

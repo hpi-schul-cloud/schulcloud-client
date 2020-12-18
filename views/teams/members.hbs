@@ -1,16 +1,16 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/teams/teams.css"/>
-        <link rel="stylesheet" href="/styles/homework/homework.css"/>
-        <link rel="stylesheet" href="/styles/teams/team.css"/>
-        <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
+        <link rel="stylesheet" href={{getVersionedPath '/styles/teams/teams.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/homework/homework.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/teams/team.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/vendor/jquery/jquery-ui.css'}}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/teamMembers.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/jquery/jquery-ui.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/jquery/jquery.ui.touch-punch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/teamMembers.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}

@@ -1,21 +1,21 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/courses/course-edit.css"/>
-        <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
-        <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
-        <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/courses/course.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/courses/course-edit.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/lib/spectrum/spectrum.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/lib/datetimepicker/jquery.datetimepicker.min.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/administration/dataprivacy.css'}}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/moment/moment.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/coursesTimes.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/jquery/datetimepicker-easy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/moment/moment.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/coursesTimes.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/dataprivacy/dataprivacy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
 
@@ -23,7 +23,7 @@
         <section class="section-course">
           <div class="wizard-header">
             <div class="header-icon">
-              <img src="/images/empty-states/shuttle.svg" alt="{{$t "courses.add.img_alt.spaceShuttleStart"}}" class="hidden-xs-down"/>
+              <img src="{{getVersionedPath '/images/empty-states/shuttle.svg'}}" alt="{{$t "courses.add.img_alt.spaceShuttleStart"}}" class="hidden-xs-down"/>
             </div>
             <div class="headlines">
               <h2 class="h3">{{sectionTitle}}</h2>

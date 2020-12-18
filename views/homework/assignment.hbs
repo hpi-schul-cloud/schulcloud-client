@@ -1,7 +1,7 @@
 ﻿{{#content "scripts" mode="append"}}
-    <script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getVersionedPath '/scripts/ckeditor/ckeditor.js'}}" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getVersionedPath '/scripts/jquery/jquery.datetimepicker.full.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getVersionedPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     <script type="text/javascript" nonce="{{nonceValue}}">
         window.addEventListener('load', function () {
             $('.userinfo').click(function () {
@@ -43,12 +43,12 @@
     <script src="/scripts/lessons.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/homework/homework.css" />
-    <link rel="stylesheet" href="/styles/homework/assignment.css" />
-    <link rel="stylesheet" href="/styles/homework/submissions.css" />
-    <link rel="stylesheet" href="/styles/homework/tabs.css" />
-    <link rel="stylesheet" href="/styles/files/upload.css" />
-    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css" />
+    <link rel="stylesheet" href="{{getVersionedPath '/styles/homework/homework.css'}}" />
+    <link rel="stylesheet" href="{{getVersionedPath '/styles/homework/assignment.css'}}" />
+    <link rel="stylesheet" href="{{getVersionedPath '/styles/homework/submissions.css'}}" />
+    <link rel="stylesheet" href="{{getVersionedPath '/styles/homework/tabs.css'}}" />
+    <link rel="stylesheet" href="{{getVersionedPath '/styles/files/upload.css'}}" />
+    <link rel="stylesheet" href="{{getVersionedPath '/styles/lib/datetimepicker/jquery.datetimepicker.min.css'}}" />
     <style>
         .section-title h4::before {
             content:"● {{#if private}}🔒 {{/if}}";

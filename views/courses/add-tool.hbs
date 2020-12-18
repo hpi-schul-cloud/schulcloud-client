@@ -1,8 +1,8 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/tools/tools.css"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/courses/course.css'}}"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/tools/tools.css'}}"/>
     {{/content}}
 
     {{#content "page"}}
@@ -14,7 +14,7 @@
                             {{#if logo_url}}
                                 <img src={{this.logo_url}} class="float-left" role="presentation" />
                             {{else}}
-                                <img src="/images/cloud.png" class="float-left" role="presentation" />
+                                <img src="{{getVersionedPath '/images/cloud.png'}}" class="float-left" role="presentation" />
                             {{/if}}
                                 <span>{{this.name}}</span>
                             </a>

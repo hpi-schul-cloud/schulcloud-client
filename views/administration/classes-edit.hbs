@@ -1,13 +1,13 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/administration/classes/edit.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getVersionedPath '/scripts/administration/classes/edit.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/classes/classes.css"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/classes/classes.css'}}"/>
         <!-- dataprivacy is only used for .recap -->
-        <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+        <link rel="stylesheet" href="{{getVersionedPath '/styles/administration/dataprivacy.css'}}"/>
     {{/content}}
 
     {{#content "page"}}

@@ -1,31 +1,14 @@
 {{#extend "lib/loggedin"}}
 
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/dashboard/dashboard.css" />
+<link rel="stylesheet" href="{{getVersionedPath '/styles/dashboard/dashboard.css'}}" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-<script type="text/javascript" src="/scripts/dashboard.js" nonce="{{nonceValue}}" defer></script>
+<script type="text/javascript" src="{{getVersionedPath '/scripts/dashboard.js'}}" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page"}}
-
-{{#if this.displayDataprivacyAlert}}
-<section class="section section-privacy-alert">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="alert alert-info" style="font-size:0.9em;">
-                <h2 class="h6">Liebe Nutzer:innen des HPI Schul‑Cloud‑Chats,</h2>
-                <p>Wie ihr womöglich bereits gehört habt, war es unberechtigten Personen bis zum 19.05.2020 möglich nach Anlage eines illegalen Accounts Vor‑ und Nachnamen der Nutzer:innen des Chats einzusehen. Es konnten weder Email‑Adressen noch Beiträge im Chat eingesehen werden. Weiterhin liegen uns keine Hinweise auf ein tatsächliches Auslesen oder anderweitigen Missbrauch der Daten vor.<br />
-                Ursache war ein Konfigurationsfehler der integrierten Rocket.Chat Anwendung, den das HPI umgehend berichtigt hat. Sicherheit und Datenschutz sind weiterhin oberste Priorität bei der Entwicklung der HPI Schul-Cloud. Nähere Informationen findet ihr in unserem Blog unter <a href="https://blog.hpi-schul-cloud.de/informationen-zum-datenschutzvorfall/" style="color:dimgray;padding: .75rem;" target="_blank">https://blog.schul-cloud.org/informationen-zum-datenschutzvorfall/</a>.
-                Wir haben den Sachverhalt unverzüglich der zuständigen Landesdatenschutzbeauftragten gemeldet. Wir bitten ausdrücklich und im Namen des gesamten HPI Schul-Cloud Teams bei euch um Entschuldigung für diesen Vorfall und bedanken uns für das Vertrauen, das ihr uns als Nutzer:innen weiterhin entgegenbringen.</p>
-                Euer HPI Schul‑Cloud‑Team
-            </div>
-        </div>
-    </div>
-</section>
-{{/if}}
-
 
 <section data-testid="timetable-section" class="section section-timetable">
     <div class="row">
