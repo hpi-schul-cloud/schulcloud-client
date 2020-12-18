@@ -1,8 +1,8 @@
 {{#content "scripts" mode="append"}}
-<script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/mousetrap/mousetrap.js" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getVersionedPath '/scripts/ckeditor/ckeditor.js'}}" nonce="{{nonceValue}}" defer></script>
+<script src="{{getVersionedPath '/scripts/mousetrap/mousetrap.js'}}" nonce="{{nonceValue}}" defer></script>
+<script src="{{getVersionedPath '/scripts/jquery/jquery.datetimepicker.full.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getVersionedPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 
 <script nonce="{{nonceValue}}">
 	window.addEventListener('DOMContentLoaded', function () {

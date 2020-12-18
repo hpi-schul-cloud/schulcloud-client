@@ -1,8 +1,8 @@
 {{#content "scripts" mode="append"}}
     <script src="{{ get/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/mousetrap/mousetrap.js" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/news.js" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getVersionedPath '/scripts/mousetrap/mousetrap.js'}}" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getVersionedPath '/scripts/jquery/datetimepicker-easy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getVersionedPath '/scripts/news.js'}}" nonce="{{nonceValue}}" defer></script>
     <script nonce="{{nonceValue}}">
         window.addEventListener('DOMContentLoaded', function() {
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
