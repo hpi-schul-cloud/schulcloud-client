@@ -17,7 +17,7 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const prometheus = require('./helpers/prometheus');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 const { nonceValueSet } = require('./helpers/csp');
-
+const fs = require('fs');
 
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
@@ -130,14 +130,15 @@ app.use(cookieParser());
 
 app.use('/locales', express.static(path.join(__dirname, 'locales')));
 
-try {
-	const staticify = require('staticify')(path.join(__dirname, `build/${themeName}`));
-	//const staticifyLocales = require('staticify')(path.join(__dirname, 'locales'));
-	app.use(staticify.middleware);
-	//app.use(staticifyLocales.middleware);
-} catch (error) {
-	logger.info(`Couldnt find build dir on startup`);
-}
+let themeAssetDir = path.join(__dirname, `build/${themeName}`);
+if (!fs.existsSync(themeAssetDir)){
+	// fallback to static dir, for example for test env
+	themeAssetDir = path.join(__dirname, `static`);
+} 
+const staticify = require('staticify')(themeAssetDir);
+//const staticifyLocales = require('staticify')(path.join(__dirname, 'locales'));
+app.use(staticify.middleware);
+//app.use(staticifyLocales.middleware);
 
 //backup
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
@@ -178,6 +179,7 @@ if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 }
 
 const setTheme = require('./helpers/theme');
+const { Dir } = require('fs');
 
 function removeIds(url) {
 	const checkForHexRegExp = /[a-f\d]{24}/ig;

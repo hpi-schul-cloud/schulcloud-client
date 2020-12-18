@@ -7,7 +7,14 @@ const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
 const path = require('path');
-const staticify = require('staticify')(path.join(__dirname, '../../..', `build/${Globals.SC_THEME}`));
+const fs = require('fs');
+
+let themeAssetDir = path.join(__dirname, '../../..', `build/${Globals.SC_THEME}`);
+if (!fs.existsSync(themeAssetDir)){
+	// fallback to static dir, for example for test env
+	themeAssetDir = path.join(__dirname, '../../..', `static`);
+} 
+const staticify = require('staticify')(themeAssetDir);
 // const staticifyLocales = require('staticify')(path.join(__dirname, '../../..', 'locales'));
 
 const timesHelper = require('../../timesHelper');
