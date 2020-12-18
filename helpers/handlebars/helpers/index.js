@@ -13,7 +13,7 @@ let themeAssetDir = path.join(__dirname, '../../..', `build/${Globals.SC_THEME}`
 if (!fs.existsSync(themeAssetDir)){
 	// fallback to static dir, for example for test env
 	themeAssetDir = path.join(__dirname, '../../..', `static`);
-} 
+}
 const staticify = require('staticify')(themeAssetDir);
 // const staticifyLocales = require('staticify')(path.join(__dirname, '../../..', 'locales'));
 
@@ -187,7 +187,12 @@ const helpers = () => ({
 		return options.inverse(this);
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
-	getVersionedPath: (path) => staticify.getVersionedPath(path),
+	getVersionedPath: (path) => {
+		if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true){
+			return staticify.getVersionedPath(path);
+		}
+		return path;
+	},
 	//getVersionedPathLocale: (path) => staticifyLocales.getVersionedPath(path),
 	timeFromNow: (date) => timesHelper.fromNow(date),
 	datePickerTodayMinus: (years, months, days, format) => {
