@@ -53,9 +53,9 @@
 	{{#block "scripts"}}
 	{{#embed "lib/sw-metrix"}}{{/embed}}
 	{{! make window.$t() available. Must be executed before all other scripts! }}
-	<script src="{{getVersionedPath /scripts/i18n.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
+	<script src="{{getVersionedPath '/scripts/i18n.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
 
-	<script src="{{getVersionedPath /scripts/all.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	<script src="{{getVersionedPath '/scripts/all.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/block}}
 
 </head>
