@@ -306,7 +306,7 @@
         {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
         {{#content "body"}}
         <div class="modal-body">
-            <img src="/images/messenger-info.svg" class="image mx-auto d-block" width="70%" role="presentation"/>
+            <img src="{{getVersionedPath '/images/messenger-info.svg'}}" class="image mx-auto d-block" width="70%" role="presentation"/>
             <div class="modal-body-text">
                 <p>{{$t "messenger.text.welcomeMatrix" }}</p>
                 <p>
@@ -349,7 +349,7 @@
     {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
     {{#content "body"}}
     <div class="modal-body">
-        <img src="/images/messenger-info.svg" class="image mx-auto d-block" width="70%" role="presentation"/>
+        <img src="{{getVersionedPath '/images/messenger-info.svg'}}" class="image mx-auto d-block" width="70%" role="presentation"/>
         <div class="modal-body-text">
             <p>{{$t "messenger.text.welcomeMatrix" }}</p>
             <div class="modal-danger">
