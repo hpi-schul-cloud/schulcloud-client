@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-7824 - Set proper email address and label for data privacy
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
@@ -19,6 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7126 - Fixed sort of years on create class select
 - SC-7848 - Fixed no autofill of password in user settings
 - SC-6975 - Fixed button text on declare consent
 - SC-7900 - Fixed text for inviting experts
@@ -29,11 +31,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7842 - Fixed typo on about page
 - SC-7874 - remove access to removed env variables
 - SC-8075 Fixed nbc landing page ghost
+- The common import after hotfix merge
 - SC-7793 - Set/activate new ldap route in administration page
 
 ### Changed
 
 - update location of common
+- SC-7889 - User receives consent screen at first login after new upload of privacy agreement
 
 ## 25.3.5 - 2020-13-16
 
