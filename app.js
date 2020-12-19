@@ -136,9 +136,7 @@ if (!fs.existsSync(themeAssetDir)){
 	themeAssetDir = path.join(__dirname, `static`);
 } 
 const staticify = require('staticify')(themeAssetDir, {maxAgeNonHashed: '1d'});
-//const staticifyLocales = require('staticify')(path.join(__dirname, 'locales'));
 app.use(staticify.middleware);
-//app.use(staticifyLocales.middleware);
 
 //backup
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
