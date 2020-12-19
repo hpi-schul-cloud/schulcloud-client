@@ -131,14 +131,14 @@ app.use(cookieParser());
 app.use('/locales', express.static(path.join(__dirname, 'locales')));
 
 let themeAssetDir = path.join(__dirname, `build/${themeName}`);
-if (!fs.existsSync(themeAssetDir)){
+if (!fs.existsSync(themeAssetDir)) {
 	// fallback to static dir, for example for test env
-	themeAssetDir = path.join(__dirname, `static`);
-} 
-const staticify = require('staticify')(themeAssetDir, {maxAgeNonHashed: '1d'});
+	themeAssetDir = path.join(__dirname, 'static');
+}
+const staticify = require('staticify')(themeAssetDir, { maxAgeNonHashed: '1d' });
 app.use(staticify.middleware);
 
-//backup
+// backup
 app.use(express.static(path.join(__dirname, `build/${themeName}`)));
 
 let sessionStore;
@@ -177,7 +177,6 @@ if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 }
 
 const setTheme = require('./helpers/theme');
-const { Dir } = require('fs');
 
 function removeIds(url) {
 	const checkForHexRegExp = /[a-f\d]{24}/ig;

@@ -10,9 +10,9 @@ const path = require('path');
 const fs = require('fs');
 
 let themeAssetDir = path.join(__dirname, '../../..', `build/${Globals.SC_THEME}`);
-if (!fs.existsSync(themeAssetDir)){
+if (!fs.existsSync(themeAssetDir)) {
 	// fallback to static dir, for example for test env
-	themeAssetDir = path.join(__dirname, '../../..', `static`);
+	themeAssetDir = path.join(__dirname, '../../..', 'static');
 }
 const staticify = require('staticify')(themeAssetDir);
 // const staticifyLocales = require('staticify')(path.join(__dirname, '../../..', 'locales'));
@@ -176,7 +176,7 @@ const helpers = () => ({
 	userHasRole: (...args) => {
 		const allowedRoles = Array.from(args);
 		const opts = allowedRoles.pop();
-		return opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name));
+		return opts.data.local.currentUser.roles.some((r) => allowedRoles.includes(r.name));
 	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
@@ -187,13 +187,12 @@ const helpers = () => ({
 		return options.inverse(this);
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
-	getVersionedPath: (path) => {
-		if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true){
-			return staticify.getVersionedPath(path);
+	getVersionedPath: (assetPath) => {
+		if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true) {
+			return staticify.getVersionedPath(assetPath);
 		}
-		return path;
+		return assetPath;
 	},
-	//getVersionedPathLocale: (path) => staticifyLocales.getVersionedPath(path),
 	timeFromNow: (date) => timesHelper.fromNow(date),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {

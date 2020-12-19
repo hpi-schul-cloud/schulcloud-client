@@ -14,7 +14,7 @@ if (Configuration.get('FEATURE_ALERTS_ENABLED')) {
 		.then((alert) => {
 			res.set('Cache-Control', 'public, max-age=120');
 			res.json(alert);
-			}).catch((err) => {
+		}).catch((err) => {
 			logger.error(new Error('Can not get /alert', err));
 			res.set('Cache-Control', 'public, max-age=60');
 			res.json([]);
