@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## Unreleased
+
+- SC-8246 - Add possible to fingerprint sset if FEATURE_ASSET_CACHING_ENABLED is true
+
 ## 25.4.0
 
 ### Added
