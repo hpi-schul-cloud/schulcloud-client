@@ -9,6 +9,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Fixed
+
+- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
 - SC-8272 - fixed displaying of the error message for submissions with no due date
 
 ## 25.4.0
