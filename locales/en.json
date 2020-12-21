@@ -565,8 +565,8 @@
 				"chooseACounty": "Please choose the county your school belongs to.",
 				"className": "Class name:",
 				"cloudStorageProvider": "Cloud storage provider",
-				"county": "County",
 				"counties": "Counties",
+				"county": "County",
 				"currentSchoolYear": "Current school year:",
 				"dataProtectionAdd": "Add privacy policy",
 				"duringTheSchoolYear": "During the school year",
@@ -597,12 +597,12 @@
 				"youCantGoBack": "You can't go back",
 				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
 			},
-			"placeholder": {
-				"chooseCounty": "Choose a county"
-			},
 			"link": {
 				"matrixHelpPage": "messenger help section",
 				"moreInfo": "More information"
+			},
+			"placeholder": {
+				"chooseCounty": "Choose a county"
 			},
 			"text": {
 				"LDAPChanges": "you can make the necessary changes for the new school year in the\nLDAP (new users, update classes)",
@@ -3108,6 +3108,7 @@
 			},
 			"help": {
 				"text": {
+					"aStateInitiative": "a state initiative n-21 for ideas, criticism and wishes about the cloud itself.",
 					"someConcernsRequire": "Some concerns require more options than the fields in the contact function allow. Write us an email if you want to talk to us",
 					"toTheSupportTeam": "to the support team for information about the project"
 				}
