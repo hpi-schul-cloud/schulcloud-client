@@ -906,7 +906,8 @@
 					"editCourse": "Edit course"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Course is archived"
+					"courseIsArchieved": "Course is archived",
+					"addPeople": "Add members"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Allow Students to write messages in the course chat.",
@@ -1565,7 +1566,8 @@
 	"global": {
 		"aria_label": {
 			"sidebar": "Sidebar",
-			"topMenu": "topbar"
+			"topMenu": "topbar",
+			"deleteCourse": "Delete course"
 		},
 		"button": {
 			"accept": "Accept",

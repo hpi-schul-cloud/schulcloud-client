@@ -906,7 +906,8 @@
 					"editCourse": "Kurs bearbeiten"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Kurs ist archiviert"
+					"courseIsArchieved": "Kurs ist archiviert",
+					"addPeople": "Person hinzufügen"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
@@ -1565,7 +1566,8 @@
 	"global": {
 		"aria_label": {
 			"sidebar": "Seitenleiste",
-			"topMenu": "topbar"
+			"topMenu": "topbar",
+			"deleteCourse": "Kurs löschen"
 		},
 		"button": {
 			"accept": "Akzeptieren",
