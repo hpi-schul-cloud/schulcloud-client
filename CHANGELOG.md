@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unreleased
+## Added
 
 - SC-8246 - Add possible to fingerprint sset if FEATURE_ASSET_CACHING_ENABLED is true
+
+### Fixed
+
+- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
+
 
 ## 25.4.0
 

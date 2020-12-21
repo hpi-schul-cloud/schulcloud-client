@@ -230,9 +230,11 @@
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
                                 {{#unless notitle}}
+                                {{#if title}}
                                   <div>
                                       <h1 class="h4" id="page-title">{{{stripOnlyScript title}}}</h1>
                                   </div>
+                                  {{/if}}
                                 {{/unless}}
                                 <div>
                                     {{subtitle}}

@@ -150,7 +150,7 @@
 		<div class="add-button">
 			<a href="/courses/{{../_id}}/topics/add"
 				class="btn btn-add {{#if ../lessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center"
-				title="{{$t "courses._course.topic.text.addTopic"}}">
+				aria-label="{{$t "courses._course.topic.text.addTopic"}}">
 				{{#if ../lessons}}
 				<span>{{$t "courses._course.topic.button.createAnotherTopic"}}</span>
 				<i class="fa fa-plus-circle plus-icon pull-right"></i>
@@ -267,7 +267,7 @@
 		<div class="add-button">
 			<a href="/courses/{{@root._id}}/topics/add/neweditor"
 				class="btn btn-add {{#if @root.newLessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center"
-				title="{{$t "courses._course.topic.text.addTopicWithNewEditor"}}">
+				aria-label="{{$t "courses._course.topic.text.addTopicWithNewEditor"}}"
 				{{#if @root.newLessons}}
 				<span>{{$t "courses._course.topic.button.createAnotherTopicWithNewEditor"}} <span
 						class="tag tag-default">{{$t "courses._course.topic.text.beta"}}</span></span>
