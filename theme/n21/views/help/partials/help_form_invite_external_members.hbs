@@ -5,5 +5,8 @@
 </style>
 
 <h2 class="h3 mt-2">{{$t "help.help_fromInviteExternalMember.headline.whoDoYouWantToInviteTheTeam" }}</h2>
-<button type="button" data-role="teacher" class="btn btn-set-role" >{{$t "teams._team.members.button.teacherFromOtherSchool"}}</button>
-<button type="button" data-role="expert" class="btn btn-set-role">{{$t "help.help_fromInviteExternalMember.button.externalExperts" }}</button>
+<div class="form-group">
+    <label for="emailExpert">{{$t "help.help_fromInviteExternalMember.label.pedagogicalExperts" }}</label>
+</div>
+<button type="button" data-role="teacher" class="btn btn-set-role">{{$t "help.help_fromInviteExternalMember.button.teachersFromOtherSchoolsN21" }}</button>
+<button type="button" data-role="expert" class="btn btn-set-role">{{$t "help.help_fromInviteExternalMember.button.externalExpertsN21" }}</button>

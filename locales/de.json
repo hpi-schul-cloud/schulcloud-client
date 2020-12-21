@@ -1454,7 +1454,7 @@
 				"explainTheFollowing": "erkläre folgendes:",
 				"forAnEvenBetterLearningExperience": "Für ein noch besseres Lernerlebnis wird die {{title}} stetig weiterentwickelt. Im Zuge dessen hat sich",
 				"i": "Ich,",
-				"pleaseClickOnRead": "Bitte nimm mit Klick auf »Gelesen« diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
+				"pleaseClickOnRead": "Bitte nimm mit Klick auf „Gelesen” diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{title}} nutzen kannst.",
 				"termsOfUse": "Nutzungsordnung",
 				"the": "die"
@@ -1594,6 +1594,7 @@
 			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"createFolder": "Ordner erstellen",
 			"deleteTeam": "Team löschen",
+			"done": "Fertig",
 			"edit": "Bearbeiten",
 			"editTopic": "Thema bearbeiten",
 			"filterAdd": "Filter hinzufügen",
@@ -1891,10 +1892,16 @@
 		"help_fromInviteExternalMember": {
 			"button": {
 				"externalExperts": "Externe Experten",
-				"teachersFromOtherSchools": "Lehrer von anderen Schulen"
+				"externalExpertsN21": "Externe Expert:innen",
+				"teachersFromOtherSchools": "Lehrer von anderen Schulen",
+				"teachersFromOtherSchoolsN21": "Lehrkräfte anderer Schulen"
 			},
 			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
+			},
+			"label": {
+				"lowerSaxonyRegistration": "Über die Interessenbekundung <a href=\"https://www.n-21.de/nbc/interessenbekundung\">(https://www.n-21.de/nbc/interessenbekundung)</a> melden sich Schulen – durch die Schulleitung – für die Niedersächsische Bildungscloud an.",
+				"pedagogicalExperts": "Verwende für die Einladung von pädagogischem Personal als externe Experten bitte keine E-Mail-Adressen, die bereits im schulischen Kontext genutzt werden und für deren Registrierung in der Niedersächsischen Bildungscloud benötigt werden."
 			}
 		},
 		"language_hint": {
@@ -2225,7 +2232,8 @@
 				"devOps": "DevOps",
 				"generalInquiries": "Allgemeine Anfragen:",
 				"mobileApp": "Mobile App",
-				"privacy": "Datenschutz:",
+				"privacy": "Allgemeine Datenschutzanfragen:",
+				"privacy_responsible_person": "Datenschutzbeauftragter:",
 				"subscribeTheNewsletter": "Newsletter abonnieren",
 				"support": "Support:"
 			},
@@ -2878,7 +2886,7 @@
 					"deleteMember": "Teilnehmer löschen",
 					"editMember": "Teilnehmer bearbeiten",
 					"email": "E-Mail",
-					"inviteExternExpert": "Externen Experten einladen",
+					"inviteExternExpert": "Externen Expert:innen einladen",
 					"inviteTeacherByEmail": "Lehrer per E-Mail einladen",
 					"inviteTeacherFromOtherSchool": "Lehrer anderer Schulen einladen",
 					"invitedOn": "Eingeladen am",
@@ -2898,7 +2906,7 @@
 					"externExpert": "externer Experte",
 					"externTeacher": "Lehrer anderer Schule (Team-Admin)",
 					"federalState": "Bundesland",
-					"insertEmailOfExpertToInvite": "Gib die E-Mail des Experten ein, an welchen die Einladung verschickt wird.",
+					"insertEmailOfExpertToInvite": "Externe Expert:innen verfügen aus Sicherheitsgründen nur über eingeschränkte Berechtigungen - beispielsweise können sie nicht an Videokonferenzen teilnehmen und keine Kurse anlegen. Um eine schulfremde Expert:in einzuladen, gib ihre E-Mail-Adresse ein, an die die Einladung verschickt werden soll:",
 					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert einen anderen Eigentümer",
 					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
 					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
@@ -2910,7 +2918,7 @@
 					"sendInvitationAgain": "Einladung erneut versenden"
 				},
 				"placeholder": {
-					"insertEmail": "E-Mail eingeben",
+					"insertEmail": "Eingabefeld für E-Mail-Adresse",
 					"selectFederalState": "Bundesland auswählen",
 					"selectPersons": "Personen auswählen",
 					"selectRole": "Rolle angeben",

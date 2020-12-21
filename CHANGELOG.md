@@ -7,7 +7,114 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## Unreleased
+## 25.4.0
+
+### Added
+
+- SC-7824 - Set proper email address and label for data privacy
+- SC-7542 - Add kreis to school edit.
+- SC-6825 - change collapsable icon fix
+- SC-6825 - change collapsable icon
+- SC-6619 - fixed text for registration in all other schools
+- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's
+
+### Fixed
+
+- SC-7126 - Fixed sort of years on create class select
+- SC-7848 - Fixed no autofill of password in user settings
+- SC-6975 - Fixed button text on declare consent
+- SC-7900 - Fixed text for inviting experts
+- SC-7983 - Fixed that topic is now choosable after select of course
+- SC-7771 - Fixed hint for teachers when editing a course - fix
+- SC-7771 - Fixed hint for teachers when editing a course
+- SC-5498 - Fixed typo in account page
+- SC-7842 - Fixed typo on about page
+- SC-7874 - remove access to removed env variables
+- SC-8075 Fixed nbc landing page ghost
+- The common import after hotfix merge
+- SC-7793 - Set/activate new ldap route in administration page
+
+### Changed
+
+- update location of common
+- SC-7889 - User receives consent screen at first login after new upload of privacy agreement
+
+## 25.3.5 - 2020-13-16
+
+### Added
+
+- SC-8220 - new env `SKIP_CALENDAR_DASHBOARD_REQUEST` for performance reasons
+
+## 25.3.4
+
+### Added
+
+- SC-8004 - add prometheus api metrics
+
+## 25.3.3
+
+### Fixed
+
+- SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation. 
+  This change has fixed the issue so that every course starts at the stable time regardless daylight saving time changes
+
+## 25.3.2
+
+### Fixed
+
+- SC-8075 Fixed nbc landing page ghost
+
+## 25.3.1
+
+### Fixed
+- SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
+
+## 25.3.0
+
+### Added
+
+- SC-6662 - Add data-testid in homework for integration test
+- SC-7571 - fixed registration link generation (performance issues)
+- SC-7447 - Add warning text for links when leaving the schul-cloud platform
+- SC-6293 - added option to school admin to disable lernstore for students
+- SC-7413 - Add winston handler for logging unhandled rejection and exceptions
+- SC-5942 - Add trim() before email for password recovery got send to server
+- OPS-1297 - Added Changelog github action
+- SC-6596 - Added school option to allow students to create chat rooms
+
+### Fixed
+
+- SC-1589 - Fixed error handling on team creation
+- SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files
+- SC-7667 - Fixed help desk displays my own local time
+- SC-7652 - Fixed teacher creates a calendar in team then Dashboard empty
+- SC-7353 - fixed course sharing between teachers
+- SC-7645 - Fixed team calendar timezone bug
+- SC-7666 - Fixed rss translation key
+- SC-5555 - Fixed class names not being visible in course creation in some cases
+- SC-7463 - Fixed undefined value when requesting school systems login
+- SC-7392 fix create event for teams / courses
+- SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
+- SC-6721 - fixed classes list in course administration
+- SC-7084 - changed file permission name Mitglied to Teilnehmer
+- SC-5501 - fixed grammar issue for password recovery request
+- SC-7589 - fixed correct display for age while first login and change of sentence structure for clearance
+- SC-7538 - fixed and enabled sorting on /files
+
+### Changed
+
+- SC-7530 rename SHOW_VERSION to FEATURE_SHOW_VERSION_ENABLED
+- update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
+- SC-6951 removes via text from embeded course content
+- SC-6870 use don't show again checkbox value even if the admin goes to the settings page
+- IMP-160 rename integration test repository
+- SC-7474 pull docker container for tests if commit id exists on docker hub
+
+## 25.2.7
+
+### Fixed
+
+- SC-8042 update sort order of students by creating classes
 
 ## 25.2.6
 
@@ -32,59 +139,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 - SC-6727 Change email addresses for tickets for Niedersachsen
-
-### Added
-
-- SC-7542 - Add kreis to school edit.
-- SC-6825 - change collapsable icon fix
-- SC-6825 - change collapsable icon
-- SC-6619 - fixed text for registration in all other schools
-- SC-6662 - Add data-testid in homework for integration test
-- SC-7571 - fixed registration link generation (performance issues)
-- SC-7447 - Add warning text for links when leaving the schul-cloud platform
-- SC-6293 - added option to school admin to disable lernstore for students
-- SC-7413 - Add winston handler for logging unhandled rejection and exceptions
-- OPS-1508 - added limits for cpu and ram to the docker compose files
-- SC-5942 - Add trim() before email for password recovery got send to server
-- OPS-1297 - Added Changelog github action
-- SC-6596 - Added school option to allow students to create chat rooms
-- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's 
-
-### Fixed
-
-- SC-7983 - Fixed that topic is now choosable after select of course
-- SC-7771 - Fixed hint for teachers when editing a course - fix
-- SC-7771 - Fixed hint for teachers when editing a course
-- SC-5498 - Fixed typo in account page
-- SC-7842 - Fixed typo on about page
-- SC-1589 - Fixed error handling on team creation
-- SC-7845 - Fixed GitHub action changelog
-- SC-7859 - Fixed class name not required to create a class
-- SC-5179 - Fixed CKEditor on homework to insert images from Course instead of My Files 
-- SC-7667 - Fixed help desk displays my own local time
-- SC-7652 - Fixed teacher creates a calendar in team then Dashboard empty
-- SC-7353 - fixed course sharing between teachers
-- SC-7645 - Fixed team calendar timezone bug
-- SC-7666 - Fixed rss translation key
-- SC-5555 - Fixed class names not being visible in course creation in some cases
-- SC-7463 - Fixed undefined value when requesting school systems login
-- SC-7392 fix create event for teams / courses
-- SC-6931 fixed link names in Niedersachsen, Open and Thueringen to privacy and termsOfUse on homepage
-- SC-6721 - fixed classes list in course administration
-- SC-7084 - changed file permission name Mitglied to Teilnehmer
-- SC-5501 - fixed grammar issue for password recovery request
-- SC-7589 - fixed correct display for age while first login and change of sentence structure for clearance
-- SC-7538 - fixed and enabled sorting on /files
-- SC-7874 - remove access to removed env variables
-
-### Changed
-
-- update location of commons
-- SC-7530 rename SHOW_VERSION to FEATURE_SHOW_VERSION_ENABLED
-- update commons to 1.3.0 to enable printing current config on startup, fix default.json to be valid by adding cookie defaults
-- SC-6951 removes via text from embeded course content
-- SC-6870 use don't show again checkbox value even if the admin goes to the settings page
-- IMP-160 rename integration test repository
 
 ## 25.2.2
 
