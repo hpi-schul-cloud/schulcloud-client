@@ -777,14 +777,11 @@ router.get('/:assignmentId', (req, res, next) => {
 		if (assignment.dueDate) {
 			assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
 		}
-
-		// Abgabe noch möglich?
-		if (assignment.dueDate) {
 			const dueDateTimeStamp = timesHelper.splitDate(assignment.dueDate, res.$t('format.date')).timestamp;
 			assignment.submittable = (dueDateTimeStamp >= timesHelper.now() || !assignment.dueDate);
 			assignment.warning = ((dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
 				&& assignment.submittable);
-		}
+
 
 
 		// file upload path, todo: maybe use subfolders
