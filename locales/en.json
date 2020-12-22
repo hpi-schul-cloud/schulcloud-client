@@ -899,8 +899,8 @@
 					"editCourse": "Edit course"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Course is archived",
-					"addPeople": "Add members"
+					"addPeople": "Add members",
+					"courseIsArchieved": "Course is archived"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Allow Students to write messages in the course chat.",
@@ -1579,9 +1579,9 @@
 	},
 	"global": {
 		"aria_label": {
+			"deleteCourse": "Delete course",
 			"sidebar": "Sidebar",
-			"topMenu": "topbar",
-			"deleteCourse": "Delete course"
+			"topMenu": "topbar"
 		},
 		"button": {
 			"accept": "Accept",
@@ -1879,6 +1879,7 @@
 		},
 		"headline": {
 			"contactDetails": "Contact person and contact details",
+			"feedback/requests": "Feedback / requests / problems with use",
 			"helpSection": "Help section",
 			"privacyCourse": "Privacy course",
 			"welcomeDocuments": "Welcome documents for download"
@@ -1964,14 +1965,17 @@
 			}
 		},
 		"text": {
+			"forTechnicalQuestions": "For technical questions, please contact the Hasso Plattner Institute at the following email address:",
 			"hereYouCanFindOut": "Here you can find out how to delete your cookies.",
 			"noAccessDemoAccount": "You have no access to these documents in the demo account.",
 			"noWelcomeDocuments": "There may not be any welcome documents. Please contact the user support.",
 			"someConcernsNeedMoreOptions": "Some concerns require more options than the fields in the contact function allow. Write us an e-mail if you want to get in touch with us:",
+			"someConcernsRequireMoreOptions": "Some concerns require more options than the fields in the contact function allow. Write us an email if you want to talk to us. <br/> You can find the right contact person for all situations in the <a href='/help/faq/people'> contact person area </a>.",
 			"theHassoPlattnerInstituteIsAvailable": "The Hasso Plattner Institute is available for all technical questions. If you have problems with the HPI school cloud itself or if you have difficulties operating it, please use the contact form or send an e-mail to:",
 			"theMintTeamIsNotAvailave": "The MINT-EC team is available for all non-technical questions and can be contacted at the following email address:",
 			"toMINTECWithQuestions": "to MINT-EC for queries and suggestions regarding the introduction and use of the HPI school cloud at your school",
-			"toTheHpiForIdeas": "To HPI for ideas, feedback and requests regarding cloud itself."
+			"toTheHpiForIdeas": "To HPI for ideas, feedback and requests regarding cloud itself.",
+			"unfortunatelyThisPageIsNotAvailable": "Unfortunately, this page is not available."
 		}
 	},
 	"helpdesk": {
@@ -3065,16 +3069,10 @@
 				}
 			},
 			"help": {
-				"headline": {
-					"feedback/requests": "Feedback / requests / problems with use"
-				},
 				"text": {
 					"forEducationalQuestions": "For educational questions, please contact the State Institute for School and Media Berlin-Brandenburg (LISUM) at the following email address:",
 					"forOrganizationalQuestios": "For organizational questions, please contact the DigitalAgentur Brandenburg (DAB) at the following email address:",
-					"forTechnicalQuestions": "For technical questions, please contact the Hasso Plattner Institute at the following email address:",
-					"someConcernsRequireMoreOptions": "Some concerns require more options than the fields in the contact function allow. Write us an email if you want to talk to us. <br/> You can find the right contact person for all situations in the <a href='/help/faq/people'> contact person area </a>.",
-					"toReportProblemsOrRequest": "To report problems or requests regarding the operation of the Brandenburg School Cloud, please use the contact form in the help area or send an email to",
-					"unfortunatelyThisPageIsNotAvailable": "Unfortunately, this page is not available."
+					"toReportProblemsOrRequest": "To report problems or requests regarding the operation of the Brandenburg School Cloud, please use the contact form in the help area or send an email to"
 				}
 			},
 			"imprint": {

@@ -1877,6 +1877,7 @@
         },
         "headline": {
             "contactDetails": "Ansprechpartner und Kontaktdaten",
+            "feedback/requests": "Feedback / Wünsche / Probleme bei der Nutzung",
             "helpSection": "Hilfeartikel",
             "privacyCourse": "Datenschutzkurs",
             "welcomeDocuments": "Willkommensdokumente zum Download"
@@ -1962,14 +1963,17 @@
             }
         },
         "text": {
+            "forTechnicalQuestions": "Für technsiche Fragen richte dich bitte an das Hasso-Plattner-Institut unter folgender E-Mail-Adresse:",
             "hereYouCanFindOut": "Hier findest du heraus wie du deine Cookies löschst.",
             "noAccessDemoAccount": "Sie haben im Demo-Account keinen Zugriff auf diese Dokumente.",
             "noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support.",
             "someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
+            "someConcernsRequireMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreib uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst. <br/> Die richtigen Kontaktpersonen für alle Situationen findest du im <a href='/help/faq/people'>Ansprechpartner-Bereich</a>.",
             "theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der HPI Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
             "theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:",
             "toMINTECWithQuestions": "an MINT-EC bei Fragen und Anregungen zur Einführung und Nutzung der HPI Schul-Cloud an deiner Schule.",
-            "toTheHpiForIdeas": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst."
+            "toTheHpiForIdeas": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst.",
+            "unfortunatelyThisPageIsNotAvailable": "Diese Seite ist leider nicht verfügbar."
         }
     },
     "helpdesk": {
@@ -3063,16 +3067,10 @@
                 }
             },
             "help": {
-                "headline": {
-                    "feedback/requests": "Feedback / Wünsche / Probleme bei der Nutzung"
-                },
                 "text": {
                     "forEducationalQuestions": "Für pädagogische Fragen richte dich bitte an das Landesinstitut für Schule und Medien Berlin-Brandenburg (LISUM) unter folgender E-Mail-Adresse:",
                     "forOrganizationalQuestios": "Für organisatorische Fragen richte dich bitte an die DigitalAgentur Brandenburg (DAB) unter folgender E-Mail-Adresse:",
-                    "forTechnicalQuestions": "Für technsiche Fragen richte dich bitte an das Hasso-Plattner-Institut unter folgender E-Mail-Adresse:",
-                    "someConcernsRequireMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreib uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst. <br/> Die richtigen Kontaktpersonen für alle Situationen findest du im <a href='/help/faq/people'>Ansprechpartner-Bereich</a>.",
-                    "toReportProblemsOrRequest": "Für die Meldung von Problemen oder Wünschen hinsichtlich der Bedienung der Schul-Cloud Brandenburg verwende bitte das Kontaktformular im Hilfebereich oder sende eine E-Mail an",
-                    "unfortunatelyThisPageIsNotAvailable": "Diese Seite ist leider nicht verfügbar."
+                    "toReportProblemsOrRequest": "Für die Meldung von Problemen oder Wünschen hinsichtlich der Bedienung der Schul-Cloud Brandenburg verwende bitte das Kontaktformular im Hilfebereich oder sende eine E-Mail an"
                 }
             },
             "imprint": {
