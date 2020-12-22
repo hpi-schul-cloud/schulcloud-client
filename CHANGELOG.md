@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## [25.4.1]
+
+- Update from 25.3.6 into master
+
 ## 25.4.0
 
 ### Added
@@ -32,6 +36,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - update location of common
+
+## 25.3.6
+
+### Fixed
+
+- SC-8225: Fixed hiding messenger school settings
 
 ## 25.3.5 - 2020-13-16
 
