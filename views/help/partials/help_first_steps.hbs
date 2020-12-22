@@ -3,22 +3,22 @@
 		{{> "help/icon-link-group" link-class="col-sm-3" links=(jsonParse (concat '[
 			{
 				"title": "' ($t "global.link.administrationStudents") '",
-				"img-src": "/images/help/schueler-icon.png",
+				"img-src": "{{getAssetPath '/images/help/schueler-icon.png'}}",
 				"src": "/help/confluence/40304731"
 			},
 			{
 				"title": "' ($t "global.headline.teachers") '",
-				"img-src": "/images/help/lehrer-icon.png",
+				"img-src": "{{getAssetPath '/images/help/lehrer-icon.png'}}",
 				"src": "/help/confluence/40304726"
 			},
 			{
 				"title": "Admin",
-				"img-src": "/images/help/admin-icon.png",
+				"img-src": "{{getAssetPath '/images/help/admin-icon.png'}}",
 				"src": "/help/confluence/40304667"
 			},
 			{
 				"title": "' ($t "help.global.headline.principal") '",
-				"img-src": "/images/help/schulleitung-icon.png",
+				"img-src": "{{getAssetPath '/images/help/schulleitung-icon.png'}}",
 				"src": "/help/confluence/40304728"
 			}
 		]')) }}

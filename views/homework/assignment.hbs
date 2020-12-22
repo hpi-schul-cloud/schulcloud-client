@@ -40,7 +40,7 @@
             }
         });
     </script>
-    <script src="/scripts/lessons.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/lessons.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
     <link rel="stylesheet" href="{{getAssetPath '/styles/homework/homework.css'}}" />

@@ -43,6 +43,6 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/tools.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/tools.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 {{/extend}}
