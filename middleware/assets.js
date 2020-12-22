@@ -7,6 +7,7 @@ const {
 	SC_THEME,
 } = require('../config/global');
 
+const localesDir = path.join(__dirname, '../locales');
 const themeAssetDir = path.join(__dirname, `../build/${SC_THEME}`);
 if (!fs.existsSync(themeAssetDir)) {
 	throw new Error('could not find theme asset dir', { themeAssetDir });
@@ -16,18 +17,23 @@ if (!fs.existsSync(themeAssetDir)) {
 const staticifyInstance = staticify(themeAssetDir, {
 	maxAgeNonHashed: '1d',
 	sendOptions: {
-		maxAge: 3600 * 1000, // one hour, in milliseconds
+		maxAge: 3600 * 1000, // one hour, in milliseconds // TODO test
 	},
 });
 
 /**
  * middleware for static assets may use hashed file names
  */
-const staticAssetsMiddleware = (req, res, next) => {
-	if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true) {
-		return staticifyInstance.middleware(req, res, next);
-	}
-	return express.static(path.join(themeAssetDir))(req, res, next);
+const staticAssetsMiddleware = (app) => {
+	app.use(express.static(path.join(themeAssetDir)));
+	app.use('/locales', express.static(localesDir)); // TODO test
+	app.use((req, res, next) => {
+		if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true) {
+			staticifyInstance.middleware(req, res, next);
+		} else {
+			next();
+		}
+	});
 };
 
 /**

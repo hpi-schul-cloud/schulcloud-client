@@ -127,10 +127,8 @@ app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-// TODO move locales into static folder
-app.use('/locales', express.static(path.join(__dirname, 'locales')));
+staticAssetsMiddleware(app);
 
-app.use(staticAssetsMiddleware);
 let sessionStore;
 const redisUrl = REDIS_URI;
 if (redisUrl) {
