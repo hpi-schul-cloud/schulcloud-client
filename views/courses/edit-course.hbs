@@ -1,19 +1,19 @@
 {{#extend "lib/loggedin"}}
 
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="{{getVersionedPath '/styles/courses/course.css'}}" />
-		<link rel="stylesheet" href="{{getVersionedPath '/styles/courses/course-edit.css'}}" />
-		<link rel="stylesheet" href="{{getVersionedPath '/styles/lib/spectrum/spectrum.css'}}" />
-		<link rel="stylesheet" href="{{getVersionedPath '/styles/lib/datetimepicker/jquery.datetimepicker.min.css'}}" />
+		<link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}" />
+		<link rel="stylesheet" href="{{getAssetPath '/styles/courses/course-edit.css'}}" />
+		<link rel="stylesheet" href="{{getAssetPath '/styles/lib/spectrum/spectrum.css'}}" />
+		<link rel="stylesheet" href="{{getAssetPath '/styles/lib/datetimepicker/jquery.datetimepicker.min.css'}}" />
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
-		<script src="{{getVersionedPath '/scripts/jquery/datetimepicker-easy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="{{getVersionedPath '/scripts/moment/moment.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="{{getVersionedPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="{{getVersionedPath '/scripts/coursesTimes.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="{{getVersionedPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="{{getVersionedPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/jquery/datetimepicker-easy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/moment/moment.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/coursesTimes.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 
 

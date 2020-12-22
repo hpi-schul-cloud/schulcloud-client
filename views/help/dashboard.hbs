@@ -1,10 +1,10 @@
 {{#extend "lib/loggedin"}}
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="{{getVersionedPath '/styles/help/dashboard.css'}}" />
+		<link rel="stylesheet" href="{{getAssetPath '/styles/help/dashboard.css'}}" />
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
-		<script src="{{getVersionedPath '/scripts/help.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/help.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 
 	{{#content "page" mode="prepend"}}

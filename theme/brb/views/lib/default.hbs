@@ -27,36 +27,36 @@
 	<meta name="application-name" content="{{theme.title}}">
 	<meta name="X-Recruiting"
 		content="Das Entwickler-Team der HPI Schul-Cloud sucht nach Verstärkung! Schaut doch mal nach unseren Stellen: http://localhost:3100/community#jobs">
-	<link rel="mask-icon" href="{{getVersionedPath '/images/logo/safari-pinned-tab.svg'}}" color="#E4032E">
-	<link rel="apple-touch-icon" href="{{getVersionedPath '/images/logo/app-icon-512.png'}}">
-	<link rel="apple-touch-icon" sizes="120x120" href="{{getVersionedPath '/images/logo/app-icon-120.png'}}">
-	<link rel="apple-touch-icon" sizes="152x152" href="{{getVersionedPath '/images/logo/app-icon-152.png'}}">
-	<link rel="apple-touch-icon" sizes="167x167" href="{{getVersionedPath '/images/logo/app-icon-167.png'}}">
-	<link rel="apple-touch-icon" sizes="180x180" href="{{getVersionedPath '/images/logo/app-icon-180.png'}}">
-	<link rel="icon" type="image/png" sizes="64x64" href="{{getVersionedPath '/images/logo/favicon-64.png'}}">
-	<link rel="icon" type="image/png" sizes="48x48" href="{{getVersionedPath '/images/logo/favicon-48.png'}}">
-	<link rel="icon" type="image/png" sizes="32x32" href="{{getVersionedPath '/images/logo/favicon-32.png'}}">
-	<link rel="icon" type="image/png" sizes="16x16" href="{{getVersionedPath '/images/logo/favicon-16.png'}}">
-	<link rel="manifest" href="{{getVersionedPath '/images/manifest.json'}}">
+	<link rel="mask-icon" href="{{getAssetPath '/images/logo/safari-pinned-tab.svg'}}" color="#E4032E">
+	<link rel="apple-touch-icon" href="{{getAssetPath '/images/logo/app-icon-512.png'}}">
+	<link rel="apple-touch-icon" sizes="120x120" href="{{getAssetPath '/images/logo/app-icon-120.png'}}">
+	<link rel="apple-touch-icon" sizes="152x152" href="{{getAssetPath '/images/logo/app-icon-152.png'}}">
+	<link rel="apple-touch-icon" sizes="167x167" href="{{getAssetPath '/images/logo/app-icon-167.png'}}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{{getAssetPath '/images/logo/app-icon-180.png'}}">
+	<link rel="icon" type="image/png" sizes="64x64" href="{{getAssetPath '/images/logo/favicon-64.png'}}">
+	<link rel="icon" type="image/png" sizes="48x48" href="{{getAssetPath '/images/logo/favicon-48.png'}}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{getAssetPath '/images/logo/favicon-32.png'}}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{{getAssetPath '/images/logo/favicon-16.png'}}">
+	<link rel="manifest" href="{{getAssetPath '/images/manifest.json'}}">
 	<meta name="robots" content="noindex, nofollow">
 	{{/block}}
 
 	{{#block "styles"}}
-	<link rel="preload" href="{{getVersionedPath '/fonts/ptsans/ptsans-regular.woff2'}}" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="{{getVersionedPath '/fonts/ptsans/ptsans-bold.woff2'}}" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="{{getVersionedPath '/fonts/ptsans/ptsans-italic.woff2'}}" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="{{getVersionedPath '/vendor-optimized/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0'}}" as="font"
+	<link rel="preload" href="{{getAssetPath '/fonts/ptsans/ptsans-regular.woff2'}}" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="{{getAssetPath '/fonts/ptsans/ptsans-bold.woff2'}}" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="{{getAssetPath '/fonts/ptsans/ptsans-italic.woff2'}}" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="{{getAssetPath '/vendor-optimized/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0'}}" as="font"
 		type="font/woff" crossorigin>
-	<link rel="stylesheet" href="{{getVersionedPath '/fonts/ptsans/ptsans.css'}}" />
-	<link rel="stylesheet" href="{{getVersionedPath '/styles/lib/base.css'}}" />
+	<link rel="stylesheet" href="{{getAssetPath '/fonts/ptsans/ptsans.css'}}" />
+	<link rel="stylesheet" href="{{getAssetPath '/styles/lib/base.css'}}" />
 	{{/block}}
 
 	{{#block "scripts"}}
 	{{#embed "lib/sw-metrix"}}{{/embed}}
 	{{! make window.$t() available. Must be executed before all other scripts! }}
-	<script src="{{getVersionedPath '/scripts/i18n.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
+	<script src="{{getAssetPath '/scripts/i18n.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
 
-	<script src="{{getVersionedPath '/scripts/all.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	<script src="{{getAssetPath '/scripts/all.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/block}}
 
 </head>

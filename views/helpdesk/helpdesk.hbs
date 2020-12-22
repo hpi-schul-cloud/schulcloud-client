@@ -1,13 +1,13 @@
 {{#extend "lib/loggedin"}}
     {{#content "scripts" mode="append"}}
-        <script src="{{getVersionedPath '/scripts/administration.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getVersionedPath '/scripts/tables.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getVersionedPath '/scripts/filter/custom-element-polyfill.js'}}" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getVersionedPath '/scripts/filter/feathers-filter.js'}}" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getVersionedPath '/scripts/base64files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/administration.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/tables.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/filter/custom-element-polyfill.js'}}" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/filter/feathers-filter.js'}}" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/base64files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="{{getVersionedPath '/styles/lib/datetimepicker/jquery.datetimepicker.min.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/datetimepicker/jquery.datetimepicker.min.css'}}"/>
     {{/content}}
     {{#content "page"}}
         {{> "administration/partials/data_protection_hint"}}

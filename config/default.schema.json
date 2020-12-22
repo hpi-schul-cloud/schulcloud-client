@@ -122,8 +122,8 @@
 		},
 		"FEATURE_ASSET_CACHING_ENABLED": {
 			"type": "boolean",
-			"default": true,
-			"description": "If enabled many assets will be fingerprinted and cached"
+			"default": false,
+			"description": "If enabled, static assets will be fingerprinted and cached."
 		},
 		"NOT_AUTHENTICATED_REDIRECT_URL": {
 			"type": "string",

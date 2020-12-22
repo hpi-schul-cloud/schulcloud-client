@@ -1,18 +1,18 @@
 {{#extend "lib/loggedin" notitle="true"}}
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="{{getVersionedPath '/styles/teams/teams.css'}}" />
-<link rel="stylesheet" href="{{getVersionedPath '/styles/files/files.css'}}" />
-<link rel="stylesheet" href="{{getVersionedPath '/styles/teams/team.css'}}" />
-<link rel="stylesheet" href="{{getVersionedPath '/vendor/jquery/jquery-ui.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/teams/teams.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/files/files.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/teams/team.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/vendor/jquery/jquery-ui.css'}}" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-<script src="{{getVersionedPath '/scripts/jquery/jquery-ui.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getVersionedPath '/scripts/jquery/jquery.ui.touch-punch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getVersionedPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getVersionedPath '/scripts/files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getVersionedPath '/scripts/teams.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getVersionedPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/jquery/jquery-ui.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/jquery/jquery.ui.touch-punch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/teams.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page"}}

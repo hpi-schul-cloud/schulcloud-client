@@ -1,5 +1,5 @@
 {{#hasConfig 'SENTRY_DSN'}}
-<script src="{{getVersionedPath '/scripts/sentry.js'}}" nonce="{{nonceValue}}"></script>
+<script src="{{getAssetPath '/scripts/sentry.js'}}" nonce="{{nonceValue}}"></script>
 <script nonce="{{nonceValue}}">
 	function removeIds(url) {
 		var checkForHexRegExp = /[a-f\d]{24}/ig;

@@ -1,11 +1,11 @@
 {{#extend "lib/loggedout"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="{{getVersionedPath '/styles/team/team.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/team/team.css'}}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script type="text/javascript" src="{{getVersionedPath '/scripts/team.js'}}" nonce="{{nonceValue}}" defer></script>
+        <script type="text/javascript" src="{{getAssetPath '/scripts/team.js'}}" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}

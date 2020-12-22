@@ -1,7 +1,7 @@
 {{#extend "lib/loggedin"}}
 
 {{#content "scripts" mode="append"}}
-<script src="{{getVersionedPath '/scripts/administration/systems/ldap-edit.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/administration/systems/ldap-edit.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "styles" mode="append"}}
@@ -9,9 +9,9 @@
 <link rel="stylesheet" href="/styles/systems/systems.css" /> NOTE: This stylesheet wasn't available on the branch.
 Probably delete it.--}}
 <!-- dataprivacy is only used for .recap -->
-<link rel="stylesheet" href="{{getVersionedPath '/styles/administration/dataprivacy.css'}}" />
-<link rel="stylesheet" href="{{getVersionedPath '/styles/administration/ldap.css'}}" />
-<link rel="stylesheet" href="{{getVersionedPath '/styles/help/help.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/administration/dataprivacy.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/administration/ldap.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/help/help.css'}}" />
 {{/content}}
 
 {{#content "page"}}

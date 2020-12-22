@@ -1,9 +1,9 @@
 {{#extend "administration/administration"}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="{{getVersionedPath '/styles/lib/filter/filter.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/filter/filter.css'}}"/>
     {{/content}}
     {{#content "scripts" mode="append"}}
-        <script src="{{getVersionedPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "page" mode="prepend"}}
         <div class="route-administration">

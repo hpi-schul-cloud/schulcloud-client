@@ -1,12 +1,12 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script src="{{getVersionedPath '/scripts/coursesOverview.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getVersionedPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getVersionedPath '/scripts/topic.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/coursesOverview.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/topic.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="{{getVersionedPath '/styles/courses/course.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}"/>
     {{/content}}
 
     {{#content "page"}}

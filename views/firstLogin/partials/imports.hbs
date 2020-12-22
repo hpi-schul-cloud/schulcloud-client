@@ -1,12 +1,12 @@
 {{#content "scripts" mode="append"}}
-  <script src="{{getVersionedPath '/scripts/dataprivacy/dataprivacy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-  <script src="{{getVersionedPath '/scripts/confetti/confetti.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-  <script src="{{getVersionedPath '/scripts/firstLogin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-  <script src="{{getVersionedPath '/scripts/base64files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+  <script src="{{getAssetPath '/scripts/dataprivacy/dataprivacy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+  <script src="{{getAssetPath '/scripts/confetti/confetti.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+  <script src="{{getAssetPath '/scripts/firstLogin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+  <script src="{{getAssetPath '/scripts/base64files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
-  <link rel="stylesheet" href="{{getVersionedPath '/styles/administration/dataprivacy.css'}}"/>
-  <link rel="stylesheet" href="{{getVersionedPath '/styles/lib/confetti/confetti.css'}}"/>
-  <link rel="stylesheet" href="{{getVersionedPath '/styles/firstLogin/thanks.css'}}"/>
-  <link rel="stylesheet" href="{{getVersionedPath '/styles/firstLogin/firstLogin.css'}}"/>
+  <link rel="stylesheet" href="{{getAssetPath '/styles/administration/dataprivacy.css'}}"/>
+  <link rel="stylesheet" href="{{getAssetPath '/styles/lib/confetti/confetti.css'}}"/>
+  <link rel="stylesheet" href="{{getAssetPath '/styles/firstLogin/thanks.css'}}"/>
+  <link rel="stylesheet" href="{{getAssetPath '/styles/firstLogin/firstLogin.css'}}"/>
 {{/content}}

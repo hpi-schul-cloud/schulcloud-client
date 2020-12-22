@@ -1,17 +1,17 @@
 {{#extend "lib/loggedin" notitle="true"}}
 
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="{{getVersionedPath '/styles/courses/course.css'}}" />
-<link rel="stylesheet" href="{{getVersionedPath '/styles/homework/homework.css'}}" />
-<link rel="stylesheet" href="{{getVersionedPath '/vendor/jquery/jquery-ui.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/homework/homework.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/vendor/jquery/jquery-ui.css'}}" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-<script src="{{getVersionedPath '/scripts/jquery/jquery-ui.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getVersionedPath '/scripts/jquery/jquery.ui.touch-punch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getVersionedPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getVersionedPath '/scripts/topic.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getVersionedPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/jquery/jquery-ui.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/jquery/jquery.ui.touch-punch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/topic.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page"}}

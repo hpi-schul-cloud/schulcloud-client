@@ -1,10 +1,10 @@
 {{#extend "lib/loggedin"}}
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="{{getVersionedPath '/styles/courses/empty-state.css'}}"/>
+		<link rel="stylesheet" href="{{getAssetPath '/styles/courses/empty-state.css'}}"/>
 	{{/content}}
 	{{#content "page"}}
 		<section class="empty-state">
-		  <img src="{{getVersionedPath '/images/empty-states/lehrer_klasse.svg'}}" alt="Lehrer mit Klasse" class="image mx-auto d-block"/>
+		  <img src="{{getAssetPath '/images/empty-states/lehrer_klasse.svg'}}" alt="Lehrer mit Klasse" class="image mx-auto d-block"/>
 		  <div class="text-wrapper mx-auto d-block">
 			<h2 class="text-center">{{$t "firstLogin.welcome.text.welcomeTo" (dict "title" theme.title "displayName" currentUser.displayName)}}</h2>
 			{{#unless (userHasRole "student")}}

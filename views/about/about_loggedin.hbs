@@ -1,13 +1,13 @@
 {{#extend "lib/loggedin" hideSearch="true"}}
 
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="{{getVersionedPath '/styles/partner/partner.css'}}" />
-<link rel="stylesheet" href="{{getVersionedPath '/styles/about/about.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/partner/partner.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/about/about.css'}}" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-<script src="{{getVersionedPath '/scripts/about.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getVersionedPath '/scripts/about-ghost.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/about.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/about-ghost.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page"}}

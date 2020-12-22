@@ -1,13 +1,13 @@
 {{#extend "lib/loggedin" searchLabel="Dateien durchsuchen ..." searchAction="/files/search/" searchClass="file-search"}}
 
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="{{getVersionedPath '/styles/files/files.css'}}"/>
+		<link rel="stylesheet" href="{{getAssetPath '/styles/files/files.css'}}"/>
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
-		<script src="{{getVersionedPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="{{getVersionedPath '/scripts/files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="{{getVersionedPath '/scripts/jquery.cookie.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/jquery.cookie.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 
 	{{#content "page"}}
