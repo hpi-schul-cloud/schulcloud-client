@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
 
+## [25.4.1]
+
+- Update from 25.3.6 into master
+
 ## 25.4.0
 
 ### Added
@@ -44,6 +48,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - update location of common
 - SC-7889 - User receives consent screen at first login after new upload of privacy agreement
+
+## 25.3.6
+
+### Fixed
+
+- SC-8225: Fixed hiding messenger school settings
 
 ## 25.3.5 - 2020-13-16
 
