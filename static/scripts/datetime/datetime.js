@@ -4,22 +4,20 @@ import getCookie from '../helpers/cookieManager';
 const FORMAT = {
 	date: 'DD.MM.YYYY',
 	dateTime: 'DD.MM.YYYY HH:mm',
-	dateLong: 'dddd, DD. MMMM YYYY',
-	dateToPicker: 'DD.MM.YYYY',
-	dateTimeToPicker: 'DD.MM.YYYY HH:mm',
 };
 
-const getTranslatedFormat = (formatProp, translationKey) => {
+const getTranslatedFormat = (key) => {
+	const translationKey = `format.${key}`;
 	const result = $t(translationKey);
 	if (result === translationKey) {
 		// translations not initialized yet
-		return FORMAT[formatProp];
+		return FORMAT[key];
 	} return result;
 };
 
 const DATETIME_FORMAT = {
-	date: () => getTranslatedFormat('date', 'format.dateToPicker'),
-	dateTime: () => getTranslatedFormat('dateTime', 'format.dateTimeToPicker'),
+	date: () => getTranslatedFormat('date'),
+	dateTime: () => getTranslatedFormat('dateTime'),
 };
 
 const calendarTimezone = document.querySelector('html').getAttribute('timezone');
