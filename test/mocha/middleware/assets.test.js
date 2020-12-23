@@ -19,7 +19,7 @@ const expectSuccessfulResponse = (err, res, resolve, stringToContain = 'User-age
 };
 
 
-describe.only('Static assets middleware', () => {
+describe('Static assets middleware', () => {
 	/**
      * using a sample file which exists in /static folder.
 	 * the filename must contain a valid hash for the current file content,
@@ -28,7 +28,7 @@ describe.only('Static assets middleware', () => {
 	const ROBOTS_TXT_PATH_WITH_HASH = '/robots.3e9f0e3.txt';
 	const ROBOTS_TXT_PATH = '/robots.txt';
 
-	const INTEGRATION_PAGE_PATH = '/dashboard';
+	const INTEGRATION_PAGE_PATH = '/impressum';
 	const INTEGRATION_FILENAME = '/images/logo/lokalise_logo.svg';
 	const INTEGRATION_HASHED_FILENAME = '/images/logo/lokalise_logo.76a4d05.svg';
 
@@ -61,6 +61,16 @@ describe.only('Static assets middleware', () => {
 					ROBOTS_TXT_PATH_WITH_HASH,
 					'hash outdated, just any valid hash must be defined',
 				);
+			});
+			it('does not add hashes for local files that do not exist', () => {
+				const LOCAL_NOT_EXISTING_FILE = '/file-which-does-not.exist';
+				const filePath = getStaticAssetPath(LOCAL_NOT_EXISTING_FILE);
+				expect(filePath).to.be.equal(LOCAL_NOT_EXISTING_FILE);
+			});
+			it('does not add hashes for external files', () => {
+				const EXTERNAL_FILE = 'http://external.url/file.ext';
+				const externalFilePath = getStaticAssetPath(EXTERNAL_FILE);
+				expect(externalFilePath).to.be.equal(EXTERNAL_FILE);
 			});
 		});
 		describe('when having FEATURE_ASSET_CACHING_ENABLED disabled', () => {

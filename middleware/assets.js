@@ -8,31 +8,37 @@ const {
 } = require('../config/global');
 
 const localesDir = path.join(__dirname, '../locales');
-const themeAssetDir = path.join(__dirname, `../build/${SC_THEME}`);
-if (!fs.existsSync(themeAssetDir)) {
-	throw new Error('could not find theme asset dir', { themeAssetDir });
-}
+const buildThemeAssetDir = path.join(__dirname, `../build/${SC_THEME}`);
+const buildThemeAssetDirExists = fs.existsSync(buildThemeAssetDir) === true;
+
+const expectAssetsDir = () => {
+	if (!buildThemeAssetDirExists) {
+		throw new Error(`assets dir required to be build, but not found: ${buildThemeAssetDirExists}`);
+	}
+};
+
+expectAssetsDir();
 
 // configure static file hashing and caching
-const staticifyInstance = staticify(themeAssetDir, {
+const staticifyInstance = staticify(buildThemeAssetDir, {
 	maxAgeNonHashed: '1d',
 	sendOptions: {
-		maxAge: 3600 * 1000, // one hour, in milliseconds // TODO test
+		maxAge: 3600 * 1000, // one hour, in milliseconds
 	},
 });
+
 
 /**
  * middleware for static assets may use hashed file names
  */
 const staticAssetsMiddleware = (app) => {
-	app.use(express.static(path.join(themeAssetDir)));
-	app.use('/locales', express.static(localesDir)); // TODO test
+	app.use('/locales', express.static(localesDir));
+	app.use(express.static(path.join(buildThemeAssetDir)));
 	app.use((req, res, next) => {
 		if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true) {
-			staticifyInstance.middleware(req, res, next);
-		} else {
-			next();
+			return staticifyInstance.middleware(req, res, next);
 		}
+		return next();
 	});
 };
 

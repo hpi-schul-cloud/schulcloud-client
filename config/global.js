@@ -40,7 +40,6 @@ const {
 	SC_SUPERHERO_USER_PASSWORD = 'Schulcloud1!',
 	SC_SUPERHERO_USER_NAME = 'superhero@schul-cloud.org',
 	HELPAREA_URL,
-
 } = process.env;
 
 const exp = {
