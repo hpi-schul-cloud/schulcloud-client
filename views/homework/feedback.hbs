@@ -1,9 +1,9 @@
 <section id="feedback" class="tab-content section-homeworkdetails">
     <div class="homework print">
-        <div class="btn btn-secondary btn-print btn-sm pull-right mb-1"
+        <button type="button" class="btn btn-secondary btn-print btn-sm pull-right mb-1"
             data-toggle="tooltip" title="{{$t "homework._task.label.printGradeComment"}}">
                 <i class='fa fa-print'></i>
-        </div>
+        </button>
         {{#if @root.submission.grade includeZero=true}}
            {{{$t "homework._task.text.youHaveSolvedXPercent" (dict "grade" @root.submission.grade)}}}
         {{/if}}
