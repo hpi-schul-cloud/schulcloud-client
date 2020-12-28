@@ -20,10 +20,12 @@
 
 .homework {
 	width: 100%;
-	list-style: none;
 	margin: 0;
 	padding: 10px 0;
 	clear: both;
+	ol {
+		list-style: none;
+	}
 }
 
 .assignment {
@@ -78,7 +80,7 @@
 		font-size: small;
 		color: grey;
 		position: relative;
-		display: flex;	
+		display: flex;
 		line-height: 0.8;
 		font-size: 0.8em;
 		width:auto;
