@@ -1182,6 +1182,7 @@
 			},
 			"input": {
 				"chooseTeacher": "Lehrer:in auswählen",
+				"noCourseTeacher": "You need to choose the course teacher",
 				"egRoom1-21": "z.B. R-1.21",
 				"inMinutes": "In Minuten",
 				"mathsClass": "Mathe 10a",
