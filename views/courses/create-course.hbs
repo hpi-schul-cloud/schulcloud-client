@@ -113,7 +113,7 @@
                     <select id="courseTeacher"
                             name="teacherIds[]" required multiple
                             data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}"
-                            data-testid="teachersearch" autocomplete="off">
+                            data-testid="teachersearch" autocomplete="off" aria-describedby="courseTeacherErr">
                         {{#each teachers}}
                             <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
