@@ -13,7 +13,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-8259 - limited the length of the task title/headline
 - SC-8307 - fixed date formater bug by initial page loading 
-- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
+- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users), fixed buttons for printing
 - SC-8272 - fixed displaying of the error message for submissions with no due date
 
 ## [25.4.1]
