@@ -121,7 +121,7 @@ describe('Static assets middleware', () => {
 		});
 		describe('when having FEATURE_ASSET_CACHING_ENABLED enabled', () => {
 			const configBefore = Configuration.toObject({ plainSecrets: true });
-			before('disable FEATURE_ASSET_CACHING_ENABLED', () => {
+			before('enable FEATURE_ASSET_CACHING_ENABLED', () => {
 				Configuration.set('FEATURE_ASSET_CACHING_ENABLED', true);
 			});
 			after('reset configuration', () => {
