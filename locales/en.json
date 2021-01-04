@@ -906,7 +906,8 @@
 					"editCourse": "Edit course"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Course is archived"
+					"courseIsArchieved": "Course is archived",
+					"addPeople": "Add members"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Allow Students to write messages in the course chat.",
@@ -1450,7 +1451,7 @@
 				"explainTheFollowing": "declare the following:",
 				"forAnEvenBetterLearningExperience": "The {{title}} is being constantly developed for an even better learning experience. In the course of this,",
 				"i": "I,",
-				"pleaseClickOnRead": "Please acknowledge this information by clicking on \"Read\" in order to proceed with the use.",
+				"pleaseClickOnRead": "Please acknowledge this information by clicking on „Read” in order to proceed with the use.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Please confirm the following declarations of consent so that you can use the {{title}}.",
 				"termsOfUse": "Terms of use",
 				"the": "the"
@@ -1564,7 +1565,8 @@
 	"global": {
 		"aria_label": {
 			"sidebar": "Sidebar",
-			"topMenu": "topbar"
+			"topMenu": "topbar",
+			"deleteCourse": "Delete course"
 		},
 		"button": {
 			"accept": "Accept",
@@ -2212,7 +2214,8 @@
 				"devOps": "DevOps",
 				"generalInquiries": "General inquiries:",
 				"mobileApp": "Mobile app",
-				"privacy": "Privacy:",
+				"privacy": "General data protection inquiries:",
+				"privacy_responsible_person": "Data protection officer:",
 				"subscribeTheNewsletter": "Subscribe to the newsletter",
 				"support": "Support:"
 			},
