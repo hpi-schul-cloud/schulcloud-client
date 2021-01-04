@@ -11,7 +11,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
+- SC-7345 - the linguistic note shown only for the German language
+- SC-8307 - fixed date formater bug by initial page loading 
+- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users), fixed buttons for printing
+- SC-8272 - fixed displaying of the error message for submissions with no due date
+
+## [25.4.1]
+
+- Update from 25.3.6 into master
 
 ## 25.4.0
 
@@ -45,6 +52,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - update location of common
 - SC-7889 - User receives consent screen at first login after new upload of privacy agreement
+
+## 25.3.6
+
+### Fixed
+
+- SC-8225: Fixed hiding messenger school settings
 
 ## 25.3.5 - 2020-13-16
 
