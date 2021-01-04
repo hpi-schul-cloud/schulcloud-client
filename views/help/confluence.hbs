@@ -1,34 +1,35 @@
 {{#extend "lib/loggedin" notitle="true"}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/help/help.css"/>
-    {{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/help/help.css" />
+{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/help.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    {{/content}}
+{{#content "scripts" mode="append"}}
+<script src="/scripts/help.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+{{/content}}
 
-    {{#content "page"}}
-        {{> "help/search"}}
+{{#content "page"}}
+{{> "help/search"}}
 
-        <div class="mobile-warning mb-2">
-            <p>{{$t "help.confluence.text.ifYouCantReadTheArticle"}}
-                <a href="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}" target="_blank">
-                    {{$t "help.confluence.link.openInConfluence" }}
-                    <i class="fa fa-external-link"></i>
-                </a>
-            </p>
-        </div>
-
-        <iframe class="full" src="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}&frameable=true" frameborder="0" scrolling="yes"></iframe>
-
-        <a href="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}" target="_blank" class="pull-right">
-             {{$t "help.confluence.link.openArticleInConfluence" }}
+<div class="mobile-warning mb-2">
+    <p>{{$t "help.confluence.text.ifYouCantReadTheArticle"}}
+        <a href="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}" target="_blank">
+            {{$t "help.confluence.link.openInConfluence" }}
             <i class="fa fa-external-link"></i>
         </a>
+    </p>
+</div>
 
-        <div class="py-1">c
-            {{$t "help.confluence.text.languageNote" }} {{> "help/language-hint"}}
-        </div>
+<iframe class="full" src="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}&frameable=true"
+    frameborder="0" scrolling="yes"></iframe>
 
-    {{/content}}
+<a href="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}" target="_blank" class="pull-right">
+    {{$t "help.confluence.link.openArticleInConfluence" }}
+    <i class="fa fa-external-link"></i>
+</a>
+
+<div class="py-1">
+    {{$t "help.confluence.text.languageNote" }} {{> "help/language-hint"}}
+</div>
+
+{{/content}}
 {{/extend}}
