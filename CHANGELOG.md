@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- SC-8331 - increase node version to match current lts (currently 12.16 to 14)
+
 ### Fixed
 
 - SC-7345 - the linguistic note shown only for the German language
