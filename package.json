@@ -13,6 +13,7 @@
 		"startd": "echo 'Do you mean 'npm run watch'?'",
 		"test": "cross-env NODE_ENV=test npm run mocha --exit ",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive --opts ./test/mocha/mocha.opts",
+		"build": "gulp clear && gulp",
 		"coverage": "cross-env NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js --opts ./test/mocha/mocha.opts"
 	},
 	"engines": {
@@ -83,6 +84,7 @@
 		"form-serializer": "^2.5.0",
 		"generate-password": "^1.5.1",
 		"git-repo-info": "^2.1.0",
+		"gulp-cli": "^2.3.0",
 		"gulp-rename": "^2.0.0",
 		"handlebars": "^4.7.6",
 		"handlebars-layouts": "^3.1.4",

@@ -13,7 +13,8 @@ const buildThemeAssetDirExists = fs.existsSync(buildThemeAssetDir) === true;
 
 const expectAssetsDir = () => {
 	if (!buildThemeAssetDirExists) {
-		throw new Error(`assets dir required to be build, but not found: ${buildThemeAssetDirExists}`);
+		throw new Error(`assets dir required, but not found: ${buildThemeAssetDir}. `
+		+ 'Have you executed \'npm run build\' already?');
 	}
 };
 
@@ -26,7 +27,6 @@ const staticifyInstance = staticify(buildThemeAssetDir, {
 		maxAge: 3600 * 1000, // one hour, in milliseconds
 	},
 });
-
 
 /**
  * middleware for static assets may use hashed file names

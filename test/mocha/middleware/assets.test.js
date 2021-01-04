@@ -18,7 +18,6 @@ const expectSuccessfulResponse = (err, res, resolve, stringToContain = 'User-age
 	resolve();
 };
 
-
 describe('Static assets middleware', () => {
 	/**
      * using a sample file which exists in /static folder.
