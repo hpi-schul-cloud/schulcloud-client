@@ -48,9 +48,9 @@
 
         <button id="prevSection" class="btn btn-secondary" type="button">{{$t "global.button.back" }}</button>
 		<button id="showRegistrationForm" class="btn btn-primary pull-right" disabled>{{$t "global.button.next" }}</button>
-
+        {{#ifeq userLanguage "de"}}
 		<p class="mt-2 explanation nomargin">{{$t "registration._registration.text.linguisticNoteWeUseMaleFormForReadability" (dict "shortTitle" theme.short_title)}} 🌈🎉🦄 </p>
-
+        {{/ifeq}}
 		{{#if importHash}}<input type="hidden" name="importHash" value="{{importHash}}" />{{/if}}
 		{{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}
 		{{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}

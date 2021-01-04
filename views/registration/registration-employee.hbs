@@ -34,9 +34,10 @@
         <h2 class="h4">{{$t "registration._registration.headline.welcomeToTheRegistration" (dict "title" theme.title) }}</h2>
         <p>{{$t "registration._registration.text.thankYouForTakingThisStepWithUs" (dict "shortTitle" theme.title)}}</p>
         <p>{{$t "registration._registration.text.pleaseRegisterFirstAndAgreeToTerms" (dict "shortTitle" theme.title)}}</p>
-
+        {{#ifeq userLanguage "de"}}
         <p class="mt-2 explanation nomargin">* {{$t "registration._registration.text.linguisticNoteWeUseMaleFormForReadability" (dict "shortTitle" theme.short_title)}} 🌈🎉🦄
 		    </p>
+        {{/ifeq}}
       </section>
 
       <section data-panel="section-3">
