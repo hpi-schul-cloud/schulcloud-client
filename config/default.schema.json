@@ -125,6 +125,11 @@
 			"default": false,
 			"description": "If enabled, static assets will be fingerprinted and cached."
 		},
+		"ASSET_CACHING_MAX_AGE_MILLIS":{
+			"type":"integer",
+			"default": 86400000,
+			"description": "Max-Age for static assets response header. Defaults to one day."
+		},
 		"NOT_AUTHENTICATED_REDIRECT_URL": {
 			"type": "string",
 			"default": "/login",
