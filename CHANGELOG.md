@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## Unreleased
+
+### Fixed 
+- SC-8337 - Better error handling for file upload
+
 ## [25.4.1]
 
 - Update from 25.3.6 into master
