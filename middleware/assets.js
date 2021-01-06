@@ -24,7 +24,9 @@ expectAssetsDir();
 const staticifyInstance = staticify(buildThemeAssetDir, {
 	maxAgeNonHashed: '1d',
 	sendOptions: {
-		maxAge: Configuration.get('ASSET_CACHING_MAX_AGE_MILLIS'),
+		// seconds multiplied by 1000 as it takes millis
+		maxAge: Configuration.get('ASSET_CACHING_MAX_AGE_SECONDS') * 1000,
+		etag: false,
 	},
 });
 

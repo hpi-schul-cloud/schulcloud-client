@@ -108,6 +108,7 @@ describe('Static assets middleware', () => {
 				this.agent
 					.get(ROBOTS_TXT_PATH)
 					.end((err, res) => {
+						expect(res.get('etag')).to.be.a('string').with.length.greaterThan(0);
 						expectSuccessfulResponse(err, res, resolve);
 					});
 			}));
@@ -127,16 +128,17 @@ describe('Static assets middleware', () => {
 			after('reset configuration', () => {
 				Configuration.reset(configBefore);
 			});
-			it('should resolve assets with hashed name and cache-control header beside of etag',
+			it('should resolve assets with hashed name and cache-control header and etag removed',
 				() => new Promise((resolve) => {
 					this.agent
 						.get(ROBOTS_TXT_PATH_WITH_HASH)
 						.end((err, res) => {
 							expect(res.get('cache-control')).to.be.equal(
-								`public, max-age=${Configuration.get('ASSET_CACHING_MAX_AGE_MILLIS')}`,
+								`public, max-age=${Configuration.get('ASSET_CACHING_MAX_AGE_SECONDS')}`,
 								'should have cache-control headers added',
 							);
 							expectSuccessfulResponse(err, res, resolve);
+							expect(res.get('etag')).to.be.equal(undefined);
 						});
 				}));
 			it('should resolve assets with plain name', () => new Promise((resolve) => {
