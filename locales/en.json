@@ -827,7 +827,7 @@
 		},
 		"headline": {
 			"addContentToTopic": "Add material to topic",
-			"contentCantBeAddedInDemo": "<h5>Content cannot be added to courses in demo mode.</h5>",
+			"contentCantBeAddedInDemo": "<h5>Content cannot be added to courses in demo mode.<\/h5>",
 			"contentStore": "Learning Store",
 			"fileType": "File type",
 			"noResultsFoundWith": "No search results were found for \"{{ query }}\"",
