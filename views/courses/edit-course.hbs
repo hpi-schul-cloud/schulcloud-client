@@ -136,8 +136,8 @@
 				</div>
 
 				<div class="form-group">
-					<label for="substituteId">{{$t "courses._course.edit.label.substitute"}}</label>
-					<select id="substituteId" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
+					<label for="substituteTeacher">{{$t "courses._course.edit.label.substitute"}}</label>
+					<select id="substituteTeacher" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each substitutions}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -171,7 +171,6 @@
 
 				<div class="form-group">
 					<label for="studentsId">{{$t "courses._course.global.label.studentParticipant"}}</label>
-
 					<select id="studentsId" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each students}}

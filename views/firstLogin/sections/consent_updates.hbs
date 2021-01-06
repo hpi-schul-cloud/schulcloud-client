@@ -1,5 +1,4 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page" {{/if}}>
-
   <h2 class="h4">{{$t "firstLogin.consent.headline.importantInformation" }} {{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h2>
   <a style="margin-bottom: 20px;">{{$t "firstLogin.consent.text.forAnEvenBetterLearningExperience" (dict "title" @root.theme.title)}}
     {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}} {{$t "firstLogin.consent.text.the" }} <a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}" target="_blank">{{$t "firstLogin.consent.text.termsOfUse" }}</a>{{/ifCond}}
@@ -17,22 +16,10 @@
   </p>
   <div id="consentUpdateFields">
     {{#if @root.updatedConsents.haveBeenUpdated}}
-
     {{#each @root.updatedConsents.all.data}}
-    <h2 class="h4">{{$t "firstLogin.consent.headline.summaryOfTheExtension" (dict "visualType" this.visualType)}}</a> {{$t "firstLogin.consent.headline.toThe" }}
-      {{dateToPicker this.publishedAt}}</h2>
-    <div class='privacyStatement card'>
-      <div class="card-header">
-        <h3 class="h5" style="margin:0;">
-          {{this.title}}
-        </h3>
-      </div>
-      <div class="content card-block">
+        <b>{{this.title}}</b>
         {{{this.consentHTML}}}
-      </div>
-    </div>
     {{/each}}
-
     <div>
       {{#if @root.updatedConsents.privacy.total}}
       <label>
@@ -45,10 +32,7 @@
       </label>
       {{/if}}
     </div>
-    <p>{{$t "firstLogin.consent.text.pleaseClickOnRead" }}</p>
-
-
+    <p><b>{{$t "firstLogin.consent.text.pleaseClickOnRead" }}</b></p>
   </div>
   {{/if}}
-
 </section>

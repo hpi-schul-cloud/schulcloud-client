@@ -77,20 +77,22 @@ const findAllWeekEvents = (start, end, wkst, until) => {
 	const endHours = endMoment.hour();
 	const endMinutes = endMoment.minutes();
 
-	const untilMoment = timesHelper.fromUTC(until);
+	const untilMoment = timesHelper.fromUTC(until)
+		.hour(startHours)
+		.minute(startMinutes);
 
 	do {
 		const startEvent = moment(start)
+			.startOf('isoweek')
 			.add(weekNr, 'weeks')
-			.endOf('isoweek')
 			.day(weekDay)
 			.hour(startHours)
 			.minute(startMinutes)
 			.second(0);
 
 		const endEvent = moment(end)
+			.startOf('isoweek')
 			.add(weekNr, 'weeks')
-			.endOf('isoweek')
 			.day(weekDay)
 			.hour(endHours)
 			.minute(endMinutes)
@@ -99,10 +101,12 @@ const findAllWeekEvents = (start, end, wkst, until) => {
 		if (startEvent.isAfter(untilMoment)) {
 			break;
 		}
-		weekEvents.push({ start: startEvent, end: endEvent });
+		if (startEvent.isSameOrAfter(startMoment)) {
+			weekEvents.push({ start: startEvent, end: endEvent });
+		}
 		lastStartEvent = startEvent;
 		weekNr += 1;
-	} while (lastStartEvent.isBefore(untilMoment));
+	} while (lastStartEvent.isSameOrBefore(untilMoment));
 	return weekEvents;
 };
 
@@ -120,7 +124,6 @@ const createRecurringEvents = (recurringEvent) => {
 		title: recurringEvent.summary,
 		summary: recurringEvent.summary,
 		location: recurringEvent.location,
-		description: timesHelper.dateToDateTimeString(event.start),
 		url: recurringEvent.url,
 		color: recurringEvent.color,
 		start: event.start,

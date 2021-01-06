@@ -7,10 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## Unreleased
+
+### Fixed
+
+- SC-8337 - Better error handling for file upload
+- SC-8259 - limited the length of the task title/headline
+- SC-7345 - the linguistic note shown only for the German language
+- SC-8307 - fixed date formater bug by initial page loading 
+- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users), fixed buttons for printing
+- SC-8272 - fixed displaying of the error message for submissions with no due date
+
+## [25.4.1]
+
+- Update from 25.3.6 into master
+
 ## 25.4.0
 
 ### Added
 
+- SC-7824 - Set proper email address and label for data privacy
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
@@ -19,6 +35,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7686 - Fixed naming convention for Lern-Store
+- SC-7126 - Fixed sort of years on create class select
+- SC-7848 - Fixed no autofill of password in user settings
+- SC-6975 - Fixed button text on declare consent
 - SC-7900 - Fixed text for inviting experts
 - SC-7983 - Fixed that topic is now choosable after select of course
 - SC-7771 - Fixed hint for teachers when editing a course - fix
@@ -27,30 +47,52 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7842 - Fixed typo on about page
 - SC-7874 - remove access to removed env variables
 - SC-8075 Fixed nbc landing page ghost
+- The common import after hotfix merge
 - SC-7793 - Set/activate new ldap route in administration page
 
 ### Changed
 
 - update location of common
+- SC-7889 - User receives consent screen at first login after new upload of privacy agreement
+
+## 25.3.6
+
+### Fixed
+
+- SC-8225: Fixed hiding messenger school settings
+
+## 25.3.5 - 2020-13-16
+
+### Added
+
+- SC-8220 - new env `SKIP_CALENDAR_DASHBOARD_REQUEST` for performance reasons
 
 ## 25.3.4
 
-- SC-8004 add prometheus api metrics
+### Added
+
+- SC-8004 - add prometheus api metrics
 
 ## 25.3.3
+
 ### Fixed
+
 - SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation. 
   This change has fixed the issue so that every course starts at the stable time regardless daylight saving time changes
 
 ## 25.3.2
+
 ### Fixed
+
 - SC-8075 Fixed nbc landing page ghost
 
 ## 25.3.1
+
 ### Fixed
 - SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
 
 ## 25.3.0
+
 ### Added
 
 - SC-6662 - Add data-testid in homework for integration test
