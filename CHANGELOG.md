@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- SC-6311 - Removed itslearning from available system types
+
 ### Fixed
 
 - SC-8337 - Better error handling for file upload
