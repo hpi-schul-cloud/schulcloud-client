@@ -59,6 +59,8 @@ jobs:
           echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
           cd ..
       install:
+        # login to docker
+        - curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/asset_cache/scripts/ci/dockerhub.login.sh" | bash # todo rename asset_cache to master
         # boot server
         - cd docker-compose
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
