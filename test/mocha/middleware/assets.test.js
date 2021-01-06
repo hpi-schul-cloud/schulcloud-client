@@ -133,7 +133,7 @@ describe('Static assets middleware', () => {
 						.get(ROBOTS_TXT_PATH_WITH_HASH)
 						.end((err, res) => {
 							expect(res.get('cache-control')).to.be.equal(
-								'public, max-age=3600',
+								`public, max-age=${Configuration.get('ASSET_CACHING_MAX_AGE_MILLIS')}`,
 								'should have cache-control headers added',
 							);
 							expectSuccessfulResponse(err, res, resolve);
