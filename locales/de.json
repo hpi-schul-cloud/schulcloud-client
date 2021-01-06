@@ -1,15 +1,4 @@
 {
-	"format": {
-		"dateToPicker": "DD.MM.YYYY",
-		"datePicker": "d.m.Y",
-		"datePickerMask": "39.19.9999",
-		"dateTimeToPicker": "DD.MM.YYYY HH:mm",
-		"dateTimePicker": "d.m.Y H:i",
-		"dateTimePickerMask": "39.19.9999 29:59",
-		"date": "DD.MM.YYYY",
-		"dateTime": "DD.MM.YYYY HH:mm",
-		"dateLong": "dddd, DD. MMMM YYYY"
-	},
 	"about": {
 		"button": {
 			"showLess": "Weniger anzeigen",
@@ -89,8 +78,8 @@
 			},
 			"text": {
 				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadministratoren sind, können dich über den zentralen Verzeichnisdienst der {{shortTitle}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
-				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert",
-				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen"
+				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen",
+				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert"
 			}
 		},
 		"testNotification": {
@@ -269,7 +258,7 @@
 				"errorImportingUsers": "Fehler: {{errorMessage}}",
 				"failedToCreateUser": "Fehler beim Erstellen des Nutzers. {{error}}",
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
-				"importMayBeStillRunning" : "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
+				"importMayBeStillRunning": "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
 				"inTheQueue": "In der Warteschlange",
 				"invitationEmailContent": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
 				"invitationEmailSubject": "Einladung für die Nutzung der {{title}}!",
@@ -368,12 +357,6 @@
 				"targetState": "Soll-Zustand"
 			}
 		},
-		"form_rss": {
-			"label": {
-				"briefDescription": "Kurzbeschreibung (optional)",
-				"urlOfTheRSSSystem": "URL des RSS-Feeds"
-			}
-		},
 		"form_System": {
 			"label": {
 				"clientSecret": "Client-Geheimnis",
@@ -381,6 +364,12 @@
 				"systemName": "Name des Systems",
 				"systemType": "Typ des Systems",
 				"urlOfTheSystem": "URL des Systems"
+			}
+		},
+		"form_rss": {
+			"label": {
+				"briefDescription": "Kurzbeschreibung (optional)",
+				"urlOfTheRSSSystem": "URL des RSS-Feeds"
 			}
 		},
 		"global": {
@@ -407,13 +396,13 @@
 				"colorOfTheCourse": "Farbe des Kurses:",
 				"dataProtection": "Datenschutz",
 				"lengthOfLesson": "Dauer der Schulstunde",
+				"noSubTeacherSelection": "Lehrer:in auswählen",
 				"parents": "Eltern",
 				"schoolYear": "Schuljahr",
 				"startOfLesson": "Start der Schulstunde",
 				"student": "Schüler:in",
 				"studentParticipants": "Schüler / Teilnehmer",
 				"substituteTeacher": "Vertretungslehrer:in",
-				"noSubTeacherSelection": "Lehrer:in auswählen",
 				"teacher": "Lehrer:in",
 				"teachingTeacher": "Unterrichtende:r Lehrer:in",
 				"termsOfUse": "Nutzungsbedingungen",
@@ -572,8 +561,8 @@
 				"chooseACounty": "Bitte wählen Sie den Kreis, zu dem die Schule gehört",
 				"className": "Klassenname:",
 				"cloudStorageProvider": "Cloud-Storage-Anbieter",
-				"county": "Kreis",
 				"counties": "Kreise",
+				"county": "Kreis",
 				"currentSchoolYear": "Aktuelles Schuljahr:",
 				"dataProtectionAdd": "Datenschutzerklärung hinzufügen",
 				"duringTheSchoolYear": "Während des Schuljahres",
@@ -584,8 +573,8 @@
 				"inTheTransferPhase": "in der Transferphase:",
 				"lernstoreEnabledForStudents": "Lern-Store für Studenten",
 				"loginFromExistingUsers": "Logins bestehender Nutzer",
-				"messengerStudentRoomCreate": "Schüler:innen dürfen eigene Chat-Räume anlegen",
 				"messengerSchoolRoom": "Chatraum für Ankündigungen an die gesamte Schule anlegen",
+				"messengerStudentRoomCreate": "Schüler:innen dürfen eigene Chat-Räume anlegen",
 				"nameOfTheSchool": "Name der Schule",
 				"noteAvailableFunction": "Beachte verfügbare Funktionen",
 				"noteBeforeTheTransferPhase": "Beachte vor der Transferphase:",
@@ -597,16 +586,16 @@
 				"selectProvider": "Anbieter auswählen",
 				"startOfTheTransferPhase": "Start der Transferphase",
 				"studentVisibility": "Sichtbarkeit von Schüler:innen für Lehrkräfte aktivieren",
+				"timezone": "Zeitzone",
 				"transferPhase": "Transferphase",
 				"uploadSchoolLogo": "Schullogo hochladen",
-				"timezone": "Zeitzone",
 				"userAndClassDataInLDAP": "Nutzer- und Klassendaten im LDAP  <br> für das neue Schuljahr sind bearbeitet.",
 				"youCantGoBack": "Du kannst nicht mehr zurück",
 				"yourSchoolCanStartNewSchool": "kann deine Schule ins neue Schuljahr"
 			},
 			"link": {
-				"moreInfo": "Mehr Infos",
-				"matrixHelpPage": "Hilfeartikel zum Messenger"
+				"matrixHelpPage": "Hilfeartikel zum Messenger",
+				"moreInfo": "Mehr Infos"
 			},
 			"placeholder": {
 				"chooseCounty": "Wählen Sie einen Kreis"
@@ -622,28 +611,28 @@
 				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
 				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
 				"fileSelected": "Datei ausgewählt",
-				"fileTooLarge" : "PDF Datei ist zu groß. Maximal {{size}}MB",
+				"fileTooLarge": "PDF Datei ist zu groß. Maximal {{size}}MB",
 				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team die Chatfunktion gezielt freischalten.",
-				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
 				"ifMatrixIsActivatedAtYourSchool": "Ist der Matrix Messenger aktiviert, können alle Lehrer:innen dieser Schule Chaträume, private Unterhaltungen oder kurs- und teaminterne Gruppendiskussionen starten. Schüler:innen haben dort anfangs nur Leserechte, können aber über die Kurs- und Teameinstellungen auch Schreibrechte zugewiesen bekommen. Mehr Informationen dazu findest du im ",
+				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
 				"lernstoreEnabledForStudents": "Wenn diese Option nicht aktiviert ist, können die Schüler nicht auf den Lern-Store zugreifen",
 				"loginViaLDAP": "der Login via LDAP ist für bestehende Nutzer weiterhin möglich",
-				"messengerStudentRoomCreate": "Ist diese Funktion aktiviert dürfen Schüler:innen Chaträume, private Unterhaltungen und kurs-und teaminterne Gruppendiskussionen starten. Diese Räume sind für Lehrkräfte nicht einzusehen, wenn diese nicht explizit eingeladen werden.",
 				"messengerSchoolRoom": "Der Ankündigungs-Chatraum ermöglicht Schul-Administrator:innen, Nachrichten an die gesamte Schule zu senden.\nSchüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.",
+				"messengerStudentRoomCreate": "Ist diese Funktion aktiviert dürfen Schüler:innen Chaträume, private Unterhaltungen und kurs-und teaminterne Gruppendiskussionen starten. Diese Räume sind für Lehrkräfte nicht einzusehen, wenn diese nicht explizit eingeladen werden.",
 				"newSchoolYear": "Neues Schuljahr",
 				"newUsersClassesAndChanges": "neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus dem LDAP synchronisiert",
 				"noFileSelected": "Keine Datei ausgewählt",
 				"noRssFeedsYet": "Es sind noch keine RSS-Feeds hinterlegt.",
 				"oldSchoolYear": "Altes Schuljahr",
-				"onlyPDFSupport" : "nur PDF Dateien werden unterstützt",
+				"onlyPDFSupport": "nur PDF Dateien werden unterstützt",
 				"passwordChanges": "Passwortänderungen werden weiterhin synchronisiert",
+				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen.",
 				"theNewClassesAreSavedInTheContext": "die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert",
 				"theNewClassesCanNowBeAssigned": "die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
-				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
-				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen."
+				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
 			}
 		},
 		"students": {
@@ -906,8 +895,8 @@
 					"editCourse": "Kurs bearbeiten"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Kurs ist archiviert",
-					"addPeople": "Person hinzufügen"
+					"addPeople": "Person hinzufügen",
+					"courseIsArchieved": "Kurs ist archiviert"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
@@ -1300,7 +1289,7 @@
 			"headline": {
 				"assertDeletion": "Bist du dir sicher, dass du '{{filename}}' löschen möchtest?",
 				"editPermissions": "Berechtigungen bearbeiten",
-				"functionCurrentlyDisabled" : "Funktion vorübergehend deaktiviert",
+				"functionCurrentlyDisabled": "Funktion vorübergehend deaktiviert",
 				"moveFile": "Datei verschieben",
 				"renameDir": "Ordner umbenennen",
 				"shareLink": "Freigabe-Link"
@@ -1313,7 +1302,7 @@
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
-				"littleHintHowToMoveFiles" : "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
+				"littleHintHowToMoveFiles": "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
 				"movingFilesIsDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
 				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
@@ -1342,8 +1331,8 @@
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
 			"newFolder": "Neuer Ordner"
 		},
-		"img_alt":{
-			"altInfoTheImage" : "Das Bild {{imgName}}"
+		"img_alt": {
+			"altInfoTheImage": "Das Bild {{imgName}}"
 		},
 		"input": {
 			"filename": "Name der Datei",
@@ -1351,11 +1340,11 @@
 			"searchFiles": "Dateien durchsuchen..."
 		},
 		"label": {
-			"backToFiles" : "Zurück zur Dateien-Übersicht",
+			"backToFiles": "Zurück zur Dateien-Übersicht",
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
-			"clickToOpenDir" : "Ordner {{name}} öffnen",
-			"clickToOpenFile" : "Datei {{name}} öffnen",
+			"clickToOpenDir": "Ordner {{name}} öffnen",
+			"clickToOpenFile": "Datei {{name}} öffnen",
 			"close": "Schließen",
 			"dangerousCode": "Schädlicher Code",
 			"deleteFile": "Datei löschen",
@@ -1383,17 +1372,17 @@
 			"roleUser": "Rolle/Benutzer",
 			"selectAFolder": "Wähle einen Ordner aus",
 			"shareFile": "Datei teilen",
-			"sortBy" : "Sortieren nach...",
 			"size": "Größe",
+			"sortBy": "Sortieren nach...",
 			"updatedAt": "Änderungsdatum",
 			"write": "Schreiben"
 		},
-		"overview" : {
-			"aria_label":{
-				"openCourseFiles" : "Öffne meine Kurs-Dateien",
-				"openMyfiles" : "Öffne meine persönlichen Dateien",
-				"openSharedFiles" : "Öffne mit mir geteilte Dateien",
-				"openTeamFiles" : "Öffne meine Team-Dateien"
+		"overview": {
+			"aria_label": {
+				"openCourseFiles": "Öffne meine Kurs-Dateien",
+				"openMyfiles": "Öffne meine persönlichen Dateien",
+				"openSharedFiles": "Öffne mit mir geteilte Dateien",
+				"openTeamFiles": "Öffne meine Team-Dateien"
 			}
 		},
 		"search": {
@@ -1562,11 +1551,22 @@
 			}
 		}
 	},
+	"format": {
+		"date": "DD.MM.YYYY",
+		"dateLong": "dddd, DD. MMMM YYYY",
+		"datePicker": "d.m.Y",
+		"datePickerMask": "39.19.9999",
+		"dateTime": "DD.MM.YYYY HH:mm",
+		"dateTimePicker": "d.m.Y H:i",
+		"dateTimePickerMask": "39.19.9999 29:59",
+		"dateTimeToPicker": "DD.MM.YYYY HH:mm",
+		"dateToPicker": "DD.MM.YYYY"
+	},
 	"global": {
 		"aria_label": {
+			"deleteCourse": "Kurs löschen",
 			"sidebar": "Seitenleiste",
-			"topMenu": "topbar",
-			"deleteCourse": "Kurs löschen"
+			"topMenu": "topbar"
 		},
 		"button": {
 			"accept": "Akzeptieren",
@@ -1604,7 +1604,6 @@
 			"yes": "Ja"
 		},
 		"headline": {
-			"topics": "Themen",
 			"actions": "Aktionen",
 			"addDate": "Termin hinzufügen",
 			"almostThere": "Fast geschafft!",
@@ -1626,6 +1625,7 @@
 			"task": "Aufgabe",
 			"tasks": "Aufgaben",
 			"teachers": "Lehrer",
+			"topics": "Themen",
 			"youAlmostMadeIt": "Du hast es fast geschafft...",
 			"yourData": "Ihre Daten"
 		},
@@ -1650,7 +1650,7 @@
 			"password": "Passwort:",
 			"role": "Rolle",
 			"room": "Raum",
-			"settings" :"Einstellungen",
+			"settings": "Einstellungen",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
@@ -1748,7 +1748,6 @@
 			"408": "Zeitüberschreitung",
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
-			"info": "Hinweis:",
 			"dataProtection": "Datenschutzerklärung",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Administrator.",
 			"errorChangingFilePermissions": "Problem beim Ändern der Berechtigungen",
@@ -1759,6 +1758,7 @@
 			"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 			"friday": "Freitag",
 			"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
+			"info": "Hinweis:",
 			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
 			"invalidRequest": "Ungültige Anfrage",
 			"min8characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
@@ -2029,9 +2029,9 @@
 				"printGradeComment": "Bewertung drucken",
 				"printSubmission": "Abgabe drucken",
 				"printTask": "Aufgabenstellung drucken",
-				"submitted": "Abgegeben",
-				"statsSubmitted": "{{submissionCount}} von {{totalCount}} abgegeben",
 				"statsGraded": "{{gradedCount}} bewertet",
+				"statsSubmitted": "{{submissionCount}} von {{totalCount}} abgegeben",
+				"submitted": "Abgegeben",
 				"team": "Team",
 				"teamSubmission": "Teamabgabe",
 				"teamSubmissionMaxX": "Teamabgabe (maximal <span id=\"maxTeamMembers\">{{maxTeamMembers}}</span> Personen)",
@@ -2138,7 +2138,6 @@
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"due": "Fällig",
-			"till": "bis",
 			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
 			"loading": "laden...",
 			"maximumTeamSize": "Die maximale Teamgröße beträgt {{maxMembers}} Mitglieder",
@@ -2152,6 +2151,7 @@
 			"notDone": "Zu spät! Versuche beim nächsten Mal besser auf deine Zeit zu achten.",
 			"published": "Veröffentlicht:",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
+			"till": "bis",
 			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
 		}
 	},
@@ -2460,6 +2460,23 @@
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden."
+		}
+	},
+	"messenger": {
+		"button": {
+			"activate": "Aktivieren",
+			"deactivate": "Deaktivieren",
+			"dontActivate": "Nicht aktivieren"
+		},
+		"headline": {
+			"welcomeMatrix": "Neue Messenger-Funktion"
+		},
+		"text": {
+			"callToCopyMessages": "Bitte kopiere selber alle Nachrichten, die dir wichtig sind.",
+			"howToActivateMatrix": "Um den Messenger an deiner Schule zu nutzen, muss er von Dir als Admin einmalig für die ganze Schule freigeschaltet werden unter: Verwaltung > Schule > Matrix Messenger aktivieren.",
+			"howToDeactivateMatrix": "Den Messenger kannst du jeder Zeit deaktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren.",
+			"rocketChatDeprecation": "Die alte Team-Chatfunktion wird am {{date}} abgeschaltet. Alte Chatnachrichten werden nicht automatisch in den neuen Messenger übertragen.",
+			"welcomeMatrix": "Ab sofort ist unser neuer Messenger verfügbar, mit dem sich alle Nutzer:innen deiner Schule Direkt- oder Gruppennachrichten schicken können, wie aus sozialen Plattformen gewohnt."
 		}
 	},
 	"my_material": {
@@ -3016,12 +3033,12 @@
 			},
 			"text": {
 				"shareWithOthersTeachers": "mit anderen Lehrern teilen",
-				"warningMain": "Hinweis: Beim Klicken des Links verlassen Sie das Angebot der Schul-Cloud Brandenburg",
-				"warningFooter": "Die Nutzung dieser Angebote unterliegt gegebenenfalls anderen rechtlichen Bedingungen. Bitte schauen Sie daher in die Datenschutzerklärung des externen Anbieters!"
+				"warningFooter": "Die Nutzung dieser Angebote unterliegt gegebenenfalls anderen rechtlichen Bedingungen. Bitte schauen Sie daher in die Datenschutzerklärung des externen Anbieters!",
+				"warningMain": "Hinweis: Beim Klicken des Links verlassen Sie das Angebot der Schul-Cloud Brandenburg"
 			}
 		},
-		"aria_label" :{
-			"openTopicX" : "Thema {{name}} öffnen"
+		"aria_label": {
+			"openTopicX": "Thema {{name}} öffnen"
 		},
 		"form_share": {
 			"label": {
@@ -3029,10 +3046,10 @@
 			}
 		},
 		"topicEdit": {
-			"aria_label":{
+			"aria_label": {
 				"chooseContent": "Wählen Sie Inhaltstypen des Themas aus",
 				"geoGebraID": "GeoGebra ID",
-				"moveSectionWithKeys" : "Heben Sie den Abschnitt mit Leertaste oder Enter auf, bewegen Sie ihn mit den Pfeiltasten und legen Sie ihn dann mit Leertaste oder Enter ab."
+				"moveSectionWithKeys": "Heben Sie den Abschnitt mit Leertaste oder Enter auf, bewegen Sie ihn mit den Pfeiltasten und legen Sie ihn dann mit Leertaste oder Enter ab."
 			},
 			"button": {
 				"etherpad": "Etherpad",
@@ -3054,7 +3071,7 @@
 			"label": {
 				"descriptionEtherpad": "Beschreibung des Etherpads",
 				"descriptionNeXboard": "Beschreibung des neXboards",
-				"internLink" : "Interner Link",
+				"internLink": "Interner Link",
 				"lockSection": "Abschnitt sperren",
 				"nameOfEtherpad": "Name des Etherpads",
 				"nameOfNeXboard": "Name des neXboards",
@@ -3073,23 +3090,6 @@
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
 			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
 			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung um an der Videokonferenz teilzunehmen."
-		}
-	},
-	"messenger": {
-		"headline": {
-			"welcomeMatrix": "Neue Messenger-Funktion"
-		},
-		"button": {
-			"activate": "Aktivieren",
-			"deactivate": "Deaktivieren",
-			"dontActivate": "Nicht aktivieren"
-		},
-		"text": {
-			"welcomeMatrix": "Ab sofort ist unser neuer Messenger verfügbar, mit dem sich alle Nutzer:innen deiner Schule Direkt- oder Gruppennachrichten schicken können, wie aus sozialen Plattformen gewohnt.",
-			"rocketChatDeprecation": "Die alte Team-Chatfunktion wird am {{date}} abgeschaltet. Alte Chatnachrichten werden nicht automatisch in den neuen Messenger übertragen.",
-			"callToCopyMessages": "Bitte kopiere selber alle Nachrichten, die dir wichtig sind.",
-			"howToDeactivateMatrix": "Den Messenger kannst du jeder Zeit deaktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren.",
-			"howToActivateMatrix": "Um den Messenger an deiner Schule zu nutzen, muss er von Dir als Admin einmalig für die ganze Schule freigeschaltet werden unter: Verwaltung > Schule > Matrix Messenger aktivieren."
 		}
 	}
 }
