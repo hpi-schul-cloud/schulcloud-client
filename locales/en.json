@@ -2152,7 +2152,7 @@
 			"notDone": "Too late! Next time, try to be more careful with your time.",
 			"published": "Published:",
 			"ratingHasBeenSaved": "Rating has been saved!",
-			"toBeDoneWithin24Hours": "Watch out! You only have 24 hours left to complete the task."
+			"toBeDoneWithin24Hours": "Watch out! You only have a maximum 24 of hours left to complete the task."
 		}
 	},
 	"imprint": {
