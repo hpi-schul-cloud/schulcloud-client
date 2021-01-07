@@ -61,8 +61,8 @@ jobs:
       install:
         # boot server
         - cd docker-compose
-        # login to docker
-        - sh dockerhub.login.sh
+        # authenticate against docker
+	      - sh ./scripts/dockerhub.login.sh
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
         - cd ..
