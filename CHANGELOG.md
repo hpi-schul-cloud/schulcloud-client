@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- SC-6311 - Removed itslearning from available system types
+
 ### Changed
 
 - SC-8356 - add docker login helper
