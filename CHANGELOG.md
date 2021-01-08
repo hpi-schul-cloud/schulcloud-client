@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- SC-8356 - add docker login helper
+
 ### Fixed
 
 - SC-8337 - Better error handling for file upload
