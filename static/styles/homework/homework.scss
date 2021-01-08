@@ -32,7 +32,6 @@
 	width: 100%;
 	position: relative;
 	padding: 10px;
-	padding-bottom: 48px;
 	text-decoration: none;
 
 	a {
@@ -77,7 +76,6 @@
 		float: right;
 		text-align: right;
 		clear: right;
-		font-size: small;
 		color: grey;
 		position: relative;
 		display: flex;
@@ -116,7 +114,6 @@
 			text-decoration: none;
 		}
 
-		word-break: break-all;
 		word-break: break-word;
 
 		@include media-breakpoint-down(xs) {
@@ -166,5 +163,10 @@
 		text-align: right;
 		color: $primaryColor;
 		text-decoration: none;
+	}
+	.title {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }
