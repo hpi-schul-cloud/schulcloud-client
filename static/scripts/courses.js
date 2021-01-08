@@ -1,5 +1,5 @@
 import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
-
+import { compareTwoDates } from "./datetime/datetime";
 
 /* eslint-disable max-len */
 $(document).ready(() => {
@@ -368,5 +368,73 @@ $(document).ready(() => {
 		});
 
 		$bbbReloadInfoModal.appendTo('body').modal('show');
+	});
+
+	const setValidity = (element, errorMessageElement, showError = true) => {
+		if (showError) {
+			element.setCustomValidity("The input is required");
+			if (errorMessageElement) {
+				$(errorMessageElement).css("visibility", "visible");
+			}
+		} else {
+			element.setCustomValidity("");
+			if (errorMessageElement) {
+				$(errorMessageElement).css("visibility", "hidden");
+			}
+		}
+	};
+
+	$("#nextSection").click((e) => {
+		const selectedOptionsArray = $(
+			"div#courseTeacher_chosen li.search-choice"
+		);
+
+		const startDateElement = $("#startDate");
+		const endDateElement = $("#untilDate");
+		const courseStartDate = startDateElement.val();
+		const courseEndDate = endDateElement.val();
+
+		if (!compareTwoDates(courseStartDate, courseEndDate)) {
+			setValidity(startDateElement[0], "#invalidTimeError", true);
+		} else {
+			setValidity(startDateElement[0], "#invalidTimeError", false);
+		}
+
+		const input = $(".chosen-search-input")[0];
+		if (!selectedOptionsArray.length > 0) {
+			setValidity(input, "#courseTeacherErr", true);
+			$(".chosen-search-input").css("box-shadow", "none");
+			$("#courseTeacher_chosen").addClass("validateError");
+		} else {
+			setValidity(input, "#courseTeacherErr", false);
+			$("#courseTeacher_chosen").css("box-shadow", "none");
+		}
+	});
+
+	$(".chosen-choices").bind("DOMSubtreeModified", () => {
+		const selectedOptionsArray = $(
+			"div#courseTeacher_chosen li.search-choice"
+		);
+		const input = $(".chosen-search-input")[0];
+
+		if (!selectedOptionsArray.length > 0) {
+			setValidity(input, "#courseTeacherErr", true);
+			$(".chosen-search-input").css("box-shadow", "none");
+			$("#courseTeacher_chosen").css("box-shadow", "0 0 5px 1px #ff1134");
+		} else {
+			setValidity(input, "#courseTeacherErr", false);
+			$("#courseTeacher_chosen").css("box-shadow", "none");
+		}
+	});
+
+	$(".startDate .untilDate").on("change", () => {
+		const startDateElement = $("#startDate");
+		const endDateElement = $("#untilDate");
+
+		if (!compareTwoDates(startDateElement.val(), endDateElement.val())) {
+			setValidity(startDateElement[0], "#invalidTimeError", true);
+		} else {
+			setValidity(startDateElement[0], "#invalidTimeError", false);
+		}
 	});
 });

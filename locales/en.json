@@ -1187,7 +1187,8 @@
 				"inMinutes": "In minutes",
 				"mathsClass": "Math 10a",
 				"selectClasses": "Select class(es)",
-				"selectStudents": "Select students"
+				"selectStudents": "Select students",
+				"invalidTimeError": "The start date of the course should not be after the end date."
 			},
 			"label": {
 				"courseColor": "Color of the course",
