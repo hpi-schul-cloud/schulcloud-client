@@ -57,7 +57,7 @@ const inputRange = ({
  * Compares two string as date, if startDate is older returns true
  * @param {String} startDate - The first date string (MM/DD/YYYY or DD/MM/YYYY) to compare with
  * @param {String} endDate - The second date string (MM/DD/YYYY or DD/MM/YYYY) to compare with
- * @returns {boolean}
+ * @return {boolean}
  */
 const compareTwoDates = (startDate = '01.01.2001', endDate = '01.01.2001') => {
     let firstDate = startDate;

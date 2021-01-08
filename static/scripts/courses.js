@@ -1,5 +1,5 @@
 import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
-import { compareTwoDates } from "./datetime/datetime";
+import { compareTwoDates } from './datetime/datetime';
 
 /* eslint-disable max-len */
 $(document).ready(() => {
@@ -57,7 +57,7 @@ $(document).ready(() => {
 					fields: { invitation: data.newUrl },
 				});
 				$invitationModal.find('.btn-submit').remove();
-				$invitationModal.find("input[name='invitation']").click(function inputNameInvitation() {
+				$invitationModal.find('input[name='invitation']').click(function inputNameInvitation() {
 					$(this).select();
 				});
 
@@ -124,14 +124,14 @@ $(document).ready(() => {
 					fields: { shareToken: data.shareToken },
 				});
 				$shareModal.find('.btn-submit').remove();
-				$shareModal.find("input[name='shareToken']").click(function inputNameShareToken() {
+				$shareModal.find('input[name='shareToken']').click(function inputNameShareToken() {
 					$(this).select();
 				});
 
 				$shareModal.appendTo('body').modal('show');
 
 				// eslint-disable-next-line max-len
-				$("label[for='shareToken']").text($t('courses._course.text.shareCodeExplanation'));
+				$('label[for='shareToken']').text($t('courses._course.text.shareCodeExplanation'));
 				// eslint-disable-next-line no-undef
 				const image = kjua({
 					text: `${$('meta[name=baseUrl]').attr('content')}/courses?import=${data.shareToken}`,
@@ -372,69 +372,69 @@ $(document).ready(() => {
 
 	const setValidity = (element, errorMessageElement, showError = true) => {
 		if (showError) {
-			element.setCustomValidity("The input is required");
+			element.setCustomValidity('The input is required');
 			if (errorMessageElement) {
-				$(errorMessageElement).css("visibility", "visible");
+				$(errorMessageElement).css('visibility', 'visible');
 			}
 		} else {
-			element.setCustomValidity("");
+			element.setCustomValidity('');
 			if (errorMessageElement) {
-				$(errorMessageElement).css("visibility", "hidden");
+				$(errorMessageElement).css('visibility', 'hidden');
 			}
 		}
 	};
 
-	$("#nextSection").click((e) => {
+	$('#nextSection').click((e) => {
 		const selectedOptionsArray = $(
-			"div#courseTeacher_chosen li.search-choice"
+			'div#courseTeacher_chosen li.search-choice'
 		);
 
-		const startDateElement = $("#startDate");
-		const endDateElement = $("#untilDate");
+		const startDateElement = $('#startDate');
+		const endDateElement = $('#untilDate');
 		const courseStartDate = startDateElement.val();
 		const courseEndDate = endDateElement.val();
 
 		if (!compareTwoDates(courseStartDate, courseEndDate)) {
-			setValidity(startDateElement[0], "#invalidTimeError", true);
+			setValidity(startDateElement[0], '#invalidTimeError', true);
 		} else {
-			setValidity(startDateElement[0], "#invalidTimeError", false);
+			setValidity(startDateElement[0], '#invalidTimeError', false);
 		}
 
-		const input = $(".chosen-search-input")[0];
-		if (!selectedOptionsArray.length > 0) {
-			setValidity(input, "#courseTeacherErr", true);
-			$(".chosen-search-input").css("box-shadow", "none");
-			$("#courseTeacher_chosen").addClass("validateError");
+		const input = $('.chosen-search-input')[0];
+		if (!selectedOptionsArray.length <= 0) {
+			setValidity(input, '#courseTeacherErr', true);
+			$('.chosen-search-input').css('box-shadow', 'none');
+			$('#courseTeacher_chosen').addClass('validateError');
 		} else {
-			setValidity(input, "#courseTeacherErr", false);
-			$("#courseTeacher_chosen").css("box-shadow", "none");
+			setValidity(input, '#courseTeacherErr', false);
+			$('#courseTeacher_chosen').css('box-shadow', 'none');
 		}
 	});
 
-	$(".chosen-choices").bind("DOMSubtreeModified", () => {
+	$('.chosen-choices').bind('DOMSubtreeModified', () => {
 		const selectedOptionsArray = $(
-			"div#courseTeacher_chosen li.search-choice"
+			'div#courseTeacher_chosen li.search-choice'
 		);
-		const input = $(".chosen-search-input")[0];
+		const input = $('.chosen-search-input')[0];
 
-		if (!selectedOptionsArray.length > 0) {
-			setValidity(input, "#courseTeacherErr", true);
-			$(".chosen-search-input").css("box-shadow", "none");
-			$("#courseTeacher_chosen").css("box-shadow", "0 0 5px 1px #ff1134");
+		if (selectedOptionsArray.length <= 0) {
+			setValidity(input, '#courseTeacherErr', true);
+			$('.chosen-search-input').css('box-shadow', 'none');
+			$('#courseTeacher_chosen').css('box-shadow', '0 0 5px 1px #ff1134');
 		} else {
-			setValidity(input, "#courseTeacherErr", false);
-			$("#courseTeacher_chosen").css("box-shadow", "none");
+			setValidity(input, '#courseTeacherErr', false);
+			$('#courseTeacher_chosen').css('box-shadow', 'none');
 		}
 	});
 
-	$(".startDate .untilDate").on("change", () => {
-		const startDateElement = $("#startDate");
-		const endDateElement = $("#untilDate");
+	$('.startDate .untilDate').on('change', () => {
+		const startDateElement = $('#startDate');
+		const endDateElement = $('#untilDate');
 
 		if (!compareTwoDates(startDateElement.val(), endDateElement.val())) {
-			setValidity(startDateElement[0], "#invalidTimeError", true);
+			setValidity(startDateElement[0], '#invalidTimeError', true);
 		} else {
-			setValidity(startDateElement[0], "#invalidTimeError", false);
+			setValidity(startDateElement[0], '#invalidTimeError', false);
 		}
 	});
 });
