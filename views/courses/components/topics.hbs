@@ -128,7 +128,7 @@
 			{{else}}
 			<div class="empty-state empty-state-courses">
 				{{> courses/components/svg_topics}}
-				<!--<img src="/images/empty-states/topics.svg" alt="{{$t "courses._course.topic.img_alt.noTopics"}}"
+				<!--<img src="{{getAssetPath '/images/empty-states/topics.svg'}}" alt="{{$t "courses._course.topic.img_alt.noTopics"}}"
 					class="image course-empty-content-image" />-->
 
 				{{#unless @root.isArchived}}
@@ -246,7 +246,7 @@
 			{{else}}
 			<div class="empty-state empty-state-courses">
 				{{> courses/components/svg_topics}}
-				<!--<img src="/images/empty-states/topics.svg" alt="{{$t "courses._course.topic.img_alt.noTopics"}}" class="image course-empty-content-image" />-->
+				<!--<img src="{{getAssetPath '/images/empty-states/topics.svg'}}" alt="{{$t "courses._course.topic.img_alt.noTopics"}}" class="image course-empty-content-image" />-->
 
 				{{#unless @root.isArchived}}
 				{{#userHasPermission "COURSE_EDIT"}}

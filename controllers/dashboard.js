@@ -285,19 +285,6 @@ router.get('/', (req, res, next) => {
 					});
 			}
 
-			let displayDataprivacyAlert = false;
-			if (userPreferences.data_privacy_incident_note_2020_01_should_be_displayed
-				&& !userPreferences.data_privacy_incident_note_2020_01_was_displayed) {
-				api(req)
-					.patch(`/users/${user._id}`, {
-						json: { 'preferences.data_privacy_incident_note_2020_01_was_displayed': Date.now() },
-					})
-					.catch(() => {
-						warn('failed to update user preference releaseDate');
-					});
-				displayDataprivacyAlert = true;
-			}
-
 			if (hasRole(teacher)) {
 				homeworksFeedbackRequired = assignedHomeworks.filter(
 					(homework) => !homework.private
@@ -352,7 +339,6 @@ router.get('/', (req, res, next) => {
 				currentTime: timesHelper.fromUTC(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
-				displayDataprivacyAlert,
 			});
 		})
 		.catch(next);
