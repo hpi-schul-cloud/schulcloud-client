@@ -401,7 +401,7 @@ $(document).ready(() => {
 		}
 
 		const input = $('.chosen-search-input')[0];
-		if (!selectedOptionsArray.length <= 0) {
+		if (selectedOptionsArray.length <= 0) {
 			setValidity(input, '#courseTeacherErr', true);
 			$('.chosen-search-input').css('box-shadow', 'none');
 			$('#courseTeacher_chosen').addClass('validateError');
