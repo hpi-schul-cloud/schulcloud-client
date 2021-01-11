@@ -124,14 +124,14 @@ $(document).ready(() => {
 					fields: { shareToken: data.shareToken },
 				});
 				$shareModal.find('.btn-submit').remove();
-				$shareModal.find('input[name='shareToken']').click(function inputNameShareToken() {
+				$shareModal.find('input[name="shareToken"]').click(function inputNameShareToken() {
 					$(this).select();
 				});
 
 				$shareModal.appendTo('body').modal('show');
 
 				// eslint-disable-next-line max-len
-				$('label[for='shareToken']').text($t('courses._course.text.shareCodeExplanation'));
+				$('label[for="shareToken"]').text($t('courses._course.text.shareCodeExplanation'));
 				// eslint-disable-next-line no-undef
 				const image = kjua({
 					text: `${$('meta[name=baseUrl]').attr('content')}/courses?import=${data.shareToken}`,
