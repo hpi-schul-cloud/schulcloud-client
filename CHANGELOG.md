@@ -9,9 +9,16 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- SC-8356 - add docker login helper
+
 ### Fixed
 
 - SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0
+- SC-8337 - Better error handling for file upload
+- SC-8259 - limited the length of the task title/headline
+- SC-7345 - the linguistic note shown only for the German language
 - SC-8307 - fixed date formater bug by initial page loading 
 - SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users), fixed buttons for printing
 - SC-8272 - fixed displaying of the error message for submissions with no due date
@@ -24,7 +31,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7824 - Set proper email address and label for data privacy
+- SC-7824 - Set proper email address and label for data privacy 
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
@@ -33,6 +40,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7686 - Fixed naming convention for Lern-Store
 - SC-7126 - Fixed sort of years on create class select
 - SC-7848 - Fixed no autofill of password in user settings
 - SC-6975 - Fixed button text on declare consent

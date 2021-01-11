@@ -960,5 +960,11 @@ footer {
 	.skipLinks a:focus {
 		top: 4.5rem;
 	}
+}
 
+#page-title {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
