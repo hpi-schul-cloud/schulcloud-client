@@ -401,7 +401,7 @@ const getSignedUrl = (req, res, next) => {
 		return Promise.resolve({ signedUrl });
 	}).catch((err) => {
 		if (res) {
-			next(err);
+			res.status(500).json(err);
 		}
 		return Promise.reject(err);
 	});
