@@ -57,7 +57,7 @@ $(document).ready(() => {
 					fields: { invitation: data.newUrl },
 				});
 				$invitationModal.find('.btn-submit').remove();
-				$invitationModal.find('input[name='invitation']').click(function inputNameInvitation() {
+				$invitationModal.find('input[name="invitation"]').click(function inputNameInvitation() {
 					$(this).select();
 				});
 
