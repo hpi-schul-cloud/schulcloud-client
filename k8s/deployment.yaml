@@ -24,19 +24,19 @@ spec:
           imagePullPolicy: Always
           envFrom:
           - configMapRef:
-              name: environment-variables
+              name: environment-variables-client
           ports:
           - name: web
             containerPort: 3100
           livenessProbe:
             httpGet:
-              path: /ping
+              path: /version
               port: 3100
             initialDelaySeconds: 15
             timeoutSeconds: 15
           readinessProbe:
             httpGet:
-              path: /ping
+              path: /version
               port: 3100
             initialDelaySeconds: 5
             timeoutSeconds: 3

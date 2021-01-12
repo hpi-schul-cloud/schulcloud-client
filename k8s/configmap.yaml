@@ -1,10 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: environment-variables
+  name: environment-variables-client
 data:
   THIS_SERVICE: $SERVICE_NAME
   BRANCH: $NAMESPACE
   NODE_ENV: production
   PORT: '3100'
   LOG_LEVEL: info
+  BACKEND_URL: schulcloud-server
+  CALENDAR_SERVICE_ENABLED: false
