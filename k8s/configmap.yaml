@@ -8,5 +8,5 @@ data:
   NODE_ENV: production
   PORT: '3100'
   LOG_LEVEL: info
-  BACKEND_URL: schulcloud-server
+  BACKEND_URL: http://schulcloud-server
   CALENDAR_SERVICE_ENABLED: 'false'
