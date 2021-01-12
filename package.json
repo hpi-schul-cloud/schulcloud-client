@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "25.4.2",
+	"version": "25.5.0",
 	"private": true,
 	"scripts": {
 		"start": "node ./bin/www",
@@ -13,6 +13,7 @@
 		"startd": "echo 'Do you mean 'npm run watch'?'",
 		"test": "cross-env NODE_ENV=test npm run mocha --exit ",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive --opts ./test/mocha/mocha.opts",
+		"build": "gulp clear && gulp",
 		"coverage": "cross-env NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js --opts ./test/mocha/mocha.opts"
 	},
 	"engines": {
@@ -83,6 +84,8 @@
 		"form-serializer": "^2.5.0",
 		"generate-password": "^1.5.1",
 		"git-repo-info": "^2.1.0",
+		"gulp-change": "^1.0.2",
+		"gulp-cli": "^2.3.0",
 		"gulp-rename": "^2.0.0",
 		"handlebars": "^4.7.6",
 		"handlebars-layouts": "^3.1.4",
@@ -126,6 +129,7 @@
 		"serve-favicon": "^2.5.0",
 		"shortid": "^2.2.8",
 		"showdown": "^1.9.1",
+		"staticify": "^5.0.0",
 		"storage-factory": "^0.1.0",
 		"string-strip-html": "^3.2.0",
 		"string_decoder": "^1.0.1",

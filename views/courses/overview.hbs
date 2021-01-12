@@ -1,12 +1,12 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/coursesOverview.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/topic.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/coursesOverview.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/topic.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}"/>
     {{/content}}
 
     {{#content "page"}}
@@ -29,7 +29,7 @@
                             {{else}}
                                 <div class="empty-state">
 									{{> 'courses/components/svg_active_courses'}}
-                                    <!--<img src="/images/empty-states/active_courses.svg" alt="{{$t "courses.img_alt.noCourses"}}" class="image"/>-->
+                                    <!--<img src="{{getAssetPath '/images/empty-states/active_courses.svg'}}" alt="{{$t "courses.img_alt.noCourses"}}" class="image"/>-->
 
 									{{#userHasPermission "COURSE_EDIT"}}
                                         <h2 class="h4">{{$t "courses.headline.createDuplicateImport"}}</h2>
@@ -75,7 +75,7 @@
                             {{else}}
                                 <div class="empty-state">
 									{{> 'courses/components/svg_archived_courses'}}
-                                    <!--<img src="/images/empty-states/archived_courses.svg" class="image"/>-->
+                                    <!--<img src="{{getAssetPath '/images/empty-states/archived_courses.svg'}}" class="image"/>-->
 
                                     <h2 class="h4">{{$t "courses.headline.noArchivedCourses"}}</h2>
                                     <p class="text-muted">
