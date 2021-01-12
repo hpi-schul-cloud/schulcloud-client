@@ -9,6 +9,7 @@ services:
   - docker
 env:
   global:
+    - DOCKER_COMPOSE_VERSION=1.27.4 #needed for e2e-tests
     - GIT_SHA=$( git rev-parse HEAD )
     - SC_DEMO_USER_PASSWORD=Schulcloud1!
     - BACKEND_URL=http://localhost:3030
@@ -60,6 +61,8 @@ jobs:
       install:
         # boot server
         - cd docker-compose
+        # authenticate against docker
+        - bash ./scripts/dockerhub.login.sh
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
         - cd ..
@@ -73,9 +76,11 @@ jobs:
       script: cd schulcloud-client && npm run mocha && cd ..
     - script: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/fetch.travis.sh" | bash
       name: end-to-end-tests
-      env:
-        - IT_CLIENT_HOST=nuxtclient
-        - IT_CLIENT_PORT=4000
+      before_install:
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
       install:
         - echo "skipping install"
       after_failure:

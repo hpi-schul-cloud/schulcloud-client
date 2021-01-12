@@ -117,7 +117,7 @@
 	<div class="col-sm-12 add-button">
 		{{#userHasPermission "TOOL_CREATE" }}
 		{{#unless @root.isArchived}}
-		<a href="/courses/{{../_id}}/tools/add" class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}"
+		<a href="/courses/{{../_id}}/tools/add" aria-label="{{$t "courses._course.tools.text.addNewTool"}}" class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}"
 			title="{{$t "courses._course.tools.text.addNewTool"}}">
 			<span>{{$t "courses._course.tools.button.addNewTool"}}</span></a>
 		{{/unless}}

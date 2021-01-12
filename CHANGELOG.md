@@ -9,6 +9,22 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- SC-6311 - Removed itslearning from available system types
+
+### Changed
+
+- SC-8356 - add docker login helper
+
+### Fixed
+
+- SC-8259 - limited the length of the task title/headline
+- SC-7345 - the linguistic note shown only for the German language
+- SC-8307 - fixed date formater bug by initial page loading 
+- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users), fixed buttons for printing
+- SC-8272 - fixed displaying of the error message for submissions with no due date
+
 ## [25.4.3]
 
 ### Changed
@@ -29,14 +45,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-7824 - Set proper email address and label for data privacy 
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
 - SC-6619 - fixed text for registration in all other schools
-- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's 
+- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's
 
 ### Fixed
 
+- SC-7686 - Fixed naming convention for Lern-Store
+- SC-7126 - Fixed sort of years on create class select
+- SC-7848 - Fixed no autofill of password in user settings
+- SC-6975 - Fixed button text on declare consent
 - SC-7900 - Fixed text for inviting experts
 - SC-7983 - Fixed that topic is now choosable after select of course
 - SC-7771 - Fixed hint for teachers when editing a course - fix
@@ -46,10 +67,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7874 - remove access to removed env variables
 - SC-8075 Fixed nbc landing page ghost
 - The common import after hotfix merge
+- SC-7793 - Set/activate new ldap route in administration page
 
 ### Changed
 
 - update location of common
+- SC-7889 - User receives consent screen at first login after new upload of privacy agreement
 
 ## 25.3.6
 
@@ -126,7 +149,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6951 removes via text from embeded course content
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
-
+- SC-7474 pull docker container for tests if commit id exists on docker hub
 
 ## 25.2.7
 
