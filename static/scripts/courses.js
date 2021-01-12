@@ -1,5 +1,5 @@
 import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
-import { compareTwoDates } from './datetime/datetime';
+import getCookie from './helpers/cookieManager';
 
 /* eslint-disable max-len */
 $(document).ready(() => {
@@ -370,6 +370,28 @@ $(document).ready(() => {
 		$bbbReloadInfoModal.appendTo('body').modal('show');
 	});
 
+	const compareCourseDates = () => {
+		let firstDate = $('#startDate').val();
+		let lastDate = $('#untilDate').val();
+		const lang = getCookie('USER_LANG');
+		const dateFormat = {
+			de: 'DD.MM.YYYY',
+			en: 'MM/DD/YYYY',
+		};
+
+		if (lang === 'en') {
+			firstDate = moment(firstDate, dateFormat.en);
+			lastDate = moment(lastDate, dateFormat.en);
+		} else {
+			firstDate = moment(firstDate, dateFormat.de);
+			lastDate = moment(lastDate, dateFormat.de);
+		}
+
+		if (moment(firstDate).isSameOrBefore(lastDate)) return false;
+
+		return true;
+	};
+
 	const setValidity = (element, errorMessageElement, showError = true) => {
 		if (showError) {
 			element.setCustomValidity('The input is required');
@@ -384,23 +406,22 @@ $(document).ready(() => {
 		}
 	};
 
-	$('#nextSection').click((e) => {
+	$('#nextSection').on('click', (e) => {
+		e.stopPropagation();
+		e.preventDefault;
+
 		const selectedOptionsArray = $(
 			'div#courseTeacher_chosen li.search-choice'
 		);
-
 		const startDateElement = $('#startDate');
-		const endDateElement = $('#untilDate');
-		const courseStartDate = startDateElement.val();
-		const courseEndDate = endDateElement.val();
+		const input = $('.chosen-search-input')[0];
 
-		if (!compareTwoDates(courseStartDate, courseEndDate)) {
+		if (compareCourseDates()) {
 			setValidity(startDateElement[0], '#invalidTimeError', true);
 		} else {
 			setValidity(startDateElement[0], '#invalidTimeError', false);
 		}
 
-		const input = $('.chosen-search-input')[0];
 		if (selectedOptionsArray.length <= 0) {
 			setValidity(input, '#courseTeacherErr', true);
 			$('.chosen-search-input').css('box-shadow', 'none');
@@ -427,11 +448,10 @@ $(document).ready(() => {
 		}
 	});
 
-	$('.startDate .untilDate').on('change', () => {
+	$('#startDate, #untilDate').on('change', () => {
 		const startDateElement = $('#startDate');
-		const endDateElement = $('#untilDate');
 
-		if (!compareTwoDates(startDateElement.val(), endDateElement.val())) {
+		if (compareCourseDates()) {
 			setValidity(startDateElement[0], '#invalidTimeError', true);
 		} else {
 			setValidity(startDateElement[0], '#invalidTimeError', false);

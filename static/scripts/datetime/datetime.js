@@ -53,27 +53,6 @@ const inputRange = ({
 	];
 };
 
-/**
- * Compares two string as date, if startDate is older returns true
- * @param {String} startDate - The first date string (MM/DD/YYYY or DD/MM/YYYY) to compare with
- * @param {String} endDate - The second date string (MM/DD/YYYY or DD/MM/YYYY) to compare with
- * @return {boolean}
- */
-const compareTwoDates = (startDate = '01.01.2001', endDate = '01.01.2001') => {
-    let firstDate = startDate;
-    let lastDate = endDate;
-    const lang = getCookie('USER_LANG');
-
-    if (lang === 'en') {
-        firstDate = moment(firstDate, 'MM/DD/YYYY').format(FORMAT.date);
-        lastDate = moment(endDate, 'MM/DD/YYYY').format(FORMAT.date);
-    }
-
-    if (moment(firstDate, FORMAT.date) > moment(lastDate, FORMAT.date)) return false;
-
-    return true;
-};
-
 export {
 	dateTimeStringToMoment,
 	fromNow,
@@ -81,5 +60,4 @@ export {
 	now,
 	toDateTimeString,
 	toMoment,
-	compareTwoDates,
 };
