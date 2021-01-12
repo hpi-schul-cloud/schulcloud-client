@@ -1,11 +1,11 @@
 {{#extend "lib/loggedin"}}
 
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/dashboard/dashboard.css" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/dashboard/dashboard.css'}}" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-<script type="text/javascript" src="/scripts/dashboard.js" nonce="{{nonceValue}}" defer></script>
+<script type="text/javascript" src="{{getAssetPath '/scripts/dashboard.js'}}" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page"}}
@@ -76,7 +76,7 @@
             </div>
         </div>
     {{else}}
-        <img class="w-100 pl-1 pr-1 svg-timetable-empty" src="/images/empty-states/timetable-empty-cards.svg" alt="{{$t "dashboard.text.emptyTimetable"}}"/>
+        <img class="w-100 pl-1 pr-1 svg-timetable-empty" src="{{getAssetPath '/images/empty-states/timetable-empty-cards.svg'}}" alt="{{$t "dashboard.text.emptyTimetable"}}"/>
         <p class="my-2 pl-1 text-muted">{{$t "dashboard.text.empytTimetableInfo"}}</p>
     {{/if}}
 </section>
@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="row d-block text-center">
-            <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "global.text.noTasks"}}" />
+            <img src="{{getAssetPath '/images/empty-states/tasks-empty.svg'}}" alt="{{$t "global.text.noTasks"}}" />
             <p class="text-muted dashboard-empty-info">
                 {{$t "dashboard.text.emptyHomeworksInfo"}}
             </p>
@@ -144,7 +144,7 @@
                 </div>
             </div>
             <div class="row d-block text-center">
-                <img src="/images/empty-states/tasks-empty.svg" alt="{{$t "global.text.noTasks"}}" />
+                <img src="{{getAssetPath '/images/empty-states/tasks-empty.svg'}}" alt="{{$t "global.text.noTasks"}}" />
                 <p class="text-muted dashboard-empty-info">
                     {{$t "dashboard.text.emptyHomeworksInfo"}}
                 </p>
@@ -171,7 +171,7 @@
         </div>
     </div>
     <div class="row d-block text-center">
-        <img src="/images/empty-states/news-empty.svg" alt="{{$t "dashboard.text.noNews"}}" />
+        <img src="{{getAssetPath '/images/empty-states/news-empty.svg'}}" alt="{{$t "dashboard.text.noNews"}}" />
         <p class="text-muted dashboard-empty-info">
             {{$t "dashboard.text.emptyNewsInfo"}}
         </p>

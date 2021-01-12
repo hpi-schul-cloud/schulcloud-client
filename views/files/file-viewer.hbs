@@ -1,8 +1,8 @@
 <section class="file-viewer">
     <a href="#" class="lightbox videostop" id="file-view" role="button" aria-label="{{$t "files.label.backToFiles"}}" tabindex="0">
       <video id="my-video" class="video-js vjs-default-skin videoclick" autoplay controls preload="auto" data-setup='{"fluid": true}'></video>
-		  <script src="/vendor-optimized/video.js/dist/video.min.js" nonce="{{nonceValue}}"></script>
-		  <script src="/vendor-optimized/video.js/dist/lang/{{ @root.userLanguage }}.js" nonce="{{nonceValue}}"></script>
+		  <script src="{{getAssetPath '/vendor-optimized/video.js/dist/video.min.js'}}?v=1.0" nonce="{{nonceValue}}"></script>
+		  <script src="{{getAssetPath (concat '/vendor-optimized/video.js/dist/lang/' @root.userLanguage '.js')}}?v=1.0" nonce="{{nonceValue}}"></script>
       <img id="picture" alt="">
     </a>
 </section>

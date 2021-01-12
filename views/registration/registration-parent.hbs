@@ -1,11 +1,11 @@
 {{#extend "lib/simple"}}
   {{#content "scripts" mode="append"}}
-      <script src="/scripts/dataprivacy/user-registration.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	  <script src="/scripts/base64files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+      <script src="{{getAssetPath '/scripts/dataprivacy/user-registration.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	  <script src="{{getAssetPath '/scripts/base64files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
   {{/content}}
   {{#content "styles" mode="append"}}
-      <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
-      <link rel="stylesheet" href="/styles/registration/pin.css" />
+      <link rel="stylesheet" href="{{getAssetPath '/styles/administration/dataprivacy.css'}}"/>
+      <link rel="stylesheet" href="{{getAssetPath '/styles/registration/pin.css'}}" />
   {{/content}}
   {{#content "page"}}
     {{#embed "lib/forms/paginatedForm" sections=sectionNumber action="/registration/submit" method="post" class="registration-form parent" submit-label=($t "registration._registration.global.button.sendAndGetStarted")}}

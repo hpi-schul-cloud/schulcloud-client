@@ -1,7 +1,7 @@
 {{#extend "lib/simple"}}
 {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
-    <link rel="stylesheet" href="/styles/registration/pin.css" />
+    <link rel="stylesheet" href="{{getAssetPath '/styles/administration/dataprivacy.css'}}"/>
+    <link rel="stylesheet" href="{{getAssetPath '/styles/registration/pin.css'}}" />
 {{/content}}
 {{> "firstLogin/partials/imports"}}
 {{#content "page"}}

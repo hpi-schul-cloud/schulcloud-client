@@ -1,10 +1,10 @@
 {{#extend "lib/loggedin"}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/account/settings.css"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/account/settings.css'}}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/settings.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/settings.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}

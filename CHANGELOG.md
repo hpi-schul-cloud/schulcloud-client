@@ -9,7 +9,16 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.4.3]
+
+### Changed
+
+- SC-8321 cache and hash static assets
+
+## [25.4.2]
+
 ### Fixed 
+
 - SC-8337 - Better error handling for file upload
 
 ## [25.4.1]

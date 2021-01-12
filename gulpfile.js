@@ -28,6 +28,8 @@ const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const nodemon = require('gulp-nodemon');
 const browserSync = require('browser-sync');
+const change = require('gulp-change');
+const { rewriteStaticAssetPaths } = require('./middleware/assets');
 const webpackConfig = require('./webpack.config');
 
 const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
@@ -135,6 +137,7 @@ gulp.task('styles', () => {
 		.pipe(cleanCSS({
 			compatibility: 'ie9',
 		}))
+		.pipe(change(rewriteStaticAssetPaths))
 		.pipe(sourcemaps.write('./sourcemaps'))
 		.pipe(gulp.dest(`./build/${themeName()}/styles`))
 		.pipe(browserSync.stream());
@@ -155,7 +158,7 @@ gulp.task('styles-done', gulp.series('styles'), () => {
 });
 
 // copy fonts
-gulp.task('fonts', () => beginPipe('./static/fonts/**/*.*')
+gulp.task('fonts', () => beginPipe('./static/fonts/**/*.{eot,svg,ttf,woff,woff2}')
 	.pipe(gulp.dest(`./build/${themeName()}/fonts`)));
 
 // copy static assets
@@ -319,17 +322,17 @@ gulp.task('clear-cache', () => gulp
 gulp.task('build-all', gulp.series(
 	'images',
 	'other',
+	'fonts',
 	'other-with-theme',
+	'node-modules',
 	'styles',
 	'styles-done',
-	'fonts',
+	'copy-styles',
 	'scripts',
 	'base-scripts',
-	'copy-styles',
 	'vendor-styles',
 	'vendor-scripts',
 	'vendor-assets',
-	'node-modules',
 	'static',
 ));
 

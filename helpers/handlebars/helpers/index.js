@@ -3,6 +3,7 @@ const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const { getStaticAssetPath } = require('../../../middleware/assets');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
@@ -151,12 +152,8 @@ const helpers = () => ({
 		}
 		return options.inverse(this);
 	},
-	getConfig: (key) => {
-		return Configuration.get(key);
-	},
-	userInitials: (opts) => {
-		return opts.data.local.currentUser.avatarInitials;
-	},
+	getConfig: (key) => Configuration.get(key),
+	userInitials: (opts) => opts.data.local.currentUser.avatarInitials,
 	userHasPermission: (permission, opts) => {
 		if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
 			return opts.fn(this);
@@ -166,7 +163,7 @@ const helpers = () => ({
 	userHasRole: (...args) => {
 		const allowedRoles = Array.from(args);
 		const opts = allowedRoles.pop();
-		return opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name));
+		return opts.data.local.currentUser.roles.some((r) => allowedRoles.includes(r.name));
 	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
@@ -177,6 +174,7 @@ const helpers = () => ({
 		return options.inverse(this);
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
+	getAssetPath: (assetPath) => getStaticAssetPath(assetPath),
 	timeFromNow: (date) => timesHelper.fromNow(date),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
@@ -247,8 +245,8 @@ const helpers = () => ({
 		}
 		return (`${fileSize} ${unit}`);
 	},
-	json: data => JSON.stringify(data),
-	jsonParse: data => JSON.parse(data),
+	json: (data) => JSON.stringify(data),
+	jsonParse: (data) => JSON.parse(data),
 	times: (n, block) => {
 		let accum = '';
 		for (let i = 0; i < n; ++i) {
@@ -265,12 +263,12 @@ const helpers = () => ({
 	},
 	add: (a, b) => a + b,
 	indexOf: (item, searchValue, fromIndex) => item.indexOf(searchValue, fromIndex),
-	escapeHtml: text => text
+	escapeHtml: (text) => text
 		.replace(/</g, '&lt;')
 		.replace(/>/g, '&gt;')
 		.replace(/"/g, '&quot;')
 		.replace(/'/g, '&#039;'),
-	encodeURI: data => encodeURI(data),
+	encodeURI: (data) => encodeURI(data),
 	$t: (key, data, opts) => {
 		if (!opts) {
 			return i18n.getInstance(data.data.local.currentUser)(key);
