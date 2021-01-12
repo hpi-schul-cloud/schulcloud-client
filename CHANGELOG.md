@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 25.5.0
+
 ### Fixed
 
 - SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
