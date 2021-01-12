@@ -9,4 +9,4 @@ data:
   PORT: '3100'
   LOG_LEVEL: info
   BACKEND_URL: schulcloud-server
-  CALENDAR_SERVICE_ENABLED: false
+  CALENDAR_SERVICE_ENABLED: 'false'
