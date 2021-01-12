@@ -239,19 +239,35 @@ const FileGetter = (req, res, next) => {
 		};
 		res.locals.sortOptions = [
 			{
-				label: res.$t('global.label.creationDate'),
+				label: res.$t('global.label.creationDateUp'),
 				value: 'createdAt',
 			},
 			{
-				label: res.$t('files.label.updatedAt'),
+				label: res.$t('global.label.creationDateDown'),
+				value: 'createdAt',
+			},
+			{
+				label: res.$t('files.label.updatedAtUp'),
 				value: 'updatedAt',
 			},
 			{
-				label: res.$t('files.label.name'),
+				label: res.$t('files.label.updatedAtDown'),
+				value: 'updatedAt',
+			},
+			{
+				label: res.$t('files.label.nameUp'),
 				value: 'name',
 			},
 			{
-				label: res.$t('files.label.size'),
+				label: res.$t('files.label.nameDown'),
+				value: 'name',
+			},
+			{
+				label: res.$t('files.label.sizeUp'),
+				value: 'size',
+			},
+			{
+				label: res.$t('files.label.sizeDown'),
 				value: 'size',
 			},
 		].map((option) => {

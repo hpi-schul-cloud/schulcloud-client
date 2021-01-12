@@ -269,7 +269,7 @@
 				"errorImportingUsers": "Fehler: {{errorMessage}}",
 				"failedToCreateUser": "Fehler beim Erstellen des Nutzers. {{error}}",
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
-				"importMayBeStillRunning" : "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
+				"importMayBeStillRunning": "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
 				"inTheQueue": "In der Warteschlange",
 				"invitationEmailContent": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
 				"invitationEmailSubject": "Einladung für die Nutzung der {{title}}!",
@@ -622,7 +622,7 @@
 				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
 				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
 				"fileSelected": "Datei ausgewählt",
-				"fileTooLarge" : "PDF Datei ist zu groß. Maximal {{size}}MB",
+				"fileTooLarge": "PDF Datei ist zu groß. Maximal {{size}}MB",
 				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team die Chatfunktion gezielt freischalten.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
@@ -636,7 +636,7 @@
 				"noFileSelected": "Keine Datei ausgewählt",
 				"noRssFeedsYet": "Es sind noch keine RSS-Feeds hinterlegt.",
 				"oldSchoolYear": "Altes Schuljahr",
-				"onlyPDFSupport" : "nur PDF Dateien werden unterstützt",
+				"onlyPDFSupport": "nur PDF Dateien werden unterstützt",
 				"passwordChanges": "Passwortänderungen werden weiterhin synchronisiert",
 				"theNewClassesAreSavedInTheContext": "die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert",
 				"theNewClassesCanNowBeAssigned": "die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
@@ -1299,7 +1299,7 @@
 			"headline": {
 				"assertDeletion": "Bist du dir sicher, dass du '{{filename}}' löschen möchtest?",
 				"editPermissions": "Berechtigungen bearbeiten",
-				"functionCurrentlyDisabled" : "Funktion vorübergehend deaktiviert",
+				"functionCurrentlyDisabled": "Funktion vorübergehend deaktiviert",
 				"moveFile": "Datei verschieben",
 				"renameDir": "Ordner umbenennen",
 				"shareLink": "Freigabe-Link"
@@ -1312,7 +1312,7 @@
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
-				"littleHintHowToMoveFiles" : "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
+				"littleHintHowToMoveFiles": "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
 				"movingFilesIsDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
 				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
@@ -1341,8 +1341,8 @@
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
 			"newFolder": "Neuer Ordner"
 		},
-		"img_alt":{
-			"altInfoTheImage" : "Das Bild {{imgName}}"
+		"img_alt": {
+			"altInfoTheImage": "Das Bild {{imgName}}"
 		},
 		"input": {
 			"filename": "Name der Datei",
@@ -1350,11 +1350,11 @@
 			"searchFiles": "Dateien durchsuchen..."
 		},
 		"label": {
-			"backToFiles" : "Zurück zur Dateien-Übersicht",
+			"backToFiles": "Zurück zur Dateien-Übersicht",
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
-			"clickToOpenDir" : "Ordner {{name}} öffnen",
-			"clickToOpenFile" : "Datei {{name}} öffnen",
+			"clickToOpenDir": "Ordner {{name}} öffnen",
+			"clickToOpenFile": "Datei {{name}} öffnen",
 			"close": "Schließen",
 			"dangerousCode": "Schädlicher Code",
 			"deleteFile": "Datei löschen",
@@ -1375,6 +1375,8 @@
 			"myPersonalData": "Meine persönlichen Dateien",
 			"myPersonalDataContent": "Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.",
 			"name": "Dateiname",
+			"nameDown": "Dateiname (Z-A)",
+			"nameUp": "Dateiname (A-Z)",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
 			"read": "Lesen",
 			"renameFile": "Datei umbenennen",
@@ -1382,17 +1384,21 @@
 			"roleUser": "Rolle/Benutzer",
 			"selectAFolder": "Wähle einen Ordner aus",
 			"shareFile": "Datei teilen",
-			"sortBy" : "Sortieren nach...",
+			"sortBy": "Sortieren nach...",
 			"size": "Größe",
+			"sizeUp": "Größe absteigend",
+			"sizeDown": " Größe aufsteigend",
+			"updatedAtUp": "Änderungsdatum (neuestes)",
+			"updatedAtDown": "Änderungsdatum (ältestes) ",
 			"updatedAt": "Änderungsdatum",
 			"write": "Schreiben"
 		},
-		"overview" : {
-			"aria_label":{
-				"openCourseFiles" : "Öffne meine Kurs-Dateien",
-				"openMyfiles" : "Öffne meine persönlichen Dateien",
-				"openSharedFiles" : "Öffne mit mir geteilte Dateien",
-				"openTeamFiles" : "Öffne meine Team-Dateien"
+		"overview": {
+			"aria_label": {
+				"openCourseFiles": "Öffne meine Kurs-Dateien",
+				"openMyfiles": "Öffne meine persönlichen Dateien",
+				"openSharedFiles": "Öffne mit mir geteilte Dateien",
+				"openTeamFiles": "Öffne meine Team-Dateien"
 			}
 		},
 		"search": {
@@ -1633,6 +1639,8 @@
 		"label": {
 			"chooseAFile": "Datei auswählen",
 			"creationDate": "Erstelldatum",
+			"creationDateUp": "Erstelldatum (neuestes)",
+			"creationDateDown": "Erstelldatum (ältestes)",
 			"dateOfBirth": "Geburtsdatum:",
 			"description": "Beschreibung",
 			"emailAddress": "E-Mail-Adresse:",
@@ -1648,7 +1656,7 @@
 			"password": "Passwort:",
 			"role": "Rolle",
 			"room": "Raum",
-			"settings" :"Einstellungen",
+			"settings": "Einstellungen",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
@@ -3017,8 +3025,8 @@
 				"warningFooter": "Die Nutzung dieser Angebote unterliegt gegebenenfalls anderen rechtlichen Bedingungen. Bitte schauen Sie daher in die Datenschutzerklärung des externen Anbieters!"
 			}
 		},
-		"aria_label" :{
-			"openTopicX" : "Thema {{name}} öffnen"
+		"aria_label": {
+			"openTopicX": "Thema {{name}} öffnen"
 		},
 		"form_share": {
 			"label": {
@@ -3026,10 +3034,10 @@
 			}
 		},
 		"topicEdit": {
-			"aria_label":{
+			"aria_label": {
 				"chooseContent": "Wählen Sie Inhaltstypen des Themas aus",
 				"geoGebraID": "GeoGebra ID",
-				"moveSectionWithKeys" : "Heben Sie den Abschnitt mit Leertaste oder Enter auf, bewegen Sie ihn mit den Pfeiltasten und legen Sie ihn dann mit Leertaste oder Enter ab."
+				"moveSectionWithKeys": "Heben Sie den Abschnitt mit Leertaste oder Enter auf, bewegen Sie ihn mit den Pfeiltasten und legen Sie ihn dann mit Leertaste oder Enter ab."
 			},
 			"button": {
 				"etherpad": "Etherpad",
@@ -3051,7 +3059,7 @@
 			"label": {
 				"descriptionEtherpad": "Beschreibung des Etherpads",
 				"descriptionNeXboard": "Beschreibung des neXboards",
-				"internLink" : "Interner Link",
+				"internLink": "Interner Link",
 				"lockSection": "Abschnitt sperren",
 				"nameOfEtherpad": "Name des Etherpads",
 				"nameOfNeXboard": "Name des neXboards",
