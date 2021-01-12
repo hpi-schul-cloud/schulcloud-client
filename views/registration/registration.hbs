@@ -1,9 +1,9 @@
 {{#extend "lib/simple"}}
 	{{#content "scripts" mode="append"}}
-		<script src="/scripts/dataprivacy/registration.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/dataprivacy/registration.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+		<link rel="stylesheet" href="{{getAssetPath '/styles/administration/dataprivacy.css'}}"/>
 	{{/content}}
 	{{#content "page"}}
 		{{#unless this.correctID}}

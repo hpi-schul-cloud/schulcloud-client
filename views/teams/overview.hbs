@@ -1,7 +1,7 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script type="text/javascript" defer src="/scripts/teamOverview.js" nonce="{{nonceValue}}"></script>
+        <script type="text/javascript" defer src="{{getAssetPath '/scripts/teamOverview.js'}}" nonce="{{nonceValue}}"></script>
     {{/content}}
     {{#content "styles" mode="append"}}
     {{/content}}
