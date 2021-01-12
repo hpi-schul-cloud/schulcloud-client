@@ -1,14 +1,16 @@
 const express = require('express');
 const { URL } = require('url');
+const { Configuration } = require('@hpi-schul-cloud/commons');
+
 const authHelper = require('../helpers/authentication');
-const { DOCUMENT_BASE_DIR, SC_THEME } = require('../config/global');
+const { SC_THEME } = require('../config/global');
 const { specificFiles: sf } = require('../config/documents');
 
 const router = express.Router();
 
 const createRedirectionLink = () => {
 	const themeLinkPart = `/schul-cloud-hpi/${SC_THEME}/${SC_THEME === 'open' ? sf.privacy : sf.privacyExemplary}`;
-	return new URL(themeLinkPart, DOCUMENT_BASE_DIR);
+	return new URL(themeLinkPart, Configuration.get('DOCUMENT_BASE_DIR'));
 };
 
 router.get('/', (req, res, next) => {

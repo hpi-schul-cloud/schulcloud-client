@@ -1,6 +1,7 @@
 const { URL } = require('url');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
-const { DOCUMENT_BASE_DIR, SC_THEME } = require('./global');
+const { SC_THEME } = require('./global');
 
 const specificFiles = {
 	privacyExemplary: 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
@@ -26,13 +27,13 @@ const globalFiles = {
 
 module.exports = {
 	defaultDocuments: () => ({
-		documentBaseDir: String(new URL(`${SC_THEME}/`, DOCUMENT_BASE_DIR)),
+		documentBaseDir: String(new URL(`${SC_THEME}/`, Configuration.get('DOCUMENT_BASE_DIR'))),
 		specificFiles: baseDir => Object.entries(specificFiles).reduce((obj, [key, value]) => {
 			obj[key] = String(new URL(value, baseDir));
 			return obj;
 		}, {}),
 		globalFiles: () => Object.entries(globalFiles).reduce((obj, [key, value]) => {
-			obj[key] = String(new URL(`global/${value}`, DOCUMENT_BASE_DIR));
+			obj[key] = String(new URL(`global/${value}`, Configuration.get('DOCUMENT_BASE_DIR')));
 			return obj;
 		}, {}),
 	}),

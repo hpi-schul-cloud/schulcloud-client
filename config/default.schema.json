@@ -230,6 +230,17 @@
 			"default": false,
 			"description": "Custom School Policy can be uploaded by the school admin "
 		},
+		"INSTANCE_NAME": {
+			"type": "string",
+			"default": "schul-cloud.org",
+			"description": "It is use for build the CSP file."
+		},
+		"DOCUMENT_BASE_DIR": {
+			"type": "string",
+			"format": "uri",
+			"default": "https://s3.hidrive.strato.com/schul-cloud-hpi/",
+			"description": "The uri to the storage provider"
+		},
 		"ETHERPAD": {
 			"type": "object",
 			"description": "Cookie properties, required always to be defined",

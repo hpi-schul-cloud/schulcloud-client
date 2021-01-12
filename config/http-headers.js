@@ -19,6 +19,9 @@ if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
 	matrixMessengerDiscoverUri = Configuration.get('MATRIX_MESSENGER__DISCOVER_URI');
 }
 
+const storageProvider = Configuration.get('DOCUMENT_BASE_DIR');
+const instance = Configuration.get('INSTANCE_NAME');
+
 const config = {
 	enabled: Configuration.get('CORS'),
 	// Settings for HTTP Content-Security-Policy Header
@@ -35,7 +38,7 @@ const config = {
 		// Default Content-Security-Policy Header for every site
 		// Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
 		corsDefault: {
-			defaultSrc: `'self' data: blob: wss://schul-cloud.org wss://scchat.schul-cloud.org https://api.schul-cloud.org https://scchat.schul-cloud.org https://s3.hidrive.strato.com https://libreoffice.schul-cloud.org https://docs.schul-cloud.org https://edtrio.schul-cloud.org https://etherpad.schul-cloud.org https://blog.hpi-schul-cloud.de https://sc-content-resources.schul-cloud.org https://sentry.schul-cloud.dev https://open.hpi.de https://upload.wikimedia.org https://user-images.githubusercontent.com https://dev-storage.schul-cloud.org:9001 https://hydra.test.schul-cloud.org ${matrixMessengerEmbed} ${matrixMessengerHomeserver} ${matrixMessengerDiscoverUri}`,
+			defaultSrc: `'self' data: blob: wss://${instance} wss://scchat.${instance} https://api.${instance} https://scchat.${instance} https://s3.hidrive.strato.com https://libreoffice.${instance} https://docs.${instance} https://edtrio.${instance} https://etherpad.${instance} https://blog.hpi-schul-cloud.de https://sc-content-resources.${instance} https://sentry.schul-cloud.dev https://open.hpi.de https://upload.wikimedia.org https://user-images.githubusercontent.com https://dev-storage.${instance}:9001 https://hydra.test.${instance} ${matrixMessengerEmbed} ${matrixMessengerHomeserver} ${matrixMessengerDiscoverUri}`,
 			fontSrc: `'self' data: ${matrixMessengerEmbed}`,
 			styleSrc: `'self' 'unsafe-inline' ${matrixMessengerEmbed}`,
 			// scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
@@ -55,13 +58,13 @@ const config = {
 		*/
 		corsSiteSpecific: {
 			'^/$': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://play.google.com https://schul-cloud-hpi.s3.hidrive.strato.com',
+				defaultSrc: `https://www10-fms.hpi.uni-potsdam.de https://play.google.com ${storageProvider}`,
 			},
 			'^/dashboard': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://schul-cloud-hpi.s3.hidrive.strato.com',
+				defaultSrc: `https://www10-fms.hpi.uni-potsdam.de ${storageProvider}`,
 			},
 			'^/courses': {
-				defaultSrc: 'https://nexboard.nexenio.com https://www.geogebra.org https://lti.tools https://codeocean.openhpi.de https://acc.bettermarks.com https://moodle.schul-cloud.org',
+				defaultSrc: 'https://nexboard.nexenio.com https://www.geogebra.org https://lti.tools https://codeocean.openhpi.de https://acc.bettermarks.com https://moodle.${instance}',
 				fontSrc: 'https://vjs.zencdn.net https://fonts.googleapis.com https://cdn.jsdelivr.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},
@@ -98,7 +101,7 @@ const config = {
 			'^/datenschutz': {
 			}, */
 			'^/about': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://schul-cloud-hpi.s3.hidrive.strato.com',
+				defaultSrc: `https://www10-fms.hpi.uni-potsdam.de ${storageProvider}`,
 			},
 			'^/community': {
 				defaultSrc: 'https://play.google.com',
@@ -117,7 +120,7 @@ const config = {
 		if no regex is given for URLs the Access-Control-Allow-Origin will not be set
 	*/
 	accessControlAllowOrigin: {
-		'^/rocketChat/authGet': 'https://scchat.schul-cloud.org',
+		'^/rocketChat/authGet': 'https://scchat.${instance}',
 	},
 	// Additional default Security header can be set - key reprensents the HTTP header and the value the value of the header
 	additionalSecurityHeader: {
