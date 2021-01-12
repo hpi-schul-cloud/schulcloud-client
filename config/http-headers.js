@@ -120,7 +120,7 @@ const config = {
 		if no regex is given for URLs the Access-Control-Allow-Origin will not be set
 	*/
 	accessControlAllowOrigin: {
-		'^/rocketChat/authGet': 'https://scchat.${instance}',
+		'^/rocketChat/authGet': `https://scchat.${instance}`,
 	},
 	// Additional default Security header can be set - key reprensents the HTTP header and the value the value of the header
 	additionalSecurityHeader: {
