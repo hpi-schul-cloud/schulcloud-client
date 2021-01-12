@@ -17,8 +17,7 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const prometheus = require('./helpers/prometheus');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 const { nonceValueSet } = require('./helpers/csp');
-
-
+const { staticAssetsMiddleware } = require('./middleware/assets');
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 const logger = require('./helpers/logger');
@@ -127,8 +126,8 @@ if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, `build/${themeName}`)));
-app.use('/locales', express.static(path.join(__dirname, 'locales')));
+
+staticAssetsMiddleware(app);
 
 let sessionStore;
 const redisUrl = REDIS_URI;

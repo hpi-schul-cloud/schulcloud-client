@@ -4,7 +4,7 @@
 			{{else}}
 				<div class="empty-state">
 					{{> courses/components/svg_tasks}}
-					<!--<img src="/images/empty-states/tasks.svg" alt="{{$t "courses._course.tasks.img_alt.noPosedTasks"}}" class="image course-empty-content-image" />-->
+					<!--<img src="{{getAssetPath '/images/empty-states/tasks.svg'}}" alt="{{$t "courses._course.tasks.img_alt.noPosedTasks"}}" class="image course-empty-content-image" />-->
 
 					{{#unless @root.isArchived}}
 						{{#userHasPermission "COURSE_EDIT" }}
