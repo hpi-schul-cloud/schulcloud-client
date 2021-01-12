@@ -1,63 +1,65 @@
-@import '../lib/colors';
+@import "../lib/colors";
 
 .color-picker {
-  font-size: 0;
+	display: flex;
+	font-size: 0;
 
-  &__item {
-    display: inline-block;
+	&__item {
+		display: inline-block;
 
-    & + & {
-      margin-left: 10px;
-    }
+		& + & {
+			margin-left: 10px;
+		}
 
-    &:hover {
-      cursor: pointer;
-    }
-  }
+		&:hover {
+			cursor: pointer;
+		}
+	}
 
-  &__input {
-    display: none;
+	&__input {
+		display: none;
 
-    &:checked {
-      + .color-picker__color {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        &:after {
-          content: '';
-        }
-      }
-    }
+		&:checked {
+			+ .color-picker__color {
+				font-size: 0;
+				width: 32px;
+				height: 32px;
+				border-radius: 50%;
+				&:after {
+					content: "";
+				}
+			}
+		}
 
-    &:disabled {
-      + .color-picker__color {
-        opacity: 0.5;
-        &:hover {
-         cursor: not-allowed;
-        }
-      }
-    }
-  }
+		&:disabled {
+			+ .color-picker__color {
+				opacity: 0.5;
+				&:hover {
+					cursor: not-allowed;
+				}
+			}
+		}
+	}
 
-  &__color {
-    position: relative;
-    display: block;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    &:hover {
-      cursor: pointer;
-    }
+	&__color {
+		position: relative;
+		display: block;
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		&:hover {
+			cursor: pointer;
+		}
 
-    &:after {
-      pointer-events: none;
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      width: calc(100% + 4px);
-      height: calc(100% + 4px);
-      outline: 2px solid $colorDarkerGrey;
-      content: none;
-    }
-  }
+		&:after {
+			pointer-events: none;
+			position: absolute;
+			top: -2px;
+			left: -2px;
+			width: calc(100% + 4px);
+			height: calc(100% + 4px);
+			outline: 2px solid $colorDarkerGrey;
+			content: none;
+		}
+	}
 }

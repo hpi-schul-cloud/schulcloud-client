@@ -16,7 +16,7 @@
                     <button class="tab" data-tab="js-active">
                         <span class="text">{{$t "courses.tab_label.currentCourses"}} <span class="count-badge" data-badge="{{ total.active }}"/></span>
                     </button>
-                    <button class="tab" data-tab="js-archived">
+                    <button class="tab" aria-label="{{$t "courses.tab_label.archivedCourses"}}" data-tab="js-archived">
                         <span class="text">{{$t "courses.tab_label.archivedCourses"}} <span class="count-badge" data-badge="{{ total.archived }}"/></span>
                     </button>
                 </div>
@@ -59,7 +59,7 @@
                                     <div class="row padding-top">
                                         <div class="col-sm-12">
                                             <div class="pull-right">
-                                            <a class="btn btn-secondary btn-import-course" data-testid="import-course-btn">{{$t "courses.button.importCourse"}}</a>
+                                            <button class="btn btn-secondary btn-import-course" data-testid="import-course-btn">{{$t "courses.button.importCourse"}}</button>
                                             <a href="/courses/add" data-testid="create-course-btn" class="btn btn-primary btn-add">{{$t "courses.button.createCourse"}}</a>
                                         </div>
                                         </div>

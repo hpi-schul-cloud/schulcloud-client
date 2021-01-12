@@ -906,7 +906,8 @@
 					"editCourse": "Kurs bearbeiten"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Kurs ist archiviert"
+					"courseIsArchieved": "Kurs ist archiviert",
+					"addPeople": "Person hinzufügen"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
@@ -1450,7 +1451,7 @@
 				"explainTheFollowing": "erkläre folgendes:",
 				"forAnEvenBetterLearningExperience": "Für ein noch besseres Lernerlebnis wird die {{title}} stetig weiterentwickelt. Im Zuge dessen hat sich",
 				"i": "Ich,",
-				"pleaseClickOnRead": "Bitte nimm mit Klick auf »Gelesen« diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
+				"pleaseClickOnRead": "Bitte nimm mit Klick auf „Gelesen” diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{title}} nutzen kannst.",
 				"termsOfUse": "Nutzungsordnung",
 				"the": "die"
@@ -1564,7 +1565,8 @@
 	"global": {
 		"aria_label": {
 			"sidebar": "Seitenleiste",
-			"topMenu": "topbar"
+			"topMenu": "topbar",
+			"deleteCourse": "Kurs löschen"
 		},
 		"button": {
 			"accept": "Akzeptieren",
@@ -1579,6 +1581,7 @@
 			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"createFolder": "Ordner erstellen",
 			"deleteTeam": "Team löschen",
+			"done": "Fertig",
 			"edit": "Bearbeiten",
 			"editTopic": "Thema bearbeiten",
 			"filterAdd": "Filter hinzufügen",
@@ -2211,7 +2214,8 @@
 				"devOps": "DevOps",
 				"generalInquiries": "Allgemeine Anfragen:",
 				"mobileApp": "Mobile App",
-				"privacy": "Datenschutz:",
+				"privacy": "Allgemeine Datenschutzanfragen:",
+				"privacy_responsible_person": "Datenschutzbeauftragter:",
 				"subscribeTheNewsletter": "Newsletter abonnieren",
 				"support": "Support:"
 			},

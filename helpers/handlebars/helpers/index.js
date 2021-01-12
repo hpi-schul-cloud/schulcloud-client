@@ -186,15 +186,12 @@ const helpers = () => ({
 			.subtract(days, 'days')
 			.format(format);
 	},
-	dateToPicker: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateToPicker')),
-	dateTimeToPicker: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateTimeToPicker')),
-	i18nDate: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.date')),
-	i18nDateTime: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateTime')),
-	i18nDateString: (date) => timesHelper.moment(date).format(i18n.getInstance()('format.dateLong')),
-	timeToString: (date) => timesHelper.timeToString(date, i18n.getInstance()('format.dateTime')),
-	currentYear() {
-		return new Date().getFullYear();
-	},
+	dateToPicker: (date) => timesHelper.formatDate(date, i18n.getInstance()('format.dateToPicker')),
+	dateTimeToPicker: (date) => timesHelper.formatDate(date, i18n.getInstance()('format.dateTimeToPicker')),
+	i18nDate: (date) => timesHelper.dateToDateString(date),
+	i18nDateTime: (date) => timesHelper.dateToDateTimeString(date, true),
+	timeToString: (date) => timesHelper.timeToString(date),
+	currentYear: () => timesHelper.currentDate().year(),
 	concat() {
 		const arg = Array.prototype.slice.call(arguments, 0);
 		arg.pop();

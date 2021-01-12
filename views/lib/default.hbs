@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{userLanguage}}" timezone="{{currentTimezone}}">
+<html lang="{{#if userLanguage}} {{userLanguage}} {{else}}de{{/if}}" timezone="{{currentTimezone}}">
 
 <head>
 	{{#embed "lib/sentry"}}{{/embed}}
