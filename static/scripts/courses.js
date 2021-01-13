@@ -431,9 +431,7 @@ $(document).ready(() => {
 	});
 
 	$('.chosen-choices').bind('DOMSubtreeModified', () => {
-		const selectedOptionsArray = $(
-			'div#courseTeacher_chosen li.search-choice'
-		);
+		const selectedOptionsArray = $('div#courseTeacher_chosen li.search-choice');
 		const input = $('.chosen-search-input')[0];
 
 		if (selectedOptionsArray.length <= 0) {
