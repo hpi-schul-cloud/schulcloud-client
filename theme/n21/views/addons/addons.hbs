@@ -1,19 +1,19 @@
 {{#extend "lib/loggedin"}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/addons/addons.css"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/addons/addons.css'}}"/>
     {{/content}}
     {{#content "page"}}
       {{#ifConfig "FEATURE_EXTENSION_PORTFOLIO_ENABLED" true}}
       <a class="card card-block card-tool" href="/tools/show/portfolio">
         <h2 class="h5">Portfolio</h2>
-        <img src="/images/cloud.png" class="card-img" style="width:auto; height:75px;" alt="" roles="presentation"/>
+        <img src="{{getAssetPath '/images/cloud.png'}}" class="card-img" style="width:auto; height:75px;" alt="" roles="presentation"/>
         <span>{{$t "addons.text.portfolioDescription"}}</span>
       </a>
       {{/ifConfig}}
 
       <a class="card card-block card-tool" href="https://www.methodenguide.de/" target="_blank" rel="noopener">
         <h2 class="h5">{{$t "theme.n21.addons.headline.methodGuideLowerSaxony"}}</h2>
-        <img src="/images/methodenguide.png" class="card-img" style="width:auto; height:75px;" alt="" roles="presentation"/>
+        <img src="{{getAssetPath '/images/methodenguide.png'}}" class="card-img" style="width:auto; height:75px;" alt="" roles="presentation"/>
         <span>{{$t "theme.n21.addons.text.theMethodsGuideOffers"}}</span>
       </a>
     {{/content}}

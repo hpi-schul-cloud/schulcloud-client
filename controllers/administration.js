@@ -3013,6 +3013,7 @@ router.use(
 		});
 
 		const ssoTypes = getSSOTypes();
+		const availableSSOTypes = getSSOTypes().filter((type) => type.value !== 'itslearning');
 
 		res.render('administration/school', {
 			title: res.$t('administration.controller.headline.school', {
@@ -3025,7 +3026,7 @@ router.use(
 			ldapAddable,
 			provider,
 			studentVisibility: studentVisibility.isEnabled,
-			availableSSOTypes: ssoTypes,
+			availableSSOTypes,
 			ssoTypes,
 			totalStorage,
 			systemsHead,
