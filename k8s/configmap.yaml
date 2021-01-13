@@ -10,3 +10,5 @@ data:
   LOG_LEVEL: info
   BACKEND_URL: http://schulcloud-server
   CALENDAR_SERVICE_ENABLED: 'false'
+  INSTANCE_NAME: kubectls-experiments.devops-wizard.com
+  CORS: 'false'
