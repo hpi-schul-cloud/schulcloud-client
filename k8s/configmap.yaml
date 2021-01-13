@@ -10,5 +10,12 @@ data:
   LOG_LEVEL: info
   BACKEND_URL: http://schulcloud-server
   CALENDAR_SERVICE_ENABLED: 'false'
-  # INSTANCE_NAME:  $HOSTNAME
+  SC_DOMAIN: devops-wizard.com
+  # must change later for https and cors
   CORS: 'false'
+  COOKIE__EXPIRES_SECONDS: "2592000000"
+  COOKIE__HOST_ONLY: "false"
+  COOKIE__HTTP_ONLY: "false"
+  COOKIE__SAME_SITE: Lax
+  COOKIE__SECURE: "false"
+  COOKIE_SECRET: abc
