@@ -27,6 +27,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users), fixed buttons for printing
 - SC-8272 - fixed displaying of the error message for submissions with no due date
 
+## [25.4.3]
+
+### Changed
+
+- SC-8321 cache and hash static assets
+
+## [25.4.2]
+
+### Fixed 
+
+- SC-8337 - Better error handling for file upload
+
 ## [25.4.1]
 
 - Update from 25.3.6 into master

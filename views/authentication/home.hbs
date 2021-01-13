@@ -1,16 +1,16 @@
 {{#extend "lib/loggedout"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/homepage/index.css" />
+        <link rel="stylesheet" href="{{getAssetPath '/styles/homepage/index.css'}}" />
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/login.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/login.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script nonce="{{nonceValue}}">
             window.production = '{{ @root.production }}';
         </script>
-        <script src="/scripts/sc-blog.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/blog-fetch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/sc-blog.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/blog-fetch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -34,7 +34,7 @@
             <i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
                style="font-size: 25px;"></i>
         <div class="placeholder" style="display: none;">
-            <img src="/images/repair.png" width="350px">
+            <img src="{{getAssetPath '/images/repair.png'}}" width="350px">
         <p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
         <button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
         </div>

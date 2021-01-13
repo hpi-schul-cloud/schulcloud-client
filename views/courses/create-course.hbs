@@ -83,199 +83,196 @@
                 </div>
               </div>
 
-      <div class="row">
-        <div class="form-group col-md-6" data-testid="teachers_container">
-          <label for="courseTeacher">{{$t "courses.global.label.courseTeacher"}}</label>
-          <select id="courseTeacher" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" data-testid="teachersearch" autocomplete="off"
-            aria-describedby="courseTeacherErr">
-            {{#each teachers}}
-            <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-              {{#if this.displayName}}
-              {{this.displayName}}
-              {{else}}
-              {{this.firstName}} {{this.lastName}}
-              {{/if}}
-            </option>
-            {{/each}}
-          </select>
-          <span class="small" id="courseTeacherErr" style="visibility:hidden; color: #ff1134;">{{$t
-            "courses.global.input.noCourseTeacher"}}</span>
-        </div>
+              <div class="row">
+                <div class="form-group col-md-6" data-testid="teachers_container">
+                  <label for="courseTeacher">{{$t "courses.global.label.courseTeacher"}}</label>
+                  <select id="courseTeacher" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" data-testid="teachersearch" autocomplete="off"
+                    aria-describedby="courseTeacherErr">
+                    {{#each teachers}}
+                    <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                      {{#if this.displayName}}
+                      {{this.displayName}}
+                      {{else}}
+                      {{this.firstName}} {{this.lastName}}
+                      {{/if}}
+                    </option>
+                    {{/each}}
+                  </select>
+                  <span class="small" id="courseTeacherErr" style="visibility:hidden; color: #ff1134;">{{$t
+                    "courses.global.input.noCourseTeacher"}}</span>
+                </div>
 
-        <div class="form-group col-md-6" data-testid="courseSubstitute_container">
-          <label for="courseSubstitute">{{$t "courses.add.label.courseSubstitute"}}</label>
-          <select id="courseSubstitute" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" autocomplete="off" data-testid="substituent">
-            <option disabled value="{{$t "administration.global.label.noSubTeacherSelection"}}">{{$t
-              "administration.global.label.noSubTeacherSelection"}}</option>
-            {{#each substitutions}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-              {{this.firstName}} {{this.lastName}}
-            </option>
-            {{/each}}
-          </select>
-        </div>
-      </div>
+                <div class="form-group col-md-6" data-testid="courseSubstitute_container">
+                    <label for="courseSubstitute">{{$t "courses.add.label.courseSubstitute"}}</label>
+                    <select id="courseSubstitute" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" autocomplete="off" data-testid="substituent">
+                            <option disabled value="{{$t "administration.global.label.noSubTeacherSelection"}}">{{$t "administration.global.label.noSubTeacherSelection"}}</option>
+                        {{#each substitutions}}
+                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                                {{this.firstName}} {{this.lastName}}
+                            </option>
+                        {{/each}}
+                    </select>
+                </div>
+              </div>
 
-      {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-      {{#inArray "messenger" @root.currentSchoolData.features}}
-      <div class="form-group">
-        <label>
-          <input type="checkbox" name="messenger" value="true" {{#inArray "messenger"
-            ../course.features}}checked{{/inArray}}>
-          {{$t "courses._course.edit.label.activateBidirectionalMessenger"}}
-        </label>
-      </div>
-      {{/inArray}}
-      {{/ifConfig}}
+              {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+                {{#inArray "messenger" @root.currentSchoolData.features}}
+                  <div class="form-group">
+                    <label>
+                      <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
+                      {{$t "courses._course.edit.label.activateBidirectionalMessenger"}}
+                    </label>
+                  </div>
+                {{/inArray}}
+              {{/ifConfig}}
 
-      <div class="form-group">
-        <div class="times" id="timesContainer">
-          <div class="row">
-            <div class="form-group col-md-6">
+              <div class="form-group">
+              <div class="times" id="timesContainer">
+                  <div class="row">
+                      <div class="form-group col-md-6">
               {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpan") id="startDate" class="startDate"
               value=course.startDate dataTestId="date_start"}}
               <span class="small" id="invalidTimeError" style="visibility:hidden; color: #ff1134;">{{$t
                 "courses.global.input.invalidTimeError"}}</span>
-            </div>
+                      </div>
 
-            <div class="form-group col-md-6">
+                      <div class="form-group col-md-6">
               {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpanUntil") id="untilDate"
               class="untilDate"
               value=course.untilDate}}
+                      </div>
+                  </div>
+
+                  <button class="new-course-time-add btn-link" data-timesref="#timesContainer" type="button">
+                      <i class="fa fa-plus-circle fa-6"></i> {{$t "courses.add.button.addLessonAppointment"}}
+                  </button>
+                  <table width="100%" cellpadding="5px" class="course-times-table">
+                      <thead>
+                        <th></th>
+                        <th><label for="weekday">{{$t "administration.global.label.weekday"}}</label></th>
+                        <th><label for="startOfLesson">{{$t "administration.global.label.startOfLesson"}}</label></th>
+                        <th><label for="lengthOfLesson">{{$t "administration.global.label.lengthOfLesson"}}</label></th>
+                        <th><label for="room">{{$t "global.label.room"}}</label></th>
+                      </thead>
+                      <tbody class="add-course-times">
+                          {{#embed "courses/components/template-new-course-time"}}{{/embed}}
+                      </tbody>
+                  </table>
+              </div>
             </div>
-          </div>
 
-          <button class="new-course-time-add btn-link" data-timesref="#timesContainer" type="button">
-            <i class="fa fa-plus-circle fa-6"></i> {{$t "courses.add.button.addLessonAppointment"}}
-          </button>
-          <table width="100%" cellpadding="5px" class="course-times-table">
-            <thead>
-              <th></th>
-              <th><label for="weekday">{{$t "administration.global.label.weekday"}}</label></th>
-              <th><label for="startOfLesson">{{$t "administration.global.label.startOfLesson"}}</label></th>
-              <th><label for="lengthOfLesson">{{$t "administration.global.label.lengthOfLesson"}}</label></th>
-              <th><label for="room">{{$t "global.label.room"}}</label></th>
-            </thead>
-            <tbody class="add-course-times">
-              {{#embed "courses/components/template-new-course-time"}}{{/embed}}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </section>
 
-    </section>
+            <section data-panel="section-2" data-testid="section-2-area" class="submit-page course-submit-page">
+                {{#userHasPermission "STUDENT_LIST"}}
 
-    <section data-panel="section-2" data-testid="section-2-area" class="submit-page course-submit-page">
-      {{#userHasPermission "STUDENT_LIST"}}
+                    <h2 class="h4">{{$t "global.headline.youAlmostMadeIt"}}</h2>
+                    <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
 
-      <h2 class="h4">{{$t "global.headline.youAlmostMadeIt"}}</h2>
-      <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t
-        "courses.add.text.doItNowOrLaterInSettings"}}</p>
+                        <div class="form-group" data-testid="class_container">
+                        <label for="addClassesToCourse">{{$t "courses.add.label.addClassesToCourse"}}</label>
+                        <select id="addClassesToCourse" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
+                                <option disabled value="{{$t "administration.global.placeholder.selectClasses"}}">{{$t "administration.global.placeholder.selectClasses"}}</option>
+                            {{#each ../classes}}
+                              <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                                  {{this.displayName}}
+                                  {{#if this.year}}
+                                      ({{this.year.name}})
+                                  {{/if}}
+                              </option>
+                          {{/each}}
+                      </select>
+                  </div>
 
-      <div class="form-group" data-testid="class_container">
-        <label for="addClassesToCourse">{{$t "courses.add.label.addClassesToCourse"}}</label>
-        <select id="addClassesToCourse" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
-          <option disabled value="{{$t "administration.global.placeholder.selectClasses"}}">{{$t
-            "administration.global.placeholder.selectClasses"}}</option>
-          {{#each ../classes}}
-          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-            {{this.displayName}}
-            {{#if this.year}}
-            ({{this.year.name}})
+                  <div class="form-group" data-testid="students_container">
+                      <label for="addStudentsToCourse">{{$t "courses.add.label.addStudentsToCourse"}}</label>
+                      <select id="addStudentsToCourse" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
+                         <option disabled value="{{$t "administration.global.placeholder.selectStudent"}}">{{$t "administration.global.placeholder.selectStudent"}}</option>
+                         {{#each ../students}}
+                         <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                         {{#if this.displayName}}
+                         {{this.displayName}}
+                         {{else}}
+                         {{this.firstName}} {{this.lastName}}
+                         {{/if}}
+                         </option>
+                         {{/each}}
+                      </select>
+                  </div>
+                {{else}}
+                    <h2 class="h4">{{$t "courses.add.headline.addStudents"}}</h2>
+                    <p class="text-muted">{{$t "courses.add.text.addingStudentsForbidden"}}
+                {{/userHasPermission}}
+            </section>
+
+            <section data-panel="section-3" data-testid="section-3-area">
+              <div class="final-step">
+                {{> 'courses/components/svg_create_course' }}
+                    <div>
+                        <h2 class="h4">{{$t "courses.add.headline.done"}}</h2>
+                        <h3 class="h5 text-muted">{{$t "courses.add.headline.whatToDoCourses"}}</h3>
+                        <div class="course-features">
+                    <a class="h6" id="addclass-create-topic" href="#">{{$t "courses.add.link.createTopics"}}</a>
+                    <p class="text-muted">
+                      {{$t "courses.add.text.contentOfClass"}}
+                    </p>
+
+                    <a class="h6" id="addclass-create-homework" href="#">{{$t "courses.add.link.giveExercises"}}</a>
+                    <p class="text-muted">
+                      {{$t "courses.add.text.giveExercisesAndGetResults"}}
+                    </p>
+                  </div>
+                    </div>
+              </div>
+
+              <div class="pull-right">
+                <a class="btn btn-secondary" data-testid="einen-weiteren-kurs-anlegen-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
+
+                <a class="btn btn-primary" data-testid="zur-uebersicht-btn" href="{{../redirectUrl}}">
+                   {{#ifeq redirectUrl "/courses"}}
+                      {{$t "courses.add.link.courseOverview"}}
+                   {{else}}
+                      {{$t "courses.add.link.giveExercises"}}
+                   {{/ifeq}}
+                </a>
+              </div>
+            </section>
+
+          {{/content}}
+
+          {{#content "buttons"}}
+            {{#if course._id}}
+              <a href="/courses/{{course._id}}/"
+                 class="btn btn-delete-course btn-secondary pull-left"
+                 target="_blank"
+                 data-method="DELETE"
+                 data-name="{{course.name}}"
+                 redirect="/courses/">{{$t "courses.global.button.deleteCourse"}}</a>
             {{/if}}
-          </option>
-          {{/each}}
-        </select>
-      </div>
-
-      <div class="form-group" data-testid="students_container">
-        <label for="addStudentsToCourse">{{$t "courses.add.label.addStudentsToCourse"}}</label>
-        <select id="addStudentsToCourse" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
-          <option disabled value="{{$t "administration.global.placeholder.selectStudent"}}">{{$t
-            "administration.global.placeholder.selectStudent"}}</option>
-          {{#each ../students}}
-          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-            {{#if this.displayName}}
-            {{this.displayName}}
-            {{else}}
-            {{this.firstName}} {{this.lastName}}
-            {{/if}}
-          </option>
-          {{/each}}
-        </select>
-      </div>
-      {{else}}
-      <h2 class="h4">{{$t "courses.add.headline.addStudents"}}</h2>
-      <p class="text-muted">{{$t "courses.add.text.addingStudentsForbidden"}}
-        {{/userHasPermission}}
-    </section>
-
-    <section data-panel="section-3" data-testid="section-3-area">
-      <div class="final-step">
-        {{> 'courses/components/svg_create_course' }}
-        <div>
-          <h2 class="h4">{{$t "courses.add.headline.done"}}</h2>
-          <h3 class="h5 text-muted">{{$t "courses.add.headline.whatToDoCourses"}}</h3>
-          <div class="course-features">
-            <a class="h6" id="addclass-create-topic" href="#">{{$t "courses.add.link.createTopics"}}</a>
-            <p class="text-muted">
-              {{$t "courses.add.text.contentOfClass"}}
-            </p>
-
-            <a class="h6" id="addclass-create-homework" href="#">{{$t "courses.add.link.giveExercises"}}</a>
-            <p class="text-muted">
-              {{$t "courses.add.text.giveExercisesAndGetResults"}}
-            </p>
-          </div>
+          {{/content}}
+        {{/embed}}
         </div>
-      </div>
 
-      <div class="pull-right">
-        <a class="btn btn-secondary" data-testid="einen-weiteren-kurs-anlegen-btn" href="/courses/add">{{$t
-          "courses.add.link.addAnotherCourse"}}</a>
+        {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
+            {{#content "body"}}
+                <p>{{$t "courses.text.willAlsoDeleteForStudents"}}</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close">
+                        {{$t "global.button.cancel"}}
+                    </button>
 
-        <a class="btn btn-primary" data-testid="zur-uebersicht-btn" href="{{../redirectUrl}}">
-          {{#ifeq redirectUrl "/courses"}}
-          {{$t "courses.add.link.courseOverview"}}
-          {{else}}
-          {{$t "courses.add.link.giveExercises"}}
-          {{/ifeq}}
-        </a>
-      </div>
-    </section>
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        {{$t "global.headline.delete"}}
+                    </button>
+                </div>
+            {{/content}}
+        {{/embed}}
 
+        {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
+
+        {{/embed}}
+
+
+        </section>
     {{/content}}
-
-    {{#content "buttons"}}
-    {{#if course._id}}
-    <a href="/courses/{{course._id}}/" class="btn btn-delete-course btn-secondary pull-left" target="_blank"
-      data-method="DELETE" data-name="{{course.name}}" redirect="/courses/">{{$t
-      "courses.global.button.deleteCourse"}}</a>
-    {{/if}}
-    {{/content}}
-    {{/embed}}
-  </div>
-
-  {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
-  {{#content "body"}}
-  <p>{{$t "courses.text.willAlsoDeleteForStudents"}}</p>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary btn-close">
-      {{$t "global.button.cancel"}}
-    </button>
-
-    <button type="submit" class="btn btn-primary btn-submit">
-      {{$t "global.headline.delete"}}
-    </button>
-  </div>
-  {{/content}}
-  {{/embed}}
-
-  {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
-
-  {{/embed}}
-
-
-</section>
-{{/content}}
 {{/extend}}
