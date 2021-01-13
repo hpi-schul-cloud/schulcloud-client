@@ -1,4 +1,5 @@
 import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
+import moment from 'moment-timezone';
 import getCookie from './helpers/cookieManager';
 
 /* eslint-disable max-len */
@@ -408,7 +409,6 @@ $(document).ready(() => {
 
 	$('#nextSection').on('click', (e) => {
 		e.stopPropagation();
-		e.preventDefault;
 
 		const selectedOptionsArray = $(
 			'div#courseTeacher_chosen li.search-choice'

@@ -93,7 +93,7 @@ function isSectionValid(sectionIndex) {
 	const requiredSelectElements = [...document.querySelectorAll('select[required]')];
 
 	if (requiredSelectElements.length) {
-		const isValidElements = requiredSelectElements.every(ele => $(ele).val().length > 0);
+		const isValidElements = requiredSelectElements.every((ele) => $(ele).val().length > 0);
 		if (!isValidElements) return false;
 	}
 
