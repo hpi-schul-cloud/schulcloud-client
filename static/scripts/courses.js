@@ -410,9 +410,7 @@ $(document).ready(() => {
 	$('#nextSection').on('click', (e) => {
 		e.stopPropagation();
 
-		const selectedOptionsArray = $(
-			'div#courseTeacher_chosen li.search-choice'
-		);
+		const selectedOptionsArray = $('div#courseTeacher_chosen li.search-choice');
 		const startDateElement = $('#startDate');
 		const input = $('.chosen-search-input')[0];
 
