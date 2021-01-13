@@ -410,7 +410,7 @@ $(document).ready(() => {
 	$('#nextSection').on('click', (e) => {
 		e.stopPropagation();
 
-		const selectedOptionsArray = $('div#courseTeacher_chosen li.search-choice');
+		const selectedOptionsArray = $('#courseTeacher').val();
 		const startDateElement = $('#startDate');
 		const input = $('.chosen-search-input')[0];
 
@@ -420,7 +420,7 @@ $(document).ready(() => {
 			setValidity(startDateElement[0], '#invalidTimeError', false);
 		}
 
-		if (selectedOptionsArray.length <= 0) {
+		if (selectedOptionsArray.length < 1) {
 			setValidity(input, '#courseTeacherErr', true);
 			$('.chosen-search-input').css('box-shadow', 'none');
 			$('#courseTeacher_chosen').addClass('validateError');
@@ -430,17 +430,28 @@ $(document).ready(() => {
 		}
 	});
 
-	$('.chosen-choices').bind('DOMSubtreeModified', () => {
-		const selectedOptionsArray = $('div#courseTeacher_chosen li.search-choice');
+	$('#courseTeacher').on('change', () => {
+		const selectedOptionsArray = $('#courseTeacher').val();
 		const input = $('.chosen-search-input')[0];
 
-		if (selectedOptionsArray.length <= 0) {
+		if (selectedOptionsArray.length < 1) {
 			setValidity(input, '#courseTeacherErr', true);
 			$('.chosen-search-input').css('box-shadow', 'none');
 			$('#courseTeacher_chosen').css('box-shadow', '0 0 5px 1px #ff1134');
 		} else {
 			setValidity(input, '#courseTeacherErr', false);
 			$('#courseTeacher_chosen').css('box-shadow', 'none');
+		}
+	});
+
+	$('#teacherId').on('change', () => {
+		const selectedOptionsArray = $('#teacherId').val();
+		const input = $('.chosen-search-input')[0];
+
+		if (selectedOptionsArray.length < 1) {
+			setValidity(input, null, true);
+		} else {
+			setValidity(input, null, false);
 		}
 	});
 
