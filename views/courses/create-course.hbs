@@ -1,92 +1,87 @@
 {{#extend "lib/loggedin"}}
 
-{{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/courses/course.css" />
-<link rel="stylesheet" href="/styles/courses/course-edit.css" />
-<link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css" />
-<link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css" />
-<link rel="stylesheet" href="/styles/administration/dataprivacy.css" />
-{{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course-edit.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/spectrum/spectrum.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/datetimepicker/jquery.datetimepicker.min.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/administration/dataprivacy.css'}}"/>
+    {{/content}}
 
-{{#content "scripts" mode="append"}}
-<script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/moment/moment.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/coursesTimes.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/dataprivacy/paginated_form.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-{{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="{{getAssetPath '/scripts/jquery/datetimepicker-easy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/moment/moment.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/coursesTimes.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/dataprivacy/paginated_form.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    {{/content}}
 
-{{#content "page"}}
-<section class="section-course">
-  <div class="wizard-header">
-    <div class="header-icon">
-      <img src="/images/empty-states/shuttle.svg" alt="{{$t "courses.add.img_alt.spaceShuttleStart"}}"
-        class="hidden-xs-down" />
-    </div>
-    <div class="headlines">
-      <h2 class="h3">{{sectionTitle}}</h2>
-      <p class="text-muted subtitle">
-        {{$t "courses.add.text.groupsWorkTogether"}}
-      </p>
-    </div>
-  </div>
 
-  <div class="wizard-card">
-    <div class="step-label-wrapper">
-      <div class="text-muted step-label">
-        {{$t "courses.add.tab_label.courseData"}}
-      </div>
-      <div class="text-muted step-label">
-        {{$t "courses.add.tab_label.courseMembers"}}
-      </div>
-      <div class="text-muted step-label">
-        {{$t "courses.add.tab_label.finish"}}
-      </div>
-    </div>
-    {{#embed "lib/forms/paginatedForm" sections=3 action=action method=method submit-label=submitLabel}}
-    {{#content "panels"}}
-
-    <section data-panel="section-1" data-testid="section-1-area">
-      {{#if method}}
-      <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
-      {{/if}}
-
-      <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
-
-      <div class="row">
-        <div class="form-group col-md-6">
-          <label for="nameOfTheCourse">{{$t "global.label.nameOfTheCourse"}}</label>
-          <input id="nameOfTheCourse" class="form-control js-course-name-input" name="name" type="text"
-            placeholder="{{$t "courses.add.input.egMaths"}}" value="{{course.name}}" autocomplete="off" required
-            autofocus data-testid="coursename" />
-        </div>
-
-        <div class="form-group col-md-6">
-          <label for="courseColor">{{$t "courses.global.label.courseColor"}}</label>
-          <div class="color-picker" data-testid="color-picker">
-            {{#if course.color}}
-            <div class="color-picker__item" data-testid="item">
-              <input id="input0" type="radio" class="color-picker__input" name="color" value="{{course.color}}"
-                checked="checked" />
-              <label for="input0" class="color-picker__color" aria-label="{{course.color}}"
-                style="background: {{course.color}}"></label>
+    {{#content "page"}}
+        <section class="section-course">
+          <div class="wizard-header">
+            <div class="header-icon">
+              <img src="{{getAssetPath '/images/empty-states/shuttle.svg'}}" alt="{{$t "courses.add.img_alt.spaceShuttleStart"}}" class="hidden-xs-down"/>
             </div>
-            {{/if}}
-            {{#each colors}}
-            {{#ifneq this ../course.color}}
-            <div class="color-picker__item">
-              <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}"
-                {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked" {{/unless}}{{/ifeq}} />
-              <label for="input{{../this}}" class="color-picker__color" aria-label="{{../this}}"
-                style="background: {{../this}}"></label>
+            <div class="headlines">
+              <h2 class="h3">{{sectionTitle}}</h2>
+              <p class="text-muted subtitle">
+               {{$t "courses.add.text.groupsWorkTogether"}}
+              </p>
             </div>
-            {{/ifneq}}
-            {{/each}}
           </div>
-        </div>
-      </div>
+
+          <div class="wizard-card">
+            <div class="step-label-wrapper">
+              <div class="text-muted step-label">
+                {{$t "courses.add.tab_label.courseData"}}
+              </div>
+              <div class="text-muted step-label">
+                {{$t "courses.add.tab_label.courseMembers"}}
+              </div>
+              <div class="text-muted step-label">
+                {{$t "courses.add.tab_label.finish"}}
+              </div>
+            </div>
+          {{#embed "lib/forms/paginatedForm" sections=3 action=action method=method submit-label=submitLabel}}
+            {{#content "panels"}}
+
+            <section data-panel="section-1" data-testid= "section-1-area">
+              {{#if method}}
+                  <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
+              {{/if}}
+
+              <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
+
+              <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="nameOfTheCourse">{{$t "global.label.nameOfTheCourse"}}</label>
+                    <input id="nameOfTheCourse" class="form-control js-course-name-input" name="name" type="text" placeholder="{{$t "courses.add.input.egMaths"}}" value="{{course.name}}" autocomplete="off"
+                           required autofocus data-testid="coursename"/>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label for="courseColor">{{$t "courses.global.label.courseColor"}}</label>
+                  <div class="color-picker" data-testid="color-picker">
+                    {{#if course.color}}
+                      <div class="color-picker__item" data-testid="item">
+                        <input id="input0" type="radio" class="color-picker__input" name="color" value="{{course.color}}" checked="checked"/>
+                        <label for="input0" class="color-picker__color" aria-label="{{course.color}}" style="background: {{course.color}}"></label>
+                      </div>
+                    {{/if}}
+                    {{#each colors}}
+                      {{#ifneq this ../course.color}}
+                        <div class="color-picker__item">
+                          <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}" {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"{{/unless}}{{/ifeq}}/>
+                            <label for="input{{../this}}" class="color-picker__color" aria-label="{{../this}}" style="background: {{../this}}"></label>
+                        </div>
+                      {{/ifneq}}
+                    {{/each}}
+                  </div>
+                </div>
+              </div>
 
       <div class="row">
         <div class="form-group col-md-6" data-testid="teachers_container">
