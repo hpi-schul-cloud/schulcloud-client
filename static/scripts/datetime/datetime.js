@@ -6,6 +6,11 @@ const FORMAT = {
 	dateTime: 'DD.MM.YYYY HH:mm',
 };
 
+const INTER_DATE_FORMAT = {
+	de: 'DD.MM.YYYY',
+	en: 'MM/DD/YYYY',
+};
+
 const getTranslatedFormat = (key) => {
 	const translationKey = `format.${key}`;
 	const result = $t(translationKey);
@@ -53,6 +58,8 @@ const inputRange = ({
 	];
 };
 
+const dateStringToMoment = (date) => (getCookie('USER_LANG') === 'de') ? moment(date, INTER_DATE_FORMAT.de) : moment(date, INTER_DATE_FORMAT.en);
+
 export {
 	dateTimeStringToMoment,
 	fromNow,
@@ -60,4 +67,5 @@ export {
 	now,
 	toDateTimeString,
 	toMoment,
+	dateStringToMoment,
 };

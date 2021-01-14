@@ -1,6 +1,7 @@
 import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
 import moment from 'moment-timezone';
 import getCookie from './helpers/cookieManager';
+import { dateStringToMoment } from  './datetime/datetime'
 
 /* eslint-disable max-len */
 $(document).ready(() => {
@@ -371,26 +372,11 @@ $(document).ready(() => {
 		$bbbReloadInfoModal.appendTo('body').modal('show');
 	});
 
-	const compareCourseDates = () => {
-		let firstDate = $('#startDate').val();
-		let lastDate = $('#untilDate').val();
-		const lang = getCookie('USER_LANG');
-		const dateFormat = {
-			de: 'DD.MM.YYYY',
-			en: 'MM/DD/YYYY',
-		};
+	const isFirstDateSameOrBeforeLastDate = () => {
+		let firstDate = dateStringToMoment($('#startDate').val());
+		let lastDate = dateStringToMoment($('#untilDate').val());
 
-		if (lang === 'en') {
-			firstDate = moment(firstDate, dateFormat.en);
-			lastDate = moment(lastDate, dateFormat.en);
-		} else {
-			firstDate = moment(firstDate, dateFormat.de);
-			lastDate = moment(lastDate, dateFormat.de);
-		}
-
-		if (moment(firstDate).isSameOrBefore(lastDate)) return false;
-
-		return true;
+		return moment(firstDate).isSameOrBefore(lastDate);
 	};
 
 	const setValidity = (element, errorMessageElement, showError = true) => {
@@ -414,19 +400,15 @@ $(document).ready(() => {
 		const startDateElement = $('#startDate');
 		const input = $('.chosen-search-input')[0];
 
-		if (compareCourseDates()) {
-			setValidity(startDateElement[0], '#invalidTimeError', true);
-		} else {
-			setValidity(startDateElement[0], '#invalidTimeError', false);
-		}
+		setValidity(startDateElement[0], '#invalidTimeError', !isFirstDateSameOrBeforeLastDate());
 
 		if (selectedOptionsArray.length < 1) {
-			setValidity(input, '#courseTeacherErr', true);
-			$('.chosen-search-input').css('box-shadow', 'none');
-			$('#courseTeacher_chosen').addClass('validateError');
+				setValidity(input, '#courseTeacherErr', true);
+				$('.chosen-search-input').css('box-shadow', 'none');
+				$('#courseTeacher_chosen').addClass('validateError');
 		} else {
-			setValidity(input, '#courseTeacherErr', false);
-			$('#courseTeacher_chosen').css('box-shadow', 'none');
+				setValidity(input, '#courseTeacherErr', false);
+				$('#courseTeacher_chosen').css('box-shadow', 'none');
 		}
 	});
 
@@ -448,20 +430,10 @@ $(document).ready(() => {
 		const selectedOptionsArray = $('#teacherId').val();
 		const input = $('.chosen-search-input')[0];
 
-		if (selectedOptionsArray.length < 1) {
-			setValidity(input, null, true);
-		} else {
-			setValidity(input, null, false);
-		}
+		setValidity(input, null, (selectedOptionsArray.length < 1));
 	});
 
 	$('#startDate, #untilDate').on('change', () => {
-		const startDateElement = $('#startDate');
-
-		if (compareCourseDates()) {
-			setValidity(startDateElement[0], '#invalidTimeError', true);
-		} else {
-			setValidity(startDateElement[0], '#invalidTimeError', false);
-		}
+		setValidity($('#startDate')[0], '#invalidTimeError', !isFirstDateSameOrBeforeLastDate());
 	});
 });
