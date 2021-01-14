@@ -13,7 +13,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6311 - Removed itslearning from available system types
 - SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
-- SC-8027 Fixed school login event listener issue
 
 ### Changed
 
