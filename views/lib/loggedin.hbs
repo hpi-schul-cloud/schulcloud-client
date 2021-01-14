@@ -1,11 +1,11 @@
 {{#extend "lib/default"}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
-        <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
-        <link rel="stylesheet" href="/styles/lib/forms/form-auto-logout-alert.css" />
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/loggedin.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/feedback-button.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/forms/form-auto-logout-alert.css'}}" />
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
 			{{#inArray "messenger" @root.currentSchoolData.features}}
-				<link rel="stylesheet" href="/styles/lib/chatLoggedin.css"/>
+				<link rel="stylesheet" href="{{getAssetPath '/styles/lib/chatLoggedin.css'}}"/>
 			{{/inArray}}
 		{{/ifConfig}}
 		<noscript>
@@ -20,13 +20,13 @@
 	{{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/loggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/autologout.js" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/messenger/welcome.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" nonce="{{nonceValue}}" defer></script>
-        <script type="text/javascript" src="/vendor/feathersjs/feathers.js" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/loggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/messenger/welcome.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script type="text/javascript" src="{{getAssetPath '/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML'}}" nonce="{{nonceValue}}" defer></script>
+        <script type="text/javascript" src="{{getAssetPath '/vendor/feathersjs/feathers.js'}}" nonce="{{nonceValue}}" defer></script>
         {{#if @root.currentUser.preferences.enterthecloud}}
-            <script type="text/javascript" src="/vendor/enterthecloud.min.js" nonce="{{nonceValue}}" defer></script>
+            <script type="text/javascript" src="{{getAssetPath '/vendor/enterthecloud.min.js'}}" nonce="{{nonceValue}}" defer></script>
         {{/if}}
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
             {{#inArray "messenger" @root.currentSchoolData.features}}
@@ -35,7 +35,7 @@
                     window.userLanguage = '{{ @root.userLanguage }}';
                     window.matrixBlockRoomCreation = {{ @root.matrixBlockRoomCreation }};
                 </script>
-                <script src="/scripts/chatLoggedin.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+                <script src="{{getAssetPath '/scripts/chatLoggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
             {{/inArray}}
         {{/ifConfig}}
     {{/content}}
@@ -230,9 +230,11 @@
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
                                 {{#unless notitle}}
+                                {{#if title}}
                                   <div>
                                       <h1 class="h4" id="page-title">{{{stripOnlyScript title}}}</h1>
                                   </div>
+                                  {{/if}}
                                 {{/unless}}
                                 <div>
                                     {{subtitle}}
@@ -306,7 +308,7 @@
         {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
         {{#content "body"}}
         <div class="modal-body">
-            <img src="/images/messenger-info.svg" class="image mx-auto d-block" width="70%" role="presentation"/>
+            <img src="{{getAssetPath '/images/messenger-info.svg'}}" class="image mx-auto d-block" width="70%" role="presentation"/>
             <div class="modal-body-text">
                 <p>{{$t "messenger.text.welcomeMatrix" }}</p>
                 <p>
@@ -349,7 +351,7 @@
     {{#embed "lib/components/modal" class="matrix-welcome-info" title=($t "messenger.headline.welcomeMatrix")}}
     {{#content "body"}}
     <div class="modal-body">
-        <img src="/images/messenger-info.svg" class="image mx-auto d-block" width="70%" role="presentation"/>
+        <img src="{{getAssetPath '/images/messenger-info.svg'}}" class="image mx-auto d-block" width="70%" role="presentation"/>
         <div class="modal-body-text">
             <p>{{$t "messenger.text.welcomeMatrix" }}</p>
             <div class="modal-danger">

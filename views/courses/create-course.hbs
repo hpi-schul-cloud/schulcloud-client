@@ -1,21 +1,21 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/courses/course-edit.css"/>
-        <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
-        <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
-        <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course-edit.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/spectrum/spectrum.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/datetimepicker/jquery.datetimepicker.min.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/administration/dataprivacy.css'}}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/moment/moment.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/coursesTimes.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/jquery/datetimepicker-easy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/moment/moment.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/coursesTimes.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/dataprivacy/dataprivacy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
 
@@ -23,7 +23,7 @@
         <section class="section-course">
           <div class="wizard-header">
             <div class="header-icon">
-              <img src="/images/empty-states/shuttle.svg" alt="{{$t "courses.add.img_alt.spaceShuttleStart"}}" class="hidden-xs-down"/>
+              <img src="{{getAssetPath '/images/empty-states/shuttle.svg'}}" alt="{{$t "courses.add.img_alt.spaceShuttleStart"}}" class="hidden-xs-down"/>
             </div>
             <div class="headlines">
               <h2 class="h3">{{sectionTitle}}</h2>
@@ -83,7 +83,7 @@
                 </div>
               </div>
 
-            <div class="row">
+              <div class="row">
                 <div class="form-group col-md-6" data-testid="teachers_container">
                     <label for="courseTeacher">{{$t "courses.global.label.courseTeacher"}}</label>
                     <select id="courseTeacher"
@@ -202,11 +202,11 @@
 
             <section data-panel="section-3" data-testid="section-3-area">
               <div class="final-step">
-                {{> 'courses/components/svg_create_course'}}
-                <div>
-                  <h2 class="h4">{{$t "courses.add.headline.done"}}</h2>
-                  <h3 class="h5 text-muted">{{$t "courses.add.headline.whatToDoCourses"}}</h3>
-                  <div class="course-features">
+                {{> 'courses/components/svg_create_course' }}
+                    <div>
+                        <h2 class="h4">{{$t "courses.add.headline.done"}}</h2>
+                        <h3 class="h5 text-muted">{{$t "courses.add.headline.whatToDoCourses"}}</h3>
+                        <div class="course-features">
                     <a class="h6" id="addclass-create-topic" href="#">{{$t "courses.add.link.createTopics"}}</a>
                     <p class="text-muted">
                       {{$t "courses.add.text.contentOfClass"}}
@@ -217,7 +217,7 @@
                       {{$t "courses.add.text.giveExercisesAndGetResults"}}
                     </p>
                   </div>
-                </div>
+                    </div>
               </div>
 
               <div class="pull-right">

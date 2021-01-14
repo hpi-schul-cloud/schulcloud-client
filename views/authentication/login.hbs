@@ -1,11 +1,11 @@
 {{#extend "lib/simple"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/homepage/login.css"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/homepage/login.css'}}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/login.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/login.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}

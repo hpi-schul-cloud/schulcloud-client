@@ -1,12 +1,12 @@
 {{#extend "lib/simple"}}
   {{#content "scripts" mode="append"}}
-    <script src="/scripts/pwrecovery.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/dataprivacy/user-registration.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/base64files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/pwrecovery.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/dataprivacy/user-registration.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/base64files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
   {{#content "styles" mode="append"}}
-      <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
-      <link rel="stylesheet" href="/styles/registration/pin.css" />
+      <link rel="stylesheet" href="{{getAssetPath '/styles/administration/dataprivacy.css'}}"/>
+      <link rel="stylesheet" href="{{getAssetPath '/styles/registration/pin.css'}}" />
   {{/content}}
   {{#content "page"}}
       {{#embed "lib/forms/paginatedForm" sections=sectionNumber action="/registration/submit" method="post" class="registration-form parent" submit-label=($t "registration._registration.global.button.sendAndGetStarted")}}
@@ -34,9 +34,10 @@
         <h2 class="h4">{{$t "registration._registration.headline.welcomeToTheRegistration" (dict "title" theme.title) }}</h2>
         <p>{{$t "registration._registration.text.thankYouForTakingThisStepWithUs" (dict "shortTitle" theme.title)}}</p>
         <p>{{$t "registration._registration.text.pleaseRegisterFirstAndAgreeToTerms" (dict "shortTitle" theme.title)}}</p>
-
+        {{#ifeq userLanguage "de"}}
         <p class="mt-2 explanation nomargin">* {{$t "registration._registration.text.linguisticNoteWeUseMaleFormForReadability" (dict "shortTitle" theme.short_title)}} 🌈🎉🦄
 		    </p>
+        {{/ifeq}}
       </section>
 
       <section data-panel="section-3">

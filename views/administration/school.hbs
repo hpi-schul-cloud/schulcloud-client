@@ -1,11 +1,11 @@
 {{#extend "administration/administration"}}
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/administration/school.css" />
-<link rel="stylesheet" href="/styles/administration/progress-static.css" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/administration/school.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/administration/progress-static.css'}}" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-<script src="/scripts/administration/school.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/administration/school.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page" mode="prepend"}}
@@ -200,8 +200,8 @@
 								placeholder="12345" {{#if ../schoolUsesLdap}} readonly{{/if}}
 								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
 								readonly{{/userHasPermission}}/>
-							 <div class="text-warning" style="font-size:0.75rem;">
-      							Once set, it cannot be changed
+							 <div class="text-danger" style="font-size:0.75rem;">
+								 {{$t "administration.school.text.changeSchoolValueWarnig"}}
 							</div>
 						</div>
 						{{#ifneq 0 (arrayLength ../school.federalState.counties)}}
@@ -224,8 +224,8 @@
 								</optgroup>
 								{{/if}}
 							</select>
-							<div class="text-warning" style="font-size:0.75rem;">
-      							Once set, it cannot be changed
+							<div class="text-danger" style="font-size:0.75rem;">
+      							{{$t "administration.school.text.changeSchoolValueWarnig"}}
 							</div>
 							</div>
 						{{/ifneq}}
@@ -274,13 +274,16 @@
                                 </div>
                             {{/ifConfig}}
                         {{/ifConfig}}
+
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
                         <div class="form-group"
-								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" true}}{{else}}
-									{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}{{else}}
-										hidden
-									{{/ifConfig}}>
-								{{/ifConfig}}>
+							{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
+								hidden
+							{{/ifConfig}}
+							{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}
+								hidden
+							{{/ifConfig}}
+						>
 							<label>
 								<input
 									id="messenger"
@@ -304,7 +307,17 @@
                         {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
                         <div id="messenger-sub-options" class="pl-3">
                             {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
-                            <div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__STUDENT_ROOM_CREATION" false}}hidden{{/ifConfig}}">
+                            <div class="form-group"
+								{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
+									hidden
+								{{/ifConfig}}
+							 	{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}
+								 	hidden
+								{{/ifConfig}}
+								{{#ifConfig "MATRIX_MESSENGER__STUDENT_ROOM_CREATION" false}}
+									hidden
+								{{/ifConfig}}
+							 >
                                 <label>
                                     <input
                                         type="checkbox"
@@ -323,7 +336,17 @@
 									{{$t "administration.school.text.messengerStudentRoomCreate" }}
 								</p>
                             </div>
-							<div class="form-group {{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}hidden{{/ifConfig}} {{#ifConfig "MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED" false}}hidden{{/ifConfig}}">
+							<div class="form-group"
+								{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
+									hidden
+								{{/ifConfig}}
+								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}
+									hidden
+								{{/ifConfig}}
+								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED" false}}
+									hidden
+								{{/ifConfig}}
+							>
                                 <label>
                                     <input
                                         type="checkbox"
@@ -469,7 +492,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12 no-padding">
-					<form action="/administration/systems/ldap/add" method="POST">
+					<form action="/administration/ldap/config/" method="GET">
 						{{> "lib/components/csrfInput"}}
 						<button type="submit" class="btn btn-primary btn-add-modal ">
 							{{$t "administration.school.button.addSystem" }}

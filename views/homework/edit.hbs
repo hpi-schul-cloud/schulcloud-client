@@ -1,26 +1,28 @@
 {{#content "scripts" mode="append"}}
-<script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/mousetrap/mousetrap.js" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/ckeditor/ckeditor.js'}}" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/mousetrap/mousetrap.js'}}" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/jquery/jquery.datetimepicker.full.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 
 <script nonce="{{nonceValue}}">
 	window.addEventListener('DOMContentLoaded', function () {
         const lang = $('html').attr('lang');
 		$.datetimepicker.setLocale(lang || 'de');
+        const datePickerMask = "{{$t "format.datePickerMask"}}";
+        const datePickerPlaceholder = datePickerMask.replace(/[0-9]/g, "_");
 		$('input[data-datetime]').datetimepicker({
 			format: '{{$t "format.dateTimePicker"}}',
 			mask: '{{$t "format.dateTimePickerMask"}}',
+            formatDate: '{{$t "format.datePicker"}}',
+            formatTime: 'H:i',
 			dayOfWeekStart: 1,
 			onShow: function (ct, input) {
-			    const datePickerMask = "{{$t "format.datePickerMask"}}";
-			    const datePickerPlaceholder = datePickerMask.replace(/[0-9]/g, "_");
 				if (input[0].id === "availableDate") {
 					let due = $("#dueDate").val().split(" ");
 					this.setOptions({
 						minDate: 0,
 						maxDate: (due[0] !== datePickerPlaceholder) ? due[0] : false,
-						formatDate: '{{$t "format.datePicker"}}',
+                        defaultDate: new Date(),
 					});
 				}
 				else if (input[0].id === "dueDate") {
@@ -28,10 +30,18 @@
 					this.setOptions({
 						minDate: (available[0] !== datePickerPlaceholder) ? available[0] : 0,
 						maxDate: false,
-						formatDate: '{{$t "format.datePicker"}}'
 					});
 				}
-			}
+			},
+            onChangeDateTime: function(ct, input) {
+                let due = $("#dueDate").val().split(" ");
+                if (input[0].id === "availableDate" && (due[0] === datePickerPlaceholder || due[0] === '')) {
+                    let available = $("#availableDate").val();
+                    if( available !== ''){
+                        $('#dueDate').val(available);
+                    }
+                }
+            }
 		});
 
 		Mousetrap.bind(['command+s', 'ctrl+s'], function (e) {
@@ -54,6 +64,7 @@
 							$('#lessonPicker').append('<option value="' + r.lessons.data[i]._id + '">' + r.lessons.data[i].name + '</option>');
 						}
 						$('#lessonPicker').prop('disabled', false);
+                        $('#lessonPicker').trigger("chosen:updated");
 					} else {
 						lessonPicker.append('<option value="">{{$t "homework.global.text.noTopicsInTheCourse"}}</option>');
 					}
@@ -78,8 +89,8 @@
 {{/content}}
 {{#extend "homework/homework"}}
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/files/upload.css" />
-<link rel="stylesheet" href="/styles/homework/file-upload.css" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/files/upload.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/homework/file-upload.css'}}" />
 {{/content}}
 {{#content "page"}}
 
@@ -91,7 +102,7 @@
 			<div class="form-group">
 				<label for="name">{{$t "global.label.title" }}</label>
 				<input id="name" class="form-control" name="name" type="text" placeholder="{{$t "global.label.title"}}" required
-					value="{{{assignment.name}}}" data-testid="homework-name" />
+					value="{{{assignment.name}}}" data-testid="homework-name" maxlength="80" />
 			</div>
 
 			<div class="row">
@@ -118,7 +129,6 @@
 					<div class="form-group">
 						<label for="lessonPicker">{{$t "homework.global.label.topic"}}</label>
 						<select id="lessonPicker" name="lessonId" data-placeholder="Thema auswählen"
-							{{#unless lessons}}disabled="true" aria-disabled="true" {{/unless}}>
 							{{#if assignment.courseId}}
 							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.text.noAssignment"}}</option>
 							{{#each lessons}}

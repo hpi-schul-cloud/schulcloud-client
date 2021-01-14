@@ -582,7 +582,7 @@
 				"endOfTheTransferPhase": "End of the transfer phase",
 				"fileStorageSpaceUsedInCloud": "Used file storage in the cloud",
 				"inTheTransferPhase": "in the transfer phase:",
-				"lernstoreEnabledForStudents": "Lern-Store for students",
+				"lernstoreEnabledForStudents": "Learning Store for students",
 				"loginFromExistingUsers": "Logins of existing users",
 				"messengerSchoolRoom": "Create a chat room for announcements to the entire school",
 				"messengerStudentRoomCreate": "Students can create their own chat rooms",
@@ -627,7 +627,7 @@
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
 				"ifMatrixIsActivatedAtYourSchool": "If the Matrix Messenger is activated, all teachers in this school can start chat rooms, private conversations or group discussions within the course or team. Students initially  have read-only access, but can also be given write access via the course and team settings. Students can also start private chats within courses and teams. You can find more information about this in the ",
-				"lernstoreEnabledForStudents": "If unchecked, then the students will not be able to access Lern-Store",
+				"lernstoreEnabledForStudents": "If unchecked, then the students will not be able to access Learning Store",
 				"loginViaLDAP": "Login via LDAP is still possible for existing users",
 				"messengerSchoolRoom": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
 				"messengerStudentRoomCreate": "If this feature is enabled, students are allowed to create chat rooms, private conversations and course and team discussions. These rooms are not visible to teachers unless they are explicitly invited.",
@@ -643,7 +643,8 @@
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{themeTitle}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
 				"thisOptionIsAvailable": "This option is available 2 weeks before the end of the current school year.",
 				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting",
-				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes."
+				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes.",
+				"changeSchoolValueWarnig": "Once set, it cannot be changed!"
 			}
 		},
 		"students": {
@@ -839,7 +840,7 @@
 		"headline": {
 			"addContentToTopic": "Add material to topic",
 			"contentCantBeAddedInDemo": "<h5>Content cannot be added to courses in demo mode.</h5>",
-			"contentStore": "Learning store",
+			"contentStore": "Learning Store",
 			"fileType": "File type",
 			"nSearchResultsFoundWith": "{{ searchResultsTotal }} search results for \"{{ query }}\"",
 			"noResultsFoundWith": "No search results were found for \"{{ query }}\"",
@@ -906,7 +907,8 @@
 					"editCourse": "Edit course"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Course is archived"
+					"courseIsArchieved": "Course is archived",
+					"addPeople": "Add members"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Allow Students to write messages in the course chat.",
@@ -1450,7 +1452,7 @@
 				"explainTheFollowing": "declare the following:",
 				"forAnEvenBetterLearningExperience": "The {{title}} is being constantly developed for an even better learning experience. In the course of this,",
 				"i": "I,",
-				"pleaseClickOnRead": "Please acknowledge this information by clicking on \"Read\" in order to proceed with the use.",
+				"pleaseClickOnRead": "Please acknowledge this information by clicking on „Read” in order to proceed with the use.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Please confirm the following declarations of consent so that you can use the {{title}}.",
 				"termsOfUse": "Terms of use",
 				"the": "the"
@@ -1564,7 +1566,8 @@
 	"global": {
 		"aria_label": {
 			"sidebar": "Sidebar",
-			"topMenu": "topbar"
+			"topMenu": "topbar",
+			"deleteCourse": "Delete course"
 		},
 		"button": {
 			"accept": "Accept",
@@ -1579,6 +1582,7 @@
 			"createFirstCourse": "Create your first course",
 			"createFolder": "Create folder",
 			"deleteTeam": "Delete team",
+			"done": "Done",
 			"edit": "Edit",
 			"editTopic": "Edit topic",
 			"filterAdd": "Add filter",
@@ -1679,7 +1683,7 @@
 			"helpDesk": "Help desk",
 			"imprint": "Imprint",
 			"landing": "Home page",
-			"lernstore": "Lern-Store",
+			"lernstore": "Learning Store",
 			"mainContentSkipLink": "Main section",
 			"management": "Management",
 			"managementStudents": "Students",
@@ -1876,10 +1880,16 @@
 		"help_fromInviteExternalMember": {
 			"button": {
 				"externalExperts": "External experts",
-				"teachersFromOtherSchools": "Teachers from other schools"
+				"externalExpertsN21": "External experts",
+				"teachersFromOtherSchools": "Teachers from other schools",
+				"teachersFromOtherSchoolsN21": "Teachers of other schools"
 			},
 			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Who would you like to invite to the team?"
+			},
+			"label": {
+				"lowerSaxonyRegistration": "Via the expression of interest <a href=\"https://www.n-21.de/nbc/interessenbekundung\">(https://www.n-21.de/nbc/interessenbekundung)</a> schools register - through the school administration - for the Lower Saxony Education Cloud.",
+				"pedagogicalExperts": "When inviting educational stuff as external experts, please do not use e-mail addresses that are already used and required for the registration in the Lower Saxony Education Cloud."
 			}
 		},
 		"language_hint": {
@@ -2205,7 +2215,8 @@
 				"devOps": "DevOps",
 				"generalInquiries": "General inquiries:",
 				"mobileApp": "Mobile app",
-				"privacy": "Privacy:",
+				"privacy": "General data protection inquiries:",
+				"privacy_responsible_person": "Data protection officer:",
 				"subscribeTheNewsletter": "Subscribe to the newsletter",
 				"support": "Support:"
 			},
@@ -2868,7 +2879,7 @@
 					"externExpert": "External expert",
 					"externTeacher": "Teacher of other school (Team admin)",
 					"federalState": "State",
-					"insertEmailOfExpertToInvite": "Enter the e-mail of the expert to whom the invitation will be sent.",
+					"insertEmailOfExpertToInvite": "For security reasons, external experts have limited access rights - such as, participating in video conferences or creating courses. To invite an external expert, please enter the e-mail address you want the invitation to be sent to.",
 					"leavingTeamRequiresNewOwner": "Leaving the team requires a different owner",
 					"reallyWantToRmClass": "Do you really want to remove this class?",
 					"reallyWantToRmInvitation": "Do you really want to cancel the invitation?",
@@ -2880,7 +2891,7 @@
 					"sendInvitationAgain": "Resend invitation"
 				},
 				"placeholder": {
-					"insertEmail": "Enter e-mail",
+					"insertEmail": "Input field for e-mail address",
 					"selectFederalState": "Select state",
 					"selectPersons": "Select people",
 					"selectRole": "Specify role",
