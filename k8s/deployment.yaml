@@ -30,13 +30,13 @@ spec:
             containerPort: 3100
           livenessProbe:
             httpGet:
-              path: /version
+              path: /legacy/version
               port: 3100
-            initialDelaySeconds: 15
+            initialDelaySeconds: 60
             timeoutSeconds: 15
           readinessProbe:
             httpGet:
-              path: /version
+              path: /legacy/version
               port: 3100
             initialDelaySeconds: 5
             timeoutSeconds: 3
