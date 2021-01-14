@@ -58,7 +58,9 @@ const inputRange = ({
 	];
 };
 
-const dateStringToMoment = (date) => (getCookie('USER_LANG') === 'de') ? moment(date, INTER_DATE_FORMAT.de) : moment(date, INTER_DATE_FORMAT.en);
+const dateStringToMoment = (date) => {
+	return (getCookie('USER_LANG') === 'de') ? moment(date, INTER_DATE_FORMAT.de) : moment(date, INTER_DATE_FORMAT.en);
+}
 
 export {
 	dateTimeStringToMoment,
