@@ -22,7 +22,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8337 - Better error handling for file upload
 - SC-8259 - limited the length of the task title/headline
 - SC-7345 - the linguistic note shown only for the German language
-- SC-8307 - fixed date formater bug by initial page loading 
+- SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
 
 ## 25.5.0
@@ -30,6 +30,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
+
 
 ## [25.4.3]
 
