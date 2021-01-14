@@ -9,14 +9,33 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- SC-6311 - Removed itslearning from available system types
+
+### Changed
+
+- SC-8356 - add docker login helper
+
 ### Fixed
 
-- SC-8337 - Better error handling for file upload
 - SC-8259 - limited the length of the task title/headline
 - SC-7345 - the linguistic note shown only for the German language
 - SC-8307 - fixed date formater bug by initial page loading 
 - SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users), fixed buttons for printing
 - SC-8272 - fixed displaying of the error message for submissions with no due date
+
+## [25.4.3]
+
+### Changed
+
+- SC-8321 cache and hash static assets
+
+## [25.4.2]
+
+### Fixed 
+
+- SC-8337 - Better error handling for file upload
 
 ## [25.4.1]
 
@@ -26,7 +45,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7824 - Set proper email address and label for data privacy
+- SC-7824 - Set proper email address and label for data privacy 
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon

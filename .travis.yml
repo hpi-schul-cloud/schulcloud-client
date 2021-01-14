@@ -61,11 +61,15 @@ jobs:
       install:
         # boot server
         - cd docker-compose
+        # authenticate against docker
+        - bash ./scripts/dockerhub.login.sh
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
         - cd ..
         # client packages are needed for mocha
         - cd schulcloud-client && npm ci && cd ..
+        # run build (gulp)
+        - cd schulcloud-client && npm run build && cd ..
       before_script:
         # seed database
         - cd schulcloud-server && npm install && npm run setup && npm run seed && cd ..

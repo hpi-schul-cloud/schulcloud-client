@@ -31,7 +31,7 @@
 											<div class="row">
 												<div class="col-md-5">
 													<div>
-														<img class="image" src="{{encodeURI pictureUrl}}">
+														<img class="image" src="{{getAssetPath encodeURI pictureUrl}}">
 													</div>
 												</div>
 												<div class="col-md-7">
@@ -56,7 +56,7 @@
 							<div class="buttons">
 								<div id="openCard">
 									<div class="card h-100 person">
-										<img class="card-img-top circular" src="{{pictureUrl}}">
+										<img class="card-img-top circular" src="{{getAssetPath encodeURI pictureUrl}}">
 										<div class="card-block">
 											<h3 class="person-title card-title" data-lastname="{{lastName}}">{{firstName}} {{lastName}}</h3>
 											<p class="person-desc card-text">{{position}}</p>
@@ -73,4 +73,3 @@
 {{/embed}}
 {{/each}}
 </section>
-
