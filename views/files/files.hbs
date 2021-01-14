@@ -45,12 +45,36 @@
 			</option>
 			{{/each}}
 		</select>
+		{{!-- <option value="createdAt">
+			{{$t'global.label.creationDateUp'}}
+		</option>
+		<option value="createdAt">
+			{{$t'global.label.creationDateDown'}}
+		</option>
+		<option value="updatedAt">
+			{{$t'files.label.updatedAtUp'}}
+		</option>
+		<option value="updatedAt">
+			{{$t'files.label.updatedAtDown'}}
+		</option>
+		<option value="name">
+			{{$t'files.label.nameUp'}}
+		</option>
+		<option value="name">
+			{{$t'files.label.nameDown'}}
+		</option>
+		<option value="size">
+			{{$t'files.label.sizeUp'}}
+		</option>
+		<option value="size">
+			{{$t'files.label.sizeDown'}}
+		</option> --}}
 		<label for="sortOrder" style="position: absolute;left:-999px">{{$t "global.headline.sorting"}}</label>
-		{{!-- <select id="sortOrder" name="sortOrder" class="form-control order-sel">
+		<select id="sortOrder" name="sortOrder" class="form-control order-sel">
 			<option value="asc" {{#ifeq fileSort.sortOrder "asc" }}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
 			<option value="desc" {{#ifeq fileSort.sortOrder "desc" }}selected{{/ifeq}}>{{$t "files.button.descending" }}
 			</option>
-		</select> --}}
+		</select>
 	</div>
 	{{/if}}
 

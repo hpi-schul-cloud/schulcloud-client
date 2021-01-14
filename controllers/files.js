@@ -236,6 +236,7 @@ const FileGetter = (req, res, next) => {
 		res.locals.fileSort = {
 			sortBy: req.query.sortBy || 'updatedAt',
 			sortOrder: req.query.sortOrder || 'desc',
+			sortOrder: req.query.sortOrder || 'asc',
 		};
 		res.locals.sortOptions = [
 			{
