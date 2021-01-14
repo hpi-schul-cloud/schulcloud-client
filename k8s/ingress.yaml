@@ -1,11 +1,12 @@
 # https://github.com/kubernetes/ingress-gce/blob/master/docs/annotations.md
+# needs to be identical to the ingress.yaml in the nuxt-client
 apiVersion: networking.k8s.io/v1
 kind: List
 items:
 - apiVersion: extensions/v1beta1
   kind: Ingress
   metadata:
-    name: $SERVICE_NAME-ingress
+    name: client-ingress
     annotations:
       kubernetes.io/ingress.class: "nginx"
   spec:
@@ -17,7 +18,13 @@ items:
     - host: $HOSTNAME
       http:
         paths:
-        - backend:
-            serviceName: $SERVICE_NAME
-            servicePort: 80
-          path: /
+          - backend:
+              serviceName: nuxt-client
+              servicePort: 80
+            path: /nuxt/
+            pathType: Prefix
+          - backend:
+              serviceName: schulcloud-client
+              servicePort: 80
+            path: /legacy/
+            pathType: Prefix/

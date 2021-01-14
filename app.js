@@ -226,7 +226,7 @@ app.use(require('./middleware/i18n'));
 app.use(require('./middleware/datetime'));
 
 // Initialize the modules and their routes
-app.use(require('./controllers'));
+app.use(Configuration.get("BASEPATH"), require('./controllers'));
 
 app.get('/', (req, res, next) => {
 	res.redirect('/login/');

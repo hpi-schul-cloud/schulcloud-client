@@ -7,6 +7,11 @@
 			"type": "string",
 			"description": "May refere to the schema file to enable auto-fill and validation in some editors."
 		},
+		"BASEPATH": {
+			"type": "string",
+			"default": "/",
+			"description": "used as basepath for the router"
+		},
 		"CORS": {
 			"type": "boolean",
 			"default": true,
