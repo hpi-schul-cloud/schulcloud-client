@@ -27,4 +27,4 @@ items:
               serviceName: schulcloud-client
               servicePort: 80
             path: /legacy/
-            pathType: Prefix/
+            pathType: Prefix
