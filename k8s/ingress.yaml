@@ -31,5 +31,5 @@ items:
           - backend:
               serviceName: schulcloud-client
               servicePort: 80
-            path: /.*
+            path: /
             pathType: Prefix
