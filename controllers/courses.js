@@ -663,18 +663,19 @@ router.get('/:courseId/', async (req, res, next) => {
 
 		const isNewEdtrioActivated = editorBackendIsAlive && (courseHasNewEditorLessons || userHasEditorEnabled);
 		// ################################ end new Editor check ##################################
-		let ltiToolIds = [];
+		let ltiTools = [];
 		if (course.ltiToolIds && course.ltiToolIds.length > 0) {
-			ltiToolIds = await api(req).get('/ltiTools', {
+			ltiTools = await api(req).get('/ltiTools', {
 				qs: {
 					_id: { $in: course.ltiToolIds },
 				},
 			});
 		}
-		ltiToolIds = (ltiToolIds.data || []).filter(
+		ltiTools = (ltiTools.data || []).filter(
 			(ltiTool) => ltiTool.isTemplate !== 'true',
 		).map((tool) => {
 			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
+			tool.isBettermarks = tool.name === 'bettermarks';
 			return tool;
 		});
 
@@ -738,7 +739,7 @@ router.get('/:courseId/', async (req, res, next) => {
 					? homeworks.filter((task) => !task.private && task.stats.submissionCount)
 					: homeworks.filter((task) => !task.private && task.submissions)),
 				privateHomeworks: homeworks.filter((task) => task.private),
-				ltiToolIds,
+				ltiTools,
 				courseGroups,
 				baseUrl,
 				breadcrumb: [
