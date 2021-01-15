@@ -21,10 +21,15 @@ items:
           - backend:
               serviceName: nuxt-client
               servicePort: 80
-            path: /nuxt/
+            path: /nuxtversion
+            pathType: Prefix
+          - backend:
+              serviceName: nuxt-client
+              servicePort: 80
+            path: /news/new
             pathType: Prefix
           - backend:
               serviceName: schulcloud-client
               servicePort: 80
-            path: /legacy/
+            path: /.*
             pathType: Prefix
