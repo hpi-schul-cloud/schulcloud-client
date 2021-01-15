@@ -12,10 +12,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Removed
 
 - SC-6311 - Removed itslearning from available system types
-- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
 
 ### Changed
 
+- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
 - SC-8356 - add docker login helper
 
 ### Fixed
