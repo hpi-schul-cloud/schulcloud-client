@@ -1,5 +1,6 @@
 import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
-
+import moment from 'moment-timezone';
+import { dateStringToMoment } from './datetime/datetime';
 
 /* eslint-disable max-len */
 $(document).ready(() => {
@@ -57,7 +58,7 @@ $(document).ready(() => {
 					fields: { invitation: data.newUrl },
 				});
 				$invitationModal.find('.btn-submit').remove();
-				$invitationModal.find("input[name='invitation']").click(function inputNameInvitation() {
+				$invitationModal.find('input[name="invitation"]').click(function inputNameInvitation() {
 					$(this).select();
 				});
 
@@ -124,14 +125,14 @@ $(document).ready(() => {
 					fields: { shareToken: data.shareToken },
 				});
 				$shareModal.find('.btn-submit').remove();
-				$shareModal.find("input[name='shareToken']").click(function inputNameShareToken() {
+				$shareModal.find('input[name="shareToken"]').click(function inputNameShareToken() {
 					$(this).select();
 				});
 
 				$shareModal.appendTo('body').modal('show');
 
 				// eslint-disable-next-line max-len
-				$("label[for='shareToken']").text($t('courses._course.text.shareCodeExplanation'));
+				$('label[for="shareToken"]').text($t('courses._course.text.shareCodeExplanation'));
 				// eslint-disable-next-line no-undef
 				const image = kjua({
 					text: `${$('meta[name=baseUrl]').attr('content')}/courses?import=${data.shareToken}`,
@@ -368,5 +369,70 @@ $(document).ready(() => {
 		});
 
 		$bbbReloadInfoModal.appendTo('body').modal('show');
+	});
+
+	const isFirstDateSameOrBeforeLastDate = () => {
+		const firstDate = dateStringToMoment($('#startDate').val());
+		const lastDate = dateStringToMoment($('#untilDate').val());
+
+		return moment(firstDate).isSameOrBefore(lastDate);
+	};
+
+	const setValidity = (element, errorMessageElement, showError = true) => {
+		if (showError) {
+			element.setCustomValidity('The input is required');
+			if (errorMessageElement) {
+				$(errorMessageElement).css('visibility', 'visible');
+			}
+		} else {
+			element.setCustomValidity('');
+			if (errorMessageElement) {
+				$(errorMessageElement).css('visibility', 'hidden');
+			}
+		}
+	};
+
+	$('#nextSection').on('click', (e) => {
+		e.stopPropagation();
+
+		const selectedOptionsArray = $('#courseTeacher').val();
+		const startDateElement = $('#startDate');
+		const input = $('.chosen-search-input')[0];
+
+		setValidity(startDateElement[0], '#invalidTimeError', !isFirstDateSameOrBeforeLastDate());
+
+		if (selectedOptionsArray.length < 1) {
+			setValidity(input, '#courseTeacherErr', true);
+			$('.chosen-search-input').css('box-shadow', 'none');
+			$('#courseTeacher_chosen').addClass('validateError');
+		} else {
+			setValidity(input, '#courseTeacherErr', false);
+			$('#courseTeacher_chosen').css('box-shadow', 'none');
+		}
+	});
+
+	$('#courseTeacher').on('change', () => {
+		const selectedOptionsArray = $('#courseTeacher').val();
+		const input = $('.chosen-search-input')[0];
+
+		if (selectedOptionsArray.length < 1) {
+			setValidity(input, '#courseTeacherErr', true);
+			$('.chosen-search-input').css('box-shadow', 'none');
+			$('#courseTeacher_chosen').css('box-shadow', '0 0 5px 1px #ff1134');
+		} else {
+			setValidity(input, '#courseTeacherErr', false);
+			$('#courseTeacher_chosen').css('box-shadow', 'none');
+		}
+	});
+
+	$('#teacherId').on('change', () => {
+		const selectedOptionsArray = $('#teacherId').val();
+		const input = $('.chosen-search-input')[0];
+
+		setValidity(input, null, (selectedOptionsArray.length < 1));
+	});
+
+	$('#startDate, #untilDate').on('change', () => {
+		setValidity($('#startDate')[0], '#invalidTimeError', !isFirstDateSameOrBeforeLastDate());
 	});
 });
