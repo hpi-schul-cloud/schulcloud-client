@@ -9,7 +9,6 @@ data:
   PORT: '3100'
   LOG_LEVEL: info
   BACKEND_URL: http://schulcloud-server
-  BASEPATH: /legacy
   CALENDAR_SERVICE_ENABLED: 'true'
   SC_DOMAIN: devops-wizard.com
   # must change later for https and cors
