@@ -19,6 +19,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-8416 - Show logo on tablet on subpages
 - SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0
 - SC-8337 - Better error handling for file upload
 - SC-8259 - limited the length of the task title/headline
