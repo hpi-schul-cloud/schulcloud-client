@@ -1,10 +1,10 @@
 {{#extend "lib/loggedin"}}
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/coursesOverview.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/coursesOverview.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/courses/empty-state.css"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/empty-state.css'}}"/>
     {{/content}}
 
     {{#content "page"}}
@@ -12,7 +12,7 @@
             <div class="sections">
                 <div class="empty-state">
                     {{> 'courses/components/svg_active_courses'}}
-                    <!--<img src="/images/empty-states/lehrer_klasse.svg" alt="{{$t "courses.img_alt.teacherWithClass"}}" class="image mx-auto d-block"/>-->
+                    <!--<img src="{{getAssetPath '/images/empty-states/lehrer_klasse.svg'}}" alt="{{$t "courses.img_alt.teacherWithClass"}}" class="image mx-auto d-block"/>-->
                 </div>
 
                 <div class="text-wrapper mx-auto d-block">

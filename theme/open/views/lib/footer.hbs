@@ -1,7 +1,7 @@
 <footer id="footer" class="hide-inline small-footer">
 	<div class="imprint">
 		<div class="center">
-			<img src="/images/footer-logo.png" alt="" role="presentation"/>
+			<img src="{{getAssetPath '/images/footer-logo.png'}}" alt="" role="presentation"/>
 			<span>&copy; {{currentYear}} {{theme.short_title}} </span>
 
 			<nav aria-label="{{$t "lib.footer.aria_label.footer"}}">
@@ -34,7 +34,7 @@
 			<div>
 				<p lang="en" class="made-with-love">Made with <span class="heart" aria-label="{{$t "lib.footer.aria_label.love"}}" role="img">❤</span> in Potsdam | Translated by <a
 				href="https://lokalise.com" target="_" aria-label="https://lokalise.com {{$t "global.link.openInNewTabWarning"}}"><img class="poweredby-logo" alt="lokalise.com Logo"
-																																  src="/images/logo/lokalise_logo.svg"></a>
+																																  src="{{getAssetPath '/images/logo/lokalise_logo.svg'}}"></a>
 				</p>
 			</div>
 		</div>
