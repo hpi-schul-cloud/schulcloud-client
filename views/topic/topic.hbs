@@ -1,12 +1,12 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css" />
-        <link rel="stylesheet" href="/styles/homework/homework.css" />
-        <link rel="stylesheet" href="/styles/topics/topics.css" />
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}" />
+        <link rel="stylesheet" href="{{getAssetPath '/styles/homework/homework.css'}}" />
+        <link rel="stylesheet" href="{{getAssetPath '/styles/topics/topics.css'}}" />
     {{/content}}
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/topic.js" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/topic.js'}}" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -26,11 +26,15 @@
                     <div class="col-sm-12">
                         <div class="pull-right">
                             <a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
-                                class="btn btn-sm btn-add btn-secondary btn-create-share">
+                                class="btn btn-sm btn-add btn-secondary btn-create-share"
+                                role="button"
+                                aria-label="{{$t "topic._topic.text.shareWithOthersTeachers" }}">
                                 <i class="fa fa-share-alt"></i>
                             </a>
                             <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
-                                class="btn btn-secondary btn-sm btn-add">
+                                class="btn btn-secondary btn-sm btn-add"
+                                role="button"
+                                aria-label="{{$t "global.button.edit" }}">
                                 <i class="fa fa-pencil"></i>
                             </a>
                         </div>
@@ -65,6 +69,12 @@
                                         <a href="{{this.url}}" target="_blank">
                                             {{this.title}}
                                         </a>
+                                        {{#ifeq @root.theme.name "brb"}}
+                                            <div class="external-source-warning">
+                                                <h5>{{$t "topic._topic.text.warningMain" }}</h5>
+                                                <h6>{{$t "topic._topic.text.warningFooter" }}</h6>
+                                            </div>
+                                        {{/ifeq}}
                                     </h2>
                                     <p class="card-text">{{this.description}}</p>
                                     {{#if this.download}}
@@ -74,7 +84,7 @@
                                     {{/if}}
                                 </div>
                                 <div class="card-footer">
-                                    <small class="text-muted"> via {{this.client}}</small>
+                                    {{!-- <small class="text-muted"> via {{this.client}}</small> --}}
                                     {{#userHasPermission "COURSE_EDIT"}}
                                         <a class="delete-material" href="materials/{{../_id}}" target="_blank"
                                             data-method="DELETE" data-name="{{../title}}">
@@ -126,13 +136,18 @@
                                 <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addTask" }}</span>
                             </a>
                         {{/userHasPermission}}
-                        <a data-toggle="collapse" class="collapse-toggle" href="#homeworks">
+                        <a data-toggle="collapse" class="collapse-toggle" href="#homeworks" tabindex="0">
                             <h2 class="h4">
                                 <small data-toggle="tooltip" title="{{$t "topic._topic.label.expandTasks"}}"><i
                                         class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
                                 {{$t "global.headline.assignedTasks" }}
                                 <small>({{arrayLength homeworks}}
-                                    {{$t "global.headline.task" }} {{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
+                                    {{#ifneq 1 (arrayLength homeworks)}}
+                                        {{$t "global.headline.tasks"}}
+                                    {{else}}
+                                        {{$t "global.headline.task"}}
+                                    {{/ifneq}})
+                                </small>
                             </h2>
                         </a>
                         <div id="homeworks" class="container-fluid collapse">
@@ -153,13 +168,18 @@
                                 <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addPrivateTask" }}</span>
                             </a>
                         {{/userHasPermission}}
-                        <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
+                        <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks" tabindex="0">
                             <h2 class="h4">
                                 <small data-toggle="tooltip" title="{{$t "topic._topic.label.expandPrivateTasks" }}"><i
                                         class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
                                 {{$t "topic._topic.headline.privateTasks" }}
                                 <small>({{arrayLength myhomeworks}}
-                                    {{$t "global.headline.task" }} {{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
+                                    {{#ifneq 1 (arrayLength myhomeworks)}}
+                                        {{$t "global.headline.tasks"}}
+                                    {{else}}
+                                        {{$t "global.headline.task"}}
+                                    {{/ifneq}})
+                                </small>
                             </h2>
                         </a>
                         <div id="myhomeworks" class="container-fluid collapse">
@@ -175,7 +195,7 @@
                 </div>
             {{/unless}}
 
-            {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+            {{#embed "lib/components/modal" class="delete-modal" title="${res.$t('global.text.areYousure')}"}}
             {{#content "body"}}
 
                 <div class="modal-footer">

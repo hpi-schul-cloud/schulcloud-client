@@ -1,8 +1,8 @@
 {{#content "scripts" mode="append"}}
-    <script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/mousetrap/mousetrap.js" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/news.js" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/ckeditor/ckeditor.js'}}"" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/mousetrap/mousetrap.js'}}" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/jquery/datetimepicker-easy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/news.js'}}" nonce="{{nonceValue}}" defer></script>
     <script nonce="{{nonceValue}}">
         window.addEventListener('DOMContentLoaded', function() {
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
@@ -40,11 +40,11 @@
                 <textarea type="text" class="form-control ckeditor customckeditor" name="content" placeholder="{{$t "news._news.label.contentOfMessage"}}" required>{{news.content}}</textarea>
             </div>
 
-            <div class="form-group">
-                <label>{{$t "news.label.scheduleAutomaticPublication" }}</label>
-                <input class="form-control" data-datetime data-min-date="0" data-testid="news_date_to_be_displayed" name="displayAt" type="text" value="{{news.displayAt}}"/>
-            </div>
-
+            {{> "lib/forms/form-datetime-input"
+                label=($t "news.label.scheduleAutomaticPublication")
+                id="displayAt" value=news.displayAt
+                class="input-group mb-3"
+                dataTestId="news_date_to_be_displayed"}}
             <div class="modal-footer">
                 <button class="btn btn-add btn-secondary btn-cancel">
                     {{closeLabel}}

@@ -304,8 +304,8 @@ aside.nav-sidebar {
 	position: absolute;
 	z-index: 5;
 	top: 8px;
-	left: 12px;
-	padding: 8px;
+	left: 8px;
+	padding: 14px;
 	font-size: 22px;
 	line-height: 22px;
 	cursor: pointer;
@@ -617,9 +617,10 @@ footer {
 
 	@include media-breakpoint-down(xs) {
 		margin-bottom: 15px;
+		margin-top: -16px;
 		padding-left: 50px !important;
 		background: $colorWhite;
-		box-shadow: 0 2px 5px rgba(0, 0, 0, .26);
+		box-shadow: 0 2px 10px rgba(0, 0, 0, .36);
 	}
 
 	.breadcrumb {
@@ -959,5 +960,11 @@ footer {
 	.skipLinks a:focus {
 		top: 4.5rem;
 	}
+}
 
+#page-title {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

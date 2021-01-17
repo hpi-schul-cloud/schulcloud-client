@@ -31,6 +31,7 @@
 
 	.btn-course-dropdown {
 		padding: 0;
+		background-color: white;
 		.i-cog {
 			font-size: medium;
 			color: $fontColor;
@@ -67,12 +68,15 @@
 		@include media-breakpoint-down(xs) {
 			max-width: 90%;
 		}
+
 		@include media-breakpoint-up(xs) {
 			max-width: 60%;
 		}
+
 		h6.sub-title {
 			color: $colorDarkerGrey;
 		}
+
 		.image {
 			width: auto;
 			height: auto;
@@ -80,13 +84,16 @@
 			@include media-breakpoint-down(xs) {
 				max-width: 300px;
 			}
+
 			@include media-breakpoint-up(xs) {
 				max-width: 500px;
 			}
+
 			#COLOR {
 				fill: $primaryColor;
 			}
 		}
+
 		.image.course-empty-content-image {
 			max-width: 200px;
 		}
@@ -111,6 +118,10 @@
 		.sectionsContainer {
 			padding: 10px 0;
 		}
+	}
+
+	.external-source-warning {
+		color: $colorDanger;
 	}
 
 	.files {
@@ -161,6 +172,7 @@
 			-webkit-transform: rotate(0deg);
 			transform: rotate(0deg);
 		}
+
 		100% {
 			-webkit-transform: rotate(359deg);
 			transform: rotate(359deg);
@@ -215,6 +227,7 @@
 		border-radius: 3px;
 		margin-bottom: 12px;
 		background: none !important;
+		width: 100%;
 	}
 
 	.content-block {
@@ -305,37 +318,42 @@
 			margin-left: 12px;
 			margin-right: 12px;
 		}
+
 		.stages {
 			padding-left: 12px;
 			padding-right: 12px;
 		}
+
 		.btn-delete-course {
 			margin-right: 10px;
 		}
+
 		.final-step {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			justify-content: center;
 			margin-bottom: 30px;
-			.image-wrapper {
-				padding: 30px;
-				opacity: 0.8;
-			}
 			.image {
-				width: 250px;
+				width: 300px;
+
+				#COLOR {
+					fill: $primaryColor;
+				}
 			}
+
 			.course-features {
 				margin-top: 15px;
 			}
+
 			.sub-text {
 				font-size: $font-size-xs;
 			}
 		}
+
 		.course-submit-page {
 			max-width: 75%;
-			margin: 0 auto;
-			margin-bottom: 3em;
+			margin: 0 auto 3em;
 			@include media-breakpoint-down(md) {
 				max-width: 100%;
 				margin: 0;
@@ -362,13 +380,19 @@
 		padding: 20px;
 	}
 }
+
 .course-tasks-header,
 .course-groups-header {
 	padding: 0.5rem 0.75rem;
 	color: $fontColor;
 }
+
 .card-topic {
 	cursor: pointer;
+	border: 0;
+	display: block;
+	background: $primaryColor;
+	width: 100%;
 
 	.card-header {
 		padding: 0.5rem 0.75rem;
@@ -398,7 +422,7 @@
 	}
 
 	.btn-icon-card:hover {
-		color: white;
+		color: #ffffff;
 		background: $colorLightGrey;
 	}
 
@@ -443,7 +467,7 @@
 		}
 
 		.geo-gebra-info {
-			color: white;
+			color: #ffffff;
 			background-color: $primaryColor;
 		}
 
@@ -519,6 +543,7 @@
 			white-space: nowrap;
 		}
 	}
+
 	@include media-breakpoint-down(xs) {
 		columns: 1;
 	}
@@ -565,4 +590,16 @@
 	width: auto;
 	max-height: 70px;
 	max-width: 100px;
+}
+
+.action {
+	visibility: "hidden";
+}
+
+.validateError {
+	box-shadow: 0 0 5px 1px #ff1134;
+}
+
+.validatePass {
+	box-shadow: none;
 }

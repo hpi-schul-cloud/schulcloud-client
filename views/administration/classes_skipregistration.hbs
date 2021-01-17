@@ -1,11 +1,11 @@
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/administration/users.css" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/administration/users.css'}}" />
 {{/content}}
 {{#extend "lib/loggedin"}}
 
 {{#content "page"}}
 <p>
-{{{$t "administration.classes.text.signAgreement" (dict "shortTitle" theme.short_title)}}}
+{{$t "administration.classes.text.signAgreement" (dict "linkPrivacyPolicy" '<a href="{{@root.theme.documents.specificFiles.privacyExemplary}} target="_blank">Datenschutzerklärung</a>' "linkTermsOfUse" '<a href="{{@root.theme.documents.specificFiles.termsOfUseExemplary}}" target="_blank">Nutzungsordnung</a>' "shortTitle" theme.short_title)}}
 </p>
 <p>
     {{$t "administration.classes.text.nextPageYouWillReceiveConfirmation" }}
@@ -31,9 +31,8 @@
                 <input name="userids" type="hidden" data-force-value="true" value="{{id}}" />
             </td>
             <td>
-                <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}"
-                    data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthdays" type="text" required
-                    {{#if birthday}}value="{{dateToPicker birthday}}" {{/if}} />
+                {{> "lib/forms/form-date-input" id="birthday" value=birthday
+                    dataMinDate=(datePickerTodayMinus 100 0 0) dataMaxDate=(datePickerTodayMinus 4 0 0) required=true}}
             </td>
             <td>
                 <input type="text" name="passwords" class="form-control linked" value={{password}}

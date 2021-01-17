@@ -2,34 +2,6 @@ import printQRs from '../../helpers/printQRs';
 
 /* globals populateModalForm */
 
-function sortOptions(selector, sortFunction) {
-	const input = document.querySelector(selector);
-	const options = Array.from(input.querySelectorAll('option'));
-
-	options.sort(sortFunction);
-	options.forEach((option) => {
-		input.appendChild(option);
-	});
-}
-
-function sortStudents() {
-	const sortFunction = (a, b) => {
-		const aValue = a.dataset.lastName;
-		const bValue = b.dataset.lastName;
-		if (aValue < bValue) {
-			return -1;
-		}
-		if (aValue > bValue) {
-			return 1;
-		}
-		return 0;
-	};
-
-	const studentInputSelector = 'select[name=userIds]';
-	sortOptions(studentInputSelector, sortFunction);
-	$(studentInputSelector).trigger('chosen:updated');
-}
-
 function copy(event) {
 	event.preventDefault();
 	const { copySelector } = event.target.dataset;
@@ -96,7 +68,6 @@ window.addEventListener('load', () => {
 					)
 					.join('')}`;
 			}
-			$('select[name="classes"]').trigger('chosen:updated');
 		});
 
 	const $importModal = $('.import-modal');
@@ -108,7 +79,6 @@ window.addEventListener('load', () => {
 			.forEach((option) => {
 				option.selected = false;
 			});
-		$('select[name="classes"]').trigger('chosen:updated');
 		populateModalForm($importModal, {
 			title: $t('administration.classes.headline.importClass'),
 			closeLabel: $t('global.button.cancel'),
@@ -120,7 +90,6 @@ window.addEventListener('load', () => {
 	$importModal.find('.btn-submit').on('click', async (event) => {
 		event.preventDefault();
 		const selections = $('#student_from_class_import')
-			.chosen()
 			.val();
 		const requestUrl = `/administration/classes/students?classes=${encodeURI(
 			JSON.stringify(selections),
@@ -135,8 +104,6 @@ window.addEventListener('load', () => {
 				`option[value="${student._id}"]`,
 			).selected = true;
 		});
-		sortStudents();
-		$('select[name=userIds]').trigger('chosen:updated');
 	});
 
 	function btnSendLinksEmailsHandler(e) {
@@ -199,9 +166,11 @@ window.addEventListener('load', () => {
 		})
 			.done((users) => {
 				printQRs(
-					users.map(user => ({
+					users.map((user) => ({
 						href: user.registrationLink.shortLink,
-						title: user.fullName,
+						title:
+							user.fullName
+							|| `${user.firstName} ${user.lastName}`,
 						description: user.registrationLink.shortLink,
 					})),
 				);
@@ -225,5 +194,3 @@ window.addEventListener('load', () => {
 	}
 	$('.btn-print-links').on('click', btnPrintLinksHandler);
 });
-
-window.addEventListener('load', sortStudents);

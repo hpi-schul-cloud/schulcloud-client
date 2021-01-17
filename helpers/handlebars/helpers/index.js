@@ -2,10 +2,13 @@
 const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
+const { getStaticAssetPath } = require('../../../middleware/assets');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
+
+const timesHelper = require('../../timesHelper');
 
 moment.locale('de');
 
@@ -149,12 +152,8 @@ const helpers = () => ({
 		}
 		return options.inverse(this);
 	},
-	getConfig: (key) => {
-		return Configuration.get(key);
-	},
-	userInitials: (opts) => {
-		return opts.data.local.currentUser.avatarInitials;
-	},
+	getConfig: (key) => Configuration.get(key),
+	userInitials: (opts) => opts.data.local.currentUser.avatarInitials,
 	userHasPermission: (permission, opts) => {
 		if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
 			return opts.fn(this);
@@ -164,17 +163,19 @@ const helpers = () => ({
 	userHasRole: (...args) => {
 		const allowedRoles = Array.from(args);
 		const opts = allowedRoles.pop();
-		return opts.data.local.currentUser.roles.some(r => allowedRoles.includes(r.name));
+		return opts.data.local.currentUser.roles.some((r) => allowedRoles.includes(r.name));
 	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
-		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW') || !isNonOerContent) {
+		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW')
+			|| !isNonOerContent) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
-	timeFromNow: (date, opts) => moment(date).fromNow(),
+	getAssetPath: (assetPath) => getStaticAssetPath(assetPath),
+	timeFromNow: (date) => timesHelper.fromNow(date),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
 			format = 'YYYY.MM.DD';
@@ -185,19 +186,12 @@ const helpers = () => ({
 			.subtract(days, 'days')
 			.format(format);
 	},
-	dateToPicker: (date, opts) => moment(date).format('DD.MM.YYYY'),
-	dateTimeToPicker: (date, opts) => moment(date).format('DD.MM.YYYY HH:mm'),
-	timeToString: (date, opts) => {
-		const now = moment();
-		const d = moment(date);
-		if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
-			return `${moment(date).format('DD.MM.YYYY')}(${moment(date).format('HH:mm')})`;
-		}
-		return moment(date).fromNow();
-	},
-	currentYear() {
-		return new Date().getFullYear();
-	},
+	dateToPicker: (date) => timesHelper.formatDate(date, i18n.getInstance()('format.dateToPicker')),
+	dateTimeToPicker: (date) => timesHelper.formatDate(date, i18n.getInstance()('format.dateTimeToPicker')),
+	i18nDate: (date) => timesHelper.dateToDateString(date),
+	i18nDateTime: (date) => timesHelper.dateToDateTimeString(date, true),
+	timeToString: (date) => timesHelper.timeToString(date),
+	currentYear: () => timesHelper.currentDate().year(),
 	concat() {
 		const arg = Array.prototype.slice.call(arguments, 0);
 		arg.pop();
@@ -207,15 +201,15 @@ const helpers = () => ({
 		console.log(data);
 	},
 	castStatusCodeToString: (statusCode, data) => {
-		console.log(statusCode);
 		if (statusCode >= 500) {
 			return i18n.getInstance(data.data.local.currentUser)('global.text.internalProblem');
 		}
 		if (statusCode >= 400) {
-			if ([400, 401, 402, 403, 404].includes(statusCode)) {
+			if ([400, 401, 402, 403, 404, 408].includes(statusCode)) {
 				return i18n.getInstance(data.data.local.currentUser)('global.text.'.concat(statusCode.toString()));
 			}
 		}
+
 		if (statusCode > 300) {
 			return i18n.getInstance(data.data.local.currentUser)('global.text.pageMoved');
 		}
@@ -248,8 +242,8 @@ const helpers = () => ({
 		}
 		return (`${fileSize} ${unit}`);
 	},
-	json: data => JSON.stringify(data),
-	jsonParse: data => JSON.parse(data),
+	json: (data) => JSON.stringify(data),
+	jsonParse: (data) => JSON.parse(data),
 	times: (n, block) => {
 		let accum = '';
 		for (let i = 0; i < n; ++i) {
@@ -266,12 +260,12 @@ const helpers = () => ({
 	},
 	add: (a, b) => a + b,
 	indexOf: (item, searchValue, fromIndex) => item.indexOf(searchValue, fromIndex),
-	escapeHtml: text => text
+	escapeHtml: (text) => text
 		.replace(/</g, '&lt;')
 		.replace(/>/g, '&gt;')
 		.replace(/"/g, '&quot;')
 		.replace(/'/g, '&#039;'),
-	encodeURI: data => encodeURI(data),
+	encodeURI: (data) => encodeURI(data),
 	$t: (key, data, opts) => {
 		if (!opts) {
 			return i18n.getInstance(data.data.local.currentUser)(key);
@@ -287,6 +281,7 @@ const helpers = () => ({
 		});
 		return dict;
 	},
+	isset: (value) => !!value,
 });
 
 module.exports = helpers;

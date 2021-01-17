@@ -932,7 +932,9 @@
       var dirReader, errorHandler, readEntries;
       dirReader = directory.createReader();
       errorHandler = function(error) {
-        return typeof console !== "undefined" && console !== null ? typeof console.log === "function" ? console.log(error) : void 0 : void 0;
+        if (console && typeof console.log === "function") {
+          return console.log(error);
+        }
       };
       readEntries = (function(_this) {
         return function() {

@@ -13,7 +13,7 @@
 							<div>{{{$t "homework._task.text.maxGroupSize" (dict "maxTeamMembers" this.maxTeamMembers)}}}</div>
 						{{/if}}
 					{{/if}}
-					<div>{{{this.description}}}</div>
+					<div style="margin-top: 25px">{{{this.description}}}</div>
 				{{else}}
 					{{$t "homework.text.noDescriptionAvailable" }}
 				{{/if}}
@@ -54,17 +54,17 @@
 			{{/inArray}}
 		{{/unless}}
 	</div>
-	{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
-	{{#content "body"}}
-	<div class="modal-footer">
-		<button type="button" class="btn btn-secondary btn-close">
-			{{$t "global.button.cancel" }}
-		</button>
-		<button type="submit" class="btn btn-primary btn-submit">
-			{{$t "global.headline.delete" }}
-		</button>
-	</div>
-	{{/content}}
+	{{#embed "lib/components/modal" class="delete-modal" title="${res.$t('global.text.areYousure')}"}}
+		{{#content "body"}}
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-close">
+					{{$t "global.button.cancel" }}
+				</button>
+				<button type="submit" class="btn btn-primary btn-submit">
+					{{$t "global.headline.delete" }}
+				</button>
+			</div>
+		{{/content}}
 	{{/embed}}
 	{{#embed "lib/components/modal-information" class="danger-modal" title="Achtung"}}
 		{{#content "fields"}}

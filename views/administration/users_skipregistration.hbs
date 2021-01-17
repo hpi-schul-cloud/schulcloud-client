@@ -1,8 +1,8 @@
 {{#content "scripts" mode="append"}}
-<script src="/scripts/administration/users_edit.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/administration/users_edit.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/administration/users.css" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/administration/users.css'}}" />
 {{/content}}
 {{#extend "lib/loggedin"}}
 {{#content "page"}}
@@ -40,10 +40,13 @@
             </div>
             {{#unless editTeacher}}
             <div class="form-group">
-                <label>{{$t "global.label.dateOfBirth" }}<sup>*</sup></label>
-                <input class="form-control linked" id="birthday" data-date
-                    data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}"
-                    name="birthday" type="text" required value="{{dateToPicker user.birthday "DD.MM.YYYY"}}" />
+                {{> "lib/forms/form-date-input"
+                        label=($t "global.label.dateOfBirth")
+                        id="birthday"
+                        value=user.birthday
+                        dataMinDate=(datePickerTodayMinus 100 0 0)
+                        dataMaxDate=(datePickerTodayMinus 4 0 0)
+                }}
             </div>
             {{/unless}}
             <div class="form-group">

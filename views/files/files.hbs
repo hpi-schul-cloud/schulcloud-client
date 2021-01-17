@@ -1,13 +1,13 @@
 {{#extend "lib/loggedin" searchLabel="Dateien durchsuchen ..." searchAction="/files/search/" searchClass="file-search"}}
 
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="/styles/files/files.css"/>
+		<link rel="stylesheet" href="{{getAssetPath '/styles/files/files.css'}}"/>
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
-		<script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="/scripts/files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="/scripts/jquery.cookie.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/jquery.cookie.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 
 	{{#content "page"}}
@@ -35,21 +35,23 @@
 					</div>
 				</div>
 			</section>
-
-			<div class="pull-right">
-				<!-- <select name="sortBy" class="form-control">
-					 {{#each sortOptions}}
-						<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
-							{{this.label}}
-						</option>
-					{{/each}}
-				</select> -->
-				<label for="sortOrder" class="hidden">{{$t "global.headline.sorting"}}</label>
-				<select id="sortOrder" name="sortOrder" class="form-control">
-					<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
-					<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
-				</select>
-			</div>
+			{{#if sortOptions}}
+				<div class="pull-right">
+					<label for="sortBy" style="position: absolute;left:-999px">{{$t "files.label.sortBy"}}</label>
+					<select name="sortBy" id="sortBy" class="form-control order-sel">
+						 {{#each sortOptions}}
+							<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
+								{{this.label}}
+							</option>
+						{{/each}}
+					</select>
+					<label for="sortOrder" style="position: absolute;left:-999px">{{$t "global.headline.sorting"}}</label>
+					<select id="sortOrder" name="sortOrder" class="form-control order-sel">
+						<option value="asc" {{#ifeq fileSort.sortOrder "asc"}}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
+						<option value="desc" {{#ifeq fileSort.sortOrder "desc"}}selected{{/ifeq}}>{{$t "files.button.descending" }}</option>
+					</select>
+				</div>
+			{{/if}}
 
 			{{#if directories}}
 			<h3 class="h6" style="padding: 1rem 0 1.5rem">{{$t "files.label.folder"}}</h3>
@@ -57,33 +59,30 @@
 				<div class="row">
 					{{#each directories}}
 						<div class="col-xs-12">
-						  <div class="card card-block folder openfolder" data-folder-id="{{this._id}}">
-                              <button type="button" class="button-transparent">
+						  <button class="card card-block folder openfolder" data-folder-id="{{this._id}}" aria-label="{{$t "files.label.clickToOpenDir" (dict "name" this.name)}}">
 								<strong class="card-title-directory">
 									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
 								</strong>
-                              </button>
 								{{#userHasPermission "FOLDER_DELETE"}}
                               <div class="pull-right">
-                                    <a href="/directoryModel/{{../this._id}}/rename"
-                                       target="_blank"
-                                       data-method="dir-rename"
+                                    <a data-method="dir-rename"
                                        title="{{$t "files.label.renameFolder"}}"
                                        data-directory-id="{{../this._id}}"
-                                       data-directory-name="{{../this.name}}">
-                                        <i class="fa fa-edit directory-icon" aria-hidden="true"></i>
+                                       data-directory-name="{{../this.name}}"
+									   tabindex="0">
+									    <i class="fa fa-edit directory-icon" aria-hidden="true"></i>
                                     </a>
-								    <a href="/files/directory/"
-									    target="_blank"
+								    <a data-href="/files/directory/"
 									    data-method="delete"
 									    title="{{$t "files.label.deleteFolder"}}"
 									    data-file-id="{{../this._id}}"
-									    data-file-name="{{{../this.name}}}">
+									    data-file-name="{{{../this.name}}}"
+										tabindex="0">
 									    <i class="fa fa-trash-o directory-icon" aria-hidden="true"></i>
 								    </a>
                               </div>
 								{{/userHasPermission}}
-							</div>
+							</button>
 						</div>
 					{{/each}}
 				</div>

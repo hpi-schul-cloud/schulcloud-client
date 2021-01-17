@@ -2,6 +2,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const { EDITOR_URL } = require('../config/global');
@@ -10,11 +11,12 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const logger = require('../helpers/logger');
+const timesHelper = require('../helpers/timesHelper');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger'];
 
 const router = express.Router();
-const { CALENDAR_SERVICE_ENABLED, HOST } = require('../config/global');
+const { HOST } = require('../config/global');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
@@ -36,19 +38,18 @@ const markSelected = (options, values = []) => options.map((option) => {
  */
 const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
-	if (CALENDAR_SERVICE_ENABLED) {
+	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		return Promise.all(
-			course.times.map((time) => api(req).post('/calendar', {
-				json: {
+			course.times.map((time) => {
+				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
+				const repeatUntil = timesHelper.fromUTC(course.untilDate);
+				const event = {
 					summary: course.name,
 					location: time.room,
 					description: course.description,
-					startDate: new Date(
-						new Date(course.startDate).getTime()
-						+ time.startTime,
-					).toLocalISOString(),
+					startDate: startDate.toISOString(true),
 					duration: time.duration,
-					repeat_until: course.untilDate,
+					repeat_until: repeatUntil.toISOString(true),
 					frequency: 'WEEKLY',
 					weekday: recurringEventsHelper.getIsoWeekdayForNumber(
 						time.weekday,
@@ -56,8 +57,11 @@ const createEventsForCourse = (req, res, course) => {
 					scopeId: course._id,
 					courseId: course._id,
 					courseTimeId: time._id,
-				},
-			})),
+				};
+				return api(req).post('/calendar', {
+					json: event,
+				});
+			}),
 		).catch((error) => {
 			logger.warn(
 				'failed creating events for the course, the calendar service might be unavailible',
@@ -79,7 +83,7 @@ const createEventsForCourse = (req, res, course) => {
  * @param courseId {string} - the id of the course the events will be deleted
  */
 const deleteEventsForCourse = (req, res, courseId) => {
-	if (CALENDAR_SERVICE_ENABLED) {
+	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		return api(req)
 			.get(`courses/${courseId}`)
 			.then((course) => Promise.all(
@@ -159,16 +163,16 @@ const editCourseHandler = (req, res, next) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		const classes = _classes.filter(
 			(c) => c.schoolId === res.locals.currentSchool,
-		);
+		).sort();
 		const teachers = _teachers.filter(
 			(t) => t.schoolId === res.locals.currentSchool,
-		);
+		).sort((a, b) => a.firstName.localeCompare(b.firstName));
 		const students = _students.filter(
 			(s) => s.schoolId === res.locals.currentSchool,
-		);
+		).sort((a, b) => a.firstName.localeCompare(b.firstName));
 		const substitutions = _.cloneDeep(
 			teachers,
-		);
+		).sort((a, b) => a.firstName.localeCompare(b.firstName));
 
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
@@ -187,12 +191,8 @@ const editCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = moment(
-				new Date(course.startDate).getTime(),
-			).format('DD.MM.YYYY');
-			course.untilDate = moment(
-				new Date(course.untilDate).getTime(),
-			).format('DD.MM.YYYY');
+			course.startDate = timesHelper.fromUTC(course.startDate);
+			course.untilDate = timesHelper.fromUTC(course.untilDate);
 		}
 
 		// preselect current teacher when creating new course
@@ -316,14 +316,11 @@ const copyCourseHandler = (req, res, next) => {
 
 		// format course start end until date
 		if (course.startDate) {
-			course.startDate = moment(
-				new Date(course.startDate).getTime(),
-			).format('DD.MM.YYYY');
-			course.untilDate = moment(
-				new Date(course.untilDate).getTime(),
-			).format('DD.MM.YYYY');
+			course.startDate = timesHelper.fromUTC(course.startDate);
 		}
-
+		if (course.untilDate) {
+			course.untilDate = timesHelper.fromUTC(course.untilDate);
+		}
 		// preselect current teacher when creating new course
 		if (!req.params.courseId) {
 			course.teacherIds = [];
@@ -389,9 +386,7 @@ const enrichCourse = (course, res) => {
 	(course.times || []).forEach((time) => {
 		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
-		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
-			time.room ? `| ${time.room}` : ''
-		}</div>`;
+		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''}</div>`;
 	});
 	return course;
 };
@@ -489,15 +484,26 @@ router.post('/', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
+	delete req.body.startDate;
+	if (startDate.isValid()) {
+		req.body.startDate = startDate.toDate();
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
+
+	delete req.body.untilDate;
+	if (untilDate.isValid()) {
+		req.body.untilDate = untilDate.toDate();
 	}
+
+	req.body.features = [];
+	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			req.body.features.push(feature);
+		}
+		delete req.body[feature];
+	});
 
 	api(req)
 		.post('/courses/', {
@@ -522,14 +528,17 @@ router.post('/copy/:courseId', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
+	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
+	delete req.body.startDate;
+	if (startDate.isValid()) {
+		req.body.startDate = startDate.toDate();
 	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
+
+	delete req.body.untilDate;
+	if (untilDate.isValid()) {
+		req.body.untilDate = untilDate.toDate();
 	}
 
 	req.body._id = req.params.courseId;
@@ -770,9 +779,6 @@ router.patch('/:courseId', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
-	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
-	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
-
 	if (!req.body.classIds) {
 		req.body.classIds = [];
 	}
@@ -783,14 +789,21 @@ router.patch('/:courseId', (req, res, next) => {
 		req.body.substitutionIds = [];
 	}
 
-	if (!moment(req.body.startDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.startDate;
-	}
-	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
-		delete req.body.untilDate;
+	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
+
+	delete req.body.startDate;
+	if (startDate.isValid()) {
+		req.body.startDate = startDate.toDate();
 	}
 
-	if (req.body.unarchive !== 'true' && req.body.untilDate < new Date()) {
+	delete req.body.untilDate;
+	if (untilDate.isValid()) {
+		req.body.untilDate = untilDate.toDate();
+	}
+
+	// unarchive client request do not contain information about feature flags
+	if (req.body.unarchive !== 'true') {
 		req.body.features = [];
 		OPTIONAL_COURSE_FEATURES.forEach((feature) => {
 			if (req.body[feature] === 'true') {
@@ -918,12 +931,12 @@ router.get('/:courseId/copy', copyCourseHandler);
 
 // return shareToken
 router.get('/:id/share', (req, res, next) => api(req)
-	.get(`/courses/share/${req.params.id}`)
+	.get(`/courses-share/${req.params.id}`)
 	.then((course) => res.json(course)));
 
 // return course Name for given shareToken
 router.get('/share/:id', (req, res, next) => api(req)
-	.get('/courses/share', { qs: { shareToken: req.params.id } })
+	.get('/courses-share', { qs: { shareToken: req.params.id } })
 	.then((name) => res.json({ msg: name, status: 'success' }))
 	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
@@ -932,7 +945,7 @@ router.post('/import', (req, res, next) => {
 	const courseName = req.body.name;
 
 	api(req)
-		.post('/courses/share', { json: { shareToken, courseName } })
+		.post('/courses-share', { json: { shareToken, courseName } })
 		.then((course) => {
 			if (course.errors && course.message && course.code) {
 				throw course;

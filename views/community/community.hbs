@@ -7,7 +7,7 @@
 	<h1 class="h2 section-title center">{{$t "community.headline.joinNow"}}</h1>
 	{{/unless}}
 
-	<img src="/images/community.svg" role="presentation" class="mb-2 w-100"
+	<img src="{{getAssetPath '/images/community.svg'}}" role="presentation" class="mb-2 w-100"
 		style="height: auto; border-radius: 4px; opacity: 0.8;" width="1000" height="667" loading="lazy" alt="">
 
 	<h2 class="h5 mb-2">{{$t "community.headline.chooseYourState"}}</h2>
@@ -17,7 +17,7 @@
 				aria-controls="collapseNi">
 				<button class="btn btn-link registration-button" type="button">
 					<div class="registration-label">{{$t "community.button.lowerSaxony"}}</div>
-					<img src="/images/logo/n21-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px"
+					<img src="{{getAssetPath '/images/logo/n21-schoolcloud-logo.svg'}}" role="presentation" loading="lazy" width="150px"
 						height="33px" class="registration-logo" alt="">
 				</button>
 			</div>
@@ -35,7 +35,7 @@
 				aria-controls="collapseBrb">
 				<button class="btn btn-link registration-button" type="button">
 					<div class="registration-label">{{$t "community.button.brandenburg"}}</div>
-					<img src="/images/logo/brb-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px"
+					<img src="{{getAssetPath '/images/logo/brb-schoolcloud-logo.svg'}}" role="presentation" loading="lazy" width="150px"
 						height="35px" class="registration-logo" alt="">
 				</button>
 			</div>
@@ -53,7 +53,7 @@
 				aria-controls="collapseTh">
 				<button class="btn btn-link registration-button" type="button">
 					<div class="registration-label">{{$t "community.button.thuringia"}}</div>
-					<img src="/images/logo/th-schoolcloud-logo.svg" role="presentation" loading="lazy" width="150px" height="35px"
+					<img src="{{getAssetPath '/images/logo/th-schoolcloud-logo.svg'}}" role="presentation" loading="lazy" width="150px" height="35px"
 						class="registration-logo" alt="">
 				</button>
 			</div>
@@ -69,7 +69,7 @@
 				aria-controls="collapseMint">
 				<button class="btn btn-link registration-button" type="button">
 					<div class="registration-label">{{$t "community.button.mintECSchools"}}</div>
-					<img src="/images/logo/mint-ec-logo.svg" role="presentation" loading="lazy" height="35px"
+					<img src="{{getAssetPath '/images/logo/mint-ec-logo.svg'}}" role="presentation" loading="lazy" height="35px"
 						class="registration-logo" alt="">
 				</button>
 			</div>
@@ -88,7 +88,7 @@
 				aria-controls="collapseForeign">
 				<button class="btn btn-link registration-button" type="button">
 					<div class="registration-label">{{$t "community.button.germanSchoolsAbroad"}}</div>
-					<img src="/images/logo/globe.svg" role="presentation" loading="lazy" width="35px" height="35px"
+					<img src="{{getAssetPath '/images/logo/globe.svg'}}" role="presentation" loading="lazy" width="35px" height="35px"
 						class="registration-logo" alt="">
 				</button>
 			</div>
@@ -106,14 +106,14 @@
 				aria-expanded="true" aria-controls="collapseOtherSchools">
 				<button class="btn btn-link registration-button" type="button">
 					<div class="registration-label">{{$t "community.button.allOtherSchools"}}</div>
-					<img src="/images/logo/hand-in-hand.svg" role="presentation" loading="lazy" width="35px" height="35px"
+					<img src="{{getAssetPath '/images/logo/hand-in-hand.svg'}}" role="presentation" loading="lazy" width="35px" height="35px"
 						class="registration-logo" alt="">
 				</button>
 			</div>
 			<div id="collapseOtherSchools" class="collapse" aria-labelledby="otherSchoolsAccordion"
 				data-parent="#accordionRegistration">
 				<div class="card-body p-1">
-					{{$t "community.text.MINTECSchoolsAndOther"}}<br><br>
+					{{$t "community.text.SchoolsAndOther"}}<br><br>
 
 					{{$t "community.text.hereIsOurRegistrationForm"}}<br>
 					<a

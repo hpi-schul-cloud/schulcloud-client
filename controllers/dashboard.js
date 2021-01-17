@@ -3,14 +3,14 @@
  */
 
 const express = require('express');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const logger = require('../helpers/logger');
 
 const router = express.Router();
-const moment = require('moment');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
+const timesHelper = require('../helpers/timesHelper');
 
-moment.locale('de');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
 const { error, warn } = require('../helpers/logger');
@@ -31,8 +31,86 @@ const filterRequestInfos = (err) => {
 	return err;
 };
 
-router.get('/', (req, res, next) => {
-	// we display time from 7 a.m. to 5 p.m.
+const getCalendarEvents = (req, res, {
+	numMinutes, timeStart, start, end,
+}) => api(req)
+	.get('/calendar/', {
+		qs: {
+			all: 'false', // must set to false to use from and until request
+			from: start.toISOString(true),
+			until: end.toISOString(true),
+		},
+	})
+	.then((eve) => Promise.all(
+		eve.map((event) => recurringEventsHelper.mapEventProps(event, req)),
+	))
+	.then((evnts) => {
+		const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
+		const flatEvents = [].concat(...mappedEvents);
+		const events = flatEvents.filter((event) => {
+			const eventStart = timesHelper.fromUTC(event.start);
+			const eventEnd = timesHelper.fromUTC(event.end);
+
+			return eventStart.isBefore(end) && eventEnd.isAfter(start);
+		});
+
+		return (events || []).map((event) => {
+			let eventStart = timesHelper.fromUTC(event.start);
+			let eventEnd = timesHelper.fromUTC(event.end);
+
+			// cur events that are too long
+			if (eventEnd.isAfter(end)) {
+				eventEnd = end;
+				event.end = eventEnd.toISOString(true);
+			}
+
+			if (eventStart.isBefore(start)) {
+				eventStart = start;
+				event.start = eventEnd.toISOString(true);
+			}
+
+			// subtract timeStart so we can use these values for left alignment
+			const eventStartRelativeMinutes = ((eventStart.hours() - timeStart) * 60) + eventStart.minutes();
+			const eventEndRelativeMinutes = ((eventEnd.hours() - timeStart) * 60) + eventEnd.minutes();
+			const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
+
+			event.comment = `${timesHelper.formatDate(eventStart, 'kk:mm')}
+	- ${timesHelper.formatDate(eventEnd, 'kk:mm', true)}`;
+			event.style = {
+				left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
+				width: 100 * (eventDuration / numMinutes), // percent
+			};
+
+			if (event && (!event.url || event.url === '')) {
+				// add team or course url to event, otherwise just link to the calendar
+				try {
+					if (event.hasOwnProperty('x-sc-courseId')) {
+						// create course link
+						event.url = `/courses/${event['x-sc-courseId']}`;
+						event.alt = res.$t('dashboard.img_alt.showCourse');
+					} else if (event.hasOwnProperty('x-sc-teamId')) {
+						// create team link
+						event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
+						event.alt = res.$t('dashboard.img_alt.showAppointmentInTeam');
+					} else {
+						event.url = '/calendar';
+						event.alt = res.$t('dashboard.img_alt.showCalendar');
+					}
+				} catch (err) {
+					error(filterRequestInfos(err));
+				}
+			}
+
+			return event;
+		}).sort((a, b) => b.style.left - a.style.left);
+	})
+	.catch((err) => {
+		error(filterRequestInfos(err));
+		return [];
+	});
+
+const getTimeOptions = () => {
+	// we display time from 7 to 17
 	const timeStart = 7;
 	const timeEnd = 17;
 	const numHours = timeEnd - timeStart;
@@ -42,92 +120,36 @@ router.get('/', (req, res, next) => {
 	for (let j = 0; j <= numHours; j += 1) {
 		hours.push(j + timeStart);
 	}
-	const start = new Date();
-	start.setUTCHours(timeStart, 0, 0, 0);
-	const end = new Date();
-	end.setUTCHours(timeEnd, 0, 0, 0);
+	const start = timesHelper.currentDate();
+	start.set({ hour: timeStart, minute: 0, second: 0 });
+	const end = timesHelper.currentDate();
+	end.set({ hour: timeEnd, minute: 0, second: 0 });
 
-	const currentTime = new Date();
+	const currentTime = timesHelper.currentDate();
 	// eslint-disable-next-line max-len
-	const currentTotalMinutes = ((currentTime.getHours() - timeStart) * 60) + currentTime.getMinutes();
+	const currentTotalMinutes = ((currentTime.hours() - timeStart) * 60) + currentTime.minutes();
 	let currentTimePercentage = 100 * (currentTotalMinutes / numMinutes);
 	if (currentTimePercentage < 0) currentTimePercentage = 0;
 	else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
-	const eventsPromise = api(req)
-		.get('/calendar/', {
-			qs: {
-				all: 'false', // must set to false to use from and until request
-				from: start.toLocalISOString(),
-				until: end.toLocalISOString(),
-			},
-		})
-		.then((eve) => Promise.all(
-			eve.map((event) => recurringEventsHelper.mapEventProps(event, req)),
-		))
-		.then((evnts) => {
-			const mappedEvents = evnts.map(recurringEventsHelper.mapRecurringEvent);
-			const flatEvents = [].concat(...mappedEvents);
-			const events = flatEvents.filter((event) => {
-				const eventStart = new Date(event.start);
-				const eventEnd = new Date(event.end);
+	return {
+		hours,
+		currentTime,
+		currentTimePercentage,
+		numMinutes,
+		timeStart,
+		start,
+		end,
+	};
+};
 
-				return eventStart < end && eventEnd > start;
-			});
+router.get('/', (req, res, next) => {
+	const timeOptions = getTimeOptions();
+	const {	hours, currentTime, currentTimePercentage } = timeOptions;
 
-			return (events || []).map((event) => {
-				let eventStart = new Date(event.start);
-				let eventEnd = new Date(event.end);
-
-				// cur events that are too long
-				if (eventEnd > end) {
-					eventEnd = end;
-					event.end = eventEnd.toLocalISOString();
-				}
-
-				if (eventStart < start) {
-					eventStart = start;
-					event.start = eventEnd.toLocalISOString();
-				}
-
-				// subtract timeStart so we can use these values for left alignment
-				const eventStartRelativeMinutes = ((eventStart.getUTCHours() - timeStart) * 60) + eventStart.getMinutes();
-				const eventEndRelativeMinutes = ((eventEnd.getUTCHours() - timeStart) * 60) + eventEnd.getMinutes();
-				const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
-
-				event.comment = `${moment.utc(eventStart).format('kk:mm')} - ${moment.utc(eventEnd).format('kk:mm')}`;
-				event.style = {
-					left: 100 * (eventStartRelativeMinutes / numMinutes), // percent
-					width: 100 * (eventDuration / numMinutes), // percent
-				};
-
-				if (event && (!event.url || event.url === '')) {
-					// add team or course url to event, otherwise just link to the calendar
-					try {
-						if (event.hasOwnProperty('x-sc-courseId')) {
-							// create course link
-							event.url = `/courses/${event['x-sc-courseId']}`;
-							event.alt = res.$t('dashboard.img_alt.showCourse');
-						} else if (event.hasOwnProperty('x-sc-teamId')) {
-							// create team link
-							event.url = `/teams/${event['x-sc-teamId']}/?activeTab=events`;
-							event.alt = res.$t('dashboard.img_alt.showAppointmentInTeam');
-						} else {
-							event.url = '/calendar';
-							event.alt = res.$t('dashboard.img_alt.showCalendar');
-						}
-					} catch (err) {
-						error(filterRequestInfos(err));
-					}
-				}
-
-				return event;
-			}).sort((a, b) => b.style.left - a.style.left);
-		})
-		.catch((err) => {
-			error(filterRequestInfos(err));
-			return [];
-		});
+	const show = Configuration.get('CALENDAR_SERVICE_ENABLED') === true
+		&& Configuration.get('CALENDAR_DASHBOARD_ENABLED') === true;
+	const eventsPromise = show ? getCalendarEvents(req, res, timeOptions) : Promise.resolve([]);
 
 	const { _id: userId, schoolId } = res.locals.currentUser;
 	const homeworksPromise = api(req)
@@ -144,10 +166,11 @@ router.get('/', (req, res, next) => {
 					{
 						dueDate: {
 							// homeworks with max. 7 days after and 1 year before dueDate
-							$gte: new Date().getTime() - 1000 * 60 * 60 * 24 * 7,
-							$lte: new Date(
-								new Date().setFullYear(new Date().getFullYear() + 1),
-							),
+							$gte: timesHelper.currentDate().add(-7, 'days').format('x'),
+							$lte: timesHelper.currentDate()
+								.add(1, 'years')
+								.set({ hour: 23, minute: 59, second: 59 })
+								.format('x'),
 						},
 					},
 				],
@@ -155,7 +178,7 @@ router.get('/', (req, res, next) => {
 		})
 		.then((data) => data.data.map((homeworks) => {
 			homeworks.secondaryTitle = homeworks.dueDate
-				? moment(homeworks.dueDate).fromNow()
+				? timesHelper.fromNow(homeworks.dueDate)
 				: res.$t('dashboard.text.noDueDate');
 			if (homeworks.courseId != null) {
 				homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
@@ -176,31 +199,24 @@ router.get('/', (req, res, next) => {
 			return [];
 		});
 
-	function sortFunction(a, b) {
-		if (a.displayAt === b.displayAt) {
-			return 0;
-		}
-
-		return a.displayAt < b.displayAt ? 1 : -1;
-	}
 	// Somehow $lte doesn't work in normal query so I manually put it into a request
 	const newsPromise = api(req)
 		.get('/news/', {
 			qs: {
 				schoolId: res.locals.currentSchool,
 				displayAt: {
-					$lte: new Date().getTime(),
+					$lte: timesHelper.now(),
 				},
+				sort: '-displayAt',
+				$limit: 3,
 			},
 		})
 		.then((news) => news.data
 			.map((n) => {
 				n.url = `/news/${n._id}`;
-				n.secondaryTitle = moment(n.displayAt).fromNow();
+				n.secondaryTitle = timesHelper.fromNow(n.displayAt);
 				return n;
-			})
-			.sort(sortFunction)
-			.slice(0, 3))
+			}))
 		.catch((err) => {
 			/* eslint-disable-next-line max-len */
 			logger.error(
@@ -288,7 +304,7 @@ router.get('/', (req, res, next) => {
 						&& homework.stats
 						&& (
 							(homework.dueDate
-								&& new Date(homework.dueDate) < new Date().getTime()
+								&& timesHelper.fromUTC(homework.dueDate).isBefore(timesHelper.currentDate())
 								&& homework.stats.submissionCount > homework.stats.gradeCount
 							) || (
 								!homework.dueDate && homework.stats.submissionCount > 0
@@ -315,11 +331,14 @@ router.get('/', (req, res, next) => {
 			res.render('dashboard/dashboard', {
 				title: res.$t('dashboard.headline.title'),
 				events: events.reverse(),
-				eventsDate: moment().format('dddd, DD. MMMM YYYY'),
+				eventsDate: timesHelper.currentDate().format(timesHelper.FORMAT.dateLong),
 				assignedHomeworks: (studentHomeworks || filteredAssignedHomeworks || assignedHomeworks)
 					.filter(
 						(task) => !task.private
-							&& (new Date(task.dueDate) >= new Date().getTime() || !task.dueDate),
+							&& (
+								timesHelper.fromUTC(task.dueDate).isSameOrAfter(timesHelper.currentDate())
+								|| !task.dueDate
+							),
 					).slice(0, 10),
 				privateHomeworks: assignedHomeworks
 					.filter((task) => task.private)
@@ -330,7 +349,7 @@ router.get('/', (req, res, next) => {
 				hours,
 				currentTimePercentage,
 				showNewReleaseModal: newRelease,
-				currentTime: moment(currentTime).format('HH:mm'),
+				currentTime: timesHelper.fromUTC(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
 				displayDataprivacyAlert,

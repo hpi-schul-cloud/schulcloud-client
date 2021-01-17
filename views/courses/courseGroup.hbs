@@ -1,15 +1,15 @@
 {{#extend "lib/loggedin"}}
 
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/courses/course.css" />
-<link rel="stylesheet" href="/styles/homework/homework.css" />
-<link rel="stylesheet" href="/vendor/jquery/jquery-ui.css" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/homework/homework.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/vendor/jquery/jquery-ui.css'}}" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-	<script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	<script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	<script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	<script src="{{getAssetPath '/scripts/jquery/jquery-ui.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	<script src="{{getAssetPath '/scripts/jquery/jquery.ui.touch-punch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	<script src="{{getAssetPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
 {{#content "page"}}
@@ -38,7 +38,7 @@
 			<span class="hidden-lg-down">{{$t "courses._course.groups._group.link.addTopic"}}</span>
 		</a>
 		{{/unless}}
-		<h2 class="h4">{{$t "courses._course.groups._group.headline.topics"}}</h2>
+		<h2 class="h4">{{$t "global.headline.topics"}}</h2>
 
 		<div class="list-group">
 			{{#if lessons}}
@@ -86,7 +86,7 @@
 			{{#if doneSubmissions}}
 			{{#each doneSubmissions}}
 			<div class="sc-card-wrapper col-xl-4 col-lg-4 col-md-6 col-sm-12">
-				{{> 'lib/components/sc-card' link-text="Zur Aufgabe"}}
+				{{> 'lib/components/sc-card' link-text=($t 'courses._course.groups._group.text.toTask')}}
 			</div>
 			{{/each}}
 			{{else}}
@@ -107,7 +107,7 @@
 			{{#if openSubmissions}}
 			{{#each openSubmissions}}
 			<div class="sc-card-wrapper col-xl-4 col-lg-4 col-md-6 col-sm-12">
-				{{> 'lib/components/sc-card' link-text="Zur Aufgabe"}}
+				{{> 'lib/components/sc-card' link-text=($t 'courses._course.groups._group.text.toTask')}}
 			</div>
 			{{/each}}
 			{{else}}

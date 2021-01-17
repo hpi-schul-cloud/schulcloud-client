@@ -1,11 +1,11 @@
 {{#extend "lib/simple"}}
   {{#content "scripts" mode="append"}}
-      <script src="/scripts/dataprivacy/user-registration.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	  <script src="/scripts/base64files.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+      <script src="{{getAssetPath '/scripts/dataprivacy/user-registration.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	  <script src="{{getAssetPath '/scripts/base64files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
   {{/content}}
   {{#content "styles" mode="append"}}
-      <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
-      <link rel="stylesheet" href="/styles/registration/pin.css" />
+      <link rel="stylesheet" href="{{getAssetPath '/styles/administration/dataprivacy.css'}}"/>
+      <link rel="stylesheet" href="{{getAssetPath '/styles/registration/pin.css'}}" />
   {{/content}}
   {{#content "page"}}
     {{#embed "lib/forms/paginatedForm" sections=sectionNumber action="/registration/submit" method="post" class="registration-form student" submit-label=($t "registration._registration.global.button.sendAndGetStarted")}}
@@ -38,12 +38,15 @@
         </div>
 
         <div class="form-group">
-            <label>{{$t "global.label.dateOfBirth" }} <sup>*</sup></label>
-            <input class="form-control linked" name="birthDate" type="text"
-                data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 0}}"
-                value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{/if}}"
-                required {{#if user.birthday}}readonly{{/if}} autocomplete="off" />
-
+              {{> "lib/forms/form-date-input"
+                      label=($t "global.label.dateOfBirth")
+                      id="birthDate"
+                      value=user.birthday
+                      required=true
+                      readonly=(isset user.birthday)
+                      dataMinDate=(datePickerTodayMinus 100 0 0)
+                      dataMaxDate=(datePickerTodayMinus 4 0 0)
+              }}
         </div>
 
         <div class="form-group">
@@ -93,9 +96,9 @@
                         <p>{{$t "global.label.emailAddress"}} <i data-from="email"></i></p>
                         <p>{{$t "global.label.password"}} <i class="student-password">{{password}}</i></p>
                     </div>
-                    <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
+                    <button type="button" class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
                         <i class="fa fa-print"></i> {{$t "global.button.print"}}
-                    </div>
+                    </button>
                 </div>
                 <p>{{$t "registration._registration.student.text.youCanNowLogin"}}</p>
             </div>

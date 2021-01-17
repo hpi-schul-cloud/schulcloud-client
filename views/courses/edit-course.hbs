@@ -1,19 +1,19 @@
 {{#extend "lib/loggedin"}}
 
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="/styles/courses/course.css" />
-		<link rel="stylesheet" href="/styles/courses/course-edit.css" />
-		<link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css" />
-		<link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css" />
+		<link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}" />
+		<link rel="stylesheet" href="{{getAssetPath '/styles/courses/course-edit.css'}}" />
+		<link rel="stylesheet" href="{{getAssetPath '/styles/lib/spectrum/spectrum.css'}}" />
+		<link rel="stylesheet" href="{{getAssetPath '/styles/lib/datetimepicker/jquery.datetimepicker.min.css'}}" />
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
-		<script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="/scripts/moment/moment.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="/scripts/coursesTimes.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="/scripts/spectrum/spectrum.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-		<script src="/scripts/spectrum/init.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/jquery/datetimepicker-easy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/moment/moment.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/coursesTimes.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 
 
@@ -22,7 +22,7 @@
 			{{#if course.isArchived}}
 				<div class="empty-state">
                     {{> 'courses/components/svg_archived_courses'}}
-					<!--<img src="/images/empty-states/archived_courses.svg" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image course-empty-content-image" />-->
+					<!--<img src="{{getAssetPath '/images/empty-states/archived_courses.svg'}}" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image course-empty-content-image" />-->
 
 					<h2 class="h4">{{$t "courses._course.edit.headline.courseIsArchieved" (dict "coursename" course.name )}}</h2>
 					<p class="text-muted text-center">
@@ -37,18 +37,9 @@
 							<label>{{$t "administration.global.label.timeSpan"}}</label>
 							<div class="row">
 								<div class="form-group col-md-6">
-									<label>{{$t "global.label.from"}}</label>
-									<input name="startDate" id="startDate" data-date type="text" class="form-control"
-										value="{{course.startDate}}" title="{{$t "courses.global.label.timeSpanFormat"}}"
-										{{#if @root.course.isArchived}}disabled{{/if}} />
-								</div>
-
+                                    {{> "lib/forms/form-date-input" label=($t "global.label.from") id="startDate" value=course.startDate disabled=@root.course.isArchived ariaLabel=($t "administration.global.label.timeSpan") }}
 								<div class="form-group col-md-6">
-									<label>{{$t "global.label.to"}}</label>
-									<input name="untilDate" id="untilDate" data-date type="text" class="form-control"
-										value="{{course.untilDate}}" title="{{$t "courses.global.label.timeSpanFormat"}}"
-										{{#if @root.course.isArchived}}data-min-date="{{datePickerTodayMinus 0 0 0}}"
-										{{/if}} />
+                                    {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate" value=course.untilDate minDate=(datePickerTodayMinus 0 0 0) ariaLabel=($t "administration.global.label.timeSpan")}}
 								</div>
 							</div>
 						</div>
@@ -89,19 +80,19 @@
 					{{#if course.isArchived}}disabled{{/if}} />
 
 				<div class="form-group">
-					<label>{{$t "global.label.nameOfTheCourse"}}</label>
-					<input class="form-control" name="name" type="text" placeholder="{{$t "courses.global.input.mathsClass"}}" value="{{course.name}}"
+					<label for="mathsClass">{{$t "global.label.nameOfTheCourse"}}</label>
+					<input id="mathsClass" class="form-control" name="name" type="text" placeholder="{{$t "courses.global.input.mathsClass"}}" value="{{course.name}}"
 						{{#if course.isArchived}}disabled{{/if}} required autofocus />
 				</div>
 
 				<div class="form-group">
-					<label>{{$t "courses.global.label.courseDescription"}}</label>
-					<textarea class="form-control" name="description"
+					<label for="courseDescription">{{$t "courses.global.label.courseDescription"}}</label>
+					<textarea id="courseDescription" class="form-control" name="description"
 						{{#if course.isArchived}}disabled{{/if}}>{{{stripOnlyScript course.description}}}</textarea>
 				</div>
 
 				<div class="form-group">
-					<label>{{$t "courses.global.label.courseColor"}}</label>
+					<label for="input0">{{$t "courses.global.label.courseColor"}}</label>
 					<div class="color-picker">
 						{{#if course.color}}
 							<div class="color-picker__item">
@@ -128,9 +119,9 @@
 				</div>
 
 				<div class="form-group">
-					<label>{{$t "courses.global.label.courseTeacher"}}</label>
+					<label for="teacherId">{{$t "courses.global.label.courseTeacher"}}</label>
 
-					<select name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
+					<select id="teacherId" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each teachers}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -145,8 +136,8 @@
 				</div>
 
 				<div class="form-group">
-					<label>{{$t "courses._course.edit.label.substitute"}}</label>
-					<select name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
+					<label for="substituteTeacher">{{$t "courses._course.edit.label.substitute"}}</label>
+					<select id="substituteTeacher" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each substitutions}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -157,13 +148,13 @@
 				</div>
 
 				<div class="form-group">
-					<label>{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
+					<label for="classId">{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
 
-					<select name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
+					<select id="classId" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each classes}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-								{{log this.year}}
+
 								{{#if this.name}}
 									{{this.displayName}}
 								{{else}}
@@ -179,9 +170,8 @@
 				</div>
 
 				<div class="form-group">
-					<label>{{$t "courses._course.global.label.studentParticipant"}}</label>
-
-					<select name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
+					<label for="studentsId">{{$t "courses._course.global.label.studentParticipant"}}</label>
+					<select id="studentsId" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each students}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -212,38 +202,32 @@
 					<label>{{$t "administration.global.label.timeSpan"}}</label>
 					<div class="row">
 						<div class="form-group col-md-6">
-							<label>{{$t "global.label.from"}}</label>
-							<input name="startDate" id="startDate" data-date type="text" class="form-control"
-								value="{{course.startDate}}" title="{{$t "courses.global.label.timeSpanFormat"}}"
-								{{#if @root.course.isArchived}}disabled{{/if}} />
+                            {{> "lib/forms/form-date-input" label=($t "global.label.from") id="startDate" value=course.startDate disabled=@root.course.isArchived ariaLabel=($t "administration.global.label.chooseDate") }}
 						</div>
 
 						<div class="form-group col-md-6">
-							<label>{{$t "global.label.to"}}</label>
-							<input name="untilDate" id="untilDate" data-date type="text" class="form-control"
-								value="{{course.untilDate}}" title="{{$t "courses.global.label.timeSpanFormat"}}"
-								{{#if @root.course.isArchived}}disabled{{/if}} />
+                            {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate" value=course.untilDate disabled=@root.course.isArchived ariaLabel=($t "administration.global.label.chooseDate") }}
 						</div>
 					</div>
 
 					<table width="100%" cellpadding="5px">
 						<thead>
 							<th></th>
-							<th><label>{{$t "administration.global.label.weekday"}}</label></th>
-							<th><label>{{$t "administration.global.label.startOfLesson"}}</label></th>
-							<th><label>{{$t "administration.global.label.lengthOfLesson"}}</label></th>
-							<th><label>{{$t "global.label.room"}}</label></th>
+							<th><label for="weekday">{{$t "administration.global.label.weekday"}}</label></th>
+							<th><label for="startOfLesson">{{$t "administration.global.label.startOfLesson"}}</label></th>
+							<th><label for="lengthOfLesson">{{$t "administration.global.label.lengthOfLesson"}}</label></th>
+							<th><label for="room">{{$t "global.label.room"}}</label></th>
 						</thead>
 						<tbody class="add-course-times">
 							{{#each course.times}}
 								<tr class="course-time" id="{{this._id}}">
 									<td>
-										<button class="btn-link course-time-delete" type="button"  data-id="{{this._id}}"
-											{{#if @root.course.isArchived}}disabled{{/if}}>
-											<i class="fa fa-trash-o"></i>
+										<button class="btn-link course-time-delete" type="button" data-id="{{this._id}}"
+											{{#if @root.course.isArchived}}disabled{{/if}} aria-label="{{$t "global.headline.delete"}}">
+											<i class="fa fa-trash-o" aria-hidden="true"></i>
 										</button></td>
 									<td>
-										<select class="form-control" name="times[{{this.count}}][weekday]" type="text"
+										<select id="weekday" class="form-control" name="times[{{this.count}}][weekday]" type="text"
 											{{#if @root.course.isArchived}}disabled{{/if}}>
 											<option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>{{$t "global.text.monday"}}
 											</option>
@@ -262,17 +246,17 @@
 										</select>
 									</td>
 									<td>
-										<input class="form-control" name="times[{{this.count}}][startTime]"
+										<input id="startOfLesson" class="form-control" name="times[{{this.count}}][startTime]"
 											value="{{this.startTime}}" data-time type="text"
 											{{#if @root.course.isArchived}}disabled{{/if}} />
 									</td>
 									<td>
-										<input class="form-control" name="times[{{this.count}}][duration]" type="number"
+										<input id="lengthOfLesson" class="form-control" name="times[{{this.count}}][duration]" type="number"
 											value="{{this.duration}}" placeholder="{{$t "courses.global.input.inMinutes"}}"
-											{{#if @root.course.isArchived}}disabled{{/if}} />
+											{{#if @root.course.isArchived}}disabled{{/if}} min="0"/>
 									</td>
 									<td>
-										<input class="form-control" type="text" name="times[{{this.count}}][room]"
+										<input id="room" class="form-control" type="text" name="times[{{this.count}}][room]"
 											value="{{this.room}}" placeholder="{{$t "courses.global.input.egRoom1-21"}}"
 											{{#if @root.course.isArchived}}disabled{{/if}} />
 									</td>
@@ -283,7 +267,7 @@
 					</table>
 					<button class="new-course-time-add btn-link" data-timesref="#timesContainer" type="button"
 						{{#if @root.course.isArchived}}disabled{{/if}}>
-						<i class="fa fa-plus-circle fa-6"></i> {{$t "courses._course.edit.button.addLesson"}}
+						<i class="fa fa-plus-circle fa-6" aria-hidden="true"></i> {{$t "courses._course.edit.button.addLesson"}}
 					</button>
 				</div>
 

@@ -1,10 +1,10 @@
 {{#extend "lib/loggedin"}}
 	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="/styles/help/dashboard.css" />
+		<link rel="stylesheet" href="{{getAssetPath '/styles/help/dashboard.css'}}" />
 	{{/content}}
 
 	{{#content "scripts" mode="append"}}
-		<script src="/scripts/help.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/help.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 
 	{{#content "page" mode="prepend"}}
@@ -40,7 +40,7 @@
 					  </a>
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-					  <a class="card h-100 teacher-option locationlink" href="https://lernen.cloud/"
+					  <a class="card h-100 teacher-option" href="https://lernen.cloud/"
 						data-testid="administrate_teachers" target="_blank" aria-label="{{$t "lib.help_menu.link.training" }} {{$t "global.link.openInNewTabWarning"}}">
 						<div class="card-block homework">
 						  <div class="card-text">

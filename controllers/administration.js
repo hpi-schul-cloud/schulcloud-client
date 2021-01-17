@@ -9,20 +9,19 @@ const moment = require('moment');
 const multer = require('multer');
 const encoding = require('encoding-japanese');
 const _ = require('lodash');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const queryString = require('querystring');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const redirectHelper = require('../helpers/redirect');
+const timesHelper = require('../helpers/timesHelper');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const { CALENDAR_SERVICE_ENABLED, HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
-
-moment.locale('de');
+const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
@@ -135,7 +134,7 @@ const mapTimeProps = (req, res, next) => {
 const createEventsForData = (data, service, req, res) => {
 	// can just run if a calendar service is running on the environment and the course have a teacher
 	if (
-		CALENDAR_SERVICE_ENABLED
+		Configuration.get('CALENDAR_SERVICE_ENABLED') === true
 		&& service === 'courses'
 		&& data.teacherIds[0]
 		&& data.times.length > 0
@@ -170,7 +169,7 @@ const createEventsForData = (data, service, req, res) => {
  * @param service {string}
  */
 const deleteEventsForData = (service) => (req, res, next) => {
-	if (CALENDAR_SERVICE_ENABLED && service === 'courses') {
+	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true && service === 'courses') {
 		return api(req)
 			.get(`courses/${req.params.id}`)
 			.then((course) => {
@@ -206,9 +205,10 @@ const deleteEventsForData = (service) => (req, res, next) => {
  *          host: current webaddress from client = string, looks for req.headers.origin first
  *          schoolId: users schoolId = string
  *          toHash: optional, user account mail for hash generation = string
+ * 			classId: optional, classId alle the users belongs to, only for the bulkcall
  *      }
  */
-const generateRegistrationLink = (params, internalReturn) => function registrationLink(req, res, next) {
+const generateRegistrationLink = (params, bulkCall) => function registrationLink(req, res, next) {
 	const options = JSON.parse(JSON.stringify(params));
 	if (!options.role) options.role = req.body.role || '';
 	if (!options.save) options.save = req.body.save || '';
@@ -219,8 +219,8 @@ const generateRegistrationLink = (params, internalReturn) => function registrati
 		options.toHash = req.body.email || req.body.toHash || '';
 	}
 
-	if (internalReturn) {
-		return api(req).post('/registrationlink/', {
+	if (bulkCall) {
+		return api(req).post('/users/qrRegistrationLinkLegacy', {
 			json: options,
 		});
 	}
@@ -268,12 +268,12 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 			.post('/mails/', {
 				json: {
 					email: user.email,
-					subject: res.$t('administration.controller.text.invitationToUseThe', {
+					subject: res.$t('administration.controller.text.invitationEmailSubject', {
 						title: res.locals.theme.title,
 					}),
 					headers: {},
 					content: {
-						text: res.$t('administration.controller.text.invitationToThe', {
+						text: res.$t('administration.controller.text.invitationEmailContent', {
 							title: res.locals.theme.title,
 							firstName: user.firstName,
 							lastName: user.lastName,
@@ -337,10 +337,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 const getUserCreateHandler = (internalReturn) => function userCreate(req, res, next) {
 	const { shortLink } = req.body;
 	if (req.body.birthday) {
-		const birthday = req.body.birthday.split('.');
-		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
-			birthday[0]
-		}T00:00:00Z`;
+		req.body.birthday = timesHelper.dateStringToMoment(req.body.birthday);
 	}
 	return api(req)
 		.post('/users/', {
@@ -438,15 +435,29 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 		return;
 	} catch (err) {
-		const message = res.$t('administration.controller.text.importFailed');
-		req.session.notification = {
-			type: 'danger',
-			message,
-		};
-		const query = queryString.stringify({
-			'toast-type': 'error',
-			'toast-message': encodeURIComponent(message),
-		});
+		let query;
+		if (err.error && err.error.code && err.error.code === 'ESOCKETTIMEDOUT') {
+			const message = res.$t('administration.controller.text.importMayBeStillRunning');
+			req.session.notification = {
+				type: 'info',
+				message,
+			};
+			query = queryString.stringify({
+				'toast-type': 'info',
+				'toast-message': encodeURIComponent(message),
+			});
+		} else {
+			const message = res.$t('administration.controller.text.importFailed');
+			req.session.notification = {
+				type: 'danger',
+				message,
+			};
+			query = queryString.stringify({
+				'toast-type': 'error',
+				'toast-message': encodeURIComponent(message),
+			});
+		}
+
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 	}
 };
@@ -599,7 +610,7 @@ const updatePolicy = (req, res, next) => {
 		json: {
 			title: body.consentTitle,
 			consentText: body.consentText,
-			publishedAt: new Date().toLocaleString(),
+			publishedAt: timesHelper.currentDate(),
 			consentTypes: ['privacy'],
 			schoolId: body.schoolId,
 			consentData: body.consentData,
@@ -614,7 +625,7 @@ const updatePolicy = (req, res, next) => {
 const returnAdminPrefix = (roles, res) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
-	roles.map((role) => {
+	roles.forEach((role) => {
 		// eslint-disable-next-line no-unused-expressions
 		role.name === 'teacher'
 			? (prefix = res.$t('administration.controller.headline.management'))
@@ -704,12 +715,6 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	},
 ];
 
-const parseDate = (input) => {
-	const parts = input.match(/(\d+)/g);
-	return new Date(parts[2], parts[1] - 1, parts[0]);
-};
-
-
 const skipRegistration = (req, res, next) => {
 	const userid = req.params.id;
 	const {
@@ -722,7 +727,7 @@ const skipRegistration = (req, res, next) => {
 		termsOfUseConsent,
 		birthday,
 	} = req.body;
-	const parsedDate = parseDate(birthday).toISOString();
+	const parsedDate = timesHelper.dateStringToMoment(birthday);
 	api(req).post(`/users/${userid}/skipregistration`, {
 		json: {
 			password: passwd,
@@ -735,7 +740,7 @@ const skipRegistration = (req, res, next) => {
 	}).then(() => {
 		res.render('administration/users_registrationcomplete', {
 			title: res.$t('administration.controller.text.agreementSuccessfullyDeclared'),
-			submitLabel: res.$t('global.button.back'),
+			submitLabel: res.$t('global.button.done'),
 			users: [
 				{
 					email: req.body.email,
@@ -762,12 +767,11 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 		+ '<i class="fa fa-check consent-status double-check"></i>';
 
 	switch (consentStatus) {
-		case 'missing':
-			return times;
 		case 'parentsAgreed':
 			return check;
 		case 'ok':
 			return isTeacher ? check : doubleCheck;
+		case 'missing':
 		default:
 			return times;
 	}
@@ -837,7 +841,11 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
-			next(err);
+			req.session.notification = {
+				type: 'danger',
+				message: err.error.message,
+			};
+			res.redirect(`${req.originalUrl}/edit`);
 		});
 };
 
@@ -983,7 +991,7 @@ router.get(
 						classesString,
 					];
 					if (hasEditPermission) {
-						row.push(moment(user.createdAt).format('DD.MM.YYYY'));
+						row.push(timesHelper.dateToDateString(user.createdAt));
 						row.push({
 							useHTML: true,
 							content: icon,
@@ -1044,12 +1052,14 @@ router.get(
 				c.selected = c.teacherIds.includes(user._id);
 				return c;
 			});
+			const canDeleteUser = res.locals.currentUser.permissions.includes('TEACHER_DELETE');
 			res.render('administration/users_edit', {
 				title: res.$t('administration.controller.link.editTeacher'),
 				action: `/administration/teachers/${user._id}`,
 				submitLabel: res.$t('global.button.save'),
 				closeLabel: res.$t('global.button.cancel'),
 				user,
+				canDeleteUser,
 				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
 				consent: user.consent,
 				classes,
@@ -1058,6 +1068,7 @@ router.get(
 				isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 				referrer: req.header('Referer'),
+				hasAccount: !!account,
 			});
 		});
 	},
@@ -1069,17 +1080,14 @@ router.get(
 
 const getStudentUpdateHandler = () => async function studentUpdateHandler(req, res, next) {
 	if (req.body.birthday) {
-		const birthday = req.body.birthday.split('.');
-		req.body.birthday = `${birthday[2]}-${birthday[1]}-${
-			birthday[0]
-		}T00:00:00Z`;
+		req.body.birthday = timesHelper.dateStringToMoment(req.body.birthday);
 	}
 
 	const promises = [];
 
 	// Consents
-	req.body.consent = req.body.consent || {};
 	if (req.body.student_form) {
+		req.body.consent = req.body.consent || {};
 		req.body.consent.userConsent = {
 			form: req.body.student_form || 'analog',
 			privacyConsent: req.body.student_privacyConsent === 'true',
@@ -1087,6 +1095,7 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 		};
 	}
 	if (req.body.parent_form) {
+		req.body.consent = req.body.consent || {};
 		req.body.consent.parentConsents = [];
 		req.body.consent.parentConsents[0] = {
 			form: req.body.parent_form || 'analog',
@@ -1112,7 +1121,11 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
-			next(err);
+			req.session.notification = {
+				type: 'danger',
+				message: err.error.message,
+			};
+			res.redirect(`${req.originalUrl}/edit`);
 		});
 };
 
@@ -1169,7 +1182,7 @@ router.delete(
 );
 router.post(
 	'/students/:id/skipregistration/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE', 'STUDENT_SKIP_REGISTRATION'], 'or'),
 	skipRegistration,
 );
 router.get(
@@ -1275,7 +1288,7 @@ router.get(
 						user.lastName || '',
 						user.email || '',
 						user.classes.join(', ') || '',
-						moment(user.createdAt).format('DD.MM.YYYY'),
+						timesHelper.dateToDateString(user.createdAt),
 						{
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
@@ -1323,11 +1336,6 @@ router.get(
 );
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
-	const role = await api(req).get('/roles', {
-		qs: { name: roleName },
-		$limit: false,
-	});
-	const qs = { roles: role.data[0]._id, $limit: false };
 	let users = [];
 
 	if (classId) {
@@ -1338,24 +1346,28 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 		});
 		users = klass.userIds;
 	} else {
+		const role = await api(req).get('/roles', {
+			qs: { name: roleName },
+			$limit: false,
+		});
+		const qs = { roles: role.data[0]._id, $limit: false };
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
 
-	let usersWithMissingConsents = [];
+	const usersWithMissingConsents = [];
 	const batchSize = 50;
-	let slice = 0;
-	while (users.length !== 0 && slice * batchSize < users.length) {
-		usersWithMissingConsents = usersWithMissingConsents.concat(
-			(await api(req).get('/users/admin/students', {
+	while (users.length > 0) {
+		usersWithMissingConsents.push(
+			...(await api(req).get('/users/admin/students', {
 				qs: {
 					users: users
-						.slice(slice * batchSize, (slice + 1) * batchSize)
+						.splice(0, batchSize)
 						.map((u) => u._id),
 					consentStatus: ['missing', 'parentsAgreed'],
+					$limit: batchSize,
 				},
 			})).data,
 		);
-		slice += 1;
 	}
 
 	return usersWithMissingConsents;
@@ -1365,33 +1377,22 @@ router.get(
 	'/users-without-consent/send-email',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	async (req, res, next) => {
-		let usersWithoutConsent = await getUsersWithoutConsent(
-			req,
-			req.query.role,
-			req.query.classId,
-		);
-		const role = req.query.role;
+		const { role, classId } = req.query;
 
-		usersWithoutConsent = await Promise.all(
-			usersWithoutConsent.map(async (user) => {
-				user.registrationLink = await generateRegistrationLink(
-					{
-						role,
-						save: true,
-						host: HOST,
-						schoolId: res.locals.currentSchool,
-						toHash: user.email,
-						patchUser: true,
-					},
-					true,
-				)(req, res, next);
-
-				return Promise.resolve(user);
-			}),
-		);
+		const usersWithoutAccount = await generateRegistrationLink(
+			{
+				classId,
+				role,
+				save: true,
+				host: HOST,
+				schoolId: res.locals.currentSchool,
+				patchUser: true,
+			},
+			true,
+		)(req, res, next);
 
 		try {
-			for (const user of usersWithoutConsent) {
+			for (const user of usersWithoutAccount) {
 				const name = user.displayName
 					? user.displayName
 					: `${user.firstName} ${user.lastName}`;
@@ -1444,33 +1445,21 @@ router.get(
 	'/users-without-consent/get-json',
 	currentUserHasPermissionsForRole,
 	async (req, res, next) => {
-		const role = req.query.role;
+		const { role, classId } = req.query;
 		try {
-			let usersWithoutConsent = await getUsersWithoutConsent(
-				req,
-				role,
-				req.query.classId,
-			);
+			const usersWithoutAccount = await generateRegistrationLink(
+				{
+					classId,
+					role,
+					save: true,
+					host: HOST,
+					schoolId: res.locals.currentSchool,
+					patchUser: true,
+				},
+				true,
+			)(req, res, next);
 
-			usersWithoutConsent = await Promise.all(
-				usersWithoutConsent.map(async (user) => {
-					user.registrationLink = await generateRegistrationLink(
-						{
-							role,
-							save: true,
-							host: HOST,
-							schoolId: res.locals.currentSchool,
-							toHash: user.email,
-							patchUser: true,
-						},
-						true,
-					)(req, res, next);
-
-					return Promise.resolve(user);
-				}),
-			);
-
-			res.json(usersWithoutConsent);
+			res.json(usersWithoutAccount);
 		} catch (err) {
 			res.status(err.statusCode || 500).send(err);
 		}
@@ -1495,7 +1484,7 @@ router.get(
 						? consent.parentConsents[0]
 						: {};
 				}
-				const canDeleteStudent = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
+				const canDeleteUser = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
 				const hidePwChangeButton = !account;
 				res.render('administration/users_edit', {
 					title: res.$t('administration.controller.link.editingStudents'),
@@ -1503,7 +1492,7 @@ router.get(
 					submitLabel: res.$t('global.button.save'),
 					closeLabel:	res.$t('global.button.cancel'),
 					user,
-					canDeleteStudent,
+					canDeleteUser,
 					isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
 					consentStatusIcon: getConsentStatusIcon(user.consentStatus),
 					consent,
@@ -1513,6 +1502,7 @@ router.get(
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+					hasAccount: !!account,
 				});
 			})
 			.catch((err) => {
@@ -1564,7 +1554,7 @@ const skipRegistrationClass = async (req, res, next) => {
 				parent_termsOfUseConsent: true,
 				privacyConsent: true,
 				termsOfUseConsent: true,
-				birthday: parseDate(birthdays[i]),
+				birthday: timesHelper.dateStringToMoment(birthdays[i]),
 			},
 		});
 	});
@@ -1606,7 +1596,8 @@ const renderClassEdit = (req, res, next) => {
 			const mode = req.locals.mode;
 			Promise.all(promises).then(
 				([teachers, gradeLevels, currentClass]) => {
-					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
+					let schoolyears = getSelectableYears(res.locals.currentSchoolData);
+					schoolyears = schoolyears.sort((a, b) => a.startDate.localeCompare(b.startDate));
 
 					const allSchoolYears = res.locals.currentSchoolData.years.schoolYears
 						.sort((a, b) => b.startDate.localeCompare(a.startDate));
@@ -2320,43 +2311,26 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 		});
 };
 
-const updateSchoolFeature = async (req, currentFeatures, newState, featureName) => {
-	const isCurrentlyAllowed = (currentFeatures || []).includes(featureName);
+const updateSchoolFeatures = async (req, currentFeatures, features) => {
+	const pushValues = Object.keys(features)
+		.filter((feature) => features[feature] && !currentFeatures.includes(feature));
+	const pullValues = Object.keys(features)
+		.filter((feature) => !features[feature] && currentFeatures.includes(feature));
 
-	if (!isCurrentlyAllowed && newState) {
-		// add feature
-		await api(req)
-			.patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: featureName,
-					},
-				},
-			});
+	const requests = [];
+	if (pushValues.length > 0) {
+		requests.push(api(req)
+			.patch(`/schools/${req.params.id}`, { json: { $push: { features: { $each: pushValues } } } }));
 	}
-
-	if (isCurrentlyAllowed && !newState) {
-		// remove feature
-		await api(req)
-			.patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: featureName,
-					},
-				},
-			});
+	if (pullValues.length > 0) {
+		requests.push(api(req)
+			.patch(`/schools/${req.params.id}`, { json: { $pull: { features: { $in: pullValues } } } }));
 	}
+	await Promise.all(requests);
 };
 
 const schoolFeatureUpdateHandler = async (req, res, next) => {
 	try {
-		const currentFeatures = res.locals.currentSchoolData.features;
-		await updateSchoolFeature(req, currentFeatures, req.body.rocketchat === 'true', 'rocketChat');
-		delete req.body.rocketchat;
-
-		await updateSchoolFeature(req, currentFeatures, req.body.videoconference === 'true', 'videoconference');
-		delete req.body.videoconference;
-
 		// Toggle teacher's studentVisibility permission
 		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
 		if (studentVisibilityFeature) {
@@ -2372,34 +2346,32 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 
 		delete req.body.studentVisibility;
 
-		// Update riot messenger feature in school
-		const messengerEnabled = (res.locals.currentSchoolData.features || []).includes(
-			'messenger',
-		);
-		if (!messengerEnabled && req.body.messenger === 'true') {
-			// enable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$push: {
-						features: 'messenger',
+		// Toggle sudent lernstore view permission
+		const studentLernstoreFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED');
+		if (studentLernstoreFeature) {
+			await api(req)
+				.patch('school/student/studentlernstorevisibility', {
+					json: {
+						permission: {
+							isEnabled: !!req.body.studentlernstorevisibility,
+						},
 					},
-				},
-			});
-		} else if (messengerEnabled && req.body.messenger !== 'true') {
-			// disable feature
-			await api(req).patch(`/schools/${req.params.id}`, {
-				json: {
-					$pull: {
-						features: 'messenger',
-					},
-				},
-			});
+				});
 		}
-		await updateSchoolFeature(req, currentFeatures, req.body.messenger === 'true', 'messenger');
-		delete req.body.messenger;
 
-		await updateSchoolFeature(req, currentFeatures, req.body.messengerSchoolRoom === 'true', 'messengerSchoolRoom');
-		delete req.body.messengerSchoolRoom;
+		delete req.body.studentlernstorevisibility;
+
+		const currentFeatures = res.locals.currentSchoolData.features;
+
+		// Update school features
+		const possibleSchoolFeatures = [
+			'messenger', 'messengerSchoolRoom', 'messengerStudentRoomCreate', 'rocketChat', 'videoconference',
+		];
+		const featuresToSet = {};
+		for (const feature of possibleSchoolFeatures) {
+			featuresToSet[feature] = req.body[feature] === 'true';
+		}
+		await updateSchoolFeatures(req, currentFeatures, featuresToSet);
 	} catch (err) {
 		next(err);
 	}
@@ -2498,7 +2470,7 @@ router.all('/courses', (req, res, next) => {
 		const coursesBody = courses.data.map((item) => [
 			item.name,
 			// eslint-disable-next-line no-shadow
-			(item.classIds || []).map((item) => item.displayName).join(', '),
+			(item.classIds || []).map((item) => classes.find((obj) => obj._id === item.id).displayName).join(', '),
 			// eslint-disable-next-line no-shadow
 			(item.teacherIds || []).map((item) => item.lastName).join(', '),
 			[
@@ -2692,8 +2664,6 @@ router.all('/teams', async (req, res, next) => {
 							},
 							title: item.createdAtMySchool
 								? res.$t('administration.controller.text.removeStudentsFromYourOwnSchool')
-								+ res.$t('administration.controller.text.anotherSchoolWasFounded')
-								+ res.$t('administration.controller.text.orAssignAdminRights')
 								: res.$t('administration.controller.link.removeMembers'),
 						},
 						{
@@ -2727,7 +2697,7 @@ router.all('/teams', async (req, res, next) => {
 							useHTML: true,
 							content: getTeamSchoolsButton(item.schools.length),
 						},
-						moment(item.createdAt).format('DD.MM.YYYY'),
+						timesHelper.dateToDateString(item.createdAt),
 						{
 							useHTML: true,
 							content: getTeamFlags(item, res),
@@ -2892,7 +2862,7 @@ router.use(
 		const [school, totalStorage, schoolMaintanance, studentVisibility, consentVersions] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
-					$populate: ['systems', 'currentYear'],
+					$populate: ['systems', 'currentYear', 'federalState'],
 					$sort: req.query.sort,
 				},
 			}),
@@ -2936,7 +2906,7 @@ router.use(
 			policiesBody = consentVersions.data.map((consentVersion) => {
 				const title = consentVersion.title;
 				const text = consentVersion.consentText;
-				const publishedAt = new Date(consentVersion.publishedAt).toLocaleString();
+				const publishedAt = timesHelper.dateToDateTimeString(consentVersion.publishedAt);
 				const linkToPolicy = consentVersion.consentDataId;
 				const links = [];
 				if (linkToPolicy) {
@@ -2961,7 +2931,7 @@ router.use(
 			if (editable) {
 				tableActions = tableActions.concat([
 					{
-						link: item.type === 'ldap' ? `/administration/systems/ldap/edit/${item._id}`
+						link: item.type === 'ldap' ? `/administration/ldap/config?id=${item._id}`
 							: `/administration/systems/${item._id}`,
 						class: item.type === 'ldap' ? 'btn-edit-ldap' : 'btn-edit',
 						icon: 'edit',
@@ -3043,6 +3013,7 @@ router.use(
 		});
 
 		const ssoTypes = getSSOTypes();
+		const availableSSOTypes = getSSOTypes().filter((type) => type.value !== 'itslearning');
 
 		res.render('administration/school', {
 			title: res.$t('administration.controller.headline.school', {
@@ -3055,7 +3026,7 @@ router.use(
 			ldapAddable,
 			provider,
 			studentVisibility: studentVisibility.isEnabled,
-			availableSSOTypes: ssoTypes,
+			availableSSOTypes,
 			ssoTypes,
 			totalStorage,
 			systemsHead,
@@ -3066,6 +3037,7 @@ router.use(
 			rssBody,
 			hasRSS: rssBody && !!rssBody.length,
 			schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+			timezone: `${timesHelper.schoolTimezoneToString(true)}`,
 		});
 	},
 );
@@ -3157,7 +3129,7 @@ router.get('/startldapschoolyear', async (req, res) => {
 		res.$t('administration.controller.label.email'),
 		'uid',
 		res.$t('administration.controller.label.roles'),
-		res.$t('administration.controller.label.domainname'),
+		res.$t('administration.controller.label.domainName'),
 		'uuid',
 	];
 	const headClasses = [
@@ -3253,141 +3225,13 @@ router.post(
 							},
 						})
 						.then(() => {
-							res.redirect(`/administration/systems/ldap/edit/${system._id}`);
+							res.redirect(`/administration/ldap/config?id=${system._id}`);
 						})
 						.catch((err) => {
 							next(err);
 						});
 				});
 		}
-	},
-);
-router.get(
-	'/systems/ldap/edit/:id',
-	permissionsHelper.permissionsChecker('ADMIN_VIEW'),
-	async (req, res, next) => {
-		try {
-			const system = await Promise.resolve(
-				api(req).get(`/systems/${req.params.id}`),
-			);
-			res.render('administration/ldap-edit', {
-				title: res.$t('administration.controller.link.editLDAP'),
-				system,
-			});
-		} catch (err) {
-			next(err);
-		}
-	},
-);
-// Verify
-router.post(
-	'/systems/ldap/edit/:id',
-	permissionsHelper.permissionsChecker('ADMIN_VIEW'),
-	async (req, res, next) => {
-		const system = await Promise.resolve(
-			api(req).get(`/systems/${req.params.id}`),
-		);
-
-		// Classes active
-		let classesPath = req.body.classpath;
-		if (req.body.activateclasses !== 'on') {
-			classesPath = '';
-		}
-
-		let ldapURL = req.body.ldapurl.trim();
-		if (!ldapURL.startsWith('ldaps')) {
-			if (ldapURL.startsWith('ldap')) {
-				ldapURL = ldapURL.replace('ldap', 'ldaps');
-			} else {
-				ldapURL = `ldaps://${ldapURL}`;
-			}
-		}
-
-		api(req)
-			.patch(`/systems/${system._id}`, {
-				json: {
-					alias: req.body.ldapalias,
-					ldapConfig: {
-						active: false, // Don't switch of by verify
-						url: ldapURL,
-						rootPath: req.body.rootpath,
-						searchUser: req.body.searchuser,
-						searchUserPassword: req.body.searchuserpassword,
-						provider: req.body.ldaptype,
-						providerOptions: {
-							schoolName: res.locals.currentSchoolData.name,
-							userPathAdditions: req.body.userpath,
-							classPathAdditions: classesPath,
-							roleType: req.body.roletype,
-							userAttributeNameMapping: {
-								givenName: req.body.givenName,
-								sn: req.body.sn,
-								dn: req.body.dn,
-								uuid: req.body.uuid,
-								uid: req.body.uid,
-								mail: req.body.mail,
-								role: req.body.role,
-							},
-							roleAttributeNameMapping: {
-								roleStudent: req.body.studentrole,
-								roleTeacher: req.body.teacherrole,
-								roleAdmin: req.body.adminrole,
-								roleNoSc: req.body.noscrole,
-							},
-							classAttributeNameMapping: {
-								description: req.body.classdescription,
-								dn: req.body.classdn,
-								uniqueMember: req.body.classuniquemember,
-							},
-						},
-					},
-				},
-			})
-			.then(() => {
-				api(req)
-					.get(`/ldap/${system._id}`)
-					.then((data) => {
-						res.json(data);
-					});
-			})
-			.catch(() => {
-				res.json('{}');
-			});
-	},
-);
-
-// Activate
-router.post(
-	'/systems/ldap/activate/:id',
-	permissionsHelper.permissionsChecker('ADMIN_VIEW'),
-	async (req, res, next) => {
-		// Find LDAP-System
-		const school = await Promise.resolve(
-			api(req).get(`/schools/${res.locals.currentSchool}`, {
-				qs: {
-					$populate: ['systems'],
-				},
-			}),
-		);
-		const system = school.systems.filter(
-			// eslint-disable-next-line no-shadow
-			(system) => system._id === req.params.id,
-		);
-
-		api(req)
-			.patch(`/ldap/${system[0]._id}`, {
-				json: {
-					ldapConfig: {
-						active: true,
-					},
-				},
-			})
-			.then(() => {
-				res.json('success');
-			})
-			.catch(() => {
-				res.json('error');
-			});
 	},
 );
 

@@ -1,15 +1,15 @@
 {{#extend "lib/loggedin" notitle="true"}}
 
     {{#content "scripts" mode="append"}}
-        <script type="text/javascript" defer src="/scripts/teamOverview.js" nonce="{{nonceValue}}"></script>
+        <script type="text/javascript" defer src="{{getAssetPath '/scripts/teamOverview.js'}}" nonce="{{nonceValue}}"></script>
     {{/content}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/empty-state.css"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/empty-state.css'}}"/>
     {{/content}}
 
     {{#content "page"}}
         <section class="empty-state">
-            <img src="/images/empty-states/teams.svg" alt="" role="presentation" class="image mx-auto d-block"/>
+            {{> 'teams/svg_empty_teams'}}
             <div class="text-wrapper mx-auto d-block">
                 <h2 class="h2 text-center">{{$t "teams.headline.teamsConnectSchools"}}</h2>
                 <h2 class="h5 text-muted text-center">

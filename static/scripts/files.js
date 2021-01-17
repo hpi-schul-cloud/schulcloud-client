@@ -13,18 +13,12 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 		window.location = `?${params}`;
 	};
-	$('select[name="sortBy"]').chosen({
-		width: '',
-		disable_search: true,
-	}).change((_, { selected }) => {
-		sortBy = selected;
+	$('select[name="sortBy"]').on('change', (e) => {
+		sortBy = $(e.currentTarget).val();
 		navigate();
 	});
-	$('select[name="sortOrder"]').chosen({
-		width: '',
-		disable_search: true,
-	}).change((_, { selected }) => {
-		sortOrder = selected;
+	$('select[name="sortOrder"]').on('change', (e) => {
+		sortOrder = $(e.currentTarget).val();
 		navigate();
 	});
 });
@@ -52,6 +46,12 @@ $('.openfolder').on('click', function determineFolder() {
 	const folderid = this.getAttribute('data-folder-id');
 	if (folderid) {
 		window.location.href = window.openFolder(folderid);
+	}
+});
+
+$('.openfolder').on('keypress', (e) => {
+	if (e.key === 'Enter' || e.key === ' ') {
+		document.activeElement.click();
 	}
 });
 
@@ -219,12 +219,19 @@ $(document).ready(() => {
 					},
 				).fail((err) => {
 					this.removeFile(file);
+					let errorThrown;
+					if (err.responseJSON.error.code === 'ESOCKETTIMEDOUT') {
+						errorThrown = $t('global.text.requestTimeout');
+					} else {
+						errorThrown = err.responseJSON.error.name || err.responseJSON.error.message
+							? `${err.responseJSON.error.name} - ${err.responseJSON.error.message}`
+							: err.responseJSON.error;
+					}
+
 					showAJAXError(
 						err.responseJSON.error.code,
 						err.responseJSON.error.message,
-						`${err.responseJSON.error.name} - ${
-							err.responseJSON.error.message
-						}`,
+						errorThrown,
 					);
 				});
 			},
@@ -283,14 +290,15 @@ $(document).ready(() => {
 		});
 	}
 
-	$('a[data-method="download"]').on('click', (e) => {
+	$('button[data-method="download"]').on('click', (e) => {
+		window.open($(e.currentTarget).attr('data-href'), '_blank');
 		e.stopPropagation();
 	});
 
 	function deleteFileClickHandler(e) {
 		e.stopPropagation();
 		e.preventDefault();
-		const $buttonContext = $(this);
+		const $buttonContext = $(e.currentTarget);
 
 		$deleteModal.appendTo('body').modal('show');
 		$deleteModal
@@ -304,7 +312,7 @@ $(document).ready(() => {
 			.unbind('click')
 			.on('click', () => {
 				$.ajax({
-					url: $buttonContext.attr('href'),
+					url: $buttonContext.attr('data-href'),
 					type: 'DELETE',
 					data: {
 						id: $buttonContext.data('file-id'),
@@ -315,7 +323,13 @@ $(document).ready(() => {
 			});
 	}
 
+	$('button[data-method="delete"]').on('click', deleteFileClickHandler);
 	$('a[data-method="delete"]').on('click', deleteFileClickHandler);
+	$('a[data-method="delete"]').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			deleteFileClickHandler(e);
+		}
+	});
 
 	$deleteModal.find('.close, .btn-close').on('click', () => {
 		$deleteModal.modal('hide');
@@ -344,6 +358,11 @@ $(document).ready(() => {
 	}
 	$('.card.file').on('click', cardFileClickHandler);
 
+	$('.fileviewer').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			document.activeElement.click();
+		}
+	});
 	function cardFileTitleClickHandler(e) {
 		if (isCKEditor) {
 			e.preventDefault();
@@ -483,16 +502,16 @@ $(document).ready(() => {
 		populateRenameModal(
 			oldName,
 			`/files/fileModel/${fileId}/rename`,
-			'Datei umbenennen',
+			$t('files.label.renameFile'),
 		);
 	}
-	$('.file-name-edit').click(fileNameEditClickHandler);
+	$('.file-name-edit').on('click', fileNameEditClickHandler);
 
 	function dirRenameClickHandler(e) {
 		e.stopPropagation();
 		e.preventDefault();
-		const dirId = $(this).attr('data-directory-id');
-		const oldName = $(this).attr('data-directory-name');
+		const dirId = $(e.currentTarget).attr('data-directory-id');
+		const oldName = $(e.currentTarget).attr('data-directory-name');
 
 		populateRenameModal(
 			oldName,
@@ -501,6 +520,11 @@ $(document).ready(() => {
 		);
 	}
 	$('a[data-method="dir-rename"]').on('click', dirRenameClickHandler);
+	$('a[data-method="dir-rename"]').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			dirRenameClickHandler(e);
+		}
+	});
 
 	const fileShare = (fileId, $shareModal, view) => {
 		const $input = $shareModal.find('input[name="invitation"]');
@@ -551,6 +575,12 @@ $(document).ready(() => {
 		const $shareModal = $('.share-modal');
 		fileShare(fileId, $shareModal);
 	});
+	$('.btn-file-share').on('keypress', (e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			document.activeElement.click();
+		}
+	});
 
 	$('.btn-file-danger').click((e) => {
 		e.stopPropagation();
@@ -599,7 +629,7 @@ $(document).ready(() => {
 							.map(({
 								name, write, read, refId,
 							}) => `<tr>
-									<td>${nameMap[name] || name}</td>
+									<th scope="row">${nameMap[name] || name}</th>
 									<td>
 										<input
 											type="checkbox"
@@ -792,7 +822,7 @@ $(document).ready(() => {
 		const $context = $(e.currentTarget);
 
 		// temporary disabled
-		if ($context.attr('disabled')) {
+		if ($context.attr('data-disabled')) {
 			$disabledMoveModal.appendTo('body').modal('show');
 			return;
 		}
@@ -845,6 +875,12 @@ $('.videostop').on('click', () => {
 	$('#file-view').css('display', 'none');
 });
 
+$('.videostop').on('keypress', (e) => {
+	if (e.key === 'Enter' || e.key === ' ') {
+		document.activeElement.click();
+	}
+});
+
 const fileTypes = {
 	docx:
 		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -875,6 +911,8 @@ window.fileViewer = function fileViewer(type, name, id) {
 			window.location.href = '#file-view';
 			$('#file-view').css('display', '');
 			$('#picture').attr('src', `/files/file?file=${id}&name=${name}`);
+			$('#picture').attr('alt', $t('files.img_alt.altInfoTheImage', { imgName: name }));
+			$('.videostop').focus();
 			break;
 
 		case `audio/${type.substr(6)}`:
@@ -886,6 +924,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 				this.src({ type, src: `/files/file?file=${id}` });
 			});
 			$('#my-video').css('display', '');
+			$('.videostop').focus();
 			break;
 
 		case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': // .docx

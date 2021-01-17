@@ -17,21 +17,24 @@ const createFilebrowserModal = (editor, t, dialogTitle, onCreate, additionalInpu
 
 	const dialogContent = `<label for="url-input" style="display: none">${t('URL')}:</label>
 		<input type="hidden" id="url-input">
+		<input type="hidden" id="editor-id">
 		<button type="button" id="browseServerButton">${t('Browse Server')}</button><br>${additionalInput}`;
 
 	ckeditorFilebrowserDialog.find('.modal-body').html(dialogContent);
-	ckeditorFilebrowserDialog.find('.btn-submit').click(() => { ckeditorFilebrowserDialog.modal('hide'); onCreate(); });
+	ckeditorFilebrowserDialog.find('.btn-submit').on('click', () => {
+		ckeditorFilebrowserDialog.modal('hide');
+		onCreate();
+	});
 	ckeditorFilebrowserDialog.appendTo('body').modal('show');
 
+	document.getElementById('editor-id').value = editor.id;
 	window.addEventListener('message', (e) => {
 		document.getElementById('url-input').value = e.data;
 	});
 
-	ckeditorFilebrowserDialog.on('shown.bs.modal', () => {
-		document.getElementById('browseServerButton').addEventListener('click', () => {
-			const dialogPageUrl = `${editor.config.get('filebrowser.browseUrl')}?CKEditor=true`;
-			window.open(dialogPageUrl, '_blank', 'width=700, height=500');
-		});
+	ckeditorFilebrowserDialog.find('#browseServerButton').on('click', () => {
+		const dialogPageUrl = `${editor.config.get('filebrowser.browseUrl')}?CKEditor=true`;
+		window.open(dialogPageUrl, '_blank', 'width=700, height=500');
 	});
 };
 
@@ -86,8 +89,10 @@ export default class FileBrowserPlugin extends Plugin {
 							src: imageUrl,
 							alt: imageAltText,
 						});
-
-						editor.model.insertContent(imageElement, editor.model.document.selection);
+						const lastOpenedEditorId = document.getElementById('editor-id').value;
+						if (lastOpenedEditorId === editor.id) {
+							editor.model.insertContent(imageElement, editor.model.document.selection);
+						}
 					});
 				};
 				createFilebrowserModal(editor, t, dialogTitle, onCreate, additionalInput);
@@ -116,8 +121,10 @@ export default class FileBrowserPlugin extends Plugin {
 							controls: 'true',
 							controlslist: 'nodownload',
 						});
-
-						editor.model.insertContent(videoElement, editor.model.document.selection);
+						const lastOpenedEditorId = document.getElementById('editor-id').value;
+						if (lastOpenedEditorId === editor.id) {
+							editor.model.insertContent(videoElement, editor.model.document.selection);
+						}
 					});
 				};
 				createFilebrowserModal(editor, t, dialogTitle, onCreate);
@@ -146,8 +153,10 @@ export default class FileBrowserPlugin extends Plugin {
 							controls: 'true',
 							controlslist: 'nodownload',
 						});
-
-						editor.model.insertContent(audioElement, editor.model.document.selection);
+						const lastOpenedEditorId = document.getElementById('editor-id').value;
+						if (lastOpenedEditorId === editor.id) {
+							editor.model.insertContent(audioElement, editor.model.document.selection);
+						}
 					});
 				};
 				createFilebrowserModal(editor, t, dialogTitle, onCreate);

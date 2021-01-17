@@ -215,11 +215,11 @@ $(document).ready(() => {
 			$collapseToggle
 				.find('.collapse-icon')
 				.removeClass('fa-chevron-right');
-			$collapseToggle.find('.collapse-icon').addClass('fa-chevron-down');
+			$collapseToggle.find('.collapse-icon').addClass('fa-chevron-up');
 		} else {
 			$collapseToggle
 				.find('.collapse-icon')
-				.removeClass('fa-chevron-down');
+				.removeClass('fa-chevron-up');
 			$collapseToggle.find('.collapse-icon').addClass('fa-chevron-right');
 		}
 	}
@@ -416,7 +416,6 @@ $(document).ready(() => {
 		}
 		return false;
 	});
-
 	$('.chosen-container-multi').off('touchstart');
 	$('.chosen-container-multi').off('touchend');
 });

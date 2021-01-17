@@ -1,12 +1,10 @@
 {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/homework/overview.css"/>
-    <link rel="import" href="/vendor/m.e.i.n.e.l/m.e.i.n.e.l.min.html">
+    <link rel="stylesheet" href="{{getAssetPath '/styles/homework/overview.css'}}"/>
 {{/content}}
 {{#content "scripts" mode="append"}}
-    <script src="/vendor/webcomponents-lite.js" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/moment/moment.js" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/filter/custom-element-polyfill.js" nonce="{{nonceValue}}" defer></script>
-    <script src="/scripts/filter/feathers-filter.js" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/moment/moment.js'}}" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/filter/custom-element-polyfill.js'}}" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/filter/feathers-filter.js'}}" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#extend "homework/homework"}}
     {{#content "page"}}
@@ -45,7 +43,7 @@
                         {{> "lib/components/pagination" settings=pagination }}
                     </div>
                 </div>
-                {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+                {{#embed "lib/components/modal" class="delete-modal" title="${res.$t('global.text.areYousure')}"}}
                     {{#content "body"}}
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-close">

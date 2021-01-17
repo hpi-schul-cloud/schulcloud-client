@@ -20,17 +20,18 @@
 
 .homework {
 	width: 100%;
-	list-style: none;
 	margin: 0;
 	padding: 10px 0;
 	clear: both;
+	ol {
+		list-style: none;
+	}
 }
 
 .assignment {
 	width: 100%;
 	position: relative;
 	padding: 10px;
-	padding-bottom: 48px;
 	text-decoration: none;
 
 	a {
@@ -45,7 +46,7 @@
 	.dates {
 		float: right;
 		display: flex;
-		color: grey;
+		color: #373a3c;
 		font-size: $font-size-xs;
 
 		i {
@@ -78,11 +79,14 @@
 		color: grey;
 		position: relative;
 		display: flex;
-		width: 250px;
-
+		line-height: 0.8;
+		font-size: 0.8em;
+		width:auto;
+		progress {
+			height: 10px;
+		}
 		div {
 			color: black;
-			font-size: $font-size-sm;
 			align-self: center;
 		}
 	}
@@ -110,7 +114,6 @@
 			text-decoration: none;
 		}
 
-		word-break: break-all;
 		word-break: break-word;
 
 		@include media-breakpoint-down(xs) {
@@ -160,5 +163,10 @@
 		text-align: right;
 		color: $primaryColor;
 		text-decoration: none;
+	}
+	.title {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }

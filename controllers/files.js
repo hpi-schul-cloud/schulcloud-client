@@ -401,7 +401,7 @@ const getSignedUrl = (req, res, next) => {
 		return Promise.resolve({ signedUrl });
 	}).catch((err) => {
 		if (res) {
-			next(err);
+			res.status(500).json(err);
 		}
 		return Promise.reject(err);
 	});
@@ -935,7 +935,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 	const extractor = ({ _id, name }) => ({ _id, name, children: [] });
 
 	const directoryTree = [{
-		name: 'Meine Dateien',
+		name: res.$t('global.link.files'),
 		model: 'user',
 		children: [{
 			name: 'Persönliche Dateien',
@@ -943,14 +943,14 @@ router.get('/permittedDirectories/', async (req, res) => {
 			children: [],
 		}],
 	}, {
-		name: 'Meine Kurs-Dateien',
+		name: res.$t('global.link.courseData'),
 		model: 'course',
 		children: (await getScopeDirs(req, res, 'courses')).map(extractor),
 	}];
 
 	if (FEATURE_TEAMS_ENABLED === 'true') {
 		directoryTree.push({
-			name: 'Meine Team-Dateien',
+			name: res.$t('global.link.teamData'),
 			model: 'teams',
 			children: (await getScopeDirs(req, res, 'teams')).map(extractor),
 		});

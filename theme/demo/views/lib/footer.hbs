@@ -2,7 +2,7 @@
 	<div class="imprint">
 		<div class="center">
 			<a href="https://hpi.de" target="_blank" rel="noopener" aria-label="{{$t "lib.footer.img_alt.providerLogo"}} {{$t "global.link.openInNewTabWarning"}}">
-				<img id="footer-logo" src="/images/footer-logo.png" alt="{{$t "lib.footer.img_alt.providerLogo"}}" />
+				<img id="footer-logo" src="{{getAssetPath '/images/footer-logo.png'}}" alt="{{$t "lib.footer.img_alt.providerLogo"}}" />
 			</a>
 			<span>&copy; {{currentYear}} {{theme.short_title}} </span>
 
@@ -52,7 +52,7 @@
 			<div>
 				<p lang="en" class="made-with-love">Made with <span class="heart" aria-label="{{$t "lib.footer.aria_label.love"}}" role="img">❤</span> in Potsdam | Translated by <a
 						href="https://lokalise.com" target="_blank" aria-label="https://lokalise.com {{$t "global.link.openInNewTabWarning"}}"><img class="poweredby-logo" alt="lokalise.com Logo"
-																	src="/images/logo/lokalise_logo.svg"></a></p>
+																	src="{{getAssetPath '/images/logo/lokalise_logo.svg'}}"></a></p>
 			</div>
 		</div>
 	</div>

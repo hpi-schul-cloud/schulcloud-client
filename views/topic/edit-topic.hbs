@@ -1,14 +1,14 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/vendor-react.js" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/topicEdit.js" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/courses.js" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/vendor-react.js'}}" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/topicEdit.js'}}" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/courses.js'}}" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css" />
-        <link rel="stylesheet" href="/styles/topics/topics.css" />
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}" />
+        <link rel="stylesheet" href="{{getAssetPath '/styles/topics/topics.css'}}" />
     {{/content}}
 
     {{#content "page"}}
@@ -33,8 +33,8 @@
                 <input name="position" type="hidden" data-force-value="true" value="{{lesson.position}}" />
 
                 <div class="form-group">
-                    <label>{{$t "topic._topic.label.titleOfTheTopic" }}</label>
-                    <input class="form-control" name="name" type="text" placeholder="{{$t "topic._topic.input.countWithPrimeNumbers"}}"
+                    <label for="topicTitleInput">{{$t "topic._topic.label.titleOfTheTopic" }}</label>
+                    <input class="form-control" name="name" id="topicTitleInput" type="text" placeholder="{{$t "topic._topic.input.countWithPrimeNumbers"}}"
                         value="{{{lesson.name}}}" required />
                 </div>
 

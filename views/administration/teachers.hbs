@@ -1,7 +1,7 @@
 {{#extend "administration/administration"}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/lib/filter/filter.css"/>
-        <link rel="stylesheet" href="/styles/administration/users.css"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/filter/filter.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/administration/users.css'}}"/>
     {{/content}}
     {{#content "page" mode="prepend"}}
         <div class="route-administration">
@@ -53,7 +53,7 @@
                                 </p>
                                 {{#userHasPermission "TEACHER_CREATE"}}
                                 <p>
-                                    {{$t "administration.longText.text.alternativelyAlsoCanGenerate" }}
+                                    {{$t "administration.teachers.text.alternativeRegistration" }}
                                 </p>
                                 {{/userHasPermission}}
                             {{/if}}

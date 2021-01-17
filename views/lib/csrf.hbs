@@ -1,10 +1,10 @@
 {{#content "scripts" mode="append"}}
-        <script src="/scripts/csrf.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/csrf.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#if loggedin}}
     {{#extend "lib/loggedin"}}
         {{#content "styles" mode="append"}}
-            <link rel="stylesheet" href="/styles/lib/error.css"/>
+            <link rel="stylesheet" href="{{getAssetPath '/styles/lib/error.css'}}"/>
         {{/content}}
         {{#content "page"}}
             {{#embed "lib/csrf_content"}}{{/embed}}
@@ -13,13 +13,13 @@
 {{else}}
     {{#extend "lib/loggedout"}}
         {{#content "styles" mode="append"}}
-            <link rel="stylesheet" href="/styles/lib/error.css"/>
+            <link rel="stylesheet" href="{{getAssetPath '/styles/lib/error.css'}}"/>
         {{/content}}
 
         {{#content "page"}}
 			{{#embed "authentication/section"}}
 				{{#content "body"}}
-					<main id="main-content" class="container pt-3 mt-5">
+					<main id="main-content" class="container">
 						{{#embed "lib/csrf_content"}}{{/embed}}
 					</main>
 				{{/content}}

@@ -13,10 +13,11 @@ const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
-const { Configuration } = require('@schul-cloud/commons');
+const { Configuration } = require('@hpi-schul-cloud/commons');
+const prometheus = require('./helpers/prometheus');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 const { nonceValueSet } = require('./helpers/csp');
-
+const { staticAssetsMiddleware } = require('./middleware/assets');
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 const logger = require('./helpers/logger');
@@ -31,11 +32,12 @@ const {
 	JWT_TIMEOUT_SECONDS,
 	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
-	ROCKETCHAT_SERVICE_ENABLED,
-	FEATURE_MATRIX_MESSENGER_ENABLED,
 } = require('./config/global');
 
 const app = express();
+
+// print current configuration
+Configuration.printHierarchy();
 
 if (Configuration.has('SENTRY_DSN')) {
 	Sentry.init({
@@ -57,6 +59,9 @@ if (Configuration.has('SENTRY_DSN')) {
 	});
 	app.use(Sentry.Handlers.requestHandler());
 }
+
+// setup prometheus metrics
+prometheus(app);
 
 // template stuff
 const authHelper = require('./helpers/authentication');
@@ -121,8 +126,8 @@ if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, `build/${themeName}`)));
-app.use('/locales', express.static(path.join(__dirname, 'locales')));
+
+staticAssetsMiddleware(app);
 
 let sessionStore;
 const redisUrl = REDIS_URI;
@@ -138,23 +143,17 @@ if (redisUrl) {
 	sessionStore = new session.MemoryStore();
 }
 
-if (!Configuration.get('COOKIE__SECURE') && Configuration.get('COOKIE__SAME_SITE') === 'None') {
-	Configuration.set('COOKIE__SAME_SITE', 'Lax');
-	// eslint-disable-next-line max-len
-	const cookieConfigErrorMsg = 'Setting COOKIE.SAME_SITE="None" requires COOKIE.SECURE=true. Changed to COOKIE.SAME_SITE="Lax"';
-	Sentry.captureMessage(cookieConfigErrorMsg);
-	logger.error(cookieConfigErrorMsg);
-}
-
+const SIX_HOURS = 1000 * 60 * 60 * 6;
 app.use(session({
-	cookie: { maxAge: 1000 * 60 * 60 * 6 },
+	cookie: {
+		// TODO ...cookieDefaults,
+		maxAge: SIX_HOURS,
+	},
 	rolling: true, // refresh session with every request within maxAge
 	store: sessionStore,
 	saveUninitialized: true,
 	resave: false,
 	secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
-	sameSite: Configuration.get('COOKIE__SAME_SITE'), // restrict jwt access to our domain ressources only
-	secure: Configuration.get('COOKIE__SECURE'),
 }));
 
 // CSRF middlewares
@@ -189,13 +188,11 @@ app.use(async (req, res, next) => {
 	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
 	res.locals.version = version;
 	res.locals.sha = sha;
-	res.locals.ROCKETCHAT_SERVICE_ENABLED = ROCKETCHAT_SERVICE_ENABLED;
-	res.locals.FEATURE_MATRIX_MESSENGER_ENABLED = FEATURE_MATRIX_MESSENGER_ENABLED;
+	res.locals.ROCKETCHAT_SERVICE_ENABLED = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 	delete req.session.notification;
 	try {
 		await authHelper.populateCurrentUser(req, res);
 	} catch (error) {
-		logger.error('could not populate current user', error);
 		return next(error);
 	}
 	if (Configuration.has('SENTRY_DSN')) {
@@ -220,10 +217,12 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 		delete req.body._method;
 		return method;
 	}
+	return undefined;
 }));
 
 // add res.$t method for i18n with users prefered language
 app.use(require('./middleware/i18n'));
+app.use(require('./middleware/datetime'));
 
 // Initialize the modules and their routes
 app.use(require('./controllers'));
@@ -232,12 +231,10 @@ app.get('/', (req, res, next) => {
 	res.redirect('/login/');
 });
 
-// sentry error handler
-app.use(Sentry.Handlers.errorHandler());
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-	const err = new Error('Not Found');
+	const url = req.originalUrl || req.url;
+	const err = new Error(`Page Not Found ${url}`);
 	err.status = 404;
 	next(err);
 });
@@ -247,40 +244,67 @@ if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 	app.use(csrfErrorHandler);
 }
 
-const handleTimeouts = (err, res) => {
-	if (!err.options) {
-		err.options = {};
-	}
+// no statusCode exist for this cases
+const isTimeoutError = (err) => err && err.message && (
+	err.message.includes('ESOCKETTIMEDOUT')
+	|| err.message.includes('ECONNREFUSED')
+	|| err.message.includes('ETIMEDOUT')
+);
 
-	const baseRoute = typeof err.options.baseUrl === 'string' ? err.options.baseUrl.slice(0, -1) : '';
-	const route = baseRoute + err.options.uri;
-
-	// no statusCode exist for this cases
-	if (err.message.includes('ESOCKETTIMEDOUT') || err.message.includes('ECONNREFUSED')) {
-		logger.warn(`${err.message} by route: ${route}`);
-		Sentry.captureException(err);
-		if (res.locals) {
-			const routeMessage = res.locals.production ? '' : ` beim Aufruf der Route ${route}`;
-			res.locals.message = `Es ist ein Fehler aufgetreten${routeMessage}. Bitte versuche es erneut.`;
-		}
-	}
-};
+// sentry error handler
+app.use(Sentry.Handlers.errorHandler());
 
 app.use((err, req, res, next) => {
-	// set locals, only providing error in development
-	const status = err.status || err.statusCode || 500;
-	if (err.statusCode && err.error && err.error.message) {
-		res.setHeader('error-message', err.error.message);
-		res.locals.message = err.error.message;
-	} else {
-		res.locals.message = err.message;
+	const error = err.error || err;
+	const status = error.status || error.statusCode || 500;
+	error.statusCode = status;
+
+	if (!error.options) {
+		error.options = {};
+	}
+	if (!res.locals) {
+		res.locals = {};
+	}
+	// prevent logging jwts and x-api-keys
+	delete error.options.headers;
+
+	const reqInfo = {
+		url: req.originalUrl || req.url,
+		method: req.originalMethod || req.method,
+		params: req.params,
+		body: req.body,
+	};
+	error.requestInfo = reqInfo;
+
+	if (res.locals.currentUser) {
+		res.locals.loggedin = true;
+		const { _id, schoolId, roles } = res.locals.currentUser;
+		error.currentUser = {
+			userId: _id,
+			schoolId,
+			roles: (roles || []).map((r) => r.name),
+		};
 	}
 
-	handleTimeouts(err, res);
+	if (error.message) {
+		res.setHeader('error-message', error.message);
+		res.locals.message = error.message;
+	} else {
+		res.locals.message = `Error with statusCode ${status}`;
+	}
 
+	// override with try again message by timeouts
+	if (isTimeoutError(error)) {
+		const baseRoute = typeof err.options.baseUrl === 'string' ? err.options.baseUrl.slice(0, -1) : '';
+		const route = baseRoute + err.options.uri;
+		const routeMessage = res.locals.production ? '' : ` beim Aufruf der Route ${route}`;
+		res.locals.message = `Es ist ein Fehler aufgetreten${routeMessage}. Bitte versuche es erneut.`;
+	}
+
+	// do not show full errors in production mode
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
-	if (err.error) logger.error(err.error);
-	if (res.locals.currentUser) res.locals.loggedin = true;
+
+	logger.error(error);
 
 	// keep sidebar restricted in error page
 	authHelper.restrictSidebar(req, res);

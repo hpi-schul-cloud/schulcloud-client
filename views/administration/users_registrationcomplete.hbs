@@ -1,5 +1,5 @@
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/administration/users.css" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/administration/users.css'}}" />
 {{/content}}
 {{#extend "lib/loggedin"}}
 
@@ -7,7 +7,7 @@
 <div class="row users-register-complete">
     <div class="col-xl-6">
         <p class="noprint">
-            {{$t "administration.users_registrationComplete.text.registrationAtThe" (dict "shortTitle" @root.theme.short_title )}}
+            {{$t "administration.users_registrationComplete.text.registrationPossibleWithFollowingData" (dict "shortTitle" @root.theme.short_title )}}
         </p>
         <p class="noprint">
         {{{$t "administration.users_registrationComplete.text.cannotCallPageAgain" }}}
@@ -58,8 +58,8 @@
     </div>
 </div>
 <div class="row users-register-complete noprint">
-    <div class="modal-footer w-50">
-        <a class="btn btn-secondary" href={{linktarget}}>
+    <div class="modal-footer w-100">
+        <a class="btn btn-primary" href={{linktarget}}>
             {{submitLabel}}
         </a>
     </div>

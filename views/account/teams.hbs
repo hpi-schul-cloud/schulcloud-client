@@ -1,10 +1,10 @@
 {{#extend "lib/loggedin"}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/account/settings.css"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/account/settings.css'}}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/settings.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/settings.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -12,7 +12,7 @@
             {{#unless (userHasRole "student")}}
 				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
                     <p>
-                        {{$t "account.teams.text.teamInvitationsDisabled"}}
+                        {{$t "account.teams.text.visibilityTeamInvitationsDisabled"}}
                     </p>
                     <a href="/account" class="btn btn-secondary">
                         {{$t "global.button.back"}}
@@ -22,7 +22,7 @@
                     <div class="form-group">
                         {{$t "account.teams.text.visibilityTeamInvitations"}}
                         <p class="text-muted">
-                            {{{$t "account.teams.text.hint" (dict "short_title" @root.theme.short_title )}}}
+                            {{$t "account.teams.text.hintVisibility" (dict "shortTitle" @root.theme.short_title )}}
                         </p>
 
                         {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled"}}</label>{{/ifConfig}}
