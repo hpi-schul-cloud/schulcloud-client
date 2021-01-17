@@ -15,6 +15,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
 - SC-8356 - add docker login helper
 
 ### Fixed
