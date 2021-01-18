@@ -253,7 +253,7 @@
 									<td>
 										<input id="lengthOfLesson" class="form-control" name="times[{{this.count}}][duration]" type="number"
 											value="{{this.duration}}" placeholder="{{$t "courses.global.input.inMinutes"}}"
-											{{#if @root.course.isArchived}}disabled{{/if}} />
+											{{#if @root.course.isArchived}}disabled{{/if}} min="0"/>
 									</td>
 									<td>
 										<input id="room" class="form-control" type="text" name="times[{{this.count}}][room]"

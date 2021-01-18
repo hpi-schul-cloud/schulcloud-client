@@ -627,12 +627,13 @@
 				"oldSchoolYear": "Altes Schuljahr",
 				"onlyPDFSupport": "nur PDF Dateien werden unterstützt",
 				"passwordChanges": "Passwortänderungen werden weiterhin synchronisiert",
-				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen.",
 				"theNewClassesAreSavedInTheContext": "die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert",
 				"theNewClassesCanNowBeAssigned": "die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
-				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
+				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
+				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen.",
+				"changeSchoolValueWarnig": "Kann nur einmal gesetzt werden und wird danach deaktiviert!"
 			}
 		},
 		"students": {
@@ -1171,11 +1172,13 @@
 			},
 			"input": {
 				"chooseTeacher": "Lehrer:in auswählen",
+				"noCourseTeacher": "Sie müssen den Kurslehrer auswählen",
 				"egRoom1-21": "z.B. R-1.21",
 				"inMinutes": "In Minuten",
 				"mathsClass": "Mathe 10a",
 				"selectClasses": "Klasse(n) auswählen",
-				"selectStudents": "Schüler:innen auswählen"
+				"selectStudents": "Schüler:innen auswählen",
+				"invalidTimeError": "Das Startdatum des Kurses sollte nicht nach dem Enddatum liegen."
 			},
 			"label": {
 				"courseColor": "Farbe des Kurses",

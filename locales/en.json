@@ -643,7 +643,8 @@
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{themeTitle}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
 				"thisOptionIsAvailable": "This option is available 2 weeks before the end of the current school year.",
 				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting",
-				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes."
+				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes.",
+				"changeSchoolValueWarnig": "Once set, it cannot be changed!"
 			}
 		},
 		"students": {
@@ -1182,11 +1183,13 @@
 			},
 			"input": {
 				"chooseTeacher": "Select teacher",
+				"noCourseTeacher": "You need to choose the course teacher",
 				"egRoom1-21": "e.g. R-1.21",
 				"inMinutes": "In minutes",
 				"mathsClass": "Math 10a",
 				"selectClasses": "Select class(es)",
-				"selectStudents": "Select students"
+				"selectStudents": "Select students",
+				"invalidTimeError": "The start date of the course should not be after the end date."
 			},
 			"label": {
 				"courseColor": "Color of the course",
