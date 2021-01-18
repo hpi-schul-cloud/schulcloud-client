@@ -1,10 +1,10 @@
 const express = require('express');
 
 const router = express.Router({ mergeParams: true });
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
-const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const createToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
@@ -94,7 +94,7 @@ const runToolHandler = (req, res, next) => {
 				url: tool.url,
 				method: 'POST',
 				csrf: (formData.lti_version === '1.3.0'),
-				formData: Object.keys(formData).map(key => ({ name: key, value: formData[key] })),
+				formData: Object.keys(formData).map((key) => ({ name: key, value: formData[key] })),
 			});
 		});
 	});
@@ -171,19 +171,23 @@ router.get('/show/:ltiToolId', showToolHandler);
 
 router.get('/:id', getDetailHandler);
 
-router.delete('/delete/:ltiToolId', (req, res, next) => {
-	const context = req.originalUrl.split('/')[1];
-	api(req).patch(`/${context}/${req.params.courseId}`, {
-		json: {
-			$pull: {
-				ltiToolIds: req.params.ltiToolId,
+router.delete('/delete/:ltiToolId', async (req, res, next) => {
+	try {
+		const context = req.originalUrl.split('/')[1];
+		const { ltiToolId } = req.params;
+		// remove tool reference from course
+		await api(req).patch(`/${context}/${req.params.courseId}`, {
+			json: {
+				$pull: {
+					ltiToolIds: ltiToolId,
+				},
 			},
-		},
-	}).then(() => {
-		api(req).delete(`/ltiTools/${req.params.ltiToolId}`).then(() => {
-			res.sendStatus(200);
 		});
-	});
+		// remove tool itself
+		await api(req).delete(`/ltiTools/${ltiToolId}`);
+
+		return res.sendStatus(200);
+	} catch (err) { return next(err); }
 });
 
 module.exports = router;
