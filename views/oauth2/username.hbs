@@ -9,6 +9,7 @@
         <script src="{{getAssetPath '/scripts/all.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
         {{#ifeq depseudonymized false}}
             <script src="{{getAssetPath '/scripts/oauth2.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
+            <style>.depseudo{cursor:pointer;}</style>
         {{/ifeq}}
     {{/block}}
 </head>
