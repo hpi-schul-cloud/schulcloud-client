@@ -1077,6 +1077,7 @@
 					"descriptionAddToolToCourse": "Add interactive tools like GeoGebra or CodeOcean to a course here.",
 					"noTools": "No tools.",
 					"opensInNewTab": "New tab",
+					"shouldNotUseSafariInBettermarks": "For a better user experience, it is recommended to use Firefox or Chrome instead of Safari",
 					"videoConferenceBBB": "Videoconference BigBlueButton"
 				}
 			},

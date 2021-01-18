@@ -1077,6 +1077,7 @@
 					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
 					"noTools": "Keine Tools.",
 					"opensInNewTab": "neuer Tab",
+					"shouldNotUseSafariInBettermarks": "Für das optimale Nutzer:innenerlebnis verwende Chrome oder Firefox anstatt Safari. ",
 					"videoConferenceBBB": "Videokonferenz BigBlueButton"
 				}
 			},

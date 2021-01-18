@@ -148,6 +148,13 @@
     cursor: pointer;
     font-size: 18px;
   }
+  
+  .info-tool-browser {
+    color: $secondaryColor;
+    float: right;
+    font-size: 18px;
+    padding-right: 10px;
+  }
 
   .card-tool:hover {
     cursor: pointer;
@@ -594,4 +601,8 @@
 
 .action {
 	visibility: "hidden";
+}
+
+.safari-workaround {
+  display: none;
 }
