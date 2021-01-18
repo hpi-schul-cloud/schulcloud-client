@@ -6,7 +6,7 @@
     {{#content "scripts" mode="append"}}
         <script src="{{getAssetPath '/scripts/settings.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/toggle/toggle.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    {{/content}}
+{{/content}}
 
     {{#content "page"}}
 
@@ -42,8 +42,8 @@
                         <input type="password" autocomplete="false" id="settings_current_password" data-testid="settings_password_current" name="password" class="form-control"
                         required placeholder="***************">
                         <div class="input-group-addon">
-                            <a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true" id="show_Password"></i></a>
-                        </div>
+							<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+						</div>
                     </div>
                 </div>
 
@@ -56,8 +56,8 @@
                             pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
                             title="{{> "lib/forms/password-hint" plaintext=true}}">
                         <div class="input-group-addon">
-                            <a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true" id="show_Password"></i></a>
-                        </div>
+							<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+						</div>
                     </div>
                 </div>
 
@@ -68,8 +68,8 @@
                         class="form-control" placeholder="***************"
                         title="{{> "lib/forms/password-hint" plaintext=true}}">
                         <div class="input-group-addon">
-                            <a href="" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true" id="show_Password"></i></a>
-                        </div>
+							<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+						</div>
                     </div>
                 </div>
                 {{/userHasPermission}}
