@@ -36,101 +36,78 @@
 		</div>
 	</section>
 	{{#if sortOptions}}
-	<div class="pull-right">
+	<div class="pull-right" style="display: flex;">
 		<label for="sortBy" style="position: absolute;left:-999px">{{$t "files.label.sortBy"}}</label>
-		<select name="sortBy" id="sortBy" class="form-control order-sel">
+		<select name="sortBy" id="sortBy" class="form-control order-sel" style=" margin-right: 20px;">
 			{{#each sortOptions}}
 			<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
 				{{this.label}}
 			</option>
 			{{/each}}
 		</select>
-		{{!-- <option value="createdAt">
-			{{$t'global.label.creationDateUp'}}
-		</option>
-		<option value="createdAt">
-			{{$t'global.label.creationDateDown'}}
-		</option>
-		<option value="updatedAt">
-			{{$t'files.label.updatedAtUp'}}
-		</option>
-		<option value="updatedAt">
-			{{$t'files.label.updatedAtDown'}}
-		</option>
-		<option value="name">
-			{{$t'files.label.nameUp'}}
-		</option>
-		<option value="name">
-			{{$t'files.label.nameDown'}}
-		</option>
-		<option value="size">
-			{{$t'files.label.sizeUp'}}
-		</option>
-		<option value="size">
-			{{$t'files.label.sizeDown'}}
-		</option> --}}
+
 		<label for="sortOrder" style="position: absolute;left:-999px">{{$t "global.headline.sorting"}}</label>
 		<select id="sortOrder" name="sortOrder" class="form-control order-sel">
-			<option value="asc" {{#ifeq fileSort.sortOrder "asc" }}selected{{/ifeq}}>{{$t "files.button.ascending" }}</option>
-			<option value="desc" {{#ifeq fileSort.sortOrder "desc" }}selected{{/ifeq}}>{{$t "files.button.descending" }}
-			</option>
+			<option value="asc" {{#ifeq fileSort.sortOrder "asc" }}selected{{/ifeq}}>&uarr;</option>
+			<option value="desc" {{#ifeq fileSort.sortOrder "desc" }}selected{{/ifeq}}>&darr;</option>
 		</select>
 	</div>
-	{{/if}}
+</div>
+{{/if}}
 
-	{{#if directories}}
-	<h3 class="h6" style="padding: 1rem 0 1.5rem">{{$t "files.label.folder"}}</h3>
-	<section class="directories">
-		<div class="row">
-			{{#each directories}}
-			<div class="col-xs-12">
-				<button class="card card-block folder openfolder" data-folder-id="{{this._id}}" aria-label="{{$t "
-					files.label.clickToOpenDir" (dict "name" this.name)}}">
-					<strong class="card-title-directory">
-						<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
-					</strong>
-					{{#userHasPermission "FOLDER_DELETE"}}
-					<div class="pull-right">
-						<a data-method="dir-rename" title="{{$t " files.label.renameFolder"}}" data-directory-id="{{../this._id}}"
-							data-directory-name="{{../this.name}}" tabindex="0">
-							<i class="fa fa-edit directory-icon" aria-hidden="true"></i>
-						</a>
-						<a data-href="/files/directory/" data-method="delete" title="{{$t " files.label.deleteFolder"}}"
-							data-file-id="{{../this._id}}" data-file-name="{{{../this.name}}}" tabindex="0">
-							<i class="fa fa-trash-o directory-icon" aria-hidden="true"></i>
-						</a>
-					</div>
-					{{/userHasPermission}}
-				</button>
-			</div>
-			{{/each}}
-		</div>
-	</section>
-	{{/if}}
-	<h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "global.headline.files"}}</h3>
-	{{#embed "files/file-viewer"}}{{/embed}}
-	{{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
-
-	{{#userHasPermission "FOLDER_CREATE"}}
-	<section class="new-directory">
-		<div class="row">
-			{{#if ../canCreateDir}}
-			<div class="col-sm-12">
-				<div data-toggle="modal">
-					<button class="btn btn-primary create-directory">
-						<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
-					</button>
-					{{#if ../canCreateFile}}
-					<button class="btn btn-primary new-file" data-file-path="{{this.path}}">
-						<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFile" }}
-					</button>
-					{{/if}}
+{{#if directories}}
+<h3 class="h6" style="padding: 1rem 0 1.5rem">{{$t "files.label.folder"}}</h3>
+<section class="directories">
+	<div class="row">
+		{{#each directories}}
+		<div class="col-xs-12">
+			<button class="card card-block folder openfolder" data-folder-id="{{this._id}}" aria-label="{{$t "
+				files.label.clickToOpenDir" (dict "name" this.name)}}">
+				<strong class="card-title-directory">
+					<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
+				</strong>
+				{{#userHasPermission "FOLDER_DELETE"}}
+				<div class="pull-right">
+					<a data-method="dir-rename" title="{{$t " files.label.renameFolder"}}" data-directory-id="{{../this._id}}"
+						data-directory-name="{{../this.name}}" tabindex="0">
+						<i class="fa fa-edit directory-icon" aria-hidden="true"></i>
+					</a>
+					<a data-href="/files/directory/" data-method="delete" title="{{$t " files.label.deleteFolder"}}"
+						data-file-id="{{../this._id}}" data-file-name="{{{../this.name}}}" tabindex="0">
+						<i class="fa fa-trash-o directory-icon" aria-hidden="true"></i>
+					</a>
 				</div>
-			</div>
-			{{/if}}
+				{{/userHasPermission}}
+			</button>
 		</div>
-	</section>
-	{{/userHasPermission}}
+		{{/each}}
+	</div>
+</section>
+{{/if}}
+<h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "global.headline.files"}}</h3>
+{{#embed "files/file-viewer"}}{{/embed}}
+{{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
+
+{{#userHasPermission "FOLDER_CREATE"}}
+<section class="new-directory">
+	<div class="row">
+		{{#if ../canCreateDir}}
+		<div class="col-sm-12">
+			<div data-toggle="modal">
+				<button class="btn btn-primary create-directory">
+					<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
+				</button>
+				{{#if ../canCreateFile}}
+				<button class="btn btn-primary new-file" data-file-path="{{this.path}}">
+					<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFile" }}
+				</button>
+				{{/if}}
+			</div>
+		</div>
+		{{/if}}
+	</div>
+</section>
+{{/userHasPermission}}
 </div>
 {{/content}}
 {{/extend}}
