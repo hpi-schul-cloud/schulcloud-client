@@ -675,7 +675,7 @@ router.get('/:courseId/', async (req, res, next) => {
 			(ltiTool) => ltiTool.isTemplate !== 'true',
 		).map((tool) => {
 			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
-			tool.isBettermarks = tool.name === 'bettermarks';
+			tool.isBettermarks = (tool.name && tool.name.includes('bettermarks'));
 			return tool;
 		});
 
