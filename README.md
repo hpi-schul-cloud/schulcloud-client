@@ -1,8 +1,8 @@
 # HPI Schul-Cloud Client  
 _An implementation of the HPI Schul-Cloud client with NodeJS and Express._  
 
-Dev: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/schul-cloud/schulcloud-client)
-Master: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/schul-cloud/schulcloud-client)
+Dev: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/hpi-schul-cloud/schulcloud-client)
+Master: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/hpi-schul-cloud/schulcloud-client)
 
 ## Powered By
 
@@ -11,17 +11,17 @@ Master: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client
 
 > # Deprecation Warning
 > Please note that this client is going to be deprecated.
-> All new frontend works is done in Vue.js and can be found here: https://github.com/schul-cloud/nuxt-client
+> All new frontend works is done in Vue.js and can be found here: https://github.com/hpi-schul-cloud/nuxt-client
 
 ## Requirements  
   
 * node.js 12 or later
 
-You might take a look at the [Dockerfile](https://github.com/schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
+You might take a look at the [Dockerfile](https://github.com/hpi-schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
 
 ## Setup  
   
-German docs on installing: [Setup SC](https://docs.schul-cloud.org/display/SCDOK/Setup)
+German docs on installing: [Setup SC](https://docs.hpi-schul-cloud.org/display/SCDOK/Setup)
   
 Short version:
 
@@ -31,7 +31,7 @@ Short version:
   
 ## Run  
   
-1. Start the [schul-cloud server](https://github.com/schulcloud/schulcloud-server)  
+1. Start the [schul-cloud server](https://github.com/hpi-schul-cloud/schulcloud-server)  
 2. Go into project folder
 3. Run `gulp watch` to run gulp
 4. Set the ENV-variable `TZ=Europe/Berlin` (for windows use `set TZ=Europe/Berlin`). You can also set the variables `SC_TITLE=HPI Schul-Cloud` and `SC_SHORT_TITLE=HPI Schul-Cloud` if you want.
@@ -43,9 +43,9 @@ Short version:
 1. run `gulp watch-reload` to run gulp with browser sync. It also starts the node-client-server.
 2. go to `http://localhost:7000`
   
-For connecting to the [SchulCloud Calendar-Service](https://github.com/schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.  
+For connecting to the [SchulCloud Calendar-Service](https://github.com/hpi-schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.  
   
-For connecting to the [SchulCloud Notification-Service](https://github.com/schul-cloud/node-notification-service) you have to set `export NOTIFICATION_SERVICE_ENABLED=true`.  
+For connecting to the [SchulCloud Notification-Service](https://github.com/hpi-schul-cloud/node-notification-service) you have to set `export NOTIFICATION_SERVICE_ENABLED=true`.  
    
 ## Theming  
   
@@ -57,7 +57,7 @@ then clear build files and gulp cache with `gulp clear`
 
 ## How to name your branch and create a pull request (PR)
   
-1. Take the Ticket Number from JIRA (ticketsystem.schul-cloud.org), e.g. SC-999  
+1. Take the Ticket Number from JIRA (ticketsystem.hpi-schul-cloud.org), e.g. SC-999  
 2. Name the feature branch beginning with Ticket Number, all words separated by dash "-", e.g. `feature/SC-999-fantasy-problem`
 3. Create a PR on branch develop containing the Ticket Number in PR title
 4. Keep the `WIP` label as long as this PR is in development, complete PR checklist (is automatically added), keep or increase code test coverage, and pass all tests before you remove the `WIP` label. Reviewers will be added automatically. For more information check our Definition of Done [here](https://docs.schul-cloud.org/pages/viewpage.action?pageId=92831762).
@@ -88,4 +88,4 @@ Default branch: develop
 
 ## Code rules
 
-[CSP rules](https://github.com/schul-cloud/schulcloud-client/tree/develop/docs/CSP_RULES_DEV.md)
+[CSP rules](https://github.com/hpi-schul-cloud/schulcloud-client/tree/develop/docs/CSP_RULES_DEV.md)
