@@ -2415,7 +2415,7 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login with HPI School Cloud"
+				"loginWithSchoolCloud": "Login with {{title}}"
 			},
 			"label": {
 				"email": "Your e-mail address",
@@ -2425,7 +2425,7 @@
 				"showName": "Show name"
 			},
 			"text": {
-				"yourNameIsProtected": "The provider of this educational content does not know your real name, as it is retrieved directly from the school cloud. It is a so-called Iframe that can display pages from other web servers."
+				"yourNameIsProtected": "The provider of this educational content does not know your real name, as it is retrieved directly from {{shortTitle}}. It is a so-called Iframe that can display pages from other web servers."
 			}
 		},
 		"popup_resetPw": {
