@@ -9,6 +9,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 25.5.2
+
+### Fixed
+
+- SC-8325 - clients error handling on oauth2 routes
+- SC-8449	- hardcoded platform names used for authentication dialog and in mouseover of iframe
+
 ## 25.5.1
 
 ### Added
