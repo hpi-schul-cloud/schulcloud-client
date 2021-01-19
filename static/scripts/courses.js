@@ -4,6 +4,14 @@ import { dateStringToMoment } from './datetime/datetime';
 
 /* eslint-disable max-len */
 $(document).ready(() => {
+	// Safari 3.0+ "[object HTMLElementConstructor]"
+	const remoteNotification = (p) => (p.toString() === '[object SafariRemoteNotification]');
+	const isSafari = /constructor/i.test(window.HTMLElement)
+	|| remoteNotification(!window.safari || (typeof safari !== 'undefined' && safari.pushNotification));
+	if (isSafari) {
+		$('.safari-workaround').show();
+	}
+
 	$('.js-course-name-input').change(function courseNameInput() {
 		$(this).val($(this).val().trim());
 	});
