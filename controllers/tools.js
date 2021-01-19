@@ -175,7 +175,9 @@ router.delete('/delete/:ltiToolId', async (req, res, next) => {
 	try {
 		const context = req.originalUrl.split('/')[1];
 		const { ltiToolId } = req.params;
-		// remove tool reference from course
+		// remove tool itself first
+		await api(req).delete(`/ltiTools/${ltiToolId}`);
+		// then, remove tool reference from course
 		await api(req).patch(`/${context}/${req.params.courseId}`, {
 			json: {
 				$pull: {
@@ -183,8 +185,6 @@ router.delete('/delete/:ltiToolId', async (req, res, next) => {
 				},
 			},
 		});
-		// remove tool itself
-		await api(req).delete(`/ltiTools/${ltiToolId}`);
 
 		return res.sendStatus(200);
 	} catch (err) { return next(err); }
