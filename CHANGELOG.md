@@ -9,9 +9,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 25.5.1
+
 ### Added
 
 - SC-5287 - Iframe depseudonymization for Safari
+- SC-8377 - add ssl proxy for testing oauth2 iframe locally
+- SC-8358 - refactor tool naming, add safari bettermarks hint
 
 ## 25.5.0
 
