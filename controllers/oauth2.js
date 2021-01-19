@@ -12,11 +12,10 @@ router.get('/login', csrfProtection, (req, res, next) => api(req)
 	.get(`/oauth2/loginRequest/${req.query.login_challenge}`).then((loginRequest) => {
 		req.session.login_challenge = req.query.login_challenge;
 		if (loginRequest.skip) {
-			res.redirect('/oauth2/login/success');
-		} else {
-			res.redirect(Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL'));
+			return res.redirect('/oauth2/login/success');
 		}
-	}));
+		return res.redirect(Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL'));
+	}).catch(next));
 
 router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) => {
 	if (!req.session.login_challenge) res.redirect('/dashboard/');
@@ -26,11 +25,11 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		remember_for: 0,
 	};
 
-	api(req).patch(`/oauth2/loginRequest/${req.session.login_challenge}/?accept=1`,
+	return api(req).patch(`/oauth2/loginRequest/${req.session.login_challenge}/?accept=1`,
 		{ body }).then((loginRequest) => {
 		delete (req.session.login_challenge);
-		res.redirect(loginRequest.redirect_to);
-	});
+		return res.redirect(loginRequest.redirect_to);
+	}).catch(next);
 });
 
 const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
@@ -57,7 +56,7 @@ const displayScope = (scope, w) => {
 	}
 };
 
-router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
+router.get('/consent', csrfProtection, auth.authChecker, (r, w, next) => {
 	// This endpoint is hit when hydra initiates the consent flow
 	if (r.query.error) {
 		// An error occurred (at hydra)
@@ -71,7 +70,9 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
 				}
 				return w.render('oauth2/consent', {
 					inline: true,
-					title: w.$t('login.oauth2.headline.loginWithSchoolCloud'),
+					title: w.$t('login.oauth2.headline.loginWithSchoolCloud', {
+						title: w.locals.theme.title,
+					}),
 					subtitle: '',
 					client: consentRequest.client.client_name,
 					action: `/oauth2/consent?challenge=${r.query.consent_challenge}`,
@@ -81,14 +82,14 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
 						value: scope,
 					})),
 				});
-			}));
+			})).catch(next);
 });
 
 router.post('/consent', auth.authChecker, (r, w) => acceptConsent(r, w, r.query.challenge, r.body.grantScopes, true));
 
 router.get('/username/:pseudonym', (req, res, next) => {
 	if (req.cookies.jwt) {
-		api(req).get('/pseudonym', {
+		return api(req).get('/pseudonym', {
 			qs: {
 				pseudonym: req.params.pseudonym,
 			},
@@ -102,21 +103,22 @@ router.get('/username/:pseudonym', (req, res, next) => {
 				completeName = `${pseudonym.data[0].user.firstName} ${pseudonym.data[0].user.lastName}`;
 				shortName = `${pseudonym.data[0].user.firstName} ${pseudonym.data[0].user.lastName.charAt(0)}.`;
 			}
-			res.render('oauth2/username', {
+			return res.render('oauth2/username', {
 				depseudonymized: true,
 				completeName,
 				shortName,
-				infoText: res.$t('login.oauth2.text.yourNameIsProtected'),
+				infoText: res.$t('login.oauth2.text.yourNameIsProtected', {
+					shortTitle: res.locals.theme.short_title,
+				}),
 			});
-		});
-	} else {
-		res.render('oauth2/username', {
-			depseudonymized: false,
-			completeName: res.$t('login.oauth2.label.showName'),
-			shortName: res.$t('login.oauth2.label.showName'),
-			infoText: '',
-		});
+		}).catch(next);
 	}
+	return res.render('oauth2/username', {
+		depseudonymized: false,
+		completeName: res.$t('login.oauth2.label.showName'),
+		shortName: res.$t('login.oauth2.label.showName'),
+		infoText: '',
+	});
 });
 
 module.exports = router;
