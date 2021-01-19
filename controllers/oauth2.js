@@ -71,7 +71,9 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
 				}
 				return w.render('oauth2/consent', {
 					inline: true,
-					title: w.$t('login.oauth2.headline.loginWithSchoolCloud'),
+					title: w.$t('login.oauth2.headline.loginWithSchoolCloud', {
+						title: w.locals.theme.title,
+					}),
 					subtitle: '',
 					client: consentRequest.client.client_name,
 					action: `/oauth2/consent?challenge=${r.query.consent_challenge}`,
@@ -106,7 +108,9 @@ router.get('/username/:pseudonym', (req, res, next) => {
 				depseudonymized: true,
 				completeName,
 				shortName,
-				infoText: res.$t('login.oauth2.text.yourNameIsProtected'),
+				infoText: res.$t('login.oauth2.text.yourNameIsProtected', {
+					shortTitle: res.locals.theme.short_title,
+				}),
 			});
 		});
 	} else {

@@ -2412,7 +2412,7 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login mit HPI Schul-Cloud"
+				"loginWithSchoolCloud": "Login mit {{title}}"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
@@ -2422,7 +2422,7 @@
 				"showName": "Namen zeigen"
 			},
 			"text": {
-				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der HPI Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der {{shortTitle}} abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
 			}
 		},
 		"popup_resetPw": {
