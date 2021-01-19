@@ -5,6 +5,13 @@
 	    <link rel="stylesheet" href="{{getAssetPath '/styles/fonts/ptsans.css'}}" />
         <link rel="stylesheet" href="{{getAssetPath '/styles/oauth2/username.css'}}" />
     {{/block}}
+    {{#block "scripts" mode="append"}}
+        <script src="{{getAssetPath '/scripts/all.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
+        {{#ifeq depseudonymized false}}
+            <script src="{{getAssetPath '/scripts/oauth2.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
+            <style>.depseudo{cursor:pointer;}</style>
+        {{/ifeq}}
+    {{/block}}
 </head>
 <body>
 <div class="depseudo"><div class="cloud-logo"></div><a title="{{infoText}}">{{shortName}}</a></div>

@@ -1078,6 +1078,7 @@
 					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
 					"noTools": "Keine Tools.",
 					"opensInNewTab": "neuer Tab",
+					"shouldNotUseSafariInBettermarks": "Für das optimale Nutzer:innenerlebnis verwende Chrome oder Firefox anstatt Safari. ",
 					"videoConferenceBBB": "Videokonferenz BigBlueButton"
 				}
 			},
@@ -2421,7 +2422,8 @@
 				"email": "deine E-Mail-Adresse",
 				"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
 				"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"yourName": "deinen Namen"
+				"yourName": "deinen Namen",
+				"showName": "Namen zeigen"
 			},
 			"text": {
 				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der HPI Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
