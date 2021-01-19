@@ -41,9 +41,6 @@
                     <div class="input-group show_hide_password">
                         <input type="password" autocomplete="false" id="settings_current_password" data-testid="settings_password_current" name="password" class="form-control"
                         required placeholder="***************">
-                        <div class="input-group-addon">
-							<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
-						</div>
                     </div>
                 </div>
 
@@ -55,9 +52,6 @@
                             placeholder="***************"
                             pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
                             title="{{> "lib/forms/password-hint" plaintext=true}}">
-                        <div class="input-group-addon">
-							<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
-						</div>
                     </div>
                 </div>
 
@@ -67,12 +61,17 @@
                         <input type="password" autocomplete="new-password" name="password_control" id="password_control" data-testid="settings_password_control"
                         class="form-control" placeholder="***************"
                         title="{{> "lib/forms/password-hint" plaintext=true}}">
-                        <div class="input-group-addon">
-							<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
-						</div>
                     </div>
                 </div>
                 {{/userHasPermission}}
+
+               <div class="input-group show_hide_password">
+                   <text style="color:grey">{{$t "login.text.showPassword"}}</text>
+                   <div class="input-group-show_password">
+						<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><i class="fa fa-eye-slash" style="font-size:18px" aria-hidden="true"></i></button>
+					</div>
+               </div>
+
 
                 {{> "lib/components/csrfInput"}}
                 {{> "lib/forms/form-change-language" langParent=../currentUser }}
