@@ -222,8 +222,7 @@ $(document).ready(() => {
 					showAJAXError(
 						err.responseJSON.error.code,
 						err.responseJSON.error.message,
-						`${err.responseJSON.error.name} - ${
-							err.responseJSON.error.message
+						`${err.responseJSON.error.name} - ${err.responseJSON.error.message
 						}`,
 					);
 				});
@@ -381,10 +380,8 @@ $(document).ready(() => {
 
 		filterOptions.forEach((fo) => {
 			const $newFilterOption = $(
-				`<div data-key="${
-					fo.key
-				}" class="filter-option" onClick="window.location.href = '/files/search?filter=${
-					fo.key
+				`<div data-key="${fo.key
+				}" class="filter-option" onClick="window.location.href = '/files/search?filter=${fo.key
 				}'"></div>`,
 			);
 			const $newFilterLabel = $(`<span>Nach <b>${fo.label}</b> filtern</span>`);
@@ -765,14 +762,12 @@ $(document).ready(() => {
 	function addDirTree($parent, dirTree, isMainFolder = true) {
 		dirTree.forEach((d) => {
 			const $dirElement = $(
-				`<div class="dir-element dir-${
-					isMainFolder ? 'main' : 'sub'
+				`<div class="dir-element dir-${isMainFolder ? 'main' : 'sub'
 				}-element" id="${d._id}" data-href="${d._id}"></div>`,
 			);
 
 			const $dirHeader = $(
-				`<div class="dir-header dir-${
-					isMainFolder ? 'main' : 'sub'
+				`<div class="dir-header dir-${isMainFolder ? 'main' : 'sub'
 				}-header"></div>`,
 			);
 			const $toggle = $(
@@ -977,3 +972,24 @@ $('.fileviewer').on('click', function determineViewer(e) {
 		window.fileViewer(fileviewertype, fileviewersavename, fileviewerid);
 	}
 });
+
+$('#sortButton').on('click', () => {
+	const icon = $(this).find('i');
+	const location = window.location.search.split('&').filter(m => m !== '');
+	const sortOption = (getQueryParameterByName('sortOrder') == 'asc') ? 'desc&' : 'asc&';
+
+	icon.addClass((sortOption == 'asc') ? 'fa-arrow-down' : 'fa-arrow-up');
+	icon.removeClass((sortOption == 'asc') ? 'fa-arrow-up' : 'fa-arrow-down');
+
+	window.location.search = `${location[0]}&sortOrder=${sortOption}`
+});
+
+$(document).on('pageload', () => {
+	const icon = $('#sortButton i');
+	const sortOption = getQueryParameterByName('sortOrder');
+
+	icon.addClass((sortOption == 'asc') ? 'fa-arrow-down' : 'fa-arrow-up');
+	icon.removeClass((sortOption == 'asc') ? 'fa-arrow-up' : 'fa-arrow-down');
+});
+
+

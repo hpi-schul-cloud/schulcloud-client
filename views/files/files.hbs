@@ -36,21 +36,20 @@
 		</div>
 	</section>
 	{{#if sortOptions}}
-	<div class="pull-right" style="display: flex;">
-		<label for="sortBy" style="position: absolute;left:-999px">{{$t "files.label.sortBy"}}</label>
-		<select name="sortBy" id="sortBy" class="form-control order-sel" style=" margin-right: 20px;">
+	<div class="pull-right" style="display: flex; font-weight: 700; min-width: 150px ">
+		<label for="sortBy" style="position: absolute;left:-999px;">{{$t "files.label.sortBy"}}</label>
+		<select name="sortBy" id="sortBy" class="form-control order-sel">
 			{{#each sortOptions}}
-			<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
+			<option style="min-width: 150px;" value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
 				{{this.label}}
 			</option>
 			{{/each}}
 		</select>
 
 		<label for="sortOrder" style="position: absolute;left:-999px">{{$t "global.headline.sorting"}}</label>
-		<select id="sortOrder" name="sortOrder" class="form-control order-sel">
-			<option value="asc" {{#ifeq fileSort.sortOrder "asc" }}selected{{/ifeq}}>&uarr;</option>
-			<option value="desc" {{#ifeq fileSort.sortOrder "desc" }}selected{{/ifeq}}>&darr;</option>
-		</select>
+		<div style="margin-left: 20px">
+			<button id="sortButton" style="height: 40px; width: 40px;"><i class="fa fa-arrow-up"></i></button>
+		</div>
 	</div>
 </div>
 {{/if}}
