@@ -27,6 +27,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
 
+## 25.5.2
+
+### Fixed
+
+- SC-8325 - clients error handling on oauth2 routes
+- SC-8449	- hardcoded platform names used for authentication dialog and in mouseover of iframe
+
 ## 25.5.1
 
 ### Added
