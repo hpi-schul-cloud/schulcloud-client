@@ -899,7 +899,8 @@
                     "editCourse": "Kurs bearbeiten"
                 },
                 "img_alt": {
-                    "courseIsArchieved": "Kurs ist archiviert"
+                    "courseIsArchieved": "Kurs ist archiviert",
+                    "addPeople": "Person hinzufügen"
                 },
                 "label": {
                     "activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
@@ -1069,6 +1070,7 @@
                     "descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
                     "noTools": "Keine Tools.",
                     "opensInNewTab": "neuer Tab",
+                    "shouldNotUseSafariInBettermarks": "Für das optimale Nutzer:innenerlebnis verwende Chrome oder Firefox anstatt Safari. ",
                     "videoConferenceBBB": "Videokonferenz BigBlueButton"
                 }
             },
@@ -1174,11 +1176,13 @@
             },
             "input": {
                 "chooseTeacher": "Lehrer:in auswählen",
-                "egRoom1-21": "z.B. R-1.21",
-                "inMinutes": "In Minuten",
-                "mathsClass": "Mathe 10a",
-                "selectClasses": "Klasse(n) auswählen",
-                "selectStudents": "Schüler:innen auswählen"
+				"noCourseTeacher": "Sie müssen den Kurslehrer auswählen",
+				"egRoom1-21": "z.B. R-1.21",
+				"inMinutes": "In Minuten",
+				"mathsClass": "Mathe 10a",
+				"selectClasses": "Klasse(n) auswählen",
+				"selectStudents": "Schüler:innen auswählen",
+				"invalidTimeError": "Das Startdatum des Kurses sollte nicht nach dem Enddatum liegen."
             },
             "label": {
                 "courseColor": "Farbe des Kurses",
@@ -1579,7 +1583,8 @@
     "global": {
         "aria_label": {
             "sidebar": "Seitenleiste",
-            "topMenu": "topbar"
+            "topMenu": "topbar",
+            "deleteCourse": "Kurs löschen"
         },
         "button": {
             "accept": "Akzeptieren",
@@ -2433,13 +2438,14 @@
         },
         "oauth2": {
             "headline": {
-                "loginWithSchoolCloud": "Login mit HPI Schul-Cloud"
+                "loginWithSchoolCloud": "Login mit {{title}}"
             },
             "label": {
                 "email": "deine E-Mail-Adresse",
                 "openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
                 "weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-                "yourName": "deinen Namen"
+                "yourName": "deinen Namen",
+                "showName": "Namen zeigen"
             },
             "text": {
                 "yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der HPI Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
@@ -3289,3 +3295,4 @@
         }
     }
 }
+
