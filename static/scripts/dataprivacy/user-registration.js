@@ -4,13 +4,14 @@ import getCookie from '../helpers/cookieManager';
 
 const USER_LANG_KEY = 'USER_LANG';
 
-function validateDifferent() {
-	const parentMailInput = document.querySelector(
-		'input[name="parent-email"]',
-	);
-	const studentMailInput = document.querySelector(
-		'input[name="student-email"]',
-	);
+const parentMailInput = document.querySelector(
+	'input[name="parent_email"]',
+);
+const studentMailInput = document.querySelector(
+	'input[name="email"]',
+);
+
+function validateDifferentEmails() {
 	if (
 		parentMailInput.value
 		&& studentMailInput.value
@@ -23,6 +24,7 @@ function validateDifferent() {
 	} else {
 		parentMailInput.setCustomValidity('');
 	}
+	parentMailInput.reportValidity();
 }
 function goBack(event) {
 	event.stopPropagation();
@@ -31,16 +33,10 @@ function goBack(event) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-	const parentMailInput = document.querySelector(
-		'input[name="parent-email"]',
-	);
-	const studentMailInput = document.querySelector(
-		'input[name="student-email"]',
-	);
 	if (parentMailInput && studentMailInput) {
 		'change input keyup paste'.split(' ').forEach((event) => {
-			parentMailInput.addEventListener(event, validateDifferent, false);
-			studentMailInput.addEventListener(event, validateDifferent, false);
+			parentMailInput.addEventListener(event, validateDifferentEmails, false);
+			studentMailInput.addEventListener(event, validateDifferentEmails, false);
 		});
 	}
 
