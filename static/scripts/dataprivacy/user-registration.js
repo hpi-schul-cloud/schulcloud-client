@@ -4,12 +4,8 @@ import getCookie from '../helpers/cookieManager';
 
 const USER_LANG_KEY = 'USER_LANG';
 
-const parentMailInput = document.querySelector(
-	'input[name="parent_email"]',
-);
-const studentMailInput = document.querySelector(
-	'input[name="email"]',
-);
+const parentMailInput = document.querySelector('input[name="parent_email"]');
+const studentMailInput = document.querySelector('input[name="email"]');
 
 function validateDifferentEmails() {
 	if (
