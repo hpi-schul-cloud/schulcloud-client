@@ -36,19 +36,21 @@
 		</div>
 	</section>
 	{{#if sortOptions}}
-	<div class="pull-right" style="display: flex; font-weight: 700; min-width: 150px ">
+	<div class="pull-right" style="display: flex; font-weight: 700; font-family: 'PT Sans Narrow'; width: 200px;">
 		<label for="sortBy" style="position: absolute;left:-999px;">{{$t "files.label.sortBy"}}</label>
 		<select name="sortBy" id="sortBy" class="form-control order-sel">
 			{{#each sortOptions}}
-			<option style="min-width: 150px;" value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
+			<option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>
 				{{this.label}}
 			</option>
 			{{/each}}
 		</select>
 
 		<label for="sortOrder" style="position: absolute;left:-999px">{{$t "global.headline.sorting"}}</label>
-		<div style="margin-left: 20px">
-			<button id="sortButton" style="height: 40px; width: 40px;"><i class="fa fa-arrow-up"></i></button>
+		<div style="margin: 1px 0 0 10px;">
+			<button id="sortButton"
+				style="height: 40px; width: 40px; background-color: white; border: 1px solid rgba(0,0,0,.15); border-radius: 5px;"><i
+					class="fa fa-arrow-up"></i></button>
 		</div>
 	</div>
 </div>
