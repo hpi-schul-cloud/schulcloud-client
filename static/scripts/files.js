@@ -984,7 +984,7 @@ $('.fileviewer').on('click', function determineViewer(e) {
 $('#sortButton').on('click', () => {
 	const icon = $(this).find('i');
 	const location = window.location.search.split('&').filter((m) => m !== '');
-	const sortOption = (getQueryParameterByName('sortOrder') == 'asc') ? 'desc&' : 'asc&';
+	const sortOption = (getQueryParameterByName('sortOrder') === 'asc') ? 'desc&' : 'asc&';
 
 	icon.addClass((sortOption === 'asc') ? 'fa-arrow-down' : 'fa-arrow-up');
 	icon.removeClass((sortOption === 'asc') ? 'fa-arrow-up' : 'fa-arrow-down');
@@ -999,4 +999,3 @@ $(document).on('pageload', () => {
 	icon.addClass((sortOption === 'asc') ? 'fa-arrow-down' : 'fa-arrow-up');
 	icon.removeClass((sortOption === 'asc') ? 'fa-arrow-up' : 'fa-arrow-down');
 });
-
