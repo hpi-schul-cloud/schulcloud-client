@@ -429,10 +429,23 @@ $(document).ready(() => {
 		const selectedOptionsArray = $('#teacherId').val();
 		const input = $('.chosen-search-input')[0];
 
-		setValidity(input, null, (selectedOptionsArray.length < 1));
+		if (selectedOptionsArray.length < 1) {
+			setValidity(input, '#courseTeacherErr', true);
+			$('.chosen-search-input').css('box-shadow', 'none');
+			$('#teacherId_chosen').css('box-shadow', '0 0 5px 1px #ff1134');
+		} else {
+			setValidity(input, '#courseTeacherErr', false);
+			$('#teacherId_chosen').css('box-shadow', 'none');
+		}
 	});
 
 	$('#startDate, #untilDate').on('change', () => {
 		setValidity($('#startDate')[0], '#invalidTimeError', !isFirstDateSameOrBeforeLastDate());
+	});
+
+	$(document).on('change', '.lengthOfLesson', (e) => {
+		const inputElement = $(`[name="${e.target.name}"]`)[0];
+		const errElement = `[name="${e.target.name}[err]"]`;
+		setValidity(inputElement, errElement, (e.target.value < 0));
 	});
 });

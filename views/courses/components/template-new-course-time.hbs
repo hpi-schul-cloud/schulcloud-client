@@ -1,6 +1,7 @@
 <!-- just for copying, add input names programmatically! -->
-<tr class="new-course-time-template">
-    <td><button type="button" class="course-time-delete" aria-label="{{$t "global.headline.delete"}}" data-id="{{this._id}}">
+<tr class="new-course-time-template" style="vertical-align: top;">
+    <td>
+        <button type="button" class="course-time-delete" aria-label="{{$t "global.headline.delete"}}" data-id="{{this._id}}">
             <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button></td>
     <td>
@@ -18,7 +19,14 @@
         <input id="startOfLesson" class="form-control new-course-time-template-startTime" data-time type="text"/>
     </td>
     <td>
-        <input id="lengthOfLesson" class="form-control new-course-time-template-duration" type="number" placeholder="{{$t "courses.global.input.inMinutes"}}" min="0" />
+        <div>
+            <input id="lengthOfLesson" class="form-control new-course-time-template-duration lengthOfLesson" type="number" placeholder="{{$t "courses.global.input.inMinutes"}}" min="0" />
+        </div>
+        <div>
+          <span class="small" id="courseTimesErr" style="visibility:hidden; color: #ff1134;">
+            {{$t "courses.global.input.invalidDurationError"}}
+          </span>
+        </div>
     </td>
     <td>
         <input id="room" class="form-control new-course-time-template-room" type="text" placeholder="{{$t "courses.global.input.egRoom1-21"}}"/>

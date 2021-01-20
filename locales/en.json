@@ -1188,7 +1188,8 @@
 				"mathsClass": "Math 10a",
 				"selectClasses": "Select class(es)",
 				"selectStudents": "Select students",
-				"invalidTimeError": "The start date of the course should not be after the end date."
+				"invalidTimeError": "The start date of the course should not be after the end date.",
+				"invalidDurationError": "The duration of the school lesson should not be less than zero"
 			},
 			"label": {
 				"courseColor": "Color of the course",
