@@ -142,12 +142,19 @@
 		cursor: pointer;
 	}
 
-	.delete-tool {
-		color: rgb(55, 58, 60);
-		float: right;
-		cursor: pointer;
-		font-size: 18px;
-	}
+  .delete-tool {
+    color: rgb(55, 58, 60);
+    float: right;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .info-tool-browser {
+    color: $colorInfo;
+    float: right;
+    font-size: 18px;
+    padding-right: 10px;
+  }
 
 	.card-tool:hover {
 		cursor: pointer;
@@ -602,4 +609,8 @@
 
 .validatePass {
 	box-shadow: none;
+}
+
+.safari-workaround {
+  display: none;
 }
