@@ -1,9 +1,23 @@
 import moment from 'moment-timezone';
 import getCookie from '../helpers/cookieManager';
 
+const FORMAT = {
+	date: 'DD.MM.YYYY',
+	dateTime: 'DD.MM.YYYY HH:mm',
+};
+
+const getTranslatedFormat = (key) => {
+	const translationKey = `format.${key}`;
+	const result = $t(translationKey);
+	if (result === translationKey) {
+		// translations not initialized yet
+		return FORMAT[key];
+	} return result;
+};
+
 const DATETIME_FORMAT = {
-	date: $t('format.dateToPicker'),
-	dateTime: $t('format.dateTimeToPicker'),
+	date: () => getTranslatedFormat('date'),
+	dateTime: () => getTranslatedFormat('dateTime'),
 };
 
 const calendarTimezone = document.querySelector('html').getAttribute('timezone');
@@ -19,17 +33,17 @@ const now = () => moment();
 
 const toMoment = (date) => (date ? moment(date) : now());
 
-const dateTimeStringToMoment = (date, format = DATETIME_FORMAT.dateTime) => moment(date, format);
+const dateTimeStringToMoment = (date, format = DATETIME_FORMAT.dateTime()) => moment(date, format);
 
 const addStringOffset = (showOffset) => (showOffset && !userHasSchoolTimezone ? `(UTC${getUtcOffset()})` : '');
 
 // eslint-disable-next-line max-len
-const toDateTimeString = (date, showOffset = false, format = DATETIME_FORMAT.dateTime) => `${toMoment(date).format(format)}${addStringOffset(showOffset)}`;
+const toDateTimeString = (date, showOffset = false, format = DATETIME_FORMAT.dateTime()) => `${toMoment(date).format(format)}${addStringOffset(showOffset)}`;
 
 const fromNow = (date) => toMoment(date).fromNow();
 
 const inputRange = ({
-	from, toOffset = 0, toOffsetBase = 'y', format = DATETIME_FORMAT.dateTime,
+	from, toOffset = 0, toOffsetBase = 'y', format = DATETIME_FORMAT.dateTime(),
 }) => {
 	const startDate = toMoment(from).startOf('hour').add(1, 'hour');
 	const endDate = startDate.clone().add(toOffset, toOffsetBase);
@@ -39,6 +53,8 @@ const inputRange = ({
 	];
 };
 
+const dateStringToMoment = (date, format = DATETIME_FORMAT.date()) => moment(date, format);
+
 export {
 	dateTimeStringToMoment,
 	fromNow,
@@ -46,4 +62,5 @@ export {
 	now,
 	toDateTimeString,
 	toMoment,
+	dateStringToMoment,
 };

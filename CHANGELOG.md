@@ -7,10 +7,69 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
+## Unreleased
+
+### Removed
+
+- SC-6311 - Removed itslearning from available system types
+
+### Changed
+
+- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
+- SC-8356 - add docker login helper
+
+### Fixed
+
+- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0
+- SC-8337 - Better error handling for file upload
+- SC-8259 - limited the length of the task title/headline
+- SC-7345 - the linguistic note shown only for the German language
+- SC-8307 - fixed date formater bug by initial page loading
+- SC-8272 - fixed displaying of the error message for submissions with no due date
+
+## 25.5.2
+
+### Fixed
+
+- SC-8325 - clients error handling on oauth2 routes
+- SC-8449	- hardcoded platform names used for authentication dialog and in mouseover of iframe
+
+## 25.5.1
+
+### Added
+
+- SC-5287 - Iframe depseudonymization for Safari
+- SC-8377 - add ssl proxy for testing oauth2 iframe locally
+- SC-8358 - refactor tool naming, add safari bettermarks hint
+
+## 25.5.0
+
+### Fixed
+
+- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
+
+
+## [25.4.3]
+
+### Changed
+
+- SC-8321 cache and hash static assets
+
+## [25.4.2]
+
+### Fixed 
+
+- SC-8337 - Better error handling for file upload
+
+## [25.4.1]
+
+- Update from 25.3.6 into master
+
 ## 25.4.0
 
 ### Added
 
+- SC-7824 - Set proper email address and label for data privacy 
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
@@ -19,6 +78,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7686 - Fixed naming convention for Lern-Store
+- SC-7126 - Fixed sort of years on create class select
 - SC-7848 - Fixed no autofill of password in user settings
 - SC-6975 - Fixed button text on declare consent
 - SC-7900 - Fixed text for inviting experts
@@ -29,11 +90,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7842 - Fixed typo on about page
 - SC-7874 - remove access to removed env variables
 - SC-8075 Fixed nbc landing page ghost
+- The common import after hotfix merge
 - SC-7793 - Set/activate new ldap route in administration page
 
 ### Changed
 
 - update location of common
+- SC-7889 - User receives consent screen at first login after new upload of privacy agreement
+
+## 25.3.6
+
+### Fixed
+
+- SC-8225: Fixed hiding messenger school settings
 
 ## 25.3.5 - 2020-13-16
 

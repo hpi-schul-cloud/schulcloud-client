@@ -582,7 +582,7 @@
 				"endOfTheTransferPhase": "End of the transfer phase",
 				"fileStorageSpaceUsedInCloud": "Used file storage in the cloud",
 				"inTheTransferPhase": "in the transfer phase:",
-				"lernstoreEnabledForStudents": "Lern-Store for students",
+				"lernstoreEnabledForStudents": "Learning Store for students",
 				"loginFromExistingUsers": "Logins of existing users",
 				"messengerSchoolRoom": "Create a chat room for announcements to the entire school",
 				"messengerStudentRoomCreate": "Students can create their own chat rooms",
@@ -627,7 +627,7 @@
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
 				"ifMatrixIsActivatedAtYourSchool": "If the Matrix Messenger is activated, all teachers in this school can start chat rooms, private conversations or group discussions within the course or team. Students initially  have read-only access, but can also be given write access via the course and team settings. Students can also start private chats within courses and teams. You can find more information about this in the ",
-				"lernstoreEnabledForStudents": "If unchecked, then the students will not be able to access Lern-Store",
+				"lernstoreEnabledForStudents": "If unchecked, then the students will not be able to access Learning Store",
 				"loginViaLDAP": "Login via LDAP is still possible for existing users",
 				"messengerSchoolRoom": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
 				"messengerStudentRoomCreate": "If this feature is enabled, students are allowed to create chat rooms, private conversations and course and team discussions. These rooms are not visible to teachers unless they are explicitly invited.",
@@ -643,7 +643,8 @@
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{themeTitle}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
 				"thisOptionIsAvailable": "This option is available 2 weeks before the end of the current school year.",
 				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting",
-				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes."
+				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes.",
+				"changeSchoolValueWarnig": "Once set, it cannot be changed!"
 			}
 		},
 		"students": {
@@ -839,7 +840,7 @@
 		"headline": {
 			"addContentToTopic": "Add material to topic",
 			"contentCantBeAddedInDemo": "<h5>Content cannot be added to courses in demo mode.</h5>",
-			"contentStore": "Learning store",
+			"contentStore": "Learning Store",
 			"fileType": "File type",
 			"nSearchResultsFoundWith": "{{ searchResultsTotal }} search results for \"{{ query }}\"",
 			"noResultsFoundWith": "No search results were found for \"{{ query }}\"",
@@ -906,7 +907,8 @@
 					"editCourse": "Edit course"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Course is archived"
+					"courseIsArchieved": "Course is archived",
+					"addPeople": "Add members"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Allow Students to write messages in the course chat.",
@@ -1076,6 +1078,7 @@
 					"descriptionAddToolToCourse": "Add interactive tools like GeoGebra or CodeOcean to a course here.",
 					"noTools": "No tools.",
 					"opensInNewTab": "New tab",
+					"shouldNotUseSafariInBettermarks": "For a better user experience, it is recommended to use Firefox or Chrome instead of Safari",
 					"videoConferenceBBB": "Videoconference BigBlueButton"
 				}
 			},
@@ -1181,11 +1184,13 @@
 			},
 			"input": {
 				"chooseTeacher": "Select teacher",
+				"noCourseTeacher": "You need to choose the course teacher",
 				"egRoom1-21": "e.g. R-1.21",
 				"inMinutes": "In minutes",
 				"mathsClass": "Math 10a",
 				"selectClasses": "Select class(es)",
-				"selectStudents": "Select students"
+				"selectStudents": "Select students",
+				"invalidTimeError": "The start date of the course should not be after the end date."
 			},
 			"label": {
 				"courseColor": "Color of the course",
@@ -1450,7 +1455,7 @@
 				"explainTheFollowing": "declare the following:",
 				"forAnEvenBetterLearningExperience": "The {{title}} is being constantly developed for an even better learning experience. In the course of this,",
 				"i": "I,",
-				"pleaseClickOnRead": "Please acknowledge this information by clicking on \"Read\" in order to proceed with the use.",
+				"pleaseClickOnRead": "Please acknowledge this information by clicking on „Read” in order to proceed with the use.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Please confirm the following declarations of consent so that you can use the {{title}}.",
 				"termsOfUse": "Terms of use",
 				"the": "the"
@@ -1564,7 +1569,8 @@
 	"global": {
 		"aria_label": {
 			"sidebar": "Sidebar",
-			"topMenu": "topbar"
+			"topMenu": "topbar",
+			"deleteCourse": "Delete course"
 		},
 		"button": {
 			"accept": "Accept",
@@ -1680,7 +1686,7 @@
 			"helpDesk": "Help desk",
 			"imprint": "Imprint",
 			"landing": "Home page",
-			"lernstore": "Lern-Store",
+			"lernstore": "Learning Store",
 			"mainContentSkipLink": "Main section",
 			"management": "Management",
 			"managementStudents": "Students",
@@ -2212,7 +2218,8 @@
 				"devOps": "DevOps",
 				"generalInquiries": "General inquiries:",
 				"mobileApp": "Mobile app",
-				"privacy": "Privacy:",
+				"privacy": "General data protection inquiries:",
+				"privacy_responsible_person": "Data protection officer:",
 				"subscribeTheNewsletter": "Subscribe to the newsletter",
 				"support": "Support:"
 			},
@@ -2408,16 +2415,17 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login with HPI School Cloud"
+				"loginWithSchoolCloud": "Login with {{title}}"
 			},
 			"label": {
 				"email": "Your e-mail address",
 				"openId": "a unique string that does not allow to identify your true identity",
 				"weNeedToSendThisData": "In order to work with {{client}}, we must transfer the following to this provider:",
-				"yourName": "Your name"
+				"yourName": "Your name",
+				"showName": "Show name"
 			},
 			"text": {
-				"yourNameIsProtected": "The provider of this educational content does not know your real name, as it is retrieved directly from the school cloud. It is a so-called Iframe that can display pages from other web servers."
+				"yourNameIsProtected": "The provider of this educational content does not know your real name, as it is retrieved directly from {{shortTitle}}. It is a so-called Iframe that can display pages from other web servers."
 			}
 		},
 		"popup_resetPw": {

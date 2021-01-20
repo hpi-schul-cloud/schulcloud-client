@@ -643,7 +643,8 @@
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
 				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
-				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen."
+				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen.",
+				"changeSchoolValueWarnig": "Kann nur einmal gesetzt werden und wird danach deaktiviert!"
 			}
 		},
 		"students": {
@@ -906,7 +907,8 @@
 					"editCourse": "Kurs bearbeiten"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Kurs ist archiviert"
+					"courseIsArchieved": "Kurs ist archiviert",
+					"addPeople": "Person hinzufügen"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
@@ -1076,6 +1078,7 @@
 					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
 					"noTools": "Keine Tools.",
 					"opensInNewTab": "neuer Tab",
+					"shouldNotUseSafariInBettermarks": "Für das optimale Nutzer:innenerlebnis verwende Chrome oder Firefox anstatt Safari. ",
 					"videoConferenceBBB": "Videokonferenz BigBlueButton"
 				}
 			},
@@ -1181,11 +1184,13 @@
 			},
 			"input": {
 				"chooseTeacher": "Lehrer:in auswählen",
+				"noCourseTeacher": "Sie müssen den Kurslehrer auswählen",
 				"egRoom1-21": "z.B. R-1.21",
 				"inMinutes": "In Minuten",
 				"mathsClass": "Mathe 10a",
 				"selectClasses": "Klasse(n) auswählen",
-				"selectStudents": "Schüler:innen auswählen"
+				"selectStudents": "Schüler:innen auswählen",
+				"invalidTimeError": "Das Startdatum des Kurses sollte nicht nach dem Enddatum liegen."
 			},
 			"label": {
 				"courseColor": "Farbe des Kurses",
@@ -1456,7 +1461,7 @@
 				"explainTheFollowing": "erkläre folgendes:",
 				"forAnEvenBetterLearningExperience": "Für ein noch besseres Lernerlebnis wird die {{title}} stetig weiterentwickelt. Im Zuge dessen hat sich",
 				"i": "Ich,",
-				"pleaseClickOnRead": "Bitte nimm mit Klick auf »Gelesen« diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
+				"pleaseClickOnRead": "Bitte nimm mit Klick auf „Gelesen” diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{title}} nutzen kannst.",
 				"termsOfUse": "Nutzungsordnung",
 				"the": "die"
@@ -1570,7 +1575,8 @@
 	"global": {
 		"aria_label": {
 			"sidebar": "Seitenleiste",
-			"topMenu": "topbar"
+			"topMenu": "topbar",
+			"deleteCourse": "Kurs löschen"
 		},
 		"button": {
 			"accept": "Akzeptieren",
@@ -2220,7 +2226,8 @@
 				"devOps": "DevOps",
 				"generalInquiries": "Allgemeine Anfragen:",
 				"mobileApp": "Mobile App",
-				"privacy": "Datenschutz:",
+				"privacy": "Allgemeine Datenschutzanfragen:",
+				"privacy_responsible_person": "Datenschutzbeauftragter:",
 				"subscribeTheNewsletter": "Newsletter abonnieren",
 				"support": "Support:"
 			},
@@ -2416,16 +2423,17 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login mit HPI Schul-Cloud"
+				"loginWithSchoolCloud": "Login mit {{title}}"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
 				"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
 				"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"yourName": "deinen Namen"
+				"yourName": "deinen Namen",
+				"showName": "Namen zeigen"
 			},
 			"text": {
-				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der HPI Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der {{shortTitle}} abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
 			}
 		},
 		"popup_resetPw": {

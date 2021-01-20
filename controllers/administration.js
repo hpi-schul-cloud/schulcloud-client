@@ -1596,7 +1596,8 @@ const renderClassEdit = (req, res, next) => {
 			const mode = req.locals.mode;
 			Promise.all(promises).then(
 				([teachers, gradeLevels, currentClass]) => {
-					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
+					let schoolyears = getSelectableYears(res.locals.currentSchoolData);
+					schoolyears = schoolyears.sort((a, b) => a.startDate.localeCompare(b.startDate));
 
 					const allSchoolYears = res.locals.currentSchoolData.years.schoolYears
 						.sort((a, b) => b.startDate.localeCompare(a.startDate));
@@ -3012,6 +3013,7 @@ router.use(
 		});
 
 		const ssoTypes = getSSOTypes();
+		const availableSSOTypes = getSSOTypes().filter((type) => type.value !== 'itslearning');
 
 		res.render('administration/school', {
 			title: res.$t('administration.controller.headline.school', {
@@ -3024,7 +3026,7 @@ router.use(
 			ldapAddable,
 			provider,
 			studentVisibility: studentVisibility.isEnabled,
-			availableSSOTypes: ssoTypes,
+			availableSSOTypes,
 			ssoTypes,
 			totalStorage,
 			systemsHead,

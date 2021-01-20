@@ -219,11 +219,24 @@ $(document).ready(() => {
 					},
 				).fail((err) => {
 					this.removeFile(file);
+					let errorThrown;
+					if (err.responseJSON.error.code === 'ESOCKETTIMEDOUT') {
+						errorThrown = $t('global.text.requestTimeout');
+					} else {
+						errorThrown = err.responseJSON.error.name || err.responseJSON.error.message
+							? `${err.responseJSON.error.name} - ${err.responseJSON.error.message}`
+							: err.responseJSON.error;
+					}
+
 					showAJAXError(
 						err.responseJSON.error.code,
 						err.responseJSON.error.message,
+<<<<<<< HEAD
 						`${err.responseJSON.error.name} - ${err.responseJSON.error.message
 						}`,
+=======
+						errorThrown,
+>>>>>>> develop
 					);
 				});
 			},
