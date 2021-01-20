@@ -493,7 +493,7 @@
 			},
 			"text": {
 				"errorActivation": "Problem bei der Aktivierung",
-				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, nicht offiziell signierte SSL-Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den user-Support.",
+				"errorLDAPTimeout": "LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, nicht offiziell signierte SSL-Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den User-Support.",
 				"errorTimeout": "Zeitüberschreitung der Anwendung",
 				"furtherInfoHere": "Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem <a href=\"\/help\/confluence\/55902270\">Hilfebereich<\/a>.",
 				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!",
@@ -619,7 +619,7 @@
 				"lernstoreEnabledForStudents": "Wenn diese Option nicht aktiviert ist, können die Schüler:innen nicht auf den Lern-Store zugreifen",
 				"loginViaLDAP": "der Login via LDAP ist für bestehende Nutzer weiterhin möglich",
 				"messengerSchoolRoom": "Der Ankündigungs-Chatraum ermöglicht Schul-Admins, Nachrichten an die gesamte Schule zu senden.\nSchüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.",
-				"messengerStudentRoomCreate": "Ist diese Funktion aktiviert dürfen Schüler:innen Chaträume, private Unterhaltungen und kurs- und teaminterne Gruppendiskussionen starten. Diese Räume sind für Lehrkräfte nicht einzusehen, wenn diese nicht explizit eingeladen werden.",
+				"messengerStudentRoomCreate": "Ist diese Funktion aktiviert, dürfen Schüler:innen Chaträume, private Unterhaltungen und kurs- und teaminterne Gruppendiskussionen starten. Diese Räume sind für Lehrkräfte nicht einzusehen, wenn diese nicht explizit eingeladen werden.",
 				"newSchoolYear": "Neues Schuljahr",
 				"newUsersClassesAndChanges": "neu dazugekommene Nutzer, Klassen sowie Änderung an bestehenden Daten werden nicht aus dem LDAP synchronisiert",
 				"noFileSelected": "Keine Datei ausgewählt",
@@ -653,7 +653,7 @@
 		},
 		"teachers": {
 			"button": {
-				"addTeacher": "Lehrkraft hinzufügen",
+				"addTeacher": "Lehrkräfte hinzufügen",
 				"importTeacher": "Lehrerkräfte importieren",
 				"sendLinksToTeacherEmail": "Links an E-Mail Adressen der Lehrkräfte senden"
 			},
@@ -1016,8 +1016,8 @@
 			},
 			"text": {
 				"courseDescription": "Kursbeschreibung:",
-				"etherpadCouldNotBeAdded": "Es konnte kein Etherpad in den Kurs hinzugefügt werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den user-Support.",
-				"eventCouldNotBeSavedContactSupport": "Die Kurszeiten konnten eventuell nicht richtig gespeichert werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den user-Support.",
+				"etherpadCouldNotBeAdded": "Es konnte kein Etherpad in den Kurs hinzugefügt werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den User-Support.",
+				"eventCouldNotBeSavedContactSupport": "Die Kurszeiten konnten eventuell nicht richtig gespeichert werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den User-Support.",
 				"nextClass": "Nächste Unterrichtsstunde:",
 				"QRCodeAlternative": "Alternativ kannst du deinen Kolleg:innen auch folgenden QR-Code zeigen.",
 				"shareCodeExplanation": "Verteile folgenden Code an andere Lehrkräfte, um den Kurs mit ihnen zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.",
@@ -1819,7 +1819,7 @@
 				"targetState": "SOLL-Zustand: Was sollte stattdessen geschehen?"
 			},
 			"text": {
-				"hereYouCanContact": "Hier erreichst du den Admin deiner Schule. Dieser kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über deine Kontaktgesuch informiert."
+				"hereYouCanContact": "Hier erreichst du den Admin deiner Schule. Dieser kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über dein Kontaktgesuch informiert."
 			}
 		},
 		"form_bug": {
@@ -2331,7 +2331,7 @@
 		},
 		"loggedin": {
 			"aria_label": {
-				"mobileNavMenu": "Mobiles Navigations Menü"
+				"mobileNavMenu": "Mobiles Navigationsmenü"
 			},
 			"img_alt": {
 				"logoOfSchool": "Logo von {{name}}"
