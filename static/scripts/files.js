@@ -231,12 +231,7 @@ $(document).ready(() => {
 					showAJAXError(
 						err.responseJSON.error.code,
 						err.responseJSON.error.message,
-<<<<<<< HEAD
-						`${err.responseJSON.error.name} - ${err.responseJSON.error.message
-						}`,
-=======
 						errorThrown,
->>>>>>> develop
 					);
 				});
 			},
