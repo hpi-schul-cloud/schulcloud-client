@@ -53,6 +53,8 @@ const inputRange = ({
 	];
 };
 
+const dateStringToMoment = (date, format = DATETIME_FORMAT.date()) => moment(date, format);
+
 export {
 	dateTimeStringToMoment,
 	fromNow,
@@ -60,4 +62,5 @@ export {
 	now,
 	toDateTimeString,
 	toMoment,
+	dateStringToMoment,
 };

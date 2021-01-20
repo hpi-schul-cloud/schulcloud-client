@@ -1,8 +1,8 @@
 {{#content "scripts" mode="append"}}
-<script src="/scripts/ckeditor/ckeditor.js" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/mousetrap/mousetrap.js" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="/scripts/dropzone/dropzone.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/ckeditor/ckeditor.js'}}" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/mousetrap/mousetrap.js'}}" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/jquery/jquery.datetimepicker.full.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 
 <script nonce="{{nonceValue}}">
 	window.addEventListener('DOMContentLoaded', function () {
@@ -89,8 +89,8 @@
 {{/content}}
 {{#extend "homework/homework"}}
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/files/upload.css" />
-<link rel="stylesheet" href="/styles/homework/file-upload.css" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/files/upload.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/homework/file-upload.css'}}" />
 {{/content}}
 {{#content "page"}}
 
@@ -102,7 +102,7 @@
 			<div class="form-group">
 				<label for="name">{{$t "global.label.title" }}</label>
 				<input id="name" class="form-control" name="name" type="text" placeholder="{{$t "global.label.title"}}" required
-					value="{{{assignment.name}}}" data-testid="homework-name" />
+					value="{{{assignment.name}}}" data-testid="homework-name" maxlength="80" />
 			</div>
 
 			<div class="row">

@@ -1,8 +1,8 @@
 {{#extend "lib/loggedin"}}
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/news/news.css" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/news/news.css'}}" />
 {{/content}}
 {{#content "scripts" mode="append"}}
-<script src="/scripts/tabbar.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{/extend}}

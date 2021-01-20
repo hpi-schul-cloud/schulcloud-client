@@ -1,9 +1,16 @@
 <html>
 <head>
     {{#block "styles"}}
-        <link rel="preload" href="/fonts/ptsans/ptsans-bold.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="stylesheet" href="/fonts/ptsans/ptsans.css" />
-        <link rel="stylesheet" href="/styles/oauth2/username.css" />
+        <link rel="preload" href="{{getAssetPath '/fonts/ptsans/ptsans-bold.woff2'}}?v=1.0.0" as="font" type="font/woff2" crossorigin>
+	    <link rel="stylesheet" href="{{getAssetPath '/styles/fonts/ptsans.css'}}" />
+        <link rel="stylesheet" href="{{getAssetPath '/styles/oauth2/username.css'}}" />
+    {{/block}}
+    {{#block "scripts" mode="append"}}
+        <script src="{{getAssetPath '/scripts/all.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
+        {{#ifeq depseudonymized false}}
+            <script src="{{getAssetPath '/scripts/oauth2.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
+            <style>.depseudo{cursor:pointer;}</style>
+        {{/ifeq}}
     {{/block}}
 </head>
 <body>

@@ -1,8 +1,8 @@
 <div class="row">
 	<div class="col-sm-12">
 		<div class="list-group" data-courseId="{{@root/_id}}">
-			{{#if ltiToolIds}}
-			{{#each ltiToolIds}}
+			{{#if ltiTools}}
+			{{#each ltiTools}}
 			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}"
 				{{#unless this.isBBB}}
 					{{#if this.openNewTab}}
@@ -18,7 +18,7 @@
 					{{#if logo_url}}
 					<img src={{this.logo_url}} class="float-left" />
 					{{else}}
-					<img src="/images/cloud.png" class="float-left" />
+					<img src="{{getAssetPath '/images/cloud.png'}}" class="float-left" />
 					{{/if}}
 
 					<span>{{this.name}}</span>
@@ -41,13 +41,20 @@
 					</a>
 					{{/unless}}
 					{{/userHasPermission}}
+
+					{{#if this.isBettermarks}}
+					<span class="info-tool-browser safari-workaround" title="{{$t "courses._course.tools.text.shouldNotUseSafariInBettermarks"}}">
+						<i class="fa fa-info-circle"></i> {{$t "courses._course.tools.text.shouldNotUseSafariInBettermarks"}}
+					</span>
+					{{/if}}
+
 				</div>
 				{{/unless}}
 
 
 				{{#if this.isBBB}}
 				<div class="card-title-directory bbb-state bbb-guest-inactive-state">
-					<img src="/images/tools/bbb/not_started.png" class="float-left" style="width:auto; height:75px;" />
+					<img src="{{getAssetPath '/images/tools/bbb/not_started.png'}}" class="float-left" style="width:auto; height:75px;" />
 					<span>{{$t "global.text.videoconferenceNotStartedYet"}}</span>
 					<a class="bbbTool-info-icon">
 						<i class="fa fa-info-circle"></i>
@@ -60,7 +67,7 @@
 
 				<div class="card-title-directory bbb-state bbb-moderator-inactive-state">
 
-					<img src="/images/tools/bbb/available.png" class="float-left" style="width:auto; height:75px;" />
+					<img src="{{getAssetPath '/images/tools/bbb/available.png'}}" class="float-left" style="width:auto; height:75px;" />
 
 					<span>{{$t "courses._course.tools.text.videoConferenceBBB"}}</span>
 
@@ -76,7 +83,7 @@
 
 				<div class="card-title-directory bbb-state bbb-running-videoconference-state">
 
-					<img src="/images/tools/bbb/available.png" class="float-left" style="width:auto; height:75px;" />
+					<img src="{{getAssetPath '/images/tools/bbb/available.png'}}" class="float-left" style="width:auto; height:75px;" />
 
 					<span>{{$t "courses._course.tools.text.videoConferenceBBB"}}</span>
 					<span class="pulsating-dot bbbTool-reload-container"></span>
@@ -84,7 +91,7 @@
 				</div>
 
 				<div class="card-title-directory bbb-state ">
-					<img src="/images/tools/bbb/not_started.png" class="float-left" style="width:auto; height:75px;" />
+					<img src="{{getAssetPath '/images/tools/bbb/not_started.png'}}" class="float-left" style="width:auto; height:75px;" />
 					<span>{{$t "courses._course.tools.text.videoConferenceBBB"}}</span>
 				</div>
 
@@ -95,7 +102,7 @@
 			{{else}}
 			<div class="empty-state">
 				{{> courses/components/svg_tools}}
-				<!--<img src="/images/empty-states/tools.svg" alt="{{$t "courses._course.tools.img_alt.noAddedTools"}}"
+				<!--<img src="{{getAssetPath '/images/empty-states/tools.svg'}}" alt="{{$t "courses._course.tools.img_alt.noAddedTools"}}"
 					class="image course-empty-content-image" />-->
 
 				{{#unless @root.isArchived}}
@@ -117,7 +124,7 @@
 	<div class="col-sm-12 add-button">
 		{{#userHasPermission "TOOL_CREATE" }}
 		{{#unless @root.isArchived}}
-		<a href="/courses/{{../_id}}/tools/add" aria-label="{{$t "courses._course.tools.text.addNewTool"}}" class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}"
+		<a href="/courses/{{../_id}}/tools/add" aria-label="{{$t "courses._course.tools.text.addNewTool"}}" class="btn btn-primary {{#if ../ltiTools}}w-100{{else}}btn-empty{{/if}}"
 			title="{{$t "courses._course.tools.text.addNewTool"}}">
 			<span>{{$t "courses._course.tools.button.addNewTool"}}</span></a>
 		{{/unless}}
