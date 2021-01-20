@@ -770,7 +770,7 @@ router.get('/:courseId/', async (req, res, next) => {
 	}
 });
 
-router.patch('/:courseId', (req, res, next) => {
+router.patch('/:courseId', async (req, res, next) => {
 	const redirectUrl = req.query.redirectUrl || `/courses/${req.params.courseId}`;
 
 	// map course times to fit model
@@ -817,18 +817,18 @@ router.patch('/:courseId', (req, res, next) => {
 	if (req.body.unarchive === 'true') {
 		req.body = { untilDate: req.body.untilDate };
 	}
-	// first delete all old events for the course
-	deleteEventsForCourse(req, res, req.params.courseId)
-		.then(() => api(req)
-			.patch(`/courses/${req.params.courseId}`, {
-				json: req.body, // TODO: sanitize
-			})
-			.then((course) => {
-				createEventsForCourse(req, res, course).then(() => {
-					res.redirect(303, redirectUrl);
-				});
-			}))
-		.catch(next);
+	const { courseId } = req.params;
+	try {
+		await deleteEventsForCourse(req, res, courseId);
+		await api(req).patch(`/courses/${courseId}`, {
+			json: req.body,
+		});
+		const course = await api(req).get(`/courses/${courseId}`);
+		await createEventsForCourse(req, res, course);
+		res.redirect(303, redirectUrl);
+	} catch (e) {
+		next(e);
+	}
 });
 
 router.patch('/:courseId/positions', (req, res, next) => {
