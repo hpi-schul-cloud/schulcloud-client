@@ -14,6 +14,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-8447 - disable userdata logging in production
+- SC-8189 - fixed course event duplication by updating the course
 
 ## 25.5.2
 
