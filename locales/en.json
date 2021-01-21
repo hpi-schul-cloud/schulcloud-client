@@ -1066,6 +1066,7 @@
 					"descriptionAddToolToCourse": "Add interactive tools like GeoGebra or CodeOcean to a course here.",
 					"noTools": "No tools.",
 					"opensInNewTab": "New tab",
+					"shouldNotUseSafariInBettermarks": "For a better user experience, it is recommended to use Firefox or Chrome instead of Safari",
 					"videoConferenceBBB": "Videoconference BigBlueButton"
 				}
 			},
@@ -1171,11 +1172,13 @@
 			},
 			"input": {
 				"chooseTeacher": "Select teacher",
+				"noCourseTeacher": "You need to choose the course teacher",
 				"egRoom1-21": "e.g. R-1.21",
 				"inMinutes": "In minutes",
 				"mathsClass": "Math 10a",
 				"selectClasses": "Select class(es)",
-				"selectStudents": "Select students"
+				"selectStudents": "Select students",
+				"invalidTimeError": "The start date of the course should not be after the end date."
 			},
 			"label": {
 				"courseColor": "Color of the course",
@@ -2411,16 +2414,17 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login with HPI School Cloud"
+				"loginWithSchoolCloud": "Login with {{title}}"
 			},
 			"label": {
 				"email": "Your e-mail address",
 				"openId": "a unique string that does not allow to identify your true identity",
 				"weNeedToSendThisData": "In order to work with {{client}}, we must transfer the following to this provider:",
-				"yourName": "Your name"
+				"yourName": "Your name",
+				"showName": "Show name"
 			},
 			"text": {
-				"yourNameIsProtected": "The provider of this educational content does not know your real name, as it is retrieved directly from the school cloud. It is a so-called Iframe that can display pages from other web servers."
+				"yourNameIsProtected": "The provider of this educational content does not know your real name, as it is retrieved directly from {{shortTitle}}. It is a so-called Iframe that can display pages from other web servers."
 			}
 		},
 		"popup_resetPw": {
