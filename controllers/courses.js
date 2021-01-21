@@ -823,6 +823,7 @@ router.patch('/:courseId', async (req, res, next) => {
 		await api(req).patch(`/courses/${courseId}`, {
 			json: req.body,
 		});
+		// due to eventual consistency we need to get the course again from server instead of using the response from patch
 		const course = await api(req).get(`/courses/${courseId}`);
 		await createEventsForCourse(req, res, course);
 		res.redirect(303, redirectUrl);
