@@ -26,6 +26,7 @@ const {
 	KEEP_ALIVE,
 	SC_DOMAIN,
 	SC_THEME,
+	NODE_ENV,
 	REDIS_URI,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
@@ -254,6 +255,19 @@ const isTimeoutError = (err) => err && err.message && (
 // sentry error handler
 app.use(Sentry.Handlers.errorHandler());
 
+const addUserdataInDevelopmentOnly = (data) => {
+	if (NODE_ENV === 'development') {
+		return data;
+	}
+	let length = 0;
+	try {
+		({ length } = Object.keys(data));
+	} catch (err) {
+		logger.error(err);
+	}
+	return data === undefined ? '<undefined>' : `<has ${length} properties>`;
+};
+
 app.use((err, req, res, next) => {
 	const error = err.error || err;
 	const status = error.status || error.statusCode || 500;
@@ -268,11 +282,12 @@ app.use((err, req, res, next) => {
 	// prevent logging jwts and x-api-keys
 	delete error.options.headers;
 
+
 	const reqInfo = {
 		url: req.originalUrl || req.url,
 		method: req.originalMethod || req.method,
-		params: req.params,
-		body: req.body,
+		params: addUserdataInDevelopmentOnly(req.params),
+		body: addUserdataInDevelopmentOnly(req.body),
 	};
 	error.requestInfo = reqInfo;
 

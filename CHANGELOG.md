@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 25.5.3
+
+### Fixed
+
+- SC-8447 - disable userdata logging in production
+
 ## 25.5.2
 
 ### Fixed
