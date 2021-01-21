@@ -9,6 +9,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 25.5.3
+
+### Fixed
+- SC-8189 - fixed course event duplication by updating the course
+
 ## 25.5.2
 
 ### Fixed
