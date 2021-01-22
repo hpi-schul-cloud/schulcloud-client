@@ -22,7 +22,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-7602 - Show error by registration when same email for a student and parent
-- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0
+- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0, and add some extra validations
 - SC-8337 - Better error handling for file upload
 - SC-8259 - limited the length of the task title/headline
 - SC-7345 - the linguistic note shown only for the German language
