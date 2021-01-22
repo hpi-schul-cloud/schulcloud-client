@@ -770,65 +770,68 @@ router.get('/:courseId/', async (req, res, next) => {
 	}
 });
 
-router.patch('/:courseId', (req, res, next) => {
-	const redirectUrl = req.query.redirectUrl || `/courses/${req.params.courseId}`;
+router.patch('/:courseId', async (req, res, next) => {
+	try {
+		const redirectUrl = req.query.redirectUrl || `/courses/${req.params.courseId}`;
 
-	// map course times to fit model
-	req.body.times = req.body.times || [];
-	req.body.times.forEach((time) => {
-		time.startTime = moment.duration(time.startTime).asMilliseconds();
-		time.duration = time.duration * 60 * 1000;
-	});
-
-	if (!req.body.classIds) {
-		req.body.classIds = [];
-	}
-	if (!req.body.userIds) {
-		req.body.userIds = [];
-	}
-	if (!req.body.substitutionIds) {
-		req.body.substitutionIds = [];
-	}
-
-	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
-	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
-
-	delete req.body.startDate;
-	if (startDate.isValid()) {
-		req.body.startDate = startDate.toDate();
-	}
-
-	delete req.body.untilDate;
-	if (untilDate.isValid()) {
-		req.body.untilDate = untilDate.toDate();
-	}
-
-	// unarchive client request do not contain information about feature flags
-	if (req.body.unarchive !== 'true') {
-		req.body.features = [];
-		OPTIONAL_COURSE_FEATURES.forEach((feature) => {
-			if (req.body[feature] === 'true') {
-				req.body.features.push(feature);
-			}
-			delete req.body[feature];
+		// map course times to fit model
+		req.body.times = req.body.times || [];
+		req.body.times.forEach((time) => {
+			time.startTime = moment.duration(time.startTime).asMilliseconds();
+			time.duration = time.duration * 60 * 1000;
 		});
-	}
 
-	if (req.body.unarchive === 'true') {
-		req.body = { untilDate: req.body.untilDate };
+		if (!req.body.classIds) {
+			req.body.classIds = [];
+		}
+		if (!req.body.userIds) {
+			req.body.userIds = [];
+		}
+		if (!req.body.substitutionIds) {
+			req.body.substitutionIds = [];
+		}
+
+		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+		const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
+
+		delete req.body.startDate;
+		if (startDate.isValid()) {
+			req.body.startDate = startDate.toDate();
+		}
+
+		delete req.body.untilDate;
+		if (untilDate.isValid()) {
+			req.body.untilDate = untilDate.toDate();
+		}
+
+		// unarchive client request do not contain information about feature flags
+		if (req.body.unarchive !== 'true') {
+			req.body.features = [];
+			OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+				if (req.body[feature] === 'true') {
+					req.body.features.push(feature);
+				}
+				delete req.body[feature];
+			});
+		}
+
+		if (req.body.unarchive === 'true') {
+			req.body = { untilDate: req.body.untilDate };
+		}
+		const { courseId } = req.params;
+
+		await deleteEventsForCourse(req, res, courseId);
+		await api(req).patch(`/courses/${courseId}`, {
+			json: req.body,
+		});
+		// due to eventual consistency we need to get the course again from server
+		// instead of using the response from patch
+		const course = await api(req).get(`/courses/${courseId}`);
+		await createEventsForCourse(req, res, course);
+		res.redirect(303, redirectUrl);
+	} catch (e) {
+		next(e);
 	}
-	// first delete all old events for the course
-	deleteEventsForCourse(req, res, req.params.courseId)
-		.then(() => api(req)
-			.patch(`/courses/${req.params.courseId}`, {
-				json: req.body, // TODO: sanitize
-			})
-			.then((course) => {
-				createEventsForCourse(req, res, course).then(() => {
-					res.redirect(303, redirectUrl);
-				});
-			}))
-		.catch(next);
 });
 
 router.patch('/:courseId/positions', (req, res, next) => {
