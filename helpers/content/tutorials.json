@@ -385,6 +385,11 @@
 						"id": "123407528",
 						"title": "LDAP-Schuljahreswechsel",
 						"type": "article"
+					},
+					{
+						"id": "144605442",
+						"title": "Lerninhalte aus Merlin beziehen",
+						"type": "article"
 					}
 				]
 			},
@@ -442,8 +447,26 @@
 				]
 			},
 			{
+				"id": "148537858",
+				"title": "Bekannte Fehler in der Cloud und ihre Behebung",
+				"type": "category",
+				"articles": []
+			},
+			{
 				"id": "73072659",
 				"title": "Presse- und Öffentlichkeitsarbeit für Schulen",
+				"type": "category",
+				"articles": []
+			},
+			{
+				"id": "113650243",
+				"title": "Anleitung Chat / Messenger (LuL)",
+				"type": "category",
+				"articles": []
+			},
+			{
+				"id": "113651573",
+				"title": "Anleitung Chat / Messenger (SuS)",
 				"type": "category",
 				"articles": []
 			},
