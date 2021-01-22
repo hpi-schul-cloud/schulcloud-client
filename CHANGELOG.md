@@ -17,9 +17,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
 - SC-8356 - add docker login helper
+- SC-8331 - increase node version to match current lts (currently 12.16 to 14)
 
 ### Fixed
 
+- SC-7602 - Show error by registration when same email for a student and parent
 - SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0
 - SC-8337 - Better error handling for file upload
 - SC-8259 - limited the length of the task title/headline
