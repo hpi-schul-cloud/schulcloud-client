@@ -98,7 +98,7 @@
                     </option>
                     {{/each}}
                   </select>
-                  <span class="small" id="courseTeacherErr" style="visibility:hidden; color: #ff1134;">
+                  <span class="small course-validation-error" id="courseTeacherErr">
                 {{$t "courses.global.input.noCourseTeacher"}}</span>
                 </div>
 
@@ -132,7 +132,7 @@
                       <div class="form-group col-md-6">
               {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpan") id="startDate" class="startDate"
               value=course.startDate dataTestId="date_start"}}
-              <span class="small" id="invalidTimeError" style="visibility:hidden; color: #ff1134;">{{$t
+              <span class="small course-validation-error" id="invalidTimeError">{{$t
                 "courses.global.input.invalidTimeError"}}</span>
                       </div>
 
