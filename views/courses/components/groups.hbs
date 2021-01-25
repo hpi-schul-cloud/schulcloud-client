@@ -22,7 +22,7 @@
 		{{else}}
 			<div class="empty-state">
 				{{> courses/components/svg_groups}}
-				<!--<img src="/images/empty-states/groups.svg" alt="{{$t "courses._course.groups.img_alt.noCreatedGroups"}}" class="image course-empty-content-image" />-->
+				<!--<img src="{{getAssetPath '/images/empty-states/groups.svg'}}" alt="{{$t "courses._course.groups.img_alt.noCreatedGroups"}}" class="image course-empty-content-image" />-->
 
 				{{#unless @root.isArchived}}
 					{{#userHasPermission "COURSEGROUP_CREATE"}}

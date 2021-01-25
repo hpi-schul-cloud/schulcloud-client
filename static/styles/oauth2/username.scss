@@ -1,7 +1,5 @@
-@import '../../../theme/default/style';
+@import '../lib/colors';
 
-$primary-color: #b10438;
-$color-white: #fff;
 $logo-background-tablet: url('../../images/logo/cloud-transparent-mono-48-48.svg') no-repeat center;
 
 body {
@@ -10,10 +8,10 @@ body {
 }
 
 .depseudo {
-  background-color: $primary-color;
+  background-color: $primaryColor;
   border: 1px solid transparent;
   border-radius: .25rem;
-  color: $color-white;
+  color: $colorWhite;
   font-family: 'PT Sans','Helvetica Neue',Helvetica,Arial,'sans-serif';
   font-size: 1rem;
   height: 20px;

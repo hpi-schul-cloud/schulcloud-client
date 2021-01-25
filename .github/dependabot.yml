@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "01:00"
+    timezone: Europe/Berlin
+  open-pull-requests-limit: 99
+  ignore:
+  - dependency-name: node
+    versions:
+    - ">= 13.a"
+    - "< 14"
+  rebase-strategy: disabled

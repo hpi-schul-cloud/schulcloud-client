@@ -15,16 +15,57 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
 - SC-8356 - add docker login helper
+- SC-8331 - increase node version to match current lts (currently 12.16 to 14)
 
 ### Fixed
 
+- SC-7602 - Show error by registration when same email for a student and parent
+- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0, and add some extra validations
 - SC-8337 - Better error handling for file upload
 - SC-8259 - limited the length of the task title/headline
 - SC-7345 - the linguistic note shown only for the German language
-- SC-8307 - fixed date formater bug by initial page loading 
-- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users), fixed buttons for printing
+- SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
+
+## 25.5.3
+
+### Fixed
+- SC-8189 - fixed course event duplication by updating the course
+
+## 25.5.2
+
+### Fixed
+
+- SC-8325 - clients error handling on oauth2 routes
+- SC-8449	- hardcoded platform names used for authentication dialog and in mouseover of iframe
+
+## 25.5.1
+
+### Added
+
+- SC-5287 - Iframe depseudonymization for Safari
+- SC-8377 - add ssl proxy for testing oauth2 iframe locally
+- SC-8358 - refactor tool naming, add safari bettermarks hint
+
+## 25.5.0
+
+### Fixed
+
+- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
+
+## [25.4.3]
+
+### Changed
+
+- SC-8321 cache and hash static assets
+
+## [25.4.2]
+
+### Fixed 
+
+- SC-8337 - Better error handling for file upload
 
 ## [25.4.1]
 

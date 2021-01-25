@@ -269,7 +269,7 @@
 				"errorImportingUsers": "Fehler: {{errorMessage}}",
 				"failedToCreateUser": "Fehler beim Erstellen des Nutzers. {{error}}",
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
-				"importMayBeStillRunning" : "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
+				"importMayBeStillRunning": "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
 				"inTheQueue": "In der Warteschlange",
 				"invitationEmailContent": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
 				"invitationEmailSubject": "Einladung für die Nutzung der {{title}}!",
@@ -622,7 +622,7 @@
 				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
 				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
 				"fileSelected": "Datei ausgewählt",
-				"fileTooLarge" : "PDF Datei ist zu groß. Maximal {{size}}MB",
+				"fileTooLarge": "PDF Datei ist zu groß. Maximal {{size}}MB",
 				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team sowie Lehrer in ihren Kursen die Chatfunktion gezielt freischalten.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Sind Chats an deiner Schule aktiviert, können Team-Administratoren im jeweiligen Team die Chatfunktion gezielt freischalten.",
 				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer starten. Team-Administratoren können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
@@ -636,14 +636,15 @@
 				"noFileSelected": "Keine Datei ausgewählt",
 				"noRssFeedsYet": "Es sind noch keine RSS-Feeds hinterlegt.",
 				"oldSchoolYear": "Altes Schuljahr",
-				"onlyPDFSupport" : "nur PDF Dateien werden unterstützt",
+				"onlyPDFSupport": "nur PDF Dateien werden unterstützt",
 				"passwordChanges": "Passwortänderungen werden weiterhin synchronisiert",
 				"theNewClassesAreSavedInTheContext": "die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert",
 				"theNewClassesCanNowBeAssigned": "die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
 				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
-				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen."
+				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen.",
+				"changeSchoolValueWarnig": "Kann nur einmal gesetzt werden und wird danach deaktiviert!"
 			}
 		},
 		"students": {
@@ -1077,6 +1078,7 @@
 					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
 					"noTools": "Keine Tools.",
 					"opensInNewTab": "neuer Tab",
+					"shouldNotUseSafariInBettermarks": "Für das optimale Nutzer:innenerlebnis verwende Chrome oder Firefox anstatt Safari. ",
 					"videoConferenceBBB": "Videokonferenz BigBlueButton"
 				}
 			},
@@ -1182,11 +1184,14 @@
 			},
 			"input": {
 				"chooseTeacher": "Lehrer:in auswählen",
+				"noCourseTeacher": "Sie müssen eine Lehrkraft auswählen",
 				"egRoom1-21": "z.B. R-1.21",
 				"inMinutes": "In Minuten",
 				"mathsClass": "Mathe 10a",
 				"selectClasses": "Klasse(n) auswählen",
-				"selectStudents": "Schüler:innen auswählen"
+				"selectStudents": "Schüler:innen auswählen",
+				"invalidTimeError": "Das Startdatum des Kurses sollte nicht nach dem Enddatum liegen.",
+				"invalidDurationError": "Die Länge der Schulstunde darf nicht negativ sein"
 			},
 			"label": {
 				"courseColor": "Farbe des Kurses",
@@ -1300,7 +1305,7 @@
 			"headline": {
 				"assertDeletion": "Bist du dir sicher, dass du '{{filename}}' löschen möchtest?",
 				"editPermissions": "Berechtigungen bearbeiten",
-				"functionCurrentlyDisabled" : "Funktion vorübergehend deaktiviert",
+				"functionCurrentlyDisabled": "Funktion vorübergehend deaktiviert",
 				"moveFile": "Datei verschieben",
 				"renameDir": "Ordner umbenennen",
 				"shareLink": "Freigabe-Link"
@@ -1313,7 +1318,7 @@
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
-				"littleHintHowToMoveFiles" : "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
+				"littleHintHowToMoveFiles": "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
 				"movingFilesIsDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
 				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
@@ -1342,8 +1347,8 @@
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
 			"newFolder": "Neuer Ordner"
 		},
-		"img_alt":{
-			"altInfoTheImage" : "Das Bild {{imgName}}"
+		"img_alt": {
+			"altInfoTheImage": "Das Bild {{imgName}}"
 		},
 		"input": {
 			"filename": "Name der Datei",
@@ -1351,11 +1356,11 @@
 			"searchFiles": "Dateien durchsuchen..."
 		},
 		"label": {
-			"backToFiles" : "Zurück zur Dateien-Übersicht",
+			"backToFiles": "Zurück zur Dateien-Übersicht",
 			"chooseANewName": "Wähle einen neuen Namen aus:",
 			"chooseANewNameAndAFileExtension": "Wähle einen Namen und eine Dateiendung aus:",
-			"clickToOpenDir" : "Ordner {{name}} öffnen",
-			"clickToOpenFile" : "Datei {{name}} öffnen",
+			"clickToOpenDir": "Ordner {{name}} öffnen",
+			"clickToOpenFile": "Datei {{name}} öffnen",
 			"close": "Schließen",
 			"dangerousCode": "Schädlicher Code",
 			"deleteFile": "Datei löschen",
@@ -1383,17 +1388,17 @@
 			"roleUser": "Rolle/Benutzer",
 			"selectAFolder": "Wähle einen Ordner aus",
 			"shareFile": "Datei teilen",
-			"sortBy" : "Sortieren nach...",
+			"sortBy": "Sortieren nach...",
 			"size": "Größe",
 			"updatedAt": "Änderungsdatum",
 			"write": "Schreiben"
 		},
-		"overview" : {
-			"aria_label":{
-				"openCourseFiles" : "Öffne meine Kurs-Dateien",
-				"openMyfiles" : "Öffne meine persönlichen Dateien",
-				"openSharedFiles" : "Öffne mit mir geteilte Dateien",
-				"openTeamFiles" : "Öffne meine Team-Dateien"
+		"overview": {
+			"aria_label": {
+				"openCourseFiles": "Öffne meine Kurs-Dateien",
+				"openMyfiles": "Öffne meine persönlichen Dateien",
+				"openSharedFiles": "Öffne mit mir geteilte Dateien",
+				"openTeamFiles": "Öffne meine Team-Dateien"
 			}
 		},
 		"search": {
@@ -1650,7 +1655,7 @@
 			"password": "Passwort:",
 			"role": "Rolle",
 			"room": "Raum",
-			"settings" :"Einstellungen",
+			"settings": "Einstellungen",
 			"skipLinks": "Links Überspringen",
 			"sortBy": "Sortieren nach: %1",
 			"title": "Titel",
@@ -2411,16 +2416,17 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login mit HPI Schul-Cloud"
+				"loginWithSchoolCloud": "Login mit {{title}}"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
 				"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
 				"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"yourName": "deinen Namen"
+				"yourName": "deinen Namen",
+				"showName": "Namen zeigen"
 			},
 			"text": {
-				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der HPI Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
+				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der {{shortTitle}} abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
 			}
 		},
 		"popup_resetPw": {
@@ -3020,8 +3026,8 @@
 				"warningFooter": "Die Nutzung dieser Angebote unterliegt gegebenenfalls anderen rechtlichen Bedingungen. Bitte schauen Sie daher in die Datenschutzerklärung des externen Anbieters!"
 			}
 		},
-		"aria_label" :{
-			"openTopicX" : "Thema {{name}} öffnen"
+		"aria_label": {
+			"openTopicX": "Thema {{name}} öffnen"
 		},
 		"form_share": {
 			"label": {
@@ -3029,10 +3035,10 @@
 			}
 		},
 		"topicEdit": {
-			"aria_label":{
+			"aria_label": {
 				"chooseContent": "Wählen Sie Inhaltstypen des Themas aus",
 				"geoGebraID": "GeoGebra ID",
-				"moveSectionWithKeys" : "Heben Sie den Abschnitt mit Leertaste oder Enter auf, bewegen Sie ihn mit den Pfeiltasten und legen Sie ihn dann mit Leertaste oder Enter ab."
+				"moveSectionWithKeys": "Heben Sie den Abschnitt mit Leertaste oder Enter auf, bewegen Sie ihn mit den Pfeiltasten und legen Sie ihn dann mit Leertaste oder Enter ab."
 			},
 			"button": {
 				"etherpad": "Etherpad",
@@ -3054,7 +3060,7 @@
 			"label": {
 				"descriptionEtherpad": "Beschreibung des Etherpads",
 				"descriptionNeXboard": "Beschreibung des neXboards",
-				"internLink" : "Interner Link",
+				"internLink": "Interner Link",
 				"lockSection": "Abschnitt sperren",
 				"nameOfEtherpad": "Name des Etherpads",
 				"nameOfNeXboard": "Name des neXboards",
