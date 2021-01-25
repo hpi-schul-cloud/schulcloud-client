@@ -1184,13 +1184,14 @@
 			},
 			"input": {
 				"chooseTeacher": "Lehrer:in auswählen",
-				"noCourseTeacher": "Sie müssen den Kurslehrer auswählen",
+				"noCourseTeacher": "Sie müssen eine Lehrkraft auswählen",
 				"egRoom1-21": "z.B. R-1.21",
 				"inMinutes": "In Minuten",
 				"mathsClass": "Mathe 10a",
 				"selectClasses": "Klasse(n) auswählen",
 				"selectStudents": "Schüler:innen auswählen",
-				"invalidTimeError": "Das Startdatum des Kurses sollte nicht nach dem Enddatum liegen."
+				"invalidTimeError": "Das Startdatum des Kurses sollte nicht nach dem Enddatum liegen.",
+				"invalidDurationError": "Die Länge der Schulstunde darf nicht negativ sein"
 			},
 			"label": {
 				"courseColor": "Farbe des Kurses",

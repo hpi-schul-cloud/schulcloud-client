@@ -89,6 +89,21 @@ function writeFileSizePretty(orgFilesize) {
 	return filesize + unit;
 }
 
+const getErrorThrown = (error) => {
+	const { name, message, code } = error;
+
+	if (code === 'ESOCKETTIMEDOUT') {
+		return $t('global.text.requestTimeout');
+	}
+	if (name && message) {
+		return `${name} - ${message}`;
+	} if (name || message) {
+		return name || message;
+	}
+	console.error(error);
+	return $t('global.text.internalProblem');
+};
+
 $(document).ready(() => {
 	const $form = $('.form-upload');
 	const $progressBar = $('.progress-bar');
@@ -119,8 +134,9 @@ $(document).ready(() => {
 		$moveModal.modal('hide');
 		if (textStatus === 'timeout') {
 			$.showNotification($t('global.text.requestTimeout'), 'warn');
-		} else {
-			$.showNotification(errorThrown, 'danger');
+		} else if (errorThrown !== undefined) {
+			const msg = errorThrown || $t('global.text.internalProblem');
+			$.showNotification(msg, 'danger');
 		}
 	}
 
@@ -219,20 +235,15 @@ $(document).ready(() => {
 					},
 				).fail((err) => {
 					this.removeFile(file);
-					let errorThrown;
-					if (err.responseJSON.error.code === 'ESOCKETTIMEDOUT') {
-						errorThrown = $t('global.text.requestTimeout');
+					if (err.responseJSON && err.responseJSON.error) {
+						showAJAXError(
+							err.responseJSON.error.code,
+							err.responseJSON.error.message,
+							getErrorThrown(err.responseJSON.error),
+						);
 					} else {
-						errorThrown = err.responseJSON.error.name || err.responseJSON.error.message
-							? `${err.responseJSON.error.name} - ${err.responseJSON.error.message}`
-							: err.responseJSON.error;
+						showAJAXError(500, err, $t('global.text.internalProblem'));
 					}
-
-					showAJAXError(
-						err.responseJSON.error.code,
-						err.responseJSON.error.message,
-						errorThrown,
-					);
 				});
 			},
 			createImageThumbnails: false,
