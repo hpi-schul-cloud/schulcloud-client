@@ -608,6 +608,7 @@
 				"atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
 				"atTheEndOfTheTransferPhase": "bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert",
 				"atTheSameTime": "gleichzeitig läutest Du damit das neue Schuljahr in der HPI Schul-Cloud ein",
+				"changeSchoolValueWarnig": "Kann nur einmal gesetzt werden und wird danach deaktiviert!",
 				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
 				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
 				"fileSelected": "Datei ausgewählt",
@@ -627,13 +628,12 @@
 				"oldSchoolYear": "Altes Schuljahr",
 				"onlyPDFSupport": "nur PDF Dateien werden unterstützt",
 				"passwordChanges": "Passwortänderungen werden weiterhin synchronisiert",
+				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen.",
 				"theNewClassesAreSavedInTheContext": "die neuen Klassen werden im Kontext des neuen Schuljahres gespeichert, die alten Klassen im Kontext des alten Schuljahres archiviert",
 				"theNewClassesCanNowBeAssigned": "die neuen Klassen können nun zu vorbereiteten Kursen zugeordnet werden",
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thisOptionIsAvailable": "Diese Option steht 2 Wochen vor dem Ende des aktuellen Schuljahres zur Verfügung.",
-				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule",
-				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen.",
-				"changeSchoolValueWarnig": "Kann nur einmal gesetzt werden und wird danach deaktiviert!"
+				"yourSchoolIsCurrentlyDrawing": "Derzeit bezieht Ihre Schule"
 			}
 		},
 		"students": {
@@ -1173,13 +1173,14 @@
 			},
 			"input": {
 				"chooseTeacher": "Lehrer:in auswählen",
-				"noCourseTeacher": "Sie müssen den Kurslehrer auswählen",
 				"egRoom1-21": "z.B. R-1.21",
 				"inMinutes": "In Minuten",
+				"invalidDurationError": "Die Länge der Schulstunde darf nicht negativ sein",
+				"invalidTimeError": "Das Startdatum des Kurses sollte nicht nach dem Enddatum liegen.",
 				"mathsClass": "Mathe 10a",
+				"noCourseTeacher": "Sie müssen eine Lehrkraft auswählen",
 				"selectClasses": "Klasse(n) auswählen",
-				"selectStudents": "Schüler:innen auswählen",
-				"invalidTimeError": "Das Startdatum des Kurses sollte nicht nach dem Enddatum liegen."
+				"selectStudents": "Schüler:innen auswählen"
 			},
 			"label": {
 				"courseColor": "Farbe des Kurses",
@@ -2420,9 +2421,9 @@
 			"label": {
 				"email": "deine E-Mail-Adresse",
 				"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
+				"showName": "Namen zeigen",
 				"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"yourName": "deinen Namen",
-				"showName": "Namen zeigen"
+				"yourName": "deinen Namen"
 			},
 			"text": {
 				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der {{shortTitle}} abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."

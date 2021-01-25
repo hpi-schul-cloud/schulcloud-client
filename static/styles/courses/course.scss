@@ -614,3 +614,12 @@
 .safari-workaround {
   display: none;
 }
+
+.course-validation-error {
+	visibility: hidden;
+	color: $colorDanger;
+}
+
+.course-time {
+	vertical-align: top;
+}
