@@ -134,10 +134,13 @@ function printPart(event) {
 	if (printContent === undefined) {
 		$.showNotification($t('global.text.printingFailed'), 'danger');
 	} else {
+		// Timeouts are necessary in some browsers to have printing dialog more stable
+		// eslint-disable-next-line max-len
+		// https://stackoverflow.com/questions/6460630/close-window-automatically-after-printing-dialog-closes?page=1&tab=votes#tab-top
 		const w = window.open();
 		w.document.write(printContent);
-		w.print();
-		w.close();
+		setTimeout(() => w.print(), 500);
+		w.onfocus = () => (setTimeout(() => w.close(), 500));
 	}
 	eventTarget.show();
 }
