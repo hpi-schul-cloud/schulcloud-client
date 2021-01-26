@@ -132,7 +132,7 @@ function printPart(event) {
 		.parents('.print')
 		.html();
 	if (printContent === undefined) {
-		$.showNotification('Printing is failed. Try again.', 'danger');
+		$.showNotification($t('global.text.printingFailed'), 'danger');
 	} else {
 		const w = window.open();
 		w.document.write(printContent);
