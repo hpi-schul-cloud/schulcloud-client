@@ -126,16 +126,20 @@ function populateModalForm(modal, data) {
 window.populateModalForm = populateModalForm;
 
 function printPart(event) {
-	$(event.target).hide();
-	const w = window.open();
-	w.document.write(
-		$(event.target)
-			.parent('.print')
-			.html(),
-	);
-	w.print();
-	w.close();
-	$(event.target).show();
+	const eventTarget = $(event.target);
+	eventTarget.hide();
+	const printContent = eventTarget
+		.parents('.print')
+		.html();
+	if (printContent === undefined) {
+		$.showNotification('Printing is failed. Try again.', 'danger');
+	} else {
+		const w = window.open();
+		w.document.write(printContent);
+		w.print();
+		w.close();
+	}
+	eventTarget.show();
 }
 
 // const originalReady = jQuery.fn.ready;
