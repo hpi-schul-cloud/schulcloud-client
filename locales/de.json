@@ -1773,6 +1773,7 @@
 			"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 			"pageMoved": "Diese Seite wurde verschoben.",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
+			"printingFailed": "Drucken ist fehlgeschlagen. Bitte probieren Sie erneut",
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite",
 			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
 			"saturday": "Samstag",
