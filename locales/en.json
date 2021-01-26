@@ -1788,6 +1788,7 @@
 			"noTopicFoundWithCode": "No topic was found for this code.",
 			"pageMoved": "This page has been moved.",
 			"passwordsAreDifferent": "Passwords do not match.",
+			"printingFailed": "Printing failed. Please try agian.",
 			"qrHintText": "Navigate other users to this site with the QR code",
 			"requestTimeout": "Request timed out",
 			"saturday": "Saturday",
