@@ -30,7 +30,7 @@ data:
   FEATURE_TEAMS_ENABLED: 'true'
   HELPAREA_URL: https://docs.schul-cloud.org/x/CQCaB
   KEEP_ALIVE: 'true'
-  LIBRE_OFFICE_CLIENT_URL: https://libreoffice-$HOSTNAME
+  LIBRE_OFFICE_CLIENT_URL: http://libreoffice-$HOSTNAME
   REQUEST_TIMEOUT_MS: '10000'
   SHOW_VERSION: '1'
   TZ: Europe/Berlin
