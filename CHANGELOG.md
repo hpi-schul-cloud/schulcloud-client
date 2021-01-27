@@ -21,13 +21,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-6363 - Fix printing problem
 - SC-7602 - Show error by registration when same email for a student and parent
-- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0
+- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0, and add some extra validations
 - SC-8337 - Better error handling for file upload
 - SC-8259 - limited the length of the task title/headline
 - SC-7345 - the linguistic note shown only for the German language
 - SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
+
+## 25.5.3
+
+### Fixed
+- SC-8189 - fixed course event duplication by updating the course
 
 ## 25.5.2
 
@@ -49,7 +55,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
-
 
 ## [25.4.3]
 
