@@ -1261,7 +1261,9 @@
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich.",
 			"emptyTimetable": "Leerer Stundenplan",
-			"empytTimetableInfo": "Hier siehst du normalerweise deinen aktuellen Stundenplan. Du findest deine Lerninhalte im Kursbereich.",
+			"empytTimetableInfo": "Dein Stundenplan wird aktuell nicht angezeigt. Aufgrund der hohen Nutzungszahlen durch das Lernen zu Hause ist er derzeit für alle Nutzer:innen ausgeblendet. Es liegt nicht an dir."
+
+			,
 			"graded": "Bewertet",
 			"handedIn": "Abgegeben",
 			"noDueDate": "Kein Abgabedatum festgelegt",
