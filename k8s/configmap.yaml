@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: $SERVICE_NAME-environment-variables
 data:
+  # todo if the value the default value, it should remove from it
   THIS_SERVICE: $SERVICE_NAME
   BRANCH: $NAMESPACE
   NODE_ENV: production
@@ -11,11 +12,82 @@ data:
   BACKEND_URL: http://schulcloud-server
   CALENDAR_SERVICE_ENABLED: 'true'
   SC_DOMAIN: devops-wizard.com
-  # must change later for https and cors
+  SC_THEME: default
+  SC_PRODUCTNAME: HPI Schul-Cloud
+  SC_SHORT_TITLE: HPI Schul-Cloud
+  SC_TITLE: HPI Schul-Cloud
+  FEATURE_ALERTS_ENABLED: 'true'
+  ALERT_STATUS_API_URL: https://status.hpi-schul-cloud.de/api/v1
+  ALERT_STATUS_URL: https://status.hpi-schul-cloud.de
+  BODYPRASER_JSON_LIMIT: 10mb
+  CALENDAR_DASHBOARD_ENABLED: 'true'
+  CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS: '16'
+  FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY: enabled
+  FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED: 'true'
+  FEATURE_MINT_PAGES_ENABLED: 'true'
+  FEATURE_MORGAN_LOG_ENABLED: 'false'
+  FEATURE_MULTI_LOGIN_INSTANCES: 'false'
+  FEATURE_TEAMS_ENABLED: 'true'
+  HELPAREA_URL: https://docs.schul-cloud.org/x/CQCaB
+  KEEP_ALIVE: 'true'
+  LIBRE_OFFICE_CLIENT_URL: https://libreoffice-$HOSTNAME
+  REQUEST_TIMEOUT_MS: '10000'
+  SHOW_VERSION: '1'
+  TZ: Europe/Berlin
+  NODE_VERSION: 14.15.4
+  STUDENT_TEAM_CREATION: disabled
+  TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION: opt-in
+  # must change later
+  HOST: $HOSTNAME # is needed for what?
+  PUBLIC_BACKEND_URL: http://api-$HOSTNAME # is needed for what? change http to https
+  DOCUMENT_BASE_DIR: https://s3.hidrive.strato.com/schul-cloud-hpi/
   CORS: 'false'
   COOKIE__EXPIRES_SECONDS: "2592000000"
   COOKIE__HOST_ONLY: "false"
   COOKIE__HTTP_ONLY: "false"
   COOKIE__SAME_SITE: Lax
   COOKIE__SECURE: "false"
-  COOKIE_SECRET: abc
+  COOKIE_SECRET: abc #secret
+  SECURITY_HEADERS: 'false'
+  # all listed
+  # API_KEY: # secret
+  #EDITOR_URL: https://editor.staging.hpi-schul-cloud.org
+  #EDTR_SOURCE: https://edtrio.staging.hpi-schul-cloud.org
+  #ETHERPAD_BASE_URL: https://staging.hpi-schul-cloud.org/etherpad/p/
+  #ETHERPAD__NEW_DOMAIN: staging.hpi-schul-cloud.org
+  #ETHERPAD__OLD_DOMAIN: etherpad.staging.hpi-schul-cloud.org
+  #ETHERPAD__PAD_PATH: /etherpad/p
+  #ETHERPAD__PAD_URI: https://staging.hpi-schul-cloud.org/etherpad/p
+  #FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED: true
+  #FEATURE_ENTERTHECLOUD: false
+  #FEATURE_EXTENSIONS_ENABLED: true
+  #FEATURE_INSIGHTS_ENABLED: true
+  #FEATURE_LERNSTORE_ENABLED: true
+  #FEATURE_MATRIX_MESSENGER_ENABLED: true
+  #FEATURE_NEXBOARD_ENABLED: false
+  #FEATURE_SCHOOL_POLICY_ENABLED: true
+  #FEATURE_VIDEOCONFERENCE_ENABLED: true
+  #GHOST_API_KEY: #secret
+  #GHOST_API_URL: https://blog.schul-cloud.org/ghost/api/v3
+  #GOOGLE_ANALYTICS_TRACKING_ID:  #secret
+  #JWT_TIMEOUT_SECONDS: 7200
+  #LERNSTORE_MODE: EDUSHARING
+  #LOGIN_BLOCK_TIME: 15
+  #MATRIX_MESSENGER__DISCOVER_URI: https://staging.messenger.schule
+  #MATRIX_MESSENGER__EMBED_URI: https://embed.staging.messenger.schule
+  #MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED: false
+  #MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE: true
+  #MATRIX_MESSENGER__STUDENT_ROOM_CREATION: false
+  #MATRIX_MESSENGER__URI: https://matrix.staging.messenger.schule
+  #NEXBOARD_API_KEY: #secret
+  #NEXBOARD_USER_ID: #secret
+  #REDIS_URI: redis://redis:6379
+  #ROCKETCHAT_SERVICE_ENABLED: true
+  #ROCKET_CHAT: https://chat.staging.hpi-schul-cloud.org
+  #ROCKET_CHAT_URI: https://chat.staging.hpi-schul-cloud.org
+  #SENTRY_DSN: #secret
+  #SENTRY_SAMPLE_RATE: 1.0
+  #SKIP_CONDITIONS_CONSENT: 
+  #SW_ENABLED: true
+  #SW_GOOGLE_ANALYTICS_TRACKING_ID: #secret
+
