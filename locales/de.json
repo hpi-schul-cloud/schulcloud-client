@@ -1381,8 +1381,6 @@
 			"myPersonalData": "Meine persönlichen Dateien",
 			"myPersonalDataContent": "Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.",
 			"name": "Dateiname",
-			"nameDown": "Dateiname (Z-A)",
-			"nameUp": "Dateiname (A-Z)",
 			"openDocumentInNewWindow": "Dokument in neuem Fenster öffnen",
 			"read": "Lesen",
 			"renameFile": "Datei umbenennen",
@@ -1392,10 +1390,6 @@
 			"shareFile": "Datei teilen",
 			"sortBy": "Sortieren nach...",
 			"size": "Größe",
-			"sizeUp": "Größe absteigend",
-			"sizeDown": " Größe aufsteigend",
-			"updatedAtUp": "Änderungsdatum (neuestes)",
-			"updatedAtDown": "Änderungsdatum (ältestes) ",
 			"updatedAt": "Änderungsdatum",
 			"write": "Schreiben"
 		},
@@ -1646,8 +1640,6 @@
 		"label": {
 			"chooseAFile": "Datei auswählen",
 			"creationDate": "Erstelldatum",
-			"creationDateUp": "Erstelldatum (neuestes)",
-			"creationDateDown": "Erstelldatum (ältestes)",
 			"dateOfBirth": "Geburtsdatum:",
 			"description": "Beschreibung",
 			"emailAddress": "E-Mail-Adresse:",
