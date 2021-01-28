@@ -613,7 +613,7 @@ $(document).ready(() => {
 		$.ajax({ url: `/files/permissions/?file=${fileId}` })
 			.then((permissions) => {
 				const nameMap = {
-					teacher: $t('global.role.text.teacher'),
+					teacher: $t('global.placeholder.Lehrer'),
 					student: $t('global.link.administrationStudents'),
 					teammember: $t('global.role.text.member'),
 					teamexpert: $t('global.role.text.expert'),
