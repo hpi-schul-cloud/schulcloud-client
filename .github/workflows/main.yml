@@ -34,17 +34,21 @@ jobs:
         export SHORT_SHA=$(echo ${GITHUB_SHA} | cut -c1-8)
         export NAMESPACE=$(echo ${GITHUB_REF##*/} | sed -e "s/\//-/g" | tr '[:upper:]' '[:lower:]')
         export SERVICE_NAME=${GITHUB_REPOSITORY##*/}
+        export CERT_NAME=wildcard-${STAGING_DOMAIN/./-}
         export BUILD_IMAGE=$REGISTRY_HOSTNAME/${{ secrets.GCP_PROJECT_ID }}/$SERVICE_NAME:$SHORT_SHA
         export HOSTNAME=$NAMESPACE.$STAGING_DOMAIN
+
         echo "SHORT_SHA=$SHORT_SHA"
         echo "SERVICE_NAME=$SERVICE_NAME"
         echo "NAMESPACE=$NAMESPACE"
+        echo "CERT_NAME=$CERT_NAME"
         echo "BUILD_IMAGE=$BUILD_IMAGE"
         echo "HOSTNAME=$HOSTNAME"
         
         echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_ENV
         echo "SERVICE_NAME=$SERVICE_NAME" >> $GITHUB_ENV
         echo "NAMESPACE=$NAMESPACE" >> $GITHUB_ENV
+        echo "CERT_NAME=$CERT_NAME" >> $GITHUB_ENV
         echo "BUILD_IMAGE=$BUILD_IMAGE" >> $GITHUB_ENV
         echo "HOSTNAME=$HOSTNAME" >> $GITHUB_ENV
         
@@ -99,4 +103,9 @@ jobs:
         cat k8s/service.yaml | envsubst | kubectl apply -n $NAMESPACE -f -
         cat k8s/ingress.yaml | envsubst
         cat k8s/ingress.yaml | envsubst | kubectl apply -n $NAMESPACE -f -
+
+        kubectl get secret $CERT_NAME -o json \
+        | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid"])' \
+        | kubectl apply -n $NAMESPACE -f -
+        
         kubectl rollout status deployment/$SERVICE_NAME -n $NAMESPACE
