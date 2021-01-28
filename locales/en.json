@@ -170,8 +170,7 @@
 					"classUsers": "Users of the class",
 					"consentStatus": "Registration",
 					"createdOn": "Created on",
-					"email": "E-mail address",
-					"teacher": "Teacher"
+					"email": "E-mail address"
 				}
 			},
 			"headline": {
@@ -403,7 +402,6 @@
 				"student": "Student",
 				"studentParticipants": "Student \/ Attendee",
 				"substituteTeacher": "Substitute teacher",
-				"teacher": "Teacher",
 				"teachingTeacher": "Teaching teacher",
 				"termsOfUse": "Terms of Use",
 				"timeSpan": "Period (e.g. school year)",
@@ -908,11 +906,6 @@
 					"toEditChangeDate": "In order to edit course data, you must first adjust the end date."
 				}
 			},
-			"global": {
-				"label": {
-					"studentParticipant": "Student \/ Participant"
-				}
-			},
 			"groups": {
 				"_group": {
 					"edit": {
@@ -1184,7 +1177,6 @@
 			"label": {
 				"courseColor": "Color of the course",
 				"courseDescription": "Description of the course",
-				"courseTeacher": "Course teacher",
 				"timeSpanFormat": "Please enter the date in the format DD.MM.YYYY"
 			}
 		},
@@ -1218,7 +1210,6 @@
 			"descriptionCourseManagement": "You can duplicate archived courses and use them as templates for the new school year, import a course, or create a brand new course.",
 			"finishImport": "Complete the import. In the next step, set a new course date and add students.",
 			"importCourseAttentionTools": "Attention: Manually replace tools with user data which are included in the topic subsequently (e.g. neXboard, Etherpad, GeoGebra), because changes to this will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
-			"importCourseDescription": "A course folder is automatically created for the imported course. Students data from the original course will be removed. Then add students and set a date for the course.",
 			"importedCourseWithQR": "You have imported a course via a QR Code.",
 			"insertCodeToImport": "Insert a code to import course content from other users.",
 			"noAttendees": "No participants",
@@ -1670,7 +1661,6 @@
 		"link": {
 			"aboutTheProject": "About the project",
 			"administrationStudents": "Students",
-			"administrationTeachers": "Teacher",
 			"archive": "Archive",
 			"calendar": "Calendar",
 			"contact": "Contact",
@@ -1689,7 +1679,6 @@
 			"lernstore": "Learning Store",
 			"mainContentSkipLink": "Main section",
 			"management": "Management",
-			"managementStudents": "Students",
 			"managementTeachers": "Teachers",
 			"openInNewTab": "open in new tab",
 			"openInNewTabWarning": "Opens in a new tab",
@@ -1731,8 +1720,7 @@
 				"expert": "Expert",
 				"leader": "Leader",
 				"member": "Attendee",
-				"owner": "Owner",
-				"teacher": "Teacher"
+				"owner": "Owner"
 			}
 		},
 		"sidebar": {
@@ -1767,7 +1755,6 @@
 			"invalidRequest": "Invalid request",
 			"min8characters": "At least 8 characters with upper and lower case, including at least one number and one special character.",
 			"monday": "Monday",
-			"noMembers": "No attendees",
 			"noTasks": "No tasks",
 			"noTopicFoundWithCode": "No topic was found for this code.",
 			"pageMoved": "This page has been moved.",
@@ -1884,9 +1871,7 @@
 		"help_fromInviteExternalMember": {
 			"button": {
 				"externalExperts": "External experts",
-				"externalExpertsN21": "External experts",
-				"teachersFromOtherSchools": "Teachers from other schools",
-				"teachersFromOtherSchoolsN21": "Teachers of other schools"
+				"teachersFromOtherSchools": "Teachers from other schools"
 			},
 			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Who would you like to invite to the team?"
@@ -2832,7 +2817,6 @@
 			"label": {
 				"accessToData": "Access to files",
 				"emailHasBeenSentAlternativeLink": "The invited person has received an e-mail. Alternatively this link can be used, the user must be logged in:",
-				"externExperts": "External experts",
 				"leadersAndAdmins": "Leaders and team admins",
 				"members": "Attendees"
 			},
@@ -2870,8 +2854,7 @@
 					"deleteMember": "Delete attendee",
 					"editMember": "Edit attendee",
 					"inviteByMail": "Invite by e-mail",
-					"selectFromIndex": "Select from directory",
-					"teacherFromOtherSchool": "Teachers from other schools"
+					"selectFromIndex": "Select from directory"
 				},
 				"headline": {
 					"addMember": "Delete attendee",
@@ -2975,8 +2958,7 @@
 				"renameTheCourse": "Rename the course."
 			},
 			"text": {
-				"aCourseFolderIsAutomaticallyCreated": "A course folder is automatically created for the imported course. Student-related data from the original course will be removed. Then add students and make an appointment for the course.",
-				"completeTheImport": "Complete the import. In the next step, set a new course date and add students."
+				"aCourseFolderIsAutomaticallyCreated": "A course folder is automatically created for the imported course. Student-related data from the original course will be removed. Then add students and make an appointment for the course."
 			}
 		},
 		"headline": {

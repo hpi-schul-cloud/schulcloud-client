@@ -170,8 +170,7 @@
 					"classUsers": "Nutzer der Klasse",
 					"consentStatus": "Registrierung",
 					"createdOn": "Erstellt am",
-					"email": "E-Mail-Adresse",
-					"teacher": "Lehrkraft"
+					"email": "E-Mail-Adresse"
 				}
 			},
 			"headline": {
@@ -403,7 +402,6 @@
 				"student": "Schüler:in",
 				"studentParticipants": "Schüler:in / Teilnehmer:in",
 				"substituteTeacher": "Vertretungslehrkraft",
-				"teacher": "Lehrkraft",
 				"teachingTeacher": "Unterrichtende Lehrkraft",
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
@@ -908,11 +906,6 @@
 					"toEditChangeDate": "Um Daten des Kurses zu bearbeiten, musst du zunächst das Enddatum anpassen."
 				}
 			},
-			"global": {
-				"label": {
-					"studentParticipant": "Schüler:in / Teilnehmer:in"
-				}
-			},
 			"groups": {
 				"_group": {
 					"edit": {
@@ -1184,7 +1177,6 @@
 			"label": {
 				"courseColor": "Farbe des Kurses",
 				"courseDescription": "Beschreibung des Kurses",
-				"courseTeacher": "Unterrichtende Lehrkraft",
 				"timeSpanFormat": "Bitte Datum im Format TT.MM.JJJJ eingeben"
 			}
 		},
@@ -1218,7 +1210,6 @@
 			"descriptionCourseManagement": "Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
 			"finishImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler:innen hinzu.",
 			"importCourseAttentionTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. neXboard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
-			"importCourseDescription": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schüler:innenbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler:innen hinzu und vergib einen Termin für den Kurs.",
 			"importedCourseWithQR": "Du hast einen Kurs über einen QR-Code importiert.",
 			"insertCodeToImport": "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.",
 			"noAttendees": "Keine Teilnehmer:innen",
@@ -1672,7 +1663,6 @@
 		"link": {
 			"aboutTheProject": "Über das Projekt",
 			"administrationStudents": "Schüler:innen",
-			"administrationTeachers": "Lehrkraft",
 			"archive": "Archiv",
 			"calendar": "Termine",
 			"contact": "Kontakt",
@@ -1691,7 +1681,6 @@
 			"lernstore": "Lern-Store",
 			"mainContentSkipLink": "Hauptbereich",
 			"management": "Verwaltung",
-			"managementStudents": "Schüler:innen",
 			"managementTeachers": "Lehrkräfte",
 			"openInNewTab": "in neuem Tab öffnen",
 			"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
@@ -1733,8 +1722,7 @@
 				"expert": "Expert:in",
 				"leader": "Leiter:in",
 				"member": "Teilnehmer:in",
-				"owner": "Eigentümer",
-				"teacher": "Lehrkraft"
+				"owner": "Eigentümer"
 			}
 		},
 		"sidebar": {
@@ -1769,7 +1757,6 @@
 			"invalidRequest": "Ungültige Anfrage",
 			"min8characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
 			"monday": "Montag",
-			"noMembers": "Keine Teilnehmer:innen",
 			"noTasks": "Keine Aufgaben",
 			"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 			"pageMoved": "Diese Seite wurde verschoben.",
@@ -1886,9 +1873,7 @@
 		"help_fromInviteExternalMember": {
 			"button": {
 				"externalExperts": "Externe Expert:innen",
-				"externalExpertsN21": "Externe Expert:innen",
-				"teachersFromOtherSchools": "Lehrkräfte anderer Schulen",
-				"teachersFromOtherSchoolsN21": "Lehrkräfte anderer Schulen"
+				"teachersFromOtherSchools": "Lehrkräfte anderer Schulen"
 			},
 			"headline": {
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
@@ -2834,7 +2819,6 @@
 			"label": {
 				"accessToData": "Zugriff auf Dateien",
 				"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der Nutzer muss dafür angemeldet sein:",
-				"externExperts": "Externe Expert:innen",
 				"leadersAndAdmins": "Leiter:innen und Team-Admins",
 				"members": "Teilnehmer:innen"
 			},
@@ -2872,8 +2856,7 @@
 					"deleteMember": "Teilnehmer:in löschen",
 					"editMember": "Teilnehmer:in bearbeiten",
 					"inviteByMail": "Via E-Mail einladen",
-					"selectFromIndex": "Aus Verzeichnis auswählen",
-					"teacherFromOtherSchool": "Lehrkräfte anderer Schulen"
+					"selectFromIndex": "Aus Verzeichnis auswählen"
 				},
 				"headline": {
 					"addMember": "Teilnehmer:in hinzufügen",
@@ -2977,8 +2960,7 @@
 				"renameTheCourse": "Benenne den Kurs um."
 			},
 			"text": {
-				"aCourseFolderIsAutomaticallyCreated": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schüler:innenbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler:innen hinzu und vergib einen Termin für den Kurs.",
-				"completeTheImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler:innen hinzu."
+				"aCourseFolderIsAutomaticallyCreated": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schüler:innenbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler:innen hinzu und vergib einen Termin für den Kurs."
 			}
 		},
 		"headline": {
