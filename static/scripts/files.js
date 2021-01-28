@@ -997,8 +997,8 @@ $('#sortButton').on('click', () => {
 	const location = window.location.search.split('&').filter((m) => m !== '');
 	const sortOption = (getQueryParameterByName('sortOrder') === 'asc') ? 'desc&' : 'asc&';
 
-	icon.addClass((sortOption === 'asc') ? 'fa-arrow-down' : 'fa-arrow-up');
-	icon.removeClass((sortOption === 'asc') ? 'fa-arrow-up' : 'fa-arrow-down');
+	icon.addClass((sortOption === 'asc') ? 'fa-arrow-up' : 'fa-arrow-down');
+	icon.removeClass((sortOption === 'asc') ? 'fa-arrow-down' : 'fa-arrow-up');
 
 	window.location.search = `${location[0]}&sortOrder=${sortOption}`;
 });
@@ -1007,6 +1007,6 @@ $(document).on('pageload', () => {
 	const icon = $('#sortButton i');
 	const sortOption = getQueryParameterByName('sortOrder');
 
-	icon.addClass((sortOption === 'asc') ? 'fa-arrow-down' : 'fa-arrow-up');
-	icon.removeClass((sortOption === 'asc') ? 'fa-arrow-up' : 'fa-arrow-down');
+	icon.addClass((sortOption === 'asc') ? 'fa-arrow-up' : 'fa-arrow-down');
+	icon.removeClass((sortOption === 'asc') ? 'fa-arrow-down' : 'fa-arrow-up');
 });
