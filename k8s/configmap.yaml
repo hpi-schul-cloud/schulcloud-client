@@ -49,8 +49,8 @@ data:
   COOKIE__SECURE: "false"
   COOKIE_SECRET: abc #secret
   SECURITY_HEADERS: 'false'
+  API_KEY: "123" #secret
   # all listed
-  # API_KEY: # secret
   #EDITOR_URL: https://editor.staging.hpi-schul-cloud.org
   #EDTR_SOURCE: https://edtrio.staging.hpi-schul-cloud.org
   #ETHERPAD_BASE_URL: https://staging.hpi-schul-cloud.org/etherpad/p/
