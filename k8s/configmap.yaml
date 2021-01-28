@@ -30,7 +30,7 @@ data:
   FEATURE_TEAMS_ENABLED: 'true'
   HELPAREA_URL: https://docs.schul-cloud.org/x/CQCaB
   KEEP_ALIVE: 'true'
-  LIBRE_OFFICE_CLIENT_URL: http://libreoffice-$HOSTNAME
+  LIBRE_OFFICE_CLIENT_URL: https://libreoffice-$HOSTNAME
   REQUEST_TIMEOUT_MS: '10000'
   SHOW_VERSION: '1'
   TZ: Europe/Berlin
@@ -39,7 +39,7 @@ data:
   TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION: opt-in
   # must change later
   HOST: $HOSTNAME # is needed for what?
-  PUBLIC_BACKEND_URL: http://api-$HOSTNAME # is needed for what? change http to https
+  PUBLIC_BACKEND_URL: https://api-$HOSTNAME # is needed for what? change http to https
   DOCUMENT_BASE_DIR: https://s3.hidrive.strato.com/schul-cloud-hpi/
   CORS: 'false'
   COOKIE__EXPIRES_SECONDS: "2592000000"
