@@ -201,7 +201,7 @@
 								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
 								readonly{{/userHasPermission}}/>
 							 <div class="text-danger" style="font-size:0.75rem;">
-								 {{$t "administration.school.text.changeSchoolValueWarnig"}}
+								 {{$t "administration.school.text.changeSchoolValueWarning"}}
 							</div>
 						</div>
 						{{#ifneq 0 (arrayLength ../school.federalState.counties)}}
@@ -225,7 +225,7 @@
 								{{/if}}
 							</select>
 							<div class="text-danger" style="font-size:0.75rem;">
-      							{{$t "administration.school.text.changeSchoolValueWarnig"}}
+      							{{$t "administration.school.text.changeSchoolValueWarning"}}
 							</div>
 							</div>
 						{{/ifneq}}
