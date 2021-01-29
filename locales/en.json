@@ -605,6 +605,7 @@
 				"atTheEndOfTheSchoolYearWithLDAP": "When the school year changes, carry out the following actions with LDAP:",
 				"atTheEndOfTheTransferPhase": "When the transfer phase ends, all changes made in the LDAP are synchronized in one go",
 				"atTheSameTime": "At the same time, you ring in the new school year in the HPI school cloud",
+				"changeSchoolValueWarning": "Once set, it cannot be changed!",
 				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
 				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
 				"fileSelected": "File selected",
