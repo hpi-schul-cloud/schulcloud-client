@@ -66,6 +66,11 @@
 			"default": false,
 			"description": "If enabled, firstLogin page is not shown."
 		},
+		"FEATURE_LOG_REQUEST": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the log of req data like request body"
+		},
 		"MORGAN_LOG_FORMAT": {
 			"type": "string",
 			"default": "dev",
