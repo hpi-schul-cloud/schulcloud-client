@@ -13,7 +13,7 @@
 
     <div class="row">
         <div style="width: 100%" class="form-group">
-            <label>{{$t "administration.global.label.teacher" }} {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
+            <label>{{$t "global.placeholder.Lehrer" }} {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
 
             <select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher"}}" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
                 {{#each teachers}}

@@ -132,7 +132,7 @@ module.exports = (req, res, next) => {
 		excludedPermission: 'ADMIN_VIEW',
 		children: [
 			{
-				name: res.$t('global.link.managementStudents'),
+				name: res.$t('global.link.administrationStudents'),
 				icon: 'odnoklassniki',
 				link: '/administration/students/',
 			},
@@ -186,7 +186,7 @@ module.exports = (req, res, next) => {
 		permission: 'ADMIN_VIEW',
 		children: [
 			{
-				name: res.$t('global.link.managementStudents'),
+				name: res.$t('global.link.administrationStudents'),
 				icon: 'odnoklassniki',
 				link: '/administration/students/',
 			},

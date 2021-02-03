@@ -2202,7 +2202,7 @@ router.get(
 			.then(async (data) => {
 				const head = [
 					res.$t('administration.controller.global.label.class'),
-					res.$t('administration.controller.global.label.teacher'),
+					res.$t('global.placeholder.Lehrer'),
 					res.$t('administration.global.label.schoolYear'),
 					res.$t('global.link.administrationStudents'),
 				];
