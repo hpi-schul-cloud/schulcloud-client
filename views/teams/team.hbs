@@ -22,10 +22,11 @@
 <div id="team-wrapper">
     <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
         <div class="dropdown dropdown-title minimal-button">
+            <h2 class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
             <a href="#0" class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" aria-label="{{$t "
                 global.label.more"}}" data-toggle="dropdown">
-                <h2 class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
-                <i class="fa fa-ellipsis-v i-cog"></i>
+
+                <i style="margin-top: 12px; margin-left: 3px;" class="fa fa-ellipsis-v i-cog"></i>
             </a>
             <div class="dropdown-menu dropdown-menu dropdown-menu-team">
                 <a data-testid="administrate_team_members" href="/teams/{{_id}}/members" class="dropdown-item">
