@@ -38,12 +38,7 @@
 		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
 			"type": "string",
 			"default": "info",
-			"enum": [
-				"success",
-				"info",
-				"warning",
-				"danger"
-			],
+			"enum": ["success", "info", "warning", "danger"],
 			"description": "alert types"
 		},
 		"LOGIN_BLOCKED_COOKIES_NOTE": {
@@ -68,20 +63,13 @@
 		},
 		"FEATURE_LOG_REQUEST": {
 			"type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "Enables the log of req data like request body"
 		},
 		"MORGAN_LOG_FORMAT": {
 			"type": "string",
 			"default": "dev",
-			"enum": [
-				"default",
-				"common",
-				"short",
-				"tiny",
-				"combined",
-				"dev"
-			],
+			"enum": ["default", "common", "short", "tiny", "combined", "dev"],
 			"description": "Sets the morgan log level. Morgan is creating access logs for express."
 		},
 		"LOG_LEVEL": {
@@ -101,23 +89,13 @@
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
 			"type": "string",
 			"default": "opt-out",
-			"enum": [
-				"disabled",
-				"opt-in",
-				"opt-out",
-				"enabled"
-			],
+			"enum": ["disabled", "opt-in", "opt-out", "enabled"],
 			"description": "Defines wether external team invitation shows teachers from different schools or not. if enabled system wide there are options general enabled or opt-in/-out by user required."
 		},
 		"STUDENT_TEAM_CREATION": {
 			"type": "string",
 			"default": "opt-out",
-			"enum": [
-				"disabled",
-				"opt-in",
-				"opt-out",
-				"enabled"
-			],
+			"enum": ["disabled", "opt-in", "opt-out", "enabled"],
 			"description": "defines wether students may create teams or not. if enabled system wide there are options general enabled or opt-in/-out by school admin required."
 		},
 		"FEATURE_VIDEOCONFERENCE_ENABLED": {
@@ -130,8 +108,8 @@
 			"default": false,
 			"description": "If enabled, static assets will be fingerprinted and cached."
 		},
-		"ASSET_CACHING_MAX_AGE_SECONDS":{
-			"type":"integer",
+		"ASSET_CACHING_MAX_AGE_SECONDS": {
+			"type": "integer",
 			"default": 86400,
 			"description": "Max-Age for static assets response header. Defaults to one day."
 		},
@@ -153,11 +131,7 @@
 		"MATRIX_MESSENGER": {
 			"type": "object",
 			"description": "Matrix messenger properties, required always to be defined",
-			"required": [
-				"URI",
-				"EMBED_URI",
-				"DISCOVER_URI"
-			],
+			"required": ["URI", "EMBED_URI", "DISCOVER_URI"],
 			"properties": {
 				"URI": {
 					"type": "string",
@@ -248,12 +222,7 @@
 		"ETHERPAD": {
 			"type": "object",
 			"description": "Cookie properties, required always to be defined",
-			"required": [
-				"PAD_PATH",
-				"PAD_URI",
-				"OLD_DOMAIN",
-				"NEW_DOMAIN"
-			],
+			"required": ["PAD_PATH", "PAD_URI", "OLD_DOMAIN", "NEW_DOMAIN"],
 			"properties": {
 				"PAD_PATH": {
 					"type": "string",
@@ -292,11 +261,7 @@
 				"SAME_SITE": {
 					"type": "string",
 					"default": "Lax",
-					"enum": [
-						"None",
-						"Lax",
-						"Strict"
-					],
+					"enum": ["None", "Lax", "Strict"],
 					"description": "Value for cookies sameSite property. When SECURE flag is false, 'None' is not allowed in SAME_SITE and Lax should be used as default instead"
 				},
 				"HTTP_ONLY": {
@@ -344,10 +309,7 @@
 					"then": {
 						"properties": {
 							"SAME_SITE": {
-								"enum": [
-									"Lax",
-									"Strict"
-								]
+								"enum": ["Lax", "Strict"]
 							}
 						}
 					}
@@ -370,11 +332,7 @@
 		},
 		"LERNSTORE_MODE": {
 			"type": "string",
-			"enum": [
-				"DISABLED",
-				"LEGACY",
-				"EDUSHARING"
-			],
+			"enum": ["DISABLED", "LEGACY", "EDUSHARING"],
 			"default": "DISABLED",
 			"description": "Defines the lernstore mode. Can be legacy, edusharing and disabled"
 		},
@@ -408,9 +366,7 @@
 		"ROCKET_CHAT_DEPRECATION_DATE": {
 			"type": "string",
 			"format": "date-time",
-			"examples": [
-				"2020-11-01T20:20:00+00:00"
-			],
+			"examples": ["2020-11-01T20:20:00+00:00"],
 			"description": "if this is set, rocketchat will be treated as disabled after this date."
 		},
 		"I18N": {
@@ -420,10 +376,7 @@
 				"DEFAULT_LANGUAGE": {
 					"type": "string",
 					"default": "de",
-					"enum": [
-						"de",
-						"en"
-					],
+					"enum": ["de", "en"],
 					"description": "Value for the default language"
 				},
 				"DEFAULT_TIMEZONE": {
@@ -447,10 +400,7 @@
 					"description": "Available languages"
 				}
 			},
-			"required": [
-				"DEFAULT_LANGUAGE",
-				"AVAILABLE_LANGUAGES"
-			]
+			"required": ["DEFAULT_LANGUAGE", "AVAILABLE_LANGUAGES"]
 		},
 		"FEATURE_SHOW_VERSION_ENABLED": {
 			"type": "boolean",
@@ -492,7 +442,13 @@
 					"description": "metric types supported for http_request_duration_seconds metric"
 				}
 			},
-			"required": ["COLLECT_DEFAULT_METRICS", "INCLUDE_STATUS_CODE", "INCLUDE_METHOD", "INCLUDE_PATH", "METRIC_TYPE"]
+			"required": [
+				"COLLECT_DEFAULT_METRICS",
+				"INCLUDE_STATUS_CODE",
+				"INCLUDE_METHOD",
+				"INCLUDE_PATH",
+				"METRIC_TYPE"
+			]
 		},
 		"CALENDAR_DASHBOARD_ENABLED": {
 			"type": "boolean",
@@ -526,9 +482,7 @@
 				}
 			},
 			"then": {
-				"required": [
-					"ETHERPAD"
-				]
+				"required": ["ETHERPAD"]
 			}
 		},
 		"MESSENGER_ENABLED": {
@@ -540,9 +494,7 @@
 				}
 			},
 			"then": {
-				"required": [
-					"MATRIX_MESSENGER"
-				]
+				"required": ["MATRIX_MESSENGER"]
 			}
 		},
 		"FEATURE_PROMETHEUS_ENABLED": {
