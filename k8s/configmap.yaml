@@ -13,9 +13,6 @@ data:
   CALENDAR_SERVICE_ENABLED: 'true'
   SC_DOMAIN: devops-wizard.com
   SC_THEME: $SC_THEME
-  SC_PRODUCTNAME: HPI Schul-Cloud
-  SC_SHORT_TITLE: HPI Schul-Cloud
-  SC_TITLE: HPI Schul-Cloud
   FEATURE_ALERTS_ENABLED: 'true'
   ALERT_STATUS_API_URL: https://status.hpi-schul-cloud.de/api/v1
   ALERT_STATUS_URL: https://status.hpi-schul-cloud.de
@@ -31,10 +28,8 @@ data:
   HELPAREA_URL: https://docs.schul-cloud.org/x/CQCaB
   KEEP_ALIVE: 'true'
   LIBRE_OFFICE_CLIENT_URL: https://libreoffice-$HOSTNAME
-  REQUEST_TIMEOUT_MS: '10000'
-  SHOW_VERSION: '1'
-  TZ: Europe/Berlin
-  NODE_VERSION: 14.15.4
+  #REQUEST_TIMEOUT_MS: '10000' # is default value
+  FEATURE_SHOW_VERSION_ENABLED: 'true'
   STUDENT_TEAM_CREATION: disabled
   TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION: opt-in
   # must change later

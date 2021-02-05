@@ -85,7 +85,7 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |
-        cat Dockerfile | envsubst | docker build -t $BUILD_IMAGE
+        cat Dockerfile | envsubst | docker build -t $BUILD_IMAGE -
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |

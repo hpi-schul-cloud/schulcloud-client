@@ -24,7 +24,7 @@
 		},
 		"REQUEST_TIMEOUT_MS": {
 			"type": "integer",
-			"default": 5000,
+			"default": 10000,
 			"description": "API handler request timeout in milliseconds"
 		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT": {
