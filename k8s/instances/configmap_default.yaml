@@ -4,4 +4,5 @@ metadata:
   name: $SERVICE_NAME-environment-variables-default
   SC_SHORT_TITLE: HPI Schul-Cloud
   SC_TITLE: HPI Schul-Cloud
+  # default as name should replace with sc
 
