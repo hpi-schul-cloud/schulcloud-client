@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: $SERVICE_NAME-environment-variables-brb
+data:
+  TEST: '1'
+  SC_PRODUCTNAME: Brandenburg Schul-Cloud
+  SC_SHORT_TITLE: Brandenburg Schul-Cloud
+  SC_TITLE: Brandenburg Schul-Cloud
+  SC_NAV_TITLE: Brandenburg Schul-Cloud

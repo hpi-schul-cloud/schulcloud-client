@@ -22,7 +22,7 @@ env:
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: gke-test
   STAGING_DOMAIN: devops-wizard.com
-  SC_THEME: default #brb demo int n21 open thr
+  BUILD_THEME: default #brb demo int n21 open thr
   # GCP_PROJECT_ID: otters-cc
 
 jobs:
@@ -56,7 +56,7 @@ jobs:
         echo "CERT_NAME=$CERT_NAME" >> $GITHUB_ENV
         echo "BUILD_IMAGE=$BUILD_IMAGE" >> $GITHUB_ENV
         echo "HOSTNAME=$HOSTNAME" >> $GITHUB_ENV
-        echo "SC_THEME=$SC_THEME" >> $GITHUB_ENV
+        echo "SC_THEME=$BUILD_THEME" >> $GITHUB_ENV
         
     - name: Checkout
       uses: actions/checkout@v2
@@ -85,7 +85,7 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |        
-        docker build -t $BUILD_IMAGE \
+        docker build --build-arg BUILD_THEME=$BUILD_THEME -t $BUILD_IMAGE \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" .
     # Push the Docker image to Google Container Registry
@@ -109,6 +109,8 @@ jobs:
         cat k8s/service.yaml | envsubst | kubectl apply -n $NAMESPACE -f -
         cat k8s/ingress.yaml | envsubst
         cat k8s/ingress.yaml | envsubst | kubectl apply -n $NAMESPACE -f -
+
+        cat k8s/instances/configmap_brb.yaml | envsubst | kubectl apply -n $NAMESPACE -f - 
 
         kubectl get secret $CERT_NAME -o json \
         | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid"])' \
