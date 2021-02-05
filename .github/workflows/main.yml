@@ -22,6 +22,7 @@ env:
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: gke-test
   STAGING_DOMAIN: devops-wizard.com
+  SC_THEME: default #brb demo int n21 open thr
   # GCP_PROJECT_ID: otters-cc
 
 jobs:
@@ -55,6 +56,7 @@ jobs:
         echo "CERT_NAME=$CERT_NAME" >> $GITHUB_ENV
         echo "BUILD_IMAGE=$BUILD_IMAGE" >> $GITHUB_ENV
         echo "HOSTNAME=$HOSTNAME" >> $GITHUB_ENV
+        echo "SC_THEME=$SC_THEME" >> $GITHUB_ENV
         
     - name: Checkout
       uses: actions/checkout@v2

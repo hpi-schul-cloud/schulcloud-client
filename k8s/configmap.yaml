@@ -12,7 +12,7 @@ data:
   BACKEND_URL: http://schulcloud-server
   CALENDAR_SERVICE_ENABLED: 'true'
   SC_DOMAIN: devops-wizard.com
-  SC_THEME: default
+  SC_THEME: $SC_THEME
   SC_PRODUCTNAME: HPI Schul-Cloud
   SC_SHORT_TITLE: HPI Schul-Cloud
   SC_TITLE: HPI Schul-Cloud
