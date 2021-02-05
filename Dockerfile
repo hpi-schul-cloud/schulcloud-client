@@ -7,6 +7,7 @@ EXPOSE 3100
 
 WORKDIR /home/node/app
 
+RUN echo `pwd`
 COPY ./package.json .
 COPY ./package-lock.json .
 # fix for intergrations tests
