@@ -4,6 +4,7 @@
 .move-handle {
 	cursor: move;
 	white-space: nowrap;
+	color: $colorWhite;
 }
 
 .count-badge {
@@ -32,13 +33,16 @@
 	.btn-course-dropdown {
 		padding: 0;
 		background-color: white;
-		color: $primaryColor;
 		.i-cog {
 			font-size: medium;
 			color: $fontColor;
 			margin-left: 10px;
 		}
 	}
+
+	.dropdown-toggle:hover {
+        color: $primaryColor !important;
+    }
 
 	.course-headline {
 		display: inline-block;
