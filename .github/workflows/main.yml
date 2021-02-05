@@ -103,6 +103,9 @@ jobs:
         cat k8s/namespace.yaml | envsubst | kubectl apply -f - 
         cat k8s/configmap.yaml | envsubst
         cat k8s/configmap.yaml | envsubst | kubectl apply -n $NAMESPACE -f - 
+
+        cat k8s/instances/configmap_$BUILD_THEME.yaml | envsubst | kubectl apply -n $NAMESPACE -f -
+
         cat k8s/deployment.yaml | envsubst
         cat k8s/deployment.yaml | envsubst | kubectl apply -n $NAMESPACE -f -
         cat k8s/service.yaml | envsubst
@@ -110,7 +113,7 @@ jobs:
         cat k8s/ingress.yaml | envsubst
         cat k8s/ingress.yaml | envsubst | kubectl apply -n $NAMESPACE -f -
 
-        cat k8s/instances/configmap_brb.yaml | envsubst | kubectl apply -n $NAMESPACE -f - 
+
 
         kubectl get secret $CERT_NAME -o json \
         | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid"])' \
