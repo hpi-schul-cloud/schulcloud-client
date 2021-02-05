@@ -68,7 +68,7 @@
 		},
 		"FEATURE_LOG_REQUEST": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Enables the log of req data like request body"
 		},
 		"MORGAN_LOG_FORMAT": {
