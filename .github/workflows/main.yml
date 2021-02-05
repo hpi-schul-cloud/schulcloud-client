@@ -22,7 +22,7 @@ env:
   REGISTRY_HOSTNAME: gcr.io
   DEPLOYMENT_NAME: gke-test
   STAGING_DOMAIN: devops-wizard.com
-  BUILD_THEME: default #brb demo int n21 open thr
+  BUILD_THEME: brb #default brb demo int n21 open thr
   # GCP_PROJECT_ID: otters-cc
 
 jobs:
