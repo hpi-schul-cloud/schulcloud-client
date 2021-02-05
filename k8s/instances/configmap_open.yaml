@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: $SERVICE_NAME-environment-variables-brb
+  name: $SERVICE_NAME-environment-variables-open
 data:
   SC_SHORT_TITLE: Open Schul-Cloud
   SC_TITLE: Open Schul-Cloud

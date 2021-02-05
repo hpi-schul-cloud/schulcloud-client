@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: $SERVICE_NAME-environment-variables-brb
+  name: $SERVICE_NAME-environment-variables-int
 data:
   SC_SHORT_TITLE: Internationale Schulcloud
   SC_TITLE: Internationale Schulcloud

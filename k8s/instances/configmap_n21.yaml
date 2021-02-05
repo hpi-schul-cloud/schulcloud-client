@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: $SERVICE_NAME-environment-variables-brb
+  name: $SERVICE_NAME-environment-variables-n21
 data:
   SC_SHORT_TITLE: Niedersächsische Bildungscloud
   SC_TITLE: Niedersächsische Bildungscloud

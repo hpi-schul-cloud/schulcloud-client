@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: $SERVICE_NAME-environment-variables-brb
+  name: $SERVICE_NAME-environment-variables-demo
 data:
   SC_SHORT_TITLE: Demo HPI Schul-Cloud
   SC_TITLE: Demo HPI Schul-Cloud

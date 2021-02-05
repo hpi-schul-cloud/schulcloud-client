@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: $SERVICE_NAME-environment-variables-thr
+data:
+  SC_SHORT_TITLE: Thüringer Schulcloud
+  SC_TITLE: Thüringer Schulcloud
