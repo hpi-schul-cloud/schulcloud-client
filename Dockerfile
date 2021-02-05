@@ -15,9 +15,10 @@ RUN npm set unsafe-perm true && npm install -g gulp-cli && npm ci
 COPY . .
 #COPY ./localtime /etc/localtime
 
-ARG BUILD_THEME=default
+#ARG BUILD_THEME=default
 ENV SC_THEME=$BUILD_THEME
 ENV TZ=Europe/Berlin
+RUN echo BUILD_THEME=$BUILD_THEME
 RUN gulp clear-cache
 RUN gulp
 

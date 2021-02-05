@@ -25,6 +25,8 @@ spec:
           envFrom:
           - configMapRef:
               name: $SERVICE_NAME-environment-variables
+          - configMapRef:
+            name: $SERVICE_NAME-environment-variables_$SC_THEME
           ports:
           - name: web
             containerPort: 3100
