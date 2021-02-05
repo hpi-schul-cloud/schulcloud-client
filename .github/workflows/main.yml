@@ -85,9 +85,7 @@ jobs:
     # Build the Docker image
     - name: Build
       run: |
-        cat Dockerfile | envsubst | docker build -t $BUILD_IMAGE \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" .
+        cat Dockerfile | envsubst | docker build -t $BUILD_IMAGE
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |
