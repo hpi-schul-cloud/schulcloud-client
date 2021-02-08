@@ -4,7 +4,7 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const config = {
 	defaultLanguage: 'de',
 	fallbackLanguage: 'de',
-	availableLanguages: 'de,en',
+	availableLanguages: 'de,en,es',
 };
 
 const mockReq = {
@@ -18,7 +18,7 @@ Configuration.set('I18N__FALLBACK_LANGUAGE', config.fallbackLanguage);
 Configuration.set('I18N__AVAILABLE_LANGUAGES', config.availableLanguages);
 const i18n = require('../../../helpers/i18n');
 
-describe('i18n helpers test', () => {
+describe.only('i18n helpers test', () => {
 	it('Check for defaultLanguage', () => {
 		chai
 			.expect(i18n.defaultLanguage)
