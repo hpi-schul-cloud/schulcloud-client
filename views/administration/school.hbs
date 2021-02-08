@@ -197,11 +197,11 @@
 							</label>
 
 							<input id="officialSchoolNumber" {{#if ../school.officialSchoolNumber}}disabled{{/if}} value="{{../school.officialSchoolNumber}}" type="text" pattern="\D{0,2}-*\d{5}$" class="form-control" name="officialSchoolNumber"
-								placeholder="12345" {{#if ../schoolUsesLdap}} readonly{{/if}}
+								placeholder="12345" 
 								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
 								readonly{{/userHasPermission}}/>
 							 <div class="text-danger" style="font-size:0.75rem;">
-								 {{$t "administration.school.text.changeSchoolValueWarnig"}}
+								 {{$t "administration.school.text.changeSchoolValueWarning"}}
 							</div>
 						</div>
 						{{#ifneq 0 (arrayLength ../school.federalState.counties)}}
@@ -225,7 +225,7 @@
 								{{/if}}
 							</select>
 							<div class="text-danger" style="font-size:0.75rem;">
-      							{{$t "administration.school.text.changeSchoolValueWarnig"}}
+      							{{$t "administration.school.text.changeSchoolValueWarning"}}
 							</div>
 							</div>
 						{{/ifneq}}

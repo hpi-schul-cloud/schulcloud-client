@@ -7,5 +7,6 @@
 		"HOST_ONLY": false,
 		"SECURE": false,
 		"EXPIRES_SECONDS": 2592000000
-	}
+	},
+	"FEATURE_LOG_REQUEST": true
 }

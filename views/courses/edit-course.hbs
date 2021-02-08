@@ -119,7 +119,7 @@
 				</div>
 
 				<div class="form-group">
-					<label for="teacherId">{{$t "courses.global.label.courseTeacher"}}</label>
+					<label for="teacherId">{{$t "administration.global.label.teachingTeacher"}}</label>
 
 					<select id="teacherId" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
@@ -133,6 +133,8 @@
 							</option>
 						{{/each}}
 					</select>
+					<span class="small course-validation-error" id="courseTeacherErr">
+					{{$t "courses.global.input.noCourseTeacher"}}</span>
 				</div>
 
 				<div class="form-group">
@@ -170,7 +172,7 @@
 				</div>
 
 				<div class="form-group">
-					<label for="studentsId">{{$t "courses._course.global.label.studentParticipant"}}</label>
+					<label for="studentsId">{{$t "administration.global.label.studentParticipants"}}</label>
 					<select id="studentsId" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each students}}

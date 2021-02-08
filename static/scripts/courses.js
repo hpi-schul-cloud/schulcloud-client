@@ -4,6 +4,14 @@ import { dateStringToMoment } from './datetime/datetime';
 
 /* eslint-disable max-len */
 $(document).ready(() => {
+	// Safari 3.0+ "[object HTMLElementConstructor]"
+	const remoteNotification = (p) => (p.toString() === '[object SafariRemoteNotification]');
+	const isSafari = /constructor/i.test(window.HTMLElement)
+	|| remoteNotification(!window.safari || (typeof safari !== 'undefined' && safari.pushNotification));
+	if (isSafari) {
+		$('.safari-workaround').show();
+	}
+
 	$('.js-course-name-input').change(function courseNameInput() {
 		$(this).val($(this).val().trim());
 	});
@@ -429,10 +437,23 @@ $(document).ready(() => {
 		const selectedOptionsArray = $('#teacherId').val();
 		const input = $('.chosen-search-input')[0];
 
-		setValidity(input, null, (selectedOptionsArray.length < 1));
+		if (selectedOptionsArray.length < 1) {
+			setValidity(input, '#courseTeacherErr', true);
+			$('.chosen-search-input').css('box-shadow', 'none');
+			$('#teacherId_chosen').css('box-shadow', '0 0 5px 1px #ff1134');
+		} else {
+			setValidity(input, '#courseTeacherErr', false);
+			$('#teacherId_chosen').css('box-shadow', 'none');
+		}
 	});
 
 	$('#startDate, #untilDate').on('change', () => {
 		setValidity($('#startDate')[0], '#invalidTimeError', !isFirstDateSameOrBeforeLastDate());
+	});
+
+	$(document).on('change', '.lengthOfLesson', (e) => {
+		const inputElement = $(`[name="${e.target.name}"]`)[0];
+		const errElement = `[name="${e.target.name}[err]"]`;
+		setValidity(inputElement, errElement, (e.target.value < 0));
 	});
 });
