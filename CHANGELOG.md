@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.0.2] - 2021-03-22
+
+## Added
+
+- SC-8156 - Added Spanish as an available language
+
 ## [26.0.1] - 2021-03-17
 
 ### Fixed
@@ -68,10 +74,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## 25.5.4
 
 ### Added
+
 - SC-8447 - add feature flag to enable or disable request logs
+
 ## 25.5.3
 
 ### Fixed
+
 - SC-8189 - fixed course event duplication by updating the course
 
 ## 25.5.2

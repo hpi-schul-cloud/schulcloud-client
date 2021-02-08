@@ -1,0 +1,3061 @@
+{
+	"about": {
+		"button": {
+			"showLess": "mostrar menos",
+			"showMore": "mostrar más"
+		},
+		"headline": {
+			"bestPractice": "Escuelas de mejores prácticas",
+			"educSupp": "Apoyo científico educativo",
+			"morePublications": "Otras publicaciones",
+			"ourAwards": "Nuestros premios",
+			"pilotSchool": "Escuelas piloto",
+			"project": "Proyecto",
+			"publications": "Publicaciones",
+			"recordingsLecture": "Grabaciones de conferencias",
+			"title": "Acerca de la nube escolar de HPI"
+		},
+		"link": {
+			"awardWinnerIdea": "Nombramiento como \"Excelente Lugar\" en el concurso nacional \"Tierra de Ideas\"",
+			"awardWinnerInnovation": "Ganador del \"Premio a la Innovación Berlín Brandeburgo 2018",
+			"cloudGermanyConcept": "La nube escolar en Alemania: concepto y prueba piloto de la nube escolar de HPI",
+			"cloudImportanceStakeholder": "Los ordenadores de la escuela se están migrando a la nube: ¿qué significa esto para las distintas partes interesadas?",
+			"hpiCloudDuringLesson": "La nube escolar de HPI en el aula: escenarios y métodos de enseñanza interdisciplinarios",
+			"hpiCloudInDayLife": "La nube escolar de HPI en la enseñanza y la vida escolar diaria: valor añadido y requisitos",
+			"hpiCloudLearning": "Nube escolar de HPI y aprendizaje 4.0: ejemplos de mejores prácticas de enseñanza para escuelas secundarias",
+			"hpiCloudTechnicalReport": "Informe técnico: Nube escolar de HPI: implementación de una arquitectura en la nube para escuelas en Alemania",
+			"shortDescription": "Short description \"The HPI Schul-Cloud\" (.pdf) [Breve descripción \"La nube escolar de HPI\"]",
+			"talksFirstCloudForum": "Presentaciones del primer foro de la nube escolar de HPI (abril de 2017)",
+			"talksSecondCloudForum": "Presentaciones del segundo foro de la nube escolar de HPI (marzo de 2018)",
+			"talksThirdCloudForum": "Presentaciones del tercer foro de la nube escolar de HPI (marzo de 2019)"
+		},
+		"text": {
+			"browserNotSupported": "Tu navegador no puede mostrar el PDF integrado. Puedes verlo aquí:",
+			"startA2019": "(Inicio en agosto de 2019)",
+			"startF2019": "(Inicio en febrero de 2019)",
+			"startM2017": "(Inicio en marzo de 2017)",
+			"startM2018": "(Inicio en mayo de 2018)"
+		}
+	},
+	"account": {
+		"button": {
+			"activateNotifications": "Activar notificaciones",
+			"saveAccountSettings": "Guardar la configuración de la cuenta",
+			"saveTeamSettings": "Guardar la configuración del equipo",
+			"sendTestNotification": "Enviar notificación de prueba"
+		},
+		"global": {
+			"label": {
+				"currentPassword": "Contraseña actual:",
+				"newPassword": "Nueva contraseña:",
+				"operatingSystem": "Sistema operativo",
+				"repeatNewPassword": "Repetir nueva contraseña:"
+			},
+			"text": {
+				"name": "Nombre",
+				"noThirdPartyProvidersUsed": "No se utilizan proveedores de terceros",
+				"thirdPartyLogins": "Inicios de sesión de terceros"
+			}
+		},
+		"headline": {
+			"yourAccount": "Tu cuenta"
+		},
+		"label": {
+			"notificationSettings": "Configuración de las notificaciones",
+			"providers": "Proveedor"
+		},
+		"teams": {
+			"button": {
+				"changeTeamSettings": "Cambiar la configuración del equipo"
+			},
+			"headline": {
+				"teamSettings": "Configuración del equipo"
+			},
+			"label": {
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "La visibilidad en el directorio central está activada en todo el sistema para todos los profesores y no se puede desactivar.",
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in": "Activar visibilidad en el directorio central",
+				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Desactivar la visibilidad en el directorio central"
+			},
+			"text": {
+				"hintVisibility": "Los profesores de otras escuelas que son administradores de equipo pueden invitarte fácilmente a un equipo formado por varias escuelas a través del servicio de directorio central de {{short_title}}. Tu nombre está asignado a tu escuela y es accesible en la estructura del directorio en <i>Nombre de tu estado&raquo;Nombre de tu escuela&raquo;Tu nombre<\/i>.",
+				"visibilityTeamInvitations": "Visibilidad de las invitaciones de equipo",
+				"visibilityTeamInvitationsDisabled": "La visibilidad de las invitaciones de equipo está desactivada"
+			}
+		},
+		"testNotification": {
+			"headline": {
+				"newTestNotification": "Notificación de nueva prueba"
+			},
+			"text": {
+				"youHaveANewNotification": "Tienes una nueva notificación"
+			}
+		},
+		"text": {
+			"centralIdentityManagement": "Los datos de usuario se sincronizan mediante una administración de identidades central (IDM). Los cambios en él solo se pueden realizar en el sistema de origen (por ejemplo, el servidor escolar) en el que se basan los datos en el IDM. Ponte en contacto con el administrador local de tu escuela para realizar cambios en tus datos de usuario.",
+			"noDeviceEntered": "No se han introducido dispositivos",
+			"preferencesUpdateError": "¡Ha habido un error en las preferencias!",
+			"preferencesUpdates": "¡Se han actualizado las preferencias!"
+		},
+		"thirdPartyProviders": {
+			"headline": {
+				"thirdPartyProviderLogin": "Inicios de sesión de terceros"
+			}
+		}
+	},
+	"addons": {
+		"headline": {
+			"portfolio": "Portafolio"
+		},
+		"text": {
+			"portfolioDescription": "Crea tu portafolio digital en un sistema de aprendizaje personal flexible. Comparte tus éxitos y tu desarrollo en un lugar que puedes diseñar tú mismo. Trabaja con otros en grupos."
+		}
+	},
+	"administration": {
+		"button": {
+			"changePassword": "Cambiar contraseña",
+			"consent": "Consentimientos:",
+			"generatePersonalInvitationLink": "Generar enlace de invitación personal",
+			"printListWithAccessData": "Imprimir lista con datos de acceso",
+			"receivedConsentOnPaper": "Consentimiento recibido en papel",
+			"sendTheInvitationLinkByMail": "Enviar enlace de invitación por correo electrónico"
+		},
+		"classes": {
+			"button": {
+				"addClass": "Añadir clase",
+				"addStudentsFromPreviousYearClass": "Añadir estudiante de la clase del año anterior",
+				"classInSchoolYear": "Mover clase al año escolar <span data-from=\"schoolyear\"><\/span>",
+				"declareConsentOnBehalfOfTheStudents": "Declarar consentimiento en nombre del estudiante",
+				"transferClassToTheNextSchoolYear": "Mover la clase al próximo año escolar"
+			},
+			"headline": {
+				"importClass": "Importar clase",
+				"questionStudentsNotInSystem": "¿Tus estudiantes no están todavía en {{shortTitle}}?"
+			},
+			"label": {
+				"addStudentFromPreviousYearClass": "Añadir estudiantes de la clase del año anterior",
+				"all": "Todos",
+				"class": "Clase:",
+				"className": "Nombre de la clase",
+				"filterBySchoolYear": "Filtrar por año escolar",
+				"grade": "Curso",
+				"maintainSchoolYearAssignment": "Mantener asignación del año escolar",
+				"pleaseNote": "Ten en cuenta:",
+				"renameClass": "Cambiar el nombre de la clase",
+				"selectElement": "No hay selección",
+				"selectTeacher": "Seleccionar profesor (también es posible más adelante)"
+			},
+			"placeholder": {
+				"exampleName": "por ejemplo, clase rana 3-4"
+			},
+			"text": {
+				"attentionIfYouChangeTheSchoolYear": "¡Atención! Si cambias el año escolar, se restablecerá tu selección de clases del año anterior.",
+				"className": "Nombre de la clase:",
+				"createClass": "Puedes crear clases independientes del año escolar con nombres libres. El administrador no puede <i>mover<\/i> estas clases, pero debe actualizarlas manualmente.",
+				"inviteTheParentsViaLink": "Invitar a los padres a través de un enlace a registrar a sus hijos en tu clase y enviar la declaración electrónica de consentimiento.",
+				"linkCopiedToClipboard": "El enlace se ha copiado en tu portapapeles.",
+				"manageClass": "Administrar clase",
+				"manuallyGiveConsentForAllStudent": "Declarar manualmente el consentimiento de todos los estudiantes",
+				"nextPageYouWillReceiveConfirmation": "En la página siguiente recibirás una confirmación y tendrás la oportunidad de imprimir todas las contraseñas de inicio junto con las instrucciones para tus alumnos.",
+				"noClassesInYear": "No hay clases disponibles en este año",
+				"noLackOfInformedConsent": "No faltan declaraciones de consentimiento en esta clase.",
+				"required": "obligatorio",
+				"signAgreement": "En esta página puedes declarar tu consentimiento de la <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">política de privacidad<\/a> y las <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Condiciones de uso<\/a> de {{shortTitle}} en nombre de los estudiantes. <br>Al hacer clic en <i>Declarar consentimiento en nombre del estudiante<\/i> confirmas que has obtenido el consentimiento del estudiante o de sus padres por otro medio.",
+				"theNextStepIsToInviteOrAdd": "En el siguiente paso puedes invitar o añadir estudiantes a la clase."
+			}
+		},
+		"controller": {
+			"global": {
+				"label": {
+					"class": "Clase",
+					"classUsers": "Usuarios de la clase",
+					"consentStatus": "Registro",
+					"createdOn": "Creado el",
+					"email": "Dirección de correo electrónico"
+				}
+			},
+			"headline": {
+				"administration": "Administración:",
+				"alias": "Alias",
+				"attendees": "Asistentes",
+				"briefDescription": "Breve descripción",
+				"classes": "Clases {{title}}",
+				"courses": "Cursos {{title}}",
+				"createdOn": "Creado el",
+				"creationDate": "Fecha de creación",
+				"declarationOfConsentStatus": "Estado de la declaración de consentimiento",
+				"domain": "Dominio",
+				"editClass": "Editar la clase '{{name}}'",
+				"externalExpert": "Experto externo",
+				"general": "General {{title}}",
+				"helpdesk": "Centro de ayuda {{title}}",
+				"itsOn": "Estado actual",
+				"manageClass": "Administrar la clase '{{name}}'",
+				"management": "Administración:",
+				"members": "Miembros",
+				"owner": "Propietario",
+				"remarks": "Observaciones",
+				"school": "Escuela {{title}}",
+				"schools": "Escuela(s)",
+				"status": "Estado",
+				"students": "Estudiante {{title}}",
+				"targetState": "Estado objetivo",
+				"teacher": "Profesor {{title}}",
+				"teams": "Equipos {{title}}",
+				"upgradeClass": "Mover la clase '{{name}}' al nuevo año escolar",
+				"uploadedOn": "Subido el"
+			},
+			"label": {
+				"domainName": "Nombre de dominio",
+				"email": "Correo electrónico",
+				"inactive": "{{alias}} (inactivo)",
+				"roles": "Rol(es)",
+				"status": "Estado: % 1",
+				"teamChatActive": "El chat está activado",
+				"teamFoundedAtOwnSchool": "Equipo fundado en la propia escuela",
+				"teamHasOwner": "El equipo tiene propietarios",
+				"teamIncludesExternalMembers": "Incluye miembros de fuera de la escuela"
+			},
+			"link": {
+				"addAnotherOwner": "Añadir otro propietario",
+				"changePassword": "Cambiar contraseña",
+				"completeEntry": "Completar entrada",
+				"createANewClass": "Crea una nueva clase",
+				"deleteClass": "Eliminar clase",
+				"deleteEntry": "Eliminar entrada",
+				"editClass": "Editar clase",
+				"editEntry": "Editar entrada",
+				"editingStudents": "Editar estudiantes",
+				"editLDAP": "Editar LDAP",
+				"editTeacher": "Editar profesor",
+				"editUsers": "Editar usuarios",
+				"manageClass": "Administrar clase",
+				"removeMembers": "Eliminar miembros de tu propia escuela del equipo",
+				"resetPassword": "Restablecer la contraseña",
+				"schoolPrivacyPolicy": "Política de privacidad de la escuela",
+				"sendEntryToDevelopmentTeam": "Enviar entrada al equipo de desarrollo",
+				"sendMessageToOwner": "Envía un mensaje al propietario",
+				"toGiveConsent": "Dar consentimiento",
+				"transferClassToTheNextSchoolYear": "Mover la clase al próximo año escolar"
+			},
+			"tab_label": {
+				"archivedClasses": "Archivo"
+			},
+			"text": {
+				"active": "Activo",
+				"agreementSuccessfullyDeclared": "Consentimiento declarado correctamente",
+				"anotherSchoolWasFounded": "ha sido fundado en otra escuela y por lo tanto no es posible",
+				"anUnknownErrorOccurred": "Se ha producido un error desconocido durante la importación.",
+				"changesSuccessfullySaved": "Cambios guardados correctamente",
+				"checkingTheLDAPData": "Verificación de los datos LDAP para el nuevo año escolar",
+				"closed": "Cerrado",
+				"consentGrantedSuccessfully": "Consentimientos otorgados correctamente",
+				"createdOn": "Creado el",
+				"declarationOfConsentAvailable": "Las declaraciones de consentimiento necesarias para el registro están disponibles",
+				"emailDeclarationOfConsent": "Hola, {{name}}:\nDesafortunadamente todavía nos falta tu declaración de consentimiento.\nNo puedes usar la nube escolar de HPI sin ella. \n\nInicia sesión con tus datos\npara aceptar la declaración de consentimiento y así poder utilizar todos los servicios de la nube escolar de HPI. \n\nVe a {{link}} para iniciar sesión.",
+				"emailDeclarationOfConsentSubject": "El último paso para activar {{title}}",
+				"errorCreatingRegistrationLink": "Error al crear el enlace de registro. Genera y comparte el enlace de registro en el perfil de usuario de forma independiente. {{errMessage}}",
+				"errorImportingUsers": "Error: {{errorMessage}}",
+				"failedToCreateUser": "Error al crear el usuario. {{error}}",
+				"importFailed": "Error al importar. Comprueba los datos introducidos e inténtalo de nuevo.",
+				"importMayBeStillRunning": "Importación en curso. Este proceso puede tardar unos minutos dependiendo del tamaño del archivo.",
+				"inTheQueue": "En cola",
+				"invitationEmailContent": "Invitación para {{title}} Hola, {{firstName}} {{lastName}}:\nTe invitamos a unirte a {{title}}, completa tu registro en el siguiente enlace: {{shortLink}}\nTu equipo de {{shortTitle}} te desea un buen comienzo y espera que te diviertas",
+				"invitationEmailSubject": "Invitación para usar {{title}}.",
+				"noDeclarationOfConsentAvailable": "Formulario de consentimiento no disponible",
+				"onlyAllMembers": "Solo los miembros de tu propia escuela pueden ser eliminados del equipo",
+				"open": "Abrir",
+				"parentsAgreed": "Los padres han dado su conformidad, el estudiante sigue abierto",
+				"passTheRegistrationLinkDirectly": "Enviar el enlace de registro directamente al estudiante.",
+				"registrationExplanation": "Primero comparte el enlace de registro con los padres. Ellos se encargan de crear los datos del alumno y declaran electrónicamente su consentimiento. A continuación, el estudiante se registra en {{title}} y puedes verlo en tu lista de clases. El estudiante puede iniciar sesión con su dirección de correo electrónico y su contraseña inicial individual. Después de iniciar sesión por primera vez, cada estudiante debe cambiar su contraseña. Si el alumno es mayor de 14 años, también deberá dar su consentimiento electrónico para utilizar {{title}}.",
+				"removeStudentsFromYourOwnSchool": "Elimina a los estudiantes de tu propia escuela del equipo. Solo es posible si el equipo se ha fundado en otra escuela y, por lo tanto, no es posible otorgarle a otra persona los derechos de administración del equipo.",
+				"retrieveFailed": "Error durante la recuperación",
+				"schoolYearPercentage": "Año escolar: % 1",
+				"setupFailed": "Error en el programa de instalación. Inténtalo de nuevo más tarde.",
+				"sortBy": "Ordenar por: %1",
+				"stillLackOfDeclaration": "Hola, {{name}}: Desafortunadamente aún nos falta tu declaración de consentimiento. No puedes usar la nube de la escuela sin ella. Inicia sesión con tus datos para aceptar la declaración de consentimiento y así poder utilizar todos los servicios de la nube escolar. Ve a {{shortLink}} {{shortLink}} para iniciar sesión.",
+				"submitted": "Enviado",
+				"successfullyImportedUser": "{{amountImported}} de {{amountTotal}} usuarios importados correctamente ({{amountCreated}} creados {{amountUpdated}} actualizados).",
+				"successfullyImportedUsers": "{{amountImported}} de {{amountTotal}} usuarios importados correctamente ({{amountCreated}} creados {{amountUpdated}} actualizados).",
+				"thereWasAnError": "Se ha producido un error al dar el consentimiento.",
+				"theStepsForTheParentsAreOmitted": "Los pasos para los padres se omiten de forma automática.",
+				"theTeamCanOnlyBeDeleted": "La eliminación de equipos solo es posible para los equipos de tu propia escuela",
+				"userCreatedErrorSendingTheMail": "El usuario ha sido creado. Error al enviar el correo electrónico. Genera y comparte el enlace de registro en el perfil de usuario de forma independiente. {{errMessage}}",
+				"userCreatedSuccessfully": "Usuario creado correctamente.",
+				"userCreatedSuccessfullyAndRegistration": "El usuario se ha registrado con éxito y el enlace de registro se ha enviado correctamente por correo electrónico.",
+				"whenLoggingInForTheFirstTime": "Al iniciar sesión por primera vez, el estudiante debe cambiar su contraseña. Si ha proporcionado una dirección de correo electrónico, en caso de pérdida, se le puede enviar la contraseña modificada o generar una nueva contraseña. Como alternativa, puedes hacer clic en Editar detrás del nombre del estudiante en el área Administración > Estudiantes. A continuación, el estudiante puede volver a introducir su contraseña en el dispositivo.",
+				"yourStudentsAreAtLeast": "¿Tus alumnos tienen al menos {{age}} años?",
+				"yourStudentsAreUnder": "¿Tus alumnos tienen menos de {{age}} años?"
+			}
+		},
+		"dashboard": {
+			"headline": {
+				"manageClasses": "Administrar clases",
+				"manageCourses": "Administrar cursos",
+				"manageSchool": "Administrar escuela",
+				"manageStudents": "Administrar estudiantes",
+				"manageTeachers": "Administrar profesores",
+				"manageTeams": "Administrar equipos"
+			}
+		},
+		"form_DeleteRss": {
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingRSS": "¿Estás seguro de que deseas eliminar la siguiente fuente RSS?"
+			}
+		},
+		"form_DeleteUser": {
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingUser": "¿Estás seguro de que deseas eliminar a los siguientes usuarios?"
+			}
+		},
+		"form_Import": {
+			"label": {
+				"selectCSVFile": "Seleccionar archivo CSV",
+				"sendRegistrationLinkToUsers": "Enviar enlaces de registro a los usuarios inmediatamente después de la importación"
+			},
+			"text": {
+				"alternativelyYouCanCallUpTheRegistration": "Como alternativa, puedes solicitar los enlaces de registro más tarde y enviarlos a tus usuarios por correo electrónico o una hoja de impresión con código QR.",
+				"attention": "⚠️ ATENCIÓN: al importar conjuntos de datos grandes, se muestra un mensaje de error poco después del inicio. El proceso de la importación continúa de forma invisible en segundo plano. Duración: aproximadamente 4 minutos por cada 1000 usuarios. Espera el tiempo correspondiente y luego actualiza la ventana de tu navegador para revisar la visión general actualizada del estudiante.",
+				"importUserData": "Importa datos de usuario mediante un archivo .csv (<a href=\"#\" id=\"csv-import-example\">ejemplo<\/a>) y envía a tus usuarios un enlace de registro.",
+				"youCanFindMoreInformationOnTheStructure": "Puedes encontrar más información sobre la estructura del archivo .csv, la asignación de clases y el proceso de registro <a href=\"https:\/\/docs.schul-cloud.org\/x\/NYBgAw\" target=\"_blank\">aquí<\/a>."
+			}
+		},
+		"form_InvitationStudent": {
+			"label": {
+				"distributeLinkToInvite": "Para invitar a la nube escolar de HPI, envía el siguiente enlace a:"
+			},
+			"text": {
+				"beforeTheSchoolCloudCanBeUsed": "Antes de que sea posible el uso de la nube escolar de HPI, los padres y\/o estudiantes deben haber pasado por el proceso de consentimiento electrónico.",
+				"studentUnderYears": "<b>Estudiantes menores de {{age}} años: <\/b> los padres <br\/> <b> Estudiantes de {{age}} años: <\/b> los propios estudiantes <br\/>"
+			}
+		},
+		"form_InvitationTeacher": {
+			"label": {
+				"distributeTheFollowingLinkToTheTeacher": "Comparte el siguiente enlace con el profesor:"
+			},
+			"text": {
+				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento."
+			}
+		},
+		"form_Policy": {
+			"input": {
+				"schoolsPrivacyPolicy": "Política de privacidad del centro"
+			},
+			"label": {
+				"uploadFile": "Cargar archivo (solo PDF, máximo 4 MB)"
+			},
+			"text": {
+				"important": "Importante:",
+				"whenANewPrivacyPolicyUpdated": "Al cargar una nueva política de privacidad, esta se enviará a todos los usuarios de la escuela para que den su consentimiento."
+			}
+		},
+		"form_Problem": {
+			"label": {
+				"createdOn": "Creado el:",
+				"itsOn": "Estado actual",
+				"remarks": "Observaciones",
+				"targetState": "Estado objetivo"
+			}
+		},
+		"form_rss": {
+			"label": {
+				"briefDescription": "Breve descripción (opcional)",
+				"urlOfTheRSSSystem": "URL de la fuente RSS"
+			}
+		},
+		"form_System": {
+			"label": {
+				"clientSecret": "Secreto del cliente",
+				"furtherInformation": "Más información (OAuth)",
+				"systemName": "Nombre del sistema",
+				"systemType": "Tipo de sistema",
+				"urlOfTheSystem": "URL del sistema"
+			}
+		},
+		"global": {
+			"button": {
+				"addCourse": "Añadir curso",
+				"bug": "¿Te gustaría informar de un error o tienes alguna idea para mejorar {{title}}?\n Envía tus solicitudes o problemas directamente al servicio de atención al usuario de {{short_title}}.",
+				"contactSupport": "Contactar con el servicio de asistencia",
+				"createLinkSheet": "Crear una hoja impresa con los enlaces",
+				"mailsAreBeingSent": "Enviando correos electrónicos...",
+				"printSheetIsBeingGenerated": "Se está generando la hoja de impresión...",
+				"sendLinksToStudentEmailAddresses": "Enviar enlaces a las direcciones de correo electrónico de los estudiantes"
+			},
+			"helpdesk": {
+				"label": {
+					"tips": "<b>Consejo: <\/b> también puedes reenviar las entradas abiertas desde el centro de ayuda mediante el símbolo <i class=\"fa fa-paper-plane\"><\/i> al servicio de atención al usuario."
+				}
+			},
+			"label": {
+				"afterSavingAllStudentsAdded": "(¡Después de guardar, todos los estudiantes se añadirán automáticamente!)",
+				"assignPassword": "Asignar contraseña:",
+				"chooseDate": "Seleccionar fechas",
+				"chooseSchoolYear": "Seleccionar año escolar",
+				"classes": "Clases:",
+				"colorOfTheCourse": "Color del curso:",
+				"dataProtection": "Privacidad",
+				"lengthOfLesson": "Duración de la lección",
+				"noSubTeacherSelection": "No se ha seleccionado ningún profesor suplente",
+				"parents": "Padres",
+				"schoolYear": "Año escolar",
+				"startOfLesson": "Inicio de la lección",
+				"student": "Estudiante",
+				"studentParticipants": "Estudiante \/ asistente",
+				"substituteTeacher": "Profesor suplente",
+				"teachingTeacher": "Profesor docente",
+				"termsOfUse": "Condiciones de uso",
+				"timeSpan": "Período (por ejemplo, año escolar)",
+				"weekday": "Día de la semana"
+			},
+			"placeholder": {
+				"modelMan": "Mustermann",
+				"selectClasses": "Seleccionar clase(s)",
+				"selectGrade": "Seleccionar curso",
+				"selectOldClasses": "Seleccionar clase(s) antigua(s)",
+				"selectStudent": "Seleccionar estudiantes"
+			},
+			"text": {
+				"areYouSureYouWantToDeleteTheFollowingClass": "¿Estás seguro de que deseas eliminar la siguiente clase?",
+				"areYouSureYouWantToDeleteTheFollowingCourse": "¿Estás seguro de que deseas eliminar el siguiente curso?",
+				"areYouSureYouWantToDeleteTheFollowingItem": "¿Estás seguro de que deseas eliminar el siguiente elemento?",
+				"areYouSureYouWantToDeleteTheFollowingTeam": "¿Estás seguro de que deseas eliminar el siguiente equipo?",
+				"byConnectingToASchoolState": "Al conectarse a un sistema estatal o escolar, los estudiantes ya pueden iniciar sesión en {{shortTitle}}. Pide a tus estudiantes que inicien sesión por primera vez en presencia de su padre, madre o tutor legal para que puedan dar su consentimiento y completar el registro.",
+				"chatIsActivated": "El chat está activado",
+				"errorGeneratingPrintSheet": "Problema al crear la hoja de impresión",
+				"errorSendingMails": "Error al enviar correos electrónicos de recordatorio",
+				"forStudentsUnder": "Para alumnos menores de {{minAge}} años: consentimiento de los padres",
+				"inviteparentsAndStudentViaLink": "Invita a padres y estudiantes a través de un enlace a enviar su consentimiento",
+				"manuallyConsent": "Declarar el consentimiento manualmente",
+				"obtainADeclarationConsent": "Obtener una declaración de consentimiento",
+				"orSelectStudentFromTable": "O seleccionar estudiantes en la tabla.",
+				"studentsLoginInThePresenceOfGuardian": "Los estudiantes deben iniciar sesión en presencia de su padre, madre o tutor legal",
+				"successfullyGeneratedPrintSheet": "Hoja de impresión generada correctamente",
+				"successfullySentMails": "Correos electrónicos de recordatorio enviados correctamente"
+			}
+		},
+		"label": {
+			"analog": "Analógico",
+			"digital": "Digital",
+			"termsOfUse": "Utilizar"
+		},
+		"ldapEdit": {
+			"button": {
+				"verify": "Verificar"
+			},
+			"headline": {
+				"classAttributes": "Atributos de clase",
+				"classAttributesTitle": "Especifica el atributo de clase en el cual está disponible la siguiente información en tu LDAP",
+				"importantNote": "Nota importante",
+				"roleAttributes": "Atributos de rol",
+				"roleAttributesTitle": "¿Qué valor en tu campo de rol definido previamente corresponde al rol mencionado?",
+				"userAttributes": "Atributos de usuario",
+				"userAttributesTitle": "Especifica el atributo de usuario en el cual está disponible la siguiente información en tu LDAP"
+			},
+			"input": {
+				"classes": "Clases (opcional)"
+			},
+			"label": {
+				"classPath": "Ruta de clases",
+				"classPathTitle": "Ruta relativa desde la ruta raíz hasta el nodo LDAP desde donde se puede acceder a todas las clases",
+				"displayName": "Mostrar nombre",
+				"domainName": "Nombre de dominio",
+				"domainName_pathInLDAP": "Nombre de dominio (ruta en LDAP)",
+				"fullPathClassUsers": "Usuario de la clase con ruta completa",
+				"hide": "Ocultar",
+				"noSchoolCloud": "Sin nube escolar de HPI",
+				"noSchoolCloudTitle": "Esto te permite evitar que los usuarios de tu LDAP se transfieran a la nube escolar de HPI.",
+				"rolesAttributes": "Atributos de rol",
+				"rolesAttributesDescription": "¿Qué valor en tu campo de rol definido previamente corresponde al rol mencionado?",
+				"rolesLDAPPaths": "Rutas de rol-LDAP",
+				"rolesLDAPPathsDescription": "¿Qué grupo LDAP define el rol nombrado? Introduce la ruta completa (incluida la ruta raíz)",
+				"roleType": "Tipo de rol",
+				"roleTypeTitle": "¿El rol de usuario (profesor, alumno) se almacena textualmente en el atributo de usuario o hay un grupo LDAP para el rol de usuario respectivo?",
+				"rootPath": "ruta raíz",
+				"rootPathTitle": "Ruta principal de LDAP. Normalmente, DC=dominio, DC=dominio de nivel superior",
+				"searchUserPassword": "buscar-contraseña de usuario",
+				"searchUsers": "buscar-usuarios",
+				"searchUsersTitle": "Nombre de usuario completo (incluyendo la ruta raíz) del usuario que tiene acceso a toda la información del usuario",
+				"show": "Mostrar",
+				"uidTitle": "El nombre de inicio de sesión posterior. Solo debe aparecer una vez en tu LDAP al mismo tiempo",
+				"urlIdapIsMandatory": "URL (ldaps es obligatorio)",
+				"userPath": "Ruta de usuario",
+				"userPathTitle": "Ruta relativa desde la ruta raíz hasta el nodo LDAP desde donde se puede llegar a todos los usuarios. Con la separación de dos puntos y comas (;;) también se pueden especificar varias rutas relativas a los usuarios de LDAP.",
+				"users": "Usuario:",
+				"uuidTitle": "Identificación de usuario única e inalterable. No se puede cambiar como el UID (por ejemplo, a través del matrimonio)"
+			},
+			"placeholder": {
+				"general": "General",
+				"LDAPGroup": "Grupo LDAP",
+				"roleTypePlaceholder": "Seleccionar tipo de LDAP",
+				"userAttribute": "Atributo de usuario"
+			},
+			"text": {
+				"errorActivation": "Problema de activación",
+				"errorLDAPTimeout": "Tiempo de espera de LDAP agotado: las posibles razones son: datos de servidor incorrectos, certificados SSL (ldaps) no firmados oficialmente, datos de usuario incorrectos para el usuario de búsqueda, ruta raíz incorrecta, ruta de usuario incorrecta, ruta de clase incorrecta o ruta de rol LDAP incorrecta. Si no puedes resolver el problema, ponte en contacto con el servicio de asistencia.",
+				"errorTimeout": "Tiempo de espera de la aplicación agotado",
+				"furtherInfoHere": "Puedes encontrar más información sobre la configuración de LDAP en nuestra <a href=\"\/help\/confluence\/55902270\">sección de ayuda<\/a>.",
+				"onlyProtocolLDAP": "LDAP solo es posible a través del protocolo seguro de ldaps.",
+				"verification": "Después de la verificación, puedes obtener una vista previa del contenido que se ha leído. Los contenidos eliminados no se transfieren porque el nombre, el apellido o dirección de correo electrónico del usuario no están disponibles en LDAP."
+			}
+		},
+		"ldapSchoolYearStart": {
+			"button": {
+				"closeWindow": "Cerrar ventana"
+			},
+			"headline": {
+				"checkTheSynchronizationOfTheDataAvailable": "Verifica la sincronización de los datos en el LDAP para el nuevo año escolar",
+				"LDAPClasses": "Clases de LDAP",
+				"LDAPUsers": "Usuarios de LDAP"
+			},
+			"text": {
+				"onThisPageYouWillFindTheData": "En esta página encontrarás los datos de todas las clases y usuarios, ya que {{shortTitle}} los toma de tu LDAP. Consulta los datos de forma aleatoria para verificar su exactitud antes de transferirlos al finalizar la fase de transferencia."
+			}
+		},
+		"longText": {
+			"text": {
+				"afterVerificationCanPreviewTheReadContent": "Después de la verificación, puedes obtener una vista previa del contenido que se ha leído. Los contenidos eliminados no se transfieren porque el nombre, el apellido y\/o la dirección de correo electrónico del usuario no están disponibles en el LDAP.",
+				"anyChangesToTheFollowingConfiguration": "Cualquier cambio que realices en la siguiente configuración puede provocar que el inicio de sesión ya no funcione ni para ti ni para todos los usuarios de tu escuela. Por lo tanto, realiza cambios solo si eres consciente de las consecuencias. Algunas secciones son de solo lectura, sin embargo, puedes habilitar la edición de la información haciendo clic en el candado en la sección correspondiente. Después de cada verificación, tu sistema se actualizará y se configurará inicialmente como desactivado. Si la verificación se ha realizado con éxito, no olvides guardar los cambios.",
+				"backgroundSoThatEveryStudentAndTeacher": "Antecedentes: para que todos los estudiantes y todos los profesores puedan acceder al contenido de clases anteriores (por ejemplo, a las fotos de viajes de clase), la nube escolar de HPI guarda la clase y el año escolar en los que estaba un usuario. La nube escolar de HPI proporciona una fase de transferencia para que funcione junto con tu LDAP y las clases que se sincronizan desde él. Este es el procedimiento durante un cambio de año escolar:",
+				"canCreateYearIndependentClasses": "Puedes crear clases independientes con nombres libres. El administrador no puede <i>'mover'<\/i> estas clases, pero debe actualizarlas manualmente.",
+				"canStartTheTransferPhase": "Puedes iniciar la fase de transferencia manualmente a partir de dos semanas antes del inicio de las vacaciones.",
+				"ifAllStudentsAndParentsHaveGiven": "Si el consentimiento ha sido dado por todos los estudiantes y los padres en papel, el consentimiento para toda la clase se puede declarar aquí manualmente.",
+				"ifThereIsNoManualStart": "Si no hay un inicio manual al comienzo de las vacaciones, la fase de transferencia se inicia automáticamente.",
+				"newUsersClassAffiliations": "Los nuevos usuarios añadidos, los miembros de una clase y los cambios en los datos de los usuarios se sincronizan constantemente.",
+				"provideStudentsAndTheirParents": "Proporciona a tus estudiantes y sus padres enlaces individuales para dar su consentimiento de forma digital o analógica. Cuando se complete el registro, se creará una contraseña de inicio de sesión para el estudiante.",
+				"theNewSchoolYearStartsInThe": "El nuevo año escolar comienza en el {{title}} con el tiempo de preparación una semana antes del final de las vacaciones de verano. Independientemente de esto, puedes realizar cambios en las clases del año escolar actual, pasado y futuro en cualquier momento.",
+				"thereIsNoDeclarationOfConsent": "Todavía no existe ningún formulario de consentimiento para el usuario. Solicita un enlace de invitación personal para completar el registro y compartirlo con el usuario o con sus padres. Durante el registro, el propio usuario otorga el consentimiento. Si una declaración de consentimiento está disponible en papel, el usuario se puede activar haciendo clic en 'Consentimiento recibido en papel' y se puede asignar una contraseña de inicio. Esto desbloqueará el inicio de sesión.",
+				"theSchoolYearEndsAnd": "El año escolar {{schoolName}} finaliza y comienza la fase de transferencia al nuevo año escolar. <strong>Este paso no se puede deshacer.<\/strong> No se pueden crear ni modificar clases ni usuarios durante este tiempo.",
+				"theSynchronizationOfLDAPMasterData": "La sincronización de los datos maestros LDAP se interrumpe durante la fase de transferencia. Esto significa que los datos de usuario y las clases (si se utilizan) ya no se actualizan a través de LDAP. Todavía es posible iniciar sesión con datos de inicio de sesión que ya se hayan sincronizado. Durante el inicio de sesión también se tienen en cuenta los cambios de contraseña en LDAP.",
+				"useTheTransferPhaseAroundTheSchool": "Utiliza la fase de transferencia en torno al cambio de año escolar para ajustar la afiliación a la clase y los datos personales en el LDAP. Finalmente, transfiere todos los cambios a la nube escolar de HPI a la vez.",
+				"withAllChangesAndSettings": "Con todas las modificaciones y ajustes en el área de administración, confirmas que eres un administrador autorizado de la escuela y que estás autorizado para hacer modificaciones en el centro mediante la nube escolar de HPI. Tu clic se considera una instrucción del centro al HPI.",
+				"wouldYouLikeReportABug": "¿Te gustaría informar de un error o tienes alguna idea para mejorar {{title}}? Envía solicitudes o problemas directamente al servicio de atención al usuario de {{shortTitle}}."
+			}
+		},
+		"school": {
+			"button": {
+				"addLDAPSystem": "Añadir sistema LDAP",
+				"addRSSFeed": "Añadir fuente RSS",
+				"addSystem": "Añadir sistema",
+				"checkLDAPData": "Verificar datos LDAP",
+				"endSchoolYear": "Fin del año escolar",
+				"endTransferPhase": "Finalizar fase de transferencia",
+				"saveGeneralSettings": "Guardar la configuración general",
+				"start": "Iniciar",
+				"startTransferPhase": "Iniciar fase de transferencia"
+			},
+			"headline": {
+				"addPolicy": "Añadir política de privacidad",
+				"finishSchoolYear": "¿Estás seguro de que deseas terminar el curso escolar?",
+				"generalSettings": "Configuración general"
+			},
+			"label": {
+				"activeChatFunction": "Activar función de chat",
+				"activeMatrixFunction": "Activar Matrix Messenger",
+				"afterTheTransferPhaseEnded": "Una vez finalizada la fase de transferencia",
+				"allStudentsVisibility": "La activación de esta opción tiene un nivel alto según la ley de protección de datos. Para activar la visibilidad de todos los alumnos de la escuela para cada profesor, es necesario que cada alumno haya dado su consentimiento de manera efectiva para este tratamiento de datos.",
+				"authentication": "Autenticación",
+				"changeOfClasses": "Cambio de clases \/ nuevas clases",
+				"changeOfUserData": "Cambio de datos de usuario \/ nuevos usuarios",
+				"className": "Nombre de la clase:",
+				"cloudStorageProvider": "Proveedor de almacenamiento en la nube",
+				"currentSchoolYear": "Año escolar actual:",
+				"dataProtectionAdd": "Añadir política de privacidad",
+				"duringTheSchoolYear": "Durante el año escolar",
+				"duringTheTransferPhase": "Durante la fase de transferencia",
+				"enableVideoConference": "Activar videoconferencias para cursos y equipos",
+				"endOfTheTransferPhase": "Fin de la fase de transferencia",
+				"fileStorageSpaceUsedInCloud": "Almacenamiento de archivos usados en la nube",
+				"inTheTransferPhase": "en la fase de transferencia:",
+				"lernstoreEnabledForStudents": "Lern-Store para estudiantes",
+				"loginFromExistingUsers": "Inicios de sesión de usuarios existentes",
+				"messengerSchoolRoom": "Crear una sala de chat para compartir información con toda la escuela",
+				"messengerStudentRoomCreate": "Los estudiantes pueden crear sus propias salas de chat",
+				"nameOfTheSchool": "Nombre de la escuela",
+				"noteAvailableFunction": "Ten en cuenta las funciones disponibles",
+				"noteBeforeTheTransferPhase": "A tener en cuenta antes de la fase de transferencia:",
+				"passwordChangesInLDAP": "Cambios de contraseña en LDAP",
+				"privacySettings": "Configuración de la privacidad",
+				"schoolNumber": "Numero de la escuela:",
+				"schoolYear": "Año escolar:",
+				"schoolYearChange": "Cambio de año escolar",
+				"selectProvider": "Seleccionar proveedor",
+				"startOfTheTransferPhase": "Inicio de la fase de transferencia",
+				"studentVisibility": "Activar la visibilidad de los estudiantes para los profesores",
+				"timezone": "Zona horaria",
+				"transferPhase": "Fase de transferencia",
+				"uploadSchoolLogo": "Cargar el logotipo de la escuela",
+				"userAndClassDataInLDAP": "Los datos de usuarios y clases para el nuevo año escolar se han procesado en LDAP<br>.",
+				"youCantGoBack": "No puedes volver atrás",
+				"yourSchoolCanStartNewSchool": "Tu escuela puede entrar en el nuevo año escolar"
+			},
+			"link": {
+				"matrixHelpPage": "sección de ayuda de messenger",
+				"moreInfo": "Más información"
+			},
+			"text": {
+				"allAboutTheSummerVacation": "Alrededor de las vacaciones de verano",
+				"allDataFromTheLDAP": "Todos los datos de LDAP se sincronizarán como de costumbre, se pueden crear nuevos usuarios y clases desde allí en cualquier momento",
+				"allDone": "¡Ya está!",
+				"atTheEndOfTheSchoolYearWithLDAP": "Cuando cambie el curso escolar, realiza las siguientes acciones con LDAP:",
+				"atTheEndOfTheTransferPhase": "Cuando finaliza la fase de transferencia, todos los cambios realizados en el LDAP se sincronizan de una vez",
+				"atTheSameTime": "Al mismo tiempo, entras en el nuevo año escolar en la nube escolar de HPI",
+				"coursesWithLearningContent": "Los cursos con contenido de aprendizaje para el próximo año escolar también se pueden crear durante la fase de transferencia (sin asignación de clase)",
+				"doNotEndTheTransferPhase": "No finalices la fase de transferencia hasta que los usuarios estén asignados a las nuevas clases",
+				"fileSelected": "Archivo seleccionado",
+				"fileTooLarge": "El archivo PDF es demasiado grande. Puede tener un tamaño máximo de {{size}} MB.",
+				"ifChatsAreActivatedAtYourSchool": "Si los chats están habilitados en tu escuela, los administradores del equipo y los profesores pueden desbloquear la función de chat de manera selectiva y respectivamente para su equipo o cursos.",
+				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Si los chats están habilitados en tu escuela, los administradores del equipo en el equipo respectivo pueden desbloquear específicamente la función de chat.",
+				"ifMatrixIsActivatedAtYourSchool": "Si se activa Matrix Messenger, todos los profesores de esta escuela pueden iniciar salas de chat, conversaciones privadas o discusiones en grupo dentro del curso o equipo. Los estudiantes inicialmente solo tienen acceso de lectura, pero también se les puede dar acceso de escritura a través de la configuración del curso y del equipo. Los estudiantes también pueden iniciar chats privados dentro de los cursos y equipos. Puedes encontrar más información al respecto en la",
+				"ifVideoConferenceAreActivatedAtYourSchool": "Si la videoconferencia está habilitada en tu escuela, los profesores pueden añadir la herramienta de videoconferencia a su curso en la sección Herramientas y entonces podrán iniciar desde allí videoconferencias para todos los participantes del curso. Los administradores del equipo pueden activar la función de videoconferencia en el equipo respectivo. Los líderes de equipo y los administradores de equipo pueden añadir e iniciar videoconferencias para citas.",
+				"LDAPChanges": "Puedes realizar los cambios necesarios para el nuevo año escolar en LDAP (nuevos usuarios, clases de actualización)",
+				"lernstoreEnabledForStudents": "Si no está seleccionado, los estudiantes no podrán acceder a Lern-Store",
+				"loginViaLDAP": "El inicio de sesión a través de LDAP sigue siendo posible para los usuarios existentes",
+				"messengerSchoolRoom": "La sala de chat e información permite a los administradores de la escuela enviar mensajes a todo el centro.\nLos estudiantes solo tienen acceso de lectura a esta sala, pero pueden verse y así iniciar chats privados.",
+				"messengerStudentRoomCreate": "Si esta función está habilitada, los estudiantes pueden crear salas de chat, conversaciones privadas y discusiones de cursos y equipos. Estas salas no son visibles para los profesores a menos que se les invite expresamente.",
+				"newSchoolYear": "Nuevo año escolar",
+				"newUsersClassesAndChanges": "Los usuarios, las clases y los cambios recién añadidos a los datos existentes no se sincronizan desde LDAP",
+				"noFileSelected": "No hay ningún archivo seleccionado",
+				"noRssFeedsYet": "Todavía no hay fuentes RSS.",
+				"oldSchoolYear": "Año escolar antiguo",
+				"onlyPDFSupport": "Solo se admiten archivos PDF.",
+				"passwordChanges": "Los cambios de contraseña siguen sincronizados",
+				"rocketChatDeprecationInfo": "La antigua función de chat en el área de equipos se desactivará automáticamente el {{date}}. Ya no puedes realizar ninguna modificación.",
+				"theNewClassesAreSavedInTheContext": "Las clases nuevas se guardan en el contexto del nuevo año escolar, las clases antiguas se archivan en el contexto del año escolar anterior.",
+				"theNewClassesCanNowBeAssigned": "Las nuevas clases ahora se pueden asignar a cursos preparados.",
+				"theNewSchoolYearStartsInThe": "El nuevo año escolar comienza en el {{themeTitle}} con el tiempo de preparación una semana antes del final de las vacaciones de verano. Independientemente de esto, puedes realizar cambios en las clases del año escolar actual, pasado y futuro en cualquier momento.",
+				"thisOptionIsAvailable": "Esta opción está disponible 2 semanas antes del final del año escolar actual.",
+				"yourSchoolIsCurrentlyDrawing": "Tu escuela está recibiendo"
+			}
+		},
+		"students": {
+			"button": {
+				"addStudents": "Añadir estudiantes",
+				"generateInvitationLink": "Generar enlace de invitación",
+				"importStudents": "Importar estudiantes"
+			},
+			"label": {
+				"sendRegistrationLinkToStudent": "Enviar enlace de registro a los estudiantes"
+			},
+			"text": {
+				"allApprovalsAvailable": "Todos los consentimientos disponibles",
+				"forAllStudentsWithoutAFullConsentForm": "Para todos los estudiantes sin una declaración de consentimiento completa:",
+				"parentsAgreed": "Los padres han dado su conformidad",
+				"studentsStillNeedTheDecalaration": "<strong> {{studentsWithoutConsentCount}} de {{allStudentsCount}} <\/strong> estudiantes todavía necesitan una declaración de consentimiento para usar {{shortTitle}}. \nLos estudiantes de menos de {{minAge}} años de edad primero necesitan el consentimiento de un tutor, los estudiantes de 14 años o más también deben dar su propio consentimiento."
+			}
+		},
+		"teachers": {
+			"button": {
+				"addTeacher": "Añadir profesor",
+				"importTeacher": "Importar profesores",
+				"sendLinksToTeacherEmail": "Enviar enlaces a las direcciones de correo electrónico de los profesores"
+			},
+			"label": {
+				"inviteTeachersViaLink": "Invita a los profesores a través de un enlace a enviar la declaración de consentimiento.",
+				"linksDistribution": "Envía a tus profesores enlaces individuales para declarar su consentimiento por correo electrónico o utiliza una hoja impresa con código QR para distribuir físicamente los enlaces. <br\/> Puedes crear una contraseña y dar tu consentimiento para el uso de {{shortTitle}}.",
+				"passwordsAndDeclarationOfConsent": "Contraseñas y declaración de consentimiento",
+				"sendRegistrationLinkToTeachers": "Enviar enlace de registro a los profesores"
+			},
+			"text": {
+				"alternativeRegistration": "Como alternativa, también puedes generar enlaces de registro individuales en el cuadro de diálogo \"Editar usuario\" de cada usuario individualmente.",
+				"connectToASchool": "Al conectarse a un sistema estatal o escolar, los profesores ya tienen una contraseña y pueden iniciar sesión en {{shortTitle}}. En el primer inicio de sesión, se les pide que den su consentimiento para el uso de {{shortTitle}}.",
+				"forAllTeachersWithoutAFullConsentForm": "Para todos los profesores sin una declaración de consentimiento completa:"
+			}
+		},
+		"teams": {
+			"button": {
+				"addAnotherOwner": "Añade otro propietario",
+				"appointTeamOwner": "Nombrar",
+				"discardMessage": "Descartar",
+				"removeAllMembers": "Eliminar todos los miembros"
+			},
+			"headline": {
+				"membersInOwnSchool": "Miembros de la propia escuela",
+				"messageToTeamOwners": "Enviar un mensaje nuevo a los propietarios del equipo",
+				"newTeamOwner": "Nombrar un propietario de equipo adicional",
+				"removeSchoolFromTeam": "Eliminar la escuela del equipo",
+				"schools": "Escuelas"
+			},
+			"label": {
+				"canCreateTeam": "Los estudiantes pueden crear equipos.",
+				"cannotCreateTeam": "Los estudiantes no pueden crear equipos.",
+				"selectAnAdditionalOwner": "Selecciona un propietario adicional aquí para el equipo:",
+				"studentsAreAllowedToCreateTeam": "Los estudiantes pueden crear equipos.",
+				"whenFunctionIsActivated": "Si esta función está activada, los estudiantes pueden utilizar la función de equipos de forma independiente y crear equipos \n\t\t\t\t\t\t sin que un profesor tenga que estar involucrado. Como administrador autorizado para dar instrucciones, puedes utilizar esta función de forma centralizada para \n\t\t\t\t\t\t desactivar\/activar a toda la escuela."
+			},
+			"text": {
+				"functionality": "Esta funcionalidad está activada en todo el sistema en el directorio central y no se puede desactivar.",
+				"includesOutsideSchoolMembers": "Incluye miembros de fuera de la escuela",
+				"legend": "Leyenda:",
+				"noSchools": "No hay escuelas",
+				"teamFoundedInOwnSchool": "Equipo fundado en la propia escuela",
+				"teamHasOwners": "El equipo tiene propietarios"
+			}
+		},
+		"text": {
+			"areYouSureYouWantToRemoveAllMembers": "¿Estás seguro de que deseas eliminar a todos los miembros de tu escuela de este equipo?",
+			"moreOptions": "Más opciones",
+			"noEntriesToPrint": "No hay entradas para imprimir.",
+			"yourClassDoesntFitInto": "¿Tu clase no encaja en el esquema clásico?"
+		},
+		"users_edit": {
+			"button": {
+				"mailIsBeingSent": "Enviando correo electrónico..."
+			},
+			"headline": {
+				"changePassword": "Cambiar la contraseña",
+				"completeRegistration": "Completar registro de usuario",
+				"deleteUser": "¿Eliminar usuario?"
+			},
+			"text": {
+				"alreadyRegistered": "El usuario ya está registrado",
+				"class": "Clases del usuario",
+				"errorSendingMail": "¡Se ha producido un error al enviar el correo electrónico con la invitación!",
+				"firstClose": "El usuario debe completar primero el formulario de consentimiento digitalmente",
+				"successfullySentMail": "¡El correo electrónico con la invitación se ha enviado correctamente!"
+			}
+		},
+		"users_registrationComplete": {
+			"text": {
+				"cannotCallPageAgain": "<b>Atención: <\/b>no podrás volver a visitar esta página, así que imprime los datos de acceso que se \n             muestran o guárdalos de alguna otra manera.\n             Si un estudiante se olvida de su contraseña, solo la podrá cambiar en la administración de \n             usuarios.",
+				"loginWithPassword": "Ahora puedes iniciar sesión en {{shortTitle}} con tu contraseña de inicio. \nPara hacer esto, ve a <a href=\"https:\/\/schul-cloud.org\"> <script nonce=\"{{nonceValue}}\"> document.write (window.location.origin) <\/script> <\/a> e inicia sesión desde allí con los siguientes datos de acceso:",
+				"registrationPossibleWithFollowingData": "El registro en {{shortTitle}} es posible con los siguientes datos.",
+				"whatYouCanFind": "En esta página encontrarás una descripción general de todos los consentimientos que se han otorgado y los datos de acceso generados. <br> Las siguientes páginas de este documento contienen los datos de acceso de un niño y las instrucciones para el primer registro.",
+				"whenLoginForTheFirstTime": "Se debe elegir una nueva contraseña la primera vez que inicies sesión. Los estudiantes que tengan al menos 14 años de edad también deben manifestar su consentimiento al iniciar sesión por primera vez."
+			}
+		},
+		"users_skipRegistration": {
+			"text": {
+				"appointTeamOwner": "Nombrar",
+				"discardMessage": "Descartar",
+				"forStudentsAged14": "Para estudiantes de 14 años o más: consentimiento del estudiante",
+				"removeAllMembers": "Eliminar todos los miembros",
+				"sendMessage": "Enviar",
+				"youGiveTheFollowingConsent": "Otorgas los siguientes consentimientos en nombre del usuario:"
+			}
+		}
+	},
+	"alert": {
+		"text": {
+			"furtherCase": "otro(s) {{amount}} incidente(s) más",
+			"furtherCases": "más de {{amount}} incidentes adicionales"
+		}
+	},
+	"autologout": {
+		"text": {
+			"sessionAlreadyExpired": "Tu sesión ya ha caducado. Inicia sesión de nuevo.",
+			"sessionCouldNotBeExtended": "¡Tu sesión no se ha podido ampliar! Guarda tu trabajo y vuelve a cargar la página.",
+			"sessionExtended": "Sesión ampliada correctamente."
+		}
+	},
+	"calendar": {
+		"button": {
+			"availableCourses": "Cursos disponibles",
+			"availableTeams": "Equipos disponibles",
+			"chooseACourse": "Elegir un curso...",
+			"chooseATeam": "Elegir un equipo"
+		},
+		"headline": {
+			"calendar": "Calendario"
+		},
+		"input": {
+			"egGym": "por ejemplo, gimnasio",
+			"egHandballTraining": "por ejemplo, entrenamiento de balonmano"
+		},
+		"label": {
+			"addVideoConference": "¿Añadir una videoconferencia?",
+			"createForCourse": "¿Crear para el curso?",
+			"createForTeam": "¿Crear para el equipo?",
+			"location": "Lugar"
+		},
+		"text": {
+			"noAuthorization": "Sin autorización",
+			"participateInVideoConference": "Participar en la videoconferencia",
+			"startAVideoConference": "Iniciar videoconferencia",
+			"videoConferenceDetailsAreLoading": "Cargando detalles de la videoconferencia..."
+		}
+	},
+	"community": {
+		"button": {
+			"allOtherSchools": "Todas las demás escuelas",
+			"brandenburg": "Brandeburgo",
+			"germanSchoolsAbroad": "Escuelas alemanas en el extranjero",
+			"lowerSaxony": "Baja Sajonia",
+			"mintECSchools": "Escuelas MINT-EC",
+			"thuringia": "Turingia"
+		},
+		"headline": {
+			"chooseYourState": "Selecciona tu estado o el proyecto al que perteneces.",
+			"joinNow": "¡Únete a nosotros ahora!"
+		},
+		"text": {
+			"contactUsToRegister": "Ponte en contacto con la Sra. Julia Günther: <a href=\"mailto:julia.guenther@thillm.de\">julia.guenther@thillm.de<\/a> o con el Sr. Jörg Becker: <a href=\"mailto:joerg.becker@thillm.de\">joerg.becker@thillm.de<\/a> para iniciar el proceso de registro.",
+			"forGeneralQuestionsPleaseContact": "Si tienes alguna pregunta general, ponte en contacto con la siguiente dirección de correo electrónico:",
+			"hereIsOurRegistrationForm": "Haz clic aquí para obtener nuestro formulario de registro:",
+			"hereIsOurRegistrationFormMINT": "Las nuevas escuelas STEM EC se pueden registrar aquí:",
+			"inBrandenburgTheAdmissionOfNewSchools": "En Brandeburgo, la admisión de nuevas escuelas se coordina junto con DigitalAgentur Brandenburg (ILB) y MBJS.",
+			"inMarch2020ZENSOSQueries": "En marzo de 2020, las consultas de ZENSOS se utilizaron por última vez para determinar la necesidad de nuestra infraestructura en las escuelas. Actualmente se están procesando los registros resultantes.",
+			"inNiedersachsenTheReferenceSchool": "En Baja Sajonia, la red de escuelas de referencia n-21 es responsable de la admisión de nuevas escuelas.",
+			"inThuringiaTheThuringianInstitute": "En Turingia, el Instituto de Turingia para la formación del profesorado, el desarrollo curricular y los medios de comunicación (ThILLM) es responsable de la admisión de nuevas escuelas.",
+			"justWriteAnEmailTo": "Simplemente escribe un correo electrónico a <a href=\"mailto:schul-cloud-ZfA@bva.bund.de\">schul-cloud-ZfA@bva.bund.de<\/a>.",
+			"MINTECSchoolsAnd": "<a href='https:\/\/www.mint-ec.de' target='_blank'>MINT-EC<\/a> es la red nacional de excelencia de escuelas con nivel secundario superior y tiene un perfil distintivo en matemáticas, informática y ciencias naturales y tecnología (MINT). Las escuelas de la red han estado participando en el proyecto de la nube escolar de HPI desde 2017.",
+			"ourPartnerOfMINIECAlso": "Nuestro socio de MINT-EC también ofrece seminarios web regulares sobre la nube escolar de HPI. Las próximas fechas se pueden encontrar aquí:",
+			"pleaseContactEither": "Ponte en contacto con la Sra. Julia Günther:",
+			"pleaseContactTheFollowingEmailAddress": "Ponte en contacto con la siguiente dirección de correo electrónico para iniciar el proceso de registro:",
+			"theCentralOfficeForSchools": "La Agencia Central de Escuelas Alemanas en el Extranjero (ZfA) te apoya en el proceso de registro.",
+			"youCanGetSupport": "Aquí podrás encontrar ayuda para familiarizarte con la nube escolar y crear tus primeros contenidos:",
+			"youWillThenBeGiven": "A continuación, se te dará toda la información necesaria para que puedas empezar pronto."
+		}
+	},
+	"content": {
+		"button": {
+			"choose": "Elegir..."
+		},
+		"form_add_lesson": {
+			"label": {
+				"chooseACourse": "Elige un curso \/ asignatura",
+				"chooseALessonTopic": "Elige un tema de la lección"
+			}
+		},
+		"headline": {
+			"addContentToTopic": "Añadir material al tema",
+			"contentCantBeAddedInDemo": "<h5>No se puede añadir contenido a los cursos en el modo de demostración.<\/h5>",
+			"contentStore": "Tienda de aprendizaje",
+			"fileType": "Tipo de archivo",
+			"noResultsFoundWith": "No se han encontrado resultados de búsqueda para \"{{ query }}\"",
+			"nSearchResultsFoundWith": "{{ searchResultsTotal }} resultados de búsqueda para \"{{ query }}\"",
+			"youAreLeavingSC": "Ahora estás saliendo de la nube de la escuela"
+		},
+		"input": {
+			"searchInSC": "Buscar en la nube escolar"
+		},
+		"item": {
+			"text": {
+				"contentNotAvailable": "El contenido no está disponible en el modo de demostración por motivos de licencia.",
+				"report": "informe"
+			}
+		},
+		"label": {
+			"fileType": "Tipos de archivo:% 1"
+		},
+		"store": {
+			"headline": {
+				"currentContent": "Contenidos actuales",
+				"popularContent": "Contenidos populares"
+			}
+		},
+		"text": {
+			"date": "Actualidad",
+			"popularity": "Popularidad",
+			"provider": "Proveedor",
+			"text": "Texto",
+			"viaProvider": "a través de {{provider}}",
+			"video": "Vídeo",
+			"youAreRedirectedToProvider": "Se te redirigirá a la página de <span class=\"provider\">un proveedor externo<\/span>."
+		}
+	},
+	"courses": {
+		"_course": {
+			"addStudent": {
+				"text": {
+					"youAreNoStudent": "No eres un usuario con rol de 'Estudiante'."
+				}
+			},
+			"copy": {
+				"button": {
+					"cloneCourse": "Clonar curso"
+				},
+				"headline": {
+					"cloneCourse": "Clonar curso"
+				}
+			},
+			"dropdown_menu": {
+				"link": {
+					"duplicateCourse": "duplicar curso",
+					"editDeleteCourse": "Editar\/eliminar curso",
+					"inviteToCourse": "invitar al curso",
+					"shareCourse": "Compartir curso"
+				}
+			},
+			"edit": {
+				"button": {
+					"addLesson": "Añadir nueva cita",
+					"showCourseDetail": "Mostrar detalles del curso"
+				},
+				"headline": {
+					"courseIsArchieved": "El curso {{coursename}} está archivado.",
+					"editCourse": "Editar curso"
+				},
+				"img_alt": {
+					"courseIsArchieved": "El curso está archivado"
+				},
+				"label": {
+					"activateBidirectionalMessenger": "Permitir a los estudiantes escribir mensajes en el chat del curso.",
+					"substitute": "Profesores suplentes"
+				},
+				"text": {
+					"attentionDeletion": "Todos los datos se eliminarán de forma permanente.",
+					"courseWillDelete": "De esta manera también se elimina el curso para todos los estudiantes.",
+					"toEditChangeDate": "Para editar los datos del curso, primero debes establecer la fecha de finalización."
+				}
+			},
+			"groups": {
+				"_group": {
+					"edit": {
+						"input": {
+							"group1": "Grupo 1"
+						},
+						"label": {
+							"nameOfGroup": "Nombre del grupo"
+						}
+					},
+					"headline": {
+						"doneGroupTasks": "envíos de grupo terminados",
+						"homework": "Tarea: {{name}}",
+						"openGroupTasks": "abrir (posibles) envíos de grupos"
+					},
+					"link": {
+						"addTopic": "Añadir un tema",
+						"deleteGroup": "Eliminar grupo",
+						"editGroup": "Editar grupo"
+					},
+					"text": {
+						"archivedTask": "La tarea está archivada",
+						"doneTask": "La tarea está establecida",
+						"draftTask": "Borradores de la tarea",
+						"dueTo": "hasta: {{date}}",
+						"feedbackTask": "La tarea tiene comentarios",
+						"groupMembers": "Participantes del grupo:",
+						"moveTask": "Mover la tarea entre la página de descripción general y el archivo",
+						"noOpenGroupTasks": "No es posible realizar más envíos de grupo.",
+						"noSubmissions": "Hasta el momento no hay ningún envío de este grupo.",
+						"noTopics": "sin temas.",
+						"responsibleTeachers": "Profesores responsables:",
+						"submittedOn": "Envío: {{ddmmyy_hhmm}}",
+						"task": "La tarea:",
+						"taskDetails": "Detalles de la tarea:",
+						"taskOpen": "Tarea abierta >",
+						"toTask": "A la tarea",
+						"workOnTopic": "Trabajar en el tema"
+					}
+				},
+				"button": {
+					"addGroup": "Crear grupo de estudiantes",
+					"createNewGroup": "Crear un nuevo grupo"
+				},
+				"headline": {
+					"addGroup": "Crear grupo de estudiantes",
+					"createGroup": "Crear un grupo",
+					"editGroup": "Editar grupo de estudiantes",
+					"myStudentGroups": "Mis grupos de estudiantes",
+					"noGroups": "No hay grupos en este curso.",
+					"noGroupsYet": "Todavía no hay grupos en este curso.",
+					"studentGroups": "Grupos de estudiantes"
+				},
+				"img_alt": {
+					"noCreatedGroups": "No se ha creado ningún grupo"
+				},
+				"text": {
+					"addGroup": "Añadir un grupo",
+					"descriptionCourses": "En grupos, los participantes pueden dividirse en equipos dentro de un curso, por ejemplo, para un trabajo en grupo."
+				}
+			},
+			"headline": {
+				"createVideoconference": "Crear una sala de videoconferencias {{coursename}}",
+				"shareCodeGenerated": "Se ha generado una copia del código."
+			},
+			"link": {
+				"toCourseFiles": "A los archivos del curso"
+			},
+			"tab_label": {
+				"groups": "Grupos",
+				"tasks": "Tareas",
+				"tools": "Herramientas",
+				"topics": "Temas"
+			},
+			"tasks": {
+				"button": {
+					"createTask": "Crear una tarea",
+					"privateTasks": "Tareas privadas"
+				},
+				"headline": {
+					"createFirstTask": "Crear la primera tarea de tu curso",
+					"noTasksPosed": "No hay tareas en este curso.",
+					"noTasksPosedYet": "Aún no hay tareas en este curso.",
+					"submittedTasks": "Tareas realizadas",
+					"tasksWithSubmissions": "Tareas con envíos"
+				},
+				"img_alt": {
+					"noPosedTasks": "Sin tareas asignadas"
+				},
+				"label": {
+					"archived": "Archivado",
+					"drafts": "Borradores",
+					"feedback": "Comentarios",
+					"provided": "Proporcionado"
+				},
+				"text": {
+					"descriptionTasks": "Los participantes del curso pueden completar tareas fácilmente en un plazo establecido y enviar los resultados de forma digital. Las tareas se pueden configurar para un curso completo o para un solo tema.",
+					"moreArchivedLinkLabel": "Más tareas archivadas...",
+					"showPrivateTasks": "Expandir\/contraer las tareas privadas"
+				}
+			},
+			"text": {
+				"courseDescription": "Descripción del curso:",
+				"etherpadCouldNotBeAdded": "No se ha podido añadir Etherpad al curso. Si vuelves a ver este mensaje, ponte en contacto con el servicio de asistencia.",
+				"eventCouldNotBeSavedContactSupport": "Es posible que el horario del curso no se haya guardado correctamente. Si vuelves a ver este mensaje, ponte en contacto con el servicio de asistencia.",
+				"nextClass": "Siguiente lección:",
+				"QRCodeAlternative": "Como alternativa, puedes mostrarles a tus compañeros-profesores el siguiente código QR.",
+				"shareCodeExplanation": "Distribuye el siguiente código a los profesores-compañeros para compartir el curso con ellos. La función se encuentra en la página de descripción general de los cursos.",
+				"youAreAlreadyMember": "Ya eres participante en el curso {{coursename}}.",
+				"youHaveBeenAdded": "Se te ha añadido correctamente al curso {{coursename}}"
+			},
+			"tools": {
+				"add": {
+					"button": {
+						"createTool": "Crear herramienta"
+					},
+					"headline": {
+						"course": "Curso: {{coursename}}",
+						"createToolForCourse": "Crear herramienta para {{coursename}}",
+						"videoConference": "Videoconferencia"
+					},
+					"placeholder": {
+						"key": "Clave",
+						"value": "Valor"
+					},
+					"text": {
+						"BBBDescriptionExplanation": "Realiza videoconferencias con otros usuarios. La herramienta BigBlueButton permite una participación fácil y segura en todo el curso al iniciar sesión en {{short_title}}. La buena calidad de audio y vídeo se complementa con una pizarra interactiva, que se puede usar en tiempo de ejecución, con funciones para compartir pantalla y un chat.",
+						"errorWhileAddingTool": "Se ha producido un error al añadir la herramienta.",
+						"toolCouldNotBeFound": "No se ha podido encontrar la herramienta.",
+						"toolPortfolioCouldNotBeFound": "No se ha podido encontrar la herramienta. El portafolio está temporalmente desactivado."
+					}
+				},
+				"button": {
+					"addNewTool": "Añadir una nueva herramienta"
+				},
+				"headline": {
+					"addToolToCourse": "Añadir herramientas al curso",
+					"noTools": "No hay herramientas en este curso.",
+					"noToolsYet": "Todavía no hay herramientas en este curso."
+				},
+				"img_alt": {
+					"noAddedTools": "No hay herramientas añadidas"
+				},
+				"label": {
+					"logoUrl": "Logotipo (URL):",
+					"nameTool": "Nombre (campo obligatorio):",
+					"otherSettings": "Otros ajustes:"
+				},
+				"text": {
+					"addNewTool": "Añadir una nueva herramienta",
+					"descriptionAddToolToCourse": "Añade herramientas interactivas como GeoGebra o CodeOcean a un curso aquí.",
+					"noTools": "Sin herramientas.",
+					"opensInNewTab": "Nueva pestaña",
+					"videoConferenceBBB": "Videoconferencia BigBlueButton"
+				}
+			},
+			"topic": {
+				"button": {
+					"createAnotherTopic": "Crear otro tema",
+					"createAnotherTopicWithNewEditor": "Crear otro tema en el nuevo editor",
+					"createFirstTopic": "Crear un tema",
+					"createFirstTopicWithNewEditor": "Crear un tema en la nueva herramienta de temas",
+					"importTopic": "Importar tema"
+				},
+				"headline": {
+					"createFirstTopic": "Crear el primer tema de tu curso",
+					"createFirstTopicWithNewEditor": "Crear el primer tema con la nueva herramienta de temas",
+					"firstTopicSuccess": "Listo - ¡El primer tema de tu curso!",
+					"importTopic": "Importar tema",
+					"noTopic": "No hay temas en este curso.",
+					"noTopicWithTool": "No hay temas en este curso que se hayan creado con la nueva herramienta de temas.",
+					"noTopicWithToolYet": "Todavía no hay temas en este curso que se hayan creado con la nueva herramienta de temas.",
+					"noTopicYet": "Aún no hay temas en este curso."
+				},
+				"img_alt": {
+					"noTopics": "Tema en blanco"
+				},
+				"link": {
+					"geoGebraMaterial": "Abre el material de GeoGebra ({{materialId}}) en geogebra.org ahora"
+				},
+				"text": {
+					"addTopic": "Añadir un tema",
+					"addTopicWithNewEditor": "Añadir tema con un nuevo editor (beta)",
+					"beta": "beta",
+					"clickOnEyeToggleVisibility": "Al hacer clic en el ojo <i class=\"fa fa-eye\"><\/i> haces que el tema sea visible o invisible para los estudiantes.",
+					"clickOnTopicForPreview": "Un clic en el tema te lleva a la vista previa.",
+					"deleteTopic": "Eliminar tema",
+					"descriptionTopic": "Añade texto, imágenes, vídeos y otros materiales a un tema. Un tema cubre un módulo o lección dentro de tu curso.",
+					"distributeLinkForInvite": "Comparte el siguiente enlace con tus alumnos para invitarlos al curso. Los estudiantes deben iniciar sesión para usar el enlace.",
+					"editSortDeleteShareTopicsHere": "Puedes editar <i class=\"fa fa-pencil\"><\/i>, ordenar <i class=\"fa fa-arrows\"><\/i>, eliminar <i class=\"fa fa-trash-o\"><\/i> o compartir <i class=\"fa fa-share-alt\"><\/i> tu tema en cualquier momento.",
+					"externalLinkToGeoGebra": "Este es un contenido externo del proveedor GeoGebra. Se abrirá en una nueva ventana o pestaña.",
+					"hideTopic": "Ocultar tema",
+					"importTopic": "Importar tema",
+					"importTopicAdviseChangeData": "<strong>Atención<\/strong>: reemplaza manualmente los datos de usuario de las herramientas que se incluyen en el tema posteriormente (por ejemplo, nexBoard, Etherpad, GeoGebra), ya que los cambios en esto afectarán el curso original. Los archivos (imágenes, vídeos y audios) y el material vinculado no se ven afectados y pueden permanecer sin cambios.",
+					"insertCodeToImportTopic": "Inserta un código para importar los temas de otros usuarios. Los archivos incluidos en el tema se colocan en la carpeta del curso.",
+					"moveTopic": "Mover tema",
+					"revealTopic": "Mostrar tema de nuevo",
+					"shareTopic": "Compartir tema"
+				}
+			}
+		},
+		"add": {
+			"button": {
+				"addCourseAndContinue": "Crear curso y continuar",
+				"addLessonAppointment": "Crear una lección escolar en el horario (opcional)"
+			},
+			"headline": {
+				"addCourse": "Crear curso",
+				"addStudents": "Añadir estudiantes",
+				"done": "¡Hecho!",
+				"whatToDoCourses": "¿Qué puedes hacer en un curso?"
+			},
+			"img_alt": {
+				"spaceShuttleStart": "Lanzamiento del transbordador espacial"
+			},
+			"input": {
+				"egMaths": "por ejemplo, matemáticas 10a"
+			},
+			"label": {
+				"addClassesToCourse": "Clase(s) (Todos los estudiantes de la clase se añadirán automáticamente.) - opcional",
+				"addStudentsToCourse": "Estudiantes \/ participantes - opcional",
+				"courseSubstitute": "Profesor suplente - opcional",
+				"timeSpan": "Período (por ejemplo, año escolar) desde - Opcional",
+				"timeSpanUntil": "Para - Opcional"
+			},
+			"link": {
+				"addAnotherCourse": "Crear otro curso",
+				"courseOverview": "A la descripción general del curso",
+				"createTopics": "Crear temas",
+				"giveExercises": "Establecer tareas"
+			},
+			"tab_label": {
+				"courseData": "Datos del curso",
+				"courseMembers": "Participantes",
+				"finish": "Finalizar"
+			},
+			"text": {
+				"addingStudentsForbidden": "Por razones de privacidad, no se te permite acceder a la lista de nombres de todos los estudiantes de tu escuela. Por lo tanto, no puedes añadir estudiantes o clases al curso. Solicita a un administrador de tu escuela que añada estudiantes o clases completas al curso.",
+				"addStudentsOrClasses": "Añade clases o estudiantes individuales a tu curso.",
+				"contentOfClass": "Crea el contenido de tus lecciones.",
+				"doItNowOrLaterInSettings": "Puedes hacerlo ahora o más tarde en la configuración del curso.",
+				"giveExercisesAndGetResults": "Asigna tareas a tus alumnos y consulta sus envíos.",
+				"groupsWorkTogether": "En un curso, los participantes trabajan en temas, tareas y archivos.",
+				"willAlsoDeleteForStudents": "De esta manera también se elimina el curso para todos los estudiantes."
+			}
+		},
+		"button": {
+			"createCourse": "Crear un nuevo curso",
+			"editCourse": "Editar curso",
+			"importCourse": "Importar un curso",
+			"nextStep": "Siguiente paso"
+		},
+		"global": {
+			"button": {
+				"deleteCourse": "Eliminar curso"
+			},
+			"input": {
+				"chooseTeacher": "Seleccionar profesor",
+				"egRoom1-21": "por ejemplo, R-1.21",
+				"inMinutes": "En minutos",
+				"mathsClass": "Matemáticas 10a",
+				"selectClasses": "Seleccionar clase(s)",
+				"selectStudents": "Seleccionar estudiantes"
+			},
+			"label": {
+				"courseColor": "Color del curso",
+				"courseDescription": "Descripción del curso",
+				"timeSpanFormat": "Por favor, introduce la fecha en formato DD.MM.AAAA"
+			}
+		},
+		"headline": {
+			"courseAttendees": "Participantes del curso:",
+			"createDuplicateImport": "Crear, duplicar o importar un curso",
+			"expiredCoursesInArchive": "Los cursos que ya han finalizado se pueden encontrar <a href=\"?activeTab=archived\"> en el archivo",
+			"importCourse": "Importar curso",
+			"makeTeachingDigital": "Enseñanza digital con {{themetitle}}",
+			"myCourses": "Mis cursos",
+			"mySubstitutes": "Mis suplentes",
+			"noArchivedCourses": "Aún no tienes cursos archivados",
+			"noCourse": "Actualmente no hay cursos",
+			"noCoursesYet": "Aún no hay cursos. Un curso en {{short_title}} es la base para administrar temas, tareas, herramientas, etc. para el aprendizaje digital.",
+			"SCMakesTeachingDigital": "Con {{themetitle}} la enseñanza se vuelve digital"
+		},
+		"img_alt": {
+			"noCourses": "No existen cursos",
+			"teacherWithClass": "Profesor con clase"
+		},
+		"input": {
+			"searchForCourses": "Buscar cursos"
+		},
+		"tab_label": {
+			"archivedCourses": "Cursos archivados",
+			"currentCourses": "Cursos actuales"
+		},
+		"text": {
+			"courseNoAccess": "La sección Cursos solo está disponible para profesores y estudiantes.",
+			"descriptionArchivedCourses": "Los cursos que ya han finalizado se pueden encontrar aquí. Puedes volver a utilizar cursos archivados como plantillas para el nuevo año escolar, importar un curso o crear un curso completamente nuevo.",
+			"descriptionCourseManagement": "Puedes duplicar cursos archivados y usarlos como plantillas para el nuevo año escolar, importar un curso o crear un curso nuevo.",
+			"finishImport": "Completa la importación. En el siguiente paso, establece una nueva fecha de curso y añade estudiantes.",
+			"importCourseAttentionTools": "Atención: reemplaza manualmente las herramientas con datos de usuario que se incluyen en el tema posteriormente (por ejemplo, nexBoard, Etherpad, GeoGebra), ya que los cambios en esto afectarán al curso original. Los archivos (imágenes, vídeos y audios) y el material vinculado no se ven afectados y pueden permanecer sin cambios.",
+			"importedCourseWithQR": "Has importado un curso a través de un código QR.",
+			"insertCodeToImport": "Inserta un código para importar el contenido del curso de otros usuarios.",
+			"noAttendees": "No hay participantes",
+			"noCourseGetInvited": "Aún no has sido invitado a ningún curso. Deja que tus profesores te añadan a un curso.",
+			"renameCourse": "Cambiar el nombre del curso.",
+			"shareTokenNotInUse": "¡Este shareToken no parece estar en uso!"
+		}
+	},
+	"dashboard": {
+		"headline": {
+			"poll2Title": "Encuesta II en el proyecto de la nube escolar",
+			"schedule": "Programación",
+			"title": "Panel",
+			"withFeedback": "Envíos con comentarios de los profesores",
+			"withRequiredFeedback": "Las tareas con envíos todavía no tienen comentarios"
+		},
+		"img_alt": {
+			"showAppointmentInTeam": "Mostrar citas en el equipo",
+			"showCalendar": "Mostrar calendario",
+			"showCourse": "Mostrar curso"
+		},
+		"link": {
+			"continueReading": "Leer más",
+			"moreTasks": "Otras tareas...",
+			"toTask": "A la tarea"
+		},
+		"text": {
+			"emptyHomeworksInfo": "Todas las tareas se muestran en la sección de tareas.",
+			"emptyNewsInfo": "No hay noticias recientes. Consulta la sección de noticias para mantenerte informado.",
+			"emptyTimetable": "Horario en blanco",
+			"empytTimetableInfo": "Normalmente mostramos aquí tu horario actual. Puedes encontrar tu contenido de aprendizaje en la sección del curso.",
+			"graded": "Calificado",
+			"handedIn": "Presentado",
+			"noDueDate": "No se ha fijado una fecha de envío",
+			"noMaterialsYetLookAtOthers": "Aún no has creado tus propios materiales. También puedes inspirarte en los materiales de tus compañeros. Consulta la <a href=\"\/my-material\">sección \"Mis materiales\"<\/a>.",
+			"noNews": "No hay noticias",
+			"notFound": "No se han encontrado entradas activas."
+		}
+	},
+	"dataprivacy": {
+		"headline": {
+			"registrationInvalid": "Registro incorrecto"
+		},
+		"text": {
+			"confirmationCodeAlreadySent": "Ya te hemos enviado un correo electrónico. Comprueba también tu carpeta de correo no deseado,\n\t\tpara confirmar si no has recibido un correo electrónico. Puedes solicitar el código de nuevo después de un minuto.",
+			"confirmationCodeSent": "Te acabamos de enviar un código de confirmación a {{{email }}",
+			"dataGivenByTeacherOrAdmin": "Tu profesor o la administración ha introducido estos datos por ti.\n\t\t\tSi necesitas hacer algún cambio, contacta con él\/ella. También puedes cambiar los datos tú mismo después de que se haya completado el proceso de registro.",
+			"differentEmailParentStudent": "El estudiante debe tener una dirección de correo electrónico diferente a la del padre.",
+			"errorGeneratingConfirmationCode": "¡Vaya, se ha producido un error al crear el código! Verifica tu dirección de correo electrónico ({{ email }}) y vuelve a intentarlo.",
+			"errorSubmittingForm": "Error: {{text}}",
+			"errorSubmittingFormUndefined": "No se ha podido enviar el formulario. (error desconocido)",
+			"invalidForm": "Formulario no válido, rellena todos los campos correctamente.",
+			"providerBlocked": "El proveedor de tu dirección de correo electrónico ({{ email }}) está bloqueado. Utiliza otra dirección y vuelve a intentarlo.",
+			"registrationInvalid": "Tu registro o este enlace de registro no parece ser válido. Puede haber varias razones para esto:",
+			"registrationInvalidAlreadyUsed": "El usuario al que pertenece este enlace de registro ya está registrado.",
+			"registrationInvalidContactAdvice": "Ponte en contacto con un profesor o administrador responsable y pregunta al respecto. Pueden ayudar o crear un nuevo enlace de registro, en caso de que sea necesario.",
+			"registrationInvalidManualConsent": "Un profesor o administrador ya ha realizado la declaración de consentimiento manual para el usuario correspondiente.",
+			"registrationInvalidOutdatedLink": "El enlace de registro es muy antiguo y ya no está vinculado correctamente con el usuario correspondiente."
+		}
+	},
+	"demo": {
+		"lib": {
+			"global": {
+				"link": {
+					"dataProtectionDeclaration": "Cuenta de prueba de la política de privacidad"
+				}
+			}
+		}
+	},
+	"files": {
+		"_file": {
+			"headline": {
+				"assertDeletion": "¿Estás seguro de que deseas eliminar \"{{filename}}\"?",
+				"editPermissions": "Editar permisos",
+				"functionCurrentlyDisabled": "Función desactivada temporalmente",
+				"moveFile": "Mover archivo",
+				"renameDir": "Renombrar carpeta",
+				"shareLink": "Compartir enlace"
+			},
+			"text": {
+				"dirAlreadyExists": "¡Ya existe una carpeta con este nombre en la misma carpeta!",
+				"errorWhileLoadingPermissions": "Desafortunadamente, se ha producido un error al recuperar los permisos.",
+				"errorWhileOpeningFile": "Error al abrir el archivo",
+				"fileAddedSuccess": "Los archivos se han añadido correctamente y se mostrarán inmediatamente después de que se actualice la página.",
+				"fileAlreadyExists": "¡Ya existe un archivo con este nombre en la carpeta de destino!",
+				"fileAlreadyExistsInDir": "¡Ya existe un archivo con este nombre en la misma carpeta!",
+				"fileMoved": "¡El archivo se ha movido correctamente!",
+				"littleHintHowToMoveFiles": "<b>Pequeño consejo:<\/b> puedes descargar el archivo y luego subirlo a la carpeta correcta.",
+				"movingFilesIsDisabled": "Actualmente no es posible mover archivos. Estamos trabajando en una solución.",
+				"permissionsChangedSuccess": "Los permisos de archivo se han cambiado correctamente",
+				"pleaseSelectFileType": "Selecciona un tipo de archivo.",
+				"renameDirSuccess": "¡La carpeta ha sido renombrada correctamente!",
+				"renameFileSuccess": "¡El archivo ha sido renombrado correctamente!",
+				"thereAreNoPermissionsToEdit": "No hay permisos para editar."
+			}
+		},
+		"button": {
+			"ascending": "↑ ascendente",
+			"createANewFile": "Crear un nuevo archivo",
+			"createANewFolder": "Crear una nueva carpeta",
+			"createNewFile": "Crear archivo",
+			"descending": "↓ descendente",
+			"download": "Descargar",
+			"presentation": "Presentación (pptx)",
+			"search": "Buscar",
+			"selectFormat": "Seleccionar formato",
+			"table": "Tabla (xlsx)",
+			"textDocument": "Documento de texto (docx)",
+			"toTeam": "Al equipo"
+		},
+		"headline": {
+			"attention": "Atención",
+			"createNewFile": "Crear un nuevo archivo",
+			"doYouWantToOpenThisFile": "¿Quieres abrir este archivo con un servicio externo?",
+			"newFolder": "Nueva carpeta"
+		},
+		"img_alt": {
+			"altInfoTheImage": "la imagen {{imgName}}"
+		},
+		"input": {
+			"filename": "Nombre del archivo",
+			"foldername": "Nombre de la carpeta",
+			"searchFiles": "Explorar archivos..."
+		},
+		"label": {
+			"backToFiles": "volver a la vista general de archivos",
+			"chooseANewName": "Selecciona un nuevo nombre:",
+			"chooseANewNameAndAFileExtension": "Selecciona un nombre y una extensión de archivo:",
+			"clickToOpenDir": "abrir carpeta {{name}}",
+			"clickToOpenFile": "abrir archivo {{name}}",
+			"close": "Cerrar",
+			"dangerousCode": "Código malicioso",
+			"deleteFile": "Eliminar archivo",
+			"deleteFolder": "Eliminar carpeta",
+			"distributeTheFollowingLink": "Comparte el siguiente enlace para dar acceso al archivo.",
+			"downloadFile": "Descargar archivo",
+			"editFilePermissions": "Editar permisos de archivos",
+			"fileName": "Nombre del archivo:",
+			"filesFromMyClasses": "Archivos de mis clases",
+			"filesFromMyCourse": "Archivos de mis cursos",
+			"filesFromMyTeam": "Archivos de mis equipos",
+			"filesOpen": "Abrir archivos",
+			"filesSharedWithMe": "Archivos compartidos conmigo",
+			"filesSharedWithMeContent": "Aquí puedes encontrar todos los archivos que han compartido contigo. Estos archivos han sido compartidos por otros usuarios.",
+			"fileType": "Tipo de archivo:",
+			"folder": "Carpeta",
+			"moveFile": "Mover archivo: desactivado temporalmente",
+			"myPersonalData": "Mis archivos personales",
+			"myPersonalDataContent": "Aquí puedes encontrar todos tus archivos personales. Solo tú tienes acceso a estos archivos, pero también puedes compartirlos con otros usuarios.",
+			"name": "Nombre del archivo",
+			"openDocumentInNewWindow": "Abrir documento en una nueva ventana",
+			"read": "Leer",
+			"renameFile": "Renombrar archivo",
+			"renameFolder": "Renombrar carpeta",
+			"roleUser": "Rol \/ usuario",
+			"selectAFolder": "Seleccionar una carpeta",
+			"shareFile": "Compartir archivo",
+			"size": "Tamaño",
+			"updatedAt": "Fecha de modificación",
+			"write": "Escribir"
+		},
+		"overview": {
+			"aria_label": {
+				"openCourseFiles": "Abrir mis archivos del curso",
+				"openMyfiles": "Abrir mis archivos personales",
+				"openSharedFiles": "Abrir archivos compartidos",
+				"openTeamFiles": "Abrir mis archivos de equipo"
+			}
+		},
+		"search": {
+			"headline": {
+				"search": "Búsqueda de archivos"
+			},
+			"label": {
+				"msoffice": "Word \/ Excel \/ PowerPoint",
+				"pdfs": "Documentos PDF",
+				"pics": "Imágenes",
+				"videos": "Vídeos"
+			}
+		},
+		"text": {
+			"FileCanNotBeDownloaded": "No te preocupes, el archivo no se puede descargar.",
+			"foldersAreLocated": "Cargando carpetas",
+			"foundIn": "encontrado en:",
+			"foundMaliciousContent": "¡Vaya! Hemos descubierto contenido potencialmente dañino en este archivo.",
+			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online no se ha configurado correctamente.",
+			"newDir": "Nueva carpeta",
+			"newFile": "Nuevo archivo",
+			"noAccessToThisFile": "¡No tienes acceso a este archivo!",
+			"noSearchResults": "Sin resultados de búsqueda",
+			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Vuelve a intentarlo más tarde o informa a tu administrador.",
+			"rememberThisSelection": "Recuerda esta selección",
+			"searchResultFor": "resultados de búsqueda para",
+			"searchResults": "Resultados de la búsqueda",
+			"storeFilesForUpload": "Guardar archivos para subirlos.",
+			"studentCanEdit": "¿Los estudiantes pueden editar?",
+			"tips": "SUGERENCIA: abre el documento de LibreOffice en una ventana aparte para mejorar el rendimiento"
+		}
+	},
+	"firstLogin": {
+		"birthdate": {
+			"text": {
+				"weNeedYourDateOfBirth": "Para completar tu cuenta, necesitamos tu fecha de nacimiento:"
+			}
+		},
+		"button": {
+			"getStartedImmediately": "Empieza ahora mismo",
+			"logout": "Cerrar sesión",
+			"signOutAndCancel": "Cerrar sesión y cancelar",
+			"takeALookAtTheFirstSteps": "Ver los primeros pasos"
+		},
+		"consent": {
+			"headline": {
+				"importantInformation": "Información importante",
+				"summaryOfTheExtension": "Resumen de la extensión en {{visualType}}",
+				"toThe": "a"
+			},
+			"text": {
+				"and": "y",
+				"constantlyEvolving": "constantemente desarrollado. En el curso de este,",
+				"expanded": "ampliado o adaptado específicamente para tu escuela.",
+				"explainTheFollowing": "declaro lo siguiente:",
+				"forAnEvenBetterLearningExperience": "{{title}} se desarrolla constantemente para una mejor experiencia de aprendizaje. En el curso de esto,",
+				"i": "Yo,",
+				"pleaseClickOnRead": "Acepta esta información haciendo clic en \"Leer\" para continuar con el uso.",
+				"pleaseConfirmTheFollowingDeclarationOfConsent": "Confirma las siguientes declaraciones de consentimiento para que puedas utilizar {{title}}.",
+				"termsOfUse": "Condiciones de uso",
+				"the": "el"
+			}
+		},
+		"email": {
+			"headline": {
+				"howCanWeContactYou": "¿Cómo podemos contactar contigo?"
+			},
+			"text": {
+				"ifTheEmailAddressIsNotTheCorrectOne": "Si la dirección de correo electrónico no es correcta, ponte en contacto con tu administrador de {{shortTitle}}.",
+				"pleaseCheckYourEmail": "Por favor, comprueba tu dirección de correo electrónico:"
+			}
+		},
+		"global": {
+			"headline": {
+				"birthdate": "Fecha de nacimiento"
+			}
+		},
+		"label": {
+			"newPassword": "Nueva contraseña:",
+			"repeatYourNewPassword": "Repetir tu nueva contraseña:",
+			"under14YearsOld": "13 años o menos."
+		},
+		"parent": {
+			"button": {
+				"exitAndContinueLater": "Salir y continuar más tarde"
+			},
+			"global": {
+				"label": {
+					"mustNotBeYourChildsEmailAddress": "(No puede ser la misma que la dirección de correo electrónico de tu hijo)",
+					"yourEmailAddress": "Tu dirección de correo electrónico:"
+				},
+				"text": {
+					"forStudentsUnder": "Para estudiantes menores de {{age}} años, un padre, madre o tutor debe dar su consentimiento para el uso de {{shortTitle}}."
+				}
+			},
+			"headline": {
+				"declarationOfConsentFromALegalGuardian": "Se requiere una declaración de consentimiento de un padre, madre o tutor"
+			},
+			"label": {
+				"continueAsLegalGuardian": "continuar como padre, madre o tutor"
+			},
+			"text": {
+				"amLegalGuardianFor": "soy el padre, madre o tutor legal de {{firstName}} {{lastName}} y declaro lo siguiente:",
+				"needConsentOfParents": "Como tienes menos de {{age}} años, se requiere una declaración de consentimiento de uno de tus padres para que puedas usar {{shortTitle}}.",
+				"pleaseConfirmTheFollowingDeclaration": "Por favor, confirma las siguientes declaraciones de consentimiento para que tu hijo pueda beneficiarse del uso de la nube escolar de HPI:",
+				"theNextStepMustBeCarriedOut": "Los siguientes pasos los debe realizar un padre, madre o tutor."
+			}
+		},
+		"password": {
+			"text": {
+				"afterClickingThe": "Después de hacer clic en",
+				"allowedSpecialCharactersAre": "Se permiten estos caracteres especiales:",
+				"buttonsCanBeUsedAsUsual": "- Puedes iniciar sesión como siempre con los botones a través del sistema de tu escuela (Moodle, iServ, ItsLearning, etc.) en {{title}}."
+			}
+		},
+		"placeholder": {
+			"atList8CharactersWithUpperAndLower": "Al menos 8 caracteres con mayúsculas y minúsculas, incluyendo al menos un número y un carácter especial.",
+			"newPassword": "Nueva contraseña",
+			"repeatNewPassword": "Repetir nueva contraseña"
+		},
+		"text": {
+			"between14And": "entre 14 y {{addConsent}} años.",
+			"clickHereForFurtherTraining": "Haz clic aquí para obtener más formación",
+			"fromYear": "{{age}} años o más.",
+			"justHaveALook": "¡Solo echa un vistazo!",
+			"linguisticNote": "Nota lingüística: para una mejor legibilidad, utilizamos la forma masculina en {{shortTitle}} (por ejemplo, \"alumno\", \"profesor\"). Siempre se refiere a todas las personas independientemente de su género. {{shortTitle}} está destinado a todas las personas independientemente de su origen, limitaciones, género y orientación sexual.",
+			"pleaseChangeTheStartPassword": "Cambia la contraseña de inicio. Anota la nueva contraseña y guárdala en un lugar seguro.",
+			"pleaseChoose": "Por favor, selecciona: Yo estoy...",
+			"yourLoginWorksButThereIsAProblem": "Tu inicio de sesión funciona, pero hay un problema con tus formularios de consentimiento. Ponte en contacto con tu profesor o administrador."
+		},
+		"thanks": {
+			"img_alt": {
+				"onlineTraining": "Formación en línea",
+				"questionMark": "Signo de interrogación"
+			},
+			"text": {
+				"andLearnEverythingYouNeed": "y descubre todo lo que necesitas saber como administrador en vívidos vídeos explicativos",
+				"forVividAndPracticalVideos": "para vídeos vívidos y prácticos y descúbrelo",
+				"inTheTopRightOfOur": "arriba a la derecha en nuestro",
+				"nowTeachersCanInviteToCoursesAndAccess": "Ahora tus profesores pueden invitarte a los cursos y acceder a los materiales didácticos y las tareas desde allí. También tienes tu propia área de archivos donde puedes guardar documentos y carpetas importantes. ¡Diviértete explorando!",
+				"overEveryPageInThe": "A través de cada página de {{shortTitle}} puedes hacer clic para acceder a",
+				"thereYouWillFindDetailedInstructions": "Allí encontrarás instrucciones detalladas y series de imágenes para casi todos los temas.",
+				"whatCanActuallyDo": "¿Qué puede hacer {{shortTitle}}? ¿Y cómo lo puedo utilizar para organizar, diseñar y llevar a cabo mis lecciones? Echa un vistazo a nuestro",
+				"youAreAdminAndHaveTheHonorable": "¿Eres administrador y tienes la honorable tarea de configurar {{title}} para tu escuela? Te ayudaremos en esta importante tarea. Echa un vistazo a nuestro"
+			}
+		},
+		"welcome": {
+			"button": {
+				"toYourCourses": "A tus cursos"
+			},
+			"headline": {
+				"congratulations": "¡Felicidades, {{firstName}} {{lastName}}!",
+				"welcomeToThe": "¡Bienvenido a {{shortTitle}}, {{firstName}} {{lastName}}!"
+			},
+			"text": {
+				"dueToAChangeInTheLowerSaxony": "Debido a un cambio en la Ley de escuelas de Baja Sajonia, el procesamiento de datos personales en {{shortTitle}} ahora se basa principalmente en el § 31 (5) NSchG en relación con el artículo 6, párrafo 1 lit. c) del RGPD.",
+				"pleaseBrieflyFileSomeData": "Introduce brevemente algunos datos, establece una nueva contraseña y luego puedes empezar.",
+				"thankYouForTakingNoteOf": "Gracias por tomar nota.",
+				"weArePleasedThatYou": "Estamos contentos de que desees utilizar {{shortTitle}}.",
+				"weArePleasedThatYouWantToUse": "Estamos contentos de que desees utilizar {{title}} y colaborar con nosotros para dar el siguiente paso por una enseñanza con soporte digital: con código abierto, sin ánimo de lucro y que cumpla con las regulaciones de protección de datos. Comprueba la dirección de correo electrónico que has proporcionado en los siguientes pasos y acepta las condiciones de uso. Un padre, madre o tutor legal ya ha dado su consentimiento para su uso, ahora depende de ti. Luego, cambia tu contraseña de inicio para que puedas beneficiarte usando {{shortTitle}}.",
+				"welcomeBack": "¡Bienvenido de nuevo a {{shortTitle}}, {{firstName}} {{lastName}}!",
+				"welcomeTo": "¡Bienvenido a {{title}}, {{displayName}}!",
+				"welcomeToShort": "¡Bienvenido a {{shortTitle}}!",
+				"withThe": "Enseñanza digital con {{shortTitle}}",
+				"youAreNow14YearsOld": "Ahora tienes 14 años. En el siguiente paso, da tu consentimiento para el uso de {{title}}. A partir de los 14 años, además del consentimiento ya proporcionado por tus padres, se necesita esto para que puedas seguir usando {{shortTitle}}."
+			}
+		}
+	},
+	"format": {
+		"date": "DD\/MM\/YYYY",
+		"dateLong": "dddd, DD. MMMM YYYY",
+		"datePicker": "m\/d\/Y",
+		"datePickerMask": "19\/39\/9999",
+		"dateTime": "DD\/MM\/YYYY HH:mm",
+		"dateTimePicker": "m\/d\/Y H:i",
+		"dateTimePickerMask": "19\/39\/9999 29:59",
+		"dateTimeToPicker": "DD\/MM\/YYYY HH:mm",
+		"dateToPicker": "DD\/MM\/YYYY"
+	},
+	"global": {
+		"aria_label": {
+			"sidebar": "Barra lateral",
+			"topMenu": "barra superior"
+		},
+		"button": {
+			"accept": "Aceptar",
+			"add": "Añadir",
+			"addPrivateTask": "Añadir tarea privada",
+			"addTask": "Añadir tarea",
+			"back": "Atrás",
+			"cancel": "Cancelar",
+			"clickHere": "Haz clic aquí",
+			"close": "Cerrar",
+			"create": "Crear",
+			"createFirstCourse": "Crea tu primer curso",
+			"createFolder": "Crear carpeta",
+			"deleteTeam": "Eliminar equipo",
+			"edit": "Editar",
+			"editTopic": "Editar tema",
+			"filterAdd": "Añadir filtro",
+			"filterApply": "Aplicar",
+			"import": "Importar",
+			"next": "Siguiente",
+			"no": "No",
+			"ok": "De acuerdo",
+			"open": "Abrir",
+			"openANewTab": "Abrir en una pestaña nueva",
+			"print": "Imprimir",
+			"reload": "Recargar",
+			"remove": "Eliminar",
+			"save": "Guardar",
+			"saveChanges": "Guardar cambios",
+			"send": "Enviar",
+			"submit": "Enviar",
+			"toCourse": "Para el curso",
+			"tryAgain": "Inténtalo de nuevo",
+			"yes": "Sí"
+		},
+		"headline": {
+			"actions": "Acciones",
+			"addDate": "Añadir fecha",
+			"almostThere": "¡Ya casi está!",
+			"assignedTasks": "Tareas asignadas",
+			"classes": "Clase(s)",
+			"dateDetails": "Fecha - Detalles",
+			"declarationOfConsent": "Declaración de consentimiento",
+			"delete": "Eliminar",
+			"entriesPerPage": "Entradas por página",
+			"files": "Archivos",
+			"invitationLinkGenerated": "¡Enlace de invitación generado!",
+			"myMaterial": "Mis materiales",
+			"name": "Nombre",
+			"news": "Noticias",
+			"privateTasks": "Tareas privadas y borradores",
+			"projectExecution": "Ejecución del proyecto",
+			"sorryItDidNotWork": "¡Lo sentimos, no ha funcionado!",
+			"sorting": "Clasificación",
+			"task": "Tarea",
+			"tasks": "Tareas",
+			"teachers": "Profesores",
+			"topics": "Temas",
+			"youAlmostMadeIt": "¡Ya casi está!",
+			"yourData": "Tu información"
+		},
+		"input": {
+			"password": "Contraseña"
+		},
+		"label": {
+			"chooseAFile": "Seleccionar archivo",
+			"creationDate": "Fecha de creación",
+			"dateOfBirth": "Fecha de nacimiento:",
+			"description": "Descripción",
+			"emailAddress": "Dirección de correo electrónico:",
+			"entriesPerPage": "Entradas por página: %1",
+			"firstName": "Nombre",
+			"firstNameColon": "Nombre:",
+			"from": "De",
+			"lastName": "Apellidos",
+			"lastNameColon": "Apellidos:",
+			"more": "Más",
+			"nameOfTheCourse": "Nombre del curso",
+			"newTab": "Se abre en una pestaña nueva",
+			"password": "Contraseña:",
+			"role": "Rol",
+			"room": "Sala",
+			"settings": "Configuración",
+			"skipLinks": "Saltar enlaces",
+			"sortBy": "Ordenar por: %1",
+			"title": "Título",
+			"to": "Para",
+			"type": "Tipo"
+		},
+		"language": {
+			"label": {
+				"de": "Alemán",
+				"en": "Inglés",
+				"es": "Español"
+			}
+		},
+		"link": {
+			"aboutTheProject": "Acerca del proyecto",
+			"administrationStudents": "Estudiantes",
+			"archive": "Archivo",
+			"calendar": "Calendario",
+			"contact": "Contacto",
+			"courseData": "Mis archivos del curso",
+			"courseDataContent": "Aquí encontrarás todos los archivos utilizados en los respectivos cursos de la clase. Todos los participantes del curso, es decir, tanto el profesor como los alumnos, tienen acceso a estos archivos.",
+			"files": "Mis archivos",
+			"filesContent": "Aquí puedes encontrar todos los archivos utilizados en los respectivos equipos. Todos los participantes del equipo tienen acceso a estos archivos.",
+			"filesPersonal": "archivos personales",
+			"filesShared": "archivos compartidos",
+			"firstSteps": "Primeros pasos",
+			"footerSkipLink": "Pie de página",
+			"helpArea": "Sección de ayuda",
+			"helpDesk": "Centro de ayuda",
+			"imprint": "Impresión",
+			"landing": "Página de inicio",
+			"lernstore": "Lern-Store",
+			"mainContentSkipLink": "Sección principal",
+			"management": "Administración",
+			"managementTeachers": "Profesores",
+			"openInNewTab": "abrir en una nueva pestaña",
+			"openInNewTabWarning": "Se abre en una pestaña nueva",
+			"overview": "Panel",
+			"partner": "Socio",
+			"register": "Registrarse",
+			"school": "Escuela",
+			"tasksDrafts": "Borradores",
+			"teamData": "Mis archivos de equipo",
+			"teams": "Equipos",
+			"topNavbarSkipLink": "Navegación arriba"
+		},
+		"pagination": {
+			"aria_label": {
+				"firstPage": "Primera página",
+				"lastPage": "Última página",
+				"nextPage": "siguiente página",
+				"previousPage": "Página anterior"
+			}
+		},
+		"placeholder": {
+			"Administrator": "Administrador",
+			"BetaTeacher": "Beta",
+			"Demo": "Demostración",
+			"DemoStudent": "Demostración de estudiante",
+			"DemoTeacher": "Demostración de profesor",
+			"Experte": "Experto",
+			"firstName": "Introduce tu nombre aquí",
+			"Helpdesk": "Centro de ayuda",
+			"lastName": "Introduce tu apellido aquí",
+			"Lehrer": "Profesor",
+			"Schüler": "Estudiante",
+			"selectTeacher": "Seleccionar profesor",
+			"Superhero": "Administrador de Schul-Cloud"
+		},
+		"role": {
+			"text": {
+				"administrator": "Administrador",
+				"expert": "Experto",
+				"leader": "Líder",
+				"member": "Asistente",
+				"owner": "Propietario"
+			}
+		},
+		"sidebar": {
+			"link": {
+				"addons": "Complementos",
+				"administration": "Administración",
+				"administrationClasses": "Clases",
+				"administrationCourses": "Cursos"
+			}
+		},
+		"text": {
+			"400": "Esta solicitud es incorrecta.",
+			"401": "Primero, autentícate.",
+			"402": "Primero debes pagar por esta función.",
+			"403": "¡Lo sentimos, pero no podemos mostrarte eso!",
+			"404": "Vaya, este sitio no existe.",
+			"408": "Tiempo de espera",
+			"areYouSure": "¿Estás seguro?",
+			"attention": "Atención:",
+			"dataProtection": "Política de privacidad",
+			"emailDomainBlocked": "Este proveedor de correo ya no es compatible. Ponte en contacto con el administrador de tu escuela.",
+			"errorChangingFilePermissions": "Hay un problema para cambiar los permisos",
+			"errorWhileLoadingPage": "Esta página no se ha podido cargar",
+			"filesTooLarge": "Los archivos adjuntos superan el tamaño total máximo permitido.",
+			"fileTooLarge": "Los archivos adjuntos superan el tamaño máximo permitido.",
+			"fileWrongFormat": "'{{filename}}' no es una imagen, vídeo o archivo válido.",
+			"forThisWeNeedTheFollowingInformationFromYou": "Para ello, necesitamos la siguiente información tuya:",
+			"friday": "Viernes",
+			"inAdditionWeArePlanning": "Además, tenemos la intención de desarrollar un punto de acceso para padres a través del cual te puedas comunicar con el profesor de la clase y realizar un seguimiento del progreso de aprendizaje de tu hijo. Tan pronto como estas funciones estén disponibles, te preguntaremos si podemos utilizar tu dirección de correo electrónico para este propósito.",
+			"info": "Nota:",
+			"internalProblem": "Vaya, tenemos un problema interno. Vuelve a intentarlo ahora mismo.",
+			"invalidRequest": "Solicitud no válida",
+			"min8characters": "Al menos 8 caracteres con mayúsculas y minúsculas, incluyendo al menos un número y un carácter especial.",
+			"monday": "Lunes",
+			"noTasks": "No hay tareas",
+			"noTopicFoundWithCode": "No se ha encontrado ningún tema para este código.",
+			"pageMoved": "Esta página se ha movido.",
+			"passwordsAreDifferent": "Las contraseñas no coinciden.",
+			"qrHintText": "Dirige a otros usuarios a este sitio con el código QR",
+			"requestTimeout": "Tiempo de espera agotado",
+			"saturday": "Sábado",
+			"severalSecurityTokens": "Se han enviado varios tokens de seguridad (CSRF) con la solicitud. Inténtalo de nuevo.",
+			"somethingWentWrong": "¡Algo ha salido mal!",
+			"specialCharacters": "! § $% & \/ () =? \\;:,. # + * ~",
+			"sunday": "Domingo",
+			"sureAboutDeleting": "¿Estás seguro de que deseas eliminar '{{ name }}'?",
+			"sureAboutDiscardingChanges": "¿Estás seguro de que deseas descartar los cambios?",
+			"theRequestContains": "La solicitud contiene varios tokens de seguridad idénticos (CSRF).",
+			"thursday": "Jueves",
+			"tuesday": "Martes",
+			"videoconferenceNotStartedYet": "La videoconferencia aún no ha comenzado",
+			"wednesday": "Miércoles",
+			"weNeedAnEmailAddress": "Necesitamos una dirección de correo electrónico para que tu consentimiento para usar {{shortTitle}} sea legalmente válido. {{shortTitle}} no comparte la dirección. No recibirás correos electrónicos no solicitados."
+		}
+	},
+	"help": {
+		"anchor": {
+			"aria_label": {
+				"section": "Ve a la sección {{section}}"
+			}
+		},
+		"confluence": {
+			"link": {
+				"openArticleInConfluence": "Abrir artículo en Confluence",
+				"openInConfluence": "Abrir en Confluence"
+			},
+			"text": {
+				"ifYouCantReadTheArticle": "Si no puedes leer el artículo (sucede a menudo en el caso de los dispositivos móviles), también puedes",
+				"languageNote": "Nota lingüística:",
+				"typeNotAllowed": "\"{{filename}}\" no es una imagen, vídeo o archivo válido"
+			}
+		},
+		"contact": {
+			"label": {
+				"schoolAdmin": "Administrador de la escuela",
+				"wish": "Solicitud"
+			},
+			"text": {
+				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
+				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
+				"whoDoYouWantToContact": "¿Con quién quieres contactar?"
+			}
+		},
+		"form_admin": {
+			"label": {
+				"currentStatus": "Estado ACTUAL: ¿Qué está sucediendo en el momento después de haber realizado qué pasos?",
+				"targetState": "Estado OBJETIVO: ¿Qué debería suceder en lugar de esto?"
+			},
+			"text": {
+				"hereYouCanContact": "Aquí puedes comunicarte con el administrador de tu escuela. Él puede ayudarte con problemas de inicio de sesión, por ejemplo, y se le informará de tu solicitud de contacto por correo electrónico."
+			}
+		},
+		"form_bug": {
+			"label": {
+				"maxSizeFiles": "Imágenes, vídeos y archivos",
+				"problemDescription": "Descripción del problema:",
+				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo"
+			},
+			"text": {
+				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>"
+			}
+		},
+		"form_Wish": {
+			"label": {
+				"acceptanceCriteria": "Criterios de aceptación",
+				"around": "alrededor de...",
+				"as": "Como...",
+				"briefDescriptionOfTheRequest": "Breve descripción de la solicitud",
+				"device": "Dispositivo",
+				"iWouldLikeTo": "Me gustaría..."
+			},
+			"placeholder": {
+				"afterLoggingOnToTheSystem": "Por ejemplo, después de iniciar sesión en el sistema, llego al contexto de la lección en dos pasos como máximo, puedo editar la tarea del estudiante allí con un clic y, si es necesario, informar a los estudiantes sobre el cambio de forma automática.",
+				"briefDescriptionOfTheRequest": "Breve descripción de la solicitud",
+				"canEasilyFindAndChange": "por ejemplo, puede encontrar y cambiar fácilmente una tarea de estudiante creada en el sistema",
+				"exampleStudent": "por ejemplo, estudiantes, profesores, administradores, conserjes, etc.",
+				"toUpdateThem": "por ejemplo, para actualizaciones"
+			},
+			"text": {
+				"iAgreeThatTheFollowingInformation": "Acepto que la siguiente información puede transferirse para gestionar mejor mi solicitud: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>sistema operativo y versión (por ejemplo, Windows 10)<\/li>"
+			}
+		},
+		"global": {
+			"headline": {
+				"principal": "Director"
+			},
+			"label": {
+				"briefDescriptionOfTheProblem": "Breve descripción del problema",
+				"furtherInformation": "Más información (opcional):",
+				"replyEmail": "Dirección de correo electrónico para cualquier consulta."
+			}
+		},
+		"headline": {
+			"contactDetails": "Persona de contacto y datos de contacto",
+			"helpSection": "Sección de ayuda",
+			"privacyCourse": "Curso de privacidad",
+			"welcomeDocuments": "Documentos de bienvenida para descargar"
+		},
+		"help_confluenceLinks": {
+			"link": {
+				"contactForm": "Formulario de contacto",
+				"linguisticNote": "Nota lingüística",
+				"usageAids": "Asistencia al usuario",
+				"writeUsAnEmail": "Envíanos un correo electrónico"
+			}
+		},
+		"help_fromInviteExternalMember": {
+			"button": {
+				"externalExperts": "Expertos externos",
+				"teachersFromOtherSchools": "Profesores de otras escuelas"
+			},
+			"headline": {
+				"whoDoYouWantToInviteTheTeam": "¿A quién te gustaría invitar al equipo?"
+			}
+		},
+		"language_hint": {
+			"text": {
+				"forBetterReadability": "Para una mejor legibilidad, utilizamos la forma masculina (\"estudiante\", \"profesor\") en la interfaz de usuario de {{title}}. Esto se refiere siempre a todas las personas independientemente de su género. {{shortTitle}} es para todos, independientemente del origen, las limitaciones, el género y la orientación sexual."
+			}
+		},
+		"lernNuggets": {
+			"headline": {
+				"instructionsForUse": "Instrucciones de uso",
+				"learningNuggetBasicOfGDPR": "Actividad rápida de aprendizaje: principios básicos del RGPD",
+				"learningNuggetDataProtectioin": "Actividad rápida de aprendizaje: privacidad en las rutinas escolares diarias",
+				"learningNuggetDataProtectionAndCloud": "Actividad rápida de aprendizaje: soluciones de privacidad y en la nube",
+				"learningNuggetLicenseModels": "Actividad rápida de aprendizaje: modelos de licencia y derechos de uso",
+				"welcomeToTheOnlineCourse": "¡Bienvenido al curso en línea 'Privacidad y derechos de autor'!"
+			},
+			"link": {
+				"basicsOfTheGDPR": "Principios básicos del RGPD",
+				"dataProtectionAndCloudSolution": "Soluciones en la nube y privacidad",
+				"dataProtectionInSchoolLife": "Protección de datos en la rutina escolar",
+				"licenseModelAndUsageRights": "Modelos de licencia y derechos de uso"
+			},
+			"text": {
+				"aLearningUnitLasts": "Una unidad de aprendizaje tiene una duración máxima de 15 minutos. Para recibir todos los contenidos es mejor conectar los altavoces o los auriculares a tu dispositivo.",
+				"byTheWayYouWillAlways": "Por cierto, siempre recibirás un certificado de participación como prueba de tu éxito en la formación al final de una actividad rápida de aprendizaje.",
+				"clientAndLicensedFor": "Cliente y con licencia para: Verein MINT-EC®,",
+				"contentAndProduction": "Contenido y producción: youknow GmbH, St.-Martin-Straße 57, 81669 Múnich,",
+				"createdAsPartOfThe": "Desarrollado como parte del proyecto de la nube escolar de HPI.",
+				"dealingWithPersonalDetails": "La gestión de datos personales, los requisitos de una solución en la nube en la rutina escolar y el intercambio digital de materiales de enseñanza y aprendizaje causan incertidumbre entre los administradores y profesores de escuela de forma reiterada.",
+				"forThisReasonYouHaveTheOpportunity": "Por esta razón, tienes la oportunidad de aprender todo lo que necesitas saber sobre protección de datos y derechos de autor en pequeñas unidades de aprendizaje.",
+				"hereIsTheLearningNugget": "Haz clic aquí para acceder a la actividad rápida de aprendizaje:",
+				"inTheLearningNuggetOnDataProtection": "En la actividad rápida de aprendizaje sobre la protección de datos en la rutina escolar puedes averiguar qué normas de protección de datos debes observar en el contexto escolar. También mostramos aquí casos específicos de protección de datos en la rutina escolar.",
+				"inThisLessonYouWillLearnAllTheBasics": "En esta unidad de aprendizaje aprenderás todos los conceptos básicos de los datos personales. También obtendrás una descripción general de los cinco principios básicos aplicables al abordar el RGPD.",
+				"learningNiggetsImproveTheLearningEffect": "Las actividades rápidas de aprendizaje mejoran el efecto del aprendizaje y, además, son divertidas. Por otro lado y, gracias a la estructura modular, puedes decidir libremente qué unidad de aprendizaje deseas realizar primero. Simplemente haz clic en la actividad rápida de aprendizaje correspondiente para realizar la formación.",
+				"whatAreTheAdvantagesAndDisadvantages": "¿Cuáles son las ventajas y desventajas de las soluciones en la nube en el uso escolar? ¿Qué se debe considerar para su uso en tu escuela? En esta unidad de aprendizaje presentamos todo lo que necesitas saber sobre las soluciones en la nube, como la nube escolar de HPI.",
+				"withTheTopicsOfLicenseModels": "Con respecto a los modelos de licencias y el derecho de uso, se te informará sobre los conceptos básicos de la ley de derechos de autor y los requisitos para reproducir materiales en la rutina escolar analógica y digital. También puedes aprender qué son los recursos educativos abiertos y cómo identificar las licencias de manera adecuada."
+			}
+		},
+		"partials": {
+			"headline": {
+				"contactForm": "Formulario de contacto",
+				"contactPerson": "Persona de contacto",
+				"overview": "Visión general",
+				"writeUsAnEmail": "Envíanos un correo electrónico"
+			}
+		},
+		"placeholder": {
+			"briefDescriptionOfTheProblem": "Breve descripción del problema",
+			"email": "Dirección de correo electrónico",
+			"formBugText": "Como [rol de usuario]\nNo he podido usar\nla función [???]\nen la página [???]\ndebido al error\/mensaje de error \"[???]\". \n\n¿El error también se produce en otras áreas similares (por ejemplo, otros cursos o usuarios)?\n¿Cómo se expresa exactamente el problema?\n¿Cuándo se ha producido el error exactamente (fecha, hora) para que podamos observar los registros de manera específica?\nSi se necesitan varios pasos para comprender el problema, descríbelos aquí de la manera más breve y clara posible."
+		},
+		"search": {
+			"headline": {
+				"noSearchResults": "No se han encontrado resultados 😪"
+			},
+			"text": {
+				"tryAnotherQuery": "Inténtalo de nuevo con otras palabras clave"
+			}
+		},
+		"text": {
+			"hereYouCanFindOut": "Aquí puedes descubrir cómo eliminar tus cookies.",
+			"noAccessDemoAccount": "No tienes acceso a estos documentos en la cuenta de demostración.",
+			"noWelcomeDocuments": "Puede que no haya ningún documento de bienvenida. Ponte en contacto con el servicio de atención al usuario.",
+			"someConcernsNeedMoreOptions": "Algunas cuestiones requieren más opciones de las que permiten los campos de la función de contacto. Escríbenos un correo electrónico si quieres ponerte en contacto con nosotros:",
+			"theHassoPlattnerInstituteIsAvailable": "El Instituto Hasso Plattner está disponible para todas las preguntas técnicas. Si tienes problemas con la nube escolar de HPI en sí o si tienes dificultades para usarla, utiliza el formulario de contacto o envía un correo electrónico a:",
+			"theMintTeamIsNotAvailave": "El equipo de MINT-EC está disponible para todas las preguntas no técnicas y se puede contactar con ellos en la siguiente dirección de correo electrónico:",
+			"toMINTECWithQuestions": "a MINT-EC para consultas y sugerencias sobre la introducción y el uso de la nube escolar de HPI en tu escuela",
+			"toTheHpiForIdeas": "A HPI para obtener ideas, comentarios y solicitudes sobre la nube en sí."
+		}
+	},
+	"helpdesk": {
+		"text": {
+			"feedbackError": "Error al enviar los comentarios.",
+			"feedbackSuccessful": "¡Comentarios enviados correctamente!",
+			"fileWrongFormat": "{{filename}} no es una imagen, vídeo o archivo válido."
+		}
+	},
+	"home": {
+		"button": {
+			"loginAsStudentDemo": "Iniciar sesión como estudiante",
+			"loginAsTeacherDemo": "Iniciar sesión como profesor",
+			"register": "Registrarse",
+			"subscribeNewsletter": "Suscríbete al boletín de noticias"
+		},
+		"header": {
+			"link": {
+				"blog": "Blog",
+				"faq": "Preguntas frecuentes",
+				"login": "Iniciar sesión"
+			}
+		},
+		"headline": {
+			"allNewsOnHPINewsletter": "Todas las noticias sobre la <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span> enviadas cómodamente a tu buzón:",
+			"explainationVideo": "Vídeo explicativo sobre la nube escolar de HPI",
+			"HPISchoolCloudBlog": "Blog <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span>",
+			"theIdea": "La idea básica de la <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span>",
+			"tryDemoVersion": "Prueba la versión de demostración ahora",
+			"welcomeToHPISchoolCloud": "¡Bienvenido a la <span style=\"white-space: nowrap;\">nube escolar de HPI!<\/span>"
+		},
+		"img_alt": {
+			"logoBMBF": "Logotipo de BMBF",
+			"logoHPI": "Logotipo de HPI",
+			"logoMINTEC": "Logotipo de MINT-EC"
+		},
+		"link": {
+			"moreArticles": "Mostrar más artículos",
+			"openArticle": "Abrir artículo"
+		},
+		"text": {
+			"advertisementForOurTeam": "¿Asocias Node, React y Feathers con Javascript y no en inglés? ¿Buscas un equipo joven, un ambiente tranquilo y una jerarquía plana? Entonces echa un vistazo a nuestras vacantes: https:\/\/schul-cloud.org\/community#jobs",
+			"browserDoesNotSupportPlayer": "Tu navegador no es compatible con este reproductor de vídeo (HTML5).",
+			"downloadFile": "Descargar archivo",
+			"moreInformation": "Más información:",
+			"technicalReportHPISchoolCloud": "Informe técnico: \"The HPI School Cloud: Roll-Out of a Cloud Architecture for Schools in Germany\" (.pdf) [\"Nube escolar de HPI: implementación de una arquitectura en la nube para escuelas en Alemania\"]",
+			"weRecommendUsingModernBrowsers": "Recomendamos utilizar una versión actual del navegador Chrome, Firefox, Edge o Safari."
+		}
+	},
+	"homework": {
+		"_task": {
+			"button": {
+				"restoreAlt": "<i class='fa fa-mail-reply'> <\/i> Restaurar"
+			},
+			"headline": {
+				"editTask": "Editar tarea"
+			},
+			"input": {
+				"chooseTeamMembers": "Seleccionar compañeros",
+				"createSubmission": "Crea tu envío..."
+			},
+			"label": {
+				"copyTask": "Copiar definición de la tarea",
+				"copyTaskAlt": "Copiar tarea '{{title}}'.",
+				"deleteTaskAlt": "Eliminar la tarea: '{{title}}'.",
+				"editTaskAlt": "Editar tarea '{{title}}'.",
+				"fileUpload": "Envío de archivos",
+				"moveFromArchive": "Mover la tarea del archivo a la página de descripción general",
+				"moveToArchive": "Mover la tarea de la página de descripción general al archivo",
+				"printGradeComment": "Imprimir calificación",
+				"printSubmission": "Imprimir envío",
+				"printTask": "Imprimir definición de la tarea",
+				"statsGraded": "{{gradedCount}} calificado",
+				"statsSubmitted": "{{submissionCount}} de {{totalCount}} presentado",
+				"submitted": "Enviado",
+				"team": "Equipo",
+				"teamSubmission": "Envío de equipos",
+				"teamSubmissionMaxX": "Envío de equipos (máximo de <span id=\"maxTeamMembers\">{{maxTeamMembers}}<\/span> personas)",
+				"textDelivery": "Envío de texto"
+			},
+			"text": {
+				"errorInvalidTaskId": "ID de tarea no válida",
+				"maxGroupSize": "Tamaño máximo del grupo: <b>{{maxTeamMembers}} miembros<\/b>",
+				"newHomeworkCourseNotification": "Tienes una nueva tarea en {{coursename}}",
+				"newHomeworkDueDateNotification": "Se debe enviar {{homeworkname}} antes del {{duedate}}.",
+				"noSubmissionsYet": "No hay envíos disponibles.",
+				"noSubmissionsYetFrom": "Aún no hay ningún envío de:",
+				"startDateBeforeSubmissionDate": "La fecha de inicio debe ser anterior a la fecha de envío.",
+				"submissionGradedNotification": "Tu envío en el campo {{coursename}} ha sido calificado",
+				"youHaveSolvedXPercent": "Has pasado <b class=\"grade\">{{grade}} %<\/b> correctamente."
+			}
+		},
+		"button": {
+			"archive": "Archivar",
+			"copy": "Copiar",
+			"copySubmissionFromList": "Copiar",
+			"deleteSubmissionFromList": "Eliminar",
+			"downloadUngradedFiles": "Descargar archivos de tareas sin calificar",
+			"editSubmissionFromList": "Editar",
+			"hrefAlt": "Eliminar envío",
+			"hrefDataName": "Tu envío",
+			"importing": "importar",
+			"importSubmission": "Importar el envío de los estudiantes",
+			"onTheSubject": "En el tema",
+			"save": "Guardar y enviar",
+			"toCourseAlt": "Al curso de la tarea",
+			"toTheCourseFiles": "A los archivos del curso",
+			"toTopicAlt": "Al tema de la tarea"
+		},
+		"global": {
+			"label": {
+				"allowGroupSubmission": "Permitir el envío de grupos",
+				"description": "Definición de tarea",
+				"maximumGroupSize": "Tamaño máximo del grupo:",
+				"privateTaskOnlyVisibleToMe": "Tarea privada (solo visible para mí)",
+				"processingPeriodEndsOn": "El período de procesamiento finaliza el:",
+				"topic": "Tema",
+				"visibleAndEditableForStudentsFrom": "Visible para los estudiantes y para editar desde:"
+			},
+			"placeholder": {
+				"description": "Averigua por qué..."
+			},
+			"text": {
+				"noTopicsInTheCourse": "No hay temas en este curso",
+				"substitutionTeachersMayNotChangeTheCourse": "(Los profesores suplentes no pueden editar el curso)"
+			}
+		},
+		"headline": {
+			"archivedTasks": "Tareas archivadas y pendientes",
+			"breadcrumb": "Tareas {{breadcrumbtitle}}",
+			"breadcrumbArchived": "Archivado",
+			"breadcrumbAssigned": "Asignado",
+			"breadcrumbPrivate": "Mi",
+			"drafts": "Borradores",
+			"dueDate": "Fecha de envío",
+			"more": "Más"
+		},
+		"input": {
+			"gradeComment": "Comentarios de calificación",
+			"noAssignment": "Sin asignación"
+		},
+		"label": {
+			"comment": "Comentarios",
+			"details": "Detalles",
+			"dontShowAgain": "No volver a mostrar",
+			"filesUploadedForDelivery": "Archivos cargados para su envío (¡sin guardar!)",
+			"filterCourses": "Cursos: %1",
+			"filterDueDate": "Envío de %1 a %2",
+			"filterDueDateFrom": "desde",
+			"filterDueDateTo": "para",
+			"filterMorePrivateTask": "Tarea privada",
+			"filterMorePublicSubmissions": "Los estudiantes pueden ver entre ellos los envíos.",
+			"filterMoreTeamSubmissions": "Envíos del equipo",
+			"forGradingUploadedFiles": "Archivos cargados como comentarios\/calificación",
+			"forSubmissionUploadedFiles": "Archivos subidos para su envío",
+			"inPercent": "en porcentaje",
+			"onTheSubject": "Al tema",
+			"rating": "clasificación",
+			"rating_comment": "Comentario\/calificación",
+			"restore": "Restaurar",
+			"selectStudentGroup": "Seleccionar grupo de estudiantes",
+			"selectTeamMembers": "Seleccionar miembros del equipo",
+			"sortByAvailabilityDate": "Fecha de disponibilidad",
+			"sortByDueDate": "Fecha de envío",
+			"sortByLastUpdate": "Última actualización",
+			"studentSolutionVisibleToEachOthers": "Los envíos de los estudiantes son visibles entre ellos",
+			"submission": "Envío",
+			"submissions": "Envíos",
+			"submissionsWithoutFeedback": "Envíos sin comentarios",
+			"taskDetails": "Detalles de la tarea:",
+			"uploadGradeFiles": "Cargar archivos corregidos"
+		},
+		"text": {
+			"activatingThisMakesSubmissionsPublic": "Al activar esta opción, los envíos de todos los participantes del curso serán visibles para todos los demás estudiantes del curso.",
+			"bulkGradingError": "Los envíos no se han podido asignar a todos los archivos según el nombre. Ve a comentarios\/calificación para asignar los siguientes archivos al envío respectivo:",
+			"bulkGradingSuccess": "Se pueden asignar las tareas a todos los archivos. Vuelve a cargar la página.",
+			"creatorCanNotBeRemoved": "¡No puedes eliminar al creador de la tarea!",
+			"done": "¡Genial! ¡Has completado tu tarea!",
+			"doYouReallyWantToDelete": "¿Estás seguro de que deseas eliminar '{{name}}'?",
+			"doYouReallyWantToReplaceSubmission": "¿Estás seguro de que deseas reemplazar tu evaluación con el envío del estudiante?",
+			"due": "Fecha de entrega",
+			"fileAlreadyExists": "Este nombre de archivo ya existe en tus archivos. Cambia el nombre del archivo.",
+			"maximumTeamSize": "El tamaño máximo de equipo es de {{maxMembers}} miembros",
+			"noAssignment": "Sin asignación",
+			"noDescriptionAvailable": "sin descripción disponible",
+			"noEvaluationTextAvailable": "Aún no hay comentarios disponibles.",
+			"noMoreStudentsInYourCourse": "Ningún otro estudiante en tu curso",
+			"noStudentGroupsInThisCourse": "No hay grupos de estudiantes en este curso",
+			"noSubmission": "Sin envío",
+			"noSubmissionDateSet": "Sin fecha de envío",
+			"notDone": "¡Demasiado tarde! La próxima vez, intenta gestionar mejor tu tiempo.",
+			"published": "Publicado:",
+			"ratingHasBeenSaved": "¡Se ha guardado la clasificación!",
+			"till": "hasta",
+			"toBeDoneWithin24Hours": "¡Cuidado! Solo te quedan 24 horas para completar la tarea."
+		}
+	},
+	"imprint": {
+		"imprint_infotext_below": {
+			"text": {
+				"theContentOfThe": "El contenido de {{shortTitle}} no es información oficial de HPI. Los respectivos autores son responsables de los contenidos. La distribución comercial de los contenidos disponibles a través de {{shortTitle}} está explícitamente prohibida sin premiso previo por escrito, a menos que estén explícitamente marcados. La responsabilidad editorial por el contenido de los sitios web enlazados de otros proveedores (incluidos los enlaces a terceros), en particular la responsabilidad por el cumplimiento de las regulaciones de la ley para la protección de menores y la privacidad de los datos, es en todos los aspectos, responsabilidad exclusiva del proveedor respectivo.",
+				"theHassoPlattnerInstituteRegularlyChecks": "El Instituto Hasso Plattner (HPI) comprueba y actualiza periódicamente el contenido de sus sitios web. A pesar de que se tiene el mayor cuidado posible, no podemos descartar que la información individual en nuestro sitio web esté desactualizada o ya no sea correcta. Por lo tanto, no podemos hacernos responsables de la actualización, precisión e integridad de la información publicada. Lo mismo se aplica a todos los sitios web a los que se puede acceder desde las páginas de HPI mediante hipervínculos. Lo siguiente se aplica a todos estos enlaces: Declaramos expresamente que no tenemos ninguna influencia en el diseño y contenido del sitio enlazado. Por lo tanto, nos distanciamos de todos los contenidos de todas las páginas enlazadas y no adoptamos sus contenidos como propios. Esta declaración se aplica a todos los enlaces de nuestro sitio a sitios externos. HPI no se hace responsable del contenido de estas páginas enlazadas. Además, HPI se reserva el derecho de realizar cambios y adiciones a la información mostrada en cualquier momento. El contenido y la estructura del sitio web de HPI están protegidos por derechos de autor. El uso posterior de información y datos solo está permitido con nuestro consentimiento. Te deseamos una estancia informativa en nuestro sitio web y esperamos tus sugerencias, deseos o críticas."
+			}
+		},
+		"imprint_platform_intro": {
+			"headline": {
+				"legalNotice": "Aviso legal:"
+			},
+			"text": {
+				"TheProjectIsANonCommercialPilotProject": "{{shortTitle}} es un proyecto piloto no comercial, que se lleva a cabo por HPI en cooperación con la Red Nacional de Escuelas de Excelencia MINT-EC (<a href=''https:\/\/www.mint-ec.de\/'' target='_blank' rel='noopener'>''https:\/\/www.mint-ec.de\/''<\/a>) y está financiado por el Ministerio Federal de Educación e Investigación de Alemania (BMBF) (para más información consulta: <a href=''https:\/\/hpi.de\/schul-cloud'' target=''_blank'' rel=''noopener''>''https:\/\/hpi.de\/schul-cloud''<\/a>)."
+			}
+		},
+		"imprint_rights": {
+			"headline": {
+				"editorialStuff": "Redacción:",
+				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Instituto Hasso Plattner de Ingeniería Digital gGmbH",
+				"managingDirectorAuthorized": "Consejero delegado autorizado para representar:"
+			}
+		}
+	},
+	"lib": {
+		"csrf_content": {
+			"link": {
+				"openThisPageInASeparateWindow": "Abre esta página en una nueva pestaña"
+			},
+			"text": {
+				"ifYouDontWantToTakeAnyAction": "Si no deseas realizar ninguna acción, cierra esta pestaña en tu navegador.",
+				"theSchoolCloudWasEmbedded": "La nube escolar estaba integrada en un sitio web. Para seguir usándola,",
+				"unfortunatelyTheRequestFailedAgain": "Lo sentimos, la solicitud ha fallado de nuevo. Para seguir usándola, vuelve a cargar la página.",
+				"weCouldNotMakeSureThat": "No hemos podido asegurarnos de que esta solicitud venga realmente de ti. Haz clic en el botón de abajo para volver a cargar la página.",
+				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "No hemos podido asegurarnos de que esta solicitud venga realmente de ti. Haz clic en el botón de abajo para confirmar.",
+				"yourRequestCouldNotBeVerified": "No se ha podido verificar tu solicitud."
+			}
+		},
+		"error": {
+			"button": {
+				"hideDetails": "Ocultar detalles",
+				"viewDetails": "Mostrar detalles"
+			},
+			"headline": {
+				"errorDetails": "Detalles del error:"
+			}
+		},
+		"extended_footer": {
+			"headline": {
+				"links": "Enlaces",
+				"vacancies": "Vacantes"
+			},
+			"img_alt": {
+				"nowAtGooglePlay": "Ahora en Google Play"
+			},
+			"link": {
+				"contentProviders": "Proveedores de contenido:",
+				"devOps": "DevOps",
+				"generalInquiries": "Consultas generales:",
+				"mobileApp": "Aplicación móvil",
+				"privacy": "Privacidad:",
+				"subscribeTheNewsletter": "Suscríbete al boletín de noticias",
+				"support": "Servicio de asistencia:"
+			},
+			"text": {
+				"weAreHiring": "¿Te gustaría unirte a nuestro equipo de la <span style='white-space: nowrap;'>nube escolar de HPI<\/span>? Estamos buscando personas que quieran trabajar con nosotros:"
+			}
+		},
+		"footer": {
+			"aria_label": {
+				"footer": "pie de página",
+				"love": "amor"
+			},
+			"img_alt": {
+				"providerLogo": "Logotipo del proveedor"
+			}
+		},
+		"form_auto_logout": {
+			"button": {
+				"extendSession": "Ampliar sesión"
+			},
+			"text": {
+				"loggedOutAutomatically": "desconectado automáticamente.",
+				"minutes": "Minutos",
+				"nowExtendYourSession": "Ampliar tu sesión a dos horas ahora.",
+				"oopsThatShouldntHaveHappened": "Vaya... ¡esto no debería haber sucedido!",
+				"warning": "Atención: serás",
+				"yourSessionCouldntBeExtended": "No se ha podido ampliar tu sesión. Inténtalo de nuevo."
+			}
+		},
+		"form_bbb": {
+			"text": {
+				"refreshStatus": "Para actualizar el estado de nuevo, haz clic en el icono de actualización",
+				"theVideoConferenceHasNotYetStarted": "La videoconferencia aún no ha comenzado.",
+				"youAreNotAuthorisedToAttend": "No estás autorizado a participar en esta videoconferencia. Ponte en contacto con un administrador del equipo para que se te apruebe."
+			}
+		},
+		"form_ChangeLanguage": {
+			"label": {
+				"language": "Idioma"
+			},
+			"placeholder": {
+				"text": "Por favor, selecciona..."
+			}
+		},
+		"form_create_videoConference": {
+			"text": {
+				"allUsersParticipate": "Todos los usuarios participan como moderadores",
+				"approvalByTheModerator": "Aprobación del moderador antes de que se pueda acceder a la sala",
+				"muteParticipants": "Silenciar participantes al entrar"
+			}
+		},
+		"form_features": {
+			"text": {
+				"forMoreInformationClickThisButton": "Para más información, haz clic en este botón",
+				"thereAreNewFeatures": "Hay nuevas funciones en {{shortTitle}}"
+			}
+		},
+		"form_poll": {
+			"global": {
+				"button": {
+					"toTheSurvey": "A la encuesta"
+				}
+			},
+			"text": {
+				"thanksForYourSupport": "¡Gracias por tu apoyo!",
+				"theNextQuestionnaireIsOnline": "La próxima encuesta sobre el proyecto {{shortTitle}} es en línea y nos gustaría pedirte tu colaboración de nuevo. La encuesta te llevará unos 20-25 minutos."
+			}
+		},
+		"global": {
+			"button": {
+				"discardChange": "Descartar cambios"
+			},
+			"link": {
+				"dataProtectionDeclaration": "Política de privacidad de la nube escolar de HPI",
+				"github": "GitHub",
+				"participate": "Participar",
+				"safety": "Seguridad",
+				"status": "Estado",
+				"team": "Equipo",
+				"termsOfUseHPI": "Condiciones de uso de la nube escolar de HPI"
+			}
+		},
+		"headline": {
+			"aria_label": "pie de página",
+			"yourDigitalLearningEnvironment": "Tu entorno de aprendizaje digital"
+		},
+		"help_menu": {
+			"button": {
+				"openGame": "Abrir juego",
+				"playEnterTheCloud": "Reproducir entrada a la nube"
+			},
+			"img_alt": {
+				"learnCloud": "Información sobre la nube"
+			},
+			"input": {
+				"userName": "Nombre de usuario:"
+			},
+			"label": {
+				"help": "Ayuda",
+				"playEnterTheCloud": "Juega a \"Enter The Cloud\" (Entra en la nube)"
+			},
+			"link": {
+				"contactYourSchoolAdmin": "Contactar con el administrador de tu escuela",
+				"sendRequestOrProblem": "Enviar solicitud o problema",
+				"training": "Formaciones avanzadas"
+			}
+		},
+		"ldap_info": {
+			"text": {
+				"whyCantIEditEntries": "¿Por qué no puedo editar las entradas?",
+				"yourSchoolIsLinkedToExternManagementSystem": "Tu escuela en {{shortTitle}} está sincronizada con un sistema de gestión de identidad (LDAP, sistema nacional o similar)."
+			}
+		},
+		"loggedin": {
+			"aria_label": {
+				"mobileNavMenu": "Menú de navegación móvil"
+			},
+			"img_alt": {
+				"logoOfSchool": "Logotipo de {{name}}"
+			},
+			"input": {
+				"searchFor": "Buscar..."
+			},
+			"label": {
+				"currentUser": "Usuario actual:",
+				"fullscreen": "Pantalla completa",
+				"notifications": "Notificaciones",
+				"printQrCode": "Imprimir código QR",
+				"qrCode": "Código QR",
+				"search": "Buscar",
+				"thereIsAProblem": "Hay un problema"
+			},
+			"tab_label": {
+				"settings": "Configuración",
+				"signOut": "Cerrar sesión"
+			},
+			"text": {
+				"allActionsThatCreate": "Todas las acciones que crean o modifican datos están desactivadas y no son visibles.",
+				"inOrderToShow": "Para seguir viendo algo, es posible que veas contenido desactualizado.",
+				"noNotificationsAtTheMoment": "Actualmente no hay notificaciones",
+				"thisIsADemoAccount": "Esta es una cuenta de demostración.",
+				"youAreOffline": "Estas desconectado."
+			}
+		},
+		"table": {
+			"label": {
+				"numberOfEntries": "Número de entradas"
+			}
+		}
+	},
+	"link": {
+		"text": {
+			"invalidLink": "El enlace no es válido o ha caducado. Por favor, revisa el enlace o crea uno nuevo."
+		}
+	},
+	"loggedin": {
+		"text": {
+			"newFeaturesAvailable": "Nuevas funciones disponibles",
+			"schoolInTransferPhaseContactAdmin": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Ponte en contacto con el administrador de la escuela!",
+			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"\/administration\/school\/\">nuevo año escolar aquí!<\/a>"
+		}
+	},
+	"login": {
+		"button": {
+			"less": "Menos",
+			"longerLoggedInWhenActivated": "Cuando se activa, permaneces conectado durante más tiempo.",
+			"moreOptions": "Más opciones",
+			"show_password": "Mostrar contraseña",
+			"submitPrivacyPolicy": "Leer"
+		},
+		"headline": {
+			"firstLogin": "Bienvenido - primer inicio de sesión",
+			"firstLoginExistingUser": "Bienvenido - primer inicio de sesión para usuarios existentes",
+			"loginFailedHint": "Desafortunadamente tu inicio de sesión no ha funcionado, intenta realizar los siguientes pasos para resolver el problema",
+			"loginForRegisteredUsers": "Inicio de sesión para usuarios registrados",
+			"onlyTermsOfUse": "Condiciones de uso",
+			"privacyAndTermsOfUse": "Política de privacidad y condiciones de uso"
+		},
+		"input": {
+			"emailUsername": "Correo electrónico \/ nombre de usuario",
+			"noSchoolsAvailable": "No hay escuelas disponibles",
+			"noSchoolsSelection": "Elige tu escuela",
+			"noSystemsAvailable": "No hay sistemas disponibles",
+			"school": "Seleccionar escuela",
+			"system": "Seleccionar sistema"
+		},
+		"label": {
+			"system": "Sistema",
+			"thisIsAPrivateDevice": "Permanecer conectado"
+		},
+		"link": {
+			"forgotPassword": "¿Se te ha olvidado la contraseña?"
+		},
+		"oauth2": {
+			"headline": {
+				"loginWithSchoolCloud": "Iniciar sesión con la nube escolar de HPI"
+			},
+			"label": {
+				"email": "Tu dirección de correo electrónico",
+				"openId": "una cadena única que no permite identificar tu verdadera identidad",
+				"weNeedToSendThisData": "Para trabajar con {{client}}, debemos transferir a este proveedor lo siguiente:",
+				"yourName": "Tu nombre"
+			},
+			"text": {
+				"yourNameIsProtected": "El proveedor de este contenido educativo no conoce tu nombre real, ya que se toma directamente de la nube escolar. Se denomina Iframe y puede mostrar páginas de otros servidores web."
+			}
+		},
+		"popup_resetPw": {
+			"button": {
+				"resetPassword": "Restablecer la contraseña"
+			},
+			"headline": {
+				"resetPassword": "Restablecer la contraseña"
+			},
+			"input": {
+				"yourEmailUsername": "Tu dirección de correo electrónico\/nombre de usuario"
+			},
+			"label": {
+				"yourEmailUsername": "Tu dirección de correo electrónico\/nombre de usuario"
+			},
+			"text": {
+				"contactTeacherAdminForHelp": "Si necesitas ayuda adicional para restablecer la contraseña, ponte en contacto con tu profesor supervisor (como estudiante) o con tu administrador (como profesor). <\/br>Pueden restablecer tu contraseña a través de la administración de usuarios con efecto inmediato."
+			}
+		},
+		"text": {
+			"errorFirstLogin": "Se ha producido un error al procesar los datos del primer inicio de sesión.",
+			"loginFailed": "Error de inicio de sesion.",
+			"loginFailedFirstHint": "1. ¿Qué navegador utilizas?",
+			"loginFailedFirstHintText": "Generalmente recomendamos utilizar las últimas versiones de Google Chrome, Firefox y Safari. No recomendamos Internet Explorer debido a tecnologías obsoletas.",
+			"loginFailedFithHint": "5. ¿Estás en la URL correcta?",
+			"loginFailedFithHintText": "Aquí puedes encontrar todas las instancias de la nube escolar de HPI:",
+			"loginFailedFourthHint": "4. ¿Ya has comprobado tus datos de inicio de sesión?",
+			"loginFailedFourthHintText": "Asegúrate también de que el campo 'Más opciones' no esté expandido al iniciar sesión y verifica si hay espacios en el nombre de usuario o la contraseña. También puedes probar la función de contraseña olvidada.",
+			"loginFailedLogoBrandenburg": "Logotipo de Brandeburgo",
+			"loginFailedLogoNiedersachen": "Logotipo de Baja Sajonia",
+			"loginFailedLogoOpen": "Logotipo abierto",
+			"loginFailedLogoSchulCloud": "Logotipo de la nube escolar",
+			"loginFailedLogoTühringen": "Logotipo de Turingia",
+			"loginFailedScreenshot": "Error de inicio de sesión",
+			"loginFailedSecondHint": "2. ¿Has eliminado tus cookies y los datos del sitio web?",
+			"loginFailedThirdHint": "3. ¿Has intentado iniciar sesión en otro dispositivo (por ejemplo, un ordenador portátil en lugar de un teléfono móvil)?",
+			"pleaseWaitXSeconds": "Por favor, espera {{seconds}} segundos",
+			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
+			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe."
+		}
+	},
+	"messenger": {
+		"button": {
+			"activate": "Activar",
+			"deactivate": "Desactivar",
+			"dontActivate": "No activar"
+		},
+		"headline": {
+			"welcomeMatrix": "Nueva función de messenger"
+		},
+		"text": {
+			"callToCopyMessages": "Copia todos los mensajes que sean importantes para ti.",
+			"howToActivateMatrix": "Para usar el Messenger en tu escuela, debes activarlo como administrador una vez para todo el centro en Administración > Escuela > Activar Matrix Messenger.",
+			"howToDeactivateMatrix": "Puedes desactivar el messenger en cualquier momento en Administración > Escuela > Activar Matrix Messenger.",
+			"rocketChatDeprecation": "La antigua función de chat de equipo fue desactivada el {{date}}. Los mensajes de chat antiguos no se transfieren automáticamente al nuevo Messenger.",
+			"welcomeMatrix": "Ya está disponible nuestro nuevo Messenger con el que todos los usuarios de tu escuela pueden enviarse mensajes directos o de grupo, como se hace de manera habitual desde las plataformas de las redes sociales."
+		}
+	},
+	"my_material": {
+		"text": {
+			"andTakeTheOpportunityToDesign": "y aprovecha la oportunidad para diseñar la función como quieras.",
+			"blogArticle": "Artículos del blog",
+			"hereYouWillSoonHaveTheOpportunity": "Aquí pronto tendrás la oportunidad de crear tus propios contenidos, ver los contenidos de otros profesores y ganar puntos evaluándolos y clasificándolos para poder utilizar las funciones de búsqueda ampliadas. ¿Te interesa saber cómo funcionará esto? Lee los"
+		}
+	},
+	"navigation": {
+		"text": {
+			"errorNavigation": "Error de navegación de AJAX"
+		}
+	},
+	"news": {
+		"_news": {
+			"headline": {
+				"createNews": "Crear noticias",
+				"editNews": "Editar noticias"
+			},
+			"label": {
+				"contentOfMessage": "Contenido del mensaje..."
+			}
+		},
+		"button": {
+			"addNews": "Añadir noticias",
+			"deleteNewsAlt": "Eliminar artículo '{{name}}'",
+			"editNewsAlt": "Editar artículo '{{title}}'."
+		},
+		"headline": {
+			"newsTeam": "Noticias del equipo"
+		},
+		"label": {
+			"content": "Contenido",
+			"scheduleAutomaticPublication": "publicación automática del plan previo (opcional)",
+			"searchForNews": "Buscar noticias"
+		},
+		"text": {
+			"atSchool": "en la escuela",
+			"atYourSchool": "en tu escuela",
+			"created": "creado",
+			"from": "desde",
+			"inTheClass": "en la clase",
+			"inTheCourse": "en el curso",
+			"inTheTeam": "en el equipo",
+			"lastFrom": "(último desde",
+			"newsNeedContent": "¡Las noticias necesitan contenido!",
+			"newsNeedTitle": "¡Las noticias necesitan un título!",
+			"processed": "editado)",
+			"released": "Publicado",
+			"unpublished": "Sin publicar"
+		}
+	},
+	"partner": {
+		"headline": {
+			"advisoryBoard": "Consejo asesor",
+			"pilotPartners": "Socios piloto para contenido de aprendizaje",
+			"supporters": "Colaboradores de la infraestructura escolar < 3"
+		},
+		"img_alt": {
+			"logo": "Logotipo"
+		},
+		"text": {
+			"advisoryBoardDescription": "El proyecto de la nube escolar de HPI cuenta con el apoyo de un consejo asesor formado por varios representantes de la práctica educativa, empresarial y política. Además de los aspectos técnicos, la atención se centra también en temas como la privacidad y la pedagogía.",
+			"pilotPartnersDescription": "Nos gustaría agradecer a nuestros socios que han puesto a nuestra disposición varios contenidos de aprendizaje de forma gratuita durante la fase piloto para que se pueda probar la nube escolar de HPI.",
+			"supportersDescription": "Agradecemos a nuestros colaboradores por la infraestructura escolar."
+		}
+	},
+	"pwRecovery": {
+		"button": {
+			"createNewPassword": "Crear nueva contraseña"
+		},
+		"headline": {
+			"passwordRecovery": "Recuperación de la contraseña"
+		},
+		"input": {
+			"hiddenPw": "***************"
+		},
+		"label": {
+			"newPw": "Nueva contraseña",
+			"repeatNewPw": "Repetir nueva contraseña"
+		},
+		"response": {
+			"text": {
+				"didYouChangeEmail": "¿Has <b>cambiado<\/b> o ha cambiado tu <b>dirección de correo electrónico<\/b> en la nube escolar de HPI? Continúa utilizando la dirección de correo electrónico anterior para iniciar sesión; al mismo tiempo estamos trabajando para realizar la adaptación correspondiente del software",
+				"didYouRegisterCorrectly": "¿Has completado el registro? La función de contraseña olvidada solo funciona después de haber completado el proceso de registro. Puedes acceder a él a través del <b>enlace de registro<\/b> que has recibido de un profesor o administrador de la escuela. Ponte en contacto con ellos si aún no has recibido el enlace.",
+				"didYouRegisterPerThirdParty": "¿Te has registrado en la nube escolar de HPI a través de un <b>sistema de terceros\/SSO<\/b> (Moodle, iServ, ItsLearning, etc.)? Utiliza este sistema de terceros para iniciar sesión en la nube escolar.",
+				"emailHasBeenSent": "Hemos enviado un correo electrónico a la dirección de correo electrónico almacenada en tu cuenta. <\/p> <br> Si no has recibido un correo electrónico, comprueba lo siguiente: <\/br>",
+				"wasYourEmailCorrect": "¿Has introducido tu <b>dirección de correo electrónico correcta<\/b>?"
+			}
+		},
+		"text": {
+			"allowedCharacters": "Se permiten estos caracteres especiales:",
+			"allowedPasswords": "Al menos 8 caracteres con mayúsculas y minúsculas, incluyendo al menos un número y un carácter especial. Los caracteres especiales permitidos son: !§$%&\/()=?;:,.#+*~",
+			"atLeast8Chars": "Al menos 8 caracteres con mayúsculas y minúsculas, incluyendo al menos un número y un carácter especial. Se permiten estos caracteres especiales:",
+			"errorPasswordAlreadyChanged": "Tu contraseña ya ha sido cambiada a través de esta URL.",
+			"errorTimeExpired": "El tiempo para recuperar la contraseña ha expirado."
+		}
+	},
+	"registration": {
+		"_registration": {
+			"employee": {
+				"headline": {
+					"yourData": "Tu información"
+				},
+				"input": {
+					"repeatPassword": "Restablecer la contraseña",
+					"teacherEmail": "lehrer@schul-cloud.org",
+					"yourEmailAddress": "Tu dirección de correo electrónico:"
+				},
+				"label": {
+					"repeatPassword": "Repetir contraseña:"
+				},
+				"text": {
+					"pleaseconfirmTheFollowingDeclarations": "Confirma las siguientes declaraciones de consentimiento para que puedas beneficiarte de {{shortTitle}}.",
+					"youCanNowSingIn": "Ahora puedes iniciar sesión en {{title}}."
+				}
+			},
+			"global": {
+				"button": {
+					"openLogin": "Abrir inicio de sesión",
+					"sendAndGetStarted": "Enviar y empezar"
+				},
+				"headline": {
+					"language": "Por favor, selecciona tu idioma",
+					"thankYouForRegistering": "¡Gracias por registrarte en {{shortTitle}}!"
+				},
+				"label": {
+					"eMail": "Correo electrónico:",
+					"studentEmailAddress": "Dirección de correo electrónico del estudiante:",
+					"studentsDateOfBirth": "Fecha de nacimiento del estudiante:",
+					"yourEmailAddress": "Tu dirección de correo electrónico:"
+				},
+				"placeholder": {
+					"studentEmail": "schueler@schul-cloud.org"
+				},
+				"text": {
+					"agreementCanBeRevoked": "Puedes revocar este consentimiento en cualquier momento. Será suficiente con un breve correo electrónico con la declaración de revocación, indicando tu nombre y apellido, clase y escuela a la siguiente dirección: <a href=\"mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung\">wideruf@hpi-schul-cloud.org<\/a>.",
+					"agreementIsVoluntary": "El consentimiento y uso es, por tanto, voluntario, lo que significa que si no das tu consentimiento, no te supondrá ninguna desventaja en clase. La escuela hará posible la participación en lecciones fuera de {{title}}.",
+					"bellowNYearsOldConsentOfLegalGuardian": "El uso de {{shortTitle}} requiere el consentimiento de un tutor legal para estudiantes menores de {{age}} años",
+					"iDeclareTheFollowing": "Yo, <b data-from=\"firstName\"> <\/b> <b data-from=\"lastName\"> <\/b>, declaro lo siguiente:",
+					"inCaseOfRevocationDataDeletion": "En caso de revocación, eliminaremos inmediatamente los datos personales almacenados en virtud de tu consentimiento, a menos que exista una razón legal para el almacenamiento o desees acceder a los datos almacenados de antemano. También puedes encontrar más información sobre la protección de datos en nuestras <a class=\"nav-link\" target=\"_blank\" href=\"https:\/\/docs.schul-cloud.org\/x\/GxfGBg\">Preguntas frecuentes<\/a>.",
+					"languageHint": "Nota informativa: puedes cambiar el idioma en cualquier momento desde la configuración. La configuración se encuentra en la esquina superior derecha cuando tocas en tu avatar.",
+					"myDataMayBeProcessed": "Acepto que mis datos personales se procesen de acuerdo con la <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Política de privacidad<\/a> en {{title}} y en los proveedores de material de aprendizaje seleccionados e instruidos por la escuela.",
+					"theEmailAddressEnables": "La dirección de correo electrónico permite enviar notificaciones y facilita el restablecimiento de la contraseña.",
+					"weNeedFollowingDataForRegistration": "Para el uso de {{shortTitle}}, necesitamos la siguiente información:",
+					"weStoreUserDataSafely": "{{shortTitle}} almacena los datos del usuario de forma segura y no los transmite a terceros. Los datos se procesan de acuerdo con los estrictos requisitos legales de protección de datos."
+				}
+			},
+			"headline": {
+				"welcomeToTheRegistration": "¡Bienvenido al registro en {{title}}!"
+			},
+			"label": {
+				"bellowNYearsOld": "menos de {{years}} años.",
+				"overNYearsOld": "{{years}} años o más."
+			},
+			"parent": {
+				"global": {
+					"text": {
+						"inThe": "en el"
+					}
+				},
+				"headline": {
+					"yourChildsData": "La información de tu hijo",
+					"yourChildsSSO": "La cuenta SSO de tu hijo ahora está desbloqueada."
+				},
+				"input": {
+					"completeFirstName": "Nombre oficial del niño, no apodo",
+					"lastName": "Apellidos del niño",
+					"parentEmail": "eltern@schul-cloud.org",
+					"studentEmail": "schueler@schul-cloud.org"
+				},
+				"label": {
+					"iAmLegalGuardianOfChild": "Yo, <b data-from=\"parent_firstName\"><\/b> <b data-from=\"parent_lastName\"><\/b>, soy el tutor legal de <b data-from=\"firstName\"><\/b> <b data-from=\"lastName\"><\/b> y tengo derecho a representar al otro padre en las siguientes declaraciones."
+				},
+				"placeholder": {
+					"completeFirstName": "Tu nombre oficial, no un apodo",
+					"lastName": "Apellidos del niño",
+					"parentEmail": "eltern@schul-cloud.org"
+				},
+				"text": {
+					"aParentOrLegalGuardian": "años, un padre o tutor debe dar su consentimiento para usar",
+					"legalGuardingHasToAgreeToTermsOfUse": "Para los estudiantes menores de {{years}} años, un padre, madre o tutor debe dar su consentimiento para el uso de {{shortTitle}}.",
+					"mustNotBeYourChildsEmail": "(No puede ser la misma que la dirección de correo electrónico de la de tu hijo)",
+					"myDataMayBeProcessed": "Acepto que los datos personales de mi hijo se procesen de acuerdo con la <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Política de privacidad<\/a> en {{title}} y también con los proveedores de material de aprendizaje seleccionados e instruidos por la escuela.",
+					"needFollowingInformationForChild": "necesitamos la siguiente información de tu hijo:",
+					"pleaseConfirmTheFollowing": "Confirma las siguientes declaraciones de consentimiento para que tu hijo pueda aprovechar {{shortTitle}}:",
+					"studentNeedTheirOwnEmail": "(Los estudiantes necesitan su propia dirección de correo electrónico)",
+					"weNeedFollowingDataOfChild": "Para utilizar {{shortTitle}}, necesitamos la siguiente información de tu hijo:",
+					"whenLoggingInFor": "Se debe seleccionar una nueva contraseña en el primer inicio de sesión. Los estudiantes que tengan al menos 14 años deben confirmar adicionalmente las declaraciones de consentimiento en el primer inicio de sesión.",
+					"yourChildCan": "Tu hijo ahora puede iniciar sesión:",
+					"yourSonCanLogInWithThisData": "Los siguientes datos se pueden utilizar para iniciar sesión <b data-from=\"firstName\"><\/b> <b data-from=\"secondName\"><\/b> en {{shortTitle}}. Comparte los datos con tu hijo. Además, tú y tu hijo habéis recibido los datos por correo electrónico."
+				}
+			},
+			"student": {
+				"headline": {
+					"personalData": "Información personal"
+				},
+				"input": {
+					"yourOfficialFirstName": "Tu nombre oficial, no un apodo",
+					"yourOfficialLastName": "Tus apellidos oficiales"
+				},
+				"text": {
+					"pleaseConfirmTheFollowingDeclarations": "Confirma las siguientes declaraciones de consentimiento para que puedas utilizar {{shortTitle}}.",
+					"useThisDataToSignIn": "Con los siguientes datos, puedes iniciar sesión en {{shortTitle}}. Guarda los datos de inicio de sesión para el primer inicio de sesión.",
+					"youCanNowLogin": "Ahora puedes iniciar sesión en la nube escolar. Al iniciar sesión por primera vez, debes seleccionar una nueva contraseña.",
+					"yourSSOAccountDetails": "Los datos de tu cuenta SSO ahora están desbloqueados."
+				}
+			},
+			"text": {
+				"agreeSoThatYourChild": "para dar tu conformidad para que tu hijo pueda aprovechar el entorno de aprendizaje.",
+				"letsTakeThisStepWithYouAndYourChild": "Estamos contentos de que permitas a tu hijo usar {{shortTitle}} y colaborar con nosotros para dar el siguiente paso y apoyar la enseñanza digital: con código abierto, sin ánimo de lucro y de conformidad con la protección de datos.",
+				"linguisticNoteWeUseMaleFormForReadability": "Nota lingüística: para una mejor legibilidad, utilizamos la forma masculina en {{shortTitle}} (por ejemplo, \"alumno\", \"profesor\"). Siempre se refiere a todas las personas independientemente de su género. {{shortTitle}} está destinado a todas las personas independientemente de su origen, limitaciones, género y orientación sexual.",
+				"pleaseChooseTheAgeOfTheStudents": "Selecciona la edad del estudiante:",
+				"pleaseRegisterChildThenAgreeToTermsOfUse": "Te pedimos que primero registres a tu hijo en {{shortTitle}} y luego, después de proporcionar tus datos, aceptes el uso de {{title}} para que tu hijo pueda aprovechar el entorno de aprendizaje.",
+				"pleaseRegisterFirstAndAgreeToTerms": "Regístrate en {{shortTitle}} y acepta las Condiciones de uso para que puedas aprovechar el entorno de aprendizaje digital.",
+				"registrationMustBeDoneByYou": "El siguiente registro debe ser hecho por ti como estudiante, no por tus padres.",
+				"thankYouForTakingThisStepWithUs": "Estamos contentos que desees utilizar {{shortTitle}} y colaborar con nosotros para dar el siguiente paso y apoyar la enseñanza digital: con código abierto, sin ánimo de lucro y de conformidad con la protección de datos.",
+				"theRegistrationProcessChangesAccordingToAge": "Dependiendo de la edad del alumno* el proceso de registro varía. Para los estudiantes de menos de {{minAge}}, debe completar los siguientes pasos un padre, madre o tutor, para los estudiantes de más de {{independentAge}}, deben hacerlo ellos mismos."
+			}
+		},
+		"deprecatedWarning": {
+			"text": {
+				"weHaveRevisedAndImprovedRegistration": "Hemos revisado y mejorado el registro en la nube escolar de HPI. Desafortunadamente, los enlaces de registro antiguos ya no son válidos. Ponte en contacto con tu profesor o administrador para obtener un nuevo enlace de registro."
+			}
+		},
+		"headline": {
+			"invalidLink": "Enlace de registro no válido",
+			"registrationEmployee": "Registro - {{role}}",
+			"registrationParents": "Registro - padres",
+			"registrationStudents": "Registro - estudiantes*",
+			"welcomeToRegistration": "Bienvenidos al registro"
+		},
+		"pin": {
+			"input": {
+				"verificationCode": "Código de confirmación:"
+			}
+		},
+		"registration_template": {
+			"headline": {
+				"invitation": "Invitación a {{shortTitle}}"
+			},
+			"text": {
+				"dear": "Estimado señor o señora",
+				"youWereInvitedToThe": "Te han invitado a unirte a {{shortTitle}}, completa tu invitación usando el siguiente enlace"
+			}
+		},
+		"requestPin": {
+			"button": {
+				"requestVerificationCode": "Solicita el código de confirmación ahora"
+			},
+			"text": {
+				"pleaseRequestAConfirmationCode": "Solicita un código de confirmación:",
+				"theCodeCanBeRequestedSeveralTimes": "El código se puede solicitar varias veces. Sin embargo, el reenvío invalidará los códigos enviados previamente. Espera un momento antes de volver a hacer la solicitud y verifica la carpeta de correo no deseado en la bandeja de entrada de tu correo electrónico, si es necesario.",
+				"weOnlyHaveToCheckWhether": "Solo necesitamos verificar si tu dirección de correo electrónico realmente existe."
+			}
+		},
+		"text": {
+			"acceptConsentWithoutParents": "Si tienes entre 14 y {{age}} años, confirma también la declaración de consentimiento para que puedas utilizar {{title}}.",
+			"agreeTermsOfUse": "He leído y acepto las <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Condiciones de uso de {{title}}<\/a>",
+			"andAuthorisedToRepresent": "y con derecho a representar al otro padre en las siguientes declaraciones.",
+			"iAgreeThatThepersonalData": "Doy mi consentimiento para que los datos personales de mi hijo sean procesados de acuerdo con la",
+			"invalidLink": "Desafortunadamente el enlace ya no es válido. Solicita un nuevo enlace a tu profesor o al administrador de la escuela.",
+			"invalidLinkEmbeddedWebsite": "La nube escolar se ha integrado en un sitio web. Continuar",
+			"invalidLinkOpenWebsite": "Abrir esta página en una ventana independiente",
+			"roleEmployee": "Profesores * \/ Administradores *",
+			"roleExpert": "Experto*",
+			"startPassword": "Contraseña de inicio: {{password}}",
+			"studentsChooseNewPassword": "Para estudiantes: después de iniciar sesión por primera vez, debes establecer una contraseña personal.\n {{consentText}}",
+			"timeout": "Desafortunadamente, no se ha podido completar tu registro.\n Inténtalo de nuevo.",
+			"unknownError": "Vaya, se ha producido un error desconocido. Inténtalo de nuevo.",
+			"welcomeMailSubject": "¡Bienvenido a {{title}}!",
+			"welcomeMailText": "Hola {{firstName}}: \n Puedes iniciar sesión en {{title}} con los siguientes detalles de inicio de sesión: \n Dirección: {{address}} \n Correo electrónico: {{email}} \n {{password}} \n {{infotext}} \n Tu equipo de \n {{shortTitle}} te desea un buen comienzo y espera que te diviertas."
+		}
+	},
+	"security": {
+		"headline": {
+			"reportSecurityIssue": "Informar del problema de seguridad",
+			"security": "Seguridad"
+		},
+		"text": {
+			"scIsTestedRegularyWeValueSecurity": "{{themeTitle}} está sometido a controles de seguridad y pruebas de intrusión regularmente, ya que la seguridad de los datos de nuestros usuarios es muy importante para nosotros.",
+			"youHaveFoundAWeakness": "¿Sigues con problemas de seguridad? Escríbenos para que podamos cerrar la incidencia lo antes posible:"
+		}
+	},
+	"team": {
+		"headline": {
+			"team": "El equipo de la nube escolar de HPI"
+		}
+	},
+	"teams": {
+		"_team": {
+			"button": {
+				"leaveTeam": "Abandonar el equipo"
+			},
+			"dropdown_menu": {
+				"link": {
+					"deleteTeam": "Eliminar equipo",
+					"editTeam": "Editar equipo",
+					"leaveTeam": "Dejar el equipo",
+					"manageMembers": "Administrar miembros del equipo",
+					"seeMembers": "Ver miembros del equipo"
+				}
+			},
+			"edit": {
+				"label": {
+					"activateBidirectionalMessenger": "Permite que todos los miembros del equipo publiquen mensajes en el chat del equipo.",
+					"activateMessengerForTeam": "Activar Messenger para el equipo",
+					"activateVideoConferences": "Activar videoconferencias para el equipo",
+					"teamColor": "Color del equipo",
+					"teamDescription": "Descripción del equipo (opcional)",
+					"teamName": "Nombre del equipo"
+				},
+				"placeholder": {
+					"teamName": "Equipo A"
+				},
+				"text": {
+					"videoConferencesNotAllowedBySchool": "Las videoconferencias no están permitidas en tu escuela. Ponte en contacto con el administrador de tu escuela para habilitar esta opción."
+				}
+			},
+			"events": {
+				"button": {
+					"addDate": "Añadir fecha"
+				}
+			},
+			"files": {
+				"button": {
+					"changeSharingSettings": "Cambiar configuración compartida",
+					"deleteFolder": "Eliminar carpeta",
+					"renameFolder": "Renombrar carpeta",
+					"shareFolder": "Compartir carpeta",
+					"toTeamFiles": "A los archivos del equipo"
+				},
+				"headline": {
+					"changeFilePermissions": "Cambiar configuración compartida",
+					"fileActions": "Acciones de archivo",
+					"folders": "Carpeta"
+				},
+				"text": {
+					"changedFilePermissionsSuccess": "Los permisos estándar se han cambiado correctamente"
+				}
+			},
+			"headline": {
+				"leaveTeam": "Dejar el equipo",
+				"shareFilesSettings": "Configuración para compartir archivos"
+			},
+			"label": {
+				"accessToData": "Acceso a archivos",
+				"emailHasBeenSentAlternativeLink": "La persona invitada ha recibido un correo electrónico. Alternativamente se puede utilizar este enlace y el usuario debe iniciar sesión:",
+				"leadersAndAdmins": "Líderes y administradores de equipo",
+				"members": "Asistentes"
+			},
+			"members": {
+				"add": {
+					"button": {
+						"deleteInvitation": "Eliminar invitación",
+						"inviteMember": "Invitar asistente",
+						"sendInvitation": "Enviar invitación"
+					},
+					"headline": {
+						"deleteInvitation": "Eliminar invitación",
+						"inviteExternMember": "Invitar a un asistente externo",
+						"sendInvitationAgain": "Reenviar invitación"
+					},
+					"text": {
+						"errorDuringInvitation": "Puede haber problemas con la invitación. Pregunta a los usuarios o administradores invitados.",
+						"errorWhileDeletingInvitation": "Problema al eliminar la invitación",
+						"errorWhileLoadingSchools": "Problema al cargar las escuelas",
+						"errorWhileLoadingTeachers": "Problema al cargar el profesor",
+						"errorWhileSendingInvitation": "Problema al enviar la invitación",
+						"invitationSentIfMailInSys": "Si el correo electrónico está en nuestro sistema, se ha enviado un correo electrónico de invitación al equipo.",
+						"noSchoolForThisFilter": "No hay ninguna escuela disponible para la selección",
+						"pleaseEnterValidEmail": "Introduce un correo electrónico válido.",
+						"pleaseReloadThePage": "Vuelve a cargar la página.",
+						"providerBlockedTryOtherMail": "El proveedor de la dirección de correo electrónico invitada está bloqueado. Utiliza una dirección diferente y vuelve a intentarlo.",
+						"teacherInvitedSuccess": "Profesor invitado al equipo correctamente"
+					}
+				},
+				"button": {
+					"addExternMembers": "Invitar a asistentes externos",
+					"addInternMembers": "Añadir asistentes internos",
+					"addPerson": "Añadir persona",
+					"deleteClass": "Eliminar clase",
+					"deleteMember": "Eliminar asistente",
+					"editMember": "Editar asistente",
+					"inviteByMail": "Invitar por correo electrónico",
+					"selectFromIndex": "Seleccionar del directorio"
+				},
+				"headline": {
+					"addMember": "Eliminar asistente",
+					"class": "{{count}} clase",
+					"class_plural": "{{count}} clases",
+					"deleteClass": "Eliminar clase",
+					"deleteMember": "Eliminar asistente",
+					"editMember": "Editar asistente",
+					"email": "Correo electrónico",
+					"invitedOn": "Invitado el",
+					"inviteExternExpert": "Invitar a expertos externos",
+					"inviteTeacherByEmail": "Invitar a un profesor por correo electrónico",
+					"inviteTeacherFromOtherSchool": "Invita a profesores de otras escuelas",
+					"member": "{{count}} asistentes",
+					"pendingInvitations": "Invitaciones pendientes",
+					"requirements": "Requisitos:",
+					"selectAndAddTeacher": "Seleccionar y añadir profesores",
+					"teamMembers": "Participante del equipo"
+				},
+				"label": {
+					"addTeacherStudentsFromSchool": "Añadir profesores y estudiantes de tu escuela al equipo.",
+					"deleteInvitation": "Eliminar invitación",
+					"doYouReallyWantToLeaveTeam": "¿Estás seguro de que quieres dejar el equipo?",
+					"doYouReallyWantToReSendEmail": "¿Estás seguro de que quieres volver a enviar la invitación por correo electrónico?",
+					"editRole": "Editar rol",
+					"email": "Enviar invitación a este correo electrónico:",
+					"externExpert": "Experto externo",
+					"externTeacher": "Profesor de otra escuela (administrador del equipo)",
+					"federalState": "Estado",
+					"insertEmailOfExpertToInvite": "Introduce el correo electrónico del experto al que se va a enviar la invitación.",
+					"leavingTeamRequiresNewOwner": "Al dejar un equipo se requiere un nuevo propietario",
+					"reallyWantToRmClass": "¿Estás seguro de que quieres eliminar esta clase?",
+					"reallyWantToRmInvitation": "¿Estás seguro de que quieres cancelar la invitación?",
+					"reallyWantToRmUser": "¿Estás seguro de que deseas eliminar a este asistente?",
+					"removeClass": "Eliminar clase",
+					"removeUser": "Eliminar usuario",
+					"roleOfInvitedTeacher": "Rol del profesor invitado",
+					"selectRoleForMember": "Introduce el rol que se le debe dar al asistente.",
+					"sendInvitationAgain": "Reenviar invitación"
+				},
+				"placeholder": {
+					"insertEmail": "Introducir correo electrónico",
+					"selectFederalState": "Seleccionar estado",
+					"selectPersons": "Seleccionar personas",
+					"selectRole": "Especificar rol",
+					"selectSchool": "Seleccionar escuela",
+					"teamAdmin": "Administrador del equipo"
+				},
+				"text": {
+					"addedMemberFailure": "Problema al añadir el asistente",
+					"addedMemberSuccess": "El asistente se añadió al equipo correctamente",
+					"addTeacherOrStudentFromYourSchool": "Añadir profesores y estudiantes de tu escuela al equipo.",
+					"changeRoleOfMember": "Cambiar el rol del usuario:",
+					"errorWhileEditingMember": "Problema al editar el asistente",
+					"errorWhileRemovingMember": "Problema al eliminar el asistente",
+					"expert": "Experto externo",
+					"invitationEmailIsEqualToRegisterEmail": "El correo electrónico especificado coincide con el correo electrónico con el que el profesor está registrado en {{ rootThemeShortTitle }}.",
+					"inviteTeachersAndExpertsByEmail": "Invita a profesores de otras escuelas y expertos por correo electrónico.",
+					"member": "Asistentes",
+					"pleaseSelectRole": "Selecciona un rol.",
+					"selectTeacherFromRegisterOrInvitePerEmail": "Selecciona un profesor de otra escuela de un directorio central o proporciona la dirección de correo electrónico con la que está registrado. Después de unirse a tu equipo, podrá añadir estudiantes y maestros de tu escuela al equipo.",
+					"teacherIsFromOtherSchool": "El profesor está en otra escuela",
+					"teachersRegisterProcessFinished": "Se ha completado el registro del profesor en {{ rootThemeShortTitle }}"
+				}
+			},
+			"news": {
+				"button": {
+					"addNews": "Crear noticias"
+				},
+				"label": {
+					"continueReading": "Leer más"
+				},
+				"link": {
+					"showAllNews": "Mostrar todas las noticias..."
+				}
+			},
+			"text": {
+				"errorAcceptingInvitation": "No se ha podido aceptar una invitación, el usuario no tiene los derechos o ya es miembro del equipo.",
+				"invitationSuccessfullyAccepted": "Invitación de equipo enviada correctamente.",
+				"messengerNotActivatedCourse": "No todos los miembros del equipo pueden participar en el chat de equipo. El administrador aún no ha activado el chat en las escuelas de algunos miembros del equipo.",
+				"messengerNotActivatedSchool": "Este equipo formado por varias escuelas incluye un chat de equipo. Desafortunadamente no puedes acceder a él porque el administrador de tu centro aún no ha activado el chat.",
+				"messengerNotActivatedTitle": "Nota",
+				"messengerNotActiveInTeam": "Este equipo formado por varias escuelas no incluye chat de equipo. A diferencia de tu centro, el administrador de la escuela que ha creado el equipo aún no ha activado el chat.",
+				"theseSettingsWillBeAppliedToNewFiles": "Los siguientes permisos se activarán para carpetas y archivos recién cargados\/creados dentro del equipo:",
+				"youCanChangeSettingsForSingleFilesLater": "Puedes editar los permisos de acceso para archivos y carpetas individuales en cualquier momento."
+			}
+		},
+		"add": {
+			"headline": {
+				"editTeam": "Editar equipo"
+			}
+		},
+		"button": {
+			"createTeam": "Crear equipo",
+			"duplicateTeam": "Duplicar curso",
+			"foundATeam": "Formar un equipo"
+		},
+		"form_importTopic": {
+			"label": {
+				"insertACodeToImportCourse": "Inserta un código para importar el contenido del curso de otros usuarios.",
+				"renameTheCourse": "Cambiar el nombre del curso."
+			},
+			"text": {
+				"aCourseFolderIsAutomaticallyCreated": "Se crea automáticamente una carpeta de curso para el curso importado. Se eliminarán los datos de los estudiantes del curso original. A continuación, añade estudiantes y programa el horario del curso."
+			}
+		},
+		"headline": {
+			"duplicateTeam": "Duplicar curso",
+			"invitations": "Invitaciones",
+			"membersOfTeam": "Miembros del equipo: {{teamName}}",
+			"myTeams": "Mis equipos",
+			"teamsConnectSchools": "Los equipos conectan la escuela"
+		},
+		"img_alt": {
+			"teamOfTeachers": "Equipo de profesores"
+		},
+		"placeholder": {
+			"searchForTeams": "Buscar equipos"
+		},
+		"text": {
+			"descriptionTeams": "¿Grupo de estudio, equipo escolar o reunión de representantes de la clase? Crea un equipo para que puedan intercambiar material y noticias entre ellos, dentro de tu escuela o entre escuelas.",
+			"studentsCantCreateTeams": "La escuela no permite que los estudiantes creen equipos en tu escuela. Ponte en contacto con un profesor o administrador."
+		},
+		"topics": {
+			"button": {
+				"addGroup": "Añadir grupo",
+				"addNewTool": "Añadir nueva herramienta",
+				"displayTopicAgain": "Mostrar tema de nuevo"
+			},
+			"headline": {
+				"collapse\/ExpandMyTasks": "Contraer \/ expandir mis tareas",
+				"collapse\/ExpandStudentGroups": "Contraer \/ expandir grupos de estudiantes",
+				"homework": "({{homeworkLength}} Tarea{{#ifneq 1 {{homeworkLength}}}}n{{\/ifneq}})",
+				"myHomework": "({{myHomeworkLength}} Tarea{{#ifneq 1 {{myHomeworkLength}}}}n{{\/ifneq}})",
+				"myTasks": "Mis tareas",
+				"show\/HideTask": "mostrar \/ ocultar tareas"
+			},
+			"text": {
+				"group": "({{arrayLength courseGroups}} Grupo{{#ifneq 1 (arrayLength courseGroups)}}n{{\/ifneq}})",
+				"nextLesson": "Siguiente lección: {{i18nDateTime nextEvent}}",
+				"noIssues": "No hay problemas.",
+				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}Grupos escolares{{else}}Mis grupos de estudiantes {{\/userHasPermission}}"
+			}
+		}
+	},
+	"topic": {
+		"_topic": {
+			"button": {
+				"createTopic": "Crear tema"
+			},
+			"headline": {
+				"createTopic": "Crear tema",
+				"privateTasks": "Tareas privadas",
+				"savedTeachingMaterials": "Materiales didácticos almacenados"
+			},
+			"input": {
+				"countWithPrimeNumbers": "por ejemplo, cálculo con números primos"
+			},
+			"label": {
+				"content": "Contenido",
+				"expandPrivateTasks": "Expandir\/contraer las tareas privadas",
+				"expandTasks": "Expandir\/contraer las tareas establecidas",
+				"titleOfTheTopic": "Título del tema"
+			},
+			"text": {
+				"shareWithOthersTeachers": "compartir con otros profesores",
+				"warningFooter": "El uso de estas ofertas puede estar sujeto a otras condiciones legales. Por lo tanto, consulta la política de privacidad del proveedor externo.",
+				"warningMain": "Nota: al hacer clic en el enlace, te irás de Schul-Cloud Brandenburg"
+			}
+		},
+		"aria_label": {
+			"openTopicX": "Abrir tema {{name}}"
+		},
+		"form_share": {
+			"label": {
+				"distributeTheFollowingCode": "Comparte el siguiente código con un compañero\/profesor para añadir el tema a un curso. Esta función se encuentra en la página del curso."
+			}
+		},
+		"topicEdit": {
+			"aria_label": {
+				"chooseContent": "Elige los tipos de contenido para tu tema",
+				"geoGebraID": "ID de GeoGebra",
+				"moveSectionWithKeys": "Levanta la sección presionando intro o espacio, muévela con los botones de las flechas y suéltala con intro o espacio."
+			},
+			"button": {
+				"etherpad": "Etherpad",
+				"geoGebraWorksheet": "Hoja de trabajo de GeoGebra",
+				"material": "Material de aprendizaje",
+				"neXboard": "neXboard",
+				"text": "Texto"
+			},
+			"input": {
+				"brainstormAboutXYZ": "Lluvia de ideas sobre el tema XYZ",
+				"createNewNeXboard": "Crear un nuevo neXboard",
+				"createsListInEtherpad": "Crea en el siguiente Etherpad una lista Pro-Contra sobre el tema XYC",
+				"createsListInNeXboard": "Crea en el siguiente neXboard una lista Pro-Contra sobre el tema XYC",
+				"GeoGebraEnterId": "Introduce el ID del material de GeoGebra, por ejemplo, kEBfU7AR",
+				"keepNeXboard": "Mantener neXboard",
+				"sectionTitle": "Título de la sección",
+				"selectNeXboard": "Seleccionar neXboard"
+			},
+			"label": {
+				"descriptionEtherpad": "Descripción de Etherpad",
+				"descriptionNeXboard": "Descripción de neXboard",
+				"internLink": "Enlace interno",
+				"lockSection": "Bloquear sección",
+				"nameOfEtherpad": "Nombre de Etherpad",
+				"nameOfNeXboard": "Nombre de neXboard",
+				"openSection": "Desbloquear sección",
+				"selectNeXboard": "Seleccionar neXboard",
+				"theLinkHasToBeginWith": "El enlace debe comenzar con '{{- baseUrl}} \/ ¡tareas! Los estudiantes deben tener acceso a las tareas para verlas incluidas aquí. Atención: si compartes este tema o todo el curso con otro profesor usando un código para compartir, las tareas integradas de esta manera no se tendrán en cuenta.",
+				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https:\/\/www.geogebra.org\/m\/e6g4adXp, la ID del material es 'e6g4adXp'"
+			}
+		}
+	},
+	"videoconference": {
+		"headline": {
+			"createVideoConferenceRoom": "Crea una sala de videoconferencias {{name}}"
+		},
+		"text": {
+			"thereWasAProblemWithTheVideo": "Ha habido un problema con la videoconferencia. Inténtalo de nuevo.",
+			"theVideoConferenceHasEither": "La videoconferencia aún no ha comenzado o ya ha finalizado.",
+			"youDoNotHaveTheNecessaryAuthorization": "No tienes la autorización necesaria para participar en la videoconferencia."
+		}
+	}
+}
