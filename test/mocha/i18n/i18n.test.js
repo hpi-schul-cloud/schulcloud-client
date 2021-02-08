@@ -55,7 +55,7 @@ function getDuplicates(json) {
 	return foundViolations;
 }
 
-describe.only('i18n test de.json', () => {
+describe('i18n test de.json', () => {
 	const DEjson = {};
 	const ENjson = {};
 	const ESjson = {};
