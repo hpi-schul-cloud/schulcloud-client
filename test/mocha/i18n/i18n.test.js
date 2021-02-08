@@ -4,6 +4,8 @@ const { expect } = chai;
 
 const rawDeJson = require('../../../locales/de.json');
 const rawEnJson = require('../../../locales/en.json');
+const rawESJson = require('../../../locales/es.json');
+
 
 const allowedTypes = ['button', 'headline', 'link', 'text', 'format',
 	'placeholder', 'input', 'label', 'img_alt', 'tab_label', 'aria_label'];
@@ -58,6 +60,8 @@ function getDuplicates(json) {
 describe('i18n test de.json', () => {
 	const DEjson = {};
 	const ENjson = {};
+	const ESjson = {};
+
 
 	it('Load de.json', () => {
 		formatJson(rawDeJson, DEjson);
@@ -65,6 +69,10 @@ describe('i18n test de.json', () => {
 
 	it('Load en.json', () => {
 		formatJson(rawEnJson, ENjson);
+	});
+
+	it('Load es.json', () => {
+		formatJson(rawESJson, ESjson);
 	});
 
 	it('Check for usage of right types', () => {
@@ -88,10 +96,20 @@ describe('i18n test de.json', () => {
 			'Some keys seem to be out of sync. Please add them in the de.json/en.json');
 	});
 
+	it('Check if de.json and es.json are in sync', () => {
+		const deKeys = Object.getOwnPropertyNames(DEjson);
+		const esKeys = Object.getOwnPropertyNames(ESjson);
+		const difference = deKeys.filter((x) => !esKeys.includes(x))
+			.concat(esKeys.filter((x) => !deKeys.includes(x)));
+		expect(JSON.stringify(difference)).to.equal(JSON.stringify([]),
+			'Some keys seem to be out of sync. Please add them in the de.json/es.json');
+	});
+
 	it('Check for empty keys', () => {
 		const emptyKeys = [];
 		const deKeys = Object.getOwnPropertyNames(DEjson);
 		const enKeys = Object.getOwnPropertyNames(ENjson);
+		const esKeys = Object.getOwnPropertyNames(ESjson);
 		deKeys.forEach((key) => {
 			if (DEjson[key] === '') {
 				emptyKeys.push(key);
@@ -99,6 +117,11 @@ describe('i18n test de.json', () => {
 		});
 		enKeys.forEach((key) => {
 			if (ENjson[key] === '') {
+				emptyKeys.push(key);
+			}
+		});
+		esKeys.forEach((key) => {
+			if (ESjson[key] === '') {
 				emptyKeys.push(key);
 			}
 		});
