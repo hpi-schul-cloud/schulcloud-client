@@ -268,13 +268,15 @@ app.use((err, req, res, next) => {
 	// prevent logging jwts and x-api-keys
 	delete error.options.headers;
 
-	const reqInfo = {
-		url: req.originalUrl || req.url,
-		method: req.originalMethod || req.method,
-		params: req.params,
-		body: req.body,
-	};
-	error.requestInfo = reqInfo;
+	if (Configuration.get('FEATURE_LOG_REQUEST') === true) {
+		const reqInfo = {
+			url: req.originalUrl || req.url,
+			method: req.originalMethod || req.method,
+			params: req.params,
+			body: req.body,
+		};
+		error.requestInfo = reqInfo;
+	}
 
 	if (res.locals.currentUser) {
 		res.locals.loggedin = true;
