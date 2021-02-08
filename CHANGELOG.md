@@ -33,6 +33,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
 
+## 25.5.4
+
+### Added
+- SC-8447 - add feature flag to enable or disable request logs
 ## 25.5.3
 
 ### Fixed
