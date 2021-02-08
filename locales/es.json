@@ -1534,15 +1534,15 @@
 		}
 	},
 	"format": {
-		"date": "DD\/MM\/AAAA",
-		"dateLong": "dddd, DD. MMMM AAAA",
-		"datePicker": "m\/d\/A",
+		"date": "DD\/MM\/YYYY",
+		"dateLong": "dddd, DD. MMMM YYYY",
+		"datePicker": "m\/d\/Y",
 		"datePickerMask": "19\/39\/9999",
-		"dateTime": "DD\/MM\/AAAA HH:mm",
-		"dateTimePicker": "m\/d\/A H:i",
+		"dateTime": "DD\/MM\/YYYY HH:mm",
+		"dateTimePicker": "m\/d\/Y H:i",
 		"dateTimePickerMask": "19\/39\/9999 29:59",
-		"dateTimeToPicker": "DD\/MM\/AAAA HH:mm",
-		"dateToPicker": "DD\/MM\/AAAA"
+		"dateTimeToPicker": "DD\/MM\/YYYY HH:mm",
+		"dateToPicker": "DD\/MM\/YYYY"
 	},
 	"global": {
 		"aria_label": {
@@ -1640,7 +1640,8 @@
 		"language": {
 			"label": {
 				"de": "Alemán",
-				"en": "Inglés"
+				"en": "Inglés",
+				"es": "Español"
 			}
 		},
 		"link": {
