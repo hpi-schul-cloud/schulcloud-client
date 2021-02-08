@@ -31,10 +31,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
 
+## 25.5.4
+
+### Added
+- SC-8447 - add feature flag to enable or disable request logs
 ## 25.5.3
 
 ### Fixed
-- SC-8189 - fixed course event duplication by updating the course
 - SC-8189 - fixed course event duplication by updating the course
 
 ## 25.5.2
