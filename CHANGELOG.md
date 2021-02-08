@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- SC-8408 - improved course update logic. Delete all events for the course before creating new
+
 ### Removed
 
 - SC-6311 - Removed itslearning from available system types
