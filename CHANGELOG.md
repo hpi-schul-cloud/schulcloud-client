@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.6.0] - 09.02.21
+
 ### Removed
 
 - SC-6311 - Removed itslearning from available system types
