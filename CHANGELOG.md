@@ -35,6 +35,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7345 - the linguistic note shown only for the German language
 - SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
+- SC-8210 - remove possibility for students to create tasks
 
 ## 25.5.4
 
