@@ -84,7 +84,7 @@ const createEventsForCourse = (req, res, course) => {
  */
 const deleteEventsForCourse = (req, res, courseId) => {
 	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
-		api(req).delete(`calendar/course/${courseId}`).catch((error) => {
+		api(req).delete(`calendar/courses/${courseId}`).catch((error) => {
 				logger.warn(
 				'failed creating events for the course, the calendar service might be unavailable',
 					error,
