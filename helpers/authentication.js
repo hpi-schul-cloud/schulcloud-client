@@ -142,11 +142,6 @@ const populateCurrentUser = async (req, res) => {
 				const schoolAllowsRoomCreation = schoolFeatures.includes('messengerStudentRoomCreate');
 				const blockRoomCreation = (!userHasPermissions && !schoolAllowsRoomCreation);
 				res.locals.matrixBlockRoomCreation = blockRoomCreation ? 'true' : 'false';
-
-				if (res.locals.roles && res.locals.roles[0] === "student") {
-					const index = res.locals.currentUser.permissions.indexOf("HOMEWORK_CREATE");
-					if (index !== -1) res.locals.currentUser.permissions.splice(index, 1);
-				}
 				return data2;
 			});
 		}).catch((e) => {
