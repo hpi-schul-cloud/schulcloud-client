@@ -11,7 +11,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-8156 - Added Spanish as an available language
+- SC-8156 - Added Spanish as an available language.
+- SC-8447 - Added filter for logging in error case.
 
 ### Removed
 
@@ -19,7 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
+- SC-8041 - Warning text for changing of county/kreis and officialSchoolNumber
 - SC-8356 - add docker login helper
 - SC-8331 - increase node version to match current lts (currently 12.16 to 14)
 
@@ -39,10 +40,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## 25.5.4
 
 ### Added
+
 - SC-8447 - add feature flag to enable or disable request logs
+
 ## 25.5.3
 
 ### Fixed
+
 - SC-8189 - fixed course event duplication by updating the course
 
 ## 25.5.2

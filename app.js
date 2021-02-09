@@ -14,13 +14,20 @@ const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const prometheus = require('./helpers/prometheus');
-const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
-const { nonceValueSet } = require('./helpers/csp');
+
 const { staticAssetsMiddleware } = require('./middleware/assets');
 const { version } = require('./package.json');
-const { sha } = require('./helpers/version');
-const logger = require('./helpers/logger');
+const {
+	filterLog,
+	filter,
+	nonceValueSet,
+	prometheus,
+	tokenInjector,
+	duplicateTokenHandler,
+	csrfErrorHandler,
+	logger,
+	sha,
+} = require('./helpers');
 
 const {
 	KEEP_ALIVE,
@@ -275,7 +282,7 @@ app.use((err, req, res, next) => {
 			params: req.params,
 			body: req.body,
 		};
-		error.requestInfo = reqInfo;
+		error.requestInfo = filterLog(reqInfo);
 	}
 
 	if (res.locals.currentUser) {
@@ -306,6 +313,10 @@ app.use((err, req, res, next) => {
 	// do not show full errors in production mode
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
+	// options can also include sensitive informations
+	if (error.options) {
+		error.options = filter(error.options);
+	}
 	logger.error(error);
 
 	// keep sidebar restricted in error page
