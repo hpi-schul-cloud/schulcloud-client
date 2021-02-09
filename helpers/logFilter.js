@@ -81,8 +81,8 @@ const filterLog = (log) => {
 	if (log) {
 		// req.url = filterQuery(req.url);
 		// originalUrl is used by sentry
-		log.url = filterQuery(log.originalUrl);
-		log.body = filter(log.options);
+		log.url = filterQuery(log.url);
+		log.body = filter(log.body);
 		log.params = filter(log.params);
 	}
 	return log;
