@@ -313,10 +313,6 @@ app.use((err, req, res, next) => {
 	// do not show full errors in production mode
 	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
-	// options can also include sensitive informations
-	if (error.options) {
-		error.options = filter(error.options);
-	}
 	logger.error(error);
 
 	// keep sidebar restricted in error page
