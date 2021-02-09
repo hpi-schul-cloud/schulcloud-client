@@ -14,10 +14,10 @@ const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const Sentry = require('@sentry/node');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const prometheus = require('./helpers/prometheus');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./helpers/csrf');
 const { nonceValueSet } = require('./helpers/csp');
-
-
+const { staticAssetsMiddleware } = require('./middleware/assets');
 const { version } = require('./package.json');
 const { sha } = require('./helpers/version');
 const logger = require('./helpers/logger');
@@ -59,6 +59,9 @@ if (Configuration.has('SENTRY_DSN')) {
 	});
 	app.use(Sentry.Handlers.requestHandler());
 }
+
+// setup prometheus metrics
+prometheus(app);
 
 // template stuff
 const authHelper = require('./helpers/authentication');
@@ -123,8 +126,8 @@ if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, `build/${themeName}`)));
-app.use('/locales', express.static(path.join(__dirname, 'locales')));
+
+staticAssetsMiddleware(app);
 
 let sessionStore;
 const redisUrl = REDIS_URI;
@@ -265,13 +268,15 @@ app.use((err, req, res, next) => {
 	// prevent logging jwts and x-api-keys
 	delete error.options.headers;
 
-	const reqInfo = {
-		url: req.originalUrl || req.url,
-		method: req.originalMethod || req.method,
-		params: req.params,
-		body: req.body,
-	};
-	error.requestInfo = reqInfo;
+	if (Configuration.get('FEATURE_LOG_REQUEST') === true) {
+		const reqInfo = {
+			url: req.originalUrl || req.url,
+			method: req.originalMethod || req.method,
+			params: req.params,
+			body: req.body,
+		};
+		error.requestInfo = reqInfo;
+	}
 
 	if (res.locals.currentUser) {
 		res.locals.loggedin = true;

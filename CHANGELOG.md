@@ -7,24 +7,99 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
 
-## 25.3.1
-### Fixed
-
-- SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
-
 ## Unreleased
 
 ### Added
 
+- SC-8156 - Added Spanish as an available language
+
+### Removed
+
+- SC-6311 - Removed itslearning from available system types
+
+### Changed
+
+- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
+- SC-8356 - add docker login helper
+- SC-8331 - increase node version to match current lts (currently 12.16 to 14)
+
+### Fixed
+
+- SC-8414 - Made school number field editable for LDAP schools
+- SC-8531 - Restored school administration missing text
+- SC-6363 - Fix printing problem
+- SC-7602 - Show error by registration when same email for a student and parent
+- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0, and add some extra validations
+- SC-8337 - Better error handling for file upload
+- SC-8259 - limited the length of the task title/headline
+- SC-7345 - the linguistic note shown only for the German language
+- SC-8307 - fixed date formater bug by initial page loading
+- SC-8272 - fixed displaying of the error message for submissions with no due date
+
+## 25.5.4
+
+### Added
+- SC-8447 - add feature flag to enable or disable request logs
+## 25.5.3
+
+### Fixed
+- SC-8189 - fixed course event duplication by updating the course
+
+## 25.5.2
+
+### Fixed
+
+- SC-8325 - clients error handling on oauth2 routes
+- SC-8449	- hardcoded platform names used for authentication dialog and in mouseover of iframe
+
+## 25.5.1
+
+### Added
+
+- SC-5287 - Iframe depseudonymization for Safari
+- SC-8377 - add ssl proxy for testing oauth2 iframe locally
+- SC-8358 - refactor tool naming, add safari bettermarks hint
+
+## 25.5.0
+
+### Fixed
+
+- SC-5710 - Updated the accessibility of the course page with fixed delete button for course time (for keyboard users)
+
+## [25.4.3]
+
+### Changed
+
+- SC-8321 cache and hash static assets
+
+## [25.4.2]
+
+### Fixed 
+
+- SC-8337 - Better error handling for file upload
+
+## [25.4.1]
+
+- Update from 25.3.6 into master
+
+## 25.4.0
+
+### Added
+
 - OPS-1499 - Add feature to CI Pipeline and provide team based HPI Schul-Cloud instances
+- SC-7824 - Set proper email address and label for data privacy 
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
 - SC-6619 - fixed text for registration in all other schools
-- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's 
+- SC-5797 - Due to new test creation: showRegularTaskOnDashboard, added new data-testid's
 
 ### Fixed
 
+- SC-7686 - Fixed naming convention for Lern-Store
+- SC-7126 - Fixed sort of years on create class select
+- SC-7848 - Fixed no autofill of password in user settings
+- SC-6975 - Fixed button text on declare consent
 - SC-7900 - Fixed text for inviting experts
 - SC-7983 - Fixed that topic is now choosable after select of course
 - SC-7771 - Fixed hint for teachers when editing a course - fix
@@ -32,12 +107,53 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-5498 - Fixed typo in account page
 - SC-7842 - Fixed typo on about page
 - SC-7874 - remove access to removed env variables
+- SC-8075 Fixed nbc landing page ghost
+- The common import after hotfix merge
+- SC-7793 - Set/activate new ldap route in administration page
 
 ### Changed
 
-- update location of commons
+- update location of common
+- SC-7889 - User receives consent screen at first login after new upload of privacy agreement
+
+## 25.3.6
+
+### Fixed
+
+- SC-8225: Fixed hiding messenger school settings
+
+## 25.3.5 - 2020-13-16
+
+### Added
+
+- SC-8220 - new env `SKIP_CALENDAR_DASHBOARD_REQUEST` for performance reasons
+
+## 25.3.4
+
+### Added
+
+- SC-8004 - add prometheus api metrics
+
+## 25.3.3
+
+### Fixed
+
+- SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation. 
+  This change has fixed the issue so that every course starts at the stable time regardless daylight saving time changes
+
+## 25.3.2
+
+### Fixed
+
+- SC-8075 Fixed nbc landing page ghost
+
+## 25.3.1
+
+### Fixed
+- SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
+
 ## 25.3.0
->>>>>>> 25.3.0
+
 ### Added
 
 - SC-6662 - Add data-testid in homework for integration test
@@ -75,7 +191,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6951 removes via text from embeded course content
 - SC-6870 use don't show again checkbox value even if the admin goes to the settings page
 - IMP-160 rename integration test repository
-
+- SC-7474 pull docker container for tests if commit id exists on docker hub
 
 ## 25.2.7
 

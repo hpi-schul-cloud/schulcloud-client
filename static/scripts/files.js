@@ -89,6 +89,21 @@ function writeFileSizePretty(orgFilesize) {
 	return filesize + unit;
 }
 
+const getErrorThrown = (error) => {
+	const { name, message, code } = error;
+
+	if (code === 'ESOCKETTIMEDOUT') {
+		return $t('global.text.requestTimeout');
+	}
+	if (name && message) {
+		return `${name} - ${message}`;
+	} if (name || message) {
+		return name || message;
+	}
+	console.error(error);
+	return $t('global.text.internalProblem');
+};
+
 $(document).ready(() => {
 	const $form = $('.form-upload');
 	const $progressBar = $('.progress-bar');
@@ -119,8 +134,9 @@ $(document).ready(() => {
 		$moveModal.modal('hide');
 		if (textStatus === 'timeout') {
 			$.showNotification($t('global.text.requestTimeout'), 'warn');
-		} else {
-			$.showNotification(errorThrown, 'danger');
+		} else if (errorThrown !== undefined) {
+			const msg = errorThrown || $t('global.text.internalProblem');
+			$.showNotification(msg, 'danger');
 		}
 	}
 
@@ -219,13 +235,15 @@ $(document).ready(() => {
 					},
 				).fail((err) => {
 					this.removeFile(file);
-					showAJAXError(
-						err.responseJSON.error.code,
-						err.responseJSON.error.message,
-						`${err.responseJSON.error.name} - ${
-							err.responseJSON.error.message
-						}`,
-					);
+					if (err.responseJSON && err.responseJSON.error) {
+						showAJAXError(
+							err.responseJSON.error.code,
+							err.responseJSON.error.message,
+							getErrorThrown(err.responseJSON.error),
+						);
+					} else {
+						showAJAXError(500, err, $t('global.text.internalProblem'));
+					}
 				});
 			},
 			createImageThumbnails: false,
@@ -381,10 +399,8 @@ $(document).ready(() => {
 
 		filterOptions.forEach((fo) => {
 			const $newFilterOption = $(
-				`<div data-key="${
-					fo.key
-				}" class="filter-option" onClick="window.location.href = '/files/search?filter=${
-					fo.key
+				`<div data-key="${fo.key
+				}" class="filter-option" onClick="window.location.href = '/files/search?filter=${fo.key
 				}'"></div>`,
 			);
 			const $newFilterLabel = $(`<span>Nach <b>${fo.label}</b> filtern</span>`);
@@ -595,7 +611,7 @@ $(document).ready(() => {
 		$.ajax({ url: `/files/permissions/?file=${fileId}` })
 			.then((permissions) => {
 				const nameMap = {
-					teacher: $t('global.role.text.teacher'),
+					teacher: $t('global.placeholder.Lehrer'),
 					student: $t('global.link.administrationStudents'),
 					teammember: $t('global.role.text.member'),
 					teamexpert: $t('global.role.text.expert'),
@@ -765,14 +781,12 @@ $(document).ready(() => {
 	function addDirTree($parent, dirTree, isMainFolder = true) {
 		dirTree.forEach((d) => {
 			const $dirElement = $(
-				`<div class="dir-element dir-${
-					isMainFolder ? 'main' : 'sub'
+				`<div class="dir-element dir-${isMainFolder ? 'main' : 'sub'
 				}-element" id="${d._id}" data-href="${d._id}"></div>`,
 			);
 
 			const $dirHeader = $(
-				`<div class="dir-header dir-${
-					isMainFolder ? 'main' : 'sub'
+				`<div class="dir-header dir-${isMainFolder ? 'main' : 'sub'
 				}-header"></div>`,
 			);
 			const $toggle = $(
@@ -976,4 +990,23 @@ $('.fileviewer').on('click', function determineViewer(e) {
 	) {
 		window.fileViewer(fileviewertype, fileviewersavename, fileviewerid);
 	}
+});
+
+$('#sortButton').on('click', () => {
+	const icon = $(this).find('i');
+	const location = window.location.search.split('&').filter((m) => m !== '');
+	const sortOption = (getQueryParameterByName('sortOrder') === 'asc') ? 'desc&' : 'asc&';
+
+	icon.addClass((sortOption === 'asc') ? 'fa-arrow-up' : 'fa-arrow-down');
+	icon.removeClass((sortOption === 'asc') ? 'fa-arrow-down' : 'fa-arrow-up');
+
+	window.location.search = `${location[0]}&sortOrder=${sortOption}`;
+});
+
+$(document).on('pageload', () => {
+	const icon = $('#sortButton i');
+	const sortOption = getQueryParameterByName('sortOrder');
+
+	icon.addClass((sortOption === 'asc') ? 'fa-arrow-up' : 'fa-arrow-down');
+	icon.removeClass((sortOption === 'asc') ? 'fa-arrow-down' : 'fa-arrow-up');
 });

@@ -2,6 +2,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const { EDITOR_URL } = require('../config/global');
@@ -15,7 +16,7 @@ const timesHelper = require('../helpers/timesHelper');
 const OPTIONAL_COURSE_FEATURES = ['messenger'];
 
 const router = express.Router();
-const { CALENDAR_SERVICE_ENABLED, HOST } = require('../config/global');
+const { HOST } = require('../config/global');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
@@ -37,7 +38,7 @@ const markSelected = (options, values = []) => options.map((option) => {
  */
 const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
-	if (CALENDAR_SERVICE_ENABLED) {
+	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		return Promise.all(
 			course.times.map((time) => {
 				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
@@ -82,7 +83,7 @@ const createEventsForCourse = (req, res, course) => {
  * @param courseId {string} - the id of the course the events will be deleted
  */
 const deleteEventsForCourse = (req, res, courseId) => {
-	if (CALENDAR_SERVICE_ENABLED) {
+	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		return api(req)
 			.get(`courses/${courseId}`)
 			.then((course) => Promise.all(
@@ -662,18 +663,19 @@ router.get('/:courseId/', async (req, res, next) => {
 
 		const isNewEdtrioActivated = editorBackendIsAlive && (courseHasNewEditorLessons || userHasEditorEnabled);
 		// ################################ end new Editor check ##################################
-		let ltiToolIds = [];
+		let ltiTools = [];
 		if (course.ltiToolIds && course.ltiToolIds.length > 0) {
-			ltiToolIds = await api(req).get('/ltiTools', {
+			ltiTools = await api(req).get('/ltiTools', {
 				qs: {
 					_id: { $in: course.ltiToolIds },
 				},
 			});
 		}
-		ltiToolIds = (ltiToolIds.data || []).filter(
+		ltiTools = (ltiTools.data || []).filter(
 			(ltiTool) => ltiTool.isTemplate !== 'true',
 		).map((tool) => {
 			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
+			tool.isBettermarks = (tool.name && tool.name.includes('bettermarks'));
 			return tool;
 		});
 
@@ -737,7 +739,7 @@ router.get('/:courseId/', async (req, res, next) => {
 					? homeworks.filter((task) => !task.private && task.stats.submissionCount)
 					: homeworks.filter((task) => !task.private && task.submissions)),
 				privateHomeworks: homeworks.filter((task) => task.private),
-				ltiToolIds,
+				ltiTools,
 				courseGroups,
 				baseUrl,
 				breadcrumb: [
@@ -768,65 +770,68 @@ router.get('/:courseId/', async (req, res, next) => {
 	}
 });
 
-router.patch('/:courseId', (req, res, next) => {
-	const redirectUrl = req.query.redirectUrl || `/courses/${req.params.courseId}`;
+router.patch('/:courseId', async (req, res, next) => {
+	try {
+		const redirectUrl = req.query.redirectUrl || `/courses/${req.params.courseId}`;
 
-	// map course times to fit model
-	req.body.times = req.body.times || [];
-	req.body.times.forEach((time) => {
-		time.startTime = moment.duration(time.startTime).asMilliseconds();
-		time.duration = time.duration * 60 * 1000;
-	});
-
-	if (!req.body.classIds) {
-		req.body.classIds = [];
-	}
-	if (!req.body.userIds) {
-		req.body.userIds = [];
-	}
-	if (!req.body.substitutionIds) {
-		req.body.substitutionIds = [];
-	}
-
-	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
-	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
-
-	delete req.body.startDate;
-	if (startDate.isValid()) {
-		req.body.startDate = startDate.toDate();
-	}
-
-	delete req.body.untilDate;
-	if (untilDate.isValid()) {
-		req.body.untilDate = untilDate.toDate();
-	}
-
-	// unarchive client request do not contain information about feature flags
-	if (req.body.unarchive !== 'true') {
-		req.body.features = [];
-		OPTIONAL_COURSE_FEATURES.forEach((feature) => {
-			if (req.body[feature] === 'true') {
-				req.body.features.push(feature);
-			}
-			delete req.body[feature];
+		// map course times to fit model
+		req.body.times = req.body.times || [];
+		req.body.times.forEach((time) => {
+			time.startTime = moment.duration(time.startTime).asMilliseconds();
+			time.duration = time.duration * 60 * 1000;
 		});
-	}
 
-	if (req.body.unarchive === 'true') {
-		req.body = { untilDate: req.body.untilDate };
+		if (!req.body.classIds) {
+			req.body.classIds = [];
+		}
+		if (!req.body.userIds) {
+			req.body.userIds = [];
+		}
+		if (!req.body.substitutionIds) {
+			req.body.substitutionIds = [];
+		}
+
+		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
+		const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
+
+		delete req.body.startDate;
+		if (startDate.isValid()) {
+			req.body.startDate = startDate.toDate();
+		}
+
+		delete req.body.untilDate;
+		if (untilDate.isValid()) {
+			req.body.untilDate = untilDate.toDate();
+		}
+
+		// unarchive client request do not contain information about feature flags
+		if (req.body.unarchive !== 'true') {
+			req.body.features = [];
+			OPTIONAL_COURSE_FEATURES.forEach((feature) => {
+				if (req.body[feature] === 'true') {
+					req.body.features.push(feature);
+				}
+				delete req.body[feature];
+			});
+		}
+
+		if (req.body.unarchive === 'true') {
+			req.body = { untilDate: req.body.untilDate };
+		}
+		const { courseId } = req.params;
+
+		await deleteEventsForCourse(req, res, courseId);
+		await api(req).patch(`/courses/${courseId}`, {
+			json: req.body,
+		});
+		// due to eventual consistency we need to get the course again from server
+		// instead of using the response from patch
+		const course = await api(req).get(`/courses/${courseId}`);
+		await createEventsForCourse(req, res, course);
+		res.redirect(303, redirectUrl);
+	} catch (e) {
+		next(e);
 	}
-	// first delete all old events for the course
-	deleteEventsForCourse(req, res, req.params.courseId)
-		.then(() => api(req)
-			.patch(`/courses/${req.params.courseId}`, {
-				json: req.body, // TODO: sanitize
-			})
-			.then((course) => {
-				createEventsForCourse(req, res, course).then(() => {
-					res.redirect(303, redirectUrl);
-				});
-			}))
-		.catch(next);
 });
 
 router.patch('/:courseId/positions', (req, res, next) => {

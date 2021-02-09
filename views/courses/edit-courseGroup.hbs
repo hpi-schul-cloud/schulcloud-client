@@ -1,15 +1,15 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/datetimepicker/jquery.datetimepicker.min.css'}}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/moment/moment.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/courses.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="/scripts/coursesTimes.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/jquery/jquery.datetimepicker.full.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/moment/moment.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/coursesTimes.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
 
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="studentParticipant">{{$t "courses._course.global.label.studentParticipant"}}</label>
+                    <label for="studentParticipant">{{$t "administration.global.label.studentParticipants"}}</label>
 
                     <select id="studentParticipant" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}">
                         {{#each students}}

@@ -60,6 +60,7 @@ let addNewCourseTime = function addNewCourseTime(div) {
 	});
 
 	$newCourseTime.find('.new-course-time-template-duration').attr('name', `times[${courseTimesCount}][duration]`);
+	$newCourseTime.find('#courseTimesErr').attr('name', `times[${courseTimesCount}][duration][err]`);
 	$newCourseTime.find('.new-course-time-template-room').attr('name', `times[${courseTimesCount}][room]`);
 	$newCourseTime.find('.course-time-delete').click(deleteCourseTime.bind(this, _id));
 

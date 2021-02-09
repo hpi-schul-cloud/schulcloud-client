@@ -57,7 +57,7 @@ module.exports = [
 	'saison', 'konzept', 'roman', 'auftrag', 'position', 'luft',
 	'studenten', 'ohnehin', 'verhindern', 'medien', 'verkauft', 'minister',
 	'gesamten', 'verwendet', 'vorbei', 'bezeichnet', 'vertrag', 'staatsanwaltschaft',
-	'israel', 'wissenschaftler', 'patienten', 'nutzen', 'betrieb', 'michael',
+	'wissenschaftler', 'patienten', 'nutzen', 'betrieb', 'michael',
 	'beteiligt', 'professor', 'fernsehen', 'erinnert', 'liste', 'eingesetzt',
 	'autos', 'hoffnung', 'nennt', 'bisherigen', 'erkennen', 'treffen',
 	'begonnen', 'gezeigt', 'gefordert', 'wohnung', 'hintergrund', 'selten',

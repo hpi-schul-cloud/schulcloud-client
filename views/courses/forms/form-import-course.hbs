@@ -7,11 +7,11 @@
     <input class="form-control" name="shareToken" id="shareToken" type="text" required />
     {{/if}}
     <br />
-    <p>{{$t "courses.text.importCourseDescription"}}</p>
+    <p>{{$t "teams.form_importTopic.text.aCourseFolderIsAutomaticallyCreated"}}</p>
     <p><i class="fa fa-exclamation-triangle"></i>{{$t "courses.text.importCourseAttentionTools"}}</p>
 </div>
 <div class="form-group" id="step2">
-    <p>{{$t "courses.text.renameCourse"}}</p>
+    <label for="courseName">{{$t "courses.text.renameCourse"}}</label>
     <input class="form-control" name="name" id="courseName" type="text" required />
     <br />
     <p>{{$t "courses.text.finishImport"}}</p>
