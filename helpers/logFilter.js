@@ -95,7 +95,7 @@ const formatError = (err = {}) => {
 		const e = {
 			message: err.message,
 			error: err.error,
-			statusCode: err.statusCode,
+			statusCode: err.statusCode || err.code,
 			stack: err.stack,
 		};
 		if (e.options) {
