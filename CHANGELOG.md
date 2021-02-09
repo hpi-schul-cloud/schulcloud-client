@@ -17,6 +17,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-8156 - Added Spanish as an available language
 
+### Fixed
+
+- SC-8414 - Made school number field editable for LDAP schools
+
+## [25.6.0] - 09.02.21
+
 ### Removed
 
 - SC-6311 - Removed itslearning from available system types
