@@ -10,7 +10,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
-const logger = require('../helpers/logger');
+const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 
 const router = express.Router();
@@ -139,7 +139,7 @@ const editTeamHandler = async (req, res, next) => {
 			permissions = await api(req)
 				.get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
 		} catch (error) {
-			logger.error(error);
+			logger.error(formatError(error));
 		}
 	}
 
@@ -410,8 +410,8 @@ router.get('/:teamId/json', (req, res, next) => {
 
 			res.json({ team });
 		})
-		.catch((e) => {
-			logger.warn(e);
+		.catch((err) => {
+			logger.warn(formatError(err));
 			res.sendStatus(500);
 		});
 });
@@ -479,8 +479,8 @@ router.get('/:teamId', async (req, res, next) => {
 				rocketChatCompleteURL = `${rocketChatURL}/group/${
 					rocketChatChannel.channelName
 				}`;
-			} catch (e) {
-				logger.warn(e);
+			} catch (err) {
+				logger.warn(formatError(err));
 				rocketChatCompleteURL = undefined;
 			}
 		}
@@ -741,8 +741,8 @@ router.patch('/:teamId/permissions', (req, res) => {
 			json: req.body,
 		})
 		.then(() => res.sendStatus(200))
-		.catch((e) => {
-			logger.warn(e);
+		.catch((err) => {
+			logger.warn(formatError(err));
 			res.sendStatus(500);
 		});
 });
@@ -1116,7 +1116,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 			},
 		);
 	} catch (err) {
-		logger.warn('Can not fetch, or render get teams/members', err);
 		next(err);
 	}
 });
@@ -1135,8 +1134,8 @@ router.post('/:teamId/members', async (req, res, next) => {
 		});
 
 		res.sendStatus(200);
-	} catch (e) {
-		logger.error(e);
+	} catch (err) {
+		logger.error(formatError(err));
 	}
 });
 
@@ -1157,8 +1156,8 @@ router.patch('/:teamId/members', async (req, res, next) => {
 		});
 
 		res.sendStatus(200);
-	} catch (e) {
-		logger.error(e);
+	} catch (err) {
+		logger.error(formatError(err));
 	}
 });
 
@@ -1237,7 +1236,7 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		.catch((err) => {
 			logger.warn(
 				res.$t('teams._team.text.errorAcceptingInvitation'),
-				err,
+				formatError(err),
 			);
 			res.redirect(`/teams/${req.params.teamId}`);
 		});

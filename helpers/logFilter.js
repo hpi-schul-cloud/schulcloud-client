@@ -1,3 +1,5 @@
+const logger = require('./logger');
+
 const MAX_LEVEL_FILTER = 12;
 
 const secretDataKeys = (() => [
@@ -88,4 +90,25 @@ const filterLog = (log) => {
 	return log;
 };
 
-module.exports = { filterLog, filterQuery, filter };
+const formatError = (err = {}) => {
+	try {
+		const e = {
+			message: err.message,
+			error: err.error,
+			statusCode: err.statusCode,
+			stack: err.stack,
+		};
+		if (e.options) {
+			e.options = err.options;
+			delete e.options.headers;
+		}
+		return e;
+	} catch (err) {
+		logger.error(err);
+		return err;
+	}
+};
+
+module.exports = {
+	filterLog, filterQuery, filter, formatError,
+};

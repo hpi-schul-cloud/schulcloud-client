@@ -14,7 +14,6 @@ const duplicateTokenHandler = (req, res, next) => {
 			// eslint-disable-next-line max-len
 			const error = new Error('Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.');
 			error.status = 400;
-			logger.error(error);
 			return next(error);
 		}
 		logger.warn('Die Anfrage enthält mehrere identische Sicherheitstokens (CSRF).');
