@@ -84,18 +84,9 @@ const createEventsForCourse = (req, res, course) => {
  */
 const deleteEventsForCourse = (req, res, courseId) => {
 	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
-		return api(req)
-			.get(`courses/${courseId}`)
-			.then((course) => Promise.all(
-				(course.times || []).map((t) => {
-					if (t.eventId) {
-						return api(req).delete(`calendar/${t.eventId}`);
-					}
-					return Promise.resolve();
-				}),
-			).catch((error) => {
+		api(req).delete(`calendar/courses/${courseId}`).catch((error) => {
 				logger.warn(
-					'failed creating events for the course, the calendar service might be unavailible',
+				'failed creating events for the course, the calendar service might be unavailable',
 					error,
 				);
 				req.session.notification = {
@@ -103,7 +94,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 					message: res.$t('courses._course.text.eventCouldNotBeSavedContactSupport'),
 				};
 				return Promise.resolve();
-			}));
+		});
 	}
 	return Promise.resolve(true);
 };

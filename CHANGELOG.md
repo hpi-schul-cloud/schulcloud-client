@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- SC-8408 - improved course update logic. Delete all events for the course before creating new
+
 ### Added
 
 - SC-8156 - Added Spanish as an available language
