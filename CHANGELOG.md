@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Removed
 
 - SC-6311 - Removed itslearning from available system types
+- SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
 
 ### Changed
 
