@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-8408 - improved course update logic. Delete all events for the course before creating new
 
+### Added
+
+- SC-8156 - Added Spanish as an available language
+
 ### Removed
 
 - SC-6311 - Removed itslearning from available system types
