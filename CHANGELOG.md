@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Added
+
+- SC-8156 - Added Spanish as an available language
+
 ### Removed
 
 - SC-6311 - Removed itslearning from available system types

@@ -556,8 +556,11 @@
 				"authentication": "Autenticación",
 				"changeOfClasses": "Cambio de clases \/ nuevas clases",
 				"changeOfUserData": "Cambio de datos de usuario \/ nuevos usuarios",
+				"chooseACounty": "Por favor, seleccione el distrito al que pertenece la escuela",
 				"className": "Nombre de la clase:",
 				"cloudStorageProvider": "Proveedor de almacenamiento en la nube",
+				"counties": "Distritos",
+				"county": "Distrito",
 				"currentSchoolYear": "Año escolar actual:",
 				"dataProtectionAdd": "Añadir política de privacidad",
 				"duringTheSchoolYear": "Durante el año escolar",
@@ -592,6 +595,9 @@
 				"matrixHelpPage": "sección de ayuda de messenger",
 				"moreInfo": "Más información"
 			},
+			"placeholder": {
+				"chooseCounty": "Seleccione un distrito"
+			},
 			"text": {
 				"allAboutTheSummerVacation": "Alrededor de las vacaciones de verano",
 				"allDataFromTheLDAP": "Todos los datos de LDAP se sincronizarán como de costumbre, se pueden crear nuevos usuarios y clases desde allí en cualquier momento",
@@ -599,6 +605,7 @@
 				"atTheEndOfTheSchoolYearWithLDAP": "Cuando cambie el curso escolar, realiza las siguientes acciones con LDAP:",
 				"atTheEndOfTheTransferPhase": "Cuando finaliza la fase de transferencia, todos los cambios realizados en el LDAP se sincronizan de una vez",
 				"atTheSameTime": "Al mismo tiempo, entras en el nuevo año escolar en la nube escolar de HPI",
+				"changeSchoolValueWarning": "¡Una vez configurado no puedrá ser cambiado!",
 				"coursesWithLearningContent": "Los cursos con contenido de aprendizaje para el próximo año escolar también se pueden crear durante la fase de transferencia (sin asignación de clase)",
 				"doNotEndTheTransferPhase": "No finalices la fase de transferencia hasta que los usuarios estén asignados a las nuevas clases",
 				"fileSelected": "Archivo seleccionado",
@@ -801,6 +808,7 @@
 			"ourPartnerOfMINIECAlso": "Nuestro socio de MINT-EC también ofrece seminarios web regulares sobre la nube escolar de HPI. Las próximas fechas se pueden encontrar aquí:",
 			"pleaseContactEither": "Ponte en contacto con la Sra. Julia Günther:",
 			"pleaseContactTheFollowingEmailAddress": "Ponte en contacto con la siguiente dirección de correo electrónico para iniciar el proceso de registro:",
+			"SchoolsAndOther": "Los colegios que no pertenecen a un proyecto estatal pueden registrarse aquí. Gracias a la ampliación del proyecto por parte del BMBF, ahora pueden utilizar la HPI School-Cloud.",
 			"theCentralOfficeForSchools": "La Agencia Central de Escuelas Alemanas en el Extranjero (ZfA) te apoya en el proceso de registro.",
 			"youCanGetSupport": "Aquí podrás encontrar ayuda para familiarizarte con la nube escolar y crear tus primeros contenidos:",
 			"youWillThenBeGiven": "A continuación, se te dará toda la información necesaria para que puedas empezar pronto."
@@ -886,6 +894,7 @@
 					"editCourse": "Editar curso"
 				},
 				"img_alt": {
+					"addPeople": "Añadir persona",
 					"courseIsArchieved": "El curso está archivado"
 				},
 				"label": {
@@ -1051,6 +1060,7 @@
 					"descriptionAddToolToCourse": "Añade herramientas interactivas como GeoGebra o CodeOcean a un curso aquí.",
 					"noTools": "Sin herramientas.",
 					"opensInNewTab": "Nueva pestaña",
+					"shouldNotUseSafariInBettermarks": "Para una mejor experiencia de usuario, es mejor utilizar Chrome o Firefox en lugar de Safari. ",
 					"videoConferenceBBB": "Videoconferencia BigBlueButton"
 				}
 			},
@@ -1158,7 +1168,10 @@
 				"chooseTeacher": "Seleccionar profesor",
 				"egRoom1-21": "por ejemplo, R-1.21",
 				"inMinutes": "En minutos",
+				"invalidDurationError": "La duración de la lección escolar no debe ser menor a cero.",
+				"invalidTimeError": "La fecha de inicio del curso no debe ser posterior a la fecha de finalización.",
 				"mathsClass": "Matemáticas 10a",
+				"noCourseTeacher": "Debes de seleccionar un profesor",
 				"selectClasses": "Seleccionar clase(s)",
 				"selectStudents": "Seleccionar estudiantes"
 			},
@@ -1356,6 +1369,7 @@
 			"selectAFolder": "Seleccionar una carpeta",
 			"shareFile": "Compartir archivo",
 			"size": "Tamaño",
+			"sortBy": "Ordenar por...",
 			"updatedAt": "Fecha de modificación",
 			"write": "Escribir"
 		},
@@ -1534,18 +1548,19 @@
 		}
 	},
 	"format": {
-		"date": "DD\/MM\/AAAA",
-		"dateLong": "dddd, DD. MMMM AAAA",
-		"datePicker": "m\/d\/A",
+		"date": "DD\/MM\/YYYY",
+		"dateLong": "dddd, DD. MMMM YYYY",
+		"datePicker": "m\/d\/Y",
 		"datePickerMask": "19\/39\/9999",
-		"dateTime": "DD\/MM\/AAAA HH:mm",
-		"dateTimePicker": "m\/d\/A H:i",
+		"dateTime": "DD\/MM\/YYYY HH:mm",
+		"dateTimePicker": "m\/d\/Y H:i",
 		"dateTimePickerMask": "19\/39\/9999 29:59",
-		"dateTimeToPicker": "DD\/MM\/AAAA HH:mm",
-		"dateToPicker": "DD\/MM\/AAAA"
+		"dateTimeToPicker": "DD\/MM\/YYYY HH:mm",
+		"dateToPicker": "DD\/MM\/YYYY"
 	},
 	"global": {
 		"aria_label": {
+			"deleteCourse": "Eliminar curso",
 			"sidebar": "Barra lateral",
 			"topMenu": "barra superior"
 		},
@@ -1562,6 +1577,7 @@
 			"createFirstCourse": "Crea tu primer curso",
 			"createFolder": "Crear carpeta",
 			"deleteTeam": "Eliminar equipo",
+			"done": "Listo",
 			"edit": "Editar",
 			"editTopic": "Editar tema",
 			"filterAdd": "Añadir filtro",
@@ -1640,7 +1656,8 @@
 		"language": {
 			"label": {
 				"de": "Alemán",
-				"en": "Inglés"
+				"en": "Inglés",
+				"es": "Español"
 			}
 		},
 		"link": {
@@ -1744,6 +1761,7 @@
 			"noTopicFoundWithCode": "No se ha encontrado ningún tema para este código.",
 			"pageMoved": "Esta página se ha movido.",
 			"passwordsAreDifferent": "Las contraseñas no coinciden.",
+			"printingFailed": "La impresión ha fallado. Por favor, inténtelo de nuevo",
 			"qrHintText": "Dirige a otros usuarios a este sitio con el código QR",
 			"requestTimeout": "Tiempo de espera agotado",
 			"saturday": "Sábado",
@@ -1859,6 +1877,10 @@
 			},
 			"headline": {
 				"whoDoYouWantToInviteTheTeam": "¿A quién te gustaría invitar al equipo?"
+			},
+			"label": {
+				"lowerSaxonyRegistration": "Mediante la expresión de interés <a href=\"https:\/\/www.n-21.de\/nbc\/interessenbekundung\">(https:\/\/www.n-21.de\/nbc\/interessenbekundung<\/a> ), los centros escolares se inscriben (a través de la administración de la escuela) en la Nube Educativa de Baja Sajonia.",
+				"pedagogicalExperts": "Cuando invite a personal pedagógico como expertos externos, por favor no utilice direcciones de correo electrónico que estén en uso y que son necesarias para el registro en la Nube Educativa de Baja Sajonia."
 			}
 		},
 		"language_hint": {
@@ -2109,6 +2131,7 @@
 			"doYouReallyWantToReplaceSubmission": "¿Estás seguro de que deseas reemplazar tu evaluación con el envío del estudiante?",
 			"due": "Fecha de entrega",
 			"fileAlreadyExists": "Este nombre de archivo ya existe en tus archivos. Cambia el nombre del archivo.",
+			"loading": "cargando...",
 			"maximumTeamSize": "El tamaño máximo de equipo es de {{maxMembers}} miembros",
 			"noAssignment": "Sin asignación",
 			"noDescriptionAvailable": "sin descripción disponible",
@@ -2184,6 +2207,7 @@
 				"generalInquiries": "Consultas generales:",
 				"mobileApp": "Aplicación móvil",
 				"privacy": "Privacidad:",
+				"privacy_responsible_person": "Responsable de protección de datos:",
 				"subscribeTheNewsletter": "Suscríbete al boletín de noticias",
 				"support": "Servicio de asistencia:"
 			},
@@ -2384,6 +2408,7 @@
 			"label": {
 				"email": "Tu dirección de correo electrónico",
 				"openId": "una cadena única que no permite identificar tu verdadera identidad",
+				"showName": "Mostrar nombre",
 				"weNeedToSendThisData": "Para trabajar con {{client}}, debemos transferir a este proveedor lo siguiente:",
 				"yourName": "Tu nombre"
 			},
