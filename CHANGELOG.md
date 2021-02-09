@@ -9,9 +9,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- SC-8408 - improved course update logic. Delete all events for the course before creating new
+
 ### Added
 
 - SC-8156 - Added Spanish as an available language
+
+### Fixed
+
+- SC-8414 - Made school number field editable for LDAP schools
+
+## [25.6.0] - 09.02.21
 
 ### Removed
 
@@ -26,7 +36,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- SC-8414 - Made school number field editable for LDAP schools
 - SC-8531 - Restored school administration missing text
 - SC-6363 - Fix printing problem
 - SC-7602 - Show error by registration when same email for a student and parent
