@@ -19,7 +19,6 @@ const { staticAssetsMiddleware } = require('./middleware/assets');
 const { version } = require('./package.json');
 const {
 	filterLog,
-	filter,
 	nonceValueSet,
 	prometheus,
 	tokenInjector,
