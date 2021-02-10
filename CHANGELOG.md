@@ -36,6 +36,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-8416 - Show logo on tablet on subpages
+- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0
+- SC-8414 - Made school number field editable for LDAP schools
 - SC-8531 - Restored school administration missing text
 - SC-6363 - Fix printing problem
 - SC-7602 - Show error by registration when same email for a student and parent
@@ -45,6 +48,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7345 - the linguistic note shown only for the German language
 - SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
+- SC-8210 - remove possibility for students to create tasks
 
 ## 25.5.4
 

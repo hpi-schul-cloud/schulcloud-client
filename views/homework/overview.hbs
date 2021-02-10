@@ -17,13 +17,15 @@
                         cancle-label='{{$t "global.button.cancel" }}'
                         handle-url='true'
                 /></div>
-        {{#if addButton}}
-            {{#userHasPermission "HOMEWORK_CREATE"}}
-                <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="btn btn-primary btn-add create">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                <span>{{$t "global.button.addTask" }}</span>
-                </a>
-                {{/userHasPermission}}
+            {{#if addButton}}
+                {{#ifCond isStudent '!==' true}}
+                    {{#userHasPermission "HOMEWORK_CREATE"}}
+                        <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="btn btn-primary btn-add create">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span>{{$t "global.button.addTask" }}</span>
+                        </a>
+                    {{/userHasPermission}}
+                {{/ifCond}}
             {{/if}}
                 <div class="homework">
                     <div class="row">
