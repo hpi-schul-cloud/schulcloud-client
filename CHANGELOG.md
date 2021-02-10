@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - SC-8408 - improved course update logic. Delete all events for the course before creating new
+- SC-8597 - changing color of the course headline into primary
 
 ### Added
 
