@@ -609,6 +609,7 @@ const overview = (titleKey) => (req, res, next) => {
 							&& !isStudent)
 					),
 					createPrivate: req._parsedUrl.pathname.includes('private') || isStudent,
+					isStudent,
 				});
 			});
 		});
