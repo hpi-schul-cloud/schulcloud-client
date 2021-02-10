@@ -90,6 +90,13 @@ function isSectionValid(sectionIndex) {
 	if (ValidationDisabled) return true; // for testing only
 	// negation is needed, because some() returns false on a blank array.
 	const currentInputs = document.querySelectorAll(`section[data-panel="section-${sectionIndex}"] input`);
+	const requiredSelectElements = [...document.querySelectorAll('select[required]')];
+
+	if (requiredSelectElements.length) {
+		const isValidElements = requiredSelectElements.every((ele) => $(ele).val().length > 0);
+		if (!isValidElements) return false;
+	}
+
 	return !currentInputs.some(input => !input.checkValidity());
 }
 

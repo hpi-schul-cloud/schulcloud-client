@@ -2202,7 +2202,7 @@ router.get(
 			.then(async (data) => {
 				const head = [
 					res.$t('administration.controller.global.label.class'),
-					res.$t('administration.controller.global.label.teacher'),
+					res.$t('global.placeholder.Lehrer'),
 					res.$t('administration.global.label.schoolYear'),
 					res.$t('global.link.administrationStudents'),
 				];
@@ -3013,6 +3013,7 @@ router.use(
 		});
 
 		const ssoTypes = getSSOTypes();
+		const availableSSOTypes = getSSOTypes().filter((type) => type.value !== 'itslearning');
 
 		res.render('administration/school', {
 			title: res.$t('administration.controller.headline.school', {
@@ -3025,7 +3026,7 @@ router.use(
 			ldapAddable,
 			provider,
 			studentVisibility: studentVisibility.isEnabled,
-			availableSSOTypes: ssoTypes,
+			availableSSOTypes,
 			ssoTypes,
 			totalStorage,
 			systemsHead,

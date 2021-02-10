@@ -15,7 +15,7 @@
         <script src="{{getAssetPath '/scripts/coursesTimes.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getAssetPath '/scripts/dataprivacy/dataprivacy.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/dataprivacy/paginated_form.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
 
@@ -85,21 +85,21 @@
 
               <div class="row">
                 <div class="form-group col-md-6" data-testid="teachers_container">
-                    <label for="courseTeacher">{{$t "courses.global.label.courseTeacher"}}</label>
-                    <select id="courseTeacher"
-                            name="teacherIds[]" required multiple
-                            data-placeholder= "{{$t "courses.global.input.chooseTeacher"}}"
-                            data-testid="teachersearch" autocomplete="off" tabindex="-1">
-                        {{#each teachers}}
-                            <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                {{#if this.displayName}}
-                                    {{this.displayName}}
-                                {{else}}
-                                    {{this.firstName}} {{this.lastName}}
-                                {{/if}}
-                            </option>
-                        {{/each}}
-                    </select>
+                  <label for="courseTeacher">{{$t "administration.global.label.teachingTeacher"}}</label>
+                  <select id="courseTeacher" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" data-testid="teachersearch" autocomplete="off"
+                    aria-describedby="courseTeacherErr">
+                    {{#each teachers}}
+                    <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                      {{#if this.displayName}}
+                      {{this.displayName}}
+                      {{else}}
+                      {{this.firstName}} {{this.lastName}}
+                      {{/if}}
+                    </option>
+                    {{/each}}
+                  </select>
+                  <span class="small course-validation-error" id="courseTeacherErr">
+                {{$t "courses.global.input.noCourseTeacher"}}</span>
                 </div>
 
                 <div class="form-group col-md-6" data-testid="courseSubstitute_container">
@@ -130,11 +130,16 @@
               <div class="times" id="timesContainer">
                   <div class="row">
                       <div class="form-group col-md-6">
-                            {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpan") id="startDate" value=course.startDate dataTestId="date_start"}}
+              {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpan") id="startDate" class="startDate"
+              value=course.startDate dataTestId="date_start"}}
+              <span class="small course-validation-error" id="invalidTimeError">{{$t
+                "courses.global.input.invalidTimeError"}}</span>
                       </div>
 
                       <div class="form-group col-md-6">
-                            {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpanUntil") id="untilDate" value=course.untilDate}}
+              {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpanUntil") id="untilDate"
+              class="untilDate"
+              value=course.untilDate}}
                       </div>
                   </div>
 

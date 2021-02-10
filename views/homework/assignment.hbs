@@ -71,19 +71,19 @@
 				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
 				{{/if}}
                 {{i18nDateTime availableDate}}
-                {{#if dueDate}}
+                {{#if this.dueDate}}
                     {{$t "homework.text.till"}}: {{timeToString dueDate}}
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}
 				{{#if (userHasRole "student")}}
 				<div>
-					{{#if submissions}}
+					{{#if this.submissions}}
 					{{$t "homework.text.done"}}
-					{{else if warning}}
+					{{else if this.warning}}
 					{{$t "homework.text.toBeDoneWithin24Hours"}}
 					{{else}}
-					{{#unless submittable}}
+					{{#unless this.submittable}}
 					{{$t "homework.text.notDone"}}
 					{{/unless}}
 				{{/if}}
