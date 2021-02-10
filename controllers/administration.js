@@ -1881,11 +1881,11 @@ router.get(
 									+ res.$t('administration.controller.text.theStepsForTheParentsAreOmitted'),
 							},
 							/* { // TODO - Feature not implemented
-                            "title":"Deine Schüler sind in der Schülerliste rot?",
+                            "title":"Deine Schüler:innen sind in der Schülerliste rot?",
                             "content": `Sie sind vom Administrator bereits angelegt
                             (z.B. durch Import aus Schüler-Verwaltungs-Software),
                             aber es fehlen noch ihre Einverständniserklärungen.
-                            Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung
+                            Lade die Schüler:innen deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung
                             der ${res.locals.theme.short_title} elektronisch abzugeben.
                             Bereits erfasste Schülerdaten werden beim Registrierungsprozess
                             automatisch gefunden und ergänzt.`

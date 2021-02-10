@@ -3082,5 +3082,9 @@
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
 			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen."
 		}
+	},
+	"landingPageBrb": {
+		"headline": "Herzlich willkommen bei der Schul-Cloud Brandenburg!",
 	}
+
 }
