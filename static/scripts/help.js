@@ -3,18 +3,20 @@ import { resizeIframes } from './helpers/iFrameResize';
 import './help/contactForm';
 
 /* eslint-disable max-len */
-const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = Number($('.form-control-file').data('maxAttachmentSizeMb')) * 1024 * 1024;
+const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE =	Number($('.form-control-file').data('maxAttachmentSizeMb')) * 1024 * 1024;
 
 $(document).ready(() => {
 	$('.btn-poll').on('click', (e) => {
 		e.preventDefault();
 
-		document.cookie = 'pollClicked=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
+		document.cookie =			'pollClicked=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
 	});
 
 	// only fill textarea if empty
 	if (!$('textarea[name= problemDescription]').val()) {
-		$('textarea[name= problemDescription]').text($t('help.placeholder.formBugText'));
+		$('textarea[name= problemDescription]').text(
+			$t('help.placeholder.formBugText'),
+		);
 	}
 
 	$('.form-control-file').change(function x() {
@@ -22,14 +24,23 @@ $(document).ready(() => {
 		let fileSize = 0;
 		if (this.files.length > 0) {
 			for (let i = 0; i <= this.files.length - 1; i += 1) {
-				if (this.files.item(i).type.includes('image/')
-				|| this.files.item(i).type.includes('video/')
-				|| this.files.item(i).type.includes('application/msword')
-				|| this.files.item(i).type.includes('application/pdf')) {
+				if (
+					this.files.item(i).type.includes('image/')
+					|| this.files.item(i).type.includes('video/')
+					|| this.files.item(i).type.includes('application/msword')
+					|| this.files.item(i).type.includes('application/pdf')
+				) {
 					form.find('.file-alert').html('');
 					form.find(':submit').prop('disabled', false);
 				} else {
-					form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('global.text.fileWrongFormat', { filename: this.files.item(i).name })));
+					form.find('.file-alert').html(
+						'<i class="fa fa-exclamation"></i> '.concat(
+							// eslint-disable-next-line comma-dangle
+							$t('global.text.fileWrongFormat', {
+								filename: this.files.item(i).name,
+							}),
+						),
+					);
 					form.find(':submit').prop('disabled', true);
 					return;
 				}
@@ -38,9 +49,17 @@ $(document).ready(() => {
 		}
 		if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE) {
 			if (this.files.length > 1) {
-				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('global.text.filesTooLarge')));
+				form.find('.file-alert').html(
+					'<i class="fa fa-exclamation"></i> '.concat(
+						$t('global.text.filesTooLarge'),
+					),
+				);
 			} else {
-				form.find('.file-alert').html('<i class="fa fa-exclamation"></i> '.concat($t('global.text.fileTooLarge')));
+				form.find('.file-alert').html(
+					'<i class="fa fa-exclamation"></i> '.concat(
+						$t('global.text.fileTooLarge'),
+					),
+				);
 			}
 			form.find(':submit').prop('disabled', true);
 		} else {
@@ -59,7 +78,6 @@ resizeIframes(undefined, () => {
 		frame.setAttribute('scrolling', 'no');
 	});
 });
-
 
 /* script for iFrame
 // this needs to be embedded on every page that should be displayed via iFrame
@@ -113,7 +131,7 @@ function parseData(result) {
 }
 const config = {
 	// eslint-disable-next-line
-	url: 'https://docs.schul-cloud.org/rest/searchv3/1.0/search?queryString=${inputValue}&where=SCDOK&type=page&pageSize=10&highlight=false',
+	url: 'https://docs.hpi-schul-cloud.org/rest/searchv3/1.0/search?queryString=${inputValue}&where=SCDOK&type=page&pageSize=10&highlight=false',
 	extractResultArray: extractResults,
 	dataParser: parseData,
 	livesearchRootSelector: '.live-search',
