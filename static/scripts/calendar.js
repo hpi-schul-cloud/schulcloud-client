@@ -2,6 +2,7 @@ import './jquery/datetimepicker-easy';
 import { Calendar } from '@fullcalendar/core';
 import deLocale from '@fullcalendar/core/locales/de';
 import enLocale from '@fullcalendar/core/locales/en-gb';
+import esLocale from '@fullcalendar/core/locales/es';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -68,15 +69,28 @@ $(document).ready(() => {
 
 	const view = window.location.hash.substring(1);
 
-	const calendarLanguage = document.querySelector('html').getAttribute('lang') === 'de' ? deLocale : enLocale;
 	const calendarTimezone = document.querySelector('html').getAttribute('timezone');
+
+	const getCalendarLanguage = () => {
+		const langAttribute = document.querySelector('html').getAttribute('lang');
+		switch (langAttribute) {
+			case 'de':
+				return deLocale;
+			case 'en':
+				return enLocale;
+			case 'es':
+				return esLocale;
+			default:
+				return deLocale;
+		}
+	};
 
 	const calendar = new Calendar(calendarElement, {
 		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, momentTimezonePlugin],
 		defaultView: view || 'dayGridMonth',
 		editable: false,
 		timeZone: calendarTimezone || 'Europe/Berlin',
-		locale: calendarLanguage,
+		locale: getCalendarLanguage(),
 		header: {
 			left: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay prev,today,next',
