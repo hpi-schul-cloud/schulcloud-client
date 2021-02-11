@@ -21,6 +21,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
 - SC-6923 - Fixed help area search with csp url
 - SC-8414 - Made school number field editable for LDAP schools
 - SC-8594 - make drag icon visible again
