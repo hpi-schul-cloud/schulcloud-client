@@ -20,6 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-6923 - Fixed help area search with csp url
 - SC-8414 - Made school number field editable for LDAP schools
 - SC-8594 - make drag icon visible again
 
