@@ -1,47 +1,51 @@
 <li class="card assignment {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}}{{#if this.grade}} has-stats{{/if}} {{this.privateclass}}"
-    style="border-left:10px solid {{this.color}}">
+    style="padding-bottom: 48px; border-left:10px solid {{this.color}}">
     <div class="content">
         <div class="dates text-muted">
-		 {{#if (userHasRole "student")}}
-            <i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}" aria-hidden="true"></i>
+            {{#if (userHasRole "student")}}
+            <i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"
+                aria-hidden="true"></i>
             {{/if}}
             {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
             {{#if this.dueDate}}
-                {{$t "homework.text.till"}} {{timeToString dueDate}}
+            {{$t "homework.text.till"}} {{timeToString dueDate}}
             {{else}}
             {{$t "homework.text.noSubmissionDateSet"}}
             {{/if}}
         </div>
         {{#if this.stats}}
-            <a class="content" href="{{this.url}}#activetabid=submissions"
-                aria-label="Abgaben der Aufgabe: '{{{escapeHtml this.name}}}'">
-                <div class="state">
-                    <table>
-                        <tr>
-                            <td>
-                                <progress value='{{this.stats.submissionPercentage}}' max='100' alt="">{{this.stats.submissionPercentage}} %</progress>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {{$t 'homework._task.label.statsSubmitted' (dict 'submissionCount' this.stats.submissionCount 'totalCount' this.stats.userCount) }}
-                            </td>
+        <a class="content" href="{{this.url}}#activetabid=submissions"
+            aria-label="Abgaben der Aufgabe: '{{{escapeHtml this.name}}}'">
+            <div class="state">
+                <table>
+                    <tr>
+                        <td>
+                            <progress value='{{this.stats.submissionPercentage}}' max='100'
+                                alt="">{{this.stats.submissionPercentage}} %</progress>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{$t 'homework._task.label.statsSubmitted' (dict 'submissionCount'
+                            this.stats.submissionCount 'totalCount' this.stats.userCount) }}
+                        </td>
                     </tr>
                     {{#if this.stats.gradeCount}}
-                        <tr>
-                            <td>
-                                <progress value='{{this.stats.gradePercentage}}' max='100' alt="">{{this.stats.gradePercentage}} %</progress>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {{$t "homework._task.label.statsGraded" (dict 'gradedCount' this.stats.gradeCount) }}
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <progress value='{{this.stats.gradePercentage}}' max='100'
+                                alt="">{{this.stats.gradePercentage}} %</progress>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{$t "homework._task.label.statsGraded" (dict 'gradedCount' this.stats.gradeCount) }}
+                        </td>
+                    </tr>
                     {{/if}}
-                    </table>
-                </div>
-            </a>
+                </table>
+            </div>
+        </a>
         {{/if}}
     </div>
     <div class="state">
@@ -69,58 +73,69 @@
         </h2>
         <div class="ckcontent text-muted">
             {{#if this.description}}
-                {{{ truncateHTML (conflictFreeHtml this.description) 140 false }}}
+            {{{ truncateHTML (conflictFreeHtml this.description) 140 false }}}
             {{/if}}
         </div>
     </div>
     <div>
         {{#inArray this.currentUser._id this.archived}}
-        <span class="count-badge" data-badge="{{$t "courses._course.tasks.label.archived"}}" aria-label="{{$t "courses._course.groups._group.text.archivedTask"}}" role="img" /></span>
+        <span class="count-badge" data-badge="{{$t " courses._course.tasks.label.archived"}}" aria-label="{{$t "
+            courses._course.groups._group.text.archivedTask"}}" role="img" /></span>
         {{else}}
-            {{#if ../this.private}}
-            <span class="count-badge" data-badge="{{$t "courses._course.tasks.label.drafts"}}" aria-label="{{$t "courses._course.groups._group.text.draftTask"}}" role="img" /></span>
-            {{else}}
-            <span class="count-badge" data-badge="{{$t "courses._course.tasks.label.provided"}}" aria-label="{{$t "courses._course.groups._group.text.doneTask"}}" role="img" /></span>
-            {{/if}}
+        {{#if ../this.private}}
+        <span class="count-badge" data-badge="{{$t " courses._course.tasks.label.drafts"}}" aria-label="{{$t "
+            courses._course.groups._group.text.draftTask"}}" role="img" /></span>
+        {{else}}
+        <span class="count-badge" data-badge="{{$t " courses._course.tasks.label.provided"}}" aria-label="{{$t "
+            courses._course.groups._group.text.doneTask"}}" role="img" /></span>
+        {{/if}}
         {{/inArray}}
         {{#if this.grade}}
-            <span class="count-badge" data-badge="{{$t "courses._course.tasks.label.feedback"}}" aria-label="{{$t "courses._course.groups._group.text.feedbackTask"}}" role="img" /></span>
+        <span class="count-badge" data-badge="{{$t " courses._course.tasks.label.feedback"}}" aria-label="{{$t "
+            courses._course.groups._group.text.feedbackTask"}}" role="img" /></span>
         {{/if}}
     </div>
     <div class="action-group">
         {{#userHasPermission "HOMEWORK_CREATE"}}
-            {{#inArray ../this.currentUser._id ../this.archived}}
-                <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=open"
-                        aria-label="{{$t "courses._course.groups._group.text.moveTask"}} {{$t "global.link.openInNewTabWarning"}}" alt-text="<i class='fa fa-archive' aria-hidden='true'>"></i>
-                    <i class='fa fa-mail-reply' aria-hidden="true"></i>
-                </a>
-            {{/inArray}}
-            {{! Maybe Teachers create Tasks for other Teachers -> prevent editing by them }}
-            {{#if ../this.isTeacher}}
-                {{#notInArray ../this.currentUser._id ../this.archived}}
-                    <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=done"
-                            aria-label="{{$t "courses._course.groups._group.text.moveTask"}} {{$t "global.link.openInNewTabWarning"}}" alt-text="<i class='fa fa-mail-reply'></i>">
-                        <i class='fa fa-archive' aria-hidden="true"></i>
-                    </a>
-                {{/notInArray}}
-                {{#each ../this.actions}}
-                    {{#if this.method}}
-                        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}"
-                            redirect="?p={{@root.pagination.currentPage}}" target="_blank" data-method="{{this.method}}"
-                            data-name="{{../../name}}" aria-label="{{$t "courses._course.groups._group.text.task"}} '{{{escapeHtml ../../name}}}' {{{escapeHtml this.title}}}. {{$t "global.link.openInNewTabWarning"}}">
-                            <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
-                        </a>
-                    {{else}}
-                        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}"
-                            aria-label="{{$t "courses._course.groups._group.text.task"}} '{{{escapeHtml ../../name}}}' {{this.title}} {{$t "global.link.openInNewTabWarning"}}">
-                            <i class="fa fa-{{this.icon}}" aria-hidden="true"></i> {{this.label}}
-                        </a>
-                    {{/if}}
-                {{/each}}
-            {{/if}}
+        {{#inArray ../this.currentUser._id ../this.archived}}
+        <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=open"
+            aria-label="{{$t " courses._course.groups._group.text.moveTask"}} {{$t "global.link.openInNewTabWarning" }}"
+            alt-text="<i class='fa fa-archive' aria-hidden='true'>"></i>
+            <i class='fa fa-mail-reply' aria-hidden="true"></i>
+        </a>
+        {{/inArray}}
+        {{! Maybe Teachers create Tasks for other Teachers -> prevent editing by them }}
+        {{#if ../this.isTeacher}}
+        {{#notInArray ../this.currentUser._id ../this.archived}}
+        <a class="btn btn-secondary btn-sm btn-archive" href="{{../url}}" target="_blank" data="archive=done"
+            aria-label="{{$t " courses._course.groups._group.text.moveTask"}} {{$t "global.link.openInNewTabWarning" }}"
+            alt-text="<i class='fa fa-mail-reply'></i>">
+            <i class='fa fa-archive' aria-hidden="true"></i>
+        </a>
+        {{/notInArray}}
+        {{#each ../this.actions}}
+        {{#if this.method}}
+        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}"
+            redirect="?p={{@root.pagination.currentPage}}" target="_blank" data-method="{{this.method}}"
+            data-name="{{../../name}}" aria-label="{{$t "
+            courses._course.groups._group.text.task"}} '{{{escapeHtml ../../name}}}' {{{escapeHtml this.title}}}.
+            {{$t "global.link.openInNewTabWarning" }}">
+            <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
+        </a>
+        {{else}}
+        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" aria-label="{{$t "
+            courses._course.groups._group.text.task"}} '{{{escapeHtml ../../name}}}' {{this.title}}
+            {{$t "global.link.openInNewTabWarning" }}">
+            <i class="fa fa-{{this.icon}}" aria-hidden="true"></i> {{this.label}}
+        </a>
+        {{/if}}
+        {{/each}}
+        {{/if}}
         {{/userHasPermission}}
     </div>
-    <a href="{{this.url}}" aria-label="'{{$t "courses._course.groups._group.text.taskDetails"}} {{{escapeHtml this.name}}}'">
-        <span class="more">{{$t "courses._course.groups._group.text.taskOpen"}}<i className="fa fa-chevron-right" aria-hidden="true"></i></span>
+    <a href="{{this.url}}" aria-label="'{{$t " courses._course.groups._group.text.taskDetails"}} {{{escapeHtml
+        this.name}}}'">
+        <span class="more">{{$t "courses._course.groups._group.text.taskOpen"}}<i className="fa fa-chevron-right"
+                aria-hidden="true"></i></span>
     </a>
 </li>
