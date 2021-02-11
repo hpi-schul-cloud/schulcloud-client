@@ -7,8 +7,10 @@
 {{/content}}
 
 {{#content "scripts" mode="append"}}
-<script src="{{getAssetPath '/scripts/jquery/jquery-ui.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getAssetPath '/scripts/jquery/jquery.ui.touch-punch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+<script src="{{getAssetPath '/scripts/jquery/jquery-ui.min.js'}}" type="text/javascript" nonce="{{nonceValue}}"
+  defer></script>
+<script src="{{getAssetPath '/scripts/jquery/jquery.ui.touch-punch.js'}}" type="text/javascript" nonce="{{nonceValue}}"
+  defer></script>
 <script src="{{getAssetPath '/scripts/courses.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 <script src="{{getAssetPath '/scripts/topic.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 <script src="{{getAssetPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
@@ -18,8 +20,9 @@
 <meta name="baseUrl" content={{baseUrl}}>
 <div class="dropdown dropdown-course minimal-button">
   {{#inArray "COURSE_EDIT" scopedCoursePermission}}
-  <button class="btn btn-sm dropdown-toggle btn-course-dropdown" title="{{$t "global.label.more"}}" data-toggle="dropdown">
-    <h1 class="h4" id="page-title" class="course-headline">
+  <button class="btn btn-sm dropdown-toggle btn-course-dropdown" title="{{$t " global.label.more"}}"
+    data-toggle="dropdown">
+    <h1 style="white-space: normal;" class="h4" id="page-title" class="course-headline">
       {{{stripOnlyScript ../name}}}
       <i class="fa fa-ellipsis-v i-cog" aria-hidden="true"></i>
       {{#if ../isArchived}}<small class="count-badge" data-badge="Archiv" /></small>{{/if}}
@@ -54,9 +57,9 @@
     <p class="lead">{{$t "courses._course.text.courseDescription"}} {{{stripOnlyScript description}}}</p>
     {{/if}}
     {{#unless ../isArchived}}
-        {{#if nextEvent}}
+    {{#if nextEvent}}
     <p class="text-muted">{{$t "courses._course.text.nextClass"}} {{i18nDateTime nextEvent}}</p>
-        {{/if}}
+    {{/if}}
     {{/unless}}
     <a href="{{filesUrl}}" class="btn btn-add btn-secondary pull-right">
       <i class="fa fa-folder-open" aria-hidden="true"></i>
