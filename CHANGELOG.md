@@ -17,6 +17,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 - SC-8156 - Added Spanish as an available language
+- SC-8609 – Added mail-card.hbs for theme int
 
 ### Fixed
 
@@ -28,6 +29,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6311 - Removed itslearning from available system types
 - SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
+- SC-8609 – remove section "HPI" including text and e-mail address on theme thr and BRB  
 
 ### Changed
 
