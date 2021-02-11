@@ -209,7 +209,7 @@
 				"email": "Correo electrónico",
 				"inactive": "{{alias}} (inactivo)",
 				"roles": "Rol(es)",
-				"status": "Estado: % 1",
+				"status": "Estado: %1",
 				"teamChatActive": "El chat está activado",
 				"teamFoundedAtOwnSchool": "Equipo fundado en la propia escuela",
 				"teamHasOwner": "El equipo tiene propietarios",
@@ -1646,6 +1646,7 @@
 			"password": "Contraseña:",
 			"role": "Rol",
 			"room": "Sala",
+			"search": "buscar...",
 			"settings": "Configuración",
 			"skipLinks": "Saltar enlaces",
 			"sortBy": "Ordenar por: %1",
@@ -2312,7 +2313,7 @@
 			"link": {
 				"contactYourSchoolAdmin": "Contactar con el administrador de tu escuela",
 				"sendRequestOrProblem": "Enviar solicitud o problema",
-				"training": "Formaciones avanzadas"
+				"training": "Cursos de capacitación"
 			}
 		},
 		"ldap_info": {

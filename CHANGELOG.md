@@ -20,6 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
 - SC-8414 - Made school number field editable for LDAP schools
 
 ## [25.6.0] - 09.02.21
