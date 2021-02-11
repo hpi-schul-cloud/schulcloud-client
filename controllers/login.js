@@ -102,7 +102,7 @@ router.all('/', (req, res, next) => {
 });
 
 /*
-	TODO: Should go over the error pipline and handle it, otherwise error can not logged. 
+	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 	.then(() => getSelectOptions(req, 'schools', {
