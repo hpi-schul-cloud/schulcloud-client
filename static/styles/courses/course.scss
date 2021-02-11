@@ -4,7 +4,6 @@
 .move-handle {
 	cursor: move;
 	white-space: nowrap;
-	color: $colorWhite;
 }
 
 .count-badge {
@@ -449,6 +448,7 @@
 
 	.move-handle {
 		margin-right: 10px;
+		color: $colorWhite;
 	}
 
 	.right-btn-group {
