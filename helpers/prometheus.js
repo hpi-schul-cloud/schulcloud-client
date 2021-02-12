@@ -1,6 +1,6 @@
 const promBundle = require('express-prom-bundle');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const logger = require('./logger')
+const logger = require('./logger');
 
 // should contain all ressources (files/folders) within static folder
 const STATIC_RESSOURCES = [
