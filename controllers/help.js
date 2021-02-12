@@ -25,13 +25,13 @@ router.get('/articles', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
 	res.render('help/dashboard', {
-		title: 'Hilfebereich',
+		title: res.$t('help.headline.helpSection'),
 	});
 });
 
 router.get('/contact', (req, res, next) => {
 	res.render('help/contact', {
-		title: 'Kontakt',
+		title: res.$t('global.link.contact'),
 		adminFormIsActive: true,
 	});
 });
