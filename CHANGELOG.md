@@ -16,6 +16,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-8341 - fix bug with teams with deleted user
 - SC-8156 - Added Spanish as an available language
 - SC-8609 – Added mail-card.hbs for theme int
 
