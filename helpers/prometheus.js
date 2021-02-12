@@ -44,8 +44,8 @@ module.exports = (app) => {
 
 			if (path) {
 				path = path.replace('#val', '__id__');
-				if (path.indexOf('link') !== -1) {
-					path = '/link';
+				if (path.indexOf('/link/') !== -1) {
+					path = '/link/__HASH__';
 				}
 			}
 			return path;
