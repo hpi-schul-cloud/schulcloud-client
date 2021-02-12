@@ -25,41 +25,12 @@ notifications:
   comment: "The review is completed. Thanks @{{ author }}, we'll take it from here."
 
 groups:
-  integrathors:
-    conditions:
-    - "'IntegraTHORs' in labels"
-    reviews:
-      required: 1  # 1 approval from this group are required
-      request: 2  # 2 reviews requests will be sent at a time
-      request_order: shuffle  # reviewers will be chosen in a random order
+  sc-admins:
     reviewers:
       teams:
-      - integrathors
-
-  loki:
-    conditions:
-    - "'Loki' in labels"
-    reviews:
-      required: 1  # 1 approval from this group are required
-      request: 2  # 2 reviews requests will be sent at a time
-      request_order: shuffle  # reviewers will be chosen in a random order
-    reviewers:
-      teams:
-      - loki
-
-  client-core:
-    conditions:
-    - "'Loki' not in labels and 'IntegraTHORs' not in labels"
-    # not created by a bot
-    - "'schul-cloud-bot' not in author.username"
-    reviewers:
-      teams:
-      - client-core
-      - client-team
+      - sc-admins
     reviews:
       required: 1  # number of approvals required from this group
-      request: 1  # number of review requests sent at a time
-      request_order: shuffle
 
   ux-core:
     conditions:
@@ -80,6 +51,4 @@ groups:
       - devops
     reviews:
       required: 1 # number of approvals required from this group
-      request: 2 # request review from 2 members at a time
-      request_order: shuffle # reviewers will be chosen in a random order
       author_value: 1 # if author of pr is in team, no additional review required

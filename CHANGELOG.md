@@ -9,9 +9,37 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- SC-8408 - improved course update logic. Delete all events for the course before creating new
+- SC-8597 - changing color of the course headline into primary
+
+### Added
+
+- SC-8341 - fix bug with teams with deleted user
+- SC-8156 - Added Spanish as an available language
+- SC-8609 – Added mail-card.hbs for theme int
+
+### Fixed
+
+- SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
+- SC-6923 - Fixed help area search with csp url
+- SC-8414 - Made school number field editable for LDAP schools
+- SC-8594 - make drag icon visible again
+
+## [25.6.1] - 11.02.21
+
+### Changed
+
+- VOR-2 - Adjusted the default for searching for teachers from other schools
+
+## [25.6.0] - 09.02.21
+
 ### Removed
 
 - SC-6311 - Removed itslearning from available system types
+- SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
+- SC-8609 – remove section "HPI" including text and e-mail address on theme thr and BRB  
 
 ### Changed
 
@@ -22,6 +50,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-8416 - Show logo on tablet on subpages
+- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0
 - SC-8414 - Made school number field editable for LDAP schools
 - SC-8531 - Restored school administration missing text
 - SC-6363 - Fix printing problem
@@ -32,6 +62,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7345 - the linguistic note shown only for the German language
 - SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
+- SC-8210 - remove possibility for students to create tasks
 
 ## 25.5.4
 
