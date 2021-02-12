@@ -32,6 +32,7 @@
 	.btn-course-dropdown {
 		padding: 0;
 		background-color: white;
+		color: $primaryColor;
 		.i-cog {
 			font-size: medium;
 			color: $fontColor;
@@ -42,10 +43,6 @@
 	.course-headline {
 		display: inline-block;
 		margin-right: 10px;
-	}
-
-	.dropdown-toggle:hover {
-		color: $primaryColor !important;
 	}
 
 	.dropdown-toggle:after {
@@ -448,6 +445,7 @@
 
 	.move-handle {
 		margin-right: 10px;
+		color: $colorWhite;
 	}
 
 	.right-btn-group {

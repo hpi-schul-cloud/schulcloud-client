@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - SC-8408 - improved course update logic. Delete all events for the course before creating new
+- SC-8597 - changing color of the course headline into primary
 
 ### Added
 
@@ -19,7 +20,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
+- SC-6923 - Fixed help area search with csp url
 - SC-8414 - Made school number field editable for LDAP schools
+- SC-8594 - make drag icon visible again
 
 ## [25.6.0] - 09.02.21
 
