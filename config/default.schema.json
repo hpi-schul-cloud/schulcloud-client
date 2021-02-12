@@ -100,7 +100,7 @@
 		},
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
 			"type": "string",
-			"default": "opt-out",
+			"default": "disabled",
 			"enum": [
 				"disabled",
 				"opt-in",

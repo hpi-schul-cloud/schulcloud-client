@@ -16,12 +16,23 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-8156 - Added Spanish as an available language.
 - SC-8447 - Added filter for logging in error case.
+- SC-8341 - fix bug with teams with deleted user
+- SC-8156 - Added Spanish as an available language
+- SC-8609 – Added mail-card.hbs for theme int
 
 ### Fixed
 
+- SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
+- SC-6923 - Fixed help area search with csp url
 - SC-8414 - Made school number field editable for LDAP schools
+- SC-8594 - make drag icon visible again
+
+## [25.6.1] - 11.02.21
+
+### Changed
+
+- VOR-2 - Adjusted the default for searching for teachers from other schools
 
 ## [25.6.0] - 09.02.21
 
@@ -29,6 +40,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-6311 - Removed itslearning from available system types
 - SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
+- SC-8609 – remove section "HPI" including text and e-mail address on theme thr and BRB  
 
 ### Changed
 

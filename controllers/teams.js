@@ -1036,7 +1036,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				user.userId.firstName || '',
 				user.userId.lastName || '',
 				roleTranslations[user.role.name],
-				user.userId.schoolId.name || '',
+				(user.userId.schoolId && user.userId.schoolId.name) || '',
 				{
 					payload: {
 						userId: user.userId._id,
