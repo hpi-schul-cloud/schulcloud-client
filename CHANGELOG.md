@@ -15,6 +15,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - VOR-3 - Sanitize promtheus metrics route for link hashes.
 
+## [25.6.1] - 11.02.21
+
+### Changed
+
+- VOR-2 - Adjusted the default for searching for teachers from other schools
+
 ## [25.6.0] - 2021-02-09
 
 ### Removed
