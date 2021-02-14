@@ -9,12 +9,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.6.2] - 2021-02-12
+
+### Fixed
+
+- VOR-3 - Sanitize promtheus metrics route for link hashes.
+
 ## [25.6.1] - 11.02.21
 
 ### Changed
 
 - VOR-2 - Adjusted the default for searching for teachers from other schools
-## [25.6.0] - 09.02.21
+
+## [25.6.0] - 2021-02-09
 
 ### Removed
 
@@ -123,7 +130,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-8225: Fixed hiding messenger school settings
 
-## 25.3.5 - 2020-13-16
+## 25.3.5 - 2020-12-16
 
 ### Added
 
