@@ -11,7 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- SC-8408 - improved course update logic. Delete all events for the course before creating new
+- SC-8408 - improved course update logic. Delete all events for the course before creating new 
 - SC-8597 - changing color of the course headline into primary
 
 ### Added
@@ -63,6 +63,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
 - SC-8210 - remove possibility for students to create tasks
+- SC-8575 - Layout issues on tasks page when description consists of more than two rows
 
 ## 25.5.4
 
