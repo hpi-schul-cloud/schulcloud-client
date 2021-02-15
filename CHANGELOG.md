@@ -11,30 +11,54 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- SC-8408 - improved course update logic. Delete all events for the course before creating new
+- SC-8408 - improved course update logic. Delete all events for the course before creating new 
+- SC-8597 - changing color of the course headline into primary
 
 ### Added
 
+- SC-8447 - Added filter for logging in error case.
+- SC-8341 - fix bug with teams with deleted user
 - SC-8156 - Added Spanish as an available language
+- SC-8609 – Added mail-card.hbs for theme int
 
 ### Fixed
 
+- SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
+- SC-6923 - Fixed help area search with csp url
 - SC-8414 - Made school number field editable for LDAP schools
+- SC-8594 - make drag icon visible again
 
-## [25.6.0] - 09.02.21
+## [25.6.2] - 2021-02-12
+
+### Fixed
+
+- VOR-3 - Sanitize promtheus metrics route for link hashes.
+
+## [25.6.1] - 2021-02-12
+
+### Changed
+
+- VOR-2 - Adjusted the default for searching for teachers from other schools
+
+## [25.6.0] - 2021-02-09
 
 ### Removed
 
 - SC-6311 - Removed itslearning from available system types
+- SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
+- SC-8609 – remove section "HPI" including text and e-mail address on theme thr and BRB  
 
 ### Changed
 
-- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
+- SC-8041 - Warning text for changing of county/kreis and officialSchoolNumber
 - SC-8356 - add docker login helper
 - SC-8331 - increase node version to match current lts (currently 12.16 to 14)
 
 ### Fixed
 
+- SC-8416 - Show logo on tablet on subpages
+- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0
+- SC-8414 - Made school number field editable for LDAP schools
 - SC-8531 - Restored school administration missing text
 - SC-6363 - Fix printing problem
 - SC-7602 - Show error by registration when same email for a student and parent
@@ -44,14 +68,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7345 - the linguistic note shown only for the German language
 - SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
+- SC-8210 - remove possibility for students to create tasks
+- SC-8575 - Layout issues on tasks page when description consists of more than two rows
 
 ## 25.5.4
 
 ### Added
+
 - SC-8447 - add feature flag to enable or disable request logs
+
 ## 25.5.3
 
 ### Fixed
+
 - SC-8189 - fixed course event duplication by updating the course
 
 ## 25.5.2
@@ -130,7 +159,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-8225: Fixed hiding messenger school settings
 
-## 25.3.5 - 2020-13-16
+## 25.3.5 - 2020-12-16
 
 ### Added
 

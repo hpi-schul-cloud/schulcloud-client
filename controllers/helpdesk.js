@@ -15,6 +15,7 @@ const timesHelper = require('../helpers/timesHelper');
 
 
 const permissionsHelper = require('../helpers/permissions');
+const { formatError } = require('../helpers');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
@@ -377,7 +378,7 @@ router.post('/', fileUpload({
 				message:
 				res.$t('helpdesk.text.feedbackError'),
 			};
-			logger.warn(err);
+			logger.warn(formatError(err));
 			redirectHelper.safeBackRedirect(req, res);
 		});
 });

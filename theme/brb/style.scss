@@ -6,9 +6,9 @@ $logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
 
 $colorBeige: #e6e2e2;
 $colorGrey: rgba(232, 232, 232, 0.5);
-$logoBackground: url("../../images/logo/cloud-transparent-mono.svg") center / contain no-repeat;
-$logoBackgroundTablet: url("../../images/logo/cloud-transparent-mono-48-48.svg") center / contain no-repeat;
-$logoBackgroundLanding: url("../../images/logo/cloud-transparent-mono-long.svg") center / contain no-repeat;
+$logoBackground: url("/images/logo/cloud-transparent-mono.svg") center / contain no-repeat;
+$logoBackgroundTablet: url("/images/logo/cloud-transparent-mono-48-48.svg") center / contain no-repeat;
+$logoBackgroundLanding: url("/images/logo/cloud-transparent-mono-long.svg") center / contain no-repeat;
 
 aside.nav-sidebar{
     .sc-branding{
