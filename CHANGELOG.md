@@ -16,6 +16,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-8447 - Added filter for logging in error case.
 - SC-8341 - fix bug with teams with deleted user
 - SC-8156 - Added Spanish as an available language
 - SC-8609 – Added mail-card.hbs for theme int
@@ -49,7 +50,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
+- SC-8041 - Warning text for changing of county/kreis and officialSchoolNumber
 - SC-8356 - add docker login helper
 - SC-8331 - increase node version to match current lts (currently 12.16 to 14)
 

@@ -7,7 +7,7 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
-const logger = require('../helpers/logger');
+const { logger, formatError } = require('../helpers');
 const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
@@ -210,7 +210,7 @@ async function createNewNexBoards(req, res, contents = []) {
 
 				return content;
 			} catch (err) {
-				logger.error(err);
+				logger.error(formatError(err));
 
 				return undefined;
 			}

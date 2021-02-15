@@ -10,7 +10,7 @@ const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
-const logger = require('../helpers/logger');
+const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger'];
@@ -65,7 +65,7 @@ const createEventsForCourse = (req, res, course) => {
 		).catch((error) => {
 			logger.warn(
 				'failed creating events for the course, the calendar service might be unavailible',
-				error,
+				formatError(error),
 			);
 			req.session.notification = {
 				type: 'danger',
@@ -89,7 +89,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 		return api(req).delete(`calendar/courses/${courseId}`).catch((error) => {
 			logger.warn(
 				'failed creating events for the course, the calendar service might be unavailable',
-				error,
+				formatError(error),
 			);
 			req.session.notification = {
 				type: 'danger',
@@ -626,7 +626,7 @@ router.get('/:courseId/', async (req, res, next) => {
 		promises.push(apiEditor(req)
 			.get(`course/${req.params.courseId}/lessons`)
 			.catch((err) => {
-				logger.warn('Can not fetch new editor lessons.', err);
+				logger.warn('Can not fetch new editor lessons.', formatError(err));
 				editorBackendIsAlive = false;
 				return {
 					total: 0,
@@ -636,19 +636,16 @@ router.get('/:courseId/', async (req, res, next) => {
 	}
 
 	// ############################ end requests to new Editor ##########################
-	const [
-		course,
-		_lessons,
-		_homeworks,
-		_courseGroups,
-		scopedPermissions,
-		_newLessons,
-	] = await Promise.all(promises).catch((err) => {
-		logger.warn('Can not fetch course datas', err);
-		next(err);
-	});
-
 	try {
+		const [
+			course,
+			_lessons,
+			_homeworks,
+			_courseGroups,
+			scopedPermissions,
+			_newLessons,
+		] = await Promise.all(promises);
+
 		// ############################## check if new Editor options should show #################
 		const edtrUser = (res.locals.currentUser.features || []).includes('edtr');
 		const userHasEditorEnabled = EDITOR_URL && edtrUser;
@@ -758,7 +755,6 @@ router.get('/:courseId/', async (req, res, next) => {
 			},
 		);
 	} catch (err) {
-		logger.warn(err);
 		next(err);
 	}
 });
