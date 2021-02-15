@@ -51,7 +51,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- SC-8041 - Warning text for changing of county/kreis and officialSchoolNumber
+- SC-8164 - Apply deletion concept to the deletion of students and teachers
+- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
 - SC-8356 - add docker login helper
 - SC-8331 - increase node version to match current lts (currently 12.16 to 14)
 
@@ -113,7 +114,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [25.4.2]
 
-### Fixed 
+### Fixed
 
 - SC-8337 - Better error handling for file upload
 
@@ -125,7 +126,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7824 - Set proper email address and label for data privacy 
+- SC-7824 - Set proper email address and label for data privacy
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
@@ -176,7 +177,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation. 
+- SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation.
   This change has fixed the issue so that every course starts at the stable time regardless daylight saving time changes
 
 ## 25.3.2
@@ -456,7 +457,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [24.3.1] - 2020-08-26
 
-- SC-6382 fix default  wellcome text for tsp 
+- SC-6382 fix default  wellcome text for tsp
 
 ## [24.3.0] - 2020-08-25
 ### Changed - 24.3.0
@@ -499,14 +500,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added - 24.0.0
 - SC-4151 hint for user when login failes
-- SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists 
+- SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists
 it is shown to every school user by the registration, first login and in the footer of the page. If it was changed the
 privacy policy should be confirmed by every school user
 
 
 ### Fixed - 24.0.0
 -  SC-4993 fixed video player issue in ckeditor
--  SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only 
+-  SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only
 be accessed if the user has the permission "COURSE_EDIT
 
 ### Changed - 24.0.0
@@ -553,7 +554,7 @@ be accessed if the user has the permission "COURSE_EDIT
 ### Changed
 
 ### Security
-- SC-4506 Secure User Route. Removed not used /users route from view team members. 
+- SC-4506 Secure User Route. Removed not used /users route from view team members.
 
 ### Removed
 
@@ -563,9 +564,9 @@ be accessed if the user has the permission "COURSE_EDIT
 ### Changed in 23.0.0
 
 - SC-4392 add/edit link dialog in ckeditor could not be opened
-- SC-4075 Teams creation by students logic was changed. New environment enumeration variable `STUDENT_TEAM_CREATION` 
-with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. The feature value is set by instance deployment. 
-In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin. 
+- SC-4075 Teams creation by students logic was changed. New environment enumeration variable `STUDENT_TEAM_CREATION`
+with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. The feature value is set by instance deployment.
+In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin.
 In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the school admin.
 
 ### Fixed
