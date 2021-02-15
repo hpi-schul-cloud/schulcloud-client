@@ -29,6 +29,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8414 - Made school number field editable for LDAP schools
 - SC-8594 - make drag icon visible again
 
+## [26.0.0]
+
 ## [25.6.2] - 2021-02-12
 
 ### Fixed
