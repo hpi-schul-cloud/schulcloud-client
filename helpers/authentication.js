@@ -10,6 +10,7 @@ const wordlist = require('../static/other/wordlist.js');
 
 const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
 const logger = require('./logger');
+const { formatError } = require('./logFilter');
 
 const { setCookie } = require('./cookieHelper');
 
@@ -91,9 +92,9 @@ const populateCurrentUser = async (req, res) => {
 			payload = (jwt.decode(req.cookies.jwt, { complete: true }) || {}).payload;
 			res.locals.currentPayload = payload;
 		} catch (err) {
-			logger.error('Broken JWT / JWT decoding failed', { error: err });
+			logger.error('Broken JWT / JWT decoding failed', formatError(err));
 			return clearCookie(req, res, { destroySession: true })
-				.catch((err) => { logger.error('clearCookie failed during jwt check', { error: err.toString() }); })
+				.catch((err) => { logger.error('clearCookie failed during jwt check', formatError(err)); })
 				.finally(() => res.redirect('/'));
 		}
 	}

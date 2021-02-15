@@ -1,9 +1,10 @@
 {{#if this.url}}
-    <article class="sc-card locationlink" data-loclink="{{this.url}}">
+<article class="sc-card locationlink" data-loclink="{{this.url}}">
     {{else}}
     <article class="sc-card">
         {{/if}}
-        <div class="sc-card-header" data-testid="header-of-element" {{#if this.background}} style="background:{{this.background}};" {{/if}}>
+        <div class="sc-card-header" data-testid="header-of-element" {{#if this.background}}
+            style="background:{{this.background}};" {{/if}}>
             {{#if this.isRSS}}
             {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
             <span class="rss-icon">RSS</span>
@@ -11,7 +12,8 @@
             {{/if}}
             <span class="sc-card-title">
                 <div>
-                    <span class="title" data-testid="title_of_an_element">{{{ stripOnlyScript this.title }}}</span>
+                    <span style="white-space: normal;" class="title" data-testid="title_of_an_element">{{{
+                        stripOnlyScript this.title }}}</span>
                 </div>
                 {{#if this.target.name}}
                 <div class="tag tag-default">{{this.target.name}}</div>
@@ -32,8 +34,8 @@
                     <i class="fa fa-{{this.icon}}"></i>
                 </a>
                 {{else}}
-                    <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}" target="_blank"
-                        alt="'{{../../title}}' {{this.alt}}.">
+                <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}" target="_blank"
+                    alt="'{{../../title}}' {{this.alt}}.">
                     <i class="fa fa-{{this.icon}}"></i>
                 </a>
                 {{/if}}
@@ -49,18 +51,13 @@
         </div>
         <div class="sc-card-footer">
             {{#if additionalInfoName}}
-                <div class="additionalInfo">
-                    {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName title=this.title) }}
-                </div>
+            <div class="additionalInfo">
+                {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName title=this.title) }}
+            </div>
             {{/if}}
-            <a href="{{url}}" 
-                {{#if link-aria-label}}
-                    aria-label="{{link-aria-label}}"
-                {{else}}
-                    aria-label="{{{link-text}}}"
-                {{/if}}
-                rel="canonical">
-                    {{{link-text}}}
+            <a href="{{url}}" {{#if link-aria-label}} aria-label="{{link-aria-label}}" {{else}}
+                aria-label="{{{link-text}}}" {{/if}} rel="canonical">
+                {{{link-text}}}
             </a>
         </div>
     </article>
