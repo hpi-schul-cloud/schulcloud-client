@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- SC-8409 - remove FAQ from help page
+
 ### Changed
 
 - SC-8408 - improved course update logic. Delete all events for the course before creating new 
@@ -45,7 +49,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Removed
 
 - SC-6311 - Removed itslearning from available system types
-- SC-8409 - remove FAQ from help page
 - SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
 - SC-8609 – remove section "HPI" including text and e-mail address on theme thr and BRB  
 
