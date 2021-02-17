@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const api = require('../api');
-const logger = require('../helpers/logger');
+const { logger, formatError } = require('../helpers');
 
 const { HOST } = require('../config/global');
 
@@ -37,7 +37,8 @@ router.get('/:id', (req, res, next) => {
 			return next(customError);
 		}).catch((err) => {
 			if (err && err.error && err.error.code === 404) {
-				logger.error('invalid link has been requested', err);
+				// TODO: customError is not from type error and go not to the error pipline...
+				logger.error('invalid link has been requested', formatError(err));
 				return next(customError);
 			}
 			return next(err);
