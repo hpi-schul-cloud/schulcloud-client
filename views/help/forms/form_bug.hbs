@@ -2,6 +2,21 @@
 <input type="hidden" name="type" value="problem">
 <input type="hidden" name="supportType" value="problem">
 
+<legend class="icon-card__title">Bereich auswählen</legend>
+<fieldset>
+	<legend>Welchen Bereich in der Schul-Cloud betrifft dein Thema?</legend>
+</fieldset>
+
+<label class="switch_wrapper col-md-6">
+		<span>Bitte sende jedes Problem einzelnd ab.</span>
+        <select class="form-control" id="problemArea" name="areas[]" required placeholder="Bereich wählen" data-testid="problemArea" autocomplete="off" type="text">
+                    <option data-testid="problemarea" value="1" {{#if this.selected}}selected{{/if}}>   1     </option>
+                    <option data-testid="problemarea" value="2" {{#if this.selected}}selected{{/if}}>   2    </option>
+                    <option data-testid="problemarea" value="3" {{#if this.selected}}selected{{/if}}>   3     </option>
+                    <option data-testid="problemarea" value="4" {{#if this.selected}}selected{{/if}}>   4     </option>
+            
+        </select>       
+</label>
 <label class="form-group">
 	<span class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}</span>
 	<input class="form-control" type="text" name="title" placeholder="{{$t "help.placeholder.briefDescriptionOfTheProblem" }}" required>
