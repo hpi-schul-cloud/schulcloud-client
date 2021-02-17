@@ -4,10 +4,12 @@
   margin-top: 3rem;
   margin-bottom: 1rem;
 
+  .info_text {
+    color: $colorInfo;
+  }
+
   .icon-card__content {
     position: relative;
-    border: 1px solid $colorLightGrey;
-    border-radius: 4px;
     padding: 16px;
     padding-top: 2rem;
     text-align: center;
@@ -35,10 +37,29 @@
     .icon-card__title:before {
       position: absolute;
       bottom: 0;
-      left: 25%;
+      left: 0%;
       border-bottom: 1px solid #333;
-      width: 50%;
+      width: 100%;
       content: "";
     }
+
+    .icon-card__subtitle {
+      display: block;
+      width: 100%;
+      padding: 0;
+      margin-bottom: 1.25rem;
+      line-height: inherit;
+    }
+
+    #inline_text {
+      margin-top: 0;
+    }
   }
+}
+.info_text {
+  color: $colorInfo;
+}
+
+#consent_checkbox {
+  margin-right: .5rem;
 }

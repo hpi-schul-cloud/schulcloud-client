@@ -210,7 +210,7 @@ fieldset.switch_wrapper {
 // contact cards
 .contact-card {
   .icon-card__content {
-    background-color: $colorGrey;
+    background-color: $colorWhite;
 
     form {
       margin-top: 1rem;
@@ -274,6 +274,15 @@ fieldset.switch_wrapper {
     }
   }
 }
+
+.info_text {
+  color: $colorInfo;
+}
+
+#consent_checkbox {
+  margin-right: .5rem;
+}
+
 
 .white-links {
   a {
