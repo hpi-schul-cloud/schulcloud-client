@@ -197,9 +197,9 @@
 				"school": "{{title}}Schule",
 				"schools": "Schule(n)",
 				"status": "Status",
-				"students": "{{title}}Schüler:in",
+				"students": "{{title}}Schüler:innen",
 				"targetState": "Soll-Zustand",
-				"teacher": "{{title}}Lehrer:in",
+				"teacher": "{{title}}Lehrkräfte",
 				"teams": "{{title}}Teams",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
 				"uploadedOn": "Hochgeladen am"
@@ -527,7 +527,7 @@
 				"theSchoolYearEndsAnd": "Das Schuljahr {{schoolName}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.<\/strong> Es können in dieser Zeit keine Klassen und Nutzer angelegt oder geändert werden.",
 				"theSynchronizationOfLDAPMasterData": "Die Synchronisierung von LDAP-Stammdaten wird während der Transferphase unterbrochen. Somit werden Nutzerdaten und Klassen (sofern verwendet) nicht mehr über LDAP aktualisiert. Der Login mit bereits synchronisierten Login-Daten ist weiterhin möglich. Passwortänderungen im LDAP während des Logins werden ebenfalls berücksichtigt.",
 				"useTheTransferPhaseAroundTheSchool": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.",
-				"withAllChangesAndSettings": "Mit allen Änderungen und Einstellungen im Verwaltungsbereich bestätigen Sie, dass Sie weisungsberechtigter Schul-Admin sind und befugt sind, Anpassungen an der Schule in der HPI Schul-Cloud vorzunehmen. Ihr Klick gilt insofern als Weisung der Schule gegenüber dem HPI.",
+				"withAllChangesAndSettings": "Mit allen Änderungen und Einstellungen im Verwaltungsbereich bestätigst du, dass du weisungsberechtigter Schul-Admin bist und befugt bist, Anpassungen an der Schule in der HPI Schul-Cloud vorzunehmen. Dein Klick gilt insofern als Weisung der Schule gegenüber dem HPI.",
 				"wouldYouLikeReportABug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}? Sende Wünsche oder Probleme direkt an den {{shortTitle}}-Nutzer-Support."
 			}
 		},
@@ -1752,7 +1752,7 @@
 			"fileWrongFormat": "'{{filename}}' ist kein Bild, Video oder zulässige Datei!",
 			"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 			"friday": "Freitag",
-			"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem\/der Klassenlehrer:in kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
+			"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit der Lehrkraft kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
 			"info": "Hinweis:",
 			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
 			"invalidRequest": "Ungültige Anfrage",
@@ -3088,9 +3088,9 @@
 		"brb": {
 			"welcomeContent": "„Das Lernen mit digitalen Medien ist die Herausforderung mit der größten Dynamik. Dazu braucht es eine leistungsfähige, digitale Infrastruktur. Zu den wichtigsten Vorhaben gehört die am Hasso-Plattner-Institut (HPI) entwickelte {{shortTitle}}. Sie soll die Schulen des Landes vernetzen, sodass Lehrkräfte, Schüler:innen jederzeit und überall Zugang zu Lern- und Lehrmaterialien haben. Die professionelle zentrale Wartung für alle Schulen verringert deutlich den Verwaltungs- und Betreuungsaufwand. Wir versprechen uns von der {{shortTitle}} einen deutlichen Schub in der digitalen Bildung und freuen uns auf den Start des Projekts.“ – Bildungsministerin Britta Ernst bei der Eröffnungsveranstaltung am 2. Mai 2019.",
 			"registrationHeadline": "Für die {{shortTitle}} registrieren",
-			"registrationContent": "Eine einheitliche digitale Plattform für die ganze Schule bietet viele Vorteile. Die Registrierung für die Schul-Cloud Brandenburg wird daher durch die Schulleitung durchgeführt. Bitte wenden Sie sich an <a href=\"mailto:brandenburg@schul-cloud.org\">brandenburg@schul-cloud.org<\/a>, wenn Sie Ihre Schule registrieren wollen. \nAnschließend erhalten alle Schüler:innen von ihrer Schule einen Registrierungslink oder Login-Daten für die erstmalige Anmeldung in der {{shortTitle}}. Bei Fragen zur erstmaligen Anmeldung wenden sich Schüler:innen und Eltern bitte an den technischen Leiter ihrer Schule bzw. an die jeweilige Lehrkraft.",
+			"registrationContent": "Eine einheitliche digitale Plattform für die ganze Schule bietet viele Vorteile. Die Registrierung für die {{shortTitle}} wird daher durch die Schulleitung durchgeführt. Bitte wenden Sie sich an <a href=\"mailto:brandenburg@hpi-schul-cloud.org\">brandenburg@hpi-schul-cloud.org<\/a>, wenn Sie Ihre Schule registrieren wollen. \nAnschließend erhalten alle Schüler:innen von ihrer Schule einen Registrierungslink oder Login-Daten für die erstmalige Anmeldung in der {{shortTitle}}. Bei Fragen zur erstmaligen Anmeldung wenden sich Schüler:innen und Eltern bitte an den technischen Leiter ihrer Schule bzw. an die jeweilige Lehrkraft.",
 			"valueStatementHeadline": "Die HPI Schul-Cloud-Entwicklung zeichnet sich aus durch",
-			"valueStatementContent": "<li>eine konsequente Nutzung von Open Source Lösungen,<\/li><li>eine durchgängig nutzerzentrierte Entwicklung,<\/li><li>einen strikt modularen Aufbau,<\/li><li>die für ein Flächenland wichtige Funktion der schulübergreifenden Zusammenarbeit,<\/li><li>die EU-DSGVO\/Datenschutz-Konformität durch Privacy by Design,<\/li><li>die Möglichkeit, durch Länderzusammenarbeit Synergien zu schaffen.<\/li>",
+			"valueStatementContent": "<li>eine konsequente Nutzung von Open Source Lösungen,<\/li><li>eine durchgängig nutzerzentrierte Entwicklung,<\/li><li>einen strikt modularen Aufbau,<\/li><li>die für ein Flächenland wichtige Funktion der schulübergreifenden Zusammenarbeit,<\/li><li>die EU-DSGVO\/Datenschutz-Konformität durch Privacy by Design,<\/li><li>die Möglichkeit, durch Länderzusammenarbeit Synergien zu schaffen.<\/li><br>",
 			"valueStatementImage": "<img src=\"https://schul-cloud-hpi.s3.hidrive.strato.com/brb/images/HPI_Schul_Cloud_Brandenburg_Schueler_2019.jpg\" alt=\"Schüler:innen sitzen zusammen und nutzen die {{shortTitle}} auf ihren mobilen Endgeräten.\" \/><br>Mehr Informationen: <a href=\"{{theme.documents.globalFiles.BeschreibungDerSchulCloud}}\" target=\"_blank\" rel=\"noopener\">Kurzbeschreibung „Die HPI Schul-Cloud“ (.pdf)<\/a>",
 			"AccessHeadline": "Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten",
 			"AccessContent": "Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.",
@@ -3103,7 +3103,7 @@
 			"welcomeContent": "„Das <a href=\"https:\//hpi.de/\">Hasso-Plattner-Institut<\/a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href=\"https:\//www.mint-ec.de\/\">MINT-EC<\/a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Dies ist die offene Instanz der HPI Schul-Cloud, über die einzelne Schulen Zugang zur Plattform erhalten können."
 		},
 		"thr": {
-			"welcomeContent": "Die {{shortTitle}} soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Um dieses Ziel zu erreichen pilotiert das Land Thüringen die vom Hasso-Plattner-Institut entwickelte Schulcloud mit zunächst 20 Pilotschulen und 9 Studienseminaren ab dem Schuljahr 2019/2020."
+			"welcomeContent": "Die {{shortTitle}} soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Um dieses Ziel zu erreichen pilotiert das Land Thüringen die vom Hasso-Plattner-Institut entwickelte Schulcloud mit zunächst 20 Pilotschulen und 9 Studienseminaren ab dem Schuljahr 2019/2020.",
 		}
 	}
 }

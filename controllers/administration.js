@@ -1878,7 +1878,7 @@ router.get(
 							},
 							/* { // TODO - Feature not implemented
                             "title":"Deine Schüler:innen sind in der Schülerliste rot?",
-                            "content": `Sie sind vom Administrator bereits angelegt
+                            "content": `Sie sind vom Admin bereits angelegt
                             (z.B. durch Import aus Schüler-Verwaltungs-Software),
                             aber es fehlen noch ihre Einverständniserklärungen.
                             Lade die Schüler:innen deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung
