@@ -150,8 +150,15 @@ const dateStringToMoment = (dateString) => createFromString(dateString, FORMAT.d
  * @returns {string} formated date string based on input
  */
 const formatDate = (date, format = FORMAT.dateTime, showTimezoneOffset = false) => {
-	const timezoneOffset = !userHasSchoolTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
-	return `${moment(date).format(format)}${timezoneOffset}`;
+	try {
+		// TODO: Can not consume dates with format yyyy.mm.dd and log it inside moment.
+		// It spam our logs and should fixed. Maybe we can return this dates directly.
+		const timezoneOffset = !userHasSchoolTimezone && showTimezoneOffset ? `(UTC${getUtcOffset()})` : '';
+		return `${moment(date).format(format)}${timezoneOffset}`;
+	} catch (err) {
+		logger.error('formatDate', err);
+		return date;
+	}
 };
 
 /**
