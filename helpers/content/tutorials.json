@@ -242,12 +242,12 @@
 					},
 					{
 						"id": "13828662",
-						"title": "Lehrer hinzufügen",
+						"title": "Lehrkraft hinzufügen",
 						"type": "article"
 					},
 					{
 						"id": "13828666",
-						"title": "Schüler hinzufügen",
+						"title": "Schüler:in hinzufügen",
 						"type": "article"
 					},
 					{
@@ -343,7 +343,7 @@
 			},
 			{
 				"id": "44073009",
-				"title": "Hinweise für Administrator:innen",
+				"title": "Hinweise für Admins",
 				"type": "category",
 				"articles": [
 					{
