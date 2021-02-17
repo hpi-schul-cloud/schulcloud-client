@@ -448,6 +448,10 @@ router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandler('comments', true));
 
 const overview = (titleKey) => (req, res, next) => {
+	if (req._parsedUrl.pathname === '/') {
+		res.header('Cache-Control', 'no-store');
+	}
+
 	const { _id: userId, schoolId } = res.locals.currentUser || {};
 	let query = {
 		$populate: ['courseId'],
