@@ -2203,17 +2203,17 @@
 				"nowAtGooglePlay": "Ahora en Google Play"
 			},
 			"link": {
-				"contentProviders": "Proveedores de contenido:",
-				"currentJobOffers": "Aktuelle Stellenangebote",
-				"generalInquiries": "Consultas generales:",
+				"contentProviders": "Proveedores de contenido",
+				"currentJobOffers": "Ofertas de trabajo",
+				"generalInquiries": "Consultas generales",
 				"mobileApp": "Aplicación móvil",
-				"privacy": "Privacidad:",
-				"privacy_responsible_person": "Responsable de protección de datos:",
+				"privacy": "Privacidad",
+				"privacy_responsible_person": "Responsable de protección de datos",
 				"subscribeTheNewsletter": "Suscríbete al boletín de noticias",
-				"support": "Servicio de asistencia:"
+				"support": "Servicio de asistencia"
 			},
 			"text": {
-				"weAreHiring": "¿Te gustaría unirte a nuestro equipo de la <span style='white-space: nowrap;'>nube escolar de HPI<\/span>? Estamos buscando personas que quieran trabajar con nosotros:"
+				"weAreHiring": "¿Quieres trabajar con nosotros en el equipo de la <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>? Mira esta página:"
 			}
 		},
 		"footer": {
@@ -2282,12 +2282,12 @@
 				"discardChange": "Descartar cambios"
 			},
 			"link": {
-				"dataProtectionDeclaration": "Política de privacidad de la nube escolar de HPI",
+				"dataProtectionDeclaration": "Política de privacidad de la <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>",
 				"github": "GitHub",
 				"participate": "Participar",
 				"safety": "Seguridad",
 				"status": "Estado",
-				"termsOfUseHPI": "Condiciones de uso de la nube escolar de HPI"
+				"termsOfUseHPI": "Condiciones de uso de la <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>"
 			}
 		},
 		"headline": {

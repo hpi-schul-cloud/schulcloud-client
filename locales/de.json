@@ -2197,20 +2197,20 @@
 		"extended_footer": {
 			"headline": {
 				"links": "Links",
-				"vacancies": "Stellenausschreibungen"
+				"vacancies": "Stellenangebote"
 			},
 			"img_alt": {
 				"nowAtGooglePlay": "Jetzt bei Google Play"
 			},
 			"link": {
-				"contentProviders": "Inhalteanbieter:",
+				"contentProviders": "Inhalteanbieter",
 				"currentJobOffers": "Aktuelle Jobangebote",
-				"generalInquiries": "Allgemeine Anfragen:",
+				"generalInquiries": "Allgemeine Anfragen",
 				"mobileApp": "Mobile App",
-				"privacy": "Allgemeine Datenschutzanfragen:",
-				"privacy_responsible_person": "Datenschutzbeauftragter:",
+				"privacy": "Allgemeine Datenschutzanfragen",
+				"privacy_responsible_person": "Datenschutzbeauftragter",
 				"subscribeTheNewsletter": "Newsletter abonnieren",
-				"support": "Support:"
+				"support": "Support"
 			},
 			"text": {
 				"weAreHiring": "Du möchtest Teil des <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span> Teams werden? Dann schau hier vorbei:"
@@ -2282,12 +2282,12 @@
 				"discardChange": "Änderung verwerfen"
 			},
 			"link": {
-				"dataProtectionDeclaration": "Datenschutzerklärung HPI Schul-Cloud",
+				"dataProtectionDeclaration": "Datenschutzerklärung <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>",
 				"github": "GitHub",
 				"participate": "Mitmachen",
 				"safety": "Sicherheit",
 				"status": "Status",
-				"termsOfUseHPI": "Nutzungsordnung HPI Schul-Cloud"
+				"termsOfUseHPI": "Nutzungsordnung <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>"
 			}
 		},
 		"headline": {
