@@ -1808,6 +1808,12 @@
 				"whoDoYouWantToContact": "Who do you want to contact?"
 			}
 		},
+		"chooseTopicArea": {
+			"text": {
+				"whichAreaOfSchulCloud": "Which area of Schul-Cloud does your topic concern?",
+				"eachTopicSeperate": "Please submit each topic separately."
+			}
+		},
 		"form_admin": {
 			"label": {
 				"currentStatus": "CURRENT state: What is happening at the moment after I have carried out which steps?",
@@ -1922,6 +1928,7 @@
 		},
 		"partials": {
 			"headline": {
+				"problemArea": "Choose problem area",
 				"contactForm": "Contact form",
 				"contactPerson": "Contact person",
 				"overview": "Overview",

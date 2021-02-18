@@ -1805,7 +1805,38 @@
 			"text": {
 				"thankYouForYourFeedback": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
 				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
-				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
+				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?",
+				"whichAreaOfSchulCloud": "Welchen Bereich der Schul-Cloud betrifft dein Thema?"
+			}
+		},
+		"chooseTopicArea": {
+			"text": {
+				"eachTopicSeparate": " Bitte sende jedes Thema einzeln ab.",
+				"chooseArea": "Bereich wählen",
+				"pDashboard": "Übersicht",
+				"pCourses": "Kurse",
+				"pTopics": "Themen",
+				"pGroups": "Gruppen",
+				"pTasks": "Aufgaben",
+				"pTools": "Tools",
+				"pBBB": "BBB-Videokonferenzen",
+				"pBettermarks": "Bettermarks",
+				"pEditor": "Texteditor",
+				"pTeams": "Teams",
+				"pLibreOffice": "Libre Office", 
+				"pNews": "Neuigkeiten",
+				"pCalendar": "Termine", 
+				"pMessenger": "Messenger", 
+				"pMyFiles": "Meine Dateien",
+				"pLernStore": "Lern-Store",
+				"pManagement": "Verwaltung",
+				"pRegisterLogin": "Registrierung & Login",
+				"pPermissions": "Berechtigungen",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pExtra": "Weiteres", 
+				"pApps": "Apps",
+				"pNotifications": "Benachrichtigungen",
+				"pOther": "Zuordnung nicht möglich"
 			}
 		},
 		"form_admin": {
@@ -1923,6 +1954,7 @@
 		"partials": {
 			"headline": {
 				"contactForm": "Kontaktformular",
+				"problemArea": "Bereich auswählen",
 				"contactPerson": "Ansprechpartner:in",
 				"overview": "Überblick",
 				"writeUsAnEmail": "Schreib uns eine E-Mail"

@@ -4,44 +4,44 @@
 <input type="hidden" name="supportType" value="problem">
 
 
-<h4 class="icon-card__title">Bereich auswählen</h4>
-<span class="icon-card__subtitle">Welchen Bereich der Schul-Cloud betrifft dein Thema?</span>
+<h4 class="icon-card__title">{{$t "help.partials.headline.problemArea"}}</h4>
+<span class="icon-card__subtitle">{{$t "help.contact.text.whichAreaOfSchulCloud"}}</span>
 <center>
 <label class="form-group col-md-6">
-		<span class="control-label"><i class="info_text fa fa-info-circle"></i> Bitte sende jedes Thema einzeln ab.</span>
-		<select class="form-control" name="problemArea" id="problemArea" aria-placeholder="Bereich wählen">
-			<option value="" disabled selected hidden>Bereich wählen</option>
-			<option value="1">Übersicht</option>
-			<optgroup label="Kurse"> 
-				<option value="2">Themen</option>
-				<optgroup label="Tools">
-					<option value="3">BBB Videokonferenz</option>
-					<option value="4">Bettermarks</option>
+		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.eachTopicSeparate"}}</span>
+		<select class="form-control" name="problemArea" id="problemArea" aria-placeholder={{$t "help.contact.text.chooseArea"}}>
+			<option value="" disabled selected hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
+			<option value="Dashboard">{{$t "help.chooseTopicArea.text.pDashboard"}}</option>
+			<optgroup label={{$t "help.chooseTopicArea.text.pCourses"}}> 
+				<option value="Themen">{{$t "help.chooseTopicArea.text.pTopics"}}</option>
+				<optgroup label={{$t "help.chooseTopicArea.text.pTools"}}>
+					<option value="BBB-Videokonferenz">{{$t "help.chooseTopicArea.text.pBBB"}}</option>
+					<option value="Bettermarks">{{$t "help.chooseTopicArea.text.pBettermarks"}}</option>
 				</optgroup>
-				<option value="5">Texteditor</option>
+				<option value="Texteditor">{{$t "help.chooseTopicArea.text.pEditor"}}</option>
 			</optgroup>
-			<optgroup label="Teams">
-				<option value="6">Libre Office</option>
-				<option value="7">Neuigkeiten</option>
-				<option value="8">Termine</option>
-				<option value="9">Messenger</option>
+			<optgroup label={{$t "help.chooseTopicArea.text.pTeams"}}>
+				<option value="Libre Office">{{$t "help.chooseTopicArea.text.pLibreOffice"}}</option>
+				<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
+				<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
+				<option value="Messenger">{{$t "help.chooseTopicArea.text.pMessenger"}}</option>
 			</optgroup>
-			<option value="10">Aufgaben</option>
-			<option value="11">Meine Dateien</option>
-			<option value="12">Neuigkeiten</option>
-			<option value="13">Termine</option>
-			<option value="14">Lern-Store</option>
-			<optgroup label="Verwaltung">
-				<option value="15">Registrierung & Login</option>
-				<option value="16">Berechtigungen</option>
-				<option value="17">IDM (LDAP, SSO, TSP etc.)</option>
+			<option value="Aufgaben">{{$t "help.chooseTopicArea.text.pTasks"}}</option>
+			<option value="Meine Dateien">{{$t "help.chooseTopicArea.text.pMyFiles"}}</option>
+			<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
+			<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
+			<option value="Lern-Store">{{$t "help.chooseTopicArea.text.pLernStore"}}</option>
+			<optgroup label="{{$t "help.chooseTopicArea.text.pManagement"}}">
+				<option value="Registrierung-Login">{{$t "help.chooseTopicArea.text.pRegisterLogin"}}</option>
+				<option value="Berechtigungen">{{$t "help.chooseTopicArea.text.pPermissions"}}</option>
+				<option value="IDM">{{$t "help.chooseTopicArea.text.pIdm"}}</option>
 			</optgroup>
-			<optgroup label="Weiteres">
-				<option value="18">Apps</option>
-				<option value="19">Benachrichtigungen</option>
-				<option value="20">Messenger</option>
+			<optgroup label="{{$t "help.chooseTopicArea.text.pExtra"}}">
+				<option value="Apps">{{$t "help.chooseTopicArea.text.pApps"}}</option>
+				<option value="Benachrichtigungen">{{$t "help.chooseTopicArea.text.pNotifications"}}</option>
+				<option value="Messenger">{{$t "help.chooseTopicArea.text.pMessenger"}}</option>
 			</optgroup>
-			<option value="21">Zuordnung nicht möglich</option>
+			<option value="Sonstige">{{$t "help.chooseTopicArea.text.pOther"}}</option>
 		</select>
 </label>
 </center>
