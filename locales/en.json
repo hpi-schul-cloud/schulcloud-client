@@ -2204,7 +2204,7 @@
 			},
 			"link": {
 				"contentProviders": "Content providers:",
-				"devOps": "DevOps",
+				"currentJobOffers": "Current job offers",
 				"generalInquiries": "General inquiries:",
 				"mobileApp": "Mobile app",
 				"privacy": "General data protection inquiries:",
@@ -2213,7 +2213,7 @@
 				"support": "Support:"
 			},
 			"text": {
-				"weAreHiring": "Would you like to join our <span style='white-space: nowrap;'>HPI school cloud<\/span> Team? We are hiring:"
+				"weAreHiring": "Would you like to become part of the <span style='white-space: nowrap;'>HPI school cloud<\/span> Team? Then take a look here::"
 			}
 		},
 		"footer": {
@@ -2287,7 +2287,6 @@
 				"participate": "Participate",
 				"safety": "Security",
 				"status": "Status",
-				"team": "Team",
 				"termsOfUseHPI": "Terms of use of the HPI school cloud"
 			}
 		},

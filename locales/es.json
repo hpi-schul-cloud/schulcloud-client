@@ -2204,7 +2204,7 @@
 			},
 			"link": {
 				"contentProviders": "Proveedores de contenido:",
-				"devOps": "DevOps",
+				"currentJobOffers": "Aktuelle Stellenangebote",
 				"generalInquiries": "Consultas generales:",
 				"mobileApp": "Aplicación móvil",
 				"privacy": "Privacidad:",
@@ -2287,7 +2287,6 @@
 				"participate": "Participar",
 				"safety": "Seguridad",
 				"status": "Estado",
-				"team": "Equipo",
 				"termsOfUseHPI": "Condiciones de uso de la nube escolar de HPI"
 			}
 		},

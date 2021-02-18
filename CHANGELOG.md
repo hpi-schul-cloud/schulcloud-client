@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- SC-8660 – changed text of the footer in the section job offers
 - SC-8408 - improved course update logic. Delete all events for the course before creating new 
 - SC-8597 - changing color of the course headline into primary
 
@@ -46,6 +47,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Removed
 
+- SC-8660 – Remove team-link in the footer and the team-page
 - SC-6311 - Removed itslearning from available system types
 - SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
 - SC-8609 – remove section "HPI" including text and e-mail address on theme thr and BRB  
