@@ -1,27 +1,11 @@
 <div class="contact-form">
-  <fieldset class="switch_wrapper" id="message_target">
-    <legend>{{$t "help.contact.text.whoDoYouWantToContact" }}</legend>
-    <div class="switch">
-{{!--       <input type="radio" id="admin" name="message_target" value="admin" {{#if adminFormIsActive}}checked{{/if}}>
-      <label for="admin" tabindex="0" role="button">{{$t "help.contact.label.schoolAdmin" }}</label>
-      <input type="radio" id="team" name="message_target" value="team" {{#if teamFormIsActive}}checked{{/if}}>
-      {{> "help/partials/help_form_button_label_proper_team_name"}}
- --}}    </div>
-  </fieldset>
-
-{{!--   <form class="admin_form {{#unless adminFormIsActive}}hidden{{/unless}}" action="/helpdesk/" method="post">
-    {{> "help/forms/form_admin"}}
-    {{> "lib/components/csrfInput"}}
-    <button type="submit">{{$t "global.button.submit" }}</button>
-  </form>
- --}}
   <div class="team_form">
     <p>{{$t "help.contact.text.thankYouForYourFeedback" (dict "shortTitle" theme.short_title)}}</p>
     <fieldset class="switch_wrapper" id="message_type">
       <legend>{{$t "help.contact.text.whatKindOfFeedbackDoYouWant" }}</legend>
       <div class="switch">
         <input type="radio" id="bug" name="message_type" value="bug" checked>
-        <label for="bug" tabindex="0" role="button">Problem</label>
+        <label for="bug" tabindex="0" role="button">{{$t "help.contact.label.bug" }}</label>
         <input type="radio" id="wish" name="message_type" value="wish">
         <label for="wish" tabindex="0" role="button">{{$t "help.contact.label.wish" }}</label>
       </div>
