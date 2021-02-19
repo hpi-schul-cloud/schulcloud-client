@@ -34,7 +34,7 @@
                     <div class="row section-landing flex-container">
                         <div class="col-sm-6">
                             <div class="pull-left">
-                                <h6 class="font-weight-bold">HPI Schul-Cloud International</h6>
+                                <h6 class="font-weight-bold">{{theme.title}}</h6>
                                 <h1 class="mb-3">{{$t "home.headline.internationalSloganFirstLine" }}<br>{{$t "home.headline.internationalSloganSecondLine" }}</h1>
                                 <a class="btn btn-primary mb-3 mb-md-0 hidden-sm-down" href="https://blog.hpi-schul-cloud.de/community">{{$t "home.button.registerNow" }}</a>
                             </div>
@@ -48,7 +48,7 @@
                 </section>
 
                 <section class="container">
-                    <h2 class="mb-3 section-heading">{{$t "home.headline.internationalAdvantagesGeneral"}}</h2>
+                    <h2 class="mb-3 section-heading">{{$t "home.headline.advantagesGeneral" (dict "title" theme.title)}}</h2>
                     <div class="row section flex-container section-landing">
                         <div class="col-sm-12 col-md-6">
                             <img class="mb-3 mb-md-0" src="/images/home/advantages.svg" alt="">
@@ -73,7 +73,7 @@
                 </section>
 
                 <section class="container">
-                    <h2 class="mb-3 section-heading">{{$t "home.headline.internationalAdvantagesDetailed"}}</h2>
+                    <h2 class="mb-3 section-heading">{{$t "home.headline.advantagesDetailed" (dict "title" theme.title)}}</h2>
 
                     <section class="row flex-container mb-3">
                         <div class="col-sm-12 col-md-4 text-xs-center">
@@ -81,7 +81,7 @@
                         </div>
                         <div class="col-sm-12 col-md-8">
                             <h5 class="heading font-weight-bold ">{{$t "home.headline.developedWithAndForSchools"}}</h5>
-                            <p class="mb-2">{{$t "home.text.internationalDevelopedWithAndForSchools"}}</p>
+                            <p class="mb-2">{{$t "home.text.developedWithAndForSchools" (dict "title" theme.title)}}</p>
                             <link><a class="font-weight-bold" href="https://blog.hpi-schul-cloud.de/about">{{$t "home.button.learnMore"}} <i class="fa fa-angle-double-right font-weight-bold"></i></a>
                         </div>
                     </section>
@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-md-8 pull-md-4">
                             <h5 class="heading font-weight-bold ">{{$t "home.headline.easyToUse"}}</h5>
-                            <p class="mb-2">{{$t "home.text.internationalEasyToUse"}}</p>
+                            <p class="mb-2">{{$t "home.text.easyToUse" (dict "title" theme.title)}}</p>
                         </div>
                     </section>
 
@@ -104,7 +104,7 @@
                         </div>
                         <div class="col-sm-12 col-md-8">
                             <h5 class="heading font-weight-bold ">{{$t "home.headline.dataCompliantAndSecure"}}</h5>
-                            <p class="mb-2">{{$t "home.text.internationalDataCompliantAndSecure"}}</p>
+                            <p class="mb-2">{{$t "home.text.dataCompliantAndSecure" (dict "title" theme.title)}}</p>
                             <link><a class="font-weight-bold" href="https://schul-cloud.org/mint-ec/06-datenschutz-und-urheberrecht">{{$t "home.button.learnMore"}} <i class="fa fa-angle-double-right font-weight-bold"></i></a>
                         </div>
                     </section>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="col-md-8 pull-md-4">
                             <h5 class="heading font-weight-bold">{{$t "home.headline.shapingDigitalEducationInPartnership"}}</h5>
-                            <p class="mb-2">{{$t "home.text.internationalShapingDigitalEducationInPartnership"}}</p>
+                            <p class="mb-2">{{$t "home.text.internationalShapingDigitalEducationInPartnership" (dict "title" theme.title)}}</p>
                             <link><a class="font-weight-bold" href="https://blog.hpi-schul-cloud.de/about">{{$t "home.button.learnMore"}} <i class="fa fa-angle-double-right font-weight-bold"></i></a>
                         </div>
                     </section>
@@ -126,7 +126,7 @@
                         <div class="container container-content content-width-max">
                             <div class="text-center">
                                 <h2 class="h3 section-title center newsletter">
-                                    {{$t "home.headline.allNewsOnHPIInternationalNewsletter"}}
+                                    {{$t "home.headline.allNewsOnHPIInternationalNewsletter" (dict "title" theme.title)}}
                                 </h2>
                                 <a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" class="btn btn-outline btn-white-outlined mt-2">
                                     {{$t "home.button.subscribeNewsletter"}}
