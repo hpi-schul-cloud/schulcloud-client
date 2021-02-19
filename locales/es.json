@@ -1798,7 +1798,43 @@
 			},
 			"text": {
 				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
-				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?"			}
+				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
+				"whoDoYouWantToContact": "Who do you want to contact?",
+				"whichAreaOfSchulCloud": "Which area of Schul-Cloud does your topic concern?",
+				"contactSupport": "Contact support",
+				"contactSupportSubtitle": "Your problem isn't listed? Contact our support team.",
+				"contactSupportSubtitleWish": "You want to share a wish? Contact our support team."			
+			}
+		},
+		"chooseTopicArea": {
+			"text": {
+				"eachTopicSeparate": " Please submit each topic separately.",
+				"chooseArea": "Choose area",
+				"pDashboard": "Dashboard",
+				"pCourses": "Courses",
+				"pTopics": "Topics",
+				"pGroups": "Groups",
+				"pTasks": "Tasks",
+				"pTools": "Tools",
+				"pBBB": "BBB video conference",
+				"pBettermarks": "Bettermarks",
+				"pEditor": "Texteditor",
+				"pTeams": "Teams",
+				"pLibreOffice": "Libre Office", 
+				"pNews": "News",
+				"pCalendar": "Calendar", 
+				"pMessenger": "Messenger", 
+				"pMyFiles": "My Files",
+				"pLernStore": "Learning Store",
+				"pManagement": "Management",
+				"pRegisterLogin": "Register & Login",
+				"pPermissions": "Permissions",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pExtra": "Extras", 
+				"pApps": "Apps",
+				"pNotifications": "Notifications",
+				"pOther": "Other"
+			}
 		},
 		"form_admin": {
 			"label": {
@@ -1809,10 +1845,14 @@
 			"label": {
 				"maxSizeFiles": "Imágenes, vídeos y archivos",
 				"problemDescription": "Descripción del problema:",
-				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo"
+				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo",
+				"problemAlreadyKnown": "Is the problem already known?",
+				"knownProblemLink": "Here you can see if there are currently problems with the technical systems: ",
+				"statusPage": "Status page"
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>"
+				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>",
+				"problemAlreadyKnownText": "Have you checked if your problem is already known? It helps us to solve problems faster if only new issues are shared."
 			}
 		},
 		"form_Wish": {
