@@ -1809,7 +1809,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"eachTopicSeparate": " Please submit each topic separately.",
-				"chooseArea": "Choose area",
+				"chooseArea": "Select area",
 				"pDashboard": "Dashboard",
 				"pCourses": "Courses",
 				"pTopics": "Topics",
@@ -1950,7 +1950,7 @@
 		},
 		"partials": {
 			"headline": {
-				"problemArea": "Choose problem area",
+				"problemArea": "Select area",
 				"contactForm": "Contact form",
 				"contactPerson": "Contact person",
 				"overview": "Overview",

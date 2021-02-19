@@ -81,12 +81,12 @@
 <hr>
 <fieldset>
 	<legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
-	<label for="consentWish">
-		<div class="row">
-			<div class="col-xs-2">
+	<label class="consent_label" for="consentWish">
+		<div class="row consent_row">
+			<div id="consent_checkbox">
 				<input type="checkbox" id="consentWish" name="consent" value="true" checked>
 			</div>
-			<div class="col-xs-10">
+			<div>
 				<span class="control-label">
 				  {{{$t "help.form_Wish.text.iAgreeThatTheFollowingInformation" }}}
 				</span>

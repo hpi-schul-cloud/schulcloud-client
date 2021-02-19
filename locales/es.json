@@ -1808,32 +1808,32 @@
 		},
 		"chooseTopicArea": {
 			"text": {
-				"eachTopicSeparate": " Please submit each topic separately.",
-				"chooseArea": "Choose area",
-				"pDashboard": "Dashboard",
-				"pCourses": "Courses",
-				"pTopics": "Topics",
-				"pGroups": "Groups",
-				"pTasks": "Tasks",
-				"pTools": "Tools",
-				"pBBB": "BBB video conference",
+				"eachTopicSeparate": " Por favor, presenta cada tema por separado.",
+				"chooseArea": "Selecciona el área",
+				"pDashboard": "Panel",
+				"pCourses": "Cursos",
+				"pTopics": "Temas",
+				"pGroups": "Grupos",
+				"pTasks": "Tareas",
+				"pTools": "Herramientas",
+				"pBBB": "BBB videoconferencias",
 				"pBettermarks": "Bettermarks",
-				"pEditor": "Texteditor",
-				"pTeams": "Teams",
+				"pEditor": "Editor",
+				"pTeams": "Equipos",
 				"pLibreOffice": "Libre Office", 
-				"pNews": "News",
-				"pCalendar": "Calendar", 
+				"pNews": "Noticias",
+				"pCalendar": "Calendario", 
 				"pMessenger": "Messenger", 
-				"pMyFiles": "My Files",
+				"pMyFiles": "Mis archivos personales",
 				"pLernStore": "Learning Store",
-				"pManagement": "Management",
-				"pRegisterLogin": "Register & Login",
-				"pPermissions": "Permissions",
+				"pManagement": "Administración",
+				"pRegisterLogin": "Registrarse & Inicio de sesión",
+				"pPermissions": "Permisos",
 				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
 				"pExtra": "Extras", 
-				"pApps": "Apps",
-				"pNotifications": "Notifications",
-				"pOther": "Other"
+				"pApps": "Aplicaciones",
+				"pNotifications": "Notificaciones",
+				"pOther": "Otros"
 			}
 		},
 		"form_admin": {
@@ -1846,13 +1846,13 @@
 				"maxSizeFiles": "Imágenes, vídeos y archivos",
 				"problemDescription": "Descripción del problema:",
 				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo",
-				"problemAlreadyKnown": "Is the problem already known?",
-				"knownProblemLink": "Here you can see if there are currently problems with the technical systems: ",
-				"statusPage": "Status page"
+				"problemAlreadyKnown": "¿Se conoce ya el problema?",
+				"knownProblemLink": "Aquí puedes ver si hay actualmente problemas con los sistemas técnicos: ",
+				"statusPage": "Página de estado"
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>",
-				"problemAlreadyKnownText": "Have you checked if your problem is already known? It helps us to solve problems faster if only new issues are shared."
+				"problemAlreadyKnownText": "¿Has comprobado si tu problema ya es conocido? Nos ayuda a resolver los problemas más rápidamente si sólo se comparten problemas nuevos."
 			}
 		},
 		"form_Wish": {
@@ -1953,7 +1953,8 @@
 				"contactForm": "Formulario de contacto",
 				"contactPerson": "Persona de contacto",
 				"overview": "Visión general",
-				"writeUsAnEmail": "Envíanos un correo electrónico"
+				"writeUsAnEmail": "Envíanos un correo electrónico",
+				"problemArea": "Selecciona el área"
 			}
 		},
 		"placeholder": {
