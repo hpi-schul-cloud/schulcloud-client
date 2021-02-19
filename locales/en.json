@@ -3110,9 +3110,9 @@
 				"furtherInformation": "<a href=\"https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/\">https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/<\/a>"
 			}
 		},
-		"open":  {
+		"open": {
 			"text": {
-				"welcome": "\"The <a href=\"https:\//hpi.de/\"> Hasso Plattner Institute <\/ a> for digital engineering developed the HPI Schul-Cloud under the direction of Prof. Dr. Christoph Meinel and together with <a href =\"https:\//www.mint-ec.de\/\"> MINT-EC <\/ a>, the national excellence school network of over 300 schools nationwide, and supported by the Federal Ministry of Education and Research. It is intended to create the technical basis for teachers and students to also use modern digital teaching and learning content in every subject, in the same way as apps can be used via smartphones or tablets. This is the open instance of the HPI Schul-Cloud through which individual schools can have access to the platform."
+				"welcome": "\"The <a href=\"https:\//hpi.de/\"> Hasso Plattner Institute <\/a> for digital engineering developed the HPI Schul-Cloud under the direction of Prof. Dr. Christoph Meinel and together with <a href =\"https:\//www.mint-ec.de\/\"> MINT-EC <\/a>, the national excellence school network of over 300 schools nationwide, and supported by the Federal Ministry of Education and Research. It is intended to create the technical basis for teachers and students to also use modern digital teaching and learning content in every subject, in the same way as apps can be used via smartphones or tablets. This is the open instance of the HPI Schul-Cloud through which individual schools can have access to the platform."
 			}
 		},
 		"thr": {
