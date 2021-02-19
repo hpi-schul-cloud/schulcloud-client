@@ -8,18 +8,22 @@ catch() {
   fi
 }
 
+#export DOCKERTAG=latest
+#export DOCKERTAG_SHA
 if [ "$TRAVIS_BRANCH" = "master" ]
 then
-  #export DOCKERTAG=latest
   export DOCKERTAG="master_v$( jq -r '.version' package.json )_latest"
+  export DOCKERTAG_SHA="master_v$( jq -r '.version' package.json )_$GIT_SHA"
 elif [ "$TRAVIS_BRANCH" = "develop" ]
 then
   #export DOCKERTAG=latest
   export DOCKERTAG="develop_latest"
+  export DOCKERTAG_SHA="develop_$GIT_SHA"
 elif [[ "$TRAVIS_BRANCH" =~ ^"release"* ]]
 then
   #export DOCKERTAG=latest
   export DOCKERTAG="release_v$( jq -r '.version' package.json )_latest"
+  export DOCKERTAG_SHA="release_v$( jq -r '.version' package.json )_$GIT_SHA"
 elif [[ "$TRAVIS_BRANCH" =~ ^feature\/[A-Z]+-[0-9]+-[a-zA-Z_]+$ ]]
 then
 	# extract JIRA_TICKET_ID from TRAVIS_BRANCH
@@ -30,6 +34,7 @@ then
   JIRA_TICKET_ID=$JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID
 	# export DOCKERTAG=naming convention feature-<Jira id>-latest
 	export DOCKERTAG="feature_${JIRA_TICKET_ID}_latest"
+  export DOCKERTAG_SHA="feature_${JIRA_TICKET_ID}_$GIT_SHA"
 elif  [[ "$TRAVIS_BRANCH" =~ ^hotfix\/[A-Z]+-[0-9]+-[a-zA-Z_]+$ ]]
 then
   	# extract JIRA_TICKET_ID from TRAVIS_BRANCH
@@ -40,61 +45,63 @@ then
   JIRA_TICKET_ID=$JIRA_TICKET_TEAM"-"$JIRA_TICKET_ID
 	# export DOCKERTAG=naming convention feature-<Jira id>-latest
 	export DOCKERTAG="hotfix_${JIRA_TICKET_ID}_latest"
+  export DOCKERTAG_SHA="hotfix_${JIRA_TICKET_ID}_$GIT_SHA"
 else
 # Check for naming convention <branch>/<JIRA-Ticket ID>-<Jira_Summary>
 # OPS-1664
 echo -e "Event detected. However, branch name pattern does not match requirements to deploy. Expected <branch>/<JIRA-Ticket ID>-<Jira_Summary> but got $TRAVIS_BRANCH"
 exit 0
 fi
+
+echo "GIT_SHA: $GIT_SHA"
 echo "DOCKERTAG: $DOCKERTAG"
+echo "DOCKERTAG_SHA: $DOCKERTAG_SHA"
 
 function buildandpush {
   # build container default theme
-  docker build -t schulcloud/schulcloud-client:$DOCKERTAG -t schulcloud/schulcloud-client:$GIT_SHA .
+  docker build -t schulcloud/schulcloud-client:$DOCKERTAG -t schulcloud/schulcloud-client:$DOCKERTAG_SHA .
 
   # Log in to the docker CLI
   echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
   # take those images and push them up to docker hub
   docker push schulcloud/schulcloud-client:$DOCKERTAG
-  docker push schulcloud/schulcloud-client:$DOCKERTAG"_"$GIT_SHA
+  docker push schulcloud/schulcloud-client:$DOCKERTAG_SHA
 
-  # 
   # if [[ "$TRAVIS_BRANCH" = "master" || release* && "$TRAVIS_PULL_REQUEST" = "false" ]]
-  # 
   # "$TRAVIS_BRANCH" = "master" || release* -> is always true, will be removed.
 
   if [[ "$TRAVIS_PULL_REQUEST" = "false" || "$TRAVIS_BRANCH" != feature* ]]
   then
     # build container n21 theme
-    docker build -t schulcloud/schulcloud-client-n21:$DOCKERTAG -t schulcloud/schulcloud-client-n21:$GIT_SHA -f Dockerfile.n21 .
+    docker build -t schulcloud/schulcloud-client-n21:$DOCKERTAG -t schulcloud/schulcloud-client-n21:$DOCKERTAG_SHA -f Dockerfile.n21 .
     docker push schulcloud/schulcloud-client-n21:$DOCKERTAG
-    docker push schulcloud/schulcloud-client-n21:$DOCKERTAG"_"$GIT_SHA
+    docker push schulcloud/schulcloud-client-n21:$DOCKERTAG_SHA
 
     # build container open theme
-    docker build -t schulcloud/schulcloud-client-open:$DOCKERTAG -t schulcloud/schulcloud-client-open:$GIT_SHA -f Dockerfile.open .
+    docker build -t schulcloud/schulcloud-client-open:$DOCKERTAG -t schulcloud/schulcloud-client-open:$DOCKERTAG_SHA -f Dockerfile.open .
     docker push schulcloud/schulcloud-client-open:$DOCKERTAG
-    docker push schulcloud/schulcloud-client-open:$DOCKERTAG"_"$GIT_SHA
+    docker push schulcloud/schulcloud-client-open:$DOCKERTAG_SHA
 
     # build container brb theme
-    docker build -t schulcloud/schulcloud-client-brb:$DOCKERTAG -t schulcloud/schulcloud-client-brb:$GIT_SHA -f Dockerfile.brb .
+    docker build -t schulcloud/schulcloud-client-brb:$DOCKERTAG -t schulcloud/schulcloud-client-brb:$DOCKERTAG_SHA -f Dockerfile.brb .
     docker push schulcloud/schulcloud-client-brb:$DOCKERTAG
-    docker push schulcloud/schulcloud-client-brb:$DOCKERTAG"_"$GIT_SHA
+    docker push schulcloud/schulcloud-client-brb:$DOCKERTAG_SHA
 
     # build container thr theme
-    docker build -t schulcloud/schulcloud-client-thr:$DOCKERTAG -t schulcloud/schulcloud-client-thr:$GIT_SHA -f Dockerfile.thr .
+    docker build -t schulcloud/schulcloud-client-thr:$DOCKERTAG -t schulcloud/schulcloud-client-thr:$DOCKERTAG_SHA -f Dockerfile.thr .
     docker push schulcloud/schulcloud-client-thr:$DOCKERTAG
-    docker push schulcloud/schulcloud-client-thr:$DOCKERTAG"_"$GIT_SHA
+    docker push schulcloud/schulcloud-client-thr:$DOCKERTAG_SHA
 
     # build container int theme
     docker build -t schulcloud/schulcloud-client-int:$DOCKERTAG -t schulcloud/schulcloud-client-int:$GIT_SHA -f Dockerfile.int .
     docker push schulcloud/schulcloud-client-int:$DOCKERTAG
-    docker push schulcloud/schulcloud-client-int:$DOCKERTAG"_"$GIT_SHA
+    docker push schulcloud/schulcloud-client-int:$DOCKERTAG_SHA
 
     # build container demo theme
-    docker build -t "schulcloud/schulcloud-client-demo:$DOCKERTAG" -t "schulcloud/schulcloud-client-demo:$GIT_SHA" -f Dockerfile.demo .
+    docker build -t "schulcloud/schulcloud-client-demo:$DOCKERTAG" -t "schulcloud/schulcloud-client-demo:$DOCKERTAG_SHA" -f Dockerfile.demo .
     docker push "schulcloud/schulcloud-client-demo:$DOCKERTAG"
-    docker push schulcloud/schulcloud-client-demo:$DOCKERTAG"_"$GIT_SHA
+    docker push schulcloud/schulcloud-client-demo:$DOCKERTAG_SHA
   fi
 
   # If branch is develop, add and push additional docker tags
