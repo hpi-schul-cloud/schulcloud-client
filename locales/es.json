@@ -1799,11 +1799,11 @@
 			"text": {
 				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
 				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
-				"whoDoYouWantToContact": "Who do you want to contact?",
-				"whichAreaOfSchulCloud": "Which area of Schul-Cloud does your topic concern?",
-				"contactSupport": "Contact support",
-				"contactSupportSubtitle": "Your problem isn't listed? Contact our support team.",
-				"contactSupportSubtitleWish": "You want to share a wish? Contact our support team."			
+				"whoDoYouWantToContact": "¿A quién quieres contactar?",
+				"whichAreaOfSchulCloud": "¿A qué área de Schul-Cloud se refiere su tema?",
+				"contactSupport": "Contactar soporte",
+				"contactSupportSubtitle": "¿Tu problema no aparece en la lista? Ponte en contacto con nuestro equipo de asistencia.",
+				"contactSupportSubtitleWish": "¿Quieres compartir un deseo? P en contacto con nuestro equipo de asistencia."
 			}
 		},
 		"chooseTopicArea": {
