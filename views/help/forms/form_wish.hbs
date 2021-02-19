@@ -2,6 +2,52 @@
 <input type="hidden" name="type" value="wish">
 <input type="hidden" name="supportType" value="wish">
 
+<h4 class="icon-card__title">{{$t "help.partials.headline.problemArea"}}</h4>
+<span class="icon-card__subtitle">{{$t "help.contact.text.whichAreaOfSchulCloud"}}</span>
+<center>
+<label class="form-group col-md-6">
+		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.eachTopicSeparate"}}</span>
+		<select class="form-control" name="problemArea" id="problemArea" aria-placeholder={{$t "help.contact.text.chooseArea"}}>
+			<option value="" disabled selected hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
+			<option value="Dashboard">{{$t "help.chooseTopicArea.text.pDashboard"}}</option>
+			<optgroup label={{$t "help.chooseTopicArea.text.pCourses"}}> 
+				<option value="Themen">{{$t "help.chooseTopicArea.text.pTopics"}}</option>
+				<optgroup label={{$t "help.chooseTopicArea.text.pTools"}}>
+					<option value="BBB-Videokonferenz">{{$t "help.chooseTopicArea.text.pBBB"}}</option>
+					<option value="Bettermarks">{{$t "help.chooseTopicArea.text.pBettermarks"}}</option>
+				</optgroup>
+				<option value="Texteditor">{{$t "help.chooseTopicArea.text.pEditor"}}</option>
+			</optgroup>
+			<optgroup label={{$t "help.chooseTopicArea.text.pTeams"}}>
+				<option value="Libre Office">{{$t "help.chooseTopicArea.text.pLibreOffice"}}</option>
+				<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
+				<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
+				<option value="Messenger">{{$t "help.chooseTopicArea.text.pMessenger"}}</option>
+			</optgroup>
+			<option value="Aufgaben">{{$t "help.chooseTopicArea.text.pTasks"}}</option>
+			<option value="Meine Dateien">{{$t "help.chooseTopicArea.text.pMyFiles"}}</option>
+			<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
+			<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
+			<option value="Lern-Store">{{$t "help.chooseTopicArea.text.pLernStore"}}</option>
+			<optgroup label="{{$t "help.chooseTopicArea.text.pManagement"}}">
+				<option value="Registrierung-Login">{{$t "help.chooseTopicArea.text.pRegisterLogin"}}</option>
+				<option value="Berechtigungen">{{$t "help.chooseTopicArea.text.pPermissions"}}</option>
+				<option value="IDM">{{$t "help.chooseTopicArea.text.pIdm"}}</option>
+			</optgroup>
+			<optgroup label="{{$t "help.chooseTopicArea.text.pExtra"}}">
+				<option value="Apps">{{$t "help.chooseTopicArea.text.pApps"}}</option>
+				<option value="Benachrichtigungen">{{$t "help.chooseTopicArea.text.pNotifications"}}</option>
+				<option value="Messenger">{{$t "help.chooseTopicArea.text.pMessenger"}}</option>
+			</optgroup>
+			<option value="Sonstige">{{$t "help.chooseTopicArea.text.pOther"}}</option>
+		</select>
+</label>
+</center>
+
+<h4 class="icon-card__title">{{$t "help.contact.text.contactSupport"}}</h4>
+<span class="icon-card__subtitle">{{$t "help.contact.text.contactSupportSubtitleWish"}}</span>
+
+
 <label class="form-group">
 	<span class="control-label" for="title">{{$t "help.form_Wish.label.briefDescriptionOfTheRequest" }}</span>
 	<input type="text" name="title" id="wishTitle" placeholder="{{$t "help.form_Wish.placeholder.briefDescriptionOfTheRequest" }}" class="form-control" required>

@@ -1802,7 +1802,8 @@
 				"whoDoYouWantToContact": "Who do you want to contact?",
 				"whichAreaOfSchulCloud": "Which area of Schul-Cloud does your topic concern?",
 				"contactSupport": "Contact support",
-				"contactSupportSubtitle": "Your problem isn't listed? Contact our support team."
+				"contactSupportSubtitle": "Your problem isn't listed? Contact our support team.",
+				"contactSupportSubtitleWish": "You want to share a wish? Contact our support team."
 			}
 		},
 		"chooseTopicArea": {
