@@ -46,18 +46,18 @@
 </label>
 </center>
 
-<label class="control-label">Ist das Problem bereits bekannt?</label>
-<p id="inline_text">Hast du geschaut, ob dein Problem bereits bekannt ist? Denn es hilft uns schneller voran zu kommen, wenn nur neue Probleme mitgeteilt werden.
+<label class="control-label">{{$t "help.form_bug.label.problemAlreadyKnown"}}</label>
+<p id="inline_text">{{$t "help.form_bug.text.problemAlreadyKnownText"}}
 </p>
 
 <iframe class="full" src="https://docs.hpi-schul-cloud.org/display/SCDOK/Bekannte+Fehler+in+der+Cloud+und+ihre+Behebung"
     frameborder="0" scrolling="yes">
 </iframe>
 
-<label class="control-label">Hier kannst du schauen, ob aktuelle Probleme bei den technischen Systemen vorliegen: <a href="https://status.hpi-schul-cloud.de/">Status-Seite</a></label>
+<label class="control-label">{{$t "help.form_bug.label.knownProblemLink"}} <a href="https://status.hpi-schul-cloud.de/">{{$t "help.form_bug.label.statusPage"}}</a></label>
 
-<h4 class="icon-card__title">Support kontaktieren</h4>
-<span class="icon-card__subtitle">Dein Problem ist nicht dabei? Kontaktiere den Support.</span>
+<h4 class="icon-card__title">{{$t "help.contact.text.contactSupport"}}</h4>
+<span class="icon-card__subtitle">{{$t "help.contact.text.contactSupportSubtitle"}}</span>
 
 <label class="form-group">
 	<span class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}</span>
