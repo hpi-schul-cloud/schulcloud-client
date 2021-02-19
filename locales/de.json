@@ -1961,9 +1961,11 @@
 	},
 	"home": {
 		"button": {
+			"learnMore": "Mehr erfahren",
 			"loginAsStudentDemo": "als Schüler:in einloggen",
 			"loginAsTeacherDemo": "als Lehrkraft einloggen",
 			"register": "Registrieren",
+			"registerNow": "Jetzt registrieren",
 			"subscribeNewsletter": "Newsletter abonnieren"
 		},
 		"header": {
@@ -1974,9 +1976,19 @@
 			}
 		},
 		"headline": {
+			"allNewsOnHPIInternationalNewsletter": "Alle Neuigkeiten rund um die HPI Schul-Cloud International bequem in Ihrem Postfach:",
 			"allNewsOnHPINewsletter": "Alle Neuigkeiten rund um die <span style=\"white-space: nowrap;\">HPI Schul-Cloud<\/span> bequem in Ihrem Postfach:",
+			"dataCompliantAndSecure": "Datenschutzkonform und sicher",
+			"developedWithAndForSchools": "Gemeinsam mit und für Schulen entwickelt.",
+			"easyToUse": "Einfach in der Anwendung – jederzeit und überall",
 			"explainationVideo": "Erklärvideo zur HPI Schul-Cloud",
 			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI Schul-Cloud<\/span> Blog",
+			"internationalAdvantagesGeneral": "Das macht die HPI Schul-Cloud International aus",
+			"internationalAdvantagesDetailed": "Vorteile der HPI Schul-Cloud International",
+			"internationalSloganFirstLine": "Lernen global vernetzt",
+			"internationalSloganSecondLine": "- digital unterstützt",
+			"projectPartners": "Projektpartner:innen",
+			"shapingDigitalEducationInPartnership": "Digitale Bildung partnerschaftlich gestalten",
 			"theIdea": "Die Grundidee der <span style=\"white-space: nowrap;\">HPI Schul-Cloud<\/span>",
 			"tryDemoVersion": "Jetzt Demoversion ausprobieren",
 			"welcomeToHPISchoolCloud": "Herzlich willkommen bei der <span style=\"white-space: nowrap;\">HPI Schul-Cloud!<\/span>"
@@ -1994,7 +2006,14 @@
 			"advertisementForOurTeam": "Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https:\/\/schul-cloud.org\/community#jobs",
 			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) videoplayer.",
 			"downloadFile": "Datei herunterladen",
+			"featuresAndMore": "Lernmaterial, Chat, Aufgaben, Videokonferenzen und mehr",
+			"freeForAllSchools": "Kostenlos für alle Schulen",
+			"internationalDataCompliantAndSecure": "Die HPI Schul-Cloud International wird in und für Deutschland entwickelt. Datenschutzkonformer Zugriff auf Lernsoftware, sowie Datensouveränität, sind gesichert.",
+			"internationalDevelopedWithAndForSchools": "Die HPI Schul-Cloud International ist auf das optimiert, was Lehrkräfte und Schülerschaft brauchen und kann mit Lernangeboten vieler Anbieter verbunden werden. Gemeinsam mit unseren Nutzer:innen und zahlreichen Partnern in der deutschen Bildungslandschaft entwickeln wir uns weiter!",
+			"internationalEasyToUse": "Die HPI Schul-Cloud International ist sicher, transparent und kann ohne lange Einarbeitung genutzt werden – zeitunabhängig und mit dem eigenen Handy, Tablet oder Computer.",
+			"internationalShapingDigitalEducationInPartnership": "Gemeinsam mit unseren starken Partner:innen, den deutschen Auslandsschulen, gefördert durch das auswärtige Amt, wird die HPI Schul-Cloud International weiterentwickelt.",
 			"moreInformation": "Mehr Informationen:",
+			"learnTogetherDigitally": "Gemeinsam lernen in digitalen Räumen",
 			"technicalReportHPISchoolCloud": "Technischer Bericht: \"Die HPI Schul-Cloud: Roll-Out einer Cloud-Architektur für Schulen in Deutschland\" (.pdf)",
 			"weRecommendUsingModernBrowsers": "Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari."
 		}
