@@ -29,144 +29,16 @@
         <!-- GHOST (will be replaced by js) -->
         <div class="hidden" id="SC_THEME">int</div>
         <div class="int-blog">
-            <div class="content ghost-content">
-                <section class="container">
-                    <div class="row section-landing flex-container">
-                        <div class="col-sm-6">
-                            <div class="pull-left">
-                                <h6 class="font-weight-bold">{{theme.title}}</h6>
-                                <h1 class="mb-3">{{$t "home.headline.internationalSloganFirstLine" }}<br>{{$t "home.headline.internationalSloganSecondLine" }}</h1>
-                                <a class="btn btn-primary mb-3 mb-md-0 hidden-sm-down" href="https://blog.hpi-schul-cloud.de/community">{{$t "home.button.registerNow" }}</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="text-xs-center text-md-right">
-                                <img class="mb-3 mb-md-0" src="/images/home/hero.svg" alt="Hero">
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
-                <section class="container">
-                    <h2 class="mb-3 section-heading">{{$t "home.headline.advantagesGeneral" (dict "title" theme.title)}}</h2>
-                    <div class="row section flex-container section-landing">
-                        <div class="col-sm-12 col-md-6">
-                            <img class="mb-3 mb-md-0" src="/images/home/advantages.svg" alt="">
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="pull-right">
-                                <div class="flex-container mb-1">
-                                    <img class="check" src="https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/check-icon-1.svg" alt="">
-                                    <p class="ml-1 teaser">{{$t "home.text.learnTogetherDigitally"}}</p>
-                                </div>
-                                <div class="flex-container mb-1">
-                                    <img class="check" src="https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/check-icon-1.svg" alt="">
-                                    <p class="ml-1 teaser">{{$t "home.text.featuresAndMore"}}</p>
-                                </div>
-                                <div class="flex-container mb-1">
-                                    <img class="check" src="https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/check-icon-1.svg" alt="">
-                                    <p class="ml-1 teaser">{{$t "home.text.freeForAllSchools"}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="container">
-                    <h2 class="mb-3 section-heading">{{$t "home.headline.advantagesDetailed" (dict "title" theme.title)}}</h2>
-
-                    <section class="row flex-container mb-3">
-                        <div class="col-sm-12 col-md-4 text-xs-center">
-                            <img class="mb-3 mb-md-0 section-img" src="/images/home/advantage_1.svg" alt="">
-                        </div>
-                        <div class="col-sm-12 col-md-8">
-                            <h5 class="heading font-weight-bold ">{{$t "home.headline.developedWithAndForSchools"}}</h5>
-                            <p class="mb-2">{{$t "home.text.developedWithAndForSchools" (dict "title" theme.title)}}</p>
-                            <link><a class="font-weight-bold" href="https://blog.hpi-schul-cloud.de/about">{{$t "home.button.learnMore"}} <i class="fa fa-angle-double-right font-weight-bold"></i></a>
-                        </div>
-                    </section>
-
-                    <section class="row flex-container mb-3">
-                        <div class="col-md-4 push-md-8">
-                            <div class="text-xs-center text-md-right">
-                                <img class="mb-3 mb-md-0 section-img" src="/images/home/advantage_2.svg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-md-8 pull-md-4">
-                            <h5 class="heading font-weight-bold ">{{$t "home.headline.easyToUse"}}</h5>
-                            <p class="mb-2">{{$t "home.text.easyToUse" (dict "title" theme.title)}}</p>
-                        </div>
-                    </section>
-
-                    <section class="row flex-container mb-3">
-                        <div class="col-sm-12 col-md-4 text-xs-center">
-                            <img class="mb-3 mb-md-0 section-img" src="/images/home/advantage_3.svg" alt="">
-                        </div>
-                        <div class="col-sm-12 col-md-8">
-                            <h5 class="heading font-weight-bold ">{{$t "home.headline.dataCompliantAndSecure"}}</h5>
-                            <p class="mb-2">{{$t "home.text.dataCompliantAndSecure" (dict "title" theme.title)}}</p>
-                            <link><a class="font-weight-bold" href="https://schul-cloud.org/mint-ec/06-datenschutz-und-urheberrecht">{{$t "home.button.learnMore"}} <i class="fa fa-angle-double-right font-weight-bold"></i></a>
-                        </div>
-                    </section>
-
-                    <section class="row flex-container mb-3">
-                        <div class="col-md-4 push-md-8">
-                            <div class="text-xs-center text-md-right">
-                                <img class="mb-3 mb-md-0 section-img" src="/images/home/advantage_4.svg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-md-8 pull-md-4">
-                            <h5 class="heading font-weight-bold">{{$t "home.headline.shapingDigitalEducationInPartnership"}}</h5>
-                            <p class="mb-2">{{$t "home.text.internationalShapingDigitalEducationInPartnership" (dict "title" theme.title)}}</p>
-                            <link><a class="font-weight-bold" href="https://blog.hpi-schul-cloud.de/about">{{$t "home.button.learnMore"}} <i class="fa fa-angle-double-right font-weight-bold"></i></a>
-                        </div>
-                    </section>
-
-                    <section class="section section-tilt">
-                        <div class="container container-content content-width-max">
-                            <div class="text-center">
-                                <h2 class="h3 section-title center newsletter">
-                                    {{$t "home.headline.allNewsOnHPIInternationalNewsletter" (dict "title" theme.title)}}
-                                </h2>
-                                <a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" class="btn btn-outline btn-white-outlined mt-2">
-                                    {{$t "home.button.subscribeNewsletter"}}
-                                </a>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="section section-tilt accent">
-                        <div class="container container-content content-width-max">
-                            <div class="text-center">
-                                <h2 class="h3 section-title center">
-                                    {{$t "home.headline.projectPartners"}}
-                                </h2>
-                                <div class="partners row">
-                                    <a class="col-sm py-1" href="https://hpi.de/open-campus/hpi-initiativen/schulcloud.html" target="_blank" rel="noopener">
-                                        <img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/hpi-logo.jpg" alt="Logo HPI" class="partner">
-                                    </a>
-                                    <a class="col-sm py-1" href="https://www.mint-ec.de/" target="_blank" rel="noopener">
-                                        <img src="https://schul-cloud-hpi.s3.hidrive.strato.com/default/images/partner/mintec-logo.jpg" alt="Logo MINT-EC" class="partner">
-                                    </a>
-                                    <a class="col-sm py-1" href="https://www.bmbf.de/" target="_blank" rel="noopener">
-                                        <img src="https://schul-cloud-hpi.s3.hidrive.strato.com/default/images/partner/bmbf-logo.jpg" alt="Logo BMBF" class="partner">
-                                    </a>
-                                </div>
-                                <div class="partners row">
-                                    <a class="col-sm py-1" href="https://edu-sharing.com/" target="_blank" rel="noopener">
-                                        <img src="https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/logo-edu-sharing-network-bunt.svg" alt="Logo HPI" class="partner">
-                                    </a>
-                                    <a class="col-sm py-1" href="https://wirlernenonline.de/" target="_blank" rel="noopener">
-                                        <img src="https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/WLO-03.png" alt="Logo MINT-EC" class="partner">
-                                    </a>
-                                    <a class="col-sm py-1" href="https://www.wikimedia.de/" target="_blank" rel="noopener">
-                                        <img src="https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/WMDE_Logo_vertikal_black.png" alt="Logo BMBF" class="partner">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </section>
+            <div class="content" style="opacity: 0; transition: opacity 0.7s ease-in;"></div>
+            <div class="loading text-center mb-3" style="min-height: 70vh; margin-top: 100px;">
+                <i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true"
+                   style="font-size: 25px;"></i>
+                <div class="placeholder" style="display: none;">
+                    <img src="{{getAssetPath '/images/repair.png'}}" alt="" width="350px">
+                    <p class="text-muted">{{$t "global.text.errorWhileLoadingPage"}}</p>
+                    <button type="button" class="btn btn-primary mt-2">{{$t "global.button.tryAgain"}}</button>
+                </div>
             </div>
         </div>
 
