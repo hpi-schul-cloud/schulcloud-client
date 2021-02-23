@@ -379,16 +379,10 @@
 			"button": {
 				"addCourse": " Add course",
 				"bug": "Would you like to report an error or do you have an idea to improve the {{title}}? \n Send requests or problems directly to the {{short_title}} user support.",
-				"contactSupport": "Contact Support",
 				"createLinkSheet": "Create a link print sheet",
 				"mailsAreBeingSent": "Sending e-mails ...",
 				"printSheetIsBeingGenerated": "Print sheet is being generated ...",
 				"sendLinksToStudentEmailAddresses": "Send links to students' e-mail addresses"
-			},
-			"helpdesk": {
-				"label": {
-					"tips": "<b>Tip: <\/b> You can also forward open entries from the Helpdesk using the symbol \n <i class=\"fa fa-paper-plane\"><\/i> to the user support."
-				}
 			},
 			"label": {
 				"afterSavingAllStudentsAdded": "(After saving, all students will be added automatically!)",
@@ -1814,22 +1808,16 @@
 		},
 		"contact": {
 			"label": {
-				"schoolAdmin": "School admin",
-				"wish": "Request"
+				"wish": "Request",
+				"bug": "Problem"
 			},
 			"text": {
 				"thankYouForYourFeedback": "Thank you for your feedback, it will be sent directly to the {{shortTitle}} development team. Please be careful not to send any passwords or other sensitive data.",
-				"whatKindOfFeedbackDoYouWant": "What kind of feedback would you like to send us?",
-				"whoDoYouWantToContact": "Who do you want to contact?"
-			}
+				"whatKindOfFeedbackDoYouWant": "What kind of feedback would you like to send us?"			}
 		},
 		"form_admin": {
 			"label": {
-				"currentStatus": "CURRENT state: What is happening at the moment after I have carried out which steps?",
 				"targetState": "TARGET state: What should happen instead?"
-			},
-			"text": {
-				"hereYouCanContact": "Here you can reach the administrator of your school. He can help you with login problems, for example, and will be informed of your contact request by e-mail."
 			}
 		},
 		"form_bug": {
@@ -2335,7 +2323,6 @@
 				"playEnterTheCloud": "Play Enter The Cloud"
 			},
 			"link": {
-				"contactYourSchoolAdmin": "Contact your school's admin",
 				"sendRequestOrProblem": "Send request or problem",
 				"training": "Advanced trainings"
 			}

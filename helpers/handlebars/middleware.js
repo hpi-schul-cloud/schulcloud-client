@@ -170,14 +170,6 @@ module.exports = (req, res, next) => {
 		],
 	});
 
-	// helpdesk views
-	res.locals.sidebarItems.push({
-		name: res.$t('global.link.helpDesk'),
-		icon: 'ticket',
-		link: '/helpdesk/',
-		permission: 'HELPDESK_VIEW',
-	});
-
 	// admin views
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.management'),
