@@ -375,16 +375,10 @@
 			"button": {
 				"addCourse": " Kurs hinzufügen",
 				"bug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}?\n                    Sende Wünsche oder Probleme direkt an den {{short_title}}-Nutzer-Support.",
-				"contactSupport": "Support kontaktieren",
 				"createLinkSheet": "Link-Druckbogen erstellen",
 				"mailsAreBeingSent": "E-Mails werden gesendet...",
 				"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
 				"sendLinksToStudentEmailAddresses": "Links an Schüler:innen-E-Mail-Adressen senden"
-			},
-			"helpdesk": {
-				"label": {
-					"tips": "<b>Tipp: <\/b>Du kannst auch offene Einträge aus dem Helpdesk über das Symbol \n <i class=\"fa fa-paper-plane\"><\/i> an den Nutzer-Support weiterleiten."
-				}
 			},
 			"label": {
 				"afterSavingAllStudentsAdded": "(Nach dem Speichern werden alle Schüler:innen automatisch hinzugefügt!)",
@@ -1800,22 +1794,16 @@
 		},
 		"contact": {
 			"label": {
-				"schoolAdmin": "Schul-Admin",
-				"wish": "Wunsch"
+				"wish": "Wunsch",
+				"bug": "Problem"
 			},
 			"text": {
 				"thankYouForYourFeedback": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
-				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
-				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
-			}
+				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?"			}
 		},
 		"form_admin": {
 			"label": {
-				"currentStatus": "IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?",
 				"targetState": "SOLL-Zustand: Was sollte stattdessen geschehen?"
-			},
-			"text": {
-				"hereYouCanContact": "Hier erreichst du den Admin deiner Schule. Dieser kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über dein Kontaktgesuch informiert."
 			}
 		},
 		"form_bug": {
@@ -2312,7 +2300,6 @@
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
 			"link": {
-				"contactYourSchoolAdmin": "Admin deiner Schule kontaktieren",
 				"sendRequestOrProblem": "Wunsch oder Problem senden",
 				"training": "Fortbildungen"
 			}
