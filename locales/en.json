@@ -1847,7 +1847,7 @@
 				"problemDescription": "Problem description:",
 				"theProblemOccursOnTheDevice": "The problem occurs on this device",
 				"problemAlreadyKnown": "Is the problem already known?",
-				"knownProblemLink": "Here you can see if there are currently problems with the technical systems: ",
+				"knownProblemLink": "Here you can check if there are currently issues regarding the technical systems: ",
 				"statusPage": "Status page"
 			},
 			"text": {
