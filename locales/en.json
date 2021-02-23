@@ -1961,9 +1961,11 @@
 	},
 	"home": {
 		"button": {
+			"learnMore": "Learn more",
 			"loginAsStudentDemo": "Log in as a student",
 			"loginAsTeacherDemo": "Log in as a teacher",
 			"register": "Register",
+			"registerNow": "Register now",
 			"subscribeNewsletter": "Subscribe to the Newsletter"
 		},
 		"header": {
@@ -1974,9 +1976,19 @@
 			}
 		},
 		"headline": {
+			"advantagesGeneral": "That's what {{title}} is all about",
+			"advantagesDetailed": "Advantages of {{title}}",
+			"allNewsOnHPIInternationalNewsletter": "All the news about {{title}} conveniently in your inbox:",
 			"allNewsOnHPINewsletter": "All news about the <span style=\"white-space: nowrap;\">HPI school cloud<\/span> conveniently sent to your mailbox:",
+			"dataCompliantAndSecure": "Privacy compliant and secure",
+			"developedWithAndForSchools": "Developed together with and for schools.",
+			"easyToUse": "Easy to use - anytime, anywhere",
 			"explainationVideo": "Explanatory video about the HPI school cloud",
 			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI school cloud<\/span> Blog",
+			"internationalSloganFirstLine": "Learning globally networked",
+			"internationalSloganSecondLine": "- supported digitally",
+			"projectPartners": "Project partners",
+			"shapingDigitalEducationInPartnership": "Shaping digital education in partnership",
 			"theIdea": "The basic idea of the <span style=\"white-space: nowrap;\">HPI school cloud<\/span>",
 			"tryDemoVersion": "Try the demo version now",
 			"welcomeToHPISchoolCloud": "Welcome to the <span style=\"white-space: nowrap;\">HPI school cloud!<\/span>"
@@ -1994,7 +2006,14 @@
 			"advertisementForOurTeam": "Do you associate Node, React and Feathers with Javascript rather than English? Are you looking for a young team, a relaxed atmosphere and flat hierarchies? Then take a look at our vacancies: https:\/\/schul-cloud.org\/community#jobs",
 			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) video player.",
 			"downloadFile": "Download file",
+			"dataCompliantAndSecure": "The {{title}} is developed in and for Germany. Data protection-compliant access to learning software, as well as data sovereignty, are ensured.",
+			"developedWithAndForSchools": "The {{title}} is optimized for what teachers and students need and can be connected with learning offers from many providers. Together with our users and numerous partners in the German education landscape, we continue to develop!",
+			"easyToUse": "The {{title}} is secure, transparent and can be used without a long training period - independent of time and with your own cell phone, tablet or computer.",
+			"featuresAndMore": "Learning materials, chat, assignments, video conferencing and more",
+			"freeForAllSchools": "Free for all schools",
+			"internationalShapingDigitalEducationInPartnership": "Together with our strong partners, the German schools abroad, supported by the German Foreign Office, the {{title}} is being further developed.",
 			"moreInformation": "More information:",
+			"learnTogetherDigitally": "Learning together in digital spaces",
 			"technicalReportHPISchoolCloud": "Technical report: \"The HPI School Cloud: Roll-Out of a Cloud Architecture for Schools in Germany\" (.pdf)",
 			"weRecommendUsingModernBrowsers": "We recommend using a current version of the Chrome, Firefox, Edge or Safari browser."
 		}
