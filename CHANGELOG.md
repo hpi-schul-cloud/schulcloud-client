@@ -45,7 +45,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## [25.6.0] - 2021-02-09
 
 ### Removed
-
+- SC-8248 – Remove school-admin helpdesk-functionality in Schul-Cloud
 - SC-6311 - Removed itslearning from available system types
 - SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
 - SC-8609 – remove section "HPI" including text and e-mail address on theme thr and BRB  
