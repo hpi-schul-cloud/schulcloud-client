@@ -297,6 +297,20 @@ router.get('/', (req, res, next) => {
 					});
 				displayDataprivacyAlert = true;
 			}
+			let displayDataprivacyAlertFeb21 = false;
+			let dataprivacyAlertFeb21Data = false;
+			if (userPreferences.data_privacy_incident_note_2021_02_should_be_displayed
+				&& !userPreferences.data_privacy_incident_note_2021_02_was_displayed) {
+				api(req)
+					.patch(`/users/${user._id}`, {
+						json: { 'preferences.data_privacy_incident_note_2021_02_was_displayed': Date.now() },
+					})
+					.catch(() => {
+						warn('failed to update user preference releaseDate');
+					});
+				displayDataprivacyAlertFeb21 = true;
+				dataprivacyAlertFeb21Data = userPreferences.data_privacy_incident_note_2021_02_data;
+			}
 
 			if (hasRole(teacher)) {
 				homeworksFeedbackRequired = assignedHomeworks.filter(
@@ -353,6 +367,8 @@ router.get('/', (req, res, next) => {
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
 				displayDataprivacyAlert,
+				displayDataprivacyAlertFeb21,
+				dataprivacyAlertFeb21Data,
 			});
 		})
 		.catch(next);
