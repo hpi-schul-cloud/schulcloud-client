@@ -2233,17 +2233,17 @@
 				"nowAtGooglePlay": "Now on Google Play"
 			},
 			"link": {
-				"contentProviders": "Content providers:",
-				"devOps": "DevOps",
-				"generalInquiries": "General inquiries:",
+				"contentProviders": "Content providers",
+				"currentJobOffers": "Current job offers",
+				"generalInquiries": "General inquiries",
 				"mobileApp": "Mobile app",
-				"privacy": "General data protection inquiries:",
-				"privacy_responsible_person": "Data protection officer:",
+				"privacy": "General data protection inquiries",
+				"privacy_responsible_person": "Data protection officer",
 				"subscribeTheNewsletter": "Subscribe to the newsletter",
-				"support": "Support:"
+				"support": "Support"
 			},
 			"text": {
-				"weAreHiring": "Would you like to join our <span style='white-space: nowrap;'>HPI school cloud<\/span> Team? We are hiring:"
+				"weAreHiring": "Would you like to become part of the <span style='white-space: nowrap;'>HPI school cloud<\/span> team? Then take a look here:"
 			}
 		},
 		"footer": {
@@ -2312,13 +2312,12 @@
 				"discardChange": "Discard change"
 			},
 			"link": {
-				"dataProtectionDeclaration": "Privacy Policy of HPI school cloud",
+				"dataProtectionDeclaration": "Privacy Policy of <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>",
 				"github": "GitHub",
 				"participate": "Participate",
 				"safety": "Security",
 				"status": "Status",
-				"team": "Team",
-				"termsOfUseHPI": "Terms of use of the HPI school cloud"
+				"termsOfUseHPI": "Terms of use of the <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>"
 			}
 		},
 		"headline": {
