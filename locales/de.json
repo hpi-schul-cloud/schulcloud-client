@@ -167,7 +167,7 @@
 			"global": {
 				"label": {
 					"class": "Klasse",
-					"classUsers": "Nutzer der Klasse",
+					"classUsers": "Nutzer:in der Klasse",
 					"consentStatus": "Registrierung",
 					"createdOn": "Erstellt am",
 					"email": "E-Mail-Adresse"
@@ -197,9 +197,9 @@
 				"school": "{{title}}Schule",
 				"schools": "Schule(n)",
 				"status": "Status",
-				"students": "{{title}}Schüler:in",
+				"students": "{{title}}Schüler:innen",
 				"targetState": "Soll-Zustand",
-				"teacher": "{{title}}Lehrer:in",
+				"teacher": "{{title}}Lehrkraft",
 				"teams": "{{title}}Teams",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
 				"uploadedOn": "Hochgeladen am"
@@ -227,7 +227,7 @@
 				"editingStudents": "Schüler:innen bearbeiten",
 				"editLDAP": "LDAP bearbeiten",
 				"editTeacher": "Lehrkraft bearbeiten",
-				"editUsers": "Nutzer bearbeiten",
+				"editUsers": "Nutzer:in bearbeiten",
 				"manageClass": "Klasse verwalten",
 				"removeMembers": "Mitglieder eigener Schule aus Team entfernen",
 				"resetPassword": "Passwort zurücksetzen",
@@ -274,14 +274,14 @@
 				"sortBy": "Sortieren nach: %1",
 				"stillLackOfDeclaration": "Hallo {{name}} Leider fehlt uns von dir noch die Einverständniserklärung. Ohne diese kannst du die Schul-Cloud leider nicht nutzen. Melde dich bitte mit deinen Daten an, um die Einverständniserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können. Gehe jetzt auf {{shortLink}} {{shortLink}} und melde dich an.",
 				"submitted": "Gesendet",
-				"successfullyImportedUser": "{{amountImported}} von {{amountTotal}} Nutzer erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
+				"successfullyImportedUser": "{{amountImported}} von {{amountTotal}} Nutzer:in erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
 				"successfullyImportedUsers": "{{amountImported}} von {{amountTotal}} Nutzern erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
 				"thereWasAnError": "Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ",
 				"theStepsForTheParentsAreOmitted": "Die Schritte für die Eltern entfallen automatisch.",
 				"theTeamCanOnlyBeDeleted": "Löschen des Teams nur bei Teams der eigenen Schule möglich",
-				"userCreatedErrorSendingTheMail": "Nutzer erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. {{errMessage}}",
-				"userCreatedSuccessfully": "Nutzer erfolgreich erstellt.",
-				"userCreatedSuccessfullyAndRegistration": "Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.",
+				"userCreatedErrorSendingTheMail": "Nutzer:in erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. {{errMessage}}",
+				"userCreatedSuccessfully": "Nutzer:in erfolgreich erstellt.",
+				"userCreatedSuccessfullyAndRegistration": "Nutzer:in erfolgreich erstellt und Registrierungslink per E-Mail verschickt.",
 				"whenLoggingInForTheFirstTime": "Beim ersten Login müssen deine Schüler:innen ihr Passwort ändern. Haben sie eine E-Mail-Adresse angegeben, können sie sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler:in hinter dem Namen auf Bearbeiten klicken. Dann kann der\/die Schüler:in an deinem Gerät das Passwort neu eingeben.",
 				"yourStudentsAreAtLeast": "Deine Schüler:innen sind mindestens {{age}} Jahre alt?",
 				"yourStudentsAreUnder": "Deine Schüler:innen sind unter {{age}} Jahre alt?"
@@ -304,13 +304,13 @@
 		},
 		"form_DeleteUser": {
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingUser": "Bist du sicher, dass du diesen Nutzer löschen möchtest?"
+				"areYouSureYouWantToDeleteTheFollowingUser": "Bist du sicher, dass du den Nutzer:in löschen möchtest?"
 			}
 		},
 		"form_Import": {
 			"label": {
 				"selectCSVFile": "CSV-Datei auswählen",
-				"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer senden"
+				"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer:in senden"
 			},
 			"text": {
 				"alternativelyYouCanCallUpTheRegistration": "Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.",
@@ -455,10 +455,10 @@
 				"displayName": "Anzeige-Name",
 				"domainName": "Domain-Name",
 				"domainName_pathInLDAP": "Domain-Name (Pfad im LDAP)",
-				"fullPathClassUsers": "Nutzer der Klasse mit vollem Pfad",
+				"fullPathClassUsers": "Nutzer:in der Klasse mit vollem Pfad",
 				"hide": "Ausblenden",
 				"noSchoolCloud": "keine HPI Schul-Cloud",
-				"noSchoolCloudTitle": "Dies ermöglicht es Ihnen, dass Nutzer aus Ihrem LDAP nicht in die HPI Schul-Cloud übertragen werden",
+				"noSchoolCloudTitle": "Dies ermöglicht es Ihnen, dass Nutzer:in aus Ihrem LDAP nicht in die HPI Schul-Cloud übertragen werden",
 				"rolesAttributes": "Rollen-Attribute",
 				"rolesAttributesDescription": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
 				"rolesLDAPPaths": "Rollen-LDAP-Pfade",
@@ -474,7 +474,7 @@
 				"uidTitle": "Der spätere Loginname. Muss in ihrem LDAP zur selben Zeit nur einmal vorkommen",
 				"urlIdapIsMandatory": "URL (ldaps ist verpflichtend)",
 				"userPath": "Nutzer-Pfad",
-				"userPathTitle": "Relativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Nutzer erreichbar sind. Mit der Trennung durch zwei Semikolons (;;) können auch mehrere relative Pfade zu LDAP-Nutzern angegeben werden.",
+				"userPathTitle": "Relativer Pfad vom root-Pfad zu dem LDAP-Knoten von dem alle Nutzer:innen erreichbar sind. Mit der Trennung durch zwei Semikolons (;;) können auch mehrere relative Pfade zu LDAP-Nutzern angegeben werden.",
 				"users": "Nutzer:",
 				"uuidTitle": "Eindeutige nicht veränderbare Nutzer-ID. Darf sich nicht wie die uid (z.B. durch Heirat) ändern"
 			},
@@ -490,7 +490,7 @@
 				"errorTimeout": "Zeitüberschreitung der Anwendung",
 				"furtherInfoHere": "Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem <a href=\"\/help\/confluence\/55902270\">Hilfebereich<\/a>.",
 				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!",
-				"verification": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene\n                Inhalte werden nicht übernommen, da bei dem Nutzer der Vorname, der Nachname und\/oder die E-Mail-Adresse\n                nicht im LDAP verfügbar ist."
+				"verification": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene\n                Inhalte werden nicht übernommen, da bei dem/der Nutzer:in der Vorname, der Nachname und\/oder die E-Mail-Adresse\n                nicht im LDAP verfügbar ist."
 			}
 		},
 		"ldapSchoolYearStart": {
@@ -508,8 +508,8 @@
 		},
 		"longText": {
 			"text": {
-				"afterVerificationCanPreviewTheReadContent": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene Inhalte werden nicht übernommen, da bei dem Nutzer der Vorname, der Nachname und\/oder die E-Mail-Adresse nicht im LDAP verfügbar ist.",
-				"anyChangesToTheFollowingConfiguration": "Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war.",
+				"afterVerificationCanPreviewTheReadContent": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene Inhalte werden nicht übernommen, da bei dem/der Nutzer:in der Vorname, der Nachname und\/oder die E-Mail-Adresse nicht im LDAP verfügbar ist.",
+				"anyChangesToTheFollowingConfiguration": "Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer:innen Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war.",
 				"backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jede\/r Schüler:in und jede Lehrkraft auf Inhalte aus vergangenen Klassen (z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr ein\/e Nutzer:in in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
 				"canCreateYearIndependentClasses": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Admin <i>'versetzt'<\/i> werden, sondern müssen manuell aktualisiert werden.",
 				"canStartTheTransferPhase": "ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten",
@@ -519,10 +519,10 @@
 				"provideStudentsAndTheirParents": "Lass deinen Schüler:innen und den Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für die Schüler:innenr erstellt.",
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{title}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thereIsNoDeclarationOfConsent": "Es liegt noch keine Einverständniserklärung für den\/die Schüler:in vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den\/die Schüler:in oder die Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den\/die Schüler:in selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, wird diese per Klick auf 'Einverständnis auf Papier erhalten' aktiviert und ein Startpasswort vergeben. Damit ist der Login dann freigeschaltet.",
-				"theSchoolYearEndsAnd": "Das Schuljahr {{schoolName}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.<\/strong> Es können in dieser Zeit keine Klassen und Nutzer angelegt oder geändert werden.",
+				"theSchoolYearEndsAnd": "Das Schuljahr {{schoolName}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.<\/strong> Es können in dieser Zeit keine Klassen und Nutzer:innen angelegt oder geändert werden.",
 				"theSynchronizationOfLDAPMasterData": "Die Synchronisierung von LDAP-Stammdaten wird während der Transferphase unterbrochen. Somit werden Nutzerdaten und Klassen (sofern verwendet) nicht mehr über LDAP aktualisiert. Der Login mit bereits synchronisierten Login-Daten ist weiterhin möglich. Passwortänderungen im LDAP während des Logins werden ebenfalls berücksichtigt.",
 				"useTheTransferPhaseAroundTheSchool": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.",
-				"withAllChangesAndSettings": "Mit allen Änderungen und Einstellungen im Verwaltungsbereich bestätigen Sie, dass Sie weisungsberechtigter Schul-Admin sind und befugt sind, Anpassungen an der Schule in der HPI Schul-Cloud vorzunehmen. Ihr Klick gilt insofern als Weisung der Schule gegenüber dem HPI.",
+				"withAllChangesAndSettings": "Mit allen Änderungen und Einstellungen im Verwaltungsbereich bestätigst du, dass du weisungsberechtigter Schul-Admin bist und befugt bist, Anpassungen an der Schule in der HPI Schul-Cloud vorzunehmen. Dein Klick gilt insofern als Weisung der Schule gegenüber dem HPI.",
 				"wouldYouLikeReportABug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}? Sende Wünsche oder Probleme direkt an den {{shortTitle}}-Nutzer-Support."
 			}
 		},
@@ -595,14 +595,14 @@
 			},
 			"text": {
 				"allAboutTheSummerVacation": "Rund um die Sommerferien",
-				"allDataFromTheLDAP": "alle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer und Klassen können jederzeit dort angelegt werden",
+				"allDataFromTheLDAP": "alle Daten aus dem LDAP werden wie gewohnt synchronisiert, neue Nutzer:innen und Klassen können jederzeit dort angelegt werden",
 				"allDone": "Alles erledigt!",
 				"atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
 				"atTheEndOfTheTransferPhase": "bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert",
 				"atTheSameTime": "gleichzeitig läutest du damit das neue Schuljahr in der HPI Schul-Cloud ein",
 				"changeSchoolValueWarning": "Kann nur einmal gesetzt werden und wird danach deaktiviert!",
 				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
-				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer den neuen Klassen zugeordnet sind",
+				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer:innen den neuen Klassen zugeordnet sind",
 				"fileSelected": "Datei ausgewählt",
 				"fileTooLarge": "PDF Datei ist zu groß. Maximal {{size}}MB",
 				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Admins im jeweiligen Team sowie Lehrkräfte in ihren Kursen die Chatfunktion gezielt freischalten.",
@@ -611,7 +611,7 @@
 				"ifVideoConferenceAreActivatedAtYourSchool": "Sind Videokonferenzen an deiner Schule aktiviert, können Lehrkräfte ihrem Kurs im Bereich Tools das Videokonferenz-Tool hinzufügen und dann von dort aus Videokonferenzen für alle Kursteilnehmer:innen starten. Team-Admins können die Videokonferenzfunktion im jeweiligen Team aktivieren. Team-Leiter:innen und Team-Admins können dann Videokonferenzen zu Terminen hinzufügen und starten.",
 				"LDAPChanges": "du kannst die notwendigen Änderungen für das neue Schuljahr im\nLDAP vornehmen (neue Nutzer, Update der Klassen)",
 				"lernstoreEnabledForStudents": "Wenn diese Option nicht aktiviert ist, können die Schüler:innen nicht auf den Lern-Store zugreifen",
-				"loginViaLDAP": "der Login via LDAP ist für bestehende Nutzer weiterhin möglich",
+				"loginViaLDAP": "der Login via LDAP ist für bestehende Nutzer:innen weiterhin möglich",
 				"messengerSchoolRoom": "Der Ankündigungs-Chatraum ermöglicht Schul-Admins, Nachrichten an die gesamte Schule zu senden.\nSchüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.",
 				"messengerStudentRoomCreate": "Ist diese Funktion aktiviert, dürfen Schüler:innen Chaträume, private Unterhaltungen und kurs- und teaminterne Gruppendiskussionen starten. Diese Räume sind für Lehrkräfte nicht einzusehen, wenn diese nicht explizit eingeladen werden.",
 				"newSchoolYear": "Neues Schuljahr",
@@ -658,7 +658,7 @@
 				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrkräfte senden"
 			},
 			"text": {
-				"alternativeRegistration": "Alternativ kannst du auch im \"Nutzer bearbeiten\"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.",
+				"alternativeRegistration": "Alternativ kannst du auch im \"Nutzer:in bearbeiten\"-Dialog jedes Nutzers einzeln individuelle Registrierungslinks generieren.",
 				"connectToASchool": "Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrkräfte bereits ein Passwort und können sich in der {{shortTitle}} einloggen. Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der {{shortTitle}} zu erklären.",
 				"forAllTeachersWithoutAFullConsentForm": "Für alle Lehrkräfte ohne vollständige Einverständniserklärung:"
 			}
@@ -706,13 +706,13 @@
 			"headline": {
 				"changePassword": "Passwort ändern",
 				"completeRegistration": "Nutzerregistrierung abschließen",
-				"deleteUser": "Benutzer löschen"
+				"deleteUser": "Nutzer:in löschen"
 			},
 			"text": {
-				"alreadyRegistered": "Dieser Nutzer ist bereits registriert",
+				"alreadyRegistered": "Diese/r Nutzer:in ist bereits registriert",
 				"class": "Klassen des Nutzers",
 				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
-				"firstClose": "Der Nutzer muss zuerst die Einverständniserklärung digital abschließen",
+				"firstClose": "Der/die Nutzer:in muss zuerst die Einverständniserklärung digital abschließen",
 				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
 			}
 		},
@@ -860,7 +860,7 @@
 		"_course": {
 			"addStudent": {
 				"text": {
-					"youAreNoStudent": "Sie sind kein Nutzer der Rolle 'Schüler:in'."
+					"youAreNoStudent": "Sie sind kein/e Nutzer:in der Rolle 'Schüler:in'."
 				}
 			},
 			"copy": {
@@ -1097,7 +1097,7 @@
 					"hideTopic": "Thema verstecken",
 					"importTopic": "Thema importieren",
 					"importTopicAdviseChangeData": "<strong>Achtung:<\/strong> Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. neXboard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
-					"insertCodeToImportTopic": "Füge einen Code ein, um Themen anderer Nutzer zu importieren. Im Thema enthaltene Dateien werden in deinem Kursordner abgelegt.",
+					"insertCodeToImportTopic": "Füge einen Code ein, um Themen anderer Nutzer:innen zu importieren. Im Thema enthaltene Dateien werden in deinem Kursordner abgelegt.",
 					"moveTopic": "Thema verschieben",
 					"revealTopic": "Thema wieder anzeigen",
 					"shareTopic": "Thema teilen"
@@ -1207,7 +1207,7 @@
 			"finishImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler:innen hinzu.",
 			"importCourseAttentionTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. neXboard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
 			"importedCourseWithQR": "Du hast einen Kurs über einen QR-Code importiert.",
-			"insertCodeToImport": "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.",
+			"insertCodeToImport": "Füge einen Code ein, um Kursinhalte anderer Nutzer:innen zu importieren.",
 			"noAttendees": "Keine Teilnehmer:innen",
 			"noCourseGetInvited": "Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen.",
 			"renameCourse": "Benenne den Kurs um.",
@@ -1260,10 +1260,10 @@
 			"invalidForm": "Formular ungültig, bitte füllen Sie alle Felder korrekt aus.",
 			"providerBlocked": "Der Provider deiner E-Mail-Adresse ({{ email }}) ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
 			"registrationInvalid": "Deine Registrierung bzw. dieser Registrierungslink scheint nicht valide zu sein. Dies kann mehrere Gründe haben:",
-			"registrationInvalidAlreadyUsed": "Dieser Nutzer dem dieser Registrierungslink gehört, hat sich bzw. wurde bereits registriert.",
+			"registrationInvalidAlreadyUsed": "Dieser/e Nutzer:in dem dieser Registrierungslink gehört, hat sich bzw. wurde bereits registriert.",
 			"registrationInvalidContactAdvice": "Bitte kontaktiere eine verantwortliche Lehrkraft oder Admin und frage diesbezüglich nach. Diese\/r kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, falls nötig.",
-			"registrationInvalidManualConsent": "Eine Lehrkraft oder Admin hat für den entsprechenden Nutzer bereits die manuelle Einverständniserklärung durchgeführt.",
-			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem entsprechenden Nutzer verknüpft."
+			"registrationInvalidManualConsent": "Eine Lehrkraft oder Admin hat für den entsprechende/n Nutzer:in bereits die manuelle Einverständniserklärung durchgeführt.",
+			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem/r entsprechenden/r Nutzer:in verknüpft."
 		}
 	},
 	"demo": {
@@ -1747,7 +1747,7 @@
 			"fileWrongFormat": "'{{filename}}' ist kein Bild, Video oder zulässige Datei!",
 			"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 			"friday": "Freitag",
-			"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem\/der Klassenlehrer:in kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
+			"inAdditionWeArePlanning": "Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit der Lehrkraft kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.",
 			"info": "Hinweis:",
 			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
 			"invalidRequest": "Ungültige Anfrage",
@@ -1887,7 +1887,7 @@
 			}
 		},
 		"headline": {
-			"contactDetails": "Ansprechpartner und Kontaktdaten",
+			"contactDetails": "Ansprechpartner:innen und Kontaktdaten",
 			"helpSection": "Hilfeartikel",
 			"privacyCourse": "Datenschutzkurs",
 			"welcomeDocuments": "Willkommensdokumente zum Download"
@@ -2395,8 +2395,8 @@
 	"loggedin": {
 		"text": {
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
-			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte kontaktiere deinen Schul-Admin!",
-			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer angelegt werden. Bitte läute <a href=\"\/administration\/school\/\"> hier das neue Schuljahr ein!<\/a>"
+			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte kontaktiere deinen Schul-Admin!",
+			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"\/administration\/school\/\"> hier das neue Schuljahr ein!<\/a>"
 		}
 	},
 	"login": {
@@ -2499,7 +2499,7 @@
 			"howToActivateMatrix": "Um den Messenger an deiner Schule zu nutzen, muss er von dir als Admin einmalig für die ganze Schule freigeschaltet werden unter: Verwaltung > Schule > Matrix Messenger aktivieren.",
 			"howToDeactivateMatrix": "Den Messenger kannst du jeder Zeit deaktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren.",
 			"rocketChatDeprecation": "Die alte Team-Chatfunktion wird am {{date}} abgeschaltet. Alte Chatnachrichten werden nicht automatisch in den neuen Messenger übertragen.",
-			"welcomeMatrix": "Ab sofort ist unser neuer Messenger verfügbar, mit dem sich alle Nutzer deiner Schule Direkt- oder Gruppennachrichten schicken können, wie aus sozialen Plattformen gewohnt."
+			"welcomeMatrix": "Ab sofort ist unser neuer Messenger verfügbar, mit dem sich alle Nutzer:innen deiner Schule Direkt- oder Gruppennachrichten schicken können, wie aus sozialen Plattformen gewohnt."
 		}
 	},
 	"my_material": {
@@ -2781,7 +2781,7 @@
 			"security": "Sicherheit"
 		},
 		"text": {
-			"scIsTestedRegularyWeValueSecurity": "Die {{themeTitle}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da uns die Sicherheit der Daten unserer Nutzer sehr wichtig ist.",
+			"scIsTestedRegularyWeValueSecurity": "Die {{themeTitle}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da uns die Sicherheit der Daten unserer Nutzer:innen sehr wichtig ist.",
 			"youHaveFoundAWeakness": "Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit wir die Lücke schnellstmöglich schließen können:"
 		}
 	},
@@ -2848,7 +2848,7 @@
 			},
 			"label": {
 				"accessToData": "Zugriff auf Dateien",
-				"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der Nutzer muss dafür angemeldet sein:",
+				"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der/die Nutzer:in muss dafür angemeldet sein:",
 				"leadersAndAdmins": "Leiter:innen und Team-Admins",
 				"members": "Teilnehmer:innen"
 			},
@@ -2865,7 +2865,7 @@
 						"sendInvitationAgain": "Einladung erneut versenden"
 					},
 					"text": {
-						"errorDuringInvitation": "Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admin fragen.",
+						"errorDuringInvitation": "Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer:innen oder Admin fragen.",
 						"errorWhileDeletingInvitation": "Problem beim Löschen der Einladung",
 						"errorWhileLoadingSchools": "Problem beim Auslesen der Schulen",
 						"errorWhileLoadingTeachers": "Problem beim Auslesen der Lehrkraft",
@@ -2922,7 +2922,7 @@
 					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
 					"reallyWantToRmUser": "Möchtest du diese\/n Teilnehmer:in wirklich entfernen?",
 					"removeClass": "Klasse entfernen",
-					"removeUser": "Nutzer entfernen",
+					"removeUser": "Nutzer:in entfernen",
 					"roleOfInvitedTeacher": "Rolle der eingeladenen Lehrkraft",
 					"selectRoleForMember": "Gib ein, welche Rolle der\/die Teilnehmer:in erhalten soll.",
 					"sendInvitationAgain": "Einladung erneut versenden"
@@ -2964,7 +2964,7 @@
 				}
 			},
 			"text": {
-				"errorAcceptingInvitation": "Fehler beim Annehmen einer Einladung; Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams.",
+				"errorAcceptingInvitation": "Fehler beim Annehmen einer Einladung; Nutzer:in hat nicht die Rechte oder ist schon Mitglied des Teams.",
 				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
 				"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Admin aktiviert.",
 				"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Admin aktiviert wurde.",
@@ -2986,7 +2986,7 @@
 		},
 		"form_importTopic": {
 			"label": {
-				"insertACodeToImportCourse": "Füge einen Code ein, um Kursinhalte anderer Nutzer zu importieren.",
+				"insertACodeToImportCourse": "Füge einen Code ein, um Kursinhalte anderer Nutzer:innen zu importieren.",
 				"renameTheCourse": "Benenne den Kurs um."
 			},
 			"text": {
@@ -3110,6 +3110,44 @@
 			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
 			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen."
+		}
+	},
+	"landingPage": {
+		"label": {
+			"welcome": "Herzlich willkommen bei der {{shortTitle}}!"
+		},
+		"brb": {
+			"headline": {
+				"registration": "Für die {{shortTitle}} registrieren",
+				"valueStatement": "Die HPI Schul-Cloud-Entwicklung zeichnet sich aus durch",
+				"access": "Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten",
+				"advantages": "Vorteile der {{shortTitle}}",
+				"furtherInformation": "Weitere Informationen zu ersten Schritten in der {{shortTitle}}"
+			},
+			"img_alt": {
+				"text": "Schüler:innen sitzen zusammen und nutzen die {{shortTitle}} auf ihren mobilen Endgeräten."
+			},
+			"link": {
+				"text": "Kurzbeschreibung „Die HPI Schul-Cloud“ (.pdf)"
+			},
+			"text": {
+				"welcome": "„Das Lernen mit digitalen Medien ist die Herausforderung mit der größten Dynamik. Dazu braucht es eine leistungsfähige, digitale Infrastruktur. Zu den wichtigsten Vorhaben gehört die am Hasso-Plattner-Institut (HPI) entwickelte {{shortTitle}}. Sie soll die Schulen des Landes vernetzen, sodass Lehrkräfte, Schüler:innen jederzeit und überall Zugang zu Lern- und Lehrmaterialien haben. Die professionelle zentrale Wartung für alle Schulen verringert deutlich den Verwaltungs- und Betreuungsaufwand. Wir versprechen uns von der {{shortTitle}} einen deutlichen Schub in der digitalen Bildung und freuen uns auf den Start des Projekts.“ – Bildungsministerin Britta Ernst bei der Eröffnungsveranstaltung am 2. Mai 2019.",
+				"registration": "Eine einheitliche digitale Plattform für die ganze Schule bietet viele Vorteile. Die Registrierung für die {{shortTitle}} wird daher durch die Schulleitung durchgeführt. Bitte wenden Sie sich an <a href=\"mailto:brandenburg@hpi-schul-cloud.org\">brandenburg@hpi-schul-cloud.org<\/a>, wenn Sie Ihre Schule registrieren wollen. \nAnschließend erhalten alle Schüler:innen von ihrer Schule einen Registrierungslink oder Login-Daten für die erstmalige Anmeldung in der {{shortTitle}}. Bei Fragen zur erstmaligen Anmeldung wenden sich Schüler:innen und Eltern bitte an den technischen Leiter ihrer Schule bzw. an die jeweilige Lehrkraft.",
+				"valueStatement": "<li>eine konsequente Nutzung von Open Source Lösungen,<\/li><li>eine durchgängig nutzerzentrierte Entwicklung,<\/li><li>einen strikt modularen Aufbau,<\/li><li>die für ein Flächenland wichtige Funktion der schulübergreifenden Zusammenarbeit,<\/li><li>die EU-DSGVO\/Datenschutz-Konformität durch Privacy by Design,<\/li><li>die Möglichkeit, durch Länderzusammenarbeit Synergien zu schaffen.<\/li><br>",
+				"access": "Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.",
+				"advantages": "<li>Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten<\/li><li>Austausch digitaler, selbst erstellter Materialien<\/li><li>Digitale Bildung jenseits separater Computerräume<\/li><li>Professionelle Wartung<\/li><li>Ständige Verfügbarkeit neuester Software für Lehrkräfte und Schüler:innen<\/li><li>IT-Anwendungen entsprechen aktuellsten Sicherheitsstandards<\/li><li>Anlaufstelle für neue digitale Lernangebote<\/li><li>Direktes Feedback durch die Nutzer:innen<\/li><li>Anregung zu selbstbestimmtem Lernen<\/li><li>Bereitstellung eigens entworfener Lernangebote<\/li><li>Erweiterung der Unterrichtsmethoden<\/li><li>Vernetzung unterschiedlicher Lernorte<\/li>",
+				"furtherInformation": "<a href=\"https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/\">https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/<\/a>"
+			}
+		},
+		"open":  {
+			"text": {
+				"welcome": "„Das <a href=\"https:\//hpi.de/\">Hasso-Plattner-Institut<\/a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href=\"https:\//www.mint-ec.de\/\">MINT-EC<\/a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Dies ist die offene Instanz der HPI Schul-Cloud, über die einzelne Schulen Zugang zur Plattform erhalten können."
+			}
+		},
+		"thr": {
+			"text": {
+				"welcome": "Die {{shortTitle}} soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Um dieses Ziel zu erreichen pilotiert das Land Thüringen die vom Hasso-Plattner-Institut entwickelte Schulcloud mit zunächst 20 Pilotschulen und 9 Studienseminaren ab dem Schuljahr 2019/2020."
+			}
 		}
 	}
 }
