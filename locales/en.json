@@ -1798,7 +1798,43 @@
 			},
 			"text": {
 				"thankYouForYourFeedback": "Thank you for your feedback, it will be sent directly to the {{shortTitle}} development team. Please be careful not to send any passwords or other sensitive data.",
-				"whatKindOfFeedbackDoYouWant": "What kind of feedback would you like to send us?"			}
+				"whatKindOfFeedbackDoYouWant": "What kind of feedback would you like to send us?",
+				"whoDoYouWantToContact": "Who do you want to contact?",
+				"whichAreaOfSchulCloud": "Which area of Schul-Cloud does your topic concern?",
+				"contactSupport": "Contact support",
+				"contactSupportSubtitle": "Your problem isn't listed? Contact our support team.",
+				"contactSupportSubtitleWish": "Do you want to share a request? Please contact our support team."
+			}
+		},
+		"chooseTopicArea": {
+			"text": {
+				"eachTopicSeparate": " Please submit each topic separately.",
+				"chooseArea": "Select area",
+				"pDashboard": "Dashboard",
+				"pCourses": "Courses",
+				"pTopics": "Topics",
+				"pGroups": "Groups",
+				"pTasks": "Tasks",
+				"pTools": "Tools",
+				"pBBB": "BBB video conference",
+				"pBettermarks": "Bettermarks",
+				"pEditor": "Texteditor",
+				"pTeams": "Teams",
+				"pLibreOffice": "Libre Office", 
+				"pNews": "News",
+				"pCalendar": "Calendar", 
+				"pMessenger": "Messenger", 
+				"pMyFiles": "My Files",
+				"pLernStore": "Learning Store",
+				"pManagement": "Management",
+				"pRegisterLogin": "Register & Login",
+				"pPermissions": "Permissions",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pExtra": "Extras", 
+				"pApps": "Apps",
+				"pNotifications": "Notifications",
+				"pOther": "Other"
+			}
 		},
 		"form_admin": {
 			"label": {
@@ -1809,10 +1845,14 @@
 			"label": {
 				"maxSizeFiles": "Images, videos and files",
 				"problemDescription": "Problem description:",
-				"theProblemOccursOnTheDevice": "The problem occurs on this device"
+				"theProblemOccursOnTheDevice": "The problem occurs on this device",
+				"problemAlreadyKnown": "Is the problem already known?",
+				"knownProblemLink": "Here you can check if there are currently issues regarding the technical systems: ",
+				"statusPage": "Status page"
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)<\/li> <li> Operating system and version (e.g. Windows 10)<\/li>"
+				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)<\/li> <li> Operating system and version (e.g. Windows 10)<\/li>",
+				"problemAlreadyKnownText": "Have you checked if your problem is already known? It helps us to solve problems faster if only new issues are shared."
 			}
 		},
 		"form_Wish": {
@@ -1910,6 +1950,7 @@
 		},
 		"partials": {
 			"headline": {
+				"problemArea": "Select area",
 				"contactForm": "Contact form",
 				"contactPerson": "Contact person",
 				"overview": "Overview",
@@ -2210,17 +2251,17 @@
 				"nowAtGooglePlay": "Now on Google Play"
 			},
 			"link": {
-				"contentProviders": "Content providers:",
-				"devOps": "DevOps",
-				"generalInquiries": "General inquiries:",
+				"contentProviders": "Content providers",
+				"currentJobOffers": "Current job offers",
+				"generalInquiries": "General inquiries",
 				"mobileApp": "Mobile app",
-				"privacy": "General data protection inquiries:",
-				"privacy_responsible_person": "Data protection officer:",
+				"privacy": "General data protection inquiries",
+				"privacy_responsible_person": "Data protection officer",
 				"subscribeTheNewsletter": "Subscribe to the newsletter",
-				"support": "Support:"
+				"support": "Support"
 			},
 			"text": {
-				"weAreHiring": "Would you like to join our <span style='white-space: nowrap;'>HPI school cloud<\/span> Team? We are hiring:"
+				"weAreHiring": "Would you like to become part of the <span style='white-space: nowrap;'>HPI school cloud<\/span> team? Then take a look here:"
 			}
 		},
 		"footer": {
@@ -2289,13 +2330,12 @@
 				"discardChange": "Discard change"
 			},
 			"link": {
-				"dataProtectionDeclaration": "Privacy Policy of HPI school cloud",
+				"dataProtectionDeclaration": "Privacy Policy of <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>",
 				"github": "GitHub",
 				"participate": "Participate",
 				"safety": "Security",
 				"status": "Status",
-				"team": "Team",
-				"termsOfUseHPI": "Terms of use of the HPI school cloud"
+				"termsOfUseHPI": "Terms of use of the <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>"
 			}
 		},
 		"headline": {
@@ -3087,6 +3127,44 @@
 			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
 			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
 			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference."
+		}
+	},
+	"landingPage": {
+		"label": {
+			"welcome": "Welcome to the {{shortTitle}}!"
+		},
+		"brb": {
+			"headline": {
+				"registration": "Register for the {{shortTitle}}",
+				"valueStatement": "The HPI school cloud development is characterized by",
+				"access": "Low-threshold access to digital teaching content",
+				"advantages": "Advantages of the {{shortTitle}}",
+				"furtherInformation": "More information on getting started in the {{shortTitle}}"
+			},
+			"img_alt": {
+				"text": "Students sit together and use the {{shortTitle}} on their mobile devices."
+			},
+			"link": {
+				"text": "Brief description \"The HPI School-Cloud\" (.pdf)"
+			},
+			"text": {
+				"welcome": "\"Learning with digital media is the most dynamic challenge. This requires a high-performance, digital infrastructure. One of the most important projects is the {{shortTitle}} developed at the Hasso Plattner Institute (HPI). Its aim is to network the state's schools so that teachers and students have access to learning and teaching materials anytime, anywhere. The professional central maintenance for all schools significantly reduces the administrative and support effort. We expect the {{shortTitle}} to give a significant boost to digital education and are looking forward to the start of the project.\" – Minister of Education Britta Ernst at the opening event on May 2, 2019.",
+				"registration": "A uniform digital platform for the whole school offers many advantages. Registration for the {{shortTitle}} is therefore carried out by the school management. Please contact <a href=\"mailto:brandenburg@hpi-schul-cloud.org\">brandenburg@hpi-schul-cloud.org<\/a>, if you want to register your school. \nAll students will then receive a registration link or login data from their school for the initial registration in the {{shortTitle}}. If you have any questions about registering for the first time, please contact the technical director of your school or the respective teacher.",
+				"valueStatement": "<li>a consistent use of open source solutions,<\/li><li>a consistently user-centered development,<\/li><li>a strictly modular structure,<\/li><li>which is important for a large country Function of cross-school cooperation,<\/li><li>the EU-DSGVO/data protection conformity through privacy by design,<\/li><li>the possibility of creating synergies through national cooperation.<\/li><br>",
+				"access": "A modern teaching and learning infrastructure is indispensable in order to lead the digital transformation in the education sector to success and to optimally prepare children at school for life in an increasingly digital society.",
+				"advantages": "<li>Time and place-independent access to a large range of digital learning content<\/li><li>Exchange of digital, self-created materials<\/li><li>Digital education beyond separate computer rooms<\/li><li>Professional maintenance<\/li><li>Constant availability of the latest software for teachers and students<\/li><li>IT applications comply with the latest security standards<\/li><li>Contact point for new digital learning opportunities<\/li><li>Direct feedback from users<\/li><li>Suggestion for self-determined learning<\/li><li>Provision of specially designed learning offers<\/li><li>Networking of different learning locations<\/li><li>Vernetzung unterschiedlicher Lernorte<\/li>",
+				"furtherInformation": "<a href=\"https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/\">https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/<\/a>"
+			}
+		},
+		"open": {
+			"text": {
+				"welcome": "\"The <a href=\"https:\//hpi.de/\"> Hasso Plattner Institute <\/a> for digital engineering developed the HPI Schul-Cloud under the direction of Prof. Dr. Christoph Meinel and together with <a href =\"https:\//www.mint-ec.de\/\"> MINT-EC <\/a>, the national excellence school network of over 300 schools nationwide, and supported by the Federal Ministry of Education and Research. It is intended to create the technical basis for teachers and students to also use modern digital teaching and learning content in every subject, in the same way as apps can be used via smartphones or tablets. This is the open instance of the HPI Schul-Cloud through which individual schools can have access to the platform."
+			}
+		},
+		"thr": {
+			"text": {
+				"welcome": "The {{shortTitle}} is intended to create the technical basis for teachers and students to use modern digital teaching and learning content in every subject, in the same way as apps can be used on smartphones or tablets. To achieve this goal the state of Thuringia is piloting the Schul-Cloud developed by the Hasso Plattner Institute with initially 20 pilot schools and 9 study seminars from the school year 2019/2020."
+			}
 		}
 	}
 }

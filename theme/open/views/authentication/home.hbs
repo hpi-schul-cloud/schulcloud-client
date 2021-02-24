@@ -34,8 +34,8 @@
 
 					<section class="card">
 						<div class="card-block">
-							<h2 class="h4">Herzlich willkommen bei der {{theme.title}} !</h2>
-							<p>Das <a href="https://hpi.de/">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Dies ist die offene Instanz der HPI Schul-Cloud, über die einzelne Schulen Zugang zur Plattform erhalten können.</p>
+							<h2 class="h4">{{$t "landingPage.label.welcome" (dict "shortTitle" theme.short_title)}}</h2>
+							<p>{{{$t "landingPage.open.text.welcome" (dict "shortTitle" theme.short_title)}}}</p>
 						<div>
 					</section>
 				</main>

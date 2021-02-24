@@ -1,6 +1,63 @@
+
 <input type="hidden" name="target" value="HPI">
 <input type="hidden" name="type" value="problem">
 <input type="hidden" name="supportType" value="problem">
+
+
+<h4 class="icon-card__title">{{$t "help.partials.headline.problemArea"}}</h4>
+<span class="icon-card__subtitle">{{$t "help.contact.text.whichAreaOfSchulCloud"}}</span>
+<center>
+<label class="form-group col-md-6">
+		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.eachTopicSeparate"}}</span>
+		<select class="form-control" name="problemArea" id="problemArea" aria-placeholder={{$t "help.contact.text.chooseArea"}}>
+			<option value="" disabled selected hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
+			<option value="Dashboard">{{$t "help.chooseTopicArea.text.pDashboard"}}</option>
+			<optgroup label={{$t "help.chooseTopicArea.text.pCourses"}}> 
+				<option value="Themen">{{$t "help.chooseTopicArea.text.pTopics"}}</option>
+				<optgroup label={{$t "help.chooseTopicArea.text.pTools"}}>
+					<option value="BBB-Videokonferenz">{{$t "help.chooseTopicArea.text.pBBB"}}</option>
+					<option value="Bettermarks">{{$t "help.chooseTopicArea.text.pBettermarks"}}</option>
+				</optgroup>
+				<option value="Texteditor">{{$t "help.chooseTopicArea.text.pEditor"}}</option>
+			</optgroup>
+			<optgroup label={{$t "help.chooseTopicArea.text.pTeams"}}>
+				<option value="Libre Office">{{$t "help.chooseTopicArea.text.pLibreOffice"}}</option>
+				<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
+				<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
+				<option value="Messenger">{{$t "help.chooseTopicArea.text.pMessenger"}}</option>
+			</optgroup>
+			<option value="Aufgaben">{{$t "help.chooseTopicArea.text.pTasks"}}</option>
+			<option value="Meine Dateien">{{$t "help.chooseTopicArea.text.pMyFiles"}}</option>
+			<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
+			<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
+			<option value="Lern-Store">{{$t "help.chooseTopicArea.text.pLernStore"}}</option>
+			<optgroup label="{{$t "help.chooseTopicArea.text.pManagement"}}">
+				<option value="Registrierung-Login">{{$t "help.chooseTopicArea.text.pRegisterLogin"}}</option>
+				<option value="Berechtigungen">{{$t "help.chooseTopicArea.text.pPermissions"}}</option>
+				<option value="IDM">{{$t "help.chooseTopicArea.text.pIdm"}}</option>
+			</optgroup>
+			<optgroup label="{{$t "help.chooseTopicArea.text.pExtra"}}">
+				<option value="Apps">{{$t "help.chooseTopicArea.text.pApps"}}</option>
+				<option value="Benachrichtigungen">{{$t "help.chooseTopicArea.text.pNotifications"}}</option>
+				<option value="Messenger">{{$t "help.chooseTopicArea.text.pMessenger"}}</option>
+			</optgroup>
+			<option value="Sonstige">{{$t "help.chooseTopicArea.text.pOther"}}</option>
+		</select>
+</label>
+</center>
+
+<label class="control-label">{{$t "help.form_bug.label.problemAlreadyKnown"}}</label>
+<p id="inline_text">{{$t "help.form_bug.text.problemAlreadyKnownText"}}
+</p>
+
+<iframe class="full" src="https://docs.hpi-schul-cloud.org/display/SCDOK/Bekannte+Fehler+in+der+Cloud+und+ihre+Behebung?frameable=true"
+    frameborder="0" scrolling="yes">
+</iframe>
+
+<label class="control-label">{{$t "help.form_bug.label.knownProblemLink"}} <a href="https://status.hpi-schul-cloud.de/">{{$t "help.form_bug.label.statusPage"}}</a></label>
+
+<h4 class="icon-card__title">{{$t "help.contact.text.contactSupport"}}</h4>
+<span class="icon-card__subtitle">{{$t "help.contact.text.contactSupportSubtitle"}}</span>
 
 <label class="form-group">
 	<span class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}</span>
@@ -23,12 +80,12 @@
 <hr>
 <fieldset>
 	<legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
-    <label for="consent">
-        <div class="row">
-	        <div class="col-xs-2">
+    <label class="consent_label" for="consent">
+        <div class="row consent_row">
+	        <div id="consent_checkbox">
 		        <input type="checkbox" id="consent" name="consent" value="true" checked>
 	        </div>
-	        <div class="col-xs-10">
+	        <div>
 		        <span class="control-label">
 			    {{{$t "help.form_bug.text.iAgreeThatTheFollowingInformationMayBe" }}}
 		        </span>
