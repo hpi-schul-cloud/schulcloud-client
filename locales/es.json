@@ -375,16 +375,10 @@
 			"button": {
 				"addCourse": "Añadir curso",
 				"bug": "¿Te gustaría informar de un error o tienes alguna idea para mejorar {{title}}?\n Envía tus solicitudes o problemas directamente al servicio de atención al usuario de {{short_title}}.",
-				"contactSupport": "Contactar con el servicio de asistencia",
 				"createLinkSheet": "Crear una hoja impresa con los enlaces",
 				"mailsAreBeingSent": "Enviando correos electrónicos...",
 				"printSheetIsBeingGenerated": "Se está generando la hoja de impresión...",
 				"sendLinksToStudentEmailAddresses": "Enviar enlaces a las direcciones de correo electrónico de los estudiantes"
-			},
-			"helpdesk": {
-				"label": {
-					"tips": "<b>Consejo: <\/b> también puedes reenviar las entradas abiertas desde el centro de ayuda mediante el símbolo <i class=\"fa fa-paper-plane\"><\/i> al servicio de atención al usuario."
-				}
 			},
 			"label": {
 				"afterSavingAllStudentsAdded": "(¡Después de guardar, todos los estudiantes se añadirán automáticamente!)",
@@ -1799,32 +1793,66 @@
 		},
 		"contact": {
 			"label": {
-				"schoolAdmin": "Administrador de la escuela",
-				"wish": "Solicitud"
+				"wish": "Solicitud",
+				"bug": "Problema"
 			},
 			"text": {
 				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
 				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
-				"whoDoYouWantToContact": "¿Con quién quieres contactar?"
+				"whoDoYouWantToContact": "¿A quién quieres contactar?",
+				"whichAreaOfSchulCloud": "¿A qué área de Schul-Cloud se refiere tu tema?",
+				"contactSupport": "Contactar soporte",
+				"contactSupportSubtitle": "¿Tu problema no aparece en la lista? Ponte en contacto con nuestro equipo de asistencia.",
+				"contactSupportSubtitleWish": "¿Quieres compartir un deseo? Ponte en contacto con nuestro equipo de asistencia."
+			}
+		},
+		"chooseTopicArea": {
+			"text": {
+				"eachTopicSeparate": " Por favor, presenta cada tema por separado.",
+				"chooseArea": "Selecciona el área",
+				"pDashboard": "Panel",
+				"pCourses": "Cursos",
+				"pTopics": "Temas",
+				"pGroups": "Grupos",
+				"pTasks": "Tareas",
+				"pTools": "Herramientas",
+				"pBBB": "BBB videoconferencias",
+				"pBettermarks": "Bettermarks",
+				"pEditor": "Editor",
+				"pTeams": "Equipos",
+				"pLibreOffice": "Libre Office", 
+				"pNews": "Noticias",
+				"pCalendar": "Calendario", 
+				"pMessenger": "Messenger", 
+				"pMyFiles": "Mis archivos personales",
+				"pLernStore": "Learning Store",
+				"pManagement": "Administración",
+				"pRegisterLogin": "Registrarse & Inicio de sesión",
+				"pPermissions": "Permisos",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pExtra": "Extras", 
+				"pApps": "Aplicaciones",
+				"pNotifications": "Notificaciones",
+				"pOther": "Otros"
 			}
 		},
 		"form_admin": {
 			"label": {
-				"currentStatus": "Estado ACTUAL: ¿Qué está sucediendo en el momento después de haber realizado qué pasos?",
 				"targetState": "Estado OBJETIVO: ¿Qué debería suceder en lugar de esto?"
-			},
-			"text": {
-				"hereYouCanContact": "Aquí puedes comunicarte con el administrador de tu escuela. Él puede ayudarte con problemas de inicio de sesión, por ejemplo, y se le informará de tu solicitud de contacto por correo electrónico."
 			}
 		},
 		"form_bug": {
 			"label": {
 				"maxSizeFiles": "Imágenes, vídeos y archivos",
 				"problemDescription": "Descripción del problema:",
-				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo"
+				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo",
+				"problemAlreadyKnown": "¿Se conoce ya el problema?",
+				"knownProblemLink": "Aquí puedes ver si hay actualmente problemas con los sistemas técnicos: ",
+				"statusPage": "Página de estado"
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>"
+				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>",
+				"problemAlreadyKnownText": "¿Has comprobado si tu problema ya es conocido? Nos ayuda a resolver los problemas más rápidamente si sólo se comparten problemas nuevos."
 			}
 		},
 		"form_Wish": {
@@ -1925,7 +1953,8 @@
 				"contactForm": "Formulario de contacto",
 				"contactPerson": "Persona de contacto",
 				"overview": "Visión general",
-				"writeUsAnEmail": "Envíanos un correo electrónico"
+				"writeUsAnEmail": "Envíanos un correo electrónico",
+				"problemArea": "Selecciona el área"
 			}
 		},
 		"placeholder": {
@@ -2310,7 +2339,6 @@
 				"playEnterTheCloud": "Juega a \"Enter The Cloud\" (Entra en la nube)"
 			},
 			"link": {
-				"contactYourSchoolAdmin": "Contactar con el administrador de tu escuela",
 				"sendRequestOrProblem": "Enviar solicitud o problema",
 				"training": "Cursos de capacitación"
 			}
