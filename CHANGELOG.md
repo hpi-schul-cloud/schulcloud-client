@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- SC-8409 - remove FAQ from help page
+
 ### Changed
 
 - SC-8660 – changed text of the footer in the section job offers
