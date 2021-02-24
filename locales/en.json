@@ -1813,7 +1813,43 @@
 			},
 			"text": {
 				"thankYouForYourFeedback": "Thank you for your feedback, it will be sent directly to the {{shortTitle}} development team. Please be careful not to send any passwords or other sensitive data.",
-				"whatKindOfFeedbackDoYouWant": "What kind of feedback would you like to send us?"			}
+				"whatKindOfFeedbackDoYouWant": "What kind of feedback would you like to send us?",
+				"whoDoYouWantToContact": "Who do you want to contact?",
+				"whichAreaOfSchulCloud": "Which area of Schul-Cloud does your topic concern?",
+				"contactSupport": "Contact support",
+				"contactSupportSubtitle": "Your problem isn't listed? Contact our support team.",
+				"contactSupportSubtitleWish": "Do you want to share a request? Please contact our support team."
+			}
+		},
+		"chooseTopicArea": {
+			"text": {
+				"eachTopicSeparate": " Please submit each topic separately.",
+				"chooseArea": "Select area",
+				"pDashboard": "Dashboard",
+				"pCourses": "Courses",
+				"pTopics": "Topics",
+				"pGroups": "Groups",
+				"pTasks": "Tasks",
+				"pTools": "Tools",
+				"pBBB": "BBB video conference",
+				"pBettermarks": "Bettermarks",
+				"pEditor": "Texteditor",
+				"pTeams": "Teams",
+				"pLibreOffice": "Libre Office", 
+				"pNews": "News",
+				"pCalendar": "Calendar", 
+				"pMessenger": "Messenger", 
+				"pMyFiles": "My Files",
+				"pLernStore": "Learning Store",
+				"pManagement": "Management",
+				"pRegisterLogin": "Register & Login",
+				"pPermissions": "Permissions",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pExtra": "Extras", 
+				"pApps": "Apps",
+				"pNotifications": "Notifications",
+				"pOther": "Other"
+			}
 		},
 		"form_admin": {
 			"label": {
@@ -1824,10 +1860,14 @@
 			"label": {
 				"maxSizeFiles": "Images, videos and files",
 				"problemDescription": "Problem description:",
-				"theProblemOccursOnTheDevice": "The problem occurs on this device"
+				"theProblemOccursOnTheDevice": "The problem occurs on this device",
+				"problemAlreadyKnown": "Is the problem already known?",
+				"knownProblemLink": "Here you can check if there are currently issues regarding the technical systems: ",
+				"statusPage": "Status page"
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)<\/li> <li> Operating system and version (e.g. Windows 10)<\/li>"
+				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)<\/li> <li> Operating system and version (e.g. Windows 10)<\/li>",
+				"problemAlreadyKnownText": "Have you checked if your problem is already known? It helps us to solve problems faster if only new issues are shared."
 			}
 		},
 		"form_Wish": {
@@ -1926,6 +1966,7 @@
 		},
 		"partials": {
 			"headline": {
+				"problemArea": "Select area",
 				"contactForm": "Contact form",
 				"contactPerson": "Contact person",
 				"overview": "Overview",

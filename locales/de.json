@@ -1797,7 +1797,43 @@
 			},
 			"text": {
 				"thankYouForYourFeedback": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
-				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?"			}
+				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
+				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?",
+				"whichAreaOfSchulCloud": "Welchen Bereich der Schul-Cloud betrifft dein Thema?",
+				"contactSupport": "Support kontaktieren",
+				"contactSupportSubtitle": "Dein Problem ist nicht dabei? Kontaktiere den Support.",
+				"contactSupportSubtitleWish": "Du möchtest einen Wunsch mitteilen? Kontaktiere den Support."
+			}
+		},
+		"chooseTopicArea": {
+			"text": {
+				"eachTopicSeparate": " Bitte sende jedes Thema einzeln ab.",
+				"chooseArea": "Bereich wählen",
+				"pDashboard": "Übersicht",
+				"pCourses": "Kurse",
+				"pTopics": "Themen",
+				"pGroups": "Gruppen",
+				"pTasks": "Aufgaben",
+				"pTools": "Tools",
+				"pBBB": "BBB-Videokonferenzen",
+				"pBettermarks": "Bettermarks",
+				"pEditor": "Texteditor",
+				"pTeams": "Teams",
+				"pLibreOffice": "Libre Office", 
+				"pNews": "Neuigkeiten",
+				"pCalendar": "Termine", 
+				"pMessenger": "Messenger", 
+				"pMyFiles": "Meine Dateien",
+				"pLernStore": "Lern-Store",
+				"pManagement": "Verwaltung",
+				"pRegisterLogin": "Registrierung & Login",
+				"pPermissions": "Berechtigungen",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pExtra": "Weiteres", 
+				"pApps": "Apps",
+				"pNotifications": "Benachrichtigungen",
+				"pOther": "Zuordnung nicht möglich"
+			}
 		},
 		"form_admin": {
 			"label": {
@@ -1808,10 +1844,14 @@
 			"label": {
 				"maxSizeFiles": "Bilder, Videos und Dateien",
 				"problemDescription": "Problembeschreibung:",
-				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
+				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf",
+				"problemAlreadyKnown": "Ist das Problem bereits bekannt?",
+				"knownProblemLink": "Hier kannst du schauen, ob aktuelle Probleme bei den technischen Systemen vorliegen: ",
+				"statusPage": "Status-Seite"
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B: Windows 10)<\/li>"
+				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B: Windows 10)<\/li>",
+				"problemAlreadyKnownText": "Hast du geschaut, ob dein Problem bereits bekannt ist? Denn es hilft uns schneller voran zu kommen, wenn nur neue Probleme mitgeteilt werden."
 			}
 		},
 		"form_Wish": {
@@ -1910,6 +1950,7 @@
 		"partials": {
 			"headline": {
 				"contactForm": "Kontaktformular",
+				"problemArea": "Bereich auswählen",
 				"contactPerson": "Ansprechpartner:in",
 				"overview": "Überblick",
 				"writeUsAnEmail": "Schreib uns eine E-Mail"
