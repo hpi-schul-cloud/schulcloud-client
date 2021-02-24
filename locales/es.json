@@ -155,7 +155,7 @@
 				"linkCopiedToClipboard": "El enlace se ha copiado en tu portapapeles.",
 				"manageClass": "Administrar clase",
 				"manuallyGiveConsentForAllStudent": "Declarar manualmente el consentimiento de todos los estudiantes",
-				"nextPageYouWillReceiveConfirmation": "En la página siguiente recibirás una confirmación y tendrás la oportunidad de imprimir todas las contraseñas de inicio junto con las instrucciones para tus alumnos.",
+				"nextPageYouWillReceiveConfirmation": "En la página siguiente recibirás una confirmación y tendrás la oportunidad de imprimir todas las contraseñas de inicio junto con las instrucciones para tus alumn@s.",
 				"noClassesInYear": "No hay clases disponibles en este año",
 				"noLackOfInformedConsent": "No faltan declaraciones de consentimiento en esta clase.",
 				"required": "obligatorio",
@@ -283,8 +283,8 @@
 				"userCreatedSuccessfully": "Usuario creado correctamente.",
 				"userCreatedSuccessfullyAndRegistration": "El usuario se ha registrado con éxito y el enlace de registro se ha enviado correctamente por correo electrónico.",
 				"whenLoggingInForTheFirstTime": "Al iniciar sesión por primera vez, el estudiante debe cambiar su contraseña. Si ha proporcionado una dirección de correo electrónico, en caso de pérdida, se le puede enviar la contraseña modificada o generar una nueva contraseña. Como alternativa, puedes hacer clic en Editar detrás del nombre del estudiante en el área Administración > Estudiantes. A continuación, el estudiante puede volver a introducir su contraseña en el dispositivo.",
-				"yourStudentsAreAtLeast": "¿Tus alumnos tienen al menos {{age}} años?",
-				"yourStudentsAreUnder": "¿Tus alumnos tienen menos de {{age}} años?"
+				"yourStudentsAreAtLeast": "¿Tus alumn@s tienen al menos {{age}} años?",
+				"yourStudentsAreUnder": "¿Tus alumn@s tienen menos de {{age}} años?"
 			}
 		},
 		"dashboard": {
@@ -417,7 +417,7 @@
 				"chatIsActivated": "El chat está activado",
 				"errorGeneratingPrintSheet": "Problema al crear la hoja de impresión",
 				"errorSendingMails": "Error al enviar correos electrónicos de recordatorio",
-				"forStudentsUnder": "Para alumnos menores de {{minAge}} años: consentimiento de los padres",
+				"forStudentsUnder": "Para alumn@s menores de {{minAge}} años: consentimiento de los padres",
 				"inviteparentsAndStudentViaLink": "Invita a padres y estudiantes a través de un enlace a enviar su consentimiento",
 				"manuallyConsent": "Declarar el consentimiento manualmente",
 				"obtainADeclarationConsent": "Obtener una declaración de consentimiento",
@@ -546,7 +546,7 @@
 				"activeChatFunction": "Activar función de chat",
 				"activeMatrixFunction": "Activar Matrix Messenger",
 				"afterTheTransferPhaseEnded": "Una vez finalizada la fase de transferencia",
-				"allStudentsVisibility": "La activación de esta opción tiene un nivel alto según la ley de protección de datos. Para activar la visibilidad de todos los alumnos de la escuela para cada profesor, es necesario que cada alumno haya dado su consentimiento de manera efectiva para este tratamiento de datos.",
+				"allStudentsVisibility": "La activación de esta opción tiene un nivel alto según la ley de protección de datos. Para activar la visibilidad de todos l@s alumn@s de la escuela para cada profesor, es necesario que cada alumno haya dado su consentimiento de manera efectiva para este tratamiento de datos.",
 				"authentication": "Autenticación",
 				"changeOfClasses": "Cambio de clases \/ nuevas clases",
 				"changeOfUserData": "Cambio de datos de usuario \/ nuevos usuarios",
@@ -1090,7 +1090,7 @@
 					"clickOnTopicForPreview": "Un clic en el tema te lleva a la vista previa.",
 					"deleteTopic": "Eliminar tema",
 					"descriptionTopic": "Añade texto, imágenes, vídeos y otros materiales a un tema. Un tema cubre un módulo o lección dentro de tu curso.",
-					"distributeLinkForInvite": "Comparte el siguiente enlace con tus alumnos para invitarlos al curso. Los estudiantes deben iniciar sesión para usar el enlace.",
+					"distributeLinkForInvite": "Comparte el siguiente enlace con tus alumn@s para invitarl@s al curso. L@s estudiantes deben iniciar sesión para usar el enlace.",
 					"editSortDeleteShareTopicsHere": "Puedes editar <i class=\"fa fa-pencil\"><\/i>, ordenar <i class=\"fa fa-arrows\"><\/i>, eliminar <i class=\"fa fa-trash-o\"><\/i> o compartir <i class=\"fa fa-share-alt\"><\/i> tu tema en cualquier momento.",
 					"externalLinkToGeoGebra": "Este es un contenido externo del proveedor GeoGebra. Se abrirá en una nueva ventana o pestaña.",
 					"hideTopic": "Ocultar tema",
@@ -1143,7 +1143,7 @@
 				"addStudentsOrClasses": "Añade clases o estudiantes individuales a tu curso.",
 				"contentOfClass": "Crea el contenido de tus lecciones.",
 				"doItNowOrLaterInSettings": "Puedes hacerlo ahora o más tarde en la configuración del curso.",
-				"giveExercisesAndGetResults": "Asigna tareas a tus alumnos y consulta sus envíos.",
+				"giveExercisesAndGetResults": "Asigna tareas a tus alumn@s y consulta sus envíos.",
 				"groupsWorkTogether": "En un curso, los participantes trabajan en temas, tareas y archivos.",
 				"willAlsoDeleteForStudents": "De esta manera también se elimina el curso para todos los estudiantes."
 			}
@@ -1662,7 +1662,7 @@
 			"calendar": "Calendario",
 			"contact": "Contacto",
 			"courseData": "Mis archivos del curso",
-			"courseDataContent": "Aquí encontrarás todos los archivos utilizados en los respectivos cursos de la clase. Todos los participantes del curso, es decir, tanto el profesor como los alumnos, tienen acceso a estos archivos.",
+			"courseDataContent": "Aquí encontrarás todos los archivos utilizados en los respectivos cursos de la clase. Todos los participantes del curso, es decir, tanto el/la profesor como l@s alumn@s, tienen acceso a estos archivos.",
 			"files": "Mis archivos",
 			"filesContent": "Aquí puedes encontrar todos los archivos utilizados en los respectivos equipos. Todos los participantes del equipo tienen acceso a estos archivos.",
 			"filesPersonal": "archivos personales",
@@ -1676,7 +1676,7 @@
 			"lernstore": "Lern-Store",
 			"mainContentSkipLink": "Sección principal",
 			"management": "Administración",
-			"managementTeachers": "Profesores",
+			"managementTeachers": "Profesor@s",
 			"openInNewTab": "abrir en una nueva pestaña",
 			"openInNewTabWarning": "Se abre en una pestaña nueva",
 			"overview": "Panel",
@@ -1949,9 +1949,11 @@
 	},
 	"home": {
 		"button": {
+			"learnMore": "Conoce más",
 			"loginAsStudentDemo": "Iniciar sesión como estudiante",
 			"loginAsTeacherDemo": "Iniciar sesión como profesor",
 			"register": "Registrarse",
+			"registerNow": "Regístrate ahora",
 			"subscribeNewsletter": "Suscríbete al boletín de noticias"
 		},
 		"header": {
@@ -1962,9 +1964,19 @@
 			}
 		},
 		"headline": {
+			"advantagesGeneral": "De eso se trata {{title}}",
+			"advantagesDetailed": "Ventajas de {{title}}",
+			"allNewsOnHPIInternationalNewsletter": "Todas las noticias sobre {{title}} cómodamente en tu bandeja de entrada:",
 			"allNewsOnHPINewsletter": "Todas las noticias sobre la <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span> enviadas cómodamente a tu buzón:",
+			"dataCompliantAndSecure": "Conforme a las políticas de privacidad y seguro",
+			"developedWithAndForSchools": "Desarrollado con y para las escuelas.",
+			"easyToUse": "Fácil de usar - en cualquier momento y en cualquier lugar",
 			"explainationVideo": "Vídeo explicativo sobre la nube escolar de HPI",
 			"HPISchoolCloudBlog": "Blog <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span>",
+			"internationalSloganFirstLine": "Aprendizaje en red global",
+			"internationalSloganSecondLine": "- con soporte digital",
+			"projectPartners": "Colaborador@s del proyecto",
+			"shapingDigitalEducationInPartnership": "Dar forma a la educación digital en colaboración",
 			"theIdea": "La idea básica de la <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span>",
 			"tryDemoVersion": "Prueba la versión de demostración ahora",
 			"welcomeToHPISchoolCloud": "¡Bienvenido a la <span style=\"white-space: nowrap;\">nube escolar de HPI!<\/span>"
@@ -1982,7 +1994,14 @@
 			"advertisementForOurTeam": "¿Asocias Node, React y Feathers con Javascript y no en inglés? ¿Buscas un equipo joven, un ambiente tranquilo y una jerarquía plana? Entonces echa un vistazo a nuestras vacantes: https:\/\/schul-cloud.org\/community#jobs",
 			"browserDoesNotSupportPlayer": "Tu navegador no es compatible con este reproductor de vídeo (HTML5).",
 			"downloadFile": "Descargar archivo",
+			"dataCompliantAndSecure": "El {{title}} se desarrolla en y para Alemania. Se garantiza el acceso al software de aprendizaje conforme a la protección de datos, así como la soberanía de los mismos.",
+			"developedWithAndForSchools": "El {{title}} está optimizado para lo que necesitan l@s profesor@s y l@s alumn@s y puede conectarse con las ofertas de aprendizaje de una gran variedad de proveedor@s. Junto con nuestr@s usuari@s y numeros@s soci@s del panorama educativo alemán, seguimos desarrollándonos!",
+			"easyToUse": "El {{title}} es seguro, transparente y puede utilizarse sin un largo periodo de instrucción, independientemente del tiempo y con su propio teléfono móvil, tableta u ordenador.",
+			"featuresAndMore": "Materiales de aprendizaje, chat, tareas, videoconferencias y mucho más",
+			"freeForAllSchools": "Gratis para todas las escuelas",
+			"internationalShapingDigitalEducationInPartnership": "Junto con nuestr@s sólid@s soci@s, los colegios alemanes en el extranjero, apoyados por el Ministerio de Asuntos Exteriores alemán, el {{title}} se está desarrollando aún más.",
 			"moreInformation": "Más información:",
+			"learnTogetherDigitally": "Aprendiendo junt@s en espacios digitales",
 			"technicalReportHPISchoolCloud": "Informe técnico: \"The HPI School Cloud: Roll-Out of a Cloud Architecture for Schools in Germany\" (.pdf) [\"Nube escolar de HPI: implementación de una arquitectura en la nube para escuelas en Alemania\"]",
 			"weRecommendUsingModernBrowsers": "Recomendamos utilizar una versión actual del navegador Chrome, Firefox, Edge o Safari."
 		}
@@ -2514,7 +2533,7 @@
 	"partner": {
 		"headline": {
 			"advisoryBoard": "Consejo asesor",
-			"pilotPartners": "Socios piloto para contenido de aprendizaje",
+			"pilotPartners": "Soci@s piloto para contenido de aprendizaje",
 			"supporters": "Colaboradores de la infraestructura escolar < 3"
 		},
 		"img_alt": {
@@ -2522,7 +2541,7 @@
 		},
 		"text": {
 			"advisoryBoardDescription": "El proyecto de la nube escolar de HPI cuenta con el apoyo de un consejo asesor formado por varios representantes de la práctica educativa, empresarial y política. Además de los aspectos técnicos, la atención se centra también en temas como la privacidad y la pedagogía.",
-			"pilotPartnersDescription": "Nos gustaría agradecer a nuestros socios que han puesto a nuestra disposición varios contenidos de aprendizaje de forma gratuita durante la fase piloto para que se pueda probar la nube escolar de HPI.",
+			"pilotPartnersDescription": "Nos gustaría agradecer a nuestr@s soci@s que han puesto a nuestra disposición varios contenidos de aprendizaje de forma gratuita durante la fase piloto para que se pueda probar la nube escolar de HPI.",
 			"supportersDescription": "Agradecemos a nuestros colaboradores por la infraestructura escolar."
 		}
 	},
