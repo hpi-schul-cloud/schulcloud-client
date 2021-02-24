@@ -297,6 +297,16 @@ router.get('/', (req, res, next) => {
 					});
 				displayDataprivacyAlert = true;
 			}
+			let displayDataprivacyAlertFeb21 = false;
+			let dataprivacyAlertFeb21Data = false;
+			if (userPreferences.data_privacy_incident_note_2021_02_files
+				&& !userPreferences.data_privacy_incident_note_2021_02_dismissed) {
+				const filenameDelimiter = userPreferences
+					.data_privacy_incident_note_2021_02_files.length > 5 ? ', ' : '<br>';
+				dataprivacyAlertFeb21Data = userPreferences
+					.data_privacy_incident_note_2021_02_files.join(filenameDelimiter);
+				displayDataprivacyAlertFeb21 = true;
+			}
 
 			if (hasRole(teacher)) {
 				homeworksFeedbackRequired = assignedHomeworks.filter(
@@ -353,6 +363,8 @@ router.get('/', (req, res, next) => {
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
 				displayDataprivacyAlert,
+				displayDataprivacyAlertFeb21,
+				dataprivacyAlertFeb21Data,
 			});
 		})
 		.catch(next);
