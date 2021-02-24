@@ -199,7 +199,7 @@
 				"status": "Status",
 				"students": "{{title}}Schüler:innen",
 				"targetState": "Soll-Zustand",
-				"teacher": "{{title}}Lehrkräfte",
+				"teacher": "{{title}}Lehrkraft",
 				"teams": "{{title}}Teams",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
 				"uploadedOn": "Hochgeladen am"
@@ -1846,7 +1846,7 @@
 			}
 		},
 		"headline": {
-			"contactDetails": "Ansprechpartner und Kontaktdaten",
+			"contactDetails": "Ansprechpartner:innen und Kontaktdaten",
 			"helpSection": "Hilfeartikel",
 			"privacyCourse": "Datenschutzkurs",
 			"welcomeDocuments": "Willkommensdokumente zum Download"
