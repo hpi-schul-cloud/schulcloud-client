@@ -15,6 +15,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- SC-8660 – changed text of the footer in the section job offers
 - SC-8599 - remodeled help area contact page
 - SC-8408 - improved course update logic. Delete all events for the course before creating new 
 - SC-8597 - changing color of the course headline into primary
@@ -50,6 +51,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## [25.6.0] - 2021-02-09
 
 ### Removed
+
+- SC-8660 – Remove team-link in the footer and the team-page
 - SC-8248 – Remove school-admin helpdesk-functionality in Schul-Cloud
 - SC-6311 - Removed itslearning from available system types
 - SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
