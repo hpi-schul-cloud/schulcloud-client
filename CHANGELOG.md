@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- SC-8409 - remove FAQ from help page
+
 ### Changed
 
 - SC-8599 - remodeled help area contact page / follow up PR
