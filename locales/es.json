@@ -1798,7 +1798,43 @@
 			},
 			"text": {
 				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
-				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?"			}
+				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
+				"whoDoYouWantToContact": "¿A quién quieres contactar?",
+				"whichAreaOfSchulCloud": "¿A qué área de Schul-Cloud se refiere tu tema?",
+				"contactSupport": "Contactar soporte",
+				"contactSupportSubtitle": "¿Tu problema no aparece en la lista? Ponte en contacto con nuestro equipo de asistencia.",
+				"contactSupportSubtitleWish": "¿Quieres compartir un deseo? Ponte en contacto con nuestro equipo de asistencia."
+			}
+		},
+		"chooseTopicArea": {
+			"text": {
+				"eachTopicSeparate": " Por favor, presenta cada tema por separado.",
+				"chooseArea": "Selecciona el área",
+				"pDashboard": "Panel",
+				"pCourses": "Cursos",
+				"pTopics": "Temas",
+				"pGroups": "Grupos",
+				"pTasks": "Tareas",
+				"pTools": "Herramientas",
+				"pBBB": "BBB videoconferencias",
+				"pBettermarks": "Bettermarks",
+				"pEditor": "Editor",
+				"pTeams": "Equipos",
+				"pLibreOffice": "Libre Office", 
+				"pNews": "Noticias",
+				"pCalendar": "Calendario", 
+				"pMessenger": "Messenger", 
+				"pMyFiles": "Mis archivos personales",
+				"pLernStore": "Learning Store",
+				"pManagement": "Administración",
+				"pRegisterLogin": "Registrarse & Inicio de sesión",
+				"pPermissions": "Permisos",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pExtra": "Extras", 
+				"pApps": "Aplicaciones",
+				"pNotifications": "Notificaciones",
+				"pOther": "Otros"
+			}
 		},
 		"form_admin": {
 			"label": {
@@ -1809,10 +1845,14 @@
 			"label": {
 				"maxSizeFiles": "Imágenes, vídeos y archivos",
 				"problemDescription": "Descripción del problema:",
-				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo"
+				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo",
+				"problemAlreadyKnown": "¿Se conoce ya el problema?",
+				"knownProblemLink": "Aquí puedes ver si hay actualmente problemas con los sistemas técnicos: ",
+				"statusPage": "Página de estado"
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>"
+				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>",
+				"problemAlreadyKnownText": "¿Has comprobado si tu problema ya es conocido? Nos ayuda a resolver los problemas más rápidamente si sólo se comparten problemas nuevos."
 			}
 		},
 		"form_Wish": {
@@ -1913,7 +1953,8 @@
 				"contactForm": "Formulario de contacto",
 				"contactPerson": "Persona de contacto",
 				"overview": "Visión general",
-				"writeUsAnEmail": "Envíanos un correo electrónico"
+				"writeUsAnEmail": "Envíanos un correo electrónico",
+				"problemArea": "Selecciona el área"
 			}
 		},
 		"placeholder": {
