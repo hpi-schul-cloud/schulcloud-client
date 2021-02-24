@@ -500,7 +500,7 @@ const overview = (titleKey) => (req, res, next) => {
 					// Kursfarbe setzen
 					assignment.color = assignment.courseId.color;
 				}
-				// Schüler sehen Beginndatum nicht in der Übersicht über gestellte Aufgaben (übersichtlicher)
+				// Schüler:innen sehen Beginndatum nicht in der Übersicht über gestellte Aufgaben (übersichtlicher)
 				if (!assignment.private && isStudent) {
 					delete assignment.availableDate;
 				}
