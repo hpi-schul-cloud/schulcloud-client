@@ -27,12 +27,31 @@
 {{/if}}
 
 {{#if this.displayDataprivacyAlertFeb21}}
-<section class="section section-privacy-alert">
+<section class="section section-privacy-alert privacy-alert-feb21">
     <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-info" style="font-size:0.9em;">
-                text can be found in the ticket, I need help here because I never wrote a line of html in my life.
-                {{this.dataprivacyAlertFeb21Data}}
+                <h4>Datenschutzvorfall bei der Thüringer Schulcloud vom 11. Februar 2021</h4>
+                    Information der Nutzer:innen<br><br>
+
+                    Liebe:r Nutzer:in der Thüringer Schulcloud,<br>
+                    im Rahmen einer „Responsible Disclosure“ erhielt das HPI den Hinweis auf eine Sicherheitslücke bei der Thüringer Schulcloud. Sie betraf die auch von Ihnen verwendete Funktion „Datei Teilen“ und die folgenden Dateien, die Sie über Sharelinks geteilt haben:<br><br>
+
+                    {{{ this.dataprivacyAlertFeb21Data }}}
+                    <br><br>
+                    „Responsible Disclosure“ bedeutet, dass der Hinweisgeber dem HPI Zeit gegeben hat, die Sicherheitslücke zu schließen, bevor er sie (möglicherweise) veröffentlicht. Unser Team hat die fehlerhafte Konfiguration unmittelbar nach Erhalt des Hinweises am 11. Februar 2021 um 12.13 Uhr blockiert und dann korrigiert. Insofern gehen wir davon aus, dass nur der Hinweisgeber die Sicherheitslücke ausgenutzt hat, und das auch lediglich zu Testzwecken.<br>
+                    Es ist aber theoretisch möglich, dass der Hinweisgeber in diesem Zusammenhang Zugriff auf die von Ihnen geteilten unterrichtsbezogenen Dateien hatte, die eventuell personenbezogene Daten enthielten. Daher möchten wir Sie bitten, die Personen, deren Daten betroffen sein könnten, entsprechend zu informieren.<br>
+                    Außerdem möchten wir uns bei Ihnen ausdrücklich und im Namen des gesamten Schul-Cloud Teams für diesen Vorfall entschuldigen. Mit unseren kontinuierlich durchgeführten internen Audits und Schulungsmaßnahmen arbeiten wir daran, den Schutz der personenbezogenen Daten unserer Nutzer:innen zu gewährleisten. Nichtsdestotrotz möchten wir an dieser Stelle noch einmal darauf hinweisen, dass nach der Nutzungsordnung der Thüringer Schulcloud (Punkt 3.3) bei der Aufgabenerstellung darauf geachtet werden soll, dass die Schüler:innen keine sensiblen Daten, wie z.B. Gesundheitsdaten oder politische Meinungen, angeben müssen.<br>
+                    Wir haben den Thüringer Landesdatenschutzbeauftragten unverzüglich über diesen Datenschutzvorfall informiert.<br>
+                    Für Rückfragen stehen wir Ihnen stets unter datenschutz@schul-cloud.org zur Verfügung. <br><br>
+
+                    Mit besten Grüßen und bleiben Sie gesund<br>
+                    Ihr HPI Schul-Cloud Team
+
+                <br><br>
+                <label><input type="checkbox" class="do-not-show-again"> Nicht wieder anzeigen</label><br><br>
+                <button class="btn btn-primary dismiss-privacy-alert-feb21">Ausblenden</button>
+
             </div>
         </div>
     </div>
