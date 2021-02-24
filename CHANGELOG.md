@@ -33,6 +33,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [26.0.0]
 
+## [25.6.3] - 2021-02-24
+
+### Fixed
+
+- SC-8686 - Personalized notification message
+
 ## [25.6.2] - 2021-02-12
 
 ### Fixed
