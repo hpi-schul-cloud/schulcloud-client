@@ -255,7 +255,7 @@
 				"emailDeclarationOfConsentSubject": "Der letzte Schritt zur Aktivierung für die {{title}}",
 				"errorCreatingRegistrationLink": "Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben {{errMessage}}.",
 				"errorImportingUsers": "Fehler: {{errorMessage}}",
-				"failedToCreateUser": "Fehler beim Erstellen des Nutzers/der Nutzerin. {{error}}",
+				"failedToCreateUser": "Fehler beim Erstellen des Nutzers\/der Nutzerin. {{error}}",
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
 				"importMayBeStillRunning": "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
 				"inTheQueue": "In der Warteschlange",
@@ -489,7 +489,7 @@
 				"errorTimeout": "Zeitüberschreitung der Anwendung",
 				"furtherInfoHere": "Weitere Informationen zur LDAP-Konfiguration finden Sie in unserem <a href=\"\/help\/confluence\/55902270\">Hilfebereich<\/a>.",
 				"onlyProtocolLDAP": "LDAP ist nur über das sichere Protokoll ldaps möglich!",
-				"verification": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene\n                Inhalte werden nicht übernommen, da bei dem/der Nutzer:in der Vorname, der Nachname und\/oder die E-Mail-Adresse\n                nicht im LDAP verfügbar ist."
+				"verification": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene\n                Inhalte werden nicht übernommen, da bei dem\/der Nutzer:in der Vorname, der Nachname und\/oder die E-Mail-Adresse\n                nicht im LDAP verfügbar ist."
 			}
 		},
 		"ldapSchoolYearStart": {
@@ -507,7 +507,7 @@
 		},
 		"longText": {
 			"text": {
-				"afterVerificationCanPreviewTheReadContent": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene Inhalte werden nicht übernommen, da bei dem/der Nutzer:in der Vorname, der Nachname und\/oder die E-Mail-Adresse nicht im LDAP verfügbar ist.",
+				"afterVerificationCanPreviewTheReadContent": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene Inhalte werden nicht übernommen, da bei dem\/der Nutzer:in der Vorname, der Nachname und\/oder die E-Mail-Adresse nicht im LDAP verfügbar ist.",
 				"anyChangesToTheFollowingConfiguration": "Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer:innen Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war.",
 				"backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jede\/r Schüler:in und jede Lehrkraft auf Inhalte aus vergangenen Klassen (z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr ein\/e Nutzer:in in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
 				"canCreateYearIndependentClasses": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Admin <i>'versetzt'<\/i> werden, sondern müssen manuell aktualisiert werden.",
@@ -657,7 +657,7 @@
 				"sendRegistrationLinkToTeachers": "Registrierungslink an Lehrkräfte senden"
 			},
 			"text": {
-				"alternativeRegistration": "Alternativ kannst du auch im \"Nutzer:in bearbeiten\"-Dialog jedes Nutzers/jeder Nutzerin einzeln individuelle Registrierungslinks generieren.",
+				"alternativeRegistration": "Alternativ kannst du auch im \"Nutzer:in bearbeiten\"-Dialog jedes Nutzers\/jeder Nutzerin einzeln individuelle Registrierungslinks generieren.",
 				"connectToASchool": "Durch Anbindung an ein Landes- oder Schulsystem haben die Lehrkräfte bereits ein Passwort und können sich in der {{shortTitle}} einloggen. Beim ersten Login werden sie aufgefordert, ihr Einverständnis zur Nutzung der {{shortTitle}} zu erklären.",
 				"forAllTeachersWithoutAFullConsentForm": "Für alle Lehrkräfte ohne vollständige Einverständniserklärung:"
 			}
@@ -708,10 +708,10 @@
 				"deleteUser": "Nutzer:in löschen"
 			},
 			"text": {
-				"alreadyRegistered": "Diese/r Nutzer:in ist bereits registriert",
-				"class": "Klassen des Nutzers/der Nutzerin",
+				"alreadyRegistered": "Diese\/r Nutzer:in ist bereits registriert",
+				"class": "Klassen des Nutzers\/der Nutzerin",
 				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
-				"firstClose": "Der/die Nutzer:in muss zuerst die Einverständniserklärung digital abschließen",
+				"firstClose": "Der\/die Nutzer:in muss zuerst die Einverständniserklärung digital abschließen",
 				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
 			}
 		},
@@ -731,7 +731,7 @@
 				"forStudentsAged14": "Für Schüler:innen ab 14 Jahren: Einverständnis des Schülers\/der Schülerin",
 				"removeAllMembers": "Alle Mitglieder entfernen",
 				"sendMessage": "Absenden",
-				"youGiveTheFollowingConsent": "Du erteilst folgende Einwilligungen im Namen des Nutzers/der Nutzerin:"
+				"youGiveTheFollowingConsent": "Du erteilst folgende Einwilligungen im Namen des Nutzers\/der Nutzerin:"
 			}
 		}
 	},
@@ -859,7 +859,7 @@
 		"_course": {
 			"addStudent": {
 				"text": {
-					"youAreNoStudent": "Sie sind kein/e Nutzer:in der Rolle 'Schüler:in'."
+					"youAreNoStudent": "Sie sind kein\/e Nutzer:in der Rolle 'Schüler:in'."
 				}
 			},
 			"copy": {
@@ -1259,10 +1259,10 @@
 			"invalidForm": "Formular ungültig, bitte füllen Sie alle Felder korrekt aus.",
 			"providerBlocked": "Der Provider deiner E-Mail-Adresse ({{ email }}) ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
 			"registrationInvalid": "Deine Registrierung bzw. dieser Registrierungslink scheint nicht valide zu sein. Dies kann mehrere Gründe haben:",
-			"registrationInvalidAlreadyUsed": "Dieser/e Nutzer:in dem dieser Registrierungslink gehört, hat sich bzw. wurde bereits registriert.",
+			"registrationInvalidAlreadyUsed": "Dieser\/e Nutzer:in dem dieser Registrierungslink gehört, hat sich bzw. wurde bereits registriert.",
 			"registrationInvalidContactAdvice": "Bitte kontaktiere eine verantwortliche Lehrkraft oder Admin und frage diesbezüglich nach. Diese\/r kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, falls nötig.",
-			"registrationInvalidManualConsent": "Eine Lehrkraft oder Admin hat für den entsprechende/n Nutzer:in bereits die manuelle Einverständniserklärung durchgeführt.",
-			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem/r entsprechenden/r Nutzer:in verknüpft."
+			"registrationInvalidManualConsent": "Eine Lehrkraft oder Admin hat für den entsprechende\/n Nutzer:in bereits die manuelle Einverständniserklärung durchgeführt.",
+			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem\/r entsprechenden\/r Nutzer:in verknüpft."
 		}
 	},
 	"demo": {
