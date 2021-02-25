@@ -1,19 +1,14 @@
 {{#if (userHasRole "demoStudent" "demoTeacher")}}
-	{{#embed "help/icon-card" title=($t "help.partials.headline.writeUsAnEmail") icon="fa-envelope" class="eMail-card col-md-12" id="email"}}
-		{{#content "card-body"}}
-			{{> "help/mail-card"}}
-		{{/content}}
-	{{/embed}}
 {{else}}
-	{{#embed "help/icon-card" id="contact-form" title=($t "help.partials.headline.contactForm") icon="fa-pencil" class="contact-card col-lg-6 col-md-12" id="kontakt"}}
+	{{#embed "help/icon-card" id="contact-form" title=($t "help.partials.headline.contactForm") icon="fa-pencil" class="contact-card col-md-12" id="kontakt"}}
 		{{#content "card-body"}}
 			{{> "help/contact-card"}}
 		{{/content}}
 	{{/embed}}
-
+{{!-- 
 	{{#embed "help/icon-card" title=($t "help.partials.headline.writeUsAnEmail") icon="fa-envelope" class="eMail-card col-lg-6 col-md-12" id="email"}}
 		{{#content "card-body"}}
 			{{> "help/mail-card"}}
 		{{/content}}
-	{{/embed}}
+	{{/embed}} --}}
 {{/if}}

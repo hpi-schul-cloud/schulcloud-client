@@ -9,13 +9,20 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- SC-8409 - remove FAQ from help page
+
 ### Changed
 
+- SC-8599 - remodeled help area contact page / follow up PR
+- SC-8660 – changed text of the footer in the section job offers
 - SC-8408 - improved course update logic. Delete all events for the course before creating new 
 - SC-8597 - changing color of the course headline into primary
 
 ### Added
 
+- SC-8595 - Added DE,EN,ES translations for the landing page
 - SC-8447 - Added filter for logging in error case.
 - SC-8341 - fix bug with teams with deleted user
 - SC-8156 - Added Spanish as an available language
@@ -29,6 +36,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8594 - make drag icon visible again
 
 ## [26.0.0]
+
+## [25.6.3] - 2021-02-24
+
+### Fixed
+
+- SC-8686 - Personalized notification message
 
 ## [25.6.2] - 2021-02-12
 
@@ -46,6 +59,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Removed
 
+- SC-8660 – Remove team-link in the footer and the team-page
+- SC-8248 – Remove school-admin helpdesk-functionality in Schul-Cloud
 - SC-6311 - Removed itslearning from available system types
 - SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
 - SC-8609 – remove section "HPI" including text and e-mail address on theme thr and BRB  
