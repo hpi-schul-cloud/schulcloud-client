@@ -1,5 +1,4 @@
 function initForm(formContainer) {
-	const adminForm = formContainer.querySelector('.admin_form');
 	const teamForm = formContainer.querySelector('.team_form');
 	const wishForm = teamForm.querySelector('.wish_form');
 	const bugForm = teamForm.querySelector('.bug_form');

@@ -16,8 +16,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - SC-8529 - international landing page image and text adjustments
+- SC-8599 - remodeled help area contact page / follow up PR
 - SC-8660 – changed text of the footer in the section job offers
-- SC-8599 - remodeled help area contact page
 - SC-8408 - improved course update logic. Delete all events for the course before creating new 
 - SC-8597 - changing color of the course headline into primary
 
@@ -31,6 +31,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-6679 - fixed table styling in topic text-component
 - SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
 - SC-6923 - Fixed help area search with csp url
 - SC-8414 - Made school number field editable for LDAP schools
