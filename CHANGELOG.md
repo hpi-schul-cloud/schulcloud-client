@@ -16,7 +16,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - SC-8599 - remodeled help area contact page / follow up PR
-- SC-8660 – changed text of the footer in the section job offers
+- SC-8660 – changed text of the footer in the section job offers for the instances boss open and thr
 - SC-8408 - improved course update logic. Delete all events for the course before creating new 
 - SC-8597 - changing color of the course headline into primary
 
