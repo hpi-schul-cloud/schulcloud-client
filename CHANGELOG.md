@@ -22,6 +22,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- SC-8706 - Added missing text corrections for gendering topic
 - SC-8595 - Added DE,EN,ES translations for the landing page
 - SC-8447 - Added filter for logging in error case.
 - SC-8341 - fix bug with teams with deleted user
