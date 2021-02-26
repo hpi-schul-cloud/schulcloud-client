@@ -170,11 +170,11 @@ fi
 
 VERSION="$(jq -r '.version' package.json )"
 echo "deploy release to staging $TRAVIS_BRANCH"
-echo "VERSION=$VERSION"
+echo "VERSION"=$VERSION
 
 curl -X POST https://api.github.com/repos/hpi-schul-cloud/sc-app-ci/dispatches \
 -H 'Accept: application/vnd.github.everest-preview+json' \
 -u $GITHUB_TOKEN \
---data '{"event_type": "Trigger_from_sc_client", "client_payload": { "GIT_BRANCH": '"$TRAVIS_BRANCH"', "BRANCH_PREFIX": '"$GIT_FLOW_BRANCH"' , "TRIGGER_REPOSITORY": "sc-client", "VERSION": '"$VERSION"' }}'
+--data '{"event_type": "Trigger_from_sc_client", "client_payload": { "GIT_BRANCH": "'"$TRAVIS_BRANCH"'", "BRANCH_PREFIX": "'"$GIT_FLOW_BRANCH"'" , "TRIGGER_REPOSITORY": "sc-client", "VERSION": "'"$VERSION"'" }}'
 
 exit 0
