@@ -22,6 +22,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8447 - Added filter for logging in error case.
 - SC-8341 - fix bug with teams with deleted user
 - SC-8156 - Added Spanish as an available language
+- SC-8318 - actualize gender language
 
 ## [26.0.1] - 2021-03-17
 
