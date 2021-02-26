@@ -1,5 +1,6 @@
 const promBundle = require('express-prom-bundle');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const logger = require('./logger');
 
 // should contain all ressources (files/folders) within static folder
 const STATIC_RESSOURCES = [
@@ -35,12 +36,21 @@ module.exports = (app) => {
 				collectDefaultMetrics: {},
 			};
 		}
+		// https://www.npmjs.com/package/express-prom-bundle
 		const originalNormalize = promBundle.normalizePath;
 		promBundle.normalizePath = (req, opts) => {
 			let path = originalNormalize(req, opts);
 			path = rewriteStaticRessourcesPath(path);
-			return path ? path.replace('#val', '__id__') : path;
+
+			if (path) {
+				path = path.replace('#val', '__id__');
+				if (path.indexOf('/link/') !== -1) {
+					path = '/link/__HASH__';
+				}
+			}
+			return path;
 		};
 		app.use(promBundle(metricsOptions));
+		logger.info('Prometheus is activated.');
 	}
 };

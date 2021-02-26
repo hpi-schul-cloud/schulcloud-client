@@ -9,6 +9,52 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [25.6.3] - 2021-02-24
+
+### Fixed
+
+- SC-8686 - Personalized notification message
+
+## [25.6.2] - 2021-02-12
+
+### Fixed
+
+- VOR-3 - Sanitize promtheus metrics route for link hashes.
+
+## [25.6.1] - 11.02.21
+
+### Changed
+
+- VOR-2 - Adjusted the default for searching for teachers from other schools
+
+## [25.6.0] - 2021-02-09
+
+### Removed
+
+- SC-6311 - Removed itslearning from available system types
+
+### Changed
+
+- SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
+- SC-8356 - add docker login helper
+- SC-8331 - increase node version to match current lts (currently 12.16 to 14)
+
+### Fixed
+
+- SC-8531 - Restored school administration missing text
+- SC-6363 - Fix printing problem
+- SC-7602 - Show error by registration when same email for a student and parent
+- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0, and add some extra validations
+- SC-8337 - Better error handling for file upload
+- SC-8259 - limited the length of the task title/headline
+- SC-7345 - the linguistic note shown only for the German language
+- SC-8307 - fixed date formater bug by initial page loading
+- SC-8272 - fixed displaying of the error message for submissions with no due date
+
+## 25.5.4
+
+### Added
+- SC-8447 - add feature flag to enable or disable request logs
 ## 25.5.3
 
 ### Fixed
@@ -55,7 +101,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7824 - Set proper email address and label for data privacy
+- SC-7824 - Set proper email address and label for data privacy 
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
@@ -64,6 +110,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-7686 - Fixed naming convention for Lern-Store
 - SC-7126 - Fixed sort of years on create class select
 - SC-7848 - Fixed no autofill of password in user settings
 - SC-6975 - Fixed button text on declare consent
@@ -89,7 +136,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-8225: Fixed hiding messenger school settings
 
-## 25.3.5 - 2020-13-16
+## 25.3.5 - 2020-12-16
 
 ### Added
 

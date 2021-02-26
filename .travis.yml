@@ -1,5 +1,5 @@
 language: node_js
-node_js: '12.16'
+node_js: 'lts/*'
 branches:
   only:
     - develop
@@ -61,6 +61,8 @@ jobs:
       install:
         # boot server
         - cd docker-compose
+        # authenticate against docker
+        - bash ./scripts/dockerhub.login.sh
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
         - cd ..
