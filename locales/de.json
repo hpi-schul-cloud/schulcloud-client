@@ -457,11 +457,11 @@
 				"fullPathClassUsers": "Nutzer:innen der Klasse mit vollem Pfad",
 				"hide": "Ausblenden",
 				"noSchoolCloud": "keine HPI Schul-Cloud",
-				"noSchoolCloudTitle": "Dies ermöglicht es Ihnen, dass Nutzer:innen aus Ihrem LDAP nicht in die HPI Schul-Cloud übertragen werden",
+				"noSchoolCloudTitle": "Dies ermöglicht es dir, dass Nutzer:innen aus LDAP nicht in die HPI Schul-Cloud übertragen werden",
 				"rolesAttributes": "Rollen-Attribute",
 				"rolesAttributesDescription": "Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?",
 				"rolesLDAPPaths": "Rollen-LDAP-Pfade",
-				"rolesLDAPPathsDescription": "Welche LDAP-Gruppe definiert die genannte Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an",
+				"rolesLDAPPathsDescription": "Welche LDAP-Gruppe definiert die genannte Rolle? Gib den vollen Pfad (inkl. root-Pfad) an",
 				"roleType": "Rollen-Typ",
 				"roleTypeTitle": "Ist die Nutzerrolle (Lehrkraft, Schüler:in) im Nutzer-Attribut textuell gespeichert oder gibt es eine LDAP-Gruppe für die jeweilige Nutzerrolle?",
 				"rootPath": "root-Pfad",
@@ -1262,7 +1262,7 @@
 			"registrationInvalidAlreadyUsed": "Dieser\/e Nutzer:in dem dieser Registrierungslink gehört, hat sich bzw. wurde bereits registriert.",
 			"registrationInvalidContactAdvice": "Bitte kontaktiere eine verantwortliche Lehrkraft oder Admin und frage diesbezüglich nach. Diese\/r kann weiterhelfen oder auch einen neuen Registrierungslink erstellen, falls nötig.",
 			"registrationInvalidManualConsent": "Eine Lehrkraft oder Admin hat für den entsprechende\/n Nutzer:in bereits die manuelle Einverständniserklärung durchgeführt.",
-			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem\/r entsprechenden\/r Nutzer:in verknüpft."
+			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem\/r Nutzer:in verknüpft."
 		}
 	},
 	"demo": {
