@@ -163,18 +163,20 @@ else
 fi
 
 # trigger sc-app-ci to deploy release to staging
-# deploy upcoming Release to staging 
-# upcoming Release == Version xx.xx.0 or RegEx ^[0-9]+\.[0-9]+\.0$
-
-# if [[ "$TRAVIS_BRANCH" =~ ^"release"* ]] && [[ "$(jq -r '.version' package.json )" =~ ^[0-9]+\.[0-9]+\.0$ ]]
-
 VERSION="$(jq -r '.version' package.json )"
 echo "deploy release to staging $TRAVIS_BRANCH"
 echo "VERSION"=$VERSION
 
+#for Testing
+VERSION="26.0.0"
+echo "VERSION"=$VERSION
+
+# mask DOT for payload
+VERSION=$( echo $VERSION | tr -s "[:punct:]" "-" )
+
 curl -X POST https://api.github.com/repos/hpi-schul-cloud/sc-app-ci/dispatches \
 -H 'Accept: application/vnd.github.everest-preview+json' \
 -u $GITHUB_TOKEN \
---data '{"event_type": "Trigger_from_sc_client", "client_payload": { "GIT_BRANCH": "'"$TRAVIS_BRANCH"'", "BRANCH_PREFIX": "'"$GIT_FLOW_BRANCH"'" , "TRIGGER_REPOSITORY": "sc-client", "VERSION": "'"$VERSION"'" }}'
+--data '{"event_type": "Trigger_from_sc_client", "client_payload": { "GIT_BRANCH": "'"$TRAVIS_BRANCH"'", "TRIGGER_REPOSITORY": "sc-client", "VERSION": "'"$VERSION"'" }}'
 
 exit 0
