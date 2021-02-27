@@ -97,6 +97,7 @@ jobs:
         - echo $TRAVIS_BRANCH
         - echo $TRAVIS_TAG
       script: bash ./build.sh
+    # Delete Deploy  
     - stage: Deploy
       name: Deploy All Instances
       language: generic
