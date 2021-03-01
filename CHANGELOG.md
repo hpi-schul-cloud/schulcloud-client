@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Removed
 
+- SC-8595 - remove language hint from the system
 - SC-8409 - remove FAQ from help page
 
 ### Changed
@@ -22,7 +23,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-8595 - Added DE,EN,ES translations for the landing page
+- SC-8595 - Added DE,EN,ES translations for the landing page and missing gender
 - SC-8447 - Added filter for logging in error case.
 - SC-8341 - fix bug with teams with deleted user
 - SC-8156 - Added Spanish as an available language
