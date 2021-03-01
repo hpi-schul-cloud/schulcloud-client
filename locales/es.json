@@ -1913,11 +1913,6 @@
 				"pedagogicalExperts": "Cuando invite a personal pedagógico como expertos externos, por favor no utilice direcciones de correo electrónico que estén en uso y que son necesarias para el registro en la Nube Educativa de Baja Sajonia."
 			}
 		},
-		"language_hint": {
-			"text": {
-				"forBetterReadability": "Para una mejor legibilidad, utilizamos la forma masculina (\"estudiante\", \"profesor\") en la interfaz de usuario de {{title}}. Esto se refiere siempre a todas las personas independientemente de su género. {{shortTitle}} es para todos, independientemente del origen, las limitaciones, el género y la orientación sexual."
-			}
-		},
 		"lernNuggets": {
 			"headline": {
 				"instructionsForUse": "Instrucciones de uso",
@@ -3145,7 +3140,7 @@
 		},
 		"thr": {
 			"text": {
-				"welcome": "El {{shortTitle}} pretende crear una base técnica para que profesores y alumn@s puedan utilizar contenidos digitales modernos de enseñanza y aprendizaje en todas las asignaturas, de igual manera es posible utilizar las apps en los smartphones o las tabletas. Para lograr este objetivo, el estado de Turingia está probando el Schul-Cloud desarrollado por el Instituto Hasso Plattner con, inicialmente, 20 escuelas piloto y 9 seminarios de estudio a partir del curso escolar 2019/2020."
+				"welcome": "El {{shortTitle}} pretende crear una base técnica para que profesores y alumn@s puedan utilizar contenidos digitales modernos de enseñanza y aprendizaje en todas las asignaturas, de igual manera es posible utilizar las apps en los smartphones o las tabletas. Para lograr este objetivo, el estado de Turingia está probando el Schul-Cloud desarrollado por el Instituto Hasso Plattner con, inicialmente, 20 escuelas piloto y 9 seminarios de estudio a partir del curso escolar 2019\/2020."
 			}
 		}
 	}
