@@ -27,7 +27,7 @@ module.exports = [
 				firstName: 'Niki',
 				lastName: 'Sarantidou',
 				position: 'Geschäftsführerin MINT-EC',
-				description: 'Niki Sarantidou ist Geschäftsführerin des nationalen Excellence-Schulnetzwerks MINT-EC. Ihr politikwissenschaftliches Studium und ihre Promotion drehten sich hauptsächlich um die europäische Integration und die Wirksamkeit europäischer Institutionen. Sie war 12 Jahre Leiterin des Studienförderwerks Klaus Murmann der Stiftung der Deutschen Wirtschaft.<br>Seit 2011 befasst sie sich bei MINT-EC mit der Optimierung der MINT-Bildung an Schulen mit Sekundarstufe II. Schul- und Unterrichtsentwicklung sowie Studien- und Berufsorientierung gehören genauso zu ihren Arbeitsfeldern wie die Berücksichtigung wissenschaftlicher und technologischer Entwicklungen an Schulen, die Schülerinnen und Schüler auf ihrem Weg in die berufliche Zukunft unterstützen können.<br>Im Rahmen der HPI Schul-Cloud ist sie die Projektleiterin von Seiten MINT-EC und zuständig für die konzeptionelle Entwicklung der Cloud-Strukturen.',
+				description: 'Niki Sarantidou ist Geschäftsführerin des nationalen Excellence-Schulnetzwerks MINT-EC. Ihr politikwissenschaftliches Studium und ihre Promotion drehten sich hauptsächlich um die europäische Integration und die Wirksamkeit europäischer Institutionen. Sie war 12 Jahre Leiterin des Studienförderwerks Klaus Murmann der Stiftung der Deutschen Wirtschaft.<br>Seit 2011 befasst sie sich bei MINT-EC mit der Optimierung der MINT-Bildung an Schulen mit Sekundarstufe II. Schul- und Unterrichtsentwicklung sowie Studien- und Berufsorientierung gehören genauso zu ihren Arbeitsfeldern wie die Berücksichtigung wissenschaftlicher und technologischer Entwicklungen an Schulen, die Schüler:innen auf ihrem Weg in die berufliche Zukunft unterstützen können.<br>Im Rahmen der HPI Schul-Cloud ist sie die Projektleiterin von Seiten MINT-EC und zuständig für die konzeptionelle Entwicklung der Cloud-Strukturen.',
 				pictureUrl: '/images/team/Niki_Sarantidou.jpg',
 				priority: 0,
 				social: {
@@ -214,7 +214,7 @@ module.exports = [
 				firstName: 'Sebastian',
 				lastName: 'Hirsch',
 				position: 'Community Manager, HPI',
-				description: 'Sebastian ist seit März 2019 im Team der HPI Schul-Cloud tätig. Als Community Manager pflegt er den Austausch mit allen Nutzer*innen und Interessierten im Netz. Zuvor hat er als Bildungsaktivist, Veranstaltungsmanager und Schulbauberater gearbeitet. An der Jacobs University hat er Integrated Social Sciences studiert. Seine Freizeit verbringt er auf dem Rad, beim Bouldern oder in Hamburg.',
+				description: 'Sebastian ist seit März 2019 im Team der HPI Schul-Cloud tätig. Als Community Manager pflegt er den Austausch mit allen Nutzer:innen und Interessierten im Netz. Zuvor hat er als Bildungsaktivist, Veranstaltungsmanager und Schulbauberater gearbeitet. An der Jacobs University hat er Integrated Social Sciences studiert. Seine Freizeit verbringt er auf dem Rad, beim Bouldern oder in Hamburg.',
 				pictureUrl: '/images/team/Sebastian_Hirsch.jpg',
 				priority: 0,
 				social: {
@@ -246,7 +246,7 @@ module.exports = [
 				firstName: 'Konstantin',
 				lastName: 'Kaiser',
 				position: 'Wissenschaftlicher Mitarbeiter, HPI',
-				description: 'Konstantin hat Lehramt mit den Fächern Musik und Deutsch an der Universität Potsdam studiert. Beim Axel Springer Verlag arbeitete er sieben Jahre als Produktentwickler an der Schnittstelle zwischen Redaktion und Technik. Die wissenschaftliche Mitarbeit an der HPI Schul-Cloud führt ihn wieder zurück in die Welt der Lehrer*innen und Schüler*innen, wo er als PO (Product Owner) zwischen den Usern und der technischen Umsetzung vermittelt und übersetzt. Dabei motiviert es ihn, seiner als Lehrerin arbeitenden Frau und künftig auch seinen Kindern den Schulalltag zu erleichtern. In seiner Freizeit ist er stets auf der Suche nach guter Musik, entspannt aktiv auf dem Rennrad und bei der Gartenarbeit. Alltagsdinge regelt er gerne online, um mehr Zeit offline mit Familie und Freunden zu verbringen.',
+				description: 'Konstantin hat Lehramt mit den Fächern Musik und Deutsch an der Universität Potsdam studiert. Beim Axel Springer Verlag arbeitete er sieben Jahre als Produktentwickler an der Schnittstelle zwischen Redaktion und Technik. Die wissenschaftliche Mitarbeit an der HPI Schul-Cloud führt ihn wieder zurück in die Welt der Lehrkräfte und Schüler:innen, wo er als PO (Product Owner) zwischen den Usern und der technischen Umsetzung vermittelt und übersetzt. Dabei motiviert es ihn, seiner als Lehrkraft arbeitenden Frau und künftig auch seinen Kindern den Schulalltag zu erleichtern. In seiner Freizeit ist er stets auf der Suche nach guter Musik, entspannt aktiv auf dem Rennrad und bei der Gartenarbeit. Alltagsdinge regelt er gerne online, um mehr Zeit offline mit Familie und Freunden zu verbringen.',
 				pictureUrl: '/images/team/Konstantin_Kaiser.jpg',
 				priority: 0,
 				social: {
@@ -457,7 +457,7 @@ module.exports = [
 				firstName: 'Franziska',
 				lastName: 'Beyer',
 				position: 'Konzeptionelle Mitarbeiterin, MINT-EC',
-				description: 'Franziska ist Politikwissenschaftlerin mit Schwerpunkt Bildungspolitik und Didaktik (M.A., Freie Universität Berlin). Als Teambuilding-Trainerin für Schulklassen arbeitete Sie über mehrere Jahre eng mit Lehrern und Schülern zusammen. Seit Januar 2020 betreut sie als konzeptionelle Mitarbeiterin bei MINT-EC gemeinsam mit Rasmus, Sophie und Severine die Pilotschulen. Durch den engen Kontakt zu Lehrkräften und Schüler:innen stellen sie sicher, dass die Expertise der tatsächlichen Nutzer:innen in die Entwicklung der HPI Schul-Cloud einbezogen wird. In ihrer Freizeit findet man Franziska mit Farbe bekleckst vor einer Leinwand, außer Atem beim Stockkampf oder in irgendwelchen Ländern, deren Namen die meisten noch nie gehört haben.',
+				description: 'Franziska ist Politikwissenschaftlerin mit Schwerpunkt Bildungspolitik und Didaktik (M.A., Freie Universität Berlin). Als Teambuilding-Trainerin für Schulklassen arbeitete Sie über mehrere Jahre eng mit Lehrkräften und Schüler:innen zusammen. Seit Januar 2020 betreut sie als konzeptionelle Mitarbeiterin bei MINT-EC gemeinsam mit Rasmus, Sophie und Severine die Pilotschulen. Durch den engen Kontakt zu Lehrkräften und Schüler:innen stellen sie sicher, dass die Expertise der tatsächlichen Nutzer:innen in die Entwicklung der HPI Schul-Cloud einbezogen wird. In ihrer Freizeit findet man Franziska mit Farbe bekleckst vor einer Leinwand, außer Atem beim Stockkampf oder in irgendwelchen Ländern, deren Namen die meisten noch nie gehört haben.',
 				pictureUrl: '/images/team/franziska_beyer.jpg',
 				priority: 0,
 				social: {
@@ -822,7 +822,7 @@ module.exports = [
 				firstName: 'Jonas',
 				lastName: 'Keutel',
 				position: 'Ehem. Masterstudent',
-				description: 'Jonas hat seine Masterarbeit im Projekt HPI Schul-Cloud geschrieben. Der Schwerpunkt in seinem Studium liegt neben der Webentwicklung in letzter Zeit immer mehr auf dem Design Thinking. Die Idee hinter seiner Masterarbeit ist Lehrer bei der Planung und vor allem dem Teilen ihrer Unterrichtsstunden sowie Unterrichtsreihen zu unterstützen. Durch eine Bereitstellung der Unterrichtsplanung kann eine Diskussion sowie eine Mix-and-Match-Mentalität hervorgerufen werden, die der Qualität des Unterrichts nur guttun kann. Abseits des Studiums findet man Jonas meistens auf Fußballplätzen oder auf der Suche nach neuen Reisezielen. ',
+				description: 'Jonas hat seine Masterarbeit im Projekt HPI Schul-Cloud geschrieben. Der Schwerpunkt in seinem Studium liegt neben der Webentwicklung in letzter Zeit immer mehr auf dem Design Thinking. Die Idee hinter seiner Masterarbeit ist Lehrkräfte bei der Planung und vor allem dem Teilen ihrer Unterrichtsstunden sowie Unterrichtsreihen zu unterstützen. Durch eine Bereitstellung der Unterrichtsplanung kann eine Diskussion sowie eine Mix-and-Match-Mentalität hervorgerufen werden, die der Qualität des Unterrichts nur guttun kann. Abseits des Studiums findet man Jonas meistens auf Fußballplätzen oder auf der Suche nach neuen Reisezielen. ',
 				pictureUrl: '/images/team/Jonas_Keutel.jpg',
 				priority: 0,
 				social: {
@@ -971,7 +971,7 @@ module.exports = [
 				firstName: 'Sebastian',
 				lastName: 'Serth',
 				position: 'Ehem. Masterstudent',
-				description: 'Sebastian hat seine Masterarbeit im Kontext der HPI Schul-Cloud geschrieben. Als Grundlage dazu dienten ihm Erkenntnisse von openHPI, der Online-Lernplattform des HPI, in dessen Rahmen er bereits seine Bachelorarbeit angefertigt hat. In seiner Masterarbeit untersuchte er, wie Lehrer individuelle Arbeitsblätter mit interaktiven Programmieraufgaben erstellen und im Unterricht einsetzen können: die Schüler arbeiten dazu wie bei Online-Kursen in der webbasierten Programmierumgebung CodeOcean, in der sie ihre Programme entwickeln, ausführen und mit Hilfe automatisierter Tests ihrer Lehrer sogar eigenständig überprüfen können. Die Lehrer erhalten einen besseren Überblick über den Lernfortschritt der Klasse und können so bei auftretenden Problemen zeitnah und zielorientiert Unterstützung leisten. In seiner Freizeit springt Sebastian leidenschaftlich gern auf dem Großtrampolin, reist mit Vergnügen durch fremde Länder und hält dabei seine Eindrücke fotografisch fest.',
+				description: 'Sebastian hat seine Masterarbeit im Kontext der HPI Schul-Cloud geschrieben. Als Grundlage dazu dienten ihm Erkenntnisse von openHPI, der Online-Lernplattform des HPI, in dessen Rahmen er bereits seine Bachelorarbeit angefertigt hat. In seiner Masterarbeit untersuchte er, wie Lehrkräfte individuelle Arbeitsblätter mit interaktiven Programmieraufgaben erstellen und im Unterricht einsetzen können: die Schüler:innen arbeiten dazu wie bei Online-Kursen in der webbasierten Programmierumgebung CodeOcean, in der sie ihre Programme entwickeln, ausführen und mit Hilfe automatisierter Tests ihrer Lehrkräfte sogar eigenständig überprüfen können. Die Lehrkräfte erhalten einen besseren Überblick über den Lernfortschritt der Klasse und können so bei auftretenden Problemen zeitnah und zielorientiert Unterstützung leisten. In seiner Freizeit springt Sebastian leidenschaftlich gern auf dem Großtrampolin, reist mit Vergnügen durch fremde Länder und hält dabei seine Eindrücke fotografisch fest.',
 				pictureUrl: '/images/team/Sebastian_Serth.jpg',
 				priority: 0,
 				social: {

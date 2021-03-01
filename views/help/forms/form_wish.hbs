@@ -7,18 +7,22 @@
 <center>
 <label class="form-group col-md-6">
 		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.eachTopicSeparate"}}</span>
-		<select class="form-control" name="problemArea" id="problemArea" aria-placeholder={{$t "help.contact.text.chooseArea"}}>
+		<select class="form-control" name="problemArea" class="problemArea" aria-placeholder={{$t "help.contact.text.chooseArea"}}>
 			<option value="" disabled selected hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
 			<option value="Dashboard">{{$t "help.chooseTopicArea.text.pDashboard"}}</option>
 			<optgroup label={{$t "help.chooseTopicArea.text.pCourses"}}> 
+				<option value="Kurse-Allgemein">{{$t "help.chooseTopicArea.text.pGeneral"}}</option>
+				<option value="Kurse-Aufgaben">{{$t "help.chooseTopicArea.text.pTasks"}}</option>
 				<option value="Themen">{{$t "help.chooseTopicArea.text.pTopics"}}</option>
-				<optgroup label={{$t "help.chooseTopicArea.text.pTools"}}>
-					<option value="BBB-Videokonferenz">{{$t "help.chooseTopicArea.text.pBBB"}}</option>
-					<option value="Bettermarks">{{$t "help.chooseTopicArea.text.pBettermarks"}}</option>
-				</optgroup>
 				<option value="Texteditor">{{$t "help.chooseTopicArea.text.pEditor"}}</option>
 			</optgroup>
+			<optgroup label={{$t "help.chooseTopicArea.text.pTools"}}>
+				<option value="Tools-Allgemein">{{$t "help.chooseTopicArea.text.pGeneral"}}</option>
+				<option value="BBB-Videokonferenz">{{$t "help.chooseTopicArea.text.pBBB"}}</option>
+				<option value="Bettermarks">{{$t "help.chooseTopicArea.text.pBettermarks"}}</option>
+			</optgroup>
 			<optgroup label={{$t "help.chooseTopicArea.text.pTeams"}}>
+				<option value="Teams-Allgemein">{{$t "help.chooseTopicArea.text.pGeneral"}}</option>
 				<option value="Libre Office">{{$t "help.chooseTopicArea.text.pLibreOffice"}}</option>
 				<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
 				<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
@@ -30,11 +34,13 @@
 			<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
 			<option value="Lern-Store">{{$t "help.chooseTopicArea.text.pLernStore"}}</option>
 			<optgroup label="{{$t "help.chooseTopicArea.text.pManagement"}}">
+				<option value="Verwaltung-Allgemein">{{$t "help.chooseTopicArea.text.pGeneral"}}</option>
 				<option value="Registrierung-Login">{{$t "help.chooseTopicArea.text.pRegisterLogin"}}</option>
 				<option value="Berechtigungen">{{$t "help.chooseTopicArea.text.pPermissions"}}</option>
 				<option value="IDM">{{$t "help.chooseTopicArea.text.pIdm"}}</option>
 			</optgroup>
 			<optgroup label="{{$t "help.chooseTopicArea.text.pExtra"}}">
+				<option value="Extra-Allgemein">{{$t "help.chooseTopicArea.text.pGeneral"}}</option>
 				<option value="Apps">{{$t "help.chooseTopicArea.text.pApps"}}</option>
 				<option value="Benachrichtigungen">{{$t "help.chooseTopicArea.text.pNotifications"}}</option>
 				<option value="Messenger">{{$t "help.chooseTopicArea.text.pMessenger"}}</option>

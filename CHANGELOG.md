@@ -11,17 +11,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Removed
 
+- SC-8595 - remove language hint from the system
 - SC-8409 - remove FAQ from help page
 
 ### Changed
 
-- SC-8660 – changed text of the footer in the section job offers
-- SC-8599 - remodeled help area contact page
+- SC-8599 - remodeled help area contact page / follow up PR
+- SC-8660 – changed text of the footer in the section job offers for the instances boss open and thr
 - SC-8408 - improved course update logic. Delete all events for the course before creating new 
 - SC-8597 - changing color of the course headline into primary
 
 ### Added
 
+- SC-8595 - Added DE,EN,ES translations for the landing page and missing gender
 - SC-8447 - Added filter for logging in error case.
 - SC-8341 - fix bug with teams with deleted user
 - SC-8156 - Added Spanish as an available language
@@ -29,6 +31,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-6679 - fixed table styling in topic text-component
 - SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
 - SC-6923 - Fixed help area search with csp url
 - SC-8414 - Made school number field editable for LDAP schools

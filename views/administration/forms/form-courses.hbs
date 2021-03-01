@@ -23,7 +23,7 @@
 <div class="form-group">
     <label>{{$t "administration.global.label.teachingTeacher" }} </label>
 
-    <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
+    <select name="teacherIds[]" multiple data-placeholder="Lehrkraft auswählen">
         {{#each teachers}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                 {{#if this.displayName}}
@@ -38,7 +38,7 @@
 
 <div class="form-group">
     <label>{{$t "administration.global.label.substituteTeacher" }}</label>
-    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
+    <select name="substitutionIds[]" multiple data-placeholder="Lehrkraft auswählen">
         {{#each substitutions}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                 {{this.firstName}} {{this.lastName}}

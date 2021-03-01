@@ -1,26 +1,27 @@
 {{#extend "lib/default"}} {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="{{getAssetPath '/styles/authentication/home.css'}}" /> {{/content}} {{#content "scripts" mode="append"}}
+<link rel="stylesheet" href="{{getAssetPath '/styles/authentication/home.css'}}" /> {{/content}} {{#content "scripts"
+mode="append"}}
 <script src="{{getAssetPath '/scripts/login.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 
 {{/content}} {{#content "body"}} {{#embed "lib/header" hideMenu=true}}{{/embed}}
 <div class="container">
-    <div class="row">
-        <main id="main-content" class="col-md-8">
-            <div class="hidden-md-up">
-                {{> "authentication/forms/login"}}
-            </div>
+	<div class="row">
+		<main id="main-content" class="col-md-8">
+			<div class="hidden-md-up">
+				{{> "authentication/forms/login"}}
+			</div>
 
-            <section class="card">
-                <div class="card-block">
+			<section class="card">
+				<div class="card-block">
 					<!-- GLOBAL_ANNOUNCEMENT -->
 					{{#hasConfig "GLOBAL_ANNOUNCEMENT"}}
-						<div class="notification alert alert-info">
-							<div class="notification-content">
-								{{{getConfig "GLOBAL_ANNOUNCEMENT"}}}
-							</div>
+					<div class="notification alert alert-info">
+						<div class="notification-content">
+							{{{getConfig "GLOBAL_ANNOUNCEMENT"}}}
 						</div>
+					</div>
 					{{/hasConfig}}
-                        <!--Uncomment this when You will add brb Landing Page in ghost and remember about theme-blog.js-->
+					<!--Uncomment this when You will add brb Landing Page in ghost and remember about theme-blog.js-->
 
 <!--                    <div class="hidden" id="SC_THEME">brb</div>-->
 <!--                    <div class="brb-blog">-->
@@ -84,31 +85,38 @@
         </main>
         <aside class="col-md-4">
 			<div class="hidden-sm-down">
-            	{{> "authentication/forms/login"}}
+				{{> "authentication/forms/login"}}
 			</div>
 
 			<section id="partner" class="card">
 				<div class="card-block">
 					<h4 class="card-title">{{$t "global.headline.projectExecution"}}</h4>
 					<div class="card-text partner-img">
-						<a href="https://hpi.de/open-campus/hpi-initiativen/schulcloud.html" target="_blank" rel="noopener">
-							<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/hpi-logo.jpg" alt="Logo HPI" class="img-fluid">
+						<a href="https://hpi.de/open-campus/hpi-initiativen/schulcloud.html" target="_blank"
+							rel="noopener">
+							<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/hpi-logo.jpg"
+								alt="Logo HPI" class="img-fluid">
 						</a>
 						<a href="https://mbjs.brandenburg.de" target="_blank" rel="noopener">
-							<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/brb/images/mbjs.png" alt="Logo MBJS" class="img-fluid">
+							<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/brb/images/mbjs.png" alt="Logo MBJS"
+								class="img-fluid">
 						</a>
-						<a href="https://www.ilb.de/de/wir-ueber-uns/beteiligungen/weitere-beteiligungen/digitalagentur-brandenburg-gmbh/" target="_blank" rel="noopener">
-							<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/brb/images/daab.png" alt="Logo DAAB" class="img-fluid">
+						<a href="https://www.ilb.de/de/wir-ueber-uns/beteiligungen/weitere-beteiligungen/digitalagentur-brandenburg-gmbh/"
+							target="_blank" rel="noopener">
+							<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/brb/images/daab.png" alt="Logo DAAB"
+								class="img-fluid">
 						</a>
 						<a href="https://lisum.berlin-brandenburg.de/lisum/" target="_blank" rel="noopener">
-							<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/brb/images/lisum.png" alt="Logo LISUM" class="img-fluid">
+							<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/brb/images/lisum.png"
+								alt="Logo LISUM" class="img-fluid">
 						</a>
 					</div>
 				</div>
 			</section>
-        </aside>
-    </div>
+		</aside>
+	</div>
 </div>
 
-{{#embed "lib/extended_footer"}}{{/embed}} {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
+{{#embed "lib/extended_footer"}}{{/embed}} {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post"
+class="pwrecovery-modal"}}
 {{#content "fields"}} {{> "authentication/forms/pwrecovery"}} {{/content}} {{/embed}} {{/content}} {{/extend}}
