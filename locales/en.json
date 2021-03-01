@@ -1913,11 +1913,6 @@
 				"pedagogicalExperts": "When inviting educational stuff as external experts, please do not use e-mail addresses that are already used and required for the registration in the Lower Saxony Education Cloud."
 			}
 		},
-		"language_hint": {
-			"text": {
-				"forBetterReadability": "For better readability we use the masculine form (“student”, “teacher”) in the user interface of the {{title}}. It always means all people regardless of gender. The {{shortTitle}} applies to everyone, regardless of origin, restrictions, gender and sexual orientation."
-			}
-		},
 		"lernNuggets": {
 			"headline": {
 				"instructionsForUse": "Instructions for use",
@@ -3153,7 +3148,7 @@
 				"registration": "A uniform digital platform for the whole school offers many advantages. Registration for the {{shortTitle}} is therefore carried out by the school management. Please contact <a href=\"mailto:brandenburg@hpi-schul-cloud.org\">brandenburg@hpi-schul-cloud.org<\/a>, if you want to register your school. \nAll students will then receive a registration link or login data from their school for the initial registration in the {{shortTitle}}. If you have any questions about registering for the first time, please contact the technical director of your school or the respective teacher.",
 				"valueStatement": "<li>a consistent use of open source solutions,<\/li><li>a consistently user-centered development,<\/li><li>a strictly modular structure,<\/li><li>which is important for a large country Function of cross-school cooperation,<\/li><li>the EU-DSGVO/data protection conformity through privacy by design,<\/li><li>the possibility of creating synergies through national cooperation.<\/li><br>",
 				"access": "A modern teaching and learning infrastructure is indispensable in order to lead the digital transformation in the education sector to success and to optimally prepare children at school for life in an increasingly digital society.",
-				"advantages": "<li>Time and place-independent access to a large range of digital learning content<\/li><li>Exchange of digital, self-created materials<\/li><li>Digital education beyond separate computer rooms<\/li><li>Professional maintenance<\/li><li>Constant availability of the latest software for teachers and students<\/li><li>IT applications comply with the latest security standards<\/li><li>Contact point for new digital learning opportunities<\/li><li>Direct feedback from users<\/li><li>Suggestion for self-determined learning<\/li><li>Provision of specially designed learning offers<\/li><li>Networking of different learning locations<\/li><li>Vernetzung unterschiedlicher Lernorte<\/li>",
+				"advantages": "<li>Time and place-independent access to a large range of digital learning content<\/li><li>Exchange of digital, self-created materials<\/li><li>Digital education beyond separate computer rooms<\/li><li>Professional maintenance<\/li><li>Constant availability of the latest software for teachers and students<\/li><li>IT applications comply with the latest security standards<\/li><li>Contact point for new digital learning opportunities<\/li><li>Direct feedback from users<\/li><li>Suggestion for self-determined learning<\/li><li>Provision of specially designed learning offers<\/li><li>Networking of different learning locations<\/li>",
 				"furtherInformation": "<a href=\"https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/\">https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/<\/a>"
 			}
 		},
@@ -3164,7 +3159,7 @@
 		},
 		"thr": {
 			"text": {
-				"welcome": "The {{shortTitle}} is intended to create the technical basis for teachers and students to use modern digital teaching and learning content in every subject, in the same way as apps can be used on smartphones or tablets. To achieve this goal the state of Thuringia is piloting the Schul-Cloud developed by the Hasso Plattner Institute with initially 20 pilot schools and 9 study seminars from the school year 2019/2020."
+				"welcome": "The {{shortTitle}} is intended to create the technical basis for teachers and students to use modern digital teaching and learning content in every subject, in the same way as apps can be used on smartphones or tablets. To achieve this goal the state of Thuringia is piloting the Schul-Cloud developed by the Hasso Plattner Institute with initially 20 pilot schools and 9 study seminars from the school year 2019\/2020."
 			}
 		}
 	}
