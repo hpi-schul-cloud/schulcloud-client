@@ -31,6 +31,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+
+- SC-8595 - remove linguistic note completely
 - SC-8599 - fixed typo
 - SC-6679 - fixed table styling in topic text-component
 - SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
