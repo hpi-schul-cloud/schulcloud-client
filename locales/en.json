@@ -1991,7 +1991,7 @@
 			"loginAsTeacherDemo": "Log in as a teacher",
 			"register": "Register",
 			"registerNow": "Register now",
-			"subscribeNewsletter": "Subscribe to the Newsletter"
+			"subscribeNewsletter": "Subscribe now"
 		},
 		"header": {
 			"link": {
@@ -2003,7 +2003,7 @@
 		"headline": {
 			"advantagesGeneral": "Introducing the {{title}}",
 			"advantagesDetailed": "The advantages of {{title}}",
-			"allNewsOnHPIInternationalNewsletter": "All the news about {{title}} conveniently in your inbox:",
+			"allNewsOnHPIInternationalNewsletter": "Subscribe to our newsletter to never miss any news.",
 			"allNewsOnHPINewsletter": "All news about the <span style=\"white-space: nowrap;\">HPI school cloud<\/span> conveniently sent to your mailbox:",
 			"dataCompliantAndSecure": "Privacy compliant and secure",
 			"developedWithAndForSchools": "Developed together with and for schools.",
