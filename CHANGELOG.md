@@ -13,6 +13,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- SC-8211 - Fixed course events duplications
 - SC-8686 - Personalized notification message
 
 ## [25.6.2] - 2021-02-12
