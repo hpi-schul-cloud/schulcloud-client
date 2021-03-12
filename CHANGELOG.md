@@ -12,6 +12,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## [26.0.0]
 
 ## [25.6.11] - 2021-03-12
+
+### Fixed
 - SC-8211 - Fixed course events duplications
 
 ## [25.6.3] - 2021-02-24
