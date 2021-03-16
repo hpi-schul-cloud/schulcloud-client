@@ -32,7 +32,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-
+- SC-8248 - follow up to fix issue that came from removing the helpdesk completely
 - SC-8595 - remove linguistic note completely
 - SC-8599 - fixed typo
 - SC-6679 - fixed table styling in topic text-component
