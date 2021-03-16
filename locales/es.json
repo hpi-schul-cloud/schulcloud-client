@@ -1821,17 +1821,17 @@
 				"pBettermarks": "Bettermarks",
 				"pEditor": "Editor",
 				"pTeams": "Equipos",
-				"pLibreOffice": "Libre Office", 
+				"pLibreOffice": "Libre Office",
 				"pNews": "Noticias",
-				"pCalendar": "Calendario", 
-				"pMessenger": "Messenger", 
+				"pCalendar": "Calendario",
+				"pMessenger": "Messenger",
 				"pMyFiles": "Mis archivos personales",
 				"pLernStore": "Learning Store",
 				"pManagement": "Administración",
 				"pRegisterLogin": "Registrarse & Inicio de sesión",
 				"pPermissions": "Permisos",
 				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
-				"pExtra": "Extras", 
+				"pExtra": "Extras",
 				"pApps": "Aplicaciones",
 				"pNotifications": "Notificaciones",
 				"pOther": "Otros"
@@ -1991,7 +1991,7 @@
 			"loginAsTeacherDemo": "Iniciar sesión como profesor",
 			"register": "Registrarse",
 			"registerNow": "Regístrate ahora",
-			"subscribeNewsletter": "Suscríbete al boletín de noticias"
+			"subscribeNewsletter": "Suscríbase ahora"
 		},
 		"header": {
 			"link": {
@@ -2003,7 +2003,7 @@
 		"headline": {
 			"advantagesGeneral": "De eso se trata {{title}}",
 			"advantagesDetailed": "Ventajas de {{title}}",
-			"allNewsOnHPIInternationalNewsletter": "Todas las noticias sobre {{title}} cómodamente en tu bandeja de entrada:",
+			"subscribeNewsletter": "Suscríbase a nuestro boletín de noticias y no vuelva a perderse ninguna noticia.",
 			"allNewsOnHPINewsletter": "Todas las noticias sobre la <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span> enviadas cómodamente a tu buzón:",
 			"dataCompliantAndSecure": "Conforme a las políticas de privacidad y seguro",
 			"developedWithAndForSchools": "Desarrollado con y para las escuelas.",
