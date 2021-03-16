@@ -1991,7 +1991,7 @@
 			"loginAsTeacherDemo": "Iniciar sesión como profesor",
 			"register": "Registrarse",
 			"registerNow": "Regístrate ahora",
-			"subscribeNewsletter": "Suscríbase ahora"
+			"subscribeNewsletter": "Suscríbete ahora"
 		},
 		"header": {
 			"link": {
@@ -2003,7 +2003,7 @@
 		"headline": {
 			"advantagesGeneral": "De eso se trata {{title}}",
 			"advantagesDetailed": "Ventajas de {{title}}",
-			"subscribeNewsletter": "Suscríbase a nuestro boletín de noticias y no vuelva a perderse ninguna noticia.",
+			"subscribeNewsletter": "Suscríbete a nuestro boletín y no vuelvas a perderte ninguna noticia.",
 			"allNewsOnHPINewsletter": "Todas las noticias sobre la <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span> enviadas cómodamente a tu buzón:",
 			"dataCompliantAndSecure": "Conforme a las políticas de privacidad y seguro",
 			"developedWithAndForSchools": "Desarrollado con y para las escuelas.",
