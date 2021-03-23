@@ -9,6 +9,30 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.0.2] - 2021-03-22
+
+### Removed
+
+- SC-8595 - remove language hint from the system
+- SC-8409 - remove FAQ from help page
+
+### Changed
+
+- SC-8408 - improved course update logic. Delete all events for the course before creating new
+- SC-8597 - changing color of the course headline into primary
+
+### Added
+
+- SC-8595 - Added DE,EN,ES translations for the landing page and missing gender
+- SC-8447 - Added filter for logging in error case.
+- SC-8341 - fix bug with teams with deleted user
+- SC-8156 - Added Spanish as an available language
+- SC-8318 - actualize gender language
+
+### Fixed
+
+- SC-8595 - remove linguistic note completely
+
 ## [26.0.1] - 2021-03-17
 
 ### Fixed
@@ -68,10 +92,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## 25.5.4
 
 ### Added
+
 - SC-8447 - add feature flag to enable or disable request logs
+
 ## 25.5.3
 
 ### Fixed
+
 - SC-8189 - fixed course event duplication by updating the course
 
 ## 25.5.2

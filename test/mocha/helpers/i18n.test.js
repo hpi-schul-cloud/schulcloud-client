@@ -4,7 +4,7 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const config = {
 	defaultLanguage: 'de',
 	fallbackLanguage: 'de',
-	availableLanguages: 'de,en',
+	availableLanguages: 'de,en,es',
 };
 
 const mockReq = {
