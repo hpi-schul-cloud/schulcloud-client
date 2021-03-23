@@ -375,7 +375,7 @@
 			"button": {
 				"addCourse": " Kurs hinzufügen",
 				"bug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}?\n Sende Wünsche oder Probleme direkt an den {{short_title}}-Nutzer-Support.",
-				"contactSupport": "Kontaktiere den Support",
+				"contactSupport": "Support kontaktieren",
 				"createLinkSheet": "Link-Druckbogen erstellen",
 				"mailsAreBeingSent": "E-Mails werden gesendet...",
 				"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
