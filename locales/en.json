@@ -2162,6 +2162,9 @@
 				"editorialStuff": "Editorial staff:",
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso Plattner Institute for Digital Engineering gGmbH",
 				"managingDirectorAuthorized": "Managing director authorized to represent:"
+			},
+			"text": {
+				"hpiPhoneNumber" : "Phone Number: +49 (0)331 / 2318 2920"
 			}
 		}
 	},

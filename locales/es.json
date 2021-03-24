@@ -2162,6 +2162,9 @@
 				"editorialStuff": "Redacción:",
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Instituto Hasso Plattner de Ingeniería Digital gGmbH",
 				"managingDirectorAuthorized": "Consejero delegado autorizado para representar:"
+			},
+			"text": {
+				"hpiPhoneNumber" : "número de teléfono: +49 (0)331 / 2318 2920"
 			}
 		}
 	},
