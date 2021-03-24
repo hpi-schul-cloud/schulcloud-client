@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.0.3] - 2021-03-24
+
+### Changed
+
+- SC-8822 - Update contact Numbers in Impressum
+
 ## [26.0.2] - 2021-03-22
 
 ### Removed
