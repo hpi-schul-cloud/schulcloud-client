@@ -9,12 +9,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [26.0.4] - 2021-03-24
-
-### Changed
-
-- SC-8822 - add availability to phone number in imprint
-
 ## [26.0.3] - 2021-03-24
 
 ### Changed
@@ -118,7 +112,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-8325 - clients error handling on oauth2 routes
-- SC-8449 - hardcoded platform names used for authentication dialog and in mouseover of iframe
+- SC-8449	- hardcoded platform names used for authentication dialog and in mouseover of iframe
 
 ## 25.5.1
 
@@ -142,7 +136,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [25.4.2]
 
-### Fixed
+### Fixed 
 
 - SC-8337 - Better error handling for file upload
 
@@ -154,7 +148,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7824 - Set proper email address and label for data privacy
+- SC-7824 - Set proper email address and label for data privacy 
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
@@ -205,7 +199,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation.
+- SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation. 
   This change has fixed the issue so that every course starts at the stable time regardless daylight saving time changes
 
 ## 25.3.2
@@ -217,7 +211,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## 25.3.1
 
 ### Fixed
-
 - SC-6727 Change email addresses for tickets for Niedersachsen - fix label text
 
 ## 25.3.0
@@ -376,7 +369,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-6582 Add bidirectional messenger settings for course creation
+ - SC-6582 Add bidirectional messenger settings for course creation
 
 ## [25.0.6] - 2020-10-01
 
@@ -407,60 +400,60 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- SC-6927 Admins can delete teachers again
+  - SC-6927 Admins can delete teachers again
 
 ## [25.0.1] - 2020-09-28
 
+
 ### Fixed
 
-- SC-6932 added translation keys instead of hardcoded strings for sidebar items
+  - SC-6932 added translation keys instead of hardcoded strings for sidebar items
 
 ## [24.5.7] - 2020-09-22
 
 ### Fixed
 
-- SC-6845 Fixed reset of consent property if inputs disabled
+  - SC-6845 Fixed reset of consent property if inputs disabled
 
 ## [24.5.6] - 2020-09-22
 
 ### Fixed
 
-- SC-6823 - Fixed inserting media in comments for homework correction
+  - SC-6823 - Fixed inserting media in comments for homework correction
 
 ## [24.5.5] - 2020-09-22
 
 ### Fixed
 
-- SC-6630 Fixed email validation using an undefined value when inviting experts to a team.
+  - SC-6630 Fixed email validation using an undefined value when inviting experts to a team.
 
 ## [24.5.4] - 2020-09-21
 
 ### Fixed
 
-- SC-6762 Fix file upload permissions for evaluation
+  - SC-6762 Fix file upload permissions for evaluation
 
 ## [24.5.3] - 2020-09-18
 
 ### Fixed
 
-- SC-6761 Fixed messenger activation in courses
+  - SC-6761 Fixed messenger activation in courses
 
 ## [24.5.2] - 2020-09-16
 
 ### Fixed
 
-- SC-6637 Updated CSS of QR codes to avoid broken print layout
+  - SC-6637 Updated CSS of QR codes to avoid broken print layout
 
 ## [24.5.1] - 2020-09-14
 
 ### Fixed
 
-- SC-6761 Fixed individual registration emails
+  - SC-6761 Fixed individual registration emails
 
 ## [24.4.2] - 2020-09-09
 
 ### Fixed
-
 - SC-6533 - Login not possible if admin reset password
 
   - SC-5707 Added detection of browser language
@@ -472,13 +465,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [24.4.1] - 2020-9-01
 
-- SC-6526 Fixed inserting files in CKEditor for topics
+  - SC-6526 Fixed inserting files in CKEditor for topics
 
 ## [24.4.0] - 2020-8-31
 
-- SC-6019 Added tabbar to classes administration
-- SC-5955 Changed links to Lernen.cloud
-- SC-5644 navigation and the general structure of pages made more accessible (a11y)
+  - SC-6019 Added tabbar to classes administration
+  - SC-5955 Changed links to Lernen.cloud
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
 
 ## [24.3.2] - 2020-08-26
 
@@ -486,67 +479,57 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [24.3.1] - 2020-08-26
 
-- SC-6382 fix default  wellcome text for tsp
+- SC-6382 fix default  wellcome text for tsp 
 
 ## [24.3.0] - 2020-08-25
-
 ### Changed - 24.3.0
 
-- SC-5644 navigation and the general structure of pages made more accessible (a11y)
+  - SC-5644 navigation and the general structure of pages made more accessible (a11y)
 
 ## [24.2.5] - 2020-08-20
-
 ### Fixed - 24.2.5
 
-- SC-6296 Only show edit and delete button for eligible systems
+  - SC-6296 Only show edit and delete button for eligible systems
 
 ## [24.2.4] - 2020-08-20
 
 ## [24.2.3] - 2020-08-18
-
 ### Changed - 24.2.3
 
-- SC-6239 Changed default email domains in many different places from @schul-cloud.org to @hpi-schul-cloud.de
-- SC-6239 Changed links to blog to blog.hpi-schul-cloud.de
+  - SC-6239 Changed default email domains in many different places from @schul-cloud.org to @hpi-schul-cloud.de
+  - SC-6239 Changed links to blog to blog.hpi-schul-cloud.de
 
 ## [24.2.1] - 2020-08-13
-
 ## Fixed - 24.2.1
 
-- SC-6012 Etherpad authorization error due to unique name problem
-- SC-6125 fix broken link
+  - SC-6012 Etherpad authorization error due to unique name problem
+  - SC-6125 fix broken link
 
 ## [24.0.3] - 2020-08-05
-
 ### Fixed - 24.0.3
 
-- SC-5948 Fix login for international cloud
+  - SC-5948 Fix login for international cloud
 
 ## [24.0.2] - 2020-08-05
-
 ### Fixed - 24.0.2
-
    SC-5954 Fix messenger settings in teams
 
 ## [24.0.1] - 2020-07-31
-
 ### Fixed - 24.0.1
-
    SC-5917 Fix activation of LDAP system
 
 ## [24.0.0] - 2020-07-30
 
 ### Added - 24.0.0
-
 - SC-4151 hint for user when login failes
-- SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists
+- SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists 
 it is shown to every school user by the registration, first login and in the footer of the page. If it was changed the
 privacy policy should be confirmed by every school user
 
-### Fixed - 24.0.0
 
-- SC-4993 fixed video player issue in ckeditor
-- SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only
+### Fixed - 24.0.0
+-  SC-4993 fixed video player issue in ckeditor
+-  SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only 
 be accessed if the user has the permission "COURSE_EDIT
 
 ### Changed - 24.0.0
@@ -580,7 +563,6 @@ be accessed if the user has the permission "COURSE_EDIT
 ## [23.1.2] - 2020-06-02
 
 ### Changed
-
 - SC-4766 minor text changes for n21
 
 ## [23.1.0] - 2020-05-20
@@ -594,19 +576,19 @@ be accessed if the user has the permission "COURSE_EDIT
 ### Changed
 
 ### Security
-
-- SC-4506 Secure User Route. Removed not used /users route from view team members.
+- SC-4506 Secure User Route. Removed not used /users route from view team members. 
 
 ### Removed
+
 
 ## [23.0.0] - 2020-05-19
 
 ### Changed in 23.0.0
 
 - SC-4392 add/edit link dialog in ckeditor could not be opened
-- SC-4075 Teams creation by students logic was changed. New environment enumeration variable `STUDENT_TEAM_CREATION`
-with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. The feature value is set by instance deployment.
-In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin.
+- SC-4075 Teams creation by students logic was changed. New environment enumeration variable `STUDENT_TEAM_CREATION` 
+with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. The feature value is set by instance deployment. 
+In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin. 
 In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the school admin.
 
 ### Fixed
@@ -616,11 +598,9 @@ In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the 
 ## [22.10.0] - 2020-05-11
 
 ### Security in 22.10.0
-
 - SC-3990 generation of first login passwords
 
 ### Added in 22.10.0
-
 - SC-3664 query toast-type and toast-message
 - SC-3892 Task sorting on the course side
 - SC-3757 the LDAP config page now contains a link to the docs
@@ -642,6 +622,7 @@ In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the 
 ### Fixed in 22.10.0
 
 - SC-3945 Courses are now again unarchiveable
+
 
 ## [22.9.12] - 2020-05-06
 
