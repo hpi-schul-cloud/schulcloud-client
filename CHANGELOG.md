@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.0.4] - 2021-03-24
+
+### Changed
+
+- SC-8822 - add availability to phone number in imprint
+
 ## [26.0.3] - 2021-03-24
 
 ### Changed
