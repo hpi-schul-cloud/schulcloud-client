@@ -51,6 +51,8 @@ const displayScope = (scope, w) => {
 			return w.$t('login.oauth2.label.yourName');
 		case 'email':
 			return w.$t('login.oauth2.label.email');
+		case 'offline':
+			return w.$t('login.oauth2.label.offline');
 		default:
 			return scope;
 	}

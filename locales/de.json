@@ -2434,7 +2434,8 @@
 				"openId": "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt",
 				"showName": "Namen zeigen",
 				"weNeedToSendThisData": "Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:",
-				"yourName": "deinen Namen"
+				"yourName": "deinen Namen",
+				"offline": "die Möglichkeit, den Zugriff selbstständig zu erneuern"
 			},
 			"text": {
 				"yourNameIsProtected": "Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser direkt aus der {{shortTitle}} abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver anzeigen kann."
