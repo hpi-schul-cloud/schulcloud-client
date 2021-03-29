@@ -89,7 +89,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 		return api(req).delete(`calendar/courses/${courseId}`).catch((error) => {
 			logger.warn(
 				'failed creating events for the course, the calendar service might be unavailable',
-				formatError(error),
+				error,
 			);
 			req.session.notification = {
 				type: 'danger',
