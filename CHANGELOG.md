@@ -9,6 +9,22 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.1.0]
+
+## [26.0.4] - 2021-03-24
+
+### Changed
+
+- SC-8822 - add availability to phone number in imprint
+
+## [26.0.3] - 2021-03-24
+
+### Changed
+
+- SC-8822 - Update contact Numbers in Impressum
+
+## [26.0.2] - 2021-03-22
+
 ### Removed
 
 - SC-8595 - remove language hint from the system
@@ -19,6 +35,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8599 - remodeled help area contact page / follow up PR
 - SC-8660 – changed text of the footer in the section job offers for the instances boss open and thr
 - SC-8408 - improved course update logic. Delete all events for the course before creating new 
+- SC-8408 - improved course update logic. Delete all events for the course before creating new
 - SC-8597 - changing color of the course headline into primary
 
 ### Added
@@ -39,8 +56,21 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6923 - Fixed help area search with csp url
 - SC-8414 - Made school number field editable for LDAP schools
 - SC-8594 - make drag icon visible again
+- SC-8318 - actualize gender language
+
+## [26.0.1] - 2021-03-17
+
+### Fixed
+
+- [25.6.11] -> [26.0.1]
 
 ## [26.0.0]
+
+## [25.6.11] - 2021-03-12
+
+### Fixed
+
+- SC-8211 - Fixed course events duplications
 
 ## [25.6.3] - 2021-02-24
 
