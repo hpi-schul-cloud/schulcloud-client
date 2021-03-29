@@ -379,6 +379,7 @@
 			"button": {
 				"addCourse": " Kurs hinzufügen",
 				"bug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}?\n Sende Wünsche oder Probleme direkt an den {{short_title}}-Nutzer-Support.",
+				"contactSupport": "Support kontaktieren",
 				"createLinkSheet": "Link-Druckbogen erstellen",
 				"mailsAreBeingSent": "E-Mails werden gesendet...",
 				"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
@@ -1908,8 +1909,8 @@
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
 			},
 			"label": {
-				"lowerSaxonyRegistration": "Über die Interessenbekundung <a href=\"https:\/\/www.n-21.de\/nbc\/interessenbekundung\">(https:\/\/www.n-21.de\/nbc\/interessenbekundung)<\/a> melden sich Schulen – durch die Schulleitung – für die Niedersächsische Bildungscloud an.",
-				"pedagogicalExperts": "Verwende für die Einladung von pädagogischem Personal als externe\/r Expert:in bitte keine E-Mail-Adressen, die bereits im schulischen Kontext genutzt werden und für deren Registrierung in der Niedersächsischen Bildungscloud benötigt werden."
+				"lowerSaxonyRegistration": "Über die Interessenbekundung <a href=\"https://www.n-21.de/nbc/interessenbekundung\">(https://www.n-21.de/nbc/interessenbekundung)</a> melden sich Schulen – durch die Schulleitung – für die Niedersächsische Bildungscloud an.",
+				"pedagogicalExperts": "Verwende für die Einladung von pädagogischem Personal als externe/r Expert:in bitte keine E-Mail-Adressen, die bereits im schulischen Kontext genutzt werden und für deren Registrierung in der Niedersächsischen Bildungscloud benötigt werden."
 			}
 		},
 		"lernNuggets": {
@@ -2192,6 +2193,9 @@
 				"editorialStuff": "Redaktion:",
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH",
 				"managingDirectorAuthorized": "Vertretungsberechtigte Geschäftsführung:"
+			},
+			"text": {
+				"hpiPhoneNumber" : "Telefon: +49 (0)331 / 2318 2920 (erreichbar Mo.-Fr. 13-14 Uhr)"
 			}
 		}
 	},
