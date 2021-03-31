@@ -164,7 +164,7 @@ fi
 
 # trigger sc-app-ci to deploy release to staging
 VERSION="$(jq -r '.version' package.json )"
-echo "VERSION"=$VERSION
+echo "VERSION"="$VERSION"
 
 if [[ "$TRAVIS_BRANCH" =~ ^"release"* ]]
 then
@@ -173,11 +173,11 @@ then
 	echo "and checked in sc-app-deploy workflow Deploy_release_to_staging.yml"
   
   # mask DOT for payload
-  VERSION=$( echo $VERSION | tr -s "[:punct:]" "-" )
+  VERSION="$( echo $VERSION | tr -s "[:punct:]" "-" )"
 
   curl -X POST https://api.github.com/repos/hpi-schul-cloud/sc-app-ci/dispatches \
   -H 'Accept: application/vnd.github.everest-preview+json' \
-  -u $GITHUB_TOKEN \
+  -u "$GITHUB_TOKEN" \
   --data '{"event_type": "Trigger_from_sc_client", "client_payload": { "GIT_BRANCH": "'"$TRAVIS_BRANCH"'", "TRIGGER_REPOSITORY": "sc-client", "VERSION": "'"$VERSION"'" }}'
 fi
 
