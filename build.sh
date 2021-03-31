@@ -173,7 +173,7 @@ then
 	echo "and checked in sc-app-deploy workflow Deploy_release_to_staging.yml"
   
   # mask DOT for payload
-  VERSION="$( echo $VERSION | tr -s "[:punct:]" "-" )"
+  VERSION="$( echo "$VERSION" | tr -s "[:punct:]" "-" )"
 
   curl -X POST https://api.github.com/repos/hpi-schul-cloud/sc-app-ci/dispatches \
   -H 'Accept: application/vnd.github.everest-preview+json' \
