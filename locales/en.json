@@ -375,6 +375,7 @@
 			"button": {
 				"addCourse": " Add course",
 				"bug": "Would you like to report an error or do you have an idea to improve the {{title}}? \n Send requests or problems directly to the {{short_title}} user support.",
+				"contactSupport": "Contact support",
 				"createLinkSheet": "Create a link print sheet",
 				"mailsAreBeingSent": "Sending e-mails ...",
 				"printSheetIsBeingGenerated": "Print sheet is being generated ...",
@@ -2212,6 +2213,9 @@
 				"editorialStuff": "Editorial staff:",
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso Plattner Institute for Digital Engineering gGmbH",
 				"managingDirectorAuthorized": "Managing director authorized to represent:"
+			},
+			"text": {
+				"hpiPhoneNumber" : "Phone Number: +49 (0)331 / 2318 2920 (available Monday-Friday 1 p.m. - 2 p.m.)"
 			}
 		}
 	},

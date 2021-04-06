@@ -375,6 +375,7 @@
 			"button": {
 				"addCourse": "Añadir curso",
 				"bug": "¿Te gustaría informar de un error o tienes alguna idea para mejorar {{title}}?\n Envía tus solicitudes o problemas directamente al servicio de atención al usuario de {{short_title}}.",
+				"contactSupport": "Contactar soporte",
 				"createLinkSheet": "Crear una hoja impresa con los enlaces",
 				"mailsAreBeingSent": "Enviando correos electrónicos...",
 				"printSheetIsBeingGenerated": "Se está generando la hoja de impresión...",
@@ -1640,7 +1641,7 @@
 			"password": "Contraseña:",
 			"role": "Rol",
 			"room": "Sala",
-			"search": "buscar...",
+			"search":"buscar...",
 			"settings": "Configuración",
 			"skipLinks": "Saltar enlaces",
 			"sortBy": "Ordenar por: %1",
@@ -1793,13 +1794,13 @@
 		},
 		"contact": {
 			"label": {
-				"wish": "Solicitud",
-				"bug": "Problema"
+				"bug": "Problema",
+				"wish": "Solicitud"
 			},
 			"text": {
 				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
 				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
-				"whoDoYouWantToContact": "¿A quién quieres contactar?",
+				"whoDoYouWantToContact": "¿Con quién quieres contactar?",
 				"whichAreaOfSchulCloud": "¿A qué área de Schul-Cloud se refiere tu tema?",
 				"contactSupport": "Contactar soporte",
 				"contactSupportSubtitle": "¿Tu problema no aparece en la lista? Ponte en contacto con nuestro equipo de asistencia.",
@@ -1949,8 +1950,8 @@
 				"contactForm": "Formulario de contacto",
 				"contactPerson": "Persona de contacto",
 				"overview": "Visión general",
-				"writeUsAnEmail": "Envíanos un correo electrónico",
-				"problemArea": "Selecciona el área"
+				"problemArea": "Selecciona el área",
+				"writeUsAnEmail": "Envíanos un correo electrónico"
 			}
 		},
 		"placeholder": {
@@ -2212,6 +2213,9 @@
 				"editorialStuff": "Redacción:",
 				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Instituto Hasso Plattner de Ingeniería Digital gGmbH",
 				"managingDirectorAuthorized": "Consejero delegado autorizado para representar:"
+			},
+			"text": {
+				"hpiPhoneNumber" : "número de teléfono: +49 (0)331 / 2318 2920 (disponible de lunes a viernes, de 13 a 14 horas)"
 			}
 		}
 	},
@@ -2247,14 +2251,14 @@
 				"nowAtGooglePlay": "Ahora en Google Play"
 			},
 			"link": {
-				"contentProviders": "Proveedores de contenido",
+				"contentProviders": "Proveedores de contenido:",
 				"currentJobOffers": "Ofertas de trabajo",
-				"generalInquiries": "Consultas generales",
+				"generalInquiries": "Consultas generales:",
 				"mobileApp": "Aplicación móvil",
-				"privacy": "Privacidad",
-				"privacy_responsible_person": "Responsable de protección de datos",
+				"privacy": "Privacidad:",
+				"privacy_responsible_person": "Responsable de protección de datos:",
 				"subscribeTheNewsletter": "Suscríbete al boletín de noticias",
-				"support": "Servicio de asistencia"
+				"support": "Servicio de asistencia:"
 			},
 			"text": {
 				"weAreHiring": "¿Quieres trabajar con nosotros en el equipo de la <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>? Mira esta página:"
@@ -2355,7 +2359,7 @@
 			},
 			"link": {
 				"sendRequestOrProblem": "Enviar solicitud o problema",
-				"training": "Cursos de capacitación"
+				"training": "Formaciones avanzadas"
 			}
 		},
 		"ldap_info": {
