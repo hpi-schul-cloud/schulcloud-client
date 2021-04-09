@@ -10,6 +10,16 @@
         {{#ifeq depseudonymized false}}
             <script src="{{getAssetPath '/scripts/oauth2.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
             <style>.depseudo{cursor:pointer;}</style>
+        {{else}}
+            <script>
+                $(() => {
+                    $(document).on('click', () => {
+                        window.parent.postMessage({
+                            pseudonym: document.URL.substring(document.URL.lastIndexOf('/') + 1),
+                        }, '*');
+                    });
+                });
+            </script>
         {{/ifeq}}
     {{/block}}
 </head>
