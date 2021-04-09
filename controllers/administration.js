@@ -2470,7 +2470,13 @@ router.all('/courses', (req, res, next) => {
 		const coursesBody = courses.data.map((item) => [
 			item.name,
 			// eslint-disable-next-line no-shadow
-			(item.classIds || []).map((item) => classes.find((obj) => obj._id === item.id).displayName).join(', '),
+			(item.classIds || []).map((item) => {
+				const c = classes.find((obj) => obj._id === item.id);
+				// c might be undefined, c.displayName might throw
+				return c != null && typeof c === "object"
+					? c.displayName
+					: undefined;
+			}).join(', '),
 			// eslint-disable-next-line no-shadow
 			(item.teacherIds || []).map((item) => item.lastName).join(', '),
 			[
