@@ -11,6 +11,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [26.1.0]
 
+## [26.0.5] - 2021-04-13
+
+### Fixed
+
+- SC-8748 - bump feathers-mongoose from 6.3.0 to 8.3.1
+
 ## [26.0.4] - 2021-03-24
 
 ### Changed
