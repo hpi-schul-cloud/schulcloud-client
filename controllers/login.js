@@ -11,11 +11,9 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 
-const logger = require('../helpers/logger');
+const cache = require('../helpers/cache');
 
-const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
-	qs: query,
-}).then((data) => data.data);
+const logger = require('../helpers/logger');
 
 // SSO Login
 
@@ -85,15 +83,7 @@ router.all('/', (req, res, next) => {
 			return redirectAuthenticated(req, res);
 		}
 
-		const schoolsPromise = getSelectOptions(
-			req, 'schools',
-			{
-				purpose: { $ne: 'expert' },
-				$limit: false,
-				$sort: 'name',
-			},
-		);
-		return schoolsPromise.then((schools) => res.render('authentication/home', {
+		return cache.getLoginSchools(req).then((schools) => res.render('authentication/home', {
 			schools,
 			inline: true,
 			systems: [],
@@ -102,11 +92,7 @@ router.all('/', (req, res, next) => {
 });
 
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
-	.then(() => getSelectOptions(req, 'schools', {
-		purpose: { $ne: 'expert' },
-		$limit: false,
-		$sort: 'name',
-	}).then((schools) => {
+	.then(() => cache.getLoginSchools(req).then((schools) => {
 		res.render('authentication/login', {
 			schools,
 			systems: [],
