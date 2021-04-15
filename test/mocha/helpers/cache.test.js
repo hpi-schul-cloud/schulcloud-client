@@ -1,5 +1,4 @@
 const { expect } = require('chai');
-const { result } = require('lodash');
 
 const Cache = require('../../../helpers/cache/Cache');
 
