@@ -83,10 +83,10 @@ $(document).ready(() => {
 				}
 				// eslint-disable-next-line max-len
 				$systems.append(`<option ${selected ? 'selected' : ''} value="${system._id}//${system.type}">${system.type}${systemAlias}</option>`);
-				$systems.trigger('chosen:updated');
 			});
 			// eslint-disable-next-line no-unused-expressions
 			systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
+			$systems.trigger('chosen:updated');
 		});
 	};
 
