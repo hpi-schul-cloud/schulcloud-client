@@ -13,8 +13,8 @@ describe('Cache helper class', () => {
 	});
 
 	it('should return the result first from callback and after it from cache', async () => {
-		const initalData = { a: 0 };
-		const changedData = { b: 1 };
+		const initalData = 'initial';
+		const changedData = 'changed';
 
 		let returnData = initalData;
 		const callback = async () => returnData;
@@ -30,8 +30,8 @@ describe('Cache helper class', () => {
 	});
 
 	it('should recall ressources if update interval time is expired', async () => {
-		const initalData = { a: 0 };
-		const changedData = { b: 1 };
+		const initalData = 'initial';
+		const changedData = 'changed';
 
 		let returnData = initalData;
 		const callback = async () => returnData;
@@ -51,21 +51,25 @@ describe('Cache helper class', () => {
 		let passed1;
 		let passed2;
 		let passed3;
+		let passed4;
 
 		const input1 = 'param1';
 		const input2 = 'param2';
 		const input3 = 'param3';
+		const input4 = 'param3';
 
-		const callback = (a, b, c) => {
+		const callback = (a, b, c, d) => {
 			passed1 = a;
 			passed2 = b;
 			passed3 = c;
+			passed4 = d;
 		};
 		const cache = new Cache(callback, { updateInvervalSecounds: 60 });
 
-		await cache.get(input1, input2, input3);
+		await cache.get(input1, input2, input3, input4);
 		expect(passed1).equal(input1);
 		expect(passed2).equal(input2);
 		expect(passed3).equal(input3);
+		expect(passed4).equal(undefined);
 	});
 });
