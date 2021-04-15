@@ -9,7 +9,7 @@ class Cache {
 		this.getFunctions = getFunctions;
 	}
 
-	get(req, res, next) {
+	async get(req, res, next) {
 		if (Date.now() > (this.lastUpdated + this.updateInvervalSecounds)) {
 			// please first update time and response old data until request return result
 			this.lastUpdated = Date.now();

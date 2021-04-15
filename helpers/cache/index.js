@@ -1,5 +1,7 @@
-const { getLoginSchools } = require('./schools');
+const { LoginSchoolsCache } = require('./schools');
+const { AlertsCache } = require('./alert');
 
 module.exports = {
-	getLoginSchools,
+	LoginSchoolsCache,
+	AlertsCache,
 };

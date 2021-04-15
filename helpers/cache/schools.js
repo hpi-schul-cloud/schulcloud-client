@@ -6,15 +6,15 @@ const getLoginSchools = async (req) => {
 		purpose: { $ne: 'expert' },
 		$limit: false,
 		$sort: 'name',
-		// $select
+		$select: ['name', 'systems'],
 	};
 
 	const schools = await api(req).get('schools', { qs });
 	return schools.data;
 };
 
-const withCache = new Cache(getLoginSchools, { updateInvervalSecounds: 60 });
+const LoginSchoolsCache = new Cache(getLoginSchools, { updateInvervalSecounds: 60 });
 
 module.exports = {
-	getLoginSchools: withCache.get,
+	LoginSchoolsCache,
 };
