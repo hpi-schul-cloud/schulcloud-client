@@ -13,8 +13,6 @@ const redirectHelper = require('../helpers/redirect');
 const { logger, formatError } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
-const logger = require('../helpers/logger');
-
 // SSO Login
 router.get('/tsp-login/', (req, res, next) => {
 	const { ticket, redirect: redirectParam } = req.query;
