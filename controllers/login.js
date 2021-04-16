@@ -3,7 +3,6 @@
  */
 
 const express = require('express');
-const feedr = require('feedr').create();
 
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
@@ -11,14 +10,11 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 
+const { LoginSchoolsCache } = require('../helpers/cache');
+
 const logger = require('../helpers/logger');
 
-const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
-	qs: query,
-}).then((data) => data.data);
-
 // SSO Login
-
 router.get('/tsp-login/', (req, res, next) => {
 	const { ticket, redirect: redirectParam } = req.query;
 	let redirect = '/dashboard';
@@ -37,7 +33,6 @@ router.get('/tsp-login/', (req, res, next) => {
 });
 
 // Login
-
 router.post('/login/', (req, res, next) => {
 	const {
 		username,
@@ -85,15 +80,7 @@ router.all('/', (req, res, next) => {
 			return redirectAuthenticated(req, res);
 		}
 
-		const schoolsPromise = getSelectOptions(
-			req, 'schools',
-			{
-				purpose: { $ne: 'expert' },
-				$limit: false,
-				$sort: 'name',
-			},
-		);
-		return schoolsPromise.then((schools) => res.render('authentication/home', {
+		return LoginSchoolsCache.get(req).then((schools) => res.render('authentication/home', {
 			schools,
 			inline: true,
 			systems: [],
@@ -102,11 +89,7 @@ router.all('/', (req, res, next) => {
 });
 
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
-	.then(() => getSelectOptions(req, 'schools', {
-		purpose: { $ne: 'expert' },
-		$limit: false,
-		$sort: 'name',
-	}).then((schools) => {
+	.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		res.render('authentication/login', {
 			schools,
 			systems: [],

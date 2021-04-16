@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.0.6] - 2021-04-15
+
+### Fixed
+
+- SC-8931 - add school and alert caching for startpage
+
 ## [26.0.5] - 2021-04-13
 
 ### Fixed
