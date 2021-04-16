@@ -3,7 +3,6 @@
  */
 
 const express = require('express');
-const feedr = require('feedr').create();
 
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
@@ -12,13 +11,11 @@ const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 
 const { logger, formatError } = require('../helpers');
+const { LoginSchoolsCache } = require('../helpers/cache');
 
-const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
-	qs: query,
-}).then((data) => data.data);
+const logger = require('../helpers/logger');
 
 // SSO Login
-
 router.get('/tsp-login/', (req, res, next) => {
 	const { ticket, redirect: redirectParam } = req.query;
 	let redirect = '/dashboard';
@@ -37,7 +34,6 @@ router.get('/tsp-login/', (req, res, next) => {
 });
 
 // Login
-
 router.post('/login/', (req, res, next) => {
 	const {
 		username,
@@ -85,15 +81,7 @@ router.all('/', (req, res, next) => {
 			return redirectAuthenticated(req, res);
 		}
 
-		const schoolsPromise = getSelectOptions(
-			req, 'schools',
-			{
-				purpose: { $ne: 'expert' },
-				$limit: false,
-				$sort: 'name',
-			},
-		);
-		return schoolsPromise.then((schools) => res.render('authentication/home', {
+		return LoginSchoolsCache.get(req).then((schools) => res.render('authentication/home', {
 			schools,
 			inline: true,
 			systems: [],
@@ -105,11 +93,7 @@ router.all('/', (req, res, next) => {
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
-	.then(() => getSelectOptions(req, 'schools', {
-		purpose: { $ne: 'expert' },
-		$limit: false,
-		$sort: 'name',
-	}).then((schools) => {
+		.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 		logger.warn(`User can not logged in. Redirect to ${redirect}`);
 		res.render('authentication/login', {
