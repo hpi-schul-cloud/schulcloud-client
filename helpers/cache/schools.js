@@ -13,7 +13,7 @@ const getLoginSchools = async (req) => {
 	return schools.data;
 };
 
-const LoginSchoolsCache = new Cache(getLoginSchools, { updateInvervalSecounds: 60 });
+const LoginSchoolsCache = new Cache(getLoginSchools, { updateIntervalSecounds: 60 });
 
 module.exports = {
 	LoginSchoolsCache,
