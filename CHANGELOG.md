@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- SC-8942 - increase messenger token endpoint timeout to 16s
+
 ## [26.1.0]
 
 ## [26.0.5] - 2021-04-13
