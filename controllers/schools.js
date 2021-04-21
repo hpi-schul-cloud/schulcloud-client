@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const api = require('../api');
+const { getApiData } = require('../helpers/apiData');
 
 // schools
 
@@ -17,9 +18,9 @@ router.get('/', async (req, res, next) => {
 		params.qs._id = { $ne: res.locals.currentSchool };
 	}
 	try {
-		const schools = await api(req).get('/schools/', params);
+		const schools = await getApiData(req, '/schools', params.qs);
 
-		const result = schools.data.map((school) => ({
+		const result = schools.map((school) => ({
 			_id: school._id,
 			name: school.name,
 			purpose: school.purpose,
