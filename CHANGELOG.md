@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.0.8] - 2021-04-21
+
+### Fixed
+
+- SC-8941 - implements fallback with pagination for unsupported `$limit: false` in api query
+
 ## [26.0.7] - 2021-04-20
 
 ### Fixed

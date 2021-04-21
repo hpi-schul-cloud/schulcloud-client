@@ -8,6 +8,7 @@ const marked = require('marked');
 const handlebars = require('handlebars');
 const _ = require('lodash');
 const api = require('../api');
+const { getApiData: getSelectOptions } = require('../helpers/apiData');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
@@ -26,10 +27,6 @@ handlebars.registerHelper('ifvalue', (conditional, options) => {
 });
 
 router.use(authHelper.authChecker);
-
-const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
-	qs: query,
-}).then((data) => data.data);
 
 const getActions = (res, item, path) => [{
 	link: `${path + item._id}/edit`,

@@ -1,4 +1,4 @@
-const api = require('../../api');
+const { getApiData } = require('../apiData');
 const Cache = require('./Cache');
 
 const getLoginSchools = async (req) => {
@@ -9,8 +9,8 @@ const getLoginSchools = async (req) => {
 		$select: ['name', 'systems'],
 	};
 
-	const schools = await api(req).get('/schools', { qs });
-	return schools.data;
+	const schools = await getApiData(req, '/schools', qs);
+	return schools;
 };
 
 const LoginSchoolsCache = new Cache(getLoginSchools, { updateIntervalSecounds: 60 });

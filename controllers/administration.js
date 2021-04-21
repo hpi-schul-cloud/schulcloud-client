@@ -12,6 +12,7 @@ const _ = require('lodash');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const queryString = require('querystring');
 const api = require('../api');
+const { getApiData: getSelectOptions } = require('../helpers/apiData');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -22,13 +23,6 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
-
-// eslint-disable-next-line no-unused-vars
-const getSelectOptions = (req, service, query, values = []) => api(req)
-	.get(`/${service}`, {
-		qs: query,
-	})
-	.then((data) => data.data);
 
 const getSelectableYears = (school) => {
 	let years = [];
@@ -1348,10 +1342,10 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	} else {
 		const role = await api(req).get('/roles', {
 			qs: { name: roleName },
-			$limit: false,
+			$limit: 1,
 		});
 		const qs = { roles: role.data[0]._id, $limit: false };
-		users = (await api(req).get('/users', { qs, $limit: false })).data;
+		users = await getSelectOptions(req, '/users', qs);
 	}
 
 	const usersWithMissingConsents = [];

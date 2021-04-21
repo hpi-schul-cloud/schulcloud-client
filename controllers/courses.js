@@ -5,6 +5,7 @@ const moment = require('moment');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
+const { getApiData: getSelectOptions } = require('../helpers/apiData');
 const { EDITOR_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -17,11 +18,6 @@ const OPTIONAL_COURSE_FEATURES = ['messenger'];
 
 const router = express.Router();
 const { HOST } = require('../config/global');
-
-const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
-	qs: query,
-}).then((data) => data.data);
-
 
 const markSelected = (options, values = []) => options.map((option) => {
 	option.selected = values.includes(option._id);

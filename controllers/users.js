@@ -2,12 +2,14 @@ const express = require('express');
 
 const router = express.Router();
 const api = require('../api');
+const { getApiData: getSelectOptions } = require('../helpers/apiData');
+
 
 // users
 
 router.get('/teachersOfSchool', async (req, res, next) => {
 	try {
-		const users = await api(req).get('/publicTeachers/', {
+		const users = await getSelectOptions(req, '/publicTeachers/', {
 			qs: {
 				$limit: false,
 				schoolId: req.query.schoolId,
@@ -15,7 +17,7 @@ router.get('/teachersOfSchool', async (req, res, next) => {
 			},
 		});
 
-		const result = users.data.map(user => ({
+		const result = users.map((user) => ({
 			_id: user._id,
 			firstName: user.firstName,
 			lastName: user.lastName,
