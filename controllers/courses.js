@@ -5,7 +5,7 @@ const moment = require('moment');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
-const { getApiData: getSelectOptions } = require('../helpers/apiData');
+const { getApiData, getAllPaginatedData } = require('../helpers/apiData');
 const { EDITOR_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -126,13 +126,11 @@ const editCourseHandler = (req, res, next) => {
 			},
 		});
 	// .then(data => data.data); needed when pagination is not disabled
-	const teachersPromise = getSelectOptions(req, 'users', {
+	const teachersPromise = getAllPaginatedData(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
-		$limit: false,
 	});
-	const studentsPromise = getSelectOptions(req, 'users', {
+	const studentsPromise = getAllPaginatedData(req, 'users', {
 		roles: ['student', 'demoStudent'],
-		$limit: false,
 		$sort: 'lastName',
 	});
 
@@ -272,12 +270,12 @@ const copyCourseHandler = (req, res, next) => {
 		coursePromise = Promise.resolve({});
 	}
 
-	const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-	const teachersPromise = getSelectOptions(req, 'users', {
+	const classesPromise = getApiData(req, 'classes', { $limit: 1000 });
+	const teachersPromise = getApiData(req, 'users', {
 		roles: ['teacher', 'demoTeacher'],
 		$limit: 1000,
 	});
-	const studentsPromise = getSelectOptions(req, 'users', {
+	const studentsPromise = getApiData(req, 'users', {
 		roles: ['student', 'demoStudent'],
 		$limit: 1000,
 	});

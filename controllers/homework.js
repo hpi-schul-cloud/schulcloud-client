@@ -8,7 +8,7 @@ const marked = require('marked');
 const handlebars = require('handlebars');
 const _ = require('lodash');
 const api = require('../api');
-const { getApiData: getSelectOptions } = require('../helpers/apiData');
+const { getApiData, getAllPaginatedData } = require('../helpers/apiData');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
@@ -531,9 +531,7 @@ const overview = (titleKey) => (req, res, next) => {
 				return assignment;
 			});
 
-			const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
-				$limit: false,
-			});
+			const coursesPromise = getAllPaginatedData(req, `users/${res.locals.currentUser._id}/courses`, {});
 			Promise.resolve(coursesPromise).then((courses) => {
 				const courseList = courses.map((course) => [course._id, course.name]);
 				const filterSettings =						[{
@@ -620,18 +618,15 @@ router.get('/private', overview('homework.headline.drafts'));
 router.get('/archive', overview('homework.headline.archivedTasks'));
 
 router.get('/new', (req, res, next) => {
-	const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
-		$limit: false,
-	});
+	const coursesPromise = getAllPaginatedData(req, `users/${res.locals.currentUser._id}/courses`, {});
 	Promise.resolve(coursesPromise).then(async (courses) => {
 		courses = courses.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 		let lessons = [];
 		if (req.query.course) {
-			lessonsPromise = getSelectOptions(req, 'lessons', {
-				courseId: req.query.course,
-			});
 			try {
-				lessons = await lessonsPromise;
+				lessons = await getApiData(req, 'lessons', {
+					courseId: req.query.course,
+				});
 			} catch (error) {
 				// TODO log error
 				logger.error('Error getting lessons', error);
@@ -694,15 +689,13 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 		addClearNameForFileIds(assignment);
 		// assignment.submissions = assignment.submissions.map((s) => { return { submission: s }; });
 
-		const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
-			$limit: false,
-		});
+		const coursesPromise = getAllPaginatedData(req, `users/${res.locals.currentUser._id}/courses`, {});
 
 		Promise.resolve(coursesPromise).then((courses) => {
 			courses.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
 			if (assignment.courseId && assignment.courseId._id) {
-				const lessonsPromise = getSelectOptions(req, 'lessons', {
+				const lessonsPromise = getApiData(req, 'lessons', {
 					courseId: assignment.courseId._id,
 				});
 				Promise.resolve(lessonsPromise).then((lessons) => {

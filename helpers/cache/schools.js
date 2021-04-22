@@ -1,4 +1,4 @@
-const { getApiData } = require('../apiData');
+const { getAllPaginatedData } = require('../apiData');
 const Cache = require('./Cache');
 
 const getLoginSchools = async (req) => {
@@ -9,7 +9,7 @@ const getLoginSchools = async (req) => {
 		$select: ['name', 'systems'],
 	};
 
-	const schools = await getApiData(req, '/schools', qs);
+	const schools = await getAllPaginatedData(req, '/schools', qs);
 	return schools;
 };
 

@@ -12,7 +12,7 @@ const _ = require('lodash');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const queryString = require('querystring');
 const api = require('../api');
-const { getApiData: getSelectOptions } = require('../helpers/apiData');
+const { getApiData, getAllPaginatedData } = require('../helpers/apiData');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -1026,7 +1026,7 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
 	(req, res, next) => {
 		const userPromise = api(req).get(`users/admin/teachers/${req.params.id}`);
-		const classesPromise = getSelectOptions(req, 'classes', {
+		const classesPromise = getApiData(req, 'classes', {
 			$populate: ['year'],
 			$sort: 'displayName',
 		});
@@ -1344,8 +1344,8 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 			qs: { name: roleName },
 			$limit: 1,
 		});
-		const qs = { roles: role.data[0]._id, $limit: false };
-		users = await getSelectOptions(req, '/users', qs);
+		const qs = { roles: role.data[0]._id };
+		users = await getAllPaginatedData(req, '/users', qs);
 	}
 
 	const usersWithMissingConsents = [];
@@ -1578,9 +1578,8 @@ const renderClassEdit = (req, res, next) => {
 		.get('/classes/')
 		.then(() => {
 			const promises = [
-				getSelectOptions(req, 'users', {
+				getAllPaginatedData(req, 'users', {
 					roles: ['teacher', 'demoTeacher'],
-					$limit: false,
 				}), // teachers
 				Array.from(Array(13).keys()).map((e) => ({
 					grade: e + 1,
@@ -1781,20 +1780,17 @@ router.get(
 				qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds'] },
 			})
 			.then((currentClass) => {
-				const classesPromise = getSelectOptions(req, 'classes', {
-					$limit: false,
+				const classesPromise = getAllPaginatedData(req, 'classes', {
 				}); // TODO limit classes to scope (year before, current and without year)
-				const teachersPromise = getSelectOptions(req, 'users', {
+				const teachersPromise = getAllPaginatedData(req, 'users', {
 					roles: ['teacher', 'demoTeacher'],
 					$sort: 'lastName',
-					$limit: false,
 				});
-				const studentsPromise = getSelectOptions(req, 'users', {
+				const studentsPromise = getAllPaginatedData(req, 'users', {
 					roles: ['student', 'demoStudent'],
 					$sort: 'lastName',
-					$limit: false,
 				});
-				const yearsPromise = getSelectOptions(req, 'years', { $limit: false });
+				const yearsPromise = getAllPaginatedData(req, 'years', {});
 
 				const usersWithConsentsPromise = getUsersWithoutConsent(req, 'student', currentClass._id);
 
@@ -2440,16 +2436,16 @@ router.all('/courses', (req, res, next) => {
 	];
 
 	const coursesPromise = getCourses(req, { itemsPerPage, currentPage, courseStatus: activeTab });
-	const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-	const teachersPromise = getSelectOptions(req, 'users', {
+	const classesPromise = getApiData(req, 'classes', { $limit: 1000 });
+	const teachersPromise = getApiData(req, 'users', {
 		roles: ['teacher'],
 		$limit: 1000,
 	});
-	const substitutionPromise = getSelectOptions(req, 'users', {
+	const substitutionPromise = getApiData(req, 'users', {
 		roles: ['teacher'],
 		$limit: 1000,
 	});
-	const studentsPromise = getSelectOptions(req, 'users', {
+	const studentsPromise = getApiData(req, 'users', {
 		roles: ['student'],
 		$limit: 1000,
 	});
@@ -2613,8 +2609,8 @@ router.all('/teams', async (req, res, next) => {
 				res.$t('global.headline.actions'),
 			];
 
-			const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-			const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
+			const classesPromise = getApiData(req, 'classes', { $limit: 1000 });
+			const usersPromise = getApiData(req, 'users', { $limit: 1000 });
 			const roleTranslations = {
 				teammember: res.$t('administration.controller.headline.attendees'),
 				teamexpert: res.$t('administration.controller.headline.externalExpert'),

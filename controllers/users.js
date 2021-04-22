@@ -2,16 +2,15 @@ const express = require('express');
 
 const router = express.Router();
 const api = require('../api');
-const { getApiData: getSelectOptions } = require('../helpers/apiData');
+const { getAllPaginatedData } = require('../helpers/apiData');
 
 
 // users
 
 router.get('/teachersOfSchool', async (req, res, next) => {
 	try {
-		const users = await getSelectOptions(req, '/publicTeachers/', {
+		const users = await getAllPaginatedData(req, '/publicTeachers/', {
 			qs: {
-				$limit: false,
 				schoolId: req.query.schoolId,
 				$sort: 'firstName',
 			},

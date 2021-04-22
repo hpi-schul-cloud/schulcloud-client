@@ -32,6 +32,7 @@ router.get('/tsp-login/', (req, res, next) => {
 	return authHelper.login({ strategy: 'tsp', ticket, redirect }, req, res, next);
 });
 
+
 // Login
 router.post('/login/', (req, res, next) => {
 	const {

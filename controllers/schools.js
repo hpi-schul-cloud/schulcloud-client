@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const api = require('../api');
-const { getApiData } = require('../helpers/apiData');
+const { getApiData, getAllPaginatedData } = require('../helpers/apiData');
 
 // schools
 
@@ -18,7 +18,13 @@ router.get('/', async (req, res, next) => {
 		params.qs._id = { $ne: res.locals.currentSchool };
 	}
 	try {
-		const schools = await getApiData(req, '/schools', params.qs);
+		let schools = [];
+		if (req.query.$limit === 'false') {
+			delete params.qs.$limit;
+			schools = await getAllPaginatedData(req, '/schools', params.qs);
+		} else {
+			schools = await getApiData(req, '/schools', params.qs);
+		}
 
 		const result = schools.map((school) => ({
 			_id: school._id,
