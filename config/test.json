@@ -1,0 +1,4 @@
+{
+	"$schema": "./default.schema.json",
+	"COOKIE_SECRET": "dev_secret"
+}
