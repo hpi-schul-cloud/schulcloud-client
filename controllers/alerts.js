@@ -1,15 +1,16 @@
 const express = require('express');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const api = require('../api');
 const logger = require('../helpers/logger');
+const { AlertsCache } = require('../helpers/cache');
 
 const router = express.Router();
 
 let handler = (req, res) => {
 	res.json([]);
 };
+
 if (Configuration.get('FEATURE_ALERTS_ENABLED')) {
-	handler = (req, res) => api(req).get('/alert')
+	handler = (req, res) => AlertsCache.get(req)
 		.then((alert) => {
 			res.json(alert);
 		}).catch((err) => {
