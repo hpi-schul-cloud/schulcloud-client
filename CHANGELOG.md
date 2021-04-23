@@ -11,6 +11,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [26.1.0]
 
+## [26.0.6] - 2021-04-15
+
+### Fixed
+
+- SC-8931 - add school and alert caching for startpage
+
+## [26.0.5] - 2021-04-13
+
+### Fixed
+
+- SC-8748 - bump feathers-mongoose from 6.3.0 to 8.3.1
+
 ## [26.0.4] - 2021-03-24
 
 ### Changed
@@ -58,6 +70,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8414 - Made school number field editable for LDAP schools
 - SC-8594 - make drag icon visible again
 - SC-8318 - actualize gender language
+- SC-8861 - restore changes lost after release merge
 
 ## [26.0.1] - 2021-03-17
 
