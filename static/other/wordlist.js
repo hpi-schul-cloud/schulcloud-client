@@ -119,7 +119,7 @@ module.exports = [
 	'zuerst', 'aufgefordert', 'ausnahme', 'gearbeitet', 'unterschiedlichen', 'bedarf',
 	'flucht', 'informiert', 'gerhard', 'beratung', 'vorgestellt', 'fertig',
 	'haushalt', 'schlagen', 'provinz', 'festgestellt', 'standort', 'beruf',
-	'gestorben', 'voraus', 'stellung', 'leichter', 'halbjahr', 'innenminister',
+	'voraus', 'stellung', 'leichter', 'halbjahr', 'innenminister',
 	'schlug', 'geschehen', 'vermeiden', 'stattfinden', 'unterdessen', 'konflikt',
 	'vereinigung', 'einwohner', 'zugeordnet', 'tausend', 'gerechnet', 'warnte',
 	'verbessern', 'unterwegs', 'anbieter', 'diskutiert', 'anstieg', 'objekte',
