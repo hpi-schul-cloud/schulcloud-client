@@ -9,7 +9,7 @@ const getLoginSchools = async (req) => {
 		$select: ['name', 'systems'],
 	};
 
-	const schools = await api(req).get('schools', { qs });
+	const schools = await api(req).get('/schools', { qs });
 	return schools.data;
 };
 
