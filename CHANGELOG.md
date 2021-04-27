@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## Changed
+
+- SC-8914 - oauth2: add post message call on depseudonymized iframes to handle clicks
+
 ## [26.1.0]
 
 ## [26.0.4] - 2021-03-24
