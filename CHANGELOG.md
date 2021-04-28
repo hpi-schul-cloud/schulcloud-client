@@ -9,6 +9,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
 
 ## [26.1.0]
