@@ -9,6 +9,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-8668 - fixed small typo in manage school page
 ## [26.1.0]
 
 ## [26.0.4] - 2021-03-24
