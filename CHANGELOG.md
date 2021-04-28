@@ -9,7 +9,28 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-8668 - fixed small typo in manage school page
+- SC-8170 - fixed footer line break
+
 ## [26.1.0]
+
+## [26.0.7] - 2021-04-20
+
+### Fixed
+
+- SC-8931 - fix typo
+
+## [26.0.6] - 2021-04-15
+
+### Fixed
+
+- SC-8931 - add school and alert caching for startpage
+
+## [26.0.5] - 2021-04-13
+
+### Fixed
+
+- SC-8748 - bump feathers-mongoose from 6.3.0 to 8.3.1
 
 ## [26.0.4] - 2021-03-24
 
