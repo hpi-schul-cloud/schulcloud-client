@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-8170 - fixed footer line break
+
 ## [26.1.0]
 
 ## [26.0.4] - 2021-03-24
