@@ -86,6 +86,7 @@ $(document).ready(() => {
 			});
 			// eslint-disable-next-line no-unused-expressions
 			systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
+			$systems.trigger('chosen:updated');
 		});
 	};
 
