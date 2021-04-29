@@ -2171,7 +2171,7 @@
 			"published": "Published:",
 			"ratingHasBeenSaved": "Rating has been saved!",
 			"till": "till",
-			"toBeDoneWithin24Hours": "Watch out! You only have 24 hours left to complete the task."
+			"toBeDoneWithin24Hours": "Watch out! You have less than 24 hours left to complete the task."
 		}
 	},
 	"imprint": {
