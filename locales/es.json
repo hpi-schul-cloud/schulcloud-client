@@ -1641,7 +1641,7 @@
 			"password": "Contraseña:",
 			"role": "Rol",
 			"room": "Sala",
-			"search":"buscar...",
+			"search": "buscar...",
 			"settings": "Configuración",
 			"skipLinks": "Saltar enlaces",
 			"sortBy": "Ordenar por: %1",
@@ -2171,7 +2171,7 @@
 			"published": "Publicado:",
 			"ratingHasBeenSaved": "¡Se ha guardado la clasificación!",
 			"till": "hasta",
-			"toBeDoneWithin24Hours": "¡Cuidado! Solo te quedan 24 horas para completar la tarea."
+			"toBeDoneWithin24Hours": "¡Cuidado! Te quedan menos de 24 horas para completar la tarea."
 		}
 	},
 	"imprint": {
@@ -2196,7 +2196,7 @@
 				"managingDirectorAuthorized": "Consejero delegado autorizado para representar:"
 			},
 			"text": {
-				"hpiPhoneNumber" : "número de teléfono: +49 (0)331 / 2318 2920 (disponible de lunes a viernes, de 13 a 14 horas)"
+				"hpiPhoneNumber": "número de teléfono: +49 (0)331 / 2318 2920 (disponible de lunes a viernes, de 13 a 14 horas)"
 			}
 		}
 	},
