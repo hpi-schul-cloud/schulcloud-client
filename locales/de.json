@@ -2190,7 +2190,7 @@
 			"published": "Veröffentlicht:",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"till": "bis",
-			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
+			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch weniger als 24 Stunden Zeit."
 		}
 	},
 	"imprint": {
@@ -2215,7 +2215,7 @@
 				"managingDirectorAuthorized": "Vertretungsberechtigte Geschäftsführung:"
 			},
 			"text": {
-				"hpiPhoneNumber" : "Telefon: +49 (0)331 / 2318 2920 (erreichbar Mo.-Fr. 13-14 Uhr)"
+				"hpiPhoneNumber": "Telefon: +49 (0)331 / 2318 2920 (erreichbar Mo.-Fr. 13-14 Uhr)"
 			}
 		}
 	},
@@ -3156,7 +3156,7 @@
 				"furtherInformation": "<a href=\"https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/\">https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/<\/a>"
 			}
 		},
-		"open":  {
+		"open": {
 			"text": {
 				"welcome": "„Das <a href=\"https:\//hpi.de/\">Hasso-Plattner-Institut<\/a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href=\"https:\//www.mint-ec.de\/\">MINT-EC<\/a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Dies ist die offene Instanz der HPI Schul-Cloud, über die einzelne Schulen Zugang zur Plattform erhalten können."
 			}
