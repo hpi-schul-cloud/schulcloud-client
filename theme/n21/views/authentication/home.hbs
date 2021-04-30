@@ -12,12 +12,11 @@
 {{#content "body"}}
 {{#embed "lib/header"}}{{/embed}}
 <div class="container">
-    <div class="row">
+    <div class="row" style="flex-direction: row-reverse;">
+        <aside class="col-md-4">
+            {{> "authentication/forms/login"}}
+        </aside>
         <main id="main-content" class="col-md-8">
-            <div class="hidden-md-up">
-                {{> "authentication/forms/login"}}
-            </div>
-
             <section class="card">
                 <div class="card-block">
                     <div class="hidden" id="SC_THEME">n21</div>
@@ -37,11 +36,6 @@
                 </div>
             </section>
         </main>
-        <aside class="col-md-4">
-            <div class="hidden-sm-down">
-                {{> "authentication/forms/login"}}
-            </div>
-        </aside>
     </div>
 </div>
 
