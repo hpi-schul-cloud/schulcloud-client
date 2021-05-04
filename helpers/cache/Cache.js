@@ -1,7 +1,7 @@
 class Cache {
 	constructor(callback, { updateIntervalSecounds } = {}) {
 		this.lastUpdated = 0;
-		this.updateIntervalSecounds = (updateIntervalSecounds * 1000) || 60000;
+		this.updateIntervalMilisecounds = (updateIntervalSecounds * 1000) || 60000;
 		this.data = null;
 		if (!(typeof callback === 'function')) {
 			throw new Error('First parameter in "Cache" constructor must be a function.');
@@ -10,7 +10,7 @@ class Cache {
 	}
 
 	async get(req, res, next) {
-		if (Date.now() > (this.lastUpdated + this.updateIntervalSecounds)) {
+		if (Date.now() > (this.lastUpdated + this.updateIntervalMilisecounds)) {
 			// please first update time and response old data until request return result
 			this.lastUpdated = Date.now();
 			this.data = this.callback(req, res, next);

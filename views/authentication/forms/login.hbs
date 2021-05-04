@@ -46,9 +46,9 @@
 						<select id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
 								<option selected value="">{{$t "login.input.noSchoolsSelection"}}</option>
 							{{#each schools}}
-								<option value="{{this._id}}">{{this.name}}</option>
+								<option value="{{this._id}}" data-systems='{{{json this.systems}}}'>{{this.name}}</option>
 							{{else}}
-								<option disabled>{{$t "login.input.noSchoolsAvailable"}}</option>
+								<option disabled>{{$t "login.input.noSchoolsAvailable"}}</opJSON.stringify(ttion>
 							{{/each}}
 						</select>
 					</div>

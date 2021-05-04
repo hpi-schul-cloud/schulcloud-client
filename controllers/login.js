@@ -91,7 +91,7 @@ router.all('/', (req, res, next) => {
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
-		.then(() => LoginSchoolsCache.get(req).then((schools) => {
+	.then(() => api(req).get('/schoolsList').then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 		logger.warn(`User can not logged in. Redirect to ${redirect}`);
 		res.render('authentication/login', {
@@ -133,13 +133,10 @@ router.all('/login/superhero/', (req, res, next) => {
 	handleLoginFailed(req, res).catch(next);
 });
 
-const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
-	qs: {
-		systems: systemId,
-	},
-}).then((schools) => {
-	if (schools.data.length > 0) {
-		return schools.data[0];
+const ssoSchoolData = (req, systemId) => api(req).get('/schoolsList').then((schools) => {
+	if (schools.length > 0) {
+		const systemCheck = schools.find((school) => school.systems.find((system) => system._id === systemId));
+		return systemCheck;
 	}
 	return undefined;
 }).catch(() => undefined); // TODO: fixme this is a very bad error catch
@@ -169,7 +166,7 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	}
 	// if this happens: SSO
 	const { accountId, systemId } = (res.locals.currentPayload || {});
-
+	// TODO refactor strange business logic for redirects
 	ssoSchoolData(req, systemId).then((school) => {
 		if (school === undefined) {
 			const redirectUrl = determineRedirectUrl(req);
@@ -179,15 +176,6 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 		}
 	});
 	return null;
-});
-
-router.get('/login/systems/:schoolId', (req, res, next) => {
-	api(req).get(`/schools/${req.params.schoolId}`, { qs: { $populate: ['systems'] } })
-		.then((data) => {
-			const systems = data.systems.filter((value) => value.type !== 'ldap' || value.ldapConfig.active === true);
-			return res.send(systems);
-		})
-		.catch(next);
 });
 
 router.get('/logout/', (req, res, next) => {

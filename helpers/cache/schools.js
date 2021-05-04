@@ -2,18 +2,11 @@ const api = require('../../api');
 const Cache = require('./Cache');
 
 const getLoginSchools = async (req) => {
-	const qs = {
-		purpose: { $ne: 'expert' },
-		$limit: false,
-		$sort: 'name',
-		$select: ['name', 'systems'],
-	};
-
-	const schools = await api(req).get('/schools', { qs });
+	const schools = await api(req).get('/schoolsList');
 	return schools.data;
 };
 
-const LoginSchoolsCache = new Cache(getLoginSchools, { updateIntervalSecounds: 60 });
+const LoginSchoolsCache = new Cache(getLoginSchools, { updateIntervalSecounds: 1800 });
 
 module.exports = {
 	LoginSchoolsCache,

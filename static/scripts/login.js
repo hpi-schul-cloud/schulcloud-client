@@ -72,22 +72,23 @@ $(document).ready(() => {
 		incTimer();
 	}
 
-	const loadSystems = (schoolId) => {
+	const loadSystems = (systems) => {
 		$systems.empty();
-		$.getJSON(`/login/systems/${schoolId}`, (systems) => {
-			systems.forEach((system) => {
-				const systemAlias = system.alias ? ` (${system.alias})` : '';
-				let selected;
-				if (storage.local.getItem('loginSystem') === system._id) {
-					selected = true;
-				}
-				// eslint-disable-next-line max-len
-				$systems.append(`<option ${selected ? 'selected' : ''} value="${system._id}//${system.type}">${system.type}${systemAlias}</option>`);
-			});
-			// eslint-disable-next-line no-unused-expressions
-			systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
-			$systems.trigger('chosen:updated');
+		// dataSystems.each(syste)
+		// $.getJSON(`/login/systems/${schoolId}`, (systems) => {
+		systems.forEach((system) => {
+			const systemAlias = system.alias ? ` (${system.alias})` : '';
+			let selected;
+			if (storage.local.getItem('loginSystem') === system._id) {
+				selected = true;
+			}
+			// eslint-disable-next-line max-len
+			$systems.append(`<option ${selected ? 'selected' : ''} value="${system._id}//${system.type}">${system.type}${systemAlias}</option>`);
 		});
+		// eslint-disable-next-line no-unused-expressions
+		systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
+		$systems.trigger('chosen:updated');
+		// });
 	};
 
 	$btnToggleProviders.on('click', (e) => {
@@ -137,8 +138,9 @@ $(document).ready(() => {
 	$school.on('change', (event) => {
 		// due to the class 'school' being duplicated, it is necessary to listen to the element's event to get the value
 		const id = $(event.target).val();
-		if (id !== '') {
-			loadSystems(id);
+		const dataSystems = $(event.target).find(':selected').data('systems');
+		if (id !== '' && dataSystems) {
+			loadSystems(dataSystems);
 		} else {
 			$systems.parent().hide();
 		}
