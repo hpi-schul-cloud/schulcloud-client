@@ -9,7 +9,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-- SC-6950 - validation for officialSchoolNumber now allows 4-6 digits instead of 5
+- SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
 - SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
 - SC-6232 - fixed due date format and hint

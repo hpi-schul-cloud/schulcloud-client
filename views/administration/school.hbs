@@ -196,7 +196,7 @@
 								{{$t "administration.school.label.schoolNumber" }}
 							</label>
 
-							<input id="officialSchoolNumber" {{#if ../school.officialSchoolNumber}}disabled{{/if}} value="{{../school.officialSchoolNumber}}" type="text" pattern="\D{0,2}-*\d{4,6}$" class="form-control" name="officialSchoolNumber"
+							<input id="officialSchoolNumber" {{#if ../school.officialSchoolNumber}}disabled{{/if}} value="{{../school.officialSchoolNumber}}" type="text" pattern="\D{0,2}-*\d{5,6}$" class="form-control" name="officialSchoolNumber"
 								placeholder="12345"
 								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
 								readonly{{/userHasPermission}}/>
