@@ -1846,15 +1846,14 @@
 		"form_bug": {
 			"label": {
 				"maxSizeFiles": "Bilder, Videos und Dateien",
-				"problemDescription": "Problembeschreibung:",
+				"problemDescription": "Problembeschreibung",
 				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf",
 				"problemAlreadyKnown": "Ist das Problem bereits bekannt?",
-				"knownProblemLink": "Hier kannst du schauen, ob aktuelle Probleme bei den technischen Systemen vorliegen: ",
-				"statusPage": "Status-Seite"
+				"knownProblemLink": "Auf unserer <a href=\"https://status.hpi-schul-cloud.de\">Statusseite<\/a> kannst du schauen, ob aktuell Probleme bei den technischen Systemen vorliegen."
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B: Windows 10)<\/li>",
-				"problemAlreadyKnownText": "Hast du geschaut, ob dein Problem bereits bekannt ist? Denn es hilft uns schneller voran zu kommen, wenn nur neue Probleme mitgeteilt werden."
+				"problemAlreadyKnownText": "Hast du geschaut, ob dein Problem bereits bekannt ist? Denn es hilft uns, schneller voran zu kommen, wenn nur neue Probleme mitgeteilt werden."
 			}
 		},
 		"form_Wish": {

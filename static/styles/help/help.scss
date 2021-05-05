@@ -10,6 +10,11 @@ iframe.full {
   width: 100%;
   min-height: 500px;
   overflow: hidden;
+
+  &.contact {
+    margin-top: 1.5rem;
+    border: solid 2rem #444444;
+  }
 }
 
 /********************************************************
@@ -23,10 +28,19 @@ label.form-group {
 
 // Label
 .control-label {
+  &.headline{
+    font-weight: bold;
+    margin-top: 2rem !important;
+  }
+
   &.optional::after {
     font-weight: lighter;
     content: " (optional)";
   }
+}
+
+.icon-card__title {
+  margin-top: 2rem;
 }
 
 // Inputs
@@ -53,7 +67,6 @@ label.form-group {
 fieldset.switch_wrapper {
   display: inline-block;
   width: 100%;
-  max-width: 400px;
 
   .switch {
     display: flex;
@@ -277,6 +290,7 @@ fieldset.switch_wrapper {
 
 .info_text {
   color: $colorInfo;
+  margin-right: .2em;
 }
 
 #consent_checkbox {
