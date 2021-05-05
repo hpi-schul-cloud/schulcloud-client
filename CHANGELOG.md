@@ -15,13 +15,15 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [26.1.0]
 
+### removed
+
+- SC-1464 - removed share button from team section
+
 ## [26.0.7] - 2021-04-20
 
 ### Fixed
 
 - SC-8931 - fix typo
-
-### removed
 
 
 ## [26.0.6] - 2021-04-15
