@@ -1813,6 +1813,11 @@
 				"chooseArea": "Bereich wählen",
 				"pDashboard": "Übersicht",
 				"pCourses": "Kurse",
+				"pCourseGeneral": "Kurse-Allgemein",
+				"pToolsGeneral": "Tools-Allgemein",
+				"pTeamsGeneral": "Teams-Allgemein",
+				"pManageGeneral": "Verwaltung-Allgemein",
+				"pExtraGeneral": "Extra-Allgemein",
 				"pGeneral": "Allgemein",
 				"pTopics": "Themen",
 				"pGroups": "Gruppen",
@@ -1849,7 +1854,7 @@
 				"problemDescription": "Problembeschreibung",
 				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf",
 				"problemAlreadyKnown": "Ist das Problem bereits bekannt?",
-				"knownProblemLink": "Auf unserer <a href=\"https://status.hpi-schul-cloud.de\">Statusseite<\/a> kannst du schauen, ob aktuell Probleme bei den technischen Systemen vorliegen."
+				"knownProblemLink": "Zusätzlich kannst du auf unserer <a href=\"https://status.hpi-schul-cloud.de\">Statusseite<\/a> sehen, ob aktuell technische Probleme bei den Systemen vorliegen. "
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B: Windows 10)<\/li>",
@@ -1882,7 +1887,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
-				"furtherInformation": "Weitere Informationen (optional):",
+				"furtherInformation": "Weitere Informationen zu deinem Browser und Betriebssystem (optional)",
 				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
 			}
 		},

@@ -1814,6 +1814,11 @@
 				"pDashboard": "Panel",
 				"pCourses": "Cursos",
 				"pGeneral": "General",
+				"pCourseGeneral": "Cursos-General",
+				"pToolsGeneral": "Herramientas-General",
+				"pTeamsGeneral": "Equipos-General",
+				"pManageGeneral": "Administración-General",
+				"pExtraGeneral": "Extras-General",
 				"pTopics": "Temas",
 				"pGroups": "Grupos",
 				"pTasks": "Tareas",
@@ -1849,7 +1854,7 @@
 				"problemDescription": "Descripción del problema:",
 				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo",
 				"problemAlreadyKnown": "¿Se conoce ya el problema?",
-				"knownProblemLink": "Aquí puedes ver si hay actualmente problemas con los sistemas técnicos: ",
+				"knownProblemLink": "Además, puedes ver en nuestra <a href=\"https://status.hpi-schul-cloud.de\">página de estado<\/a> si hay actualmente algún problema técnico con los sistemas.",
 				"statusPage": "Página de estado"
 			},
 			"text": {
@@ -1883,7 +1888,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Breve descripción del problema",
-				"furtherInformation": "Más información (opcional):",
+				"furtherInformation": "Información adicional sobre tu navegador y sistema operativo (opcional)",
 				"replyEmail": "Dirección de correo electrónico para cualquier consulta."
 			}
 		},

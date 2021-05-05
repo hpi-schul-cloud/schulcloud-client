@@ -84,10 +84,9 @@
 	</span>
 	<input type="email" name="replyEmail" placeholder={{$t "help.placeholder.email"}} value="{{ userEmail }}" class="form-control" required>
 </label>
-<hr>
 <fieldset>
 	<legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
-	<label class="consent_label" for="consentWish">
+	<span class="consent_label" for="consentWish">
 		<div class="row consent_row">
 			<div id="consent_checkbox">
 				<input type="checkbox" id="consentWish" name="consent" value="true" checked>
@@ -98,7 +97,7 @@
 				</span>
 			</div>
 		</div>
-	</label>
+	</span>
 </fieldset>
 {{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
 <br>

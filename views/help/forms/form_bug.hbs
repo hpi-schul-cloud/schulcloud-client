@@ -13,18 +13,18 @@
 			<option value="" disabled selected hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
 			<option value="Dashboard">{{$t "help.chooseTopicArea.text.pDashboard"}}</option>
 			<optgroup label={{$t "help.chooseTopicArea.text.pCourses"}}> 
-				<option value="Kurse-Allgemein">{{$t "help.chooseTopicArea.text.pGeneral"}}</option>
+				<option value="Kurse-Allgemein">{{$t "help.chooseTopicArea.text.pCourseGeneral"}}</option>
 				<option value="Kurse-Aufgaben">{{$t "help.chooseTopicArea.text.pTasks"}}</option>
 				<option value="Themen">{{$t "help.chooseTopicArea.text.pTopics"}}</option>
 				<option value="Texteditor">{{$t "help.chooseTopicArea.text.pEditor"}}</option>
 			</optgroup>
 			<optgroup label={{$t "help.chooseTopicArea.text.pTools"}}>
-				<option value="Tools-Allgemein">{{$t "help.chooseTopicArea.text.pGeneral"}}</option>
+				<option value="Tools-Allgemein">{{$t "help.chooseTopicArea.text.pToolsGeneral"}}</option>
 				<option value="BBB-Videokonferenz">{{$t "help.chooseTopicArea.text.pBBB"}}</option>
 				<option value="Bettermarks">{{$t "help.chooseTopicArea.text.pBettermarks"}}</option>
 			</optgroup>
 			<optgroup label={{$t "help.chooseTopicArea.text.pTeams"}}>
-				<option value="Teams-Allgemein">{{$t "help.chooseTopicArea.text.pGeneral"}}</option>
+				<option value="Teams-Allgemein">{{$t "help.chooseTopicArea.text.pTeamsGeneral"}}</option>
 				<option value="Libre Office">{{$t "help.chooseTopicArea.text.pLibreOffice"}}</option>
 				<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
 				<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
@@ -36,13 +36,13 @@
 			<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
 			<option value="Lern-Store">{{$t "help.chooseTopicArea.text.pLernStore"}}</option>
 			<optgroup label="{{$t "help.chooseTopicArea.text.pManagement"}}">
-				<option value="Verwaltung-Allgemein">{{$t "help.chooseTopicArea.text.pGeneral"}}</option>
+				<option value="Verwaltung-Allgemein">{{$t "help.chooseTopicArea.text.pManageGeneral"}}</option>
 				<option value="Registrierung-Login">{{$t "help.chooseTopicArea.text.pRegisterLogin"}}</option>
 				<option value="Berechtigungen">{{$t "help.chooseTopicArea.text.pPermissions"}}</option>
 				<option value="IDM">{{$t "help.chooseTopicArea.text.pIdm"}}</option>
 			</optgroup>
 			<optgroup label="{{$t "help.chooseTopicArea.text.pExtra"}}">
-				<option value="Extra-Allgemein">{{$t "help.chooseTopicArea.text.pGeneral"}}</option>
+				<option value="Extra-Allgemein">{{$t "help.chooseTopicArea.text.pExtraGeneral"}}</option>
 				<option value="Apps">{{$t "help.chooseTopicArea.text.pApps"}}</option>
 				<option value="Benachrichtigungen">{{$t "help.chooseTopicArea.text.pNotifications"}}</option>
 				<option value="Messenger">{{$t "help.chooseTopicArea.text.pMessenger"}}</option>
@@ -53,14 +53,12 @@
 </center>
 
 <p class="control-label headline">{{$t "help.form_bug.label.problemAlreadyKnown"}}</p>
-<p id="inline_text">{{$t "help.form_bug.text.problemAlreadyKnownText"}}
+<p id="inline_text">{{$t "help.form_bug.text.problemAlreadyKnownText"}} {{{$t "help.form_bug.label.knownProblemLink"}}}
 </p>
 
 <iframe class="full contact" src="https://docs.hpi-schul-cloud.org/display/SCDOK/Bekannte+Fehler+in+der+Cloud+und+ihre+Behebung?frameable=true"
     frameborder="0" scrolling="yes">
 </iframe>
-
-<p class="control-label headline">{{{$t "help.form_bug.label.knownProblemLink"}}} </p>
 
 <h4 class="icon-card__title">{{$t "help.contact.text.contactSupport"}}</h4>
 <span class="icon-card__subtitle">{{$t "help.contact.text.contactSupportSubtitle"}}</span>
@@ -83,10 +81,9 @@
 	</span>
 	<input class="form-control" type="email" name="replyEmail" placeholder="{{$t "help.placeholder.email"}}" value="{{ userEmail }}" required>
 </label>
-<hr>
 <fieldset>
 	<legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
-    <label class="consent_label" for="consent">
+    <span class="consent_label" for="consent">
         <div class="row consent_row">
 	        <div id="consent_checkbox">
 		        <input type="checkbox" id="consent" name="consent" value="true" checked>
@@ -97,7 +94,7 @@
 		        </span>
 	        </div>
         </div>
-    </label>
+    </span>
 </fieldset>
 {{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
 <br>
