@@ -21,6 +21,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-8931 - fix typo
 
+### removed
+
+
 ## [26.0.6] - 2021-04-15
 
 ### Fixed
