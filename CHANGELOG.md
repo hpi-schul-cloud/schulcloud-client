@@ -13,8 +13,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
 - SC-6232 - fixed due date format and hint
- 
+
 ## [26.1.0]
+
+### Changed
+
+- SC-9040 - Changing placeholder text in task
 
 ## [26.0.7] - 2021-04-20
 
