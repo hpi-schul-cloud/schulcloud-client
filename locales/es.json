@@ -1863,8 +1863,7 @@
 				"problemDescription": "Descripción del problema:",
 				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo",
 				"problemAlreadyKnown": "¿Se conoce ya el problema?",
-				"knownProblemLink": "Además, puedes ver en nuestra <a href=\"https://status.hpi-schul-cloud.de\">página de estado<\/a> si hay actualmente algún problema técnico con los sistemas.",
-				"statusPage": "Página de estado"
+				"knownProblemLink": "Además, puedes ver en nuestra <a href=\"https://status.hpi-schul-cloud.de\">página de estado<\/a> si hay actualmente algún problema técnico con los sistemas."
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>",
