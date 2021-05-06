@@ -2099,7 +2099,7 @@
 				"description": "Find out why..."
 			},
 			"text": {
-				"noTopicsInTheCourse": "No topics in this course",
+				"noTopicsSelected": "No topics selected",
 				"substitutionTeachersMayNotChangeTheCourse": "(Substitute teachers are not allowed to edit the course)"
 			}
 		},
