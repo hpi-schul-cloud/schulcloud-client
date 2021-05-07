@@ -2479,6 +2479,7 @@
 			"loginFailedSecondHint": "2. Have you deleted your cookies and website data?",
 			"loginFailedThirdHint": "3. Have you tried to log in on another device (e.g. laptop instead of mobile phone) ?",
 			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
+			"showPassword": "Show Password:",
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
 			"superheroText": "You are trying log in with a superhero account."
 		}
