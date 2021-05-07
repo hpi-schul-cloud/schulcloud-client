@@ -9,7 +9,31 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
+- SC-8668 - fixed small typo in manage school page
+- SC-8170 - fixed footer line break
+- SC-6232 - fixed due date format and hint
+- OPS-1499 - Add feature to CI Pipeline and provide team based HPI Schul-Cloud instances
+ 
 ## [26.1.0]
+
+## [26.0.7] - 2021-04-20
+
+### Fixed
+
+- SC-8931 - fix typo
+
+## [26.0.6] - 2021-04-15
+
+### Fixed
+
+- SC-8931 - add school and alert caching for startpage
+
+## [26.0.5] - 2021-04-13
+
+### Fixed
+
+- SC-8748 - bump feathers-mongoose from 6.3.0 to 8.3.1
 
 ## [26.0.4] - 2021-03-24
 
@@ -57,6 +81,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8414 - Made school number field editable for LDAP schools
 - SC-8594 - make drag icon visible again
 - SC-8318 - actualize gender language
+- SC-8861 - restore changes lost after release merge
 
 ## [26.0.1] - 2021-03-17
 
@@ -177,7 +202,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- OPS-1499 - Add feature to CI Pipeline and provide team based HPI Schul-Cloud instances
 - SC-7824 - Set proper email address and label for data privacy 
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix

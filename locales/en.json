@@ -375,6 +375,7 @@
 			"button": {
 				"addCourse": " Add course",
 				"bug": "Would you like to report an error or do you have an idea to improve the {{title}}? \n Send requests or problems directly to the {{short_title}} user support.",
+				"contactSupport": "Contact support",
 				"createLinkSheet": "Create a link print sheet",
 				"mailsAreBeingSent": "Sending e-mails ...",
 				"printSheetIsBeingGenerated": "Print sheet is being generated ...",
@@ -2170,7 +2171,7 @@
 			"published": "Published:",
 			"ratingHasBeenSaved": "Rating has been saved!",
 			"till": "till",
-			"toBeDoneWithin24Hours": "Watch out! You only have 24 hours left to complete the task."
+			"toBeDoneWithin24Hours": "Watch out! You have less than 24 hours left to complete the task."
 		}
 	},
 	"imprint": {

@@ -6,7 +6,7 @@
             {{/if}}
             {{#if dueDate}}
             {{!-- TODO  Color by distance --}}
-              {{$t "homework.text.due"}} {{timeFromNow dueDate}}
+              {{$t "homework.text.due"}}: {{i18nDateTime dueDate}}
             {{else}}
                {{$t "homework.text.noSubmissionDateSet"}}
             {{/if}}

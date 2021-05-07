@@ -516,7 +516,7 @@
 				"ifAllStudentsAndParentsHaveGiven": "Wenn die Einverständniserklärung von allen Schüler:innen und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
 				"ifThereIsNoManualStart": "ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch",
 				"newUsersClassAffiliations": "neue dazugekommene Nutzer:innen, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden beständig synchronisiert",
-				"provideStudentsAndTheirParents": "Lass deinen Schüler:innen und den Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für die Schüler:innenr erstellt.",
+				"provideStudentsAndTheirParents": "Lass deinen Schüler:innen und den Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für die Schüler:innen erstellt.",
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{title}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thereIsNoDeclarationOfConsent": "Es liegt noch keine Einverständniserklärung für den\/die Schüler:in vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den\/die Schüler:in oder die Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den\/die Schüler:in selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, wird diese per Klick auf 'Einverständnis auf Papier erhalten' aktiviert und ein Startpasswort vergeben. Damit ist der Login dann freigeschaltet.",
 				"theSchoolYearEndsAnd": "Das Schuljahr {{schoolName}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.<\/strong> Es können in dieser Zeit keine Klassen und Nutzer:innen angelegt oder geändert werden.",
@@ -1822,17 +1822,17 @@
 				"pBettermarks": "Bettermarks",
 				"pEditor": "Texteditor",
 				"pTeams": "Teams",
-				"pLibreOffice": "Libre Office", 
+				"pLibreOffice": "Libre Office",
 				"pNews": "Neuigkeiten",
-				"pCalendar": "Termine", 
-				"pMessenger": "Messenger", 
+				"pCalendar": "Termine",
+				"pMessenger": "Messenger",
 				"pMyFiles": "Meine Dateien",
 				"pLernStore": "Lern-Store",
 				"pManagement": "Verwaltung",
 				"pRegisterLogin": "Registrierung & Login",
 				"pPermissions": "Berechtigungen",
 				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
-				"pExtra": "Weiteres", 
+				"pExtra": "Weiteres",
 				"pApps": "Apps",
 				"pNotifications": "Benachrichtigungen",
 				"pOther": "Zuordnung nicht möglich"
@@ -2171,7 +2171,7 @@
 			"published": "Veröffentlicht:",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"till": "bis",
-			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch 24 Stunden Zeit."
+			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch weniger als 24 Stunden Zeit."
 		}
 	},
 	"imprint": {
@@ -2196,7 +2196,7 @@
 				"managingDirectorAuthorized": "Vertretungsberechtigte Geschäftsführung:"
 			},
 			"text": {
-				"hpiPhoneNumber" : "Telefon: +49 (0)331 / 2318 2920 (erreichbar Mo.-Fr. 13-14 Uhr)"
+				"hpiPhoneNumber": "Telefon: +49 (0)331 / 2318 2920 (erreichbar Mo.-Fr. 13-14 Uhr)"
 			}
 		}
 	},
@@ -3137,7 +3137,7 @@
 				"furtherInformation": "<a href=\"https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/\">https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/<\/a>"
 			}
 		},
-		"open":  {
+		"open": {
 			"text": {
 				"welcome": "„Das <a href=\"https:\//hpi.de/\">Hasso-Plattner-Institut<\/a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href=\"https:\//www.mint-ec.de\/\">MINT-EC<\/a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Dies ist die offene Instanz der HPI Schul-Cloud, über die einzelne Schulen Zugang zur Plattform erhalten können."
 			}
