@@ -135,8 +135,7 @@ router.all('/login/superhero/', (req, res, next) => {
 
 const ssoSchoolData = (req, systemId) => api(req).get('/schoolsList').then((schools) => {
 	if (schools.length > 0) {
-		const systemCheck = schools.find((school) => school.systems.find((system) => system._id === systemId));
-		return systemCheck;
+		return schools.find((school) => school.systems.find((system) => system._id === systemId));
 	}
 	return undefined;
 }).catch(() => undefined); // TODO: fixme this is a very bad error catch
