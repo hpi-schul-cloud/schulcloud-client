@@ -91,7 +91,7 @@ router.all('/', (req, res, next) => {
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
-	.then(() => api(req).get('/schoolsList').then((schools) => {
+	.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 		logger.warn(`User can not logged in. Redirect to ${redirect}`);
 		res.render('authentication/login', {
