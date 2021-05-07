@@ -76,7 +76,7 @@
 </label>
 <fieldset>
 	<legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
-    <span class="consent_label" for="consent">
+    <label class="consent_label" for="consent">
         <div class="row consent_row">
 	        <div id="consent_checkbox">
 		        <input type="checkbox" id="consent" name="consent" value="true" checked>
@@ -87,7 +87,7 @@
 		        </span>
 	        </div>
         </div>
-    </span>
+    </label>
 </fieldset>
 {{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
 <br>
