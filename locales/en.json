@@ -1814,27 +1814,41 @@
 				"pDashboard": "Dashboard",
 				"pCourses": "Courses",
 				"pGeneral": "General",
-				"pTopics": "Topics",
+				"pCourseGeneral": "Courses-General",
+				"pToolsGeneral": "Tools-General",
+				"pTeamsGeneral": "Teams-General",
+				"pManageGeneral": "Management-General",
+				"pExtraGeneral": "Extras-General",
+				"pTopics": "Course topics",
 				"pGroups": "Groups",
-				"pTasks": "Tasks",
+				"pTasks": "Tasks and Submissions",
 				"pTools": "Tools",
+				"pToolsOther": "Other Tools (Geogebra, Nexboard, Bettermarks)",
 				"pBBB": "BBB video conference",
 				"pBettermarks": "Bettermarks",
 				"pEditor": "Texteditor",
 				"pTeams": "Teams",
-				"pLibreOffice": "Libre Office", 
+				"pLibreOffice": "Libre Office",
 				"pNews": "News",
-				"pCalendar": "Calendar", 
-				"pMessenger": "Messenger", 
-				"pMyFiles": "My Files",
-				"pLernStore": "Learning Store",
+				"pCalendar": "Calendar and timetable",
+				"pMatrixMessenger": "Matrix Messenger",
+				"pMyFiles": "Files (Save, Upload, Download, Sort)",
+				"pLernStore": "Learning-Store",
+				"pLernStoreContent": "Learning-Store Content",
 				"pManagement": "Management",
-				"pRegisterLogin": "Register & Login",
-				"pPermissions": "Permissions",
+				"pRegister": "Registration",
+				"pLogin": "Login",
+				"pHelparea": "Helparea",
+				"pPermissions": "Permissions & Roles",
+				"pProjectPage": "Project website",
+				"pSettings": "Settings (User & School)",
+				"pSharing": "Sharing (Courses, Topics, Files)",
+				"pRocketChat": "Rocket Chat",
+				"pSHD": "SuperHero Dashboard",
 				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
-				"pExtra": "Extras", 
-				"pApps": "Apps",
-				"pNotifications": "Notifications",
+				"pExtra": "Extras",
+				"pApps": "Mobile Apps (Android, iOS)",
+				"pNotifications": "Notifications (E-Mail)",
 				"pOther": "Other"
 			}
 		},
@@ -1846,11 +1860,10 @@
 		"form_bug": {
 			"label": {
 				"maxSizeFiles": "Images, videos and files",
-				"problemDescription": "Problem description:",
+				"problemDescription": "Problem description",
 				"theProblemOccursOnTheDevice": "The problem occurs on this device",
 				"problemAlreadyKnown": "Is the problem already known?",
-				"knownProblemLink": "Here you can check if there are currently issues regarding the technical systems: ",
-				"statusPage": "Status page"
+				"knownProblemLink": "Additionally you can check our <a href=\"https://status.hpi-schul-cloud.de\">status page<\/a> to see, if we currently have problems with our technical systems."
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)<\/li> <li> Operating system and version (e.g. Windows 10)<\/li>",
@@ -1883,7 +1896,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Brief description of the problem",
-				"furtherInformation": "Further information (optional):",
+				"furtherInformation": "Further information about your browser and operating system(optional)",
 				"replyEmail": "E-mail address for any queries"
 			}
 		},
@@ -2196,7 +2209,7 @@
 				"managingDirectorAuthorized": "Managing director authorized to represent:"
 			},
 			"text": {
-				"hpiPhoneNumber" : "Phone Number: +49 (0)331 / 2318 2920 (available Monday-Friday 1 p.m. - 2 p.m.)"
+				"hpiPhoneNumber": "Phone Number: +49 (0)331 / 2318 2920 (available Monday-Friday 1 p.m. - 2 p.m.)"
 			}
 		}
 	},

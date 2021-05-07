@@ -10,6 +10,11 @@ iframe.full {
   width: 100%;
   min-height: 500px;
   overflow: hidden;
+
+  &.contact {
+    margin-top: 1.5rem;
+    border: solid .75rem $colorLightGrey;
+  }
 }
 
 /********************************************************
@@ -23,17 +28,25 @@ label.form-group {
 
 // Label
 .control-label {
+  &.headline{
+    font-weight: bold;
+    text-align: left;
+  }
+
   &.optional::after {
     font-weight: lighter;
     content: " (optional)";
   }
 }
 
+.icon-card__title {
+  margin-top: 2rem;
+}
+
 // Inputs
 .form-control,
 .chosen-container-single .chosen-single {
   border: 1px solid #d9d9d9;
-  border-radius: 0;
   text-align: left;
   font-weight: normal;
 
@@ -53,7 +66,6 @@ label.form-group {
 fieldset.switch_wrapper {
   display: inline-block;
   width: 100%;
-  max-width: 400px;
 
   .switch {
     display: flex;
@@ -105,6 +117,7 @@ fieldset.switch_wrapper {
   padding: 8px 16px;
   color: #333;
   font-weight: bold;
+  border-radius: .25rem;
 
   &:hover:not([disabled]){
     outline: none;
@@ -231,6 +244,7 @@ fieldset.switch_wrapper {
         text-align: left;
         margin-top: .75rem;
         margin-bottom: .25rem;
+        font-weight: bold;
     }
 
       .chosen-container {
@@ -277,6 +291,7 @@ fieldset.switch_wrapper {
 
 .info_text {
   color: $colorInfo;
+  margin-right: .2em;
 }
 
 #consent_checkbox {
@@ -289,6 +304,7 @@ fieldset.switch_wrapper {
 
 .consent_label {
   display: block;
+  font-weight: normal;
 }
 
 .white-links {
