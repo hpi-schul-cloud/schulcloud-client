@@ -74,8 +74,6 @@ $(document).ready(() => {
 
 	const loadSystems = (systems) => {
 		$systems.empty();
-		// dataSystems.each(syste)
-		// $.getJSON(`/login/systems/${schoolId}`, (systems) => {
 		systems.forEach((system) => {
 			const systemAlias = system.alias ? ` (${system.alias})` : '';
 			let selected;
@@ -88,7 +86,6 @@ $(document).ready(() => {
 		// eslint-disable-next-line no-unused-expressions
 		systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
 		$systems.trigger('chosen:updated');
-		// });
 	};
 
 	$btnToggleProviders.on('click', (e) => {
