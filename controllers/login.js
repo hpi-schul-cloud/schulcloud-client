@@ -133,14 +133,6 @@ router.all('/login/superhero/', (req, res, next) => {
 	handleLoginFailed(req, res).catch(next);
 });
 
-const ssoSchoolData = (req, systemId) => api(req).get('/schoolsList').then((schools) => {
-	if (schools.length > 0) {
-		return schools.find((school) => school.systems.find((system) => system._id === systemId));
-	}
-	return undefined;
-}).catch(() => undefined); // TODO: fixme this is a very bad error catch
-// so we can do proper redirecting and stuff :)
-
 router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	if (res.locals.currentUser) {
 		if (res.locals.currentPayload.forcePasswordChange) {
@@ -163,17 +155,27 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 		// make sure fistLogin flag is not set
 		return res.redirect('/firstLogin');
 	}
+
 	// if this happens: SSO
-	const { accountId, systemId } = (res.locals.currentPayload || {});
-	// TODO refactor strange business logic for redirects
-	ssoSchoolData(req, systemId).then((school) => {
-		if (school === undefined) {
-			const redirectUrl = determineRedirectUrl(req);
-			res.redirect(redirectUrl);
-		} else {
-			res.redirect(`/registration/${school._id}/sso/${accountId}`);
+	const { accountId, systemId, schoolId } = res.locals.currentPayload || {};
+	if (accountId && systemId && schoolId) {
+		const schools = await LoginSchoolsCache.get(req);
+		if (schools.length > 0) {
+			const checkSchool = schools.find((school) => school._id === schoolId);
+			if (checkSchool && checkSchool.systems) {
+				const schoolWithSystem = checkSchool.systems.find(
+					(system) => system._id === systemId,
+				);
+				if (schoolWithSystem) {
+					res.redirect(`/registration/${schoolId}/sso/${accountId}`);
+				}
+			}
 		}
-	});
+	}
+
+	const redirectUrl = determineRedirectUrl(req);
+	res.redirect(redirectUrl);
+
 	return null;
 });
 
