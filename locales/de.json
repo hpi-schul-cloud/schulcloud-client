@@ -1866,7 +1866,7 @@
 				"knownProblemLink": "Zusätzlich kannst du auf unserer <a href=\"https://status.hpi-schul-cloud.de\">Statusseite<\/a> sehen, ob aktuell technische Probleme bei den Systemen vorliegen. "
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B: Windows 10)<\/li>",
+				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B. Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B. Windows 10)<\/li>",
 				"problemAlreadyKnownText": "Hast du geschaut, ob dein Problem bereits bekannt ist? Denn es hilft uns, schneller voran zu kommen, wenn nur neue Probleme mitgeteilt werden."
 			}
 		},
@@ -1896,7 +1896,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
-				"furtherInformation": "Weitere Informationen zu deinem Browser und Betriebssystem (optional)",
+				"furtherInformation": "Weitere Informationen zu deinem Browser und Betriebssystem",
 				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
 			}
 		},

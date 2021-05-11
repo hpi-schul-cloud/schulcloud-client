@@ -34,7 +34,7 @@ label.form-group {
   }
 
   &.optional::after {
-    font-weight: lighter;
+    font-weight: bold;
     content: " (optional)";
   }
 }

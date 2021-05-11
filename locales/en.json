@@ -1896,7 +1896,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Brief description of the problem",
-				"furtherInformation": "Further information about your browser and operating system(optional)",
+				"furtherInformation": "Further information about your browser and operating system",
 				"replyEmail": "E-mail address for any queries"
 			}
 		},
