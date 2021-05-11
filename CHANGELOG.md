@@ -9,23 +9,27 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
 - SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
 - SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
 - SC-6232 - fixed due date format and hint
 - OPS-1499 - Add feature to CI Pipeline and provide team based HPI Schul-Cloud instances
+- SC-8712 - Changing bad default text when assigning topics
+
+### removed
+
+- SC-1464 - removed share button from team section
 
 ## [26.1.0]
 
-### Changed
-
-- SC-8712 - Changing bad default text when assigning topics
 
 ## [26.0.7] - 2021-04-20
 
 ### Fixed
 
 - SC-8931 - fix typo
+
 
 ## [26.0.6] - 2021-04-15
 
