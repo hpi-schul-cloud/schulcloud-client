@@ -2100,7 +2100,7 @@
 				"description": "Finde heraus warum..."
 			},
 			"text": {
-				"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
+				"noTopicsSelected": "Kein Thema ausgewählt",
 				"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrkräfte dürfen den Kurs nicht ändern)"
 			}
 		},
