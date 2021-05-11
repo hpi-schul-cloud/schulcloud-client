@@ -9,10 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
 - SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
 - SC-6232 - fixed due date format and hint
-
+- OPS-1499 - Add feature to CI Pipeline and provide team based HPI Schul-Cloud instances
+ 
 ## [26.1.0]
 
 ### removed
@@ -81,6 +83,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6679 - fixed table styling in topic text-component
 - SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
 - SC-6923 - Fixed help area search with csp url
+- SC-8342 - Fixed show password button
 - SC-8414 - Made school number field editable for LDAP schools
 - SC-8594 - make drag icon visible again
 - SC-8318 - actualize gender language
@@ -205,7 +208,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7824 - Set proper email address and label for data privacy
+- SC-7824 - Set proper email address and label for data privacy 
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
