@@ -3061,7 +3061,7 @@
 		},
 		"form_share": {
 			"label": {
-				"distributeTheFollowingCode": "Share the following code with a teacher colleague to add the topic to a course. This function is located on the course page."
+				"distributeTheFollowingCode": "Distribute the following code to other colleagues so that they can import the course as a copy. Old student submissions are automatically removed for the newly copied course."
 			}
 		},
 		"topicEdit": {
