@@ -245,6 +245,11 @@ fieldset.switch_wrapper {
         margin-top: .75rem;
         margin-bottom: .25rem;
         font-weight: bold;
+
+        &.optional::after {
+          font-weight: bold;
+          content: " (optional)";
+        }
     }
 
       .chosen-container {
