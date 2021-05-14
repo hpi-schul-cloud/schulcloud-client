@@ -356,12 +356,6 @@
 				"targetState": "Soll-Zustand"
 			}
 		},
-		"form_rss": {
-			"label": {
-				"briefDescription": "Kurzbeschreibung (optional)",
-				"urlOfTheRSSSystem": "URL des RSS-Feeds"
-			}
-		},
 		"form_System": {
 			"label": {
 				"clientSecret": "Client-Geheimnis",
@@ -369,6 +363,12 @@
 				"systemName": "Name des Systems",
 				"systemType": "Typ des Systems",
 				"urlOfTheSystem": "URL des Systems"
+			}
+		},
+		"form_rss": {
+			"label": {
+				"briefDescription": "Kurzbeschreibung (optional)",
+				"urlOfTheRSSSystem": "URL des RSS-Feeds"
 			}
 		},
 		"global": {
@@ -397,6 +397,7 @@
 				"student": "Schüler:in",
 				"studentParticipants": "Schüler:in \/ Teilnehmer:in",
 				"substituteTeacher": "Vertretungslehrkraft",
+				"teacher": "Lehrer:in",
 				"teachingTeacher": "Unterrichtende Lehrkraft",
 				"termsOfUse": "Nutzungsbedingungen",
 				"timeSpan": "Zeitraum (z.B. Schuljahr)",
@@ -2112,7 +2113,7 @@
 				"description": "Finde heraus warum..."
 			},
 			"text": {
-				"noTopicsInTheCourse": "Keine Themen in diesem Kurs",
+				"noTopicsSelected": "Kein Thema ausgewählt",
 				"substitutionTeachersMayNotChangeTheCourse": "(Vertretungslehrkräfte dürfen den Kurs nicht ändern)"
 			}
 		},
@@ -2492,6 +2493,7 @@
 			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
 			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
+			"showPassword": "Passwort anzeigen:",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden."
 		}

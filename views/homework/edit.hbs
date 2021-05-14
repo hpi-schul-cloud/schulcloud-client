@@ -59,19 +59,19 @@
 					let lessonPicker = $('#lessonPicker').empty();
 					if (r.lessons.data.length > 0) {
 						(r.lessons.data || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
-						lessonPicker.append('<option value="">{{$t "homework.global.text.noTopicsInTheCourse" }}</option>');
+						lessonPicker.append('<option value="">{{$t "homework.global.text.noTopicsSelected" }}</option>');
 						for (var i = 0; i < r.lessons.data.length; i++) {
 							$('#lessonPicker').append('<option value="' + r.lessons.data[i]._id + '">' + r.lessons.data[i].name + '</option>');
 						}
 						$('#lessonPicker').prop('disabled', false);
                         $('#lessonPicker').trigger("chosen:updated");
 					} else {
-						lessonPicker.append('<option value="">{{$t "homework.global.text.noTopicsInTheCourse"}}</option>');
+						lessonPicker.append('<option value="">{{$t "homework.global.text.noTopicsSelected"}}</option>');
 					}
 					$('#lessonPicker').trigger("chosen:updated");
 				});
 			} else {
-				$('#lessonPicker').empty().append('<option value="">{{$t "homework.global.text.noTopicsInTheCourse"}}</option>').prop('disabled', true);
+				$('#lessonPicker').empty().append('<option value="">{{$t "homework.global.text.noTopicsSelected"}}</option>').prop('disabled', true);
 				$('#lessonPicker').trigger("chosen:updated");
 			}
 		});
@@ -137,7 +137,7 @@
 							</option>
 							{{/each}}
 							{{else}}
-							<option value="">{{$t "homework.global.text.noTopicsInTheCourse"}}</option>
+							<option value="">{{$t "homework.global.text.noTopicsSelected"}}</option>
 							{{/if}}
 						</select>
 					</div>
