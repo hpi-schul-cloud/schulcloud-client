@@ -39,6 +39,13 @@ label.form-group {
   }
 }
 
+.control-legend {
+  &.optional::after {
+    font-weight: bold;
+    content: " (optional)";
+  }
+}
+
 .icon-card__title {
   margin-top: 2rem;
 }
