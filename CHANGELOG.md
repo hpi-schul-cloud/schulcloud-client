@@ -10,7 +10,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 ## 26.2.0
-- SC-8599 - changes to support contact page 
+
+- SC-8599 - changes to support contact page 2.0
 - SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
 - SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
