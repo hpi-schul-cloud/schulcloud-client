@@ -18,6 +18,12 @@ router.post('/', (req, res) => {
 		passwordNew,
 		language,
 	} = req.body;
+	// validation
+	if ((passwordNew || email) && !password ) {
+		const error = new Error(res.$t('account.error.currentPasswordRequired'));
+		error.status = 401;
+		throw error;
+	}
 	return api(req).patch(`/accounts/${res.locals.currentPayload.accountId}`, {
 		json: {
 			password_verification: password,
