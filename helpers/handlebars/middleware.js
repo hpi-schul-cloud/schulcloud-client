@@ -52,7 +52,12 @@ module.exports = (req, res, next) => {
 		icon: 'graduation-cap',
 		link: '/courses/',
 	}, {
-		name: res.$t('global.headline.tasks'),
+		name: res.$t('global.headline.tasksOpen'),
+		icon: 'list-ol',
+		link: '/tasks/open',
+		permission: 'Task_Dashboard_View_v3',
+	}, {
+		name: res.$t('global.headline.tasksAll'),
 		icon: 'tasks',
 		link: '/homework/',
 		children: [
