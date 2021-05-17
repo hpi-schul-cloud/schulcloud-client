@@ -16,6 +16,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6232 - fixed due date format and hint
 - OPS-1499 - Add feature to CI Pipeline and provide team based HPI Schul-Cloud instances
 - SC-8712 - Changing bad default text when assigning topics
+- SC-8730 - Fixed sharing text for sharing whole course
 
 ### removed
 

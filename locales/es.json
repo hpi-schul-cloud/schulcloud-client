@@ -3079,7 +3079,7 @@
 		},
 		"form_share": {
 			"label": {
-				"distributeTheFollowingCode": "Comparte el siguiente código con un compañero\/profesor para añadir el tema a un curso. Esta función se encuentra en la página del curso."
+				"distributeTheFollowingCode": "Distribuya el siguiente código a otros colegas para que puedan importar el curso como una copia. Los envíos de estudiantes antiguos se eliminan automáticamente para el curso recién copiado."
 			}
 		},
 		"topicEdit": {
