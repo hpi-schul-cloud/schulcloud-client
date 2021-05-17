@@ -32,11 +32,6 @@ label.form-group {
     font-weight: bold;
     text-align: left;
   }
-
-  &.optional::after {
-    font-weight: bold;
-    content: " (optional)";
-  }
 }
 
 .icon-card__title {
