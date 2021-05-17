@@ -1861,7 +1861,7 @@
 			"label": {
 				"maxSizeFiles": "Imágenes, vídeos y archivos",
 				"problemDescription": "Descripción del problema:",
-				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo",
+				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo (opcional)",
 				"problemAlreadyKnown": "¿Se conoce ya el problema?",
 				"knownProblemLink": "Además, puedes ver en nuestra <a href=\"https://status.hpi-schul-cloud.de\">página de estado<\/a> si hay actualmente algún problema técnico con los sistemas."
 			},
@@ -1896,7 +1896,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Breve descripción del problema",
-				"furtherInformation": "Información adicional sobre tu navegador y sistema operativo",
+				"furtherInformation": "Información adicional sobre tu navegador y sistema operativo (opcional)",
 				"replyEmail": "Dirección de correo electrónico para cualquier consulta."
 			}
 		},
