@@ -102,7 +102,9 @@
 			}
 		},
 		"error": {
-			"currentPasswordRequired": "Bitte gib dein aktuelles Passwort ein"
+			"text": {
+				"currentPasswordRequired": "Bitte gib dein aktuelles Passwort ein"
+			}
 		}
 	},
 	"addons": {

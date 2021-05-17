@@ -19,8 +19,8 @@ router.post('/', (req, res) => {
 		language,
 	} = req.body;
 	// validation
-	if ((passwordNew || email) && !password ) {
-		const error = new Error(res.$t('account.error.currentPasswordRequired'));
+	if ((passwordNew || email) && !password) {
+		const error = new Error(res.$t('account.error.text.currentPasswordRequired'));
 		error.status = 401;
 		throw error;
 	}

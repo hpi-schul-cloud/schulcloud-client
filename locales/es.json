@@ -102,7 +102,9 @@
 			}
 		},
 		"error": {
-			"currentPasswordRequired": "Por favor, introduzca su contraseña actual"
+			"text": {
+				"currentPasswordRequired": "Por favor, introduzca su contraseña actual"
+			}
 		}
 	},
 	"addons": {
