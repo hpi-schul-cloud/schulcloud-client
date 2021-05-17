@@ -32,11 +32,6 @@ label.form-group {
     font-weight: bold;
     text-align: left;
   }
-
-  &.optional::after {
-    font-weight: bold;
-    content: " (optional)";
-  }
 }
 
 .icon-card__title {
@@ -245,11 +240,6 @@ fieldset.switch_wrapper {
         margin-top: .75rem;
         margin-bottom: .25rem;
         font-weight: bold;
-
-        &.optional::after {
-          font-weight: bold;
-          content: " (optional)";
-        }
     }
 
       .chosen-container {
