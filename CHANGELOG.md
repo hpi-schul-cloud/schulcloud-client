@@ -10,23 +10,21 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 ### Changed
+
 - SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
 - SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
 - SC-6232 - fixed due date format and hint
-
-## [26.1.0]
-
-### Changed
-
+- SC-8730 - Fixed sharing text for sharing whole course
 - SC-9040 - Changing placeholder text in task
 - OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
 - SC-8712 - Changing bad default text when assigning topics
-- SC-8730 - Fixed sharing text for sharing whole course
 
 ### removed
 
 - SC-1464 - removed share button from team section
+
+## [26.1.0]
 
 ## [26.0.7] - 2021-04-20
 
