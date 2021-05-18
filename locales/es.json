@@ -397,6 +397,7 @@
 				"student": "Estudiante",
 				"studentParticipants": "Estudiante \/ asistente",
 				"substituteTeacher": "Profesor suplente",
+				"teacher": "Profesor",
 				"teachingTeacher": "Profesor docente",
 				"termsOfUse": "Condiciones de uso",
 				"timeSpan": "Período (por ejemplo, año escolar)",
@@ -2118,7 +2119,7 @@
 				"description": "Explicar por qué ..."
 			},
 			"text": {
-				"noTopicsInTheCourse": "No hay temas en este curso",
+				"noTopicsSelected": "No hay temas seleccionados",
 				"substitutionTeachersMayNotChangeTheCourse": "(Los profesores suplentes no pueden editar el curso)"
 			}
 		},
@@ -2498,6 +2499,7 @@
 			"loginFailedSecondHint": "2. ¿Has eliminado tus cookies y los datos del sitio web?",
 			"loginFailedThirdHint": "3. ¿Has intentado iniciar sesión en otro dispositivo (por ejemplo, un ordenador portátil en lugar de un teléfono móvil)?",
 			"pleaseWaitXSeconds": "Por favor, espera {{seconds}} segundos",
+			"showPassword": "Mostrar contraseña:",
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
 			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe."
 		}
