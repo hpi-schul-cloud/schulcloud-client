@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.1.1] - 2021-05-17
+
+- SC-9061 - require password for changing emails
+
 ## [26.1.0]
 
 ## [26.0.7] - 2021-04-20
