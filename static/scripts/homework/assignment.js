@@ -19,7 +19,6 @@ window.addEventListener('load', () => {
 		range.find(`>.tabs>#${this.id.replace('-tab-link', '')}.tab-content`).addClass('active');
 	});
 
-
 	// set initial tab-view by URL-Parameter
 	function getParameterByName() {
 		return decodeURIComponent(window.location.hash.replace('#activetabid=', ''));

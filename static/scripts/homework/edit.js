@@ -1,3 +1,5 @@
+const Mousetrap = require('../mousetrap/mousetrap');
+
 window.addEventListener('DOMContentLoaded', () => {
 	const lang = $('html').attr('lang');
 	$.datetimepicker.setLocale(lang || 'de');
@@ -36,13 +38,13 @@ window.addEventListener('DOMContentLoaded', () => {
 		},
 	});
 
-	Mousetrap.bind(['command+s', 'ctrl+s'], (e) => {
+	Mousetrap.bind(['command+s', 'ctrl+s'], () => {
 		document.getElementById('homework-form').submit();
 		return false;
 	});
 
 	$('#coursePicker').change((e, s) => {
-		if (s.selected != '') {
+		if (s.selected !== '') {
 			$('#lessonPicker').empty().append(`<option value="">${$t('homework.text.loading')}</option>`);
 			$('#lessonPicker').prop('disabled', true);
 			$.ajax({
@@ -52,8 +54,9 @@ window.addEventListener('DOMContentLoaded', () => {
 				if (r.lessons.data.length > 0) {
 					(r.lessons.data || []).sort((a, b) => ((a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1));
 					lessonPicker.append(`<option value="">${$t('homework.global.text.noTopicsInTheCourse')}</option>`);
-					for (let i = 0; i < r.lessons.data.length; i++) {
-						$('#lessonPicker').append(`<option value="${r.lessons.data[i]._id}">${r.lessons.data[i].name}</option>`);
+					for (let i = 0; i < r.lessons.data.length; i += 1) {
+						$('#lessonPicker')
+							.append(`<option value="${r.lessons.data[i]._id}">${r.lessons.data[i].name}</option>`);
 					}
 					$('#lessonPicker').prop('disabled', false);
 					$('#lessonPicker').trigger('chosen:updated');
@@ -63,12 +66,14 @@ window.addEventListener('DOMContentLoaded', () => {
 				$('#lessonPicker').trigger('chosen:updated');
 			});
 		} else {
-			$('#lessonPicker').empty().append(`<option value="">${$t('homework.global.text.noTopicsInTheCourse')}</option>`).prop('disabled', true);
+			$('#lessonPicker').empty()
+				.append(`<option value="">${$t('homework.global.text.noTopicsInTheCourse')}</option>`)
+				.prop('disabled', true);
 			$('#lessonPicker').trigger('chosen:updated');
 		}
 	});
 
-	$('#teamSubmissions').on('change', (e, s) => {
+	$('#teamSubmissions').on('change', () => {
 		if (document.getElementById('teamSubmissions').checked) {
 			$('#teamsize').removeClass('hidden-xl-down');
 		} else {
