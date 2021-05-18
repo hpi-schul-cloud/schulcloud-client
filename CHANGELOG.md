@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.1.2] - 2021-05-18
+
+- SC-9062 - remove inline JavaScript for homework section 
+
 ## [26.1.1] - 2021-05-17
 
 - SC-9061 - require password for changing emails
