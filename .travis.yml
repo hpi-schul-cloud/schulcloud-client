@@ -85,6 +85,7 @@ jobs:
         - echo "skipping install"
       after_failure:
         - cat /home/travis/.npm/_logs/*debug.log
+        - docker-compose logs --tail="all" notification-service
     - stage: Build
       name: Build All Instances
       language: generic
