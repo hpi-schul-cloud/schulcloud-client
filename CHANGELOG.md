@@ -11,13 +11,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## 26.2.0
 
+- OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
 - SC-8599 - changes to support contact page 2.0
 - SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
 - SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
 - SC-6232 - fixed due date format and hint
-- OPS-1499 - Add feature to CI Pipeline and provide team based HPI Schul-Cloud instances
- 
+
 ## [26.1.0]
 
 ## [26.0.7] - 2021-04-20
