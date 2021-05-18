@@ -20,7 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - SC-9040 - Changing placeholder text in task
-- OPS-1499 - Add feature to CI Pipeline and provide team based HPI Schul-Cloud instances
+- OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
 - SC-8712 - Changing bad default text when assigning topics
 - SC-8730 - Fixed sharing text for sharing whole course
 
