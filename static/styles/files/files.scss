@@ -188,6 +188,18 @@
   float: left;
 }
 
+.personal-files-filter {
+  display: flex; 
+  font-weight: 700;
+  font-family: 'PT Sans';
+  width: 230px;
+}
+
+.create-directory, 
+.new-file {
+  margin-top: 1rem;
+}
+
 .filter-options {
   background: #ffffff;
   position: absolute;
