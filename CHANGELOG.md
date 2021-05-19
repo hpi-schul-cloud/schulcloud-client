@@ -10,12 +10,22 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 ## 26.2.0
-- SC-8599 - changes to support contact page 
+
+- OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
+- SC-8599 - changes to support contact page 2.0
 - SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
 - SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
 - SC-6232 - fixed due date format and hint
- 
+
+## [26.1.2] - 2021-05-18
+
+- SC-9062 - remove inline JavaScript for homework section 
+
+## [26.1.1] - 2021-05-17
+
+- SC-9061 - require password for changing emails
+
 ## [26.1.0]
 
 ## [26.0.7] - 2021-04-20
@@ -203,7 +213,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7824 - Set proper email address and label for data privacy
+- SC-7824 - Set proper email address and label for data privacy 
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon

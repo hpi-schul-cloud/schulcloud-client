@@ -39,7 +39,7 @@ const config = {
 			fontSrc: `'self' data: ${matrixMessengerEmbed}`,
 			styleSrc: `'self' 'unsafe-inline' ${matrixMessengerEmbed}`,
 			// scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
-			scriptSrc: `'self' 'unsafe-eval' 'unsafe-inline' ${matrixMessengerEmbed}`,
+			scriptSrc: `'self' 'unsafe-eval' ${matrixMessengerEmbed}`,
 			// Please activate for production
 			// upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
 			// blockAllMixedContentSrc: 'block-all-mixed-content',
