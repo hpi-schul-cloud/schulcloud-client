@@ -100,6 +100,11 @@
 			"headline": {
 				"thirdPartyProviderLogin": "Inicios de sesión de terceros"
 			}
+		},
+		"error": {
+			"text": {
+				"currentPasswordRequired": "Por favor, introduzca su contraseña actual"
+			}
 		}
 	},
 	"addons": {

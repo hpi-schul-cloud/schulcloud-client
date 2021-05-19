@@ -18,6 +18,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8170 - fixed footer line break
 - SC-6232 - fixed due date format and hint
 
+## [26.1.2] - 2021-05-18
+
+- SC-9062 - remove inline JavaScript for homework section 
+
+## [26.1.1] - 2021-05-17
+
+- SC-9061 - require password for changing emails
+
 ## [26.1.0]
 
 ## [26.0.7] - 2021-04-20
