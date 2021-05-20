@@ -156,13 +156,13 @@
 	}
 
 	.more {
-		position: relative;
-		float: right;
-		padding: 5px 5px 5px 10px;
+		position: absolute;
 		clear: both;
 		text-align: right;
 		color: $primaryColor;
 		text-decoration: none;
+		right: 1vh;
+		bottom: 0.25vh;
 	}
 	.title {
 		white-space: nowrap;
