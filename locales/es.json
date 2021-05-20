@@ -100,6 +100,11 @@
 			"headline": {
 				"thirdPartyProviderLogin": "Inicios de sesión de terceros"
 			}
+		},
+		"error": {
+			"text": {
+				"currentPasswordRequired": "Por favor, introduzca su contraseña actual"
+			}
 		}
 	},
 	"addons": {
@@ -397,6 +402,7 @@
 				"student": "Estudiante",
 				"studentParticipants": "Estudiante \/ asistente",
 				"substituteTeacher": "Profesor suplente",
+				"teacher": "Profesor",
 				"teachingTeacher": "Profesor docente",
 				"termsOfUse": "Condiciones de uso",
 				"timeSpan": "Período (por ejemplo, año escolar)",
@@ -2096,10 +2102,10 @@
 				"visibleAndEditableForStudentsFrom": "Visible para los estudiantes y para editar desde:"
 			},
 			"placeholder": {
-				"description": "Averigua por qué..."
+				"description": "Explicar por qué ..."
 			},
 			"text": {
-				"noTopicsInTheCourse": "No hay temas en este curso",
+				"noTopicsSelected": "No hay temas seleccionados",
 				"substitutionTeachersMayNotChangeTheCourse": "(Los profesores suplentes no pueden editar el curso)"
 			}
 		},
@@ -2479,6 +2485,7 @@
 			"loginFailedSecondHint": "2. ¿Has eliminado tus cookies y los datos del sitio web?",
 			"loginFailedThirdHint": "3. ¿Has intentado iniciar sesión en otro dispositivo (por ejemplo, un ordenador portátil en lugar de un teléfono móvil)?",
 			"pleaseWaitXSeconds": "Por favor, espera {{seconds}} segundos",
+			"showPassword": "Mostrar contraseña:",
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
 			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe."
 		}
@@ -3060,7 +3067,7 @@
 		},
 		"form_share": {
 			"label": {
-				"distributeTheFollowingCode": "Comparte el siguiente código con un compañero\/profesor para añadir el tema a un curso. Esta función se encuentra en la página del curso."
+				"distributeTheFollowingCode": "Distribuya el siguiente código a otros colegas para que puedan importar el curso como una copia. Los envíos de estudiantes antiguos se eliminan automáticamente para el curso recién copiado."
 			}
 		},
 		"topicEdit": {

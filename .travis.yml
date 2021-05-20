@@ -20,7 +20,7 @@ env:
     - LERNSTORE_MODE=LEGACY
 stages:
   - name: Test
-    if: NOT ((commit_message =~ /(skip-test-stage)/ AND branch = master) OR branch = /^(?i:feature).*$/ )
+    if: NOT (commit_message =~ /(skip-test-stage)/ ) OR branch = master
   - name: Build
     if: NOT (commit_message =~ /(skip-build-stage)/)
   - name: Deploy
@@ -97,7 +97,7 @@ jobs:
         - echo $TRAVIS_BRANCH
         - echo $TRAVIS_TAG
       script: bash ./build.sh
-    # Delete Deploy  
+    # Delete Deploy
     - stage: Deploy
       name: Deploy All Instances
       language: generic

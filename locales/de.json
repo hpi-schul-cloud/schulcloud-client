@@ -100,6 +100,11 @@
 			"headline": {
 				"thirdPartyProviderLogin": "Drittanbieter-Logins"
 			}
+		},
+		"error": {
+			"text": {
+				"currentPasswordRequired": "Bitte gib dein aktuelles Passwort ein"
+			}
 		}
 	},
 	"addons": {
@@ -2097,7 +2102,7 @@
 				"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
 			},
 			"placeholder": {
-				"description": "Finde heraus warum..."
+				"description": "Begründe, warum..."
 			},
 			"text": {
 				"noTopicsSelected": "Kein Thema ausgewählt",
@@ -3062,7 +3067,7 @@
 		},
 		"form_share": {
 			"label": {
-				"distributeTheFollowingCode": "Verteile folgenden Code an andere Kolleg:innen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
+				"distributeTheFollowingCode": "Verteile folgenden Code an andere Kolleg:innen, damit sie sich den Kurs als Kopie importieren können. Alte Abgaben von Schüler:innen werden für den neu kopierten Kurs automatisch entfernt."
 			}
 		},
 		"topicEdit": {
