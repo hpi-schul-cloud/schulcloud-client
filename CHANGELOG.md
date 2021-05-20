@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## 26.2.0
 
+- SC-8157 - personal files filter margin correction
 - OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
 - SC-8599 - changes to support contact page 2.0
 - SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
