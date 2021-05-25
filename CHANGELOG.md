@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.1.2] - 2021-05-25
+
+### Fixed
+
+- SC-9071 - Make RocketChat Login CSP compatible
+
 ## [26.1.2] - 2021-05-18
 
 - SC-9062 - remove inline JavaScript for homework section 
