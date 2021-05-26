@@ -100,6 +100,11 @@
 			"headline": {
 				"thirdPartyProviderLogin": "Drittanbieter-Logins"
 			}
+		},
+		"error": {
+			"text": {
+				"currentPasswordRequired": "Bitte gib dein aktuelles Passwort ein"
+			}
 		}
 	},
 	"addons": {

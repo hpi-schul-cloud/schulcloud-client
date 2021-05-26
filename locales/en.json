@@ -100,6 +100,11 @@
 			"headline": {
 				"thirdPartyProviderLogin": "Third party logins"
 			}
+		},
+		"error": {
+			"text": {
+				"currentPasswordRequired": "Please enter your current password"
+			}
 		}
 	},
 	"addons": {
@@ -397,6 +402,7 @@
 				"student": "Student",
 				"studentParticipants": "Student \/ Attendee",
 				"substituteTeacher": "Substitute teacher",
+				"teacher": "Teacher",
 				"teachingTeacher": "Teaching teacher",
 				"termsOfUse": "Terms of Use",
 				"timeSpan": "Period (e.g. school year)",
@@ -1822,17 +1828,17 @@
 				"pBettermarks": "Bettermarks",
 				"pEditor": "Texteditor",
 				"pTeams": "Teams",
-				"pLibreOffice": "Libre Office", 
+				"pLibreOffice": "Libre Office",
 				"pNews": "News",
-				"pCalendar": "Calendar", 
-				"pMessenger": "Messenger", 
+				"pCalendar": "Calendar",
+				"pMessenger": "Messenger",
 				"pMyFiles": "My Files",
 				"pLernStore": "Learning Store",
 				"pManagement": "Management",
 				"pRegisterLogin": "Register & Login",
 				"pPermissions": "Permissions",
 				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
-				"pExtra": "Extras", 
+				"pExtra": "Extras",
 				"pApps": "Apps",
 				"pNotifications": "Notifications",
 				"pOther": "Other"

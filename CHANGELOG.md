@@ -21,14 +21,24 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- SC-9040 - Changing placeholder text in task
-- OPS-1499 - Add feature to CI Pipeline and provide team based HPI Schul-Cloud instances
-- SC-8712 - Changing bad default text when assigning topics
 - SC-8730 - Fixed sharing text for sharing whole course
+- SC-9040 - Changing placeholder text in task
+- OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
+- SC-8712 - Changing bad default text when assigning topics
 
 ### removed
 
 - SC-1464 - removed share button from team section
+
+## [26.1.2] - 2021-05-18
+
+- SC-9062 - remove inline JavaScript for homework section 
+
+## [26.1.1] - 2021-05-17
+
+- SC-9061 - require password for changing emails
+
+## [26.1.0]
 
 ## [26.0.7] - 2021-04-20
 
