@@ -19,6 +19,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-9040 - Changing placeholder text in task
 - OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
 - SC-8712 - Changing bad default text when assigning topics
+- SC-9074 - Fixing wrong english label
 
 ### removed
 
