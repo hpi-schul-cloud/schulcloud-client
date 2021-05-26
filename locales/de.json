@@ -48,6 +48,11 @@
 			"saveTeamSettings": "Teameinstellungen speichern",
 			"sendTestNotification": "Test-Benachrichtigung senden"
 		},
+		"error": {
+			"text": {
+				"currentPasswordRequired": "Bitte gib dein aktuelles Passwort ein"
+			}
+		},
 		"global": {
 			"label": {
 				"currentPassword": "Aktuelles Passwort:",
@@ -103,11 +108,6 @@
 		"thirdPartyProviders": {
 			"headline": {
 				"thirdPartyProviderLogin": "Drittanbieter-Logins"
-			}
-		},
-		"error": {
-			"text": {
-				"currentPasswordRequired": "Bitte gib dein aktuelles Passwort ein"
 			}
 		}
 	},
@@ -201,7 +201,7 @@
 				"manageClass": "Klasse '{{name}}' verwalten",
 				"management": "Verwaltung: ",
 				"members": "Mitglieder",
-				"owner": "Eigentümer",
+				"owner": "Eigentümer:in",
 				"remarks": "Anmerkungen",
 				"school": "{{title}}Schule",
 				"schools": "Schule(n)",
@@ -221,11 +221,11 @@
 				"status": "Status: %1",
 				"teamChatActive": "Chat ist aktiviert",
 				"teamFoundedAtOwnSchool": "An eigener Schule gegründetes Team",
-				"teamHasOwner": "Team hat Eigentümer",
+				"teamHasOwner": "Team hat Eigentümer:in",
 				"teamIncludesExternalMembers": "Beinhaltet Schul-externe Mitglieder"
 			},
 			"link": {
-				"addAnotherOwner": "Weiteren Eigentümer hinzufügen",
+				"addAnotherOwner": "Weitere Eigentümer:innen hinzufügen",
 				"changePassword": "Passwort ändern",
 				"completeEntry": "Eintrag abschließen",
 				"createANewClass": "Erstelle eine neue Klasse",
@@ -242,7 +242,7 @@
 				"resetPassword": "Passwort zurücksetzen",
 				"schoolPrivacyPolicy": "Datenschutzerklärung der Schule",
 				"sendEntryToDevelopmentTeam": "Eintrag an Entwicklungsteam senden",
-				"sendMessageToOwner": "Nachricht an Eigentümer senden",
+				"sendMessageToOwner": "Nachricht an Eigentümer:in senden",
 				"toGiveConsent": "Einverständnis erklären",
 				"transferClassToTheNextSchoolYear": "Klasse in das nächste Schuljahr versetzen"
 			},
@@ -365,6 +365,12 @@
 				"targetState": "Soll-Zustand"
 			}
 		},
+		"form_rss": {
+			"label": {
+				"briefDescription": "Kurzbeschreibung (optional)",
+				"urlOfTheRSSSystem": "URL des RSS-Feeds"
+			}
+		},
 		"form_System": {
 			"label": {
 				"clientSecret": "Client-Geheimnis",
@@ -372,12 +378,6 @@
 				"systemName": "Name des Systems",
 				"systemType": "Typ des Systems",
 				"urlOfTheSystem": "URL des Systems"
-			}
-		},
-		"form_rss": {
-			"label": {
-				"briefDescription": "Kurzbeschreibung (optional)",
-				"urlOfTheRSSSystem": "URL des RSS-Feeds"
 			}
 		},
 		"global": {
@@ -675,22 +675,22 @@
 		},
 		"teams": {
 			"button": {
-				"addAnotherOwner": "Weitere Eigentümer hinzufügen",
+				"addAnotherOwner": "Weitere Eigentümer:innen hinzufügen",
 				"appointTeamOwner": "Ernennen",
 				"discardMessage": "Verwerfen",
 				"removeAllMembers": "Alle Mitglieder entfernen"
 			},
 			"headline": {
 				"membersInOwnSchool": "Mitglieder an eigener Schule",
-				"messageToTeamOwners": "Neue Nachricht an den Team-Eigentümer senden",
-				"newTeamOwner": "Einen zusätzlichen Team-Eigentümer ernennen",
+				"messageToTeamOwners": "Neue Nachricht an den Team-Eigentümer:in senden",
+				"newTeamOwner": "Eine\/n zusätzliche\/n Team-Eigentümer:in ernennen",
 				"removeSchoolFromTeam": "Schule aus Team entfernen",
 				"schools": "Schulen"
 			},
 			"label": {
 				"canCreateTeam": "Schüler:innen können Teams anlegen.",
 				"cannotCreateTeam": "Schüler:innen können keine Teams anlegen.",
-				"selectAnAdditionalOwner": "Wähle hier einen zusätzlichen Eigentümer für das Team aus:",
+				"selectAnAdditionalOwner": "Wähle hier eine\/n zusätzlichen Eigentümer:in für das Team aus:",
 				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen.",
 				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter Admin kannst du diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren\/aktiveren."
 			},
@@ -700,7 +700,7 @@
 				"legend": "Legende:",
 				"noSchools": "Keine Schulen",
 				"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
-				"teamHasOwners": "Team hat Eigentümer"
+				"teamHasOwners": "Team hat Eigentümer:in"
 			}
 		},
 		"text": {
@@ -1723,7 +1723,7 @@
 				"expert": "Expert:in",
 				"leader": "Leiter:in",
 				"member": "Teilnehmer:in",
-				"owner": "Eigentümer"
+				"owner": "Eigentümer:in"
 			}
 		},
 		"sidebar": {
@@ -1786,6 +1786,37 @@
 				"section": "Gehen Sie zum {{section}} Abschnitt"
 			}
 		},
+		"chooseTopicArea": {
+			"text": {
+				"chooseArea": "Bereich wählen",
+				"eachTopicSeparate": " Bitte sende jedes Thema einzeln ab.",
+				"pApps": "Apps",
+				"pBBB": "BBB-Videokonferenzen",
+				"pBettermarks": "Bettermarks",
+				"pCalendar": "Termine",
+				"pCourses": "Kurse",
+				"pDashboard": "Übersicht",
+				"pEditor": "Texteditor",
+				"pExtra": "Weiteres",
+				"pGeneral": "Allgemein",
+				"pGroups": "Gruppen",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pLernStore": "Lern-Store",
+				"pLibreOffice": "Libre Office",
+				"pManagement": "Verwaltung",
+				"pMessenger": "Messenger",
+				"pMyFiles": "Meine Dateien",
+				"pNews": "Neuigkeiten",
+				"pNotifications": "Benachrichtigungen",
+				"pOther": "Zuordnung nicht möglich",
+				"pPermissions": "Berechtigungen",
+				"pRegisterLogin": "Registrierung & Login",
+				"pTasks": "Aufgaben",
+				"pTeams": "Teams",
+				"pTools": "Tools",
+				"pTopics": "Themen"
+			}
+		},
 		"confluence": {
 			"link": {
 				"openArticleInConfluence": "Artikel in Confluence öffnen",
@@ -1799,48 +1830,17 @@
 		},
 		"contact": {
 			"label": {
-				"wish": "Wunsch",
-				"bug": "Problem"
+				"bug": "Problem",
+				"wish": "Wunsch"
 			},
 			"text": {
-				"thankYouForYourFeedback": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
-				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
-				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?",
-				"whichAreaOfSchulCloud": "Welchen Bereich der HPI Schul-Cloud betrifft dein Thema?",
 				"contactSupport": "Support kontaktieren",
 				"contactSupportSubtitle": "Dein Problem ist nicht dabei? Kontaktiere den Support.",
-				"contactSupportSubtitleWish": "Du möchtest einen Wunsch mitteilen? Kontaktiere den Support."
-			}
-		},
-		"chooseTopicArea": {
-			"text": {
-				"eachTopicSeparate": " Bitte sende jedes Thema einzeln ab.",
-				"chooseArea": "Bereich wählen",
-				"pDashboard": "Übersicht",
-				"pCourses": "Kurse",
-				"pGeneral": "Allgemein",
-				"pTopics": "Themen",
-				"pGroups": "Gruppen",
-				"pTasks": "Aufgaben",
-				"pTools": "Tools",
-				"pBBB": "BBB-Videokonferenzen",
-				"pBettermarks": "Bettermarks",
-				"pEditor": "Texteditor",
-				"pTeams": "Teams",
-				"pLibreOffice": "Libre Office",
-				"pNews": "Neuigkeiten",
-				"pCalendar": "Termine",
-				"pMessenger": "Messenger",
-				"pMyFiles": "Meine Dateien",
-				"pLernStore": "Lern-Store",
-				"pManagement": "Verwaltung",
-				"pRegisterLogin": "Registrierung & Login",
-				"pPermissions": "Berechtigungen",
-				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
-				"pExtra": "Weiteres",
-				"pApps": "Apps",
-				"pNotifications": "Benachrichtigungen",
-				"pOther": "Zuordnung nicht möglich"
+				"contactSupportSubtitleWish": "Du möchtest einen Wunsch mitteilen? Kontaktiere den Support.",
+				"thankYouForYourFeedback": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
+				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
+				"whichAreaOfSchulCloud": "Welchen Bereich der HPI Schul-Cloud betrifft dein Thema?",
+				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
 			}
 		},
 		"form_admin": {
@@ -1850,12 +1850,12 @@
 		},
 		"form_bug": {
 			"label": {
-				"maxSizeFiles": "Bilder, Videos und Dateien",
-				"problemDescription": "Problembeschreibung:",
-				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf",
-				"problemAlreadyKnown": "Ist das Problem bereits bekannt?",
 				"knownProblemLink": "Hier kannst du schauen, ob aktuelle Probleme bei den technischen Systemen vorliegen: ",
-				"statusPage": "Status-Seite"
+				"maxSizeFiles": "Bilder, Videos und Dateien",
+				"problemAlreadyKnown": "Ist das Problem bereits bekannt?",
+				"problemDescription": "Problembeschreibung:",
+				"statusPage": "Status-Seite",
+				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B: Windows 10)<\/li>",
@@ -1915,8 +1915,8 @@
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
 			},
 			"label": {
-				"lowerSaxonyRegistration": "Über die Interessenbekundung <a href=\"https://www.n-21.de/nbc/interessenbekundung\">(https://www.n-21.de/nbc/interessenbekundung)</a> melden sich Schulen – durch die Schulleitung – für die Niedersächsische Bildungscloud an.",
-				"pedagogicalExperts": "Verwende für die Einladung von pädagogischem Personal als externe/r Expert:in bitte keine E-Mail-Adressen, die bereits im schulischen Kontext genutzt werden und für deren Registrierung in der Niedersächsischen Bildungscloud benötigt werden."
+				"lowerSaxonyRegistration": "Über die Interessenbekundung <a href=\"https:\/\/www.n-21.de\/nbc\/interessenbekundung\">(https:\/\/www.n-21.de\/nbc\/interessenbekundung)<\/a> melden sich Schulen – durch die Schulleitung – für die Niedersächsische Bildungscloud an.",
+				"pedagogicalExperts": "Verwende für die Einladung von pädagogischem Personal als externe\/r Expert:in bitte keine E-Mail-Adressen, die bereits im schulischen Kontext genutzt werden und für deren Registrierung in der Niedersächsischen Bildungscloud benötigt werden."
 			}
 		},
 		"lernNuggets": {
@@ -1953,9 +1953,9 @@
 		"partials": {
 			"headline": {
 				"contactForm": "Kontaktformular",
-				"problemArea": "Bereich auswählen",
 				"contactPerson": "Ansprechpartner:in",
 				"overview": "Überblick",
+				"problemArea": "Bereich auswählen",
 				"writeUsAnEmail": "Schreib uns eine E-Mail"
 			}
 		},
@@ -2201,7 +2201,45 @@
 				"managingDirectorAuthorized": "Vertretungsberechtigte Geschäftsführung:"
 			},
 			"text": {
-				"hpiPhoneNumber": "Telefon: +49 (0)331 / 2318 2920 (erreichbar Mo.-Fr. 13-14 Uhr)"
+				"hpiPhoneNumber": "Telefon: +49 (0)331 \/ 2318 2920 (erreichbar Mo.-Fr. 13-14 Uhr)"
+			}
+		}
+	},
+	"landingPage": {
+		"brb": {
+			"headline": {
+				"access": "Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten",
+				"advantages": "Vorteile der {{shortTitle}}",
+				"furtherInformation": "Weitere Informationen zu ersten Schritten in der {{shortTitle}}",
+				"registration": "Für die {{shortTitle}} registrieren",
+				"valueStatement": "Die HPI Schul-Cloud-Entwicklung zeichnet sich aus durch"
+			},
+			"img_alt": {
+				"text": "Schüler:innen sitzen zusammen und nutzen die {{shortTitle}} auf ihren mobilen Endgeräten."
+			},
+			"link": {
+				"text": "Kurzbeschreibung „Die HPI Schul-Cloud“ (.pdf)"
+			},
+			"text": {
+				"access": "Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.",
+				"advantages": "<li>Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten<\/li><li>Austausch digitaler, selbst erstellter Materialien<\/li><li>Digitale Bildung jenseits separater Computerräume<\/li><li>Professionelle Wartung<\/li><li>Ständige Verfügbarkeit neuester Software für Lehrkräfte und Schüler:innen<\/li><li>IT-Anwendungen entsprechen aktuellsten Sicherheitsstandards<\/li><li>Anlaufstelle für neue digitale Lernangebote<\/li><li>Direktes Feedback durch die Nutzer:innen<\/li><li>Anregung zu selbstbestimmtem Lernen<\/li><li>Bereitstellung eigens entworfener Lernangebote<\/li><li>Erweiterung der Unterrichtsmethoden<\/li><li>Vernetzung unterschiedlicher Lernorte<\/li>",
+				"furtherInformation": "<a href=\"https:\/\/bildung-bb.digital\/schulcloud-brandenburg\/erste-schritte\/\">https:\/\/bildung-bb.digital\/schulcloud-brandenburg\/erste-schritte\/<\/a>",
+				"registration": "Eine einheitliche digitale Plattform für die ganze Schule bietet viele Vorteile. Die Registrierung für die {{shortTitle}} wird daher durch die Schulleitung durchgeführt. Bitte wenden Sie sich an <a href=\"mailto:brandenburg@hpi-schul-cloud.org\">brandenburg@hpi-schul-cloud.org<\/a>, wenn Sie Ihre Schule registrieren wollen. \nAnschließend erhalten alle Schüler:innen von ihrer Schule einen Registrierungslink oder Login-Daten für die erstmalige Anmeldung in der {{shortTitle}}. Bei Fragen zur erstmaligen Anmeldung wenden sich Schüler:innen und Eltern bitte an den technischen Leiter ihrer Schule bzw. an die jeweilige Lehrkraft.",
+				"valueStatement": "<li>eine konsequente Nutzung von Open Source Lösungen,<\/li><li>eine durchgängig nutzerzentrierte Entwicklung,<\/li><li>einen strikt modularen Aufbau,<\/li><li>die für ein Flächenland wichtige Funktion der schulübergreifenden Zusammenarbeit,<\/li><li>die EU-DSGVO\/Datenschutz-Konformität durch Privacy by Design,<\/li><li>die Möglichkeit, durch Länderzusammenarbeit Synergien zu schaffen.<\/li><br>",
+				"welcome": "„Das Lernen mit digitalen Medien ist die Herausforderung mit der größten Dynamik. Dazu braucht es eine leistungsfähige, digitale Infrastruktur. Zu den wichtigsten Vorhaben gehört die am Hasso-Plattner-Institut (HPI) entwickelte {{shortTitle}}. Sie soll die Schulen des Landes vernetzen, sodass Lehrkräfte, Schüler:innen jederzeit und überall Zugang zu Lern- und Lehrmaterialien haben. Die professionelle zentrale Wartung für alle Schulen verringert deutlich den Verwaltungs- und Betreuungsaufwand. Wir versprechen uns von der {{shortTitle}} einen deutlichen Schub in der digitalen Bildung und freuen uns auf den Start des Projekts.“ – Bildungsministerin Britta Ernst bei der Eröffnungsveranstaltung am 2. Mai 2019."
+			}
+		},
+		"label": {
+			"welcome": "Herzlich willkommen bei der {{shortTitle}}!"
+		},
+		"open": {
+			"text": {
+				"welcome": "„Das <a href=\"https:\/\/hpi.de\/\">Hasso-Plattner-Institut<\/a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href=\"https:\/\/www.mint-ec.de\/\">MINT-EC<\/a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Dies ist die offene Instanz der HPI Schul-Cloud, über die einzelne Schulen Zugang zur Plattform erhalten können."
+			}
+		},
+		"thr": {
+			"text": {
+				"welcome": "Die {{shortTitle}} soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Um dieses Ziel zu erreichen pilotiert das Land Thüringen die vom Hasso-Plattner-Institut entwickelte Schulcloud mit zunächst 20 Pilotschulen und 9 Studienseminaren ab dem Schuljahr 2019\/2020."
 			}
 		}
 	},
@@ -2921,7 +2959,7 @@
 					"externTeacher": "Lehrkraft anderer Schule (Team-Admin)",
 					"federalState": "Bundesland",
 					"insertEmailOfExpertToInvite": "Externe Expert:innen verfügen aus Sicherheitsgründen nur über eingeschränkte Berechtigungen - beispielsweise können sie nicht an Videokonferenzen teilnehmen und keine Kurse anlegen. Um eine\/n schulfremde\/n Expert:in einzuladen, gib die E-Mail-Adresse ein, an die die Einladung verschickt werden soll:",
-					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert einen anderen Eigentümer",
+					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert eine\/n andere\/n Eigentümer:in",
 					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
 					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
 					"reallyWantToRmUser": "Möchtest du diese\/n Teilnehmer:in wirklich entfernen?",
@@ -3295,44 +3333,6 @@
 			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
 			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen."
-		}
-	},
-	"landingPage": {
-		"label": {
-			"welcome": "Herzlich willkommen bei der {{shortTitle}}!"
-		},
-		"brb": {
-			"headline": {
-				"registration": "Für die {{shortTitle}} registrieren",
-				"valueStatement": "Die HPI Schul-Cloud-Entwicklung zeichnet sich aus durch",
-				"access": "Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten",
-				"advantages": "Vorteile der {{shortTitle}}",
-				"furtherInformation": "Weitere Informationen zu ersten Schritten in der {{shortTitle}}"
-			},
-			"img_alt": {
-				"text": "Schüler:innen sitzen zusammen und nutzen die {{shortTitle}} auf ihren mobilen Endgeräten."
-			},
-			"link": {
-				"text": "Kurzbeschreibung „Die HPI Schul-Cloud“ (.pdf)"
-			},
-			"text": {
-				"welcome": "„Das Lernen mit digitalen Medien ist die Herausforderung mit der größten Dynamik. Dazu braucht es eine leistungsfähige, digitale Infrastruktur. Zu den wichtigsten Vorhaben gehört die am Hasso-Plattner-Institut (HPI) entwickelte {{shortTitle}}. Sie soll die Schulen des Landes vernetzen, sodass Lehrkräfte, Schüler:innen jederzeit und überall Zugang zu Lern- und Lehrmaterialien haben. Die professionelle zentrale Wartung für alle Schulen verringert deutlich den Verwaltungs- und Betreuungsaufwand. Wir versprechen uns von der {{shortTitle}} einen deutlichen Schub in der digitalen Bildung und freuen uns auf den Start des Projekts.“ – Bildungsministerin Britta Ernst bei der Eröffnungsveranstaltung am 2. Mai 2019.",
-				"registration": "Eine einheitliche digitale Plattform für die ganze Schule bietet viele Vorteile. Die Registrierung für die {{shortTitle}} wird daher durch die Schulleitung durchgeführt. Bitte wenden Sie sich an <a href=\"mailto:brandenburg@hpi-schul-cloud.org\">brandenburg@hpi-schul-cloud.org<\/a>, wenn Sie Ihre Schule registrieren wollen. \nAnschließend erhalten alle Schüler:innen von ihrer Schule einen Registrierungslink oder Login-Daten für die erstmalige Anmeldung in der {{shortTitle}}. Bei Fragen zur erstmaligen Anmeldung wenden sich Schüler:innen und Eltern bitte an den technischen Leiter ihrer Schule bzw. an die jeweilige Lehrkraft.",
-				"valueStatement": "<li>eine konsequente Nutzung von Open Source Lösungen,<\/li><li>eine durchgängig nutzerzentrierte Entwicklung,<\/li><li>einen strikt modularen Aufbau,<\/li><li>die für ein Flächenland wichtige Funktion der schulübergreifenden Zusammenarbeit,<\/li><li>die EU-DSGVO\/Datenschutz-Konformität durch Privacy by Design,<\/li><li>die Möglichkeit, durch Länderzusammenarbeit Synergien zu schaffen.<\/li><br>",
-				"access": "Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.",
-				"advantages": "<li>Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten<\/li><li>Austausch digitaler, selbst erstellter Materialien<\/li><li>Digitale Bildung jenseits separater Computerräume<\/li><li>Professionelle Wartung<\/li><li>Ständige Verfügbarkeit neuester Software für Lehrkräfte und Schüler:innen<\/li><li>IT-Anwendungen entsprechen aktuellsten Sicherheitsstandards<\/li><li>Anlaufstelle für neue digitale Lernangebote<\/li><li>Direktes Feedback durch die Nutzer:innen<\/li><li>Anregung zu selbstbestimmtem Lernen<\/li><li>Bereitstellung eigens entworfener Lernangebote<\/li><li>Erweiterung der Unterrichtsmethoden<\/li><li>Vernetzung unterschiedlicher Lernorte<\/li>",
-				"furtherInformation": "<a href=\"https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/\">https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/<\/a>"
-			}
-		},
-		"open": {
-			"text": {
-				"welcome": "„Das <a href=\"https:\//hpi.de/\">Hasso-Plattner-Institut<\/a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href=\"https:\//www.mint-ec.de\/\">MINT-EC<\/a>, dem nationalen Excellence-Schulnetzwerk von über 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung die HPI Schul-Cloud. Sie soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Dies ist die offene Instanz der HPI Schul-Cloud, über die einzelne Schulen Zugang zur Plattform erhalten können."
-			}
-		},
-		"thr": {
-			"text": {
-				"welcome": "Die {{shortTitle}} soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler:innen in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind. Um dieses Ziel zu erreichen pilotiert das Land Thüringen die vom Hasso-Plattner-Institut entwickelte Schulcloud mit zunächst 20 Pilotschulen und 9 Studienseminaren ab dem Schuljahr 2019\/2020."
-			}
 		}
 	}
 }
