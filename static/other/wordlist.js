@@ -32,7 +32,7 @@ module.exports = [
 	'umsatz', 'spielen', 'paar', 'nachdem', 'kunst', 'sprecher',
 	'erneut', 'beginn', 'besteht', 'mindestens', 'bietet', 'trainer',
 	'fragen', 'erstmals', 'februar', 'daher', 'bundesregierung', 'lediglich',
-	'krieg', 'zuletzt', 'kirche', 'weiterhin', 'mitglieder', 'paris',
+	'krieg', 'zuletzt', 'weiterhin', 'mitglieder', 'paris',
 	'situation', 'gefunden', 'wochenende', 'internationalen', 'versucht', 'blieb',
 	'mehrheit', 'berichtet', 'zumindest', 'amerikanischen', 'obwohl', 'kopf',
 	'interesse', 'verloren', 'jedem', 'spricht', 'teilte', 'einzelnen',
