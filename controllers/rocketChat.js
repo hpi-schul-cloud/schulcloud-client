@@ -11,9 +11,7 @@ const ROCKET_CHAT_URI = Configuration.get('ROCKET_CHAT_URI');
 router.use(authHelper.authChecker);
 
 router.get('/Iframe',
-	(req, res, next) => api(req).get(`/rocketChat/login/${res.locals.currentUser._id}`).then(
-		(result) => res.send('<script type="text/javascript" src="/rocketChat/Iframe-js"></script>'),
-	));
+	(req, res, next) => res.send('<script type="text/javascript" src="/rocketChat/Iframe-js"></script>'));
 
 router.get('/Iframe-js',
 	(req, res, next) => api(req).get(`/rocketChat/login/${res.locals.currentUser._id}`).then((result) => {
