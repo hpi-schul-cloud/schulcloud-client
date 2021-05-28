@@ -1949,9 +1949,10 @@ router.get(
 			fullname: `${student.firstName} ${student.lastName}`,
 			id: student._id,
 			email: student.email,
-			birthday: student.birthday,
+			birthday: timesHelper.dateStringToMoment(student.birthday),
 			password: passwords[i],
 		}));
+
 		res.render('administration/classes_skipregistration', {
 			title: res.$t('administration.controller.link.toGiveConsent'),
 			students: renderUsers,
