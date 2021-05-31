@@ -58,11 +58,11 @@ echo "DOCKERTAG: $DOCKERTAG"
 echo "DOCKERTAG_SHA: $DOCKERTAG_SHA"
 
 function buildandpush {
-  # build container default theme
-  docker build -t schulcloud/schulcloud-client:"$DOCKERTAG" -t schulcloud/schulcloud-client:"$DOCKERTAG_SHA" .
-
   # Log in to the docker CLI
   echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  # build container default theme
+  docker build -t schulcloud/schulcloud-client:"$DOCKERTAG" -t schulcloud/schulcloud-client:"$DOCKERTAG_SHA" .
 
   # take those images and push them up to docker hub
   docker push schulcloud/schulcloud-client:"$DOCKERTAG"
