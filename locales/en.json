@@ -1866,12 +1866,12 @@
 		},
 		"form_bug": {
 			"label": {
-				"knownProblemLink": "Here you can check if there are currently issues regarding the technical systems: ",
+				"knownProblemLink": "Additionally you can check our <a href=\"https://status.hpi-schul-cloud.de\">status page<\/a> to see, if we currently have problems with our technical systems."
 				"maxSizeFiles": "Images, videos and files",
 				"problemAlreadyKnown": "Is the problem already known?",
-				"problemDescription": "Problem description:",
+				"problemDescription": "Problem description",
 				"statusPage": "Status page",
-				"theProblemOccursOnTheDevice": "The problem occurs on this device"
+				"theProblemOccursOnTheDevice": "The problem occurs on this device (optional)",
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)<\/li> <li> Operating system and version (e.g. Windows 10)<\/li>",
@@ -1904,7 +1904,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Brief description of the problem",
-				"furtherInformation": "Further information (optional):",
+				"furtherInformation": "Further information about your browser and operating system (optional)",
 				"replyEmail": "E-mail address for any queries"
 			}
 		},
