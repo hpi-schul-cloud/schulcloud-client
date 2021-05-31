@@ -1856,7 +1856,7 @@
 				"problemAlreadyKnown": "Is the problem already known?",
 				"problemDescription": "Problem description",
 				"statusPage": "Status page",
-				"theProblemOccursOnTheDevice": "The problem occurs on this device (optional)",
+				"theProblemOccursOnTheDevice": "The problem occurs on this device (optional)"
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)<\/li> <li> Operating system and version (e.g. Windows 10)<\/li>",
