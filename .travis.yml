@@ -31,6 +31,8 @@ jobs:
     - stage: Test
       name: Mocha
       before_install:
+        # authenticate against docker
+        - sudo echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
         # move client into subdirectory
         - mkdir -p schulcloud-client
         - mv !(schulcloud-client) schulcloud-client
@@ -63,8 +65,6 @@ jobs:
       install:
         # boot server
         - cd docker-compose
-        # authenticate against docker
-        - bash ./scripts/dockerhub.login.sh
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
         - docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
         - cd ..
