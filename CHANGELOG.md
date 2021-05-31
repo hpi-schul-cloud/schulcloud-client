@@ -9,9 +9,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## 26.2.0
+
 ### Changed
 
-- SC-8440 - fix manual consent for class
+- SC-8157 - personal files filter margin correction
+- OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
+- SC-8599 - changes to support contact page 2.0
 - SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
 - SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
@@ -20,6 +24,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-9040 - Changing placeholder text in task
 - OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
 - SC-8712 - Changing bad default text when assigning topics
+- SC-8342 - Fixed show password button
 
 ### removed
 
@@ -40,7 +45,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 - SC-8931 - fix typo
-
 
 ## [26.0.6] - 2021-04-15
 
@@ -98,7 +102,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-6679 - fixed table styling in topic text-component
 - SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
 - SC-6923 - Fixed help area search with csp url
-- SC-8342 - Fixed show password button
 - SC-8414 - Made school number field editable for LDAP schools
 - SC-8594 - make drag icon visible again
 - SC-8318 - actualize gender language
@@ -223,7 +226,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7824 - Set proper email address and label for data privacy 
+- SC-7824 - Set proper email address and label for data privacy
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon
