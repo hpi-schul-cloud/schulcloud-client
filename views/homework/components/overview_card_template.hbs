@@ -1,13 +1,13 @@
 <li class="card assignment {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}}{{#if this.grade}} has-stats{{/if}} {{this.privateclass}}"
-    style="border-left:10px solid {{this.color}}">
+    style="padding-bottom: 48px; border-left:10px solid {{this.color}}">
     <div class="content">
         <div class="dates text-muted">
-		 {{#if (userHasRole "student")}}
+         {{#if (userHasRole "student")}}
             <i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}" aria-hidden="true"></i>
             {{/if}}
             {{#if this.availableDate}}{{timeToString availableDate}}<br />{{/if}}
             {{#if this.dueDate}}
-                {{$t "homework.text.till"}} {{timeToString dueDate}}
+                {{$t "homework.text.till"}} {{i18nDateTime dueDate}}
             {{else}}
             {{$t "homework.text.noSubmissionDateSet"}}
             {{/if}}

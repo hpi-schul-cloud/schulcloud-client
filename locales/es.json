@@ -214,7 +214,7 @@
 				"email": "Correo electrónico",
 				"inactive": "{{alias}} (inactivo)",
 				"roles": "Rol(es)",
-				"status": "Estado: % 1",
+				"status": "Estado: %1",
 				"teamChatActive": "El chat está activado",
 				"teamFoundedAtOwnSchool": "Equipo fundado en la propia escuela",
 				"teamHasOwner": "El equipo tiene propietarios",
@@ -380,16 +380,11 @@
 			"button": {
 				"addCourse": "Añadir curso",
 				"bug": "¿Te gustaría informar de un error o tienes alguna idea para mejorar {{title}}?\n Envía tus solicitudes o problemas directamente al servicio de atención al usuario de {{short_title}}.",
-				"contactSupport": "Contactar con el servicio de asistencia",
+				"contactSupport": "Contactar soporte",
 				"createLinkSheet": "Crear una hoja impresa con los enlaces",
 				"mailsAreBeingSent": "Enviando correos electrónicos...",
 				"printSheetIsBeingGenerated": "Se está generando la hoja de impresión...",
 				"sendLinksToStudentEmailAddresses": "Enviar enlaces a las direcciones de correo electrónico de los estudiantes"
-			},
-			"helpdesk": {
-				"label": {
-					"tips": "<b>Consejo: <\/b> también puedes reenviar las entradas abiertas desde el centro de ayuda mediante el símbolo <i class=\"fa fa-paper-plane\"><\/i> al servicio de atención al usuario."
-				}
 			},
 			"label": {
 				"afterSavingAllStudentsAdded": "(¡Después de guardar, todos los estudiantes se añadirán automáticamente!)",
@@ -1651,6 +1646,7 @@
 			"password": "Contraseña:",
 			"role": "Rol",
 			"room": "Sala",
+			"search": "buscar...",
 			"settings": "Configuración",
 			"skipLinks": "Saltar enlaces",
 			"sortBy": "Ordenar por: %1",
@@ -1803,32 +1799,80 @@
 		},
 		"contact": {
 			"label": {
-				"schoolAdmin": "Administrador de la escuela",
+				"bug": "Problema",
 				"wish": "Solicitud"
 			},
 			"text": {
 				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
 				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
-				"whoDoYouWantToContact": "¿Con quién quieres contactar?"
+				"whoDoYouWantToContact": "¿Con quién quieres contactar?",
+				"whichAreaOfSchulCloud": "¿A qué área de Schul-Cloud se refiere tu tema?",
+				"contactSupport": "Contactar soporte",
+				"contactSupportSubtitle": "¿Tu problema no aparece en la lista? Ponte en contacto con nuestro equipo de asistencia.",
+				"contactSupportSubtitleWish": "¿Quieres compartir un deseo? Ponte en contacto con nuestro equipo de asistencia."
+			}
+		},
+		"chooseTopicArea": {
+			"text": {
+				"eachTopicSeparate": " Por favor, presenta cada tema por separado.",
+				"chooseArea": "Selecciona el área",
+				"pDashboard": "Panel",
+				"pCourses": "Cursos",
+				"pGeneral": "General",
+				"pCourseGeneral": "Cursos-General",
+				"pToolsGeneral": "Herramientas-General",
+				"pTeamsGeneral": "Equipos-General",
+				"pManageGeneral": "Administración-General",
+				"pExtraGeneral": "Extras-General",
+				"pTopics": "Temas del curso",
+				"pGroups": "Grupos",
+				"pTasks": "Tareas y presentaciones",
+				"pTools": "Herramientas",
+				"pToolsOther": "Otras herramientas (Geogebra, Nexboard, Bettermarks)",
+				"pBBB": "BBB videoconferencias",
+				"pBettermarks": "Bettermarks",
+				"pEditor": "Editor de textos",
+				"pTeams": "Equipos",
+				"pLibreOffice": "Libre Office",
+				"pNews": "Noticias",
+				"pCalendar": "Calendario y horario",
+				"pMatrixMessenger": "Matrix Messenger",
+				"pMyFiles": "Archivos (guardar, cargar, descargar, ordenar)",
+				"pLernStore": "Learning-Store",
+				"pLernStoreContent": "Contenido de la Learning-Store",
+				"pHelparea": "Área de ayuda",
+				"pManagement": "Administración",
+				"pRegister": "Registrarse",
+				"pLogin": "Inicio de sesión",
+				"pPermissions": "Permisos y funciones",
+				"pProjectPage": "Página web del proyecto",
+				"pSharing": "Compartir (cursos, temas, archivos)",
+				"pRocketChat": "Rocket Chat",
+				"pSHD": "Panel de control de SuperHero",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pSettings": "Configuración (usuario y escuela)",
+				"pExtra": "Extras",
+				"pApps": "Aplicaciones móviles (Android, iOS)",
+				"pNotifications": "Notificaciones",
+				"pOther": "Otros"
 			}
 		},
 		"form_admin": {
 			"label": {
-				"currentStatus": "Estado ACTUAL: ¿Qué está sucediendo en el momento después de haber realizado qué pasos?",
 				"targetState": "Estado OBJETIVO: ¿Qué debería suceder en lugar de esto?"
-			},
-			"text": {
-				"hereYouCanContact": "Aquí puedes comunicarte con el administrador de tu escuela. Él puede ayudarte con problemas de inicio de sesión, por ejemplo, y se le informará de tu solicitud de contacto por correo electrónico."
 			}
 		},
 		"form_bug": {
 			"label": {
 				"maxSizeFiles": "Imágenes, vídeos y archivos",
 				"problemDescription": "Descripción del problema:",
-				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo"
+				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo (opcional)",
+				"problemAlreadyKnown": "¿Se conoce ya el problema?",
+				"knownProblemLink": "Además, puedes ver en nuestra <a href=\"https://status.hpi-schul-cloud.de\">página de estado<\/a> si hay actualmente algún problema técnico con los sistemas."
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>"
+				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>",
+				"problemAlreadyKnownText": "¿Has comprobado si tu problema ya es conocido? Nos ayuda a resolver los problemas más rápidamente si sólo se comparten problemas nuevos."
 			}
 		},
 		"form_Wish": {
@@ -1857,7 +1901,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Breve descripción del problema",
-				"furtherInformation": "Más información (opcional):",
+				"furtherInformation": "Información adicional sobre tu navegador y sistema operativo (opcional)",
 				"replyEmail": "Dirección de correo electrónico para cualquier consulta."
 			}
 		},
@@ -1924,6 +1968,7 @@
 				"contactForm": "Formulario de contacto",
 				"contactPerson": "Persona de contacto",
 				"overview": "Visión general",
+				"problemArea": "Selecciona el área",
 				"writeUsAnEmail": "Envíanos un correo electrónico"
 			}
 		},
@@ -2144,7 +2189,7 @@
 			"published": "Publicado:",
 			"ratingHasBeenSaved": "¡Se ha guardado la clasificación!",
 			"till": "hasta",
-			"toBeDoneWithin24Hours": "¡Cuidado! Solo te quedan 24 horas para completar la tarea."
+			"toBeDoneWithin24Hours": "¡Cuidado! Te quedan menos de 24 horas para completar la tarea."
 		}
 	},
 	"imprint": {
@@ -2169,7 +2214,7 @@
 				"managingDirectorAuthorized": "Consejero delegado autorizado para representar:"
 			},
 			"text": {
-				"hpiPhoneNumber" : "número de teléfono: +49 (0)331 / 2318 2920 (disponible de lunes a viernes, de 13 a 14 horas)"
+				"hpiPhoneNumber": "número de teléfono: +49 (0)331 / 2318 2920 (disponible de lunes a viernes, de 13 a 14 horas)"
 			}
 		}
 	},
@@ -2206,7 +2251,7 @@
 			},
 			"link": {
 				"contentProviders": "Proveedores de contenido:",
-				"devOps": "DevOps",
+				"currentJobOffers": "Ofertas de trabajo",
 				"generalInquiries": "Consultas generales:",
 				"mobileApp": "Aplicación móvil",
 				"privacy": "Privacidad:",
@@ -2215,7 +2260,7 @@
 				"support": "Servicio de asistencia:"
 			},
 			"text": {
-				"weAreHiring": "¿Te gustaría unirte a nuestro equipo de la <span style='white-space: nowrap;'>nube escolar de HPI<\/span>? Estamos buscando personas que quieran trabajar con nosotros:"
+				"weAreHiring": "¿Quieres trabajar con nosotros en el equipo de la <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>? Mira esta página:"
 			}
 		},
 		"footer": {
@@ -2284,13 +2329,12 @@
 				"discardChange": "Descartar cambios"
 			},
 			"link": {
-				"dataProtectionDeclaration": "Política de privacidad de la nube escolar de HPI",
+				"dataProtectionDeclaration": "Política de privacidad de la <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>",
 				"github": "GitHub",
 				"participate": "Participar",
 				"safety": "Seguridad",
 				"status": "Estado",
-				"team": "Equipo",
-				"termsOfUseHPI": "Condiciones de uso de la nube escolar de HPI"
+				"termsOfUseHPI": "Condiciones de uso de la <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>"
 			}
 		},
 		"headline": {
@@ -2313,7 +2357,6 @@
 				"playEnterTheCloud": "Juega a \"Enter The Cloud\" (Entra en la nube)"
 			},
 			"link": {
-				"contactYourSchoolAdmin": "Contactar con el administrador de tu escuela",
 				"sendRequestOrProblem": "Enviar solicitud o problema",
 				"training": "Formaciones avanzadas"
 			}

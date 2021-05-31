@@ -10,9 +10,8 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 
+const { logger, formatError } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
-
-const logger = require('../helpers/logger');
 
 // SSO Login
 router.get('/tsp-login/', (req, res, next) => {
@@ -88,13 +87,18 @@ router.all('/', (req, res, next) => {
 	});
 });
 
+/*
+	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
+*/
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
-	.then(() => LoginSchoolsCache.get(req).then((schools) => {
+		.then(() => LoginSchoolsCache.get(req).then((schools) => {
+		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
+		logger.warn(`User can not logged in. Redirect to ${redirect}`);
 		res.render('authentication/login', {
 			schools,
 			systems: [],
 			hideMenu: true,
-			redirect: redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : ''),
+			redirect,
 		});
 	}));
 
@@ -107,10 +111,7 @@ router.get('/loginRedirect', (req, res, next) => {
 			return res.redirect('/login-instances');
 		}
 		return res.redirect('/login');
-	}).catch((error) => {
-		logger.error('Error during login', { error: error.toString() });
-		return next(error);
-	});
+	}).catch(next);
 });
 
 router.all('/login/', (req, res, next) => {
@@ -119,10 +120,7 @@ router.all('/login/', (req, res, next) => {
 			return redirectAuthenticated(req, res);
 		}
 		return handleLoginFailed(req, res);
-	}).catch((error) => {
-		logger.error('Error during login', { error: error.toString() });
-		return next(error);
-	});
+	}).catch(next);
 });
 
 router.all('/login/superhero/', (req, res, next) => {
@@ -132,10 +130,7 @@ router.all('/login/superhero/', (req, res, next) => {
 		statusCode: 401,
 		timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 	};
-	handleLoginFailed(req, res).catch((error) => {
-		logger.error('Error during login', { error: error.toString() });
-		return next(error);
-	});
+	handleLoginFailed(req, res).catch(next);
 });
 
 const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
@@ -147,7 +142,7 @@ const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
 		return schools.data[0];
 	}
 	return undefined;
-}).catch(() => undefined); // fixme this is a very bad error catch
+}).catch(() => undefined); // TODO: fixme this is a very bad error catch
 // so we can do proper redirecting and stuff :)
 
 router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
@@ -197,7 +192,7 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication') // async, ignore result
-		.catch((err) => { logger.error('error during logout.', { error: err.toString() }); });
+		.catch((err) => { logger.error('error during logout.', formatError(err)); });
 	return authHelper
 		.clearCookie(req, res, { destroySession: true })
 		.then(() => res.redirect('/'))

@@ -17,21 +17,19 @@ router.get('/articles', (req, res, next) => {
 	res.render('help/help', {
 		title: res.$t('help.headline.helpSection'),
 		tutorials,
-		adminFormIsActive: req.query.activeForm === 'admin',
-		teamFormIsActive: req.query.activeForm === 'team',
 		userEmail: res.locals.currentUser.source ? '' : res.locals.currentUser.email,
 	});
 });
 
 router.get('/', (req, res, next) => {
 	res.render('help/dashboard', {
-		title: 'Hilfebereich',
+		title: res.$t('help.headline.helpSection'),
 	});
 });
 
 router.get('/contact', (req, res, next) => {
 	res.render('help/contact', {
-		title: 'Kontakt',
+		title: res.$t('global.link.contact'),
 		adminFormIsActive: true,
 	});
 });

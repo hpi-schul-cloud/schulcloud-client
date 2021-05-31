@@ -214,7 +214,7 @@
 				"email": "E-mail",
 				"inactive": "{{alias}} (inactive)",
 				"roles": "Role(s)",
-				"status": "Status:% 1",
+				"status": "Status: %1",
 				"teamChatActive": "Chat is activated",
 				"teamFoundedAtOwnSchool": "Team founded at own school",
 				"teamHasOwner": "Team has owners",
@@ -380,16 +380,11 @@
 			"button": {
 				"addCourse": " Add course",
 				"bug": "Would you like to report an error or do you have an idea to improve the {{title}}? \n Send requests or problems directly to the {{short_title}} user support.",
-				"contactSupport": "Contact Support",
+				"contactSupport": "Contact support",
 				"createLinkSheet": "Create a link print sheet",
 				"mailsAreBeingSent": "Sending e-mails ...",
 				"printSheetIsBeingGenerated": "Print sheet is being generated ...",
 				"sendLinksToStudentEmailAddresses": "Send links to students' e-mail addresses"
-			},
-			"helpdesk": {
-				"label": {
-					"tips": "<b>Tip: <\/b> You can also forward open entries from the Helpdesk using the symbol \n <i class=\"fa fa-paper-plane\"><\/i> to the user support."
-				}
 			},
 			"label": {
 				"afterSavingAllStudentsAdded": "(After saving, all students will be added automatically!)",
@@ -899,8 +894,8 @@
 					"editCourse": "Edit course"
 				},
 				"img_alt": {
-					"courseIsArchieved": "Course is archived",
-					"addPeople": "Add members"
+					"addPeople": "Add members",
+					"courseIsArchieved": "Course is archived"
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Allow Students to write messages in the course chat.",
@@ -1171,14 +1166,14 @@
 			},
 			"input": {
 				"chooseTeacher": "Select teacher",
-				"noCourseTeacher": "You need to choose the course teacher",
 				"egRoom1-21": "e.g. R-1.21",
 				"inMinutes": "In minutes",
-				"mathsClass": "Math 10a",
-				"selectClasses": "Select class(es)",
-				"selectStudents": "Select students",
+				"invalidDurationError": "The duration of the school lesson should not be less than zero",
 				"invalidTimeError": "The start date of the course should not be after the end date.",
-				"invalidDurationError": "The duration of the school lesson should not be less than zero"
+				"mathsClass": "Math 10a",
+				"noCourseTeacher": "You need to choose the course teacher",
+				"selectClasses": "Select class(es)",
+				"selectStudents": "Select students"
 			},
 			"label": {
 				"courseColor": "Color of the course",
@@ -1565,9 +1560,9 @@
 	},
 	"global": {
 		"aria_label": {
+			"deleteCourse": "Delete course",
 			"sidebar": "Sidebar",
-			"topMenu": "topbar",
-			"deleteCourse": "Delete course"
+			"topMenu": "topbar"
 		},
 		"button": {
 			"accept": "Accept",
@@ -1651,6 +1646,7 @@
 			"password": "Password:",
 			"role": "Role",
 			"room": "Room",
+			"search": "search...",
 			"settings": "Settings",
 			"skipLinks": "Skip links",
 			"sortBy": "Sort by: %1",
@@ -1803,32 +1799,80 @@
 		},
 		"contact": {
 			"label": {
-				"schoolAdmin": "School admin",
-				"wish": "Request"
+				"wish": "Request",
+				"bug": "Problem"
 			},
 			"text": {
 				"thankYouForYourFeedback": "Thank you for your feedback, it will be sent directly to the {{shortTitle}} development team. Please be careful not to send any passwords or other sensitive data.",
 				"whatKindOfFeedbackDoYouWant": "What kind of feedback would you like to send us?",
-				"whoDoYouWantToContact": "Who do you want to contact?"
+				"whoDoYouWantToContact": "Who do you want to contact?",
+				"whichAreaOfSchulCloud": "Which area of HPI Schul-Cloud does your topic concern?",
+				"contactSupport": "Contact support",
+				"contactSupportSubtitle": "Your problem isn't listed? Contact our support team.",
+				"contactSupportSubtitleWish": "Do you want to share a request? Please contact our support team."
+			}
+		},
+		"chooseTopicArea": {
+			"text": {
+				"eachTopicSeparate": " Please submit each topic separately.",
+				"chooseArea": "Select area",
+				"pDashboard": "Dashboard",
+				"pCourses": "Courses",
+				"pGeneral": "General",
+				"pCourseGeneral": "Courses-General",
+				"pToolsGeneral": "Tools-General",
+				"pTeamsGeneral": "Teams-General",
+				"pManageGeneral": "Management-General",
+				"pExtraGeneral": "Extras-General",
+				"pTopics": "Course topics",
+				"pGroups": "Groups",
+				"pTasks": "Tasks and Submissions",
+				"pTools": "Tools",
+				"pToolsOther": "Other Tools (Geogebra, Nexboard, Bettermarks)",
+				"pBBB": "BBB video conference",
+				"pBettermarks": "Bettermarks",
+				"pEditor": "Texteditor",
+				"pTeams": "Teams",
+				"pLibreOffice": "Libre Office",
+				"pNews": "News",
+				"pCalendar": "Calendar and timetable",
+				"pMatrixMessenger": "Matrix Messenger",
+				"pMyFiles": "Files (Save, Upload, Download, Sort)",
+				"pLernStore": "Learning-Store",
+				"pLernStoreContent": "Learning-Store Content",
+				"pManagement": "Management",
+				"pRegister": "Registration",
+				"pLogin": "Login",
+				"pHelparea": "Helparea",
+				"pPermissions": "Permissions & Roles",
+				"pProjectPage": "Project website",
+				"pSettings": "Settings (User & School)",
+				"pSharing": "Sharing (Courses, Topics, Files)",
+				"pRocketChat": "Rocket Chat",
+				"pSHD": "SuperHero Dashboard",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pExtra": "Extras",
+				"pApps": "Mobile Apps (Android, iOS)",
+				"pNotifications": "Notifications (E-Mail)",
+				"pOther": "Other"
 			}
 		},
 		"form_admin": {
 			"label": {
-				"currentStatus": "CURRENT state: What is happening at the moment after I have carried out which steps?",
 				"targetState": "TARGET state: What should happen instead?"
-			},
-			"text": {
-				"hereYouCanContact": "Here you can reach the administrator of your school. He can help you with login problems, for example, and will be informed of your contact request by e-mail."
 			}
 		},
 		"form_bug": {
 			"label": {
 				"maxSizeFiles": "Images, videos and files",
-				"problemDescription": "Problem description:",
-				"theProblemOccursOnTheDevice": "The problem occurs on this device"
+				"problemDescription": "Problem description",
+				"theProblemOccursOnTheDevice": "The problem occurs on this device (optional)",
+				"problemAlreadyKnown": "Is the problem already known?",
+				"knownProblemLink": "Additionally you can check our <a href=\"https://status.hpi-schul-cloud.de\">status page<\/a> to see, if we currently have problems with our technical systems."
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)<\/li> <li> Operating system and version (e.g. Windows 10)<\/li>"
+				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)<\/li> <li> Operating system and version (e.g. Windows 10)<\/li>",
+				"problemAlreadyKnownText": "Have you checked if your problem is already known? It helps us to solve problems faster if only new issues are shared."
 			}
 		},
 		"form_Wish": {
@@ -1857,7 +1901,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Brief description of the problem",
-				"furtherInformation": "Further information (optional):",
+				"furtherInformation": "Further information about your browser and operating system (optional)",
 				"replyEmail": "E-mail address for any queries"
 			}
 		},
@@ -1921,6 +1965,7 @@
 		},
 		"partials": {
 			"headline": {
+				"problemArea": "Select area",
 				"contactForm": "Contact form",
 				"contactPerson": "Contact person",
 				"overview": "Overview",
@@ -2144,7 +2189,7 @@
 			"published": "Published:",
 			"ratingHasBeenSaved": "Rating has been saved!",
 			"till": "till",
-			"toBeDoneWithin24Hours": "Watch out! You only have 24 hours left to complete the task."
+			"toBeDoneWithin24Hours": "Watch out! You have less than 24 hours left to complete the task."
 		}
 	},
 	"imprint": {
@@ -2169,7 +2214,7 @@
 				"managingDirectorAuthorized": "Managing director authorized to represent:"
 			},
 			"text": {
-				"hpiPhoneNumber" : "Phone Number: +49 (0)331 / 2318 2920 (available Monday-Friday 1 p.m. - 2 p.m.)"
+				"hpiPhoneNumber": "Phone Number: +49 (0)331 / 2318 2920 (available Monday-Friday 1 p.m. - 2 p.m.)"
 			}
 		}
 	},
@@ -2205,17 +2250,17 @@
 				"nowAtGooglePlay": "Now on Google Play"
 			},
 			"link": {
-				"contentProviders": "Content providers:",
-				"devOps": "DevOps",
-				"generalInquiries": "General inquiries:",
+				"contentProviders": "Content providers",
+				"currentJobOffers": "Current job offers",
+				"generalInquiries": "General inquiries",
 				"mobileApp": "Mobile app",
-				"privacy": "General data protection inquiries:",
-				"privacy_responsible_person": "Data protection officer:",
+				"privacy": "General data protection inquiries",
+				"privacy_responsible_person": "Data protection officer",
 				"subscribeTheNewsletter": "Subscribe to the newsletter",
-				"support": "Support:"
+				"support": "Support"
 			},
 			"text": {
-				"weAreHiring": "Would you like to join our <span style='white-space: nowrap;'>HPI school cloud<\/span> Team? We are hiring:"
+				"weAreHiring": "Would you like to become part of the <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span> team? Then take a look here:"
 			}
 		},
 		"footer": {
@@ -2284,13 +2329,12 @@
 				"discardChange": "Discard change"
 			},
 			"link": {
-				"dataProtectionDeclaration": "Privacy Policy of HPI school cloud",
+				"dataProtectionDeclaration": "Privacy Policy of <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>",
 				"github": "GitHub",
 				"participate": "Participate",
 				"safety": "Security",
 				"status": "Status",
-				"team": "Team",
-				"termsOfUseHPI": "Terms of use of the HPI school cloud"
+				"termsOfUseHPI": "Terms of use of the <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>"
 			}
 		},
 		"headline": {
@@ -2313,7 +2357,6 @@
 				"playEnterTheCloud": "Play Enter The Cloud"
 			},
 			"link": {
-				"contactYourSchoolAdmin": "Contact your school's admin",
 				"sendRequestOrProblem": "Send request or problem",
 				"training": "Advanced trainings"
 			}
@@ -2411,9 +2454,9 @@
 			"label": {
 				"email": "Your e-mail address",
 				"openId": "a unique string that does not allow to identify your true identity",
+				"showName": "Show name",
 				"weNeedToSendThisData": "In order to work with {{client}}, we must transfer the following to this provider:",
-				"yourName": "Your name",
-				"showName": "Show name"
+				"yourName": "Your name"
 			},
 			"text": {
 				"yourNameIsProtected": "The provider of this educational content does not know your real name, as it is retrieved directly from {{shortTitle}}. It is a so-called Iframe that can display pages from other web servers."
