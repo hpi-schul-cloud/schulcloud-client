@@ -25,6 +25,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
 - SC-8712 - Changing bad default text when assigning topics
 - SC-8342 - Fixed show password button
+- SC-7876 - Fixing top right deopdown menus
 
 ### removed
 
