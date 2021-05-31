@@ -1851,16 +1851,16 @@
 		},
 		"form_bug": {
 			"label": {
-				"knownProblemLink": "Hier kannst du schauen, ob aktuelle Probleme bei den technischen Systemen vorliegen: ",
+				"knownProblemLink": "Zusätzlich kannst du auf unserer <a href=\"https://status.hpi-schul-cloud.de\">Statusseite<\/a> sehen, ob aktuell technische Probleme bei den Systemen vorliegen. ",
 				"maxSizeFiles": "Bilder, Videos und Dateien",
 				"problemAlreadyKnown": "Ist das Problem bereits bekannt?",
-				"problemDescription": "Problembeschreibung:",
+				"problemDescription": "Problembeschreibung",
 				"statusPage": "Status-Seite",
-				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
+				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf (optional)"
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B: Windows 10)<\/li>",
-				"problemAlreadyKnownText": "Hast du geschaut, ob dein Problem bereits bekannt ist? Denn es hilft uns schneller voran zu kommen, wenn nur neue Probleme mitgeteilt werden."
+				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B. Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B. Windows 10)<\/li>",
+				"problemAlreadyKnownText": "Hast du geschaut, ob dein Problem bereits bekannt ist? Denn es hilft uns, schneller voran zu kommen, wenn nur neue Probleme mitgeteilt werden."
 			}
 		},
 		"form_Wish": {
@@ -1880,7 +1880,7 @@
 				"toUpdateThem": "z.B. sie zu aktualisieren"
 			},
 			"text": {
-				"iAgreeThatTheFollowingInformation": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B: Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B: Windows 10)<\/li>"
+				"iAgreeThatTheFollowingInformation": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Wunsches folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B Firefox 69.0)<\/li> <li>Betriebssystem und Version (z.B. Windows 10)<\/li>"
 			}
 		},
 		"global": {
@@ -1889,7 +1889,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
-				"furtherInformation": "Weitere Informationen (optional):",
+				"furtherInformation": "Weitere Informationen zu deinem Browser und Betriebssystem (optional)",
 				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
 			}
 		},
