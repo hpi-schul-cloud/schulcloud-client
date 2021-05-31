@@ -4,9 +4,8 @@ branches:
   only:
     - develop
     - master
-    - /^(?i:release).*$/
     # naming convention feature/<JIRA-Ticket ID>-<Jira_Summary>
-    - /^((hotfix|feature)\/[A-Z]+-[0-9]+-[a-zA-Z_]+)$/
+    - /^(hotfix|feature|release)\/$/
 services:
   - docker
 env:
@@ -19,63 +18,13 @@ env:
     - FEATURE_TEAMS_ENABLED=true
     - LERNSTORE_MODE=LEGACY
 stages:
-  - name: Test
-    if: NOT (commit_message =~ /(skip-test-stage)/ ) OR branch = master
-  - name: Build
-    if: NOT (commit_message =~ /(skip-build-stage)/)
-  - name: Deploy
-    if: NOT ((commit_message =~ /(skip-test-stage)/ AND branch = master) OR branch = /^(?i:feature).*$/ )
+  - test
+  - deploy
 
 jobs:
   include:
-    - stage: Test
-      name: Mocha
-      before_install:
-        # authenticate against docker
-        - sudo echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-        # move client into subdirectory
-        - mkdir -p schulcloud-client
-        - mv !(schulcloud-client) schulcloud-client
-        # Clone other required repositories and try to switch to branch with same name as current one
-        # If current branch is hotfix, switch to branch master
-        - |
-          git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
-          cd schulcloud-server
-          if [[ $TRAVIS_PULL_REQUEST_BRANCH = hotfix* ]]
-          then
-            echo "Originating branch hotfix detected. Force testing against Server master."
-            git checkout master
-          else
-            git checkout "$TRAVIS_PULL_REQUEST_BRANCH" || git checkout "$TRAVIS_BRANCH"
-          fi
-          echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
-          cd ..
-        - |
-          git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
-          cd docker-compose
-          if [[ $TRAVIS_PULL_REQUEST_BRANCH = hotfix* ]]
-          then
-            echo "Originating branch hotfix detected. Force testing against Server master."
-            git checkout master
-          else
-            git checkout "$TRAVIS_PULL_REQUEST_BRANCH" || git checkout "$TRAVIS_BRANCH"
-          fi
-          echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
-          cd ..
-      install:
-        # boot server
-        - cd docker-compose
-        - docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
-        - docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
-        - cd ..
-        # client packages are needed for mocha
-        - cd schulcloud-client && npm ci && cd ..
-        # run build (gulp)
-        - cd schulcloud-client && npm run build && cd ..
-      before_script:
-        # seed database
-        - cd schulcloud-server && npm install && npm run setup && npm run seed && cd ..
-      script: cd schulcloud-client && npm run mocha && cd ..
+    - name: mocha:unit
+      script: bash ./scripts/unitTest.sh
     - script: curl "https://raw.githubusercontent.com/hpi-schul-cloud/end-to-end-tests/master/scripts/ci/fetch.travis.sh" | bash
       name: end-to-end-tests
       before_install:
@@ -87,7 +36,7 @@ jobs:
         - echo "skipping install"
       after_failure:
         - cat /home/travis/.npm/_logs/*debug.log
-    - stage: Build
+    - stage: deploy
       name: Build All Instances
       language: generic
       before_install:
@@ -97,17 +46,6 @@ jobs:
         - echo $TRAVIS_BRANCH
         - echo $TRAVIS_TAG
       script: bash ./build.sh
-    # Delete Deploy
-    - stage: Deploy
-      name: Deploy All Instances
-      language: generic
-      before_install:
-        - mkdir .build
-        - openssl aes-256-cbc -K $encrypted_0ddd2445e49f_key -iv $encrypted_0ddd2445e49f_iv -in travis_rsa.enc -out .build/travis_rsa -d
-      before_script:
-        - echo $TRAVIS_BRANCH
-        - echo $TRAVIS_TAG
-      script: bash ./deploy.sh
 
 cache:
   directories:
