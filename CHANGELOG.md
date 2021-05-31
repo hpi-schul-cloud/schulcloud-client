@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-9023 - homework nuxt dashboard
+
 ## 26.2.0
 
 - SC-8157 - personal files filter margin correction
