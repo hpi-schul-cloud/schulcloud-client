@@ -2,6 +2,51 @@
 <input type="hidden" name="type" value="wish">
 <input type="hidden" name="supportType" value="wish">
 
+<h4 class="icon-card__title">{{$t "help.partials.headline.problemArea"}}</h4>
+<span class="icon-card__subtitle">{{$t "help.contact.text.whichAreaOfSchulCloud"}}</span>
+<center>
+<label class="form-group col-md-6">
+		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.eachTopicSeparate"}}</span>
+		<select class="form-control" name="problemArea" class="problemArea" aria-placeholder={{$t "help.contact.text.chooseArea"}}>
+			<option value="" disabled selected hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
+			<option value="Aufgaben">{{$t "help.chooseTopicArea.text.pTasks"}}</option>
+			<option value="Benachrichtigungen">{{$t "help.chooseTopicArea.text.pNotifications"}}</option>
+			<option value="Meine Dateien">{{$t "help.chooseTopicArea.text.pMyFiles"}}</option>
+			<option value="Einstellungen">{{$t "help.chooseTopicArea.text.pSettings"}}</option>
+			<option value="Hilfebereich">{{$t "help.chooseTopicArea.text.pHelparea"}}</option>
+			<option value="IDM">{{$t "help.chooseTopicArea.text.pIdm"}}</option>
+			<option value="Kalendar">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
+			<option value="Kurse">{{$t "help.chooseTopicArea.text.pCourses"}}</option>
+			<option value="KursThemen">{{$t "help.chooseTopicArea.text.pTopics"}}</option>
+			<option value="Lern-Store">{{$t "help.chooseTopicArea.text.pLernStore"}}</option>
+			<option value="Lern-Store-Content">{{$t "help.chooseTopicArea.text.pLernStoreContent"}}</option>
+			<option value="Login">{{$t "help.chooseTopicArea.text.pLogin"}}</option>
+			<option value="MobileApps">{{$t "help.chooseTopicArea.text.pApps"}}</option>
+			<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
+			<optgroup label={{$t "help.chooseTopicArea.text.pTools"}}>
+				<option value="BBB-Videokonferenz">{{$t "help.chooseTopicArea.text.pBBB"}}</option>
+				<option value="Libre-Office">{{$t "help.chooseTopicArea.text.pLibreOffice"}}</option>
+				<option value="Matrix-Messenger">{{$t "help.chooseTopicArea.text.pMatrixMessenger"}}</option>
+				<option value="Rocket-Chat">{{$t "help.chooseTopicArea.text.pRocketChat"}}</option>
+				<option value="Tools-Editor">{{$t "help.chooseTopicArea.text.pEditor"}}</option>
+				<option value="Tools-Andere">{{$t "help.chooseTopicArea.text.pToolsOther"}}</option>
+			</optgroup>
+			<option value="Registrierung">{{$t "help.chooseTopicArea.text.pRegister"}}</option>
+			<option value="Berechtigungen">{{$t "help.chooseTopicArea.text.pPermissions"}}</option>
+			<option value="SHD">{{$t "help.chooseTopicArea.text.pSHD"}}</option>
+			<option value="Teams">{{$t "help.chooseTopicArea.text.pTeams"}}</option>
+			<option value="Teilen">{{$t "help.chooseTopicArea.text.pSharing"}}</option>
+			<option value="Dashboard">{{$t "help.chooseTopicArea.text.pDashboard"}}</option>
+			<option value="Verwaltung">{{$t "help.chooseTopicArea.text.pManagement"}}</option>
+			<option value="Sonstige">{{$t "help.chooseTopicArea.text.pOther"}}</option>
+		</select>
+</label>
+</center>
+
+<h4 class="icon-card__title">{{$t "help.contact.text.contactSupport"}}</h4>
+<span class="icon-card__subtitle">{{$t "help.contact.text.contactSupportSubtitleWish"}}</span>
+
+
 <label class="form-group">
 	<span class="control-label" for="title">{{$t "help.form_Wish.label.briefDescriptionOfTheRequest" }}</span>
 	<input type="text" name="title" id="wishTitle" placeholder="{{$t "help.form_Wish.placeholder.briefDescriptionOfTheRequest" }}" class="form-control" required>
@@ -32,15 +77,14 @@
 	</span>
 	<input type="email" name="replyEmail" placeholder={{$t "help.placeholder.email"}} value="{{ userEmail }}" class="form-control" required>
 </label>
-<hr>
 <fieldset>
 	<legend class="control-legend">{{$t "help.global.label.furtherInformation" }}</legend>
-	<label for="consentWish">
-		<div class="row">
-			<div class="col-xs-2">
+	<label class="consent_label" for="consentWish">
+		<div class="row consent_row">
+			<div id="consent_checkbox">
 				<input type="checkbox" id="consentWish" name="consent" value="true" checked>
 			</div>
-			<div class="col-xs-10">
+			<div>
 				<span class="control-label">
 				  {{{$t "help.form_Wish.text.iAgreeThatTheFollowingInformation" }}}
 				</span>
@@ -51,7 +95,7 @@
 {{#ifEnv "FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED" "true"}}
 <br>
 <label class="form-group">
-    <span class="control-label">{{$t "help.form_bug.label.maxSizeFiles" }} (max. {{ @root.MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_MEGABYTE }}MB):</span>
+    <span class="control-label">{{$t "help.form_bug.label.maxSizeFiles" }} (max. {{ @root.MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_MEGABYTE }}MB)</span>
     <input type="file" class="form-control-file" name="file" multiple="multiple" accept="image/*,video/*,application/msword,application/pdf"
 		data-max-attachment-size-mb="{{ @root.MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_MEGABYTE }}">
 </label>

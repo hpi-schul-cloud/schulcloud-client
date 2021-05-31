@@ -1,20 +1,8 @@
 function initForm(formContainer) {
-	const adminForm = formContainer.querySelector('.admin_form');
 	const teamForm = formContainer.querySelector('.team_form');
 	const wishForm = teamForm.querySelector('.wish_form');
 	const bugForm = teamForm.querySelector('.bug_form');
 
-	// handle form change when target changes
-	formContainer.querySelector('#message_target').addEventListener('change', (event) => {
-		const value = event.target.value || event.target.querySelector('[name=message_target]:checked').value;
-		if (value === 'admin') {
-			adminForm.classList.remove('hidden');
-			teamForm.classList.add('hidden');
-		} else {
-			adminForm.classList.add('hidden');
-			teamForm.classList.remove('hidden');
-		}
-	});
 
 	// handle form change when type changes
 	formContainer.querySelector('#message_type').addEventListener('change', (event) => {

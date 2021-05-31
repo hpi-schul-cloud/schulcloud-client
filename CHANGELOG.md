@@ -9,11 +9,20 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [26.1.2] - 2021-05-25
+## [26.2.1] - 2021-05-31
 
 ### Fixed
 
 - SC-9071 - Make RocketChat Login CSP compatible
+## 26.2.0
+
+- SC-8157 - personal files filter margin correction
+- OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
+- SC-8599 - changes to support contact page 2.0
+- SC-6950 - validation for officialSchoolNumber now allows 6 digits instead of 5
+- SC-8668 - fixed small typo in manage school page
+- SC-8170 - fixed footer line break
+- SC-6232 - fixed due date format and hint
 
 ## [26.1.2] - 2021-05-18
 
@@ -64,6 +73,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- SC-8599 - remodeled help area contact page / follow up PR
+- SC-8660 – changed text of the footer in the section job offers for the instances boss open and thr
+- SC-8408 - improved course update logic. Delete all events for the course before creating new 
 - SC-8408 - improved course update logic. Delete all events for the course before creating new
 - SC-8597 - changing color of the course headline into primary
 
@@ -73,11 +85,20 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8447 - Added filter for logging in error case.
 - SC-8341 - fix bug with teams with deleted user
 - SC-8156 - Added Spanish as an available language
-- SC-8318 - actualize gender language
+- SC-8609 – Added mail-card.hbs for theme int
 
 ### Fixed
 
+- SC-8248 - follow up to fix issue that came from removing the helpdesk completely
 - SC-8595 - remove linguistic note completely
+- SC-8599 - fixed typo
+- SC-6679 - fixed table styling in topic text-component
+- SC-8618 - fixed follow-up issues from ticket SC-8156 related to introducing Spanish to the client
+- SC-6923 - Fixed help area search with csp url
+- SC-8414 - Made school number field editable for LDAP schools
+- SC-8594 - make drag icon visible again
+- SC-8318 - actualize gender language
+- SC-8861 - restore changes lost after release merge
 
 ## [26.0.1] - 2021-03-17
 
@@ -105,7 +126,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - VOR-3 - Sanitize promtheus metrics route for link hashes.
 
-## [25.6.1] - 11.02.21
+## [25.6.1] - 2021-02-12
 
 ### Changed
 
@@ -115,16 +136,24 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Removed
 
+- SC-8660 – Remove team-link in the footer and the team-page
+- SC-8248 – Remove school-admin helpdesk-functionality in Schul-Cloud
 - SC-6311 - Removed itslearning from available system types
+- SC-8495 - Removed the link datenschutzbeauftragter@hpi-schul-cloud.de from the footer
+- SC-8609 – remove section "HPI" including text and e-mail address on theme thr and BRB  
 
 ### Changed
 
+- SC-8164 - Apply deletion concept to the deletion of students and teachers
 - SC-8041 Warning text for changing of county/kreis and officialSchoolNumber
 - SC-8356 - add docker login helper
 - SC-8331 - increase node version to match current lts (currently 12.16 to 14)
 
 ### Fixed
 
+- SC-8416 - Show logo on tablet on subpages
+- SC-6966 - validation of the course teacher input field, lengthOfLesson with min value of 0
+- SC-8414 - Made school number field editable for LDAP schools
 - SC-8531 - Restored school administration missing text
 - SC-6363 - Fix printing problem
 - SC-7602 - Show error by registration when same email for a student and parent
@@ -134,6 +163,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-7345 - the linguistic note shown only for the German language
 - SC-8307 - fixed date formater bug by initial page loading
 - SC-8272 - fixed displaying of the error message for submissions with no due date
+- SC-8210 - remove possibility for students to create tasks
+- SC-8575 - Layout issues on tasks page when description consists of more than two rows
 
 ## 25.5.4
 
@@ -176,7 +207,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [25.4.2]
 
-### Fixed 
+### Fixed
 
 - SC-8337 - Better error handling for file upload
 
@@ -239,7 +270,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation. 
+- SC-8080 After introduction of the timezones we've got an issue with Daylight Saving Time by course creation.
   This change has fixed the issue so that every course starts at the stable time regardless daylight saving time changes
 
 ## 25.3.2
@@ -519,7 +550,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [24.3.1] - 2020-08-26
 
-- SC-6382 fix default  wellcome text for tsp 
+- SC-6382 fix default  wellcome text for tsp
 
 ## [24.3.0] - 2020-08-25
 ### Changed - 24.3.0
@@ -562,14 +593,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added - 24.0.0
 - SC-4151 hint for user when login failes
-- SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists 
+- SC-4577 school specific privacy policy can be added by the school admin. If school specific privacy policy is exists
 it is shown to every school user by the registration, first login and in the footer of the page. If it was changed the
 privacy policy should be confirmed by every school user
 
 
 ### Fixed - 24.0.0
 -  SC-4993 fixed video player issue in ckeditor
--  SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only 
+-  SC-5686 :teamId/edit can only be accessed if the user has the team permission "RENAME_TEAM"; :courseId/edit can only
 be accessed if the user has the permission "COURSE_EDIT
 
 ### Changed - 24.0.0
@@ -616,7 +647,7 @@ be accessed if the user has the permission "COURSE_EDIT
 ### Changed
 
 ### Security
-- SC-4506 Secure User Route. Removed not used /users route from view team members. 
+- SC-4506 Secure User Route. Removed not used /users route from view team members.
 
 ### Removed
 
@@ -626,9 +657,9 @@ be accessed if the user has the permission "COURSE_EDIT
 ### Changed in 23.0.0
 
 - SC-4392 add/edit link dialog in ckeditor could not be opened
-- SC-4075 Teams creation by students logic was changed. New environment enumeration variable `STUDENT_TEAM_CREATION` 
-with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. The feature value is set by instance deployment. 
-In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin. 
+- SC-4075 Teams creation by students logic was changed. New environment enumeration variable `STUDENT_TEAM_CREATION`
+with possible values `disabled`, `enabled`, `opt-in`, `opt-out` was introduced. The feature value is set by instance deployment.
+In case of `disabled`, `enabled` it is valid for all schools of the instance and cannot be changed by the admin.
 In case of `opt-in` and `opt-out` the feature should be enabled/disabled by the school admin.
 
 ### Fixed
