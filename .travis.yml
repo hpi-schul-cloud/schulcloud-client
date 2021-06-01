@@ -20,7 +20,7 @@ env:
     - LERNSTORE_MODE=LEGACY
 stages:
   - name: Test
-    if: NOT ( (commit_message =~ /(skip-test-stage)/ ) OR branch = master OR branch = develop OR branch = /^(feature).*$/ AND "$TRAVIS_PULL_REQUEST" != "false" )
+    if: branch = master OR branch = develop OR ( branch = /^(feature).*$/ AND "$TRAVIS_PULL_REQUEST" != "false" )
   - name: Build
     if: NOT (commit_message =~ /(skip-build-stage)/)
   - name: Deploy

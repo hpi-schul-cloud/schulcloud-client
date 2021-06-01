@@ -10,12 +10,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 - SC-9101 - sync & sort lang files
+- OPS-2418 - execute_E2E_tests
 
 ## 26.2.0
 
 ### Changed
 
-- OPS-2418-execute_E2E_tests
 - OPS-2445 - change Docker login to build
 - SC-8440 - fix manual consent for class
 - SC-8157 - personal files filter margin correction
