@@ -9,7 +9,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-- sync & sort lang files
+- SC-9101 - sync & sort lang files
 
 ## 26.2.0
 
