@@ -1869,6 +1869,7 @@
 				"problemDescription": "Descripción del problema:",
 				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo (opcional)",
 				"problemAlreadyKnown": "¿Se conoce ya el problema?",
+				"statusPage": "Página de situación",
 				"knownProblemLink": "Además, puedes ver en nuestra <a href=\"https://status.hpi-schul-cloud.de\">página de estado<\/a> si hay actualmente algún problema técnico con los sistemas."
 			},
 			"text": {
