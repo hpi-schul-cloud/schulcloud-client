@@ -13,6 +13,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- OPS-2418-execute_E2E_tests
+- OPS-2445 - change Docker login to build
+- SC-8440 - fix manual consent for class
 - SC-8157 - personal files filter margin correction
 - OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
 - SC-8599 - changes to support contact page 2.0

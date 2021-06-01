@@ -4,9 +4,9 @@ branches:
   only:
     - develop
     - master
-    - /^(?i:release).*$/
+    - /^(release).*$/
     # naming convention feature/<JIRA-Ticket ID>-<Jira_Summary>
-    - /^((hotfix|feature)\/[A-Z]+-[0-9]+-[a-zA-Z_]+)$/
+    - /^((hotfix|feature)\/[A-Z]+-[0-9]+-[a-zA-Z0-9_]+)$/
 services:
   - docker
 env:
@@ -20,7 +20,7 @@ env:
     - LERNSTORE_MODE=LEGACY
 stages:
   - name: Test
-    if: NOT (commit_message =~ /(skip-test-stage)/ ) OR branch = master
+    if: NOT ( (commit_message =~ /(skip-test-stage)/ ) OR branch = master OR branch = develop OR branch = /^(feature).*$/ AND "$TRAVIS_PULL_REQUEST" != "false" )
   - name: Build
     if: NOT (commit_message =~ /(skip-build-stage)/)
   - name: Deploy
