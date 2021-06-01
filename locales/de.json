@@ -1851,7 +1851,7 @@
 		},
 		"form_bug": {
 			"label": {
-				"knownProblemLink": "Zusätzlich kannst du auf unserer <a href=\"https://status.hpi-schul-cloud.de\">Statusseite<\/a> sehen, ob aktuell technische Probleme bei den Systemen vorliegen. ",
+				"knownProblemLink": "Zusätzlich kannst du auf unserer <a href=\"https:\/\/status.hpi-schul-cloud.de\">Statusseite<\/a> sehen, ob aktuell technische Probleme bei den Systemen vorliegen. ",
 				"maxSizeFiles": "Bilder, Videos und Dateien",
 				"problemAlreadyKnown": "Ist das Problem bereits bekannt?",
 				"problemDescription": "Problembeschreibung",
@@ -3134,7 +3134,7 @@
 			"label": {
 				"descriptionEtherpad": "Beschreibung des Etherpads",
 				"descriptionNeXboard": "Beschreibung des neXboards",
-				"internLink": "Interner Link",
+				"internLink": "URL der Aufgabe",
 				"lockSection": "Abschnitt sperren",
 				"nameOfEtherpad": "Name des Etherpads",
 				"nameOfNeXboard": "Name des neXboards",
