@@ -22,7 +22,7 @@ jobs:
          TZ=Europe/Berlin
          gulp clear-cache
          gulp
-      - run: tar -cf ${{ matrix.tennens }}.tar bin
+      - run: tar -cf ${{ matrix.tennens }}.tar bin build
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.tennens }}
