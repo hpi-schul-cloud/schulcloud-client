@@ -24,7 +24,7 @@ then
   #export DOCKERTAG=latest
   export DOCKERTAG="release_v$( jq -r '.version' package.json )_latest"
   export DOCKERTAG_SHA="release_v$( jq -r '.version' package.json )_$GIT_SHA"
-elif [[ "$TRAVIS_BRANCH" =~ ^feature\/[A-Z]+-[0-9]+-[a-zA-Z_]+$ ]]
+elif [[ "$TRAVIS_BRANCH" =~ ^feature\/[A-Z]+-[0-9]+-[a-zA-Z0-9_]+$ ]]
 then
 	# extract JIRA_TICKET_ID from TRAVIS_BRANCH
 	JIRA_TICKET_ID=${TRAVIS_BRANCH/#feature\//}
@@ -35,7 +35,7 @@ then
 	# export DOCKERTAG=naming convention feature-<Jira id>-latest
 	export DOCKERTAG="feature_${JIRA_TICKET_ID}_latest"
   export DOCKERTAG_SHA="feature_${JIRA_TICKET_ID}_$GIT_SHA"
-elif  [[ "$TRAVIS_BRANCH" =~ ^hotfix\/[A-Z]+-[0-9]+-[a-zA-Z_]+$ ]]
+elif  [[ "$TRAVIS_BRANCH" =~ ^hotfix\/[A-Z]+-[0-9]+-[a-zA-Z0-9_]+$ ]]
 then
   	# extract JIRA_TICKET_ID from TRAVIS_BRANCH
 	JIRA_TICKET_ID=${TRAVIS_BRANCH/#hotfix\//}
@@ -58,11 +58,11 @@ echo "DOCKERTAG: $DOCKERTAG"
 echo "DOCKERTAG_SHA: $DOCKERTAG_SHA"
 
 function buildandpush {
-  # build container default theme
-  docker build -t schulcloud/schulcloud-client:"$DOCKERTAG" -t schulcloud/schulcloud-client:"$DOCKERTAG_SHA" .
-
   # Log in to the docker CLI
   echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  
+  # build container default theme
+  docker build -t schulcloud/schulcloud-client:"$DOCKERTAG" -t schulcloud/schulcloud-client:"$DOCKERTAG_SHA" .
 
   # take those images and push them up to docker hub
   docker push schulcloud/schulcloud-client:"$DOCKERTAG"
