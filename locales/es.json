@@ -44,6 +44,11 @@
 			"saveTeamSettings": "Guardar la configuración del equipo",
 			"sendTestNotification": "Enviar notificación de prueba"
 		},
+		"error": {
+			"text": {
+				"currentPasswordRequired": "Por favor, introduzca su contraseña actual"
+			}
+		},
 		"global": {
 			"label": {
 				"currentPassword": "Contraseña actual:",
@@ -99,11 +104,6 @@
 		"thirdPartyProviders": {
 			"headline": {
 				"thirdPartyProviderLogin": "Inicios de sesión de terceros"
-			}
-		},
-		"error": {
-			"text": {
-				"currentPasswordRequired": "Por favor, introduzca su contraseña actual"
 			}
 		}
 	},
@@ -1787,6 +1787,51 @@
 				"section": "Ve a la sección {{section}}"
 			}
 		},
+		"chooseTopicArea": {
+			"text": {
+				"chooseArea": "Selecciona el área",
+				"eachTopicSeparate": " Por favor, presenta cada tema por separado.",
+				"pApps": "Aplicaciones móviles (Android, iOS)",
+				"pBBB": "BBB videoconferencias",
+				"pBettermarks": "Bettermarks",
+				"pCalendar": "Calendario y horario",
+				"pCourseGeneral": "Cursos-General",
+				"pCourses": "Cursos",
+				"pDashboard": "Panel",
+				"pEditor": "Editor de textos",
+				"pExtra": "Extras",
+				"pExtraGeneral": "Extras-General",
+				"pGeneral": "General",
+				"pGroups": "Grupos",
+				"pHelparea": "Área de ayuda",
+				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pLernStore": "Learning-Store",
+				"pLernStoreContent": "Contenido de la Learning-Store",
+				"pLibreOffice": "Libre Office",
+				"pLogin": "Inicio de sesión",
+				"pManageGeneral": "Administración-General",
+				"pManagement": "Administración",
+				"pMatrixMessenger": "Matrix Messenger",
+				"pMyFiles": "Archivos (guardar, cargar, descargar, ordenar)",
+				"pNews": "Noticias",
+				"pNotifications": "Notificaciones",
+				"pOther": "Otros",
+				"pPermissions": "Permisos y funciones",
+				"pProjectPage": "Página web del proyecto",
+				"pRegister": "Registrarse",
+				"pRocketChat": "Rocket Chat",
+				"pSettings": "Configuración (usuario y escuela)",
+				"pSharing": "Compartir (cursos, temas, archivos)",
+				"pSHD": "Panel de control de SuperHero",
+				"pTasks": "Tareas y presentaciones",
+				"pTeams": "Equipos",
+				"pTeamsGeneral": "Equipos-General",
+				"pTools": "Herramientas",
+				"pToolsGeneral": "Herramientas-General",
+				"pToolsOther": "Otras herramientas (Geogebra, Nexboard, Bettermarks)",
+				"pTopics": "Temas del curso"
+			}
+		},
 		"confluence": {
 			"link": {
 				"openArticleInConfluence": "Abrir artículo en Confluence",
@@ -1804,58 +1849,13 @@
 				"wish": "Solicitud"
 			},
 			"text": {
-				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
-				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
-				"whoDoYouWantToContact": "¿Con quién quieres contactar?",
-				"whichAreaOfSchulCloud": "¿A qué área de Schul-Cloud se refiere tu tema?",
 				"contactSupport": "Contactar soporte",
 				"contactSupportSubtitle": "¿Tu problema no aparece en la lista? Ponte en contacto con nuestro equipo de asistencia.",
-				"contactSupportSubtitleWish": "¿Quieres compartir un deseo? Ponte en contacto con nuestro equipo de asistencia."
-			}
-		},
-		"chooseTopicArea": {
-			"text": {
-				"eachTopicSeparate": " Por favor, presenta cada tema por separado.",
-				"chooseArea": "Selecciona el área",
-				"pDashboard": "Panel",
-				"pCourses": "Cursos",
-				"pGeneral": "General",
-				"pCourseGeneral": "Cursos-General",
-				"pToolsGeneral": "Herramientas-General",
-				"pTeamsGeneral": "Equipos-General",
-				"pManageGeneral": "Administración-General",
-				"pExtraGeneral": "Extras-General",
-				"pTopics": "Temas del curso",
-				"pGroups": "Grupos",
-				"pTasks": "Tareas y presentaciones",
-				"pTools": "Herramientas",
-				"pToolsOther": "Otras herramientas (Geogebra, Nexboard, Bettermarks)",
-				"pBBB": "BBB videoconferencias",
-				"pBettermarks": "Bettermarks",
-				"pEditor": "Editor de textos",
-				"pTeams": "Equipos",
-				"pLibreOffice": "Libre Office",
-				"pNews": "Noticias",
-				"pCalendar": "Calendario y horario",
-				"pMatrixMessenger": "Matrix Messenger",
-				"pMyFiles": "Archivos (guardar, cargar, descargar, ordenar)",
-				"pLernStore": "Learning-Store",
-				"pLernStoreContent": "Contenido de la Learning-Store",
-				"pHelparea": "Área de ayuda",
-				"pManagement": "Administración",
-				"pRegister": "Registrarse",
-				"pLogin": "Inicio de sesión",
-				"pPermissions": "Permisos y funciones",
-				"pProjectPage": "Página web del proyecto",
-				"pSharing": "Compartir (cursos, temas, archivos)",
-				"pRocketChat": "Rocket Chat",
-				"pSHD": "Panel de control de SuperHero",
-				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
-				"pSettings": "Configuración (usuario y escuela)",
-				"pExtra": "Extras",
-				"pApps": "Aplicaciones móviles (Android, iOS)",
-				"pNotifications": "Notificaciones",
-				"pOther": "Otros"
+				"contactSupportSubtitleWish": "¿Quieres compartir un deseo? Ponte en contacto con nuestro equipo de asistencia.",
+				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
+				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
+				"whichAreaOfSchulCloud": "¿A qué área de Schul-Cloud se refiere tu tema?",
+				"whoDoYouWantToContact": "¿Con quién quieres contactar?"
 			}
 		},
 		"form_admin": {
@@ -1865,11 +1865,12 @@
 		},
 		"form_bug": {
 			"label": {
+				"knownProblemLink": "Además, puedes ver en nuestra <a href=\"https://status.hpi-schul-cloud.de\">página de estado<\/a> si hay actualmente algún problema técnico con los sistemas.",
 				"maxSizeFiles": "Imágenes, vídeos y archivos",
-				"problemDescription": "Descripción del problema:",
-				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo (opcional)",
 				"problemAlreadyKnown": "¿Se conoce ya el problema?",
-				"knownProblemLink": "Además, puedes ver en nuestra <a href=\"https://status.hpi-schul-cloud.de\">página de estado<\/a> si hay actualmente algún problema técnico con los sistemas."
+				"problemDescription": "Descripción del problema:",
+				"statusPage": "Página de situación",
+				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo (opcional)"
 			},
 			"text": {
 				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)<\/li> <li>Sistema operativo y versión (por ejemplo, Windows 10)<\/li>",
@@ -2216,6 +2217,44 @@
 			},
 			"text": {
 				"hpiPhoneNumber": "número de teléfono: +49 (0)331 / 2318 2920 (disponible de lunes a viernes, de 13 a 14 horas)"
+			}
+		}
+	},
+	"landingPage": {
+		"brb": {
+			"headline": {
+				"access": "Acceso de bajo umbral a los contenidos didácticos digitales",
+				"advantages": "Ventajas de la {{shortTitle}}",
+				"furtherInformation": "Más información acerca de cómo empezar en {{shortTitle}}",
+				"registration": "Regístrese en la {{shortTitle}}",
+				"valueStatement": "El desarrollo de HPI Schul-Cloud se caracteriza por"
+			},
+			"img_alt": {
+				"text": "Estudiantes están sentad@s usando {{shortTitle}} en sus dispositivos móviles."
+			},
+			"link": {
+				"text": "Descripción breve \"The HPI School-Cloud\" (.pdf)"
+			},
+			"text": {
+				"access": "Una infraestructura moderna de enseñanza y aprendizaje es indispensable para que la transformación digital en el sector educativo sea un éxito y para preparar de forma óptima a l@s niñ@s en edad escolar para la vida en una sociedad cada vez más digital.",
+				"advantages": "<li>Acceso a una amplia gama de contenidos digitales de aprendizaje, independientemente del tiempo y la ubicación<\/li><li>Intercambio de materiales digitales de creación propia<\/li><li>Educación digital más allá de los laboratorios de informática independientes<\/li><li>Mantenimiento profesional<\/li><li>Disponibilidad constante de los últimos programas informáticos para profesores y estudiantes<\/li><li>Las aplicaciones informáticas cumplen con las últimas normas de seguridad<\/li><li>Punto de contacto para las nuevas oportunidades de aprendizaje digital<\/li><li>Opiniones directas de l@s usuari@s<\/li><li>Estimulación del aprendizaje autodeterminado<\/li><li>Oferta de oportunidades de aprendizaje especialmente diseñadas<\/li><li>Ampliación de los métodos de enseñanza<\/li><li>Conexión en red de diferentes lugares de aprendizaje<\/li>",
+				"furtherInformation": "<a href=\"https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/\">https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/<\/a>",
+				"registration": "Una plataforma digital uniforme para toda la escuela ofrece muchas ventajas. Es necesario que la inscripción en la {{shortTitle}} sea realizada por la dirección del centro. Por favor, póngase en contacto con <a href=\"mailto:brandenburg@hpi-schul-cloud.org\">brandenburg@hpi-schul-cloud.org<\/a>, si desea registrar su escuela. \nPosteriormente, tod@s l@s estudiantes recibirán un enlace de registro o los datos de acceso de su escuela para la inscripción inicial en el {{shortTitle}}. Si tiene alguna duda sobre la inscripción inicial, póngase en contacto con el director técnico de su centro o con el profesor de la clase correspondiente.",
+				"valueStatement": "<li>un uso coherente de las soluciones de código abierto,<\/li><li>un desarrollo coherente centrado en el usuario,<\/li><li>una estructura estrictamente modular,<\/li><li>la función de la cooperación inter-escolar, que es importante para un país con una gran extension,<\/li><li>la conformidad de la EU-DSGVO\/protección de datos a través de Privacy by Design,<\/li><li>la posibilidad de crear sinergias mediante la cooperación entre países.<\/li><br>",
+				"welcome": "\"El aprendizaje con medios digitales es el reto con mayor dinámica. Esto requiere una infraestructura digital potente. Uno de los proyectos más importantes es la {{shortTitle}}, desarrollada en el Hasso-Plattner-Institut (HPI). Está diseñado para conectar en red las escuelas del Estado, de modo que los profesores y alumnos tengan acceso a los materiales de aprendizaje y enseñanza en cualquier momento y lugar. El mantenimiento profesional centralizado para todas las escuelas reduce significativamente el esfuerzo administrativo y de apoyo. Esperamos que la {{shortTitle}} proporcione un impulso significativo a la educación digital y estamos deseando que se ponga en marcha el proyecto.\" - La ministra de Educación, Britta Ernst, en el acto de presentación el 2 de mayo de 2019."
+			}
+		},
+		"label": {
+			"welcome": "Bienvenid@ a {{shortTitle}}!"
+		},
+		"open": {
+			"text": {
+				"welcome": "\"El <a href=\"https:\//hpi.de/\"> Instituto Hasso Plattner <\/a> para la ingeniería digital desarrollado bajo la dirección del Prof. Dr. Christoph Meinel junto con <a href =\"https:\//www.mint-ec.de\/\"> MINT-EC <\/a>, la red nacional de escuelas con más de 300 escuelas de todo el país, con el apoyo del Ministerio Federal de Educación e Investigación. Su objetivo es crear una base técnica para que los profesores y los alumnos puedan utilizar también los contenidos digitales actuales de enseñanza y aprendizaje en todas las asignaturas, del mismo modo que se pueden utilizar las aplicaciones a través de los teléfonos inteligentes o las tabletas. Esta es la instancia abierta de  HPI Schul-Cloud a través de la cual las escuelas individuales pueden tener acceso a la plataforma."
+			}
+		},
+		"thr": {
+			"text": {
+				"welcome": "El {{shortTitle}} pretende crear una base técnica para que profesores y alumn@s puedan utilizar contenidos digitales modernos de enseñanza y aprendizaje en todas las asignaturas, de igual manera es posible utilizar las apps en los smartphones o las tabletas. Para lograr este objetivo, el estado de Turingia está probando el Schul-Cloud desarrollado por el Instituto Hasso Plattner con, inicialmente, 20 escuelas piloto y 9 seminarios de estudio a partir del curso escolar 2019\/2020."
 			}
 		}
 	},
@@ -3128,44 +3167,6 @@
 			"thereWasAProblemWithTheVideo": "Ha habido un problema con la videoconferencia. Inténtalo de nuevo.",
 			"theVideoConferenceHasEither": "La videoconferencia aún no ha comenzado o ya ha finalizado.",
 			"youDoNotHaveTheNecessaryAuthorization": "No tienes la autorización necesaria para participar en la videoconferencia."
-		}
-	},
-	"landingPage": {
-		"label": {
-			"welcome": "Bienvenid@ a {{shortTitle}}!"
-		},
-		"brb": {
-			"headline": {
-				"registration": "Regístrese en la {{shortTitle}}",
-				"valueStatement": "El desarrollo de HPI Schul-Cloud se caracteriza por",
-				"access": "Acceso de bajo umbral a los contenidos didácticos digitales",
-				"advantages": "Ventajas de la {{shortTitle}}",
-				"furtherInformation": "Más información acerca de cómo empezar en {{shortTitle}}"
-			},
-			"img_alt": {
-				"text": "Estudiantes están sentad@s usando {{shortTitle}} en sus dispositivos móviles."
-			},
-			"link": {
-				"text": "Descripción breve \"The HPI School-Cloud\" (.pdf)"
-			},
-			"text": {
-				"welcome": "\"El aprendizaje con medios digitales es el reto con mayor dinámica. Esto requiere una infraestructura digital potente. Uno de los proyectos más importantes es la {{shortTitle}}, desarrollada en el Hasso-Plattner-Institut (HPI). Está diseñado para conectar en red las escuelas del Estado, de modo que los profesores y alumnos tengan acceso a los materiales de aprendizaje y enseñanza en cualquier momento y lugar. El mantenimiento profesional centralizado para todas las escuelas reduce significativamente el esfuerzo administrativo y de apoyo. Esperamos que la {{shortTitle}} proporcione un impulso significativo a la educación digital y estamos deseando que se ponga en marcha el proyecto.\" - La ministra de Educación, Britta Ernst, en el acto de presentación el 2 de mayo de 2019.",
-				"registration": "Una plataforma digital uniforme para toda la escuela ofrece muchas ventajas. Es necesario que la inscripción en la {{shortTitle}} sea realizada por la dirección del centro. Por favor, póngase en contacto con <a href=\"mailto:brandenburg@hpi-schul-cloud.org\">brandenburg@hpi-schul-cloud.org<\/a>, si desea registrar su escuela. \nPosteriormente, tod@s l@s estudiantes recibirán un enlace de registro o los datos de acceso de su escuela para la inscripción inicial en el {{shortTitle}}. Si tiene alguna duda sobre la inscripción inicial, póngase en contacto con el director técnico de su centro o con el profesor de la clase correspondiente.",
-				"valueStatement": "<li>un uso coherente de las soluciones de código abierto,<\/li><li>un desarrollo coherente centrado en el usuario,<\/li><li>una estructura estrictamente modular,<\/li><li>la función de la cooperación inter-escolar, que es importante para un país con una gran extension,<\/li><li>la conformidad de la EU-DSGVO\/protección de datos a través de Privacy by Design,<\/li><li>la posibilidad de crear sinergias mediante la cooperación entre países.<\/li><br>",
-				"access": "Una infraestructura moderna de enseñanza y aprendizaje es indispensable para que la transformación digital en el sector educativo sea un éxito y para preparar de forma óptima a l@s niñ@s en edad escolar para la vida en una sociedad cada vez más digital.",
-				"advantages": "<li>Acceso a una amplia gama de contenidos digitales de aprendizaje, independientemente del tiempo y la ubicación<\/li><li>Intercambio de materiales digitales de creación propia<\/li><li>Educación digital más allá de los laboratorios de informática independientes<\/li><li>Mantenimiento profesional<\/li><li>Disponibilidad constante de los últimos programas informáticos para profesores y estudiantes<\/li><li>Las aplicaciones informáticas cumplen con las últimas normas de seguridad<\/li><li>Punto de contacto para las nuevas oportunidades de aprendizaje digital<\/li><li>Opiniones directas de l@s usuari@s<\/li><li>Estimulación del aprendizaje autodeterminado<\/li><li>Oferta de oportunidades de aprendizaje especialmente diseñadas<\/li><li>Ampliación de los métodos de enseñanza<\/li><li>Conexión en red de diferentes lugares de aprendizaje<\/li>",
-				"furtherInformation": "<a href=\"https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/\">https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/<\/a>"
-			}
-		},
-		"open": {
-			"text": {
-				"welcome": "\"El <a href=\"https:\//hpi.de/\"> Instituto Hasso Plattner <\/a> para la ingeniería digital desarrollado bajo la dirección del Prof. Dr. Christoph Meinel junto con <a href =\"https:\//www.mint-ec.de\/\"> MINT-EC <\/a>, la red nacional de escuelas con más de 300 escuelas de todo el país, con el apoyo del Ministerio Federal de Educación e Investigación. Su objetivo es crear una base técnica para que los profesores y los alumnos puedan utilizar también los contenidos digitales actuales de enseñanza y aprendizaje en todas las asignaturas, del mismo modo que se pueden utilizar las aplicaciones a través de los teléfonos inteligentes o las tabletas. Esta es la instancia abierta de  HPI Schul-Cloud a través de la cual las escuelas individuales pueden tener acceso a la plataforma."
-			}
-		},
-		"thr": {
-			"text": {
-				"welcome": "El {{shortTitle}} pretende crear una base técnica para que profesores y alumn@s puedan utilizar contenidos digitales modernos de enseñanza y aprendizaje en todas las asignaturas, de igual manera es posible utilizar las apps en los smartphones o las tabletas. Para lograr este objetivo, el estado de Turingia está probando el Schul-Cloud desarrollado por el Instituto Hasso Plattner con, inicialmente, 20 escuelas piloto y 9 seminarios de estudio a partir del curso escolar 2019\/2020."
-			}
 		}
 	}
 }
