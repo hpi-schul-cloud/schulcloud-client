@@ -16,8 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - run: sudo npm set unsafe-perm true
-      - run: sudo npm install -g nodemon gulp-cli
       - run: npm ci
       - run: |
          declare -x SC_THEME=${{ matrix.tennens }}
