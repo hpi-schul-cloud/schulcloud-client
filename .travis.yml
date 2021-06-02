@@ -4,7 +4,7 @@ branches:
   only:
     - develop
     - master
-    - /^(release).*$/
+    - /^(release|dependabot).*$/
     # naming convention feature/<JIRA-Ticket ID>-<Jira_Summary>
     - /^((hotfix|feature)\/[A-Z]+-[0-9]+-[a-zA-Z0-9_]+)$/
 services:
