@@ -1,0 +1,31 @@
+---
+name: Build and push Docker Image
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - master
+
+jobs:
+  build_instances:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tennens: [ brb, nbc ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm set unsafe-perm true
+      - run: npm install -g nodemon gulp-cli
+      - run: npm ci
+      - run: |
+         declare -x SC_THEME=${{ matrix.tennens }}
+         TZ=Europe/Berlin
+         gulp clear-cache
+         gulp
+      - run: tar -cf ${{ matrix.tennens }}.tar bin
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.tennens }}
+          path: ${{github.workspace }}/${{ matrix.tennens }}.tar
