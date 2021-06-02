@@ -2,7 +2,7 @@
 {{#content "page"}}
 <div class="route-news">
     {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
-    <a href="/news/new" data-testid="create-news-btn" class="btn btn-primary btn-add create pull-right mb-2">
+    <a href="/news/new?context=schools&contextId={{@root.currentUser.schoolId}}" data-testid="create-news-btn" class="btn btn-primary btn-add create pull-right mb-2">
         <i class="fa fa-plus" aria-hidden="true"></i> {{$t "news.button.addNews" }}
     </a>
     {{/userHasPermission}}
