@@ -9,8 +9,6 @@
 Dockerfile*
 README.md
 CHANGELOG.md
-build
 compose-client-test.dummy
 deploy.sh
-node_modules
 travis*
