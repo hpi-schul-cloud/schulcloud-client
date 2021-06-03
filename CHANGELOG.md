@@ -15,7 +15,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- OPS-2418-execute_E2E_tests
+- SC-7042 - fix permission, allowing teachers to send invitation to students
+- OPS-2418 - execute_E2E_tests
 - OPS-2445 - change Docker login to build
 - SC-8440 - fix manual consent for class
 - SC-8157 - personal files filter margin correction

@@ -250,7 +250,7 @@ router.use(authHelper.authChecker);
 // client-side use
 router.post(
 	'/registrationlink/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE', 'STUDENT_EDIT'], 'or'),
 	generateRegistrationLink({}),
 	(req, res) => {
 		res.json(res.locals.linkData);
@@ -851,7 +851,7 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 
 router.post(
 	'/registrationlinkMail/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE', 'STUDENT_EDIT'], 'or'),
 	generateRegistrationLink({}),
 	(req, res) => {
 		const email = req.body.email || req.body.toHash || '';
