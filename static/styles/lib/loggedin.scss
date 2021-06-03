@@ -204,7 +204,7 @@ aside.nav-sidebar {
 				float: left;
 				height: 60px;
 				line-height: 60px;
-				color: $fontColor;
+				color: $tertiaryColor;
 				padding: 0px 20px;
 				font-size: 16px;
 				text-decoration: none;
@@ -313,6 +313,7 @@ aside.nav-sidebar {
 
 	.fa {
 		transition: color .1s linear .1s;
+		color: $tertiaryColor;
 	}
 
 	&.active {
@@ -534,7 +535,6 @@ footer {
 	line-height: 1.75rem;
 
 	h1 {
-		color: $primaryColor;
 		float: left;
 		margin-bottom: 0px;
 		margin-right: 20px;
@@ -604,7 +604,7 @@ footer {
 
 
 @include media-breakpoint-down(xs) {
-	.topbar + .section-title {
+	.topbar {
 		border-bottom: 1px solid #ddd;
 		padding: 10px 0px;
 		margin-bottom: 25px;
@@ -685,7 +685,7 @@ footer {
 			background: transparent;
 
 			.avatar-circle {
-				background-color: $fontColor;
+				background-color: $tertiaryColor;
 			}
 
 			.avatar-circle:hover {
@@ -892,6 +892,7 @@ footer {
 	}
 
 	.list-group-item {
+		color: $tertiaryColor;
 		padding-left: 15px;
 		padding-right: 15px;
 		margin-bottom: 0;

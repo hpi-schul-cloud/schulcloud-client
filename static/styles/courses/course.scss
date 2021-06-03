@@ -395,15 +395,15 @@
 	cursor: pointer;
 	border: 0;
 	display: block;
-	background: $primaryColor;
+	background: $tertiaryColor;
 	width: 100%;
 
 	.card-header {
 		padding: 0.5rem 0.75rem;
-		background-color: $primaryColor;
+		background-color: $tertiaryColor;
 		color: $colorWhite;
 		&.new-edtior {
-			background-color: $secondaryColor;
+			background-color: $tertiaryColor;
 		}
 	}
 
