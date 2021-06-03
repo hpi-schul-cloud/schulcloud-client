@@ -22,22 +22,35 @@ jobs:
          TZ=Europe/Berlin
          gulp clear-cache
          gulp
-      - run: tar -cf ${{ matrix.tennens }}.tar bin build
+      - run: tar -cjf ${{ matrix.tennens }}.tar.bz2 bin build
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.tennens }}
-          path: ${{github.workspace }}/${{ matrix.tennens }}.tar
+          path: ${{github.workspace }}/${{ matrix.tennens }}.tar.bz2
+  
+  build_app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm ci
+      - run: tar -cjf node_modules.tar.bz2 node_modules
+      - uses: actions/upload-artifact@v2
+        with:
+          name: node_modules
+          path: ${{github.workspace }}/node_modules.tar.bz2
           
   build_and_push_docker:
     runs-on: ubuntu-latest
     needs: 
       - build_instances
+      - build_app
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
-      - run: mv */*.tar ./
-      - run: find -name "*.tar" -exec tar -xf {} \;
-      - run: find -name "*.tar" -exec rm -rf {} \;
+      - run: mv */*.tar.bz2 ./
+      - run: find -name "*.tar.bz2" -exec tar -xjf {} \;
+      - run: find -name "*.tar.bz2" -exec rm -rf {} \;
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
