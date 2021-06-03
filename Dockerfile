@@ -10,7 +10,9 @@ WORKDIR /home/node/app
 COPY ./package.json .
 COPY ./package-lock.json .
 # fix for intergrations tests
-RUN npm set unsafe-perm true && npm install -g gulp-cli && npm ci
+RUN npm set unsafe-perm true 
+RUN npm install -g gulp-cli 
+RUN npm ci
 
 COPY . .
 
