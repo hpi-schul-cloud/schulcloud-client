@@ -31,10 +31,9 @@ data:
   BACKEND_URL: "http://api-svc:3030"
   PUBLIC_BACKEND_URL: "https://{{ DOMAIN }}/api"
   LIBRE_OFFICE_CLIENT_URL: "https://libreoffice.{{ DOMAIN }}"
-  ETHERPAD_BASE_URL: "{{ ETHERPAD_BASE_URL }}/p/"
+  ETHERPAD_BASE_URL: "https://{{ DOMAIN }}/etherpad/p/"
   ETHERPAD__PAD_PATH: "/etherpad/p"
   ETHERPAD__PAD_URI: "https://{{ DOMAIN }}/etherpad/p"
-  #ETHERPAD__URI: "{{ ETHERPAD_BASE_URL }}/api/1.2.14"
   ETHERPAD__NEW_DOMAIN: "{{ DOMAIN }}"
   ETHERPAD__OLD_DOMAIN: "etherpad.{{ DOMAIN }}"
   # Rocketchat
