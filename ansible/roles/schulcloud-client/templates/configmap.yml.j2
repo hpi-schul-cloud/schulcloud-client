@@ -24,8 +24,8 @@ data:
   STUDENT_TEAM_CREATION: "{{ STUDENT_TEAM_CREATION }}"
 {% endif %}
   HELPAREA_URL: "{{ HELPAREA_URL|default("", true) }}"
-  CORS: "{{ CORS|default(0,true) }}"
-  SECURITY_HEADERS: "{{ SECURITY_HEADERS|default(0,true) }}"
+  CORS: "{{ CORS|default("true",true) }}"
+  SECURITY_HEADERS: "{{ SECURITY_HEADERS|default("true",true) }}"
   # URIs
   HOST: "https://{{ DOMAIN }}"
   BACKEND_URL: "http://api-svc:3030"

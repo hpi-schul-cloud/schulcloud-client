@@ -13,7 +13,6 @@ CHANGELOG.md
 compose-client-test.dummy
 deploy.sh
 travis*
-static
 test
 docs
 ansible
