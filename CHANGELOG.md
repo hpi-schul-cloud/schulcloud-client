@@ -9,6 +9,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+
+## [26.2.2] - 2021-06-04
+
+### Removed
+
+- outdated teams page
+
 ## [26.2.1] - 2021-06-02
 
 ### Changed
