@@ -85,7 +85,7 @@ data:
   BODYPRASER_JSON_LIMIT: "{{ BODYPRASER_JSON_LIMIT|default("10mb", true) }}"
   JWT_TIMEOUT_SECONDS: "{{ JWT_TIMEOUT_SECONDS|default("3840", true) }}"
   SKIP_CONDITIONS_CONSENT: "{{ SKIP_CONDITIONS_CONSENT|default("", true) }}"
-{% if WITH_INSIGHTS %}
+{% if WITH_INSIGHTS is defined and WITH_INSIGHTS %}
   # insights
   INSIGHTS_COLLECTOR_URI: "http://insights-collector-svc:3000"
 {% endif %}
