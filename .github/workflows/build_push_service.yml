@@ -56,10 +56,10 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: node_modules
-      - run: mv */*.tar ./
-      - run: find -name "*.tar" -exec tar -xf {} \;
-      - run: find -name "*.tar" -exec rm -rf {} \;
-        
+      - run: tar -xf ${{ matrix.tennens }}.tar
+      - run: tar -xf node_modules.tar
+      - run: rm -rf ${{ matrix.tennens }}.tar
+      - run: rm -rf node_modules.tar
       - name: Docker meta Service Name
         id: docker_meta_img
         uses: crazy-max/ghaction-docker-meta@v2
