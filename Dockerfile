@@ -15,7 +15,7 @@ RUN npm set unsafe-perm true && npm install -g nodemon gulp-cli && npm ci
 COPY . .
 #COPY ./localtime /etc/localtime
 
-ENV SC_THEME=${SC_THEME_BUILD}
+ENV SC_THEME=$SC_THEME_BUILD
 ENV TZ=Europe/Berlin
 
 RUN gulp clear-cache
