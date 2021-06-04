@@ -10,6 +10,12 @@
       namespace: "{{ NAMESPACE }}"
       template: configmap.yml.j2
       
+  - name: Configmap File
+    community.kubernetes.k8s:
+      kubeconfig: ~/.kube/config 
+      namespace: "{{ NAMESPACE }}"
+      template: client-configmap-files.yml.j2
+      
   - name: Secred
     community.kubernetes.k8s:
       kubeconfig: ~/.kube/config 
