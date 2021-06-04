@@ -1,8 +1,11 @@
-$primaryColor: #78aae5;
-$secondaryColor: #b10438;
-$accentColor: #b10438;
+$primaryColor: #2876D0;
+$primaryColorLight: #78aae5;
+$secondaryColor: #970000;
+$tertiaryColor: #355478;
+$accentColor: #970000;
 
-$logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
+$logoGradient: linear-gradient(45deg, $primaryColor, $primaryColorLight);
+
 
 $colorBeige: #e6e2e2;
 $colorGrey: rgba(232, 232, 232, 0.5);
@@ -13,6 +16,7 @@ $logoBackgroundTablet: url("/images/logo/cloud-transparent-mono-48-48.svg") cent
 aside.nav-sidebar{
     .sc-branding{
         padding: 0 5px;
+        background-color: $primaryColorLight;
         .cloud-logo{
             width: 100%;
             margin: 0;
