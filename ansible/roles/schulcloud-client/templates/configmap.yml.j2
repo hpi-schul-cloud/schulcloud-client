@@ -24,8 +24,8 @@ data:
   STUDENT_TEAM_CREATION: "{{ STUDENT_TEAM_CREATION }}"
 {% endif %}
   HELPAREA_URL: "{{ HELPAREA_URL|default("", true) }}"
-  CORS: "{{ CORS|default(1,true) }}"
-  SECURITY_HEADERS: "{{ SECURITY_HEADERS|default(1,true) }}"
+  CORS: "{{ CORS|default(0,true) }}"
+  SECURITY_HEADERS: "{{ SECURITY_HEADERS|default(0,true) }}"
   # URIs
   HOST: "https://{{ DOMAIN }}"
   BACKEND_URL: "http://api-svc:3030"
@@ -34,6 +34,7 @@ data:
   ETHERPAD_BASE_URL: "{{ ETHERPAD_BASE_URL }}/p/"
   ETHERPAD__PAD_PATH: "/etherpad/p"
   ETHERPAD__PAD_URI: "https://{{ DOMAIN }}/etherpad/p"
+  #ETHERPAD__URI: "{{ ETHERPAD_BASE_URL }}/api/1.2.14"
   ETHERPAD__NEW_DOMAIN: "{{ DOMAIN }}"
   ETHERPAD__OLD_DOMAIN: "etherpad.{{ DOMAIN }}"
   # Rocketchat
@@ -67,7 +68,6 @@ data:
   FEATURE_TSP_AUTO_CONSENT_ENABLED: "{{ FEATURE_TSP_AUTO_CONSENT_ENABLED|default("false", true) }}"
   FEATURE_VIDEOCONFERENCE_ENABLED: "{{ FEATURE_VIDEOCONFERENCE_ENABLED|default("false", true) }}"
   FEATURE_MULTI_LOGIN_INSTANCES: "{{ FEATURE_MULTI_LOGIN_INSTANCES|default("false", true) }}"
-  FEATURE_TSP_ENABLED: "{{ FEATURE_TSP_ENABLED: |default("false", true) }}"
   # EDTR
   EDTR_SOURCE: "https://{{ EDTR_PRFIX|default("editor", true) }}.{{ DOMAIN }}"
 {% if EDITOR_URL is defined %}
@@ -90,9 +90,12 @@ data:
   # insights
   INSIGHTS_COLLECTOR_URI: "http://insights-collector-svc:3000"
 {% endif %}
+{% if FEATURE_TSP_ENABLED  %}
+  FEATURE_TSP_ENABLED: "true"
+{% endif %}
   FEATURE_MORGAN_LOG_ENABLED: "false"
   LOG_LEVEL: "error"
-  #GLOBAL_LOGIN_ANNOUNCEMENT: ""
+  #GLOBAL_LOGIN_ANNOUNCEMENT: "Wir arbeiten hart daran, die Stabilität zu verbessern. Unter <a href='https://status.hpi-schul-cloud.de' target='_blank'>status.hpi-schul-cloud.de</a> halten wir euch auf dem Laufenden."
 {% if GLOBAL_ANNOUNCEMENT is defined and GLOBAL_ANNOUNCEMENT|length %}
   GLOBAL_ANNOUNCEMENT: "{{ GLOBAL_ANNOUNCEMENT|default("", true) }}"
 {% endif %}
@@ -100,6 +103,7 @@ data:
   ALERT_STATUS_URL: "{{ ALERT_STATUS_URL|default("https://status.hpi-schul-cloud.de", true) }}"
   ALERT_STATUS_API_URL: "{{ ALERT_STATUS_URL|default("https://status.hpi-schul-cloud.de", true) }}/api/v1"
   REQUEST_TIMEOUT_MS: "8000"
+
 {% if FEATURE_MATRIX_MESSENGER_ENABLED is defined and FEATURE_MATRIX_MESSENGER_ENABLED == "true" %}
   FEATURE_MATRIX_MESSENGER_ENABLED: "true"
 {% if MATRIX_MESSENGER_CONFIG_2 is defined and MATRIX_MESSENGER_CONFIG_2 == "true" %}
@@ -125,7 +129,7 @@ data:
   # Lernstore
   FEATURE_LERNSTORE_ENABLED: "{{ FEATURE_LERNSTORE_ENABLED|default("false", true) }}"
 {% if FEATURE_LERNSTORE_ENABLED is defined and FEATURE_LERNSTORE_ENABLED == "true" %}
-  LERNSTORE_MODE: "{{ LERNSTORE_MODE|default("LEGACY", true) }}"
+  LERNSTORE_MODE: {{ LERNSTORE_MODE|default("LEGACY", true) }}
 {% else %}
   LERNSTORE_MODE: "DISABLED"
 {% endif %}
