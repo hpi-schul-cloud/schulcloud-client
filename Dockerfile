@@ -5,9 +5,13 @@ FROM node:lts-alpine
 EXPOSE 3100
 
 WORKDIR /home/node/app
-
+COPY ./package.json .
+COPY ./package-lock.json .
+RUN npm set unsafe-perm true && npm install -g nodemon gulp-cli && npm c
 COPY . .
 ENV SC_THEME=${SC_THEME_BUILD}
 ENV TZ=Europe/Berlin
+RUN gulp clear-cache
+RUN gulp
 VOLUME /home/node/app/build
 CMD npm start
