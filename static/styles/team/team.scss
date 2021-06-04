@@ -1,0 +1,311 @@
+@import '../lib/colors';
+
+.section-team {
+  h4 {
+     margin-bottom: 1rem;
+  }
+  .team-container {
+    box-sizing: border-box;
+    max-width: 1400px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    @media screen and (min-width: 767px) {
+      padding: 0 30px;
+    }
+  }
+  .h-100 {
+    text-align: center;
+    position: relative;
+    min-height: 350px;
+    width: 100%;
+  }
+  .img-out {
+    padding-top: 20px;
+    display: inline-block;
+    text-align: center;
+  }
+  .circular {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 150px;
+    margin-bottom: 0px;
+    margin-top: 32px;
+  }
+  body, html {
+    min-height: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: top center;
+    font-weight: 200;
+  }
+  body.modal-active, html.modal-active {
+    overflow: hidden;
+  }
+  div[id^=modal-container-] {
+    position: fixed;
+    display: table;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    z-index: 1;
+    &.show {
+      transform: scale(1);
+      .modal-background {
+        background: 0 0;
+        animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        .modal {
+          opacity: 0;
+          animation: scaleUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+      }
+      + .content {
+        animation: scaleBack 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      }
+      &.out {
+        animation: quickScaleDown 0s 0.5s linear forwards;
+        .modal-background {
+          animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+          .modal {
+            animation: scaleDown 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+          }
+        }
+        + .content {
+          animation: scaleForward 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+      }
+    }
+    .modal-background {
+      display: table-cell;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      text-align: center;
+      vertical-align: middle;
+      padding-top: 20px;
+      .modal {
+        width: 100%;
+        display: inline-block;
+        border-radius: 3px;
+        font-weight: 300;
+        position: relative;
+        h2 {
+          font-size: 25px;
+          line-height: 25px;
+          margin-bottom: 15px;
+        }
+        p {
+          font-size: 18px;
+          line-height: 22px;
+        }
+      }
+    }
+  }
+  .content {
+    min-height: 100%;
+    height: 100%;
+    position: relative;
+	z-index: 0;
+    h1 {
+      padding: 75px 0 30px 0;
+      text-align: center;
+      font-size: 30px;
+      line-height: 30px;
+    }
+    .buttons {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0;
+      text-align: center;
+      .button {
+        display: inline-block;
+        text-align: center;
+        padding: 10px 15px;
+        margin: 10px;
+        background: red;
+        font-size: 18px;
+        background-color: #efefef;
+        border-radius: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        &:hover {
+          color: #fff;
+          background: #009bd5;
+        }
+      }
+    }
+  }
+  .person-wrapper {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .person {
+    border: 1px solid #d3d3d3;
+    height: 150px;
+    text-align: center;
+	transition: all .5s;
+	border-radius: 0;
+    cursor: pointer;
+    overflow-wrap: break-word;
+    &:hover {
+      z-index: 1;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+    }
+  }
+  .person-title {
+    color: #000;
+    font-size: 2em;
+  }
+  .person-title[data-lastname="Schaarschmidt"] {
+    letter-spacing: -1px;
+  }
+  .person-desc {
+    color: rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-size: .8em;
+    letter-spacing: 2px;
+  }
+  .leave {
+    transform: rotateX(0) rotateY(0) !important;
+    transition-timing-function: cubic-bezier(0.42, 0, 0, 1) !important;
+    transition-duration: 1.5s;
+  }
+  .modal-dialog {
+    width: 98%;
+    height: 92%;
+    padding: 0;
+	max-width: 1080px !important;
+	.close {
+		position: absolute;
+		top: 10px;
+		right: 13px;
+		z-index: 100;
+	}
+	p {
+		padding-right: var(--space-sm);
+	}
+  }
+  .modal-content {
+	height: 99%;
+	border-radius: 0;
+  }
+  .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+	overflow-x: hidden;
+	color: initial;
+	.close{
+		color: initial !important;
+	}
+  }
+  .container {
+    margin-left: 0;
+  }
+  .image {
+    width: 100%;
+    height: auto;
+    border-radius: .25rem;
+  }
+}
+.section-title h4 {
+  color: $primaryColor;
+  margin-bottom: 0;
+  margin-right: 20px;
+  font-weight: 700;
+}
+
+.section.section-tilt{
+	&.primary, &.accent, &.dark{
+		.person {
+			border-color: #fff;
+		}
+	}
+}
+
+@keyframes fadeIn {
+  0% {
+    background: 0 0;
+  }
+
+  100% {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  100% {
+    background: 0 0;
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.8) translateY(1000px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.8) translateY(1000px);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleBack {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.85);
+  }
+}
+
+@keyframes scaleForward {
+  0% {
+    transform: scale(0.85);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .section-team .modal-body {
+    padding-top: 15vh !important;
+  }
+}
+
+@media (max-width: 990px) {
+  .section-team .modal-padding {
+    padding-left: 60px;
+  }
+}
+
+@media (min-width: 991px) {
+  .section-team .modal-padding {
+    padding-left: 240px;
+  }
+}
