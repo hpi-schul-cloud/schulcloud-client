@@ -17,10 +17,12 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - run: npm ci
-      - run: declare -x SC_THEME=${{ matrix.tennens }}
-      - run: TZ=Europe/Berlin
-      - run: gulp clear-cache
-      - run: gulp
+      - run: |
+         SC_THEME=${{ matrix.tennens }}
+         TZ=Europe/Berlin
+         gulp clear-cache
+         gulp
+         ls -la build
       - name: Docker meta Service Name
         id: docker_meta_img
         uses: crazy-max/ghaction-docker-meta@v2
