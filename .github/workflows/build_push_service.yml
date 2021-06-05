@@ -18,8 +18,8 @@ jobs:
       - uses: actions/setup-node@v2
       - run: npm ci
       - run: |
-         SC_THEME=${{ matrix.tennens }}
-         TZ=Europe/Berlin
+         export SC_THEME="${{ matrix.tennens }}"
+         export TZ="Europe/Berlin"
          gulp clear-cache
          gulp
          ls -la build
