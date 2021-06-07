@@ -11,6 +11,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-9023 - homework nuxt dashboard
 
+## [26.2.1] - 2021-06-02
+
+### Changed
+
+- SC-8822 - fix phone number in imprint
+
 ## 26.2.0
 
 - SC-8157 - personal files filter margin correction
