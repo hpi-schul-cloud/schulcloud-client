@@ -14,6 +14,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList
 - SC-9101 - sync & sort lang files
 
+## [26.2.2] - 2021-06-04
+
+### Changed
+
+- SC-9110 - removed unused static files
+
+## [26.2.1] - 2021-06-02
+
+### Changed
+
+- SC-8822 - fix phone number in imprint
+
 ## 26.2.0
 
 ### Changed
