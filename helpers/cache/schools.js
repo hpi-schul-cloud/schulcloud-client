@@ -1,19 +1,18 @@
 const api = require('../../api');
 const Cache = require('./Cache');
+const { logger, formatError } = require('..');
 
 const getLoginSchools = async (req) => {
-	const qs = {
-		purpose: { $ne: 'expert' },
-		$limit: false,
-		$sort: 'name',
-		$select: ['name', 'systems'],
-	};
-
-	const schools = await api(req).get('/schools', { qs });
-	return schools.data;
+	let schools = [];
+	try {
+		schools = await api(req).get('/schoolsList');
+	} catch (err) {
+		logger.error('error getting schools', formatError(err));
+	}
+	return schools;
 };
 
-const LoginSchoolsCache = new Cache(getLoginSchools, { updateIntervalSecounds: 60 });
+const LoginSchoolsCache = new Cache(getLoginSchools, { updateIntervalSecounds: 1800 });
 
 module.exports = {
 	LoginSchoolsCache,
