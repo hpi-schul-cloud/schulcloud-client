@@ -4,9 +4,7 @@ branches:
   only:
     - develop
     - master
-    - /^(release).*$/
-    # naming convention feature/<JIRA-Ticket ID>-<Jira_Summary>
-    - /^((hotfix|feature)\/[A-Z]+-[0-9]+-[a-zA-Z0-9_]+)$/
+    - /^(release|dependabot|hotfix|feature)\/.*$/
 services:
   - docker
 env:
@@ -20,11 +18,8 @@ env:
     - LERNSTORE_MODE=LEGACY
 stages:
   - name: Test
-    if: NOT ( (commit_message =~ /(skip-test-stage)/ ) OR branch = master OR branch = develop OR branch = /^(feature).*$/ AND "$TRAVIS_PULL_REQUEST" != "false" )
   - name: Build
-    if: NOT (commit_message =~ /(skip-build-stage)/)
-  - name: Deploy
-    if: NOT ((commit_message =~ /(skip-test-stage)/ AND branch = master) OR branch = /^(?i:feature).*$/ )
+  #- name: Deploy
 
 jobs:
   include:
@@ -98,16 +93,16 @@ jobs:
         - echo $TRAVIS_TAG
       script: bash ./build.sh
     # Delete Deploy
-    - stage: Deploy
-      name: Deploy All Instances
-      language: generic
-      before_install:
-        - mkdir .build
-        - openssl aes-256-cbc -K $encrypted_0ddd2445e49f_key -iv $encrypted_0ddd2445e49f_iv -in travis_rsa.enc -out .build/travis_rsa -d
-      before_script:
-        - echo $TRAVIS_BRANCH
-        - echo $TRAVIS_TAG
-      script: bash ./deploy.sh
+    #- stage: Deploy
+    #  name: Deploy All Instances
+    #  language: generic
+    #  before_install:
+    #    - mkdir .build
+    #    - openssl aes-256-cbc -K $encrypted_0ddd2445e49f_key -iv $encrypted_0ddd2445e49f_iv -in travis_rsa.enc -out .build/travis_rsa -d
+    #  before_script:
+    #    - echo $TRAVIS_BRANCH
+    #    - echo $TRAVIS_TAG
+    #  script: bash ./deploy.sh
 
 cache:
   directories:

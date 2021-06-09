@@ -11,11 +11,24 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-9101 - sync & sort lang files
 
+## [26.2.2] - 2021-06-04
+
+### Changed
+
+- SC-9110 - removed unused static files
+
+## [26.2.1] - 2021-06-02
+
+### Changed
+
+- SC-8822 - fix phone number in imprint
+
 ## 26.2.0
 
 ### Changed
 
-- OPS-2418-execute_E2E_tests
+- SC-7042 - fix permission, allowing teachers to send invitation to students
+- OPS-2418 - execute_E2E_tests
 - OPS-2445 - change Docker login to build
 - SC-8440 - fix manual consent for class
 - SC-8157 - personal files filter margin correction
