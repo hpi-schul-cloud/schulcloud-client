@@ -1,8 +1,9 @@
 # authenticate against docker
-sudo echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # move client into subdirectory
-mkdir -p schulcloud-client
-mv !(schulcloud-client) schulcloud-client
+mkdir schulcloud-client
+mv ./* ./schulcloud-client
+# mv !(schulcloud-client) schulcloud-client
 
 # Clone other required repositories and try to switch to branch with same name as current one
 # If current branch is hotfix, switch to branch master
