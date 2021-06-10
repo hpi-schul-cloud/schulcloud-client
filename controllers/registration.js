@@ -11,6 +11,8 @@ const timesHelper = require('../helpers/timesHelper');
 const { getCurrentLanguage } = require('../helpers/i18n');
 const { setCookie } = require('../helpers/cookieHelper');
 
+const { LoginSchoolsCache } = require('../helpers/cache');
+
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
 
@@ -177,6 +179,15 @@ router.post(
 	},
 );
 
+const schoolExists = async (req, schoolId) => {
+	const schools = await LoginSchoolsCache.get(req);
+	if (schools.length > 0) {
+		const checkSchool = schools.find((school) => school._id === schoolId);
+		return checkSchool !== undefined;
+	}
+	return false;
+};
+
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'],
 	async (req, res, next) => {
 		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
@@ -188,14 +199,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			}
 		}
 		const validID = async () => {
-			let idExists = false;
-
-			try {
-				await api(req).get(`/schools/${req.params.classOrSchoolId}`);
-				idExists = true;
-			} catch (e) {
-				idExists = false;
-			}
+			let idExists = await schoolExists(req, req.params.classOrSchoolId);
 
 			if (!idExists) {
 				try {
@@ -259,14 +263,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			}
 		}
 		const validID = async () => {
-			let idExists = false;
-
-			try {
-				await api(req).get(`/schools/${req.params.classOrSchoolId}`);
-				idExists = true;
-			} catch (e) {
-				idExists = false;
-			}
+			let idExists = await schoolExists(req, req.params.classOrSchoolId);
 
 			if (!idExists) {
 				try {
@@ -329,14 +326,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		}
 	}
 	const validID = async () => {
-		let idExists = false;
-
-		try {
-			await api(req).get(`/schools/${req.params.classOrSchoolId}`);
-			idExists = true;
-		} catch (e) {
-			idExists = false;
-		}
+		let idExists = await schoolExists(req, req.params.classOrSchoolId);
 
 		if (!idExists) {
 			try {
@@ -403,14 +393,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'],
 	async (req, res) => {
 		const validID = async () => {
-			let idExists = false;
-
-			try {
-				await api(req).get(`/schools/${req.params.classOrSchoolId}`);
-				idExists = true;
-			} catch (e) {
-				idExists = false;
-			}
+			let idExists = await schoolExists(req, req.params.classOrSchoolId);
 
 			if (!idExists) {
 				try {
