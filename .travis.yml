@@ -4,8 +4,7 @@ branches:
   only:
     - develop
     - master
-    # naming convention feature/<JIRA-Ticket ID>-<Jira_Summary>
-    - /^(hotfix|feature|release)\/$/
+    - /^((hotfix|feature|release|dependabot)\/.*)$/
 services:
   - docker
 env:
