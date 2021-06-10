@@ -2,44 +2,7 @@
     <script src="{{getAssetPath '/scripts/ckeditor/ckeditor.js'}}" nonce="{{nonceValue}}" defer></script>
     <script src="{{getAssetPath '/scripts/jquery/jquery.datetimepicker.full.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     <script src="{{getAssetPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-    <script type="text/javascript" nonce="{{nonceValue}}">
-        window.addEventListener('load', function () {
-            $('.userinfo').click(function () {
-                $(this).parent('.usersubmission.active').addClass('clicked');
-                $('.usersubmission.active').removeClass('active');
-                $(this).parent('.usersubmission:not(.clicked)').toggleClass('active');
-                $('.usersubmission.clicked').removeClass('clicked');
-
-                $('.usersubmission td:last-of-type i.fa-chevron-up').removeClass('fa-chevron-up').addClass('fa-chevron-down');
-                $('.usersubmission.active td:last-of-type i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-up');
-            });
-
-            // change tab
-            $('.tab-view>.tab-links>.tab-link').click(function (e) {
-                var range = $(this).closest(".tab-view");
-                range.find('>.tab-links .tab-link.active').removeClass('active');
-                $(this).addClass('active');
-                range.find('>.tabs>.tab-content.active').removeClass('active');
-                range.find(">.tabs" + ">#" + this.id.replace("-tab-link", "") + ".tab-content").addClass('active');
-            });
-
-
-            //set initial tab-view by URL-Parameter
-            function getParameterByName(name) {
-                return decodeURIComponent(window.location.hash.replace("#activetabid=", ""));
-            }
-
-            if (getParameterByName('activetabid')) {
-                var id = getParameterByName('activetabid')
-                var range = $('#' + id).closest(".tab-view");
-                range.find('>.tab-links .tab-link.active').removeClass('active');
-                range.find('>.tabs>.tab-content.active').removeClass('active');
-
-                range.find(">.tab-links" + ">#" + id + "-tab-link").addClass('active');
-                $('#' + id).addClass('active');
-            }
-        });
-    </script>
+    <script src="/scripts/homework/assignment.js" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     <script src="{{getAssetPath '/scripts/lessons.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
@@ -72,7 +35,7 @@
 				{{/if}}
                 {{i18nDateTime availableDate}}
                 {{#if this.dueDate}}
-                    {{$t "homework.text.till"}}: {{timeToString dueDate}}
+                    {{$t "homework.text.till"}}: {{i18nDateTime dueDate}}
                 {{else}}
                     {{$t "homework.text.noSubmissionDateSet"}}
                 {{/if}}

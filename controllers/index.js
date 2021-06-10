@@ -36,7 +36,6 @@ router.use('/about/', require('./about'));
 router.use('/help/', require('./help'));
 router.use('/impressum/', require('./imprint'));
 router.use('/datenschutz/', require('./dataprivacy'));
-router.use('/team', require('./team'));
 router.use('/my-material', require('./my-material'));
 router.use('/base64Files', require('./base64Files'));
 router.use('/logs', require('./logs'));
