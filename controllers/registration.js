@@ -11,6 +11,8 @@ const timesHelper = require('../helpers/timesHelper');
 const { getCurrentLanguage } = require('../helpers/i18n');
 const { setCookie } = require('../helpers/cookieHelper');
 
+const { LoginSchoolsCache } = require('../helpers/cache');
+
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
 
@@ -406,8 +408,13 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
 			let idExists = false;
 
 			try {
-				await api(req).get(`/schools/${req.params.classOrSchoolId}`);
-				idExists = true;
+				const schools = await LoginSchoolsCache.get(req);
+				if (schools.length > 0) {
+					const checkSchool = schools.find((school) => school._id === req.params.classOrSchoolId);
+					if (checkSchool !== undefined) {
+						idExists = true;
+					}
+				}
 			} catch (e) {
 				idExists = false;
 			}
