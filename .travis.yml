@@ -4,7 +4,7 @@ branches:
   only:
     - develop
     - master
-    - /^(?i:release|hotfix).*$/
+    - /^(release|dependabot|hotfix|feature)\/.*$/
 services:
   - docker
 env:
@@ -18,11 +18,8 @@ env:
     - LERNSTORE_MODE=LEGACY
 stages:
   - name: Test
-    if: NOT (commit_message =~ /(skip-test-stage)/)
   - name: Build
-    if: NOT (commit_message =~ /(skip-build-stage)/)
-  - name: Deploy
-    if: NOT (commit_message =~ /(skip-deploy-stage)/)
+  #- name: Deploy
 
 jobs:
   include:
@@ -95,16 +92,17 @@ jobs:
         - echo $TRAVIS_BRANCH
         - echo $TRAVIS_TAG
       script: bash ./build.sh
-    - stage: Deploy
-      name: Deploy All Instances
-      language: generic
-      before_install:
-        - mkdir .build
-        - openssl aes-256-cbc -K $encrypted_0ddd2445e49f_key -iv $encrypted_0ddd2445e49f_iv -in travis_rsa.enc -out .build/travis_rsa -d
-      before_script:
-        - echo $TRAVIS_BRANCH
-        - echo $TRAVIS_TAG
-      script: bash ./deploy.sh
+    # Delete Deploy
+    #- stage: Deploy
+    #  name: Deploy All Instances
+    #  language: generic
+    #  before_install:
+    #    - mkdir .build
+    #    - openssl aes-256-cbc -K $encrypted_0ddd2445e49f_key -iv $encrypted_0ddd2445e49f_iv -in travis_rsa.enc -out .build/travis_rsa -d
+    #  before_script:
+    #    - echo $TRAVIS_BRANCH
+    #    - echo $TRAVIS_TAG
+    #  script: bash ./deploy.sh
 
 cache:
   directories:
