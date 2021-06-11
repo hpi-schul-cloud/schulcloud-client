@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # authenticate against docker
 echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # move client into subdirectory
