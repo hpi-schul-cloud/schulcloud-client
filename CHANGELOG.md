@@ -11,8 +11,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- SC-9003 - fixed double loading of login form 
-- SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList
+- SC-9016 - fixed double loading of login form 
+- SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList in login & registration
 - SC-9101 - sync & sort lang files
 
 ## [26.2.2] - 2021-06-04
