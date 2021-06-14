@@ -222,6 +222,7 @@
 			},
 			"link": {
 				"addAnotherOwner": "Añadir otro propietario",
+				"analogueConsent": "Declare consent manually",
 				"changePassword": "Cambiar contraseña",
 				"completeEntry": "Completar entrada",
 				"createANewClass": "Crea una nueva clase",
@@ -248,6 +249,8 @@
 			"text": {
 				"active": "Activo",
 				"agreementSuccessfullyDeclared": "Consentimiento declarado correctamente",
+				"analogueConsent": "If you wish to obtain paper consent, you can unlock students in the system as follows:",
+				"analogueConsentBullets": "<ul><li>Go to the <i>management</i> section and select the <i>students</i> section</li><li>If necessary, use the filter function for classes and completed registrations</li><li>Select all relevant students</li><li>Click on <i>actions</i> and select the item <i>analogue consent form</i> to release the students and retrieve the start passwords.</li></ul>",
 				"anotherSchoolWasFounded": "ha sido fundado en otra escuela y por lo tanto no es posible",
 				"anUnknownErrorOccurred": "Se ha producido un error desconocido durante la importación.",
 				"changesSuccessfullySaved": "Cambios guardados correctamente",
