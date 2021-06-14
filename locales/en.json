@@ -249,8 +249,8 @@
 			"text": {
 				"active": "Active",
 				"agreementSuccessfullyDeclared": "Consent successfully declared",
-				"analogueConsent": "If you wish to obtain paper consent, you can unlock students in the system as follows:",
-				"analogueConsentBullets": "<ul><li>Go to the <i>management</i> section and select the <i>students</i> section</li><li>If necessary, use the filter function for classes and completed registrations</li><li>Select all relevant students</li><li>Click on <i>actions</i> and select the item <i>analogue consent form</i> to release the students and retrieve the start passwords.</li></ul>",
+				"analogueConsent": "If you wish to obtain paper consent, you can unlock students in the system as follows:<br>",
+				"analogueConsentBullets": "<br/> <br/><ul><li>Go to the <i>management</i> section and select the <i>students</i> section</li><li>If necessary, use the filter function for classes and completed registrations</li><li>Select all relevant students</li><li>Click on <i>actions</i> and select the item <i>analogue consent form</i> to release the students and retrieve the start passwords.</li></ul>",
 				"anotherSchoolWasFounded": "was founded in another school and therefore it is not possible to ",
 				"anUnknownErrorOccurred": "There was an unknown error while importing.",
 				"changesSuccessfullySaved": "Changes saved successfully.",
@@ -431,7 +431,7 @@
 				"inviteparentsAndStudentViaLink": "Invite parents and students via a link to submit their consent",
 				"manuallyConsent": "Manually declare consent",
 				"obtainADeclarationConsent": "Obtain a declaration of consent",
-				"orSelectStudentFromTable": "Or select students in the table.",
+				"orSelectStudentFromTable": "Alternatively, use <i>Administration > Students</i>. There you can also send links to students who are not fully registered or create QR print sheets.",
 				"studentsLoginInThePresenceOfGuardian": "Students log in in the presence of a parent or legal guardian",
 				"successfullyGeneratedPrintSheet": "Print sheet generated successfully",
 				"successfullySentMails": "Reminder e-mails sent successfully"
