@@ -1621,6 +1621,8 @@
 			"sorting": "Sorting",
 			"task": "Task",
 			"tasks": "Tasks",
+			"tasksAll": "All Tasks",
+			"tasksOpen": "Open Tasks",
 			"teachers": "Teachers",
 			"topics": "Topics",
 			"youAlmostMadeIt": "Almost there!",
