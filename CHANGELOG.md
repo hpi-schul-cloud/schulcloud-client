@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.4.0] - 2021-06-04
+
+- SC-9023 - homework nuxt dashboard
+
 ## [26.2.2] - 2021-06-04
 
 ### Changed
