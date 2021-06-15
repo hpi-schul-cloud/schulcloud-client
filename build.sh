@@ -64,6 +64,9 @@ function buildandpush {
   # build container default theme
   docker build -t schulcloud/schulcloud-client:"$DOCKERTAG" -t schulcloud/schulcloud-client:"$DOCKERTAG_SHA" .
 
+  # build container default theme
+  docker build -t schulcloud/schulcloud-client:"$DOCKERTAG" -t schulcloud/schulcloud-client:"$DOCKERTAG_SHA" .
+
   # take those images and push them up to docker hub
   docker push schulcloud/schulcloud-client:"$DOCKERTAG"
   docker push schulcloud/schulcloud-client:"$DOCKERTAG_SHA"
