@@ -227,6 +227,7 @@
 			"link": {
 				"addAnotherOwner": "Weitere Eigentümer:innen hinzufügen",
 				"changePassword": "Passwort ändern",
+				"analogueConsent": "Einverständnis manuell erklären",
 				"completeEntry": "Eintrag abschließen",
 				"createANewClass": "Erstelle eine neue Klasse",
 				"deleteClass": "Klasse löschen",
@@ -251,6 +252,8 @@
 			},
 			"text": {
 				"active": "Aktiv",
+				"analogueConsent": "Wenn du das Einverständnis in Papierform einholen möchtest, kannst du die Schüler:innen wie folgt im System freischalten:",
+				"analogueConsentBullets": "<br/> <br/><ul><li>Rufe im Bereich <i>Verwaltung</i> den Bereich <i>Schüler:innen</i> auf</li><li>Nutze ggf. die Filterfunktion für Klassen und abgeschlossene Registrierungen</li><li>Wähle alle betreffenden Schüler:innen aus</li><li>Klicke auf <i>Aktionen</i> und wähle den Punkt <i>Analoge Einverständniserklärung</i>, um die Schüler:innen freizugeben und die Startpasswörter abzurufen</li></ul>",
 				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
 				"anotherSchoolWasFounded": "einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst ",
 				"anUnknownErrorOccurred": "Es ist ein unbekannter Fehler beim Importieren aufgetreten.",
@@ -432,7 +435,7 @@
 				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler:innen per Link ein, die Einverständniserklärung abzugeben",
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
-				"orSelectStudentFromTable": "Oder wähle Schüler:innen in der Tabelle aus.",
+				"orSelectStudentFromTable": "Nutze alternativ <i>Verwaltung > Schüler:innen</i>. Dort kannst du ebenfalls Links an nicht vollständig registrierte Schüler:innen versenden oder QR-Druckbogen erstellen",
 				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungsberechtigten ein",
 				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
 				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet"
