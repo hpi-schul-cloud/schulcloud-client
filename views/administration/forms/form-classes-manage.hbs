@@ -84,27 +84,10 @@
                 </button>
             </p>
             <p>
-                {{$t "administration.global.text.orSelectStudentFromTable" }}
+                {{{$t "administration.global.text.orSelectStudentFromTable" }}}
             </p>
         {{/if}}
     </div>
-
-    {{#if consentsMissing}}
-        <div class="mb-3">
-            <h2 class="h4">
-                {{$t "administration.global.text.manuallyConsent" }}
-            </h2>
-            <p>
-            {{$t "administration.longText.text.ifAllStudentsAndParentsHaveGiven" }}
-            </p>
-
-                <a href="skipregistration" class="btn btn-primary btn-skip-consent">
-                        <i class="fa fa-exclamation-triangle"></i> {{$t "administration.classes.text.manuallyGiveConsentForAllStudent" }}
-                </a>
-
-
-        </div>
-    {{/if}}
 
     <div>
         <h2 class="h4 mt-1">{{$t "administration.classes.label.pleaseNote" }}</h2>

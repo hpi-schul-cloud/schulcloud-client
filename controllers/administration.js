@@ -1861,6 +1861,19 @@ router.get(
 						schoolyears,
 						notes: [
 							{
+								title: res.$t(
+									'administration.controller.link.analogueConsent',
+								),
+								content:
+									// eslint-disable-next-line max-len
+									res.$t(
+										'administration.controller.text.analogueConsent',
+									)
+									+ res.$t(
+										'administration.controller.text.analogueConsentBullets',
+									),
+							},
+							{
 								title: res.$t('administration.controller.text.yourStudentsAreUnder', {
 									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 								}),
@@ -2470,7 +2483,7 @@ router.all('/courses', (req, res, next) => {
 			(item.classIds || []).map((item) => {
 				const c = classes.find((obj) => obj._id === item.id);
 				// c might be undefined, c.displayName might throw
-				return c != null && typeof c === "object"
+				return c != null && typeof c === 'object'
 					? c.displayName
 					: undefined;
 			}).join(', '),
