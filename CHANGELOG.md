@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-8440 - remove analogue consent button from admin classes page
+
 ### Changed
 
 - SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList in login & registration
