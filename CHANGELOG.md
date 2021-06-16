@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
 - SC-8440 - remove analogue consent button from admin classes page and fix
 
 ### Changed
@@ -16,7 +18,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList in login & registration
 - SC-9101 - sync & sort lang files
 
+## [26.4.1] - 2021-06-16
+
+- rename permission TASK_DASHBOARD_VIEW_V3
+
 ## [26.4.0] - 2021-06-04
+
+### Changed
 
 - SC-9023 - homework nuxt dashboard
 
