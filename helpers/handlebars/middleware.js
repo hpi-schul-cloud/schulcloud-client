@@ -58,7 +58,7 @@ module.exports = (req, res, next) => {
 		testId: 'Offene Aufgaben',
 		icon: 'list-ol',
 		link: '/tasks/open',
-		permission: 'Task_Dashboard_View_v3',
+		permission: 'TASK_DASHBOARD_VIEW_V3',
 	}, {
 		name: res.$t('global.headline.tasksAll'),
 		testId: 'Aufgaben',
