@@ -2,45 +2,6 @@ import printQRs from '../../helpers/printQRs';
 
 /* globals populateModalForm */
 
-function copy(event) {
-	event.preventDefault();
-	const { copySelector } = event.target.dataset;
-	const copySource = document.querySelector(copySelector);
-	copySource.select();
-	document.execCommand('copy');
-	$.showNotification(
-		$t('administration.classes.text.linkCopiedToClipboard'),
-		'success',
-		3000,
-	);
-}
-function initializeCopy() {
-	document.querySelectorAll('.copy').forEach((btn) => {
-		btn.addEventListener('click', copy);
-	});
-}
-
-function printInvitation(event) {
-	event.preventDefault();
-	const className = document.querySelector('input[name=class-name]').value;
-	const invitationLink = document.querySelector('#invitationLink').value;
-	const invitation = {
-		href: invitationLink,
-		title: `${$t('administration.classes.label.class')} ${className}`,
-		description: invitationLink,
-	};
-	const invitations = Array(25).fill(invitation);
-	printQRs(invitations);
-}
-
-
-window.addEventListener('DOMContentLoaded', () => {
-	initializeCopy();
-	document
-		.querySelector('#printInvitation')
-		.addEventListener('click', printInvitation);
-});
-
 window.addEventListener('load', () => {
 	document
 		.getElementById('filter_schoolyear')
@@ -64,7 +25,7 @@ window.addEventListener('load', () => {
 			} else {
 				classInput.innerHTML = `${classes.data
 					.map(
-						item => `<option value="${item._id}">${item.displayName}</option>`,
+						(item) => `<option value="${item._id}">${item.displayName}</option>`,
 					)
 					.join('')}`;
 			}
