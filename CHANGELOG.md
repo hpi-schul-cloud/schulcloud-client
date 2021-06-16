@@ -9,7 +9,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-- SC-8440 - remove analogue consent button from admin classes page
+- SC-8440 - remove analogue consent button from admin classes page and fix
 
 ### Changed
 
