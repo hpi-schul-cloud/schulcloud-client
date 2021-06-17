@@ -431,7 +431,7 @@
 				"inviteparentsAndStudentViaLink": "Lade Eltern und Schüler:innen per Link ein, die Einverständniserklärung abzugeben",
 				"manuallyConsent": "Einverständnis manuell erklären",
 				"obtainADeclarationConsent": "Einverständniserklärung einholen",
-				"orSelectStudentFromTable": "Nutze alternativ <i>Verwaltung > Schüler:innen</i>. Dort kannst du ebenfalls Links an nicht vollständig registrierte Schüler:innen versenden oder QR-Druckbogen erstellen",
+				"orSelectStudentFromTable": "Nutze alternativ <i>Verwaltung > Schüler:innen</i>. Dort kannst du ebenfalls Links an nicht vollständig registrierte Schüler:innen versenden oder QR-Druckbogen erstellen.",
 				"studentsLoginInThePresenceOfGuardian": "Schüler:innen loggen sich in Anwesenheit eines Erziehungsberechtigten ein",
 				"successfullyGeneratedPrintSheet": "Druckbogen erfolgreich generiert",
 				"successfullySentMails": "Erinnerungs-E-Mails erfolgreich versendet"
