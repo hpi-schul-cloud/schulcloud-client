@@ -32,7 +32,6 @@
     <div class="row">
         <div style="width: 100%" class="form-group">
             <label>{{$t "administration.global.label.student" }}</label>
-            <button type="button" class="btn-link pull-right btn-import-class">{{$t "administration.classes.button.addStudentsFromPreviousYearClass" }}</button>
             <select name="userIds" multiple data-placeholder="{{$t "administration.global.placeholder.selectStudent" }}">
                 {{#each students}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red" data-first-name="{{this.firstName}}" data-last-name="{{this.lastName}}">

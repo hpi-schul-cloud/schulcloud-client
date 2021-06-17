@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Removed
 
 - SC-8440 - remove analogue consent button from admin classes page and fix v2
+- SC-8073 - removing functionality of adding student from previous year
 
 ### Changed
 
