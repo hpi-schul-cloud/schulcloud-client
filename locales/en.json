@@ -254,7 +254,7 @@
 				"active": "Active",
 				"agreementSuccessfullyDeclared": "Consent successfully declared",
 				"analogueConsent": "If you wish to obtain paper consent, you can unlock students in the system as follows:",
-				"analogueConsentBullets": "<br/> <br/><ul><li>Go to the <i>management</i> section and select the <i>students</i> section</li><li>If necessary, use the filter function for classes and completed registrations</li><li>Select all relevant students</li><li>Click on <i>actions</i> and select the item <i>analogue consent form</i> to release the students and retrieve the start passwords.</li></ul>",
+				"analogueConsentBullets": "<br/> <br/><ol><li>Go to the <i>management</i> section and select the <i>students</i> section</li><li>If necessary, use the filter function for classes and completed registrations</li><li>Select all relevant students</li><li>Click on <i>actions</i> and select the item <i>analogue consent form</i> to release the students and retrieve the start passwords</li></ol>",
 				"anotherSchoolWasFounded": "was founded in another school and therefore it is not possible to ",
 				"anUnknownErrorOccurred": "There was an unknown error while importing.",
 				"changesSuccessfullySaved": "Changes saved successfully.",
