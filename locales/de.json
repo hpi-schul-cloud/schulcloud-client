@@ -249,7 +249,7 @@
 			"text": {
 				"active": "Aktiv",
 				"analogueConsent": "Wenn du das Einverständnis in Papierform einholen möchtest, kannst du die Schüler:innen wie folgt im System freischalten:",
-				"analogueConsentBullets": "<br/> <br/><ul><li>Rufe im Bereich <i>Verwaltung</i> den Bereich <i>Schüler:innen</i> auf</li><li>Nutze ggf. die Filterfunktion für Klassen und abgeschlossene Registrierungen</li><li>Wähle alle betreffenden Schüler:innen aus</li><li>Klicke auf <i>Aktionen</i> und wähle den Punkt <i>Analoge Einverständniserklärung</i>, um die Schüler:innen freizugeben und die Startpasswörter abzurufen</li></ul>",
+				"analogueConsentBullets": "<br/> <br/><ol><li>Rufe im Bereich <i>Verwaltung</i> den Bereich <i>Schüler:innen</i> auf</li><li>Nutze ggf. die Filterfunktion für Klassen und abgeschlossene Registrierungen</li><li>Wähle alle betreffenden Schüler:innen aus</li><li>Klicke auf <i>Aktionen</i> und wähle den Punkt <i>Analoge Einverständniserklärung</i>, um die Schüler:innen freizugeben und die Startpasswörter abzurufen</li></ol>",
 				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
 				"anotherSchoolWasFounded": "einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst ",
 				"anUnknownErrorOccurred": "Es ist ein unbekannter Fehler beim Importieren aufgetreten.",
