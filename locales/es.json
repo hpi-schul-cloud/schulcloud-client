@@ -250,7 +250,7 @@
 				"active": "Activo",
 				"agreementSuccessfullyDeclared": "Consentimiento declarado correctamente",
 				"analogueConsent": "Si deseas obtener el consentimiento en papel, puedes desbloquear a l@s estudiantes en el sistema de la siguiente manera:",
-				"analogueConsentBullets": "<br/> <br/><ul><li>Ve a la <i>sección de gestión</i> y selecciona la <i>sección de estudiantes</i>.</li><li>Si es necesario, utiliza la función de filtro para las clases y selecciona el filtro inscripciones completas</li><li>Selecciona a tod@s l@s estudiantes relevantes</li><li>Haz clic en <i>acciones</i> y selecciona el elemento <i>formulario de consentimiento manual</i> para liberar a l@s estudiantes y recuperar sus contraseñas de inicio.</li></ul>",
+				"analogueConsentBullets": "<br/> <br/><ol><li>Ve a la <i>sección de gestión</i> y selecciona la <i>sección de estudiantes</i></li><li>Si es necesario, utiliza la función de filtro para las clases y selecciona el filtro inscripciones completas</li><li>Selecciona a tod@s l@s estudiantes relevantes</li><li>Haz clic en <i>acciones</i> y selecciona el elemento <i>formulario de consentimiento manual</i> para liberar a l@s estudiantes y recuperar sus contraseñas de inicio</li></ol>",
 				"anotherSchoolWasFounded": "ha sido fundado en otra escuela y por lo tanto no es posible",
 				"anUnknownErrorOccurred": "Se ha producido un error desconocido durante la importación.",
 				"changesSuccessfullySaved": "Cambios guardados correctamente",
