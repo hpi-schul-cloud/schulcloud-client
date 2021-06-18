@@ -33,21 +33,6 @@ window.addEventListener('load', () => {
 
 	const $importModal = $('.import-modal');
 
-	$('.btn-import-class').on('click', (event) => {
-		event.preventDefault();
-		document
-			.querySelectorAll('select[name="classes"] option')
-			.forEach((option) => {
-				option.selected = false;
-			});
-		populateModalForm($importModal, {
-			title: $t('administration.classes.headline.importClass'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.add'),
-		});
-		$importModal.appendTo('body').modal('show');
-	});
-
 	$importModal.find('.btn-submit').on('click', async (event) => {
 		event.preventDefault();
 		const selections = $('#student_from_class_import')
