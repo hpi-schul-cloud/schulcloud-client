@@ -7,17 +7,12 @@
 		"categories": [
 			{
 				"id": "44072994",
-				"title": "Kurserstellung",
+				"title": "Kurse",
 				"type": "category",
 				"articles": [
 					{
-						"id": "102205669",
-						"title": "Einführungsvideo (Kurse)",
-						"type": "article"
-					},
-					{
 						"id": "13828241",
-						"title": "Erstellen von Kursen",
+						"title": "Kurse erstellen",
 						"type": "article"
 					},
 					{
@@ -27,7 +22,7 @@
 					},
 					{
 						"id": "13828369",
-						"title": "Schülergruppen im Kurs anlegen",
+						"title": "Gruppen im Kurs anlegen",
 						"type": "article"
 					},
 					{
@@ -42,7 +37,7 @@
 					},
 					{
 						"id": "102204000",
-						"title": "Kurs löschen",
+						"title": "Kurse löschen",
 						"type": "article"
 					},
 					{
@@ -52,24 +47,24 @@
 					},
 					{
 						"id": "113641943",
-						"title": "Alte Kurse wiederverwenden",
+						"title": "Archivierte Kurse",
 						"type": "article"
 					}
 				]
 			},
 			{
 				"id": "44072996",
-				"title": "Themen & Tools",
+				"title": "Themen & Inhalte",
 				"type": "category",
 				"articles": [
 					{
 						"id": "13828870",
-						"title": "Themen im Kurs anlegen",
+						"title": "Thema erstellen",
 						"type": "article"
 					},
 					{
 						"id": "13828873",
-						"title": "Tools in Themen einfügen",
+						"title": "Inhalte in Themen einfügen",
 						"type": "article"
 					},
 					{
@@ -84,11 +79,6 @@
 				"title": "Aufgaben",
 				"type": "category",
 				"articles": [
-					{
-						"id": "102203782",
-						"title": "Einführungsvideo (Aufgaben)",
-						"type": "article"
-					},
 					{
 						"id": "13829023",
 						"title": "Aufgaben im Kurs hinzufügen",
@@ -144,23 +134,18 @@
 				"type": "category",
 				"articles": [
 					{
-						"id": "102205672",
-						"title": "Einführungsvideo (Dateien)",
-						"type": "article"
-					},
-					{
 						"id": "13828549",
 						"title": "Dateiübersicht",
 						"type": "article"
 					},
 					{
 						"id": "13828551",
-						"title": "Dateiupload",
+						"title": "Dateien hochladen",
 						"type": "article"
 					},
 					{
 						"id": "73531403",
-						"title": "Dateien mit LibreOffice Online erstellen",
+						"title": "Dateien erstellen mit LibreOffice Online",
 						"type": "article"
 					},
 					{
@@ -197,17 +182,22 @@
 			},
 			{
 				"id": "113651065",
-				"title": "Videokonferenzen (Einführungsvideo)",
+				"title": "Videokonferenz",
 				"type": "category",
 				"articles": [
 					{
-						"id": "113653222",
-						"title": "Moderation von Videokonferenzen",
+						"id": "113652165",
+						"title": "Videokonferenz einrichten",
 						"type": "article"
 					},
 					{
-						"id": "113652569",
-						"title": "\"Schaubild\" - einfache Zeichensprache für effektive Videokonferenzen",
+						"id": "154186057",
+						"title": "An einer Videokonferenz teilnehmen",
+						"type": "article"
+					},
+					{
+						"id": "113653222",
+						"title": "Videokonferenz moderieren",
 						"type": "article"
 					},
 					{
@@ -216,8 +206,8 @@
 						"type": "article"
 					},
 					{
-						"id": "113652165",
-						"title": "Videokonferenzen freischalten",
+						"id": "113652569",
+						"title": "\"Schaubild\" - einfache Zeichensprache für effektive Videokonferenzen",
 						"type": "article"
 					}
 				]
@@ -231,23 +221,29 @@
 		"icon": "fa-sitemap",
 		"categories": [
 			{
+				"id": "69664812",
+				"title": "Schulungen",
+				"type": "category",
+				"articles": []
+			},
+			{
 				"id": "44073004",
-				"title": "Login & Anlegen von Benutzeraccounts",
+				"title": "Registrierung",
 				"type": "category",
 				"articles": [
 					{
 						"id": "17956927",
-						"title": "So gelingt der Start mit der HPI Schul-Cloud",
+						"title": "Startschritte",
 						"type": "article"
 					},
 					{
 						"id": "13828662",
-						"title": "Lehrkraft hinzufügen",
+						"title": "Lehrkräfte hinzufügen",
 						"type": "article"
 					},
 					{
 						"id": "13828666",
-						"title": "Schüler:in hinzufügen",
+						"title": "Schüler:innen hinzufügen",
 						"type": "article"
 					},
 					{
@@ -256,20 +252,15 @@
 						"type": "article"
 					},
 					{
-						"id": "13828427",
-						"title": "Login HPI Schul-Cloud",
-						"type": "article"
-					},
-					{
 						"id": "13828806",
-						"title": "Passwörter von Schüler:innen zurücksetzen",
+						"title": "Passwörter zurücksetzen",
 						"type": "article"
 					}
 				]
 			},
 			{
 				"id": "44073006",
-				"title": "Klassenverwaltung",
+				"title": "Klassen",
 				"type": "category",
 				"articles": [
 					{
@@ -279,17 +270,22 @@
 					},
 					{
 						"id": "36700233",
-						"title": "Klassen verwalten",
-						"type": "article"
-					},
-					{
-						"id": "113641993",
-						"title": "Fehlende Einverständniserklärungen manuell erklären (klassenweit)",
+						"title": "Klassen bearbeiten",
 						"type": "article"
 					},
 					{
 						"id": "123407339",
 						"title": "Klassen in neues Schuljahr versetzen",
+						"type": "article"
+					},
+					{
+						"id": "154187968",
+						"title": "Klassen löschen",
+						"type": "article"
+					},
+					{
+						"id": "113641993",
+						"title": "Klassenweite Einverständniserklärungen",
 						"type": "article"
 					}
 				]
@@ -299,11 +295,6 @@
 				"title": "Teams",
 				"type": "category",
 				"articles": [
-					{
-						"id": "102203773",
-						"title": "Einführungsvideo (Teams)",
-						"type": "article"
-					},
 					{
 						"id": "102205180",
 						"title": "Team anlegen",
@@ -315,13 +306,13 @@
 						"type": "article"
 					},
 					{
-						"id": "102205143",
-						"title": "Teams: Funktionsumfang",
+						"id": "110724218",
+						"title": "Teamrollen vergeben",
 						"type": "article"
 					},
 					{
-						"id": "102205394",
-						"title": "Teams: Einstellungen",
+						"id": "154188006",
+						"title": "Teameinladung freigeben",
 						"type": "article"
 					},
 					{
@@ -335,11 +326,23 @@
 						"type": "article"
 					},
 					{
-						"id": "110724218",
-						"title": "Teams: Rollen und ihre Berechtigungen",
+						"id": "154188138",
+						"title": "Teams für Schüler:innen aktivieren",
 						"type": "article"
 					}
 				]
+			},
+			{
+				"id": "13828292",
+				"title": "Neuigkeiten",
+				"type": "category",
+				"articles": []
+			},
+			{
+				"id": "13828371",
+				"title": "Termine",
+				"type": "category",
+				"articles": []
 			},
 			{
 				"id": "44073009",
@@ -347,18 +350,28 @@
 				"type": "category",
 				"articles": [
 					{
+						"id": "98598995",
+						"title": "Browser konfigurieren",
+						"type": "article"
+					},
+					{
+						"id": "102205394",
+						"title": "Schulweite Funktionen freischalten",
+						"type": "article"
+					},
+					{
 						"id": "56655925",
-						"title": "Nutzer:in per .csv-Datei importieren",
+						"title": "Nutzer:innen importieren (.csv)",
 						"type": "article"
 					},
 					{
 						"id": "102203936",
-						"title": "weBBschule - Export/Import",
+						"title": "Nutzer:innen importieren (weBBschule)",
 						"type": "article"
 					},
 					{
 						"id": "13828868",
-						"title": "Authentifizierung",
+						"title": "System hinzufügen (z.B. LDAP)",
 						"type": "article"
 					},
 					{
@@ -367,13 +380,8 @@
 						"type": "article"
 					},
 					{
-						"id": "39649285",
-						"title": "Helpdesk",
-						"type": "article"
-					},
-					{
-						"id": "98598995",
-						"title": "Browser richtig konfigurieren",
+						"id": "123407528",
+						"title": "LDAP-Schuljahreswechsel",
 						"type": "article"
 					},
 					{
@@ -382,41 +390,47 @@
 						"type": "article"
 					},
 					{
-						"id": "123407528",
-						"title": "LDAP-Schuljahreswechsel",
+						"id": "144605442",
+						"title": "Lerninhalte aus Merlin beziehen",
+						"type": "article"
+					},
+					{
+						"id": "123407609",
+						"title": "E-Mail-Adresse ungültig machen (Schulwechsel)",
+						"type": "article"
+					},
+					{
+						"id": "154188223",
+						"title": "Zusätzliche Admins an der Schule benennen",
 						"type": "article"
 					}
 				]
 			},
 			{
-				"id": "69664812",
-				"title": "Kolleg:innen schulen",
-				"type": "category",
-				"articles": []
-			},
-			{
-				"id": "17170476",
-				"title": "Sonstige Funktionen",
+				"id": "154188672",
+				"title": "Probleme beheben",
 				"type": "category",
 				"articles": [
+					{
+						"id": "15106089",
+						"title": "Hilfebereich",
+						"type": "article"
+					},
 					{
 						"id": "13828795",
 						"title": "Wunsch oder Problem senden",
 						"type": "article"
-					},
+					}
+				]
+			},
+			{
+				"id": "17170476",
+				"title": "Hilfreiche Funktionen",
+				"type": "category",
+				"articles": [
 					{
-						"id": "13828761",
-						"title": "Admin deiner Schule kontaktieren",
-						"type": "article"
-					},
-					{
-						"id": "13828292",
-						"title": "Neuigkeiten erstellen",
-						"type": "article"
-					},
-					{
-						"id": "13828371",
-						"title": "Termine erstellen",
+						"id": "153452633",
+						"title": "Allgemeine Verwaltungsoptionen",
 						"type": "article"
 					},
 					{
@@ -430,16 +444,22 @@
 						"type": "article"
 					},
 					{
-						"id": "15106089",
-						"title": "Hilfebereich",
-						"type": "article"
-					},
-					{
 						"id": "113646967",
 						"title": "Automatisiertes Ausloggen",
 						"type": "article"
+					},
+					{
+						"id": "130778703",
+						"title": "Sprache ändern",
+						"type": "article"
 					}
 				]
+			},
+			{
+				"id": "148537858",
+				"title": "Bekannte Fehler in der Cloud und ihre Behebung",
+				"type": "category",
+				"articles": []
 			},
 			{
 				"id": "73072659",
@@ -448,22 +468,22 @@
 				"articles": []
 			},
 			{
-				"id": "123407337",
-				"title": "Schuljahreswechsel",
+				"id": "113650243",
+				"title": "Anleitung Chat / Messenger (LuL)",
 				"type": "category",
 				"articles": []
 			},
 			{
-				"id": "123407609",
-				"title": "E-Mail-Adressen bei Schulwechsel ungültig machen (Admin)",
+				"id": "113651573",
+				"title": "Anleitung Chat / Messenger (SuS)",
 				"type": "category",
-				"articles": [
-					{
-						"id": "123407871",
-						"title": "Spezielle Anleitung zum Schulwechsel für Schulen mit LDAP-System",
-						"type": "article"
-					}
-				]
+				"articles": []
+			},
+			{
+				"id": "123407337",
+				"title": "Schuljahreswechsel",
+				"type": "category",
+				"articles": []
 			}
 		]
 	}
