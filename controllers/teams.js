@@ -572,20 +572,16 @@ router.get('/:teamId', async (req, res, next) => {
 			.slice(0, 6);
 
 		const news = await api(req)
-			.get('/news/', {
+			.get('/v3/news/', {
 				qs: {
 					target: req.params.teamId,
 					targetModel: 'teams',
-					displayAt: {
-						$lte: timesHelper.now(),
-					},
-					sort: '-displayAt',
-					$limit: 3,
+					limit: 3,
 				},
 			})
 			.then((newsres) => newsres.data
 				.map((n) => {
-					n.url = `/teams/${req.params.teamId}/news/${n._id}`;
+					n.url = `/teams/${req.params.teamId}/news/${n.id}`;
 					n.secondaryTitle = timesHelper.fromNow(n.displayAt);
 					return n;
 				}))
