@@ -91,7 +91,7 @@ router.all('/', (req, res, next) => {
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
-		.then(() => LoginSchoolsCache.get(req).then((schools) => {
+	.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 		logger.warn(`User can not logged in. Redirect to ${redirect}`);
 		res.render('authentication/login', {
@@ -133,18 +133,6 @@ router.all('/login/superhero/', (req, res, next) => {
 	handleLoginFailed(req, res).catch(next);
 });
 
-const ssoSchoolData = (req, systemId) => api(req).get('/schools/', {
-	qs: {
-		systems: systemId,
-	},
-}).then((schools) => {
-	if (schools.data.length > 0) {
-		return schools.data[0];
-	}
-	return undefined;
-}).catch(() => undefined); // TODO: fixme this is a very bad error catch
-// so we can do proper redirecting and stuff :)
-
 router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	if (res.locals.currentUser) {
 		if (res.locals.currentPayload.forcePasswordChange) {
@@ -167,27 +155,28 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 		// make sure fistLogin flag is not set
 		return res.redirect('/firstLogin');
 	}
+
 	// if this happens: SSO
-	const { accountId, systemId } = (res.locals.currentPayload || {});
-
-	ssoSchoolData(req, systemId).then((school) => {
-		if (school === undefined) {
-			const redirectUrl = determineRedirectUrl(req);
-			res.redirect(redirectUrl);
-		} else {
-			res.redirect(`/registration/${school._id}/sso/${accountId}`);
+	const { accountId, systemId, schoolId } = res.locals.currentPayload || {};
+	if (accountId && systemId && schoolId) {
+		const schools = await LoginSchoolsCache.get(req);
+		if (schools.length > 0) {
+			const checkSchool = schools.find((school) => school._id === schoolId);
+			if (checkSchool && checkSchool.systems) {
+				const schoolWithSystem = checkSchool.systems.find(
+					(system) => system._id === systemId,
+				);
+				if (schoolWithSystem) {
+					res.redirect(`/registration/${schoolId}/sso/${accountId}`);
+				}
+			}
 		}
-	});
-	return null;
-});
+	}
 
-router.get('/login/systems/:schoolId', (req, res, next) => {
-	api(req).get(`/schools/${req.params.schoolId}`, { qs: { $populate: ['systems'] } })
-		.then((data) => {
-			const systems = data.systems.filter((value) => value.type !== 'ldap' || value.ldapConfig.active === true);
-			return res.send(systems);
-		})
-		.catch(next);
+	const redirectUrl = determineRedirectUrl(req);
+	res.redirect(redirectUrl);
+
+	return null;
 });
 
 router.get('/logout/', (req, res, next) => {

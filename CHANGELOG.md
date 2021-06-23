@@ -9,13 +9,44 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- SC-8440 - remove analogue consent button from admin classes page and fix v2
+- SC-8073 - removing functionality of adding student from previous years
+
+### Changed
+
+- SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList in login & registration
 - SC-9101 - sync & sort lang files
+
+## [26.4.1] - 2021-06-16
+
+- rename permission TASK_DASHBOARD_VIEW_V3
+
+## [26.4.0] - 2021-06-04
+
+### Changed
+
+- SC-9023 - homework nuxt dashboard
+
+## [26.2.2] - 2021-06-04
+
+### Changed
+
+- SC-9110 - removed unused static files
+
+## [26.2.1] - 2021-06-02
+
+### Changed
+
+- SC-8822 - fix phone number in imprint
 
 ## 26.2.0
 
 ### Changed
 
-- OPS-2418-execute_E2E_tests
+- SC-7042 - fix permission, allowing teachers to send invitation to students
+- OPS-2418 - execute_E2E_tests
 - OPS-2445 - change Docker login to build
 - SC-8440 - fix manual consent for class
 - SC-8157 - personal files filter margin correction
