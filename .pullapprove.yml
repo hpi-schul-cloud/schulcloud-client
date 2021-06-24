@@ -7,12 +7,6 @@ pullapprove_conditions:
 - condition: "'- [ ]' not in body"
   unmet_status: failure
   explanation: "Please finish all the required checklist tasks"
-#- condition: "'Travis*' in statuses.succeeded" # Not working yet
-#  unmet_status: failure
-#  explanation: "Tests must pass before review starts"
-#- condition: "'stickler*' in statuses.succeeded"
-#  unmet_status: failure
-#  explanation: "Linter must pass before review starts"
 
 
 notifications:
@@ -29,26 +23,6 @@ groups:
     reviewers:
       teams:
       - sc-admins
+      - CoreDevs
     reviews:
       required: 1  # number of approvals required from this group
-
-  ux-core:
-    conditions:
-    - "'static/images/*/*' in files or 'theme/*' in files or 'static/fonts/**/*.ext' in files or 'static/styles//*.scss' in files"
-    # only review if "'static/images/*/*' or 'theme/*' or 'static/fonts/**/*.ext' or 'static/styles//*.scss'" files have been touched
-    reviewers:
-      teams:
-      - ux-core
-    reviews:
-      required: 1  # number of approvals required from this group
-      request: -1  # request from all members a review
-
-  devops:
-    conditions:
-    - "'*deploy.sh' in files or '.build/*' in files" # only review specific, deployment relevant files
-    reviewers:
-      teams:
-      - devops
-    reviews:
-      required: 1 # number of approvals required from this group
-      author_value: 1 # if author of pr is in team, no additional review required

@@ -9,6 +9,28 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.4.2] - 2021-06-24
+
+### Changed
+
+- OPS-2465 - changes build pipeline to github actions
+
+## [26.4.1] - 2021-06-16
+
+- rename permission TASK_DASHBOARD_VIEW_V3
+
+## [26.4.0] - 2021-06-04
+
+### Changed
+
+- SC-9023 - homework nuxt dashboard
+
+## [26.2.2] - 2021-06-04
+
+### Changed
+
+- SC-9110 - removed unused static files
+
 ## [26.2.1] - 2021-06-02
 
 ### Changed
