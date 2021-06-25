@@ -572,7 +572,7 @@ router.get('/:teamId', async (req, res, next) => {
 			.slice(0, 6);
 
 		const news = await api(req)
-			.get(`/v3/news/team${req.params.teamId}`, {
+			.get(`/v3/news/team/${req.params.teamId}`, {
 				qs: {
 					limit: 3,
 				},
@@ -1010,7 +1010,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			for (const user of team.userIds) {
 				if (
 					user.userId._id !== team.user.userId._id
-          && user.role._id === team.user.role._id
+					&& user.role._id === team.user.role._id
 				) {
 					couldLeave = true;
 					break;
