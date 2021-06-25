@@ -206,13 +206,11 @@ router.get('/', (req, res, next) => {
 				limit: 3,
 			},
 		})
-		.then((news) =>
-			news.data.map((n) => {
+		.then((news) => news.data.map((n) => {
 				n.url = `/news/${n.id}`;
 				n.secondaryTitle = timesHelper.fromNow(n.displayAt);
 				return n;
-			})
-		)
+		}))
 		.catch((err) => {
 			/* eslint-disable-next-line max-len */
 			logger.error(
