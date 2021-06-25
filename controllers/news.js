@@ -2,6 +2,8 @@
  * One Controller per layout view
  */
 
+// TODO remove controller
+
 const express = require('express');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -11,38 +13,11 @@ const router = express.Router();
 
 router.use(authHelper.authChecker);
 
-const createActions = (item, path) => {
-	const actions = [];
-	// temporarily removed actions on cards...
-	// if (item.permissions && item.permissions.includes('NEWS_EDIT')) {
-	// 	actions.push(
-	// 		{
-	// 			link: `${path + item._id}/edit`,
-	// 			class: 'btn-edit',
-	// 			icon: 'pencil',
-	// 			method: 'GET',
-	// 			alt: 'bearbeiten',
-	// 		},
-	// 	);
-	// }
-	// if (item.permissions && item.permissions.includes('NEWS_EDIT')) {
-	// 	// todo change to NEWS_REMOVE
-	// 	actions.push({
-	// 		link: path + item._id,
-	// 		class: 'btn-delete',
-	// 		icon: 'trash-o',
-	// 		method: 'DELETE',
-	// 		alt: 'löschen',
-	// 	});
-	// }
-	return actions;
-};
-
-const getActions = (isRSS, res, newsItem) => !isRSS && createActions(newsItem, '/news/');
+const VERSION = '/v3';
 
 const getDeleteHandler = (service) => (req, res, next) => {
 	api(req)
-		.delete(`/${service}/${req.params.id}`)
+		.delete(`${VERSION}/${service}/${req.params.id}`)
 		.then(() => {
 			res.sendStatus(200);
 		})
@@ -52,14 +27,14 @@ const getDeleteHandler = (service) => (req, res, next) => {
 };
 
 router.patch('/:newsId', (req, res, next) => {
-	req.body.displayAt = timesHelper.dateTimeStringToMoment(
-		req.body.displayAt,
-	).toISOString();
+	req.body.displayAt = timesHelper
+		.dateTimeStringToMoment(req.body.displayAt)
+		.toISOString();
 	req.body.updatedAt = timesHelper.currentDate().toISOString();
 	req.body.updaterId = res.locals.currentUser._id;
 
 	api(req)
-		.patch(`/news/${req.params.newsId}`, {
+		.patch(`${VERSION}/news/${req.params.newsId}`, {
 			json: req.body,
 		})
 		.then(() => {
@@ -78,10 +53,8 @@ router.all('/', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 
 	const queryObject = {
-		$limit: itemsPerPage,
-		$skip: itemsPerPage * (currentPage - 1),
-		sort: '-displayAt',
-		q: req.query.q,
+		limit: itemsPerPage,
+		skip: itemsPerPage * (currentPage - 1),
 	};
 
 	if (context === 'teams') {
@@ -94,22 +67,24 @@ router.all('/', async (req, res, next) => {
 		return {
 			...newsItem,
 			isRSS,
-			url: `/news/${newsItem._id}`,
+			url: `/news/${newsItem.id}`,
 			secondaryTitle: timesHelper.fromUTC(newsItem.displayAt).fromNow(),
-			actions: getActions(isRSS, res, newsItem),
+			actions: [],
 		};
 	};
 
 	try {
-		const news = await api(req).get('/news/', { qs: queryObject });
+		const news = await api(req).get(`${VERSION}/news/`, {
+			qs: queryObject,
+		});
 		const totalNews = news.total;
 		const mappedNews = news.data.map((newsItem) => decorateNews(newsItem));
 
-		const unpublishedNews = await api(req).get('/news/', {
+		const unpublishedNews = await api(req).get(`${VERSION}/news/`, {
 			qs: {
-				sort: '-displayAt',
 				unpublished: true,
-				limit: 0,
+				limit: 100, // TODO PAGINATION
+				skip: 0,
 			},
 		});
 		const unpublishedMappedNews = {
@@ -145,11 +120,9 @@ router.all('/', async (req, res, next) => {
 
 router.get('/:newsId', (req, res, next) => {
 	api(req)
-		.get(`/news/${req.params.newsId}`, {
-			qs: {},
-		})
+		.get(`${VERSION}/news/${req.params.newsId}`)
 		.then((news) => {
-			news.url = `/news/${news._id}`;
+			news.url = `${VERSION}/news/${news._id}`;
 			res.render('news/article', {
 				title: news.title,
 				news,
@@ -163,7 +136,7 @@ router.get('/:newsId', (req, res, next) => {
 
 router.get('/:newsId/edit', (req, res, next) => {
 	api(req)
-		.get(`/news/${req.params.newsId}`, {})
+		.get(`${VERSION}/news/${req.params.newsId}`, {})
 		.then((news) => {
 			news.displayAt = timesHelper.fromUTC(news.displayAt);
 			res.render('news/edit', {
