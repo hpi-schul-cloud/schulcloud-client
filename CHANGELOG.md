@@ -20,6 +20,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList in login & registration
 - SC-9101 - sync & sort lang files
 
+## [26.4.2] - 2021-06-24
+
+### Changed
+
+- OPS-2465 - changes build pipeline to github actions
+
 ## [26.4.1] - 2021-06-16
 
 - rename permission TASK_DASHBOARD_VIEW_V3
