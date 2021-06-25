@@ -1,6 +1,7 @@
 .DS_Store
 .gitignore
 .git
+.github
 .webpack-changed-plugin-cache
 .gulp-changed-smart.json
 .idea
@@ -9,8 +10,9 @@
 Dockerfile*
 README.md
 CHANGELOG.md
-build
 compose-client-test.dummy
 deploy.sh
-node_modules
 travis*
+test
+docs
+ansible

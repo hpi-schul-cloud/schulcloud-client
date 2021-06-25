@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+  namespace: {{ NAMESPACE }}
+  labels:
+    app: client
+spec:
+  replicas: {{ CLIENT_REPLICAS|default("2", true) }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      #maxUnavailable: 1
+  revisionHistoryLimit: 4
+  paused: false
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+      annotations:
+    spec:
+      securityContext:  
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        runAsNonRoot: true
+      containers:
+      - name: client
+        image: {{ CLIENT_IMAGE_NAME }}-{{ SC_THEME }}:{{ APP_IMAGE_TAG }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: client
+          containerPort: 3100
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: client-configmap
+        - secretRef:
+            name: client-secret
+        volumeMounts:
+        - mountPath: /home/node/app/config/http-headers.js
+          subPath: http-headers.js
+          name: http-headers
+        readinessProbe:
+          httpGet:
+            path: /version
+            port: 3100
+          timeoutSeconds: 4
+          failureThreshold: 3
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /version
+            port: 3100
+          timeoutSeconds: 4
+          failureThreshold: 3
+          periodSeconds: 15
+        startupProbe:
+          httpGet:
+            path: /
+            port: 3100
+          timeoutSeconds: 4
+          failureThreshold: 36
+          periodSeconds: 5
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+          requests:
+            cpu: "100m"
+            memory: "1Gi"
+      volumes:
+      - name: http-headers
+        configMap:
+          name: client-configmap-files
+          items:
+          - key: http-headers.js
+            path: http-headers.js
