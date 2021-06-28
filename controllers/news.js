@@ -122,7 +122,6 @@ router.get('/:newsId', (req, res, next) => {
 	api(req)
 		.get(`${VERSION}/news/${req.params.newsId}`)
 		.then((news) => {
-			news.url = `${VERSION}/news/${news._id}`;
 			res.render('news/article', {
 				title: news.title,
 				news,
