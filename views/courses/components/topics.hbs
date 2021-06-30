@@ -1,13 +1,4 @@
 <div class="row">
-	{{#userHasPermission "COURSE_EDIT"}}{{#unless @root.isArchived}}
-	<div class="col-sm-12">
-		<a href="#" data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic"
-			title="{{$t "courses._course.topic.text.importTopic"}}">
-			<i class="fa fa-exchange" aria-hidden="true"></i>
-			<span>{{$t "courses._course.topic.button.importTopic"}}</span>
-		</a>
-	</div>
-	{{/unless}}{{/userHasPermission}}
 	{{#userHasPermission "COURSE_EDIT"}}
 	{{#ifCond (isCond ../lessons.length "==" 1) "&& !" @root.isArchived}}
 	<div class="col-sm-12">
@@ -68,12 +59,6 @@
 									<i class="fa fa-pencil"></i>
 								</a>
 								{{/unless}}
-								<a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
-									class="btn btn-secondary btn-sm btn-create-share btn-icon-card"
-									title="{{$t "courses._course.topic.text.shareTopic"}}"
-									role="button">
-									<i class="fa fa-share-alt"></i>
-								</a>
 							</div>
 							{{/userHasPermission}}
 						</div>
@@ -111,12 +96,6 @@
 									<i class="fa fa-pencil"></i>
 								</a>
 								{{/unless}}
-								<a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
-									class="btn btn-secondary btn-sm btn-create-share btn-icon-card"
-									title="{{$t "courses._course.topic.text.shareTopic"}}"
-									role="button">
-									<i class="fa fa-share-alt"></i>
-								</a>
 							</div>
 						</div>
 					</div>

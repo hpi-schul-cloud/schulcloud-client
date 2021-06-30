@@ -54,12 +54,13 @@
                                     </section>
                                 {{/userHasPermission}}
                             {{/if}}
+                            <div>Theme: {{SC_THEME}}</div>
                              {{#userHasPermission "COURSE_EDIT"}}
                                 <div class="col-xs-12">
+                                    <div>Theme inside__: {{../SC_THEME}}</div>
                                     <div class="row padding-top">
                                         <div class="col-sm-12">
                                             <div class="pull-right">
-                                            <button class="btn btn-secondary btn-import-course" data-testid="import-course-btn">{{$t "courses.button.importCourse"}}</button>
                                             <a href="/courses/add" data-testid="create-course-btn" class="btn btn-primary btn-add">{{$t "courses.button.createCourse"}}</a>
                                         </div>
                                         </div>
