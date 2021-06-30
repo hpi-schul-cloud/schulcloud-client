@@ -1,0 +1,120 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="{{getAssetPath '/scripts/coursesOverview.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/tabbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/topic.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    {{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}"/>
+    {{/content}}
+
+    {{#content "page"}}
+        <section class="section-courses">
+            <div class="tabContainer" data-active-tab={{activeTab}}>
+                <div class="tabs" data-max-width="1024">
+                    <button class="tab" data-tab="js-active">
+                        <span class="text">{{$t "courses.tab_label.currentCourses"}} <span class="count-badge" data-badge="{{ total.active }}"/></span>
+                    </button>
+                    <button class="tab" aria-label="{{$t "courses.tab_label.archivedCourses"}}" data-tab="js-archived">
+                        <span class="text">{{$t "courses.tab_label.archivedCourses"}} <span class="count-badge" data-badge="{{ total.archived }}"/></span>
+                    </button>
+                </div>
+                <div class="sectionsContainer">
+                    <div class="sections">
+                        <!-- Aktuelle Kurse -->
+                        <div class="section section-course" data-section="js-active">
+                            {{#if total.active}}
+                                {{> 'dashboard/components/card_section' section-id="activeCourses" title="" content=activeCourses link-text= ($t "global.button.open") additionalInfoName="memberCount"}}
+                            {{else}}
+                                <div class="empty-state">
+									{{> 'courses/components/svg_active_courses'}}
+                                    <!--<img src="{{getAssetPath '/images/empty-states/active_courses.svg'}}" alt="{{$t "courses.img_alt.noCourses"}}" class="image"/>-->
+
+									{{#userHasPermission "COURSE_EDIT"}}
+                                        <h2 class="h4">{{$t "courses.headline.createDuplicateImport"}}</h2>
+                                    {{else}}
+                                        <h2 class="h4 text-muted">{{$t "courses.headline.noCourse"}}</h2>
+                                    {{/userHasPermission}}
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <p class="text-muted text-center">
+                                        <i class="fa fa-frown-o"></i>
+                                        <span>{{{$t "courses.headline.expiredCoursesInArchive"}}}</a>.
+										<br/>{{$t "courses.text.descriptionCourseManagement"}}</span>
+                                    </p>
+                                </div>
+                            {{/if}}
+                            {{#if activeSubstitutions}}
+                                {{#userHasPermission "COURSE_EDIT"}}
+                                    <section>
+                                        <div class="section-title mb-2"><h2 class="h4">{{$t "courses.headline.mySubstitutes"}}</h2></div>
+                                        {{> 'dashboard/components/card_section' section-id="activeSubstitutions" title="" content=../activeSubstitutions link-text= ($t "global.button.open") additionalInfoName="memberCount"}}
+                                    </section>
+                                {{/userHasPermission}}
+                            {{/if}}
+                             {{#userHasPermission "COURSE_EDIT"}}
+                                <div class="col-xs-12">
+                                    <div class="row padding-top">
+                                        <div class="col-sm-12">
+                                            <div class="pull-right">
+                                            <button class="btn btn-secondary btn-import-course" data-testid="import-course-btn">{{$t "courses.button.importCourse"}}</button>
+                                            <a href="/courses/add" data-testid="create-course-btn" class="btn btn-primary btn-add">{{$t "courses.button.createCourse"}}</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/userHasPermission}}
+
+                        </div>
+                        <!--- Archivierte Kurse -->
+                        <div class="section section-course" data-section="js-archived">
+                            {{#if total.archived}}
+                                {{> 'dashboard/components/card_section' section-id="archievedCourses" title="" content=archivedCourses link-text= ($t "global.button.open") additionalInfoName="memberCount"}}
+                            {{else}}
+                                <div class="empty-state">
+									{{> 'courses/components/svg_archived_courses'}}
+                                    <!--<img src="{{getAssetPath '/images/empty-states/archived_courses.svg'}}" class="image"/>-->
+
+                                    <h2 class="h4">{{$t "courses.headline.noArchivedCourses"}}</h2>
+                                    <p class="text-muted">
+                                      {{$t "courses.text.descriptionArchivedCourses"}}
+                                    </p>
+                                </div>
+                            {{/if}}
+                            {{#if archivedSubstitutions}}
+                                {{#userHasPermission "COURSE_EDIT"}}
+                                    <section>
+                                        <div class="section-title mb-2"><h2 class="h4">{{$t "courses.headline.mySubstitutes"}}</h2></div>
+                                        {{> 'dashboard/components/card_section' section-id="archivedSubstitutions" title="" content=../archivedSubstitutions link-text=($t "global.button.open") additionalInfoName="memberCount"}}
+                                    </section>
+                                {{/userHasPermission}}
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {{#embed "lib/components/modal" class="member-modal"}}
+                {{#content "body"}}
+                    <div class="modal-body">
+                        <div id="member-modal-body">
+                        </div>
+                        {{#userHasPermission "COURSE_EDIT"}}
+                            <div id='course-edit'></div>
+                        {{/userHasPermission}}
+                    </div>
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="import-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-import-course"}}
+                {{/content}}
+            {{/embed}}
+
+        </section>
+    {{/content}}
+{{/extend}}
