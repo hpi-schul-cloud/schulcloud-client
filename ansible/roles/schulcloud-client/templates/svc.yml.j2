@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-svc
+  namespace: {{ NAMESPACE }}
+  labels:
+    app: client
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ CLIENT_PORT }}
+      targetPort: 3100
+      protocol: TCP
+      name: client
+  selector:
+    app: client
