@@ -2,6 +2,7 @@
 
 # authenticate against docker
 echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
 # move client into subdirectory
 mkdir schulcloud-client
 mv ./* ./schulcloud-client
@@ -13,24 +14,24 @@ mv ./* ./schulcloud-client
 # Preconditions
 git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
 cd schulcloud-server
-if [[ $TRAVIS_PULL_REQUEST_BRANCH = hotfix* ]]
+if [[ $BRANCH_NAME = hotfix* ]]
 then
 echo "Originating branch hotfix detected. Force testing against Server master."
 git checkout master
 else
-git checkout "$TRAVIS_PULL_REQUEST_BRANCH" || git checkout "$TRAVIS_BRANCH"
+git checkout "$BRANCH_NAME" 
 fi
 echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
 cd ..
 
 git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
 cd docker-compose
-if [[ $TRAVIS_PULL_REQUEST_BRANCH = hotfix* ]]
+if [[ $BRANCH_NAME = hotfix* ]]
 then
 echo "Originating branch hotfix detected. Force testing against Server master."
 git checkout master
 else
-git checkout "$TRAVIS_PULL_REQUEST_BRANCH" || git checkout "$TRAVIS_BRANCH"
+git checkout "$BRANCH_NAME"
 fi
 echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
 cd ..
@@ -54,5 +55,3 @@ cd schulcloud-client
 npm ci
 npm run build
 npm run mocha
-
-
