@@ -30,6 +30,14 @@ jobs:
               if: github.event_name == 'pull_request'
               run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF})" >> $GITHUB_ENV
 
-            - name: setup environment and execute unit tests
-              run: |
-                  sh scripts/unitTest.sh
+            - name: setup environment and start required services
+              run: sh scripts/unitTest.sh
+
+            - name: install dependencies
+              run: npm ci
+
+            - name: build / gulp
+              run: npm run build
+
+            - name: run unit unit_tests
+              run: npm run mocha

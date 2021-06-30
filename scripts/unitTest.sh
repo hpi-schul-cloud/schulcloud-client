@@ -3,10 +3,6 @@
 # authenticate against docker
 echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-# move client into subdirectory
-mkdir schulcloud-client
-mv ./* ./schulcloud-client
-# mv !(schulcloud-client) schulcloud-client
 
 # Clone other required repositories and try to switch to branch with same name as current one
 # If current branch is hotfix, switch to branch master
@@ -47,11 +43,3 @@ npm install
 npm run setup
 npm run seed
 cd ..
-
-
-# Execute
-# client packages are needed for mocha
-cd schulcloud-client
-npm ci
-npm run build
-npm run mocha
