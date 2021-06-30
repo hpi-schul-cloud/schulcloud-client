@@ -18,6 +18,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList in login & registration
 - SC-9101 - sync & sort lang files
+- SC-9124 - Course copy/import/share options are disabled on all instances (except NBC)
 
 ## [26.4.1] - 2021-06-16
 
