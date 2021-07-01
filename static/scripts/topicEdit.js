@@ -563,6 +563,11 @@ class TopicResource extends React.Component {
                     value={(this.props.resource || {}).client}
                     name={`contents[${this.props.position}][content][resources][${this.props.index}][client]`}
                 />
+				<input
+					type="hidden"
+					value={(this.props.resource || {}).merlinReference}
+					name={`contents[${this.props.position}][content][resources][${this.props.index}][merlinReference]`}
+				/>
             </div>
 		);
 	}

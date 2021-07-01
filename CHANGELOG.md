@@ -9,6 +9,17 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Removed
+
+- SC-8440 - remove analogue consent button from admin classes page and fix v2
+- SC-8073 - removing functionality of adding student from previous years
+
+### Changed
+
+- SC-8448 - passes merlinReference ID to server for Merlin items
+- SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList in login & registration
+- SC-9101 - sync & sort lang files
+
 ## [26.5.1] - 2021-06-29
 
 ### Added
@@ -51,6 +62,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## 26.2.0
 
+### Changed
+
+- SC-7042 - fix permission, allowing teachers to send invitation to students
+- OPS-2418 - execute_E2E_tests
+- OPS-2445 - change Docker login to build
+- SC-8440 - fix manual consent for class
 - SC-8157 - personal files filter margin correction
 - OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
 - SC-8599 - changes to support contact page 2.0
@@ -58,6 +75,15 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8668 - fixed small typo in manage school page
 - SC-8170 - fixed footer line break
 - SC-6232 - fixed due date format and hint
+- SC-8730 - Fixed sharing text for sharing whole course
+- SC-9040 - Changing placeholder text in task
+- OPS-1499 - Add feature to CI Pipeline and provide manual deployments of branches
+- SC-8712 - Changing bad default text when assigning topics
+- SC-8342 - Fixed show password button
+
+### removed
+
+- SC-1464 - removed share button from team section
 
 ## [26.1.2] - 2021-05-18
 
@@ -254,7 +280,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- SC-7824 - Set proper email address and label for data privacy 
+- SC-7824 - Set proper email address and label for data privacy
 - SC-7542 - Add kreis to school edit.
 - SC-6825 - change collapsable icon fix
 - SC-6825 - change collapsable icon

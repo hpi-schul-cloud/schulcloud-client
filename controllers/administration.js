@@ -250,7 +250,7 @@ router.use(authHelper.authChecker);
 // client-side use
 router.post(
 	'/registrationlink/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE', 'STUDENT_EDIT'], 'or'),
 	generateRegistrationLink({}),
 	(req, res) => {
 		res.json(res.locals.linkData);
@@ -851,7 +851,7 @@ const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, r
 
 router.post(
 	'/registrationlinkMail/',
-	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE', 'STUDENT_EDIT'], 'or'),
 	generateRegistrationLink({}),
 	(req, res) => {
 		const email = req.body.email || req.body.toHash || '';
@@ -1861,6 +1861,19 @@ router.get(
 						schoolyears,
 						notes: [
 							{
+								title: res.$t(
+									'administration.controller.link.analogueConsent',
+								),
+								content:
+									// eslint-disable-next-line max-len
+									res.$t(
+										'administration.controller.text.analogueConsent',
+									)
+									+ res.$t(
+										'administration.controller.text.analogueConsentBullets',
+									),
+							},
+							{
 								title: res.$t('administration.controller.text.yourStudentsAreUnder', {
 									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 								}),
@@ -1949,9 +1962,10 @@ router.get(
 			fullname: `${student.firstName} ${student.lastName}`,
 			id: student._id,
 			email: student.email,
-			birthday: student.birthday,
+			birthday: timesHelper.dateStringToMoment(student.birthday),
 			password: passwords[i],
 		}));
+
 		res.render('administration/classes_skipregistration', {
 			title: res.$t('administration.controller.link.toGiveConsent'),
 			students: renderUsers,
@@ -2469,7 +2483,7 @@ router.all('/courses', (req, res, next) => {
 			(item.classIds || []).map((item) => {
 				const c = classes.find((obj) => obj._id === item.id);
 				// c might be undefined, c.displayName might throw
-				return c != null && typeof c === "object"
+				return c != null && typeof c === 'object'
 					? c.displayName
 					: undefined;
 			}).join(', '),
