@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.use(authHelper.authChecker);
 
-const VERSION = '/v3';
+const VERSION = '/api/v3';
 
 const getDeleteHandler = (service) => (req, res, next) => {
 	api(req)
