@@ -21,6 +21,8 @@ else
 git checkout "$BRANCH_NAME" 
 fi
 echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
+npm ci
+npm run build
 cd ..
 
 git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
@@ -39,15 +41,15 @@ cd ..
 cd docker-compose
 docker-compose -f docker-compose.end-to-end-tests-Build.yml build server-mongodb
 docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server-mongodb
+cd ..
 
+# inject seed data
 cd schulcloud-server
-npm install
-npm run build
 npm run setup
 npm run seed
 cd ..
 
-# start server
+# start server within of docker
 cd docker-compose
 docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
 docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
