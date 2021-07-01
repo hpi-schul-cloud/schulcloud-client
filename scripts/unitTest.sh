@@ -47,4 +47,9 @@ npm run setup
 npm run seed
 cd ..
 
+# Execute
+# client packages are needed for mocha
 cd schulcloud-client
+npm ci
+npm run build
+npm run mocha

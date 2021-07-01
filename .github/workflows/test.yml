@@ -32,12 +32,3 @@ jobs:
 
             - name: setup environment and start required services
               run: sh scripts/unitTest.sh
-
-            - name: install dependencies
-              run: npm ci
-
-            - name: build / gulp
-              run: npm run build
-
-            - name: run unit unit_tests
-              run: npm run mocha
