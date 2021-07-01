@@ -3,8 +3,9 @@
 # authenticate against docker
 echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-mkdir dc
-cd dc
+# move client into subdirectory
+mkdir schulcloud-client
+mv ./* ./schulcloud-client
 
 # Clone other required repositories and try to switch to branch with same name as current one
 # If current branch is hotfix, switch to branch master
@@ -46,4 +47,4 @@ npm run setup
 npm run seed
 cd ..
 
-cd ..
+cd schulcloud-client
