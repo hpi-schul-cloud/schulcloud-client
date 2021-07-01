@@ -201,20 +201,20 @@ router.get('/', (req, res, next) => {
 
 	// Somehow $lte doesn't work in normal query so I manually put it into a request
 	const newsPromise = api(req)
-		.get('/api/v3/news', {
+		.get('/v3/news', {
 			qs: {
 				limit: 3,
 			},
 		})
 		.then((news) => news.data.map((n) => {
-			n.url = `/news/${n.id}`;
-			n.secondaryTitle = timesHelper.fromNow(n.displayAt);
-			return n;
+				n.url = `/news/${n.id}`;
+				n.secondaryTitle = timesHelper.fromNow(n.displayAt);
+				return n;
 		}))
 		.catch((err) => {
 			/* eslint-disable-next-line max-len */
 			logger.error(
-				`Can not fetch data from /news/ in router.all("/") | message: ${err.message} | code: ${err.code}.`,
+				`Can not fetch data from /news/ in router.all("/") | message: ${err.message} | code: ${err.code}.`
 			);
 			return [];
 		});
