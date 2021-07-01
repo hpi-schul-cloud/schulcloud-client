@@ -58,7 +58,11 @@
                     {{#each sidebarItems}}
                         <li>
 								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
-                                <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
+                                {{#if this.isExternalIcon}}
+                                    {{{this.icon}}}
+                                {{else}}
+                                    <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
+                                {{/if}}
                                 <span class="link-name">{{this.name}}</span>
                             </a>
 
