@@ -35,16 +35,16 @@ fi
 echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
 cd ..
 
-# boot server
-cd docker-compose
-docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
-docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
-cd ..
-
 cd schulcloud-server
 npm install
 npm run setup
 npm run seed
+cd ..
+
+# boot server
+cd docker-compose
+docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
+docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
 cd ..
 
 # Execute
