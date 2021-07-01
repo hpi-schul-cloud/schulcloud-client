@@ -1,0 +1,4 @@
+---
+CLIENT_IMAGE_NAME: ghcr.io/hpi-schul-cloud/schulcloud-client
+CLIENT_PORT: 3100
+
