@@ -5,8 +5,7 @@ echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
 # move client into subdirectory
 mkdir schulcloud-client
-ls | grep -v schulcloud-client | xargs mv -t schulcloud-client
-
+mv ./* ./schulcloud-client # ignore warning...
 
 # Clone other required repositories and try to switch to branch with same name as current one
 # If current branch is hotfix, switch to branch master
@@ -50,7 +49,7 @@ npm run setup
 npm run seed
 cd ..
 
-# start server within of docker
+# start server within of
 cd docker-compose
 docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
 docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
