@@ -572,7 +572,7 @@ router.get('/:teamId', async (req, res, next) => {
 			.slice(0, 6);
 
 		const news = await api(req)
-			.get(`/v3/news/team/${req.params.teamId}`, {
+			.get(`/v3/team/${req.params.teamId}/news`, {
 				qs: {
 					limit: 3,
 				},
