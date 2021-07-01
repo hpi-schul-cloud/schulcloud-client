@@ -18,7 +18,7 @@
         {{#ifCond news.targetModel '===' 'class'}}
         {{$t "news.text.inTheClass" }}
         {{/ifCond}}
-        <a href="/{{news.targetModel}}/{{news.target._id}}">{{news.target.name}}</a>
+        <a href="/{{news.targetModel}}/{{news.target.id}}">{{news.target.name}}</a>
         {{/if}}
         {{#ifCond @root.currentUser.schoolId '===' news.schoolId}} {{$t "news.text.atYourSchool" }}{{else}}
         {{$t "news.text.atSchool" }} {{news.school.name}}
@@ -43,12 +43,12 @@
 {{#unless isRSS}}
 <div class="mt-1">
     {{#inArray 'NEWS_EDIT' ../news.permissions}}
-    <a class="btn btn-primary btn-edit" href="/news/{{../news._id}}/edit" alt="{{$t "global.button.edit" (dict "title" ../news.title)}}">
+    <a class="btn btn-primary btn-edit" href="/news/{{../news.id}}/edit" alt="{{$t "global.button.edit" (dict "title" ../news.title)}}">
         {{$t "global.button.edit"}}
     </a>
     {{/inArray}}
     {{#inArray 'NEWS_EDIT' ../news.permissions}}
-    <a class="btn btn-secondary btn-delete" href="/news/{{../news._id}}" target="_blank" data-method="DELETE"
+    <a class="btn btn-secondary btn-delete" href="/news/{{../news.id}}" target="_blank" data-method="DELETE"
         data-name="{{../news.title}}" alt="{{$t "news.button.deleteNewsAlt" (dict "name" ../news.title)}}" redirect="/news/">
         {{$t "global.headline.delete" }}
     </a>
