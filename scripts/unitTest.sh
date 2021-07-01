@@ -3,6 +3,8 @@
 # authenticate against docker
 echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
+mkdir dc
+cd dc
 
 # Clone other required repositories and try to switch to branch with same name as current one
 # If current branch is hotfix, switch to branch master
@@ -42,4 +44,6 @@ cd schulcloud-server
 npm install
 npm run setup
 npm run seed
+cd ..
+
 cd ..
