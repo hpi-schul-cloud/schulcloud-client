@@ -13,7 +13,7 @@ mv ./* ./schulcloud-client
 # Preconditions
 git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
 cd schulcloud-server
-if [[ "$BRANCH_NAME" =~ hotfix.* ]]
+if [[ "$BRANCH_NAME" =~ '^hotfix.*' ]]
 then
 echo "Originating branch hotfix detected. Force testing against Server master."
 git checkout master
@@ -25,7 +25,7 @@ cd ..
 
 git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
 cd docker-compose
-if [[ $BRANCH_NAME =~ hotfix.* ]]
+if [[ "$BRANCH_NAME" =~ '^hotfix.*' ]]
 then
 echo "Originating branch hotfix detected. Force testing against Server master."
 git checkout master
