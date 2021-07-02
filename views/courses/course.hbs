@@ -42,13 +42,17 @@
         <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
           <i class="fa fa-envelope" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.inviteToCourse"}}
         </a>
+        {{#ifEnv "FEATURE_COURSE_SHARE" "true"}}
         <a href="#" class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
           <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.shareCourse"}}
         </a>
+        {{/ifEnv}}
         {{/unless}}
+        {{#ifEnv "FEATURE_COURSE_COPY" "true"}}
         <a href="/courses/{{../_id}}/copy" class="dropdown-item">
           <i class="fa fa-clone" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.duplicateCourse"}}
         </a>
+        {{/ifEnv}}
       </div>
 </div>
 <div class="row description">

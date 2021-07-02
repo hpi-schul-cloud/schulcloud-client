@@ -1,4 +1,5 @@
 <div class="row">
+	{{#ifEnv "FEATURE_TOPIC_SHARE_IMPORT" "true"}}
 	{{#userHasPermission "COURSE_EDIT"}}{{#unless @root.isArchived}}
 	<div class="col-sm-12">
 		<a href="#" data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic"
@@ -8,6 +9,7 @@
 		</a>
 	</div>
 	{{/unless}}{{/userHasPermission}}
+	{{/ifEnv}}
 	{{#userHasPermission "COURSE_EDIT"}}
 	{{#ifCond (isCond ../lessons.length "==" 1) "&& !" @root.isArchived}}
 	<div class="col-sm-12">
@@ -17,7 +19,11 @@
 				{{{$t "courses._course.topic.text.clickOnEyeToggleVisibility"}}}
 			</div>
 			<div>
-				{{{$t "courses._course.topic.text.editSortDeleteShareTopicsHere"}}}
+				{{#ifEnv "FEATURE_TOPIC_SHARE_IMPORT" "true"}}
+					{{{$t "courses._course.topic.text.editSortDeleteShareTopicsHereN21"}}}
+				{{else}}
+					{{{$t "courses._course.topic.text.editSortDeleteShareTopicsHere"}}}
+				{{/ifEnv}}
 			</div>
 			<div>
 				{{$t "courses._course.topic.text.clickOnTopicForPreview"}}
@@ -68,12 +74,14 @@
 									<i class="fa fa-pencil"></i>
 								</a>
 								{{/unless}}
+								{{#ifEnv "FEATURE_TOPIC_SHARE_IMPORT" "true"}}
 								<a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
 									class="btn btn-secondary btn-sm btn-create-share btn-icon-card"
 									title="{{$t "courses._course.topic.text.shareTopic"}}"
 									role="button">
 									<i class="fa fa-share-alt"></i>
 								</a>
+								{{/ifEnv}}
 							</div>
 							{{/userHasPermission}}
 						</div>
@@ -111,12 +119,14 @@
 									<i class="fa fa-pencil"></i>
 								</a>
 								{{/unless}}
+								{{#ifEnv "FEATURE_TOPIC_SHARE_IMPORT" "true"}}
 								<a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
 									class="btn btn-secondary btn-sm btn-create-share btn-icon-card"
 									title="{{$t "courses._course.topic.text.shareTopic"}}"
 									role="button">
 									<i class="fa fa-share-alt"></i>
 								</a>
+								{{/ifEnv}}
 							</div>
 						</div>
 					</div>
