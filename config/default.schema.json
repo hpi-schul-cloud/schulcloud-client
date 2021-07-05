@@ -503,6 +503,26 @@
 			"type": "boolean",
 			"default": true,
 			"description": "To start the application with calendar service."
+		},
+		"FEATURE_COURSE_COPY": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables Copy course button"
+		},
+		"FEATURE_COURSE_SHARE": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables Share course button"
+		},
+		"FEATURE_COURSE_IMPORT": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables Course import"
+		},
+		"FEATURE_TOPIC_SHARE_IMPORT": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables Topic Share button"
 		}
 	},
 	"allOf": [
