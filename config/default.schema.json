@@ -506,22 +506,22 @@
 		},
 		"FEATURE_COURSE_COPY": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Enables Copy course button"
 		},
 		"FEATURE_COURSE_SHARE": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Enables Share course button"
 		},
 		"FEATURE_COURSE_IMPORT": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Enables Course import"
 		},
 		"FEATURE_TOPIC_SHARE_IMPORT": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Enables Topic Share button"
 		}
 	},
