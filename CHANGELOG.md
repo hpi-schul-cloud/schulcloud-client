@@ -20,6 +20,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-8448 - passes merlinReference ID to server for Merlin items
 - SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList in login & registration
 - SC-9101 - sync & sort lang files
+- SC-9124 - new feature flags for Course copy/import/share & Topic share buttons   
+
+## [26.5.1] - 2021-06-29
+
+### Added
+
+- SC-9143 - add teacher open task dashboard
+
+## [26.5.0] - 2021-06-28
+
+### Added
+
+- SC-9143 - change icons task dashboard
 
 ## [26.4.2] - 2021-06-24
 

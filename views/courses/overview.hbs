@@ -59,7 +59,9 @@
                                     <div class="row padding-top">
                                         <div class="col-sm-12">
                                             <div class="pull-right">
-                                            <button class="btn btn-secondary btn-import-course" data-testid="import-course-btn">{{$t "courses.button.importCourse"}}</button>
+                                            {{#ifConfig "FEATURE_COURSE_IMPORT" true}}
+                                                <button class="btn btn-secondary btn-import-course" data-testid="import-course-btn">{{$t "courses.button.importCourse"}}</button>
+                                            {{/ifConfig}}
                                             <a href="/courses/add" data-testid="create-course-btn" class="btn btn-primary btn-add">{{$t "courses.button.createCourse"}}</a>
                                         </div>
                                         </div>
