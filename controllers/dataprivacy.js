@@ -73,21 +73,7 @@ const getPrivacy = async (req, res, isAuthenticated) => {
 router.get('/', async (req, res, next) => {
 	try {
 		const isAuthenticated = await authHelper.isAuthenticated(req);
-		if (SC_THEME === 'n21') {
-			const template = isAuthenticated
-				? 'dataprivacy/privacy_logged_in'
-				: 'dataprivacy/privacy_guests';
-			if (isAuthenticated) {
-				await authHelper.populateCurrentUser(req, res);
-				await authHelper.restrictSidebar(req, res);
-			}
-			res.render(template, {
-				title: res.$t('global.text.dataProtection'),
-				inline: isAuthenticated,
-			});
-		} else {
-			await getPrivacy(req, res, isAuthenticated);
-		}
+		await getPrivacy(req, res, isAuthenticated);
 	} catch (err) {
 		next(err);
 	}
