@@ -8,17 +8,17 @@ mkdir schulcloud-client
 mv ./* ./schulcloud-client # ignore warning...
 
 # Clone other required repositories and try to switch to branch with same name as current one
-# If current branch is hotfix, switch to branch master
+# If current branch is hotfix, switch to branch main
 
 # Preconditions
 git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
 cd schulcloud-server
 if [[ "$BRANCH_NAME" =~ '^hotfix.*' ]]
 then
-echo "Originating branch hotfix detected. Force testing against Server master."
-git checkout master
+echo "Originating branch hotfix detected. Force testing against Server main."
+git checkout main
 else
-git checkout "$BRANCH_NAME" 
+git checkout "$BRANCH_NAME"
 fi
 echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
 npm ci
@@ -29,8 +29,8 @@ git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
 cd docker-compose
 if [[ "$BRANCH_NAME" =~ '^hotfix.*' ]]
 then
-echo "Originating branch hotfix detected. Force testing against Server master."
-git checkout master
+echo "Originating branch hotfix detected. Force testing against Server main."
+git checkout main
 else
 git checkout "$BRANCH_NAME"
 fi
