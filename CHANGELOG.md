@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Added
+
+- SC-9148 - add env var GLOBAL_ANNOUNCEMENT_ADMIN to show admin only a text
+
 ### Removed
 
 - SC-8440 - remove analogue consent button from admin classes page and fix v2

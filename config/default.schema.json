@@ -31,6 +31,10 @@
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage when not loggedin."
 		},
+		"GLOBAL_ANNOUNCEMENT_ADMIN": {
+			"type": "string",
+			"description": "global announcement, shown only to administrator"
+		},
 		"GLOBAL_ANNOUNCEMENT": {
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage"

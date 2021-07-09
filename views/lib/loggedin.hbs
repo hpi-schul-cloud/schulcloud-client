@@ -113,6 +113,16 @@
 					</section>
 				{{/ifeq}}
 
+                {{#hasConfig "GLOBAL_ANNOUNCEMENT_ADMIN"}}
+                    {{#if (userHasRole "administrator")}}
+                        <section class="demo">
+                            <div class="alert alert-info" role="alert">
+                                <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_ADMIN"}}}</div>
+                            </div>
+                        </section>
+                    {{/if}}
+                {{/hasConfig}}
+
                 {{> "lib/components/notification"}}
 				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.aria_label.topMenu"}}">
 
