@@ -14,14 +14,6 @@ const privacyUrl = () => {
 	return new URL(`${SC_THEME}/${privacyFile}`, DOCUMENT_BASE_DIR);
 };
 
-const downloadPolicyText = (res, fileData, fileTitle) => {
-	const download = Buffer.from(fileData, 'base64');
-	res.writeHead(200, {
-		'Content-Type': 'application/pdf',
-		'Content-Disposition': `attachment; filename="${fileTitle}.pdf"`,
-	}).end(download);
-};
-
 const downloadPolicyPdf = (res, fileData, fileTitle) => {
 	const download = Buffer.from(fileData, 'base64');
 	res.writeHead(200, {
@@ -43,37 +35,33 @@ const getBase64File = async (req, res, fileId, fileTitle) => {
 	}
 };
 
-
-const getPrivacy = async (req, res, isAuthenticated) => {
-	const qs = {
-		$limit: 1,
-		consentTypes: 'privacy',
-		$sort: {
-			publishedAt: -1,
-		},
-	};
-
-	if (isAuthenticated && res.locals.currentSchool) {
-		qs.schoolId = res.locals.currentSchool;
-	}
-
-	const consentVersions = await api(req).get('/consentVersions', { qs });
-
-	if (consentVersions.data.length) {
-		const fileId = consentVersions.data[0].consentDataId;
-		const fileTitle = consentVersions.data[0].title;
-		if (fileId) {
-			await getBase64File(req, res, fileId, fileTitle);
-		}
-	} else {
-		res.redirect(privacyUrl());
-	}
-};
-
 router.get('/', async (req, res, next) => {
 	try {
 		const isAuthenticated = await authHelper.isAuthenticated(req);
-		await getPrivacy(req, res, isAuthenticated);
+		const qs = {
+			$limit: 1,
+			consentTypes: 'privacy',
+			$sort: {
+				publishedAt: -1,
+			},
+		};
+
+		if (isAuthenticated && res.locals.currentSchool) {
+			qs.schoolId = res.locals.currentSchool;
+		}
+
+		const consentVersions = await api(req).get('/consentVersions', { qs });
+
+		if (consentVersions.data.length) {
+			const fileId = consentVersions.data[0].consentDataId;
+			if (!fileId) {
+				res.redirect(privacyUrl());
+			}
+			const fileTitle = consentVersions.data[0].title;
+			await getBase64File(req, res, fileId, fileTitle);
+		} else {
+			res.redirect(privacyUrl());
+		}
 	} catch (err) {
 		next(err);
 	}
