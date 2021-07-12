@@ -20,6 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList in login & registration
 - SC-9101 - sync & sort lang files
 - SC-9124 - new feature flags for Course copy/import/share & Topic share buttons   
+- SC-9124 - add feature flags for course copy/import/share to configmaps
 
 ## [26.5.1] - 2021-06-29
 
