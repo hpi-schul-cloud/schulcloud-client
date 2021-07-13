@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Added
+
+- OPS-2574 - Removeing autodeployed branches for developers if branch deleted
+
 ### Removed
 
 - SC-8440 - remove analogue consent button from admin classes page and fix v2
