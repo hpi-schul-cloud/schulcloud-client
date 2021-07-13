@@ -113,11 +113,11 @@
 					</section>
 				{{/ifeq}}
 
-                {{#hasConfig "GLOBAL_ANNOUNCEMENT_ADMIN"}}
-                    {{#if (userHasRole "administrator")}}
+                {{#hasConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER"}}
+                    {{#if (userHasRole "administrator" "teacher")}}
                         <section class="demo">
                             <div class="alert alert-info" role="alert">
-                                <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_ADMIN"}}}</div>
+                                <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER"}}}</div>
                             </div>
                         </section>
                     {{/if}}
