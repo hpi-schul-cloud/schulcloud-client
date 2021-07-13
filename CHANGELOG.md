@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 - SC-9148 - add env var GLOBAL_ANNOUNCEMENT_ADMIN to show admin only a text
+- OPS-2574 - Removeing autodeployed branches for developers if branch deleted
 
 ### Removed
 
