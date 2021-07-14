@@ -43,6 +43,9 @@ docker-compose -f docker-compose.end-to-end-tests-Build.yml build server-mongodb
 docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server-mongodb
 cd ..
 
+# start RabbitMq
+docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.8.9-management
+
 # inject seed data
 cd schulcloud-server
 npm run setup
