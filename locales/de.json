@@ -1539,7 +1539,7 @@
 				"welcomeToThe": "Herzlich willkommen in der {{shortTitle}} {{firstName}} {{lastName}}"
 			},
 			"text": {
-				"dueToAChangeInTheLowerSaxony": "Aufgrund einer Änderung des Niedersächsischen Schulgesetzes basiert die Verarbeitung personenbezogener Daten in der {{shortTitle}} nun grundsätzlich auf § 31 Abs. 5 NSchG in Verbindung mit Art. 6 Abs. 1 lit. c) DSGVO.",
+				"dueToAChangeInTheLowerSaxony": "aufgrund einer Änderung des Niedersächsischen Schulgesetzes basiert die Verarbeitung personenbezogener Daten in der {{shortTitle}} nun grundsätzlich auf § 31 Abs. 5 NSchG in Verbindung mit Art. 6 Abs. 1 lit. c) DSGVO.",
 				"pleaseBrieflyFileSomeData": "Bitte gleiche kurz ein paar Daten ab, lege ein neues Passwort fest und dann kann es auch schon losgehen.",
 				"thankYouForTakingNoteOf": "Vielen Dank für die Kenntnisnahme.",
 				"weArePleasedThatYou": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest.",
