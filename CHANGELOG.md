@@ -20,6 +20,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+- SC-7393 - adds legal text about consent on first login on n21
 - SC-8448 - passes merlinReference ID to server for Merlin items
 - SC-9018; SC-9003 - replaces usage of api /schools enpoint for schoolsList in login & registration
 - SC-9101 - sync & sort lang files
