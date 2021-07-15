@@ -37,6 +37,12 @@ fi
 echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
 cd ..
 
+# start rabbitmq 
+cd docker-compose
+docker-compose -f docker-compose.end-to-end-tests-Build.yml build rabbitmq 
+docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d rabbitmq
+cd ..
+
 # start mongodb
 cd docker-compose
 docker-compose -f docker-compose.end-to-end-tests-Build.yml build server-mongodb
