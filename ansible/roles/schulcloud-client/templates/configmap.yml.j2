@@ -102,6 +102,9 @@ data:
 {% if GLOBAL_ANNOUNCEMENT is defined and GLOBAL_ANNOUNCEMENT|length %}
   GLOBAL_ANNOUNCEMENT: "{{ GLOBAL_ANNOUNCEMENT|default("", true) }}"
 {% endif %}
+{% if GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER is defined and GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER|length %}
+  GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER: "{{ GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER|default("", true) }}"
+{% endif %}
   FEATURE_ALERTS_ENABLED: "true"
   ALERT_STATUS_URL: "{{ ALERT_STATUS_URL|default("https://status.hpi-schul-cloud.de", true) }}"
   ALERT_STATUS_API_URL: "{{ ALERT_STATUS_URL|default("https://status.hpi-schul-cloud.de", true) }}/api/v1"
