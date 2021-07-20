@@ -9,9 +9,13 @@
 						<a href="/impressum">{{$t "global.link.imprint"}}</a>
 						<span> - </span>
 					</li>
-					<li>
-						<a href="/termsofuse">{{$t "login.headline.privacyAndTermsOfUse"}}</a>
-					</li>
+                    <li>
+                        <a href="{{theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" aria-label="{{$t "login.headline.onlyTermsOfUse"}} {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "login.headline.onlyTermsOfUse"}}</a>
+                        <span> - </span>
+                    </li>
+                    <li>
+                       <a href="/datenschutz" target="_blank" aria-label="{{$t "global.text.dataProtection"}} {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "global.text.dataProtection"}}</a>
+                    </li>
 				</ul>
 			</nav>
 		</div>
