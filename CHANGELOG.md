@@ -9,10 +9,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.6.1] - 2021-07-21
+
+### Changed
+
+-   change default lernstore mode to edusharing
+
+## [26.6.0] - 2021-07-20
+
 ### Added
 
-- SC-9148 - add env var GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER
-- OPS-2574 - Removeing autodeployed branches for developers if branch deleted
+-   SC-9148 - add env var GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER
+-   OPS-2574 - Removeing autodeployed branches for developers if branch deleted
 
 ### Removed
 
@@ -31,7 +39,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   OPS-2579 - change path to the sotrage.
 -   SC-9167 - fixed Show/Hide password feature in account page
 -   SC-8887 - Data privacy in footer links to School, SHD uploaded Document, with fallback to S3 PDF
--   change default lernstore mode to edusharing
 
 ## [26.5.1] - 2021-06-29
 
