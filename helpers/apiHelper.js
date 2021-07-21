@@ -7,7 +7,7 @@ if (Configuration.has('REQUEST_TIMEOUT_MS') !== true) {
 
 const xApiKey = Configuration.get('API_KEY');
 const timeout = Configuration.get('REQUEST_TIMEOUT_MS');
-const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {}) => {
+const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true, version = 'v1' } = {}) => {
 	const headers = {};
 	if (req && req.cookies && req.cookies.jwt) {
 		headers.Authorization = (req.cookies.jwt.startsWith('Bearer ') ? '' : 'Bearer ') + req.cookies.jwt;
@@ -20,7 +20,7 @@ const api = (baseUrl, { keepAlive = false } = {}) => (req, { json = true } = {})
 		headers['Content-Type'] = 'application/json';
 	}
 	return rp.defaults({
-		baseUrl,
+		baseUrl: new URL(version, baseUrl).href,
 		timeout,
 		json,
 		headers,
