@@ -16,13 +16,20 @@
 				<div class="form-group">
 					<label for="name">{{$t "login.input.emailUsername"}}</label>
 					<input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
+						
+						
 						<label for="password">{{$t "global.input.password"}}</label>
+
 					<div class="input-group mt-1 show_hide_password" style="margin-top: 0rem !important">
-						<input type="password" id="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "global.input.password"}}" data-testid="password" required>
+						<input type="password" id="pwd" autocomplete="current-password" name="password" maxlength="72" 
+						class="form-control form-control-lg"  
+						placeholder="{{$t "global.input.password"}}" data-testid="password" required>
 						<div class="input-group-addon">
 							<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><span class="fa fa-eye-slash" aria-hidden="true"></span></button>
 						</div>
 					</div>
+
+
 					{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
 					<div class="form-check" style="margin-top: 10px;">
 						<input type="checkbox" id="privateDevice" name="privateDevice" value="true">
