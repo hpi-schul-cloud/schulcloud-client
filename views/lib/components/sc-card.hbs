@@ -15,9 +15,10 @@
                     <span style="white-space: normal;" class="title" data-testid="title_of_an_element">{{{
                         stripOnlyScript this.title }}}</span>
                 </div>
-                {{#if this.target.name}}
-                <div class="tag tag-default">{{this.target.name}}</div>
-                {{/if}}
+                {{#ifCond @root.currentUser.schoolId '===' this.target.id}}
+                {{else}}
+                <div class="tag tag-default">{{../this.target.name}}</div>
+                {{/ifCond}}
                 {{#if this.sourceDescription}}
                 <div class="tag tag-default">{{this.sourceDescription}}</div>
                 {{/if}}
