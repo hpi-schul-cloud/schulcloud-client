@@ -11,17 +11,19 @@
         {{#if news.target.name}}
         {{#ifCond news.targetModel '===' 'teams'}}
         {{$t "news.text.inTheTeam" }}
+        <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'courses'}}
         {{$t "news.text.inTheCourse" }}
+         <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'class'}}
         {{$t "news.text.inTheClass" }}
+ <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
-        <a href="/{{news.targetModel}}/{{news.target.id}}">{{news.target.name}}</a>
         {{/if}}
-        {{#ifCond @root.currentUser.schoolId '===' news.schoolId}} {{$t "news.text.atYourSchool" }}{{else}}
-        {{$t "news.text.atSchool" }} {{news.school.name}}
+        {{#ifCond @root.currentUser.schoolId '===' news.school.id}} {{$t "news.text.atYourSchool" }}{{else}}
+        {{$t "news.text.atSchool" }} {{../news.school.name}}
         {{/ifCond}}
     </small>
     {{/unless}}
