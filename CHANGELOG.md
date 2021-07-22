@@ -29,7 +29,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   SC-9124 - new feature flags for Course copy/import/share & Topic share buttons
 -   SC-9124 - add feature flags for course copy/import/share to configmaps
 -   OPS-2579 - change path to the sotrage.
--   SC-9167 - fixed Show/Hide password feature in account page
+-   SC-9167 - fixed Show/Hide password feature in account/login pages
 -   SC-8887 - Data privacy in footer links to School, SHD uploaded Document, with fallback to S3 PDF
 -   change default lernstore mode to edusharing
 
