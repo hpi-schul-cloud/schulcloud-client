@@ -9,6 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.6.2] - 2021-07-23
+
+### Changed
+
+-   SC-9190 - publish news target names
+
 ## [26.6.1] - 2021-07-21
 
 ### Changed
