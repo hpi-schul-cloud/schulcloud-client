@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+-   SC-9216 - fixed Show/Hide password feature in login page
+
 ## [26.6.2] - 2021-07-23
 
 ### Changed
