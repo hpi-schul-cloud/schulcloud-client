@@ -337,7 +337,7 @@
 		"LERNSTORE_MODE": {
 			"type": "string",
 			"enum": ["DISABLED", "LEGACY", "EDUSHARING"],
-			"default": "DISABLED",
+			"default": "EDUSHARING",
 			"description": "Defines the lernstore mode. Can be legacy, edusharing and disabled"
 		},
 		"HELPAREA_URL": {
