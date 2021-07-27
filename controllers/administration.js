@@ -430,7 +430,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 		};
 		const query = queryString.stringify({
 			'toast-type': 'success',
-			'toast-message': encodeURIComponent(message),
+			'toast-message': message,
 		});
 		redirectHelper.safeBackRedirect(req, res, `/?${query}`);
 		return;
