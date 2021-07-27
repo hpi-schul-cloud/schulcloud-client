@@ -200,8 +200,8 @@ router.get('/', (req, res, next) => {
 		});
 
 	// Somehow $lte doesn't work in normal query so I manually put it into a request
-	const newsPromise = api(req)
-		.get('/v3/news', {
+	const newsPromise = api(req, { version: 'v3' })
+		.get('/news', {
 			qs: {
 				limit: 3,
 			},
