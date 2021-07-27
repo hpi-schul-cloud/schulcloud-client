@@ -444,7 +444,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			};
 			query = queryString.stringify({
 				'toast-type': 'info',
-				'toast-message': encodeURIComponent(message),
+				'toast-message': message,
 			});
 		} else {
 			const message = res.$t('administration.controller.text.importFailed');
@@ -454,7 +454,7 @@ const getCSVImportHandler = () => async function handler(req, res, next) {
 			};
 			query = queryString.stringify({
 				'toast-type': 'error',
-				'toast-message': encodeURIComponent(message),
+				'toast-message': message,
 			});
 		}
 
