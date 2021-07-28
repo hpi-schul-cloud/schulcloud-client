@@ -13,6 +13,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   SC-9221 - changed contact data in imprint
 -   SC-9216 - fixed Show/Hide password feature in login page
+-   SC-9225 - remove legacy impressum and refer to the Nuxt impressum
 
 ### Fixed
 
