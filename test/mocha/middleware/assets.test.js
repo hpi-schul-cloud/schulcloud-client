@@ -27,7 +27,7 @@ describe('Static assets middleware', () => {
 	const ROBOTS_TXT_PATH_WITH_HASH = '/robots.3e9f0e3.txt';
 	const ROBOTS_TXT_PATH = '/robots.txt';
 
-	const INTEGRATION_PAGE_PATH = '/impressum';
+	const INTEGRATION_PAGE_PATH = '/dashboard';
 	const INTEGRATION_FILENAME = '/images/logo/lokalise_logo.svg';
 	const INTEGRATION_HASHED_FILENAME = '/images/logo/lokalise_logo.76a4d05.svg';
 
