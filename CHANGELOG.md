@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.7.0] - 2021-07-28
+
 ### Changed
 
 -   SC-9221 - changed contact data in imprint
