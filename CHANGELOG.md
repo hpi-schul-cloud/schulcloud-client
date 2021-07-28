@@ -14,6 +14,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   SC-9221 - changed contact data in imprint
 -   SC-9216 - fixed Show/Hide password feature in login page
 
+### Fixed
+
+-   SC-9212 - fix CSV import/error message formatting
+
 ## [26.6.2] - 2021-07-23
 
 ### Changed
