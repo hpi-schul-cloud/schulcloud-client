@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				const lessonPicker = $('#lessonPicker').empty();
 				if (r.lessons.data.length > 0) {
 					(r.lessons.data || []).sort((a, b) => ((a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1));
-					lessonPicker.append(`<option value="">${$t('homework.global.text.noTopicsInTheCourse')}</option>`);
+					lessonPicker.append(`<option value="">${$t('homework.global.text.noTopicsSelected')}</option>`);
 					for (let i = 0; i < r.lessons.data.length; i += 1) {
 						$('#lessonPicker')
 							.append(`<option value="${r.lessons.data[i]._id}">${r.lessons.data[i].name}</option>`);
@@ -61,13 +61,13 @@ window.addEventListener('DOMContentLoaded', () => {
 					$('#lessonPicker').prop('disabled', false);
 					$('#lessonPicker').trigger('chosen:updated');
 				} else {
-					lessonPicker.append(`<option value="">${$t('homework.global.text.noTopicsInTheCourse')}</option>`);
+					lessonPicker.append(`<option value="">${$t('homework.global.text.noTopicsSelected')}</option>`);
 				}
 				$('#lessonPicker').trigger('chosen:updated');
 			});
 		} else {
 			$('#lessonPicker').empty()
-				.append(`<option value="">${$t('homework.global.text.noTopicsInTheCourse')}</option>`)
+				.append(`<option value="">${$t('homework.global.text.noTopicsSelected')}</option>`)
 				.prop('disabled', true);
 			$('#lessonPicker').trigger('chosen:updated');
 		}
