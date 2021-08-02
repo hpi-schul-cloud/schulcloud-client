@@ -143,7 +143,13 @@
   {{/content}}
   {{/embed}}
 
-  {{#embed "lib/components/modal-form" class="share-modal"}}
+  {{#embed "lib/components/modal-form" class="share-course-modal"}}
+  {{#content "fields"}}
+  {{> "courses/forms/form-share"}}
+  {{/content}}
+  {{/embed}}
+
+  {{#embed "lib/components/modal-form" class="share-topic-modal"}}
   {{#content "fields"}}
   {{> "topic/forms/form-share"}}
   {{/content}}

@@ -581,7 +581,7 @@ $(document).ready(() => {
 		e.stopPropagation();
 		e.preventDefault();
 		const fileId = $(this).attr('data-file-id');
-		const $shareModal = $('.share-modal');
+		const $shareModal = $('.share-file-modal');
 		fileShare(fileId, $shareModal);
 	});
 	$('.btn-file-share').on('keypress', (e) => {

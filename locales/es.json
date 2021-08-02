@@ -911,6 +911,11 @@
 					"toEditChangeDate": "Para editar los datos del curso, primero debes establecer la fecha de finalización."
 				}
 			},
+			"form_share": {
+				"label": {
+					"distributeTheFollowingCode": "Comparte el siguiente código con un compañero\/profesor para añadir el tema a un curso. Esta función se encuentra en la página del curso."
+				}
+			},
 			"groups": {
 				"_group": {
 					"edit": {
@@ -1018,7 +1023,6 @@
 				"eventCouldNotBeSavedContactSupport": "Es posible que el horario del curso no se haya guardado correctamente. Si vuelves a ver este mensaje, ponte en contacto con el servicio de asistencia.",
 				"nextClass": "Siguiente lección:",
 				"QRCodeAlternative": "Como alternativa, puedes mostrarles a tus compañeros-profesores el siguiente código QR.",
-				"shareCodeExplanation": "Distribuye el siguiente código a los profesores-compañeros para compartir el curso con ellos. La función se encuentra en la página de descripción general de los cursos.",
 				"youAreAlreadyMember": "Ya eres participante en el curso {{coursename}}.",
 				"youHaveBeenAdded": "Se te ha añadido correctamente al curso {{coursename}}"
 			},

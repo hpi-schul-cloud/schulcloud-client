@@ -8,7 +8,7 @@ $(document).ready(function () {
         e.preventDefault();
         let topicId = $(this).attr("data-href");
         let courseId = $(this).attr("data-courseId");
-        let $shareModal = $('.share-modal');
+        let $shareModal = $('.share-topic-modal');
         $.ajax({
             type: "POST",
             url: `/courses/${courseId}/topics/${topicId}/share/`,

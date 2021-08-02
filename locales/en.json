@@ -911,6 +911,11 @@
 					"toEditChangeDate": "In order to edit course data, you must first adjust the end date."
 				}
 			},
+			"form_share": {
+				"label": {
+					"distributeTheFollowingCode": "Share the following code with a teacher colleague to add the topic to a course. This function is located on the course page."
+				}
+			},
 			"groups": {
 				"_group": {
 					"edit": {
@@ -1018,7 +1023,6 @@
 				"eventCouldNotBeSavedContactSupport": "The course times may not have been saved correctly. If you see this message again, please contact support.",
 				"nextClass": "Next lesson: ",
 				"QRCodeAlternative": "Alternatively, you can show your teacher colleagues the following QR code.",
-				"shareCodeExplanation": "Distribute the following code to teacher-colleagues to share the course with them. The function is located on the overview page for courses.",
 				"youAreAlreadyMember": "You are already a participant in the course {{coursename}} .",
 				"youHaveBeenAdded": "You have been successfully added to the course {{coursename}}"
 			},

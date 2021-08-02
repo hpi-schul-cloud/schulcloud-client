@@ -122,7 +122,7 @@ $(document).ready(() => {
 		e.stopPropagation();
 		e.preventDefault();
 		const courseId = $(this).attr('data-courseId');
-		const $shareModal = $('.share-modal');
+		const $shareModal = $('.share-course-modal');
 		$.ajax({
 			type: 'GET',
 			url: `/courses/${courseId}/share/`,
@@ -139,8 +139,6 @@ $(document).ready(() => {
 
 				$shareModal.appendTo('body').modal('show');
 
-				// eslint-disable-next-line max-len
-				$('label[for="shareToken"]').text($t('courses._course.text.shareCodeExplanation'));
 				// eslint-disable-next-line no-undef
 				const image = kjua({
 					text: `${$('meta[name=baseUrl]').attr('content')}/courses?import=${data.shareToken}`,
