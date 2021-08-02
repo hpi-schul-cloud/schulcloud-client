@@ -911,11 +911,6 @@
 					"toEditChangeDate": "Para editar los datos del curso, primero debes establecer la fecha de finalización."
 				}
 			},
-			"form_share": {
-				"label": {
-					"distributeTheFollowingCode": "Comparte el siguiente código con un compañero\/profesor para añadir el tema a un curso. Esta función se encuentra en la página del curso."
-				}
-			},
 			"groups": {
 				"_group": {
 					"edit": {
@@ -1168,6 +1163,11 @@
 			"editCourse": "Editar curso",
 			"importCourse": "Importar un curso",
 			"nextStep": "Siguiente paso"
+		},
+		"form_share": {
+			"label": {
+				"distributeTheFollowingCode": "Distribuya el siguiente código a otros colegas para que puedan importar el curso como una copia. Los envíos de estudiantes antiguos se eliminan automáticamente para el curso recién copiado."
+			}
 		},
 		"global": {
 			"button": {
@@ -3128,7 +3128,7 @@
 		},
 		"form_share": {
 			"label": {
-				"distributeTheFollowingCode": "Distribuya el siguiente código a otros colegas para que puedan importar el curso como una copia. Los envíos de estudiantes antiguos se eliminan automáticamente para el curso recién copiado."
+				"distributeTheFollowingCode": "Comparte el siguiente código con un compañero\/profesor para añadir el tema a un curso. Esta función se encuentra en la página del curso."
 			}
 		},
 		"topicEdit": {
