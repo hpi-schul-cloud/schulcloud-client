@@ -10,6 +10,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ## Unreleased
 
 -   SC-9074 - wording change on edit topic page
+-   SC-6071 - wording change on courses page
 
 ## [26.7.0] - 2021-07-28
 
