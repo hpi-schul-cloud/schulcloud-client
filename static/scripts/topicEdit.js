@@ -802,8 +802,8 @@ class TopicInternal extends TopicBlock {
 	render() {
 		return (
             <div>
-                <label for={`internLinkInput${this.props.position}`}>
-					{$t('topic.topicEdit.label.internLink')}
+                <label for={`internalLinkInput${this.props.position}`}>
+					{$t('topic.topicEdit.label.internalLink')}
 				</label><br/>
                 <div className="input-group">
                     <span className="input-group-btn">
@@ -817,7 +817,7 @@ class TopicInternal extends TopicBlock {
 						</span>
                     </span>
                     <input
-						id={`internLinkInput${this.props.position}`}
+						id={`internalLinkInput${this.props.position}`}
                         className="form-control"
                         name={`contents[${this.props.position}][content][url]`}
                         pattern={this.state.pattern}

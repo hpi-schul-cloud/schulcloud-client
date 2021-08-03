@@ -3153,7 +3153,7 @@
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
 				"descriptionNeXboard": "Description of the neXboard",
-				"internLink": "Intern Link",
+				"internalLink": "URL of homework",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
 				"nameOfNeXboard": "Name of the neXboard",
