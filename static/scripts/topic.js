@@ -2,27 +2,29 @@ import { resizeIframes } from './helpers/iFrameResize';
 
 resizeIframes();
 
-$(document).on('load', function topicHandler() {
-	$('.btn-create-share').on('click', function click(e) {
+$(document).ready(function () {
+	$('.btn-create-share').click(function (e) {
 		e.stopPropagation();
 		e.preventDefault();
-		const topicId = $(this).attr('data-href');
-		const courseId = $(this).attr('data-courseId');
+		let topicId = $(this).attr("data-href");
+		let courseId = $(this).attr("data-courseId");
 		const $shareModal = $('.share-topic-modal');
 		$.ajax({
-			type: 'POST',
+			type: "POST",
 			url: `/courses/${courseId}/topics/${topicId}/share/`,
-			success: function success(data) {
+			success: function(data) {
 				populateModalForm($shareModal, {
 					title: $t('courses._course.headline.shareCodeGenerated'),
 					closeLabel: $t('global.button.close'),
-					fields: { shareToken: data.shareToken },
+					fields: {shareToken: data.shareToken}
 				});
 				$shareModal.find('.btn-submit').remove();
-				$shareModal.find("input[name='shareToken']").on('click', function click() {
+				$shareModal.find("input[name='shareToken']").click(function () {
 					$(this).select();
 				});
+
 				$shareModal.appendTo('body').modal('show');
+
 			}
 		});
 	});
