@@ -1189,7 +1189,7 @@
 		"headline": {
 			"courseAttendees": "Participantes del curso:",
 			"createDuplicateImport": "Crear, duplicar o importar un curso",
-			"expiredCoursesInArchive": "Los cursos que ya han finalizado se pueden encontrar <a href=\"?activeTab=archived\"> en el archivo",
+			"expiredCoursesInArchive": "Los cursos que ya han finalizado se pueden encontrar en el <a href=\"/courses/?activeTab=archived\">archivo",
 			"importCourse": "Importar curso",
 			"makeTeachingDigital": "Enseñanza digital con {{themetitle}}",
 			"myCourses": "Mis cursos",
