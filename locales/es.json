@@ -1018,7 +1018,6 @@
 				"eventCouldNotBeSavedContactSupport": "Es posible que el horario del curso no se haya guardado correctamente. Si vuelves a ver este mensaje, ponte en contacto con el servicio de asistencia.",
 				"nextClass": "Siguiente lección:",
 				"QRCodeAlternative": "Como alternativa, puedes mostrarles a tus compañeros-profesores el siguiente código QR.",
-				"shareCodeExplanation": "Distribuye el siguiente código a los profesores-compañeros para compartir el curso con ellos. La función se encuentra en la página de descripción general de los cursos.",
 				"youAreAlreadyMember": "Ya eres participante en el curso {{coursename}}.",
 				"youHaveBeenAdded": "Se te ha añadido correctamente al curso {{coursename}}"
 			},
@@ -1164,6 +1163,11 @@
 			"editCourse": "Editar curso",
 			"importCourse": "Importar un curso",
 			"nextStep": "Siguiente paso"
+		},
+		"form_share": {
+			"label": {
+				"distributeTheFollowingCode": "Distribuya el siguiente código a otros colegas para que puedan importar el curso como una copia. Los envíos de estudiantes antiguos se eliminan automáticamente para el curso recién copiado."
+			}
 		},
 		"global": {
 			"button": {
@@ -3124,7 +3128,7 @@
 		},
 		"form_share": {
 			"label": {
-				"distributeTheFollowingCode": "Distribuya el siguiente código a otros colegas para que puedan importar el curso como una copia. Los envíos de estudiantes antiguos se eliminan automáticamente para el curso recién copiado."
+				"distributeTheFollowingCode": "Comparte el siguiente código con un compañero\/profesor para añadir el tema a un curso. Esta función se encuentra en la página del curso."
 			}
 		},
 		"topicEdit": {
