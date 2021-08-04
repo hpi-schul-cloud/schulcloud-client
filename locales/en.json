@@ -1018,7 +1018,6 @@
 				"eventCouldNotBeSavedContactSupport": "The course times may not have been saved correctly. If you see this message again, please contact support.",
 				"nextClass": "Next lesson: ",
 				"QRCodeAlternative": "Alternatively, you can show your teacher colleagues the following QR code.",
-				"shareCodeExplanation": "Distribute the following code to teacher-colleagues to share the course with them. The function is located on the overview page for courses.",
 				"youAreAlreadyMember": "You are already a participant in the course {{coursename}} .",
 				"youHaveBeenAdded": "You have been successfully added to the course {{coursename}}"
 			},
@@ -1165,6 +1164,11 @@
 			"importCourse": "Import a course",
 			"nextStep": "Next step"
 		},
+		"form_share": {
+			"label": {
+				"distributeTheFollowingCode": "Distribute the following code to other colleagues so that they can import the course as a copy. Old student submissions are automatically removed for the newly copied course."
+			}
+		},
 		"global": {
 			"button": {
 				"deleteCourse": "Delete course"
@@ -1189,7 +1193,7 @@
 		"headline": {
 			"courseAttendees": "Participants of the course:",
 			"createDuplicateImport": "Create, duplicate or import a course",
-			"expiredCoursesInArchive": "Courses whose end date has been reached can be found <a href=\"?activeTab=archived\"> in the archive",
+			"expiredCoursesInArchive": "Courses whose end date has been reached can be found in the <a href=\"/courses/?activeTab=archived\">archive",
 			"importCourse": "Import course",
 			"makeTeachingDigital": "Making teaching digital with {{themetitle}}",
 			"myCourses": "My courses",
@@ -3124,7 +3128,7 @@
 		},
 		"form_share": {
 			"label": {
-				"distributeTheFollowingCode": "Distribute the following code to other colleagues so that they can import the course as a copy. Old student submissions are automatically removed for the newly copied course."
+				"distributeTheFollowingCode": "Share the following code with a teacher colleague to add the topic to a course. This function is located on the course page."
 			}
 		},
 		"topicEdit": {

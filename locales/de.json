@@ -1018,7 +1018,6 @@
 				"eventCouldNotBeSavedContactSupport": "Die Kurszeiten konnten eventuell nicht richtig gespeichert werden. Wenn du diese Meldung erneut siehst, kontaktiere bitte den User-Support.",
 				"nextClass": "Nächste Unterrichtsstunde:",
 				"QRCodeAlternative": "Alternativ kannst du deinen Kolleg:innen auch folgenden QR-Code zeigen.",
-				"shareCodeExplanation": "Verteile folgenden Code an andere Lehrkräfte, um den Kurs mit ihnen zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.",
 				"youAreAlreadyMember": "Du bist bereits Teilnehmer:in des Kurses {{coursename}}.",
 				"youHaveBeenAdded": "Du wurdest erfolgreich zum Kurs {{coursename}} hinzugefügt"
 			},
@@ -1165,6 +1164,11 @@
 			"importCourse": "Importiere einen Kurs",
 			"nextStep": "Nächster Schritt"
 		},
+		"form_share": {
+			"label": {
+				"distributeTheFollowingCode": "Verteile folgenden Code an andere Kolleg:innen, damit sie sich den Kurs als Kopie importieren können. Alte Abgaben von Schüler:innen werden für den neu kopierten Kurs automatisch entfernt."
+			}
+		},
 		"global": {
 			"button": {
 				"deleteCourse": "Kurs löschen"
@@ -1189,7 +1193,7 @@
 		"headline": {
 			"courseAttendees": "Teilnehmer:innen des Kurses:",
 			"createDuplicateImport": "Erstelle, dupliziere oder importiere einen Kurs",
-			"expiredCoursesInArchive": "Kurse, deren Enddatum erreicht ist, findest du <a href=\"?activeTab=archived\">im Archiv",
+			"expiredCoursesInArchive": "Kurse, deren Enddatum erreicht ist, findest du im <a href=\"/courses/?activeTab=archived\">Archiv",
 			"importCourse": "Kurs importieren",
 			"makeTeachingDigital": "Mit der {{themetitle}} Unterricht digital gestalten",
 			"myCourses": "Meine Kurse",
@@ -3124,7 +3128,7 @@
 		},
 		"form_share": {
 			"label": {
-				"distributeTheFollowingCode": "Verteile folgenden Code an andere Kolleg:innen, damit sie sich den Kurs als Kopie importieren können. Alte Abgaben von Schüler:innen werden für den neu kopierten Kurs automatisch entfernt."
+				"distributeTheFollowingCode": "Verteile folgenden Code an andere Kolleg:innen, um das Thema zu einem Kurs hinzuzufügen. Diese Funktion befindet sich auf der Kursseite."
 			}
 		},
 		"topicEdit": {
