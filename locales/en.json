@@ -1189,7 +1189,7 @@
 		"headline": {
 			"courseAttendees": "Participants of the course:",
 			"createDuplicateImport": "Create, duplicate or import a course",
-			"expiredCoursesInArchive": "Courses whose end date has been reached can be found <a href=\"?activeTab=archived\"> in the archive",
+			"expiredCoursesInArchive": "Courses whose end date has been reached can be found in the <a href=\"/courses/?activeTab=archived\">archive",
 			"importCourse": "Import course",
 			"makeTeachingDigital": "Making teaching digital with {{themetitle}}",
 			"myCourses": "My courses",
