@@ -13,7 +13,7 @@ function fetchBlogs() {
 	})
 		.done((blogFeed) => {
 			const template = $('#blog-entries').html();
-			const blogsRender = Handlebars.compile(template);
+			const blogsRender = handlebars.compile(template);
 			document.getElementsByClassName('blog-cards')[0]
 				.innerHTML = blogsRender({ ...blogFeed });
 		});
@@ -30,9 +30,9 @@ function callBlogFetching() {
 }
 
 $(document).ready(() => {
-	Handlebars.registerPartial('blog-card', $('#blog-card').html());
-	Handlebars.registerHelper('stripHTMLTags', (htmlText) => stripHtml(htmlText));
-	Handlebars.registerHelper('truncatePure', (text, length) => {
+	handlebars.registerPartial('blog-card', $('#blog-card').html());
+	handlebars.registerHelper('stripHTMLTags', (htmlText) => stripHtml(htmlText));
+	handlebars.registerHelper('truncatePure', (text, length) => {
 		if (text.length <= length) {
 			return text;
 		}
