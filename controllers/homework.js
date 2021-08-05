@@ -5,7 +5,7 @@
 
 const express = require('express');
 const marked = require('marked');
-const handlebars = require('handlebars');
+const handlebars = require('handlebars/dist/handlebars.min');
 const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');

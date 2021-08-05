@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const RebuildChangedPlugin = require('rebuild-changed-entrypoints-webpack-plugin');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const { styles } = require('@ckeditor/ckeditor5-dev-utils');
 
@@ -16,16 +15,8 @@ const plugins = [
 	}),
 ];
 
-const devPlugins = [
-	// Rebuild onlyl changed files
-	new RebuildChangedPlugin({
-		cacheDirectory: __dirname,
-	}),
-];
-
 if (process.env.NODE_ENV !== 'production') {
 	minimize = false;
-	plugins.push(...devPlugins);
 }
 
 module.exports = {
@@ -37,7 +28,7 @@ module.exports = {
 				test: /\.(js|jsx)$/,
 				exclude: /(node_modules)/,
 				loader: 'babel-loader',
-				query: {
+				options: {
 					presets: [['@babel/preset-env']],
 					plugins: [
 						'@babel/plugin-transform-react-jsx',
@@ -72,8 +63,6 @@ module.exports = {
 					},
 				],
 			},
-			// moment needs to be globally exposed in order to work with fullcalendar
-			{ test: require.resolve('moment'), loader: 'expose-loader?moment' },
 		],
 	},
 	optimization: {
@@ -83,7 +72,6 @@ module.exports = {
 				// Bundle react & react-dom into separate vendor-react bundle
 				react: {
 					test: /[\\/]node_modules[\\/](react-dom|react)[\\/]/,
-					name: 'vendor-react',
 					chunks: 'all',
 				},
 			},

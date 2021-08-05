@@ -1,5 +1,5 @@
 const stripHtml = require('string-strip-html');
-const Handlebars = require('handlebars');
+const handlebars = require('handlebars/dist/handlebars.min');
 
 function fetchBlogs() {
 	$('.blog-cards .spinner').show();
