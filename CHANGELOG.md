@@ -9,9 +9,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.7.1] - 2021-08-05
+
 -   SC-9209 - fixed sharing course/topic text
 -   SC-9074 - wording change on edit topic page
 -   SC-6071 - wording change on courses page
+-   SC-9236 - remove HPI footer logo from federal states instances
 
 ## [26.7.0] - 2021-07-28
 
