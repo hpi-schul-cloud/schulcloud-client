@@ -14,6 +14,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [26.7.1] - 2021-08-05
 
+## [26.8.0] - 2021-08-05
+
 -   SC-9209 - fixed sharing course/topic text
 -   SC-9074 - wording change on edit topic page
 -   SC-6071 - wording change on courses page
