@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.8.1] - 2021-08-11
+
+- revert dependencies update (client crushed after production deployment)
+
 ## [26.8.0] - 2021-08-05
 
 -   SC-9209 - fixed sharing course/topic text
