@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+- SC-9191 run e2e tests in pull requests with 'run tests' label
+
 ## [26.8.1] - 2021-08-11
 
 - revert dependencies update (client crushed after production deployment)
