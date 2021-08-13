@@ -9,6 +9,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+## [26.9.0] - 2021-08-13
+
 ### Changed
 
 -   SC-8165 - showing a loading spinner during request for toggeling visibility of a topic
