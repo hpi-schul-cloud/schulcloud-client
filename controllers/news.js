@@ -13,11 +13,11 @@ const router = express.Router();
 
 router.use(authHelper.authChecker);
 
-const VERSION = '/v3';
+const VERSION = 'v3';
 
 const getDeleteHandler = (service) => (req, res, next) => {
-	api(req)
-		.delete(`${VERSION}/${service}/${req.params.id}`)
+	api(req, { version: VERSION })
+		.delete(`/${service}/${req.params.id}`)
 		.then(() => {
 			res.sendStatus(200);
 		})
@@ -33,8 +33,8 @@ router.patch('/:newsId', (req, res, next) => {
 	req.body.updatedAt = timesHelper.currentDate().toISOString();
 	req.body.updaterId = res.locals.currentUser._id;
 
-	api(req)
-		.patch(`${VERSION}/news/${req.params.newsId}`, {
+	api(req, { version: VERSION })
+		.patch(`/news/${req.params.newsId}`, {
 			json: req.body,
 		})
 		.then(() => {
@@ -74,13 +74,13 @@ router.all('/', async (req, res, next) => {
 	};
 
 	try {
-		const news = await api(req).get(`${VERSION}/news/`, {
+		const news = await api(req, { version: VERSION }).get('/news/', {
 			qs: queryObject,
 		});
 		const totalNews = news.total;
 		const mappedNews = news.data.map((newsItem) => decorateNews(newsItem));
 
-		const unpublishedNews = await api(req).get(`${VERSION}/news/`, {
+		const unpublishedNews = await api(req, { version: VERSION }).get('/news/', {
 			qs: {
 				unpublished: true,
 				limit: 100, // TODO PAGINATION
@@ -119,8 +119,8 @@ router.all('/', async (req, res, next) => {
 });
 
 router.get('/:newsId', (req, res, next) => {
-	api(req)
-		.get(`${VERSION}/news/${req.params.newsId}`)
+	api(req, { version: VERSION })
+		.get(`/news/${req.params.newsId}`)
 		.then((news) => {
 			res.render('news/article', {
 				title: news.title,
@@ -134,8 +134,8 @@ router.get('/:newsId', (req, res, next) => {
 });
 
 router.get('/:newsId/edit', (req, res, next) => {
-	api(req)
-		.get(`${VERSION}/news/${req.params.newsId}`, {})
+	api(req, { version: VERSION })
+		.get(`/news/${req.params.newsId}`, {})
 		.then((news) => {
 			news.displayAt = timesHelper.fromUTC(news.displayAt);
 			res.render('news/edit', {
