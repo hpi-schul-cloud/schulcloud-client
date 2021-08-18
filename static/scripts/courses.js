@@ -23,24 +23,31 @@ $(document).ready(() => {
 		const $hiddenToggleIcon = $(this).find('.fa');
 		const $card = $(this).closest('.card');
 		const href = $(this).attr('href');
-		$.ajax({
-			method: 'PATCH',
-			url: `${href}?json=true`,
-			data: { hidden: !$hiddenToggleIcon.hasClass('fa-eye-slash') },
-			success(result) {
-				if (result.hidden) {
-					$hiddenToggleIcon.addClass('fa-eye-slash');
-					$hiddenToggleIcon.removeClass('fa-eye');
-					$hiddenToggleBtn.attr('title', $t('courses._course.topic.text.revealTopic'));
-					$card.addClass('card-transparent');
-				} else {
-					$hiddenToggleIcon.removeClass('fa-eye-slash');
-					$hiddenToggleIcon.addClass('fa-eye');
-					$hiddenToggleBtn.attr('title', $t('courses._course.topic.text.hideTopic'));
-					$card.removeClass('card-transparent');
-				}
-			},
-		});
+		if (!$hiddenToggleIcon.hasClass('fa-spinner')) {
+			const hiddenValue = !$hiddenToggleIcon.hasClass('fa-eye-slash');
+
+			$hiddenToggleIcon.removeClass('fa-eye');
+			$hiddenToggleIcon.removeClass('fa-eye-slash');
+			$hiddenToggleIcon.addClass('fa-spinner fa-spin');
+			$.ajax({
+				method: 'PATCH',
+				url: `${href}?json=true`,
+				data: { hidden: hiddenValue },
+				success(result) {
+					if (result.hidden) {
+						$hiddenToggleIcon.removeClass('fa-spinner fa-spin');
+						$hiddenToggleIcon.addClass('fa-eye-slash');
+						$hiddenToggleBtn.attr('title', $t('courses._course.topic.text.revealTopic'));
+						$card.addClass('card-transparent');
+					} else {
+						$hiddenToggleIcon.removeClass('fa-spinner fa-spin load-icon spinner');
+						$hiddenToggleIcon.addClass('fa-eye');
+						$hiddenToggleBtn.attr('title', $t('courses._course.topic.text.hideTopic'));
+						$card.removeClass('card-transparent');
+					}
+				},
+			});
+		}
 	});
 
 	$('.btn-create-invitation').click(function createInvitation(e) {
