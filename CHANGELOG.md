@@ -9,6 +9,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
+### Changed
+
+- BC-64 - execute e2e tests via push on main
+
 ## [26.9.0] - 2021-08-13
 
 ### Changed
