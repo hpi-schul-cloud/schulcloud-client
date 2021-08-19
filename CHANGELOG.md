@@ -9,9 +9,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## Unreleased
 
-## [26.9.0] - 2021-08-13
+### Changed
 
  - BC-37 - BC-55 - reduce resource consumption for deployed client
+
+## [26.9.0] - 2021-08-13
 
 ### Changed
 
