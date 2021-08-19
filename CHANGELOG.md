@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 -   BC-14 - changed thr contact address
+-   BC-64 - execute e2e tests via push on main
 
 ## [26.9.0] - 2021-08-13
 
