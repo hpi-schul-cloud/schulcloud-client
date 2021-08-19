@@ -11,6 +11,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [26.9.0] - 2021-08-13
 
+ - BC-37 - BC-55 - reduce resource consumption for deployed client
+
 ### Changed
 
 -   SC-8165 - showing a loading spinner during request for toggeling visibility of a topic
