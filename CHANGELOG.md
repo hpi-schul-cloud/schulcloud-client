@@ -11,14 +11,15 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- BC-64 - execute e2e tests via push on main
+-   BC-14 - changed thr contact address
+-   BC-64 - execute e2e tests via push on main
 
 ## [26.9.0] - 2021-08-13
 
 ### Changed
 
 -   SC-8165 - showing a loading spinner during request for toggeling visibility of a topic
--   SC-9191 run e2e tests in pull requests with 'run tests' label
+-   SC-9191 - run e2e tests in pull requests with 'run tests' label
 -   SC-9192 - access feathers and nestjs apps over their dedicated version prefixes
 
 ## [26.8.1] - 2021-08-11
