@@ -134,6 +134,14 @@ body {
         .login-providers {
             display:none;
         }
+        .input-group-btn {
+            .btn {
+                min-width: inherit;
+                border-color: rgba(0,0,0,.15);
+                padding: 0.5rem 0.75rem;
+                height: 100%; /* Fix for FF line-height Bug */
+            }
+        }
     }
     aside{
         .card-block {
