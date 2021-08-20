@@ -134,7 +134,7 @@ module.exports = (req, res, next) => {
 	}];
 
 	// Lern-Store Feature Toggle
-	if (Configuration.get('LERNSTORE_MODE') !== 'DISABLED') {
+	if (Configuration.get('FEATURE_LERNSTORE_ENABLED') === true) {
 		res.locals.sidebarItems.push({
 			name: res.$t('global.link.lernstore'),
 			testId: 'Lern-Store',
