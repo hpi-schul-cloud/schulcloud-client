@@ -14,6 +14,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   BC-14 - changed thr contact address
 -   BC-64 - execute e2e tests via push on main
 -   BC-37 - BC-55 - reduce resource consumption for deployed client
+-   BC-8 - update dependencies
+
 
 ## [26.9.0] - 2021-08-13
 
