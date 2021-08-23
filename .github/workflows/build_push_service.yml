@@ -16,14 +16,6 @@ jobs:
         tennens: [default, brb, demo, int, n21, open, thr ]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - run: npm ci
-      - run: |
-         export SC_THEME="${{ matrix.tennens }}"
-         export TZ="Europe/Berlin"
-         gulp clear-cache
-         gulp
-         ls -la build
       - name: Docker meta Service Name
         id: docker_meta_img
         uses: docker/metadata-action@v3
@@ -53,10 +45,10 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}-${{ matrix.tennens }}:${{ github.sha }}
           labels: ${{ steps.docker_meta_img.outputs.labels }}
-          
+
   dispatch:
     runs-on: ubuntu-latest
-    needs: 
+    needs:
       - build_and_push_docker
     steps:
       - uses: actions/checkout@v2
