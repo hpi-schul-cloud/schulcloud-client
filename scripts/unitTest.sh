@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# use git https at all cost to avoid depdencies getting downloaded via ssh, which will fail
+git config --global url."https://github.com/".insteadOf git@github.com:
+git config --global url."https://".insteadOf git://
+
 # authenticate against docker
 echo "$MY_DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
