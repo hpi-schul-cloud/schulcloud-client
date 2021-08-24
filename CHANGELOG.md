@@ -15,6 +15,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   BC-64 - execute e2e tests via push on main
 -   BC-37 - BC-55 - reduce resource consumption for deployed client
 
+### Added
+
+-   BC-38 - BC-125 - Add ansible files for Bosscloud (default)
+
 ## [26.9.0] - 2021-08-13
 
 ### Changed
