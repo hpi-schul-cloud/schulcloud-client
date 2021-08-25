@@ -136,7 +136,7 @@
 		"string_decoder": "^1.0.1",
 		"style-loader": "^1.2.1",
 		"truncate-html": "^1.0.0",
-		"ua-parser-js": "^0.7.21",
+		"ua-parser-js": "^0.7.24",
 		"video.js": "^7.7.6",
 		"winston": "^3.2.0",
 		"yargs-parser": "^18.1.3"
