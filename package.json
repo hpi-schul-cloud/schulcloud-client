@@ -88,7 +88,7 @@
 		"gulp-change": "^1.0.2",
 		"gulp-cli": "^2.3.0",
 		"gulp-rename": "^2.0.0",
-		"handlebars": "^4.7.6",
+		"handlebars": "^4.7.7",
 		"handlebars-layouts": "^3.1.4",
 		"handlebars-wax": "^5.1.1",
 		"hbs": "^4.1.1",
