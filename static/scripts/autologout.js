@@ -6,7 +6,7 @@ $(document).ready(() => {
 	initialized = true;
 	const BACKEND_URL = (document.querySelector('script[data-backendurl]').dataset.backendurl).replace(/\/$/, '');
 	const getJwt = (() => {
-		const rawJwt = document.cookie.split(';').filter(item => item.includes('jwt'));
+		const rawJwt = document.cookie.split(';').filter((item) => item.includes('jwt'));
 		return rawJwt[0].replace('jwt=', '');
 	});
 
@@ -54,7 +54,7 @@ $(document).ready(() => {
 	// extend session
 	const IStillLoveYou = (async () => {
 		$.ajax({
-			url: `${BACKEND_URL}/accounts/jwtTimer`,
+			url: `${BACKEND_URL}/v1/accounts/jwtTimer`,
 			type: 'POST',
 			dataType: 'json',
 			// Fetch the stored token from localStorage and set in the header
