@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   BC-44 - add api version for jwt timer service call
 -   BC-14 - changed thr contact address
 -   BC-64 - execute e2e tests via push on main
 -   BC-37 - BC-55 - reduce resource consumption for deployed client
