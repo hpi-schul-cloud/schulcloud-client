@@ -1,5 +1,5 @@
 $primaryColor: #126dc4;
-$secondaryColor: #df0b40;
+$secondaryColor: #455B6A;
 $accentColor: #df0b40;
 
 $logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
@@ -16,31 +16,52 @@ $logoBackgroundTablet: url("/images/logo/cloud-transparent-mono-48-48.svg") no-r
 }
 
 aside.nav-sidebar{
-	.sc-branding{
-		padding: 0 5px;
-		.cloud-logo{
-			width: 100%;
-			margin: 0;
-			padding: 30px;
-		}
-		.sc-title {
-			display: none;
-		}
-	}
+    .sc-branding{
+        padding: 0 5px;
+        .cloud-logo{
+            width: 100%;
+            margin: 0;
+            padding: 30px;
+        }
+        .sc-title {
+            display: none;
+        }
+    }
 
-	@media (max-width: 991px) {
-		.sc-branding{
-			padding: 0;
-			.cloud-logo{
-				background: $logoBackgroundTablet;
-			}
-		}
-	}
+    @media (max-width: 991px) {
+        .sc-branding{
+            padding: 0;
+            .cloud-logo{
+                background: $logoBackgroundTablet;
+            }
+        }
+    }
 }
-header.top-margin {
-	margin-top: -1rem;
-}
+body {
+    header.top-margin {
+        margin-top: -1rem;
+    }
+    header {
 
-body header #title .cloud-logo{
-	width: 199px !important;
+
+        .navbar-light {
+            #title {
+                padding: 0 !important;
+            }
+
+            .cloud-logo {
+                margin-right: 0 !important;
+                margin-left: -5rem !important;
+                height: 3.5rem !important;
+                width: 21.5rem !important;
+            }
+
+            @media (max-width: 991px) {
+                .cloud-logo {
+                    width: 100% !important;
+                    margin-left: 0 !important;
+                }
+            }
+        }
+    }
 }

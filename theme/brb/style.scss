@@ -1,6 +1,6 @@
-$primaryColor: #449494;
-$secondaryColor: #E4032E;
-$accentColor: #0b2bdf;
+$primaryColor: #0a9396;
+$secondaryColor: #38677a;
+$accentColor: #E4032E;
 
 $logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
 
@@ -13,51 +13,31 @@ $logoBackgroundLanding: url("/images/logo/cloud-transparent-mono-long.svg") cent
 aside.nav-sidebar{
     .sc-branding{
         padding: 0 5px;
-        background: $secondaryColor;
         .cloud-logo{
             width: 100%;
             margin: 0;
             padding: 30px;
         }
-        .sc-title{
+        .sc-title {
             display: none;
         }
     }
 
     @media (max-width: 991px) {
-        .sc-branding {
+        .sc-branding{
             padding: 0;
-            .cloud-logo {
+            .cloud-logo{
                 background: $logoBackgroundTablet;
             }
         }
     }
-
-    ul {
-        li {
-            a:not(.sc-branding) {
-                &.active {
-                    background: $primaryColor;
-                    color: white;
-					border-bottom: 1px solid transparent;
-
-					&[href]:hover {
-						background: $primaryColor;
-						cursor: pointer;
-					}
-				}
-            }
-        }
-    }
 }
-
-
 body {
     header.top-margin {
         margin-top: -1rem;
     }
     header {
-        background: $secondaryColor !important;
+
 
         .navbar-light {
             #title {
@@ -65,9 +45,8 @@ body {
             }
 
             .cloud-logo {
-                background: $logoBackgroundLanding !important;
                 margin-right: 0 !important;
-                margin-left: -1rem !important;
+                margin-left: -5rem !important;
                 height: 3.5rem !important;
                 width: 21.5rem !important;
             }
@@ -79,30 +58,5 @@ body {
                 }
             }
         }
-    }
-}
-
-.timetable {
-    .timeline {
-        .current-time {
-            &:before {
-                background: $secondaryColor;
-            }
-            span {
-                color: $secondaryColor;
-            }
-        }
-    }
-}
-
-.section-imprint.loggedout ul {
-	list-style-type: none!important;
-	margin: 0!important;
-}
-
-.made-with-love {
-    .poweredby-logo {
-        height: 1em;
-        vertical-align: middle;
     }
 }
