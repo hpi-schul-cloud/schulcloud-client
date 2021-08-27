@@ -15,14 +15,6 @@ jobs:
         tennens: [default, brb, demo, int, n21, open, thr ]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - run: npm ci
-      - run: |
-         export SC_THEME="${{ matrix.tennens }}"
-         export TZ="Europe/Berlin"
-         gulp clear-cache
-         gulp
-         ls -la build
       - name: Docker meta Service Name
         id: docker_meta_img
         uses: docker/metadata-action@v3

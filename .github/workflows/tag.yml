@@ -14,15 +14,6 @@ jobs:
         tennens: [default, brb, demo, int, n21, open, thr ]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - run: npm ci
-      - run: |
-         export SC_THEME="${{ matrix.tennens }}"
-         export TZ="Europe/Berlin"
-         gulp clear-cache
-         gulp
-         ls -la build
-
       - name: Docker meta Service Name for docker hub
         id: docker_meta_img_hub
         uses: docker/metadata-action@v3
@@ -30,7 +21,7 @@ jobs:
           images: schulcloud/schulcloud-client-${{ matrix.tennens }}
           tags: |
             type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}            
+            type=semver,pattern={{major}}.{{minor}}
 
       - name: Log into registry
         uses: docker/login-action@v1
