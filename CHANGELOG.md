@@ -11,9 +11,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   BC-5 - renamed sidebar item "Open Tasks" to "Current Tasks"
 -   BC-14 - changed thr contact address
 -   BC-64 - execute e2e tests via push on main
 -   BC-37 - BC-55 - reduce resource consumption for deployed client
+-   BC-8 - update dependencies
+
 
 ### Added
 
