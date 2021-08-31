@@ -334,11 +334,10 @@
 			"default": false,
 			"description": "Enables Portfolio (navigation, addons) in app"
 		},
-		"LERNSTORE_MODE": {
-			"type": "string",
-			"enum": ["DISABLED", "LEGACY", "EDUSHARING"],
-			"default": "EDUSHARING",
-			"description": "Defines the lernstore mode. Can be legacy, edusharing and disabled"
+		"FEATURE_LERNSTORE_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Defines if backend for the Lern-Store link in sidebar is enabled."
 		},
 		"HELPAREA_URL": {
 			"type": "string",
