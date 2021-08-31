@@ -11,6 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   BC-94 - clean up the colorsystem and fix some UI issues
 -   BC-14 - changed thr contact address
 -   BC-64 - execute e2e tests via push on main
 -   BC-37 - BC-55 - reduce resource consumption for deployed client

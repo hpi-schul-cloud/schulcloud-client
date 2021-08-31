@@ -31,9 +31,6 @@ aside.nav-sidebar{
     }
 }
 body {
-    header.top-margin {
-        margin-top: -1rem;
-    }
     header {
 
 
@@ -56,5 +53,11 @@ body {
                 }
             }
         }
+    }
+}
+.made-with-love {
+    .poweredby-logo {
+        height: 1em;
+        vertical-align: middle;
     }
 }
