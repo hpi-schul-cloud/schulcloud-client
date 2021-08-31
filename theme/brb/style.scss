@@ -45,6 +45,7 @@ body {
             }
 
             .cloud-logo {
+                background: $logoBackgroundLanding !important;
                 margin-right: 0 !important;
                 margin-left: -5rem !important;
                 height: 3.5rem !important;
@@ -58,5 +59,17 @@ body {
                 }
             }
         }
+    }
+}
+
+.section-imprint.loggedout ul {
+	list-style-type: none!important;
+	margin: 0!important;
+}
+
+.made-with-love {
+    .poweredby-logo {
+        height: 1em;
+        vertical-align: middle;
     }
 }

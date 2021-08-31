@@ -260,14 +260,13 @@ aside.nav-sidebar {
 
 				&[href]:hover {
 					background: $colorLightGrey;
-					color: $primaryColor;
 					cursor: pointer;
 				}
 
 				i.fa {
 					font-size: 20px;
 					width: 20px;
-					margin-right: 10px;
+					margin-right: 6px;
 					display: inline-block;
 					text-align: center;
 					vertical-align: middle;
@@ -535,7 +534,6 @@ footer {
 	line-height: 1.75rem;
 
 	h1 {
-		color: $secondaryColor;
 		float: left;
 		margin-bottom: 0px;
 		margin-right: 20px;
@@ -690,7 +688,7 @@ footer {
 			}
 
 			.avatar-circle:hover {
-				background-color: $colorDarkerGrey !important;
+				background-color: darken($secondaryColor, 17%);
 			}
 
 			&:after {
