@@ -5,6 +5,5 @@
 		"SECURE": true,
 		"SAME_SITE": "None"
 	},
-	"LERNSTORE_MODE": "EDUSHARING",
 	"FEATURE_SHOW_VERSION_ENABLED": true
 }

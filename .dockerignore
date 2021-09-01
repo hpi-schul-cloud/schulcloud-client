@@ -2,6 +2,7 @@
 .gitignore
 .git
 .github
+.git
 .webpack-changed-plugin-cache
 .gulp-changed-smart.json
 .idea
@@ -16,3 +17,5 @@ travis*
 test
 docs
 ansible
+node_modules
+build
