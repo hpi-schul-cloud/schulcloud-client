@@ -19,6 +19,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   BC-8 - update dependencies
 -   BC-81 - remove old Lern-Store
 
+### Added
+
+-   BC-38 - BC-125 - Add ansible files for Bosscloud (default)
+
 ## [26.9.0] - 2021-08-13
 
 ### Changed
