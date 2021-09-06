@@ -573,7 +573,7 @@ const overview = (titleKey) => (req, res, next) => {
 					type: 'boolean',
 					title: res.$t('homework.headline.more'),
 					options: {
-						private: res.$t('homework.label.filterMorePrivateTask'),
+						private: res.$t('homework.label.filterMoreDraftTask'),
 						publicSubmissions: res.$t('homework.label.filterMorePublicSubmissions'),
 						teamSubmissions: res.$t('homework.label.filterMoreTeamSubmissions'),
 					},

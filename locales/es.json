@@ -987,8 +987,7 @@
 			},
 			"tasks": {
 				"button": {
-					"createTask": "Crear una tarea",
-					"privateTasks": "Tareas privadas"
+					"createTask": "Crear una tarea"
 				},
 				"headline": {
 					"createFirstTask": "Crear la primera tarea de tu curso",
@@ -1008,8 +1007,7 @@
 				},
 				"text": {
 					"descriptionTasks": "Los participantes del curso pueden completar tareas fácilmente en un plazo establecido y enviar los resultados de forma digital. Las tareas se pueden configurar para un curso completo o para un solo tema.",
-					"moreArchivedLinkLabel": "Más tareas archivadas...",
-					"showPrivateTasks": "Expandir\/contraer las tareas privadas"
+					"moreArchivedLinkLabel": "Más tareas archivadas..."
 				}
 			},
 			"text": {
@@ -1211,8 +1209,8 @@
 			"searchForCourses": "Buscar cursos"
 		},
 		"tab_label": {
-			"archivedCourses": "Cursos archivados",
-			"currentCourses": "Cursos actuales"
+			"archivedCourses": "Archivo",
+			"currentCourses": "Actuales"
 		},
 		"text": {
 			"courseNoAccess": "La sección Cursos solo está disponible para profesores y estudiantes.",
@@ -1576,7 +1574,7 @@
 		"button": {
 			"accept": "Aceptar",
 			"add": "Añadir",
-			"addPrivateTask": "Añadir tarea privada",
+			"addDraftTask": "Agregar borrador",
 			"addTask": "Añadir tarea",
 			"back": "Atrás",
 			"cancel": "Cancelar",
@@ -1623,7 +1621,7 @@
 			"myMaterial": "Mis materiales",
 			"name": "Nombre",
 			"news": "Noticias",
-			"privateTasks": "Tareas privadas y borradores",
+			"draftTasks": "Borradores",
 			"projectExecution": "Ejecución del proyecto",
 			"sorryItDidNotWork": "¡Lo sentimos, no ha funcionado!",
 			"sorting": "Clasificación",
@@ -2120,7 +2118,7 @@
 				"allowGroupSubmission": "Permitir el envío de grupos",
 				"description": "Definición de tarea",
 				"maximumGroupSize": "Tamaño máximo del grupo:",
-				"privateTaskOnlyVisibleToMe": "Tarea privada (solo visible para mí)",
+				"draftTaskOnlyVisibleToMe": "Borrador (solo visible para mí)",
 				"processingPeriodEndsOn": "El período de procesamiento finaliza el:",
 				"topic": "Tema",
 				"visibleAndEditableForStudentsFrom": "Visible para los estudiantes y para editar desde:"
@@ -2156,7 +2154,7 @@
 			"filterDueDate": "Envío de %1 a %2",
 			"filterDueDateFrom": "desde",
 			"filterDueDateTo": "para",
-			"filterMorePrivateTask": "Tarea privada",
+			"filterMoreDraftTask": "Borradores",
 			"filterMorePublicSubmissions": "Los estudiantes pueden ver entre ellos los envíos.",
 			"filterMoreTeamSubmissions": "Envíos del equipo",
 			"forGradingUploadedFiles": "Archivos cargados como comentarios\/calificación",
@@ -3104,7 +3102,7 @@
 			},
 			"headline": {
 				"createTopic": "Crear tema",
-				"privateTasks": "Tareas privadas",
+				"draftTasks": "Borradores",
 				"savedTeachingMaterials": "Materiales didácticos almacenados"
 			},
 			"input": {

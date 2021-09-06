@@ -27,7 +27,7 @@
         font-weight: 500;
         font-size: 1.25em;
         @include media-breakpoint-down(xs) {
-          display: flex;
+          // display: flex;
           flex-direction: column-reverse;
           font-size: 1.15em;
         }

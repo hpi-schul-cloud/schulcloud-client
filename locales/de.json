@@ -987,8 +987,7 @@
 			},
 			"tasks": {
 				"button": {
-					"createTask": "Erstelle eine Aufgabe",
-					"privateTasks": "Private Aufgaben"
+					"createTask": "Erstelle eine Aufgabe"
 				},
 				"headline": {
 					"createFirstTask": "Erstelle die erste Aufgabe in deinem Kurs",
@@ -1008,8 +1007,7 @@
 				},
 				"text": {
 					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
-					"moreArchivedLinkLabel": "mehr archivierte Aufgaben...",
-					"showPrivateTasks": "Private Aufgaben ein\/ausklappen"
+					"moreArchivedLinkLabel": "mehr archivierte Aufgaben..."
 				}
 			},
 			"text": {
@@ -1211,8 +1209,8 @@
 			"searchForCourses": "Suche nach Kursen"
 		},
 		"tab_label": {
-			"archivedCourses": "Archivierte Kurse",
-			"currentCourses": "Aktuelle Kurse"
+			"archivedCourses": "Archiv",
+			"currentCourses": "Aktuell"
 		},
 		"text": {
 			"courseNoAccess": "Der Bereich Kurse steht nur Lehrkräften und Schüler:innen zur Verfügung.",
@@ -1576,7 +1574,7 @@
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
-			"addPrivateTask": "private Aufgabe hinzufügen",
+			"addDraftTask": "Entwurf hinzufügen",
 			"addTask": "Aufgabe hinzufügen",
 			"back": "Zurück",
 			"cancel": "Abbrechen",
@@ -1623,7 +1621,7 @@
 			"myMaterial": "Meine Materialien",
 			"name": "Name",
 			"news": "Neuigkeiten",
-			"privateTasks": "Private Aufgaben und Entwürfe",
+			"draftTasks": "Entwürfe",
 			"projectExecution": "Projektdurchführung",
 			"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt",
 			"sorting": "Sortierung",
@@ -2120,7 +2118,7 @@
 				"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 				"description": "Aufgabenstellung",
 				"maximumGroupSize": "maximale Gruppengröße:",
-				"privateTaskOnlyVisibleToMe": "Private Aufgabe (nur für mich sichtbar)",
+				"draftTaskOnlyVisibleToMe": "Entwurf (nur für mich sichtbar)",
 				"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
 				"topic": "Thema",
 				"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
@@ -2156,7 +2154,7 @@
 			"filterDueDate": "Abgabe vom %1 bis %2",
 			"filterDueDateFrom": "vom",
 			"filterDueDateTo": "bis",
-			"filterMorePrivateTask": "private Aufgabe",
+			"filterMoreDraftTask": "Entwürfe",
 			"filterMorePublicSubmissions": "Schüler:innen können Abgaben untereinander sehen",
 			"filterMoreTeamSubmissions": "Teamabgaben",
 			"forGradingUploadedFiles": "Als Kommentar\/Bewertung hochgeladene Dateien",
@@ -3104,7 +3102,7 @@
 			},
 			"headline": {
 				"createTopic": "Thema anlegen",
-				"privateTasks": "Private Aufgaben",
+				"draftTasks": "Entwürfe",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialien"
 			},
 			"input": {
