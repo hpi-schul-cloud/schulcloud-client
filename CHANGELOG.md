@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 ### Changed
+-   BC-229 - exchange private task into draft
 
 ## [26.10.0] - 2021-09-03
 
