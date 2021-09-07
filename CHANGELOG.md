@@ -17,6 +17,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   BC-144 - Added Link to new school admin page
 -   BC-44 - add api version for jwt timer service call
 -   BC-5 - renamed sidebar item "Open Tasks" to "Current Tasks"
 -   BC-14 - changed thr contact address
