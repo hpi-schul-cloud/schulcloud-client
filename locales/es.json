@@ -1002,7 +1002,7 @@
 				},
 				"label": {
 					"archived": "Archivado",
-					"drafts": "Borradores",
+					"draft": "Borrador",
 					"feedback": "Comentarios",
 					"provided": "Proporcionado"
 				},

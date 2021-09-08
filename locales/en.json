@@ -1002,7 +1002,7 @@
 				},
 				"label": {
 					"archived": "Archived",
-					"drafts": "Drafts",
+					"draft": "Draft",
 					"feedback": "Feedback",
 					"provided": "Provided"
 				},

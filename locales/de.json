@@ -1002,7 +1002,7 @@
 				},
 				"label": {
 					"archived": "Archiviert",
-					"drafts": "Entwürfe",
+					"draft": "Entwurf",
 					"feedback": "Feedback",
 					"provided": "Gestellt"
 				},
