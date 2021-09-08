@@ -197,14 +197,14 @@ const editCourseHandler = (req, res, next) => {
 		// populate course colors - to be replaced system scope
 		const colors = [
 			'#ACACAC',
-			'#D4AF37',
-			'#00E5FF',
-			'#1DE9B6',
-			'#546E7A',
-			'#FFC400',
-			'#BCAAA4',
-			'#FF4081',
-			'#FFEE58',
+			'#9E9D24',
+			'#0091EA',
+			'#009688',
+			'#304FFE',
+			'#D50000',
+			'#795548',
+			'#EC407A',
+			'#EF6C00',
 		];
 
 		// checks for user's 'STUDENT_LIST' permission and filters checked students
@@ -323,14 +323,14 @@ const copyCourseHandler = (req, res, next) => {
 		// populate course colors - to be replaced system scope
 		const colors = [
 			'#ACACAC',
-			'#D4AF37',
-			'#00E5FF',
-			'#1DE9B6',
-			'#546E7A',
-			'#FFC400',
-			'#BCAAA4',
-			'#FF4081',
-			'#FFEE58',
+			'#9E9D24',
+			'#0091EA',
+			'#009688',
+			'#304FFE',
+			'#D50000',
+			'#795548',
+			'#EC407A',
+			'#EF6C00',
 		];
 
 		course.name = `${course.name} - Kopie`;
