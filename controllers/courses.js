@@ -1,3 +1,5 @@
+// import variables from '../theme/brb/style.scss';
+
 /* eslint-disable no-underscore-dangle */
 const _ = require('lodash');
 const express = require('express');
@@ -27,6 +29,7 @@ const markSelected = (options, values = []) => options.map((option) => {
 	option.selected = values.includes(option._id);
 	return option;
 });
+
 
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
@@ -196,6 +199,7 @@ const editCourseHandler = (req, res, next) => {
 
 		// populate course colors - to be replaced system scope
 		const colors = [
+			// variables.secondaryColor,
 			'#455B6A',
 			'#EC407A',
 			'#D50000',
@@ -325,6 +329,7 @@ const copyCourseHandler = (req, res, next) => {
 
 		// populate course colors - to be replaced system scope
 		const colors = [
+			// variables.secondaryColor,
 			'#455B6A',
 			'#EC407A',
 			'#D50000',
