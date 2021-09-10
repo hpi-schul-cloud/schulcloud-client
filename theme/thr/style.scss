@@ -1,72 +1,60 @@
-$primaryColor: #185888;
-$primaryColorTransparent: rgba(24,88,136,.15);
-$primaryColorLight: #5284b8;
-$primaryColorDark: #002f5b;
-$secondaryColor: #f56b00;
-$secondaryColorLight: #ff9c3f;
-$secondaryColorDark: #bb3b00;
+$primaryColor: #2876D0;
+$secondaryColor: #185888;
 $accentColor: #f56b00;
 
-$logoGradient: linear-gradient(45deg, $primaryColor, $primaryColorLight);
+$logoGradient: linear-gradient(45deg, $primaryColor, $primaryColor);
 
-$logoBackground: url("/images/logo/logo-mono.svg") center / contain no-repeat;
+$logoBackground: url("/images/logo/cloud-transparent-mono.svg") center / contain no-repeat;
 $logoBackgroundTablet: url("/images/logo/cloud-transparent-mono-48-48.svg") center / contain no-repeat;
 $logoBackgroundLanding: url("/images/logo/cloud-transparent-mono-long.svg") center / contain no-repeat;
 
-aside.nav-sidebar {
-    .sc-branding {
-		background-image: $logoGradient;
-		padding: 0 5px;
-		.cloud-logo {
-			width: 100%;
-			margin: 0;
-			padding: 30px;
-		}
-		.sc-title {
-			display: none;
-		}
-	}
-
-    ul li a:not(.sc-branding) {
-        color: $primaryColor;
-	}
-
-	ul li a:not(.sc-branding).active {
-        color: $primaryColorDark;
-        background: $primaryColorTransparent;
+aside.nav-sidebar{
+    .sc-branding{
+        padding: 0 5px;
+        .cloud-logo{
+            width: 100%;
+            margin: 0;
+            padding: 30px;
+        }
+        .sc-title {
+            display: none;
+        }
     }
 
-    ul li a:not(.sc-branding):hover {
-        background: $primaryColorTransparent!important;
-    }
-}
-
-header.top-margin {
-  margin-top: -1rem;
-}
-
-.timetable {
-    .timeline {
-        .current-time {
-            &:before {
-                background: $secondaryColor !important;
-            }
-            span {
-                color: $secondaryColor !important;
+    @media (max-width: 991px) {
+        .sc-branding{
+            padding: 0;
+            .cloud-logo{
+                background: $logoBackgroundTablet;
             }
         }
     }
 }
+body {
+    header {
 
-.navbar-nav .btn-avatar .dropdown-toggle .avatar-circle {
-    background-color: $primaryColor;
+
+        .navbar-light {
+            #title {
+                padding: 0 !important;
+            }
+
+            .cloud-logo {
+                margin-right: 0 !important;
+                margin-left: -5rem !important;
+                height: 3.5rem !important;
+                width: 21.5rem !important;
+            }
+
+            @media (max-width: 991px) {
+                .cloud-logo {
+                    width: 100% !important;
+                    margin-left: 0 !important;
+                }
+            }
+        }
+    }
 }
-
-.schoollogo-placeholder {
-	color: $primaryColorLight;
-	font-size: 89px;
-}
-
 .made-with-love {
     .poweredby-logo {
         height: 1em;
