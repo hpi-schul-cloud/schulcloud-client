@@ -3110,7 +3110,7 @@
 			},
 			"label": {
 				"content": "Contenido",
-				"expandPrivateTasks": "Expandir\/contraer las tareas privadas",
+				"expandDraftTasks": "Expandir\/contraer los borradores",
 				"expandTasks": "Expandir\/contraer las tareas establecidas",
 				"titleOfTheTopic": "Título del tema"
 			},

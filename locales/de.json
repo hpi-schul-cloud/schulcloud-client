@@ -3110,7 +3110,7 @@
 			},
 			"label": {
 				"content": "Inhalte",
-				"expandPrivateTasks": "Private Aufgaben ein\/ausklappen",
+				"expandDraftTasks": "Entwürfe ein\/ausklappen",
 				"expandTasks": "gestellte Aufgaben ein\/ausklappen",
 				"titleOfTheTopic": "Titel des Themas"
 			},

@@ -3110,7 +3110,7 @@
 			},
 			"label": {
 				"content": "Content",
-				"expandPrivateTasks": "Fold private tasks in\/out",
+				"expandDraftTasks": "Fold drafts in\/out",
 				"expandTasks": "Fold tasks set in\/out",
 				"titleOfTheTopic": "Title of the topic"
 			},
