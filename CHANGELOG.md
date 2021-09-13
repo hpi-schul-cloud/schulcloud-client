@@ -13,6 +13,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [26.10.1] - 2021-09-03 --> [26.9.2]
+
 ## [26.10.0] - 2021-09-03
 
 ### Changed
