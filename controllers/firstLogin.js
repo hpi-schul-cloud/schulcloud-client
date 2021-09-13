@@ -1,9 +1,12 @@
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const express = require('express');
 const showdown = require('showdown');
+const moment = require('moment');
 const _ = require('lodash');
+
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const { getCurrentLanguage } = require('../helpers/i18n');
 
 const converter = new showdown.Converter();
 
@@ -201,7 +204,6 @@ router.get('/', async (req, res, next) => {
 			sections.push('consent');
 		}
 
-
 		// PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
 		const userHasAccount = await hasAccount(req, res);
 		if (!userHasAccount
@@ -261,15 +263,43 @@ router.get('/consentError', (req, res, next) => {
 	res.render('firstLogin/consentError');
 });
 
-router.post(['/submit', '/submit/sso'], async (req, res, next) => api(req).post('/firstLogin/', { json: req.body })
-	.then(() => {
-		res.sendStatus(200);
-	})
-	.catch((err) => {
-		res.status(500).send(
-			(err.error || err).message
+const langToDate = {
+	de: 'DD.MM.YYYY',
+	en: 'MM/DD/YYYY',
+	es: 'MM/DD/YYYY',
+};
+
+const normalizeDate = (lang, date) => {
+	const sourceFormat = langToDate[lang];
+	const utcDate = moment.utc(date, sourceFormat); // .utc for later
+	if (utcDate.isValid()) {
+		const dateISOString = utcDate.format('YYYY-MM-DD');
+		return dateISOString;
+	}
+	// TODO: i18n
+	throw new Error('Ungültiges Datumsformat.');
+};
+
+router.post(['/submit', '/submit/sso'], async (req, res, next) => {
+	const { json } = req.body;
+	if (json.studentBirthdate) {
+		// similar to datetimepicker-easy.js the default is de, because getCurrentLanguage can be null
+		const lang = getCurrentLanguage(req, res) || 'de';
+		const studentBirthdate = normalizeDate(lang, json.studentBirthdate);
+
+		json.studentBirthdate = studentBirthdate;
+	}
+
+	await api(req).post('/firstLogin/', { json })
+		.then(() => {
+			res.sendStatus(200);
+		})
+		.catch((err) => {
+			res.status(500).send(
+				(err.error || err).message
 			|| res.$t('login.text.errorFirstLogin'),
-		);
-	}));
+			);
+		});
+});
 
 module.exports = router;
