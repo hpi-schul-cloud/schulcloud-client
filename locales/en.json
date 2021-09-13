@@ -243,9 +243,6 @@
 				"toGiveConsent": "Give consent",
 				"transferClassToTheNextSchoolYear": "Move class to the next school year"
 			},
-			"tab_label": {
-				"archivedClasses": "Archive"
-			},
 			"text": {
 				"active": "Active",
 				"agreementSuccessfullyDeclared": "Consent successfully declared",
@@ -1210,7 +1207,6 @@
 			"searchForCourses": "Search for courses"
 		},
 		"tab_label": {
-			"archivedCourses": "Archiv",
 			"currentCourses": "Current"
 		},
 		"text": {
@@ -1744,6 +1740,11 @@
 				"administrationCourses": "Courses"
 			}
 		},
+		"tab": {
+			"label": {
+				"archive": "Archive"
+			}
+		},
 		"text": {
 			"400": "This request was incorrect.",
 			"401": "Please authenticate yourself first.",
@@ -2138,7 +2139,6 @@
 			"breadcrumbArchived": "Archived",
 			"breadcrumbAssigned": "Assigned",
 			"breadcrumbPrivate": "My",
-			"drafts": "Drafts",
 			"dueDate": "Submission date",
 			"more": "More"
 		},
@@ -3103,7 +3103,6 @@
 			},
 			"headline": {
 				"createTopic": "Create topic",
-				"draftTasks": "Drafts",
 				"savedTeachingMaterials": "Stored teaching materials"
 			},
 			"input": {

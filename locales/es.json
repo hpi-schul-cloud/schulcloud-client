@@ -243,9 +243,6 @@
 				"toGiveConsent": "Dar consentimiento",
 				"transferClassToTheNextSchoolYear": "Mover la clase al próximo año escolar"
 			},
-			"tab_label": {
-				"archivedClasses": "Archivo"
-			},
 			"text": {
 				"active": "Activo",
 				"agreementSuccessfullyDeclared": "Consentimiento declarado correctamente",
@@ -1210,7 +1207,6 @@
 			"searchForCourses": "Buscar cursos"
 		},
 		"tab_label": {
-			"archivedCourses": "Archivo",
 			"currentCourses": "Actual"
 		},
 		"text": {
@@ -1744,6 +1740,11 @@
 				"administrationCourses": "Cursos"
 			}
 		},
+		"tab": {
+			"label": {
+				"archive": "Archivo"
+			}
+		},
 		"text": {
 			"400": "Esta solicitud es incorrecta.",
 			"401": "Primero, autentícate.",
@@ -2138,7 +2139,6 @@
 			"breadcrumbArchived": "Archivado",
 			"breadcrumbAssigned": "Asignado",
 			"breadcrumbPrivate": "Mi",
-			"drafts": "Borradores",
 			"dueDate": "Fecha de envío",
 			"more": "Más"
 		},
@@ -3103,7 +3103,6 @@
 			},
 			"headline": {
 				"createTopic": "Crear tema",
-				"draftTasks": "Borradores",
 				"savedTeachingMaterials": "Materiales didácticos almacenados"
 			},
 			"input": {

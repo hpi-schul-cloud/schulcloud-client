@@ -243,9 +243,6 @@
 				"toGiveConsent": "Einverständnis erklären",
 				"transferClassToTheNextSchoolYear": "Klasse in das nächste Schuljahr versetzen"
 			},
-			"tab_label": {
-				"archivedClasses": "Archiv"
-			},
 			"text": {
 				"active": "Aktiv",
 				"analogueConsent": "Wenn du das Einverständnis in Papierform einholen möchtest, kannst du die Schüler:innen wie folgt im System freischalten:",
@@ -1210,7 +1207,6 @@
 			"searchForCourses": "Suche nach Kursen"
 		},
 		"tab_label": {
-			"archivedCourses": "Archiv",
 			"currentCourses": "Aktuell"
 		},
 		"text": {
@@ -1744,6 +1740,11 @@
 				"administrationCourses": "Kurse"
 			}
 		},
+		"tab": {
+			"label": {
+				"archive": "Archiv"
+			}
+		},
 		"text": {
 			"400": "Diese Anfrage war fehlerhaft.",
 			"401": "Bitte authentifiziere dich zuerst.",
@@ -2138,7 +2139,6 @@
 			"breadcrumbArchived": "Archivierte",
 			"breadcrumbAssigned": "Gestellte",
 			"breadcrumbPrivate": "Meine",
-			"drafts": "Entwürfe",
 			"dueDate": "Abgabedatum",
 			"more": "Mehr"
 		},
@@ -3103,7 +3103,6 @@
 			},
 			"headline": {
 				"createTopic": "Thema anlegen",
-				"draftTasks": "Entwürfe",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialien"
 			},
 			"input": {
