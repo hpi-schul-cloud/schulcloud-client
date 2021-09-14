@@ -1,5 +1,5 @@
 ---
-name: Build and push Docker Image
+name: Build Image and E2E
 
 on:
   push:
@@ -69,7 +69,7 @@ jobs:
     needs:
         - build_and_push_docker
     # run the action, when label 'run tests' has been set or is present at the commit time
-    if: "contains( github.event.label.name , 'run tests' ) || contains( github.event.pull_request.labels.*.name , 'run tests' )"
+    #if: "contains( github.event.label.name , 'run tests' ) || contains( github.event.pull_request.labels.*.name , 'run tests' )"
     steps:
         - uses: actions/checkout@v2
         - name: Set BRANCH_NAME on pull_request
