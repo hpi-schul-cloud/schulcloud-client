@@ -46,6 +46,27 @@ $(document).ready(() => {
 						$card.removeClass('card-transparent');
 					}
 				},
+				error() {
+					if (hiddenValue) {
+						$hiddenToggleIcon.removeClass(
+							"fa-spinner fa-spin load-icon spinner"
+						);
+						$hiddenToggleIcon.addClass("fa-eye");
+						$hiddenToggleBtn.attr(
+							"title",
+							$t("courses._course.topic.text.hideTopic")
+						);
+						$card.removeClass("card-transparent");
+					} else {
+						$hiddenToggleIcon.removeClass("fa-spinner fa-spin");
+						$hiddenToggleIcon.addClass("fa-eye-slash");
+						$hiddenToggleBtn.attr(
+							"title",
+							$t("courses._course.topic.text.revealTopic")
+						);
+						$card.addClass("card-transparent");
+					}
+				},
 			});
 		}
 	});
