@@ -13,6 +13,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [26.10.2] - 2021-09-14
+
+### Fixed
+
+- SC-9320 - Fix merge conflicts that throw an error in firstLogin
+
 ## [26.10.1] - 2021-09-03 --> [26.9.2]
 
 ## [26.10.0] - 2021-09-03
