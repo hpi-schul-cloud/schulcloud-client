@@ -6,13 +6,20 @@ const DATE_FORMATS = {
 	es: 'MM/DD/YYYY',
 };
 
+/**
+ * Convert local date string to ISO date string
+ * @param {string} srcDateString
+ * @param {string} lang
+ * @returns {string} ISO date string
+ */
 const normalizeDate = (srcDateString, lang) => {
 	const srcFormat = DATE_FORMATS[lang];
-	// we do not allow undefined as input => set to invalid empty string
-	const date = moment(srcDateString || '', srcFormat);
-	if (date.isValid()) {
-		const dateString = date.format('DD.MM.YYYY');
-		return dateString;
+	if (srcFormat) {
+		const date = moment(srcDateString, srcFormat);
+		if (date.isValid()) {
+			const dateString = date.format('YYYY-MM-DD');
+			return dateString;
+		}
 	}
 	// TODO: i18n
 	throw new Error('Ungültiges Datumsformat.');
