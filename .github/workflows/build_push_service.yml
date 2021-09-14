@@ -72,10 +72,9 @@ jobs:
     #if: "contains( github.event.label.name , 'run tests' ) || contains( github.event.pull_request.labels.*.name , 'run tests' )"
     steps:
         - uses: actions/checkout@v2
-        - name: Set BRANCH_NAME on pull_request
+        - name: Set BRANCH_NAME on push
           run: |
-              echo ${{ github.head_ref }}
-              branch_name=${{ github.head_ref }}
+              branch_name=${GITHUB_REF#refs/*/}
               echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
         - name: run git change
           run: |
