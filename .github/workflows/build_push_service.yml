@@ -7,13 +7,6 @@ on:
       - main
       - master
       - dependabot/*
-    workflow_dispatch:
-      label:
-          name: 'run tests'
-  pull_request:
-      branches:
-          - main
-      types: [labeled, synchronize]
 
 jobs:
   build_and_push_docker:
