@@ -37,6 +37,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - BC-137 - fix bug with display of Blue Bar
 
+## [26.9.3] - 2021-09-10
+
+### Fixed
+
+- BC-239 - normalize students birth date
+
+## [26.9.2] - 2021-08-27
+
+### Changed
+
+-	BC-137 - fix bug with display of Blue Bar
+
 ## [26.9.0] - 2021-08-13
 
 ### Changed
