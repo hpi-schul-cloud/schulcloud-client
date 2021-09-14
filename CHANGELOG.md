@@ -13,8 +13,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
--   BC-94 - clean up the colorsystem and fix some UI issues
--   BC-94 - finxing margin issue sidebar current task
+- BC-94 - clean up the colorsystem and fix some UI issues
+- BC-94 - finxing margin issue sidebar current task
+
+### Fixed
+
+- BC-68 - fix e2e manifest missing
 
 ## [26.10.0] - 2021-09-03
 
