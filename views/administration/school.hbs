@@ -10,6 +10,10 @@
 
 {{#content "page" mode="prepend"}}
 <div class="route-administration">
+	<div>
+		<a class="btn btn-info pull-right" href="/administration/school-settings"><i class="fa fa-arrow-right"></i> {{$t "administration.school.label.beta" }}</a>
+		<div class="clearfix"></div>
+	</div>
 	<section class="section-school section-default">
 		<h2 class="h4">
 			{{#if schoolMaintanance.schoolUsesLdap}}
@@ -197,7 +201,7 @@
 							</label>
 
 							<input id="officialSchoolNumber" {{#if ../school.officialSchoolNumber}}disabled{{/if}} value="{{../school.officialSchoolNumber}}" type="text" pattern="\D{0,2}-*\d{5,6}$" class="form-control" name="officialSchoolNumber"
-								placeholder="12345" 
+								placeholder="12345"
 								{{#if ../isExpertSchool}} readonly{{/if}} {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
 								readonly{{/userHasPermission}}/>
 							 <div class="text-danger" style="font-size:0.75rem;">
@@ -258,7 +262,7 @@
 						{{/ifConfig}}
 
 
-                        {{#ifConfig "LERNSTORE_MODE" "EDUSHARING"}}
+                        {{#ifConfig "FEATURE_LERNSTORE_ENABLED" true}}
                             {{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED" true}}
                                 <div class="form-group">
                                     <label>

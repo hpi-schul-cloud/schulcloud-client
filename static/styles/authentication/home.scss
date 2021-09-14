@@ -2,7 +2,6 @@
 @import '../lib/bootstrap/scss/bootstrap';
 
 body {
-    background: $colorBeige;
     position: absolute;
     width: 100vw;
     min-height: 100vh;
@@ -15,9 +14,10 @@ body {
         margin:0;
     }
     header {
-        background: $primaryColor;
+        background: $colorWhite;
+        box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
         a {
-            color:#fff !important;
+            color: $secondaryColor !important;
             font-size: 1rem;
             line-height: 1rem;
             padding: 1rem !important;

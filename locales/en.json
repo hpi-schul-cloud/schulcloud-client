@@ -243,9 +243,6 @@
 				"toGiveConsent": "Give consent",
 				"transferClassToTheNextSchoolYear": "Move class to the next school year"
 			},
-			"tab_label": {
-				"archivedClasses": "Archive"
-			},
 			"text": {
 				"active": "Active",
 				"agreementSuccessfullyDeclared": "Consent successfully declared",
@@ -558,6 +555,7 @@
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
 				"authentication": "Authentication",
+				"beta": "Try new admin page",
 				"changeOfClasses": "Change of classes \/ new classes",
 				"changeOfUserData": "Change of user data \/ new users",
 				"chooseACounty": "Please choose the county your school belongs to.",
@@ -987,8 +985,7 @@
 			},
 			"tasks": {
 				"button": {
-					"createTask": "Create a task",
-					"privateTasks": "Private tasks"
+					"createTask": "Create a task"
 				},
 				"headline": {
 					"createFirstTask": "Create the first task in your course",
@@ -1002,14 +999,13 @@
 				},
 				"label": {
 					"archived": "Archived",
-					"drafts": "Drafts",
+					"draft": "Draft",
 					"feedback": "Feedback",
 					"provided": "Provided"
 				},
 				"text": {
 					"descriptionTasks": "Course participants can easily complete tasks by a set deadline and submit results digitally. Tasks can be set for an entire course or a single topic.",
-					"moreArchivedLinkLabel": "More archived tasks...",
-					"showPrivateTasks": "Fold private tasks in\/out"
+					"moreArchivedLinkLabel": "More archived tasks..."
 				}
 			},
 			"text": {
@@ -1211,8 +1207,7 @@
 			"searchForCourses": "Search for courses"
 		},
 		"tab_label": {
-			"archivedCourses": "Archived courses",
-			"currentCourses": "Current courses"
+			"currentCourses": "Current"
 		},
 		"text": {
 			"courseNoAccess": "The Courses section is only available to teachers and students.",
@@ -1576,7 +1571,7 @@
 		"button": {
 			"accept": "Accept",
 			"add": "Add",
-			"addPrivateTask": "Add private task",
+			"addDraftTask": "Add a draft",
 			"addTask": "Add task",
 			"back": "Back",
 			"cancel": "Cancel",
@@ -1623,14 +1618,13 @@
 			"myMaterial": "My materials",
 			"name": "Name",
 			"news": "News",
-			"privateTasks": "Private tasks and drafts",
+			"draftTasks": "Drafts",
 			"projectExecution": "Project execution",
 			"sorryItDidNotWork": "Sorry, that didn't work.",
 			"sorting": "Sorting",
 			"task": "Task",
 			"tasks": "Tasks",
 			"tasksAll": "All Tasks",
-			"tasksOpen": "Open Tasks",
 			"tasksCurrent": "Current Tasks",
 			"teachers": "Teachers",
 			"topics": "Topics",
@@ -1744,6 +1738,11 @@
 				"administration": "Administration",
 				"administrationClasses": "Classes",
 				"administrationCourses": "Courses"
+			}
+		},
+		"tab": {
+			"label": {
+				"archive": "Archive"
 			}
 		},
 		"text": {
@@ -2121,7 +2120,7 @@
 				"allowGroupSubmission": "Enable group submission",
 				"description": "Task definition",
 				"maximumGroupSize": "Maximum group size:",
-				"privateTaskOnlyVisibleToMe": "Private task (only visible for me)",
+				"draftTaskOnlyVisibleToMe": "Draft (only visible for me)",
 				"processingPeriodEndsOn": "Processing period ends on:",
 				"topic": "Topic",
 				"visibleAndEditableForStudentsFrom": "Visible for students and to be edited from:"
@@ -2140,7 +2139,6 @@
 			"breadcrumbArchived": "Archived",
 			"breadcrumbAssigned": "Assigned",
 			"breadcrumbPrivate": "My",
-			"drafts": "Drafts",
 			"dueDate": "Submission date",
 			"more": "More"
 		},
@@ -2157,7 +2155,7 @@
 			"filterDueDate": "Submission from %1 to %2",
 			"filterDueDateFrom": "from",
 			"filterDueDateTo": "to",
-			"filterMorePrivateTask": "Private task",
+			"filterMoreDraftTask": "Drafts",
 			"filterMorePublicSubmissions": "Students can see submissions among themselves",
 			"filterMoreTeamSubmissions": "Team submissions",
 			"forGradingUploadedFiles": "Files uploaded as comments\/grading",
@@ -3105,7 +3103,6 @@
 			},
 			"headline": {
 				"createTopic": "Create topic",
-				"privateTasks": "Private tasks",
 				"savedTeachingMaterials": "Stored teaching materials"
 			},
 			"input": {
@@ -3113,7 +3110,7 @@
 			},
 			"label": {
 				"content": "Content",
-				"expandPrivateTasks": "Fold private tasks in\/out",
+				"expandDraftTasks": "Fold drafts in\/out",
 				"expandTasks": "Fold tasks set in\/out",
 				"titleOfTheTopic": "Title of the topic"
 			},

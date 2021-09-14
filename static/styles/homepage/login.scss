@@ -4,7 +4,7 @@
 #loginarea {
 	&:not(.demo-login) {
 		border-radius: 0;
-		border: 1px solid var(--color-gray-light);
+		border: 0px solid var(--color-gray-light);
 		box-shadow: var(--shadow-sm);
 	}
 	.btn {

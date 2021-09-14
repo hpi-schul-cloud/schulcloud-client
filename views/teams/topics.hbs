@@ -221,8 +221,8 @@
         <div class="col-sm-6">
             {{#userHasPermission "HOMEWORK_CREATE" }}
             <a href="/homework/new?course={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1"
-                title="{{$t "global.button.addPrivateTask"}}">
-                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addPrivateTask"}}</span>
+                title="{{$t "global.button.addDraftTask"}}">
+                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addDraftTask"}}</span>
             </a>
             {{/userHasPermission}}
             <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">

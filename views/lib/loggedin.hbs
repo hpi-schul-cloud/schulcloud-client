@@ -114,13 +114,15 @@
 				{{/ifeq}}
 
                 {{#hasConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER"}}
-                    {{#if (userHasRole "administrator" "teacher")}}
-                        <section class="demo">
-                            <div class="alert alert-info" role="alert">
-                                <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER"}}}</div>
-                            </div>
-                        </section>
-                    {{/if}}
+                    {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER") ""}}
+                        {{#if (userHasRole "administrator" "teacher")}}
+                            <section class="demo">
+                                <div class="alert alert-info" role="alert">
+                                    <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER"}}}</div>
+                                </div>
+                            </section>
+                        {{/if}}
+                    {{/ifneq}}
                 {{/hasConfig}}
 
                 {{> "lib/components/notification"}}
