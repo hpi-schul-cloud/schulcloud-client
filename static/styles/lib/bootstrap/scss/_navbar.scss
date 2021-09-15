@@ -5,11 +5,12 @@
 
 .navbar {
   position: relative;
+  margin-top: -18px;
   padding: $navbar-padding-y $navbar-padding-x;
   @include clearfix;
 
   @include media-breakpoint-up(sm) {
-    @include border-radius($navbar-border-radius);
+  @include border-radius($navbar-border-radius);
   }
 }
 

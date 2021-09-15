@@ -3,6 +3,7 @@ const express = require('express');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const { NOTIFICATION_SERVICE_ENABLED } = require('../config/global');
+const { setCookie } = require('../helpers/cookieHelper');
 
 const router = express.Router();
 
@@ -18,6 +19,7 @@ router.post('/', (req, res) => {
 		passwordNew,
 		language,
 	} = req.body;
+	setCookie(res, 'USER_LANG', language);
 	// validation
 	if ((passwordNew || email) && !password) {
 		const error = new Error(res.$t('account.error.text.currentPasswordRequired'));
