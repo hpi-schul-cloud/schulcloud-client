@@ -40,7 +40,7 @@
         padding: 1rem 1rem .5rem;
         color: #fff;
         text-decoration: none !important;
-        background-color: $primaryColor;
+        background-color: $secondaryColor;
         border-top-left-radius: 2px;
         border-top-right-radius: 2px;
         &::before {
@@ -143,13 +143,13 @@
         border-bottom-right-radius: 2px;
         a, button {
             float:right;
-            color: $primaryColor;
+            color: $secondaryColor;
             border: none;
             border-radius: 2px;
             padding: 0 8px;
             display: inline-block;
-            font-size: 14px;
-            text-transform: uppercase;
+            font-size: 15px;
+            text-transform: none;
             text-decoration: none;
             text-align: center;
             line-height: 36px;

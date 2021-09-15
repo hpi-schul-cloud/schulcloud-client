@@ -113,7 +113,6 @@ aside.nav-sidebar {
 		display: block;
 		padding: 15px;
 		font-size: 24px;
-		background: $primaryColor;
 		color: whitesmoke;
 		text-decoration: none;
 		margin-bottom: 1px;
@@ -204,8 +203,8 @@ aside.nav-sidebar {
 				float: left;
 				height: 60px;
 				line-height: 60px;
-				color: $fontColor;
-				fill: $fontColor;
+				color: $secondaryColor;
+				fill:$secondaryColor;
 				padding: 0px 20px;
 				font-size: 16px;
 				text-decoration: none;
@@ -267,7 +266,7 @@ aside.nav-sidebar {
 				i.fa {
 					font-size: 20px;
 					width: 20px;
-					margin-right: 20px;
+					margin-right: 6px;
 					display: inline-block;
 					text-align: center;
 					vertical-align: middle;
@@ -276,7 +275,7 @@ aside.nav-sidebar {
 				svg {
 					font-size: 20px;
 					width: 20px;
-					margin-right: 20px;
+					margin-right: 6px;
 					display: inline-block;
 					text-align: center;
 					vertical-align: middle;
@@ -535,7 +534,6 @@ footer {
 	line-height: 1.75rem;
 
 	h1 {
-		color: $primaryColor;
 		float: left;
 		margin-bottom: 0px;
 		margin-right: 20px;
@@ -684,11 +682,11 @@ footer {
 			background: transparent;
 
 			.avatar-circle {
-				background-color: $fontColor;
+				background-color: $secondaryColor;
 			}
 
 			.avatar-circle:hover {
-				background-color: $colorDarkerGrey !important;
+				background-color: darken($secondaryColor, 17%);
 			}
 
 			&:after {

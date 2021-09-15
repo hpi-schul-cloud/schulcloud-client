@@ -12,6 +12,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 ### Changed
+-   BC-229 - exchange private task into draft
+
+-   BC-94 - clean up the colorsystem and fix some UI issues
+-   BC-94 - finxing margin issue sidebar current task
 
 ## [26.10.0] - 2021-09-03
 

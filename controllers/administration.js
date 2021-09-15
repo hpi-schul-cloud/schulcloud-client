@@ -2200,7 +2200,7 @@ router.get(
 				link: `/administration/classes/?showTab=current${filterQueryString}`,
 			},			{
 				key: 'archive',
-				title: res.$t('administration.controller.tab_label.archivedClasses'),
+				title: res.$t('global.tab.label.archive'),
 				link: `/administration/classes/?showTab=archive${filterQueryString}`,
 			},
 		];
