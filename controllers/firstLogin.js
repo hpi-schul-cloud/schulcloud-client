@@ -2,6 +2,7 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const express = require('express');
 const showdown = require('showdown');
 const _ = require('lodash');
+
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const { normalizeDate } = require('../helpers/date');
@@ -202,7 +203,6 @@ router.get('/', async (req, res, next) => {
 			submitPageIndex += 1;
 			sections.push('consent');
 		}
-
 
 		// PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
 		const userHasAccount = await hasAccount(req, res);
