@@ -46,25 +46,28 @@ $(document).ready(() => {
 						$card.removeClass('card-transparent');
 					}
 				},
-				error() {
+				error(error) {
+					if (error && error.status !== 'SUCCESS') {
+						$.showNotification(error.responseText, 'danger');
+					}
 					if (hiddenValue) {
 						$hiddenToggleIcon.removeClass(
-							"fa-spinner fa-spin load-icon spinner"
+							'fa-spinner fa-spin load-icon spinner',
 						);
-						$hiddenToggleIcon.addClass("fa-eye");
+						$hiddenToggleIcon.addClass('fa-eye');
 						$hiddenToggleBtn.attr(
-							"title",
-							$t("courses._course.topic.text.hideTopic")
+							'title',
+							$t('courses._course.topic.text.hideTopic'),
 						);
-						$card.removeClass("card-transparent");
+						$card.removeClass('card-transparent');
 					} else {
-						$hiddenToggleIcon.removeClass("fa-spinner fa-spin");
-						$hiddenToggleIcon.addClass("fa-eye-slash");
+						$hiddenToggleIcon.removeClass('fa-spinner fa-spin');
+						$hiddenToggleIcon.addClass('fa-eye-slash');
 						$hiddenToggleBtn.attr(
-							"title",
-							$t("courses._course.topic.text.revealTopic")
+							'title',
+							$t('courses._course.topic.text.revealTopic'),
 						);
-						$card.addClass("card-transparent");
+						$card.addClass('card-transparent');
 					}
 				},
 			});
