@@ -1,5 +1,5 @@
 ---
-name: Build Image and E2E
+name: push workflow
 
 on:
   push:
