@@ -2,8 +2,11 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const express = require('express');
 const showdown = require('showdown');
 const _ = require('lodash');
+
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const { normalizeDate } = require('../helpers/date');
+const { getCurrentLanguage } = require('../helpers/i18n');
 
 const converter = new showdown.Converter();
 
@@ -201,7 +204,6 @@ router.get('/', async (req, res, next) => {
 			sections.push('consent');
 		}
 
-
 		// PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
 		const userHasAccount = await hasAccount(req, res);
 		if (!userHasAccount
@@ -261,15 +263,31 @@ router.get('/consentError', (req, res, next) => {
 	res.render('firstLogin/consentError');
 });
 
-router.post(['/submit', '/submit/sso'], async (req, res, next) => api(req).post('/firstLogin/', { json: req.body })
-	.then(() => {
+router.post(['/submit', '/submit/sso'], async (req, res, next) => {
+	try {
+		const { studentBirthdate } = req.body;
+		if (studentBirthdate) {
+			let lang = await getCurrentLanguage(req, res);
+
+			// there are cases where user.language === null or even 'null' (probably due to bad validation)
+			// we can set the the language default to 'de' here analog to datetimepicker-easy.js
+			if (!lang || lang === 'null') {
+				lang = 'de';
+			}
+
+			const normalizedBirthdate = normalizeDate(studentBirthdate, lang);
+
+			req.body.studentBirthdate = normalizedBirthdate;
+		}
+
+		await api(req).post('/firstLogin/', { json: req.body });
 		res.sendStatus(200);
-	})
-	.catch((err) => {
+	} catch (err) {
 		res.status(500).send(
 			(err.error || err).message
 			|| res.$t('login.text.errorFirstLogin'),
 		);
-	}));
+	}
+});
 
 module.exports = router;

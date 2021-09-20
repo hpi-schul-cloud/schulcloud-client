@@ -21,6 +21,15 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - BC-242 - resetting icon for topic visibility and showing error message when permission is missing
 
+## [26.10.2] - 2021-09-14
+
+### Fixed
+
+- SC-9320 - Fix merge conflicts that throw an error in firstLogin
+
+## [26.10.1] - 2021-09-03 --> [26.9.2]
+
+
 ## [26.10.0] - 2021-09-03
 
 ### Changed
@@ -43,6 +52,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - BC-137 - fix bug with display of Blue Bar
+
+## [26.9.3] - 2021-09-10
+
+### Fixed
+
+- BC-239 - normalize students birth date
+
+## [26.9.2] - 2021-08-27
+
+### Changed
+
+-	BC-137 - fix bug with display of Blue Bar
 
 ## [26.9.0] - 2021-08-13
 
