@@ -1275,15 +1275,6 @@
 			"registrationInvalidOutdatedLink": "El enlace de registro es muy antiguo y ya no está vinculado correctamente con el usuario correspondiente."
 		}
 	},
-	"demo": {
-		"lib": {
-			"global": {
-				"link": {
-					"dataProtectionDeclaration": "Cuenta de prueba de la política de privacidad"
-				}
-			}
-		}
-	},
 	"files": {
 		"_file": {
 			"headline": {
@@ -1668,7 +1659,6 @@
 			}
 		},
 		"link": {
-			"aboutTheProject": "Acerca del proyecto",
 			"administrationStudents": "Estudiantes",
 			"archive": "Archivo",
 			"calendar": "Calendario",
@@ -1692,7 +1682,6 @@
 			"openInNewTab": "abrir en una nueva pestaña",
 			"openInNewTabWarning": "Se abre en una pestaña nueva",
 			"overview": "Panel",
-			"partner": "Socio",
 			"register": "Registrarse",
 			"school": "Escuela",
 			"tasksDrafts": "Borradores",
@@ -2303,7 +2292,6 @@
 				"mobileApp": "Aplicación móvil",
 				"privacy": "Privacidad:",
 				"privacy_responsible_person": "Responsable de protección de datos:",
-				"subscribeTheNewsletter": "Suscríbete al boletín de noticias",
 				"support": "Servicio de asistencia:"
 			},
 			"text": {
@@ -2376,12 +2364,12 @@
 				"discardChange": "Descartar cambios"
 			},
 			"link": {
-				"dataProtectionDeclaration": "Política de privacidad de la <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>",
+				"dataProtectionDeclaration": "Política de privacidad",
 				"github": "GitHub",
 				"participate": "Participar",
 				"safety": "Seguridad",
 				"status": "Estado",
-				"termsOfUseHPI": "Condiciones de uso de la <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>"
+				"termsOfUseHPI": "Condiciones de uso"
 			}
 		},
 		"headline": {

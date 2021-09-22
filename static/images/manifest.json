@@ -60,7 +60,7 @@
     ],
     "start_url": "/?homescreen=1",
     "scope": "/",
-    "theme_color": "#b10438",
+    "theme_color": "#9e292b",
     "background_color": "#ffffff",
     "display": "standalone"
 }
