@@ -15,7 +15,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-## [26.11.0]
+## [26.11.0] - 2021-09-22
 
 ### Changed
 
