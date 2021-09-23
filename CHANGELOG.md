@@ -21,6 +21,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - BC-68 - fix e2e manifest missing
 
+### Fixed
+
+- BC-242 - resetting icon for topic visibility and showing error message when permission is missing
+
 ## [26.10.2] - 2021-09-14
 
 ### Fixed
@@ -28,6 +32,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 - SC-9320 - Fix merge conflicts that throw an error in firstLogin
 
 ## [26.10.1] - 2021-09-03 --> [26.9.2]
+
 
 ## [26.10.0] - 2021-09-03
 
