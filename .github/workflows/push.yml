@@ -4,8 +4,7 @@ name: push workflow
 on:
   push:
     branches-ignore:
-      - master
-      - dependabot/*
+      - dependabot/**
 
 jobs:
   build_and_push_docker:
