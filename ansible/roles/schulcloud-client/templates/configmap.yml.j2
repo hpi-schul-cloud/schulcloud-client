@@ -31,7 +31,7 @@ data:
   HOST: "https://{{ DOMAIN }}"
   BACKEND_URL: "http://api-svc:3030/api/"
   PUBLIC_BACKEND_URL: "https://{{ DOMAIN }}/api"
-  LIBRE_OFFICE_CLIENT_URL: "https://libreoffice.{{ DOMAIN }}"
+  LIBRE_OFFICE_CLIENT_URL: "https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }}"
   ETHERPAD_BASE_URL: "https://{{ DOMAIN }}/etherpad/p/"
   ETHERPAD__PAD_PATH: "/etherpad/p"
   ETHERPAD__PAD_URI: "https://{{ DOMAIN }}/etherpad/p"
