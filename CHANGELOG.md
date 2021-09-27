@@ -12,27 +12,28 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 ### Changed
+
 -   BC-229 - exchange private task into draft
 
-- BC-94 - clean up the colorsystem and fix some UI issues
-- BC-94 - finxing margin issue sidebar current task
+-   BC-94 - clean up the colorsystem and fix some UI issues
+-   BC-94 - finxing margin issue sidebar current task
+-   BC-329 - New school admin page button is disabled
 
 ### Fixed
 
-- BC-68 - fix e2e manifest missing
+-   BC-68 - fix e2e manifest missing
 
 ### Fixed
 
-- BC-242 - resetting icon for topic visibility and showing error message when permission is missing
+-   BC-242 - resetting icon for topic visibility and showing error message when permission is missing
 
 ## [26.10.2] - 2021-09-14
 
 ### Fixed
 
-- SC-9320 - Fix merge conflicts that throw an error in firstLogin
+-   SC-9320 - Fix merge conflicts that throw an error in firstLogin
 
 ## [26.10.1] - 2021-09-03 --> [26.9.2]
-
 
 ## [26.10.0] - 2021-09-03
 
@@ -55,19 +56,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-- BC-137 - fix bug with display of Blue Bar
+-   BC-137 - fix bug with display of Blue Bar
 
 ## [26.9.3] - 2021-09-10
 
 ### Fixed
 
-- BC-239 - normalize students birth date
+-   BC-239 - normalize students birth date
 
 ## [26.9.2] - 2021-08-27
 
 ### Changed
 
--	BC-137 - fix bug with display of Blue Bar
+-   BC-137 - fix bug with display of Blue Bar
 
 ## [26.9.0] - 2021-08-13
 
@@ -79,7 +80,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ## [26.8.1] - 2021-08-11
 
-- revert dependencies update (client crushed after production deployment)
+-   revert dependencies update (client crushed after production deployment)
 
 ## [26.8.0] - 2021-08-05
 

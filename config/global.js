@@ -40,6 +40,7 @@ const {
 	SC_SUPERHERO_USER_PASSWORD = 'Schulcloud1!',
 	SC_SUPERHERO_USER_NAME = 'superhero@schul-cloud.org',
 	HELPAREA_URL,
+	FEATURE_NUXT_SCHOOL_ADMIN_BETA,
 } = process.env;
 
 const exp = {
@@ -82,6 +83,7 @@ const exp = {
 	SC_SUPERHERO_USER_PASSWORD,
 	SC_SUPERHERO_USER_NAME,
 	HELPAREA_URL,
+	FEATURE_NUXT_SCHOOL_ADMIN_BETA,
 };
 
 // eslint-disable-next-line no-console
