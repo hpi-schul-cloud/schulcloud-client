@@ -64,9 +64,9 @@
 
                 <div class="form-group col-md-6">
                   <label for="courseColor">{{$t "courses.global.label.courseColor"}}</label>
-                  <div class="color-picker" data-testid="color-picker">
+                  <div class="color-picker row" data-testid="color-picker">
                     {{#if course.color}}
-                      <div class="color-picker__item" data-testid="item">
+                      <div class="color-picker__item col-xs" data-testid="item">
                         <input id="input0" type="radio" class="color-picker__input" name="color" value="{{course.color}}" checked="checked"/>
                         <label for="input0" class="color-picker__color" aria-label="{{course.color}}" style="background: {{course.color}}"></label>
                       </div>

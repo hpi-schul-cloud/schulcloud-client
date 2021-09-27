@@ -13,11 +13,24 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   BC-217 - update LibreOffic domain at http-headers.js on ansible client-configmap-files.yml.j2
+
+### Fixed
+
+## [26.11.1] - 2021-09-22
+
+### Changed
+
+-   BC-235 - exchange old course colors into accessible colors
+
+## [26.11.0] - 2021-09-22
+
+### Changed
+
 -   BC-229 - exchange private task into draft
 -   BC-94 - clean up the colorsystem and fix some UI issues
 -   BC-94 - finxing margin issue sidebar current task
 -   BC-329 - New school admin page button is disabled
--   BC-217 - update LibreOffic domain at http-headers.js on ansible client-configmap-files.yml.j2
 
 ### Fixed
 
