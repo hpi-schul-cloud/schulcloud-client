@@ -14,17 +14,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 -   BC-229 - exchange private task into draft
-
 -   BC-94 - clean up the colorsystem and fix some UI issues
 -   BC-94 - finxing margin issue sidebar current task
 -   BC-329 - New school admin page button is disabled
+-   BC-217 - update LibreOffic domain at http-headers.js on ansible client-configmap-files.yml.j2
 
 ### Fixed
 
 -   BC-68 - fix e2e manifest missing
-
-### Fixed
-
 -   BC-242 - resetting icon for topic visibility and showing error message when permission is missing
 
 ## [26.10.2] - 2021-09-14
