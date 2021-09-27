@@ -13,8 +13,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
--   BC-229 - exchange private task into draft
+### Fixed
 
+## [26.11.0] - 2021-09-22
+
+### Changed
+
+-   BC-229 - exchange private task into draft
 -   BC-94 - clean up the colorsystem and fix some UI issues
 -   BC-94 - finxing margin issue sidebar current task
 -   BC-329 - New school admin page button is disabled
