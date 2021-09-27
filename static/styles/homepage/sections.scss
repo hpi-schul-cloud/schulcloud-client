@@ -100,13 +100,11 @@
     &:before{
         transform-origin: bottom left;
 	}
-	
 	ul {
-		margin-top: 24px;
-		padding-left: 0;
+		margin-bottom: var(--space-sm) !important;
+		padding: 0;
 		li {
 			list-style-type: none;
-			margin-bottom: 12px;
 		}
 	}
 }

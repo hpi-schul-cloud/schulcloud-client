@@ -129,7 +129,7 @@
 		},
 		"SC_CONTACT_EMAIL": {
 			"type": "string",
-			"default": "feedback@hpi-schul-cloud.de",
+			"default": "dataportlernen.cloud@dataport.de",
 			"description": "Contact E-Mail Adress to The HPI School-Cloud team."
 		},
 		"MATRIX_MESSENGER": {
