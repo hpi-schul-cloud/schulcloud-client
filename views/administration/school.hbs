@@ -10,10 +10,12 @@
 
 {{#content "page" mode="prepend"}}
 <div class="route-administration">
-	<div>
-		<a class="btn btn-info pull-right" href="/administration/school-settings"><i class="fa fa-arrow-right"></i> {{$t "administration.school.label.beta" }}</a>
-		<div class="clearfix"></div>
-	</div>
+	{{#ifConfig "FEATURE_NUXT_SCHOOL_ADMIN_BETA" true}}
+		<div>
+			<a class="btn btn-info pull-right" href="/administration/school-settings"><i class="fa fa-arrow-right"></i> {{$t "administration.school.label.beta" }}</a>
+			<div class="clearfix"></div>
+		</div>
+	{{/ifConfig}}
 	<section class="section-school section-default">
 		<h2 class="h4">
 			{{#if schoolMaintanance.schoolUsesLdap}}
