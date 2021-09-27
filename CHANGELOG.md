@@ -21,6 +21,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+-   BC-68 - fix e2e manifest missing
+
+### Fixed
+
 -   BC-242 - resetting icon for topic visibility and showing error message when permission is missing
 
 ## [26.10.2] - 2021-09-14
