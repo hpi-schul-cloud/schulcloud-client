@@ -1,3 +1,5 @@
+// import variables from '../theme/brb/style.scss';
+
 /* eslint-disable no-underscore-dangle */
 const _ = require('lodash');
 const express = require('express');
@@ -27,6 +29,7 @@ const markSelected = (options, values = []) => options.map((option) => {
 	option.selected = values.includes(option._id);
 	return option;
 });
+
 
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
@@ -196,15 +199,19 @@ const editCourseHandler = (req, res, next) => {
 
 		// populate course colors - to be replaced system scope
 		const colors = [
-			'#ACACAC',
-			'#D4AF37',
-			'#00E5FF',
-			'#1DE9B6',
-			'#546E7A',
-			'#FFC400',
-			'#BCAAA4',
-			'#FF4081',
-			'#FFEE58',
+			// variables.secondaryColor,
+			'#455B6A',
+			'#EC407A',
+			'#D50000',
+			'#EF6C00',
+			'#827717',
+			'#689F38',
+			'#009688',
+			'#0091EA',
+			'#304FFE',
+			'#D500F9',
+			'#9C27B0',
+			'#795548',
 		];
 
 		// checks for user's 'STUDENT_LIST' permission and filters checked students
@@ -322,15 +329,19 @@ const copyCourseHandler = (req, res, next) => {
 
 		// populate course colors - to be replaced system scope
 		const colors = [
-			'#ACACAC',
-			'#D4AF37',
-			'#00E5FF',
-			'#1DE9B6',
-			'#546E7A',
-			'#FFC400',
-			'#BCAAA4',
-			'#FF4081',
-			'#FFEE58',
+			// variables.secondaryColor,
+			'#455B6A',
+			'#EC407A',
+			'#D50000',
+			'#EF6C00',
+			'#827717',
+			'#689F38',
+			'#009688',
+			'#0091EA',
+			'#304FFE',
+			'#D500F9',
+			'#9C27B0',
+			'#795548',
 		];
 
 		course.name = `${course.name} - Kopie`;

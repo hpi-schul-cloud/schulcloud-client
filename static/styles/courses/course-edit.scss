@@ -3,12 +3,16 @@
 .color-picker {
 	display: flex;
 	font-size: 0;
+	margin-left: 3px;
 
 	&__item {
 		display: inline-block;
+		margin-top: 3px;
+		margin-bottom: 5px;
+		margin-right: 10px;
 
 		& + & {
-			margin-left: 10px;
+			margin-right: 10px;
 		}
 
 		&:hover {

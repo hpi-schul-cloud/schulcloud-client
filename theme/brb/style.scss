@@ -2,6 +2,12 @@ $primaryColor: #0a9396;
 $secondaryColor: #38677a;
 $accentColor: #E4032E;
 
+// :export {
+// primaryColor: $primaryColor;
+// secondaryColor: $secondaryColor;
+// accentColor: $accentColor;
+// };
+
 $logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
 
 $colorBeige: #e6e2e2;
