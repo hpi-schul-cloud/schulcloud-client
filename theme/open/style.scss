@@ -38,6 +38,11 @@ aside.nav-sidebar{
     }
 }
 body {
+    display: flex;
+    flex-direction: column;
+    >.container {
+        flex-grow: 1;
+    }
     header.top-margin {
         margin-top: -1rem;
     }
