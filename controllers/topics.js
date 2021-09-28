@@ -15,7 +15,6 @@ const router = express.Router({ mergeParams: true });
 const {
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
-	PUBLIC_BACKEND_URL,
 } = require('../config/global');
 
 const editTopicHandler = (req, res, next) => {
