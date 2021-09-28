@@ -14,6 +14,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 -   BC-217 - update LibreOffic domain at http-headers.js on ansible client-configmap-files.yml.j2
+-   BC-331 - BC-354 - rename ansible variables for OnePassword
 
 ### Fixed
 
