@@ -2287,13 +2287,14 @@
 			},
 			"link": {
 				"generalInquiries": "Consultas generales:",
+				"currentJobOffers": "Ofertas de trabajo",
 				"mobileApp": "Aplicación móvil",
 				"privacy": "Privacidad:",
 				"privacy_responsible_person": "Responsable de protección de datos:",
 				"support": "Servicio de asistencia:"
 			},
 			"text": {
-				"weAreHiring": "¿Quieres trabajar con nosotros en el equipo de la <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>? Mira esta página:"
+				"weAreHiring": "¿Quieres trabajar con nosotros en el equipo de la <span style='white-space: nowrap;'>dBildungscloud<\/span>? Mira esta página:"
 			}
 		},
 		"footer": {

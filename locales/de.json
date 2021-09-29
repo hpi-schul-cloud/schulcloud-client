@@ -2287,13 +2287,14 @@
 			},
 			"link": {
 				"generalInquiries": "Allgemeine Anfragen",
+				"currentJobOffers": "Aktuelle Jobangebote",
 				"mobileApp": "Mobile App",
 				"privacy": "Allgemeine Datenschutzanfragen",
 				"privacy_responsible_person": "Datenschutzbeauftragter",
 				"support": "Support"
 			},
 			"text": {
-				"weAreHiring": "Du möchtest Teil des <span style='white-space: nowrap;'>dBildungscloud<\/span> Teams werden? Dann schau hier vorbei:"
+				"weAreHiring": "Du möchtest Teil des <span style='white-space: nowrap;'>dBildungscloud-<\/span> Teams werden? Dann schau hier vorbei:"
 			}
 		},
 		"footer": {
