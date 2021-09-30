@@ -32,3 +32,12 @@ aside.nav-sidebar{
         }
     }
 }
+
+.primary-color{
+    color: $primaryColor;
+    display: none;
+}
+.secondary-color {
+    color: $secondaryColor;
+    display: none;
+}

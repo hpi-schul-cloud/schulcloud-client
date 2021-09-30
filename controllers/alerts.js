@@ -5,8 +5,8 @@ const { AlertsCache } = require('../helpers/cache');
 
 const router = express.Router();
 
-let handler = (req, res) => {
-	res.json([]);
+let handler = async (req, res) => {
+	res.json(['asdfasljdfh']);
 };
 
 if (Configuration.get('FEATURE_ALERTS_ENABLED')) {
