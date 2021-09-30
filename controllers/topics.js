@@ -15,7 +15,6 @@ const router = express.Router({ mergeParams: true });
 const {
 	NEXBOARD_USER_ID,
 	NEXBOARD_API_KEY,
-	PUBLIC_BACKEND_URL,
 } = require('../config/global');
 
 const editTopicHandler = (req, res, next) => {
@@ -438,8 +437,10 @@ router.patch('/:topicId', async (req, res, next) => {
 			res.redirect(`/${context}/${req.params.courseId}/topics/${req.params.topicId
 			}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`);
 		}
-	}).catch(() => {
-		res.sendStatus(500);
+	}).catch((error) => {
+		const statusCode = error.statusCode || 500;
+		const errorMessage = error.error ? error.error.message : 'An error occured';
+		res.status(statusCode).send(errorMessage);
 	});
 });
 

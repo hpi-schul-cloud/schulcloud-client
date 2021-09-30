@@ -604,9 +604,7 @@ footer {
 
 @include media-breakpoint-down(xs) {
 	.topbar + .section-title {
-		border-bottom: 1px solid #ddd;
-		padding: 10px 0px;
-		margin-bottom: 25px;
+		padding: 0px;
 	}
 }
 

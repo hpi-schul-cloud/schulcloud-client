@@ -482,6 +482,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables Topic Share button"
+		},
+		"FEATURE_NUXT_SCHOOL_ADMIN_BETA": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables button to new Nuxt School Admin beta-version page"
 		}
 	},
 	"allOf": [
