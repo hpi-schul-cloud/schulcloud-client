@@ -11,6 +11,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+- BC-343 - run unstable e2e tests on label `run unstable tests`
+
 ### Changed
 
 -   BC-170 - add v1 prefix in wopi api uri extending PUBLIC_BACKEND_URL
