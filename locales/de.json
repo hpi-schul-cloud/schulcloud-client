@@ -793,7 +793,7 @@
 			"thuringia": "Thüringen"
 		},
 		"headline": {
-			"chooseYourState": "Wählen Sie Ihr Bundesland oder das Projekt dem Sie angehören.",
+			"chooseYourState": "Bitte wählen Sie eine der folgenden Möglichkeiten:",
 			"joinNow": "Jetzt mitmachen!"
 		},
 		"text": {
@@ -1275,15 +1275,6 @@
 			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem\/r Nutzer:in verknüpft."
 		}
 	},
-	"demo": {
-		"lib": {
-			"global": {
-				"link": {
-					"dataProtectionDeclaration": "Datenschutzerklärung Testaccount"
-				}
-			}
-		}
-	},
 	"files": {
 		"_file": {
 			"headline": {
@@ -1668,7 +1659,6 @@
 			}
 		},
 		"link": {
-			"aboutTheProject": "Über das Projekt",
 			"administrationStudents": "Schüler:innen",
 			"archive": "Archiv",
 			"calendar": "Termine",
@@ -1692,7 +1682,6 @@
 			"openInNewTab": "in neuem Tab öffnen",
 			"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 			"overview": "Übersicht",
-			"partner": "Partner",
 			"register": "Registrieren",
 			"school": "Schule",
 			"tasksDrafts": "Entwürfe",
@@ -2297,17 +2286,15 @@
 				"nowAtGooglePlay": "Jetzt bei Google Play"
 			},
 			"link": {
-				"contentProviders": "Inhalteanbieter",
-				"currentJobOffers": "Aktuelle Jobangebote",
 				"generalInquiries": "Allgemeine Anfragen",
+				"currentJobOffers": "Aktuelle Jobangebote",
 				"mobileApp": "Mobile App",
 				"privacy": "Allgemeine Datenschutzanfragen",
 				"privacy_responsible_person": "Datenschutzbeauftragter",
-				"subscribeTheNewsletter": "Newsletter abonnieren",
 				"support": "Support"
 			},
 			"text": {
-				"weAreHiring": "Du möchtest Teil des <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span> Teams werden? Dann schau hier vorbei:"
+				"weAreHiring": "Du möchtest Teil des <span style='white-space: nowrap;'>dBildungscloud-<\/span> Teams werden? Dann schau hier vorbei:"
 			}
 		},
 		"footer": {
@@ -2376,12 +2363,12 @@
 				"discardChange": "Änderung verwerfen"
 			},
 			"link": {
-				"dataProtectionDeclaration": "Datenschutzerklärung <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>",
+				"dataProtectionDeclaration": "Datenschutzerklärung",
 				"github": "GitHub",
 				"participate": "Mitmachen",
 				"safety": "Sicherheit",
 				"status": "Status",
-				"termsOfUseHPI": "Nutzungsordnung <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>"
+				"termsOfUseHPI": "Nutzungsordnung"
 			}
 		},
 		"headline": {

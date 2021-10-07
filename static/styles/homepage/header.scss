@@ -46,8 +46,8 @@
 	ul.nav > li {
 		margin-right: 8px;
 	}
-	ul.nav > li > a {
-		margin: 0!important;
+ 	ul.nav > li > a {
+		margin: 2px!important;
 	}
 	ul.nav > li.nav-link-login > a > .fa {
 		margin-right: 8px!important;
@@ -74,7 +74,7 @@
 		transition-duration: 0.3s;
 		&:hover {
 			color: var(--color-white);
-			background-color: rgb(158, 6, 52);
+			background-color: var(--color-primary-dark);
 		}
 	}
 	.btn-primary-nuxt-outline {
@@ -98,12 +98,13 @@
 		transition-property: background, box-shadow;
 		transition-duration: 0.3s;
 		&:hover {
-			border-color: rgb(133, 5, 44);
+			border-color: var(--color-primary-dark);
+			color: var(--color-primary-dark);
 			box-shadow: 0 0 0 1px rgb(133, 5, 44);
 		}
 	}
     @include media-breakpoint-down(md) {
-        .container{
+         .container{
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -112,7 +113,7 @@
             height: 2.25rem;
         }
         .nav{
-            display: flex;
+             display: flex;
 			flex-flow: row wrap;
 			text-align: center;
 			justify-content: center;

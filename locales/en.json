@@ -1275,15 +1275,6 @@
 			"registrationInvalidOutdatedLink": "The registration link is very old and no longer correctly linked with the corresponding user."
 		}
 	},
-	"demo": {
-		"lib": {
-			"global": {
-				"link": {
-					"dataProtectionDeclaration": "Privacy policy test account"
-				}
-			}
-		}
-	},
 	"files": {
 		"_file": {
 			"headline": {
@@ -1668,7 +1659,6 @@
 			}
 		},
 		"link": {
-			"aboutTheProject": "About the project",
 			"administrationStudents": "Students",
 			"archive": "Archive",
 			"calendar": "Calendar",
@@ -1692,7 +1682,6 @@
 			"openInNewTab": "open in new tab",
 			"openInNewTabWarning": "Opens in a new tab",
 			"overview": "Dashboard",
-			"partner": "Partner",
 			"register": "Register",
 			"school": "School",
 			"tasksDrafts": "Drafts",
@@ -2297,17 +2286,15 @@
 				"nowAtGooglePlay": "Now on Google Play"
 			},
 			"link": {
-				"contentProviders": "Content providers",
-				"currentJobOffers": "Current job offers",
 				"generalInquiries": "General inquiries",
+				"currentJobOffers": "Current job offers",
 				"mobileApp": "Mobile app",
 				"privacy": "General data protection inquiries",
 				"privacy_responsible_person": "Data protection officer",
-				"subscribeTheNewsletter": "Subscribe to the newsletter",
 				"support": "Support"
 			},
 			"text": {
-				"weAreHiring": "Would you like to become part of the <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span> team? Then take a look here:"
+				"weAreHiring": "Would you like to become part of the <span style='white-space: nowrap;'>dBildungscloud-<\/span> team? Then take a look here:"
 			}
 		},
 		"footer": {
@@ -2376,12 +2363,12 @@
 				"discardChange": "Discard change"
 			},
 			"link": {
-				"dataProtectionDeclaration": "Privacy Policy of <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>",
+				"dataProtectionDeclaration": "Privacy Policy",
 				"github": "GitHub",
 				"participate": "Participate",
 				"safety": "Security",
 				"status": "Status",
-				"termsOfUseHPI": "Terms of use of the <span style='white-space: nowrap;'>HPI Schul-Cloud<\/span>"
+				"termsOfUseHPI": "Terms of use"
 			}
 		},
 		"headline": {

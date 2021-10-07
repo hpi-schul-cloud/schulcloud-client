@@ -29,7 +29,7 @@ describe('Static assets middleware', () => {
 
 	const INTEGRATION_PAGE_PATH = '/dashboard';
 	const INTEGRATION_FILENAME = '/images/logo/lokalise_logo.svg';
-	const INTEGRATION_HASHED_FILENAME = '/images/logo/lokalise_logo.76a4d05.svg';
+	const INTEGRATION_HASHED_FILENAME = '/images/logo/lokalise_logo.b85888a.svg';
 
 	before((done) => {
 		this.server = app.listen(3031);
