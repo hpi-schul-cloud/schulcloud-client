@@ -11,7 +11,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
-- BC-343 - run unstable e2e tests on label `run unstable tests`
+-   BC-402 - split e2e, wait for build and trigger them with reusable workflow
 
 ### Changed
 
