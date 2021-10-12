@@ -11,6 +11,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+### Changed
+
+## [26.12.0] - 2021-10-12
+
+### Added
+
 - BC-343 - run unstable e2e tests on label `run unstable tests`
 
 ### Changed
