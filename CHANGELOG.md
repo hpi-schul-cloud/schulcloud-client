@@ -22,6 +22,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- BC-381 - fixed color of menu items in the sidebar
+- BC-381 - fixed colored adress-bar of browsers and added correct app-icons
+
 ## [26.11.1] - 2021-09-22
 
 ### Changed
