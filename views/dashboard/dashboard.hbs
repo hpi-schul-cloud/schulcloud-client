@@ -59,14 +59,14 @@
 {{/if}}
 
 <section data-testid="timetable-section" class="section section-timetable">
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 class="h5">{{$t "dashboard.headline.schedule"}}</h2>
-            <time class="selected-date pull-right text-muted">{{eventsDate}}</time>
-        </div>
-    </div>
 
     {{#if events}}
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="h5">{{$t "dashboard.headline.schedule"}}</h2>
+                <time class="selected-date pull-right text-muted">{{eventsDate}}</time>
+            </div>
+        </div>
         <div class="timetable">
             <div class="row lesson-cards">
                 <div>
@@ -107,8 +107,14 @@
             </div>
         </div>
     {{else}}
-        <img class="w-100 pl-1 pr-1 svg-timetable-empty" src="{{getAssetPath '/images/empty-states/timetable-empty-cards.svg'}}" alt="{{$t "dashboard.text.emptyTimetable"}}"/>
-        <p class="my-2 pl-1 text-muted">{{$t "dashboard.text.empytTimetableInfo"}}</p>
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="h5">{{$t "dashboard.headline.welcome"}} {{@root.currentUser.firstName}} {{@root.currentUser.lastName}}!</h2>
+        </div>
+    </div>
+    <div class="row d-block text-center">
+        <img src="{{getAssetPath '/images/empty-states/welcome.svg'}}" alt="{{$t "dashboard.headline.welcome"}} {{@root.currentUser.firstName}} {{@root.currentUser.lastName}}!"/>
+    </div>
     {{/if}}
 </section>
 

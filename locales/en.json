@@ -1227,6 +1227,7 @@
 		"headline": {
 			"poll2Title": "Survey II in the school cloud project",
 			"schedule": "Schedule",
+			"welcome":"Hello",
 			"title": "Dashboard",
 			"withFeedback": "Submissions with teacher's comments",
 			"withRequiredFeedback": "Tasks with submissions without comments yet"
@@ -1245,7 +1246,6 @@
 			"emptyHomeworksInfo": "All homeworks are shown in the homeworks section.",
 			"emptyNewsInfo": "No recent news. Check the news section to stay informed.",
 			"emptyTimetable": "Empty timetable",
-			"empytTimetableInfo": "Your timetable is currently not displayed. Due to the high numbers of users learning at home, it is temporarily hidden for all our users. It is not up to you.",
 			"graded": "Graded",
 			"handedIn": "Submitted",
 			"noDueDate": "No submission date set",
