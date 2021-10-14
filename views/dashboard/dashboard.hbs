@@ -1,8 +1,8 @@
 {{#extend "lib/loggedin"}}
 
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="{{getAssetPath '/styles/dashboard/dashboard.css'}}" />
 <link rel="stylesheet" href="{{getAssetPath '/styles/courses/empty-state.css'}}"/>
+<link rel="stylesheet" href="{{getAssetPath '/styles/dashboard/dashboard.css'}}" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
@@ -67,7 +67,7 @@
     </div>
     <div class="row d-block text-center">
         <div class="empty-state">
-            {{> dashboard/svg_welcome }}
+            <img class="image wide-image" src="{{getAssetPath '/images/empty-states/welcome.svg'}}" />
         </div>
     </div>
 </section>
