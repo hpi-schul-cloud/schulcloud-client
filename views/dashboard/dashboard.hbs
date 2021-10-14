@@ -165,7 +165,9 @@
         </div>
         <div class="row d-block text-center">
             <div class="empty-state">
-                {{> 'courses/components/svg_tasks' }}
+                <div class="image center">
+                    {{> 'courses/components/svg_tasks' }}
+                </div>
                 <p class="text-muted dashboard-empty-info">
                     {{$t "dashboard.text.emptyHomeworksInfo"}}
                 </p>
@@ -190,7 +192,9 @@
             </div>
            <div class="row d-block text-center">
                 <div class="empty-state">
-                    {{> 'courses/components/svg_tasks' }}
+                    <div class="image center">
+                        {{> 'courses/components/svg_tasks' }}
+                    </div>                    
                     <p class="text-muted dashboard-empty-info">
                         {{$t "dashboard.text.emptyHomeworksInfo"}}
                     </p>
@@ -218,10 +222,14 @@
         </div>
     </div>
     <div class="row d-block text-center">
-        <img src="{{getAssetPath '/images/empty-states/news-empty.svg'}}" alt="{{$t "dashboard.text.noNews"}}" />
-        <p class="text-muted dashboard-empty-info">
-            {{$t "dashboard.text.emptyNewsInfo"}}
-        </p>
+        <div class="empty-state">
+            <div class="image center">
+                {{> 'dashboard/svg_news-empty' }}
+            </div>
+            <p class="text-muted dashboard-empty-info">
+                {{$t "dashboard.text.emptyNewsInfo"}}
+            </p>
+        </div>
     </div>
 </section>
 {{/if}}
