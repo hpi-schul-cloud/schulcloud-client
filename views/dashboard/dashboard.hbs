@@ -165,7 +165,7 @@
         </div>
         <div class="row d-block text-center">
             <div class="empty-state">
-                {{> courses/components/svg_tasks}}
+                {{> 'courses/components/svg_tasks' }}
                 <p class="text-muted dashboard-empty-info">
                     {{$t "dashboard.text.emptyHomeworksInfo"}}
                 </p>
@@ -188,11 +188,13 @@
                     <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "global.headline.tasks"}}</a></h2>
                 </div>
             </div>
-            <div class="row d-block text-center">
-                <img src="{{getAssetPath '/images/empty-states/tasks-empty.svg'}}" alt="{{$t "global.text.noTasks"}}" />
-                <p class="text-muted dashboard-empty-info">
-                    {{$t "dashboard.text.emptyHomeworksInfo"}}
-                </p>
+           <div class="row d-block text-center">
+                <div class="empty-state">
+                    {{> 'courses/components/svg_tasks' }}
+                    <p class="text-muted dashboard-empty-info">
+                        {{$t "dashboard.text.emptyHomeworksInfo"}}
+                    </p>
+                </div>
             </div>
         </section>
     {{/if}}
