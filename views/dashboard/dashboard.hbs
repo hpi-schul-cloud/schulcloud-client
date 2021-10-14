@@ -2,6 +2,7 @@
 
 {{#content "styles" mode="append"}}
 <link rel="stylesheet" href="{{getAssetPath '/styles/dashboard/dashboard.css'}}" />
+<link rel="stylesheet" href="{{getAssetPath '/styles/courses/empty-state.css'}}"/>
 {{/content}}
 
 {{#content "scripts" mode="append"}}
@@ -58,9 +59,21 @@
 </section>
 {{/if}}
 
-<section data-testid="timetable-section" class="section section-timetable">
+<section data-testid="welcome-section" class="section section-welcome">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h2 class="h5 mb-1 mt-2">{{$t "dashboard.headline.welcome"}} {{@root.currentUser.firstName}} {{@root.currentUser.lastName}}!</h2>
+        </div>
+    </div>
+    <div class="row d-block text-center">
+        <div class="empty-state">
+            {{> dashboard/svg_welcome }}
+        </div>
+    </div>
+</section>
 
-    {{#if events}}
+{{#if events}}
+<section data-testid="timetable-section" class="section section-timetable">
         <div class="row">
             <div class="col-sm-12">
                 <h2 class="h5">{{$t "dashboard.headline.schedule"}}</h2>
@@ -106,17 +119,8 @@
                 </div>
             </div>
         </div>
-    {{else}}
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 class="h5">{{$t "dashboard.headline.welcome"}} {{@root.currentUser.firstName}} {{@root.currentUser.lastName}}!</h2>
-        </div>
-    </div>
-    <div class="row d-block text-center">
-        <img src="{{getAssetPath '/images/empty-states/welcome.svg'}}" alt="{{$t "dashboard.headline.welcome"}} {{@root.currentUser.firstName}} {{@root.currentUser.lastName}}!"/>
-    </div>
-    {{/if}}
-</section>
+    </section>
+{{/if}}
 
 {{#ifeq this.currentRole "Beta"}}
 <section class="section section-my-material">
@@ -158,10 +162,12 @@
             </div>
         </div>
         <div class="row d-block text-center">
-            <img src="{{getAssetPath '/images/empty-states/tasks-empty.svg'}}" alt="{{$t "global.text.noTasks"}}" />
-            <p class="text-muted dashboard-empty-info">
-                {{$t "dashboard.text.emptyHomeworksInfo"}}
-            </p>
+            <div class="empty-state">
+                {{> courses/components/svg_tasks}}
+                <p class="text-muted dashboard-empty-info">
+                    {{$t "dashboard.text.emptyHomeworksInfo"}}
+                </p>
+            </div>
         </div>
     </section>
     {{/if}}
