@@ -1243,8 +1243,8 @@
 			"toTask": "A la tarea"
 		},
 		"text": {
-			"emptyHomeworksInfo": "Sin tareas actuales. Puede encontrar todas las tareas en el área de tareas.",
-			"emptyNewsInfo": "Hasta el momento no hay novedades.",
+			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área the tareas.",
+			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
 			"handedIn": "Presentado",
 			"noDueDate": "No se ha fijado una fecha de envío",

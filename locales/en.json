@@ -1243,7 +1243,7 @@
 			"toTask": "To the task"
 		},
 		"text": {
-			"emptyHomeworksInfo": "No current tasks. You can find all tasks in the tasks area.",
+			"emptyHomeworksInfo": "No assigned tasks. You can find all tasks in the tasks area.",
 			"emptyNewsInfo": "So far there is no news.",
 			"graded": "Graded",
 			"handedIn": "Submitted",

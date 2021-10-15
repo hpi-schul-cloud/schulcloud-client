@@ -1243,7 +1243,7 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
-			"emptyHomeworksInfo": "Keine aktuellen Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
+			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",
 			"handedIn": "Abgegeben",
