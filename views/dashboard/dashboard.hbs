@@ -165,12 +165,14 @@
         </div>
         <div class="row d-block text-center">
             <div class="empty-state">
-                <div class="image center">
-                    {{> 'courses/components/svg_tasks' }}
+                <div class="col-sm-12">
+                    <div class="image center">
+                        {{> 'courses/components/svg_tasks' }}
+                    </div>
+                    <p class="text-muted dashboard-empty-info">
+                        {{$t "dashboard.text.emptyHomeworksInfo"}}
+                    </p>
                 </div>
-                <p class="text-muted dashboard-empty-info">
-                    {{$t "dashboard.text.emptyHomeworksInfo"}}
-                </p>
             </div>
         </div>
     </section>
@@ -191,13 +193,15 @@
                 </div>
             </div>
            <div class="row d-block text-center">
-                <div class="empty-state">
-                    <div class="image center">
-                        {{> 'courses/components/svg_tasks' }}
-                    </div>                    
-                    <p class="text-muted dashboard-empty-info">
-                        {{$t "dashboard.text.emptyHomeworksInfo"}}
-                    </p>
+                <div class="col-sm-12">
+                    <div class="empty-state">
+                        <div class="image center">
+                            {{> 'courses/components/svg_tasks' }}
+                        </div>
+                        <p class="text-muted dashboard-empty-info">
+                            {{$t "dashboard.text.emptyHomeworksInfo"}}
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
