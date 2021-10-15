@@ -1243,8 +1243,8 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
-			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
-			"emptyNewsInfo": "Du findest alle Neuigkeiten im Neuigkeiten-Bereich.",
+			"emptyHomeworksInfo": "Keine aktuellen Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
+			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",
 			"handedIn": "Abgegeben",
 			"noDueDate": "Kein Abgabedatum festgelegt",
