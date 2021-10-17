@@ -921,7 +921,7 @@
 					},
 					"headline": {
 						"doneGroupTasks": "finished group submissions",
-						"homework": "Homework: {{name}}",
+						"homework": "Task: {{name}}",
 						"openGroupTasks": "open (possible) group submissions"
 					},
 					"link": {
@@ -1242,7 +1242,7 @@
 			"toTask": "To the task"
 		},
 		"text": {
-			"emptyHomeworksInfo": "All homeworks are shown in the homeworks section.",
+			"emptyHomeworksInfo": "All tasks are shown in the tasks section.",
 			"emptyNewsInfo": "No recent news. Check the news section to stay informed.",
 			"emptyTimetable": "Empty timetable",
 			"empytTimetableInfo": "Your timetable is currently not displayed. Due to the high numbers of users learning at home, it is temporarily hidden for all our users. It is not up to you.",
@@ -2078,7 +2078,7 @@
 			"text": {
 				"errorInvalidTaskId": "Invalid Task ID",
 				"maxGroupSize": "Maximum group size: <b>{{maxTeamMembers}} members <\/b>",
-				"newHomeworkCourseNotification": "You have a new homework in {{coursename}}",
+				"newHomeworkCourseNotification": "You have a new task in {{coursename}}",
 				"newHomeworkDueDateNotification": "{{homeworkname}} must be submitted by {{duedate}}.",
 				"noSubmissionsYet": "No submissions available.",
 				"noSubmissionsYetFrom": "No submission yet from:",
@@ -2092,7 +2092,7 @@
 			"copy": "Copy",
 			"copySubmissionFromList": "Copy",
 			"deleteSubmissionFromList": "Delete",
-			"downloadUngradedFiles": "Download files of ungraded homework",
+			"downloadUngradedFiles": "Download files of ungraded task",
 			"editSubmissionFromList": "Edit",
 			"hrefAlt": "Delete submission",
 			"hrefDataName": "Your submission",
@@ -2169,7 +2169,7 @@
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "By activating this option, the submissions of all course participants will be visible to all other students in the course.",
 			"bulkGradingError": "Submissions could not be assigned to all files based on the name. Go to comments\/grading to assign the following files to the respective submission:",
-			"bulkGradingSuccess": "Homework could be assigned to all files. Please reload page.",
+			"bulkGradingSuccess": "Task could be assigned to all files. Please reload page.",
 			"creatorCanNotBeRemoved": "You cannot remove the creator of the task!",
 			"done": "Great! You've completed your task!",
 			"doYouReallyWantToDelete": "Are you sure you want to delete '{{name}}'?",
@@ -3141,13 +3141,13 @@
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
 				"descriptionNeXboard": "Description of the neXboard",
-				"internalLink": "URL of homework",
+				"internalLink": "URL of task",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
 				"nameOfNeXboard": "Name of the neXboard",
 				"openSection": "Unlock section",
 				"selectNeXboard": "Select neXboard",
-				"theLinkHasToBeginWith": "The link must begin with '{{- baseUrl}} \/ homework'! Students must have access to the homework to see it included here. Attention: If you share this topic or the entire course with another teacher using a sharing code, the tasks integrated in this way will currently not be considered.",
+				"theLinkHasToBeginWith": "The link must begin with '{{- baseUrl}} \/ task'! Students must have access to the task to see it included here. Attention: If you share this topic or the entire course with another teacher using a sharing code, the tasks integrated in this way will currently not be considered.",
 				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https:\/\/www.geogebra.org\/m\/e6g4adXp the material ID is 'e6g4adXp'"
 			}
 		}
