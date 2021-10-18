@@ -1243,7 +1243,7 @@
 			"toTask": "A la tarea"
 		},
 		"text": {
-			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área the tareas.",
+			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
 			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
 			"handedIn": "Presentado",
