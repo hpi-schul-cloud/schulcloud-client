@@ -24,7 +24,7 @@ describe('Static assets middleware', () => {
 	 * the filename must contain a valid hash for the current file content,
 	 * the hash can be safely updated when the file content changes
      */
-	const ROBOTS_TXT_PATH_WITH_HASH = '/robots.024c4e1.txt';
+	const ROBOTS_TXT_PATH_WITH_HASH = '/robots.3e9f0e3.txt';
 	const ROBOTS_TXT_PATH = '/robots.txt';
 
 	const INTEGRATION_PAGE_PATH = '/dashboard';
