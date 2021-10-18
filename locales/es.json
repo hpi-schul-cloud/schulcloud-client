@@ -1227,6 +1227,7 @@
 		"headline": {
 			"poll2Title": "Encuesta II en el proyecto de la nube escolar",
 			"schedule": "Programación",
+			"welcome":"Hola",
 			"title": "Panel",
 			"withFeedback": "Envíos con comentarios de los profesores",
 			"withRequiredFeedback": "Las tareas con envíos todavía no tienen comentarios"
@@ -1242,10 +1243,8 @@
 			"toTask": "A la tarea"
 		},
 		"text": {
-			"emptyHomeworksInfo": "Todas las tareas se muestran en la sección de tareas.",
-			"emptyNewsInfo": "No hay noticias recientes. Consulta la sección de noticias para mantenerte informado.",
-			"emptyTimetable": "Horario en blanco",
-			"empytTimetableInfo": "Normalmente mostramos aquí tu horario actual. Puedes encontrar tu contenido de aprendizaje en la sección del curso.",
+			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
+			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
 			"handedIn": "Presentado",
 			"noDueDate": "No se ha fijado una fecha de envío",
