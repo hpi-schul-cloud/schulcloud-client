@@ -1669,13 +1669,13 @@
 			"filesPersonal": "archivos personales",
 			"filesShared": "archivos compartidos",
 			"firstSteps": "Primeros pasos",
-			"footerSkipLink": "Pie de página",
+			"footerSkipLink": "Saltar al pie de página",
 			"helpArea": "Sección de ayuda",
 			"helpDesk": "Centro de ayuda",
 			"imprint": "Impresión",
 			"landing": "Página de inicio",
 			"lernstore": "Lern-Store",
-			"mainContentSkipLink": "Sección principal",
+			"mainContentSkipLink": "Saltar al contenido principal",
 			"management": "Administración",
 			"managementTeachers": "Profesores",
 			"openInNewTab": "abrir en una nueva pestaña",
@@ -1686,7 +1686,7 @@
 			"tasksDrafts": "Borradores",
 			"teamData": "Mis archivos de equipo",
 			"teams": "Equipos",
-			"topNavbarSkipLink": "Navegación arriba"
+			"topNavbarSkipLink": "Saltar al navegación arriba"
 		},
 		"pagination": {
 			"aria_label": {

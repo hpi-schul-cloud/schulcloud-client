@@ -1669,13 +1669,13 @@
 			"filesPersonal": "persönliche Dateien",
 			"filesShared": "geteilte Dateien",
 			"firstSteps": "Erste Schritte",
-			"footerSkipLink": "Footer",
+			"footerSkipLink": "Zum Footer wechseln",
 			"helpArea": "Hilfebereich",
 			"helpDesk": "Helpdesk",
 			"imprint": "Impressum",
 			"landing": "Startseite",
 			"lernstore": "Lern-Store",
-			"mainContentSkipLink": "Hauptbereich",
+			"mainContentSkipLink": "Zum Hauptinhalt wechseln",
 			"management": "Verwaltung",
 			"managementTeachers": "Lehrkräfte",
 			"openInNewTab": "in neuem Tab öffnen",
@@ -1686,7 +1686,7 @@
 			"tasksDrafts": "Entwürfe",
 			"teamData": "Meine Team-Dateien",
 			"teams": "Teams",
-			"topNavbarSkipLink": "Navigation oben"
+			"topNavbarSkipLink": "Zur Navigation oben wechseln"
 		},
 		"pagination": {
 			"aria_label": {
