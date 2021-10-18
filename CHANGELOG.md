@@ -13,11 +13,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   BC-405 - update dashboard pictures and replace timetable placeholder
+
 ## [26.12.0] - 2021-10-12
 
 ### Added
 
-- BC-343 - run unstable e2e tests on label `run unstable tests`
+-   BC-343 - run unstable e2e tests on label `run unstable tests`
 
 ### Changed
 

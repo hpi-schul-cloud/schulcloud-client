@@ -1,282 +1,300 @@
-@import '../lib/colors';
-@import '../lib/bootstrap/scss/bootstrap-flex';
-@import '../homework/homework';
+@import "../lib/colors";
+@import "../lib/bootstrap/scss/bootstrap-flex";
+@import "../homework/homework";
 
 @include media-breakpoint-down(xs) {
-    .row.lesson-cards,
-    .row.messages,
-    .row.notices,
-    .row.buttons,
-    .row.articles {
-        margin: 5px -15px;
-    }
-    .row.timeline {
-        display: none;
-    }
+	.row.lesson-cards,
+	.row.messages,
+	.row.notices,
+	.row.buttons,
+	.row.articles {
+		margin: 5px -15px;
+	}
+	.row.timeline {
+		display: none;
+	}
 
-    .timetable {
-        border-top: none !important;
-    }
+	.timetable {
+		border-top: none !important;
+	}
 
-    .timetable .row.lesson-cards {
-        height: auto;
-    }
+	.timetable .row.lesson-cards {
+		height: auto;
+	}
 
-    .timetable .row.lesson-cards .lesson-card {
-        padding: 10px 0;
-        position: relative !important;
-        left: 0px !important;
-        width: 100% !important;
-    }
+	.timetable .row.lesson-cards .lesson-card {
+		padding: 10px 0;
+		position: relative !important;
+		left: 0px !important;
+		width: 100% !important;
+	}
 }
 @include media-breakpoint-down(md) {
-    .sc-card-wrapper:nth-child(n+4) {
-        display: none;
-    }
+	.sc-card-wrapper:nth-child(n + 4) {
+		display: none;
+	}
 }
 @include media-breakpoint-down(lg) {
-    .sc-card-wrapper:nth-child(n+4) {
-        display: none;
-    }
+	.sc-card-wrapper:nth-child(n + 4) {
+		display: none;
+	}
 }
 @include media-breakpoint-down(xl) {
-    .sc-card-wrapper:nth-child(n+5) {
-        display: none;
-    }
+	.sc-card-wrapper:nth-child(n + 5) {
+		display: none;
+	}
 }
 
-.dashboard-title{
-    color: black;
+.dashboard-title {
+	color: $headings-color;
 }
-.dashboard-title:hover{
-    color: $primaryColor;
+.dashboard-title:hover {
+	color: $primaryColor;
 }
-.dashboard-title:hover, .dashboard-title:visited, .dashboard-title:link, .dashboard-title:active
-{
-    text-decoration: none;
+.dashboard-title:hover,
+.dashboard-title:visited,
+.dashboard-title:link,
+.dashboard-title:active {
+	text-decoration: none;
 }
 
-.section{
-    clear: both;
+.section {
+	clear: both;
 }
 
 .section-timetable {
-    width: 100%;
-    float: left;
-    padding-top: 15px;
-    line-height: 1.75rem;
+	width: 100%;
+	float: left;
+	padding-top: 15px;
+	line-height: 1.75rem;
 
-    @include media-breakpoint-down(xs) {
-        display: none;
-    }
+	@include media-breakpoint-down(xs) {
+		display: none;
+	}
 
-    h5 {
-        float: left;
-    }
+	h5 {
+		float: left;
+	}
 
-    .selected-date {
-        float: right;
-        color: #969696;
-        line-height:22px;
-    }
-
-    .svg-timetable-empty {
-        background-image: url('/images/empty-states/timetable-empty-bg.svg');
-        background-size: auto 100%;
-        background-repeat: repeat-x;
-        max-height: 300px;
-        opacity: 0.3;
-    }
+	.selected-date {
+		float: right;
+		color: #969696;
+		line-height: 22px;
+	}
 }
 
-
 .timetable {
-    width:100%;
-    float:left;
-    padding: 0px 15px 0px;
-    line-height: 1.75rem;
-    border-top:1px solid #c8c8c8;
-    overflow: hidden;
+	width: 100%;
+	float: left;
+	padding: 0px 15px 0px;
+	line-height: 1.75rem;
+	border-top: 1px solid #c8c8c8;
+	overflow: hidden;
 
-    .lesson-cards {
-        margin-top:40px;
-        margin-bottom:30px;
-        height:170px;
-        position: relative;
+	.lesson-cards {
+		margin-top: 40px;
+		margin-bottom: 30px;
+		height: 170px;
+		position: relative;
 
-        .lesson-card {
-            padding:0px 1px;
-            top: 0px;
-            text-decoration: none !important;
-            position: absolute;
+		.lesson-card {
+			padding: 0px 1px;
+			top: 0px;
+			text-decoration: none !important;
+			position: absolute;
 
-            &:hover, &:focus{
-                min-width: 150px;
-                z-index: 1;
-            }
+			&:hover,
+			&:focus {
+				min-width: 150px;
+				z-index: 1;
+			}
 
-            .card-block {
-                padding: 0.5rem 0;
-            }
+			.card-block {
+				padding: 0.5rem 0;
+			}
 
-            .card {
-                border:0px;
-                background:#e9e9e9;
-                border-top:6px solid $accentColor;
-                border-bottom: 6px solid transparent;
-                color: #646464;
-                height:170px;
+			.card {
+				border: 0px;
+				background: #e9e9e9;
+				border-top: 6px solid $accentColor;
+				border-bottom: 6px solid transparent;
+				color: #646464;
+				height: 170px;
 
-                &:not(.disabled):hover {
-                    background:#ddd;
-                }
+				&:not(.disabled):hover {
+					background: #ddd;
+				}
 
-                .card-bg-layer {
-                    color: $colorWhite;
-                    background: $colorSemiTransparent;
-                    margin-top: 1px;
-                    border-top-right-radius: 4px;
-                    border-top-left-radius: 4px;
-                    padding: 0 0.5rem 0.5rem;
+				.card-bg-layer {
+					color: $colorWhite;
+					background: $colorSemiTransparent;
+					margin-top: 1px;
+					border-top-right-radius: 4px;
+					border-top-left-radius: 4px;
+					padding: 0 0.5rem 0.5rem;
 
-                    .card-title {
-                        font-size:1.063rem;
-                        font-weight: 600;
-                        margin-bottom: 0;
-                    }
+					.card-title {
+						font-size: 1.063rem;
+						font-weight: 600;
+						margin-bottom: 0;
+					}
 
-                    .lesson-time {
-                        margin-bottom: 15px;
-                        margin-top: -15px;
-                        font-size: 0.75rem;
-                        display: block;
+					.lesson-time {
+						margin-bottom: 15px;
+						margin-top: -15px;
+						font-size: 0.75rem;
+						display: block;
 						line-height: 1.2rem;
-                    }
-                }
+					}
+				}
 
-                .card-text{
-                    line-height: 130%;
-                    padding: 0.5rem 0.5rem 0;
-                }
+				.card-text {
+					line-height: 130%;
+					padding: 0.5rem 0.5rem 0;
+				}
 
-                &.disabled {
-                    border-top:6px solid transparent;
-                    border-bottom: 6px solid $primaryColor;
-                    background: #f5f5f5;
-                    color: #a9a9a9;
+				&.disabled {
+					border-top: 6px solid transparent;
+					border-bottom: 6px solid $primaryColor;
+					background: #f5f5f5;
+					color: #a9a9a9;
 
-                    &:after {
-                        color:$primaryColor;
-                        content: attr(data-status);
-                        bottom:5px;
-                        right:10px;
-                        position: absolute;
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
-    }
+					&:after {
+						color: $primaryColor;
+						content: attr(data-status);
+						bottom: 5px;
+						right: 10px;
+						position: absolute;
+						font-weight: 600;
+					}
+				}
+			}
+		}
+	}
 
-    .timeline {
-        border-top:1px solid #c8c8c8;
-        width:100%;
-        float:left;
-        position: relative;
-        margin-top:3px;
-        margin-bottom:20px;
+	.timeline {
+		border-top: 1px solid #c8c8c8;
+		width: 100%;
+		float: left;
+		position: relative;
+		margin-top: 3px;
+		margin-bottom: 20px;
 
-        .current-time {
-            width: 100px;
-            height: 3px;
-            top: -3px;
-            left: 0px;
-            background: #696969;
-            display: block;
-            position: absolute;
+		.current-time {
+			width: 100px;
+			height: 3px;
+			top: -3px;
+			left: 0px;
+			background: #696969;
+			display: block;
+			position: absolute;
 
-            &:before {
-                height: 245px;
-                content: '';
-                width: 2px;
-                background: $primaryColor;
-                right: 1px;
-                position: absolute;
-                bottom: 0px;
-            }
+			&:before {
+				height: 245px;
+				content: "";
+				width: 2px;
+				background: $primaryColor;
+				right: 1px;
+				position: absolute;
+				bottom: 0px;
+			}
 
-            span {
-                font-size:10px;
-                padding: 0px 5px;
-                right: -15px;
-                position:absolute;
-                top: -31px;
-                background: #FFFFFF;
-                color: $primaryColor;
-                display: block;
-                z-index: 2;
-            }
-        }
+			span {
+				font-size: 10px;
+				padding: 0px 5px;
+				right: -15px;
+				position: absolute;
+				top: -31px;
+				background: #ffffff;
+				color: $primaryColor;
+				display: block;
+				z-index: 2;
+			}
+		}
 
-        .tick {
-            font-size:10px;
-            color:#aaa;
-        }
-        .timelines{
-            width: 100px;
-            height: 3px;
-            top: -3px;
-            left: 0px;
-            background: #696969;
-            display: block;
-            position: absolute;
+		.tick {
+			font-size: 10px;
+			color: #aaa;
+		}
+		.timelines {
+			width: 100px;
+			height: 3px;
+			top: -3px;
+			left: 0px;
+			background: #696969;
+			display: block;
+			position: absolute;
 
-            &:before {
-                height: 245px;
-                content: '';
-                width: 1px;
-                border-left: 1px dashed #ccc;
-                right: 0px;
-                position: absolute;
-                bottom: 0px;
-                z-index: -1;
-            }
-        }
-    }
+			&:before {
+				height: 245px;
+				content: "";
+				width: 1px;
+				border-left: 1px dashed #ccc;
+				right: 0px;
+				position: absolute;
+				bottom: 0px;
+				z-index: -1;
+			}
+		}
+	}
 }
 
 .poll {
-    text-align: center;
-    padding-top: 8px;
-    padding-left: 8px;
-    padding-right: 8px;
+	text-align: center;
+	padding-top: 8px;
+	padding-left: 8px;
+	padding-right: 8px;
 }
 
-.dashboard-empty-info{
-    margin-top: -35px;
+.dashboard-empty-info {
+	margin-top: -30px;
 }
 
-.homework-link{
-    color: $fontColor;
-    .homework-tile{
-        border: 0;
-        border-radius: 0;
-        border-bottom: 1px solid rgba(0,0,0,.125);
-        cursor: pointer;
-        .title-row{
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            .title{
-                font-size: 1.2rem;
-            }
-        }
-        &:hover{
-            background-color: $colorLightGrey;
-        }
-    }
-    &:hover, &:focus{
-        text-decoration: none;
-        color: $fontColor;
-    }
+.homework-link {
+	color: $fontColor;
+	.homework-tile {
+		border: 0;
+		border-radius: 0;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+		cursor: pointer;
+		.title-row {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			.title {
+				font-size: 1.2rem;
+			}
+		}
+		&:hover {
+			background-color: $colorLightGrey;
+		}
+	}
+	&:hover,
+	&:focus {
+		text-decoration: none;
+		color: $fontColor;
+	}
+}
+
+// left align news cards on dashboard
+.section.section-news .container-fluid {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.empty-state {
+	.image {
+		max-width: 150px;
+		max-height: 150px;
+		width: auto;
+		height: auto;
+		margin-bottom: 20px;
+		opacity: 1;
+	}
+	.wide-image {
+		max-width: 100%;
+	}
+	.wide-image svg {
+		max-width: 85%;
+	}
 }
