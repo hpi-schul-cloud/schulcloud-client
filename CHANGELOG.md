@@ -13,6 +13,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+### Fixed
+
+-   BC-393 - cleaned up some translations
 -   BC-405 - update dashboard pictures and replace timetable placeholder
 -   BC-392 - adjusted skip links wording
 
