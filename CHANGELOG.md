@@ -13,6 +13,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [26.13.0] - 2021-10-19
+
 ### Fixed
 
 -   BC-393 - cleaned up some translations
