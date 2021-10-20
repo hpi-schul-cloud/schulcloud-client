@@ -2020,7 +2020,7 @@
 		"headline": {
 			"allNewsOnHPINewsletter": "Todas las noticias sobre la <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span> enviadas cómodamente a tu buzón:",
 			"explainationVideo": "Vídeo explicativo sobre la nube escolar de HPI",
-			"HPISchoolCloudBlog": "Blog <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span>",
+			"dBildungscloudBlog": "Blog de <span style=\"white-space: nowrap;\">dBildungscloud<\/span>",
 			"theIdea": "La idea básica de la <span style=\"white-space: nowrap;\">nube escolar de HPI<\/span>",
 			"tryDemoVersion": "Prueba la versión de demostración ahora",
 			"welcomeToHPISchoolCloud": "¡Bienvenido a la <span style=\"white-space: nowrap;\">nube escolar de HPI!<\/span>"
@@ -2518,7 +2518,7 @@
 			"loginFailedFirstHint": "1. ¿Qué navegador utilizas?",
 			"loginFailedFirstHintText": "Generalmente recomendamos utilizar las últimas versiones de Google Chrome, Firefox y Safari. No recomendamos Internet Explorer debido a tecnologías obsoletas.",
 			"loginFailedFithHint": "5. ¿Estás en la URL correcta?",
-			"loginFailedFithHintText": "Aquí puedes encontrar todas las instancias de la nube escolar de HPI:",
+			"loginFailedFithHintText": "Aquí puedes encontrar todas las instancias de dBildungscloud:",
 			"loginFailedFourthHint": "4. ¿Ya has comprobado tus datos de inicio de sesión?",
 			"loginFailedFourthHintText": "Asegúrate también de que el campo 'Más opciones' no esté expandido al iniciar sesión y verifica si hay espacios en el nombre de usuario o la contraseña. También puedes probar la función de contraseña olvidada.",
 			"loginFailedLogoBrandenburg": "Logotipo de Brandeburgo",

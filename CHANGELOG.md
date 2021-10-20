@@ -35,6 +35,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- BC-525 - fixed footer, blog-headline landing page, logo and wording failed login 
 - BC-381 - fixed color of menu items in the sidebar
 - BC-381 - fixed colored adress-bar of browsers and added correct app-icons
 
