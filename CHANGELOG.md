@@ -13,9 +13,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
-### Fixed
-
 -   BC-392 - adjusted skip links wording
+
+### Fixed
 
 ## [26.13.0] - 2021-10-19
 
