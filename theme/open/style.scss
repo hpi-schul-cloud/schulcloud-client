@@ -70,3 +70,12 @@ body {
         }
     }
 }
+
+.primary-color{
+    color: $primaryColor;
+    display: none;
+}
+.secondary-color {
+    color: $secondaryColor;
+    display: none;
+}
