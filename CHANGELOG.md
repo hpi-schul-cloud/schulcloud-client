@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+### Fixed
+
+-   BC-525 - fixed footer, blog-headline landing page, logo and wording failed login
+
 ## [26.13.0] - 2021-10-19
 
 ### Fixed
