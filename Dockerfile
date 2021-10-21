@@ -6,7 +6,7 @@ RUN apk add \
     git \
     libtool \
     make \
-    python2 \
+    python3 \
     autoconf \
     automake \
     build-base \
