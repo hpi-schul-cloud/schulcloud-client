@@ -13,11 +13,17 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+[26.12.1]
+
+### Changed
+
+-  BC-379 - hard-code node 14 and npm 6
+
 ## [26.12.0] - 2021-10-12
 
 ### Added
 
-- BC-343 - run unstable e2e tests on label `run unstable tests`
+-   BC-343 - run unstable e2e tests on label `run unstable tests`
 
 ### Changed
 
