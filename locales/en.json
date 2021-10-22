@@ -2020,7 +2020,7 @@
 		"headline": {
 			"allNewsOnHPINewsletter": "All news about the <span style=\"white-space: nowrap;\">HPI school cloud<\/span> conveniently sent to your mailbox:",
 			"explainationVideo": "Explanatory video about the HPI school cloud",
-			"HPISchoolCloudBlog": "<span style=\"white-space: nowrap;\">HPI school cloud<\/span> Blog",
+			"dBildungscloudBlog": "<span style=\"white-space: nowrap;\">dBildungscloud<\/span> Blog",
 			"theIdea": "The basic idea of the <span style=\"white-space: nowrap;\">HPI school cloud<\/span>",
 			"tryDemoVersion": "Try the demo version now",
 			"welcomeToHPISchoolCloud": "Welcome to the <span style=\"white-space: nowrap;\">HPI school cloud!<\/span>"
@@ -2518,7 +2518,7 @@
 			"loginFailedFirstHint": "1. Which browser do you use?",
 			"loginFailedFirstHintText": "We generally recommend using the latest versions of Google Chrome, Firefox and Safari. We do not recommend Internet Explorer due to outdated technologies.",
 			"loginFailedFithHint": "5. Are you on the right URL?",
-			"loginFailedFithHintText": "Here you can find all HPI school cloud instances:",
+			"loginFailedFithHintText": "Here you can find all dBildungscloud instances:",
 			"loginFailedFourthHint": "4. Have you already checked your login details?",
 			"loginFailedFourthHintText": "Please also make sure that the 'More options' field is not expanded when logging in and check for spaces in the username or password. You might also like to try the Forgot-Password function.",
 			"loginFailedLogoBrandenburg": "Logo Brandenburg",
