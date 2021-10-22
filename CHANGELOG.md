@@ -13,6 +13,12 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [26.13.1] - 2021-10-22
+
+### Changed
+
+-  BC-379 - hard-code node 14 and npm 6
+
 ## [26.13.0] - 2021-10-19
 
 ### Fixed
