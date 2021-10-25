@@ -57,7 +57,6 @@ cd ..
 # inject seed data
 cd schulcloud-server
 npm run setup
-npm run seed
 cd ..
 
 # start server within of
