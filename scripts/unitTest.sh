@@ -23,7 +23,7 @@ then
 echo "Originating branch hotfix detected. Force testing against Server master."
 git checkout master
 else
-git checkout "$BRANCH_NAME" 
+git checkout "$BRANCH_NAME"
 fi
 echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
 npm ci
@@ -42,9 +42,9 @@ fi
 echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
 cd ..
 
-# start rabbitmq 
+# start rabbitmq
 cd docker-compose
-docker-compose -f docker-compose.end-to-end-tests-Build.yml build rabbitmq 
+docker-compose -f docker-compose.end-to-end-tests-Build.yml build rabbitmq
 docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d rabbitmq
 cd ..
 
@@ -65,6 +65,10 @@ cd docker-compose
 docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
 docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
 cd ..
+
+echo "waiting max 4 minutes for server to be available"
+npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
+echo "server is now online"
 
 # Execute
 # client packages are needed for mocha
