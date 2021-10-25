@@ -23,7 +23,7 @@ then
 echo "Originating branch hotfix detected. Force testing against Server master."
 git checkout master
 else
-git checkout "$BRANCH_NAME" 
+git checkout "$BRANCH_NAME"
 fi
 echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
 npm ci
