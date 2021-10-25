@@ -13,13 +13,8 @@
             "type": "image/png"
         },
         {
-            "src": "/images/logo/favicon-48.png",
-            "sizes": "48x48",
-            "type": "image/png"
-        },
-        {
-            "src": "/images/logo/favicon-64.png",
-            "sizes": "64x64",
+            "src": "/images/logo/favicon-36.png",
+            "sizes": "36x36",
             "type": "image/png"
         },
         {
@@ -63,9 +58,10 @@
             "type": "image/png"
         }
     ],
+
     "start_url": "/?homescreen=1&theme=brb",
     "scope": "/",
-    "theme_color": "#C73C35",
+    "theme_color": "#E4032E",
     "background_color": "#ffffff",
     "display": "standalone"
 }

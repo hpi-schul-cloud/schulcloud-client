@@ -1,5 +1,5 @@
 {
-    "name": "Open Schul-Cloud",
+    "name": "HPI Schul-Cloud OPEN",
     "short_name": "Open Schul-Cloud",
     "icons": [
         {
@@ -58,7 +58,7 @@
             "type": "image/png"
         }
     ],
-    "start_url": "/?homescreen=1",
+    "start_url": "/?homescreen=1&theme=open",
     "scope": "/",
     "theme_color": "#126dc4",
     "background_color": "#ffffff",

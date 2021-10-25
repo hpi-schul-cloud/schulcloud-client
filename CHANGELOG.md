@@ -19,6 +19,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -  BC-379 - hard-code node 14 and npm 6
 
+### Fixed
+
+-   BC-525 - fixed footer, blog-headline landing page, logo and wording failed login
+
 ## [26.13.0] - 2021-10-19
 
 ### Fixed
@@ -40,6 +44,9 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   BC-331 - BC-354 - rename ansible variables for OnePassword
 
 ### Fixed
+
+- BC-381 - fixed color of menu items in the sidebar
+- BC-381 - fixed colored adress-bar of browsers and added correct app-icons
 
 ## [26.11.1] - 2021-09-22
 
