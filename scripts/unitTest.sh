@@ -42,28 +42,31 @@ fi
 echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
 cd ..
 
-# start rabbitmq 
+	echo "CONTAINER STARTUP"
 cd docker-compose
-docker-compose -f docker-compose.end-to-end-tests-Build.yml build rabbitmq 
-docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d rabbitmq
+docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit calendar-init
+sleep 10
+docker-compose -f compose-files/docker-compose.yml up -d mongosetup calendar-postgres
+sleep 15
+docker-compose -f compose-files/docker-compose.yml up -d calendar
+sleep 15
+docker-compose -f compose-files/docker-compose.yml up server server-management &
 cd ..
 
-# start mongodb
-cd docker-compose
-docker-compose -f docker-compose.end-to-end-tests-Build.yml build server-mongodb
-docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server-mongodb
-cd ..
+echo "waiting max 4 minutes for server-management to be available"
+	npx wait-on http://localhost:3333/api/docs -t 240000 --httpTimeout 250 --log
+	echo "server-management is now online"
 
 # inject seed data
-cd schulcloud-server
-npm run setup
-cd ..
+curl -X POST localhost:3333/api/management/database/seed
 
-# start server within of
-cd docker-compose
-docker-compose -f docker-compose.end-to-end-tests-Build.yml build server
-docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
-cd ..
+echo "waiting max 4 minutes for server to be available"
+npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
+echo "server is now online"
+
+echo "waiting max 4 minutes for client to be available"
+npx wait-on http://localhost:3100 -t 240000 --httpTimeout 250 --log
+echo "client is now online"
 
 # Execute
 # client packages are needed for mocha
