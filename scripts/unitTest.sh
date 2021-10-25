@@ -53,6 +53,7 @@ fetch(){
 }
 
 echo "CONTAINER STARTUP"
+fetch()
 cd docker-compose
 docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit calendar-init
 sleep 10
