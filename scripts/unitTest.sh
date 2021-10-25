@@ -52,36 +52,52 @@ fetch(){
 	switchBranch "docker-compose"
 }
 
-echo "CONTAINER STARTUP"
-fetch()
-cd docker-compose
-docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit calendar-init
-sleep 10
-docker-compose -f compose-files/docker-compose.yml up -d mongosetup calendar-postgres
-sleep 15
-docker-compose -f compose-files/docker-compose.yml up -d calendar
-sleep 15
-docker-compose -f compose-files/docker-compose.yml up server server-management &
-cd ..
+before(){
+	cd docker-compose
+	docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit calendar-init
+	sleep 10
+	docker-compose -f compose-files/docker-compose.yml up -d mongosetup calendar-postgres
+	sleep 15
+	docker-compose -f compose-files/docker-compose.yml up -d calendar
+	sleep 15
+	docker-compose -f compose-files/docker-compose.yml up server server-management &
+	cd ..
 
-echo "waiting max 4 minutes for server-management to be available"
-	npx wait-on http://localhost:3333/api/docs -t 240000 --httpTimeout 250 --log
-	echo "server-management is now online"
+	echo "waiting max 4 minutes for server-management to be available"
+		npx wait-on http://localhost:3333/api/docs -t 240000 --httpTimeout 250 --log
+		echo "server-management is now online"
 
-# inject seed data
-curl -X POST localhost:3333/api/management/database/seed
+	# inject seed data
+	curl -X POST localhost:3333/api/management/database/seed
 
-echo "waiting max 4 minutes for server to be available"
-npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
-echo "server is now online"
+	echo "waiting max 4 minutes for server to be available"
+	npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
+	echo "server is now online"
 
-echo "waiting max 4 minutes for client to be available"
-npx wait-on http://localhost:3100 -t 240000 --httpTimeout 250 --log
-echo "client is now online"
+	echo "waiting max 4 minutes for client to be available"
+	npx wait-on http://localhost:3100 -t 240000 --httpTimeout 250 --log
+	echo "client is now online"
+}
 
-# Execute
-# client packages are needed for mocha
-cd schulcloud-client
-npm ci
-npm run build
-npm run mocha
+main(){
+	# Execute
+	# client packages are needed for mocha
+	cd schulcloud-client
+	npm ci
+	npm run build
+	npm run mocha
+}
+
+set -e
+echo "FETCH..."
+fetch
+echo "FETCH DONE"
+
+echo "BEFORE..."
+before
+echo "BEFORE DONE"
+
+echo "MAIN..."
+main $1
+echo "MAIN DONE"
+set +e
