@@ -26,6 +26,8 @@ else
 git checkout "$BRANCH_NAME"
 fi
 echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
+npm ci
+npm run build
 cd ..
 
 git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
@@ -52,6 +54,11 @@ docker-compose -f docker-compose.end-to-end-tests-Build.yml build server-mongodb
 docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server-mongodb
 cd ..
 
+# inject seed data
+cd schulcloud-server
+npm run setup
+npm run seed
+cd ..
 
 # start server within of
 cd docker-compose
@@ -62,9 +69,6 @@ cd ..
 echo "waiting max 4 minutes for server to be available"
 npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
 echo "server is now online"
-
-# inject seed data
-docker-compose -f docker-compose.end-to-end-tests-Build.yml exec server npm run nest:start:console -- database seed
 
 # Execute
 # client packages are needed for mocha
