@@ -16,31 +16,41 @@ mv ./* ./schulcloud-client # ignore warning...
 # If current branch is hotfix, switch to branch master
 
 # Preconditions
-git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
-cd schulcloud-server
-if [[ "$BRANCH_NAME" =~ '^hotfix.*' ]]
-then
-echo "Originating branch hotfix detected. Force testing against Server master."
-git checkout master
-else
-git checkout "$BRANCH_NAME"
-fi
-echo "Currently active branch for schulcloud-server: $(git branch | grep \* | cut -d ' ' -f2)"
-npm ci
-npm run build
-cd ..
+_switchBranch(){
+	cd $1
+	echo "switching branch..."
+	git checkout $2 > /dev/null 2>&1 || true
+	echo "(new) active branch for $1:"
+	git branch | grep \* | cut -d ' ' -f2
+	if [ -z "$3" ]
+	then
+		echo "No docker tag set for ${1}"
+		echo $3
+	else
+		set -a
+		export $3=`git rev-parse HEAD`
+		printenv | grep $3
+	fi
+	cd ..
+}
 
-git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
-cd docker-compose
-if [[ "$BRANCH_NAME" =~ '^hotfix.*' ]]
-then
-echo "Originating branch hotfix detected. Force testing against Server master."
-git checkout master
-else
-git checkout "$BRANCH_NAME"
-fi
-echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
-cd ..
+switchBranch(){
+	_switchBranch "$1" "main" "$2"
+
+	# if branch exists, try to switch to it
+	_switchBranch "$1" "$BRANCH_NAME" "$2"
+}
+
+fetch(){
+	# clone all required repositories and try to switch to branch with same name as current one
+	switchBranch "schulcloud-client" "CLIENT_DOCKER_TAG"
+
+	git clone https://github.com/hpi-schul-cloud/schulcloud-server.git schulcloud-server
+	switchBranch "schulcloud-server" "SERVER_DOCKER_TAG"
+
+	git clone https://github.com/hpi-schul-cloud/docker-compose.git docker-compose
+	switchBranch "docker-compose"
+}
 
 echo "CONTAINER STARTUP"
 cd docker-compose
