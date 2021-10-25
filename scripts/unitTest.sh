@@ -42,7 +42,7 @@ fi
 echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
 cd ..
 
-	echo "CONTAINER STARTUP"
+echo "CONTAINER STARTUP"
 cd docker-compose
 docker-compose -f compose-files/docker-compose.yml up -d mongodb mongodb-secondary mongodb-arbiter redis rabbit calendar-init
 sleep 10
