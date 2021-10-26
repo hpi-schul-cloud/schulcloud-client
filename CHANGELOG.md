@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [26.14.0]
+
+### Changed
+
 -   BC-383 - remove usage of npm run seed in server
 
 ## [26.13.1] - 2021-10-22
