@@ -812,7 +812,7 @@
 			"pleaseContactTheFollowingEmailAddress": "Bitte kontaktieren Sie folgende E-Mail-Adresse, um den Registrierungsvorgang zu starten:",
 			"SchoolsAndOther": "Hier können sich Schulen anmelden, die keinem Länderprojekt angehören und dank der Projekterweiterung durch das BMBF nun die HPI Schul-Cloud nutzen dürfen.",
 			"theCentralOfficeForSchools": "Die Zentralstelle für das Auslandsschulwesen (ZfA) unterstützt Sie im Registrierungsprozess.",
-			"youCanGetSupport": "Unterstützung bei der Einarbeitung in die HPI Schul-Cloud und Erstellung erster Inhalte erhalten Sie hier:",
+			"youCanGetSupport": "Unterstützung bei der Einarbeitung in die Cloud und Erstellung erster Inhalte erhalten Sie hier:",
 			"youWillThenBeGiven": "Ihnen werden dann alle nötigen Infos mitgeteilt, sodass es bald losgehen kann."
 		}
 	},
@@ -2077,7 +2077,7 @@
 			"text": {
 				"errorInvalidTaskId": "Ungültige Aufgaben-ID",
 				"maxGroupSize": "Maximale Gruppengröße: <b>{{maxTeamMembers}} Mitglieder <\/b>",
-				"newHomeworkCourseNotification": "Sie haben eine neue Hausaufgabe im Fach {{coursename}}",
+				"newHomeworkCourseNotification": "Sie haben eine neue Aufgabe im Fach {{coursename}}",
 				"newHomeworkDueDateNotification": "{{homeworkname}} ist bis zum {{duedate}} abzugeben.",
 				"noSubmissionsYet": "Keine Abgaben vorhanden.",
 				"noSubmissionsYetFrom": "Bisher keine Abgabe von:",
@@ -2091,7 +2091,7 @@
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
 			"deleteSubmissionFromList": "löschen",
-			"downloadUngradedFiles": "Unbewertete Hausaufgaben",
+			"downloadUngradedFiles": "Unbewertete Aufgaben",
 			"editSubmissionFromList": "bearbeiten",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",
@@ -2168,7 +2168,7 @@
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "Durch das Aktivieren dieser Option werden die Abgaben aller Kursteilnehmer:innen für alle anderen Schüler:innen des Kurses einsehbar.",
 			"bulkGradingError": "Nicht alle Dateien konnten anhand der Benennung Abgaben zugeordnet werden. Gehe zu Kommentar\/Bewertung, um folgende Dateien zur jeweiligen Abgabe zuzuordnen:",
-			"bulkGradingSuccess": "Alle Dateien konnten Hausaufgaben zugeordnet werden. Bitte Seite neu laden.",
+			"bulkGradingSuccess": "Alle Dateien konnten Aufgaben zugeordnet werden. Bitte Seite neu laden.",
 			"creatorCanNotBeRemoved": "Du darfst den\/die Ersteller:in der Aufgabe nicht entfernen!",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
 			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
@@ -3146,7 +3146,7 @@
 				"nameOfNeXboard": "Name des neXboards",
 				"openSection": "Abschnitt entsperren",
 				"selectNeXboard": "neXboard auswählen",
-				"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}\/homework' beginnen! Die Schüler:innen müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
+				"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}\/homework' beginnen! Die Schüler:innen müssen Zugriff auf die Aufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
 				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https:\/\/www.geogebra.org\/m\/e6g4adXp ist die Material-ID 'e6g4adXp'"
 			}
 		}
