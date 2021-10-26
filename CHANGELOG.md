@@ -15,6 +15,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-379 - updated the engine version to node 16 and npm 8
 
+## [26.14.0]
+
+### Changed
+
+-   BC-383 - remove usage of npm run seed in server
+
+## [26.13.1] - 2021-10-22
+
 ### Fixed
 
 -   BC-525 - fixed footer, blog-headline landing page, logo and wording failed login
