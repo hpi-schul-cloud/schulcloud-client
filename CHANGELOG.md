@@ -13,6 +13,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   BC-383 - remove usage of npm run seed in server
+
 ## [26.13.1] - 2021-10-22
 
 ### Changed
@@ -45,8 +47,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-- BC-381 - fixed color of menu items in the sidebar
-- BC-381 - fixed colored adress-bar of browsers and added correct app-icons
+-   BC-381 - fixed color of menu items in the sidebar
+-   BC-381 - fixed colored adress-bar of browsers and added correct app-icons
 
 ## [26.11.1] - 2021-09-22
 
