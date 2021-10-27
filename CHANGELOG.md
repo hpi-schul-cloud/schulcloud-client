@@ -21,11 +21,15 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-383 - remove usage of npm run seed in server
 
-## [26.13.1] - 2021-10-22
-
 ### Fixed
 
 -   BC-525 - fixed footer, blog-headline landing page, logo and wording failed login
+
+## [26.13.1] - 2021-10-22
+
+### Changed
+
+-   BC-379 - hard-code node 14 and npm 6
 
 ## [26.13.0] - 2021-10-19
 
@@ -46,7 +50,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   BC-170 - add v1 prefix in wopi api uri extending PUBLIC_BACKEND_URL
 -   BC-217 - update LibreOffic domain at http-headers.js on ansible client-configmap-files.yml.j2
 -   BC-331 - BC-354 - rename ansible variables for OnePassword
--   BC-379 - updated the engine version to node 16 and npm 8
 
 ### Fixed
 
