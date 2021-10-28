@@ -1,4 +1,4 @@
-const stripHtml = require('string-strip-html');
+const { stripHtml } = require('string-strip-html');
 
 let production;
 let linksArray;
@@ -13,7 +13,7 @@ function fetchContent() {
 		finalHtml = finalHtml
 			.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
 		$('.sc-blog .content').html(stripHtml(finalHtml,
-			{ onlyStripTags: ['script', 'style'] }));
+			{ onlyStripTags: ['script', 'style'] }).result);
 		$('.sc-blog .content').css('opacity', '1');
 	};
 

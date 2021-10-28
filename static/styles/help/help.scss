@@ -253,7 +253,7 @@ fieldset.switch_wrapper {
 
         &:hover:not([disabled]),
         &:focus:not([disabled]) {
-          background-color: #7f0328;
+          background-color: darken($primaryColor, 10%);
         }
       }
 

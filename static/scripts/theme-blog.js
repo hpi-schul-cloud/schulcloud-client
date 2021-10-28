@@ -1,4 +1,4 @@
-const stripHtml = require('string-strip-html');
+const { stripHtml } = require('string-strip-html');
 
 const ghostTheme = $('#SC_THEME').text();
 
@@ -11,7 +11,7 @@ const fetchContent = () => {
 		const ghostContent = $(ghostHtml).children('code').length > 0 ? $(ghostHtml).children('code')[0].innerHTML
 			: ghostHtml;
 		$(`.${ghostTheme}-blog .content`).html(stripHtml(ghostContent,
-			{ onlyStripTags: ['script', 'style'] }));
+			{ onlyStripTags: ['script', 'style'] }).result);
 		$(`.${ghostTheme}-blog .content`).css('opacity', '1');
 	};
 
