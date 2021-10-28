@@ -17,21 +17,23 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 -   BC-525 - hover state submit-btn
 
+-   BC-379 - updated the engine version to node 16 and npm 8
+
 ## [26.14.0]
 
 ### Changed
 
 -   BC-383 - remove usage of npm run seed in server
 
+### Fixed
+
+-   BC-525 - fixed footer, blog-headline landing page, logo and wording failed login
+
 ## [26.13.1] - 2021-10-22
 
 ### Changed
 
--  BC-379 - hard-code node 14 and npm 6
-
-### Fixed
-
--   BC-525 - fixed footer, blog-headline landing page, logo and wording failed login
+-   BC-379 - hard-code node 14 and npm 6
 
 ## [26.13.0] - 2021-10-19
 
