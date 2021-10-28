@@ -1,4 +1,4 @@
-const { stripHtml } = require('string-strip-html');
+const stripHtml = require('string-strip-html');
 
 function fetchContent() {
 	let finalHtml;
@@ -19,7 +19,7 @@ function fetchContent() {
 			finalHtml = finalHtml
 				.replace(/<td>x<[/]td>/g, '<td><i class="fa fa-check"></i></td>');
 			$('.ghost .content').html(stripHtml(finalHtml,
-				{ onlyStripTags: ['script', 'style'] }).result);
+				{ onlyStripTags: ['script', 'style'] }));
 			$('.ghost .content').css('opacity', '1');
 		})
 		.fail(() => {

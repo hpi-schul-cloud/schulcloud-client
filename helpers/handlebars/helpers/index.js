@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const moment = require('moment');
 const truncatehtml = require('truncate-html');
-const { stripHtml } = require('string-strip-html');
+const stripHtml = require('string-strip-html');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const { getStaticAssetPath } = require('../../../middleware/assets');
 const permissionsHelper = require('../../permissions');
@@ -98,8 +98,8 @@ const helpers = () => ({
 		}
 		return truncatedArray;
 	},
-	stripHTMLTags: (htmlText = '') => stripHtml(htmlText).result,
-	stripOnlyScript: (htmlText = '') => stripHtml(htmlText, { onlyStripTags: ['script', 'style'] }).result,
+	stripHTMLTags: (htmlText = '') => stripHtml(htmlText),
+	stripOnlyScript: (htmlText = '') => stripHtml(htmlText, { onlyStripTags: ['script', 'style'] }),
 	conflictFreeHtml: (text = '') => {
 		text = text.replace(/style=["'][^"]*["']/g, '');
 		text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');
