@@ -2915,7 +2915,7 @@
 						"sendInvitationAgain": "Resend invitation"
 					},
 					"text": {
-						"errorDuringInvitation": "There may be problems with the invitation. Please ask invited users or admins.",
+						"errorDuringInvitation": "There were problems with the invitation. Please check if the necessary requirements are met or contact the invited users or admins.",
 						"errorWhileDeletingInvitation": "Problem while deleting the invitation",
 						"errorWhileLoadingSchools": "Problem while loading the schools",
 						"errorWhileLoadingTeachers": "Problem while loading the teacher",
