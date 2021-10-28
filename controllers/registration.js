@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const express = require('express');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 
@@ -136,7 +135,10 @@ router.post(
 						await api(req).post('/mails/', {
 							json: {
 								email: eMailAdress,
-								subject: res.$t('registration.text.welcomeMailSubject', { title: res.locals.theme.title }),
+								subject: res.$t(
+									'registration.text.welcomeMailSubject',
+									{ title: res.locals.theme.title },
+								),
 								headers: {},
 								content: {
 									text: res.$t('registration.text.welcomeMailText', {
