@@ -1,4 +1,4 @@
-const stripHtml = require('string-strip-html');
+const { stripHtml } = require('string-strip-html');
 const Handlebars = require('handlebars');
 
 function fetchBlogs() {
@@ -31,7 +31,7 @@ function callBlogFetching() {
 
 $(document).ready(() => {
 	Handlebars.registerPartial('blog-card', $('#blog-card').html());
-	Handlebars.registerHelper('stripHTMLTags', (htmlText) => stripHtml(htmlText));
+	Handlebars.registerHelper('stripHTMLTags', (htmlText) => stripHtml(htmlText).result);
 	Handlebars.registerHelper('truncatePure', (text, length) => {
 		if (text.length <= length) {
 			return text;

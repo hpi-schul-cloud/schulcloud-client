@@ -10,6 +10,7 @@ const authHelper = require('../helpers/authentication');
 const timesHelper = require('../helpers/timesHelper');
 const { getCurrentLanguage } = require('../helpers/i18n');
 const { setCookie } = require('../helpers/cookieHelper');
+const { logger, formatError } = require('../helpers');
 
 const { LoginSchoolsCache } = require('../helpers/cache');
 
@@ -123,31 +124,38 @@ router.post(
 						title: res.locals.theme.short_title,
 					});
 
-				eMailAdresses.forEach((eMailAdress) => {
+				eMailAdresses.forEach(async (eMailAdress) => {
 					let passwordText = '';
 					let studentInfotext = '';
 					if (req.body.roles.includes('student')) {
 						passwordText = res.$t('registration.text.startPassword', { password: req.body.password_1 });
 						studentInfotext = res.$t('registration.text.studentsChooseNewPassword', { consentText });
 					}
-					return api(req).post('/mails/', {
-						json: {
-							email: eMailAdress,
-							subject: res.$t('registration.text.welcomeMailSubject', { title: res.locals.theme.title }),
-							headers: {},
-							content: {
-								text: res.$t('registration.text.welcomeMailText', {
-									firstName: response.user.firstName,
-									title: res.locals.theme.title,
-									address: req.headers.origin || HOST,
-									email: response.user.email,
-									password: passwordText,
-									infotext: studentInfotext,
-									shortTitle: res.locals.theme.short_title,
-								}),
+					try {
+						await api(req).post('/mails/', {
+							json: {
+								email: eMailAdress,
+								subject: res.$t(
+									'registration.text.welcomeMailSubject',
+									{ title: res.locals.theme.title },
+								),
+								headers: {},
+								content: {
+									text: res.$t('registration.text.welcomeMailText', {
+										firstName: response.user.firstName,
+										title: res.locals.theme.title,
+										address: req.headers.origin || HOST,
+										email: response.user.email,
+										password: passwordText,
+										infotext: studentInfotext,
+										shortTitle: res.locals.theme.short_title,
+									}),
+								},
 							},
-						},
-					});
+						});
+					} catch (error) {
+						logger.error('An error occurred while sending the welcome e-mail', formatError(error));
+					}
 				});
 			})
 			.then(() => {
