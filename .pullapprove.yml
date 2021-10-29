@@ -19,10 +19,9 @@ notifications:
   comment: "The review is completed. Thanks @{{ author }}, we'll take it from here."
 
 groups:
-  sc-admins:
+  general:
     reviewers:
       teams:
-      - sc-admins
-      - CoreDevs
+      - general
     reviews:
       required: 1  # number of approvals required from this group
