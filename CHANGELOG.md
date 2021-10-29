@@ -38,6 +38,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-379 - hard-code node 14 and npm 6
 
+-   BC-40  - rocketchat DNS prefix adjustments for autodeployment
+
 ## [26.13.0] - 2021-10-19
 
 ### Fixed
