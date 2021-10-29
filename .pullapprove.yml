@@ -22,7 +22,6 @@ groups:
   sc-admins:
     reviewers:
       teams:
-      - sc-admins
-      - CoreDevs
+      - general
     reviews:
       required: 1  # number of approvals required from this group
