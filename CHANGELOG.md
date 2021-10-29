@@ -12,12 +12,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 ### Changed
+
 -   BC-525 - link faq, hover state submit-btn, btn-text Download files of ungraded task, wording homework into task
+-   BC-379 - updated the engine version to node 16 and npm 8
+-   BC-469 - defined docker base image
 
 ### Fixed
--   BC-525 - hover state submit-btn
 
--   BC-379 - updated the engine version to node 16 and npm 8
+-   BC-525 - hover state submit-btn
 
 ## [26.14.0]
 
