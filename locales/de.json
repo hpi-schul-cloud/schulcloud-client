@@ -2915,7 +2915,7 @@
 						"sendInvitationAgain": "Einladung erneut versenden"
 					},
 					"text": {
-						"errorDuringInvitation": "Es gab Probleme bei der Einladung. Bitte prüfen Sie ob die nötigen Voraussetzungen vorliegen oder kontaktieren Sie die eingeladenen Nutzer:innen oder Admins.",
+						"errorDuringInvitation": "Beim Einladen ist ein Problem aufgetreten. Bitte nötige Voraussetzungen überprüfen oder eingeladene:n Nutzer:in bzw. Admin kontaktieren.",
 						"errorWhileDeletingInvitation": "Problem beim Löschen der Einladung",
 						"errorWhileLoadingSchools": "Problem beim Auslesen der Schulen",
 						"errorWhileLoadingTeachers": "Problem beim Auslesen der Lehrkraft",
