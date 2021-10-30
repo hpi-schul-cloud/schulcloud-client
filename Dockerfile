@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM docker.io/node:16-alpine
 
 ENV TZ=Europe/Berlin
 
