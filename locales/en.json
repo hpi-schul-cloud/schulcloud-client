@@ -812,7 +812,7 @@
 			"pleaseContactTheFollowingEmailAddress": "Please contact the following e-mail address to start the registration process:",
 			"SchoolsAndOther": "Schools that do not belong to a state project can register here. Thanks to the project extension by the BMBF, they can now use the HPI school cloud.",
 			"theCentralOfficeForSchools": "The Central Agency for German Schools Abroad (ZfA) supports you in the registration process.",
-			"youCanGetSupport": "Support in familiarizing with the school cloud and creating first content can be found here:",
+			"youCanGetSupport": "Support in familiarizing with the cloud and creating first content can be found here:",
 			"youWillThenBeGiven": "You will then be given all the necessary information so that you can start soon."
 		}
 	},
@@ -2091,7 +2091,7 @@
 			"copy": "Copy",
 			"copySubmissionFromList": "Copy",
 			"deleteSubmissionFromList": "Delete",
-			"downloadUngradedFiles": "Download files of ungraded task",
+			"downloadUngradedFiles": "Ungraded task",
 			"editSubmissionFromList": "Edit",
 			"hrefAlt": "Delete submission",
 			"hrefDataName": "Your submission",

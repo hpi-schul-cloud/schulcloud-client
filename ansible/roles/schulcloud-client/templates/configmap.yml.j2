@@ -38,8 +38,7 @@ data:
   ETHERPAD__NEW_DOMAIN: "{{ DOMAIN }}"
   ETHERPAD__OLD_DOMAIN: "etherpad.{{ DOMAIN }}"
   # Rocketchat
-  ROCKET_CHAT_URI: "https://{{ ROCKET_CHAT_SUB|default("chat", true) }}.{{ DOMAIN }}"
-  ROCKET_CHAT: "https://{{ ROCKET_CHAT_SUB|default("chat", true) }}.{{ DOMAIN }}"
+  ROCKET_CHAT_URI: "https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }}"
   # FEATURE TOGGLE
   CALENDAR_SERVICE_ENABLED: "true"
   CALENDAR_DASHBOARD_ENABLED: "{{ CALENDAR_DASHBOARD_ENABLED|default("false", true) }}"
@@ -106,7 +105,7 @@ data:
 {% if GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER is defined and GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER|length %}
   GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER: "{{ GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER|default("", true) }}"
 {% endif %}
-  FEATURE_ALERTS_ENABLED: "true"
+  FEATURE_ALERTS_ENABLED: "{{ FEATURE_ALERTS_ENABLED|default("false") }}"
   ALERT_STATUS_URL: "{{ ALERT_STATUS_URL|default("https://status.hpi-schul-cloud.de", true) }}"
   ALERT_STATUS_API_URL: "{{ ALERT_STATUS_URL|default("https://status.hpi-schul-cloud.de", true) }}/api/v1"
   REQUEST_TIMEOUT_MS: "8000"
