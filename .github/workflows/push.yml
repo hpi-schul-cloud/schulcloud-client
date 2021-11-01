@@ -71,7 +71,7 @@ jobs:
 
   end-to-end-tests:
       needs:
-          - build_and_push_nuxt
+          - build_and_push_docker
           - branch_name
       uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e_call.yml@main
       with:
