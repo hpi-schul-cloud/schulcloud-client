@@ -15,6 +15,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-525 - link faq, hover state submit-btn, btn-text Download files of ungraded task, wording homework into task
 -   BC-469 - defined docker base image
+-   BC-404 - changed error message for team invitations via email
 
 ### Fixed
 
