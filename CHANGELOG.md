@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [26.15.0] - 2021-11-02
+
+### Changed
+
 -   BC-402 - change e2e test include to reusable workflows
 -   BC-392 - adjusted skip links wording
 -   BC-383 - remove usage of npm run seed in server
@@ -26,7 +30,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-379 - updated the engine version to node 16 and npm 8
 
-## [26.14.0]
+## [26.14.0] - 2021-10-26
 
 ### Changed
 
