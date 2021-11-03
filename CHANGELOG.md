@@ -13,12 +13,18 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   BC-404 - changed error message for team invitations via email
+
+## [26.15.0] - 2021-11-02
+
+### Changed
+
 -   BC-402 - change e2e test include to reusable workflows
 -   BC-392 - adjusted skip links wording
 -   BC-383 - remove usage of npm run seed in server
 -   BC-525 - link faq, hover state submit-btn, btn-text Download files of ungraded task, wording homework into task
 -   BC-469 - defined docker base image
--   BC-404 - changed error message for team invitations via email
+-   Set data-testids in teams page for e2e purporses
 
 ### Fixed
 
@@ -26,7 +32,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-379 - updated the engine version to node 16 and npm 8
 
-## [26.14.0]
+## [26.14.0] - 2021-10-26
 
 ### Changed
 
