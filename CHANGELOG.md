@@ -13,6 +13,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   BC-404 - changed error message for team invitations via email
+
 ## [26.15.0] - 2021-11-02
 
 ### Changed
