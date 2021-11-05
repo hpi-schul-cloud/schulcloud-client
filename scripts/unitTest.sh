@@ -44,7 +44,7 @@ cd ..
 
 # Install nvm with node and npm
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
-    && . /root/.nvm/nvm.sh 
+    && . /$USER/.nvm/nvm.sh 
 nvm install 14 
 nvm install 16
 
@@ -79,7 +79,7 @@ echo "server is now online"
 # Execute
 # client packages are needed for mocha
 cd schulcloud-client
-nvm use
+nvm usenvm n
 npm ci
 npm run build
 npm run mocha
