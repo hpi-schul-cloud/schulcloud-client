@@ -42,6 +42,15 @@ fi
 echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -d ' ' -f2)"
 cd ..
 
+# Install nvm with node and npm
+RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
+    && . /root/.nvm/nvm.sh \
+RUN nvm install 14 
+RUN nvm install 16
+
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
+
 # start rabbitmq
 cd docker-compose
 docker-compose -f docker-compose.end-to-end-tests-Build.yml build rabbitmq
@@ -56,6 +65,7 @@ cd ..
 
 # inject seed data
 cd schulcloud-server
+nvm use
 npm run setup
 cd ..
 
@@ -72,6 +82,7 @@ echo "server is now online"
 # Execute
 # client packages are needed for mocha
 cd schulcloud-client
+nvm use
 npm ci
 npm run build
 npm run mocha
