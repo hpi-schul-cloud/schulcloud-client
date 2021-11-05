@@ -43,13 +43,10 @@ echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -
 cd ..
 
 # Install nvm with node and npm
-RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
     && . /root/.nvm/nvm.sh \
-RUN nvm install 14 
-RUN nvm install 16
-
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
+nvm install 14 
+nvm install 16
 
 # start rabbitmq
 cd docker-compose
