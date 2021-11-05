@@ -43,8 +43,9 @@ echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -
 cd ..
 
 # Install nvm with node and npm
-# curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
-#     && . /$USER/.nvm/nvm.sh 
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+echo "source $NVM_DIR/nvm.sh --install" >> "$HOME/.bash_profile"
 nvm install 14 
 nvm install 16
 
