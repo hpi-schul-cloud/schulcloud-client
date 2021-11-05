@@ -1,4 +1,4 @@
-FROM docker.io/node:16-alpine
+FROM node:14-alpine
 
 ENV TZ=Europe/Berlin
 
@@ -6,7 +6,7 @@ RUN apk add \
     git \
     libtool \
     make \
-    python3 \
+    python2 \
     autoconf \
     automake \
     build-base \

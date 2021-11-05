@@ -38,15 +38,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-383 - remove usage of npm run seed in server
 
-### Fixed
-
--   BC-525 - fixed footer, blog-headline landing page, logo and wording failed login
-
 ## [26.13.1] - 2021-10-22
 
 ### Changed
 
--   BC-379 - hard-code node 14 and npm 6
+-  BC-379 - hard-code node 14 and npm 6
 
 -   BC-40  - rocketchat DNS prefix adjustments for autodeployment
 
