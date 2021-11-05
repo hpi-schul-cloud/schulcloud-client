@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-set -e
-
 # use git https at all cost to avoid depdencies getting downloaded via ssh, which will fail
 git config --global url."https://github.com/".insteadOf git@github.com:
 git config --global url."https://".insteadOf git://
