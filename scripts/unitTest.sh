@@ -64,7 +64,7 @@ echo "server is now online"
 # inject seed data
 cd docker-compose
 echo "start seeding the database..."
-docker-compose -f docker-compose.end-to-end-tests-Build.yml exec server npm run nest:start:console -- database seed
+docker-compose -f docker-compose.end-to-end-tests-Build.yml exec server npm run setup
 echo "database seed applied"
 cd ..
 
