@@ -62,11 +62,11 @@ npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
 echo "server is now online"
 
 # inject seed data
-cd docker-compose
 echo "start seeding the database..."
-docker-compose -f docker-compose.end-to-end-tests-Build.yml exec server npm run setup
+docker ps
+server_container=$(docker ps -aqf "name=schulcloud-server")
+docker exec -i ${server_container} npm run setup
 echo "database seed applied"
-cd ..
 
 # Execute
 # client packages are needed for mocha
