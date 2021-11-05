@@ -44,7 +44,7 @@ cd ..
 
 # Install nvm with node and npm
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
-    && . /root/.nvm/nvm.sh \
+    && . /root/.nvm/nvm.sh 
 nvm install 14 
 nvm install 16
 

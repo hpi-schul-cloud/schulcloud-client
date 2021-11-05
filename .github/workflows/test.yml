@@ -7,16 +7,10 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest]
-                node: ["16"]
         runs-on: ${{ matrix.os }}
         steps:
             - name: checkout
               uses: actions/checkout@v2
-
-            - name: Setup node
-              uses: actions/setup-node@v2
-              with:
-                  node-version: ${{ matrix.node }}
 
             # extract branch name
             - name: Extract branch name
