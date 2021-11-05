@@ -13,6 +13,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [26.15.1] - 2021-11-05
+
+-   BC-650 - don't exit on error
+
+### Added
+
+### Changed
+
 ## [26.15.0] - 2021-11-02
 
 ### Changed
