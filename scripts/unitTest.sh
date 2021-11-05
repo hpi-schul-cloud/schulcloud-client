@@ -64,7 +64,7 @@ echo "server is now online"
 # inject seed data
 echo "start seeding the database..."
 docker ps
-server_container=$(docker ps -aqf "name=schulcloud-server")
+server_container=$(docker ps -aqf "name=docker-compose_server")
 docker exec -i ${server_container} npm run setup
 echo "database seed applied"
 
