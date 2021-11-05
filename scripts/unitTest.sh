@@ -43,8 +43,8 @@ echo "Currently active branch for docker-compose: $(git branch | grep \* | cut -
 cd ..
 
 # Install nvm with node and npm
-curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
-    && . /$USER/.nvm/nvm.sh 
+# curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash \
+#     && . /$USER/.nvm/nvm.sh 
 nvm install 14 
 nvm install 16
 
@@ -79,7 +79,7 @@ echo "server is now online"
 # Execute
 # client packages are needed for mocha
 cd schulcloud-client
-nvm usenvm n
+nvm use
 npm ci
 npm run build
 npm run mocha
