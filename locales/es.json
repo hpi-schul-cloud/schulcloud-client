@@ -2915,7 +2915,7 @@
 						"sendInvitationAgain": "Reenviar invitación"
 					},
 					"text": {
-						"errorDuringInvitation": "Puede haber problemas con la invitación. Pregunta a los usuarios o administradores invitados.",
+						"errorDuringInvitation": "Se ha producido un problema al invitar. Por favor, compruebe los requisitos necesarios o póngase en contacto con el usuario o administrador invitado.",
 						"errorWhileDeletingInvitation": "Problema al eliminar la invitación",
 						"errorWhileLoadingSchools": "Problema al cargar las escuelas",
 						"errorWhileLoadingTeachers": "Problema al cargar el profesor",

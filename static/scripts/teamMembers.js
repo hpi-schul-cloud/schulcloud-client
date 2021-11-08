@@ -269,7 +269,8 @@ $(document).ready(() => {
 				errorMessage = $t('teams._team.members.add.text.errorDuringInvitation');
 			}
 
-			$.showNotification(errorMessage, 'danger', true);
+			$.showNotification(errorMessage, 'danger', 0);
+			// schema showNotification: {shown message, type, duration}
 		});
 	});
 

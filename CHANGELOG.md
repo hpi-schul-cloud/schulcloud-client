@@ -13,13 +13,11 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+-   BC-404 - changed error message for team invitations via email
+
 ## [26.15.1] - 2021-11-05
 
 -   BC-650 - don't exit on error
-
-### Added
-
-### Changed
 
 ## [26.15.0] - 2021-11-02
 
@@ -30,6 +28,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 -   BC-383 - remove usage of npm run seed in server
 -   BC-525 - link faq, hover state submit-btn, btn-text Download files of ungraded task, wording homework into task
 -   BC-469 - defined docker base image
+-   Set data-testids in teams page for e2e purporses
 
 ### Fixed
 
