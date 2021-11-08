@@ -15,6 +15,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-404 - changed error message for team invitations via email
 
+### Fixed
+
+-   BC-650 - fix header error on copy course, which was making client crush 
+
 ## [26.15.0] - 2021-11-02
 
 ### Changed

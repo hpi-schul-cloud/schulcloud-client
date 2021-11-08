@@ -93,7 +93,7 @@ const sendHandler = (req, res) => {
 	}
 };
 
-let handler = (req, res) => res.send(204);
+let handler = (req, res) => res.sendStatus(204);
 
 if (FEATURE_INSIGHTS_ENABLED === 'true' && INSIGHTS_COLLECTOR_URI) {
 	handler = sendHandler;
