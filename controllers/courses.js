@@ -563,7 +563,6 @@ router.post('/copy/:courseId', (req, res, next) => {
 		})
 		.then((course) => {
 			res.redirect(`/courses/${course._id}`);
-			res.sendStatus(500);
 		});
 });
 

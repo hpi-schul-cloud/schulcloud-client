@@ -11,6 +11,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+### Fixed
+
+-   BC-650 - fix header error on copy course, which was making client crush 
+
 ### Changed
 
 -   BC-404 - changed error message for team invitations via email
@@ -18,6 +22,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 -   BC-563 - fixing link to language file for successful team permission save
+
+## [26.15.1] - 2021-11-05
+
+-   BC-650 - don't exit on error
 
 ## [26.15.0] - 2021-11-02
 
