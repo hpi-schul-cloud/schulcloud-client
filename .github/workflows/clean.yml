@@ -14,7 +14,7 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
 
-  deploy:
+  clean:
     needs:
       - branch_name
     uses: hpi-schul-cloud/dof_app_deploy/.github/workflows/clean_workflow.yml@main
