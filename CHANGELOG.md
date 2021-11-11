@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+### Changed
+
+-   BC597 - update mathjax library 
+
 ## [26.16.0] - 2021-11-09
 
 ### Fixed
