@@ -528,7 +528,7 @@
 				"theSchoolYearEndsAnd": "The school year {{schoolName}} is ended and the transfer phase  to the new school year begins. <strong>This step cannot be undone.<\/strong> No classes and users can be created or changed during this time.",
 				"theSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data is interrupted during the transfer phase. This means that user data and classes (if used) are no longer updated via LDAP. It is still possible to log in with login data that has already been synchronized. Password changes in the LDAP during login are also taken into account.",
 				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the HPI school cloud at once.",
-				"withAllChangesAndSettings": "With all modifications and settings in the administration area, you confirm that you are an authorized school administrator and you are authorized to make modifications in the school in the HPI school cloud. Your click is insofar considered as instruction of the school to the HPI.",
+				"withAllChangesAndSettings": "With all modifications and settings in the administration area, you confirm that you are an authorized school administrator and are authorized to make adjustments to the school in the {{title}}. In this respect, your click is considered an instruction from the school to {{institute_title}}.",
 				"wouldYouLikeReportABug": "Would you like to report an error or do you have an idea to improve the {{title}} ? Send requests or problems directly to the {{shortTitle}} user support."
 			}
 		},
