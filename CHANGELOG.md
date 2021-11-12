@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+## [26.16.0] - 2021-11-09
+
+### Fixed
+
 -   BC-650 - fix header error on copy course, which was making client crush 
 
 ### Changed
