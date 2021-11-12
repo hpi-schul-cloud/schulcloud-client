@@ -11,6 +11,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+### Changed
+
+-   BC-589 - BC-651 - Change auto deployment to a reusable workflow
+
 ### Fixed
 
 ## [26.16.0] - 2021-11-09
@@ -21,7 +25,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
--   BC-589 - BC-651 - Change auto deployment to a reusable workflow
 -   BC-404 - changed error message for team invitations via email
 
 ## [26.15.1] - 2021-11-05
