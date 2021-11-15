@@ -33,7 +33,7 @@ jobs:
         run: |
          mkdir -p ~/.docker
          echo '{"experimental": "enabled"}' >> ~/.docker/config.json
-         echo "IMAGE_EXISTS=$(docker manifest inspect ghcr.io/${{ github.repository }}-${{ matrix.tennes }}:${{ github.sha }} > /dev/null && echo 1 || echo 0)" >> $GITHUB_ENV
+         echo "IMAGE_EXISTS=$(docker manifest inspect ghcr.io/${{ github.repository }}-${{ matrix.tennens }}:${{ github.sha }} > /dev/null && echo 1 || echo 0)" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         if: ${{ env.IMAGE_EXISTS == 0 }}
