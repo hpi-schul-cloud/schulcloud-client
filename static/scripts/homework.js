@@ -458,7 +458,7 @@ $(document).ready(() => {
 				url: $buttonContext.attr('href'),
 				type: 'DELETE',
 				data: {
-					key: $buttonContext.data('file-key'),
+					key: fileId,
 				},
 				success() {
 					// delete reference in homework
