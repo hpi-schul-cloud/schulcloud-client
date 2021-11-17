@@ -13,6 +13,20 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+## [26.17.0] - 2021-11-16
+
+### Changed
+
+-   BC-589 - BC-651 - change auto deployment to a reusable workflow
+
+### Changed
+
+-   BC597 - update mathjax library 
+
+## [26.16.0] - 2021-11-09
+
+### Fixed
+
 -   BC-650 - fix header error on copy course, which was making client crush 
 
 ### Changed
