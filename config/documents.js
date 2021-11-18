@@ -5,9 +5,9 @@ const { DOCUMENT_BASE_DIR, SC_THEME } = require('./global');
 const specificFiles = {
 	privacyExemplary: 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
 	privacy: 'Onlineeinwilligung/Datenschutzerklaerung-Onlineeinwilligung.pdf',
-	termsOfUseExemplary: 'Onlineeinwilligung/Nutzungsordnung-Schule-Schueler-Onlineeinwilligung.pdf',
+	termsOfUseExemplary: 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
 	termsOfUse: 'Onlineeinwilligung/Nutzungsordnung-Onlineeinwilligung.pdf',
-	termsOfUseSchool: 'Willkommensordner/Datenschutz/Nutzungsordnung-Schule-Schueler.pdf',
+	termsOfUseSchool: 'Willkommensordner/Datenschutz/Nutzungsordnung-HPI-Schule-Schueler.pdf',
 };
 
 const globalFiles = {
