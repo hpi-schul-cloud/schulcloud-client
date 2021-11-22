@@ -35,6 +35,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-404 - changed error message for team invitations via email
 
+### Fixed
+
+-   BC-563 - fixing link to language file for successful team permission save
+
 ## [26.15.1] - 2021-11-05
 
 -   BC-650 - don't exit on error
