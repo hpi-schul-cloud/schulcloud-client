@@ -412,7 +412,7 @@ $(document).ready(() => {
 
 		$deleteModal.appendTo('body').modal('show');
 		$deleteModal.find('.modal-title').text(
-			$t('homework.text.doYouReallyWantToDecoupleFile', { name: $buttonContext.data('file-name') }),
+			$t('homework.text.doYouReallyWantToDecoupleFileSubmission', { name: $buttonContext.data('file-name') }),
 		);
 
 		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
@@ -440,7 +440,7 @@ $(document).ready(() => {
 
 		$deleteModal.appendTo('body').modal('show');
 		$deleteModal.find('.modal-title').text(
-			$t('homework.text.doYouReallyWantToDecoupleFile', { name: $buttonContext.data('file-name') }),
+			$t('homework.text.doYouReallyWantToDecoupleFileHomework', { name: $buttonContext.data('file-name') }),
 		);
 
 		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
