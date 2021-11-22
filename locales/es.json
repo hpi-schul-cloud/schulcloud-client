@@ -2172,6 +2172,7 @@
 			"creatorCanNotBeRemoved": "¡No puedes eliminar al creador de la tarea!",
 			"done": "¡Genial! ¡Has completado tu tarea!",
 			"doYouReallyWantToDelete": "¿Estás seguro de que deseas eliminar '{{name}}'?",
+			"doYouReallyWantToDecoupleFile": "¿Estás seguro de que quieres desvincular el archivo'{{name}}' de la tarea?",
 			"doYouReallyWantToReplaceSubmission": "¿Estás seguro de que deseas reemplazar tu evaluación con el envío del estudiante?",
 			"due": "Fecha de entrega",
 			"fileAlreadyExists": "Este nombre de archivo ya existe en tus archivos. Cambia el nombre del archivo.",
