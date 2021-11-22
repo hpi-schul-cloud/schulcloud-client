@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+### Changed
+
+- BC-606-finished tasks changed translation keys
+
 ## [26.17.0] - 2021-11-16
 
 ### Changed
