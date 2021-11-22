@@ -2061,7 +2061,7 @@
 				"editTaskAlt": "Edit task '{{title}}'.",
 				"fileUpload": "File submission",
 				"moveFromArchive": "Move task from archive to overview page",
-				"moveToArchive": "Move task from overview page to archive",
+				"moveToArchive": "Move task from overview page to finsihed tasks",
 				"printGradeComment": "Print grading",
 				"printSubmission": "Print submission",
 				"printTask": "Print task definition",

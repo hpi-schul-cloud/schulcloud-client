@@ -2061,7 +2061,7 @@
 				"editTaskAlt": "Aufgabe '{{title}}' bearbeiten.",
 				"fileUpload": "Dateiabgabe",
 				"moveFromArchive": "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
-				"moveToArchive": "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
+				"moveToArchive": "Verschiebe Aufgabe von Übersichtsseite in abgeschlossene Aufgaben",
 				"printGradeComment": "Bewertung drucken",
 				"printSubmission": "Abgabe drucken",
 				"printTask": "Aufgabenstellung drucken",
