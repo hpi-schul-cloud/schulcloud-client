@@ -401,7 +401,7 @@ $(document).ready(() => {
 	}
 
 	/**
-     * deletes a) the file itself, b) the reference to the submission
+     * deletes the reference to the submission
      */
 	$('a[data-method="delete-file"]').on('click', function actionDeleteFile(e) {
 		e.stopPropagation();
@@ -416,24 +416,15 @@ $(document).ready(() => {
 		);
 
 		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
+			// delete reference in submission
+			const submissionId = $("input[name='submissionId']").val();
+			const teamMembers = $('#teamMembers').val();
 			$.ajax({
-				url: $buttonContext.attr('href'),
+				url: `/homework/submit/${submissionId}/files`,
+				data: { fileId, teamMembers },
 				type: 'DELETE',
-				data: {
-					id: fileId,
-				},
-				success(_) {
-					// delete reference in submission
-					const submissionId = $("input[name='submissionId']").val();
-					const teamMembers = $('#teamMembers').val();
-					$.ajax({
-						url: `/homework/submit/${submissionId}/files`,
-						data: { fileId, teamMembers },
-						type: 'DELETE',
-						success() {
-							window.location.reload();
-						},
-					});
+				success() {
+					window.location.reload();
 				},
 				error: showAJAXError,
 			});
@@ -453,6 +444,8 @@ $(document).ready(() => {
 		);
 
 		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
+			/*
+			// delete the file
 			$.ajax({
 				url: $buttonContext.attr('href'),
 				type: 'DELETE',
@@ -460,18 +453,17 @@ $(document).ready(() => {
 					id: fileId,
 				},
 				success() {
-					// delete reference in homework
-					const homeworkId = $("input[name='homeworkId']").val();
-					$.ajax({
-						url: `/homework/${homeworkId}/file`,
-						data: { fileId },
-						type: 'DELETE',
-						success() {
-							window.location.reload();
-						},
-					});
+			*/
+			// delete reference in homework
+			const homeworkId = $("input[name='homeworkId']").val();
+			$.ajax({
+				url: `/homework/${homeworkId}/file`,
+				data: { fileId },
+				type: 'DELETE',
+				success() {
+					window.location.reload();
 				},
-				error: showAJAXError,
+				error: showAJAXError
 			});
 		});
 	});
