@@ -1004,8 +1004,7 @@
 					"provided": "Proporcionado"
 				},
 				"text": {
-					"descriptionTasks": "Los participantes del curso pueden completar tareas fácilmente en un plazo establecido y enviar los resultados de forma digital. Las tareas se pueden configurar para un curso completo o para un solo tema.",
-					"moreArchivedLinkLabel": "Más tareas archivadas..."
+					"descriptionTasks": "Los participantes del curso pueden completar tareas fácilmente en un plazo establecido y enviar los resultados de forma digital. Las tareas se pueden configurar para un curso completo o para un solo tema."
 				}
 			},
 			"text": {
@@ -2087,7 +2086,7 @@
 			}
 		},
 		"button": {
-			"archive": "Archivar",
+			"archive": "Termina",
 			"copy": "Copiar",
 			"copySubmissionFromList": "Copiar",
 			"deleteSubmissionFromList": "Eliminar",
