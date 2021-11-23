@@ -16,6 +16,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - BC-606-finished tasks changed translation keys
+-   BC-700 - fix deletion for files in tasks
 
 ## [26.17.0] - 2021-11-16
 
