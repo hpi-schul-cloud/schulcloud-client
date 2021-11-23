@@ -13,6 +13,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+-   BC-700 - fix deletion for files in tasks
+
 ## [26.17.0] - 2021-11-16
 
 ### Changed
