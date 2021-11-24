@@ -215,7 +215,7 @@
                             {{#unless currentSchoolData.isExpertSchool}}
                                 <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
                                 {{#if currentSchoolData.logo_dataUrl}}
-                                    <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="{{$t "lib.loggedin.img_alt.logoOfSchool" (dict "name" currentSchoolData.name)}}">
+                                    <img class="nav-item school-logo" src="{{ currentSchoolData.logo_dataUrl }}" alt="{{$t "lib.loggedin.img_alt.logoOfSchool" (dict "name" currentSchoolData.name)}}">
                                 {{/if}}
                             {{/unless}}
                         {{/if}}

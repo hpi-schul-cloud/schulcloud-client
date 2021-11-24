@@ -11,6 +11,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+### Changed
+
+BC-661 - Introduced maximum height for school logo in top bar
+
 ### Fixed
 
 ## [26.17.0] - 2021-11-16
