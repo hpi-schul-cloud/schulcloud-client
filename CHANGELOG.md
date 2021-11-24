@@ -11,6 +11,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+### Changed
+
+- BC-740 - BC-848 - change ansible vars for docker image and tag
+
 ### Fixed
 
 -   BC-700 - fix deletion for files in tasks
