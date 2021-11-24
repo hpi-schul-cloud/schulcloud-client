@@ -10,6 +10,7 @@
 				</div>
 			</div>
 
+			{{#unless (getConfig "FEATURE_NEW_LOGIN_ENABLED")}}
 			<form method="post" action="/login" class="login-form">
 				<input type="hidden" name="redirect" value={{redirect}} />
 
@@ -35,9 +36,9 @@
 				</div>
 
 
-                <button type="button" title="{{$t "login.button.moreOptions"}}" class="btn form-group toggle-btn btn-block btn-secondary btn-toggle-providers ">
-                    <i aria-hidden="true" class="fa fa-chevron-up"></i> {{$t "login.button.moreOptions"}}
-                </button>
+				<button type="button" title="{{$t "login.button.moreOptions"}}" class="btn form-group toggle-btn btn-block btn-secondary btn-toggle-providers ">
+					<i aria-hidden="true" class="fa fa-chevron-up"></i> {{$t "login.button.moreOptions"}}
+				</button>
 
 
 				<div class="login-providers">
@@ -76,6 +77,12 @@
 					{{/if}}
 				</div>
 			</form>
+			{{/unless}}
+
+			{{#if (getConfig "FEATURE_NEW_LOGIN_ENABLED")}}
+
+			{{/if}}
+
 		</div>
 		<div style="text-align:center">
 			<a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
