@@ -50,6 +50,9 @@ $(document).ready(() => {
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 
+	// initial hide of the systems select
+	$systems.parent().hide();
+
 	const incTimer = () => {
 		setTimeout(() => {
 			if (countdownNum !== 1) {
@@ -134,6 +137,7 @@ $(document).ready(() => {
 
 	$school.on('change', (event) => {
 		// due to the class 'school' being duplicated, it is necessary to listen to the element's event to get the value
+		$systems.parent().show();
 		const id = $(event.target).val();
 		const dataSystems = $(event.target).find(':selected').data('systems');
 		if (id !== '' && dataSystems) {
