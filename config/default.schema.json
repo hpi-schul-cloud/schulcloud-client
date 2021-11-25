@@ -488,10 +488,10 @@
 			"default": true,
 			"description": "Enables button to new Nuxt School Admin beta-version page"
 		},
-		"FEATURE_NEW_LOGIN_ENABLED": {
+		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",
 			"default": false,
-			"description": "Enables new Login UI"
+			"description": "Enables new Oauth Login UI"
 		}
 	},
 	"allOf": [

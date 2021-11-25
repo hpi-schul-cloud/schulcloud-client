@@ -10,7 +10,7 @@
 				</div>
 			</div>
 
-			{{#unless (getConfig "FEATURE_NEW_LOGIN_ENABLED")}}
+			{{#unless (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
 			<form method="post" action="/login" class="login-form">
 				<input type="hidden" name="redirect" value={{redirect}} />
 
@@ -79,7 +79,7 @@
 			</form>
 			{{/unless}}
 
-			{{#if (getConfig "FEATURE_NEW_LOGIN_ENABLED")}}
+			{{#if (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
 			<form method="post" action="/login" class="login-form">
 				<div class="form-group">
 					<label for="school">{{$t "global.link.school"}}</label>
