@@ -102,6 +102,13 @@
 						{{/each}}
 					</select>
 				</div>
+				<div class="form-group oauth-button-group">
+					{{#if notification.statusCode}}
+						<button autofocus id="oauth-login" class="btn btn-block btn-primary btn-login" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled>{{$t "home.header.link.login"}} with iServ</button>
+					{{else}}
+						<button autofocus id="oauth-login" class="btn btn-block btn-primary btn-login" with iServ" data-testid="submit-login">{{$t "home.header.link.login"}} with iServ</button>
+					{{/if}}
+				</div>
 			</form>
 			{{/if}}
 

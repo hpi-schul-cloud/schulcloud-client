@@ -47,11 +47,15 @@ $(document).ready(() => {
 	const $school = $('.school');
 	const $systems = $('.system');
 	const $modals = $('.modal');
+	const $oauthButton = $('.oauth-button-group');
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 
+	let selectedSystem = null;
+
 	// initial hide of the systems select
 	$systems.parent().hide();
+	$oauthButton.hide();
 
 	const incTimer = () => {
 		setTimeout(() => {
@@ -89,6 +93,14 @@ $(document).ready(() => {
 		// eslint-disable-next-line no-unused-expressions
 		systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
 		$systems.trigger('chosen:updated');
+	};
+
+	const handleSystemChange = (system) => {
+		if (system && system === 'iserv') {
+			$oauthButton.show();
+		} else {
+			$oauthButton.hide();
+		}
 	};
 
 	$btnToggleProviders.on('click', (e) => {
@@ -145,8 +157,19 @@ $(document).ready(() => {
 		} else {
 			$systems.parent().hide();
 		}
+
+		selectedSystem = dataSystems.length === 1 ? dataSystems[0].type : null;
+		handleSystemChange(selectedSystem);
+
+		// $sthing.append(`<p>${selectedSystem}</p>`);
 		$school.find('option').not(`[value='${id}']`).removeAttr('selected');
 		$school.find(`option[value='${id}']`).attr('selected', true);
+	});
+
+	$systems.on('change', (event) => {
+		// $sthing.append(`<p>${$systems.val().split('//')[1]}</p>`);
+		selectedSystem = $systems.val().split('//')[1];
+		handleSystemChange(selectedSystem);
 	});
 
 	$('.submit-pwrecovery').on('click', (e) => {
