@@ -19,6 +19,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-700 - fix deletion for files in tasks
 
+### Removed
+
+-   BC-832 - remove github image hosting from CORS
+
 ## [26.17.0] - 2021-11-16
 
 ### Changed
