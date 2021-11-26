@@ -50,12 +50,14 @@ $(document).ready(() => {
 	const $oauthButton = $('.oauth-button-group');
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
+	const $loginForm = $('.login-form-ldap');
 
 	let selectedSystem = null;
 
 	// initial hide of the systems select
 	$systems.parent().hide();
 	$oauthButton.hide();
+	$loginForm.hide();
 
 	const incTimer = () => {
 		setTimeout(() => {
@@ -98,8 +100,13 @@ $(document).ready(() => {
 	const handleSystemChange = (system) => {
 		if (system && system === 'moodle') {
 			$oauthButton.show();
+			$loginForm.hide();
+		} else if (system) {
+			$oauthButton.hide();
+			$loginForm.show();
 		} else {
 			$oauthButton.hide();
+			$loginForm.hide();
 		}
 	};
 
@@ -158,7 +165,7 @@ $(document).ready(() => {
 			$systems.parent().hide();
 		}
 
-		selectedSystem = dataSystems.length === 1 ? dataSystems[0].type : null;
+		selectedSystem = dataSystems.length >= 1 ? dataSystems[0].type : null;
 		handleSystemChange(selectedSystem);
 
 		// $sthing.append(`<p>${selectedSystem}</p>`);

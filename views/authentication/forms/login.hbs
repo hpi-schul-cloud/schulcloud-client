@@ -102,13 +102,40 @@
 						{{/each}}
 					</select>
 				</div>
-				{{!<div>hot reload</div>}}
 				<div class="form-group oauth-button-group">
 					{{#if notification.statusCode}}
 						<button autofocus id="oauth-login" class="btn btn-block btn-primary btn-login" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled>{{$t "home.header.link.login"}} with iServ</button>
 					{{else}}
 						 <button autofocus id="oauth-login" class="btn btn-block btn-primary btn-login" data-testid="submit-login">{{$t "home.header.link.login"}} with iServ</button>
 					{{/if}}
+				</div>
+					<div class="form-group login-form-ldap">
+						<label for="name">{{$t "login.input.emailUsername"}}</label>
+						<input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
+						<label for="password">{{$t "global.input.password"}}</label>
+						<div class="input-group mt-1 show_hide_password" style="margin-top: 0rem !important">
+							<input type="password" id="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "global.input.password"}}" data-testid="password" required>
+							<div class="input-group-addon">
+								<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><span class="fa fa-eye-slash" aria-hidden="true"></span></button>
+							</div>
+						</div>
+						{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
+						<div class="form-check" style="margin-top: 10px;">
+							<input type="checkbox" id="privateDevice" name="privateDevice" value="true">
+							<label for="privateDevice">{{$t "login.label.thisIsAPrivateDevice"}}</label>
+							<button data-toggle="tooltip" data-placement="left" title="{{$t "login.button.longerLoggedInWhenActivated"}}" class="btn-link px-1">
+								<i aria-hidden="true" class="fa fa-info"></i>
+							</button>
+						</div>
+						{{/ifEnv}}
+						{{> "lib/components/csrfInput"}}
+						<div class="form-group">
+						{{#if notification.statusCode}}
+							<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+						{{else}}
+							<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
+						{{/if}}
+					</div>
 				</div>
 			</form>
 			{{/if}}
