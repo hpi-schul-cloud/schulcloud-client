@@ -30,7 +30,7 @@ spec:
         runAsNonRoot: true
       containers:
       - name: client
-        image: {{ CLIENT_IMAGE_NAME }}-{{ SC_THEME }}:{{ APP_IMAGE_TAG }}
+        image: {{ SCHULCLOUD_CLIENT_IMAGE }}-{{ SC_THEME }}:{{ SCHULCLOUD_CLIENT_IMAGE_TAG }}
         imagePullPolicy: IfNotPresent
         ports:
         - name: client
