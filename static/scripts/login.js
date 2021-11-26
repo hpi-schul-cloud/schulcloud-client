@@ -96,7 +96,7 @@ $(document).ready(() => {
 	};
 
 	const handleSystemChange = (system) => {
-		if (system && system === 'iserv') {
+		if (system && system === 'moodle') {
 			$oauthButton.show();
 		} else {
 			$oauthButton.hide();
