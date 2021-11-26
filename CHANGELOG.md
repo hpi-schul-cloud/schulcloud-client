@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+## [26.18.0] - 2021-11-26
+
+### Fixed
+
 -   BC-700 - fix deletion for files in tasks
 
 ## [26.17.0] - 2021-11-16
@@ -23,13 +27,13 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
--   BC597 - update mathjax library 
+-   BC597 - update mathjax library
 
 ## [26.16.0] - 2021-11-09
 
 ### Fixed
 
--   BC-650 - fix header error on copy course, which was making client crush 
+-   BC-650 - fix header error on copy course, which was making client crush
 
 ### Changed
 
@@ -76,7 +80,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 -   BC-379 - hard-code node 14 and npm 6
 
--   BC-40  - rocketchat DNS prefix adjustments for autodeployment
+-   BC-40 - rocketchat DNS prefix adjustments for autodeployment
 
 ## [26.13.0] - 2021-10-19
 
