@@ -14,8 +14,15 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - BC-617 - changes for transition to Dataport
+- BC-740 - BC-848 - change ansible vars for docker image and tag
 
 ### Fixed
+
+-   BC-700 - fix deletion for files in tasks
+
+### Removed
+
+-   BC-832 - remove github image hosting from CORS
 
 ## [26.17.0] - 2021-11-16
 

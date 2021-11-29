@@ -2171,6 +2171,8 @@
 			"creatorCanNotBeRemoved": "You cannot remove the creator of the task!",
 			"done": "Great! You've completed your task!",
 			"doYouReallyWantToDelete": "Are you sure you want to delete '{{name}}'?",
+			"doYouReallyWantToDecoupleFileHomework": "Are you sure you want to decouple the file '{{name}}' from the homework?",
+			"doYouReallyWantToDecoupleFileSubmission": "Are you sure you want to decouple the file '{{name}}' from the submission?",
 			"doYouReallyWantToReplaceSubmission": "Are you sure you want to replace your assessment with the student's submission?",
 			"due": "Due",
 			"fileAlreadyExists": "This file name already exists in your files. Please rename the file.",
