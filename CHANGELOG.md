@@ -11,6 +11,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+### Changed
+
+- BC-740 - BC-848 - change ansible vars for docker image and tag
+
 ### Fixed
 
 ## [26.18.0] - 2021-11-26
@@ -18,6 +22,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Fixed
 
 -   BC-700 - fix deletion for files in tasks
+
+### Removed
+
+-   BC-832 - remove github image hosting from CORS
 
 ## [26.17.0] - 2021-11-16
 
