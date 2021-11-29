@@ -17,6 +17,16 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+## [26.17.0] - 2021-11-16
+
+### Changed
+
+-   BC-589 - BC-651 - change auto deployment to a reusable workflow
+
+### Changed
+
+-   BC597 - update mathjax library 
+
 ## [26.16.0] - 2021-11-09
 
 ### Fixed
@@ -26,6 +36,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 -   BC-404 - changed error message for team invitations via email
+
+### Fixed
+
+-   BC-563 - fixing link to language file for successful team permission save
 
 ## [26.15.1] - 2021-11-05
 

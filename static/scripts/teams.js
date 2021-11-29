@@ -163,7 +163,7 @@ $(document).ready(() => {
 					data: { filePermission: Object.assign(filePermission, newPermission) },
 				})
 					.done(() => {
-						$.showNotification($t('teams._team.files.changedFilePermissionsSuccess'), 'success', true);
+						$.showNotification($t('teams._team.files.text.changedFilePermissionsSuccess'), 'success', true);
 						$('.file-permissions-modal').modal('hide');
 					})
 					.fail(() => {
