@@ -68,6 +68,7 @@
 					<button type="button" title="{{$t "login.button.less"}}" class="btn form-group toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-down"></i> {{$t "login.button.less"}}</button>
 					</div>
 				</div>
+
 				{{> "lib/components/csrfInput"}}
 				<div class="form-group">
 					{{#if notification.statusCode}}
@@ -77,6 +78,10 @@
 					{{/if}}
 				</div>
 			</form>
+
+			<div style="text-align:center">
+				<a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
+			</div>
 			{{/unless}}
 
 			{{#if (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
@@ -102,14 +107,15 @@
 						{{/each}}
 					</select>
 				</div>
-				<div class="form-group oauth-button-group">
+				<div class="form-group oauth-button-group" hidden="true">
 					{{#if notification.statusCode}}
 						<button autofocus id="oauth-login" class="btn btn-block btn-primary btn-login" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled>{{$t "home.header.link.login"}} with iServ</button>
 					{{else}}
 						 <button autofocus id="oauth-login" class="btn btn-block btn-primary btn-login" data-testid="submit-login">{{$t "home.header.link.login"}} with iServ</button>
 					{{/if}}
 				</div>
-					<div class="form-group login-form-ldap">
+				<div class="login-form-ldap" hidden="true">
+					<div class="form-group">
 						<label for="name">{{$t "login.input.emailUsername"}}</label>
 						<input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
 						<label for="password">{{$t "global.input.password"}}</label>
@@ -119,7 +125,8 @@
 								<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><span class="fa fa-eye-slash" aria-hidden="true"></span></button>
 							</div>
 						</div>
-						{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
+				    </div>
+					{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
 						<div class="form-check" style="margin-top: 10px;">
 							<input type="checkbox" id="privateDevice" name="privateDevice" value="true">
 							<label for="privateDevice">{{$t "login.label.thisIsAPrivateDevice"}}</label>
@@ -130,20 +137,20 @@
 						{{/ifEnv}}
 						{{> "lib/components/csrfInput"}}
 						<div class="form-group">
-						{{#if notification.statusCode}}
-							<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
-						{{else}}
-							<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
-						{{/if}}
-					</div>
+						    {{#if notification.statusCode}}
+						    	<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+						    {{else}}
+						    	<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
+						    {{/if}}
+					    </div>
+						<div style="text-align:center">
+						    <a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
+						</div>
 				</div>
 			</form>
 			{{/if}}
+		</div>
 
-		</div>
-		<div style="text-align:center">
-			<a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
-		</div>
 	</div>
 </section>
 <div class="alert-section"></div>

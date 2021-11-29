@@ -56,8 +56,6 @@ $(document).ready(() => {
 
 	// initial hide of the systems select
 	$systems.parent().hide();
-	$oauthButton.hide();
-	$loginForm.hide();
 
 	const incTimer = () => {
 		setTimeout(() => {
@@ -99,14 +97,14 @@ $(document).ready(() => {
 
 	const handleSystemChange = (system) => {
 		if (system && system === 'moodle') {
-			$oauthButton.show();
-			$loginForm.hide();
+			$oauthButton.prop('hidden', false);
+			$loginForm.prop('hidden', true);
 		} else if (system) {
-			$oauthButton.hide();
-			$loginForm.show();
+			$oauthButton.prop('hidden', true);
+			$loginForm.prop('hidden', false);
 		} else {
-			$oauthButton.hide();
-			$loginForm.hide();
+			$oauthButton.prop('hidden', true);
+			$loginForm.prop('hidden', true);
 		}
 	};
 
