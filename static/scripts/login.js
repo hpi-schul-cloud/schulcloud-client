@@ -53,6 +53,7 @@ $(document).ready(() => {
 	const $loginForm = $('.login-form-ldap');
 
 	let selectedSystem = null;
+	let loadedSystems = [];
 
 	// initial hide of the systems select
 	$systems.parent().hide();
@@ -96,7 +97,7 @@ $(document).ready(() => {
 	};
 
 	const handleSystemChange = (system) => {
-		if (system && system === 'moodle') {
+		if (system && system.oaClientId) {
 			$oauthButton.prop('hidden', false);
 			$loginForm.prop('hidden', true);
 		} else if (system) {
@@ -162,18 +163,17 @@ $(document).ready(() => {
 		} else {
 			$systems.parent().hide();
 		}
+		loadedSystems = dataSystems;
 
-		selectedSystem = dataSystems.length >= 1 ? dataSystems[0].type : null;
+		selectedSystem = loadedSystems && loadedSystems.length >= 1 ? loadedSystems[0] : null;
 		handleSystemChange(selectedSystem);
 
-		// $sthing.append(`<p>${selectedSystem}</p>`);
 		$school.find('option').not(`[value='${id}']`).removeAttr('selected');
 		$school.find(`option[value='${id}']`).attr('selected', true);
 	});
 
 	$systems.on('change', (event) => {
-		// $sthing.append(`<p>${$systems.val().split('//')[1]}</p>`);
-		selectedSystem = $systems.val().split('//')[1];
+		selectedSystem = loadedSystems.find((x) => x._id === $systems.val().split('//')[0]);
 		handleSystemChange(selectedSystem);
 	});
 
