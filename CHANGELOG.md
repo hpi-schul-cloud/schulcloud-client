@@ -12,6 +12,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Added
 
 ### Fixed
+- BC-856 – fixed plus sign in the add-btn
 
 ## [26.19.0] - 2021-11-30
 
