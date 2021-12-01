@@ -2484,7 +2484,7 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login mit {{title}}"
+				"loginWithSchoolCloud": "Über {{title}} anmelden"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",

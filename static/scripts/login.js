@@ -43,11 +43,12 @@ $(document).ready(() => {
 	const $btnToggleProviders = $('.btn-toggle-providers');
 	const $btnHideProviders = $('.btn-hide-providers');
 	const $btnLogin = $('.btn-login');
+	const $oauthButton = $('.btn-oauth');
 	const $loginProviders = $('.login-providers');
 	const $school = $('.school');
 	const $systems = $('.system');
 	const $modals = $('.modal');
-	const $oauthButton = $('.oauth-button-group');
+	const $oauthButtonGroup = $('.oauth-button-group');
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 	const $loginForm = $('.login-form-ldap');
@@ -95,16 +96,16 @@ $(document).ready(() => {
 		systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
 		$systems.trigger('chosen:updated');
 	};
-
 	const handleSystemChange = (system) => {
 		if (system && system.oaClientId) {
-			$oauthButton.prop('hidden', false);
+			$oauthButtonGroup.prop('hidden', false);
 			$loginForm.prop('hidden', true);
+			$oauthButton[0].textContent = $t('login.oauth2.headline.loginWithSchoolCloud', { title: system.type });
 		} else if (system) {
-			$oauthButton.prop('hidden', true);
+			$oauthButtonGroup.prop('hidden', true);
 			$loginForm.prop('hidden', false);
 		} else {
-			$oauthButton.prop('hidden', true);
+			$oauthButtonGroup.prop('hidden', true);
 			$loginForm.prop('hidden', true);
 		}
 	};

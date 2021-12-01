@@ -109,9 +109,9 @@
 				</div>
 				<div class="form-group oauth-button-group" hidden="true">
 					{{#if notification.statusCode}}
-						<button autofocus id="oauth-login" class="btn btn-block btn-primary btn-login" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled>{{$t "home.header.link.login"}} with iServ</button>
+						<button autofocus id="oauth-login" class="btn btn-block btn-primary btn-login" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled>{{$t "login.oauth2.headline.loginWithSchoolCloud" (dict "title" "%SystemTitle%")}}</button>
 					{{else}}
-						 <button autofocus id="oauth-login" class="btn btn-block btn-primary btn-login" data-testid="submit-login">{{$t "home.header.link.login"}} with iServ</button>
+						<button autofocus id="oauth-login" class="btn btn-block btn-primary btn-login btn-oauth" data-testid="submit-login">{{$t "login.oauth2.headline.loginWithSchoolCloud" (dict "title" "%SystemTitle%")}}</button>
 					{{/if}}
 				</div>
 				<div class="login-form-ldap" hidden="true">
@@ -150,7 +150,6 @@
 			</form>
 			{{/if}}
 		</div>
-
 	</div>
 </section>
 <div class="alert-section"></div>
