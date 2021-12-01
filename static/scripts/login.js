@@ -97,16 +97,16 @@ $(document).ready(() => {
 		$systems.trigger('chosen:updated');
 	};
 	const handleSystemChange = (system) => {
-		if (system && system.oaClientId) {
+		if (system === undefined) {
+			$oauthButtonGroup.prop('hidden', true);
+			$loginForm.prop('hidden', true);
+		} else if (system && system.oaClientId) {
 			$oauthButtonGroup.prop('hidden', false);
 			$loginForm.prop('hidden', true);
 			$oauthButton[0].textContent = $t('login.oauth2.headline.loginWithSchoolCloud', { title: system.type });
-		} else if (system) {
-			$oauthButtonGroup.prop('hidden', true);
-			$loginForm.prop('hidden', false);
 		} else {
 			$oauthButtonGroup.prop('hidden', true);
-			$loginForm.prop('hidden', true);
+			$loginForm.prop('hidden', false);
 		}
 	};
 
@@ -167,6 +167,7 @@ $(document).ready(() => {
 		loadedSystems = dataSystems;
 
 		selectedSystem = loadedSystems && loadedSystems.length >= 1 ? loadedSystems[0] : null;
+		selectedSystem = loadedSystems ? selectedSystem : undefined;
 		handleSystemChange(selectedSystem);
 
 		$school.find('option').not(`[value='${id}']`).removeAttr('selected');
