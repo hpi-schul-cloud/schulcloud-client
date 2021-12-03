@@ -1004,8 +1004,7 @@
 					"provided": "Gestellt"
 				},
 				"text": {
-					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
-					"moreArchivedLinkLabel": "mehr archivierte Aufgaben..."
+					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden."
 				}
 			},
 			"text": {
@@ -2062,7 +2061,7 @@
 				"editTaskAlt": "Aufgabe '{{title}}' bearbeiten.",
 				"fileUpload": "Dateiabgabe",
 				"moveFromArchive": "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
-				"moveToArchive": "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
+				"moveToArchive": "Verschiebe Aufgabe von Übersichtsseite in abgeschlossene Aufgaben",
 				"printGradeComment": "Bewertung drucken",
 				"printSubmission": "Abgabe drucken",
 				"printTask": "Aufgabenstellung drucken",
@@ -2087,7 +2086,7 @@
 			}
 		},
 		"button": {
-			"archive": "Archivieren",
+			"archive": "Abschließen",
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
 			"deleteSubmissionFromList": "löschen",

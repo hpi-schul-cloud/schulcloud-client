@@ -1004,8 +1004,7 @@
 					"provided": "Provided"
 				},
 				"text": {
-					"descriptionTasks": "Course participants can easily complete tasks by a set deadline and submit results digitally. Tasks can be set for an entire course or a single topic.",
-					"moreArchivedLinkLabel": "More archived tasks..."
+					"descriptionTasks": "Course participants can easily complete tasks by a set deadline and submit results digitally. Tasks can be set for an entire course or a single topic."
 				}
 			},
 			"text": {
@@ -2062,7 +2061,7 @@
 				"editTaskAlt": "Edit task '{{title}}'.",
 				"fileUpload": "File submission",
 				"moveFromArchive": "Move task from archive to overview page",
-				"moveToArchive": "Move task from overview page to archive",
+				"moveToArchive": "Move task from overview page to finished tasks",
 				"printGradeComment": "Print grading",
 				"printSubmission": "Print submission",
 				"printTask": "Print task definition",
@@ -2087,7 +2086,7 @@
 			}
 		},
 		"button": {
-			"archive": "Archive",
+			"archive": "Finish",
 			"copy": "Copy",
 			"copySubmissionFromList": "Copy",
 			"deleteSubmissionFromList": "Delete",
