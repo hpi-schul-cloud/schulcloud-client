@@ -13,6 +13,8 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
+- BC-308 - added data-testId to fix e2e test
+
 ## [26.19.0] - 2021-11-30
 
 ### Changed
