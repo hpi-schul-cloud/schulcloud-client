@@ -11,6 +11,14 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+### Fixed
+
+### Changed
+
+- BC-609 - changed wording from "archive" to "finish"
+
+## [26.19.0] - 2021-11-30
+
 ### Changed
 
 - BC-661 - Introduced maximum height for school logo in top bar
@@ -18,9 +26,6 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Fixed
 
-### Changed
-
-- BC-609 - changed wording from "archive" to "finish"
 ## [26.18.0] - 2021-11-26
 
 ### Fixed
