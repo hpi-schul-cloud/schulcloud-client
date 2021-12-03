@@ -1,11 +1,11 @@
   - name: Service
-    community.kubernetes.k8s:
+    kubernetes.core.k8s:
       kubeconfig: ~/.kube/config 
       namespace: "{{ NAMESPACE }}"
       template: svc.yml.j2
       
   - name: Deployment
-    community.kubernetes.k8s:
+    kubernetes.core.k8s:
       kubeconfig: ~/.kube/config 
       namespace: "{{ NAMESPACE }}"
       template: deployment.yml.j2
