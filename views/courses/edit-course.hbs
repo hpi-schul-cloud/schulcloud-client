@@ -95,7 +95,7 @@
 					<label for="input0">{{$t "courses.global.label.courseColor"}}</label>
 					<div class="color-picker" data-testid="color-picker">
 						{{#if course.color}}
-							<div class="color-picker__item" data-testid="color-picker">
+							<div class="color-picker__item" data-testid="item">
 								<input id="input0" type="radio" class="color-picker__input" name="color"
 									value="{{course.color}}" checked="checked"
 									{{#if @root.course.isArchived}}disabled{{/if}} />
