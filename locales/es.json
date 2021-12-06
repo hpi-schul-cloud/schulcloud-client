@@ -1003,8 +1003,7 @@
 					"provided": "Proporcionado"
 				},
 				"text": {
-					"descriptionTasks": "Los participantes del curso pueden completar tareas fácilmente en un plazo establecido y enviar los resultados de forma digital. Las tareas se pueden configurar para un curso completo o para un solo tema.",
-					"moreArchivedLinkLabel": "Más tareas archivadas..."
+					"descriptionTasks": "Los participantes del curso pueden completar tareas fácilmente en un plazo establecido y enviar los resultados de forma digital. Las tareas se pueden configurar para un curso completo o para un solo tema."
 				}
 			},
 			"text": {
@@ -2061,7 +2060,7 @@
 				"editTaskAlt": "Editar tarea '{{title}}'.",
 				"fileUpload": "Envío de archivos",
 				"moveFromArchive": "Mover la tarea del archivo a la página de descripción general",
-				"moveToArchive": "Mover la tarea de la página de descripción general al archivo",
+				"moveToArchive": "Mover la tarea de la página de descripción general a tareas terminadas",
 				"printGradeComment": "Imprimir calificación",
 				"printSubmission": "Imprimir envío",
 				"printTask": "Imprimir definición de la tarea",
@@ -2086,7 +2085,7 @@
 			}
 		},
 		"button": {
-			"archive": "Archivar",
+			"archive": "Terminar",
 			"copy": "Copiar",
 			"copySubmissionFromList": "Copiar",
 			"deleteSubmissionFromList": "Eliminar",

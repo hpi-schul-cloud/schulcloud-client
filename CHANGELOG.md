@@ -14,6 +14,19 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 ### Changed
 
 - BC-617 - changes for transition to Dataport
+
+### Fixed
+
+### Changed
+
+- BC-609 - changed wording from "archive" to "finish"
+- BC-308 - added data-testId to fix e2e test
+
+## [26.19.0] - 2021-11-30
+
+### Changed
+
+- BC-661 - Introduced maximum height for school logo in top bar
 - BC-740 - BC-848 - change ansible vars for docker image and tag
 
 ### Fixed
