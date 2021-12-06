@@ -11,6 +11,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+### Changed
+
+- BC-617 - changes for transition to Dataport
+
 ### Fixed
 
 ### Changed

@@ -10,7 +10,7 @@ const {
 	SC_THEME = 'default',
 	SC_TITLE = 'HPI Schul-Cloud',
 	SC_SHORT_TITLE = 'HPI Schul-Cloud',
-	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/schul-cloud-hpi/',
+	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/cloud-instances/',
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	REDIS_URI,
 	NODE_ENV = 'development',
