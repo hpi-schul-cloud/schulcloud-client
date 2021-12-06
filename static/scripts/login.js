@@ -154,6 +154,10 @@ $(document).ready(() => {
 		}
 	});
 
+	$oauthButton.on('click', () => {
+		window.location.href = 'http://iserv.n21.dbildungscloud.de/iserv/auth/auth?client_id=24_3bdw6189ocu800ogks4ko4o804sos0gc4k4kwccwkw8osco0w0&redirect_uri=http://localhost:3030/authentication&response_type=code&scope=openid';
+	});
+
 	$school.on('change', (event) => {
 		// due to the class 'school' being duplicated, it is necessary to listen to the element's event to get the value
 		$systems.parent().show();
