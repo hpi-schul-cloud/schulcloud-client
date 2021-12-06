@@ -21,6 +21,7 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 - BC-609 - changed wording from "archive" to "finish"
 - BC-308 - added data-testId to fix e2e test
+- BC-741 - Sort and split ansible rols
 
 ## [26.19.0] - 2021-11-30
 
