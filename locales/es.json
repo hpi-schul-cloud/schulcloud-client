@@ -528,7 +528,7 @@
 				"theSchoolYearEndsAnd": "El año escolar {{schoolName}} finaliza y comienza la fase de transferencia al nuevo año escolar. <strong>Este paso no se puede deshacer.<\/strong> No se pueden crear ni modificar clases ni usuarios durante este tiempo.",
 				"theSynchronizationOfLDAPMasterData": "La sincronización de los datos maestros LDAP se interrumpe durante la fase de transferencia. Esto significa que los datos de usuario y las clases (si se utilizan) ya no se actualizan a través de LDAP. Todavía es posible iniciar sesión con datos de inicio de sesión que ya se hayan sincronizado. Durante el inicio de sesión también se tienen en cuenta los cambios de contraseña en LDAP.",
 				"useTheTransferPhaseAroundTheSchool": "Utiliza la fase de transferencia en torno al cambio de año escolar para ajustar la afiliación a la clase y los datos personales en el LDAP. Finalmente, transfiere todos los cambios a la nube escolar de HPI a la vez.",
-				"withAllChangesAndSettings": "Con todas las modificaciones y ajustes en el área de administración, confirmas que eres un administrador autorizado de la escuela y que estás autorizado para hacer modificaciones en el centro mediante la nube escolar de HPI. Tu clic se considera una instrucción del centro al HPI.",
+				"withAllChangesAndSettings": "Con todos los cambios y ajustes en el área de administración, se confirma que estos son llevados a cabo por un administrador de la escuela autorizado para hacer ajustes en la escuela en la nube. Los ajustes realizados por el administrador de la escuela se consideran instrucciones de la escuela al operador de la nube {{institute_title}}.",
 				"wouldYouLikeReportABug": "¿Te gustaría informar de un error o tienes alguna idea para mejorar {{title}}? Envía solicitudes o problemas directamente al servicio de atención al usuario de {{shortTitle}}."
 			}
 		},
@@ -801,8 +801,7 @@
 			"forGeneralQuestionsPleaseContact": "Si tienes alguna pregunta general, ponte en contacto con la siguiente dirección de correo electrónico:",
 			"hereIsOurRegistrationForm": "Haz clic aquí para obtener nuestro formulario de registro:",
 			"hereIsOurRegistrationFormMINT": "Las nuevas escuelas STEM EC se pueden registrar aquí:",
-			"inBrandenburgTheAdmissionOfNewSchools": "En Brandeburgo, la admisión de nuevas escuelas se coordina junto con DigitalAgentur Brandenburg (ILB) y MBJS.",
-			"inMarch2020ZENSOSQueries": "En marzo de 2020, las consultas de ZENSOS se utilizaron por última vez para determinar la necesidad de nuestra infraestructura en las escuelas. Actualmente se están procesando los registros resultantes.",
+			"inBrandenburgTheAdmissionOfNewSchools": "En Brandemburgo, la admisión de nuevas escuelas se coordina conjuntamente con el MBJS.",
 			"inNiedersachsenTheReferenceSchool": "En Baja Sajonia, la red de escuelas de referencia n-21 es responsable de la admisión de nuevas escuelas.",
 			"inThuringiaTheThuringianInstitute": "En Turingia, el Instituto de Turingia para la formación del profesorado, el desarrollo curricular y los medios de comunicación (ThILLM) es responsable de la admisión de nuevas escuelas.",
 			"justWriteAnEmailTo": "Simplemente escribe un correo electrónico a <a href=\"mailto:schul-cloud-ZfA@bva.bund.de\">schul-cloud-ZfA@bva.bund.de<\/a>.",
@@ -1004,8 +1003,7 @@
 					"provided": "Proporcionado"
 				},
 				"text": {
-					"descriptionTasks": "Los participantes del curso pueden completar tareas fácilmente en un plazo establecido y enviar los resultados de forma digital. Las tareas se pueden configurar para un curso completo o para un solo tema.",
-					"moreArchivedLinkLabel": "Más tareas archivadas..."
+					"descriptionTasks": "Los participantes del curso pueden completar tareas fácilmente en un plazo establecido y enviar los resultados de forma digital. Las tareas se pueden configurar para un curso completo o para un solo tema."
 				}
 			},
 			"text": {
@@ -2062,7 +2060,7 @@
 				"editTaskAlt": "Editar tarea '{{title}}'.",
 				"fileUpload": "Envío de archivos",
 				"moveFromArchive": "Mover la tarea del archivo a la página de descripción general",
-				"moveToArchive": "Mover la tarea de la página de descripción general al archivo",
+				"moveToArchive": "Mover la tarea de la página de descripción general a tareas terminadas",
 				"printGradeComment": "Imprimir calificación",
 				"printSubmission": "Imprimir envío",
 				"printTask": "Imprimir definición de la tarea",
@@ -2087,7 +2085,7 @@
 			}
 		},
 		"button": {
-			"archive": "Archivar",
+			"archive": "Terminar",
 			"copy": "Copiar",
 			"copySubmissionFromList": "Copiar",
 			"deleteSubmissionFromList": "Eliminar",
@@ -2223,7 +2221,7 @@
 				"advantages": "Ventajas de la {{shortTitle}}",
 				"furtherInformation": "Más información acerca de cómo empezar en {{shortTitle}}",
 				"registration": "Regístrese en la {{shortTitle}}",
-				"valueStatement": "El desarrollo de HPI Schul-Cloud se caracteriza por"
+				"valueStatement": "El desarrollo de la nube se caracteriza por"
 			},
 			"img_alt": {
 				"text": "Estudiantes están sentad@s usando {{shortTitle}} en sus dispositivos móviles."
@@ -2238,7 +2236,7 @@
 				"registration": "Una plataforma digital uniforme para toda la escuela ofrece muchas ventajas. Es necesario que la inscripción en la {{shortTitle}} sea realizada por la dirección del centro. Por favor, póngase en contacto con <a href=\"mailto:schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de<\/a>, si desea registrar su escuela. \nPosteriormente, tod@s l@s estudiantes recibirán un enlace de registro o los datos de acceso de su escuela para la inscripción inicial en el {{shortTitle}}. Si tiene alguna duda sobre la inscripción inicial, póngase en contacto con el director técnico de su centro o con el profesor de la clase correspondiente.",
 				"valueStatement": "<li>un uso coherente de las soluciones de código abierto,<\/li><li>un desarrollo coherente centrado en el usuario,<\/li><li>una estructura estrictamente modular,<\/li><li>la función de la cooperación inter-escolar, que es importante para un país con una gran extension,<\/li><li>la conformidad de la EU-DSGVO\/protección de datos a través de Privacy by Design,<\/li><li>la posibilidad de crear sinergias mediante la cooperación entre países.<\/li><br>",
 				"welcome": "\"El aprendizaje con medios digitales es el reto con mayor dinámica. Esto requiere una infraestructura digital potente. Uno de los proyectos más importantes es la {{shortTitle}}, desarrollada en el Hasso-Plattner-Institut (HPI). Está diseñado para conectar en red las escuelas del Estado, de modo que los profesores y alumnos tengan acceso a los materiales de aprendizaje y enseñanza en cualquier momento y lugar. El mantenimiento profesional centralizado para todas las escuelas reduce significativamente el esfuerzo administrativo y de apoyo. Esperamos que la {{shortTitle}} proporcione un impulso significativo a la educación digital y estamos deseando que se ponga en marcha el proyecto.\" - La ministra de Educación, Britta Ernst, en el acto de presentación el 2 de mayo de 2019.",
-				"welcome_2": " "
+				"welcome_2": "Desde el 1 de agosto de 2021, la {{shortTitle}} está en modo de prueba según un acuerdo administrativo entre los estados de Brandeburgo, Baja Sajonia y Turingia para la creación de una infraestructura de enseñanza y aprendizaje interestatal, teniendo en cuenta los requisitos específicos de cada estado, y se seguirá desarrollando como un proyecto conjunto."
 				}
 		},
 		"label": {

@@ -264,7 +264,7 @@
 				"importFailed": "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.",
 				"importMayBeStillRunning": "Der Import findet im Hintergrund statt und kann je nach Menge der Daten einige Minuten dauern.",
 				"inTheQueue": "In der Warteschlange",
-				"invitationEmailContent": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
+				"invitationEmailContent": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{theme_title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
 				"invitationEmailSubject": "Einladung für die Nutzung der {{title}}!",
 				"noDeclarationOfConsentAvailable": "Keine Einverständniserklärung vorhanden",
 				"onlyAllMembers": "Es können nur alle Mitglieder der eigenen Schule aus dem Team entfernt werden",
@@ -528,7 +528,7 @@
 				"theSchoolYearEndsAnd": "Das Schuljahr {{schoolName}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.<\/strong> Es können in dieser Zeit keine Klassen und Nutzer:innen angelegt oder geändert werden.",
 				"theSynchronizationOfLDAPMasterData": "Die Synchronisierung von LDAP-Stammdaten wird während der Transferphase unterbrochen. Somit werden Nutzerdaten und Klassen (sofern verwendet) nicht mehr über LDAP aktualisiert. Der Login mit bereits synchronisierten Login-Daten ist weiterhin möglich. Passwortänderungen im LDAP während des Logins werden ebenfalls berücksichtigt.",
 				"useTheTransferPhaseAroundTheSchool": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.",
-				"withAllChangesAndSettings": "Mit allen Änderungen und Einstellungen im Verwaltungsbereich bestätigst du, dass du weisungsberechtigter Schul-Admin bist und befugt bist, Anpassungen an der Schule in der HPI Schul-Cloud vorzunehmen. Dein Klick gilt insofern als Weisung der Schule gegenüber dem HPI.",
+				"withAllChangesAndSettings": "Mit allen Änderungen und Einstellungen im Verwaltungsbereich wird bestätigt, dass diese durch einen weisungsberechtigten Schul-Admin mit Befugnis zu Anpassungen der Schule in der Cloud durchgeführt werden. Anpassungen durch den Schul-Admin gelten insofern als Weisung der Schule gegenüber dem Cloudbetreiber {{institute_title}}.",
 				"wouldYouLikeReportABug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}? Sende Wünsche oder Probleme direkt an den {{shortTitle}}-Nutzer-Support."
 			}
 		},
@@ -801,8 +801,7 @@
 			"forGeneralQuestionsPleaseContact": "Bei allgemeinen Fragen kontaktieren Sie bitte folgende E-Mail-Adresse:",
 			"hereIsOurRegistrationForm": "Hier geht es zu unserem Anmeldeformular:",
 			"hereIsOurRegistrationFormMINT": "Neue MINT-EC-Schulen können sich hier anmelden:",
-			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg wird die Aufnahme neuer Schulen gemeinsam mit der DigitalAgentur Brandenburg (ILB) und dem MBJS koordiniert.",
-			"inMarch2020ZENSOSQueries": "Im März 2020 wurde über ZENSOS-Abfragen zuletzt die Notwendigkeit unserer Infrastruktur an den Schulen abgefragt. Die dadurch entstandenen Anmeldungen befinden sich aktuell in der Bearbeitung.",
+			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg wird die Aufnahme neuer Schulen gemeinsam mit dem MBJS koordiniert.",
 			"inNiedersachsenTheReferenceSchool": "In Niedersachsen ist das Referenzschulnetzwerk n-21 zuständig für die Aufnahme neuer Schulen.",
 			"inThuringiaTheThuringianInstitute": "In Thüringen ist das Thüringer Institut für Lehrkräftefortbildung, Lehrplanentwicklung und Medien (ThILLM) für die Aufnahme neuer Schulen zuständig.",
 			"justWriteAnEmailTo": "Schreiben Sie einfach eine E-Mail an  <a href=\"mailto:schul-cloud-ZfA@bva.bund.de\">schul-cloud-ZfA@bva.bund.de<\/a>.",
@@ -1004,8 +1003,7 @@
 					"provided": "Gestellt"
 				},
 				"text": {
-					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.",
-					"moreArchivedLinkLabel": "mehr archivierte Aufgaben..."
+					"descriptionTasks": "Kursteilnehmer:innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen. Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden."
 				}
 			},
 			"text": {
@@ -2062,7 +2060,7 @@
 				"editTaskAlt": "Aufgabe '{{title}}' bearbeiten.",
 				"fileUpload": "Dateiabgabe",
 				"moveFromArchive": "Verschiebe Aufgabe aus Archiv in die Übersichtsseite",
-				"moveToArchive": "Verschiebe Aufgabe von Übersichtsseite ins Archiv",
+				"moveToArchive": "Verschiebe Aufgabe von Übersichtsseite in abgeschlossene Aufgaben",
 				"printGradeComment": "Bewertung drucken",
 				"printSubmission": "Abgabe drucken",
 				"printTask": "Aufgabenstellung drucken",
@@ -2087,7 +2085,7 @@
 			}
 		},
 		"button": {
-			"archive": "Archivieren",
+			"archive": "Abschließen",
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
 			"deleteSubmissionFromList": "löschen",
@@ -2223,7 +2221,7 @@
 				"advantages": "Vorteile der {{shortTitle}}",
 				"furtherInformation": "Weitere Informationen zu ersten Schritten in der {{shortTitle}}",
 				"registration": "Für die {{shortTitle}} registrieren",
-				"valueStatement": "Die HPI Schul-Cloud-Entwicklung zeichnet sich aus durch"
+				"valueStatement": "Die Entwicklung der Cloud zeichnet sich aus durch"
 			},
 			"img_alt": {
 				"text": "Schüler:innen sitzen zusammen und nutzen die {{shortTitle}} auf ihren mobilen Endgeräten."
@@ -2235,10 +2233,10 @@
 				"access": "Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.",
 				"advantages": "<li>Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten<\/li><li>Austausch digitaler, selbst erstellter Materialien<\/li><li>Digitale Bildung jenseits separater Computerräume<\/li><li>Professionelle Wartung<\/li><li>Ständige Verfügbarkeit neuester Software für Lehrkräfte und Schüler:innen<\/li><li>IT-Anwendungen entsprechen aktuellsten Sicherheitsstandards<\/li><li>Anlaufstelle für neue digitale Lernangebote<\/li><li>Direktes Feedback durch die Nutzer:innen<\/li><li>Anregung zu selbstbestimmtem Lernen<\/li><li>Bereitstellung eigens entworfener Lernangebote<\/li><li>Erweiterung der Unterrichtsmethoden<\/li><li>Vernetzung unterschiedlicher Lernorte<\/li>",
 				"furtherInformation": "<a href=\"https:\/\/bildungsserver.berlin-brandenburg.de\/schul-cloud-einstieg\">https:\/\/bildungsserver.berlin-brandenburg.de\/schul-cloud-einstieg<\/a>",
-				"registration": "Eine einheitliche digitale Plattform für die ganze Schule bietet viele Vorteile. Die Registrierung für die {{shortTitle}} wird daher durch die Schulleitung durchgeführt. Bitte wenden Sie sich an <a href=\"mailto:schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de<\/a>, wenn Sie Ihre Schule registrieren wollen. \nAnschließend erhalten alle Schüler:innen von ihrer Schule einen Registrierungslink oder Login-Daten für die erstmalige Anmeldung in der {{shortTitle}}. Bei Fragen zur erstmaligen Anmeldung wenden sich Schüler:innen und Eltern bitte an den technischen Leiter ihrer Schule bzw. an die jeweilige Lehrkraft.",
+				"registration": "Eine einheitliche digitale Plattform für die ganze Schule bietet viele Vorteile. Die Registrierung für die {{shortTitle}} wird daher durch die Schulleitung durchgeführt. Bitte wenden Sie sich an <a href=\"mailto:schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de<\/a>, wenn Sie Ihre Schule registrieren wollen. \nAnschließend erhalten alle Schüler:innen von ihrer Schule einen Registrierungslink oder Login-Daten für die erstmalige Anmeldung in der {{shortTitle}}. Bei Fragen zur erstmaligen Anmeldung wenden sich Schüler:innen und Eltern bitte an die technische Ansprechperson ihrer Schule bzw. an die jeweilige Lehrkraft.",
 				"valueStatement": "<li>eine konsequente Nutzung von Open Source Lösungen,<\/li><li>eine durchgängig nutzerzentrierte Entwicklung,<\/li><li>einen strikt modularen Aufbau,<\/li><li>die für ein Flächenland wichtige Funktion der schulübergreifenden Zusammenarbeit,<\/li><li>die EU-DSGVO\/Datenschutz-Konformität durch Privacy by Design,<\/li><li>die Möglichkeit, durch die Zusammenarbeit der Verbundländer Brandenburg, Niedersachsen und Thüringen Synergien zu schaffen.<\/li><br>",
 				"welcome": "Mit der {{shortTitle}} steht Schulen in Brandenburg eine intuitiv nutzbare und datenschutzkonforme, digitale Lehr-Lernumgebung für den Schulunterricht bereit, die schulformübergreifend eingesetzt werden kann. Die Grundidee der Schul-Cloud ist es, Bildungsinhalte webbasiert überall erreichbar zu machen.",
-				"welcome_2": "Ab dem 01.08.2021 wird die {{shortTitle}} auf Grundlage eines Verwaltungsabkommens der Verbundländer Brandenburg, Niedersachsen und Thüringen zu einer länderübergreifenden Lehr- und Lerninfrastruktur unter Berücksichtigung landesspezifischer Anforderungen in den Erprobungsbetrieb überführt und gemeinschaftlich weiterentwickelt."
+				"welcome_2": "Seit dem 01.08.2021 wird die {{shortTitle}} auf Grundlage eines Verwaltungsabkommens der Verbundländer Brandenburg, Niedersachsen und Thüringen zu einer länderübergreifenden Lehr- und Lerninfrastruktur unter Berücksichtigung landesspezifischer Anforderungen in den Erprobungsbetrieb überführt und gemeinschaftlich weiterentwickelt."
 			}
 		},
 		"label": {

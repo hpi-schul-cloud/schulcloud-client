@@ -3,37 +3,37 @@
 	[
 		{
 			"name": "Elisabethenschule Frankfurt am Main",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/bp/Elisabethenschule-Frankfurt-am-Main.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/bp/Elisabethenschule-Frankfurt-am-Main.png",
 			"url": "http://www.elisabethenschule.net/eli-news.html"
 		},
 		{
 			"name": "Georg-Christoph-Lichtenberg-Schule Kassel",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/bp/Georg-Christoph-Lichtenberg-Schule Kassel.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/bp/Georg-Christoph-Lichtenberg-Schule Kassel.jpg",
 			"url": "http://lg-ks.de/"
 		},
 		{
 			"name": "Gymnasium Carolinum Neustrelitz",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/bp/Gymnasium Carolinum Neustrelitz.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/bp/Gymnasium Carolinum Neustrelitz.jpg",
 			"url": "https://www.carolinum.de/"
 		},
 		{
 			"name": "Gymnasium Marianum Meppen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/bp/Gymnasium Marianum Meppen.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/bp/Gymnasium Marianum Meppen.jpg",
 			"url": "http://www.marianum-meppen.de/"
 		},
 		{
 			"name": "Hohenstaufen-Gymnasium Kaiserslautern",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/bp/Hohenstaufen-Gymnasium Kaiserslautern.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/bp/Hohenstaufen-Gymnasium Kaiserslautern.png",
 			"url": "https://www.hsg-kl.de/"
 		},
 		{
 			"name": "Johann-Michael-Sailer-Gymnasium Dillingen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/bp/Johann-Michael-Sailer-Gymnasium Dillingen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/bp/Johann-Michael-Sailer-Gymnasium Dillingen.png",
 			"url": "http://www.sailer-gymnasium.de/"
 		},
 		{
 			"name": "Wilhelm-Hittorf-Gymnasium Münster",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/bp/Wilhelm-Hittorf-Gymnasium Münster.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/bp/Wilhelm-Hittorf-Gymnasium Münster.png",
 			"url": "http://www.wilhelm-hittorf-gymnasium.de/aktuelles/"
 		}
 	],
@@ -41,92 +41,92 @@
 	[
 		{
 			"name": "Dientzenhofer-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Dientzenhofer-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Dientzenhofer-Gymnasium.png",
 			"url": "https://www.dg-info.de/"
 		},
 		{
 			"name": "Franz-Stock-Gymnasium Arnsberg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Franz-Stock-Gymnasium Arnsberg.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Franz-Stock-Gymnasium Arnsberg.jpg",
 			"url": "https://www.fsg-arnsberg.de/"
 		},
 		{
 			"name": "Gauß-Gymnasium Worms",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Gauß-Gymnasium Worms.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Gauß-Gymnasium Worms.png",
 			"url": "http://www.gauss-worms.de/index.php?id=2"
 		},
 		{
 			"name": "Gemeinschaftsschule Bellevue Saarbrücken",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Gemeinschaftsschule Bellevue Saarbrücken.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Gemeinschaftsschule Bellevue Saarbrücken.png",
 			"url": "http://www.gts-bellevue.de/ganztagsschule/"
 		},
 		{
 			"name": "Gymnasium Saarburg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Gymnasium Saarburg.gif",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Gymnasium Saarburg.gif",
 			"url": "https://www.gymnasium-saarburg.de/"
 		},
 		{
 			"name": "Heinrich-Hertz-Gymnasium Berlin",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Heinrich-Hertz-Gymnasium Berlin.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Heinrich-Hertz-Gymnasium Berlin.png",
 			"url": "https://www.hhgym.de/"
 		},
 		{
 			"name": "Johannes-Kepler-Gymnasium Lebach",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Johannes-Kepler-Gymnasium Lebach.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Johannes-Kepler-Gymnasium Lebach.jpg",
 			"url": "https://www.jkg-lebach.de/jkg/"
 		},
 		{
 			"name": "Landesgymnasium für Hochbegabte Schwäbisch Gmünd",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Landesgymnasium für Hochbegabte Schwäbisch Gmünd.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Landesgymnasium für Hochbegabte Schwäbisch Gmünd.png",
 			"url": "https://www.lgh-gmuend.de"
 		},
 		{
 			"name": "Landesschule Pforta Naumburg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Landesschule Pforta Naumburg.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Landesschule Pforta Naumburg.jpg",
 			"url": "https://www.landesschule-pforta.de/index.php"
 		},
 		{
 			"name": "Leininger-Gymnasium Grünstadt",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Leininger-Gymnasium Grünstadt.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Leininger-Gymnasium Grünstadt.png",
 			"url": "http://leiningergymnasium.de/"
 		},
 		{
 			"name": "Marie-Curie-Gymnasium Ludwigsfelde",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Marie-Curie-Gymnasium Ludwigsfelde.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Marie-Curie-Gymnasium Ludwigsfelde.png",
 			"url": "https://www.mcgym.de/"
 		},
 		{
 			"name": "Martin-Luther-Schule Marburg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Martin-Luther-Schule Marburg.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Martin-Luther-Schule Marburg.jpg",
 			"url": "http://www.mls-marburg.de/"
 		},
 		{
 			"name": "Otto-Schott-Gymnasium Mainz",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Otto-Schott-Gymnasium Mainz.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Otto-Schott-Gymnasium Mainz.png",
 			"url": "http://osg-mainz.de/"
 		},
 		{
 			"name": "Ratsgymnasium Wolfsburg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Ratsgymnasium Wolfsburg.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Ratsgymnasium Wolfsburg.jpg",
 			"url": "http://www.ratsgymnasium-wolfsburg.de/"
 		},
 		{
 			"name": "Schillerschule Hannover",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Schillerschule Hannover.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Schillerschule Hannover.png",
 			"url": "http://www.schillerschule-hannover.de/"
 		},
 		{
 			"name": "Stiftsgymnasium Sindelfingen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Stiftsgymnasium Sindelfingen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Stiftsgymnasium Sindelfingen.png",
 			"url": "https://www.stiftsgymnasium.de/"
 		},
 		{
 			"name": "Ursulaschule Osnabrück",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Gymnasium Ursulaschule Osnabrück.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Gymnasium Ursulaschule Osnabrück.jpg",
 			"url": "http://www.ursulaschule.de/"
 		},
 		{
 			"name": "Wilhelm-Gymnasium Braunschweig",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/march2017/Wilhelm-Gymnasium Braunschweig.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/march2017/Wilhelm-Gymnasium Braunschweig.jpg",
 			"url": "https://www.wilhelm-gym.de/"
 		}
 	],
@@ -134,192 +134,192 @@
 	[
 		{
 			"name": "Albert-Schweitzer-Schule",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Albert-Schweitzer-Schule_Offenbach am Main.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Albert-Schweitzer-Schule_Offenbach am Main.jpg",
 			"url": "http://albert-offenbach.de/"
 		},
 		{
 			"name": "Andreas-Vesalius-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Andreas-Vesalius-Gymnasium_Wesel.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Andreas-Vesalius-Gymnasium_Wesel.png",
 			"url": "http://www.avg-wesel.de/"
 		},
 		{
 			"name": "Archenhold-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Archenhold Gymnasium_Berlin_1.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Archenhold Gymnasium_Berlin_1.jpg",
 			"url": "http://pi.archenhold.de/"
 		},
 		{
 			"name": "Einhard Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Einhard Gymnasium_Aachen.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Einhard Gymnasium_Aachen.jpg",
 			"url": "http://einhard-gymnasium.de/"
 		},
 		{
 			"name": "Europaschule Bornheim",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Europaschule Bornheim_Bornheim.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Europaschule Bornheim_Bornheim.png",
 			"url": "http://www.europaschule-bornheim.de/contao/index.php/start.html"
 		},
 		{
 			"name": "Felix-Klein-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Felix-Klein-Gymnasium_Göttingen.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Felix-Klein-Gymnasium_Göttingen.jpg",
 			"url": "http://www.fkg-goettingen.de/"
 		},
 		{
 			"name": "Ferdinand-Porsche-Gymnasium Zuffenhausen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Ferdinand-Porsche-Gymnasium Zuffenhausen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Ferdinand-Porsche-Gymnasium Zuffenhausen.png",
 			"url": "https://www.ferdinand-porsche-gymnasium.de/"
 		},
 		{
 			"name": "Fichte-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Fichte-Gymnasium_Hagen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Fichte-Gymnasium_Hagen.png",
 			"url": "http://www.fichte-gym.de/"
 		},
 		{
 			"name": "Franziskusgymnasium Lingen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Franziskus Gymnasium Lingen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Franziskus Gymnasium Lingen.png",
 			"url": "http://www.franziskusgymnasium.de/"
 		},
 		{
 			"name": "Friedrich-Dessauer-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Friedrich-Dessauer-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Friedrich-Dessauer-Gymnasium.png",
 			"url": "http://fdg-ab.de/"
 		},
 		{
 			"name": "Gerhart-Hauptmann-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Gerhart-Hauptmann-Gymnasium_Wismar.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Gerhart-Hauptmann-Gymnasium_Wismar.jpg",
 			"url": "https://www.ghg-wismar.com/"
 		},
 		{
 			"name": "Graf-Engelbert-Schule",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Graf-Engelbert-Schule.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Graf-Engelbert-Schule.jpg",
 			"url": "https://www.graf-engelbert-schule.de/"
 		},
 		{
 			"name": "Graf-Stauffenberg-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Graf Stauffenberg Gymnasium_Flörsheim am Main.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Graf Stauffenberg Gymnasium_Flörsheim am Main.png",
 			"url": "http://www.graf-stauffenberg-gymnasium.de/"
 		},
 		{
 			"name": "Gutenbergschule Gymnasium Wiesbaden",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Gutenbergschule Wiesbaden.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Gutenbergschule Wiesbaden.jpg",
 			"url": "https://www.gutenberg-gym.de/"
 		},
 		{
 			"name": "Gymnasium am Kattenberge",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Gymnasium am Kattenberge_Buchholz.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Gymnasium am Kattenberge_Buchholz.jpg",
 			"url": "http://www.gak-buchholz.de/"
 		},
 		{
 			"name": "Gymnasium der Stadt Kerpen - Europaschule",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Gymnasium_der_Stadt_Kerpen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Gymnasium_der_Stadt_Kerpen.png",
 			"url": "http://www.gymnasium-kerpen.eu/"
 		},
 		{
 			"name": "Gymnasium Höchstadt",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Gymnasium Höchstadt.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Gymnasium Höchstadt.jpg",
 			"url": "https://www.gymnasium-hoechstadt.de/"
 		},
 		{
 			"name": "Gymnasium Leopoldinum",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Gymnasium Leopoldinum_Detmold.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Gymnasium Leopoldinum_Detmold.jpg",
 			"url": "http://www.gymnasium-leopoldinum-detmold.de/"
 		},
 		{
 			"name": "Gymnasium Spaichingen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Gymnasium Spaichingen.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Gymnasium Spaichingen.jpg",
 			"url": "https://www.gymnasium-spaichingen.de/"
 		},
 		{
 			"name": "Gymnasium Wolbeck",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/gymnasium Wolbeck Münster.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/gymnasium Wolbeck Münster.jpg",
 			"url": "http://www.muenster.org/gw2/GymWol/"
 		},
 		{
 			"name": "Johann-Michael-Fischer-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Johann-Michael-Fischer-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Johann-Michael-Fischer-Gymnasium.png",
 			"url": "http://www.jmf-gym.org/"
 		},
 		{
 			"name": "Josef-Albers-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Josef-Albers-Gymnasium_Bottrop.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Josef-Albers-Gymnasium_Bottrop.png",
 			"url": "http://www.jag-bottrop.de/"
 		},
 		{
 			"name": "Käthe-Kollwitz-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Käthe Kollwitz Gymnasium_Berlin.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Käthe Kollwitz Gymnasium_Berlin.png",
 			"url": "https://www.kaethe-kollwitz-gymnasium.de/"
 		},
 		{
 			"name": "Kurfürst-Balduin-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Kurfürst-Balduin-Gymnasium_Münstermaifeld.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Kurfürst-Balduin-Gymnasium_Münstermaifeld.png",
 			"url": "http://kubagym.org/"
 		},
 		{
 			"name": "Lichtenbergschule",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Lichtenbergschule_Darmstadt.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Lichtenbergschule_Darmstadt.jpg",
 			"url": "http://ls.cabacos.de/"
 		},
 		{
 			"name": "Maria-Wächtler-Gymnasium Essen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Maria-Wächtler-Gymnasium_Essen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Maria-Wächtler-Gymnasium_Essen.png",
 			"url": "https://www.mwg-essen.de/"
 		},
 		{
 			"name": "Marie-Curie-Gymnasium, Dallgow-Döberitz",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Marie-Curie-Gymasnium_Dallgow-Döberitz.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Marie-Curie-Gymasnium_Dallgow-Döberitz.jpg",
 			"url": "http://marie-curie-gymnasium-dallgow.de/"
 		},
 		{
 			"name": "Max-von-Laue-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Max-von-Laue-Gymnasium_Koblenz.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Max-von-Laue-Gymnasium_Koblenz.png",
 			"url": "https://www.mvlg.de/"
 		},
 		{
 			"name": "Pascal-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Pascal-Gymnasium_neu.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Pascal-Gymnasium_neu.jpg",
 			"url": "http://www.pascal-gym.de/"
 		},
 		{
 			"name": "Peutinger-Gymnasium, Ellwangen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Peutinger-Gymnasium Ellwangen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Peutinger-Gymnasium Ellwangen.png",
 			"url": "https://peutinger-gymnasium.de/"
 		},
 		{
 			"name": "Primo-Levi-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Primo-Levi-Schule_Berlin2.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Primo-Levi-Schule_Berlin2.jpg",
 			"url": "http://www.plg-berlin.de/"
 		},
 		{
 			"name": "Rudolph-Brandes-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Rudolph-Brandes-Gymnasium_Bad Salzuflen.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Rudolph-Brandes-Gymnasium_Bad Salzuflen.jpg",
 			"url": "http://www.rudolph-brandes-gymnasium.de/"
 		},
 		{
 			"name": "Schulzentrum am Sund",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Schulzentrum am Sund_Stralsund.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Schulzentrum am Sund_Stralsund.jpg",
 			"url": "http://schulzentrum-am-sund.de/startseite.html"
 		},
 		{
 			"name": "Steinhagener Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Steinhagener Gymnasium_Steinhagen.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Steinhagener Gymnasium_Steinhagen.jpg",
 			"url": "http://www.steingy.de/"
 		},
 		{
 			"name": "St.-Willibrord-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/St.-Willibrord-Gymnasium_Bitburg.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/St.-Willibrord-Gymnasium_Bitburg.jpg",
 			"url": "http://www.st-willi.de/"
 		},
 		{
 			"name": "Theodor-Heuss-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Theodor Heuss Gymnasium_Göttingen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Theodor Heuss Gymnasium_Göttingen.png",
 			"url": "https://www.thg-goettingen.de/"
 		},
 		{
 			"name": "Windthorst Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Windthorst Gymnasium_Meppen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Windthorst Gymnasium_Meppen.png",
 			"url": "http://windthorst-gymnasium.de/"
 		},
 		{
 			"name": "Winfriedschule Fulda",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/may2018/Winfried Schule Fulda.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/may2018/Winfried Schule Fulda.jpg",
 			"url": "http://www.winfriedschule-fulda.de/startseite.html"
 		}
 	],
@@ -327,157 +327,157 @@
 	[
 		{
 			"name": "Carl-Friedrich-Gauß-Gymnasium, Frankfurt Oder",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/carl-friedrich-gauss.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/carl-friedrich-gauss.png",
 			"url": "https://www.gauss-gymnasium.de"
 		},
 		{
 			"name": "Cusanus-Gymnasium St. Wendel",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/cusanus_wendel.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/cusanus_wendel.png",
 			"url": "http://cusanusgymnasium.de"
 		},
 		{
 			"name": "Deutsche Internationale Schule Washington D.C.",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/washington.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/washington.png",
 			"url": "https://www.giswashington.org"
 		},
 		{
 			"name": "Deutsche Schule Quito",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/quito.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/quito.jpg",
 			"url": "http://www.caq.edu.ec/?lang=de"
 		},
 		{
 			"name": "Dürer-Gymnasium Nürnberg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/duerer_gym.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/duerer_gym.jpg",
 			"url": "https://www.duerer-gymnasium.de/"
 		},
 		{
 			"name": "Emil-Fischer-Gymnasium Schwarzheide",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/emil_fischer.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/emil_fischer.png",
 			"url": "http://www.emil-fischer-gymnasium-schwarzheide.de/"
 		},
 		{
 			"name": "Goetheschule Ilmenau",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/goetheschule_ilmenau.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/goetheschule_ilmenau.png",
 			"url": "http://www.goetheschule-ilmenau.de"
 		},
 		{
 			"name": "Gymnasium Damme",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/gym_damme.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/gym_damme.png",
 			"url": "http://www.gymnasium-damme.de"
 		},
 		{
 			"name": "Gymnasium Essen-Werden, Essen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/gew-logo.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/gew-logo.png",
 			"url": "http://www.gymnasium-essen-werden.de/start.html"
 		},
 		{
 			"name": "Gymnasium am Stefansberg, Merzig",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/gym_stefansberg.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/gym_stefansberg.jpg",
 			"url": "http://www.gas-merzig.de"
 		},
 		{
 			"name": "Gymnasium am Tannenberg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/tannenberg.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/tannenberg.jpg",
 			"url": "https://www.gymnasium-am-tannenberg.de"
 		},
 		{
 			"name": "Hardtberg Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/hardtberg.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/hardtberg.png",
 			"url": "https://www.hardtberg-gymnasium.de"
 		},
 		{
 			"name": "Heinrich-Heine-Gymnasium Bottrop",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/heinrich-heine-gym_bottrop.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/heinrich-heine-gym_bottrop.jpg",
 			"url": "https://hhg-bottrop.de"
 		},
 		{
 			"name": "Hermann-von-Helmholtz-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/helmholtz.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/helmholtz.png",
 			"url": "https://www.helmholtzschule.de"
 		},
 		{
 			"name": "Istanbul Lisesi, Cagaloglu-Istanbul, Türkei",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/istanbul.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/istanbul.png",
 			"url": "https://www.istanbullisesi.net"
 		},
 		{
 			"name": "Johannes-Althusius-Gymnasium Emden",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/jag_emden.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/jag_emden.jpg",
 			"url": "https://www.jag-emden.de"
 		},
 		{
 			"name": "Joseph-Haydn-Gymnasium Senden",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/haydn.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/haydn.png",
 			"url": "https://www.jhgsenden.de"
 		},
 		{
 			"name": "Joseph-von-Fraunhofer-Gymnasium, Cham",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/fraunhofer.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/fraunhofer.png",
 			"url": "http://www.jvfg-cham.de"
 		},
 		{
 			"name": "Luisen-Gymnasium-Bergedorf, Hamburg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/luisen-gym.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/luisen-gym.png",
 			"url": "https://halloluise.de"
 		},
 		{
 			"name": "Martin-Niemöller-Schule, Wiesbaden",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/martin-niemöller.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/martin-niemöller.png",
 			"url": "https://niemoellerschule.net"
 		},
 		{
 			"name": "Max-Planck-Gymnasium Delmenhorst",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/max-planck-niedersachsen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/max-planck-niedersachsen.png",
 			"url": "https://maxe-online.de"
 		},
 		{
 			"name": "Max-Planck-Gymnasium Trier",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/mpg-trier.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/mpg-trier.png",
 			"url": "http://www.mpg-trier.de/joomla/"
 		},
 		{
 			"name": "Modellschule Obersberg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/modellschule-obersberg.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/modellschule-obersberg.png",
 			"url": "http://mso-hef.de"
 		},
 		{
 			"name": "Nicolaus-Cusanus-Gymnasium, Bonn",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/ncg.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/ncg.jpg",
 			"url": "https://www.ncg-bonn.de"
 		},
 		{
 			"name": "Ökumenisches Gymnasium zu Bremen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/oeg_bremen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/oeg_bremen.png",
 			"url": "https://www.oegym.de"
 		},
 		{
 			"name": "OSZ Lise-Meitner, Berlin",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/lise-meitner.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/lise-meitner.png",
 			"url": "https://osz-lise-meitner.eu"
 		},
 		{
 			"name": "Otto-Hahn-Schule Hanau",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/otto-hahn_hanau.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/otto-hahn_hanau.png",
 			"url": "http://www.otto-hahn-schule.hanau.de/home/"
 		},
 		{
 			"name": "Rosenstein-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/rosenstein-gym.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/rosenstein-gym.png",
 			"url": "http://www.rosenstein-gymnasium.de/"
 		},
 		{
 			"name": "Städtisches Leibniz-Gymnasium, Gelsenkirchen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/leibniz_gelsenkirchen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/leibniz_gelsenkirchen.png",
 			"url": "https://leibniz-gymnasium.net"
 		},
 		{
 			"name": "Städtisches Mathematisch-Naturwissenschaftliches Gymnasium, Mönchengladbach",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/math-nat-gym.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/math-nat-gym.png",
 			"url": "http://www.math-nat.de"
 		},
 		{
 			"name": "Werner-von-Siemens-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/feb2019/siemens-magdeburg.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/feb2019/siemens-magdeburg.png",
 			"url": "https://siemens.md.st.schule.de"
 		}
 	],
@@ -485,97 +485,97 @@
 	[
 		{
 			"name": "Albert-Einstein-Schule, Schwalbach",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Albert-Einstein-Schule.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Albert-Einstein-Schule.jpg",
 			"url": "http://www.aesmtk.de/cms/"
 		},
 		{
 			"name": "Albert-Schweitzer-/Geschwister-Scholl- Gymnasium, Marl",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Albert_Schweitzer__Geschwister_Scholl_Gymnasium_Marl_Logo.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Albert_Schweitzer__Geschwister_Scholl_Gymnasium_Marl_Logo.png",
 			"url": "https://www.asgsg-marl.de"
 		},
 		{
 			"name": "CJD Christophorusschule, Rostock",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/CJD-Christophorusschule.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/CJD-Christophorusschule.jpg",
 			"url": "https://www.cjd-christophorusschule-rostock.de"
 		},
 		{
 			"name": "Evangelisch Stiftisches Gymnasium, Gütersloh",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/evangelisch_stiftisches_gymnasium_LOGO.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/evangelisch_stiftisches_gymnasium_LOGO.jpg",
 			"url": "https://esg-guetersloh.de"
 		},
 		{
 			"name": "Evangelisches Gymnasium, Nordhorn",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Evangelisches-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Evangelisches-Gymnasium.png",
 			"url": "https://www.evangelisches-gymnasium-nordhorn.de"
 		},
 		{
 			"name": "Friedrich-Ebert-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Friedrich-Ebert-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Friedrich-Ebert-Gymnasium.png",
 			"url": "http://www.ebert-gymnasium.de"
 		},
 		{
 			"name": "Gymnasium der Stadt Lennestadt",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Gymnasium-Lennestadt.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Gymnasium-Lennestadt.jpg",
 			"url": "http://www.gymnasium-lennestadt.de"
 		},
 		{
 			"name": "Gymnasium Laurentianum, Warendorf",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Laurentianum-logo.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Laurentianum-logo.png",
 			"url": "http://laurentianum-warendorf.de"
 		},
 		{
 			"name": "Gymnasium Schloß Neuhaus, Paderborn",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/gym_schloss_neuhaus.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/gym_schloss_neuhaus.png",
 			"url": "http://gymnasium-schloss-neuhaus.de"
 		},
 		{
 			"name": "Gymnasium Remigianum, Borken",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Gymnasium-Remigianum.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Gymnasium-Remigianum.png",
 			"url": "https://www.gymnasium-remigianum.net"
 		},
 		{
 			"name": "Heisenberg-Gymnasium, Bruchsal",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Heisenberg-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Heisenberg-Gymnasium.png",
 			"url": "https://www.heisenberg-gymnasium.de/"
 		},
 		{
 			"name": "Herzog-Johann-Gymnasium, Simmern",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Herzog-Johann-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Herzog-Johann-Gymnasium.png",
 			"url": "https://www.hjg-sim.de"
 		},
 		{
 			"name": "Justus-von-Liebig-Gymnasium, Neusäß",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Justus-von-Liebig-Gymnasium.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Justus-von-Liebig-Gymnasium.jpg",
 			"url": "https://jvlgym.de"
 		},
 		{
 			"name": "Kaiser-Karls-Gymnasium, Aachen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/KaiserKarlsGymnasiumAachenSchullogo.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/KaiserKarlsGymnasiumAachenSchullogo.png",
 			"url": "https://kaiser-karls-gymnasium.de"
 		},
 		{
 			"name": "Landrat-Lucas-Gymnasium, Leverkusen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Landrat-Lucas-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Landrat-Lucas-Gymnasium.png",
 			"url": "https://www.landrat-lucas.org/start.html"
 		},
 		{
 			"name": "Marienschule Gymnasium und Aufbaugymnasium, Lippstadt",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/logo-marienschule-lippstadt-gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/logo-marienschule-lippstadt-gymnasium.png",
 			"url": "https://www.marienschule-lippstadt.de"
 		},
 		{
 			"name": "Nicolaus-Kistner-Gymnasium, Mosbach",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/Nicolaus-Kistner-Gym.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/Nicolaus-Kistner-Gym.jpg",
 			"url": "http://www.nkg-mosbach.de"
 		},
 		{
 			"name": "Schule am Ried, Frankfurt am Main",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/schule-am-ried.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/schule-am-ried.jpg",
 			"url": "http://www.nkg-mosbach.de"
 		},
 		{
 			"name": "St.-Gotthard-Gymnasium, Niederalteich",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/schools/august2019/St.-Gotthard-Gymnasium.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/schools/august2019/St.-Gotthard-Gymnasium.jpg",
 			"url": "http://www.schule-am-ried.de"
 		}
 	],
@@ -583,102 +583,102 @@
 	[
 		{
 			"name": "Henfling-Gymnasium Meiningen, Staatliches Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Henfling-Gymnasium-Meiningen-Staatliches-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Henfling-Gymnasium-Meiningen-Staatliches-Gymnasium.png",
 			"url": "https://www.henfling-gymnasium.de/"
 		},
 		{
 			"name": "Musikgymnasium Schloss Belvedere, Staatliches Spezialgymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Musikgymnasium-Schloss-Belvedere-Staatliches-Spezialgymnasium.gif",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Musikgymnasium-Schloss-Belvedere-Staatliches-Spezialgymnasium.gif",
 			"url": "http://www.musikgymnasium-belvedere.de/"
 		},
 		{
 			"name": "Nessetalschule Warza Staatliche Regelschule",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Nessetalschule-Warza-Staatliche-Regelschule.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Nessetalschule-Warza-Staatliche-Regelschule.png",
 			"url": "https://www.nessetalschule.de/"
 		},
 		{
 			"name": "Salzmannschule Schnepfenthal, Staatliches Spezialgymnasium für Sprachen",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Salzmannschule-Schnepfenthal-Staatliches-Spezialgymansium-fuer-Sprachen.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Salzmannschule-Schnepfenthal-Staatliches-Spezialgymansium-fuer-Sprachen.png",
 			"url": "http://www.salzmannschule.de/"
 		},
 		{
 			"name": "Staatl. Berufsbildende Schule",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Berufsbildende-Schule-Sonneberg.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Berufsbildende-Schule-Sonneberg.jpg",
 			"url": "https://sbbs-son.de/"
 		},
 		{
 			"name": "Staatl. Berufsschulzentrum Kyffhäuserkreis",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Berufsschulzentrum-Kyffhaeuserkreis.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Berufsschulzentrum-Kyffhaeuserkreis.png",
 			"url": "http://www.sbz-kyffhaeuserkreis.de/joomla/"
 		},
 		{
 			"name": "Staatl. Gemeinschaftsschule 7 (Kerspleben)",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Gemeinschaftsschule-7-Kerspleben.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Gemeinschaftsschule-7-Kerspleben.png",
 			"url": "http://www.gs-kerspleben.de/"
 		},
 		{
 			"name": "Staatl. Gemeinschaftsschule Grabfeld",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Gemeinschaftsschule-Grabfeld.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Gemeinschaftsschule-Grabfeld.png",
 			"url": "https://www.schule-imgrabfeld.de/"
 		},
 		{
 			"name": "Staatl. GS Barfüßerschule",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-GS-Barfuesserschule.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-GS-Barfuesserschule.png",
 			"url": "https://www.barfuesserschule.de/"
 		},
 		{
 			"name": "Staatl. Gymnasium Ulf-Merbold-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Gymnasium-Ulf-Merbold-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Gymnasium-Ulf-Merbold-Gymnasium.png",
 			"url": "https://www.ulf-merbold-gymnasium.de/"
 		},
 		{
 			"name": "Staatl. Gymnasium von-Bülow-Gymnasium",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Gymnasium-von-Buelow-Gymnasium.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Gymnasium-von-Buelow-Gymnasium.png",
 			"url": "http://www.von-buelow-gymnasium.de/"
 		},
 		{
 			"name": "Staatl. Regelschule G. E. Lessing",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Regelschule-G-E-Lessing.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Regelschule-G-E-Lessing.png",
 			"url": "http://www.rs-lessing.de/index.php"
 		},
 		{
 			"name": "Staatl. Regelschule 'Geschwister Scholl' in Meuselwitz",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Regelschule-Geschwister-Scholl-Meuselwitz.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Regelschule-Geschwister-Scholl-Meuselwitz.jpg",
 			"url": "http://rsm-scholl.de/web/"
 		},
 		{
 			"name": "Staatl. Regelschule 'Geschwister Scholl' in Ilmenau",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Regelschule-Geschwister-Scholl.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Regelschule-Geschwister-Scholl.jpg",
 			"url": "http://www.schollschule-ilmenau.de/"
 		},
 		{
 			"name": "Staatl. Regelschule 'Johann Wolfgang von Goethe'",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Regelschule-Johann-Wolfgang-von-Goethe.png",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Regelschule-Johann-Wolfgang-von-Goethe.png",
 			"url": "http://www.rs-goethe.de/"
 		},
 		{
 			"name": "Staatl. Regelschule Königsee",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatl-Regelschule-Koenigsee.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatl-Regelschule-Koenigsee.jpg",
 			"url": "http://www.regelschulekoenigsee.de/"
 		},
 		{
 			"name": "Staatliche Regelschule 'Conrad Ekhof'",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatliche-Regelschule-Conrad-Ekhof.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatliche-Regelschule-Conrad-Ekhof.jpg",
 			"url": "https://rs.conrad-ekhof.gotha.de/"
 		},
 		{
 			"name": "Staatliches Gymnasium Neuhaus am Rennweg",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatliches-Gymnasium-Neuhaus-am-Rennweg.gif",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatliches-Gymnasium-Neuhaus-am-Rennweg.gif",
 			"url": "https://www.gymnasium-neuhaus.de/"
 		},
 		{
 			"name": "Staatliches Gymnasium Oberhof",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatliches-Gymnasium-Oberhof.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatliches-Gymnasium-Oberhof.jpg",
 			"url": "http://www.sportgymnasium-oberhof.info/"
 		},
 		{
 			"name": "Staatliches Sportgymnasium 'Joh. Chr. Fr. GutsMuths' Jena",
-			"logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/schools/Staatliches-Sportgymnasium-Joh-Chr-Fr-GutsMuths-Jena.jpg",
+			"logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/schools/Staatliches-Sportgymnasium-Joh-Chr-Fr-GutsMuths-Jena.jpg",
 			"url": "https://sportgymnasium-jena.info/"
 		},
 		{
