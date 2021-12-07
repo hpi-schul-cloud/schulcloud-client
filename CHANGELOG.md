@@ -13,6 +13,10 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Changed
 
+## [26.20.0] - 2021-12-7
+
+### Changed
+
 - BC-308 - adjust footer
 - BC-617 - changes for transition to Dataport
 
