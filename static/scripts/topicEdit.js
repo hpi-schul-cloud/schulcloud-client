@@ -336,44 +336,44 @@ class TopicBlockList extends React.Component {
 						<button
 							type="button"
 							className="btn btn-secondary"
+							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicText)}>
-								<i aria-label={$t('global.button.add')}>+</i>
-								{` ${$t('topic.topicEdit.button.text')}`}
+								{`+ ${$t('topic.topicEdit.button.text')}`}
 						</button>
 						<button
 							type="button"
 							className="btn btn-secondary"
+							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
-								<i aria-label={$t('global.button.add')}>+</i>
-								{` ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
+								{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
 						</button>
                         <button
 							type="button"
 							className="btn btn-secondary"
+							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicResources)}>
-								<i aria-label={$t('global.button.add')}>+</i>
-								{` ${$t('topic.topicEdit.button.material')}`}
+								{`+ ${$t('topic.topicEdit.button.material')}`}
 						</button>
 						{neXboardEnabled ? <button
 							type="button"
 							className="btn btn-secondary"
+							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicNexboard)}>
-								<i aria-label={$t('global.button.add')}>+</i>
-								{` ${$t('topic.topicEdit.button.neXboard')}`}
+								{`+ ${$t('topic.topicEdit.button.neXboard')}`}
 							</button> : '' }
 						<button
 							type="button"
 							className="btn btn-secondary"
+							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicEtherpad)}>
-								<i aria-label={$t('global.button.add')}>+</i>
-								{` ${$t('topic.topicEdit.button.etherpad')}`}
+								{`+ ${$t('topic.topicEdit.button.etherpad')}`}
 						</button>
                         <button
 							type="button"
 							className="btn btn-secondary"
+							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicInternal)}>
-								<i aria-label={$t('global.button.add')}>+</i>
-								{` ${$t('global.headline.task')}`}
+								{`+ ${$t('global.headline.task')}`}
 						</button>
                     </div>
                 </div>
