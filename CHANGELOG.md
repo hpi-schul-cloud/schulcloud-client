@@ -11,12 +11,23 @@ Allowed Types of change: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `
 
 ### Added
 
+### Changed
+
+## [26.20.0] - 2021-12-7
+
+### Changed
+
+- BC-308 - adjust footer
+- BC-617 - changes for transition to Dataport
+
 ### Fixed
+- BC-856 – fixed plus sign in the add-btn
 
 ### Changed
 
 - BC-609 - changed wording from "archive" to "finish"
 - BC-308 - added data-testId to fix e2e test
+- BC-741 - Sort and split ansible rols
 
 ## [26.19.0] - 2021-11-30
 
