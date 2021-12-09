@@ -54,7 +54,7 @@ module.exports = (req, res, next) => {
 		icon: 'graduation-cap',
 		link: '/courses/',
 	}, {
-		name: res.$t('global.headline.tasksCurrent'),
+		name: res.$t('global.headline.tasks'),
 		testId: 'Aktuelle Aufgaben',
 		icon:
 			// eslint-disable-next-line max-len
@@ -63,7 +63,7 @@ module.exports = (req, res, next) => {
 		link: '/tasks/open',
 		permission: 'TASK_DASHBOARD_VIEW_V3',
 	}, {
-		name: res.$t('global.headline.tasksCurrent'),
+		name: res.$t('global.headline.tasks'),
 		testId: 'Aktuelle Aufgaben',
 		icon:
 			// eslint-disable-next-line max-len
@@ -71,31 +71,6 @@ module.exports = (req, res, next) => {
 		isExternalIcon: true,
 		link: '/tasks/assigned',
 		permission: 'TASK_DASHBOARD_TEACHER_VIEW_V3',
-	}, {
-		name: res.$t('global.headline.tasksAll'),
-		testId: 'Aufgaben',
-		icon: 'tasks',
-		link: '/homework/',
-		children: [
-			{
-				name: res.$t('global.headline.assignedTasks'),
-				testId: 'Gestellte Aufgaben',
-				icon: 'bullhorn',
-				link: '/homework/asked/',
-			},
-			{
-				name: res.$t('global.link.tasksDrafts'),
-				testId: 'Entwürfe',
-				icon: 'lock',
-				link: '/homework/private/',
-			},
-			{
-				name: res.$t('global.link.archive'),
-				testId: 'Archiv',
-				icon: 'archive',
-				link: '/homework/archive/',
-			},
-		],
 	}, {
 		name: res.$t('global.link.files'),
 		testId: 'Meine Dateien',
