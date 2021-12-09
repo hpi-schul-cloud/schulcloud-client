@@ -3,19 +3,19 @@
     {
       "name": "HPI",
       "url": "https://hpi.de",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/hpi-logo.jpg",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/hpi-logo.jpg",
       "padding": "20px"
     },
     {
       "name": "MINT-EC",
       "url": "https://www.mint-ec.de/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/partner/mintec-logo.jpg",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/partner/mintec-logo.jpg",
       "padding": ""
     },
     {
       "name": "BMBF",
       "url": "https://www.bmbf.de/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/default/images/partner/bmbf-logo.jpg",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/default/images/partner/bmbf-logo.jpg",
       "padding": ""
     }
   ],
@@ -23,13 +23,13 @@
     {
       "name": "HPI",
       "url": "https://hpi.de",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/hpi-logo.jpg",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/hpi-logo.jpg",
       "padding": "20px"
     },
     {
       "name": "ThILLM",
       "url": "https://www.schulportal-thueringen.de/thillm",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/thr/images/partner/thillm-logo.jpg",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/thr/images/partner/thillm-logo.jpg",
       "padding": ""
     }
   ],
@@ -37,73 +37,73 @@
     {
       "name": "Bettermarks",
       "url": "http://de.bettermarks.com/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/bettermarks-logo.jpg",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/bettermarks-logo.jpg",
       "padding": ""
     },
     {
       "name": "Cornelsen",
       "url": "https://www.cornelsen.de/home/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/cornelsen-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/cornelsen-logo.png",
       "padding": "20px"
     },
     {
       "name": "Deutsche Digitale Bibliothek",
       "url": "https://www.deutsche-digitale-bibliothek.de/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/deutsche-digitale-bibliothek-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/deutsche-digitale-bibliothek-logo.png",
       "padding": "20px"
     },
     {
       "name": "GeoGebra",
       "url": "https://www.geogebra.org/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/geogebra-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/geogebra-logo.png",
       "padding": "20px"
     },
     {
       "name": "Khan Academy",
       "url": "https://de.khanacademy.org/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/khanacademy-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/khanacademy-logo.png",
       "padding": ""
     },
     {
       "name": "MedienLB",
       "url": "http://www.medienlb.de/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/medienlb-logo.gif",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/medienlb-logo.gif",
       "padding": "20px"
     },
     {
       "name": "MeinUnterricht",
       "url": "https://www.meinunterricht.de/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/meinunterricht-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/meinunterricht-logo.png",
       "padding": "20px"
     },
     {
       "name": "neXenio",
       "url": "https://nexenio.com/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/nexenio-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/nexenio-logo.png",
       "padding": "20px"
     },
     {
       "name": "Serlo",
       "url": "https://de.serlo.org/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/serlo-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/serlo-logo.png",
       "padding": ""
     },
     {
       "name": "Westermann",
       "url": "https://verlage.westermanngruppe.de/westermann/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/westermann-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/westermann-logo.png",
       "padding": "20px"
     },
     {
       "name": "Wikimedia Commons",
       "url": "https://commons.wikimedia.org/wiki/Main_Page",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/wikimedia-commons-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/wikimedia-commons-logo.png",
       "padding": "20px"
     },
     {
       "name": "Wikipedia",
       "url": "https://www.wikipedia.de/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/wikipedia-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/wikipedia-logo.png",
       "padding": "20px"
     }
   ],
@@ -111,13 +111,13 @@
     {
       "name": "aeroaccess",
       "url": "http://aeroaccess.de/index.php",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/aeroaccess-logo.gif",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/aeroaccess-logo.gif",
       "padding": ""
     },
     {
       "name": "Telekom",
       "url": "https://www.telekom.de/start",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/telekom-logo.png",
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/telekom-logo.png",
       "padding": "20px"
     }
   ],
@@ -125,76 +125,75 @@
     {
       "name": "SAP",
       "url": "https://www.sap.com/germany/index.html",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/SAP.png"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/SAP.png"
     },
     {
       "name": "Verband Bildungsmedien",
       "url": "http://www.bildungsmedien.de/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/Verband bildungsmedien.jpg"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/Verband bildungsmedien.jpg"
     },
     {
       "name": "Bündnis für Bildung e.V.",
       "url": "http://www.b-f-b.net/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/bfb_logo_slogan.png"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/bfb_logo_slogan.png"
     },
     {
       "name": "m2more",
       "url": "http://m2more.de/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/m2more.jpg"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/m2more.jpg"
     },
     {
       "name": "Arbeitskreis Technik in der Konferenz der Datenschutzbeauftragten von Bund und Ländern",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/DSK_Technik.JPG"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/DSK_Technik.JPG"
     },
     {
       "name": "Gymnasium Carolinum",
       "url": "http://www.carolinum.de/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/gymcaro.png"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/gymcaro.png"
     },
     {
       "name": "KMK",
       "url": "https://www.kmk.org/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/kmk-logo.png"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/kmk-logo.png"
     },
     {
       "name": "Arbeitskreis Datenschutz und Bildung der Konferenz der Datenschutzbauftragten",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/DSK_DatenschutzBildung.JPG"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/DSK_DatenschutzBildung.JPG"
     },
     {
       "name": "MBJS Brandenburg",
       "url": "https://mbjs.brandenburg.de/wir-ueber-uns.html",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/logo_land_brandenburg_mit_mbjs.jpg"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/logo_land_brandenburg_mit_mbjs.jpg"
     },
     {
       "name": "LDA Brandenburg",
       "url": "http://www.lda.brandenburg.de/cms/detail.php?gsid=bb1.c.233960.de",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/LDA.JPG"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/LDA.JPG"
     },
     {
       "name": "Cornelsen",
       "url": "https://www.cornelsen.de/home/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/Cornelsen_Verlag_Logo.svg.png"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/Cornelsen_Verlag_Logo.svg.png"
     },
     {
       "name": "iServ",
       "url": "https://iserv.eu/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/iserv.png"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/iserv.png"
     },
     {
       "name": "t-Systems",
       "url": "https://www.t-systems.com/de/de",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/T-SYSTEMS-LOGO2013.svg.png"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/T-SYSTEMS-LOGO2013.svg.png"
     },
 	  {
       "name": "Marie-Curie-Gymnasium Ludwigsfelde",
       "url": "https://www.mcgym.de/",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/Marie-Curie-Gymnasium-Ludwigsfelde.png"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/Marie-Curie-Gymnasium-Ludwigsfelde.png"
     },
     {
       "name": "n-21",
       "url": "http://www.n-21.de/index.php",
-      "logo": "https://s3.hidrive.strato.com/schul-cloud-hpi/images/partner/N21-Logo.png.jpg"
+      "logo": "https://s3.hidrive.strato.com/cloud-instances/images/partner/N21-Logo.png.jpg"
     }
   ]
 }
-

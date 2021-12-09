@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-ldap-svc
+  namespace: {{ NAMESPACE }}
+  labels:
+    app: client-ldap
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ CLIENT_PORT }}
+      targetPort: 3100
+      protocol: TCP
+      name: client-ldap
+  selector:
+    app: client-ldap
