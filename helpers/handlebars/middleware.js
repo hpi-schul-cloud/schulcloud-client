@@ -17,7 +17,7 @@ const makeActive = (items, currentUrl) => {
 	if (currentUrl.match(homeworkRegex)) {
 		const homeworkSidebarItems = items.filter(i => i.link === '/tasks');
 		homeworkSidebarItems.forEach(item => item.class = "active");
-		
+
 		return items;
 	}
 
@@ -64,7 +64,7 @@ module.exports = (req, res, next) => {
 		link: '/courses/',
 	}, {
 		name: res.$t('global.headline.tasks'),
-		testId: 'Aktuelle Aufgaben',
+		testId: 'Aufgaben',
 		icon:
 			// eslint-disable-next-line max-len
 			'<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10.382 13.295c.39.39.39 1.02 0 1.4l-4.588 4.588a1 1 0 01-1.414 0l-2.088-2.088a.984.984 0 010-1.4 1 1 0 011.412-.002l1.383 1.377 3.884-3.876a1 1 0 011.411.001zM21 15a1 1 0 110 2h-8a1 1 0 110-2h8zM8 5a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1h4zM7 7H5v2h2V7zm14 0a1 1 0 110 2h-8a1 1 0 110-2h8z"/></svg>',
@@ -73,7 +73,7 @@ module.exports = (req, res, next) => {
 		permission: 'TASK_DASHBOARD_VIEW_V3',
 	}, {
 		name: res.$t('global.headline.tasks'),
-		testId: 'Aktuelle Aufgaben',
+		testId: 'Aufgaben',
 		icon:
 			// eslint-disable-next-line max-len
 			'<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10.382 13.295c.39.39.39 1.02 0 1.4l-4.588 4.588a1 1 0 01-1.414 0l-2.088-2.088a.984.984 0 010-1.4 1 1 0 011.412-.002l1.383 1.377 3.884-3.876a1 1 0 011.411.001zM21 15a1 1 0 110 2h-8a1 1 0 110-2h8zM8 5a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1h4zM7 7H5v2h2V7zm14 0a1 1 0 110 2h-8a1 1 0 110-2h8z"/></svg>',
