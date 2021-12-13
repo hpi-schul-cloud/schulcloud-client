@@ -1,3 +1,2 @@
 ---
-SCHULCLOUD_CLIENT_IMAGE: schulcloud/schulcloud-client-n21
-
+SCHULCLOUD_CLIENT_IMAGE: schulcloud/schulcloud-client
