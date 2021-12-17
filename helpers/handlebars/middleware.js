@@ -13,10 +13,12 @@ const {
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
 
-	const homeworkRegex = new RegExp('^/homework\/*', 'i');
+	const homeworkRegex = /homework\/*/i;
 	if (currentUrl.match(homeworkRegex)) {
 		const homeworkSidebarItems = items.filter(i => i.link === '/tasks');
-		homeworkSidebarItems.forEach(item => item.class = "active");
+		homeworkSidebarItems.forEach((item) => {
+			item.class = 'active';
+		});
 
 		return items;
 	}
