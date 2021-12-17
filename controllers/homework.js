@@ -860,12 +860,13 @@ router.get('/:assignmentId', (req, res, next) => {
 				title: (assignment.courseId == null)
 					? assignment.name
 					: (`${assignment.courseId.name} - ${assignment.name}`),
-				breadcrumb: [
+				// BC-533 - remove old taskoverview
+				/* breadcrumb: [
 					{
 						title: res.$t('homework.headline.breadcrumb', { breadcrumbtitle: breadcrumbTitle }),
 						url: breadcrumbUrl,
 					},
-				],
+				], */
 				isTeacher,
 				students,
 				courseGroups,
