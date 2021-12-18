@@ -1850,7 +1850,7 @@
 				"contactSupportSubtitleWish": "Do you want to share a request? Please contact our support team.",
 				"thankYouForYourFeedback": "Thank you for your feedback, it will be sent directly to the {{shortTitle}} development team. Please be careful not to send any passwords or other sensitive data.",
 				"whatKindOfFeedbackDoYouWant": "What kind of feedback would you like to send us?",
-				"whichAreaOfSchulCloud": "Which area of HPI Schul-Cloud does your topic concern?",
+				"whichAreaOfSchulCloud": "Which area of {{shortTitle}} does your topic concern?",
 				"whoDoYouWantToContact": "Who do you want to contact?"
 			}
 		},

@@ -1850,7 +1850,7 @@
 				"contactSupportSubtitleWish": "¿Quieres compartir un deseo? Ponte en contacto con nuestro equipo de asistencia.",
 				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
 				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
-				"whichAreaOfSchulCloud": "¿A qué área de Schul-Cloud se refiere tu tema?",
+				"whichAreaOfSchulCloud": "¿A qué área de {{shortTitle}} se refiere tu tema?",
 				"whoDoYouWantToContact": "¿Con quién quieres contactar?"
 			}
 		},
