@@ -228,13 +228,7 @@
               <div class="pull-right">
                 <a class="btn btn-secondary" data-testid="einen-weiteren-kurs-anlegen-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
 
-                <a class="btn btn-primary" data-testid="zur-uebersicht-btn" href="{{../redirectUrl}}">
-                   {{#ifeq redirectUrl "/courses"}}
-                      {{$t "courses.add.link.courseOverview"}}
-                   {{else}}
-                      {{$t "courses.add.link.giveExercises"}}
-                   {{/ifeq}}
-                </a>
+                <a class="btn btn-primary" data-testid="zur-uebersicht-btn" href="/rooms-overview">{{$t "courses.add.link.courseOverview"}}</a>
               </div>
             </section>
 
