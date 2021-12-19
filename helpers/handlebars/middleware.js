@@ -60,6 +60,11 @@ module.exports = (req, res, next) => {
 		icon: 'th-large',
 		link: '/dashboard/',
 	}, {
+		name: res.$t('global.sidebar.link.administrationNewCourses'),
+		testId: 'Aktuelle Kurse',
+		icon: 'book',
+		link: '/rooms-overview/',
+	}, {
 		name: res.$t('global.sidebar.link.administrationCourses'),
 		testId: 'Kurse',
 		icon: 'graduation-cap',
@@ -254,7 +259,7 @@ module.exports = (req, res, next) => {
 	// team feature toggle
 	const teamsEnabled = FEATURE_TEAMS_ENABLED === 'true';
 	if (teamsEnabled) {
-		res.locals.sidebarItems.splice(2, 0, {
+		res.locals.sidebarItems.splice(3, 0, {
 			name: res.$t('global.link.teams'),
 			testId: 'Teams',
 			icon: 'users',

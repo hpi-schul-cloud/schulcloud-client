@@ -1721,7 +1721,8 @@
 				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationClasses": "Klassen",
-				"administrationCourses": "Kurse"
+				"administrationCourses": "Kurse",
+				"administrationNewCourses": "Aktuelle Kurse"
 			}
 		},
 		"tab": {
