@@ -745,7 +745,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				breadcrumb: [
 					{
 						title: res.$t('courses.headline.myCourses'),
-						url: '/courses',
+						url: '/rooms-overview',
 					},
 					{
 						title: course.name,
