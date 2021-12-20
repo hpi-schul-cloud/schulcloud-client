@@ -1848,7 +1848,7 @@
 				"contactSupportSubtitleWish": "Du möchtest einen Wunsch mitteilen? Kontaktiere den Support.",
 				"thankYouForYourFeedback": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
 				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
-				"whichAreaOfSchulCloud": "Welchen Bereich der HPI Schul-Cloud betrifft dein Thema?",
+				"whichAreaOfSchulCloud": "Welchen Bereich der {{themeTitle}} betrifft dein Thema?",
 				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
 			}
 		},
