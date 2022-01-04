@@ -24,12 +24,10 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then((data) => data.data);
 
-
 const markSelected = (options, values = []) => options.map((option) => {
 	option.selected = values.includes(option._id);
 	return option;
 });
-
 
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
@@ -121,7 +119,6 @@ const editCourseHandler = (req, res, next) => {
 	if (req.query.redirectUrl) {
 		action += `?redirectUrl=${req.query.redirectUrl}`;
 	}
-
 
 	const classesPromise = api(req)
 		.get('/classes', {
@@ -745,7 +742,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				breadcrumb: [
 					{
 						title: res.$t('courses.headline.myCourses'),
-						url: '/courses',
+						url: (Configuration.get('ROOMS_OVERVIEW_ENABLED') ? '/rooms-overview' : '/courses'),
 					},
 					{
 						title: course.name,

@@ -9,7 +9,6 @@ const {
 	HELPAREA_URL,
 } = require('../../config/global');
 
-
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
 
@@ -63,7 +62,7 @@ module.exports = (req, res, next) => {
 		name: res.$t('global.sidebar.link.administrationCourses'),
 		testId: 'Kurse',
 		icon: 'graduation-cap',
-		link: '/courses/',
+		link: (Configuration.get('ROOMS_OVERVIEW_ENABLED') ? '/rooms-overview' : '/courses'),
 	}, {
 		name: res.$t('global.headline.tasks'),
 		testId: 'Aufgaben',
