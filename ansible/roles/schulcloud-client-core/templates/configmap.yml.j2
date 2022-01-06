@@ -107,7 +107,6 @@ data:
 {% endif %}
   FEATURE_ALERTS_ENABLED: "{{ FEATURE_ALERTS_ENABLED|default("false") }}"
   ALERT_STATUS_URL: "{{ ALERT_STATUS_URL|default("https://status.dbildungscloud.de", true) }}"
-  ALERT_STATUS_API_URL: "{{ ALERT_STATUS_URL|default("https://status.dbildungscloud.de", true) }}/api/v1"
   REQUEST_TIMEOUT_MS: "8000"
 
 {% if FEATURE_MATRIX_MESSENGER_ENABLED is defined and FEATURE_MATRIX_MESSENGER_ENABLED == "true" %}
