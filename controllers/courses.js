@@ -718,6 +718,7 @@ router.get('/:courseId/', async (req, res, next) => {
 		const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
 		const teacher = ['teacher', 'demoTeacher'];
 		const student = ['student', 'demoStudent'];
+		const showLegacyCourse = Configuration.get('LEGACY_COURSE_OVERVIEW_ENABLED') || false;
 
 		res.render(
 			'courses/course',
@@ -742,7 +743,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				breadcrumb: [
 					{
 						title: res.$t('courses.headline.myCourses'),
-						url: (Configuration.get('ROOMS_OVERVIEW_ENABLED') ? '/rooms-overview' : '/courses'),
+						url: (showLegacyCourse ? '/courses' : '/rooms-overview'),
 					},
 					{
 						title: course.name,

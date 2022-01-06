@@ -1,4 +1,4 @@
-const { defaultDocuments } = require('../config/documents.js');
+const { defaultDocuments } = require('../config/documents');
 const {
 	SC_THEME,
 	SC_TITLE,
