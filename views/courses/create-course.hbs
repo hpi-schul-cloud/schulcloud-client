@@ -228,11 +228,11 @@
               <div class="pull-right">
                 <a class="btn btn-secondary" data-testid="einen-weiteren-kurs-anlegen-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
                 {{#ifConfig "LEGACY_COURSE_OVERVIEW_ENABLED" true}}
-                  <a class="invisible" data-testid="zur-uebersicht-btn" href="/rooms-overview">{{$t "courses.add.link.courseOverview"}}</a>
+                  <a class="link-deactivate" data-testid="zur-uebersicht-btn" href="/rooms-overview"></a>
                   <a class="btn btn-primary" data-testid="zur-uebersicht-legacy-btn" href="/courses">{{$t "courses.add.link.courseOverview"}}</a>
                 {{else}}
                   <a class="btn btn-primary" data-testid="zur-uebersicht-btn" href="/rooms-overview">{{$t "courses.add.link.courseOverview"}}</a>
-                  <a class="invisible" data-testid="zur-uebersicht-legacy-btn" href="/courses">{{$t "courses.add.link.courseOverview"}}</a>
+                  <a class="link-deactivate" data-testid="zur-uebersicht-legacy-btn" href="/courses"></a>
                 {{/ifConfig}}
               </div>
             </section>
