@@ -75,10 +75,24 @@
 						<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
 					{{/if}}
 				</div>
+
+				<div class="form-group" style="text-align:center">
+					<a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
+				</div>
+
+				<div class="form-group">
+					<hr size="50" noshade>
+				</div>
+
+				<div class="form-group">
+					{{#if notification.statusCode}}
+						<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+					{{else}}
+						<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}" data-testid="submit-login" />
+					{{/if}}
+				</div>
+
 			</form>
-		</div>
-		<div style="text-align:center">
-			<a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
 		</div>
 	</div>
 </section>
