@@ -178,7 +178,14 @@
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
 			"default": false,
-			"description": "If enabled, user will see messages/incidents from e.g status.hpi-schul-cloud"
+			"description": "If enabled, user will see messages/incidents from e.g status.dbildungscloud"
+		},
+		"ALERT_STATUS_URL": {
+			"type": "string",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"default": "https://status.dbildungscloud.de",
+			"description": "The url of status message provider (should end without a slash)."
 		},
 		"GHOST_API_KEY": {
 			"type": "string",
