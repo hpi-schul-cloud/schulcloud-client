@@ -4,6 +4,7 @@ const {
 	SC_TITLE,
 	SC_SHORT_TITLE,
 	HOST,
+	ALERT_STATUS_URL,
 } = require('../config/global');
 
 const instanceSpecificTitle = () => {
@@ -46,6 +47,7 @@ const setTheme = (res) => {
 			globalFiles: documents.globalFiles(),
 		},
 		url: HOST,
+		status_url: ALERT_STATUS_URL,
 	};
 };
 
