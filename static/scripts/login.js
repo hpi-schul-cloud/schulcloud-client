@@ -43,6 +43,7 @@ $(document).ready(() => {
 	const $btnToggleProviders = $('.btn-toggle-providers');
 	const $btnHideProviders = $('.btn-hide-providers');
 	const $btnLogin = $('.btn-login');
+	const $oauthButton = $('.btn-oauth');
 	const $loginProviders = $('.login-providers');
 	const $school = $('.school');
 	const $systems = $('.system');
@@ -99,6 +100,10 @@ $(document).ready(() => {
 			$btnToggleProviders.hide();
 			$loginProviders.show();
 		}
+	});
+
+	$oauthButton.on('click', () => {
+		window.location.href = 'http://iserv.n21.dbildungscloud.de/iserv/auth/auth?client_id=24_3bdw6189ocu800ogks4ko4o804sos0gc4k4kwccwkw8osco0w0&redirect_uri=http://localhost:3030/authentication&response_type=code&scope=openid';
 	});
 
 	$btnHideProviders.on('click', (e) => {

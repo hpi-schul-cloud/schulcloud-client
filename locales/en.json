@@ -2480,7 +2480,8 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login with {{title}}"
+				"loginWithSchoolCloud": "Login with {{title}}",
+				"loginIserv": "Login with IServ"
 			},
 			"label": {
 				"email": "Your e-mail address",
