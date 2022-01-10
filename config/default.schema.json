@@ -182,9 +182,7 @@
 		},
 		"ALERT_STATUS_URL": {
 			"type": "string",
-			"format": "uri",
-			"pattern": ".*(?<!/)$",
-			"default": "https://status.dbildungscloud.de",
+			"default": null,
 			"description": "The url of status message provider (should end without a slash)."
 		},
 		"GHOST_API_KEY": {
