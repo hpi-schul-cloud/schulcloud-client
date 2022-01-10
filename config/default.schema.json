@@ -379,6 +379,11 @@
 			"examples": ["2020-11-01T20:20:00+00:00"],
 			"description": "if this is set, rocketchat will be treated as disabled after this date."
 		},
+		"LEGACY_COURSE_OVERVIEW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "feature toggle activate legacy Course link."
+		},
 		"I18N": {
 			"type": "object",
 			"description": "Configuration of I18N",
