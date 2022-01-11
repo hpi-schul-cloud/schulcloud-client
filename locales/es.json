@@ -1612,8 +1612,6 @@
 			"sorting": "Clasificación",
 			"task": "Tarea",
 			"tasks": "Tareas",
-			"tasksAll": "Todas Tareas",
-			"tasksCurrent": "Tareas Actuales",
 			"teachers": "Profesores",
 			"topics": "Temas",
 			"youAlmostMadeIt": "¡Ya casi está!",
@@ -1850,7 +1848,7 @@
 				"contactSupportSubtitleWish": "¿Quieres compartir un deseo? Ponte en contacto con nuestro equipo de asistencia.",
 				"thankYouForYourFeedback": "Gracias por tus comentarios, se enviarán directamente al equipo de desarrollo de {{shortTitle}}. Ten cuidado de no enviar contraseñas u otros datos confidenciales.",
 				"whatKindOfFeedbackDoYouWant": "¿Qué tipo de comentarios te gustaría enviarnos?",
-				"whichAreaOfSchulCloud": "¿A qué área de Schul-Cloud se refiere tu tema?",
+				"whichAreaOfSchulCloud": "¿A qué área de {{shortTitle}} se refiere tu tema?",
 				"whoDoYouWantToContact": "¿Con quién quieres contactar?"
 			}
 		},
@@ -1861,7 +1859,7 @@
 		},
 		"form_bug": {
 			"label": {
-				"knownProblemLink": "Además, puedes ver en nuestra <a href=\"https://status.hpi-schul-cloud.de\">página de estado<\/a> si hay actualmente algún problema técnico con los sistemas.",
+				"knownProblemLink": "Además, puedes ver en nuestra página de estado si hay actualmente algún problema técnico con los sistemas.",
 				"maxSizeFiles": "Imágenes, vídeos y archivos",
 				"problemAlreadyKnown": "¿Se conoce ya el problema?",
 				"problemDescription": "Descripción del problema:",

@@ -34,14 +34,16 @@ describe('Homework tests', () => {
 				resolve();
 			});
 	}));
+	// TODO - delete this?
 	it('GET /homework/asked', () => new Promise((resolve) => {
 		this.agent
 			.get('/homework/asked')
 			.end((err, res) => {
 				expect(res.statusCode).to.equal(200);
+				// remove language key, when everything is removed
 				expect(res.text).to.contain(i18next.t('global.headline.assignedTasks'));
-				expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-edit');
-				expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-delete');
+				// expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-edit');
+				// expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-delete');
 				resolve();
 			});
 	}));
@@ -50,6 +52,7 @@ describe('Homework tests', () => {
 			.get('/homework/private')
 			.end((err, res) => {
 				expect(res.statusCode).to.equal(200);
+				// remove language key, when everything is removed
 				expect(res.text).to.contain(i18next.t('global.link.tasksDrafts'));
 				expect(res.text).to.contain('btn btn-secondary btn-sm btn-edit');
 				expect(res.text).to.contain('btn btn-secondary btn-sm btn-delete');
@@ -61,6 +64,7 @@ describe('Homework tests', () => {
 			.get('/homework/archive')
 			.end((err, res) => {
 				expect(res.statusCode).to.equal(200);
+				// remove language key, when everything is removed
 				expect(res.text).to.contain(i18next.t('homework.headline.archivedTasks'));
 				expect(res.text).to.contain(i18next.t('global.text.noTasks'));
 				resolve();
