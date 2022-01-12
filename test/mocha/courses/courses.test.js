@@ -26,7 +26,6 @@ describe('Courses tests', () => {
 		this.agent
 			.get('/courses/')
 			.end((err, res) => {
-				expect(res).to.redirect;
 				expect(res.redirects[0].endsWith('/rooms-overview'));
 				resolve();
 			});
