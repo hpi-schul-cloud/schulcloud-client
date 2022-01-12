@@ -44,6 +44,7 @@ data:
   CALENDAR_DASHBOARD_ENABLED: "{{ CALENDAR_DASHBOARD_ENABLED|default("false", true) }}"
   ROCKETCHAT_SERVICE_ENABLED: "{{ ROCKETCHAT_SERVICE_ENABLED }}"
   LEGACY_COURSE_OVERVIEW_ENABLED: "{{ LEGACY_COURSE_OVERVIEW_ENABLED|default("false", true) }}"
+  ROOM_VIEW_ENABLED: "{{ ROOM_VIEW_ENABLED|default("false", true) }}"
 {% if ROCKET_CHAT_DEPRECATION_DATE is defined %}
   # The date and time, when the rocket chat shall be replaced by the matrix messenger.
   ROCKET_CHAT_DEPRECATION_DATE: "{{ ROCKET_CHAT_DEPRECATION_DATE|default("", true)  }}"
