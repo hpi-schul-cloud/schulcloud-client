@@ -67,7 +67,7 @@
     {{/unless}}
     <div class="btn-group pull-right">
       {{#ifConfig "ROOM_VIEW_ENABLED" true}}
-        <a href="/rooms/room-{{../_id}}" class="btn btn-add btn-secondary pull-right" data-testid="room">
+        <a href="/rooms/{{../_id}}" class="btn btn-add btn-secondary pull-right" data-testid="room">
           <i class="fa fa-book" aria-hidden="true"></i>
           {{$t "courses._course.link.toRoomView"}}
         </a>
