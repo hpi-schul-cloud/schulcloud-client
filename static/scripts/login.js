@@ -103,7 +103,7 @@ $(document).ready(() => {
 	});
 
 	$oauthButton.on('click', () => {
-		window.location.href = 'http://iserv.n21.dbildungscloud.de/iserv/auth/auth?client_id=24_3bdw6189ocu800ogks4ko4o804sos0gc4k4kwccwkw8osco0w0&redirect_uri=http://localhost:3030/authentication&response_type=code&scope=openid';
+		window.location.href = 'http://iserv.n21.dbildungscloud.de/iserv/auth/auth?client_id=58_qe54d8bh0v4gog8sw0w88c0s8cwwocc8wk8oo00s4c0g8gkc8&redirect_uri=http://localhost:3030/api/v3/oauth&response_type=code&scope=openid uuid';
 	});
 
 	$btnHideProviders.on('click', (e) => {

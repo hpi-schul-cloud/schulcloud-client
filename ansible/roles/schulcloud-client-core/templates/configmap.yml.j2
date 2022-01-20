@@ -71,6 +71,7 @@ data:
   FEATURE_TSP_AUTO_CONSENT_ENABLED: "{{ FEATURE_TSP_AUTO_CONSENT_ENABLED|default("false", true) }}"
   FEATURE_VIDEOCONFERENCE_ENABLED: "{{ FEATURE_VIDEOCONFERENCE_ENABLED|default("false", true) }}"
   FEATURE_MULTI_LOGIN_INSTANCES: "{{ FEATURE_MULTI_LOGIN_INSTANCES|default("false", true) }}"
+  FEATURE_OAUTH_LOGIN_ENABLED: "{{ FEATURE_OAUTH_LOGIN_ENABLED|default("false", true) }}"
   # EDTR
   EDTR_SOURCE: "https://{{ EDTR_PRFIX|default("editor", true) }}.{{ DOMAIN }}"
 {% if EDITOR_URL is defined %}
