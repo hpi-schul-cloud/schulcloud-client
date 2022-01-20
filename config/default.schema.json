@@ -178,7 +178,12 @@
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
 			"default": false,
-			"description": "If enabled, user will see messages/incidents from e.g status.hpi-schul-cloud"
+			"description": "If enabled, user will see messages/incidents from e.g status.dbildungscloud"
+		},
+		"ALERT_STATUS_URL": {
+			"type": "string",
+			"default": null,
+			"description": "The url of status message provider (should end without a slash)."
 		},
 		"GHOST_API_KEY": {
 			"type": "string",
@@ -371,6 +376,16 @@
 			"format": "date-time",
 			"examples": ["2020-11-01T20:20:00+00:00"],
 			"description": "if this is set, rocketchat will be treated as disabled after this date."
+		},
+		"LEGACY_COURSE_OVERVIEW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "feature toggle activate legacy Course link."
+		},
+		"ROOM_VIEW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "feature toggle activate Room view link."
 		},
 		"I18N": {
 			"type": "object",

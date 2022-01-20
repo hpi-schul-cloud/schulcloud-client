@@ -974,7 +974,8 @@
 				"shareCodeGenerated": "Kopiercode wurde generiert!"
 			},
 			"link": {
-				"toCourseFiles": "Zu den Kursdateien"
+				"toCourseFiles": "Zu den Kursdateien",
+				"toRoomView": "Zur Raumansicht"
 			},
 			"tab_label": {
 				"groups": "Gruppen",
@@ -1859,7 +1860,7 @@
 		},
 		"form_bug": {
 			"label": {
-				"knownProblemLink": "Zusätzlich kannst du auf unserer <a href=\"https://status.hpi-schul-cloud.de\">Statusseite<\/a> sehen, ob aktuell technische Probleme bei den Systemen vorliegen. ",
+				"knownProblemLink": "Zusätzlich kannst du auf unserer Statusseite sehen, ob aktuell technische Probleme bei den Systemen vorliegen. ",
 				"maxSizeFiles": "Bilder, Videos und Dateien",
 				"problemAlreadyKnown": "Ist das Problem bereits bekannt?",
 				"problemDescription": "Problembeschreibung",
