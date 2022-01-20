@@ -50,6 +50,7 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
+	const $iservOauthSystem = $('.iserv-oauth-system');
 
 	const incTimer = () => {
 		setTimeout(() => {
@@ -103,7 +104,8 @@ $(document).ready(() => {
 	});
 
 	$oauthButton.on('click', () => {
-		window.location.href = 'http://iserv.n21.dbildungscloud.de/iserv/auth/auth?client_id=24_3bdw6189ocu800ogks4ko4o804sos0gc4k4kwccwkw8osco0w0&redirect_uri=http://localhost:3030/authentication&response_type=code&scope=openid';
+		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
+		window.location.href = `http://iserv.n21.dbildungscloud.de/iserv/auth/auth?client_id=24_3bdw6189ocu800ogks4ko4o804sos0gc4k4kwccwkw8osco0w0&redirect_uri=http://localhost:3030/v3/oauth/${iservOauthSystem._id}&response_type=code&scope=openid uuid`;
 	});
 
 	$btnHideProviders.on('click', (e) => {

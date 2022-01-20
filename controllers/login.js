@@ -87,6 +87,16 @@ router.all('/', (req, res, next) => {
 	});
 });
 
+const getIservOauthSystem = (schools) => {
+	for (let schoolIndex = 0; schoolIndex < schools.length; schoolIndex += 1) {
+		const { systems } = schools[schoolIndex];
+		for (let systemIndex = 0; systemIndex < systems.length; systemIndex += 1) {
+			if (systems[systemIndex].type === 'iserv') return systems[systemIndex];
+		}
+	}
+	return null;
+};
+
 /*
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
@@ -94,9 +104,11 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 	.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 		logger.warn(`User can not logged in. Redirect to ${redirect}`);
+		const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 		res.render('authentication/login', {
 			schools,
 			systems: [],
+			iservOauthSystem,
 			hideMenu: true,
 			redirect,
 		});
