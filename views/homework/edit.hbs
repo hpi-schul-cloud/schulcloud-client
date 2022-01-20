@@ -47,7 +47,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="lessonPicker">{{$t "homework.global.label.topic"}}</label>
-						<select id="lessonPicker" name="lessonId" data-placeholder="Thema auswählen"
+						<select id="lessonPicker" name="lessonId" data-placeholder="Thema auswählen">
 							{{#if assignment.courseId}}
 							<option value="" {{#unless assignment.lessonId}}selected{{/unless}}>{{$t "homework.text.noAssignment"}}</option>
 							{{#each lessons}}
