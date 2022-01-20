@@ -16,124 +16,27 @@ data:
   SC_SHORT_TITLE: "{{ SC_SHORT_TITLE }}"
   SC_PRODUCTNAME: "{{ SC_PRODUCTNAME }}"
   SC_DOMAIN: "{{ DOMAIN }}"
-  SC_CONTACT_EMAIL: "{{ SC_CONTACT_EMAIL|default("dataportlernen.cloud@dataport.de", true) }}"
-  DOCUMENT_BASE_DIR: "{{ DOCUMENT_BASE_DIR|default("https://s3.hidrive.strato.com/cloud-instances/", true) }}"
-  KEEP_ALIVE: "true"
-  SHOW_VERSION: "{{SHOW_VERSION|default(0,true) }}"
-  TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION: "{{ TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION }}"
-{% if STUDENT_TEAM_CREATION is defined %}
-  STUDENT_TEAM_CREATION: "{{ STUDENT_TEAM_CREATION }}"
-{% endif %}
-  HELPAREA_URL: "{{ HELPAREA_URL|default("", true) }}"
-  CORS: "{{ CORS|default("true",true) }}"
-  SECURITY_HEADERS: "{{ SECURITY_HEADERS|default("true",true) }}"
-  # URIs
-  HOST: "https://{{ DOMAIN }}"
-  BACKEND_URL: "http://api-svc:3030/api/"
-  PUBLIC_BACKEND_URL: "https://{{ DOMAIN }}/api"
-  LIBRE_OFFICE_CLIENT_URL: "https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }}"
-  ETHERPAD_BASE_URL: "https://{{ DOMAIN }}/etherpad/p/"
-  ETHERPAD__PAD_PATH: "/etherpad/p"
-  ETHERPAD__PAD_URI: "https://{{ DOMAIN }}/etherpad/p"
-  ETHERPAD__NEW_DOMAIN: "{{ DOMAIN }}"
-  ETHERPAD__OLD_DOMAIN: "etherpad.{{ DOMAIN }}"
-  # Rocketchat
-  ROCKET_CHAT_URI: "https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }}"
-  # FEATURE TOGGLE
-  CALENDAR_SERVICE_ENABLED: "true"
-  CALENDAR_DASHBOARD_ENABLED: "{{ CALENDAR_DASHBOARD_ENABLED|default("false", true) }}"
-  ROCKETCHAT_SERVICE_ENABLED: "{{ ROCKETCHAT_SERVICE_ENABLED }}"
-{% if ROCKET_CHAT_DEPRECATION_DATE is defined %}
-  # The date and time, when the rocket chat shall be replaced by the matrix messenger.
-  ROCKET_CHAT_DEPRECATION_DATE: "{{ ROCKET_CHAT_DEPRECATION_DATE|default("", true)  }}"
-{% endif %}
-{% if CLIENT_FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY is defined %}
-  FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY: "{{ CLIENT_FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY|default("disabled", true) }}"
-{% endif %}
-{% if FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED is defined %}
-  FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED: "{{ FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED|default("false", true) }}"
-{% endif %}
-
-  FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED: "{{ FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED|default("true", true) }}"
-  FEATURE_COURSE_COPY: "{{ FEATURE_COURSE_COPY|default("false", true) }}"
-  FEATURE_COURSE_SHARE: "{{ FEATURE_COURSE_SHARE|default("false", true) }}"
-  FEATURE_COURSE_IMPORT: "{{ FEATURE_COURSE_IMPORT|default("false", true) }}"
-  FEATURE_ENTERTHECLOUD: "{{ FEATURE_ENTERTHECLOUD|default("false", true) }}"
-  FEATURE_ETHERPAD_ENABLED: "{{ FEATURE_ETHERPAD_ENABLED|default("true", true) }}"
-  FEATURE_EXTENSIONS_ENABLED: "{{ FEATURE_EXTENSIONS_ENABLED|default("false", true) }}"
-  FEATURE_EXTENSION_PORTFOLIO_ENABLED: "{{ FEATURE_EXTENSION_PORTFOLIO_ENABLED|default("false", true) }}"
-  FEATURE_INSIGHTS_ENABLED: "{{ FEATURE_INSIGHTS_ENABLED|default("false", true) }}"
-  FEATURE_MINT_PAGES_ENABLED: "{{ FEATURE_MINT_PAGES_ENABLED|default("false", true) }}"
-  FEATURE_NEXBOARD_ENABLED: "{{ FEATURE_NEXBOARD_ENABLED|default("true", true) }}"
-  FEATURE_SCHOOL_POLICY_ENABLED: "{{ FEATURE_SCHOOL_POLICY_ENABLED|default("false", true) }}"
-  FEATURE_TEAMS_ENABLED: "{{ FEATURE_TEAMS_ENABLED }}"
-  FEATURE_TOPIC_SHARE_IMPORT: "{{ FEATURE_TOPIC_SHARE_IMPORT|default("false", true) }}"
-  FEATURE_TSP_AUTO_CONSENT_ENABLED: "{{ FEATURE_TSP_AUTO_CONSENT_ENABLED|default("false", true) }}"
-  FEATURE_VIDEOCONFERENCE_ENABLED: "{{ FEATURE_VIDEOCONFERENCE_ENABLED|default("false", true) }}"
-  FEATURE_MULTI_LOGIN_INSTANCES: "{{ FEATURE_MULTI_LOGIN_INSTANCES|default("false", true) }}"
-  # EDTR
-  EDTR_SOURCE: "https://{{ EDTR_PRFIX|default("editor", true) }}.{{ DOMAIN }}"
-{% if EDITOR_URL is defined %}
-  EDITOR_URL: "{{ EDITOR_URL|default("https://editor.test.hpi-schul-cloud.de", true) }}"
-{% endif %}
-{% if NOT_AUTHENTICATED_REDIRECT_URL is defined and NOT_AUTHENTICATED_REDIRECT_URL|length %}
-  # AUTH
-  NOT_AUTHENTICATED_REDIRECT_URL: "{{ NOT_AUTHENTICATED_REDIRECT_URL }}"
-{% endif %}
-{% if SENTRY_DSN_CLIENT is defined %}
-  SENTRY_SAMPLE_RATE: "{{ SENTRY_SAMPLE_RATE }}"
-{% endif %}
-  # Consent Mindestalter
-  CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS: "{{ CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS|default("16", true) }}"
-  LOGIN_BLOCK_TIME: "{{ LOGIN_BLOCK_TIME|default("15", true) }}"
-  BODYPRASER_JSON_LIMIT: "{{ BODYPRASER_JSON_LIMIT|default("10mb", true) }}"
-  JWT_TIMEOUT_SECONDS: "{{ JWT_TIMEOUT_SECONDS|default("3840", true) }}"
-  SKIP_CONDITIONS_CONSENT: "{{ SKIP_CONDITIONS_CONSENT|default("", true) }}"
-{% if WITH_INSIGHTS is defined and WITH_INSIGHTS %}
-  # insights
-  INSIGHTS_COLLECTOR_URI: "http://insights-collector-svc:3000"
-{% endif %}
-{% if FEATURE_TSP_ENABLED  %}
-  FEATURE_TSP_ENABLED: "true"
-{% endif %}
-  FEATURE_MORGAN_LOG_ENABLED: "false"
   LOG_LEVEL: "error"
-  #GLOBAL_LOGIN_ANNOUNCEMENT: "Wir arbeiten hart daran, die Stabilität zu verbessern. Unter <a href='https://status.hpi-schul-cloud.de' target='_blank'>status.hpi-schul-cloud.de</a> halten wir euch auf dem Laufenden."
-{% if GLOBAL_ANNOUNCEMENT is defined and GLOBAL_ANNOUNCEMENT|length %}
-  GLOBAL_ANNOUNCEMENT: "{{ GLOBAL_ANNOUNCEMENT|default("", true) }}"
-{% endif %}
-{% if GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER is defined and GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER|length %}
-  GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER: "{{ GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER|default("", true) }}"
-{% endif %}
-  FEATURE_ALERTS_ENABLED: "{{ FEATURE_ALERTS_ENABLED|default("false") }}"
-  ALERT_STATUS_URL: "{{ ALERT_STATUS_URL|default("https://status.hpi-schul-cloud.de", true) }}"
-  ALERT_STATUS_API_URL: "{{ ALERT_STATUS_URL|default("https://status.hpi-schul-cloud.de", true) }}/api/v1"
-  REQUEST_TIMEOUT_MS: "8000"
-
-{% if FEATURE_MATRIX_MESSENGER_ENABLED is defined and FEATURE_MATRIX_MESSENGER_ENABLED == "true" %}
-  FEATURE_MATRIX_MESSENGER_ENABLED: "true"
-{% if MATRIX_MESSENGER_CONFIG_2 is defined and MATRIX_MESSENGER_CONFIG_2 == "true" %}
-  MATRIX_MESSENGER__EMBED_URI: "{{ MATRIX_MESSENGER__EMBED_URI }}"
-  MATRIX_MESSENGER__URI: "{{ MATRIX_MESSENGER__URI }}"
-  MATRIX_MESSENGER__DISCOVER_URI: "{{ MATRIX_MESSENGER__DISCOVER_URI }}"
-  MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE: "{{ MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE|default("false", true) }}"
-  MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED: "{{ MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED|default("false", true) }}"
-  MATRIX_MESSENGER__STUDENT_ROOM_CREATION: "{{ MATRIX_MESSENGER__STUDENT_ROOM_CREATION|default("false", true) }}"
-{% else %}
-  # Deprecated MATRIX_MESSENGER_EMBED_URI, 25.3, OPS-1653
-  MATRIX_MESSENGER_EMBED_URI: "{{ MATRIX_MESSENGER__EMBED_URI }}"
-  # Deprecated MATRIX_MESSENGER_HOMESERVER_URI, 25.3, OPS-1653
-  MATRIX_MESSENGER_HOMESERVER_URI: "{{ MATRIX_MESSENGER__URI }}"
-  # Deprecated FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE, 25.3, OPS-1653
-  FEATURE_MESSENGER_SCHOOL_SETTINGS_VISIBLE: "{{ MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE|default("false", true) }}"
-  # Deprecated FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED, 25.3, OPS-1653
-  FEATURE_MESSENGER_SCHOOL_ROOM_ENABLED: "{{ MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED|default("false", true) }}"
-{% endif %}
-{% else %}
-  FEATURE_MATRIX_MESSENGER_ENABLED: "false"
-{% endif %}
-  # Lernstore
-  FEATURE_LERNSTORE_ENABLED: "{{ FEATURE_LERNSTORE_ENABLED|default("false", true) }}"
-{% if FEATURE_LOG_REQUEST is defined %}
-  FEATURE_LOG_REQUEST: "{{ FEATURE_LOG_REQUEST }}"
-{% endif %}
+{% for name, data in configuration_all.items() %}
+  {% if data.client is defined and data.client == true %}
+    {% if data.config_name is defined and data.config_name in hostvars[inventory_hostname] %}
+      {% if data.var_name is defined %}
+  {{ data.var_name }}: "{{ hostvars[inventory_hostname][data.config_name] }}"
+      {% else %}
+  {{ name }}: "{{ hostvars[inventory_hostname][data.config_name] }}"
+      {% endif %}
+    {% elif name in hostvars[inventory_hostname] %}
+      {% if data.var_name is defined %}
+  {{ data.var_name }}: "{{ hostvars[inventory_hostname][name] }}"
+      {% else %}
+  {{ name }}: "{{ hostvars[inventory_hostname][name] }}"
+      {% endif %}
+    {% elif data.value is defined %}
+      {% if data.var_name is defined %}
+  {{ data.var_name }}: "{{ data.value }}"
+      {% else %}
+  {{ name }}: "{{ data.value }}"
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
