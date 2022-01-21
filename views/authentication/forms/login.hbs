@@ -88,13 +88,14 @@
 
 					<div class="form-group">
 						{{#if notification.statusCode}}
-							<input autofocus aria-label="oauth" type="submit" class="btn btn-block btn-primary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}" data-timeout="{{notification.timeToWait}}" disabled/>
+							<input autofocus aria-label="oauth" type="button" class="btn btn-block btn-primary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}" data-timeout="{{notification.timeToWait}}" disabled/>
 						{{else}}
-							<input autofocus aria-label="oauth" type="submit" class="btn btn-block btn-primary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}"/>
+							<input autofocus aria-label="oauth" type="button" class="btn btn-block btn-primary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}"/>
 						{{/if}}
 					</div>
 
 				{{/if}}
+				<div>+6562</div>
 				<div class="iserv-oauth-system" hidden>{{ iservOauthSystem }}</div>
 			</form>
 		</div>
