@@ -105,7 +105,7 @@ $(document).ready(() => {
 
 	$oauthButton.on('click', () => {
 		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
-		window.location.href = `http://iserv.n21.dbildungscloud.de/iserv/auth/auth?client_id=24_3bdw6189ocu800ogks4ko4o804sos0gc4k4kwccwkw8osco0w0&redirect_uri=http://localhost:3030/v3/oauth/${iservOauthSystem._id}&response_type=code&scope=openid uuid`;
+		window.location.href = `${iservOauthSystem.oauthconfig.auth_endpoint}?client_id=${iservOauthSystem.oauthconfig.client_id}&redirect_uri=${iservOauthSystem.oauthconfig.code_redirect_uri}&response_type=${iservOauthSystem.oauthconfig.response_type}&scope=${iservOauthSystem.oauthconfig.scope}`;
 	});
 
 	$btnHideProviders.on('click', (e) => {
