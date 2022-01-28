@@ -97,6 +97,11 @@ const getIservOauthSystem = (schools) => {
 	return null;
 };
 
+const mapErrorcodeToTranslation = (errorCode) => {
+	if (errorCode === 'OauthLoginFailed') return 'login.text.oauth.loginFailed';
+	return 'login.text.oauth.loginFailed';
+};
+
 /*
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
@@ -105,6 +110,12 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 		logger.warn(`User can not logged in. Redirect to ${redirect}`);
 		const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+		if (req.query.error) {
+			res.locals.notification = {
+				type: 'danger',
+				message: res.$t(mapErrorcodeToTranslation(req.query.error)),
+			};
+		}
 		res.render('authentication/login', {
 			schools,
 			systems: [],
