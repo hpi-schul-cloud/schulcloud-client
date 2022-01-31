@@ -116,13 +116,22 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 				message: res.$t(mapErrorcodeToTranslation(req.query.error)),
 			};
 		}
-		res.render('authentication/login', {
-			schools,
-			systems: [],
-			iservOauthSystem,
-			hideMenu: true,
-			redirect,
-		});
+		if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED')) {
+			res.render('authentication/login', {
+				schools: schools.filter((school) => school.systems.filter((system) => system.type === 'iserv').length === 0),
+				systems: [],
+				iservOauthSystem,
+				hideMenu: true,
+				redirect,
+			});
+		} else {
+			res.render('authentication/login', {
+				schools,
+				systems: [],
+				hideMenu: true,
+				redirect,
+			});
+		}
 	}));
 
 router.get('/loginRedirect', (req, res, next) => {
