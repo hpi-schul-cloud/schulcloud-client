@@ -299,7 +299,8 @@
 				"manageSchool": "Manage school",
 				"manageStudents": "Manage students",
 				"manageTeachers": "Manage teachers",
-				"manageTeams": "Manage teams"
+				"manageTeams": "Manage teams",
+				"migration": "Manage user migration"
 			}
 		},
 		"form_DeleteRss": {
@@ -2445,7 +2446,8 @@
 		"text": {
 			"newFeaturesAvailable": "New features are available",
 			"schoolInTransferPhaseContactAdmin": "The school is in the transfer phase to the new school year. No classes and users can be created. Please contact the school administrator!",
-			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"\/administration\/school\/\"> the new school year here!<\/a>"
+			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"\/administration\/school\/\"> the new school year here!<\/a>",
+			"schoolInMigrationMode": "The school is in user migration mode. To migrate users, please go to <a href=\"\/administration\/migration\/\">this page</a>."
 		}
 	},
 	"login": {

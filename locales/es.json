@@ -299,7 +299,8 @@
 				"manageSchool": "Administrar escuela",
 				"manageStudents": "Administrar estudiantes",
 				"manageTeachers": "Administrar profesores",
-				"manageTeams": "Administrar equipos"
+				"manageTeams": "Administrar equipos",
+				"migration": "Administrar la migración de usuarios"
 			}
 		},
 		"form_DeleteRss": {
@@ -2445,7 +2446,8 @@
 		"text": {
 			"newFeaturesAvailable": "Nuevas funciones disponibles",
 			"schoolInTransferPhaseContactAdmin": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Ponte en contacto con el administrador de la escuela!",
-			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"\/administration\/school\/\">nuevo año escolar aquí!<\/a>"
+			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"\/administration\/school\/\">nuevo año escolar aquí!<\/a>",
+			"schoolInMigrationMode": "La escuela está en modo de migración de usuarios. Para migrar los usuarios, por favor vaya a <a href=\"\/administration\/migration\/\">esta página</a>."
 		}
 	},
 	"login": {
