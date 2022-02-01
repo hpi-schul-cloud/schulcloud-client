@@ -300,7 +300,7 @@
 				"manageStudents": "Schüler:innen verwalten",
 				"manageTeachers": "Lehrkräfte verwalten",
 				"manageTeams": "Teams verwalten",
-				"migration": "Verwaltung der Benutzermigration"
+				"migration": "Benutzerkonten aus webBSchule migrieren"
 			}
 		},
 		"form_DeleteRss": {
