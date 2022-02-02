@@ -80,7 +80,7 @@
 					<a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
 				</div>
 
-				{{#if (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
+				{{#ifConfig "FEATURE_OAUTH_LOGIN_ENABLED" true}}
 
 					<div class="form-group">
 						<hr size="50" noshade>
