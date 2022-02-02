@@ -80,7 +80,7 @@
 					<a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
 				</div>
 
-				{{#ifConfig "FEATURE_OAUTH_LOGIN_ENABLED" true}}
+				{{#if (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
 
 					<div class="form-group">
 						<hr size="50" noshade>
@@ -90,8 +90,8 @@
 						<input autofocus aria-label="oauth" type="button" class="btn btn-block btn-primary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}"/>
 					</div>
 
-					<div class="iserv-oauth-system" hidden>{{ iservOauthSystem }}</div>
 				{{/if}}
+				<div class="iserv-oauth-system" hidden>{{ iservOauthSystem }}</div>
 			</form>
 		</div>
 	</div>
