@@ -116,7 +116,7 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 				message: res.$t(mapErrorcodeToTranslation(req.query.error)),
 			};
 		}
-		if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED')) {
+		if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
 			res.render('authentication/login', {
 				schools: schools.filter((school) => school.systems.filter((system) => system.type === 'iserv').length === 0),
 				systems: [],
