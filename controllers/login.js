@@ -109,14 +109,15 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 	.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 		logger.warn(`User can not logged in. Redirect to ${redirect}`);
-		const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
-		if (req.query.error) {
-			res.locals.notification = {
-				type: 'danger',
-				message: res.$t(mapErrorcodeToTranslation(req.query.error)),
-			};
-		}
 		if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
+			logger.warn(`User can not logged in via Oauth. Redirect to ${redirect}`);
+			if (req.query.error) {
+				res.locals.notification = {
+					type: 'danger',
+					message: res.$t(mapErrorcodeToTranslation(req.query.error)),
+				};
+			}
+			const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 			res.render('authentication/login', {
 				schools: schools.filter((school) => school.systems.filter((system) => system.type === 'iserv').length === 0),
 				systems: [],
