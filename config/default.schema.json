@@ -129,8 +129,8 @@
 		},
 		"SC_CONTACT_EMAIL": {
 			"type": "string",
-			"default": "dataportlernen.cloud@dataport.de",
-			"description": "Contact E-Mail Adress to The HPI School-Cloud team."
+			"default": "support@dbildungscloud.de",
+			"description": "Contact E-Mail Address to The HPI School-Cloud team."
 		},
 		"MATRIX_MESSENGER": {
 			"type": "object",
