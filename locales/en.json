@@ -2529,9 +2529,7 @@
 			"loginFailedScreenshot": "Login failed",
 			"loginFailedSecondHint": "2. Have you deleted your cookies and website data?",
 			"loginFailedThirdHint": "3. Have you tried to log in on another device (e.g. laptop instead of mobile phone) ?",
-			"oauth": {
-				"loginFailed": "Login via school server failed."
-			},
+			"oauthLoginFailed": "Login via school server failed.",
 			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
 			"showPassword": "Show Password:",
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",

@@ -99,7 +99,7 @@ const getIservOauthSystem = (schools) => {
 
 const mapErrorcodeToTranslation = (errorCode) => {
 	// if (errorCode === 'OauthLoginFailed') return 'login.text.oauth.loginFailed';
-	return 'login.text.oauth.loginFailed';
+	return 'login.text.oauthLoginFailed';
 };
 
 /*

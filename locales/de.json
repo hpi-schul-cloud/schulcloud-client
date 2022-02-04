@@ -2529,9 +2529,7 @@
 			"loginFailedScreenshot": "Login fehlgeschlagen",
 			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
 			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
-			"oauth": {
-				"loginFailed": "Login über Schulserver fehlgeschlagen."
-			},
+			"oauthLoginFailed": "Login über Schulserver fehlgeschlagen.",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
 			"showPassword": "Passwort anzeigen:",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",

@@ -2529,9 +2529,7 @@
 			"loginFailedScreenshot": "Error de inicio de sesión",
 			"loginFailedSecondHint": "2. ¿Has eliminado tus cookies y los datos del sitio web?",
 			"loginFailedThirdHint": "3. ¿Has intentado iniciar sesión en otro dispositivo (por ejemplo, un ordenador portátil en lugar de un teléfono móvil)?",
-			"oauth": {
-				"loginFailed": "Fallo al iniciar sesión con el servidor escolar."
-			},
+			"oauthLoginFailed": "Fallo al iniciar sesión con el servidor escolar.",
 			"pleaseWaitXSeconds": "Por favor, espera {{seconds}} segundos",
 			"showPassword": "Mostrar contraseña:",
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
