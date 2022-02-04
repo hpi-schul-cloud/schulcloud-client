@@ -97,10 +97,8 @@ const getIservOauthSystem = (schools) => {
 	return null;
 };
 
-const mapErrorcodeToTranslation = (errorCode) => {
-	// if (errorCode === 'OauthLoginFailed') return 'login.text.oauth.loginFailed';
-	return 'login.text.oauthLoginFailed';
-};
+const mapErrorcodeToTranslation = (errorCode) => 'login.text.oauthLoginFailed';
+// if (errorCode === 'OauthLoginFailed') return 'login.text.oauth.loginFailed';
 
 /*
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
@@ -119,6 +117,7 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 			}
 			const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 			res.render('authentication/login', {
+				// eslint-disable-next-line max-len
 				schools: schools.filter((school) => school.systems.filter((system) => system.type === 'iserv').length === 0),
 				systems: [],
 				iservOauthSystem,

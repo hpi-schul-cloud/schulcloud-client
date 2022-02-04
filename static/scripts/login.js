@@ -105,6 +105,7 @@ $(document).ready(() => {
 
 	$oauthButton.on('click', () => {
 		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
+		// eslint-disable-next-line max-len
 		window.location.href = `${iservOauthSystem.oauthconfig.auth_endpoint}?client_id=${iservOauthSystem.oauthconfig.client_id}&redirect_uri=${iservOauthSystem.oauthconfig.code_redirect_uri}&response_type=${iservOauthSystem.oauthconfig.response_type}&scope=${iservOauthSystem.oauthconfig.scope}`;
 	});
 
