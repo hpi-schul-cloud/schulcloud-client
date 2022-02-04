@@ -97,6 +97,7 @@ const getIservOauthSystem = (schools) => {
 	return null;
 };
 
+// eslint-disable-next-line no-unused-vars
 const mapErrorcodeToTranslation = (errorCode) => 'login.text.oauthLoginFailed';
 // if (errorCode === 'OauthLoginFailed') return 'login.text.oauth.loginFailed';
 
