@@ -106,7 +106,7 @@ $(document).ready(() => {
 	$oauthButton.on('click', () => {
 		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
 		// eslint-disable-next-line max-len
-		window.location.href = `${iservOauthSystem.oauthconfig.auth_endpoint}?client_id=${iservOauthSystem.oauthconfig.client_id}&redirect_uri=${iservOauthSystem.oauthconfig.code_redirect_uri}&response_type=${iservOauthSystem.oauthconfig.response_type}&scope=${iservOauthSystem.oauthconfig.scope}`;
+		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?client_id=${iservOauthSystem.oauthConfig.clientId}&redirect_uri=${iservOauthSystem.oauthConfig.codeRedirectUri}&response_type=${iservOauthSystem.oauthConfig.responseType}&scope=${iservOauthSystem.oauthConfig.scope}`;
 	});
 
 	$btnHideProviders.on('click', (e) => {
