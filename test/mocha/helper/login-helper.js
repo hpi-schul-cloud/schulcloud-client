@@ -34,7 +34,6 @@ const getCsrfToken = (agent) => new Promise((resolve) => {
 	});
 });
 
-
 const login = (app, user, pass) => {
 	const agent = chai.request.agent(app); // create agent for storing cookies
 
