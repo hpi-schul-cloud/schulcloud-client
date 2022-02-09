@@ -52,6 +52,8 @@ $(document).ready(() => {
 	const $submitButton = $('#submit-login');
 	const $iservOauthSystem = $('.iserv-oauth-system');
 
+	console.log(JSON.parse($iservOauthSystem[0].innerText));
+
 	const incTimer = () => {
 		setTimeout(() => {
 			if (countdownNum !== 1) {
