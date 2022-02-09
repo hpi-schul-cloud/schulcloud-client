@@ -87,6 +87,20 @@ router.all('/', (req, res, next) => {
 	});
 });
 
+const getIservOauthSystem = (schools) => {
+	for (let schoolIndex = 0; schoolIndex < schools.length; schoolIndex += 1) {
+		const { systems } = schools[schoolIndex];
+		for (let systemIndex = 0; systemIndex < systems.length; systemIndex += 1) {
+			if (systems[systemIndex].type === 'iserv') return systems[systemIndex];
+		}
+	}
+	return null;
+};
+
+// eslint-disable-next-line no-unused-vars
+const mapErrorcodeToTranslation = (errorCode) => 'login.text.oauthLoginFailed';
+// if (errorCode === 'OauthLoginFailed') return 'login.text.oauth.loginFailed';
+
 /*
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
@@ -94,12 +108,31 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 	.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 		logger.warn(`User can not logged in. Redirect to ${redirect}`);
-		res.render('authentication/login', {
-			schools,
-			systems: [],
-			hideMenu: true,
-			redirect,
-		});
+		if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
+			logger.warn(`User can not logged in via Oauth. Redirect to ${redirect}`);
+			if (req.query.error) {
+				res.locals.notification = {
+					type: 'danger',
+					message: res.$t(mapErrorcodeToTranslation(req.query.error)),
+				};
+			}
+			const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+			res.render('authentication/login', {
+				// eslint-disable-next-line max-len
+				schools: schools.filter((school) => school.systems.filter((system) => system.type === 'iserv').length === 0),
+				systems: [],
+				iservOauthSystem,
+				hideMenu: true,
+				redirect,
+			});
+		} else {
+			res.render('authentication/login', {
+				schools,
+				systems: [],
+				hideMenu: true,
+				redirect,
+			});
+		}
 	}));
 
 router.get('/loginRedirect', (req, res, next) => {
