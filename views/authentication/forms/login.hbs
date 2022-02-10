@@ -81,7 +81,6 @@
 				</div>
 
 				{{#if (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}} 
-					{{#if iservOauthSystem}}
 						<div class="form-group">
 							<hr size="50" noshade>
 						</div>
@@ -91,7 +90,6 @@
 						</div>
 
 						<div class="iserv-oauth-system" hidden>{{ iservOauthSystem }}</div>
-					{{/if}}
 				{{/if}}
 			</form>
 		</div>
