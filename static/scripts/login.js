@@ -44,6 +44,10 @@ $(document).ready(() => {
 	const $btnHideProviders = $('.btn-hide-providers');
 	const $btnLogin = $('.btn-login');
 	const $oauthButton = $('.btn-oauth');
+	const $ldapButton = $('.btn-ldap');
+	const $cloudButton = $('.btn-cloud');
+	const $returnButton = $('.btn-return');
+	const $credentialLogin = $('.credentials-login-form');
 	const $loginProviders = $('.login-providers');
 	const $school = $('.school');
 	const $systems = $('.system');
@@ -107,6 +111,29 @@ $(document).ready(() => {
 		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
 		// eslint-disable-next-line max-len
 		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?client_id=${iservOauthSystem.oauthConfig.clientId}&redirect_uri=${iservOauthSystem.oauthConfig.codeRedirectUri}&response_type=${iservOauthSystem.oauthConfig.responseType}&scope=${iservOauthSystem.oauthConfig.scope}`;
+	});
+
+	$ldapButton.on('click', () => {
+		$credentialLogin.show();
+		$returnButton.show();
+		$oauthButton.hide();
+		$cloudButton.hide();
+		$ldapButton.hide();
+	});
+
+	$cloudButton.on('click', () => {
+		$credentialLogin.show();
+		$returnButton.show();
+		$oauthButton.hide();
+		$cloudButton.hide();
+		$ldapButton.hide();
+	});
+
+	$returnButton.on('click', () => {
+		$credentialLogin.hide();
+		$oauthButton.show();
+		$cloudButton.show();
+		$ldapButton.show();
 	});
 
 	$btnHideProviders.on('click', (e) => {

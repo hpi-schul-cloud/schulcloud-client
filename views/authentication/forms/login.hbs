@@ -10,88 +10,164 @@
 				</div>
 			</div>
 
-			<form method="post" action="/login" class="login-form">
-				<input type="hidden" name="redirect" value={{redirect}} />
+			{{#unless (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
+				<form method="post" action="/login" class="login-form">
+					<input type="hidden" name="redirect" value={{redirect}} />
 
-				<div class="form-group">
-					<label for="name">{{$t "login.input.emailUsername"}}</label>
-					<input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
-					<label for="password">{{$t "global.input.password"}}</label>
-					<div class="input-group mt-1 show_hide_password" style="margin-top: 0rem !important">
-						<input type="password" id="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "global.input.password"}}" data-testid="password" required>
-						<div class="input-group-addon">
-							<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><span class="fa fa-eye-slash" aria-hidden="true"></span></button>
+						<div class="form-group">
+							<label for="name">{{$t "login.input.emailUsername"}}</label>
+							<input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
+							<label for="password">{{$t "global.input.password"}}</label>
+							<div class="input-group mt-1 show_hide_password" style="margin-top: 0rem !important">
+								<input type="password" id="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "global.input.password"}}" data-testid="password" required>
+								<div class="input-group-addon">
+									<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><span class="fa fa-eye-slash" aria-hidden="true"></span></button>
+								</div>
+							</div>
+							{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
+							<div class="form-check" style="margin-top: 10px;">
+								<input type="checkbox" id="privateDevice" name="privateDevice" value="true">
+								<label for="privateDevice">{{$t "login.label.thisIsAPrivateDevice"}}</label>
+								<button data-toggle="tooltip" data-placement="left" title="{{$t "login.button.longerLoggedInWhenActivated"}}" class="btn-link px-1">
+									<i aria-hidden="true" class="fa fa-info"></i>
+								</button>
+							</div>
+							{{/ifEnv}}
+						</div>
+
+
+					<button type="button" title="{{$t "login.button.moreOptions"}}" class="btn form-group toggle-btn btn-block btn-secondary btn-toggle-providers ">
+						<i aria-hidden="true" class="fa fa-chevron-up"></i> {{$t "login.button.moreOptions"}}
+					</button>
+
+
+					<div class="login-providers">
+						<div class="form-group">
+							<label for="school">{{$t "global.link.school"}}</label>
+							<select id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
+									<option selected value="">{{$t "login.input.noSchoolsSelection"}}</option>
+								{{#each schools}}
+									<option value="{{this._id}}" data-systems='{{{json this.systems}}}'>{{this.name}}</option>
+								{{else}}
+									<option disabled>{{$t "login.input.noSchoolsAvailable"}}</option>
+								{{/each}}
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="system">{{$t "login.label.system"}}</label>
+							<select id="system" name="system" class="system" data-placeholder="{{$t "login.input.system"}}">
+								{{#each systems}}
+									<option value="{{this._id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
+								{{else}}
+									<option selected disabled>{{$t "login.input.noSystemsAvailable"}}</option>
+								{{/each}}
+							</select>
+						</div>
+						<div>
+
+						<button type="button" title="{{$t "login.button.less"}}" class="btn form-group toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-down"></i> {{$t "login.button.less"}}</button>
 						</div>
 					</div>
-					{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
-					<div class="form-check" style="margin-top: 10px;">
-						<input type="checkbox" id="privateDevice" name="privateDevice" value="true">
-						<label for="privateDevice">{{$t "login.label.thisIsAPrivateDevice"}}</label>
-						<button data-toggle="tooltip" data-placement="left" title="{{$t "login.button.longerLoggedInWhenActivated"}}" class="btn-link px-1">
-							<i aria-hidden="true" class="fa fa-info"></i>
-						</button>
-					</div>
-					{{/ifEnv}}
-				</div>
-
-
-                <button type="button" title="{{$t "login.button.moreOptions"}}" class="btn form-group toggle-btn btn-block btn-secondary btn-toggle-providers ">
-                    <i aria-hidden="true" class="fa fa-chevron-up"></i> {{$t "login.button.moreOptions"}}
-                </button>
-
-
-				<div class="login-providers">
+					{{> "lib/components/csrfInput"}}
 					<div class="form-group">
-						<label for="school">{{$t "global.link.school"}}</label>
-						<select id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
-								<option selected value="">{{$t "login.input.noSchoolsSelection"}}</option>
-							{{#each schools}}
-								<option value="{{this._id}}" data-systems='{{{json this.systems}}}'>{{this.name}}</option>
-							{{else}}
-								<option disabled>{{$t "login.input.noSchoolsAvailable"}}</option>
-							{{/each}}
-						</select>
+						{{#if notification.statusCode}}
+							<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+						{{else}}
+							<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
+						{{/if}}
 					</div>
-					<div class="form-group">
-						<label for="system">{{$t "login.label.system"}}</label>
-						<select id="system" name="system" class="system" data-placeholder="{{$t "login.input.system"}}">
-							{{#each systems}}
-								<option value="{{this._id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
-							{{else}}
-								<option selected disabled>{{$t "login.input.noSystemsAvailable"}}</option>
-							{{/each}}
-						</select>
-					</div>
-					<div>
 
-					<button type="button" title="{{$t "login.button.less"}}" class="btn form-group toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-down"></i> {{$t "login.button.less"}}</button>
+					<div class="form-group" style="text-align:center">
+						<a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
 					</div>
-				</div>
-				{{> "lib/components/csrfInput"}}
-				<div class="form-group">
-					{{#if notification.statusCode}}
-						<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
-					{{else}}
-						<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
-					{{/if}}
-				</div>
-
-				<div class="form-group" style="text-align:center">
-					<a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
-				</div>
+			{{/unless}}
 
 				{{#if (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
+					<div class="form-group">
+							<input autofocus aria-label="cloud" type="button" class="btn btn-block btn-secondary btn-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-cloud-site"/>
+					</div>
+					<div class="cloud-system" hidden>{{ cloudSystem }}</div>
+					<div class="form-group">
+						<input autofocus aria-label="ldap" type="button" class="btn btn-block btn-secondary btn-ldap" value="{{$t "login.button.ldap"}}" data-testid="submit-ldap-site"/>
+					</div>
+					<div class="ldap-system" hidden>{{ ldapSystem }}</div>
 					{{#if iservOauthSystem}}
 						<div class="form-group">
-							<hr size="50" noshade>
+							<input autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}" data-testid="submit-oauth-login"/>
 						</div>
-
-						<div class="form-group">
-							<input autofocus aria-label="oauth" type="button" class="btn btn-block btn-primary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}" data-testid="submit-oauth-login"/>
-						</div>
-
 						<div class="iserv-oauth-system" hidden>{{ iservOauthSystem }}</div>
 					{{/if}}
+					<div class="credentials-login-form">
+						<form method="post" action="/login" class="login-form">
+							<input type="hidden" name="redirect" value={{redirect}} />
+								<div class="form-group">
+									<label for="name">{{$t "login.input.emailUsername"}}</label>
+									<input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg" placeholder="{{$t "login.input.emailUsername"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
+									<label for="password">{{$t "global.input.password"}}</label>
+									<div class="input-group mt-1 show_hide_password" style="margin-top: 0rem !important">
+										<input type="password" id="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "global.input.password"}}" data-testid="password" required>
+										<div class="input-group-addon">
+											<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><span class="fa fa-eye-slash" aria-hidden="true"></span></button>
+										</div>
+									</div>
+									{{#ifEnv "FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED" "true"}}
+										<div class="form-check" style="margin-top: 10px;">
+											<input type="checkbox" id="privateDevice" name="privateDevice" value="true">
+											<label for="privateDevice">{{$t "login.label.thisIsAPrivateDevice"}}</label>
+											<button data-toggle="tooltip" data-placement="left" title="{{$t "login.button.longerLoggedInWhenActivated"}}" class="btn-link px-1">
+												<i aria-hidden="true" class="fa fa-info"></i>
+											</button>
+										</div>			
+									{{/ifEnv}}
+								</div>
+								<button type="button" title="{{$t "login.button.moreOptions"}}" class="btn form-group toggle-btn btn-block btn-secondary btn-toggle-providers ">
+									<i aria-hidden="true" class="fa fa-chevron-up"></i> {{$t "login.button.moreOptions"}}
+								</button>
+								<div class="login-providers">
+									<div class="form-group">
+										<label for="school">{{$t "global.link.school"}}</label>
+										<select id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
+												<option selected value="">{{$t "login.input.noSchoolsSelection"}}</option>
+											{{#each schools}}
+												<option value="{{this._id}}" data-systems='{{{json this.systems}}}'>{{this.name}}</option>
+											{{else}}
+												<option disabled>{{$t "login.input.noSchoolsAvailable"}}</option>
+											{{/each}}
+										</select>
+									</div>
+									
+									<div class="form-group">
+										<label for="system">{{$t "login.label.system"}}</label>
+										<select id="system" name="system" class="system" data-placeholder="{{$t "login.input.system"}}">
+											{{#each systems}}
+												<option value="{{this._id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
+											{{else}}
+												<option selected disabled>{{$t "login.input.noSystemsAvailable"}}</option>
+											{{/each}}
+										</select>
+									</div>
+									<div>
+										<button type="button" title="{{$t "login.button.less"}}" class="btn form-group toggle-btn btn-block btn-secondary btn-hide-providers"><i class="fa fa-chevron-down"></i> {{$t "login.button.less"}}</button>
+									</div>
+								</div>
+								{{> "lib/components/csrfInput"}}
+								<div class="form-group">
+									{{#if notification.statusCode}}
+										<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
+									{{else}}
+										<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login" />
+									{{/if}}
+								</div>
+								<div class="form-group" style="text-align:center">
+									<a href="" class="submit-pwrecovery">{{$t "login.link.forgotPassword"}}</a>
+								</div>
+							</input>
+						</form>
+						 <div class="form-group">
+							<input autofocus aria-label="return" type="button" class="btn btn-block btn-secondary btn-return" value="{{$t "login.button.return"}}" data-testid="submit-return"/>
+						</div>
+						<div class="return" hidden>{{ return }}</div>
+					</div>
 				{{/if}}
 			</form>
 		</div>
@@ -99,7 +175,7 @@
 </section>
 <div class="alert-section"></div>
 <div>
-    {{#if notification.statusCode}}
+	{{#if notification.statusCode}}
 		{{#embed "help/partials/login_failed_hint"}}{{/embed}}
-    {{/if}}
+	{{/if}}
 </div>

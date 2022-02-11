@@ -2450,9 +2450,12 @@
 	},
 	"login": {
 		"button": {
+			"ldap": "Login mit LDAP",
 			"less": "Weniger",
 			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
 			"moreOptions": "Mehr Optionen",
+			"return": "Zurück",
+			"schoolCloud": "Login via Cloud",
 			"show_password": "Passwort anzeigen",
 			"submitPrivacyPolicy": "Gelesen"
 		},
