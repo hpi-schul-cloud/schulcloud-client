@@ -2469,6 +2469,8 @@
 		},
 		"input": {
 			"emailUsername": "E-Mail \/ Nutzername",
+			"email": "E-Mail",
+			"username": "Nutzername",
 			"noSchoolsAvailable": "Keine Schulen verfügbar",
 			"noSchoolsSelection": "Wähle deine Schule",
 			"noSystemsAvailable": "Keine Systeme verfügbar",

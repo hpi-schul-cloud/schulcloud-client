@@ -123,6 +123,7 @@ $(document).ready(() => {
 		$oauthButton.hide();
 		$cloudButton.hide();
 		$ldapButton.hide();
+		// TODO Oberstes Eingabefeld = Nutzername (login.input.username), Login button Text = login mit ldap
 	});
 
 	$cloudButton.on('click', () => {
@@ -132,6 +133,7 @@ $(document).ready(() => {
 		$oauthButton.hide();
 		$cloudButton.hide();
 		$ldapButton.hide();
+		// TODO Oberstes Eingabefeld = Email (login.input.email), Login button Text = login via cloud
 	});
 
 	$returnButton.on('click', () => {
