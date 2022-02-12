@@ -1,6 +1,7 @@
 import './pwd';
 import initAlerts from './alerts';
 import * as storage from './helpers/storage';
+import i18next from 'i18next';
 
 $(document).ready(() => {
 	// reset localStorage when new version is Published
@@ -123,7 +124,8 @@ $(document).ready(() => {
 		$oauthButton.hide();
 		$cloudButton.hide();
 		$ldapButton.hide();
-		// TODO Oberstes Eingabefeld = Nutzername (login.input.username), Login button Text = login mit ldap
+		$btnLogin.val($t('login.button.ldap'));
+		// TODO Oberstes Eingabefeld = Nutzername (login.input.username)
 	});
 
 	$cloudButton.on('click', () => {
@@ -133,7 +135,8 @@ $(document).ready(() => {
 		$oauthButton.hide();
 		$cloudButton.hide();
 		$ldapButton.hide();
-		// TODO Oberstes Eingabefeld = Email (login.input.email), Login button Text = login via cloud
+		$btnLogin.val($t('login.button.schoolCloud'));
+		// TODO Oberstes Eingabefeld = Email (login.input.email)
 	});
 
 	$returnButton.on('click', () => {
