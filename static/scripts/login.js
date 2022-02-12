@@ -1,7 +1,7 @@
 import './pwd';
+import i18next from 'i18next';
 import initAlerts from './alerts';
 import * as storage from './helpers/storage';
-import i18next from 'i18next';
 
 $(document).ready(() => {
 	// reset localStorage when new version is Published
@@ -125,7 +125,8 @@ $(document).ready(() => {
 		$cloudButton.hide();
 		$ldapButton.hide();
 		$btnLogin.val($t('login.button.ldap'));
-		// TODO Oberstes Eingabefeld = Nutzername (login.input.username)
+		document.getElementById('name').placeholder = 'Nutzername'; // i18next.t('login.input.username'); should work, but doesn't
+		document.getElementById('name').parentElement.children[0].innerHTML = 'Nutzername'; // i18next.t('login.input.username'); should work but doen't
 	});
 
 	$cloudButton.on('click', () => {
@@ -136,7 +137,8 @@ $(document).ready(() => {
 		$cloudButton.hide();
 		$ldapButton.hide();
 		$btnLogin.val($t('login.button.schoolCloud'));
-		// TODO Oberstes Eingabefeld = Email (login.input.email)
+		document.getElementById('name').placeholder = 'E-Mail'; // i18next.t('login.input.email'); should work, but doesn't
+		document.getElementById('name').parentElement.children[0].innerHTML = 'E-Mail'; // i18next.t('login.input.email'); should work but doen't
 	});
 
 	$returnButton.on('click', () => {
