@@ -115,6 +115,10 @@ $(document).ready(() => {
 
 	$ldapButton.on('click', () => {
 		$credentialLogin.show();
+		$loginProviders.show();
+		$systems.parent().hide();
+		$btnHideProviders.hide();
+		$btnToggleProviders.hide();
 		$returnButton.show();
 		$oauthButton.hide();
 		$cloudButton.hide();
@@ -123,6 +127,7 @@ $(document).ready(() => {
 
 	$cloudButton.on('click', () => {
 		$credentialLogin.show();
+		$btnToggleProviders.hide();
 		$returnButton.show();
 		$oauthButton.hide();
 		$cloudButton.hide();
@@ -131,6 +136,7 @@ $(document).ready(() => {
 
 	$returnButton.on('click', () => {
 		$credentialLogin.hide();
+		$loginProviders.hide();
 		$oauthButton.show();
 		$cloudButton.show();
 		$ldapButton.show();
