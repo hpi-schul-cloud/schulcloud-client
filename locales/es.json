@@ -2450,9 +2450,12 @@
 	},
 	"login": {
 		"button": {
+			"ldap": "Iniciar sesión con LDAP",
 			"less": "Menos",
 			"longerLoggedInWhenActivated": "Cuando se activa, permaneces conectado durante más tiempo.",
 			"moreOptions": "Más opciones",
+			"return": "volver",
+			"schoolCloud": "Iniciar sesión con el correo electrónico",
 			"show_password": "Mostrar contraseña",
 			"submitPrivacyPolicy": "Leer"
 		},
@@ -2466,6 +2469,8 @@
 		},
 		"input": {
 			"emailUsername": "Correo electrónico \/ nombre de usuario",
+			"email": "nombre de usuario",
+			"username": "Nutzername",
 			"noSchoolsAvailable": "No hay escuelas disponibles",
 			"noSchoolsSelection": "Elige tu escuela",
 			"noSystemsAvailable": "No hay sistemas disponibles",
