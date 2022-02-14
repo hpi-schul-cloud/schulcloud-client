@@ -16,15 +16,6 @@
     }
 }
 
-#loginarea {
-    .login-providers {
-        display: none;
-    }
-    .credentials-login-form {
-        display: none;
-    }
-}
-
 .btn-primary.btn-outline{
     &:hover {
         background-color: var(--color-primary);
