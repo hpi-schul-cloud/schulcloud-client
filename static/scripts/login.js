@@ -56,6 +56,7 @@ $(document).ready(() => {
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 	const $iservOauthSystem = $('.iserv-oauth-system');
+	const $emailUsernameInputField = $('.usernameEmailPlaceholder');
 
 	const incTimer = () => {
 		setTimeout(() => {
@@ -125,8 +126,8 @@ $(document).ready(() => {
 		$cloudButton.hide();
 		$ldapButton.hide();
 		$btnLogin.val($t('login.button.ldap'));
-		document.getElementById('name').placeholder = 'Nutzername'; // i18next.t('login.input.username'); should work, but doesn't
-		document.getElementById('name').parentElement.children[0].innerHTML = 'Nutzername'; // i18next.t('login.input.username'); should work but doen't
+		$emailUsernameInputField.attr('placeholder', $t('login.input.username'));
+		$emailUsernameInputField.text($t('login.input.username'));
 	});
 
 	$cloudButton.on('click', () => {
@@ -137,8 +138,8 @@ $(document).ready(() => {
 		$cloudButton.hide();
 		$ldapButton.hide();
 		$btnLogin.val($t('login.button.schoolCloud'));
-		document.getElementById('name').placeholder = 'E-Mail'; // i18next.t('login.input.email'); should work, but doesn't
-		document.getElementById('name').parentElement.children[0].innerHTML = 'E-Mail'; // i18next.t('login.input.email'); should work but doen't
+		$emailUsernameInputField.attr('placeholder', $t('login.input.email'));
+		$emailUsernameInputField.text($t('login.input.email'));
 	});
 
 	$returnButton.on('click', () => {
