@@ -54,7 +54,6 @@ $(document).ready(() => {
 	const $systemBtns = $('.system-buttons');
 	const $loginProviders = $('.login-providers');
 	const $school = $('.school');
-	console.log($school);
 	const $systems = $('.system');
 	const $modals = $('.modal');
 	const $pwRecoveryModal = $('.pwrecovery-modal');
@@ -67,19 +66,25 @@ $(document).ready(() => {
 				// eslint-disable-next-line no-plusplus
 				countdownNum--;
 				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
+				$btnLoginLdap.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
 				incTimer();
 			} else {
 				$submitButton.val($t('home.header.link.login'));
+				$btnLoginLdap.val($t('home.header.link.login'));
 			}
 		}, 1000);
 	};
 
-	if ($submitButton.data('timeout')) {
+	if ($submitButton.data('timeout') || $btnLoginLdap.data('timeout')) {
 		setTimeout(() => {
 			$submitButton.prop('disabled', false);
-		}, $submitButton.data('timeout') * 1000);
-
-		countdownNum = $submitButton.data('timeout');
+			$btnLoginLdap.prop('disabled', false);
+		}, $submitButton.data('timeout') * 1000, $btnLoginLdap.data('timeout') * 1000);
+		if ($btnLoginLdap.data('timeout')) {
+			countdownNum = $btnLoginLdap.data('timeout');
+		} else {
+			countdownNum = $submitButton.data('timeout');
+		}
 		incTimer();
 	}
 
@@ -155,6 +160,13 @@ $(document).ready(() => {
 		showHideButtonsMenu(false);
 		showHideEmailLoginForm(false);
 		showHideLdapLoginForm(true);
+		if (!$btnLoginLdap.data('timeout')) {
+			if ($school.val()) {
+				$btnLoginLdap.prop('disabled', false);
+			} else {
+				$btnLoginLdap.prop('disabled', true);
+			}
+		}
 	});
 
 	$returnButton.on('click', () => {
@@ -196,10 +208,14 @@ $(document).ready(() => {
 
 	$school.on('change', (event) => {
 		// due to the class 'school' being duplicated, it is necessary to listen to the element's event to get the value
-		console.log('HI');
-		console.log($submitButton);
-		$submitButton.prop('disabled', false);
 		const id = $(event.target).val();
+		if (!$btnLoginLdap.data('timeout')) {
+			if (id) {
+				$btnLoginLdap.prop('disabled', false);
+			} else {
+				$btnLoginLdap.prop('disabled', true);
+			}
+		}
 		const dataSystems = $(event.target).find(':selected').data('systems');
 		if (id !== '' && dataSystems) {
 			loadSystems(dataSystems);
