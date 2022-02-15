@@ -31,9 +31,13 @@
 	.login-providers {
 		display: none;
 	}
-	.credentials-login-form {
+	.email-login-section {
 		display: none;
 	}
+	.ldap-login-section {
+		display: none;
+	}
+
 }
 
 .login-failed-container {

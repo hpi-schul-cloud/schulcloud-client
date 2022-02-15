@@ -47,16 +47,19 @@ $(document).ready(() => {
 	const $oauthButton = $('.btn-oauth');
 	const $ldapButton = $('.btn-ldap');
 	const $cloudButton = $('.btn-cloud');
+	const $emailLoginSection = $('.email-login-section');
+	const $ldapLoginSection = $('.ldap-login-section');
+	const $btnLoginLdap = $('.btn-login-ldap');
 	const $returnButton = $('.btn-return');
-	const $credentialLogin = $('.credentials-login-form');
+	const $systemBtns = $('.system-buttons');
 	const $loginProviders = $('.login-providers');
 	const $school = $('.school');
+	console.log($school);
 	const $systems = $('.system');
 	const $modals = $('.modal');
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 	const $iservOauthSystem = $('.iserv-oauth-system');
-	const $emailUsernameInputField = $('.usernameEmailPlaceholder');
 
 	const incTimer = () => {
 		setTimeout(() => {
@@ -96,6 +99,33 @@ $(document).ready(() => {
 		$systems.trigger('chosen:updated');
 	};
 
+	// show / hide main button screen
+	const showHideButtonsMenu = (toShow) => {
+		if (toShow) { // show
+			$systemBtns.show();
+		} else { // hide
+			$systemBtns.hide();
+		}
+	};
+
+	// show / hide main button screen
+	const showHideEmailLoginForm = (toShow) => {
+		if (toShow) { // show
+			$emailLoginSection.show();
+		} else { // hide
+			$emailLoginSection.hide();
+		}
+	};
+
+	// show / hide main button screen
+	const showHideLdapLoginForm = (toShow) => {
+		if (toShow) { // show
+			$ldapLoginSection.show();
+		} else { // hide
+			$ldapLoginSection.hide();
+		}
+	};
+
 	$btnToggleProviders.on('click', (e) => {
 		e.preventDefault();
 		$btnToggleProviders.hide();
@@ -115,39 +145,22 @@ $(document).ready(() => {
 		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?client_id=${iservOauthSystem.oauthConfig.clientId}&redirect_uri=${iservOauthSystem.oauthConfig.codeRedirectUri}&response_type=${iservOauthSystem.oauthConfig.responseType}&scope=${iservOauthSystem.oauthConfig.scope}`;
 	});
 
-	$ldapButton.on('click', () => {
-		$credentialLogin.show();
-		$loginProviders.show();
-		$systems.parent().hide();
-		$btnHideProviders.hide();
-		$btnToggleProviders.hide();
-		$returnButton.show();
-		$oauthButton.hide();
-		$cloudButton.hide();
-		$ldapButton.hide();
-		$btnLogin.val($t('login.button.ldap'));
-		$emailUsernameInputField.attr('placeholder', $t('login.input.username'));
-		$emailUsernameInputField.text($t('login.input.username'));
+	$cloudButton.on('click', () => {
+		showHideButtonsMenu(false);
+		showHideLdapLoginForm(false);
+		showHideEmailLoginForm(true);
 	});
 
-	$cloudButton.on('click', () => {
-		$credentialLogin.show();
-		$btnToggleProviders.hide();
-		$returnButton.show();
-		$oauthButton.hide();
-		$cloudButton.hide();
-		$ldapButton.hide();
-		$btnLogin.val($t('login.button.schoolCloud'));
-		$emailUsernameInputField.attr('placeholder', $t('login.input.email'));
-		$emailUsernameInputField.text($t('login.input.email'));
+	$ldapButton.on('click', () => {
+		showHideButtonsMenu(false);
+		showHideEmailLoginForm(false);
+		showHideLdapLoginForm(true);
 	});
 
 	$returnButton.on('click', () => {
-		$credentialLogin.hide();
-		$loginProviders.hide();
-		$oauthButton.show();
-		$cloudButton.show();
-		$ldapButton.show();
+		showHideEmailLoginForm(false);
+		showHideLdapLoginForm(false);
+		showHideButtonsMenu(true);
 	});
 
 	$btnHideProviders.on('click', (e) => {
@@ -183,6 +196,9 @@ $(document).ready(() => {
 
 	$school.on('change', (event) => {
 		// due to the class 'school' being duplicated, it is necessary to listen to the element's event to get the value
+		console.log('HI');
+		console.log($submitButton);
+		$submitButton.prop('disabled', false);
 		const id = $(event.target).val();
 		const dataSystems = $(event.target).find(':selected').data('systems');
 		if (id !== '' && dataSystems) {
