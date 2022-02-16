@@ -2450,7 +2450,7 @@
 	},
 	"login": {
 		"button": {
-			"ldap": "Login mit LDAP",
+			"ldap": "Login über Schul-LDAP",
 			"less": "Weniger",
 			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
 			"moreOptions": "Mehr Optionen",

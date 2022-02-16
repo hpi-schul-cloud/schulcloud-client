@@ -2450,7 +2450,7 @@
 	},
 	"login": {
 		"button": {
-			"ldap": "Login with LDAP",
+			"ldap": "Login via school LDAP",
 			"less": "Less",
 			"longerLoggedInWhenActivated": "When activated, you stay logged in longer.",
 			"moreOptions": "More options",
