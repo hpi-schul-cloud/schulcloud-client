@@ -43,12 +43,14 @@ $(document).ready(() => {
 	const $btnToggleProviders = $('.btn-toggle-providers');
 	const $btnHideProviders = $('.btn-hide-providers');
 	const $btnLogin = $('.btn-login');
+	const $oauthButton = $('.btn-oauth');
 	const $loginProviders = $('.login-providers');
 	const $school = $('.school');
 	const $systems = $('.system');
 	const $modals = $('.modal');
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
+	const $iservOauthSystem = $('.iserv-oauth-system');
 
 	const incTimer = () => {
 		setTimeout(() => {
@@ -99,6 +101,12 @@ $(document).ready(() => {
 			$btnToggleProviders.hide();
 			$loginProviders.show();
 		}
+	});
+
+	$oauthButton.on('click', () => {
+		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
+		// eslint-disable-next-line max-len
+		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?client_id=${iservOauthSystem.oauthConfig.clientId}&redirect_uri=${iservOauthSystem.oauthConfig.codeRedirectUri}&response_type=${iservOauthSystem.oauthConfig.responseType}&scope=${iservOauthSystem.oauthConfig.scope}`;
 	});
 
 	$btnHideProviders.on('click', (e) => {
