@@ -77,7 +77,8 @@ const getIservOauthSystem = (schools) => {
 	for (let schoolIndex = 0; schoolIndex < schools.length; schoolIndex += 1) {
 		const { systems } = schools[schoolIndex];
 		for (let systemIndex = 0; systemIndex < systems.length; systemIndex += 1) {
-			if (systems[systemIndex].type === 'iserv') return systems[systemIndex];
+			// eslint-disable-next-line max-len
+			if (systems[systemIndex].oauthConfig && systems[systemIndex].oauthConfig.provider === 'iserv') return systems[systemIndex];
 		}
 	}
 	return null;
