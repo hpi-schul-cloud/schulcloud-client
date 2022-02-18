@@ -83,6 +83,9 @@ const getIservOauthSystem = (schools) => {
 	return null;
 };
 
+// eslint-disable-next-line max-len
+const getNonOauthSchools = (schools) => schools.filter((school) => school.systems.filter((system) => system.oauthConfig).length === 0);
+
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
@@ -93,8 +96,7 @@ router.all('/', (req, res, next) => {
 			if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
 				const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 				res.render('authentication/home', {
-					// eslint-disable-next-line max-len
-					schools: schools.filter((school) => school.systems.filter((system) => system.type === 'iserv').length === 0),
+					schools: getNonOauthSchools(schools),
 					systems: [],
 					iservOauthSystem,
 					inline: true,
@@ -131,8 +133,7 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 			}
 			const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 			res.render('authentication/login', {
-				// eslint-disable-next-line max-len
-				schools: schools.filter((school) => school.systems.filter((system) => system.type === 'iserv').length === 0),
+				schools: getNonOauthSchools(schools),
 				systems: [],
 				iservOauthSystem,
 				hideMenu: true,
