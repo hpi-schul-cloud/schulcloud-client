@@ -1,5 +1,4 @@
 import './pwd';
-import i18next from 'i18next';
 import initAlerts from './alerts';
 import * as storage from './helpers/storage';
 
