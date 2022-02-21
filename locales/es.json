@@ -2450,7 +2450,7 @@
 	},
 	"login": {
 		"button": {
-			"ldap": "Iniciar sesión a través del LDAP de la escuela",
+			"ldap": "Iniciar sesión con LDAP de la escuela",
 			"less": "Menos",
 			"longerLoggedInWhenActivated": "Cuando se activa, permaneces conectado durante más tiempo.",
 			"moreOptions": "Más opciones",
