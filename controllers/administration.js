@@ -786,6 +786,8 @@ router.get(
 		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 		res.render('administration/dashboard', {
 			title: res.$t('administration.controller.headline.general', { title }),
+			inMaintenance: res.locals.currentSchoolData.inMaintenance,
+			inUserMigration: res.locals.currentSchoolData.inUserMigration,
 		});
 	},
 );

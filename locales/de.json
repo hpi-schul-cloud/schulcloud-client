@@ -299,7 +299,8 @@
 				"manageSchool": "Schule verwalten",
 				"manageStudents": "Schüler:innen verwalten",
 				"manageTeachers": "Lehrkräfte verwalten",
-				"manageTeams": "Teams verwalten"
+				"manageTeams": "Teams verwalten",
+				"migration": "Benutzerkonten aus webBSchule migrieren"
 			}
 		},
 		"form_DeleteRss": {
@@ -2445,7 +2446,8 @@
 		"text": {
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
 			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte kontaktiere deinen Schul-Admin!",
-			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"\/administration\/school\/\"> hier das neue Schuljahr ein!<\/a>"
+			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"\/administration\/school\/\"> hier das neue Schuljahr ein!<\/a>",
+			"schoolInMigrationMode": "Die Schule befindet sich im Modus der Benutzermigration. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"\/administration\/migration\/\">diese Seite</a>."
 		}
 	},
 	"login": {
