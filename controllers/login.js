@@ -85,7 +85,7 @@ const getIservOauthSystem = (schools) => {
 };
 
 // eslint-disable-next-line max-len
-const getNonOauthSchools = (schools) => schools.filter((school) => school.systems.filter((system) => system.oauthConfig).length === 0);
+const getNonOauthSchools = (schools) => [...schools].filter((school) => school.systems.filter((system) => system.oauthConfig).length === 0);
 
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
