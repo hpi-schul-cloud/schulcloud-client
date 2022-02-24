@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "27.5.0",
+	"version": "27.6.0",
 	"private": true,
 	"scripts": {
 		"start": "node --unhandled-rejections=warn ./bin/www",
@@ -151,7 +151,7 @@
 		"autoprefixer": "^9.8.6",
 		"babel-eslint": "^10.1.0",
 		"babel-loader": "^8.2.2",
-		"browser-sync": "^2.27.5",
+		"browser-sync": "^2.27.7",
 		"chai": "^4.3.4",
 		"chai-http": "^4.3.0",
 		"env2": "^2.2.0",
