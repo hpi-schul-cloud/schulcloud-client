@@ -95,7 +95,8 @@ router.all('/', (req, res, next) => {
 
 		return LoginSchoolsCache.get(req).then((schools) => {
 			if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
-				const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+				let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+				iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
 				res.render('authentication/home', {
 					schools: getNonOauthSchools(schools),
 					systems: [],
@@ -132,7 +133,8 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 					message: res.$t(mapErrorcodeToTranslation(req.query.error)),
 				};
 			}
-			const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+			let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+			iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
 			res.render('authentication/login', {
 				schools: getNonOauthSchools(schools),
 				systems: [],
