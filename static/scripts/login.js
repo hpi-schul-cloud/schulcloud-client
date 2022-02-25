@@ -57,7 +57,6 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
-	const $iservOauthSystem = $('.iserv-oauth-system');
 
 	const incTimer = () => {
 		setTimeout(() => {
@@ -144,7 +143,7 @@ $(document).ready(() => {
 	});
 
 	$oauthButton.on('click', () => {
-		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
+		const iservOauthSystem = JSON.parse($oauthButton[0].dataset.system);
 		// eslint-disable-next-line max-len
 		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?client_id=${iservOauthSystem.oauthConfig.clientId}&redirect_uri=${iservOauthSystem.oauthConfig.codeRedirectUri}&response_type=${iservOauthSystem.oauthConfig.responseType}&scope=${iservOauthSystem.oauthConfig.scope}`;
 	});
