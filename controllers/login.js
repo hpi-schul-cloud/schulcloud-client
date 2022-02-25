@@ -114,8 +114,15 @@ router.all('/', (req, res, next) => {
 });
 
 // eslint-disable-next-line no-unused-vars
-const mapErrorcodeToTranslation = (errorCode) => 'login.text.oauthLoginFailed';
-// if (errorCode === 'OauthLoginFailed') return 'login.text.oauth.loginFailed';
+const mapErrorcodeToTranslation = (errorCode) => {
+	if (errorCode === 'sso_jwt_problem') return 'login.text.jwtProblem'; // no token / token not decoded / uuid not in token
+	if (errorCode === 'sso_user_notfound') return 'login.text.userNotfound'; // user ist noch nicht gesynct/ed
+	if (errorCode === 'sso_oauth_invalid_request') return 'login.text.invalidRequest'; // cleint_id falsch / redirect_uri bei iServ unkbekannt
+	if (errorCode === 'sso_oauth_access_denied') return 'login.text.accessDenied'; // auf ablehnen gedrückt
+	if (errorCode === 'sso_oauth_unsupported_response_type') return 'login.text.unsupportedResponseType'; // falsche response_type geschickt
+	if (errorCode === 'sso_auth_code_step') return 'login.text.oauthCodeStep'; // default auth_code error
+	return 'login.text.oauthLoginFailed';
+};
 
 /*
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
