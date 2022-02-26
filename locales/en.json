@@ -2515,6 +2515,7 @@
 			}
 		},
 		"text": {
+			"accessDenied": "Login via school server failed. Please press the \"Legitimate\" button.",
 			"errorFirstLogin": "An error has occurred while processing the FirstLogin data.",
 			"loginFailed": "Login failed.",
 			"loginFailedFirstHint": "1. Which browser do you use?",
@@ -2532,11 +2533,12 @@
 			"loginFailedSecondHint": "2. Have you deleted your cookies and website data?",
 			"loginFailedThirdHint": "3. Have you tried to log in on another device (e.g. laptop instead of mobile phone) ?",
 			"oauthLoginFailed": "Login via school server failed.",
-			"oauthCodeStep": "Login failed. Versuche es erneut. Sollte es weiterhin nicht funktionieren, kontaktiere den Support.",
+			"oauthCodeStep": "Login via school server failed. Try again later or contact support if necessary.",
 			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
 			"showPassword": "Show Password:",
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
-			"superheroText": "You are trying log in with a superhero account."
+			"superheroText": "You are trying log in with a superhero account.",
+			"userNotFound": "It seems that the account has not been synchronized yet. Please wait 2 hours or contact your admin."
 		}
 	},
 	"messenger": {
