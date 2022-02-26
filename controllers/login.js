@@ -116,7 +116,7 @@ router.all('/', (req, res, next) => {
 const mapErrorcodeToTranslation = (errorCode) => {
 	switch (errorCode) {
 		case 'sso_user_notfound':
-			return 'login.text.userNotfound';
+			return 'login.text.userNotFound';
 		case 'sso_oauth_access_denied':
 			return 'login.text.accessDenied';
 		case 'sso_jwt_problem':
