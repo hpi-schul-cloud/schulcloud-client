@@ -21,13 +21,8 @@ data:
     let matrixMessengerEmbed = '';
     let matrixMessengerHomeserver = '';
     if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
-{% if MATRIX_MESSENGER_CONFIG_2 is defined and MATRIX_MESSENGER_CONFIG_2 == "true" %}
       matrixMessengerEmbed = Configuration.get('MATRIX_MESSENGER__EMBED_URI');
       matrixMessengerHomeserver = Configuration.get('MATRIX_MESSENGER__URI');
-{% else %}
-      matrixMessengerEmbed = Configuration.get('MATRIX_MESSENGER_EMBED_URI');
-      matrixMessengerHomeserver = Configuration.get('MATRIX_MESSENGER_HOMESERVER_URI');
-{% endif %}
     }
 
     const config = {
