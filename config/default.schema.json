@@ -206,18 +206,6 @@
 			"default": "true",
 			"description": "Allows school admin to toggle student's LERNSTORE_VIEW permission."
 		},
-		"SENTRY_DSN": {
-			"type": "string",
-			"format": "uri",
-			"description": "Sentry DSN (uri), if defined, increase SENTRY_SAMPLE_RATE to desired value to get errors reported."
-		},
-		"SENTRY_SAMPLE_RATE": {
-			"type": "number",
-			"default": 1.0,
-			"minimum": 0.0,
-			"maximum": 1.0,
-			"description": "This is the % count (0.00 to 1.00) of how many of the errors send to the backend. This filter go over all errors, maybe some lost by low user counts."
-		},
 		"FEATURE_ETHERPAD_ENABLED": {
 			"type": "boolean",
 			"default": true,

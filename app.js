@@ -12,7 +12,6 @@ const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
-const Sentry = require('@sentry/node');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const { staticAssetsMiddleware } = require('./middleware/assets');
@@ -44,27 +43,6 @@ const app = express();
 
 // print current configuration
 Configuration.printHierarchy();
-
-if (Configuration.has('SENTRY_DSN')) {
-	Sentry.init({
-		dsn: Configuration.get('SENTRY_DSN'),
-		environment: app.get('env'),
-		release: version,
-		sampleRate: Configuration.get('SENTRY_SAMPLE_RATE'),
-		/*	Sentry.Handlers.requestHandler() is used
-			integrations: [
-				new Sentry.Integrations.Console(),
-			],
-		*/
-	});
-	Sentry.configureScope((scope) => {
-		scope.setTag('frontend', false);
-		scope.setLevel('warning');
-		scope.setTag('domain', SC_DOMAIN);
-		scope.setTag('sha', sha);
-	});
-	app.use(Sentry.Handlers.requestHandler());
-}
 
 // setup prometheus metrics
 prometheus(app);
@@ -201,15 +179,6 @@ app.use(async (req, res, next) => {
 	} catch (error) {
 		return next(error);
 	}
-	if (Configuration.has('SENTRY_DSN')) {
-		Sentry.configureScope((scope) => {
-			if (res.locals.currentUser) {
-				scope.setTag({ schoolId: res.locals.currentUser.schoolId });
-			}
-			const { url, header } = req;
-			scope.request = { url: removeIds(url), header };
-		});
-	}
 	return next();
 });
 
@@ -256,9 +225,6 @@ const isTimeoutError = (err) => err && err.message && (
 	|| err.message.includes('ECONNREFUSED')
 	|| err.message.includes('ETIMEDOUT')
 );
-
-// sentry error handler
-app.use(Sentry.Handlers.errorHandler());
 
 app.use((err, req, res, next) => {
 	const error = err.error || err;
