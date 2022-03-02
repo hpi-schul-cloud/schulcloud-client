@@ -41,28 +41,4 @@ describe('Login tests', () => {
 		expect(result.res.text).to.contain('Marla Mathe');
 		expect(result.res.text).to.contain(i18next.t('global.placeholder.Schüler'));
 	}));
-
-	it('show login via schoolserver button', () => new Promise((resolve) => {
-		chai.request(app)
-			.get('authentication/home')
-			.end((err, res) => {
-				if (FEATURE_OAUTH_LOGIN_ENABLED_MOCK) {
-					expect(res.statusCode).to.equal(200);
-					expect(res.text).to.contain(i18next.t('login.oauth2.headline.loginIserv'));
-					resolve();
-				}
-			});
-	}));
-
-	it(' login via schoolserver button is not displayed ', () => new Promise((resolve) => {
-		chai.request(app)
-			.get('authentication/home')
-			.end((err, res) => {
-				if (!FEATURE_OAUTH_LOGIN_ENABLED_MOCK) {
-					expect(res.statusCode).to.equal(200);
-					expect(res.text).to.contain(!i18next.t('login.oauth2.headline.loginIserv'));
-					resolve();
-				}
-			});
-	}));
 });
