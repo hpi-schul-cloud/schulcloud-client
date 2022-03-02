@@ -95,9 +95,8 @@
 						<div class="ldap-system" hidden>{{ ldapSystem }}</div>
 						{{#if iservOauthSystem}}
 							<div class="form-group">
-								<input autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}" data-testid="submit-oauth-login"/>
+								<input autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" value="{{$t "login.oauth2.headline.loginIserv"}}" data-testid="submit-oauth-login" data-system="{{ iservOauthSystem }}"/>
 							</div>
-							<div class="iserv-oauth-system" hidden>{{ iservOauthSystem }}</div>
 						{{/if}}
 					</div>
 

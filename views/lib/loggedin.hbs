@@ -45,6 +45,9 @@
         {{#if currentSchoolData.inMaintenance}}
         <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
         {{/if}}
+        {{#if currentSchoolData.inUserMigration}}
+            <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
+        {{/if}}
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">

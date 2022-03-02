@@ -77,11 +77,15 @@ const getIservOauthSystem = (schools) => {
 	for (let schoolIndex = 0; schoolIndex < schools.length; schoolIndex += 1) {
 		const { systems } = schools[schoolIndex];
 		for (let systemIndex = 0; systemIndex < systems.length; systemIndex += 1) {
-			if (systems[systemIndex].type === 'iserv') return systems[systemIndex];
+			// eslint-disable-next-line max-len
+			if (systems[systemIndex].oauthConfig && systems[systemIndex].oauthConfig.provider === 'iserv') return systems[systemIndex];
 		}
 	}
 	return null;
 };
+
+// eslint-disable-next-line max-len
+const getNonOauthSchools = (schools) => [...schools].filter((school) => school.systems.filter((system) => system.oauthConfig).length === 0);
 
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
@@ -91,10 +95,10 @@ router.all('/', (req, res, next) => {
 
 		return LoginSchoolsCache.get(req).then((schools) => {
 			if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
-				const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+				let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+				iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
 				res.render('authentication/home', {
-					// eslint-disable-next-line max-len
-					schools: schools.filter((school) => school.systems.filter((system) => system.type === 'iserv').length === 0),
+					schools: getNonOauthSchools(schools),
 					systems: [],
 					iservOauthSystem,
 					inline: true,
@@ -129,10 +133,10 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 					message: res.$t(mapErrorcodeToTranslation(req.query.error)),
 				};
 			}
-			const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+			let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+			iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
 			res.render('authentication/login', {
-				// eslint-disable-next-line max-len
-				schools: schools.filter((school) => school.systems.filter((system) => system.type === 'iserv').length === 0),
+				schools: getNonOauthSchools(schools),
 				systems: [],
 				iservOauthSystem,
 				hideMenu: true,

@@ -144,14 +144,19 @@ $(document).ready(function () {
         return !(e.key === "Unidentified");
     });
 
+	// check for user migration mode
+	if ($('#inUserMigration').length && $('#inUserMigration').val() === 'Administrator') {
+		$.showNotification($t('loggedin.text.schoolInMigrationMode'), 'warning');
+	}
+
 	// check for LDAP Transfer Mode
-	if ($('#schuljahrtransfer').length) {
+	if ($('#schuljahrtransfer').length && $('#inUserMigration').length === 0) {
 		if ($('#schuljahrtransfer').val() === 'Lehrer') {
 			$.showNotification($t('loggedin.text.schoolInTransferPhaseContactAdmin'), 'warning');
 		} else if ($('#schuljahrtransfer').val() === 'Administrator') {
 			$.showNotification($t('loggedin.text.schoolInTransferPhaseStartNew'), 'warning');
 		}
-    }
+	}
 
     initAlerts('loggedin');
 });

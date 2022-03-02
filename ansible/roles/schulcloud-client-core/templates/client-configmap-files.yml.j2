@@ -50,6 +50,7 @@ data:
             styleSrc: `'self' 'unsafe-inline' ${matrixMessengerEmbed}`,
             // scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
             scriptSrc: `'self' 'unsafe-eval' {{ MATRIX_MESSENGER__DISCOVER_URI | default("", true) }} {{ MATRIX_MESSENGER__URI | default("", true) }} ${matrixMessengerEmbed} ${matrixMessengerHomeserver}`,
+            frameSrc: `'self' https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }} https://docs.hpi-schul-cloud.org https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }} {{ MATRIX_MESSENGER__URI | default("") }} {{ MATRIX_MESSENGER__DISCOVER_URI | default('', true) }} {{ MATRIX_MESSENGER__URI | default('', true) }} {{ MATRIX_MESSENGER__EMBED_URI | default('', true) }}`,
             // Please activate for production
             // upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
             // blockAllMixedContentSrc: 'block-all-mixed-content',
