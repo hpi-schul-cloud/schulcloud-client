@@ -244,7 +244,6 @@ $(document).ready(() => {
 		$loginProviders.show();
 		$school.val(storage.local.getItem('loginSchool'));
 		$school.trigger('chosen:updated');
-		$btnLoginLdap.prop('disabled', false);
 	}
 
 	initAlerts('login');
