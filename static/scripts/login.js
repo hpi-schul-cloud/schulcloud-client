@@ -243,12 +243,8 @@ $(document).ready(() => {
 		$btnToggleProviders.hide();
 		$loginProviders.show();
 		$school.val(storage.local.getItem('loginSchool'));
-		$school.trigger('change');
-		for (let i = 0; i < $school[0].children.length; i += 1) {
-			if ($school[0].children[i].value === storage.local.getItem('loginSchool')) {
-				$('.chosen-container')[0].children[0].children[0].innerHTML = $school[0].children[i].innerHTML;
-			}
-		}
+		$school.trigger('chosen:updated');
+		$btnLoginLdap.prop('disabled', false);
 	}
 
 	initAlerts('login');
