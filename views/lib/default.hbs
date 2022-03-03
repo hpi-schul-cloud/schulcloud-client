@@ -2,7 +2,6 @@
 <html lang="{{#if userLanguage}}{{userLanguage}}{{else}}de{{/if}}" timezone="{{currentTimezone}}">
 
 <head>
-	{{#embed "lib/sentry"}}{{/embed}}
 	<title>{{#if title}}{{title}} - {{/if}}{{theme.title}} - {{$t "lib.headline.yourDigitalLearningEnvironment"}}</title>
 	{{#block "meta"}}
 	<meta name="csrfToken" content="{{csrfToken}}">
