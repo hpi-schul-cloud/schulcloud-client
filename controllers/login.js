@@ -113,9 +113,21 @@ router.all('/', (req, res, next) => {
 	});
 });
 
-// eslint-disable-next-line no-unused-vars
-const mapErrorcodeToTranslation = (errorCode) => 'login.text.oauthLoginFailed';
-// if (errorCode === 'OauthLoginFailed') return 'login.text.oauth.loginFailed';
+const mapErrorcodeToTranslation = (errorCode) => {
+	switch (errorCode) {
+		case 'sso_user_notfound':
+			return 'login.text.userNotFound';
+		case 'sso_oauth_access_denied':
+			return 'login.text.accessDenied';
+		case 'sso_jwt_problem':
+		case 'sso_oauth_invalid_request':
+		case 'sso_oauth_unsupported_response_type':
+		case 'sso_auth_code_step':
+			return 'login.text.oauthCodeStep';
+		default:
+			return 'login.text.oauthLoginFailed';
+	}
+};
 
 /*
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
