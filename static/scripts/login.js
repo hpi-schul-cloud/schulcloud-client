@@ -74,9 +74,10 @@ $(document).ready(() => {
 			if (countdownNum !== 1) {
 				// eslint-disable-next-line no-plusplus
 				countdownNum--;
-				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
-				$btnLoginLdap.data('active', false);
+				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));		
 				$btnLoginLdap.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
+				$btnLoginLdap.prop('disabled', true);
+				$btnLoginLdap.data('active', false);
 				$btnLoginCloud.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
 				incTimer();
 			} else {
@@ -178,7 +179,7 @@ $(document).ready(() => {
 		showHideButtonsMenu(false);
 		showHideEmailLoginForm(false);
 		showHideLdapLoginForm(true);
-		enableDisableLdapBtn($school.val());
+		$school.trigger('chosen:updated');
 	});
 
 	$returnButton.on('click', () => {
