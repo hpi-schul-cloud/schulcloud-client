@@ -49,6 +49,7 @@ $(document).ready(() => {
 	const $emailLoginSection = $('.email-login-section');
 	const $ldapLoginSection = $('.ldap-login-section');
 	const $btnLoginLdap = $('.btn-login-ldap');
+	const $btnLoginCloud = $('.btn-login-cloud');
 	const $returnButton = $('.btn-return');
 	const $systemBtns = $('.system-buttons');
 	const $loginProviders = $('.login-providers');
@@ -58,28 +59,47 @@ $(document).ready(() => {
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 
+	const enableDisableLdapBtn = (id) => {
+		if ($btnLoginLdap.data('active') === true) {
+			if (id) {
+				$btnLoginLdap.prop('disabled', false);
+			} else {
+				$btnLoginLdap.prop('disabled', true);
+			}
+		}
+	};
+
 	const incTimer = () => {
 		setTimeout(() => {
 			if (countdownNum !== 1) {
 				// eslint-disable-next-line no-plusplus
 				countdownNum--;
 				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
+				$btnLoginLdap.data('active', false);
 				$btnLoginLdap.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
+				$btnLoginCloud.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
 				incTimer();
 			} else {
 				$submitButton.val($t('home.header.link.login'));
-				$btnLoginLdap.val($t('home.header.link.login'));
+				$btnLoginLdap.val($t('login.button.ldap'));
+				$btnLoginCloud.val($t('login.button.schoolCloud'));
 			}
 		}, 1000);
 	};
 
-	if ($submitButton.data('timeout') || $btnLoginLdap.data('timeout')) {
+	if ($submitButton.data('timeout') || $btnLoginLdap.data('timeout') || $btnLoginCloud.data('timeout')) {
 		setTimeout(() => {
 			$submitButton.prop('disabled', false);
-			$btnLoginLdap.prop('disabled', false);
-		}, $submitButton.data('timeout') * 1000, $btnLoginLdap.data('timeout') * 1000);
+			$btnLoginLdap.data('active', true);
+			enableDisableLdapBtn($school.val());
+			$btnLoginCloud.prop('disabled', false);
+		}, $submitButton.data('timeout') * 1000,
+		$btnLoginLdap.data('timeout') * 1000,
+		$btnLoginCloud.data('timeout') * 1000);
 		if ($btnLoginLdap.data('timeout')) {
 			countdownNum = $btnLoginLdap.data('timeout');
+		} else if ($btnLoginCloud.data('timeout')) {
+			countdownNum = $btnLoginCloud.data('timeout');
 		} else {
 			countdownNum = $submitButton.data('timeout');
 		}
@@ -158,13 +178,7 @@ $(document).ready(() => {
 		showHideButtonsMenu(false);
 		showHideEmailLoginForm(false);
 		showHideLdapLoginForm(true);
-		if (!$btnLoginLdap.data('timeout')) {
-			if ($school.val()) {
-				$btnLoginLdap.prop('disabled', false);
-			} else {
-				$btnLoginLdap.prop('disabled', true);
-			}
-		}
+		enableDisableLdapBtn($school.val());
 	});
 
 	$returnButton.on('click', () => {
@@ -207,13 +221,7 @@ $(document).ready(() => {
 	$school.on('change', (event) => {
 		// due to the class 'school' being duplicated, it is necessary to listen to the element's event to get the value
 		const id = $(event.target).val();
-		if (!$btnLoginLdap.data('timeout')) {
-			if (id) {
-				$btnLoginLdap.prop('disabled', false);
-			} else {
-				$btnLoginLdap.prop('disabled', true);
-			}
-		}
+		enableDisableLdapBtn(id);
 		const dataSystems = $(event.target).find(':selected').data('systems');
 		if (id !== '' && dataSystems) {
 			loadSystems(dataSystems);
@@ -243,7 +251,7 @@ $(document).ready(() => {
 		$btnToggleProviders.hide();
 		$loginProviders.show();
 		$school.val(storage.local.getItem('loginSchool'));
-		$school.trigger('chosen:updated');
+		$school.trigger('change');
 	}
 
 	initAlerts('login');
