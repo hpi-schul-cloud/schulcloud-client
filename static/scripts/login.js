@@ -36,6 +36,7 @@ $(document).ready(() => {
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 	const $iservOauthSystem = $('.iserv-oauth-system');
+	const $oauthError = $('.oauth-error');
 
 	const incTimer = () => {
 		setTimeout(() => {
@@ -87,6 +88,17 @@ $(document).ready(() => {
 			$loginProviders.show();
 		}
 	});
+
+	if ($oauthError && $oauthButton[0] && $oauthError[0].innerText === 'true') {
+		let logoutWindow = null;
+		const closeLogoutWindow = () => {
+			logoutWindow.close();
+		};
+		logoutWindow = window.open('https://iserv.n21.dbildungscloud.de/iserv/auth/logout', '', 'width=50,height=50');
+		window.focus();
+		setTimeout(closeLogoutWindow, 1500);
+		$oauthError[0].innerText = 'false';
+	}
 
 	$oauthButton.on('click', () => {
 		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);

@@ -86,7 +86,7 @@ const getIservOauthSystem = (schools) => {
 
 // eslint-disable-next-line max-len
 const getNonOauthSchools = (schools) => schools.filter((school) => school.systems.filter((system) => system.oauthConfig).length === 0);
-
+let oauthError = false;
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
@@ -100,6 +100,7 @@ router.all('/', (req, res, next) => {
 					schools: getNonOauthSchools(schools),
 					systems: [],
 					iservOauthSystem,
+					oauthError,
 					inline: true,
 				});
 			} else {
@@ -114,6 +115,7 @@ router.all('/', (req, res, next) => {
 });
 
 const mapErrorcodeToTranslation = (errorCode) => {
+	oauthError = true;
 	switch (errorCode) {
 		case 'sso_user_notfound':
 			return 'login.text.userNotFound';
@@ -149,6 +151,7 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 				schools: getNonOauthSchools(schools),
 				systems: [],
 				iservOauthSystem,
+				oauthError,
 				hideMenu: true,
 				redirect,
 			});
