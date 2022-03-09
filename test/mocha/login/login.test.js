@@ -47,7 +47,7 @@ describe('Login tests', () => {
 		chai.request(app)
 			.get('authentication/home')
 			.end((err, res) => {
-				expect(res.text).to.contain($('.button-oauth'));
+				expect(res.text).to.contain($('.btn-oauth'));
 				Configuration.reset(configBefore);
 				resolve();
 			});
@@ -60,7 +60,7 @@ describe('Login tests', () => {
 			.get('authentication/home')
 			.end((err, res) => {
 				// expect(res.text).to.contain($('.button-oauth'));
-				expect(res.text).not.contain($('.button-oauth'));
+				expect(res.text).not.contain($('.btn-oauth'));
 				Configuration.reset(configBefore);
 				resolve();
 			});
