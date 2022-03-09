@@ -45,9 +45,9 @@ describe('Login tests', () => {
 		const configBefore = Configuration.toObject({ plainSecrets: true });
 		Configuration.set('FEATURE_OAUTH_LOGIN_ENABLED', true);
 		chai.request(app)
-			.get('authentication/home')
+			.get('/login')
 			.end((err, res) => {
-				expect(res.text).to.contain($('.btn-oauth'));
+				expect(res.text).to.contain(i18next.t('login.oauth2.headline.loginIserv'));
 				Configuration.reset(configBefore);
 				resolve();
 			});
@@ -57,10 +57,10 @@ describe('Login tests', () => {
 		const configBefore = Configuration.toObject({ plainSecrets: true });
 		Configuration.set('FEATURE_OAUTH_LOGIN_ENABLED', false);
 		chai.request(app)
-			.get('authentication/home')
+			.get('/login')
 			.end((err, res) => {
 				// expect(res.text).to.contain($('.button-oauth'));
-				expect(res.text).not.contain($('.btn-oauth'));
+				expect(res.text).not.contain(i18next.t('login.oauth2.headline.loginIserv'));
 				Configuration.reset(configBefore);
 				resolve();
 			});
