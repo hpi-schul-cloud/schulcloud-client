@@ -41,7 +41,7 @@ describe('Login tests', () => {
 		expect(result.res.text).to.contain(i18next.t('global.placeholder.Schüler'));
 	}));
 
-	it('show login via schoolserver button', () => new Promise((resolve) => {
+	it.skip('show login via schoolserver button', () => new Promise((resolve) => {
 		const configBefore = Configuration.toObject({ plainSecrets: true });
 		Configuration.set('FEATURE_OAUTH_LOGIN_ENABLED', true);
 		chai.request(app)
@@ -53,7 +53,7 @@ describe('Login tests', () => {
 			});
 	}));
 
-	it(' login via schoolserver button is not displayed ', () => new Promise((resolve) => {
+	it('login via schoolserver button is not displayed ', () => new Promise((resolve) => {
 		const configBefore = Configuration.toObject({ plainSecrets: true });
 		Configuration.set('FEATURE_OAUTH_LOGIN_ENABLED', false);
 		chai.request(app)
