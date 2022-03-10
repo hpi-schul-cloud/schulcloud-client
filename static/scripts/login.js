@@ -43,6 +43,23 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
+	const $loginParams = $('.login-params');
+
+	const triggerAutoLogin = (strategy, schoolId) => {
+		if (strategy === 'iserv') $oauthButton.trigger('click');
+		if (strategy === 'ldap') {
+			$ldapButton.trigger('click');
+			$school.val(schoolId);
+			$school.trigger('chosen:updated');
+		}
+		if (strategy === 'email') $cloudButton.trigger('click');
+	};
+
+	if ($loginParams.data('strategy')) {
+		if ($loginParams.data('schoolId')) {
+			triggerAutoLogin($loginParams.data('strategy'), $loginParams.data('schoolId'));
+		} else triggerAutoLogin($loginParams.data('strategy'));
+	}
 
 	const enableDisableLdapBtn = (id) => {
 		if ($btnLoginLdap.data('active') === true) {
@@ -59,7 +76,7 @@ $(document).ready(() => {
 			if (countdownNum !== 1) {
 				// eslint-disable-next-line no-plusplus
 				countdownNum--;
-				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));		
+				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
 				$btnLoginLdap.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
 				$btnLoginLdap.prop('disabled', true);
 				$btnLoginLdap.data('active', false);

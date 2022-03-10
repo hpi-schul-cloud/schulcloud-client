@@ -84,7 +84,7 @@
 
 				{{#if (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
 					{{!-- Buttons Menu --}}
-					<div class="system-buttons">
+					<div class="system-buttons"
 						<div class="form-group">
 								<input autofocus aria-label="cloud" type="button" class="btn btn-block btn-secondary btn-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-cloud-site"/>
 						</div>
@@ -99,6 +99,7 @@
 							</div>
 						{{/if}}
 					</div>
+					<div class="form group login-params" hidden data-schoolid="{{idOfSchool}}" data-strategy="{{strategyOfSchool}}" ></div>
 
 					{{!-- Email Login --}}
 					<div class="email-login-section">

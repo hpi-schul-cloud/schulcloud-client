@@ -92,17 +92,29 @@ router.all('/', (req, res, next) => {
 		if (isAuthenticated) {
 			return redirectAuthenticated(req, res);
 		}
-
 		return LoginSchoolsCache.get(req).then((schools) => {
 			if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
 				let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 				iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
-				res.render('authentication/home', {
-					schools: getNonOauthSchools(schools),
-					systems: [],
-					iservOauthSystem,
-					inline: true,
-				});
+				if (req.query.schoolId && req.query.strategy) {
+					const idOfSchool = req.query.schoolId;
+					const strategyOfSchool = req.query.strategy;
+					res.render('authentication/home', {
+						schools: getNonOauthSchools(schools),
+						systems: [],
+						iservOauthSystem,
+						inline: true,
+						idOfSchool,
+						strategyOfSchool,
+					});
+				} else {
+					res.render('authentication/home', {
+						schools: getNonOauthSchools(schools),
+						systems: [],
+						iservOauthSystem,
+						inline: true,
+					});
+				}
 			} else {
 				res.render('authentication/home', {
 					schools,
@@ -121,6 +133,7 @@ const mapErrorcodeToTranslation = (errorCode) => 'login.text.oauthLoginFailed';
 /*
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
+
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 	.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
@@ -135,13 +148,27 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 			}
 			let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 			iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
-			res.render('authentication/login', {
-				schools: getNonOauthSchools(schools),
-				systems: [],
-				iservOauthSystem,
-				hideMenu: true,
-				redirect,
-			});
+			if (req.query.schoolId && req.query.strategy) {
+				const idOfSchool = req.query.schoolId;
+				const strategyOfSchool = req.query.strategy;
+				res.render('authentication/login', {
+					schools: getNonOauthSchools(schools),
+					systems: [],
+					iservOauthSystem,
+					hideMenu: true,
+					redirect,
+					idOfSchool,
+					strategyOfSchool,
+				});
+			} else {
+				res.render('authentication/login', {
+					schools: getNonOauthSchools(schools),
+					systems: [],
+					iservOauthSystem,
+					hideMenu: true,
+					redirect,
+				});
+			}
 		} else {
 			res.render('authentication/login', {
 				schools,
