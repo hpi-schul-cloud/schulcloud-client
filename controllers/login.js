@@ -100,7 +100,7 @@ router.all('/', (req, res, next) => {
 					schools: getNonOauthSchools(schools),
 					systems: [],
 					iservOauthSystem,
-					oauthError,
+					// oauthError,
 					inline: true,
 				});
 			} else {
