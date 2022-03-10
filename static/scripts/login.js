@@ -123,29 +123,26 @@ $(document).ready(() => {
 		$systems.trigger('chosen:updated');
 	};
 
-	// show / hide main button screen
 	const showHideButtonsMenu = (toShow) => {
-		if (toShow) { // show
+		if (toShow) {
 			$systemBtns.show();
-		} else { // hide
+		} else {
 			$systemBtns.hide();
 		}
 	};
 
-	// show / hide main button screen
 	const showHideEmailLoginForm = (toShow) => {
-		if (toShow) { // show
+		if (toShow) {
 			$emailLoginSection.show();
-		} else { // hide
+		} else {
 			$emailLoginSection.hide();
 		}
 	};
 
-	// show / hide main button screen
 	const showHideLdapLoginForm = (toShow) => {
-		if (toShow) { // show
+		if (toShow) {
 			$ldapLoginSection.show();
-		} else { // hide
+		} else {
 			$ldapLoginSection.hide();
 		}
 	};
@@ -155,6 +152,7 @@ $(document).ready(() => {
 		$btnToggleProviders.hide();
 		$loginProviders.show();
 	});
+
 	$btnToggleProviders.on('keydown', (e) => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault();
@@ -165,8 +163,11 @@ $(document).ready(() => {
 
 	$oauthButton.on('click', () => {
 		const iservOauthSystem = JSON.parse($oauthButton[0].dataset.system);
-		// eslint-disable-next-line max-len
-		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?client_id=${iservOauthSystem.oauthConfig.clientId}&redirect_uri=${iservOauthSystem.oauthConfig.codeRedirectUri}&response_type=${iservOauthSystem.oauthConfig.responseType}&scope=${iservOauthSystem.oauthConfig.scope}`;
+		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?
+		client_id=${iservOauthSystem.oauthConfig.clientId}
+		&redirect_uri=${iservOauthSystem.oauthConfig.codeRedirectUri}
+		&response_type=${iservOauthSystem.oauthConfig.responseType}
+		&scope=${iservOauthSystem.oauthConfig.scope}`;
 	});
 
 	$cloudButton.on('click', () => {
