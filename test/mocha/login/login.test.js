@@ -41,25 +41,12 @@ describe('Login tests', () => {
 		expect(result.res.text).to.contain(i18next.t('global.placeholder.Schüler'));
 	}));
 
-	it.skip('show login via schoolserver button', () => new Promise((resolve) => {
-		const configBefore = Configuration.toObject({ plainSecrets: true });
-		Configuration.set('FEATURE_OAUTH_LOGIN_ENABLED', true);
-		chai.request(app)
-			.get('/login')
-			.end((err, res) => {
-				expect(res.text).to.contain(i18next.t('login.oauth2.headline.loginIserv'));
-				Configuration.reset(configBefore);
-				resolve();
-			});
-	}));
-
 	it('login via schoolserver button is not displayed ', () => new Promise((resolve) => {
 		const configBefore = Configuration.toObject({ plainSecrets: true });
 		Configuration.set('FEATURE_OAUTH_LOGIN_ENABLED', false);
 		chai.request(app)
 			.get('/login')
 			.end((err, res) => {
-				// expect(res.text).to.contain($('.button-oauth'));
 				expect(res.text).not.contain(i18next.t('login.oauth2.headline.loginIserv'));
 				Configuration.reset(configBefore);
 				resolve();
