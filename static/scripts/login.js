@@ -45,19 +45,23 @@ $(document).ready(() => {
 	const $submitButton = $('#submit-login');
 	const $loginParams = $('.login-params');
 
-	const triggerAutoLogin = (strategy, schoolId) => {
+	const triggerAutoLogin = (strategy, schoolid) => {
+		if (strategy === 'iserv') console.log('Die Abfrage strategy === \'iserv\' war erfolgreich.');
 		if (strategy === 'iserv') $oauthButton.trigger('click');
+		if (strategy === 'ldap') console.log('Die Abfrage strategy === \'ldap\' war erfolgreich.');
 		if (strategy === 'ldap') {
+			$school.val(schoolid);
 			$ldapButton.trigger('click');
-			$school.val(schoolId);
+			console.log('auch nach dem click wird noch code ausgeführt.');
 			$school.trigger('chosen:updated');
 		}
+		if (strategy === 'email') console.log('Die Abfrage strategy === \'email\' war erfolgreich.');
 		if (strategy === 'email') $cloudButton.trigger('click');
 	};
 
 	if ($loginParams.data('strategy')) {
-		if ($loginParams.data('schoolId')) {
-			triggerAutoLogin($loginParams.data('strategy'), $loginParams.data('schoolId'));
+		if ($loginParams.data('schoolid')) {
+			triggerAutoLogin($loginParams.data('strategy'), $loginParams.data('schoolid'));
 		} else triggerAutoLogin($loginParams.data('strategy'));
 	}
 
