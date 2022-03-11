@@ -45,26 +45,6 @@ $(document).ready(() => {
 	const $submitButton = $('#submit-login');
 	const $loginParams = $('.login-params');
 
-	const triggerAutoLogin = (strategy, schoolid) => {
-		if (strategy === 'iserv') console.log('Die Abfrage strategy === \'iserv\' war erfolgreich.');
-		if (strategy === 'iserv') $oauthButton.trigger('click');
-		if (strategy === 'ldap') console.log('Die Abfrage strategy === \'ldap\' war erfolgreich.');
-		if (strategy === 'ldap') {
-			$school.val(schoolid);
-			$ldapButton.trigger('click');
-			console.log('auch nach dem click wird noch code ausgeführt.');
-			$school.trigger('chosen:updated');
-		}
-		if (strategy === 'email') console.log('Die Abfrage strategy === \'email\' war erfolgreich.');
-		if (strategy === 'email') $cloudButton.trigger('click');
-	};
-
-	if ($loginParams.data('strategy')) {
-		if ($loginParams.data('schoolid')) {
-			triggerAutoLogin($loginParams.data('strategy'), $loginParams.data('schoolid'));
-		} else triggerAutoLogin($loginParams.data('strategy'));
-	}
-
 	const enableDisableLdapBtn = (id) => {
 		if ($btnLoginLdap.data('active') === true) {
 			if (id) {
@@ -260,6 +240,21 @@ $(document).ready(() => {
 		$loginProviders.show();
 		$school.val(storage.local.getItem('loginSchool'));
 		$school.trigger('change');
+	}
+	const triggerAutoLogin = (strategy, schoolid) => {
+		if (strategy === 'iserv') $oauthButton.trigger('click');
+		if (strategy === 'ldap') {
+			$school.val(schoolid);
+			$ldapButton.trigger('click');
+			$school.trigger('chosen:updated');
+		}
+		if (strategy === 'email') $cloudButton.trigger('click');
+	};
+
+	if ($loginParams.data('strategy')) {
+		if ($loginParams.data('schoolid')) {
+			triggerAutoLogin($loginParams.data('strategy'), $loginParams.data('schoolid'));
+		} else triggerAutoLogin($loginParams.data('strategy'));
 	}
 
 	initAlerts('login');
