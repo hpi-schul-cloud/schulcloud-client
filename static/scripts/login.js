@@ -94,7 +94,8 @@ $(document).ready(() => {
 		const closeLogoutWindow = () => {
 			logoutWindow.close();
 		};
-		logoutWindow = window.open('https://iserv.n21.dbildungscloud.de/iserv/auth/logout', '', 'width=50,height=50');
+		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
+		logoutWindow = window.open(iservOauthSystem.oauthConfig.logoutEndpoint);
 		window.focus();
 		setTimeout(closeLogoutWindow, 1500);
 		$oauthError[0].innerText = 'false';
