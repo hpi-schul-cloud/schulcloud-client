@@ -135,38 +135,17 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 			}
 			let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 			iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
-			if (req.query.strategy) {
-				const strategyOfSchool = req.query.strategy;
-				if (req.query.schoolId) {
-					const idOfSchool = req.query.schoolId;
-					res.render('authentication/login', {
-						schools: getNonOauthSchools(schools),
-						systems: [],
-						iservOauthSystem,
-						hideMenu: true,
-						redirect,
-						idOfSchool,
-						strategyOfSchool,
-					});
-				} else {
-					res.render('authentication/login', {
-						schools: getNonOauthSchools(schools),
-						systems: [],
-						iservOauthSystem,
-						hideMenu: true,
-						redirect,
-						strategyOfSchool,
-					});
-				}
-			} else {
-				res.render('authentication/login', {
-					schools: getNonOauthSchools(schools),
-					systems: [],
-					iservOauthSystem,
-					hideMenu: true,
-					redirect,
-				});
-			}
+			const strategyOfSchool = req.query.strategy;
+			const idOfSchool = req.query.schoolId;
+			res.render('authentication/login', {
+				schools: getNonOauthSchools(schools),
+				systems: [],
+				iservOauthSystem,
+				hideMenu: true,
+				redirect,
+				idOfSchool,
+				strategyOfSchool,
+			});
 		} else {
 			res.render('authentication/login', {
 				schools,
