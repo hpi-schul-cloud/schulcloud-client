@@ -2514,6 +2514,7 @@
 			}
 		},
 		"text": {
+			"accessDenied": "El inicio de sesión a través del servidor de la escuela falló. Por favor, \"Legítimo\".",
 			"errorFirstLogin": "Se ha producido un error al procesar los datos del primer inicio de sesión.",
 			"loginFailed": "Error de inicio de sesion.",
 			"loginFailedFirstHint": "1. ¿Qué navegador utilizas?",
@@ -2531,10 +2532,12 @@
 			"loginFailedSecondHint": "2. ¿Has eliminado tus cookies y los datos del sitio web?",
 			"loginFailedThirdHint": "3. ¿Has intentado iniciar sesión en otro dispositivo (por ejemplo, un ordenador portátil en lugar de un teléfono móvil)?",
 			"oauthLoginFailed": "Fallo al iniciar sesión con el servidor escolar.",
+			"oauthCodeStep": "Ha fallado el inicio de sesión a través del servidor de la escuela. Por favor, inténtalo de nuevo o ponte en contacto con el servicio de asistencia.",
 			"pleaseWaitXSeconds": "Por favor, espera {{seconds}} segundos",
 			"showPassword": "Mostrar contraseña:",
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
-			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe."
+			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe.",
+			"userNotFound": "Parece que la cuenta no se ha sincronizado todavía. Por favor, inténtalo de nuevo después de 2 horas o ponte en contacto con un administrador de la escuela."
 		}
 	},
 	"messenger": {
