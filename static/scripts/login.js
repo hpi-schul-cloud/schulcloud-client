@@ -167,6 +167,7 @@ $(document).ready(() => {
 		showHideEmailLoginForm(false);
 		showHideLdapLoginForm(true);
 		$school.trigger('chosen:updated');
+		enableDisableLdapBtn($school.val());
 	});
 
 	$returnButton.on('click', () => {
@@ -234,29 +235,26 @@ $(document).ready(() => {
 		$modals.modal('hide');
 	});
 
-	// if stored login system - use that
-	if (storage.local.getItem('loginSchool')) {
+	const triggerAutoLogin = (strategy, schoolid) => {
+		if (strategy === 'iserv') {
+			$oauthButton.trigger('click');
+		} else if (strategy === 'ldap') {
+			$school.val(schoolid);
+			$school.trigger('chosen:updated');
+			$ldapButton.trigger('click');
+		} else if (strategy === 'email') {
+			$cloudButton.trigger('click');
+		}
+	};
+
+	if ($loginParams.data('strategy')) {
+		triggerAutoLogin($loginParams.data('strategy'), $loginParams.data('schoolid'));
+	} else if (storage.local.getItem('loginSchool')) { // if stored login system - use that
 		$btnToggleProviders.hide();
 		$loginProviders.show();
 		$school.val(storage.local.getItem('loginSchool'));
 		$school.trigger('change');
 	}
-	const triggerAutoLogin = (strategy, schoolid) => {
-		if (strategy === 'iserv') $oauthButton.trigger('click');
-		if (strategy === 'ldap') {
-			$school.val(schoolid);
-			$ldapButton.trigger('click');
-			$school.trigger('chosen:updated');
-		}
-		if (strategy === 'email') $cloudButton.trigger('click');
-	};
-
-	if ($loginParams.data('strategy')) {
-		if ($loginParams.data('schoolid')) {
-			triggerAutoLogin($loginParams.data('strategy'), $loginParams.data('schoolid'));
-		} else triggerAutoLogin($loginParams.data('strategy'));
-	}
-
 	initAlerts('login');
 	// remove duplicated login error
 	$('.col-xs-12 > .notification').remove();

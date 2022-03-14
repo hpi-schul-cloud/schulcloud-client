@@ -96,25 +96,12 @@ router.all('/', (req, res, next) => {
 			if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
 				let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 				iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
-				if (req.query.schoolId && req.query.strategy) {
-					const idOfSchool = req.query.schoolId;
-					const strategyOfSchool = req.query.strategy;
-					res.render('authentication/home', {
-						schools: getNonOauthSchools(schools),
-						systems: [],
-						iservOauthSystem,
-						inline: true,
-						idOfSchool,
-						strategyOfSchool,
-					});
-				} else {
-					res.render('authentication/home', {
-						schools: getNonOauthSchools(schools),
-						systems: [],
-						iservOauthSystem,
-						inline: true,
-					});
-				}
+				res.render('authentication/home', {
+					schools: getNonOauthSchools(schools),
+					systems: [],
+					iservOauthSystem,
+					inline: true,
+				});
 			} else {
 				res.render('authentication/home', {
 					schools,
@@ -148,18 +135,29 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 			}
 			let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 			iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
-			if (req.query.schoolId && req.query.strategy) {
-				const idOfSchool = req.query.schoolId;
+			if (req.query.strategy) {
 				const strategyOfSchool = req.query.strategy;
-				res.render('authentication/login', {
-					schools: getNonOauthSchools(schools),
-					systems: [],
-					iservOauthSystem,
-					hideMenu: true,
-					redirect,
-					idOfSchool,
-					strategyOfSchool,
-				});
+				if (req.query.schoolId) {
+					const idOfSchool = req.query.schoolId;
+					res.render('authentication/login', {
+						schools: getNonOauthSchools(schools),
+						systems: [],
+						iservOauthSystem,
+						hideMenu: true,
+						redirect,
+						idOfSchool,
+						strategyOfSchool,
+					});
+				} else {
+					res.render('authentication/login', {
+						schools: getNonOauthSchools(schools),
+						systems: [],
+						iservOauthSystem,
+						hideMenu: true,
+						redirect,
+						strategyOfSchool,
+					});
+				}
 			} else {
 				res.render('authentication/login', {
 					schools: getNonOauthSchools(schools),
