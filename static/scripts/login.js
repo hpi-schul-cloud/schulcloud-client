@@ -43,6 +43,8 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
+	const $iservOauthSystem = $('.iserv-oauth-system');
+	const $oauthError = $('.oauth-error');
 
 	const enableDisableLdapBtn = (id) => {
 		if ($btnLoginLdap.data('active') === true) {
@@ -59,7 +61,7 @@ $(document).ready(() => {
 			if (countdownNum !== 1) {
 				// eslint-disable-next-line no-plusplus
 				countdownNum--;
-				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));		
+				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
 				$btnLoginLdap.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
 				$btnLoginLdap.prop('disabled', true);
 				$btnLoginLdap.data('active', false);
@@ -145,6 +147,18 @@ $(document).ready(() => {
 			$loginProviders.show();
 		}
 	});
+
+	if ($oauthError && $oauthButton[0] && $oauthError[0].innerText === 'true') {
+		let logoutWindow = null;
+		const closeLogoutWindow = () => {
+			logoutWindow.close();
+		};
+		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
+		logoutWindow = window.open(iservOauthSystem.oauthConfig.logoutEndpoint);
+		window.focus();
+		setTimeout(closeLogoutWindow, 1500);
+		$oauthError[0].innerText = 'false';
+	}
 
 	$oauthButton.on('click', () => {
 		const iservOauthSystem = JSON.parse($oauthButton[0].dataset.system);

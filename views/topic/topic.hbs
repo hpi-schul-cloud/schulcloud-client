@@ -132,13 +132,15 @@
                 <hr />
                 <div class="row">
                     <div class="col-sm-6 container">
-                        {{#userHasPermission "HOMEWORK_CREATE"}}
-                            <a href="/homework/new?course={{../courseId}}&topic={{../_id}}"
-                                class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
-                                title="{{$t "global.button.addTask"}}">
-                                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addTask" }}</span>
-                            </a>
-                        {{/userHasPermission}}
+                        {{#if isTeacher}}
+                            {{#userHasPermission "HOMEWORK_CREATE"}}
+                                <a href="/homework/new?course={{../courseId}}&topic={{../_id}}"
+                                    class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
+                                    title="{{$t "global.button.addTask"}}">
+                                    <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addTask" }}</span>
+                                </a>
+                            {{/userHasPermission}}
+                        {{/if}}
                         <a data-toggle="collapse" class="collapse-toggle" href="#homeworks" tabindex="0">
                             <h2 class="h4">
                                 <small data-toggle="tooltip" title="{{$t "topic._topic.label.expandTasks"}}"><i
@@ -159,31 +161,33 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        {{#userHasPermission "HOMEWORK_CREATE"}}
-                            <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true"
-                                class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
-                                title="{{$t "global.button.addDraftTask"}}">
-                                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addDraftTask" }}</span>
+                        {{#if isTeacher}}
+                            {{#userHasPermission "HOMEWORK_CREATE"}}
+                                <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true"
+                                    class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
+                                    title="{{$t "global.button.addDraftTask"}}">
+                                    <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addDraftTask" }}</span>
+                                </a>
+                            {{/userHasPermission}}
+                            <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks" tabindex="0">
+                                <h2 class="h4">
+                                    <small data-toggle="tooltip" title="{{$t "topic._topic.label.expandDraftTasks" }}"><i
+                                            class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                                    {{$t "global.headline.draftTasks" }}
+                                    <small>({{arrayLength myhomeworks}})
+                                    </small>
+                                </h2>
                             </a>
-                        {{/userHasPermission}}
-                        <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks" tabindex="0">
-                            <h2 class="h4">
-                                <small data-toggle="tooltip" title="{{$t "topic._topic.label.expandDraftTasks" }}"><i
-                                        class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                                {{$t "global.headline.draftTasks" }}
-                                <small>({{arrayLength myhomeworks}})
-                                </small>
-                            </h2>
-                        </a>
-                        <div id="myhomeworks" class="container-fluid collapse">
-                            <ol class="homework">
-                                <div class="row">
-                                    {{#each myhomeworks}}
-                                        {{> 'homework/components/course_overview_card_template'}}
-                                    {{/each}}
-                                </div>
-                            </ol>
-                        </div>
+                            <div id="myhomeworks" class="container-fluid collapse">
+                                <ol class="homework">
+                                    <div class="row">
+                                        {{#each myhomeworks}}
+                                            {{> 'homework/components/course_overview_card_template'}}
+                                        {{/each}}
+                                    </div>
+                                </ol>
+                            </div>
+                        {{/if}}
                     </div>
                 </div>
             {{/unless}}
