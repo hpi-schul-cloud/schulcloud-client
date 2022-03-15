@@ -1192,7 +1192,7 @@
 			"expiredCoursesInArchive": "Courses whose end date has been reached can be found in the <a href=\"/courses/?activeTab=archived\">archive",
 			"importCourse": "Import course",
 			"makeTeachingDigital": "Making teaching digital with {{themetitle}}",
-			"myCourses": "My courses",
+			"myCourses": "Courses",
 			"mySubstitutes": "My Substitutes",
 			"noArchivedCourses": "You have no archived courses yet",
 			"noCourse": "There are currently no courses",
