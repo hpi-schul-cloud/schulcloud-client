@@ -26,13 +26,10 @@ router.post('/', (req, res) => {
 		error.status = 401;
 		throw error;
 	}
-	return api(req).patch(`/accounts/${res.locals.currentPayload.accountId}`, {
+	return api(req, { json: true, version: 'v3' }).patch('/accounts/me', {
 		json: {
-			password_verification: password,
-			password: passwordNew !== '' ? passwordNew : undefined,
-		},
-	}).then(() => api(req).patch(`/users/${res.locals.currentUser._id}`, {
-		json: {
+			passwordOld: password,
+			passwordNew: passwordNew !== '' ? passwordNew : undefined,
 			firstName,
 			lastName,
 			email,
@@ -40,15 +37,16 @@ router.post('/', (req, res) => {
 		},
 	}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
 		res.redirect('/account/');
-	})).catch((err) => {
-		res.render('account/settings', {
-			title: res.$t('account.headline.yourAccount'),
-			notification: {
-				type: 'danger',
-				message: err.error.message,
-			},
+	})
+		.catch((err) => {
+			res.render('account/settings', {
+				title: res.$t('account.headline.yourAccount'),
+				notification: {
+					type: 'danger',
+					message: err.error.message,
+				},
+			});
 		});
-	});
 });
 
 router.get('/', (req, res, next) => {
