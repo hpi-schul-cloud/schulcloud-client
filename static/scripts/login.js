@@ -44,6 +44,8 @@ $(document).ready(() => {
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 	const $loginParams = $('.login-params');
+	const $iservOauthSystem = $('.iserv-oauth-system');
+	const $oauthError = $('.oauth-error');
 
 	const enableDisableLdapBtn = (id) => {
 		if ($btnLoginLdap.data('active') === true) {
@@ -146,6 +148,18 @@ $(document).ready(() => {
 			$loginProviders.show();
 		}
 	});
+
+	if ($oauthError && $oauthButton[0] && $oauthError[0].innerText === 'true') {
+		let logoutWindow = null;
+		const closeLogoutWindow = () => {
+			logoutWindow.close();
+		};
+		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
+		logoutWindow = window.open(iservOauthSystem.oauthConfig.logoutEndpoint);
+		window.focus();
+		setTimeout(closeLogoutWindow, 1500);
+		$oauthError[0].innerText = 'false';
+	}
 
 	$oauthButton.on('click', () => {
 		const iservOauthSystem = JSON.parse($oauthButton[0].dataset.system);
