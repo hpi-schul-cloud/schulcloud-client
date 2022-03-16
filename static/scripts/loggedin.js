@@ -60,105 +60,131 @@ $(document).ready(() => {
 });
 
 $(document).ready(function () {
-    // Init mobile nav
-    var mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-    var mobileSearchToggle = document.querySelector('.mobile-search-toggle');
-    if (mobileNavToggle) {
-        mobileNavToggle.addEventListener('click', toggleMobileNav);
-    }
-    if (mobileSearchToggle) {
-        mobileSearchToggle.addEventListener('click', toggleMobileSearch);
-    }
-
-    // Init modals
-    var $modals = $('.modal');
-    var $featureModal = $('.feature-modal');
-
-    $modals.find('.close, .btn-close').on('click', function () {
-        $modals.modal('hide');
-    });
-
-    $('.notification-dropdown-toggle').on('click', function () {
-        $(this).removeClass('recent');
-
-        $('.notification-dropdown .notification-item.unread').each(function () {
-            if ($(this).data('read') == true) return;
-            $(this).data('read', true);
-        });
-    });
-
-    $('.btn-create-qr').on('click', function () {
-        // create qr code for current page
-        let image = kjua({text: window.location.href, render: 'image'});
-        let $qrbox = $('.qr-show');
-        $qrbox.empty();
-        $qrbox.append(image);
-    });
-
-    // Init mobile nav
-    if (document.getElementById('searchBar') instanceof Object) {
-        document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
-        document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
-    }
-
-    if (!fullscreen) {
-        fullscreen = JSON.parse(sessionStorage.getItem("fullscreen")) || false;
-        if (fullscreen) {
-            togglePresentationMode();
-        }
-    }
-    if(document.querySelector('.btn-fullscreen')){
-        document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
-    }
-
-    $('.btn-cancel').on('click', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        let $cancelModal = $('.cancel-modal');
-        populateModalForm($cancelModal, {
-            title: $t('global.text.sureAboutDiscardingChanges'),
-        });
-        $cancelModal.appendTo('body').modal('show');
-    });
-
-    populateModalForm($featureModal, {
-        title: $t('loggedin.text.newFeaturesAvailable'),
-        closeLabel: $t('global.button.cancel')
-    });
-
-    // from: https://stackoverflow.com/a/187557
-    jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function (arg) {
-        return function (elem) {
-            return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
-        };
-    });
-    // js course search/filter
-    $("input.js-search").on("keyup", e => {
-        if (e.key === "Escape") $(e.target).val("");
-        if (e.key === "Unidentified") {
-            return false;
-        }
-        $(".sc-card-title").find('.title:not(:Contains("' + $(e.target).val() + '"))').parents(".sc-card-wrapper").fadeOut(400);
-        $(".sc-card-title").find('.title:Contains("' + $(e.target).val() + '")').parents(".sc-card-wrapper").fadeIn(400);
-
-        return !(e.key === "Unidentified");
-    });
-
-	// check for user migration mode
-	if ($('#inUserMigration').length && $('#inUserMigration').val() === 'Administrator') {
-		$.showNotification($t('loggedin.text.schoolInMigrationMode'), 'warning');
+	// Init mobile nav
+	var mobileNavToggle = document.querySelector(".mobile-nav-toggle");
+	var mobileSearchToggle = document.querySelector(".mobile-search-toggle");
+	if (mobileNavToggle) {
+		mobileNavToggle.addEventListener("click", toggleMobileNav);
+	}
+	if (mobileSearchToggle) {
+		mobileSearchToggle.addEventListener("click", toggleMobileSearch);
 	}
 
-	// check for LDAP Transfer Mode
-	if ($('#schuljahrtransfer').length && $('#inUserMigration').length === 0) {
-		if ($('#schuljahrtransfer').val() === 'Lehrer') {
-			$.showNotification($t('loggedin.text.schoolInTransferPhaseContactAdmin'), 'warning');
-		} else if ($('#schuljahrtransfer').val() === 'Administrator') {
-			$.showNotification($t('loggedin.text.schoolInTransferPhaseStartNew'), 'warning');
+	// Init modals
+	var $modals = $(".modal");
+	var $featureModal = $(".feature-modal");
+
+	$modals.find(".close, .btn-close").on("click", function () {
+		$modals.modal("hide");
+	});
+
+	$(".notification-dropdown-toggle").on("click", function () {
+		$(this).removeClass("recent");
+
+		$(".notification-dropdown .notification-item.unread").each(function () {
+			if ($(this).data("read") == true) return;
+			$(this).data("read", true);
+		});
+	});
+
+	$(".btn-create-qr").on("click", function () {
+		// create qr code for current page
+		let image = kjua({ text: window.location.href, render: "image" });
+		let $qrbox = $(".qr-show");
+		$qrbox.empty();
+		$qrbox.append(image);
+	});
+
+	// Init mobile nav
+	if (document.getElementById("searchBar") instanceof Object) {
+		document
+			.querySelector(".mobile-nav-toggle")
+			.addEventListener("click", toggleMobileNav);
+		document
+			.querySelector(".mobile-search-toggle")
+			.addEventListener("click", toggleMobileSearch);
+	}
+
+	if (!fullscreen) {
+		fullscreen = JSON.parse(sessionStorage.getItem("fullscreen")) || false;
+		if (fullscreen) {
+			togglePresentationMode();
+		}
+	}
+	if (document.querySelector(".btn-fullscreen")) {
+		document
+			.querySelector(".btn-fullscreen")
+			.addEventListener("click", fullscreenBtnClicked);
+	}
+
+	$(".btn-cancel").on("click", function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		let $cancelModal = $(".cancel-modal");
+		populateModalForm($cancelModal, {
+			title: $t("global.text.sureAboutDiscardingChanges"),
+		});
+		$cancelModal.appendTo("body").modal("show");
+	});
+
+	populateModalForm($featureModal, {
+		title: $t("loggedin.text.newFeaturesAvailable"),
+		closeLabel: $t("global.button.cancel"),
+	});
+
+	// from: https://stackoverflow.com/a/187557
+	jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function (arg) {
+		return function (elem) {
+			return (
+				jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >=
+				0
+			);
+		};
+	});
+	// js course search/filter
+	$("input.js-search").on("keyup", (e) => {
+		if (e.key === "Escape") $(e.target).val("");
+		if (e.key === "Unidentified") {
+			return false;
+		}
+		$(".sc-card-title")
+			.find('.title:not(:Contains("' + $(e.target).val() + '"))')
+			.parents(".sc-card-wrapper")
+			.fadeOut(400);
+		$(".sc-card-title")
+			.find('.title:Contains("' + $(e.target).val() + '")')
+			.parents(".sc-card-wrapper")
+			.fadeIn(400);
+
+		return !(e.key === "Unidentified");
+	});
+
+	// check for in user migration mode
+	if ($("#inUserMigrationStarted").length) {
+		$.showNotification(
+			$t("loggedin.text.schoolInMigrationModeStarted"),
+			"warning"
+		);
+	} else if ($("#inUserMigration").length) {
+		$.showNotification(
+			$t("loggedin.text.schoolInMigrationMode"),
+			"warning"
+		);
+	} else if ($("#schuljahrtransfer").length) {
+		if ($("#schuljahrtransfer").val() === "Lehrer") {
+			$.showNotification(
+				$t("loggedin.text.schoolInTransferPhaseContactAdmin"),
+				"warning"
+			);
+		} else if ($("#schuljahrtransfer").val() === "Administrator") {
+			$.showNotification(
+				$t("loggedin.text.schoolInTransferPhaseStartNew"),
+				"warning"
+			);
 		}
 	}
 
-    initAlerts('loggedin');
+	initAlerts("loggedin");
 });
 
 function showAJAXError(req, textStatus, errorThrown) {

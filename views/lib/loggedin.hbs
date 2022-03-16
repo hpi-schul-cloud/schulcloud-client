@@ -41,29 +41,40 @@
     {{/content}}
 
     {{#content "body"}}
-
+        {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
+            {{#if @root.currentSchoolData.inUserMigration}}
+                {{#userHasPermission 'IMPORT_USER_VIEW'}}
+                    <input type="hidden" id="inUserMigrationStarted" value="{{currentRole}}"/>
+                {{/userHasPermission}}
+            {{else}}
+                {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
+                    <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
+                {{/userHasPermission}}
+            {{/if}}
+        {{/ifConfig}}
         {{#if currentSchoolData.inMaintenance}}
-        <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
+            <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
         {{/if}}
-        {{#if currentSchoolData.inUserMigration}}
-            <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
-        {{/if}}
+
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
-            <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
-                <ul class="sidebar-list">
-                    <li>
-                        <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
-                            <div class="cloud-logo"></div>
-                            <div class="sc-title"><span>{{theme.short_title}}</span></div>
-                        </a>
-                    </li>
-                    {{#each sidebarItems}}
-                        <li>
-								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
-                                {{#if this.isExternalIcon}}
-                                    {{{this.icon}}}
-                                {{else}}
+                <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
+        <ul class="sidebar-list">
+        <li>
+                <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t
+                "global.link.landing"}}">
+            <div class="cloud-logo"></div>
+            <div class="sc-title"><span>{{theme.short_title}}</span></div>
+        </a>
+        </li>
+        {{#each sidebarItems}}
+            <li>
+                    <a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}"
+                       data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t
+                    "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+            {{#if this.isExternalIcon}}
+                {{{this.icon}}}
+            {{else}}
                                     <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                                 {{/if}}
                                 <span class="link-name">{{this.name}}</span>
