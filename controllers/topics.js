@@ -363,6 +363,9 @@ router.get('/:topicId', (req, res, next) => {
 			}
 			return -1;
 		});
+		const isCourseTeacher = (course.teacherIds || []).includes(res.locals.currentUser._id);
+		const isCourseSubstitutionTeacher = (course.substitutionIds || []).includes(res.locals.currentUser._id);
+		const isTeacher = isCourseTeacher || isCourseSubstitutionTeacher;
 		// return for consistent return
 		return res.render('topic/topic', Object.assign({}, lesson, {
 			title: lesson.name,
@@ -371,6 +374,7 @@ router.get('/:topicId', (req, res, next) => {
 			myhomeworks: homeworks.filter(task => task.private),
 			courseId: req.params.courseId,
 			isCourseGroupTopic: courseGroup._id !== undefined,
+			isTeacher,
 			breadcrumb: [{
 				title: res.$t('courses.headline.myCourses'),
 				url: `/${context}`,
