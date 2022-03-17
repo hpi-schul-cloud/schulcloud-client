@@ -1558,7 +1558,7 @@
 		},
 		"button": {
 			"accept": "Accept",
-			"add": "Create",
+			"add": "Add",
 			"addDraftTask": "Create draft",
 			"addTask": "Create task",
 			"back": "Back",
