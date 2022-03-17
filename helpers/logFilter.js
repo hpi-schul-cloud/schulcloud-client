@@ -78,11 +78,10 @@ const filterQuery = (url) => {
 	return newUrl;
 };
 
-// important that it is not sent to sentry, or added it to logs
+// important that it is not added it to logs
 const filterLog = (log) => {
 	if (log) {
 		// req.url = filterQuery(req.url);
-		// originalUrl is used by sentry
 		log.url = filterQuery(log.url);
 		log.body = filter(log.body);
 		log.params = filter(log.params);

@@ -21,13 +21,8 @@ data:
     let matrixMessengerEmbed = '';
     let matrixMessengerHomeserver = '';
     if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
-{% if MATRIX_MESSENGER_CONFIG_2 is defined and MATRIX_MESSENGER_CONFIG_2 == "true" %}
       matrixMessengerEmbed = Configuration.get('MATRIX_MESSENGER__EMBED_URI');
       matrixMessengerHomeserver = Configuration.get('MATRIX_MESSENGER__URI');
-{% else %}
-      matrixMessengerEmbed = Configuration.get('MATRIX_MESSENGER_EMBED_URI');
-      matrixMessengerHomeserver = Configuration.get('MATRIX_MESSENGER_HOMESERVER_URI');
-{% endif %}
     }
 
     const config = {
@@ -45,12 +40,12 @@ data:
         // Default Content-Security-Policy Header for every site
         // Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
         corsDefault: {
-            defaultSrc: `'self' data: blob: {{TSP_API_BASE_NO_WWW_URL | default("") }}  {{TSP_API_BASE_URL | default("") }} https://{{ DOMAIN }} wss://{{ DOMAIN }} https://api.{{ DOMAIN }} https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }} https://embed.{{ DOMAIN }} https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }} https://oauth.{{ DOMAIN }} https://{{STORAGE_PREFIX}}{{ DOMAIN }} {{ EDTR_SOURCE|default("") }} {{ EDITOR_URL|default("") }}  https://etherpad.{{ DOMAIN }} https://blog.{{ DOMAIN }} https://blog.schul-cloud.org https://docs.schul-cloud.org https://sc-content-resources.schul-cloud.org  https://blog.hpi-schul-cloud.de https://docs.hpi-schul-cloud.org https://sc-content-resources.hpi-schul-cloud.de https://sentry.hpi-schul-cloud.org https://open.hpi.de https://s3.hidrive.strato.com https://scalelite.bbb.messenger.schule https://headless.schul-cloud.org https://headless.hpi-schul-cloud.de {{ MATRIX_MESSENGER__DISCOVER_URI | default("") }} ${matrixMessengerEmbed} ${matrixMessengerHomeserver} {% if NAMESPACE == "niedersachsen" %}https://portfolio.niedersachsen.cloud{% endif %}`,
+            defaultSrc: `'self' data: blob: {{TSP_API_BASE_NO_WWW_URL | default("") }}  {{TSP_API_BASE_URL | default("") }} https://{{ DOMAIN }} wss://{{ DOMAIN }} https://api.{{ DOMAIN }} https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }} https://embed.{{ DOMAIN }} https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }} https://oauth.{{ DOMAIN }} https://{{STORAGE_PREFIX}}{{ DOMAIN }} {{ EDTR_SOURCE|default("") }} {{ EDITOR_URL|default("") }}  https://etherpad.{{ DOMAIN }} https://blog.{{ DOMAIN }} https://blog.schul-cloud.org https://docs.schul-cloud.org https://sc-content-resources.schul-cloud.org  https://blog.hpi-schul-cloud.de https://docs.hpi-schul-cloud.org https://docs.dbildungscloud.org https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://s3.hidrive.strato.com https://scalelite.bbb.messenger.schule https://headless.schul-cloud.org https://headless.hpi-schul-cloud.de {{ MATRIX_MESSENGER__DISCOVER_URI | default("") }} ${matrixMessengerEmbed} ${matrixMessengerHomeserver} {% if NAMESPACE == "niedersachsen" %}https://portfolio.niedersachsen.cloud{% endif %}`,
             fontSrc: `'self' data: ${matrixMessengerEmbed}`,
             styleSrc: `'self' 'unsafe-inline' ${matrixMessengerEmbed}`,
             // scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
             scriptSrc: `'self' 'unsafe-eval' {{ MATRIX_MESSENGER__DISCOVER_URI | default("", true) }} {{ MATRIX_MESSENGER__URI | default("", true) }} ${matrixMessengerEmbed} ${matrixMessengerHomeserver}`,
-            frameSrc: `'self' https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }} https://docs.hpi-schul-cloud.org https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }} {{ MATRIX_MESSENGER__URI | default("") }} {{ MATRIX_MESSENGER__DISCOVER_URI | default('', true) }} {{ MATRIX_MESSENGER__URI | default('', true) }} {{ MATRIX_MESSENGER__EMBED_URI | default('', true) }}`,
+            frameSrc: `'self' https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }} https://docs.hpi-schul-cloud.org https://docs.dbildungscloud.org https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }} {{ MATRIX_MESSENGER__URI | default("") }} {{ MATRIX_MESSENGER__DISCOVER_URI | default('', true) }} {{ MATRIX_MESSENGER__URI | default('', true) }} {{ MATRIX_MESSENGER__EMBED_URI | default('', true) }}`,
             // Please activate for production
             // upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
             // blockAllMixedContentSrc: 'block-all-mixed-content',
@@ -75,6 +70,7 @@ data:
                 defaultSrc: 'https://nexboard.nexenio.com https://lti.tools https://codeocean.openhpi.de https://acc.bettermarks.com https://moodle.hpi-schul-cloud.de',
                 fontSrc: 'https://vjs.zencdn.net https://fonts.googleapis.com https://cdn.jsdelivr.net',
                 styleSrc: 'https://vjs.zencdn.net',
+                frameSrc: 'https://nexboard.nexenio.com',
             },
             '^/teams': {
                 fontSrc: 'https://vjs.zencdn.net',

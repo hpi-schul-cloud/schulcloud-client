@@ -86,7 +86,6 @@ const getIservOauthSystem = (schools) => {
 
 // eslint-disable-next-line max-len
 const getNonOauthSchools = (schools) => schools.filter((school) => school.systems.filter((system) => system.oauthConfig).length === 0);
-
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
@@ -113,7 +112,9 @@ router.all('/', (req, res, next) => {
 	});
 });
 
+let oauthError = false;
 const mapErrorcodeToTranslation = (errorCode) => {
+	oauthError = true;
 	switch (errorCode) {
 		case 'sso_user_notfound':
 			return 'login.text.userNotFound';
@@ -136,6 +137,7 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 	.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 		logger.warn(`User can not logged in. Redirect to ${redirect}`);
+		oauthError = false;
 		if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
 			logger.warn(`User can not logged in via Oauth. Redirect to ${redirect}`);
 			if (req.query.error) {
@@ -149,6 +151,7 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 				schools: getNonOauthSchools(schools),
 				systems: [],
 				iservOauthSystem,
+				oauthError,
 				hideMenu: true,
 				redirect,
 			});
