@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
 		error.status = 401;
 		throw error;
 	}
-	return api(req, { json: true, version: 'v3' }).patch('/accounts/me', {
+	return api(req, { json: true, version: 'v3' }).patch('/account/me', {
 		json: {
 			passwordOld: password,
 			passwordNew: passwordNew !== '' ? passwordNew : undefined,
