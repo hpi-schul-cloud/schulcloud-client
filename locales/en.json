@@ -1560,9 +1560,9 @@
 		},
 		"button": {
 			"accept": "Accept",
-			"add": "Add",
-			"addDraftTask": "Add a draft",
-			"addTask": "Add task",
+			"add": "Create",
+			"addDraftTask": "Create draft",
+			"addTask": "Create task",
 			"back": "Back",
 			"cancel": "Cancel",
 			"clickHere": "Click here",
@@ -1571,6 +1571,7 @@
 			"createFirstCourse": "Create your first course",
 			"createFolder": "Create folder",
 			"deleteTeam": "Delete team",
+			"discard": "Discard",
 			"done": "Done",
 			"edit": "Edit",
 			"editTopic": "Edit topic",
@@ -1613,6 +1614,7 @@
 			"sorryItDidNotWork": "Sorry, that didn't work.",
 			"sorting": "Sorting",
 			"task": "Task",
+			"taskNew": "New task",
 			"tasks": "Tasks",
 			"teachers": "Teachers",
 			"topics": "Topics",
@@ -3089,11 +3091,8 @@
 	},
 	"topic": {
 		"_topic": {
-			"button": {
-				"createTopic": "Create topic"
-			},
 			"headline": {
-				"createTopic": "Create topic",
+				"createTopic": "New topic",
 				"savedTeachingMaterials": "Stored teaching materials"
 			},
 			"input": {

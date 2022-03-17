@@ -1560,9 +1560,9 @@
 		},
 		"button": {
 			"accept": "Aceptar",
-			"add": "Añadir",
-			"addDraftTask": "Agregar borrador",
-			"addTask": "Añadir tarea",
+			"add": "Crear",
+			"addDraftTask": "Crear borrador",
+			"addTask": "Crear tarea",
 			"back": "Atrás",
 			"cancel": "Cancelar",
 			"clickHere": "Haz clic aquí",
@@ -1571,6 +1571,7 @@
 			"createFirstCourse": "Crea tu primer curso",
 			"createFolder": "Crear carpeta",
 			"deleteTeam": "Eliminar equipo",
+			"discard": "Descartar",
 			"done": "Listo",
 			"edit": "Editar",
 			"editTopic": "Editar tema",
@@ -1613,6 +1614,7 @@
 			"sorryItDidNotWork": "¡Lo sentimos, no ha funcionado!",
 			"sorting": "Clasificación",
 			"task": "Tarea",
+			"taskNew": "Nueva tarea",
 			"tasks": "Tareas",
 			"teachers": "Profesores",
 			"topics": "Temas",
@@ -3089,11 +3091,8 @@
 	},
 	"topic": {
 		"_topic": {
-			"button": {
-				"createTopic": "Crear tema"
-			},
 			"headline": {
-				"createTopic": "Crear tema",
+				"createTopic": "Nuevo tema",
 				"savedTeachingMaterials": "Materiales didácticos almacenados"
 			},
 			"input": {

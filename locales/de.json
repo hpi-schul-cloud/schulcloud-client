@@ -1136,7 +1136,7 @@
 			"link": {
 				"addAnotherCourse": "Einen weiteren Kurs anlegen",
 				"courseOverview": "Zur Kursübersicht",
-				"createTopics": "Themen anlegen",
+				"createTopics": "Themen erstellen",
 				"giveExercises": "Aufgaben stellen"
 			},
 			"tab_label": {
@@ -1560,9 +1560,9 @@
 		},
 		"button": {
 			"accept": "Akzeptieren",
-			"add": "Hinzufügen",
-			"addDraftTask": "Entwurf hinzufügen",
-			"addTask": "Aufgabe hinzufügen",
+			"add": "Erstellen",
+			"addDraftTask": "Entwurf erstellen",
+			"addTask": "Aufgabe erstellen",
 			"back": "Zurück",
 			"cancel": "Abbrechen",
 			"clickHere": "Hier klicken",
@@ -1571,6 +1571,7 @@
 			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"createFolder": "Ordner erstellen",
 			"deleteTeam": "Team löschen",
+			"discard": "Verwerfen",
 			"done": "Fertig",
 			"edit": "Bearbeiten",
 			"editTopic": "Thema bearbeiten",
@@ -1613,6 +1614,7 @@
 			"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt",
 			"sorting": "Sortierung",
 			"task": "Aufgabe",
+			"taskNew": "Neue Aufgabe",
 			"tasks": "Aufgaben",
 			"teachers": "Lehrkräfte",
 			"topics": "Themen",
@@ -3089,11 +3091,8 @@
 	},
 	"topic": {
 		"_topic": {
-			"button": {
-				"createTopic": "Thema anlegen"
-			},
 			"headline": {
-				"createTopic": "Thema anlegen",
+				"createTopic": "Neues Thema",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialien"
 			},
 			"input": {
