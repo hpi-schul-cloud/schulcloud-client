@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-const Sentry = require('@sentry/node');
 const logger = require('./logger');
 
 const tokenInjector = (req, res, next) => {
@@ -25,7 +24,6 @@ const duplicateTokenHandler = (req, res, next) => {
 
 const csrfErrorHandler = (err, req, res, next) => {
 	if (err.code === 'EBADCSRFTOKEN') {
-		Sentry.captureException(err);
 		// convert body object to array
 		res.locals.csrfToken = req.csrfToken();
 		// send base URL for opening in new tab

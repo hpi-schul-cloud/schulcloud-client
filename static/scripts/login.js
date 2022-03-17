@@ -13,21 +13,6 @@ $(document).ready(() => {
 		storage.local.setItem('homepageVersion', newVersion.toString());
 	}
 
-	try {
-		console.log(`
-	__  __  ____    ______      _____           __               ___            _____   ___                       __
-   /\\ \\/\\ \\/\\  _\`\\ /\\__  _\\    /\\  __\`\\        /\\ \\             /\\_ \\          /\\  __\`\\/\\_ \\                     /\\ \\
-   \\ \\ \\_\\ \\ \\ \\_\\ \\/_/\\ \\/    \\ \\,\\_\\_\\    ___\\ \\ \\___   __  __\\//\\ \\         \\ \\ \\/\\_\\//\\ \\     ___   __  __   \\_\\ \\
-	\\ \\  _  \\ \\ ,__/  \\ \\ \\     \\/_\\___ \\  /'___\\ \\  _ \`\\/\\ \\/\\ \\ \\ \\ \\   ______\\ \\ \\/_/_\\ \\ \\   / __\`\\/\\ \\/\\ \\  /'_\` \\
-	 \\ \\ \\ \\ \\ \\ \\/    \\_\\ \\__    /\\ \\_\\ \\/\\ \\__/\\ \\ \\ \\ \\ \\ \\_\\ \\ \\_\\ \\_/\\_____\\\\ \\ \\_\\ \\\\_\\ \\_/\\ \\_\\ \\ \\ \\_\\ \\/\\ \\_\\ \\
-	  \\ \\_\\ \\_\\ \\_\\    /\\_____\\   \\ \`\\____\\ \\____\\\\ \\_\\ \\_\\ \\____/ /\\____\\/_____/ \\ \\____//\\____\\ \\____/\\ \\____/\\ \\___,_\\
-	   \\/_/\\/_/\\/_/    \\/_____/    \\/_____/\\/____/ \\/_/\\/_/\\/___/  \\/____/         \\/___/ \\/____/\\/___/  \\/___/  \\/__,_ /
-	`);
-		console.log($t('home.text.advertisementForOurTeam'));
-	} catch (e) {
-		// no log
-	}
-
 	const checkCookie = () => {
 		let { cookieEnabled } = navigator;
 		if (!cookieEnabled) {
@@ -51,6 +36,7 @@ $(document).ready(() => {
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 	const $iservOauthSystem = $('.iserv-oauth-system');
+	const $oauthError = $('.oauth-error');
 
 	const incTimer = () => {
 		setTimeout(() => {
@@ -102,6 +88,18 @@ $(document).ready(() => {
 			$loginProviders.show();
 		}
 	});
+
+	if ($oauthError && $oauthButton[0] && $oauthError[0].innerText === 'true') {
+		let logoutWindow = null;
+		const closeLogoutWindow = () => {
+			logoutWindow.close();
+		};
+		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
+		logoutWindow = window.open(iservOauthSystem.oauthConfig.logoutEndpoint);
+		window.focus();
+		setTimeout(closeLogoutWindow, 1500);
+		$oauthError[0].innerText = 'false';
+	}
 
 	$oauthButton.on('click', () => {
 		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
