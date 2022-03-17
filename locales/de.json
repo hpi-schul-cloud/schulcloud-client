@@ -2515,7 +2515,7 @@
 			}
 		},
 		"text": {
-			"accessDenied": "Login über Schulserver fehlgeschlagen. Bitte „Legitimieren”.",
+			"accessDenied": "Login über Schulserver abgelehnt. Bitte erneut einloggen und Zugriff zulassen.",
 			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
 			"loginFailed": "Login fehlgeschlagen.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
@@ -2533,12 +2533,12 @@
 			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
 			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
 			"oauthLoginFailed": "Login über Schulserver fehlgeschlagen.",
-			"oauthCodeStep": "Login über Schulserver fehlgeschlagen. Bitte erneut versuchen oder den Support kontaktieren.",
+			"oauthCodeStep": "Login über Schulserver fehlgeschlagen. Bitte erneut einloggen oder den Support kontaktieren.",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
 			"showPassword": "Passwort anzeigen:",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden.",
-			"userNotFound": "Der Account wurde offenbar noch nicht synchronisiert. Bitte nach 2 Stunden noch einmal versuchen oder einen Admin der Schule kontaktieren."
+			"userNotFound": "Synchronisation mit dem Schulserver läuft. Bitte in 2 Stunden erneut einloggen oder den Admin kontaktieren."
 		}
 	},
 	"messenger": {
