@@ -652,7 +652,7 @@ router.get('/new', (req, res, next) => {
 		// Render overview
 		res.render('homework/edit', {
 			title: res.$t('global.headline.taskNew'),
-			submitLabel: res.$t('global.button.add'),
+			submitLabel: res.$t('global.button.create'),
 			closeLabel: res.$t('global.button.discard'),
 			method: 'post',
 			action: '/homework/',

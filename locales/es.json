@@ -675,7 +675,6 @@
 			"button": {
 				"addAnotherOwner": "Añade otro propietario",
 				"appointTeamOwner": "Nombrar",
-				"discardMessage": "Descartar",
 				"removeAllMembers": "Eliminar todos los miembros"
 			},
 			"headline": {
@@ -736,7 +735,6 @@
 		"users_skipRegistration": {
 			"text": {
 				"appointTeamOwner": "Nombrar",
-				"discardMessage": "Descartar",
 				"forStudentsAged14": "Para estudiantes de 14 años o más: consentimiento del estudiante",
 				"removeAllMembers": "Eliminar todos los miembros",
 				"sendMessage": "Enviar",
@@ -1560,7 +1558,7 @@
 		},
 		"button": {
 			"accept": "Aceptar",
-			"add": "Crear",
+			"add": "Añadir",
 			"addDraftTask": "Crear borrador",
 			"addTask": "Crear tarea",
 			"back": "Atrás",
