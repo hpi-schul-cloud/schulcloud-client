@@ -99,7 +99,7 @@ const helpers = () => ({
 		return truncatedArray;
 	},
 	stripHTMLTags: (htmlText = '') => stripHtml(htmlText).result,
-	stripOnlyScript: (htmlText = '') => stripHtml(htmlText, { onlyStripTags: ['script', 'style'] }).result,
+	stripOnlyScript: (htmlText = '') => stripHtml(htmlText, { onlyStripTags: ['script', 'style', 'SCRIPT', 'STYLE'] }).result,
 	conflictFreeHtml: (text = '') => {
 		text = text.replace(/style=["'][^"]*["']/g, '');
 		text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');
