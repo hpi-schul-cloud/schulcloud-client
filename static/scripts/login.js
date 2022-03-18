@@ -81,9 +81,8 @@ $(document).ready(() => {
 			$btnLoginLdap.data('active', true);
 			enableDisableLdapBtn($school.val());
 			$btnLoginCloud.prop('disabled', false);
-		}, $submitButton.data('timeout') * 1000,
-		$btnLoginLdap.data('timeout') * 1000,
-		$btnLoginCloud.data('timeout') * 1000);
+		// eslint-disable-next-line max-len
+		}, $submitButton.data('timeout') * 1000, $btnLoginLdap.data('timeout') * 1000, $btnLoginCloud.data('timeout') * 1000);
 		if ($btnLoginLdap.data('timeout')) {
 			countdownNum = $btnLoginLdap.data('timeout');
 		} else if ($btnLoginCloud.data('timeout')) {
