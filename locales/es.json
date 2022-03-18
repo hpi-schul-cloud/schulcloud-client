@@ -1190,7 +1190,7 @@
 			"expiredCoursesInArchive": "Los cursos que ya han finalizado se pueden encontrar en el <a href=\"/courses/?activeTab=archived\">archivo",
 			"importCourse": "Importar curso",
 			"makeTeachingDigital": "Enseñanza digital con {{themetitle}}",
-			"myCourses": "Mis cursos",
+			"myCourses": "Cursos",
 			"mySubstitutes": "Mis suplentes",
 			"noArchivedCourses": "Aún no tienes cursos archivados",
 			"noCourse": "Actualmente no hay cursos",
