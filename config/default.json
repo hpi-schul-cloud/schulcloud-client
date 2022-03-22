@@ -27,7 +27,7 @@
 		"FALLBACK_LANGUAGE": "de",
 		"DEFAULT_TIMEZONE": "Europe/Berlin",
 		"DEBUG": false,
-		"AVAILABLE_LANGUAGES": "de,en,es"
+		"AVAILABLE_LANGUAGES": "de,en,es,ua"
 	},
 	"FEATURE_SHOW_VERSION_ENABLED": false
 }
