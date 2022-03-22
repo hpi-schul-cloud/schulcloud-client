@@ -1901,9 +1901,6 @@
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
 				"furtherInformation": "Weitere Informationen zu deinem Browser und Betriebssystem (optional)",
 				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
-			},
-			"link":{
-				"continueReading": "Weiterlesen"
 			}
 		},
 		"headline": {
