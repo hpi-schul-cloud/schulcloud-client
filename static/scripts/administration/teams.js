@@ -74,7 +74,7 @@ $(window).ready(() => {
 		populateModalForm($messageModal, {
 			action: entry,
 			title: $t('administration.teams.headline.messageToTeamOwners'),
-			closeLabel: $t('administration.teams.button.discardMessage'),
+			closeLabel: $t('global.button.discard'),
 			submitLabel: $t('global.button.submit'),
 		});
 

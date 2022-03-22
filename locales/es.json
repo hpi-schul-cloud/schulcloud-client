@@ -675,7 +675,6 @@
 			"button": {
 				"addAnotherOwner": "Añade otro propietario",
 				"appointTeamOwner": "Nombrar",
-				"discardMessage": "Descartar",
 				"removeAllMembers": "Eliminar todos los miembros"
 			},
 			"headline": {
@@ -736,7 +735,6 @@
 		"users_skipRegistration": {
 			"text": {
 				"appointTeamOwner": "Nombrar",
-				"discardMessage": "Descartar",
 				"forStudentsAged14": "Para estudiantes de 14 años o más: consentimiento del estudiante",
 				"removeAllMembers": "Eliminar todos los miembros",
 				"sendMessage": "Enviar",
@@ -1192,7 +1190,7 @@
 			"expiredCoursesInArchive": "Los cursos que ya han finalizado se pueden encontrar en el <a href=\"/courses/?activeTab=archived\">archivo",
 			"importCourse": "Importar curso",
 			"makeTeachingDigital": "Enseñanza digital con {{themetitle}}",
-			"myCourses": "Mis cursos",
+			"myCourses": "Cursos",
 			"mySubstitutes": "Mis suplentes",
 			"noArchivedCourses": "Aún no tienes cursos archivados",
 			"noCourse": "Actualmente no hay cursos",
@@ -1561,8 +1559,8 @@
 		"button": {
 			"accept": "Aceptar",
 			"add": "Añadir",
-			"addDraftTask": "Agregar borrador",
-			"addTask": "Añadir tarea",
+			"addDraftTask": "Crear borrador",
+			"addTask": "Crear tarea",
 			"back": "Atrás",
 			"cancel": "Cancelar",
 			"clickHere": "Haz clic aquí",
@@ -1571,6 +1569,7 @@
 			"createFirstCourse": "Crea tu primer curso",
 			"createFolder": "Crear carpeta",
 			"deleteTeam": "Eliminar equipo",
+			"discard": "Descartar",
 			"done": "Listo",
 			"edit": "Editar",
 			"editTopic": "Editar tema",
@@ -1613,6 +1612,7 @@
 			"sorryItDidNotWork": "¡Lo sentimos, no ha funcionado!",
 			"sorting": "Clasificación",
 			"task": "Tarea",
+			"taskNew": "Nueva tarea",
 			"tasks": "Tareas",
 			"teachers": "Profesores",
 			"topics": "Temas",
@@ -3089,11 +3089,8 @@
 	},
 	"topic": {
 		"_topic": {
-			"button": {
-				"createTopic": "Crear tema"
-			},
 			"headline": {
-				"createTopic": "Crear tema",
+				"createTopic": "Nuevo tema",
 				"savedTeachingMaterials": "Materiales didácticos almacenados"
 			},
 			"input": {

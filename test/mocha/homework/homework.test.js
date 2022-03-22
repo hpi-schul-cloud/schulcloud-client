@@ -105,7 +105,7 @@ describe('Homework tests', () => {
 			.get('/homework/new')
 			.end((err, res) => {
 				expect(res.statusCode).to.equal(200);
-				expect(res.text).to.contain(i18next.t('global.button.addTask'));
+				expect(res.text).to.contain(i18next.t('global.button.create'));
 				resolve();
 			});
 	}));
