@@ -22,12 +22,5 @@
 	"PROMETHEUS": {
 		"METRIC_TYPE": "summary"
 	},
-	"I18N": {
-		"DEFAULT_LANGUAGE": "de",
-		"FALLBACK_LANGUAGE": "de",
-		"DEFAULT_TIMEZONE": "Europe/Berlin",
-		"DEBUG": false,
-		"AVAILABLE_LANGUAGES": "de,en,es,ua"
-	},
 	"FEATURE_SHOW_VERSION_ENABLED": false
 }
