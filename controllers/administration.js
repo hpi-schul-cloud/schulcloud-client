@@ -637,16 +637,6 @@ const returnAdminPrefix = (roles, res) => {
 
 // with userId to accountId
 const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, next) {
-	try {
-		await api(req)
-			.patch(`/users/${req.params.id}`, {
-				json: { forcePasswordChange: true },
-			});
-	} catch (err) {
-		next(err);
-		return;
-	}
-
 	api(req, { version: 'v3' }).patch(`/account/${req.params.id}/pw`, { json: req.body })
 		.then((response) => {
 			logger.info(response);
@@ -656,28 +646,6 @@ const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, 
 			logger.error(error);
 			next(error);
 		});
-
-	// api(req)
-	// 	.get(`/accounts/?userId=${req.params.id}`)
-	// 	.then((users) => {
-	// 		api(req)
-	// 			.patch(`/accounts/${users[0]._id}`, {
-	// 				json: { ...req.body },
-	// 			})
-	// 			.then(() => {
-	// 				req.session.notification = {
-	// 					type: 'success',
-	// 					message: res.$t('administration.controller.text.changesSuccessfullySaved'),
-	// 				};
-	// 				redirectHelper.safeBackRedirect(req, res);
-	// 			})
-	// 			.catch((err) => {
-	// 				next(err);
-	// 			});
-	// 	})
-	// 	.catch((err) => {
-	// 		next(err);
-	// 	});
 };
 
 const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
