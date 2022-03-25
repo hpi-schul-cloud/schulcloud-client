@@ -1651,9 +1651,10 @@
 		"language": {
 			"label": {
 				"de": "Deutsch",
-				"en": "Englisch",
-				"es": "Spanisch"
-			}
+				"en": "English",
+				"es": "Español",
+				"ua": "Yкраїнський"
+			} 
 		},
 		"link": {
 			"administrationStudents": "Schüler:innen",
