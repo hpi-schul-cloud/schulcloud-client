@@ -46,9 +46,9 @@ const editTopicHandler = (req, res, next) => {
 				? res.$t('global.button.editTopic')
 				: res.$t('topic._topic.headline.createTopic'),
 			submitLabel: req.params.topicId
-				? res.$t('global.button.saveChanges')
-				: res.$t('topic._topic.button.createTopic'),
-			closeLabel: res.$t('global.button.cancel'),
+				? res.$t('global.button.save')
+				: res.$t('global.button.create'),
+			closeLabel: res.$t('global.button.discard'),
 			lesson,
 			courseId: req.params.courseId,
 			topicId: req.params.topicId,
@@ -363,6 +363,9 @@ router.get('/:topicId', (req, res, next) => {
 			}
 			return -1;
 		});
+		const isCourseTeacher = (course.teacherIds || []).includes(res.locals.currentUser._id);
+		const isCourseSubstitutionTeacher = (course.substitutionIds || []).includes(res.locals.currentUser._id);
+		const isTeacher = isCourseTeacher || isCourseSubstitutionTeacher;
 		// return for consistent return
 		return res.render('topic/topic', Object.assign({}, lesson, {
 			title: lesson.name,
@@ -371,6 +374,7 @@ router.get('/:topicId', (req, res, next) => {
 			myhomeworks: homeworks.filter(task => task.private),
 			courseId: req.params.courseId,
 			isCourseGroupTopic: courseGroup._id !== undefined,
+			isTeacher,
 			breadcrumb: [{
 				title: res.$t('courses.headline.myCourses'),
 				url: `/${context}`,

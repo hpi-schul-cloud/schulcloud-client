@@ -99,7 +99,24 @@ const helpers = () => ({
 		return truncatedArray;
 	},
 	stripHTMLTags: (htmlText = '') => stripHtml(htmlText).result,
-	stripOnlyScript: (htmlText = '') => stripHtml(htmlText, { onlyStripTags: ['script', 'style'] }).result,
+	stripOnlyScript: (htmlText = '') => stripHtml(htmlText, {
+		cb: ({
+			tag,
+			deleteFrom,
+			deleteTo,
+			insert,
+			rangesArr,
+		}) => {
+			if (['script', 'style'].includes(tag.name.toLowerCase() === 'script')) {
+				rangesArr.push(
+					tag.lastOpeningBracketAt,
+					tag.lastClosingBracketAt + 1,
+				);
+			} else {
+				rangesArr.push(deleteFrom, deleteTo, insert);
+			}
+		},
+	}).result,
 	conflictFreeHtml: (text = '') => {
 		text = text.replace(/style=["'][^"]*["']/g, '');
 		text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');

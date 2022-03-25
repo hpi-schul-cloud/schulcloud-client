@@ -651,9 +651,9 @@ router.get('/new', (req, res, next) => {
 		}
 		// Render overview
 		res.render('homework/edit', {
-			title: res.$t('global.button.addTask'),
-			submitLabel: res.$t('global.button.add'),
-			closeLabel: res.$t('global.button.cancel'),
+			title: res.$t('global.headline.taskNew'),
+			submitLabel: res.$t('global.button.create'),
+			closeLabel: res.$t('global.button.discard'),
 			method: 'post',
 			action: '/homework/',
 			referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : '/homework/',
@@ -714,7 +714,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					res.render('homework/edit', {
 						title: res.$t('homework._task.headline.editTask'),
 						submitLabel: res.$t('global.button.save'),
-						closeLabel: res.$t('global.button.cancel'),
+						closeLabel: res.$t('global.button.discard'),
 						method: 'patch',
 						action: `/homework/${req.params.assignmentId}`,
 						referrer: '/homework/',
@@ -728,7 +728,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 				res.render('homework/edit', {
 					title: res.$t('homework._task.headline.editTask'),
 					submitLabel: res.$t('global.button.save'),
-					closeLabel: res.$t('global.button.cancel'),
+					closeLabel: res.$t('global.button.discard'),
 					method: 'patch',
 					action: `/homework/${req.params.assignmentId}`,
 					referrer: '/homework/',
