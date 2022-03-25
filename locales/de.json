@@ -675,7 +675,6 @@
 			"button": {
 				"addAnotherOwner": "Weitere Eigentümer:innen hinzufügen",
 				"appointTeamOwner": "Ernennen",
-				"discardMessage": "Verwerfen",
 				"removeAllMembers": "Alle Mitglieder entfernen"
 			},
 			"headline": {
@@ -736,7 +735,6 @@
 		"users_skipRegistration": {
 			"text": {
 				"appointTeamOwner": "Ernennen",
-				"discardMessage": "Verwerfen",
 				"forStudentsAged14": "Für Schüler:innen ab 14 Jahren: Einverständnis des Schülers/der Schülerin",
 				"removeAllMembers": "Alle Mitglieder entfernen",
 				"sendMessage": "Absenden",
@@ -1136,7 +1134,7 @@
 			"link": {
 				"addAnotherCourse": "Einen weiteren Kurs anlegen",
 				"courseOverview": "Zur Kursübersicht",
-				"createTopics": "Themen anlegen",
+				"createTopics": "Themen erstellen",
 				"giveExercises": "Aufgaben stellen"
 			},
 			"tab_label": {
@@ -1192,7 +1190,7 @@
 			"expiredCoursesInArchive": "Kurse, deren Enddatum erreicht ist, findest du im <a href=\"/courses/?activeTab=archived\">Archiv",
 			"importCourse": "Kurs importieren",
 			"makeTeachingDigital": "Mit der {{themetitle}} Unterricht digital gestalten",
-			"myCourses": "Meine Kurse",
+			"myCourses": "Kurse",
 			"mySubstitutes": "Meine Vertretungen",
 			"noArchivedCourses": "Du hast noch keine archivierten Kurse",
 			"noCourse": "Es gibt aktuell keine Kurse",
@@ -1561,8 +1559,8 @@
 		"button": {
 			"accept": "Akzeptieren",
 			"add": "Hinzufügen",
-			"addDraftTask": "Entwurf hinzufügen",
-			"addTask": "Aufgabe hinzufügen",
+			"addDraftTask": "Entwurf erstellen",
+			"addTask": "Aufgabe erstellen",
 			"back": "Zurück",
 			"cancel": "Abbrechen",
 			"clickHere": "Hier klicken",
@@ -1571,6 +1569,7 @@
 			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"createFolder": "Ordner erstellen",
 			"deleteTeam": "Team löschen",
+			"discard": "Verwerfen",
 			"done": "Fertig",
 			"edit": "Bearbeiten",
 			"editTopic": "Thema bearbeiten",
@@ -1613,6 +1612,7 @@
 			"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt",
 			"sorting": "Sortierung",
 			"task": "Aufgabe",
+			"taskNew": "Neue Aufgabe",
 			"tasks": "Aufgaben",
 			"teachers": "Lehrkräfte",
 			"topics": "Themen",
@@ -2514,7 +2514,7 @@
 			}
 		},
 		"text": {
-			"accessDenied": "Login über Schulserver fehlgeschlagen. Bitte „Legitimieren”.",
+			"accessDenied": "Login über Schulserver abgelehnt. Bitte erneut einloggen und Zugriff zulassen.",
 			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
 			"loginFailed": "Login fehlgeschlagen.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
@@ -2532,12 +2532,12 @@
 			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
 			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
 			"oauthLoginFailed": "Login über Schulserver fehlgeschlagen.",
-			"oauthCodeStep": "Login über Schulserver fehlgeschlagen. Bitte erneut versuchen oder den Support kontaktieren.",
+			"oauthCodeStep": "Login über Schulserver fehlgeschlagen. Bitte erneut einloggen oder den Support kontaktieren.",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
 			"showPassword": "Passwort anzeigen:",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden.",
-			"userNotFound": "Der Account wurde offenbar noch nicht synchronisiert. Bitte nach 2 Stunden noch einmal versuchen oder einen Admin der Schule kontaktieren."
+			"userNotFound": "Synchronisation mit dem Schulserver läuft. Bitte in 2 Stunden erneut einloggen oder den Admin kontaktieren."
 		}
 	},
 	"messenger": {
@@ -3089,11 +3089,8 @@
 	},
 	"topic": {
 		"_topic": {
-			"button": {
-				"createTopic": "Thema anlegen"
-			},
 			"headline": {
-				"createTopic": "Thema anlegen",
+				"createTopic": "Neues Thema",
 				"savedTeachingMaterials": "Gespeicherte Unterrichtsmaterialien"
 			},
 			"input": {

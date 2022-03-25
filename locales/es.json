@@ -675,7 +675,6 @@
 			"button": {
 				"addAnotherOwner": "Añade otro propietario",
 				"appointTeamOwner": "Nombrar",
-				"discardMessage": "Descartar",
 				"removeAllMembers": "Eliminar todos los miembros"
 			},
 			"headline": {
@@ -736,7 +735,6 @@
 		"users_skipRegistration": {
 			"text": {
 				"appointTeamOwner": "Nombrar",
-				"discardMessage": "Descartar",
 				"forStudentsAged14": "Para estudiantes de 14 años o más: consentimiento del estudiante",
 				"removeAllMembers": "Eliminar todos los miembros",
 				"sendMessage": "Enviar",
@@ -1192,7 +1190,7 @@
 			"expiredCoursesInArchive": "Los cursos que ya han finalizado se pueden encontrar en el <a href=\"/courses/?activeTab=archived\">archivo",
 			"importCourse": "Importar curso",
 			"makeTeachingDigital": "Enseñanza digital con {{themetitle}}",
-			"myCourses": "Mis cursos",
+			"myCourses": "Cursos",
 			"mySubstitutes": "Mis suplentes",
 			"noArchivedCourses": "Aún no tienes cursos archivados",
 			"noCourse": "Actualmente no hay cursos",
@@ -1561,8 +1559,8 @@
 		"button": {
 			"accept": "Aceptar",
 			"add": "Añadir",
-			"addDraftTask": "Agregar borrador",
-			"addTask": "Añadir tarea",
+			"addDraftTask": "Crear borrador",
+			"addTask": "Crear tarea",
 			"back": "Atrás",
 			"cancel": "Cancelar",
 			"clickHere": "Haz clic aquí",
@@ -1571,6 +1569,7 @@
 			"createFirstCourse": "Crea tu primer curso",
 			"createFolder": "Crear carpeta",
 			"deleteTeam": "Eliminar equipo",
+			"discard": "Descartar",
 			"done": "Listo",
 			"edit": "Editar",
 			"editTopic": "Editar tema",
@@ -1613,6 +1612,7 @@
 			"sorryItDidNotWork": "¡Lo sentimos, no ha funcionado!",
 			"sorting": "Clasificación",
 			"task": "Tarea",
+			"taskNew": "Nueva tarea",
 			"tasks": "Tareas",
 			"teachers": "Profesores",
 			"topics": "Temas",
@@ -2514,7 +2514,7 @@
 			}
 		},
 		"text": {
-			"accessDenied": "El inicio de sesión a través del servidor de la escuela falló. Por favor, \"Legítimo\".",
+			"accessDenied": "Inicio de sesión a través del servidor de la escuela denegado. Por favor, conéctese de nuevo y permita el acceso.",
 			"errorFirstLogin": "Se ha producido un error al procesar los datos del primer inicio de sesión.",
 			"loginFailed": "Error de inicio de sesion.",
 			"loginFailedFirstHint": "1. ¿Qué navegador utilizas?",
@@ -2532,12 +2532,12 @@
 			"loginFailedSecondHint": "2. ¿Has eliminado tus cookies y los datos del sitio web?",
 			"loginFailedThirdHint": "3. ¿Has intentado iniciar sesión en otro dispositivo (por ejemplo, un ordenador portátil en lugar de un teléfono móvil)?",
 			"oauthLoginFailed": "Fallo al iniciar sesión con el servidor escolar.",
-			"oauthCodeStep": "Ha fallado el inicio de sesión a través del servidor de la escuela. Por favor, inténtalo de nuevo o ponte en contacto con el servicio de asistencia.",
+			"oauthCodeStep": "Fallo al iniciar sesión con el servidor escolar. Vuelva a iniciar sesión o póngase en contacto con el servicio de asistencia.",
 			"pleaseWaitXSeconds": "Por favor, espera {{seconds}} segundos",
 			"showPassword": "Mostrar contraseña:",
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
 			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe.",
-			"userNotFound": "Parece que la cuenta no se ha sincronizado todavía. Por favor, inténtalo de nuevo después de 2 horas o ponte en contacto con un administrador de la escuela."
+			"userNotFound": "La sincronización con el servidor de la escuela está en curso. Por favor, conéctese de nuevo en 2 horas o póngase en contacto con el administrador."
 		}
 	},
 	"messenger": {
@@ -3089,11 +3089,8 @@
 	},
 	"topic": {
 		"_topic": {
-			"button": {
-				"createTopic": "Crear tema"
-			},
 			"headline": {
-				"createTopic": "Crear tema",
+				"createTopic": "Nuevo tema",
 				"savedTeachingMaterials": "Materiales didácticos almacenados"
 			},
 			"input": {
