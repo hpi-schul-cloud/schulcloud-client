@@ -33,9 +33,9 @@ router.patch('/language/', async (req, res, next) => {
 	try {
 		const newLanguage = req.body.language;
 
-		await api(req).patch(`/v3/language/${newLanguage}`);
+		const result = await api(req).patch(`/v3/language/${newLanguage}`);
 
-		res.status(200);
+		res.json(result);
 	} catch (err) {
 		next(err);
 	}
