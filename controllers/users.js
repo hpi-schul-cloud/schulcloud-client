@@ -22,10 +22,22 @@ router.get('/teachersOfSchool', async (req, res, next) => {
 		}));
 
 		return res.json(result);
-	} catch (e) {
+	} catch (err) {
 		const error = new Error(res.$t('global.text.invalidRequest'));
 		error.status = 400;
 		return next(error);
+	}
+});
+
+router.patch('/language/', async (req, res, next) => {
+	try {
+		const newLanguage = req.body.language;
+
+		await api(req).patch(`/v3/language/${newLanguage}`);
+
+		res.status(200);
+	} catch (err) {
+		next(err);
 	}
 });
 
