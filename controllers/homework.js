@@ -144,9 +144,9 @@ const getCreateHandler = (service) => (req, res, next) => {
 			: Promise.resolve({});
 		return promise.then((_) => {
 			if (service === 'submissions') {
-				referrer += '#activetabid=submissions';
+				referrer += '#activetabid=submission';
+				res.redirect(referrer);
 			}
-			// includes submission was done
 			res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
 		});
 	}).catch((err) => {
