@@ -124,7 +124,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 		if (data.courseId && !data.private && service === 'homework') {
 			api(req).get(`/courses/${data.courseId}`)
 				.then((course) => {
-					sendNotification(data.courseId,
+					sendNotification(
+						data.courseId,
 						res.$t('homework._task.text.newHomeworkCourseNotification',
 							{ coursename: course.name }),
 						res.$t('homework._task.text.newHomeworkDueDateNotification',
@@ -136,7 +137,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 							}),
 						data.teacherId,
 						req,
-						`${(req.headers.origin || HOST)}/${referrer}`);
+						`${(req.headers.origin || HOST)}/${referrer}`,
+					);
 				});
 		}
 		const promise = service === 'submissions'
