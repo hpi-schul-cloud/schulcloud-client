@@ -640,6 +640,10 @@ const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, 
 	api(req, { version: 'v3' }).patch(`/account/${req.params.id}/pw`, { json: req.body })
 		.then((response) => {
 			logger.info(response);
+			req.session.notification = {
+				type: 'success',
+				message: res.$t('administration.controller.text.changesSuccessfullySaved'),
+			};
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((error) => {
