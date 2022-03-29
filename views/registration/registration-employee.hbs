@@ -75,7 +75,7 @@
               type="password"
               placeholder="{{$t "global.input.password"}}"
               minlength="8"
-              pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\\-_!<>§$%&\\/()=?\\\\;:,.#+*~'])\S.{6,253}\S$"
+              pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[-_!<>§$%&/()=?\\;:,.#+*~'])\S.{6,253}\S$"
               title="{{> "lib/forms/password-hint" plaintext=true}}"
               required/>
           </div>
@@ -88,7 +88,7 @@
                     type="password"
                     placeholder="{{$t "registration._registration.employee.input.repeatPassword"}}"
                     minlength="8"
-                    pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\\-_!<>§$%&\\/()=?\\\\;:,.#+*~'])\S.{6,253}\S$"
+                    pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[-_!<>§$%&/()=?\\;:,.#+*~'])\S.{6,253}\S$"
                     title="{{> "lib/forms/password-hint" plaintext=true}}"
                     required/>
           </div>
