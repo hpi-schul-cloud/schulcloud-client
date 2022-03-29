@@ -21,7 +21,7 @@
 					<input type="hidden" name="resetId" value="{{resetId}}" />
 					<div class="form-group">
 						<label>{{$t "pwRecovery.label.newPw"}}</label>
-						<input type="password" autocomplete="new-password" data-testid="password" name="password" id="password" class="form-control form-control-lg" placeholder="{{$t "pwRecovery.input.hiddenPw"}}" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\\-_!<>§$%&\\/()=?\\\\;:,.#+*~'])\S.{6,253}\S$"
+						<input type="password" autocomplete="new-password" data-testid="password" name="password" id="password" class="form-control form-control-lg" placeholder="{{$t "pwRecovery.input.hiddenPw"}}" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[-_!<>§$%&/()=?\\;:,.#+*~'])\S.{6,253}\S$"
 								title="{{> "lib/forms/password-hint" plaintext=true}}" required>
 					</div>
 					<div class="form-group">
