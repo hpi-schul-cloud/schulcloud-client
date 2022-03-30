@@ -206,7 +206,11 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileI
 };
 
 const patchFunction = (service, req, res, next) => {
+	let returnToRooms = false;
 	if (req.body.referrer) {
+		if (req.body.referrer.includes('rooms')) {
+			returnToRooms = true;
+		}
 		var referrer = req.body.referrer.replace('/edit', '');
 		delete req.body.referrer;
 	}
@@ -237,6 +241,9 @@ const patchFunction = (service, req, res, next) => {
 			});
 		}
 		if (referrer) {
+			if (returnToRooms) {
+				res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
+			}
 			res.redirect(referrer);
 		} else {
 			res.sendStatus(200);
