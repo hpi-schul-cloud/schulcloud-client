@@ -162,7 +162,7 @@ const editCourseHandler = (req, res, next) => {
 		).sort((a, b) => a.firstName.localeCompare(b.firstName));
 		const students = _students.filter(
 			(s) => s.schoolId === res.locals.currentSchool,
-		).sort((a, b) => a.firstName.localeCompare(b.firstName));
+		).sort((a, b) => a.lastName.localeCompare(b.lastName));
 		const substitutions = _.cloneDeep(
 			teachers,
 		).sort((a, b) => a.firstName.localeCompare(b.firstName));

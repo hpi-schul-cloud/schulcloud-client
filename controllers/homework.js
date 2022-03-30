@@ -846,8 +846,8 @@ router.get('/:assignmentId', (req, res, next) => {
 			const courseGroupSelected = ((assignment.submission || {}).courseGroupId || {})._id;
 
 			const students = ((course || {}).userIds || []).filter((user) => (user.firstName && user.lastName))
-				.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1))
-				.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1));
+				.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1))
+				.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1));
 
 
 			const assignmentCourse = (assignment.courseId || {});
@@ -879,13 +879,13 @@ router.get('/:assignmentId', (req, res, next) => {
 				// Daten für Abgabenübersicht
 				const sortByStudentAttribute = (attr) => (a, b) => ((a.studentId[attr].toUpperCase() < b.studentId[attr].toUpperCase()) ? -1 : 1);
 				assignment.submissions = submissions.data.filter((submission) => submission.studentId)
-					.sort(sortByStudentAttribute('lastName'))
 					.sort(sortByStudentAttribute('firstName'))
+					.sort(sortByStudentAttribute('lastName'))
 					.map((sub) => {
 						if (Array.isArray(sub.teamMembers)) {
 							sub.teamMembers = sub.teamMembers
-								.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1))
-								.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1));
+								.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1))
+								.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1));
 						}
 						return sub;
 					});
@@ -917,8 +917,8 @@ router.get('/:assignmentId', (req, res, next) => {
 						);
 					}
 				});
-				studentsWithoutSubmission.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1))
-					.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1));
+				studentsWithoutSubmission.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1))
+					.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1));
 
 
 				// submission>single=student=upload || submissionS>multi=teacher=overview
