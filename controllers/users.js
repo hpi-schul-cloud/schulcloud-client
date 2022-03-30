@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const api = require('../api');
+const { setCookie } = require('../helpers/cookieHelper');
 
 // users
 
@@ -15,7 +16,7 @@ router.get('/teachersOfSchool', async (req, res, next) => {
 			},
 		});
 
-		const result = users.data.map(user => ({
+		const result = users.data.map((user) => ({
 			_id: user._id,
 			firstName: user.firstName,
 			lastName: user.lastName,
@@ -29,13 +30,15 @@ router.get('/teachersOfSchool', async (req, res, next) => {
 	}
 });
 
-router.patch('/language/', async (req, res, next) => {
+router.patch('/language', async (req, res, next) => {
 	try {
 		const newLanguage = req.body.language;
 
-		const result = await api(req).patch(`/v3/language/${newLanguage}`);
-
-		res.json(result);
+		await api(req, { version: 'v3' }).patch(
+			`/user/language/${newLanguage}`,
+		);
+		setCookie(res, 'USER_LANG', newLanguage);
+		return res.json({});
 	} catch (err) {
 		next(err);
 	}

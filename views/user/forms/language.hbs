@@ -1,7 +1,18 @@
-{{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/user/language.css'}}"/>
-{{/content}}
+<li id="language-menu" class="dropdown-submenu">
+    <a
+        id="selected-language"
+        class="dropdown-item toggle-dropdown fla-{{language}}"
+        data-language="{{language}}"
+    >{{$t (concat "global.language.label." language)}}</a>
+    <ul id="available-languages" class="dropdown-menu">
+        {{#each availableLanguages as | lang | }}
+            {{#ifCond lang "!=" @root.userLanguage}}
+            <li><a
+                    class="dropdown-item fla-{{lang}}"
+                    data-language="{{lang}}"
+                >{{$t (concat "global.language.label." lang)}}</a></li>
 
-{{#content "scripts" mode="append"}}
-    <script src="{{getAssetPath '/scripts/user/language.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-{{/content}}
+            {{/ifCond}}
+        {{/each}}
+    </ul>
+</li>
