@@ -1,0 +1,20 @@
+<li id="language-menu" class="dropdown-submenu">
+    <a
+        id="selected-language"
+        class="dropdown-item toggle-dropdown fla-{{language}}"
+        data-language="{{language}}"
+        data-testid="selected-language-{{language}}"
+    >{{$t (concat "global.language.label." language)}}</a>
+    <ul id="available-languages" class="dropdown-menu">
+        {{#each availableLanguages as | lang | }}
+            {{#ifCond lang "!=" @root.userLanguage}}
+            <li><a
+                    class="dropdown-item fla-{{lang}}"
+                    data-language="{{lang}}"
+                    data-testid="available-language-{{lang}}"
+                >{{$t (concat "global.language.label." lang)}}</a></li>
+
+            {{/ifCond}}
+        {{/each}}
+    </ul>
+</li>

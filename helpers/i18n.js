@@ -81,7 +81,7 @@ const getCurrentLanguage = async (req, res) => {
 		return (matchSchoolId || []).length > 1 ? getSchoolLanguage(req, matchSchoolId[1]) : undefined;
 	}
 
-	return null;
+	return defaultLanguage;
 };
 
 const getInstance = () => (key, options = {}) => i18next.t(key, {
