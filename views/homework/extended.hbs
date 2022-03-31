@@ -23,7 +23,7 @@
 		{{#unless @root.inline}}
 			{{#if isTeacher}}
 				{{#userHasPermission "HOMEWORK_EDIT"}}
-					<a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit"
+					<a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit?returnUrl={{../_id}}"
 						alt="{{$t "homework._task.label.editTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-edit'></i> {{$t "global.button.edit" }}
 					</a>
 					<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
