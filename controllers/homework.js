@@ -124,6 +124,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		if (data.courseId && !data.private && service === 'homework') {
 			api(req).get(`/courses/${data.courseId}`)
 				.then((course) => {
+					// eslint-disable-next-line no-use-before-define
 					sendNotification(
 						data.courseId,
 						res.$t('homework._task.text.newHomeworkCourseNotification',
