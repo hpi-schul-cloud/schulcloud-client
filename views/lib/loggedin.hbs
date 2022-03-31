@@ -1,5 +1,6 @@
 {{#extend "lib/default"}}
     {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="{{getAssetPath '/styles/user/language.css'}}"/>
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/loggedin.css'}}"/>
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/feedback-button.css'}}"/>
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/forms/form-auto-logout-alert.css'}}" />
@@ -20,6 +21,12 @@
 	{{/content}}
 
     {{#content "scripts" mode="append"}}
+        <script
+        src="{{getAssetPath '/scripts/user/language.js'}}"
+        type="text/javascript"
+        nonce="{{nonceValue}}"
+        defer
+    ></script>
         <script src="{{getAssetPath '/scripts/loggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/messenger/welcome.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
@@ -233,11 +240,12 @@
                                   </div>
                                 </a>
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
-                                <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
-                                    <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div>
-                                    <a class="dropdown-item" data-testid="settings" href="/account/">{{$t "lib.loggedin.tab_label.settings" }}</a>
-                                    <a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/">{{$t "lib.loggedin.tab_label.signOut"}}</a>
-                                </div>
+                                <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
+                                    <li><div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>
+                                    {{> "user/forms/language" language=@root.userLanguage }}
+                                    <li><a class="dropdown-item" data-testid="settings" href="/account/">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
+                                    <li><a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
+                                </ul>
                               </div>
                             </div>
                         </li>
