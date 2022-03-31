@@ -3124,15 +3124,15 @@
         }
     },
     "format": {
-        "dateToPicker": "ММ/ДД/РРРР",
-        "datePicker": "м/д/Р",
-        "datePickerMask": "19/39/9999",
-        "dateTimeToPicker": "ММ/ДД/РРРР ГГ:хх",
-        "dateTimePicker": "м/д/Р Г:х",
-        "dateTimePickerMask": "19/39/9999 29:59",
-        "date": "ММ/ДД/РРРР",
-        "dateTime": "ММ/ДД/РРРР ГГ:хх",
-        "dateLong": "дддд, дд. ММММ РРРР"
+		"date": "DD/MM/YYYY",
+		"dateLong": "dddd, DD/ MMMM YYYY",
+		"datePicker": "d/m/Y",
+		"datePickerMask": "39/19/9999",
+		"dateTime": "DD/MM/YYYY HH:mm",
+		"dateTimePicker": "d/m/Y H:i",
+		"dateTimePickerMask": "39/19/9999 29:59",
+		"dateTimeToPicker": "DD/MM/YYYY HH:mm",
+		"dateToPicker": "DD/MM/YYYY"
     },
     "landingPage": {
         "label": {
