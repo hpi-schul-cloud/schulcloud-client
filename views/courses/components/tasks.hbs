@@ -99,7 +99,7 @@
 	<div class="col-sm-12 add-button">
 		{{#userHasPermission "COURSE_EDIT" }}
 			{{#unless @root.isArchived}}
-				<a href="/homework/new?course={{../_id}}"
+				<a href="/homework/new?course={{../_id}}&returnUrl=courses/{{../_id}}/?activeTab=homeworks"
 					aria-label="{{$t "global.button.addTask"}}"
 					class="btn btn-primary {{#if ../assignedHomeworks}}w-100{{else}}btn-empty{{/if}}">
 					<span>{{$t "courses._course.tasks.button.createTask"}}</span>
