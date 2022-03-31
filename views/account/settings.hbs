@@ -52,7 +52,7 @@
                     <div class="input-group show_hide_password">
                         <input type="password" autocomplete="new-password" name="passwordNew" id="passwordNew" data-testid="settings_password_new" class="form-control"
                             placeholder="***************"
-                            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[-_!<>§$%&/()=?\\;:,.#+*~'])\S.{6,253}\S$"
                             title="{{> "lib/forms/password-hint" plaintext=true}}">
                             <div class="input-group-addon">
                                 <button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><span class="fa fa-eye-slash" aria-hidden="true"></span></button>
@@ -74,7 +74,6 @@
                 {{/userHasPermission}}
 
                 {{> "lib/components/csrfInput"}}
-                {{> "lib/forms/form-change-language" langParent=../currentUser }}
 
 
                 <div class="form-group">
