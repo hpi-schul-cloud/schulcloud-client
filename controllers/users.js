@@ -32,12 +32,12 @@ router.get('/teachersOfSchool', async (req, res, next) => {
 
 router.patch('/language', async (req, res, next) => {
 	try {
-		const newLanguage = req.body.language;
+		const { language } = req.body;
 
 		await api(req, { version: 'v3' }).patch(
-			`/user/language/${newLanguage}`,
+			'/user/language', { json: { language } },
 		);
-		setCookie(res, 'USER_LANG', newLanguage);
+		setCookie(res, 'USER_LANG', language);
 		return res.json({});
 	} catch (err) {
 		next(err);
