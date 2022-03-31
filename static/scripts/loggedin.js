@@ -146,30 +146,18 @@ $(document).ready(function () {
 
 	// check for in user migration mode
 	if ($('#inUserMigrationStarted').length) {
-		$.showNotification(
-			$t('loggedin.text.schoolInMigrationModeStarted'),
-			'warning'
-		);
+		$.showNotification($t('loggedin.text.schoolInMigrationModeStarted'), 'warning');
 	} else if ($('#inUserMigration').length) {
-		$.showNotification(
-			$t("loggedin.text.schoolInMigrationMode"),
-			"warning"
-		);
+		$.showNotification($t('loggedin.text.schoolInMigrationMode'), 'warning');
 	} else if ($('#schuljahrtransfer').length) {
 		if ($('#schuljahrtransfer').val() === 'Lehrer') {
-			$.showNotification(
-				$t('loggedin.text.schoolInTransferPhaseContactAdmin'),
-				'warning'
-			);
+			$.showNotification($t('loggedin.text.schoolInTransferPhaseContactAdmin'), 'warning');
 		} else if ($('#schuljahrtransfer').val() === 'Administrator') {
-			$.showNotification(
-				$t('loggedin.text.schoolInTransferPhaseStartNew'),
-				'warning'
-			);
+			$.showNotification($t('loggedin.text.schoolInTransferPhaseStartNew'), 'warning');
 		}
 	}
 
-	initAlerts("loggedin");
+	initAlerts('loggedin');
 });
 
 function showAJAXError(req, textStatus, errorThrown) {
