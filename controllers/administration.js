@@ -637,36 +637,18 @@ const returnAdminPrefix = (roles, res) => {
 
 // with userId to accountId
 const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, next) {
-	try {
-		await api(req)
-			.patch(`/users/${req.params.id}`, {
-				json: { forcePasswordChange: true },
-			});
-	} catch (err) {
-		next(err);
-		return;
-	}
-
-	api(req)
-		.get(`/accounts/?userId=${req.params.id}`)
-		.then((users) => {
-			api(req)
-				.patch(`/accounts/${users[0]._id}`, {
-					json: { ...req.body },
-				})
-				.then(() => {
-					req.session.notification = {
-						type: 'success',
-						message: res.$t('administration.controller.text.changesSuccessfullySaved'),
-					};
-					redirectHelper.safeBackRedirect(req, res);
-				})
-				.catch((err) => {
-					next(err);
-				});
+	api(req, { version: 'v3' }).patch(`/account/${req.params.id}/pw`, { json: req.body })
+		.then((response) => {
+			logger.info(response);
+			req.session.notification = {
+				type: 'success',
+				message: res.$t('administration.controller.text.changesSuccessfullySaved'),
+			};
+			redirectHelper.safeBackRedirect(req, res);
 		})
-		.catch((err) => {
-			next(err);
+		.catch((error) => {
+			logger.error(error);
+			next(error);
 		});
 };
 
@@ -1104,7 +1086,6 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 			termsOfUseConsent: req.body.parent_termsOfUseConsent === 'true',
 		};
 	}
-
 
 	// remove all consent infos from user post
 	Object.keys(req.body).forEach((key) => {
@@ -1655,7 +1636,6 @@ const renderClassEdit = (req, res, next) => {
 						}
 					}
 
-
 					res.render('administration/classes-edit', {
 						title: {
 							create: res.$t('administration.controller.link.createANewClass'),
@@ -1944,7 +1924,6 @@ router.post(
 	},
 );
 
-
 router.post(
 	'/classes/:classId/skipregistration',
 	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
@@ -2223,7 +2202,6 @@ router.get(
 				if (hasEditPermission) {
 					head.push(''); // action buttons head
 				}
-
 
 				const createActionButtons = (item, basePath) => {
 					const baseActions = [
@@ -2940,7 +2918,6 @@ router.use(
 			});
 		}
 
-
 		// SYSTEMS
 		const getSystemsBody = (systems) => systems.map((item) => {
 			const name = getSSOTypes().filter((type) => item.type === type.value);
@@ -3165,7 +3142,6 @@ router.get('/startldapschoolyear', async (req, res) => {
 		bodyClasses,
 	});
 });
-
 
 /*
     LDAP SYSTEMS
