@@ -58,23 +58,20 @@
 
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
-                <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
-        <ul class="sidebar-list">
-        <li>
-                <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t
-                "global.link.landing"}}">
-            <div class="cloud-logo"></div>
-            <div class="sc-title"><span>{{theme.short_title}}</span></div>
-        </a>
-        </li>
-        {{#each sidebarItems}}
-            <li>
-                    <a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}"
-                       data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t
-                    "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
-            {{#if this.isExternalIcon}}
-                {{{this.icon}}}
-            {{else}}
+            <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
+                <ul class="sidebar-list">
+                    <li>
+                        <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
+                            <div class="cloud-logo"></div>
+                            <div class="sc-title"><span>{{theme.short_title}}</span></div>
+                        </a>
+                    </li>
+                    {{#each sidebarItems}}
+                        <li>
+								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+                                {{#if this.isExternalIcon}}
+                                    {{{this.icon}}}
+                                {{else}}
                                     <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                                 {{/if}}
                                 <span class="link-name">{{this.name}}</span>
