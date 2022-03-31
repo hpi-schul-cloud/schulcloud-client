@@ -21,7 +21,7 @@ You might take a look at the [Dockerfile](https://github.com/hpi-schul-cloud/sch
 
 ## Setup  
   
-German docs on installing: [Setup SC](https://docs.hpi-schul-cloud.org/display/SCDOK/Setup)
+German docs on installing: [Setup SC](https://docs.dbildungscloud.de/display/SCDOK/Setup)
   
 Short version:
 
