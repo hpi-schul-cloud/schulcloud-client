@@ -34,13 +34,11 @@ router.patch('/language', async (req, res, next) => {
 	try {
 		const { language } = req.body;
 
-		await api(req, { version: 'v3' }).patch(
-			'/user/language', { json: { language } },
-		);
+		await api(req, { version: 'v3' }).patch('/user/language', { json: { language } });
 		setCookie(res, 'USER_LANG', language);
 		return res.json({});
 	} catch (err) {
-		next(err);
+		return next(err);
 	}
 });
 
