@@ -11,11 +11,19 @@
 					</li>
                     <li>
                         <a href="{{theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" aria-label="{{$t "login.headline.onlyTermsOfUse"}} {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "login.headline.onlyTermsOfUse"}}</a>
-                        <span> - </span>
+						<span> - </span>
                     </li>
                     <li>
                        <a href="/datenschutz" target="_blank" aria-label="{{$t "global.text.dataProtection"}} {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "global.text.dataProtection"}}</a>
-                    </li>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}?subject=Niedersächsische%20Bildungscloud%20Anfrage" target="_blank" aria-label="{{$t "global.link.contact"}} {{$t "global.link.openInNewTabWarning"}}" rel="noopener">{{$t "global.link.contact"}}</a>
+						<span> - </span>
+					</li>
+					<li>
+						<a href="{{theme.status_url}}" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
