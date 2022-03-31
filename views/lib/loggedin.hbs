@@ -47,9 +47,11 @@
                     <input type="hidden" id="inUserMigrationStarted" value="{{currentRole}}"/>
                 {{/userHasPermission}}
             {{else}}
-                {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
-                    <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
-                {{/userHasPermission}}
+                {{#ifneq @root.currentSchoolData.inUserMigration false}}
+                    {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
+                        <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
+                    {{/userHasPermission}}
+                {{/ifneq}}
             {{/if}}
         {{/ifConfig}}
         {{#if currentSchoolData.inMaintenance}}
