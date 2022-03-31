@@ -56,6 +56,23 @@ const handleTeamSubmissionsBody = (body, currentUser) => {
 	body.teamSubmissionOptions === 'courseGroup' ? body.teamMembers = [currentUser._id] : body.courseGroupId = null;
 };
 
+const sendNotification = (courseId, title, message, userId, req, link) => {
+	if (NOTIFICATION_SERVICE_ENABLED) {
+		api(req).post('/notification/messages', {
+			json: {
+				title,
+				body: message,
+				token: userId,
+				priority: 'high',
+				action: link,
+				scopeIds: [
+					courseId,
+				],
+			},
+		});
+	}
+};
+
 const getCreateHandler = (service) => (req, res, next) => {
 	if (service === 'homework') {
 		const {
@@ -111,11 +128,16 @@ const getCreateHandler = (service) => (req, res, next) => {
 	if (req.body.teamMembers && typeof req.body.teamMembers === 'string') {
 		req.body.teamMembers = [req.body.teamMembers];
 	}
-	let referrer = (req.body.referrer)
-		? (req.body.referrer)
-		: ((req.header('Referer').indexOf('homework/new') !== -1)
-			? '/homework'
-			: req.header('Referer'));
+	let referrer;
+	if (req.body.referrer) {
+		referrer = req.body.referrer;
+	} else {
+		if ((req.header('Referer').indexOf('homework/new') !== -1) {
+			referrer = '/homework';
+		} else {
+			referrer = req.header('Referer'));
+		}
+	}
 	delete req.body.referrer;
 	api(req).post(`/${service}/`, {
 		// TODO: sanitize
@@ -124,7 +146,6 @@ const getCreateHandler = (service) => (req, res, next) => {
 		if (data.courseId && !data.private && service === 'homework') {
 			api(req).get(`/courses/${data.courseId}`)
 				.then((course) => {
-					// eslint-disable-next-line no-use-before-define
 					sendNotification(
 						data.courseId,
 						res.$t('homework._task.text.newHomeworkCourseNotification',
@@ -155,23 +176,6 @@ const getCreateHandler = (service) => (req, res, next) => {
 	}).catch((err) => {
 		next(err);
 	});
-};
-
-const sendNotification = (courseId, title, message, userId, req, link) => {
-	if (NOTIFICATION_SERVICE_ENABLED) {
-		api(req).post('/notification/messages', {
-			json: {
-				title,
-				body: message,
-				token: userId,
-				priority: 'high',
-				action: link,
-				scopeIds: [
-					courseId,
-				],
-			},
-		});
-	}
 };
 
 /**
