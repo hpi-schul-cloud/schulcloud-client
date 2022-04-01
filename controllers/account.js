@@ -17,9 +17,7 @@ router.post('/', (req, res) => {
 		email,
 		password,
 		passwordNew,
-		language,
 	} = req.body;
-	setCookie(res, 'USER_LANG', language);
 	// validation
 	if ((passwordNew || email) && !password) {
 		const error = new Error(res.$t('account.error.text.currentPasswordRequired'));
@@ -33,7 +31,6 @@ router.post('/', (req, res) => {
 			firstName,
 			lastName,
 			email,
-			language,
 		},
 	}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
 		res.redirect('/account/');

@@ -3,6 +3,7 @@ const {
 	changeLanguage,
 	getCurrentLanguage,
 	getBrowserLanguage,
+	availableLanguages,
 	defaultLanguage,
 } = require('../helpers/i18n');
 
@@ -13,6 +14,7 @@ const middleware = async (req, res, next) => {
 	const currentLanguage = await getCurrentLanguage(req, res);
 
 	res.locals.userLanguage = currentLanguage;
+	res.locals.availableLanguages = availableLanguages;
 
 	if (currentLanguage) {
 		changeLanguage(currentLanguage);
