@@ -1094,8 +1094,8 @@
 					"deleteTopic": "Eliminar tema",
 					"descriptionTopic": "Añade texto, imágenes, vídeos y otros materiales a un tema. Un tema cubre un módulo o lección dentro de tu curso.",
 					"distributeLinkForInvite": "Comparte el siguiente enlace con tus alumnos para invitarlos al curso. Los estudiantes deben iniciar sesión para usar el enlace.",
-					"editSortDeleteShareTopicsHereN21": "Puedes editar <i class=\"fa fa-pencil\"></i>, ordenar <i class=\"fa fa-arrows\"></i>, eliminar <i class=\"fa fa-trash-o\"></i> o compartir <i class=\"fa fa-share-alt\"></i> tu tema en cualquier momento.",
 					"editSortDeleteShareTopicsHere": "Puedes editar <i class=\"fa fa-pencil\"></i>, ordenar <i class=\"fa fa-arrows\"></i> o eliminar <i class=\"fa fa-trash-o\"></i> tu tema en cualquier momento.",
+					"editSortDeleteShareTopicsHereN21": "Puedes editar <i class=\"fa fa-pencil\"></i>, ordenar <i class=\"fa fa-arrows\"></i>, eliminar <i class=\"fa fa-trash-o\"></i> o compartir <i class=\"fa fa-share-alt\"></i> tu tema en cualquier momento.",
 					"externalLinkToGeoGebra": "Este es un contenido externo del proveedor GeoGebra. Se abrirá en una nueva ventana o pestaña.",
 					"hideTopic": "Ocultar tema",
 					"importTopic": "Importar tema",
@@ -1225,8 +1225,8 @@
 		"headline": {
 			"poll2Title": "Encuesta II en el proyecto de la nube escolar",
 			"schedule": "Programación",
-			"welcome": "Hola",
 			"title": "Panel",
+			"welcome": "Hola",
 			"withFeedback": "Envíos con comentarios de los profesores",
 			"withRequiredFeedback": "Las tareas con envíos todavía no tienen comentarios"
 		},
@@ -1601,13 +1601,13 @@
 			"dateDetails": "Fecha - Detalles",
 			"declarationOfConsent": "Declaración de consentimiento",
 			"delete": "Eliminar",
+			"draftTasks": "Borradores",
 			"entriesPerPage": "Entradas por página",
 			"files": "Archivos",
 			"invitationLinkGenerated": "¡Enlace de invitación generado!",
 			"myMaterial": "Mis materiales",
 			"name": "Nombre",
 			"news": "Noticias",
-			"draftTasks": "Borradores",
 			"projectExecution": "Ejecución del proyecto",
 			"sorryItDidNotWork": "¡Lo sentimos, no ha funcionado!",
 			"sorting": "Clasificación",
@@ -2018,8 +2018,8 @@
 		},
 		"headline": {
 			"allNewsOnHPINewsletter": "Todas las noticias sobre la <span style=\"white-space: nowrap;\">nube escolar de HPI</span> enviadas cómodamente a tu buzón:",
-			"explainationVideo": "Vídeo explicativo sobre la nube escolar de HPI",
 			"dBildungscloudBlog": "Blog de <span style=\"white-space: nowrap;\">dBildungscloud</span>",
+			"explainationVideo": "Vídeo explicativo sobre la nube escolar de HPI",
 			"theIdea": "La idea básica de la <span style=\"white-space: nowrap;\">nube escolar de HPI</span>",
 			"tryDemoVersion": "Prueba la versión de demostración ahora",
 			"welcomeToHPISchoolCloud": "¡Bienvenido a la <span style=\"white-space: nowrap;\">nube escolar de HPI!</span>"
@@ -2105,8 +2105,8 @@
 			"label": {
 				"allowGroupSubmission": "Permitir el envío de grupos",
 				"description": "Definición de tarea",
-				"maximumGroupSize": "Tamaño máximo del grupo:",
 				"draftTaskOnlyVisibleToMe": "Borrador (no es visible para los estudiantes)",
+				"maximumGroupSize": "Tamaño máximo del grupo:",
 				"processingPeriodEndsOn": "El período de procesamiento finaliza el:",
 				"topic": "Tema",
 				"visibleAndEditableForStudentsFrom": "Visible para los estudiantes y para editar desde:"
@@ -2169,9 +2169,9 @@
 			"bulkGradingSuccess": "Se pueden asignar las tareas a todos los archivos. Vuelve a cargar la página.",
 			"creatorCanNotBeRemoved": "¡No puedes eliminar al creador de la tarea!",
 			"done": "¡Genial! ¡Has completado tu tarea!",
-			"doYouReallyWantToDelete": "¿Estás seguro de que deseas eliminar '{{name}}'?",
 			"doYouReallyWantToDecoupleFileHomework": "¿Estás seguro de que quieres desvincular el archivo '{{name}}' de la tarea?",
 			"doYouReallyWantToDecoupleFileSubmission": "¿Estás seguro de que quieres desvincular el archivo '{{name}}' del envío?",
+			"doYouReallyWantToDelete": "¿Estás seguro de que deseas eliminar '{{name}}'?",
 			"doYouReallyWantToReplaceSubmission": "¿Estás seguro de que deseas reemplazar tu evaluación con el envío del estudiante?",
 			"due": "Fecha de entrega",
 			"fileAlreadyExists": "Este nombre de archivo ya existe en tus archivos. Cambia el nombre del archivo.",
@@ -2284,8 +2284,8 @@
 				"nowAtGooglePlay": "Ahora en Google Play"
 			},
 			"link": {
-				"generalInquiries": "Consultas generales:",
 				"currentJobOffers": "Ofertas de trabajo",
+				"generalInquiries": "Consultas generales:",
 				"mobileApp": "Aplicación móvil",
 				"privacy": "Privacidad:",
 				"privacy_responsible_person": "Responsable de protección de datos:",
@@ -2444,9 +2444,9 @@
 	"loggedin": {
 		"text": {
 			"newFeaturesAvailable": "Nuevas funciones disponibles",
+			"schoolInMigrationMode": "La escuela está en modo de migración de usuarios. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>.",
 			"schoolInTransferPhaseContactAdmin": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Ponte en contacto con el administrador de la escuela!",
-			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"/administration/school/\">nuevo año escolar aquí!</a>",
-			"schoolInMigrationMode": "La escuela está en modo de migración de usuarios. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>."
+			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"/administration/school/\">nuevo año escolar aquí!</a>"
 		}
 	},
 	"login": {
@@ -2482,8 +2482,8 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Iniciar sesión con la nube escolar de HPI",
-				"loginIserv": "Inciar sesión con el servidor escolar"
+				"loginIserv": "Inciar sesión con el servidor escolar",
+				"loginWithSchoolCloud": "Iniciar sesión con la nube escolar de HPI"
 			},
 			"label": {
 				"email": "Tu dirección de correo electrónico",
@@ -2531,8 +2531,8 @@
 			"loginFailedScreenshot": "Error de inicio de sesión",
 			"loginFailedSecondHint": "2. ¿Has eliminado tus cookies y los datos del sitio web?",
 			"loginFailedThirdHint": "3. ¿Has intentado iniciar sesión en otro dispositivo (por ejemplo, un ordenador portátil en lugar de un teléfono móvil)?",
-			"oauthLoginFailed": "Fallo al iniciar sesión con el servidor escolar.",
 			"oauthCodeStep": "Fallo al iniciar sesión con el servidor escolar. Vuelva a iniciar sesión o póngase en contacto con el servicio de asistencia.",
+			"oauthLoginFailed": "Fallo al iniciar sesión con el servidor escolar.",
 			"pleaseWaitXSeconds": "Por favor, espera {{seconds}} segundos",
 			"showPassword": "Mostrar contraseña:",
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",

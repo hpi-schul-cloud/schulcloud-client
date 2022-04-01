@@ -1094,8 +1094,8 @@
 					"deleteTopic": "Delete topic",
 					"descriptionTopic": "Add text, images, videos and other materials to a topic. A topic covers a module or lesson within your course.",
 					"distributeLinkForInvite": "Share the following link with your students to invite them to the course. Students must be logged in to use the link.",
-					"editSortDeleteShareTopicsHereN21": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-arrows\"></i>, delete <i class=\"fa fa-trash-o\"></i> or share <i class=\"fa fa-share-alt\"></i> your topic at any time.",
 					"editSortDeleteShareTopicsHere": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-arrows\"></i> or delete <i class=\"fa fa-trash-o\"></i> topic at any time.",
+					"editSortDeleteShareTopicsHereN21": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-arrows\"></i>, delete <i class=\"fa fa-trash-o\"></i> or share <i class=\"fa fa-share-alt\"></i> your topic at any time.",
 					"externalLinkToGeoGebra": "This is external content of the provider GeoGebra. It will open in a new window or tab.",
 					"hideTopic": "Hide topic",
 					"importTopic": "Import topic",
@@ -1225,8 +1225,8 @@
 		"headline": {
 			"poll2Title": "Survey II in the school cloud project",
 			"schedule": "Schedule",
-			"welcome": "Hello",
 			"title": "Dashboard",
+			"welcome": "Hello",
 			"withFeedback": "Submissions with teacher's comments",
 			"withRequiredFeedback": "Tasks with submissions without comments yet"
 		},
@@ -1601,13 +1601,13 @@
 			"dateDetails": "Date - Details",
 			"declarationOfConsent": "Declaration of consent",
 			"delete": "Delete",
+			"draftTasks": "Drafts",
 			"entriesPerPage": "Entries per page",
 			"files": "Files",
 			"invitationLinkGenerated": "Invitation link generated!",
 			"myMaterial": "My materials",
 			"name": "Name",
 			"news": "News",
-			"draftTasks": "Drafts",
 			"projectExecution": "Project execution",
 			"sorryItDidNotWork": "Sorry, that didn't work.",
 			"sorting": "Sorting",
@@ -2018,8 +2018,8 @@
 		},
 		"headline": {
 			"allNewsOnHPINewsletter": "All news about the <span style=\"white-space: nowrap;\">HPI school cloud</span> conveniently sent to your mailbox:",
-			"explainationVideo": "Explanatory video about the HPI school cloud",
 			"dBildungscloudBlog": "<span style=\"white-space: nowrap;\">dBildungscloud</span> Blog",
+			"explainationVideo": "Explanatory video about the HPI school cloud",
 			"theIdea": "The basic idea of the <span style=\"white-space: nowrap;\">HPI school cloud</span>",
 			"tryDemoVersion": "Try the demo version now",
 			"welcomeToHPISchoolCloud": "Welcome to the <span style=\"white-space: nowrap;\">HPI school cloud!</span>"
@@ -2105,8 +2105,8 @@
 			"label": {
 				"allowGroupSubmission": "Enable group submission",
 				"description": "Task definition",
-				"maximumGroupSize": "Maximum group size:",
 				"draftTaskOnlyVisibleToMe": "Draft (not visibible to students)",
+				"maximumGroupSize": "Maximum group size:",
 				"processingPeriodEndsOn": "Processing period ends on:",
 				"topic": "Topic",
 				"visibleAndEditableForStudentsFrom": "Visible for students and to be edited from:"
@@ -2169,9 +2169,9 @@
 			"bulkGradingSuccess": "Task could be assigned to all files. Please reload page.",
 			"creatorCanNotBeRemoved": "You cannot remove the creator of the task!",
 			"done": "Great! You've completed your task!",
-			"doYouReallyWantToDelete": "Are you sure you want to delete '{{name}}'?",
 			"doYouReallyWantToDecoupleFileHomework": "Are you sure you want to decouple the file '{{name}}' from the homework?",
 			"doYouReallyWantToDecoupleFileSubmission": "Are you sure you want to decouple the file '{{name}}' from the submission?",
+			"doYouReallyWantToDelete": "Are you sure you want to delete '{{name}}'?",
 			"doYouReallyWantToReplaceSubmission": "Are you sure you want to replace your assessment with the student's submission?",
 			"due": "Due",
 			"fileAlreadyExists": "This file name already exists in your files. Please rename the file.",
@@ -2284,8 +2284,8 @@
 				"nowAtGooglePlay": "Now on Google Play"
 			},
 			"link": {
-				"generalInquiries": "General inquiries",
 				"currentJobOffers": "Current job offers",
+				"generalInquiries": "General inquiries",
 				"mobileApp": "Mobile app",
 				"privacy": "General data protection inquiries",
 				"privacy_responsible_person": "Data protection officer",
@@ -2444,9 +2444,9 @@
 	"loggedin": {
 		"text": {
 			"newFeaturesAvailable": "New features are available",
+			"schoolInMigrationMode": "The school is in user migration mode. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
 			"schoolInTransferPhaseContactAdmin": "The school is in the transfer phase to the new school year. No classes and users can be created. Please contact the school administrator!",
-			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"/administration/school/\"> the new school year here!</a>",
-			"schoolInMigrationMode": "The school is in user migration mode. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>."
+			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"/administration/school/\"> the new school year here!</a>"
 		}
 	},
 	"login": {
@@ -2482,8 +2482,8 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login with {{title}}",
-				"loginIserv": "Login via school server"
+				"loginIserv": "Login via school server",
+				"loginWithSchoolCloud": "Login with {{title}}"
 			},
 			"label": {
 				"email": "Your e-mail address",
@@ -2531,8 +2531,8 @@
 			"loginFailedScreenshot": "Login failed",
 			"loginFailedSecondHint": "2. Have you deleted your cookies and website data?",
 			"loginFailedThirdHint": "3. Have you tried to log in on another device (e.g. laptop instead of mobile phone) ?",
-			"oauthLoginFailed": "Login via school server failed.",
 			"oauthCodeStep": "Login via school server failed. Please log in again or contact support.",
+			"oauthLoginFailed": "Login via school server failed.",
 			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
 			"showPassword": "Show Password:",
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",

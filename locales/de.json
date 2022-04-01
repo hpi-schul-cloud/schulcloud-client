@@ -222,8 +222,8 @@
 			},
 			"link": {
 				"addAnotherOwner": "Weitere Eigentümer:innen hinzufügen",
-				"changePassword": "Passwort ändern",
 				"analogueConsent": "Einverständnis manuell erklären",
+				"changePassword": "Passwort ändern",
 				"completeEntry": "Eintrag abschließen",
 				"createANewClass": "Erstelle eine neue Klasse",
 				"deleteClass": "Klasse löschen",
@@ -245,9 +245,9 @@
 			},
 			"text": {
 				"active": "Aktiv",
+				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
 				"analogueConsent": "Wenn du das Einverständnis in Papierform einholen möchtest, kannst du die Schüler:innen wie folgt im System freischalten:",
 				"analogueConsentBullets": "<br/> <br/><ol><li>Rufe im Bereich <i>Verwaltung</i> den Bereich <i>Schüler:innen</i> auf</li><li>Nutze ggf. die Filterfunktion für Klassen und abgeschlossene Registrierungen</li><li>Wähle alle betreffenden Schüler:innen aus</li><li>Klicke auf <i>Aktionen</i> und wähle den Punkt <i>Analoge Einverständniserklärung</i>, um die Schüler:innen freizugeben und die Startpasswörter abzurufen</li></ol>",
-				"agreementSuccessfullyDeclared": "Einverständnis erfolgreich erklärt",
 				"anotherSchoolWasFounded": "einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst ",
 				"anUnknownErrorOccurred": "Es ist ein unbekannter Fehler beim Importieren aufgetreten.",
 				"changesSuccessfullySaved": "Änderungen erfolgreich gespeichert.",
@@ -1094,8 +1094,8 @@
 					"deleteTopic": "Thema löschen",
 					"descriptionTopic": "Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu. Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.",
 					"distributeLinkForInvite": "Verteile folgenden Link an deine Schüler:innen, um sie zum Kurs einzuladen. Die Schüler:innen müssen dafür angemeldet sein.",
-					"editSortDeleteShareTopicsHereN21": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-arrows\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
 					"editSortDeleteShareTopicsHere": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-arrows\"></i> oder löschen <i class=\"fa fa-trash-o\"></i>.",
+					"editSortDeleteShareTopicsHereN21": "Du kannst dein Thema jederzeit bearbeiten <i class=\"fa fa-pencil\"></i>, umsortieren <i class=\"fa fa-arrows\"></i>, löschen <i class=\"fa fa-trash-o\"></i> oder teilen <i class=\"fa fa-share-alt\"></i>.",
 					"externalLinkToGeoGebra": "Dies ist ein externer Inhalt des Anbieters GeoGebra. Er wird in einem neuen Fenster bzw. Tab geöffnet.",
 					"hideTopic": "Thema verstecken",
 					"importTopic": "Thema importieren",
@@ -1225,8 +1225,8 @@
 		"headline": {
 			"poll2Title": "Befragung II im Projekt HPI Schul-Cloud",
 			"schedule": "Stundenplan",
-			"welcome": "Hallo",
 			"title": "Übersicht",
+			"welcome": "Hallo",
 			"withFeedback": "Aufgaben mit Lehrkräfte-Kommentar",
 			"withRequiredFeedback": "Aufgaben mit unkommentierten Abgaben"
 		},
@@ -1601,13 +1601,13 @@
 			"dateDetails": "Termin - Details",
 			"declarationOfConsent": "Einwilligungserklärung",
 			"delete": "Löschen",
+			"draftTasks": "Entwürfe",
 			"entriesPerPage": "Einträge pro Seite",
 			"files": "Dateien",
 			"invitationLinkGenerated": "Einladungslink generiert!",
 			"myMaterial": "Meine Materialien",
 			"name": "Name",
 			"news": "Neuigkeiten",
-			"draftTasks": "Entwürfe",
 			"projectExecution": "Projektdurchführung",
 			"sorryItDidNotWork": "Entschuldige, das hat nicht geklappt",
 			"sorting": "Sortierung",
@@ -1654,7 +1654,7 @@
 				"en": "English",
 				"es": "Español",
 				"ua": "Yкраїнський"
-			} 
+			}
 		},
 		"link": {
 			"administrationStudents": "Schüler:innen",
@@ -2018,8 +2018,8 @@
 		},
 		"headline": {
 			"allNewsOnHPINewsletter": "Alle Neuigkeiten rund um die <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span> bequem in Ihrem Postfach:",
-			"explainationVideo": "Erklärvideo zur HPI Schul-Cloud",
 			"dBildungscloudBlog": "<span style=\"white-space: nowrap;\">dBildungscloud</span> Blog",
+			"explainationVideo": "Erklärvideo zur HPI Schul-Cloud",
 			"theIdea": "Die Grundidee der <span style=\"white-space: nowrap;\">HPI Schul-Cloud</span>",
 			"tryDemoVersion": "Jetzt Demoversion ausprobieren",
 			"welcomeToHPISchoolCloud": "Herzlich willkommen bei der <span style=\"white-space: nowrap;\">HPI Schul-Cloud!</span>"
@@ -2105,8 +2105,8 @@
 			"label": {
 				"allowGroupSubmission": "Gruppenabgabe ermöglichen",
 				"description": "Aufgabenstellung",
-				"maximumGroupSize": "maximale Gruppengröße:",
 				"draftTaskOnlyVisibleToMe": "Entwurf (nicht für Schüler sichtbar)",
+				"maximumGroupSize": "maximale Gruppengröße:",
 				"processingPeriodEndsOn": "Bearbeitungszeitraum endet am:",
 				"topic": "Thema",
 				"visibleAndEditableForStudentsFrom": "Für Schüler:innen sichtbar und zu bearbeiten ab:"
@@ -2169,9 +2169,9 @@
 			"bulkGradingSuccess": "Alle Dateien konnten Aufgaben zugeordnet werden. Bitte Seite neu laden.",
 			"creatorCanNotBeRemoved": "Du darfst den/die Ersteller:in der Aufgabe nicht entfernen!",
 			"done": "Super! Du hast deine Aufgabe erledigt!",
-			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
 			"doYouReallyWantToDecoupleFileHomework": "Bist du dir sicher, dass du die Datei '{{name}}' von der Aufgabe lösen möchtest?",
 			"doYouReallyWantToDecoupleFileSubmission": "Bist du dir sicher, dass du die Datei '{{name}}' von der Abgabe lösen möchtest?",
+			"doYouReallyWantToDelete": "Bist du dir sicher, dass du '{{name}}' löschen möchtest?",
 			"doYouReallyWantToReplaceSubmission": "Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers/der Schülerin ersetzen?",
 			"due": "Fällig",
 			"fileAlreadyExists": "Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.",
@@ -2284,8 +2284,8 @@
 				"nowAtGooglePlay": "Jetzt bei Google Play"
 			},
 			"link": {
-				"generalInquiries": "Allgemeine Anfragen",
 				"currentJobOffers": "Aktuelle Jobangebote",
+				"generalInquiries": "Allgemeine Anfragen",
 				"mobileApp": "Mobile App",
 				"privacy": "Allgemeine Datenschutzanfragen",
 				"privacy_responsible_person": "Datenschutzbeauftragter",
@@ -2444,9 +2444,9 @@
 	"loggedin": {
 		"text": {
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
+			"schoolInMigrationMode": "Die Schule befindet sich im Modus der Benutzermigration. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>.",
 			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte kontaktiere deinen Schul-Admin!",
-			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
-			"schoolInMigrationMode": "Die Schule befindet sich im Modus der Benutzermigration. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>."
+			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>"
 		}
 	},
 	"login": {
@@ -2482,8 +2482,8 @@
 		},
 		"oauth2": {
 			"headline": {
-				"loginWithSchoolCloud": "Login mit {{title}}",
-				"loginIserv": "Login über Schulserver"
+				"loginIserv": "Login über Schulserver",
+				"loginWithSchoolCloud": "Login mit {{title}}"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
@@ -2531,8 +2531,8 @@
 			"loginFailedScreenshot": "Login fehlgeschlagen",
 			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
 			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
-			"oauthLoginFailed": "Login über Schulserver fehlgeschlagen.",
 			"oauthCodeStep": "Login über Schulserver fehlgeschlagen. Bitte erneut einloggen oder den Support kontaktieren.",
+			"oauthLoginFailed": "Login über Schulserver fehlgeschlagen.",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
 			"showPassword": "Passwort anzeigen:",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
