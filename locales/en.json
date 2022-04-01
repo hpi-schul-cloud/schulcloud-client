@@ -1650,9 +1650,10 @@
 		},
 		"language": {
 			"label": {
-				"de": "German",
+				"de": "Deutsch",
 				"en": "English",
-				"es": "Spanish"
+				"es": "Español",
+				"ua": "Yкраїнський"
 			}
 		},
 		"link": {

@@ -267,14 +267,7 @@ router.post(['/submit', '/submit/sso'], async (req, res, next) => {
 	try {
 		const { studentBirthdate } = req.body;
 		if (studentBirthdate) {
-			let lang = await getCurrentLanguage(req, res);
-
-			// there are cases where user.language === null or even 'null' (probably due to bad validation)
-			// we can set the the language default to 'de' here analog to datetimepicker-easy.js
-			if (!lang || lang === 'null') {
-				lang = 'de';
-			}
-
+			const lang = await getCurrentLanguage(req, res);
 			const normalizedBirthdate = normalizeDate(studentBirthdate, lang);
 
 			req.body.studentBirthdate = normalizedBirthdate;

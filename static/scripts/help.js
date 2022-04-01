@@ -131,7 +131,7 @@ function parseData(result) {
 }
 const config = {
 	// eslint-disable-next-line
-	url: 'https://docs.hpi-schul-cloud.org/rest/searchv3/1.0/search?queryString=${inputValue}&where=SCDOK&type=page&pageSize=10&highlight=false',
+	url: 'https://docs.dbildungscloud.de/rest/searchv3/1.0/search?queryString=${inputValue}&where=SCDOK&type=page&pageSize=10&highlight=false',
 	extractResultArray: extractResults,
 	dataParser: parseData,
 	livesearchRootSelector: '.live-search',

@@ -402,7 +402,7 @@
 				},
 				"AVAILABLE_LANGUAGES": {
 					"type": "string",
-					"default": "de,en",
+					"default": "de,en,es,ua",
 					"description": "Available languages"
 				}
 			},
