@@ -671,6 +671,9 @@ router.get('/:assignmentId/copy', (req, res, next) => {
 				error.status = 500;
 				return next(error);
 			}
+			if (req.query.returnUrl) {
+				return res.redirect(`/homework/${assignment._id}/edit?returnUrl=${req.query.returnUrl}`);
+			}
 			return res.redirect(`/homework/${assignment._id}/edit`);
 		}).catch((err) => {
 			next(err);
