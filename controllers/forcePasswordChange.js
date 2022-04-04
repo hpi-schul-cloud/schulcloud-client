@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/submit', async (req, res) => api(req, { json: true, version: 'v3' })
-	.put('/account/me/password', {
+	.patch('/account/me/password', {
 		json: {
 			password: req.body['password-1'],
 			confirmPassword: req.body['password-2'],
