@@ -283,6 +283,7 @@
         },
         "language": {
             "label": {
+                "selected": "Вибрана мова",
                 "de": "Deutsch",
 				"en": "English",
 				"es": "Español",
