@@ -68,7 +68,7 @@
 									role="button">
 									<i class="fa fa-trash-o"></i>
 								</a>
-								<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
+								<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit?returnUrl=courses/{{../courseId}}/?activeTab=topics"
 									class="btn btn-secondary btn-sm btn-icon-card"
 									title="{{$t "global.button.editTopic"}}">
 									<i class="fa fa-pencil"></i>
@@ -113,7 +113,7 @@
 									role="button">
 									<i class="fa fa-trash-o"></i>
 								</a>
-								<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
+								<a href="/courses/{{../courseId}}/topics/{{../_id}}/edit?returnUrl=courses/{{../courseId}}/?activeTab=topics"
 									class="btn btn-secondary btn-sm btn-icon-card"
 									title="{{$t "global.button.editTopic"}}">
 									<i class="fa fa-pencil"></i>
@@ -158,7 +158,7 @@
 		</div>
 		{{#userHasPermission "COURSE_EDIT"}}{{#unless @root.isArchived}}
 		<div class="add-button">
-			<a href="/courses/{{../_id}}/topics/add"
+			<a href="/courses/{{../_id}}/topics/add?returnUrl=courses/{{../_id}}/?activeTab=topics"
 				class="btn btn-add {{#if ../lessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center"
 				aria-label="{{$t "courses._course.topic.text.addTopic"}}">
 				{{#if ../lessons}}

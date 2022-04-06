@@ -19,11 +19,12 @@ const {
 
 const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
-	let lessonPromise; let action; let
-		method;
+	let lessonPromise;
+	let action;
+	let	method;
+	const referrer = req.query.returnUrl;
 	if (req.params.topicId) {
-		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
-		+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
+		action = `/${referrer}`;
 		method = 'patch';
 		lessonPromise = api(req).get(`/lessons/${req.params.topicId}`);
 	} else {
@@ -32,7 +33,6 @@ const editTopicHandler = (req, res, next) => {
 		method = 'post';
 		lessonPromise = Promise.resolve({});
 	}
-
 
 	lessonPromise.then((lesson) => {
 		if (lesson.contents) {
