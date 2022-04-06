@@ -1,17 +1,22 @@
 <li id="language-menu" class="dropdown-submenu">
     <a
         id="selected-language"
+        href="#"
         class="dropdown-item toggle-dropdown fla-{{language}}"
         data-language="{{language}}"
         data-testid="selected-language-{{language}}"
+        aria-label="{{$t 'global.language.label.selected'}} {{$t (concat 'global.language.label.' language)}}"
+        role="menuitem"
     >{{$t (concat "global.language.label." language)}}</a>
-    <ul id="available-languages" class="dropdown-menu">
+    <ul id="available-languages" class="dropdown-menu" role="menu">
         {{#each availableLanguages as | lang | }}
             {{#ifCond lang "!=" @root.userLanguage}}
-            <li><a
+            <li><a href="#"
                     class="dropdown-item fla-{{lang}}"
                     data-language="{{lang}}"
                     data-testid="available-language-{{lang}}"
+                     aria-label="{{$t (concat 'global.language.label.' lang)}}"
+                     role="menuitem"
                 >{{$t (concat "global.language.label." lang)}}</a></li>
 
             {{/ifCond}}
