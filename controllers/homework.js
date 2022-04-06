@@ -56,6 +56,55 @@ const handleTeamSubmissionsBody = (body, currentUser) => {
 	body.teamSubmissionOptions === 'courseGroup' ? body.teamMembers = [currentUser._id] : body.courseGroupId = null;
 };
 
+const sendNotification = (courseId, title, message, userId, req, link) => {
+	if (NOTIFICATION_SERVICE_ENABLED) {
+		api(req).post('/notification/messages', {
+			json: {
+				title,
+				body: message,
+				token: userId,
+				priority: 'high',
+				action: link,
+				scopeIds: [
+					courseId,
+				],
+			},
+		});
+	}
+};
+
+/**
+ * adds file permissions for co workers to a submission file
+ */
+const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileIds) => {
+	// if submission has an courseGroup, use the corresponding users instead of teamMembers
+	const courseGroupPromise = courseGroupId
+		? api(req).get(`/courseGroups/${courseGroupId}`, { qs: { $populate: ['userIds'] } })
+		: Promise.resolve({ userIds: teamMembers });
+	const filePromises = fileIds.map((f) => api(req).get(`/files/${f}`));
+
+	return Promise.all([courseGroupPromise, Promise.all(filePromises)])
+		.then(([{ userIds }, files]) => {
+			const filePatchPromises = files.map((file) => {
+				const userPermissions = userIds
+					.filter((id) => file.permissions.findIndex((p) => p.refId.toString() === id.toString()) === -1)
+					.map((id) => ({
+						refId: id,
+						refPermModel: 'user',
+						write: false,
+						read: true,
+						create: false,
+						delete: false,
+					}));
+
+				file.permissions = [...file.permissions, ...userPermissions];
+
+				return api(req).patch(`/files/${file._id}`, { json: file });
+			});
+			return Promise.all(filePatchPromises);
+		});
+};
+
 const getCreateHandler = (service) => (req, res, next) => {
 	if (service === 'homework') {
 		const {
@@ -111,11 +160,14 @@ const getCreateHandler = (service) => (req, res, next) => {
 	if (req.body.teamMembers && typeof req.body.teamMembers === 'string') {
 		req.body.teamMembers = [req.body.teamMembers];
 	}
-	let referrer = (req.body.referrer)
-		? (req.body.referrer)
-		: ((req.header('Referer').indexOf('homework/new') !== -1)
-			? '/homework'
-			: req.header('Referer'));
+	let referrer;
+	if (req.body.referrer) {
+		referrer = req.body.referrer;
+	} else if (req.header('Referer').indexOf('homework/new') !== -1) {
+		referrer = '/homework';
+	} else {
+		referrer = req.header('Referer');
+	}
 	delete req.body.referrer;
 	api(req).post(`/${service}/`, {
 		// TODO: sanitize
@@ -124,7 +176,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 		if (data.courseId && !data.private && service === 'homework') {
 			api(req).get(`/courses/${data.courseId}`)
 				.then((course) => {
-					sendNotification(data.courseId,
+					sendNotification(
+						data.courseId,
 						res.$t('homework._task.text.newHomeworkCourseNotification',
 							{ coursename: course.name }),
 						res.$t('homework._task.text.newHomeworkDueDateNotification',
@@ -136,100 +189,45 @@ const getCreateHandler = (service) => (req, res, next) => {
 							}),
 						data.teacherId,
 						req,
-						`${(req.headers.origin || HOST)}/homework/${data._id}`);
+						`${(req.headers.origin || HOST)}/${referrer}`,
+					);
 				});
 		}
 		const promise = service === 'submissions'
 			? addFilePermissionsForTeamMembers(req, data.teamMembers, data.courseGroupId, data.fileIds)
 			: Promise.resolve({});
-		return promise.then((_) => {
-			if (service === 'homework') {
-				if (req.body.courseId) {
-					// homework was created from inside a course with course reference
-					referrer = `/courses/${data.courseId}?activeTab=homeworks`;
-				} else if (!req.body.courseId && referrer.includes('/courses')) {
-					// homework is created inside a course but course reference was unset before create ("Kurs = Keine Zuordnung")
-					referrer = `${(req.headers.origin || HOST)}/homework/${data._id}`;
-				} else {
-					// homework was created from homeworks overview
-					referrer += data._id;
-				}
-			} else if (service === 'submissions') {
-				referrer += '#activetabid=submissions';
+		return promise.then(() => {
+			if (service === 'submissions') {
+				referrer += '#activetabid=submission';
+				res.redirect(referrer);
 			}
-			// includes submission was done
-			res.redirect(referrer);
+			res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
 		});
 	}).catch((err) => {
 		next(err);
 	});
 };
 
-const sendNotification = (courseId, title, message, userId, req, link) => {
-	if (NOTIFICATION_SERVICE_ENABLED) {
-		api(req).post('/notification/messages', {
-			json: {
-				title,
-				body: message,
-				token: userId,
-				priority: 'high',
-				action: link,
-				scopeIds: [
-					courseId,
-				],
-			},
-		});
-	}
-};
-
-/**
- * adds file permissions for co workers to a submission file
- */
-const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileIds) => {
-	// if submission has an courseGroup, use the corresponding users instead of teamMembers
-	const courseGroupPromise = courseGroupId
-		? api(req).get(`/courseGroups/${courseGroupId}`, { qs: { $populate: ['userIds'] } })
-		: Promise.resolve({ userIds: teamMembers });
-	const filePromises = fileIds.map((f) => api(req).get(`/files/${f}`));
-
-	return Promise.all([courseGroupPromise, Promise.all(filePromises)])
-		.then(([{ userIds }, files]) => {
-			const filePatchPromises = files.map((file) => {
-				const userPermissions = userIds
-					.filter((id) => file.permissions.findIndex((p) => p.refId.toString() === id.toString()) === -1)
-					.map((id) => ({
-						refId: id,
-						refPermModel: 'user',
-						write: false,
-						read: true,
-						create: false,
-						delete: false,
-					}));
-
-				file.permissions = [...file.permissions, ...userPermissions];
-
-				return api(req).patch(`/files/${file._id}`, { json: file });
-			});
-			return Promise.all(filePatchPromises);
-		});
-};
-
 const patchFunction = (service, req, res, next) => {
+	let returnToRooms = false;
+	let referrer;
 	if (req.body.referrer) {
-		var referrer = req.body.referrer.replace('/edit', '');
+		if (req.body.referrer.includes('rooms')) {
+			returnToRooms = true;
+		}
+		referrer = req.body.referrer.replace('/edit', '');
 		delete req.body.referrer;
 	}
 	api(req).patch(`/${service}/${req.params.id}`, {
 		// TODO: sanitize
 		json: req.body,
-	}).then((data) => {
+	}).then(async (data) => {
 		if (service === 'submissions') {
 			// add file permissions for co Worker
 			const { fileIds } = data;
 			const { teamMembers } = data;
 			const { courseGroupId } = data;
-
-			return addFilePermissionsForTeamMembers(req, teamMembers, courseGroupId, fileIds).then((_) => {
+			await addFilePermissionsForTeamMembers(req, teamMembers, courseGroupId, fileIds).then(() => {
 				api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
 					.then((homework) => {
 						sendNotification(data.studentId,
@@ -241,11 +239,14 @@ const patchFunction = (service, req, res, next) => {
 							req,
 							`${(req.headers.origin || HOST)}/homework/${homework._id}`);
 					});
-				const redirect_path = `${req.header('Referrer')}#activetabid=submissions`;
-				res.redirect(redirect_path);
+				const redirectPath = `${req.header('Referrer')}#activetabid=submissions`;
+				res.redirect(redirectPath);
 			});
 		}
 		if (referrer) {
+			if (returnToRooms) {
+				res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
+			}
 			res.redirect(referrer);
 		} else {
 			res.sendStatus(200);
@@ -319,7 +320,6 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 	return patchFunction(service, req, res, next);
 };
 
-
 const getImportHandler = (service) => (req, res, next) => {
 	api(req).get(`/${service}/${req.params.id}`).then(
 		(data) => {
@@ -329,7 +329,6 @@ const getImportHandler = (service) => (req, res, next) => {
 		next(err);
 	});
 };
-
 
 const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
 	api(req).delete(`/${service}/${req.params.id}`).then((_) => {
@@ -656,7 +655,7 @@ router.get('/new', (req, res, next) => {
 			closeLabel: res.$t('global.button.discard'),
 			method: 'post',
 			action: '/homework/',
-			referrer: req.query.course ? `/courses/${req.query.course}/?activeTab=homeworks` : '/homework/',
+			referrer: req.query.returnUrl || '/tasks/',
 			assignment,
 			courses,
 			lessons: lessons.length ? lessons : false,
@@ -671,6 +670,9 @@ router.get('/:assignmentId/copy', (req, res, next) => {
 				const error = new Error(res.$t('homework._task.text.errorInvalidTaskId'));
 				error.status = 500;
 				return next(error);
+			}
+			if (req.query.returnUrl) {
+				return res.redirect(`/homework/${assignment._id}/edit?returnUrl=${req.query.returnUrl}`);
 			}
 			return res.redirect(`/homework/${assignment._id}/edit`);
 		}).catch((err) => {
@@ -717,7 +719,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 						closeLabel: res.$t('global.button.discard'),
 						method: 'patch',
 						action: `/homework/${req.params.assignmentId}`,
-						referrer: '/homework/',
+						referrer: req.query.returnUrl || '/tasks/',
 						assignment,
 						courses,
 						lessons,
@@ -731,7 +733,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					closeLabel: res.$t('global.button.discard'),
 					method: 'patch',
 					action: `/homework/${req.params.assignmentId}`,
-					referrer: '/homework/',
+					referrer: req.query.returnUrl || '/tasks/',
 					assignment,
 					courses,
 					lessons: false,

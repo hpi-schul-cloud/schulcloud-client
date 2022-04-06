@@ -1654,7 +1654,7 @@
 				"de": "Deutsch",
 				"en": "English",
 				"es": "Español",
-				"ua": "Український"
+				"ua": "Yкраїнський"
 			} 
 		},
 		"link": {
@@ -2447,7 +2447,8 @@
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
 			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte kontaktiere deinen Schul-Admin!",
 			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
-			"schoolInMigrationMode": "Die Schule befindet sich im Modus der Benutzermigration. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>."
+			"schoolInMigrationModeStarted": "Die Schule befindet sich im Modus der Benutzermigration. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>.",
+			"schoolInMigrationMode": "Die Schule kann Benutzerkonten von weBBschule importieren. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>."
 		}
 	},
 	"login": {
