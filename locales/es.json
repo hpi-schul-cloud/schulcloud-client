@@ -1650,6 +1650,7 @@
 		},
 		"language": {
 			"label": {
+				"selected": "Idioma seleccionado",
 				"de": "Deutsch",
 				"en": "English",
 				"es": "Español",
