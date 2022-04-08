@@ -19,8 +19,10 @@ const {
 
 const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
-	let lessonPromise; let action; let
-		method;
+	let lessonPromise;
+	let action;
+	let	method;
+	const referrer = req.query.returnUrl;
 	if (req.params.topicId) {
 		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
 		+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
@@ -32,7 +34,6 @@ const editTopicHandler = (req, res, next) => {
 		method = 'post';
 		lessonPromise = Promise.resolve({});
 	}
-
 
 	lessonPromise.then((lesson) => {
 		if (lesson.contents) {
@@ -55,6 +56,7 @@ const editTopicHandler = (req, res, next) => {
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
 			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
+			referrer,
 		});
 	}).catch((err) => {
 		next(err);
@@ -273,6 +275,9 @@ router.post('/', async (req, res, next) => {
 	api(req).post('/lessons/', {
 		json: data, // TODO: sanitize
 	}).then(() => {
+		if (req.body.referrer) {
+			res.redirect(`${(req.headers.origin)}/${req.body.referrer}`);
+		}
 		res.redirect(
 			context === 'courses'
 				? `/courses/${req.params.courseId
@@ -437,6 +442,9 @@ router.patch('/:topicId', async (req, res, next) => {
 		if (req.query.json) {
 			res.json(lesson);
 		} else {
+			if (req.body.referrer) {
+				res.redirect(`${(req.headers.origin)}/${req.body.referrer}`);
+			}
 			// sends a GET request, not a PATCH
 			res.redirect(`/${context}/${req.params.courseId}/topics/${req.params.topicId
 			}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`);
