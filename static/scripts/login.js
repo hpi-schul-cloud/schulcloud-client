@@ -44,6 +44,8 @@ $(document).ready(() => {
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 	const $loginParams = $('.login-params');
+	const $iservOauthSystem = $('.iserv-oauth-system');
+	const $oauthError = $('.oauth-error');
 
 	const enableDisableLdapBtn = (id) => {
 		if ($btnLoginLdap.data('active') === true) {
@@ -80,9 +82,8 @@ $(document).ready(() => {
 			$btnLoginLdap.data('active', true);
 			enableDisableLdapBtn($school.val());
 			$btnLoginCloud.prop('disabled', false);
-		}, $submitButton.data('timeout') * 1000,
-		$btnLoginLdap.data('timeout') * 1000,
-		$btnLoginCloud.data('timeout') * 1000);
+		// eslint-disable-next-line max-len
+		}, $submitButton.data('timeout') * 1000, $btnLoginLdap.data('timeout') * 1000, $btnLoginCloud.data('timeout') * 1000);
 		if ($btnLoginLdap.data('timeout')) {
 			countdownNum = $btnLoginLdap.data('timeout');
 		} else if ($btnLoginCloud.data('timeout')) {
@@ -147,6 +148,18 @@ $(document).ready(() => {
 		}
 	});
 
+	if ($oauthError && $oauthButton[0] && $oauthError[0].innerText === 'true') {
+		let logoutWindow = null;
+		const closeLogoutWindow = () => {
+			logoutWindow.close();
+		};
+		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
+		logoutWindow = window.open(iservOauthSystem.oauthConfig.logoutEndpoint);
+		window.focus();
+		setTimeout(closeLogoutWindow, 1500);
+		$oauthError[0].innerText = 'false';
+	}
+
 	$oauthButton.on('click', () => {
 		const iservOauthSystem = JSON.parse($oauthButton[0].dataset.system);
 		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?
@@ -167,6 +180,7 @@ $(document).ready(() => {
 		showHideEmailLoginForm(false);
 		showHideLdapLoginForm(true);
 		$school.trigger('chosen:updated');
+		enableDisableLdapBtn($school.val());
 	});
 
 	$returnButton.on('click', () => {
@@ -234,29 +248,26 @@ $(document).ready(() => {
 		$modals.modal('hide');
 	});
 
-	// if stored login system - use that
-	if (storage.local.getItem('loginSchool')) {
+	const triggerAutoLogin = (strategy, schoolid) => {
+		if (strategy === 'iserv') {
+			$oauthButton.trigger('click');
+		} else if (strategy === 'ldap') {
+			$school.val(schoolid);
+			$school.trigger('chosen:updated');
+			$ldapButton.trigger('click');
+		} else if (strategy === 'email') {
+			$cloudButton.trigger('click');
+		}
+	};
+
+	if ($loginParams.data('strategy')) {
+		triggerAutoLogin($loginParams.data('strategy'), $loginParams.data('schoolid'));
+	} else if (storage.local.getItem('loginSchool')) { // if stored login system - use that
 		$btnToggleProviders.hide();
 		$loginProviders.show();
 		$school.val(storage.local.getItem('loginSchool'));
 		$school.trigger('change');
 	}
-	const triggerAutoLogin = (strategy, schoolid) => {
-		if (strategy === 'iserv') $oauthButton.trigger('click');
-		if (strategy === 'ldap') {
-			$school.val(schoolid);
-			$ldapButton.trigger('click');
-			$school.trigger('chosen:updated');
-		}
-		if (strategy === 'email') $cloudButton.trigger('click');
-	};
-
-	if ($loginParams.data('strategy')) {
-		if ($loginParams.data('schoolid')) {
-			triggerAutoLogin($loginParams.data('strategy'), $loginParams.data('schoolid'));
-		} else triggerAutoLogin($loginParams.data('strategy'));
-	}
-
 	initAlerts('login');
 	// remove duplicated login error
 	$('.col-xs-12 > .notification').remove();

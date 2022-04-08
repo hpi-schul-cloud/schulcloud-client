@@ -17,8 +17,13 @@ router.get('/', async (req, res) => {
 	return res.render('firstLogin/forcePasswordChange', renderObject);
 });
 
-router.post('/submit', async (req, res) => api(req)
-	.post('/forcePasswordChange/', { json: req.body })
+router.post('/submit', async (req, res) => api(req, { json: true, version: 'v3' })
+	.patch('/account/me/password', {
+		json: {
+			password: req.body['password-1'],
+			confirmPassword: req.body['password-2'],
+		},
+	})
 	.then(() => {
 		res.sendStatus(200);
 	})
@@ -26,7 +31,7 @@ router.post('/submit', async (req, res) => api(req)
 		res.status(500)
 			.send(
 				(err.error || err).message
-				|| 'Ein Fehler ist bei der Verarbeitung der Force Change Password Daten aufgetreten.',
+					|| 'Ein Fehler ist bei der Verarbeitung der Force Change Password Daten aufgetreten.',
 			);
 	}));
 

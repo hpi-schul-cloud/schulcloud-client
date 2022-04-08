@@ -1,5 +1,5 @@
-# HPI Schul-Cloud Client  
-_An implementation of the HPI Schul-Cloud client with NodeJS and Express._  
+#  Schul-Cloud Client  
+_An implementation of the Schul-Cloud client with NodeJS and Express._  
 
 Dev: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/hpi-schul-cloud/schulcloud-client)
 Master: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/hpi-schul-cloud/schulcloud-client)
@@ -21,7 +21,7 @@ You might take a look at the [Dockerfile](https://github.com/hpi-schul-cloud/sch
 
 ## Setup  
   
-German docs on installing: [Setup SC](https://docs.hpi-schul-cloud.org/display/SCDOK/Setup)
+German docs on installing: [Setup SC](https://docs.dbildungscloud.de/display/SCDOK/Setup)
   
 Short version:
 
