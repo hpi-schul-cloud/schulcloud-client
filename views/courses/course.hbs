@@ -82,18 +82,9 @@
 <section class="section-course">
   <div class="tabContainer" data-active-tab={{activeTab}}>
     <div class="tabs" data-max-width="1024">
-      <button class="tab" data-testid="topics" data-tab="js-topics" type="button">
-        <span class="text">{{$t "courses._course.tab_label.topics"}}</span>
-      </button>
-      <button class="tab" data-testid="hometasks" data-tab="js-homeworks" type="button">
-        {{#if isTeacher}}
-        <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge"
-            data-badge="{{ add (arrayLength ../privateHomeworks) ( add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) ) }}" /></span>
-        {{else}}
-        <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge"
-            data-badge="{{ add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) }}" /></span>
-        {{/if}}
-      </button>
+      <a href="/rooms/{{../_id}}" class="tab" data-testid="topics" type="button">
+          <span class="text">{{$t "courses._course.tab_label.topics"}}</span>
+      </a>
       <button class="tab" data-testid="tools" data-tab="js-tools" type="button">
         <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge"
             data-badge="{{../ltiTools.length}}" /></span>
@@ -106,14 +97,6 @@
   </div>
   <div class="sectionsContainer">
     <div class="sections">
-      <!-- Themen -->
-      <div class="section" data-section="js-topics">
-        {{> "courses/components/topics" archived=@root.isArchived}}
-      </div>
-      <!--- Aufgaben -->
-      <div class="section" data-section="js-homeworks">
-        {{> "courses/components/tasks" archived=@root.isArchived}}
-      </div>
       <!-- Tools -->
       <div name="js-tools-section" name="js-tools" class="section" data-section="js-tools">
         {{> "courses/components/tools" archived=@root.isArchived}}
