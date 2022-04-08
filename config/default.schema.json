@@ -402,7 +402,7 @@
 				},
 				"AVAILABLE_LANGUAGES": {
 					"type": "string",
-					"default": "de,en",
+					"default": "de,en,es,ua",
 					"description": "Available languages"
 				}
 			},
@@ -495,6 +495,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables button Oauth Login feature"
+		},
+		"FEATURE_USER_MIGRATION_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, admin can see a message with link to user migration page"
 		}
 	},
 	"allOf": [

@@ -7,6 +7,7 @@
       {{#if @root.submission}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{@root.submission._id}}">
         <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
+        <input type="hidden" name="_method" data-force-value="true" value="patch"/>
       {{else}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit">
       {{/if}}
@@ -17,7 +18,6 @@
                 fileIds=@root.submission.fileIds
                 deletionAllowed=true
                 submission=@root.submission}}{{/embed}}
-            <input type="hidden" name="_method" data-force-value="true" value="patch"/>
         {{/ifneq}}
       {{else}}
         <div class="form-group section-uploaded-files">
