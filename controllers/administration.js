@@ -503,33 +503,6 @@ const getDeleteHandler = (service, redirectUrl) => function deleteHandler(req, r
 		});
 };
 
-const getDeleteAccountForUserHandler = (req, res, next) => {
-	api(req)
-		.get('/accounts/', {
-			qs: {
-				userId: req.params.id,
-			},
-		})
-		.then((accounts) => {
-			// if no account find, user isn't fully registered
-			if (!accounts || accounts.length <= 0) {
-				next();
-				return;
-			}
-
-			// for now there is only one account for a given user
-			const account = accounts[0];
-			api(req)
-				.delete(`/accounts/${account._id}`)
-				.then(() => {
-					next();
-				});
-		})
-		.catch((err) => {
-			next(err);
-		});
-};
-
 const removeSystemFromSchoolHandler = (req, res, next) => {
 	api(req)
 		.patch(`/schools/${res.locals.currentSchool}`, {
@@ -1019,7 +992,7 @@ router.get(
 			$populate: ['year'],
 			$sort: 'displayName',
 		});
-		const accountPromise = api(req).get('/accounts/', {
+		const accountPromise = api(req, { version: 'v3' }).get('/accounts/', {
 			qs: { userId: req.params.id },
 		});
 
