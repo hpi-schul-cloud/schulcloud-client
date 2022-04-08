@@ -14,21 +14,6 @@
 					<div class="col-sm-12 no-padding">
 						<!-- Teacher View -->
 						<div class="row card-deck-row">
-                        {{#if inUserMigration}}
-                            {{#if inMaintenance}}
-                                {{#userHasPermission 'IMPORT_USER_VIEW'}}
-                                    <div class="col-xs-12">
-                                        <div class="card h-100 teacher-option locationlink" data-loclink="/administration/migration">
-                                            <div class="card-block migration">
-                                                <div class="card-text">
-                                                    <h2 class="h4"><i class="fa fa-building"></i> {{$t "administration.dashboard.headline.migration" }}</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{/userHasPermission}}
-                                {{/if}}
-                            {{/if}}
 							{{#userHasPermission 'STUDENT_LIST'}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/students" data-testid="administrate_students">
@@ -93,6 +78,19 @@
 									</div>
 								</div>
 							{{/userHasPermission}}
+							{{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
+								{{#userHasPermission 'IMPORT_USER_VIEW'}}
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/migration">
+									    <div class="card-block migration">
+									        <div class="card-text">
+									            <h2 class="h4"><i class="fa fa-building"></i> {{$t "administration.dashboard.headline.migration" }}</h2>
+									        </div>
+									    </div>
+									</div>
+								</div>
+								{{/userHasPermission}}
+							{{/ifConfig}}
 						</div>
 					</div>
 				</div>
