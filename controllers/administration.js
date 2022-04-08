@@ -310,29 +310,6 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 		message: res.$t('administration.controller.text.userCreatedSuccessfully'),
 	};
 	return redirectHelper.safeBackRedirect(req, res);
-
-	/* deprecated code for template-based e-mails - we keep that for later copy&paste
-    fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
-        if (!err) {
-            let source = data.toString();
-            let template = handlebars.compile(source);
-            let outputString = template({
-                "url": (req.headers.origin || HOST) + "/register/account/" + user._id,
-                "firstName": user.firstName,
-                "lastName": user.lastName
-            });
-
-            let content = {
-                "html": outputString,
-                "text": "Sehr geehrte/r " + user.firstName + " " + user.lastName + ",\n\n" +
-					"Sie wurden in die HPI Schul-Cloud eingeladen," +
-					" bitte registrieren Sie sich unter folgendem Link:\n" +
-                    (req.headers.origin || HOST) + "/register/account/" + user._id + "\n\n" +
-                    "Mit Freundlichen Grüßen" + "\nIhr HPI Schul-Cloud Team"
-            };
-            req.body.content = content;
-        }
-    }); */
 };
 
 const getUserCreateHandler = (internalReturn) => function userCreate(req, res, next) {
@@ -992,9 +969,13 @@ router.get(
 			$populate: ['year'],
 			$sort: 'displayName',
 		});
-		const accountPromise = api(req, { version: 'v3', json: true }).get('/account/', {
-			qs: { userId: req.params.id },
-		});
+		const accountPromise = api(req, { json: true, version: 'v3' })
+			.get('/account/', {
+				qs: {
+					type: 'userId',
+					value: req.params.id,
+				},
+			});
 
 		Promise.all([
 			userPromise,
