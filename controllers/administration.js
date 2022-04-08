@@ -992,7 +992,7 @@ router.get(
 			$populate: ['year'],
 			$sort: 'displayName',
 		});
-		const accountPromise = api(req, { version: 'v3' }).get('/accounts/', {
+		const accountPromise = api(req, { version: 'v3', json: true }).get('/account/', {
 			qs: { userId: req.params.id },
 		});
 
