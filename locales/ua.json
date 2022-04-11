@@ -102,7 +102,7 @@
             "toCourse": "До курсу",
             "done": "Готово",
             "addDraftTask": "Додайте чернетку",
-            "discard": ""
+            "discard": "Відхилити"
         },
         "text": {
             "friday": "П'ятниця",
@@ -231,7 +231,7 @@
             "youAlmostMadeIt": "Майже готово!",
             "topics": "Теми",
             "draftTasks": "Чернетки",
-            "taskNew": ""
+            "taskNew": "Нове завдання"
         },
         "role": {
             "text": {
@@ -1946,12 +1946,12 @@
                     "changeRoleOfMember": "Змінити роль користувача:",
                     "errorWhileRemovingMember": "Проблема під час вилучення учасника",
                     "expert": "Зовнішній експерт",
-                    "invitationEmailIsEqualToRegisterEmail": "",
-                    "inviteTeachersAndExpertsByEmail": "",
-                    "member": "",
-                    "selectTeacherFromRegisterOrInvitePerEmail": "",
-                    "teacherIsFromOtherSchool": "",
-                    "teachersRegisterProcessFinished": "",
+                    "invitationEmailIsEqualToRegisterEmail": "Вказана електронна пошта збігається з електронною поштою, з якою викладач зареєстрований в {{ rootThemeShortTitle }}.",
+                    "inviteTeachersAndExpertsByEmail": "Запросіть викладачів з інших шкіл і експертів електронною поштою.",
+                    "member": "Учасники",
+                    "selectTeacherFromRegisterOrInvitePerEmail": "Виберіть викладача з інших шкіл із центрального довідника або вкажіть адресу електронної пошти, за якою вона зареєстрована. Приєднавшись до вашої команди, вона може додати до команди учнів і викладачів зі своєї школи.",
+                    "teacherIsFromOtherSchool": "Викладач в іншій школі",
+                    "teachersRegisterProcessFinished": "Реєстрацію викладача в {{ rootThemeShortTitle }} завершено",
                     "addedMemberFailure": "Проблема під час додавання учасника",
                     "addedMemberSuccess": "Учасника успішно додано до команди",
                     "errorWhileEditingMember": "Проблема під час редагування учасника",
