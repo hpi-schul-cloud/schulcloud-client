@@ -1010,7 +1010,7 @@ router.get(
 				});
 			})
 			.catch((err) => {
-				next(err)
+				next(err);
 			});
 	},
 );
