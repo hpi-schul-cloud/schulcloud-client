@@ -981,33 +981,37 @@ router.get(
 			userPromise,
 			classesPromise,
 			accountPromise,
-		]).then(([user, _classes, _account]) => {
-			const account = _account[0];
-			const hidePwChangeButton = !account;
+		])
+			.then(([user, _classes, _account]) => {
+				const account = _account[0];
+				const hidePwChangeButton = !account;
 
-			const classes = _classes.map((c) => {
-				c.selected = c.teacherIds.includes(user._id);
-				return c;
+				const classes = _classes.map((c) => {
+					c.selected = c.teacherIds.includes(user._id);
+					return c;
+				});
+				const canDeleteUser = res.locals.currentUser.permissions.includes('TEACHER_DELETE');
+				res.render('administration/users_edit', {
+					title: res.$t('administration.controller.link.editTeacher'),
+					action: `/administration/teachers/${user._id}`,
+					submitLabel: res.$t('global.button.save'),
+					closeLabel: res.$t('global.button.cancel'),
+					user,
+					canDeleteUser,
+					consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
+					consent: user.consent,
+					classes,
+					editTeacher: true,
+					hidePwChangeButton,
+					isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
+					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+					referrer: req.header('Referer'),
+					hasAccount: !!account,
+				});
+			})
+			.catch((err) => {
+				next(err)
 			});
-			const canDeleteUser = res.locals.currentUser.permissions.includes('TEACHER_DELETE');
-			res.render('administration/users_edit', {
-				title: res.$t('administration.controller.link.editTeacher'),
-				action: `/administration/teachers/${user._id}`,
-				submitLabel: res.$t('global.button.save'),
-				closeLabel: res.$t('global.button.cancel'),
-				user,
-				canDeleteUser,
-				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
-				consent: user.consent,
-				classes,
-				editTeacher: true,
-				hidePwChangeButton,
-				isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
-				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-				referrer: req.header('Referer'),
-				hasAccount: !!account,
-			});
-		});
 	},
 );
 
@@ -1415,7 +1419,7 @@ router.get(
 		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
 		Promise.all([userPromise, accountPromise])
-			.then(([user, [account]]) => {
+			.then(([user, account]) => {
 				const consent = user.consent || {};
 				if (consent) {
 					consent.parentConsent = (consent.parentConsents || []).length
