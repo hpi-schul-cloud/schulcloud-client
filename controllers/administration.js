@@ -1405,9 +1405,13 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	(req, res, next) => {
 		const userPromise = api(req).get(`/users/admin/students/${req.params.id}`);
-		const accountPromise = api(req).get('/accounts/', {
-			qs: { userId: req.params.id },
-		});
+		const accountPromise = api(req, { json: true, version: 'v3' })
+			.get('/account/', {
+				qs: {
+					type: 'userId',
+					value: req.params.id,
+				},
+			});
 		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
 		Promise.all([userPromise, accountPromise])
