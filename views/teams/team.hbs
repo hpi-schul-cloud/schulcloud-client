@@ -116,15 +116,10 @@
                                         <div class="pull-right">
                                             <a data-method="dir-rename" title="{{$t "teams._team.files.button.renameFolder"}}"
                                                 data-directory-id="{{../this._id}}"
-                                                data-directory-name="{{../this.name}}" tabindex="0">
-                                                <i class="fa fa-edit text-muted" aria-hidden="true"></i>
-                                            </a>
-
+                                                data-directory-name="{{../this.name}}" tabindex="0"><i class="fa fa-edit text-muted" aria-hidden="true"></i></a>
                                             <a data-href="/files/directory/" data-method="delete" title="{{$t "teams._team.files.button.deleteFolder"}}"
                                                 data-file-name="{{../this.name}}" data-file-id="{{../this._id}}"
-                                                tabindex="0">
-                                                <i class="fa fa-trash-o text-muted" aria-hidden="true"></i>
-                                            </a>
+                                                tabindex="0"><i class="fa fa-trash-o text-muted" aria-hidden="true"></i></a>
 
                                             {{!-- {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
                                             <a class="btn-file-share" data-method="dir-share" title="{{$t "
