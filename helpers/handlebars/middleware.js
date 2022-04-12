@@ -311,7 +311,7 @@ module.exports = (req, res, next) => {
 			name: res.$t('global.link.helpArea'),
 			testId: 'Hilfebereich',
 			icon: 'question-circle',
-			link: '/help/',
+			link: '/help/articles',
 			children: [
 				{
 					name: res.$t('help.headline.helpSection'),
@@ -323,6 +323,12 @@ module.exports = (req, res, next) => {
 					isExternalIcon: true,
 				},
 				{
+					name: res.$t('global.link.contact'),
+					testId: 'Kontakt',
+					icon: 'comment',
+					link: '/help/contact/',
+				},
+				{
 					name: res.$t('lib.help_menu.link.training'),
 					testId: 'Fortbildungen',
 					icon:
@@ -331,12 +337,6 @@ module.exports = (req, res, next) => {
 					link: 'https://lernen.cloud/',
 					isExternalLink: true,
 					isExternalIcon: true,
-				},
-				{
-					name: res.$t('global.link.contact'),
-					testId: 'Kontakt',
-					icon: 'comment',
-					link: '/help/contact/',
 				},
 			],
 		});
