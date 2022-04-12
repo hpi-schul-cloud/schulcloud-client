@@ -20,7 +20,7 @@ class Nexboard {
 		};
 
 		return rp(settings)
-			.then((res) => return res.map((e) => return e.id; }); })
+			.then((res) => return res.map((e) => return e.id; }); )
 			.catch((err) => {
 				return Promise.reject(new Error(`Could not retrieve ProjectIds - ${err.error.msg}`));
 			});
