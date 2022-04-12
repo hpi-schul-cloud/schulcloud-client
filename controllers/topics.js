@@ -382,11 +382,11 @@ router.get('/:topicId', (req, res, next) => {
 			isTeacher,
 			breadcrumb: [{
 				title: res.$t('courses.headline.myCourses'),
-				url: `/${context}`,
+				url: "/rooms-overview",
 			},
 			{
-				title: `${course.name} ${!courseGroup._id ? '> Themen' : ''}`,
-				url: `/${context}/${course._id}`,
+				title: `${course.name}`,
+				url: `/rooms/${course._id}`,
 			},
 			courseGroup._id ? {
 				title: `${courseGroup.name} > Themen`,
