@@ -385,7 +385,7 @@ router.get('/:topicId', (req, res, next) => {
 				url: '/rooms-overview',
 			},
 			{
-				title: `${course.name}`,
+				title: course.name,
 				url: `/rooms/${course._id}`,
 			},
 			courseGroup._id ? {

@@ -163,11 +163,11 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			openSubmissions,
 			breadcrumb: [{
 				title: res.$t("courses.headline.myCourses"),
-				url: '/courses',
+				url: '/rooms-overview',
 			},
 			{
 				title: course.name,
-				url: `/courses/${course._id}`,
+				url: `/rooms/${course._id}`,
 			},
 			],
 		}));

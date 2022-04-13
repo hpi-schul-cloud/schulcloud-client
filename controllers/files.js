@@ -713,7 +713,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		courseId: req.params.courseId,
 		ownerId: req.params.courseId,
 		toCourseText: res.$t('global.button.toCourse'),
-		courseUrl: `/courses/${req.params.courseId}/`,
+		courseUrl: `/rooms/${req.params.courseId}/`,
 		canEditPermissions: true,
 		parentId: req.params.folderId,
 		...res.locals.files,

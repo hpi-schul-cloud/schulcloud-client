@@ -563,7 +563,7 @@ router.post('/copy/:courseId', (req, res, next) => {
 			json: req.body, // TODO: sanitize
 		})
 		.then((course) => {
-			res.redirect(`/courses/${course._id}`);
+			res.redirect(`/rooms/${course._id}`);
 		});
 });
 
@@ -749,10 +749,6 @@ router.get('/:courseId/', async (req, res, next) => {
 						title: res.$t('courses.headline.myCourses'),
 						url: (showLegacyCourse ? '/courses' : '/rooms-overview'),
 					},
-					{
-						title: course.name,
-						url: `/courses/${course._id}`,
-					},
 				],
 				filesUrl: `/files/courses/${req.params.courseId}`,
 				nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
@@ -773,7 +769,7 @@ router.get('/:courseId/', async (req, res, next) => {
 
 router.patch('/:courseId', async (req, res, next) => {
 	try {
-		const redirectUrl = req.query.redirectUrl || `/courses/${req.params.courseId}`;
+		const redirectUrl = req.query.redirectUrl || `/rooms/${req.params.courseId}`;
 
 		// map course times to fit model
 		req.body.times = req.body.times || [];
@@ -865,7 +861,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 			type: 'danger',
 			message: res.$t('courses._course.addStudent.text.youAreNoStudent'),
 		};
-		res.redirect(`/courses/${req.params.courseId}`);
+		res.redirect(`/rooms/${req.params.courseId}`);
 		return;
 	}
 
@@ -878,7 +874,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 					type: 'danger',
 					message: res.$t('courses._course.text.youAreAlreadyMember', { coursename: course.name }),
 				};
-				res.redirect(`/courses/${req.params.courseId}`);
+				res.redirect(`/rooms/${req.params.courseId}`);
 				return;
 			}
 
@@ -894,7 +890,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 						type: 'success',
 						message: res.$t('courses._course.text.youHaveBeenAdded', { coursename: course.name }),
 					};
-					res.redirect(`/courses/${req.params.courseId}`);
+					res.redirect(`/rooms/${req.params.courseId}`);
 				});
 		})
 		.catch(next);
