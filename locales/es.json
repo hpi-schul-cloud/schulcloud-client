@@ -973,8 +973,7 @@
 				"shareCodeGenerated": "Se ha generado una copia del código."
 			},
 			"link": {
-				"toCourseFiles": "A los archivos del curso",
-				"toRoomView": "A la vista de la sala"
+				"toCourseFiles": "A los archivos del curso"
 			},
 			"tab_label": {
 				"groups": "Grupos",

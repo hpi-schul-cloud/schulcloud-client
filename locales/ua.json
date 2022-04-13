@@ -307,8 +307,7 @@
                 }
             },
             "link": {
-                "toCourseFiles": "До файлів курсу",
-                "toRoomView": "Вид на клас"
+                "toCourseFiles": "До файлів курсу"
             },
             "tab_label": {
                 "groups": "Групи",
