@@ -311,7 +311,7 @@ module.exports = (req, res, next) => {
 			name: res.$t('global.link.helpArea'),
 			testId: 'Hilfebereich',
 			icon: 'question-circle',
-			link: '/help/articles',
+			link: '/help/',
 			children: [
 				{
 					name: res.$t('help.headline.helpSection'),

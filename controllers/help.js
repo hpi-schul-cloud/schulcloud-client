@@ -22,7 +22,7 @@ router.get('/articles', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-	res.render('help/dashboard', {
+	res.render('help/help', {
 		title: res.$t('help.headline.helpSection'),
 	});
 });
