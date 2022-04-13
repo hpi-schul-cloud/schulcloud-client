@@ -26,14 +26,14 @@
 				vertical-align: middle;
 				cursor: pointer;
 				font-weight: 500;
-				font-size: 1.25em;
+				font-size: 1em;
 				@include media-breakpoint-down(xs) {
 					display: none;
 				}
 			}
 			i.fa {
 				color: $secondaryColor;
-				font-size: 24px;
+				font-size: 1em;
 				vertical-align: middle;
 				cursor: pointer;
 			}
