@@ -878,10 +878,10 @@
 			},
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "Kurs duplizieren",
-					"editDeleteCourse": "Kurs bearbeiten/löschen",
-					"inviteToCourse": "zum Kurs einladen",
-					"shareCourse": "Kurs teilen"
+					"duplicateCourse": "Duplizieren",
+					"editDeleteCourse": "Bearbeiten/löschen",
+					"inviteToCourse": "Einladen",
+					"shareCourse": "Teilen"
 				}
 			},
 			"edit": {

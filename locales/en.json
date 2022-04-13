@@ -878,10 +878,10 @@
 			},
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "duplicate course",
-					"editDeleteCourse": "Edit/delete course",
-					"inviteToCourse": "invite to the course",
-					"shareCourse": "Share course"
+					"duplicateCourse": "Duplicate",
+					"editDeleteCourse": "Edit/delete",
+					"inviteToCourse": "Invite",
+					"shareCourse": "Share"
 				}
 			},
 			"edit": {
