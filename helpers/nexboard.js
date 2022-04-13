@@ -36,7 +36,7 @@ class Nexboard {
 				title,
 				description,
 			},
-			headers: { "Content-Type": 'application/json' },
+			headers: { 'Content-Type': 'application/json' },
 			json: true,
 		};
 
@@ -85,7 +85,7 @@ class Nexboard {
 				email,
 				projectId: project,
 			},
-			headers: { "Content-Type": 'application/json' },
+			headers: { 'Content-Type': 'application/json' },
 			json: true,
 		};
 
