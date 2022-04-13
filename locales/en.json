@@ -972,9 +972,6 @@
 				"createVideoconference": "Create video conference room {{coursename}}",
 				"shareCodeGenerated": "Copy code has been generated!"
 			},
-			"link": {
-				"toCourseFiles": "To the course files"
-			},
 			"tab_label": {
 				"groups": "Groups",
 				"tasks": "Tasks",

@@ -306,9 +306,6 @@
                     "shareCourse": "Поширити курс"
                 }
             },
-            "link": {
-                "toCourseFiles": "До файлів курсу"
-            },
             "tab_label": {
                 "groups": "Групи",
                 "tasks": "Завдання",
