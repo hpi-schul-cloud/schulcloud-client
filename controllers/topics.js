@@ -382,7 +382,7 @@ router.get('/:topicId', (req, res, next) => {
 			isTeacher,
 			breadcrumb: [{
 				title: res.$t('courses.headline.myCourses'),
-				url: "/rooms-overview",
+				url: '/rooms-overview',
 			},
 			{
 				title: `${course.name}`,
