@@ -20,10 +20,8 @@ class Nexboard {
 		};
 
 		return rp(settings)
-			.then((res) => res.map((e) => e.id ) )
-			.catch((err) => {
-				return Promise.reject(new Error(`Could not retrieve ProjectIds - ${err.error.msg}`));
-			});
+			.then((res) => res.map((e) => e.id))
+			.catch((err) => Promise.reject(new Error(`Could not retrieve ProjectIds - ${err.error.msg}`)));
 	}
 
 	createProject(title, description) {
@@ -43,12 +41,8 @@ class Nexboard {
 		};
 
 		return rp(settings)
-			.then((res) => {
-				return res;
-			})
-			.catch((err) => {
-				return Promise.reject(new Error(`Could not create new Project - ${err.error.msg}`));
-			});
+			.then((res) => res)
+			.catch((err) => Promise.reject(new Error(`Could not create new Project - ${err.error.msg}`)));
 	}
 
 	getBoardsByProject(projectId) {
@@ -63,12 +57,8 @@ class Nexboard {
 		};
 
 		return rp(settings)
-			.then((res) => {
-				return res;
-			})
-			.catch((err) => {
-				return Promise.reject(new Error(`Could not retrieve Boards from Projcet - ${err.error.msg}`));
-			});
+			.then((res) => res)
+			.catch((err) => Promise.reject(new Error(`Could not retrieve Boards from Projcet - ${err.error.msg}`)));
 	}
 
 	getBoard(boardId) {
@@ -80,12 +70,8 @@ class Nexboard {
 		};
 
 		return rp(settings)
-			.then((res) => {
-				return res;
-			})
-			.catch((err) => {
-				return Promise.reject(new Error(`Could not retrieve Board - ${err.error.msg}`));
-			});
+			.then((res) => res)
+			.catch((err) => Promise.reject(new Error(`Could not retrieve Board - ${err.error.msg}`)));
 	}
 
 	createBoard(title, description, project, email) {
@@ -104,12 +90,8 @@ class Nexboard {
 		};
 
 		return rp(settings)
-			.then((res) => {
-				return res;
-			})
-			.catch((err) => {
-				return Promise.reject(new Error(`Could not create a new Board - ${err.error.msg}`));
-			});
+			.then((res) => res)
+			.catch((err) => Promise.reject(new Error(`Could not create a new Board - ${err.error.msg}`)));
 	}
 }
 
