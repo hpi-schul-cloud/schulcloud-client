@@ -1,6 +1,6 @@
 {
 	"name": "schulcloud-client",
-	"version": "27.11.3",
+	"version": "27.12.0",
 	"private": true,
 	"scripts": {
 		"start": "node --unhandled-rejections=warn ./bin/www",
