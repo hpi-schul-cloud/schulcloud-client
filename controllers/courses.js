@@ -29,6 +29,14 @@ const markSelected = (options, values = []) => options.map((option) => {
 	return option;
 });
 
+getDefaultRedirectUrl = (courseId) => {
+	let url = `/courses/${courseId}`
+	if (Configuration.get('ROOM_VIEW_ENABLED')) {
+		url = `/rooms/${courseId}`;
+	}
+	return `/courses/${courseId}`;
+}
+
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
  * startDate {Date} - the date the course is first take place
@@ -563,7 +571,7 @@ router.post('/copy/:courseId', (req, res, next) => {
 			json: req.body, // TODO: sanitize
 		})
 		.then((course) => {
-			res.redirect(`/rooms/${course._id}`);
+			res.redirect(getDefaultRedirectUrl(course._id));
 		});
 });
 
@@ -769,7 +777,7 @@ router.get('/:courseId/', async (req, res, next) => {
 
 router.patch('/:courseId', async (req, res, next) => {
 	try {
-		const redirectUrl = req.query.redirectUrl || `/rooms/${req.params.courseId}`;
+		const redirectUrl = req.query.redirectUrl || getDefaultRedirectUrl(req.params.courseId);
 
 		// map course times to fit model
 		req.body.times = req.body.times || [];
@@ -861,7 +869,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 			type: 'danger',
 			message: res.$t('courses._course.addStudent.text.youAreNoStudent'),
 		};
-		res.redirect(`/rooms/${req.params.courseId}`);
+		res.redirect(getDefaultRedirectUrl(req.params.courseId))
 		return;
 	}
 
@@ -874,7 +882,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 					type: 'danger',
 					message: res.$t('courses._course.text.youAreAlreadyMember', { coursename: course.name }),
 				};
-				res.redirect(`/rooms/${req.params.courseId}`);
+				res.redirect(getDefaultRedirectUrl(req.params.courseId))
 				return;
 			}
 
@@ -890,7 +898,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 						type: 'success',
 						message: res.$t('courses._course.text.youHaveBeenAdded', { coursename: course.name }),
 					};
-					res.redirect(`/rooms/${req.params.courseId}`);
+					res.redirect(getDefaultRedirectUrl(req.params.courseId))
 				});
 		})
 		.catch(next);

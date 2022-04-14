@@ -155,6 +155,11 @@ router.get('/:courseGroupId/', (req, res, next) => {
 		_.each(courseGroup.userIds, u => u.displayName = `${u.firstName} ${u.lastName}`);
 		_.each(course.teacherIds, t => t.displayName = `${t.firstName} ${t.lastName}`);
 
+		let roomUrl = `/courses/${course._id}`;
+		if (Configuration.get('ROOM_VIEW_ENABLED')) {
+			roomUrl = `/rooms/${course._id}`
+		}
+
 		res.render('courses/courseGroup', Object.assign({}, courseGroup, {
 			course,
 			title: courseGroup.name,
@@ -167,7 +172,7 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			},
 			{
 				title: course.name,
-				url: `/rooms/${course._id}`,
+				url: roomUrl,
 			},
 			],
 		}));

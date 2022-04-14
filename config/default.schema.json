@@ -370,6 +370,11 @@
 			"default": false,
 			"description": "feature toggle activate legacy Course link."
 		},
+		"ROOM_VIEW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "feature toggle activate Room view link."
+		},
 		"I18N": {
 			"type": "object",
 			"description": "Configuration of I18N",
