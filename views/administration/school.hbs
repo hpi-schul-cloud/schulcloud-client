@@ -251,7 +251,7 @@
                             </div>
                         {{/if}}
                         {{> "lib/forms/form-change-language" langParent=../school }}
-                        {{#ifConfig "FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED" true}}
+                        {{#ifConfig "TEACHER_STUDENT_VISIBILITY__IS_CONFIGURABLE" true}}
 							<h2 class="h6 mt-2">{{$t "administration.school.label.privacySettings" }}</h2>
 							<div class="form-group">
 								<label>

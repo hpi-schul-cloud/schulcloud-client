@@ -196,10 +196,10 @@
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
 		},
-		"FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED": {
+		"TEACHER_STUDENT_VISIBILITY__IS_CONFIGURABLE": {
 			"type": "boolean",
 			"default": "false",
-			"description": "Allows school admin to toggle teacher's STUDENT_LIST permission."
+			"description": "Allows school admin to toggle teachers' STUDENT_LIST permission."
 		},
 		"FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED": {
 			"type": "boolean",

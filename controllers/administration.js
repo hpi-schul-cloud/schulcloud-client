@@ -2323,8 +2323,7 @@ const updateSchoolFeatures = async (req, currentFeatures, features) => {
 const schoolFeatureUpdateHandler = async (req, res, next) => {
 	try {
 		// Toggle teacher's studentVisibility permission
-		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
-		if (studentVisibilityFeature) {
+		if (Configuration.get('TEACHER_STUDENT_VISIBILITY__IS_CONFIGURABLE')) {
 			await api(req)
 				.patch('school/teacher/studentvisibility', {
 					json: {
