@@ -898,7 +898,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 						type: 'success',
 						message: res.$t('courses._course.text.youHaveBeenAdded', { coursename: course.name }),
 					};
-					res.redirect(getDefaultRedirectUrl(req.params.courseId))
+					res.redirect(getDefaultRedirectUrl(req.params.courseId));
 				});
 		})
 		.catch(next);

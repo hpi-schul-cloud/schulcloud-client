@@ -972,10 +972,14 @@
 				"createVideoconference": "Videokonferenzraum {{coursename}} erstellen",
 				"shareCodeGenerated": "Kopiercode wurde generiert!"
 			},
+			"link": {
+				"toCourseFiles": "Zu den Kursdateien"
+			},
 			"tab_label": {
 				"groups": "Gruppen",
 				"tasks": "Aufgaben",
 				"tools": "Tools",
+				"oldTopics": "Themen",
 				"topics": "Lerninhalte"
 			},
 			"tasks": {

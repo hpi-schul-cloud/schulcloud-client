@@ -306,10 +306,14 @@
                     "shareCourse": "Поділіться"
                 }
             },
+            "link": {
+                "toCourseFiles": "До файлів курсу"
+            },
             "tab_label": {
                 "groups": "Групи",
                 "tasks": "Завдання",
                 "tools": "Інструменти",
+                "oldTopics": "Теми",
                 "topics": "Зміст навчання"
             },
             "text": {

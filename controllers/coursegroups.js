@@ -155,10 +155,7 @@ router.get('/:courseGroupId/', (req, res, next) => {
 		_.each(courseGroup.userIds, u => u.displayName = `${u.firstName} ${u.lastName}`);
 		_.each(course.teacherIds, t => t.displayName = `${t.firstName} ${t.lastName}`);
 
-		let roomUrl = `/courses/${course._id}`;
-		if (Configuration.get('ROOM_VIEW_ENABLED')) {
-			roomUrl = `/rooms/${course._id}`;
-		}
+		const showRoomView = Configuration.get('ROOM_VIEW_ENABLED') || false;
 
 		res.render('courses/courseGroup', Object.assign({}, courseGroup, {
 			course,
@@ -168,11 +165,11 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			openSubmissions,
 			breadcrumb: [{
 				title: res.$t("courses.headline.myCourses"),
-				url: '/rooms-overview',
+				url: (showRoomView ? '/rooms-overview' : '/courses'),
 			},
 			{
 				title: course.name,
-				url: roomUrl,
+				url: (showRoomView ? `/rooms/${course._id}` : `/courses/${course._id}`),
 			},
 			],
 		}));
