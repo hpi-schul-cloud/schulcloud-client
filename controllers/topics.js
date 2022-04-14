@@ -374,7 +374,7 @@ router.get('/:topicId', (req, res, next) => {
 
 		let roomUrl = `/courses/${course._id}`;
 		if (Configuration.get('ROOM_VIEW_ENABLED')) {
-			roomUrl = `/rooms/${course._id}`
+			roomUrl = `/rooms/${course._id}`;
 		}
 		// return for consistent return
 		return res.render('topic/topic', Object.assign({}, lesson, {
@@ -412,30 +412,6 @@ router.get('/:topicId', (req, res, next) => {
 		next(err);
 	});
 });
-
-getBreadCrumb = () => {
-	if (Configuration.get('ROOM_VIEW_ENABLED')) {
-		return [{
-			title: res.$t("courses.headline.myCourses"),
-			url: '/rooms-overview',
-		},
-		{
-			title: course.name,
-			url: `/rooms/${course._id}`,
-		},
-		]
-	};
-
-	return [{
-		title: res.$t("courses.headline.myCourses"),
-		url: '/courses',
-	},
-	{
-		title: course.name,
-		url: `/courses/${course._id}`,
-	},
-	]
-}
 
 router.patch('/:topicId', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];

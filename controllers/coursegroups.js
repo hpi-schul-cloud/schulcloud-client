@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -157,7 +157,7 @@ router.get('/:courseGroupId/', (req, res, next) => {
 
 		let roomUrl = `/courses/${course._id}`;
 		if (Configuration.get('ROOM_VIEW_ENABLED')) {
-			roomUrl = `/rooms/${course._id}`
+			roomUrl = `/rooms/${course._id}`;
 		}
 
 		res.render('courses/courseGroup', Object.assign({}, courseGroup, {

@@ -29,13 +29,13 @@ const markSelected = (options, values = []) => options.map((option) => {
 	return option;
 });
 
-getDefaultRedirectUrl = (courseId) => {
-	let url = `/courses/${courseId}`
+const getDefaultRedirectUrl = (courseId) => {
+	let url = `/courses/${courseId}`;
 	if (Configuration.get('ROOM_VIEW_ENABLED')) {
 		url = `/rooms/${courseId}`;
 	}
 	return url;
-}
+};
 
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
@@ -869,7 +869,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 			type: 'danger',
 			message: res.$t('courses._course.addStudent.text.youAreNoStudent'),
 		};
-		res.redirect(getDefaultRedirectUrl(req.params.courseId))
+		res.redirect(getDefaultRedirectUrl(req.params.courseId));
 		return;
 	}
 
