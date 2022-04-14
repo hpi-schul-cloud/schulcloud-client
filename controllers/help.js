@@ -22,9 +22,7 @@ router.get('/articles', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-	res.render('help/dashboard', {
-		title: res.$t('help.headline.helpSection'),
-	});
+	return res.redirect('/help/articles');
 });
 
 router.get('/contact', (req, res, next) => {
