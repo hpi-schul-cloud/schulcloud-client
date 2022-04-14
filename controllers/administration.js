@@ -637,7 +637,8 @@ const returnAdminPrefix = (roles, res) => {
 
 // with userId to accountId
 const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, next) {
-	api(req, { version: 'v3' }).patch(`/account/${req.params.id}/pw`, { json: req.body })
+	const { password } = req.body;
+	api(req, { json: true, version: 'v3' }).patch(`/account/${req.params.id}`, { json: { password } })
 		.then((response) => {
 			logger.info(response);
 			req.session.notification = {
