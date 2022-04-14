@@ -34,7 +34,7 @@ getDefaultRedirectUrl = (courseId) => {
 	if (Configuration.get('ROOM_VIEW_ENABLED')) {
 		url = `/rooms/${courseId}`;
 	}
-	return `/courses/${courseId}`;
+	return url;
 }
 
 /**
