@@ -882,7 +882,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 					type: 'danger',
 					message: res.$t('courses._course.text.youAreAlreadyMember', { coursename: course.name }),
 				};
-				res.redirect(getDefaultRedirectUrl(req.params.courseId))
+				res.redirect(getDefaultRedirectUrl(req.params.courseId));
 				return;
 			}
 
