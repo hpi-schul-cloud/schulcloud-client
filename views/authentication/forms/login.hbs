@@ -101,6 +101,7 @@
 							<div class="oauth-error" hidden>{{ oauthError }}</div>
 						{{/if}}
 					</div>
+					<div class="form group login-params" data-schoolid="{{idOfSchool}}" data-strategy="{{strategyOfSchool}}" ></div>
 
 					{{!-- Email Login --}}
 					<div class="email-login-section">
@@ -108,10 +109,10 @@
 							<input type="hidden" name="redirect" value={{redirect}} />
 								<div class="form-group">
 									<label class="usernameEmailPlaceholder" for="name">{{$t "login.input.email"}}</label>
-									<input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg usernameEmailPlaceholder" placeholder="{{$t "login.input.email"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
+									<input type="text" id="name email" autocomplete="off" name="username" class="form-control form-control-lg usernameEmailPlaceholder" placeholder="{{$t "login.input.email"}}" style="margin-bottom: 0.5rem" data-testid="username" required >
 									<label for="password">{{$t "global.input.password"}}</label>
 									<div class="input-group mt-1 show_hide_password" style="margin-top: 0rem !important">
-										<input type="password" id="password" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "global.input.password"}}" data-testid="password" required>
+										<input type="password" id="password email" autocomplete="current-password" name="password" maxlength="72" class="form-control form-control-lg"  placeholder="{{$t "global.input.password"}}" data-testid="password" required>
 										<div class="input-group-addon">
 											<button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><span class="fa fa-eye-slash" aria-hidden="true"></span></button>
 										</div>
@@ -131,7 +132,7 @@
 									{{#if notification.statusCode}}
 										<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-login" data-timeout="{{notification.timeToWait}}" disabled/>
 									{{else}}
-										<input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-login" />
+										<input autofocus aria-label="login" type="submit" id="submit-login email" class="btn btn-block btn-primary btn-login btn-login-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-login" />
 									{{/if}}
 								</div>
 								<div class="form-group" style="text-align:center">
@@ -176,6 +177,17 @@
 											<option disabled>{{$t "login.input.noSchoolsAvailable"}}</option>
 										{{/each}}
 									</select>
+								</div>
+								<div class="form-group">
+									<div class="system-display">
+										<select id="system" name="system" class="system" data-placeholder="{{$t "login.input.system"}}">
+											{{#each systems}}
+												<option value="{{this._id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
+											{{else}}
+												<option selected disabled>{{$t "login.input.noSystemsAvailable"}}</option>
+											{{/each}}
+										</select>
+									</div>
 								</div>
 								{{> "lib/components/csrfInput"}}
 								<div class="form-group">
