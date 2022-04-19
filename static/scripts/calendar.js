@@ -1,13 +1,38 @@
-import './jquery/datetimepicker-easy';
 import { Calendar } from '@fullcalendar/core';
 import deLocale from '@fullcalendar/core/locales/de';
 import enLocale from '@fullcalendar/core/locales/en-gb';
 import esLocale from '@fullcalendar/core/locales/es';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { toMoment } from '@fullcalendar/moment';
 import momentTimezonePlugin from '@fullcalendar/moment-timezone';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import ua from '../../locales/calendar/ua.json';
+import './jquery/datetimepicker-easy';
+
+const uaLocale = {
+	code: 'ua',
+	week: {
+		dow: 1,
+		doy: 4, // The week that contains Jan 4th is the first week of the year.
+	},
+	buttonText: {
+		prev: ua['buttonText.prev'],
+		next: ua['buttonText.next'],
+		today: ua['buttonText.today'],
+		year: ua['buttonText.year'],
+		month: ua['buttonText.month'],
+		week: ua['buttonText.week'],
+		day: ua['buttonText.day'],
+		list: ua['buttonText.list'],
+	},
+	weekLabel: ua.weekLabel,
+	allDayText: ua.allDayText,
+	eventLimitText(n) {
+		return `+ ${ua.eventLimitText} ${n}`;
+	},
+	noEventsMessage: ua.noEventsMessage,
+};
 
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
@@ -69,27 +94,32 @@ $(document).ready(() => {
 
 	const view = window.location.hash.substring(1);
 
-	const calendarTimezone = document.querySelector('html').getAttribute('timezone');
+	const calendarTimezone = () => document.querySelector('html').getAttribute('timezone') || 'Europe/Berlin';
 
 	const getCalendarLanguage = () => {
 		const langAttribute = document.querySelector('html').getAttribute('lang');
-		switch (langAttribute) {
+		switch (langAttribute) { // replace by object mapper
 			case 'de':
 				return deLocale;
 			case 'en':
 				return enLocale;
 			case 'es':
 				return esLocale;
+			case 'ua':
+				return uaLocale;
 			default:
-				return deLocale;
+				return deLocale; // use default from instance
 		}
 	};
 
+	/**
+	 *  Please note the translation logic is changing to use render hooks, for next version v5.
+	 * */
 	const calendar = new Calendar(calendarElement, {
 		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, momentTimezonePlugin],
 		defaultView: view || 'dayGridMonth',
 		editable: false,
-		timeZone: calendarTimezone || 'Europe/Berlin',
+		timeZone: calendarTimezone(),
 		locale: getCalendarLanguage(),
 		header: {
 			left: 'title',

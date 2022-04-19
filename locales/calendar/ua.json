@@ -1,0 +1,14 @@
+{
+    "allDayText": "весь день",
+    "buttonText.prev": "Повернення",
+    "buttonText.next": "Попереду",
+    "buttonText.today": "сьогодні",
+    "buttonText.year": "Рік",
+    "buttonText.month": "Місяць",
+    "buttonText.week": "тиждень",
+    "buttonText.day": "День",
+    "buttonText.list": "Огляд прийому",
+    "eventLimitText": "Далі",
+    "noEventsMessage": "Немає подій для показу",
+    "weekLabel": "тиждень"
+}
