@@ -10,7 +10,7 @@
             <li class="list-group-item list-group-item-action">
                 <span>
                     <i class="fa fa-question-circle" aria-hidden="true"></i>
-                <a href="/help" class="link">{{$t "global.link.helpArea" }}</a>
+                    <a href="/help" class="link" data-testid="Hilfeartikel">{{$t "global.link.helpArea" }}</a>
                 </span>
             </li>
 
@@ -28,13 +28,14 @@
               <li class="list-group-item list-group-item-action">
                 <span>
                   <i class="fa fa-pencil" aria-hidden="true"></i>
-                    <a href="/help?activeForm=team#contact-form" class="link">{{$t "lib.help_menu.link.sendRequestOrProblem" }}</a>
+                    <a href="/help/contact/" class="link" data-testid="Hilfekontakt">{{$t "lib.help_menu.link.sendRequestOrProblem" }}</a>
                 </span>
               </li>
+
               <li class="list-group-item list-group-item-action">
                 <span>
                   <img style="width: 1em;" src="{{getAssetPath '/images/logo/fortbildung.svg'}}" role="presentation">
-                    <a href="https://lernen.cloud/" target="_blank" class="link" data-testid="fortbildungen" aria-label="{{$t "lib.help_menu.link.training" }} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.help_menu.link.training" }}</a>
+                    <a href="https://lernen.cloud/" target="_blank" class="link" data-testid="Fortbildung" aria-label="{{$t "lib.help_menu.link.training" }} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.help_menu.link.training" }}</a>
                 </span>
               </li>
             </ul>
