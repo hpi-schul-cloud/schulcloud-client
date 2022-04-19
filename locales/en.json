@@ -322,7 +322,7 @@
 				"alternativelyYouCanCallUpTheRegistration": "Alternatively, you can call the registration links later and send them to your users by e-mail or QR print sheet.",
 				"attention": "⚠️ ATTENTION: When importing large data sets, an error message is currently displayed shortly after the start. The\n        import process still continues invisibly in the background. Duration: about 4 minutes per 1000  \n        users. Please wait for the corresponding time and then update your browser window to review the \n        updated student overview.",
 				"importUserData": "Import user data via .csv file (<a href=\"#\" id=\"csv-import-example\">example</a> ) and send your users a registration link.",
-				"youCanFindMoreInformationOnTheStructure": "You can find more information on the structure of the .csv file, class assignment and the registration process <a href=\"https://docs.schul-cloud.org/x/NYBgAw\" target=\"_blank\">here</a> ."
+				"youCanFindMoreInformationOnTheStructure": "You can find more information on the structure of the .csv file, class assignment and the registration process <a href=\"https://docs.dbildungscloud.de/x/NYBgAw\" target=\"_blank\">here</a> ."
 			}
 		},
 		"form_InvitationStudent": {
@@ -726,7 +726,7 @@
 		"users_registrationComplete": {
 			"text": {
 				"cannotCallPageAgain": "<b>Attention: </b>You cannot visit this page again. So print out the access data displayed\n             or save it in some other way.\n             If a student forgets his password, you can only change it in the user administration.",
-				"loginWithPassword": "You can now log in to the {{shortTitle}} with your start password. \n To do this, go to <a href=\"https://schul-cloud.org\"> \n <script nonce=\"{{nonceValue}}\"> document.write (window.location.origin) </script> </a> \n and log in there with the following access data:",
+				"loginWithPassword": "You can now log in to the {{shortTitle}} with your start password. \n To do this, go to <a href=\"https://dbildungscloud.de\"> \n <script nonce=\"{{nonceValue}}\"> document.write (window.location.origin) </script> </a> \n and log in there with the following access data:",
 				"registrationPossibleWithFollowingData": "Registration at {{shortTitle}} is possible with the following data.",
 				"whatYouCanFind": "On this page you will find an overview of all the consents that have been given and the access data generated. <br> The following pages of this document each contain the access data of a child and instructions for the first registration.",
 				"whenLoginForTheFirstTime": "A new password must be chosen the first time you log in. Students who are at least 14 years old must also declare their consent when they log in for the first time."
@@ -2703,7 +2703,7 @@
 					"agreementIsVoluntary": "The consent and thus the use is voluntary, which means that if you do not give your consent, it will not lead to disadvantages for you in class. Participation in lessons outside the {{title}} will be made possible by the school.",
 					"bellowNYearsOldConsentOfLegalGuardian": "The use of the {{shortTitle}} requires the consent of a legal guardian for students under {{age}} years",
 					"iDeclareTheFollowing": "I, <b data-from=\"firstName\"> </b> <b data-from=\"lastName\"> </b>, declare the following:",
-					"inCaseOfRevocationDataDeletion": "In the event of revocation, we will immediately delete the personal data stored on the basis of the consent, unless there is a legal reason for storage or you wish to access the stored data beforehand. You can also find further information on data protection in our <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">FAQ</a>.",
+					"inCaseOfRevocationDataDeletion": "In the event of revocation, we will immediately delete the personal data stored on the basis of the consent, unless there is a legal reason for storage or you wish to access the stored data beforehand. You can also find further information on data protection in our <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.dbildungscloud.de/x/GxfGBg\">FAQ</a>.",
 					"languageHint": "Little info: You can change your language at any time in your settings. Settings can be found in the top right corner when you tap on your avatar.",
 					"myDataMayBeProcessed": "I agree that my personal data will be processed in accordance with the school's <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">privacy policy</a> in the {{title}} and in the learning material providers selected and instructed by the school.",
 					"theEmailAddressEnables": "The e-mail address enables notifications to be sent and makes it easier to reset the password.",

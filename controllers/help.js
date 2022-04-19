@@ -7,7 +7,7 @@ const api = require('../api');
 const router = express.Router();
 const converter = new Converter();
 
-// read here for updateding the tutorials.json: https://docs.schul-cloud.org/display/Intern/Hilfe-Artikel+aktualisieren
+// read here for updateding the tutorials.json: https://docs.dbildungscloud.de/display/Intern/Hilfe-Artikel+aktualisieren
 const tutorials = require('../helpers/content/tutorials.json');
 
 // secure routes
