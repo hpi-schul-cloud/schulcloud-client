@@ -61,12 +61,12 @@
                             {{$t "homework.button.toTheCourseFiles" }}
                         </a>
                         {{#ifConfig "ROOM_VIEW_ENABLED" true}}
-                            <a class="btn btn-secondary" href="/rooms/{{courseId._id}}" alt="{{$t "homework.button.toCourseAlt"}}">
+                            <a class="btn btn-secondary" href="/rooms/{{../courseId._id}}" alt="{{$t "homework.button.toCourseAlt"}}">
                                 <i class="fa fa-graduation-cap"></i>
                                 {{$t "global.button.toCourse" }}
                             </a>
                         {{else}}
-                            <a class="btn btn-secondary" href="/courses/{{courseId._id}}/?activeTab=homeworks" alt="{{$t "homework.button.toCourseAlt"}}">
+                            <a class="btn btn-secondary" href="/courses/{{../courseId._id}}/?activeTab=homeworks" alt="{{$t "homework.button.toCourseAlt"}}">
                                 <i class="fa fa-graduation-cap"></i>
                                 {{$t "global.button.toCourse" }}
                             </a>
