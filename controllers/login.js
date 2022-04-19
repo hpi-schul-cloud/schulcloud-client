@@ -92,7 +92,6 @@ router.all('/', (req, res, next) => {
 		if (isAuthenticated) {
 			return redirectAuthenticated(req, res);
 		}
-
 		return LoginSchoolsCache.get(req).then((schools) => {
 			if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
 				let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
@@ -135,6 +134,7 @@ const mapErrorcodeToTranslation = (errorCode) => {
 /*
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
+
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 	.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
@@ -150,6 +150,8 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 			}
 			let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
 			iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
+			const strategyOfSchool = req.query.strategy;
+			const idOfSchool = req.query.schoolId;
 			res.render('authentication/login', {
 				schools: getNonOauthSchools(schools),
 				systems: [],
@@ -157,6 +159,8 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 				oauthError,
 				hideMenu: true,
 				redirect,
+				idOfSchool,
+				strategyOfSchool,
 			});
 		} else {
 			res.render('authentication/login', {
