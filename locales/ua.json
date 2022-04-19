@@ -1728,13 +1728,18 @@
     },
     "login": {
         "button": {
+            "ldap": "Вхід через шкільний LDAP",
             "less": "Менше",
             "longerLoggedInWhenActivated": "Після активації ви залишаєтеся в системі довше.",
             "moreOptions": "Більше варіантів",
+            "return": "Повернутися до вибору входу",
+            "schoolCloud": "Вхід електронною поштою",
             "submitPrivacyPolicy": "Читати",
             "show_password": "Показати пароль"
         },
         "input": {
+            "email": "Електронна пошта",
+            "username": "Ім'я користувача",
             "emailUsername": "Електронна пошта / ім'я користувача",
             "noSchoolsAvailable": "Немає доступних шкіл",
             "noSystemsAvailable": "Немає доступних систем",
