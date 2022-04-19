@@ -29,6 +29,14 @@ $(document).ready(() => {
 	const $btnHideProviders = $('.btn-hide-providers');
 	const $btnLogin = $('.btn-login');
 	const $oauthButton = $('.btn-oauth');
+	const $ldapButton = $('.btn-ldap');
+	const $cloudButton = $('.btn-cloud');
+	const $emailLoginSection = $('.email-login-section');
+	const $ldapLoginSection = $('.ldap-login-section');
+	const $btnLoginLdap = $('.btn-login-ldap');
+	const $btnLoginCloud = $('.btn-login-cloud');
+	const $returnButton = $('.btn-return');
+	const $systemBtns = $('.system-buttons');
 	const $loginProviders = $('.login-providers');
 	const $school = $('.school');
 	const $systems = $('.system');
@@ -38,25 +46,50 @@ $(document).ready(() => {
 	const $iservOauthSystem = $('.iserv-oauth-system');
 	const $oauthError = $('.oauth-error');
 
+	const enableDisableLdapBtn = (id) => {
+		if ($btnLoginLdap.data('active') === true) {
+			if (id) {
+				$btnLoginLdap.prop('disabled', false);
+			} else {
+				$btnLoginLdap.prop('disabled', true);
+			}
+		}
+	};
+
 	const incTimer = () => {
 		setTimeout(() => {
 			if (countdownNum !== 1) {
 				// eslint-disable-next-line no-plusplus
 				countdownNum--;
 				$submitButton.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
+				$btnLoginLdap.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
+				$btnLoginLdap.prop('disabled', true);
+				$btnLoginLdap.data('active', false);
+				$btnLoginCloud.val($t('login.text.pleaseWaitXSeconds', { seconds: countdownNum }));
 				incTimer();
 			} else {
 				$submitButton.val($t('home.header.link.login'));
+				$btnLoginLdap.val($t('login.button.ldap'));
+				$btnLoginCloud.val($t('login.button.schoolCloud'));
 			}
 		}, 1000);
 	};
 
-	if ($submitButton.data('timeout')) {
+	if ($submitButton.data('timeout') || $btnLoginLdap.data('timeout') || $btnLoginCloud.data('timeout')) {
 		setTimeout(() => {
 			$submitButton.prop('disabled', false);
-		}, $submitButton.data('timeout') * 1000);
-
-		countdownNum = $submitButton.data('timeout');
+			$btnLoginLdap.data('active', true);
+			enableDisableLdapBtn($school.val());
+			$btnLoginCloud.prop('disabled', false);
+		// eslint-disable-next-line max-len
+		}, $submitButton.data('timeout') * 1000, $btnLoginLdap.data('timeout') * 1000, $btnLoginCloud.data('timeout') * 1000);
+		if ($btnLoginLdap.data('timeout')) {
+			countdownNum = $btnLoginLdap.data('timeout');
+		} else if ($btnLoginCloud.data('timeout')) {
+			countdownNum = $btnLoginCloud.data('timeout');
+		} else {
+			countdownNum = $submitButton.data('timeout');
+		}
 		incTimer();
 	}
 
@@ -76,11 +109,36 @@ $(document).ready(() => {
 		$systems.trigger('chosen:updated');
 	};
 
+	const showHideButtonsMenu = (toShow) => {
+		if (toShow) {
+			$systemBtns.show();
+		} else {
+			$systemBtns.hide();
+		}
+	};
+
+	const showHideEmailLoginForm = (toShow) => {
+		if (toShow) {
+			$emailLoginSection.show();
+		} else {
+			$emailLoginSection.hide();
+		}
+	};
+
+	const showHideLdapLoginForm = (toShow) => {
+		if (toShow) {
+			$ldapLoginSection.show();
+		} else {
+			$ldapLoginSection.hide();
+		}
+	};
+
 	$btnToggleProviders.on('click', (e) => {
 		e.preventDefault();
 		$btnToggleProviders.hide();
 		$loginProviders.show();
 	});
+
 	$btnToggleProviders.on('keydown', (e) => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault();
@@ -102,9 +160,31 @@ $(document).ready(() => {
 	}
 
 	$oauthButton.on('click', () => {
-		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
-		// eslint-disable-next-line max-len
-		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?client_id=${iservOauthSystem.oauthConfig.clientId}&redirect_uri=${iservOauthSystem.oauthConfig.codeRedirectUri}&response_type=${iservOauthSystem.oauthConfig.responseType}&scope=${iservOauthSystem.oauthConfig.scope}`;
+		const iservOauthSystem = JSON.parse($oauthButton[0].dataset.system);
+		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?
+		client_id=${iservOauthSystem.oauthConfig.clientId}
+		&redirect_uri=${iservOauthSystem.oauthConfig.codeRedirectUri}
+		&response_type=${iservOauthSystem.oauthConfig.responseType}
+		&scope=${iservOauthSystem.oauthConfig.scope}`;
+	});
+
+	$cloudButton.on('click', () => {
+		showHideButtonsMenu(false);
+		showHideLdapLoginForm(false);
+		showHideEmailLoginForm(true);
+	});
+
+	$ldapButton.on('click', () => {
+		showHideButtonsMenu(false);
+		showHideEmailLoginForm(false);
+		showHideLdapLoginForm(true);
+		$school.trigger('chosen:updated');
+	});
+
+	$returnButton.on('click', () => {
+		showHideEmailLoginForm(false);
+		showHideLdapLoginForm(false);
+		showHideButtonsMenu(true);
 	});
 
 	$btnHideProviders.on('click', (e) => {
@@ -141,6 +221,7 @@ $(document).ready(() => {
 	$school.on('change', (event) => {
 		// due to the class 'school' being duplicated, it is necessary to listen to the element's event to get the value
 		const id = $(event.target).val();
+		enableDisableLdapBtn(id);
 		const dataSystems = $(event.target).find(':selected').data('systems');
 		if (id !== '' && dataSystems) {
 			loadSystems(dataSystems);

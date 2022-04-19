@@ -2453,9 +2453,12 @@
 	},
 	"login": {
 		"button": {
+			"ldap": "Login via school LDAP",
 			"less": "Less",
 			"longerLoggedInWhenActivated": "When activated, you stay logged in longer.",
 			"moreOptions": "More options",
+			"return": "Back to login selection",
+			"schoolCloud": "Login with E-mail",
 			"show_password": "Show password",
 			"submitPrivacyPolicy": "Read"
 		},
@@ -2468,6 +2471,8 @@
 			"privacyAndTermsOfUse": "Privacy Policy and Terms of Use"
 		},
 		"input": {
+			"email": "E-mail",
+			"username": "Username",
 			"emailUsername": "E-mail / Username",
 			"noSchoolsAvailable": "No schools available",
 			"noSchoolsSelection": "Choose your school",

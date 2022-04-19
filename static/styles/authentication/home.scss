@@ -134,6 +134,12 @@ body {
         .login-providers {
             display:none;
         }
+        .email-login-section {
+            display: none;
+        }
+        .ldap-login-section {
+            display: none;
+        }
     }
     aside{
         .card-block {
