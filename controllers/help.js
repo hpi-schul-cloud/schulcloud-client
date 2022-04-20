@@ -7,7 +7,7 @@ const api = require('../api');
 const router = express.Router();
 const converter = new Converter();
 
-// read here for updateding the tutorials.json: https://docs.schul-cloud.org/display/Intern/Hilfe-Artikel+aktualisieren
+// read here for updating the tutorials.json: https://docs.dbildungscloud.de/display/Intern/Hilfe-Artikel+aktualisieren
 const tutorials = require('../helpers/content/tutorials.json');
 
 // secure routes
@@ -22,9 +22,7 @@ router.get('/articles', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-	res.render('help/dashboard', {
-		title: res.$t('help.headline.helpSection'),
-	});
+	return res.redirect('/help/articles');
 });
 
 router.get('/contact', (req, res, next) => {

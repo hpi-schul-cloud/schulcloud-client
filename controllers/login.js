@@ -85,16 +85,17 @@ const getIservOauthSystem = (schools) => {
 };
 
 // eslint-disable-next-line max-len
-const getNonOauthSchools = (schools) => schools.filter((school) => school.systems.filter((system) => system.oauthConfig).length === 0);
+const getNonOauthSchools = (schools) => [...schools].filter((school) => school.systems.filter((system) => system.oauthConfig).length === 0);
+
 router.all('/', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
 			return redirectAuthenticated(req, res);
 		}
-
 		return LoginSchoolsCache.get(req).then((schools) => {
 			if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
-				const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+				let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+				iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
 				res.render('authentication/home', {
 					schools: getNonOauthSchools(schools),
 					systems: [],
@@ -133,6 +134,7 @@ const mapErrorcodeToTranslation = (errorCode) => {
 /*
 	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
 */
+
 const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 	.then(() => LoginSchoolsCache.get(req).then((schools) => {
 		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
@@ -146,7 +148,10 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 					message: res.$t(mapErrorcodeToTranslation(req.query.error)),
 				};
 			}
-			const iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+			let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
+			iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
+			const strategyOfSchool = req.query.strategy;
+			const idOfSchool = req.query.schoolId;
 			res.render('authentication/login', {
 				schools: getNonOauthSchools(schools),
 				systems: [],
@@ -154,6 +159,8 @@ const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
 				oauthError,
 				hideMenu: true,
 				redirect,
+				idOfSchool,
+				strategyOfSchool,
 			});
 		} else {
 			res.render('authentication/login', {

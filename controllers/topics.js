@@ -1,7 +1,7 @@
 const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
-const Nexboard = require('nexboard-api-js');
+const Nexboard = require('../helpers/nexboard');
 const { randomBytes } = require('crypto');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
