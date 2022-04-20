@@ -1,6 +1,7 @@
 
 const assert = require('assert');
 const chai = require('chai');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const { expect } = chai;
 const chaiHttp = require('chai-http');
@@ -38,5 +39,17 @@ describe('Login tests', () => {
 		expect(result.res.text).to.contain(i18next.t('global.link.overview'));
 		expect(result.res.text).to.contain('Marla Mathe');
 		expect(result.res.text).to.contain(i18next.t('global.placeholder.Schüler'));
+	}));
+
+	it('login via schoolserver button is not displayed ', () => new Promise((resolve) => {
+		const configBefore = Configuration.toObject({ plainSecrets: true });
+		Configuration.set('FEATURE_OAUTH_LOGIN_ENABLED', false);
+		chai.request(app)
+			.get('/login')
+			.end((err, res) => {
+				expect(res.text).not.contain(i18next.t('login.oauth2.headline.loginIserv'));
+				Configuration.reset(configBefore);
+				resolve();
+			});
 	}));
 });

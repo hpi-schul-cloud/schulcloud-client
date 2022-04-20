@@ -322,7 +322,7 @@
 				"alternativelyYouCanCallUpTheRegistration": "Como alternativa, puedes solicitar los enlaces de registro más tarde y enviarlos a tus usuarios por correo electrónico o una hoja de impresión con código QR.",
 				"attention": "⚠️ ATENCIÓN: al importar conjuntos de datos grandes, se muestra un mensaje de error poco después del inicio. El proceso de la importación continúa de forma invisible en segundo plano. Duración: aproximadamente 4 minutos por cada 1000 usuarios. Espera el tiempo correspondiente y luego actualiza la ventana de tu navegador para revisar la visión general actualizada del estudiante.",
 				"importUserData": "Importa datos de usuario mediante un archivo .csv (<a href=\"#\" id=\"csv-import-example\">ejemplo</a>) y envía a tus usuarios un enlace de registro.",
-				"youCanFindMoreInformationOnTheStructure": "Puedes encontrar más información sobre la estructura del archivo .csv, la asignación de clases y el proceso de registro <a href=\"https://docs.schul-cloud.org/x/NYBgAw\" target=\"_blank\">aquí</a>."
+				"youCanFindMoreInformationOnTheStructure": "Puedes encontrar más información sobre la estructura del archivo .csv, la asignación de clases y el proceso de registro <a href=\"https://docs.dbildungscloud.de/x/NYBgAw\" target=\"_blank\">aquí</a>."
 			}
 		},
 		"form_InvitationStudent": {
@@ -726,7 +726,7 @@
 		"users_registrationComplete": {
 			"text": {
 				"cannotCallPageAgain": "<b>Atención: </b>no podrás volver a visitar esta página, así que imprime los datos de acceso que se \n             muestran o guárdalos de alguna otra manera.\n             Si un estudiante se olvida de su contraseña, solo la podrá cambiar en la administración de \n             usuarios.",
-				"loginWithPassword": "Ahora puedes iniciar sesión en {{shortTitle}} con tu contraseña de inicio. \nPara hacer esto, ve a <a href=\"https://schul-cloud.org\"> <script nonce=\"{{nonceValue}}\"> document.write (window.location.origin) </script> </a> e inicia sesión desde allí con los siguientes datos de acceso:",
+				"loginWithPassword": "Ahora puedes iniciar sesión en {{shortTitle}} con tu contraseña de inicio. \nPara hacer esto, ve a <a href=\"https://dbildungscloud.de\"> <script nonce=\"{{nonceValue}}\"> document.write (window.location.origin) </script> </a> e inicia sesión desde allí con los siguientes datos de acceso:",
 				"registrationPossibleWithFollowingData": "El registro en {{shortTitle}} es posible con los siguientes datos.",
 				"whatYouCanFind": "En esta página encontrarás una descripción general de todos los consentimientos que se han otorgado y los datos de acceso generados. <br> Las siguientes páginas de este documento contienen los datos de acceso de un niño y las instrucciones para el primer registro.",
 				"whenLoginForTheFirstTime": "Se debe elegir una nueva contraseña la primera vez que inicies sesión. Los estudiantes que tengan al menos 14 años de edad también deben manifestar su consentimiento al iniciar sesión por primera vez."
@@ -2448,14 +2448,17 @@
 			"schoolInTransferPhaseContactAdmin": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Ponte en contacto con el administrador de la escuela!",
 			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"/administration/school/\">nuevo año escolar aquí!</a>",
 			"schoolInMigrationModeStarted": "La escuela está en modo de migración de usuarios. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>.",
-			"schoolInMigrationMode": "La escuela puede importar cuentas de usuario de weBBschule. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>."
+			"schoolInMigrationMode": "La escuela puede importar cuentas de usuario de Schulportal. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>."
 		}
 	},
 	"login": {
 		"button": {
+			"ldap": "Iniciar sesión con LDAP de la escuela",
 			"less": "Menos",
 			"longerLoggedInWhenActivated": "Cuando se activa, permaneces conectado durante más tiempo.",
 			"moreOptions": "Más opciones",
+			"return": "Volver al inicio de sesión",
+			"schoolCloud": "Iniciar sesión con correo electrónico",
 			"show_password": "Mostrar contraseña",
 			"submitPrivacyPolicy": "Leer"
 		},
@@ -2468,6 +2471,8 @@
 			"privacyAndTermsOfUse": "Política de privacidad y condiciones de uso"
 		},
 		"input": {
+			"email": "Correo electrónico",
+			"username": "nombre de usuario",
 			"emailUsername": "Correo electrónico / nombre de usuario",
 			"noSchoolsAvailable": "No hay escuelas disponibles",
 			"noSchoolsSelection": "Elige tu escuela",
@@ -2698,7 +2703,7 @@
 					"agreementIsVoluntary": "El consentimiento y uso es, por tanto, voluntario, lo que significa que si no das tu consentimiento, no te supondrá ninguna desventaja en clase. La escuela hará posible la participación en lecciones fuera de {{title}}.",
 					"bellowNYearsOldConsentOfLegalGuardian": "El uso de {{shortTitle}} requiere el consentimiento de un tutor legal para estudiantes menores de {{age}} años",
 					"iDeclareTheFollowing": "Yo, <b data-from=\"firstName\"> </b> <b data-from=\"lastName\"> </b>, declaro lo siguiente:",
-					"inCaseOfRevocationDataDeletion": "En caso de revocación, eliminaremos inmediatamente los datos personales almacenados en virtud de tu consentimiento, a menos que exista una razón legal para el almacenamiento o desees acceder a los datos almacenados de antemano. También puedes encontrar más información sobre la protección de datos en nuestras <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.schul-cloud.org/x/GxfGBg\">Preguntas frecuentes</a>.",
+					"inCaseOfRevocationDataDeletion": "En caso de revocación, eliminaremos inmediatamente los datos personales almacenados en virtud de tu consentimiento, a menos que exista una razón legal para el almacenamiento o desees acceder a los datos almacenados de antemano. También puedes encontrar más información sobre la protección de datos en nuestras <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.dbildungscloud.de/x/GxfGBg\">Preguntas frecuentes</a>.",
 					"languageHint": "Nota informativa: puedes cambiar el idioma en cualquier momento desde la configuración. La configuración se encuentra en la esquina superior derecha cuando tocas en tu avatar.",
 					"myDataMayBeProcessed": "Acepto que mis datos personales se procesen de acuerdo con la <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Política de privacidad</a> en {{title}} y en los proveedores de material de aprendizaje seleccionados e instruidos por la escuela.",
 					"theEmailAddressEnables": "La dirección de correo electrónico permite enviar notificaciones y facilita el restablecimiento de la contraseña.",

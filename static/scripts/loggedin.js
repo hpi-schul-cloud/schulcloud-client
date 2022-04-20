@@ -226,7 +226,7 @@ function changeNavBarPositionToFixed() {
 document.querySelectorAll('#main-content a').forEach((a) => {
     const href = a.getAttribute('href');
     if (a.querySelector('img, .fa') == null && href) {
-        if (!(href.startsWith('https://schul-cloud.org') || href.startsWith('#') || href.startsWith('/') || href === '')) {
+        if (!(href.startsWith('https://dbildungscloud.de') || href.startsWith('#') || href.startsWith('/') || href === '')) {
             if (!a.getAttribute('target')) {
                 a.setAttribute('target', '_blank');
             }

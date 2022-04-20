@@ -2,9 +2,9 @@
 	"$schema": "./default.schema.json",
 	"ETHERPAD": {
 		"PAD_PATH": "/etherpad/p",
-		"PAD_URI": "https://schul-cloud.org/etherpad/p",
-		"OLD_DOMAIN": "etherpad.schul-cloud.org",
-		"NEW_DOMAIN": "schul-cloud.org"
+		"PAD_URI": "https://dbildungscloud.de/etherpad/p",
+		"OLD_DOMAIN": "etherpad.dbildungscloud.de",
+		"NEW_DOMAIN": "dbildungscloud.de"
 	},
 	"COOKIE": {
 		"SECURE": false,
