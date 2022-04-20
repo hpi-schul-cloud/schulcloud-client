@@ -81,7 +81,7 @@
       {{#ifConfig "ROOM_VIEW_ENABLED" true}}
         <a href="/rooms/{{../_id}}" class="tab" data-testid="topics" type="button">
             <i class="fa fa-file-text-o" aria-hidden="true"></i>
-            <span class="text">{{$t "courses._course.tab_label.oldTopics"}}</span>
+            <span class="text">{{$t "courses._course.tab_label.topics"}}</span>
         </a>
       {{else}}
         <button class="tab" data-testid="topics" data-tab="js-topics" type="button">
