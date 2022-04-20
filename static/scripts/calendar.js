@@ -17,21 +17,21 @@ const createCustomCalendarLocal = (langAttribute, localFile) => ({
 		doy: 4, // The week that contains Jan 4th is the first week of the year.
 	},
 	buttonText: {
-		prev: localFile['buttonText.prev'],
-		next: localFile['buttonText.next'],
-		today: localFile['buttonText.today'],
-		year: localFile['buttonText.year'],
-		month: localFile['buttonText.month'],
-		week: localFile['buttonText.week'],
-		day: localFile['buttonText.day'],
-		list: localFile['buttonText.list'],
+		prev: localFile['calendar.buttonText.prev'],
+		next: localFile['calendar.buttonText.next'],
+		today: localFile['calendar.buttonText.today'],
+		year: localFile['calendar.buttonText.year'],
+		month: localFile['calendar.buttonText.month'],
+		week: localFile['calendar.buttonText.week'],
+		day: localFile['calendar.buttonText.day'],
+		list: localFile['calendar.buttonText.list'],
 	},
-	weekLabel: localFile.weekLabel,
-	allDayText: localFile.allDayText,
+	weekLabel: localFile['calendar.weekLabel'],
+	allDayText: localFile['calendar.allDayText'],
 	eventLimitText(n) {
-		return `+ ${localFile.eventLimitText} ${n}`;
+		return `+ ${localFile['calendar.eventLimitText']} ${n}`;
 	},
-	noEventsMessage: localFile.noEventsMessage,
+	noEventsMessage: localFile['calendar.noEventsMessage'],
 });
 
 const getCalendarLanguage = (langAttribute) => {
