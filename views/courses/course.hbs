@@ -79,7 +79,7 @@
   <div class="tabContainer" data-active-tab={{activeTab}}>
     <div class="tabs" data-max-width="1024">
       {{#ifConfig "ROOM_VIEW_ENABLED" true}}
-        <a href="/rooms/{{../_id}}" class="tab" data-testid="topics" type="button">
+        <a href="/rooms/{{../_id}}" class="tab" data-testid="topics">
             <i class="fa fa-file-text-o" aria-hidden="true"></i>
             <span class="text">{{$t "courses._course.tab_label.topics"}}</span>
         </a>
