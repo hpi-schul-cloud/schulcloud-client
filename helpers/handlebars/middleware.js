@@ -49,23 +49,6 @@ const makeActive = (items, currentUrl) => {
 	});
 };
 
-const showLegacyCourse = Configuration.get('LEGACY_COURSE_OVERVIEW_ENABLED') || false;
-
-const showCourseLink = (items) => {
-	const courseLinks = items.filter((item) => item.testId === 'Kurse' || item.testId === 'Course-Overview');
-	return courseLinks.map((item) => {
-		if (item.type === 'nuxt' && showLegacyCourse) {
-			item.class = 'link-deactivate';
-		}
-
-		if (item.type === 'legacy' && !showLegacyCourse) {
-			item.class = 'link-deactivate';
-		}
-
-		return item;
-	});
-};
-
 module.exports = (req, res, next) => {
 	res.locals.backendUrl = PUBLIC_BACKEND_URL;
 
@@ -75,16 +58,10 @@ module.exports = (req, res, next) => {
 		testId: 'Übersicht',
 		icon: 'th-large',
 		link: '/dashboard/',
-	}, {
-		name: res.$t('global.sidebar.link.administrationCourses'),
-		testId: 'Kurse',
-		type: 'legacy',
-		icon: 'graduation-cap',
-		link: '/courses/',
-	}, {
+	},
+	{
 		name: res.$t('global.sidebar.link.administrationCourses'),
 		testId: 'Course-Overview',
-		type: 'nuxt',
 		icon: 'graduation-cap',
 		link: '/rooms-overview/',
 	}, {
@@ -342,7 +319,6 @@ module.exports = (req, res, next) => {
 		});
 	}
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
-	showCourseLink(res.locals.sidebarItems);
 
 	let notificationsPromise = [];
 	if (NOTIFICATION_SERVICE_ENABLED) {
