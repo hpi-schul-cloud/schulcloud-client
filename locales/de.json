@@ -878,10 +878,10 @@
 			},
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "Kurs duplizieren",
-					"editDeleteCourse": "Kurs bearbeiten/löschen",
-					"inviteToCourse": "zum Kurs einladen",
-					"shareCourse": "Kurs teilen"
+					"duplicateCourse": "Duplizieren",
+					"editDeleteCourse": "Bearbeiten/löschen",
+					"inviteToCourse": "Einladen",
+					"shareCourse": "Teilen"
 				}
 			},
 			"edit": {
@@ -973,14 +973,14 @@
 				"shareCodeGenerated": "Kopiercode wurde generiert!"
 			},
 			"link": {
-				"toCourseFiles": "Zu den Kursdateien",
-				"toRoomView": "Zur Raumansicht"
+				"toCourseFiles": "Zu den Kursdateien"
 			},
 			"tab_label": {
 				"groups": "Gruppen",
 				"tasks": "Aufgaben",
 				"tools": "Tools",
-				"topics": "Themen"
+				"oldTopics": "Themen",
+				"topics": "Lerninhalte"
 			},
 			"tasks": {
 				"button": {
