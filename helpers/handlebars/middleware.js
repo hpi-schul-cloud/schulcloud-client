@@ -12,6 +12,15 @@ const {
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
 
+	const coursesRegex = /courses\/*/i;
+	if (currentUrl.match(coursesRegex)) {
+		const coursesSidebarItems = items.filter((i) => i.link === '/rooms-overview/');
+		coursesSidebarItems.forEach((item) => {
+			item.class = 'active';
+		});
+		return items;
+	}
+
 	const homeworkRegex = /homework\/*/i;
 	if (currentUrl.match(homeworkRegex)) {
 		const homeworkSidebarItems = items.filter((i) => i.link === '/tasks');
