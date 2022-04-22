@@ -12,8 +12,7 @@ const {
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
 
-	const coursesRegex = /courses\/*/i;
-	if (currentUrl.match(coursesRegex)) {
+	if (currentUrl.split('/')[1] === 'courses') {
 		const coursesSidebarItems = items.filter((i) => i.link === '/rooms-overview/');
 		coursesSidebarItems.forEach((item) => {
 			item.class = 'active';
