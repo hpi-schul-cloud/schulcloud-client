@@ -262,7 +262,7 @@ module.exports = (req, res, next) => {
 	// team feature toggle
 	const teamsEnabled = FEATURE_TEAMS_ENABLED === 'true';
 	if (teamsEnabled) {
-		res.locals.sidebarItems.splice(3, 0, {
+		res.locals.sidebarItems.splice(2, 0, {
 			name: res.$t('global.link.teams'),
 			testId: 'Teams',
 			icon: 'users',
