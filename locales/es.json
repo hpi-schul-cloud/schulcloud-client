@@ -878,10 +878,10 @@
 			},
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "duplicar curso",
-					"editDeleteCourse": "Editar/eliminar curso",
-					"inviteToCourse": "invitar al curso",
-					"shareCourse": "Compartir curso"
+					"duplicateCourse": "Duplicar",
+					"editDeleteCourse": "Editar/eliminar",
+					"inviteToCourse": "Invitar",
+					"shareCourse": "Compartir"
 				}
 			},
 			"edit": {
@@ -973,14 +973,14 @@
 				"shareCodeGenerated": "Se ha generado una copia del código."
 			},
 			"link": {
-				"toCourseFiles": "A los archivos del curso",
-				"toRoomView": "A la vista de la sala"
+				"toCourseFiles": "A los archivos del curso"
 			},
 			"tab_label": {
 				"groups": "Grupos",
 				"tasks": "Tareas",
 				"tools": "Herramientas",
-				"topics": "Temas"
+				"oldTopics": "Temas",
+				"topics": "Contenidos de aprendizaje"
 			},
 			"tasks": {
 				"button": {

@@ -300,21 +300,21 @@
         "_course": {
             "dropdown_menu": {
                 "link": {
-                    "duplicateCourse": "дублювати курс",
-                    "editDeleteCourse": "Редагувати/видалити курс",
-                    "inviteToCourse": "запросити на курс",
-                    "shareCourse": "Поширити курс"
+                    "duplicateCourse": "Ддублювати",
+                    "editDeleteCourse": "Редагувати/видалити",
+                    "inviteToCourse": "Загасити",
+                    "shareCourse": "Поділіться"
                 }
             },
             "link": {
-                "toCourseFiles": "До файлів курсу",
-                "toRoomView": "Вид на клас"
+                "toCourseFiles": "До файлів курсу"
             },
             "tab_label": {
                 "groups": "Групи",
                 "tasks": "Завдання",
                 "tools": "Інструменти",
-                "topics": "Теми"
+                "oldTopics": "Теми",
+                "topics": "Зміст навчання"
             },
             "text": {
                 "nextClass": "Наступний урок: ",
