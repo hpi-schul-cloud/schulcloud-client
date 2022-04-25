@@ -441,7 +441,6 @@ router.get('/', (req, res, next) => {
 			let activeCourses = [];
 			let archivedSubstitutions = [];
 			let archivedCourses = [];
-			const showLegacyCourse = Configuration.get('LEGACY_COURSE_OVERVIEW_ENABLED') || false;
 
 			[activeSubstitutions, activeCourses] = filterSubstitutionCourses(
 				active,
@@ -452,36 +451,8 @@ router.get('/', (req, res, next) => {
 				archivedSubstitutions,
 				archivedCourses,
 			] = filterSubstitutionCourses(archived, userId, res);
-			if (showLegacyCourse) {
-				if (req.query.json) {
-					// used for populating some modals (e.g. calendar event creation)
-					res.json(active.data);
-				} else if (active.total !== 0 || archived.total !== 0) {
-					res.render('courses/overview', {
-						title: res.$t('courses.headline.myCourses'),
-						activeTab: req.query.activeTab,
-						importToken,
-						activeCourses,
-						activeSubstitutions,
-						archivedCourses,
-						archivedSubstitutions,
-						total: {
-							active: active.total,
-							archived: archived.total,
-						},
-						searchLabel: res.$t('courses.input.searchForCourses'),
-						searchAction: '/courses',
-						showSearch: true,
-						liveSearch: true,
-					});
-				} else {
-					res.render('courses/overview-empty', {
-						importToken,
-					});
-				}
-			} else {
-				res.redirect('/rooms-overview');
-			}
+
+			res.redirect('/rooms-overview');
 		})
 		.catch((err) => {
 			next(err);
@@ -730,7 +701,6 @@ router.get('/:courseId/', async (req, res, next) => {
 		const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
 		const teacher = ['teacher', 'demoTeacher'];
 		const student = ['student', 'demoStudent'];
-		const showLegacyCourse = Configuration.get('LEGACY_COURSE_OVERVIEW_ENABLED') || false;
 
 		res.render(
 			'courses/course',
@@ -755,7 +725,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				breadcrumb: [
 					{
 						title: res.$t('courses.headline.myCourses'),
-						url: (showLegacyCourse ? '/courses' : '/rooms-overview'),
+						url: '/rooms-overview',
 					},
 				],
 				filesUrl: `/files/courses/${req.params.courseId}`,
