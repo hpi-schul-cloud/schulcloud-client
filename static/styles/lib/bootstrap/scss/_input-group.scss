@@ -139,7 +139,7 @@
 }
 .form-control + .input-group-addon:not(:first-child) {
 	border-left: 0;
-	padding: 0.25rem;
+	padding: $input-padding-y-sm;
 }
 
 //
