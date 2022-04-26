@@ -1,7 +1,7 @@
 const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
-const Nexboard = require('nexboard-api-js');
+const Nexboard = require('../helpers/nexboard');
 const { randomBytes } = require('crypto');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
@@ -19,8 +19,10 @@ const {
 
 const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
-	let lessonPromise; let action; let
-		method;
+	let lessonPromise;
+	let action;
+	let	method;
+	const referrer = req.query.returnUrl;
 	if (req.params.topicId) {
 		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
 		+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
@@ -32,7 +34,6 @@ const editTopicHandler = (req, res, next) => {
 		method = 'post';
 		lessonPromise = Promise.resolve({});
 	}
-
 
 	lessonPromise.then((lesson) => {
 		if (lesson.contents) {
@@ -55,6 +56,7 @@ const editTopicHandler = (req, res, next) => {
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
 			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
+			referrer,
 		});
 	}).catch((err) => {
 		next(err);
@@ -273,6 +275,9 @@ router.post('/', async (req, res, next) => {
 	api(req).post('/lessons/', {
 		json: data, // TODO: sanitize
 	}).then(() => {
+		if (req.body.referrer) {
+			res.redirect(`${(req.headers.origin)}/${req.body.referrer}`);
+		}
 		res.redirect(
 			context === 'courses'
 				? `/courses/${req.params.courseId
@@ -366,6 +371,8 @@ router.get('/:topicId', (req, res, next) => {
 		const isCourseTeacher = (course.teacherIds || []).includes(res.locals.currentUser._id);
 		const isCourseSubstitutionTeacher = (course.substitutionIds || []).includes(res.locals.currentUser._id);
 		const isTeacher = isCourseTeacher || isCourseSubstitutionTeacher;
+
+		const showRoomView = Configuration.get('ROOM_VIEW_ENABLED') || false;
 		// return for consistent return
 		return res.render('topic/topic', Object.assign({}, lesson, {
 			title: lesson.name,
@@ -377,20 +384,16 @@ router.get('/:topicId', (req, res, next) => {
 			isTeacher,
 			breadcrumb: [{
 				title: res.$t('courses.headline.myCourses'),
-				url: `/${context}`,
+				url: '/rooms-overview',
 			},
 			{
-				title: `${course.name} ${!courseGroup._id ? '> Themen' : ''}`,
-				url: `/${context}/${course._id}`,
+				title: course.name,
+				url: (showRoomView ? `/rooms/${course._id}` : `/${context}/${course._id}`),
 			},
 			courseGroup._id ? {
 				title: `${courseGroup.name} > Themen`,
 				url: `/${context}/${course._id}/groups/${courseGroup._id}`,
 			} : {},
-			{
-				title: lesson.name,
-				url: `/${context}/${course._id}/topics/${lesson._id}`,
-			},
 			],
 		}), (error, html) => {
 			if (error) {
@@ -437,6 +440,9 @@ router.patch('/:topicId', async (req, res, next) => {
 		if (req.query.json) {
 			res.json(lesson);
 		} else {
+			if (req.body.referrer) {
+				res.redirect(`${(req.headers.origin)}/${req.body.referrer}`);
+			}
 			// sends a GET request, not a PATCH
 			res.redirect(`/${context}/${req.params.courseId}/topics/${req.params.topicId
 			}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`);

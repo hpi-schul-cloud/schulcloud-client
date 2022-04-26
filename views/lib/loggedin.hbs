@@ -252,11 +252,11 @@
                                   </div>
                                 </a>
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
-                                <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
+                                <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable" role="menu">
                                     <li><div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>
                                     {{> "user/forms/language" language=@root.userLanguage }}
-                                    <li><a class="dropdown-item" data-testid="settings" href="/account/">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
-                                    <li><a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
+                                    <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
+                                    <li><a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
                                 </ul>
                               </div>
                             </div>

@@ -587,7 +587,8 @@ const returnAdminPrefix = (roles, res) => {
 
 // with userId to accountId
 const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, next) {
-	api(req, { version: 'v3' }).patch(`/account/${req.params.id}/pw`, { json: req.body })
+	const { password, accountId } = req.body;
+	api(req, { json: true, version: 'v3' }).patch(`/account/${accountId}`, { json: { password } })
 		.then((response) => {
 			logger.info(response);
 			req.session.notification = {
@@ -1007,6 +1008,7 @@ router.get(
 					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 					referrer: req.header('Referer'),
 					hasAccount: !!account,
+					accountId: account ? account._id : null,
 				});
 			})
 			.catch((err) => {
@@ -1445,6 +1447,7 @@ router.get(
 					referrer: req.header('Referer'),
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					hasAccount: !!account,
+					accountId: account ? account._id : null,
 				});
 			})
 			.catch((err) => {
