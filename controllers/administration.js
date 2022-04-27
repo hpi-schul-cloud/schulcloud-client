@@ -984,7 +984,7 @@ router.get(
 			accountPromise,
 		])
 			.then(([user, _classes, _account]) => {
-				const account = _account[0];
+				const account = _account;
 				const hidePwChangeButton = !account;
 
 				const classes = _classes.map((c) => {
