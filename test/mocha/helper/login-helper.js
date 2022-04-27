@@ -3,6 +3,8 @@ const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
+const { SC_DEMO_USER_NAME, SC_DEMO_USER_PASSWORD } = require('../../../config/global');
+
 const getLoginPage = (agent) => new Promise((resolve, reject) => {
 	agent.get('/login/').end((err, res) => {
 		if (err) {
@@ -35,8 +37,8 @@ const getCsrfToken = (agent) => new Promise((resolve) => {
 const login = (app, user, pass) => {
 	const agent = chai.request.agent(app); // create agent for storing cookies
 
-	const userLogin = user ;
-	const userPassword = pass ;
+	const userLogin = user || SC_DEMO_USER_NAME;
+	const userPassword = pass || SC_DEMO_USER_PASSWORD;
 
 	return new Promise((resolve, reject) => {
 		getCsrfToken(agent).then(({ csrf }) => {
