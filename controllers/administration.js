@@ -1568,7 +1568,7 @@ const renderClassEdit = (req, res, next) => {
 		.then(() => {
 			const promises = [
 				getSelectOptions(req, 'users', {
-					roles: ['teacher', 'demoTeacher'],
+					roles: ['teacher'],
 					$limit: false,
 				}), // teachers
 				Array.from(Array(13).keys()).map((e) => ({
@@ -1773,12 +1773,12 @@ router.get(
 					$limit: false,
 				}); // TODO limit classes to scope (year before, current and without year)
 				const teachersPromise = getSelectOptions(req, 'users', {
-					roles: ['teacher', 'demoTeacher'],
+					roles: ['teacher'],
 					$sort: 'lastName',
 					$limit: false,
 				});
 				const studentsPromise = getSelectOptions(req, 'users', {
-					roles: ['student', 'demoStudent'],
+					roles: ['student'],
 					$sort: 'lastName',
 					$limit: false,
 				});

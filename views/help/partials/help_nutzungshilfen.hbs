@@ -1,4 +1,4 @@
-{{#if (userHasRole "student" "demoStudent" "demoTeacher")}}
+{{#if (userHasRole "student" )}}
 	{{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="nutzungshilfen"}}
 		{{#content "card-body"}}
 			{{> "help/icon-link-group" links=(jsonParse '[

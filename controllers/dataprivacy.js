@@ -8,7 +8,7 @@ const { specificFiles } = require('../config/documents');
 const router = express.Router();
 
 const privacyUrl = () => {
-	const privacyFile =	SC_THEME === 'open' || SC_THEME === 'demo'
+	const privacyFile =	SC_THEME === 'open'
 		? specificFiles.privacy
 		: specificFiles.privacyExemplary;
 	return new URL(`${SC_THEME}/${privacyFile}`, DOCUMENT_BASE_DIR);

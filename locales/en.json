@@ -826,7 +826,6 @@
 		},
 		"headline": {
 			"addContentToTopic": "Add material to topic",
-			"contentCantBeAddedInDemo": "<h5>Content cannot be added to courses in demo mode.</h5>",
 			"contentStore": "Learning Store",
 			"fileType": "File type",
 			"noResultsFoundWith": "No search results were found for \"{{ query }}\"",
@@ -838,7 +837,6 @@
 		},
 		"item": {
 			"text": {
-				"contentNotAvailable": "Content not available in demo mode for licensing reasons.",
 				"report": "report"
 			}
 		},
@@ -1699,9 +1697,6 @@
 		"placeholder": {
 			"Administrator": "Administrator",
 			"BetaTeacher": "Beta",
-			"Demo": "Demo",
-			"DemoStudent": "Demo Student",
-			"DemoTeacher": "Demo Teacher",
 			"Experte": "Expert",
 			"firstName": "Enter your first name here",
 			"Helpdesk": "Helpdesk",
@@ -1987,7 +1982,6 @@
 		},
 		"text": {
 			"hereYouCanFindOut": "Here you can find out how to delete your cookies.",
-			"noAccessDemoAccount": "You have no access to these documents in the demo account.",
 			"noWelcomeDocuments": "There may not be any welcome documents. Please contact the user support.",
 			"someConcernsNeedMoreOptions": "Some concerns require more options than the fields in the contact function allow. Write us an e-mail if you want to get in touch with us:",
 			"theHassoPlattnerInstituteIsAvailable": "The Hasso Plattner Institute is available for all technical questions. If you have problems with the HPI school cloud itself or if you have difficulties operating it, please use the contact form or send an e-mail to:",
@@ -2005,8 +1999,6 @@
 	},
 	"home": {
 		"button": {
-			"loginAsStudentDemo": "Log in as a student",
-			"loginAsTeacherDemo": "Log in as a teacher",
 			"register": "Register",
 			"subscribeNewsletter": "Subscribe to the Newsletter"
 		},
@@ -2022,7 +2014,6 @@
 			"explainationVideo": "Explanatory video about the HPI school cloud",
 			"dBildungscloudBlog": "<span style=\"white-space: nowrap;\">dBildungscloud</span> Blog",
 			"theIdea": "The basic idea of the <span style=\"white-space: nowrap;\">HPI school cloud</span>",
-			"tryDemoVersion": "Try the demo version now",
 			"welcomeToHPISchoolCloud": "Welcome to the <span style=\"white-space: nowrap;\">HPI school cloud!</span>"
 		},
 		"img_alt": {
@@ -2427,7 +2418,6 @@
 				"allActionsThatCreate": "All actions that create or change data are deactivated and not visible.",
 				"inOrderToShow": "To still see something, you may see outdated content.",
 				"noNotificationsAtTheMoment": "Currently no notifications",
-				"thisIsADemoAccount": "This is a demo account.",
 				"youAreOffline": "You are offline."
 			}
 		},
