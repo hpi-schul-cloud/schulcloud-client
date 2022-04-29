@@ -1425,7 +1425,11 @@ router.get(
 		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
 		Promise.all([userPromise, accountPromise])
-			.then(([user, account]) => {
+			.then(([user, _account]) => {
+				let account;
+				if (_account && _account.total > 0) {
+					account = _account.data[0];
+				}
 				const consent = user.consent || {};
 				if (consent) {
 					consent.parentConsent = (consent.parentConsents || []).length
