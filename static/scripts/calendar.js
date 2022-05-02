@@ -1,13 +1,53 @@
-import './jquery/datetimepicker-easy';
 import { Calendar } from '@fullcalendar/core';
 import deLocale from '@fullcalendar/core/locales/de';
 import enLocale from '@fullcalendar/core/locales/en-gb';
 import esLocale from '@fullcalendar/core/locales/es';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { toMoment } from '@fullcalendar/moment';
 import momentTimezonePlugin from '@fullcalendar/moment-timezone';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import ua from '../../locales/calendar/ua.json';
+import './jquery/datetimepicker-easy';
+
+const createCustomCalendarLocal = (langAttribute, localFile) => ({
+	code: langAttribute,
+	week: {
+		dow: 1,
+		doy: 4, // The week that contains Jan 4th is the first week of the year.
+	},
+	buttonText: {
+		prev: localFile['calendar.buttonText.prev'],
+		next: localFile['calendar.buttonText.next'],
+		today: localFile['calendar.buttonText.today'],
+		year: localFile['calendar.buttonText.year'],
+		month: localFile['calendar.buttonText.month'],
+		week: localFile['calendar.buttonText.week'],
+		day: localFile['calendar.buttonText.day'],
+		list: localFile['calendar.buttonText.list'],
+	},
+	weekLabel: localFile['calendar.weekLabel'],
+	allDayText: localFile['calendar.allDayText'],
+	eventLimitText(n) {
+		return `+ ${localFile['calendar.eventLimitText']} ${n}`;
+	},
+	noEventsMessage: localFile['calendar.noEventsMessage'],
+});
+
+const getCalendarLanguage = (langAttribute) => {
+	switch (langAttribute) {
+		case 'de':
+			return deLocale;
+		case 'en':
+			return enLocale;
+		case 'es':
+			return esLocale;
+		case 'ua':
+			return createCustomCalendarLocal('ua', ua);
+		default:
+			return deLocale; // use default from instance
+	}
+};
 
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
@@ -65,32 +105,17 @@ $(document).ready(() => {
 		}
 	}
 
-	const calendarElement = document.getElementById('calendar');
+	const getCalendarElement = () => document.getElementById('calendar');
+	const getView = () => window.location.hash.substring(1);
+	const getCalendarTimezone = () => document.querySelector('html').getAttribute('timezone') || 'Europe/Berlin';
+	const getLangAttribute = () => document.querySelector('html').getAttribute('lang');
 
-	const view = window.location.hash.substring(1);
-
-	const calendarTimezone = document.querySelector('html').getAttribute('timezone');
-
-	const getCalendarLanguage = () => {
-		const langAttribute = document.querySelector('html').getAttribute('lang');
-		switch (langAttribute) {
-			case 'de':
-				return deLocale;
-			case 'en':
-				return enLocale;
-			case 'es':
-				return esLocale;
-			default:
-				return deLocale;
-		}
-	};
-
-	const calendar = new Calendar(calendarElement, {
+	const calendar = new Calendar(getCalendarElement(), {
 		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, momentTimezonePlugin],
-		defaultView: view || 'dayGridMonth',
+		defaultView: getView() || 'dayGridMonth',
 		editable: false,
-		timeZone: calendarTimezone || 'Europe/Berlin',
-		locale: getCalendarLanguage(),
+		timeZone: getCalendarTimezone(),
+		locale: getCalendarLanguage(getLangAttribute()),
 		header: {
 			left: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay prev,today,next',

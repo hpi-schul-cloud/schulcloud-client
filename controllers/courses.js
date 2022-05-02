@@ -29,6 +29,14 @@ const markSelected = (options, values = []) => options.map((option) => {
 	return option;
 });
 
+const getDefaultRedirectUrl = (courseId) => {
+	let url = `/courses/${courseId}`;
+	if (Configuration.get('ROOM_VIEW_ENABLED')) {
+		url = `/rooms/${courseId}`;
+	}
+	return url;
+};
+
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
  * startDate {Date} - the date the course is first take place
@@ -433,7 +441,6 @@ router.get('/', (req, res, next) => {
 			let activeCourses = [];
 			let archivedSubstitutions = [];
 			let archivedCourses = [];
-			const showLegacyCourse = Configuration.get('LEGACY_COURSE_OVERVIEW_ENABLED') || false;
 
 			[activeSubstitutions, activeCourses] = filterSubstitutionCourses(
 				active,
@@ -444,36 +451,8 @@ router.get('/', (req, res, next) => {
 				archivedSubstitutions,
 				archivedCourses,
 			] = filterSubstitutionCourses(archived, userId, res);
-			if (showLegacyCourse) {
-				if (req.query.json) {
-					// used for populating some modals (e.g. calendar event creation)
-					res.json(active.data);
-				} else if (active.total !== 0 || archived.total !== 0) {
-					res.render('courses/overview', {
-						title: res.$t('courses.headline.myCourses'),
-						activeTab: req.query.activeTab,
-						importToken,
-						activeCourses,
-						activeSubstitutions,
-						archivedCourses,
-						archivedSubstitutions,
-						total: {
-							active: active.total,
-							archived: archived.total,
-						},
-						searchLabel: res.$t('courses.input.searchForCourses'),
-						searchAction: '/courses',
-						showSearch: true,
-						liveSearch: true,
-					});
-				} else {
-					res.render('courses/overview-empty', {
-						importToken,
-					});
-				}
-			} else {
-				res.redirect('/rooms-overview');
-			}
+
+			res.redirect('/rooms-overview');
 		})
 		.catch((err) => {
 			next(err);
@@ -563,7 +542,7 @@ router.post('/copy/:courseId', (req, res, next) => {
 			json: req.body, // TODO: sanitize
 		})
 		.then((course) => {
-			res.redirect(`/courses/${course._id}`);
+			res.redirect(getDefaultRedirectUrl(course._id));
 		});
 });
 
@@ -722,7 +701,6 @@ router.get('/:courseId/', async (req, res, next) => {
 		const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
 		const teacher = ['teacher', 'demoTeacher'];
 		const student = ['student', 'demoStudent'];
-		const showLegacyCourse = Configuration.get('LEGACY_COURSE_OVERVIEW_ENABLED') || false;
 
 		res.render(
 			'courses/course',
@@ -747,11 +725,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				breadcrumb: [
 					{
 						title: res.$t('courses.headline.myCourses'),
-						url: (showLegacyCourse ? '/courses' : '/rooms-overview'),
-					},
-					{
-						title: course.name,
-						url: `/courses/${course._id}`,
+						url: '/rooms-overview',
 					},
 				],
 				filesUrl: `/files/courses/${req.params.courseId}`,
@@ -773,7 +747,7 @@ router.get('/:courseId/', async (req, res, next) => {
 
 router.patch('/:courseId', async (req, res, next) => {
 	try {
-		const redirectUrl = req.query.redirectUrl || `/courses/${req.params.courseId}`;
+		const redirectUrl = req.query.redirectUrl || getDefaultRedirectUrl(req.params.courseId);
 
 		// map course times to fit model
 		req.body.times = req.body.times || [];
@@ -865,7 +839,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 			type: 'danger',
 			message: res.$t('courses._course.addStudent.text.youAreNoStudent'),
 		};
-		res.redirect(`/courses/${req.params.courseId}`);
+		res.redirect(getDefaultRedirectUrl(req.params.courseId));
 		return;
 	}
 
@@ -878,7 +852,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 					type: 'danger',
 					message: res.$t('courses._course.text.youAreAlreadyMember', { coursename: course.name }),
 				};
-				res.redirect(`/courses/${req.params.courseId}`);
+				res.redirect(getDefaultRedirectUrl(req.params.courseId));
 				return;
 			}
 
@@ -894,7 +868,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 						type: 'success',
 						message: res.$t('courses._course.text.youHaveBeenAdded', { coursename: course.name }),
 					};
-					res.redirect(`/courses/${req.params.courseId}`);
+					res.redirect(getDefaultRedirectUrl(req.params.courseId));
 				});
 		})
 		.catch(next);
