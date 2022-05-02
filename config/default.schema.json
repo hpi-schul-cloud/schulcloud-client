@@ -332,11 +332,6 @@
 			"default": true,
 			"description": "Defines if backend for the Lern-Store link in sidebar is enabled."
 		},
-		"HELPAREA_URL": {
-			"type": "string",
-			"default": "",
-			"description": "The URL to Confluence. Without a link, there are subpages in the side menu and on the /help page. With the link the option from the Hilfebereich side menu leads to confluence."
-		},
 		"FEATURE_MULTI_LOGIN_INSTANCES": {
 			"type": "boolean",
 			"default": false,
