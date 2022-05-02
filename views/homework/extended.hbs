@@ -26,7 +26,7 @@
 					<a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit?returnUrl={{../_id}}"
 						alt="{{$t "homework._task.label.editTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-edit'></i> {{$t "global.button.edit" }}
 					</a>
-					<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/homework" target="_blank"
+					<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/tasks" target="_blank"
 						data-method="DELETE" data-name="{{../title}}" alt="{{$t "homework._task.label.deleteTaskAlt" (dict "title" ../title)}}">
 						<i class='fa fa-trash-o'></i> {{$t "global.headline.delete" }}
 					</a>
