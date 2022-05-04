@@ -759,6 +759,7 @@
                 "timeSpan": "Період (напр. навчальний рік)",
                 "weekday": "Будній день",
                 "noSubTeacherSelection": "Замісного викладача не вибрано",
+                "messageText": "текст повідомлення:",
                 "teacher": "Викладач"
             },
             "placeholder": {
