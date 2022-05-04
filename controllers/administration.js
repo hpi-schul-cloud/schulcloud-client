@@ -3009,6 +3009,18 @@ router.use(
 			return prov;
 		});
 
+		if (!school.permissions) {
+			school.permissions = {};
+		}
+
+		if (!school.permissions.teacher) {
+			school.permissions.teacher = {};
+		}
+
+		if (!school.permissions.student) {
+			school.permissions.student = {};
+		}
+
 		const ssoTypes = getSSOTypes();
 		const availableSSOTypes = getSSOTypes().filter((type) => type.value !== 'itslearning');
 
