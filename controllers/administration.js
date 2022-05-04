@@ -2858,7 +2858,7 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage, schoolMaintanance, studentVisibility, consentVersions] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance, consentVersions] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'currentYear', 'federalState'],
@@ -2867,7 +2867,6 @@ router.use(
 			}),
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
-			api(req).get('/school/teacher/studentvisibility'),
 			api(req).get('/consentVersions', {
 				qs: {
 					$limit: 100,
@@ -3023,7 +3022,6 @@ router.use(
 			systems,
 			ldapAddable,
 			provider,
-			studentVisibility: studentVisibility.isEnabled,
 			availableSSOTypes,
 			ssoTypes,
 			totalStorage,
