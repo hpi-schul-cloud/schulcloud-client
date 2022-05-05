@@ -215,7 +215,8 @@ const patchFunction = (service, req, res, next) => {
 		if (req.body.referrer.includes('rooms')) {
 			returnToRooms = true;
 		}
-		referrer = req.body.referrer.replace('/edit', '');
+		referrer = req.body.referrer.replace(/(^\w+:|^)\/\//, '');
+		referrer = referrer.replace('/edit', '');
 		delete req.body.referrer;
 	}
 	api(req).patch(`/${service}/${req.params.id}`, {
@@ -244,10 +245,7 @@ const patchFunction = (service, req, res, next) => {
 			});
 		}
 		if (referrer) {
-			if (returnToRooms) {
-				res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
-			}
-			res.redirect(referrer);
+			res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
 		} else {
 			res.sendStatus(200);
 		}
@@ -305,6 +303,7 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 				referrer = req.body.referrer.replace('/edit', '');
 				delete req.body.referrer;
 			}
+			referrer = 'hello';
 			return res.redirect(referrer);
 		}
 	}
