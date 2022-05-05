@@ -31,6 +31,7 @@ const addToolHandler = (req, res, next) => {
 
 	api(req).get('/ltiTools', { qs: { isTemplate: true } })
 		.then((tools) => {
+			const filterTools = tools.data.filter((tool) => tool.name !== 'SchulcloudNextcloud');
 			api(req).get(`/${context}/${req.params.courseId}`)
 				.then((course) => {
 					res.render('courses/add-tool', {
@@ -39,7 +40,7 @@ const addToolHandler = (req, res, next) => {
 							coursename: course.name,
 						}),
 						submitLabel: res.$t('courses._course.tools.add.button.createTool'),
-						ltiTools: tools.data,
+						ltiTools: filterTools,
 						courseId: req.params.courseId,
 					});
 				});
