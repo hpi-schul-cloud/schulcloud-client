@@ -209,12 +209,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 };
 
 const patchFunction = (service, req, res, next) => {
-	let returnToRooms = false;
 	let referrer;
 	if (req.body.referrer) {
-		if (req.body.referrer.includes('rooms')) {
-			returnToRooms = true;
-		}
 		referrer = req.body.referrer.replace(/(^\w+:|^)\/\//, '');
 		referrer = referrer.replace('/edit', '');
 		delete req.body.referrer;
