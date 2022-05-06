@@ -264,8 +264,8 @@ router.get('/', (req, res, next) => {
 			let studentHomeworks;
 			let filteredAssignedHomeworks;
 
-			const teacher = ['teacher', 'demoTeacher'];
-			const student = ['student', 'demoStudent'];
+			const teacher = ['teacher'];
+			const student = ['student'];
 
 			const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
 

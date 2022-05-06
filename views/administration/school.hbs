@@ -256,7 +256,7 @@
 							<div class="form-group">
 								<label>
 									<input type="checkbox" name="studentVisibility" value="true"
-										{{#if ../studentVisibility}}checked{{/if}}>
+										{{#if ../school.permissions.teacher.STUDENT_LIST}}checked{{/if}}>
                             {{$t "administration.school.label.studentVisibility" }} <i class="fa fa-eye"></i>
 									<p class="text-muted">{{$t "administration.school.label.allStudentsVisibility" }}</p>
 								</label>
