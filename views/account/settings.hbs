@@ -113,10 +113,11 @@
 				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
 				{{else}}
                 <form method="post" action="/account/teamSettings">
+                <br />
                 <h2 class="h5">{{$t "global.link.teams"}}</h2>
                     <div class="form-group">
                         {{$t "account.teams.text.visibilityTeamInvitations" }}
-                        <p class="text-muted">{{{$t "account.teams.text.hintVisibility" (dict "shortTitle" @root.theme.short_title )}}}</p>
+                        <p class="text-muted">{{{$t "account.teams.text.hintVisibility" (dict "themeTitle" @root.theme.theme_title )}}}</p>
 
                         {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled"}}</label>{{/ifConfig}}
 
