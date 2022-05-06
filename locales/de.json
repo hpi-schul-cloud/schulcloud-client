@@ -82,7 +82,7 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
 			},
 			"text": {
-				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadmins sind, können dich über den zentralen Verzeichnisdienst der {{shortTitle}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
+				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadmins sind, können dich über den zentralen Verzeichnisdienst der {{theme_title}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
 				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen",
 				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert"
 			}
