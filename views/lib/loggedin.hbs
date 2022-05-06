@@ -125,15 +125,6 @@
 							</p>
 						</div>
 					</section>
-				{{#ifeq currentRole "Demo"}}
-					<section class="demo">
-						<div class="alert alert-warning" role="alert">
-							<p>{{$t "lib.loggedin.text.thisIsADemoAccount" }}
-								<span class="hidden-md-down">{{$t "lib.loggedin.text.allActionsThatCreate" }}</span>
-							</p>
-						</div>
-					</section>
-				{{/ifeq}}
 
                 {{#hasConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER"}}
                     {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER") ""}}

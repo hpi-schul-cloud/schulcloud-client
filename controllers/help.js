@@ -95,15 +95,6 @@ router.get('/lernNuggets', (req, res, next) => {
 
 router.get('/faq/documents', async (req, res, next) => {
 	const userRoles = res.locals.currentUser.roles.map(r => r.name);
-	const isDemoUser = userRoles.some(r => r.startsWith('demo'));
-
-	if (isDemoUser) {
-		req.session.notification = {
-			type: 'danger',
-			message: res.$t('help.text.noAccessDemoAccount'),
-		};
-		return res.redirect('/help');
-	}
 
 	const documents = await api(req)
 		.get('/help/documents/', { qs: { theme: res.locals.theme.name } })
