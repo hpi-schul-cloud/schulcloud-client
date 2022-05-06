@@ -264,9 +264,6 @@
             "selectTeacher": "Вибрати викладача",
             "Administrator": "Адміністратор",
             "BetaTeacher": "Бета",
-            "Demo": "Демо",
-            "DemoStudent": "Демо-учень",
-            "DemoTeacher": "Демо-викладач",
             "Helpdesk": "Довідкова служба",
             "Lehrer": "Викладач",
             "Schüler": "Учень",
@@ -1325,13 +1322,11 @@
         },
         "item": {
             "text": {
-                "contentNotAvailable": "Контент недоступний у демонстраційному режимі з причин ліцензування.",
                 "report": "звіт"
             }
         },
         "headline": {
             "addContentToTopic": "Додати матеріал до теми",
-            "contentCantBeAddedInDemo": "<h5>Контент не можна додавати до курсів у демо-режимі.</h5>",
             "contentStore": "Навчальний магазин",
             "fileType": "Тип файлу",
             "nSearchResultsFoundWith": "{{ searchResultsTotal }} результатів пошуку для «{{ query }}»",
@@ -1690,15 +1685,12 @@
     },
     "home": {
         "button": {
-            "loginAsStudentDemo": "Увійти в систему як учень",
-            "loginAsTeacherDemo": "Увійти в систему як викладач",
             "subscribeNewsletter": "Підписатися на розсилку",
             "register": "Зареєструватися"
         },
         "headline": {
             "allNewsOnHPINewsletter": "Усі новини про <span style=\"white-space: nowrap;\">шкільну хмару HPI</span> зручно відправляти на вашу поштову скриньку:",
             "explainationVideo": "Пояснювальне відео про шкільну хмару HPI",
-            "tryDemoVersion": "Спробуйте демо-версію зараз",
             "welcomeToHPISchoolCloud": "Ласкаво просимо до <span style=\"white-space: nowrap;\">Шкільної хмари HPI!</span>",
             "theIdea": "Основна ідея <span style=\"white-space: nowrap;\">шкільної хмари HPI</span>",
             "dBildungscloudBlog": "Блог <span style=\"white-space: nowrap;\">dBildungscloud</span>"
@@ -2559,7 +2551,6 @@
                 "allActionsThatCreate": "Усі дії, які створюють або змінюють дані, деактивовані та не показуються.",
                 "inOrderToShow": "Щоб все ще щось побачити, ви можете побачити застарілий контент.",
                 "noNotificationsAtTheMoment": "Наразі сповіщень немає",
-                "thisIsADemoAccount": "Це демо-обліковий запис.",
                 "youAreOffline": "Ви офлайн."
             },
             "img_alt": {
@@ -2713,7 +2704,6 @@
             "welcomeDocuments": "Вітальні документи для завантаження"
         },
         "text": {
-            "noAccessDemoAccount": "У вас немає доступу до цих документів у демо-обліковому записі.",
             "noWelcomeDocuments": "Привітальних документів може не бути. Зверніться до служби підтримки користувачів.",
             "hereYouCanFindOut": "Тут ви можете дізнатися, як видалити файли cookie.",
             "someConcernsNeedMoreOptions": "Деякі проблеми вимагають більше варіантів, ніж дозволяють поля у функції контакту. Якщо ви хочете звернутися до нас, напишіть нам електронний лист:",

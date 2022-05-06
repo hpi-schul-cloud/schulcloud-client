@@ -139,11 +139,11 @@ const editCourseHandler = (req, res, next) => {
 		});
 	// .then(data => data.data); needed when pagination is not disabled
 	const teachersPromise = getSelectOptions(req, 'users', {
-		roles: ['teacher', 'demoTeacher'],
+		roles: ['teacher'],
 		$limit: false,
 	});
 	const studentsPromise = getSelectOptions(req, 'users', {
-		roles: ['student', 'demoStudent'],
+		roles: ['student'],
 		$limit: false,
 		$sort: 'lastName',
 	});
@@ -290,11 +290,11 @@ const copyCourseHandler = (req, res, next) => {
 
 	const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 	const teachersPromise = getSelectOptions(req, 'users', {
-		roles: ['teacher', 'demoTeacher'],
+		roles: ['teacher'],
 		$limit: 1000,
 	});
 	const studentsPromise = getSelectOptions(req, 'users', {
-		roles: ['student', 'demoStudent'],
+		roles: ['student'],
 		$limit: 1000,
 	});
 
@@ -699,8 +699,8 @@ router.get('/:courseId/', async (req, res, next) => {
 		const user = res.locals.currentUser || {};
 		const roles = user.roles.map((role) => role.name);
 		const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
-		const teacher = ['teacher', 'demoTeacher'];
-		const student = ['student', 'demoStudent'];
+		const teacher = ['teacher'];
+		const student = ['student'];
 
 		res.render(
 			'courses/course',
