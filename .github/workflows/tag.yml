@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tennens: [default, brb, int, n21, open, thr ]
+        tennens: [default, brb, int, n21, thr ]
     steps:
       - uses: actions/checkout@v2
       - name: Docker meta Service Name for docker hub
