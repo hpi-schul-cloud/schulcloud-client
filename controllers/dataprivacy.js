@@ -8,10 +8,7 @@ const { specificFiles } = require('../config/documents');
 const router = express.Router();
 
 const privacyUrl = () => {
-	const privacyFile =	SC_THEME === 'open'
-		? specificFiles.privacy
-		: specificFiles.privacyExemplary;
-	return new URL(`${SC_THEME}/${privacyFile}`, DOCUMENT_BASE_DIR);
+	return new URL(`${SC_THEME}/${specificFiles.privacyExemplary}`, DOCUMENT_BASE_DIR);
 };
 
 const downloadPolicyPdf = (res, fileData, fileTitle) => {
