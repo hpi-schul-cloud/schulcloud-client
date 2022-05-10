@@ -971,24 +971,14 @@ router.get(
 			$sort: 'displayName',
 		});
 		const accountPromise = api(req, { json: true, version: 'v3' })
-			.get('/account/', {
-				qs: {
-					type: 'userId',
-					value: req.params.id,
-				},
-			});
+			.get(`/user/${req.params.id}/account`);
 
 		Promise.all([
 			userPromise,
 			classesPromise,
 			accountPromise,
 		])
-			.then(([user, _classes, _account]) => {
-				let account;
-				if (_account && _account.total > 0) {
-					account = _account.data[0];
-				}
-
+			.then(([user, _classes, account]) => {
 				const hidePwChangeButton = !account;
 
 				const classes = _classes.map((c) => {
@@ -1416,20 +1406,11 @@ router.get(
 	(req, res, next) => {
 		const userPromise = api(req).get(`/users/admin/students/${req.params.id}`);
 		const accountPromise = api(req, { json: true, version: 'v3' })
-			.get('/account/', {
-				qs: {
-					type: 'userId',
-					value: req.params.id,
-				},
-			});
+			.get(`/user/${req.params.id}/account`);
 		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
 		Promise.all([userPromise, accountPromise])
-			.then(([user, _account]) => {
-				let account;
-				if (_account && _account.total > 0) {
-					account = _account.data[0];
-				}
+			.then(([user, account]) => {
 				const consent = user.consent || {};
 				if (consent) {
 					consent.parentConsent = (consent.parentConsents || []).length
