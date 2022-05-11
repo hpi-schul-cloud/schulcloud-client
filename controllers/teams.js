@@ -12,6 +12,7 @@ const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
+const { userHasPermission } = require('../helpers/permissions');
 
 const router = express.Router();
 moment.locale('de');
@@ -639,7 +640,12 @@ router.get('/:teamId', async (req, res, next) => {
 		const permissions = await api(req).get(`/teams/${teamId}/userPermissions/${course.user.userId}`);
 
 		const nextcloudUrl = Configuration.get('NEXTCLOUD_REDIRECT_URL') + encodeURI(makeNextcloudFolderName(req.params.teamId, course.name));
-		console.log(nextcloudUrl);
+
+		let allowedUseNextcloud = false;
+		if (Configuration.get('FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED') === true
+		&& userHasPermission(res.locals.currentUser, 'NEXTCLOUD_USER')) {
+			allowedUseNextcloud = true;
+		}
 
 		res.render(
 			'teams/team',
@@ -660,12 +666,13 @@ router.get('/:teamId', async (req, res, next) => {
 				showVideoconferenceOption,
 				directories,
 				files,
+				allowedUseNextcloud,
 				filesUrl: `/files/teams/${req.params.teamId}`,
-				nextcloudUrl: nextcloudUrl,
+				nextcloudUrl,
 				ownerId: req.params.teamId,
-				canUploadFile: true,
-				canCreateDir: true,
-				canCreateFile: true,
+				canUploadFile: !allowedUseNextcloud,
+				canCreateDir: !allowedUseNextcloud,
+				canCreateFile: !allowedUseNextcloud,
 				canEditPermissions: permissions.includes('EDIT_ALL_FILES'),
 				canEditEvents: permissions.includes('CALENDAR_EDIT'),
 				createEventAction: `/teams/${req.params.teamId}/events/`,
@@ -712,7 +719,6 @@ router.patch('/:teamId', async (req, res, next) => {
 	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
-
 
 	const currentTeamState = await api(req).get(`/teams/${req.params.teamId}`);
 	const features = new Set(currentTeamState.features || []);
