@@ -12,6 +12,7 @@ const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
+const { makeNextcloudFolderName, useNextcloudFilesystem } = require('../helpers/nextcloud');
 
 const router = express.Router();
 moment.locale('de');
@@ -429,10 +430,6 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
-function makeNextcloudFolderName(teamId, teamName) {
-	return `${teamName} (${teamId})`;
-}
-
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
@@ -638,8 +635,11 @@ router.get('/:teamId', async (req, res, next) => {
 
 		const permissions = await api(req).get(`/teams/${teamId}/userPermissions/${course.user.userId}`);
 
-		const nextcloudUrl = Configuration.get('NEXTCLOUD_REDIRECT_URL') + encodeURI(makeNextcloudFolderName(req.params.teamId, course.name));
-		console.log(nextcloudUrl);
+		const nextcloudUrl = Configuration.get('NEXTCLOUD_REDIRECT_URL') !== ''
+			? Configuration.get('NEXTCLOUD_REDIRECT_URL') + encodeURI(makeNextcloudFolderName(req.params.teamId, course.name))
+			: '';
+
+		const useNextcloud = useNextcloudFilesystem(res.locals.currentUser);
 
 		res.render(
 			'teams/team',
@@ -661,11 +661,12 @@ router.get('/:teamId', async (req, res, next) => {
 				directories,
 				files,
 				filesUrl: `/files/teams/${req.params.teamId}`,
-				nextcloudUrl: nextcloudUrl,
+				nextcloudUrl,
+				useNextcloud,
 				ownerId: req.params.teamId,
-				canUploadFile: true,
-				canCreateDir: true,
-				canCreateFile: true,
+				canUploadFile: !useNextcloud,
+				canCreateDir: !useNextcloud,
+				canCreateFile: !useNextcloud,
 				canEditPermissions: permissions.includes('EDIT_ALL_FILES'),
 				canEditEvents: permissions.includes('CALENDAR_EDIT'),
 				createEventAction: `/teams/${req.params.teamId}/events/`,
@@ -712,7 +713,6 @@ router.patch('/:teamId', async (req, res, next) => {
 	if (!moment(req.body.untilDate, 'YYYY-MM-DD').isValid()) {
 		delete req.body.untilDate;
 	}
-
 
 	const currentTeamState = await api(req).get(`/teams/${req.params.teamId}`);
 	const features = new Set(currentTeamState.features || []);

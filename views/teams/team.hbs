@@ -67,7 +67,7 @@
                 <p class="lead">{{description}}</p>
             </div>
         </section>
-        {{#ifConfig "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" true}}
+        {{#if useNextcloud}}
         <section class="row mt-0">
             <div class="col-sm-12">
                 <div class="pull-right">
@@ -75,15 +75,16 @@
                         <i class="fa fa-folder-open" aria-hidden="true"></i>
                         {{$t "teams._team.files.button.toTeamFiles"}}
                     </a>
-                    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#ifConfig "NEXTCLOUD_REDIRECT_URL" ""}}disabled{{/ifConfig}}">
+                    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
                         <i class="fa fa-folder-open" aria-hidden="true"></i>
                         {{$t "teams._team.files.button.toNextcloud"}}
+                        {{!-- TODO Feature toggle for new tag --}}
                         <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
                     </a>
                 </div>
             </div>
         </section>
-        {{/ifConfig}}
+        {{/if}}
 
         {{#if rocketChatURL}}
         <section class="section-chat">
@@ -114,11 +115,9 @@
                 <div class="sections">
                     <!-- Dateien -->
                     <div class="section" data-testid="team_files" data-section="js-files">
-                            {{#if canUploadFile}}
-                                {{#ifConfig "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" false}}
-                                    {{#embed "files/file-upload"}}{{/embed}}
-                                {{/ifConfig}}
-                            {{/if}}
+                        {{#if canUploadFile}}
+                            {{#embed "files/file-upload"}}{{/embed}}
+                        {{/if}}
 
                         {{#ifneq 0 (arrayLength directories)}}
                         <section style="margin-top: 1rem" class="directories">
@@ -169,30 +168,27 @@
                         </section>
 
                         <section style="margin-top: 1rem">
-                            {{#ifConfig "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" false}}
-                                <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
+                            <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
 
+                            {{#unless useNextcloud}}
                                 <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
-                                    <i class="fa fa-folder-open" aria-hidden="true"></i> {{$t
-                                    "teams._team.files.button.toTeamFiles"}}
+                                    <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                    {{$t "teams._team.files.button.toTeamFiles"}}
                                 </a>
-                            {{/ifConfig}}
+                            {{/unless}}
                             {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
-                                {{#ifConfig "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" false}}
                                     <button class="btn btn-add btn-secondary btn-file-permissions">
-                                        <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t
-                                        "teams._team.files.button.changeSharingSettings"}}
+                                        <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                        {{$t "teams._team.files.button.changeSharingSettings"}}
                                     </button>
-                                {{/ifConfig}}
                             {{/inArray}}
 
-                            {{#ifConfig "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" false}}
-                                {{#if ../canCreateDir}}
-                                    <button class="btn btn-primary create-directory">
-                                        <i class="fa fa-folder" aria-hidden="true"></i> {{$t "global.button.createFolder"}}
-                                    </button>
-                                {{/if}}
-                            {{/ifConfig}}
+                            {{#if ../canCreateDir}}
+                                <button class="btn btn-primary create-directory">
+                                    <i class="fa fa-folder" aria-hidden="true"></i>
+                                    {{$t "global.button.createFolder"}}
+                                </button>
+                            {{/if}}
                             {{!-- {{#if ../canCreateFile}}
                             <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
                                 <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
