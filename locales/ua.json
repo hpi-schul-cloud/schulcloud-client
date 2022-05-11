@@ -1856,7 +1856,9 @@
                     "deleteFolder": "Видалити каталог",
                     "renameFolder": "Перейменувати каталог",
                     "shareFolder": "Спільний каталог",
-                    "toTeamFiles": "До файлів команди"
+                    "toTeamFiles": "До файлів команди",
+					"toNextcloud": "Відкрийте панель файлів",
+					"tag": "Новий"
                 },
                 "headline": {
                     "changeFilePermissions": "Змінити налаштування спільного доступу",

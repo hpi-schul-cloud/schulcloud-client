@@ -56,6 +56,15 @@
 	}
 	.btn {
 		margin-bottom: 0.5rem;
+
+		.tag {
+			background-color: #FEF445;
+			border-radius: 20px;
+			padding: 1px 6px;
+			font-size: 10pt;
+			color: #355478;
+			margin-left: 4px;
+		}
 	}
 
 	.btn-member {

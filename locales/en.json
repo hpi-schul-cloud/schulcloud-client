@@ -2884,7 +2884,9 @@
 					"deleteFolder": "Delete folder",
 					"renameFolder": "Rename folder",
 					"shareFolder": "Share folder",
-					"toTeamFiles": "To the team files"
+					"toTeamFiles": "To the team files",
+					"toNextcloud": "Open file area",
+					"tag": "New"
 				},
 				"headline": {
 					"changeFilePermissions": "Change share settings",

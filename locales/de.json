@@ -1654,7 +1654,7 @@
 				"en": "English",
 				"es": "Español",
 				"ua": "Yкраїнський"
-			} 
+			}
 		},
 		"link": {
 			"administrationStudents": "Schüler:innen",
@@ -2884,7 +2884,9 @@
 					"deleteFolder": "Ordner löschen",
 					"renameFolder": "Ordner umbenennen",
 					"shareFolder": "Ordner-Freigabe",
-					"toTeamFiles": "Zu den Team-Dateien"
+					"toTeamFiles": "Zu den Team-Dateien",
+					"toNextcloud": "Dateibereich öffnen",
+					"tag": "Neu"
 				},
 				"headline": {
 					"changeFilePermissions": "Freigabe-Einstellungen ändern",
