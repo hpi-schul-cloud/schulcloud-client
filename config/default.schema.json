@@ -170,6 +170,10 @@
 				}
 			}
 		},
+		"NO_COLOR": {
+			"type": "string",
+			"description": "The value is used to disable logging color in terminal and is set in production always to true. It is not connected to the loggers it self."
+		},
 		"FEATURE_MATRIX_MESSENGER_ENABLED": {
 			"type": "boolean",
 			"default": false,
