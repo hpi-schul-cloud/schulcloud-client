@@ -59,6 +59,7 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 		});
 	}
 	res.clearCookie('jwt');
+	res.clearCookie('oc_sessionPassphrase', { domain: Configuration.get('NEXTCLOUD_DOMAIN') });
 	// this is deprecated and only used for cookie removal from now on,
 	// and can be removed after one month (max cookie lifetime from life systems)
 	if (res.locals && res.locals.domain) {
@@ -179,7 +180,6 @@ const checkSuperhero = (req, res) => {
 	return Promise.reject('superhero access forbidden, redirecting...');
 };
 
-
 const checkIfUserIsForcedToChangePassword = (req, res) => {
 	if (!res.locals.currentUser.forcePasswordChange
 		|| req.baseUrl.startsWith('/forcePasswordChange')
@@ -189,7 +189,6 @@ const checkIfUserIsForcedToChangePassword = (req, res) => {
 	// eslint-disable-next-line prefer-promise-reject-errors
 	return Promise.reject(USER_FORCED_TO_CHANGE_PASSWORD_REJECT);
 };
-
 
 const restrictSidebar = (req, res) => {
 	// If sidebarItems do not exist, render without avaible menü points.
