@@ -67,24 +67,23 @@
                 <p class="lead">{{description}}</p>
             </div>
         </section>
-
+        {{#ifConfig "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" true}}
         <section class="row mt-0">
-            {{#ifConfig "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" true}}
-                <div class="col-sm-12">
-                    <div class="pull-right">
-                        <a href="{{../filesUrl}}" class="btn btn-add btn-secondary">
-                            <i class="fa fa-folder-open" aria-hidden="true"></i>
-                            {{$t "teams._team.files.button.toTeamFiles"}}
-                        </a>
-                        <a href="{{../nextcloudUrl}}" class="btn btn-add btn-primary">
-                            <i class="fa fa-folder-open" aria-hidden="true"></i>
-                            {{$t "teams._team.files.button.toNextcloud"}}
-                            <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
-                        </a>
-                    </div>
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <a href="{{../filesUrl}}" class="btn btn-add btn-secondary">
+                        <i class="fa fa-folder-open" aria-hidden="true"></i>
+                        {{$t "teams._team.files.button.toTeamFiles"}}
+                    </a>
+                    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary">
+                        <i class="fa fa-folder-open" aria-hidden="true"></i>
+                        {{$t "teams._team.files.button.toNextcloud"}}
+                        <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
+                    </a>
                 </div>
-            {{/ifConfig}}
+            </div>
         </section>
+        {{/ifConfig}}
 
         {{#if rocketChatURL}}
         <section class="section-chat">
