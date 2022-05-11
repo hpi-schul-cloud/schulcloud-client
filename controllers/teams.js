@@ -12,7 +12,11 @@ const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
+<<<<<<< HEAD
 const { makeNextcloudFolderName, useNextcloudFilesystem } = require('../helpers/nextcloud');
+=======
+const { userHasPermission } = require('../helpers/permissions');
+>>>>>>> 22b0f95fd5f736d12b768d766e8a4ec2496cf9d1
 
 const router = express.Router();
 moment.locale('de');
@@ -660,13 +664,21 @@ router.get('/:teamId', async (req, res, next) => {
 				showVideoconferenceOption,
 				directories,
 				files,
+				allowedUseNextcloud,
 				filesUrl: `/files/teams/${req.params.teamId}`,
 				nextcloudUrl,
+<<<<<<< HEAD
 				useNextcloud,
 				ownerId: req.params.teamId,
 				canUploadFile: !useNextcloud,
 				canCreateDir: !useNextcloud,
 				canCreateFile: !useNextcloud,
+=======
+				ownerId: req.params.teamId,
+				canUploadFile: !allowedUseNextcloud,
+				canCreateDir: !allowedUseNextcloud,
+				canCreateFile: !allowedUseNextcloud,
+>>>>>>> 22b0f95fd5f736d12b768d766e8a4ec2496cf9d1
 				canEditPermissions: permissions.includes('EDIT_ALL_FILES'),
 				canEditEvents: permissions.includes('CALENDAR_EDIT'),
 				createEventAction: `/teams/${req.params.teamId}/events/`,
