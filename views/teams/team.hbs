@@ -76,7 +76,7 @@
                             <i class="fa fa-folder-open" aria-hidden="true"></i>
                             {{$t "teams._team.files.button.toTeamFiles"}}
                         </a>
-                        <a href="{{../nextcloudUrl}}" class="btn btn-add btn-primary">
+                        <a href="{{../nextcloudUrl}}" class="btn btn-add btn-primary {{#ifConfig "NEXTCLOUD_REDIRECT_URL" ""}}disabled{{/ifConfig}}">
                             <i class="fa fa-folder-open" aria-hidden="true"></i>
                             {{$t "teams._team.files.button.toNextcloud"}}
                             <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
