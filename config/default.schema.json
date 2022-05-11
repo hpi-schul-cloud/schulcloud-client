@@ -503,6 +503,11 @@
 			"type": "boolean",
 			"default": "false",
 			"description": "Enables button on team file pages to open the nextcloud file storage."
+		},
+		"NEXTCLOUD_REDIRECT_URL": {
+			"type": "string",
+			"default": "",
+			"description": "URL that leads to the nextcloud oauth login"
 		}
 	},
 	"allOf": [

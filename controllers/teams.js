@@ -429,6 +429,10 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
+function makeNextcloudFolderName(teamId, teamName) {
+	return `teamName (${teamId})`;
+}
+
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
@@ -634,6 +638,8 @@ router.get('/:teamId', async (req, res, next) => {
 
 		const permissions = await api(req).get(`/teams/${teamId}/userPermissions/${course.user.userId}`);
 
+		const nextcloudUrl = Configuration.get('NEXTCLOUD_REDIRECT_URL') + makeNextcloudFolderName(req.params.teamId, req.params.teamName);
+		console.log(nextcloudUrl);
 		res.render(
 			'teams/team',
 			{
@@ -654,6 +660,7 @@ router.get('/:teamId', async (req, res, next) => {
 				directories,
 				files,
 				filesUrl: `/files/teams/${req.params.teamId}`,
+				//nextcloudUrl: nextcloudUrl,
 				ownerId: req.params.teamId,
 				canUploadFile: true,
 				canCreateDir: true,

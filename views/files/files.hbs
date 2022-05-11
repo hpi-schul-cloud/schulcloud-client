@@ -12,11 +12,11 @@
 
 {{#content "page"}}
 <div class="route-files">
-    {{#ifConfig "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" false}}
-        {{#if canUploadFile}}
-        {{#embed "files/file-upload"}}{{/embed}}
-        {{/if}}
-	{{/ifConfig}}
+	{{#if canUploadFile}}
+		{{#ifConfig "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" false}}
+			{{#embed "files/file-upload"}}{{/embed}}
+		{{/ifConfig}}
+	{{/if}}
 	<section class="section-title">
 		<div class="container-fluid">
 			<div class="row">
@@ -87,7 +87,7 @@
 {{#embed "files/file-viewer"}}{{/embed}}
 {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
 
-{{#ifEnv "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" false}}
+{{#ifConfig "FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED" false}}
 {{#userHasPermission "FOLDER_CREATE"}}
 <section class="new-directory">
 	<div class="row">
@@ -108,7 +108,7 @@
 	</div>
 </section>
 {{/userHasPermission}}
-{{/ifEnv}}
+{{/ifConfig}}
 </div>
 {{/content}}
 {{/extend}}
