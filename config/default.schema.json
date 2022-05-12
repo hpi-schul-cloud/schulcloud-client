@@ -170,6 +170,10 @@
 				}
 			}
 		},
+		"NO_COLOR": {
+			"type": "string",
+			"description": "The value is used to disable logging color in terminal and is set in production always to true. It is not connected to the loggers it self."
+		},
 		"FEATURE_MATRIX_MESSENGER_ENABLED": {
 			"type": "boolean",
 			"default": false,
@@ -196,10 +200,18 @@
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
 		},
-		"FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED": {
-			"type": "boolean",
-			"default": "false",
-			"description": "Allows school admin to toggle teacher's STUDENT_LIST permission."
+		"TEACHER_STUDENT_VISIBILITY": {
+			"type": "object",
+			"description": "Configuration regarding teachers' STUDENT_LIST permission.",
+			"properties": {
+				"IS_CONFIGURABLE": {
+					"type": "boolean",
+					"description": "Allows school admin to toggle teachers' STUDENT_LIST permission."
+				}
+			},
+			"default": {
+				"IS_CONFIGURABLE": false
+			}
 		},
 		"FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED": {
 			"type": "boolean",
@@ -230,18 +242,18 @@
 				"PAD_URI": {
 					"type": "string",
 					"format": "uri",
-					"default": "https://schul-cloud.org/etherpad/p",
+					"default": "https://dbildungscloud.de/etherpad/p",
 					"pattern": ".*(?<!/)$",
 					"description": "The etherpad pad uri"
 				},
 				"OLD_DOMAIN": {
 					"type": "string",
-					"default": "etherpad.schul-cloud.org",
+					"default": "etherpad.dbildungscloud.de",
 					"description": "The old etherpad domain"
 				},
 				"NEW_DOMAIN": {
 					"type": "string",
-					"default": "schul-cloud.org",
+					"default": "dbildungscloud.de",
 					"description": "The new etherpad domain"
 				}
 			}
@@ -332,11 +344,6 @@
 			"default": true,
 			"description": "Defines if backend for the Lern-Store link in sidebar is enabled."
 		},
-		"HELPAREA_URL": {
-			"type": "string",
-			"default": "",
-			"description": "The URL to Confluence. Without a link, there are subpages in the side menu and on the /help page. With the link the option from the Hilfebereich side menu leads to confluence."
-		},
 		"FEATURE_MULTI_LOGIN_INSTANCES": {
 			"type": "boolean",
 			"default": false,
@@ -364,11 +371,6 @@
 			"format": "date-time",
 			"examples": ["2020-11-01T20:20:00+00:00"],
 			"description": "if this is set, rocketchat will be treated as disabled after this date."
-		},
-		"LEGACY_COURSE_OVERVIEW_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "feature toggle activate legacy Course link."
 		},
 		"ROOM_VIEW_ENABLED": {
 			"type": "boolean",
@@ -495,6 +497,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables button Oauth Login feature"
+		},
+		"FEATURE_USER_MIGRATION_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, admin can see a message with link to user migration page"
 		}
 	},
 	"allOf": [

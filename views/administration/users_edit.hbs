@@ -189,6 +189,7 @@
 
         {{#embed "lib/components/modal-form" method="patch" class="pw-modal"}}
         {{#content "fields"}}
+        <input type="hidden" name="accountId" data-force-value="true" value="{{accountId}}" />
         {{> "administration/forms/form-account-password"}}
         {{/content}}
         {{/embed}}

@@ -64,11 +64,13 @@ router.all('/', async (req, res, next) => {
 
 	const decorateNews = (newsItem) => {
 		const isRSS = newsItem.source === 'rss';
+		const secondaryTitle = timesHelper.fromUTC(newsItem.displayAt).fromNow();
+
 		return {
 			...newsItem,
 			isRSS,
 			url: `/news/${newsItem.id}`,
-			secondaryTitle: timesHelper.fromUTC(newsItem.displayAt).fromNow(),
+			secondaryTitle,
 			actions: [],
 		};
 	};

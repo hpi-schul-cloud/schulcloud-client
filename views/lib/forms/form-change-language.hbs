@@ -7,9 +7,8 @@
         data-placeholder="{{$t "lib.form_ChangeLanguage.placeholder.text" }}"
         required
     >
-        <option value="de" {{#ifeq langParent.language 'de'}}selected{{/ifeq}}>{{$t "global.language.label.de" }}</option>
-        <option value="en" {{#ifeq langParent.language 'en'}}selected{{/ifeq}}>{{$t "global.language.label.en" }}</option>
-        <option value="es" {{#ifeq langParent.language 'es'}}selected{{/ifeq}}>{{$t "global.language.label.es" }}</option>
-        <option value="ua" {{#ifeq langParent.language 'es'}}selected{{/ifeq}}>{{$t "global.language.label.ua" }}</option>
+    {{#each @root.availableLanguages as | lang | }}
+        <option value="{{lang}}" {{#ifeq langParent.language '{{lang}}'}}selected{{/ifeq}}>{{$t (concat "global.language.label." lang)}}</option>
+    {{/each}}
     </select>
 </div>

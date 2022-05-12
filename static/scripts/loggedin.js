@@ -144,13 +144,12 @@ $(document).ready(function () {
         return !(e.key === "Unidentified");
     });
 
-	// check for user migration mode
-	if ($('#inUserMigration').length && $('#inUserMigration').val() === 'Administrator') {
+	// check for in user migration mode
+	if ($('#inUserMigrationStarted').length) {
+		$.showNotification($t('loggedin.text.schoolInMigrationModeStarted'), 'warning');
+	} else if ($('#inUserMigration').length) {
 		$.showNotification($t('loggedin.text.schoolInMigrationMode'), 'warning');
-	}
-
-	// check for LDAP Transfer Mode
-	if ($('#schuljahrtransfer').length && $('#inUserMigration').length === 0) {
+	} else if ($('#schuljahrtransfer').length) {
 		if ($('#schuljahrtransfer').val() === 'Lehrer') {
 			$.showNotification($t('loggedin.text.schoolInTransferPhaseContactAdmin'), 'warning');
 		} else if ($('#schuljahrtransfer').val() === 'Administrator') {
@@ -158,7 +157,7 @@ $(document).ready(function () {
 		}
 	}
 
-    initAlerts('loggedin');
+	initAlerts('loggedin');
 });
 
 function showAJAXError(req, textStatus, errorThrown) {
@@ -227,7 +226,7 @@ function changeNavBarPositionToFixed() {
 document.querySelectorAll('#main-content a').forEach((a) => {
     const href = a.getAttribute('href');
     if (a.querySelector('img, .fa') == null && href) {
-        if (!(href.startsWith('https://schul-cloud.org') || href.startsWith('#') || href.startsWith('/') || href === '')) {
+        if (!(href.startsWith('https://dbildungscloud.de') || href.startsWith('#') || href.startsWith('/') || href === '')) {
             if (!a.getAttribute('target')) {
                 a.setAttribute('target', '_blank');
             }
