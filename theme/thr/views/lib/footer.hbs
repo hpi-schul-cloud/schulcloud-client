@@ -6,7 +6,7 @@
 			<nav aria-label="{{$t "lib.footer.aria_label.footer"}}">
 				<ul>
 					<li>
-						<a href="/imprint">{{$t "global.link.imprint"}}</a>
+						<a href="/imprint" aria-label="{{$t "global.link.imprint"}}">{{$t "global.link.imprint"}}</a>
 						<span> - </span>
 					</li>
 					<li>
@@ -27,12 +27,18 @@
 					</li>
 					<li>
 						<a href="{{theme.status_url}}" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a>
+						<span> - </span>
 					</li>
 					<li>
-						<a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject=Barriere%20melden" target="_blank" rel="noopener" aria-label="{{$t "global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.accessibilityReport"}}</a>
+						<a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject=Barriere%20melden" target="_blank" rel="noopener"
+							aria-label="{{$t "global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning"}}">
+							{{$t "lib.global.link.accessibilityReport"}}</a>
+						<span> - </span>
 					</li>
 					<li>
-						<a href="/">{{$t "lib.global.link.accessibilityStatement"}}</a>
+						<a href="{{theme.documents.specificFiles.accessibilityStatement}}" target="_blank" rel="noopener"
+							aria-label="{{$t "lib.global.link.accessibilityStatement"}} Thüringer Schulcloud PDF {{$t "global.link.openInNewTabWarning"}}">
+							{{$t "lib.global.link.accessibilityStatement"}}</a>
 					</li>
 				</ul>
 			</nav>

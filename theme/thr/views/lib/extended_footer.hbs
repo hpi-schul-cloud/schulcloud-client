@@ -7,15 +7,16 @@
 				<h2 class="h4">{{$t "global.link.contact" }}</h2>
 				<ul>
 					{{> "lib/extended_footer_links"}}
-					<li><a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank"
-							rel="noopener" aria-label="{{$t "lib.extended_footer.link.subscribeTheNewsletter" }} {{$t "global.link.openInNewTabWarning"}}">
-							<span class="text-nowrap">{{$t "lib.extended_footer.link.subscribeTheNewsletter" }}</span></a></li>
+					<li><a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject=Barriere%20melden" target="_blank"
+							aria-label="{{$t "lib.global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning" }}">
+							{{$t "lib.global.link.accessibilityReport"}}</a>
+					</li>
 				</ul>
 			</div>
 			<div class="col-md-4">
 				<h2 class="h4">{{$t "lib.extended_footer.headline.links"}}</h2>
 				<ul>
-					<li><a href="/imprint">{{$t "global.link.imprint" }}</a></li>
+					<li><a href="/imprint" aria-label="{{$t "global.link.imprint"}}">{{$t "global.link.imprint" }}</a></li>
 					<li><a href="{{@root.theme.documents.specificFiles.termsOfUseSchool}}" target="_blank"
 							rel="noopener" aria-label="{{$t "login.headline.onlyTermsOfUse"}} Thüringer Schulcloud PDF {{$t "global.link.openInNewTabWarning"}}">{{$t "login.headline.onlyTermsOfUse"}} Thüringer Schulcloud</a>
 					</li>
@@ -25,6 +26,10 @@
 					<li><a href="/about">Über die Thüringer Schulcloud</a></li>
 					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a></li>
 					<li><a href="{{theme.status_url}}" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a></li>
+					<li><a href="{{@root.theme.documents.specificFiles.accessibilityStatement}}" target="_blank"
+							aria-label="{{$t "lib.global.link.accessibilityStatement"}} PDF {{$t "global.link.openInNewTabWarning"}}">
+							{{$t "lib.global.link.accessibilityStatement"}}</a>
+					</li>
 				</ul>
 			</div>
 			<div class="col-md-4">
