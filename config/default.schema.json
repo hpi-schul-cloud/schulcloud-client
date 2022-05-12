@@ -507,6 +507,11 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Enables the default picture of the dashboard"
+		},
+		"FEATURE_DASHBOARD_NEWS_ON_TOP_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the order of the dashboard with the news on top"
 		}
 	},
 	"allOf": [
