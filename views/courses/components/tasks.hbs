@@ -99,7 +99,7 @@
 	<div class="col-sm-12 add-button">
 		{{#userHasPermission "COURSE_EDIT" }}
 			{{#unless @root.isArchived}}
-				<a href="/homework/new?course={{../_id}}"
+				<a href="/homework/new?course={{../_id}}&returnUrl=courses/{{../_id}}/?activeTab=homeworks"
 					aria-label="{{$t "global.button.addTask"}}"
 					class="btn btn-primary {{#if ../assignedHomeworks}}w-100{{else}}btn-empty{{/if}}">
 					<span>{{$t "courses._course.tasks.button.createTask"}}</span>
@@ -114,7 +114,7 @@
 			{{#if isTeacher}}
 				{{#userHasPermission "HOMEWORK_CREATE" }}
 					{{#unless @root.isArchived}}
-						<a href="/homework/new?course={{../_id}}&private=true"
+						<a href="/homework/new?course={{../_id}}&private=true&returnUrl=courses/{{../_id}}/?activeTab=homeworks"
 							aria-label="{{$t "global.button.addDraftTask"}}"
 							class="btn btn-secondary btn-sm pull-right ml-1 mt-2">
 							<i class="fa fa-plus" aria-hidden="true"></i>

@@ -30,6 +30,10 @@
                     <input name="courseGroupId" type="hidden" data-force-value="true" value="{{courseGroupId}}" />
                 {{/if}}
 
+                {{#if referrer}}
+                    <input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />
+                {{/if}}
+
                 <input name="position" type="hidden" data-force-value="true" value="{{lesson.position}}" />
 
                 <div class="form-group">

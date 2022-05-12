@@ -52,7 +52,7 @@
                     <div class="input-group show_hide_password">
                         <input type="password" autocomplete="new-password" name="passwordNew" id="passwordNew" data-testid="settings_password_new" class="form-control"
                             placeholder="***************"
-                            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[-_!<>§$%&/()=?\\;:,.#+*~'])\S.{6,253}\S$"
                             title="{{> "lib/forms/password-hint" plaintext=true}}">
                             <div class="input-group-addon">
                                 <button type="button" title="{{$t "login.button.show_password"}}" style="cursor: pointer;"><span class="fa fa-eye-slash" aria-hidden="true"></span></button>
@@ -74,7 +74,6 @@
                 {{/userHasPermission}}
 
                 {{> "lib/components/csrfInput"}}
-                {{> "lib/forms/form-change-language" langParent=../currentUser }}
 
 
                 <div class="form-group">
@@ -114,10 +113,11 @@
 				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
 				{{else}}
                 <form method="post" action="/account/teamSettings">
+                <br />
                 <h2 class="h5">{{$t "global.link.teams"}}</h2>
                     <div class="form-group">
                         {{$t "account.teams.text.visibilityTeamInvitations" }}
-                        <p class="text-muted">{{$t "account.teams.text.hintVisibility" (dict "shortTitle" @root.theme.short_title )}}</p>
+                        <p class="text-muted">{{{$t "account.teams.text.hintVisibility" (dict "themeTitle" @root.theme.theme_title )}}}</p>
 
                         {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled"}}</label>{{/ifConfig}}
 

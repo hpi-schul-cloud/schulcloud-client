@@ -134,7 +134,7 @@
                     <div class="col-sm-6 container">
                         {{#if isTeacher}}
                             {{#userHasPermission "HOMEWORK_CREATE"}}
-                                <a href="/homework/new?course={{../courseId}}&topic={{../_id}}"
+                                <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&returnUrl=courses/{{../courseId}}/topics/{{../_id}}"
                                     class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
                                     title="{{$t "global.button.addTask"}}">
                                     <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addTask" }}</span>
@@ -163,7 +163,7 @@
                     <div class="col-sm-6">
                         {{#if isTeacher}}
                             {{#userHasPermission "HOMEWORK_CREATE"}}
-                                <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true"
+                                <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true&returnUrl=courses/{{../courseId}}/topics/{{../_id}}"
                                     class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
                                     title="{{$t "global.button.addDraftTask"}}">
                                     <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "global.button.addDraftTask" }}</span>

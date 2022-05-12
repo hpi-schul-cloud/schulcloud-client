@@ -372,9 +372,6 @@ $(document).ready(() => {
 							});
 						} else {
 							addNewUploadedFile($('.js-file-list'), data);
-
-							// 'empty' submissionId is ok because the route takes the homeworkId first
-							$.post(`/homework/submit/0/files/${data._id}/permissions`, { homeworkId });
 						}
 					}).fail(showAJAXError);
 

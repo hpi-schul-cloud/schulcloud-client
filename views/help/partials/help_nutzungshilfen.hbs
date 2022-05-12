@@ -1,4 +1,4 @@
-{{#if (userHasRole "student" "demoStudent" "demoTeacher")}}
+{{#if (userHasRole "student" )}}
 	{{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="nutzungshilfen"}}
 		{{#content "card-body"}}
 			{{> "help/icon-link-group" links=(jsonParse '[
@@ -8,14 +8,19 @@
 					"src": "https://lernen.cloud/"
 				},
 				{
-					"title": "Webinare",
+					"title": "Live-Formate",
 					"icon": "fa-desktop",
-					"src": "https://docs.schul-cloud.org/display/SCDOK/Live-Schulungen"
+					"src": "https://docs.dbildungscloud.de/x/BosXBg"
 				},
 				{
 					"title": "Schnellstart-PDF",
 					"icon": "fa-file-pdf-o",
-					"src": "https://docs.schul-cloud.org/download/attachments/13828239/HPI%20Schul-Cloud%20-%20Schnellstart%20f%C3%BCr%20Lehrkr%C3%A4fte.pdf"
+					"src": "https://docs.dbildungscloud.de/download/attachments/13828239/HPI%20Schul-Cloud%20-%20Schnellstart%20f%C3%BCr%20Lehrkr%C3%A4fte.pdf"
+				},
+				{
+					"title": "Release Notes",
+					"icon": "fa-clipboard",
+					"src": "/help/releases"
 				}
 			]') link-class="col-sm-4"}}
 		{{/content}}
@@ -30,24 +35,24 @@
 					"src": "https://lernen.cloud/"
 				},
 				{
-					"title": "Datenschutzkurs",
-					"icon": "fa-cubes",
-					"src": "/help/lernNuggets"
-				},
-				{
-					"title": "Webinare",
+					"title": "Live-Formate",
 					"icon": "fa-desktop",
-					"src": "https://docs.schul-cloud.org/display/SCDOK/Live-Schulungen"
+					"src": "https://docs.dbildungscloud.de/x/BosXBg"
 				},
 				{
 					"title": "Schnellstart-PDF",
 					"icon": "fa-file-pdf-o",
-					"src": "https://docs.schul-cloud.org/download/attachments/13828239/HPI%20Schul-Cloud%20-%20Schnellstart%20f%C3%BCr%20Lehrkr%C3%A4fte.pdf"
+					"src": "https://docs.dbildungscloud.de/download/attachments/13828239/HPI%20Schul-Cloud%20-%20Schnellstart%20f%C3%BCr%20Lehrkr%C3%A4fte.pdf"
 				},
 				{
-					"title": "Willkommens-Dokumente",
+					"title": "Dokumente zum Download",
 					"icon": "fa-folder-open",
 					"src": "/help/faq/documents"
+				},
+				{
+					"title": "Release Notes",
+					"icon": "fa-clipboard",
+					"src": "/help/releases"
 				}
 			]') link-class="col-sm-4"}}
 		{{/content}}

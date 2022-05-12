@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -155,6 +155,8 @@ router.get('/:courseGroupId/', (req, res, next) => {
 		_.each(courseGroup.userIds, u => u.displayName = `${u.firstName} ${u.lastName}`);
 		_.each(course.teacherIds, t => t.displayName = `${t.firstName} ${t.lastName}`);
 
+		const showRoomView = Configuration.get('ROOM_VIEW_ENABLED') || false;
+
 		res.render('courses/courseGroup', Object.assign({}, courseGroup, {
 			course,
 			title: courseGroup.name,
@@ -163,11 +165,11 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			openSubmissions,
 			breadcrumb: [{
 				title: res.$t("courses.headline.myCourses"),
-				url: '/courses',
+				url: (showRoomView ? '/rooms-overview' : '/courses'),
 			},
 			{
 				title: course.name,
-				url: `/courses/${course._id}`,
+				url: (showRoomView ? `/rooms/${course._id}` : `/courses/${course._id}`),
 			},
 			],
 		}));

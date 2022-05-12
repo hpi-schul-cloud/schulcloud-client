@@ -2,9 +2,9 @@
 	"$schema": "./default.schema.json",
 	"ETHERPAD": {
 		"PAD_PATH": "/etherpad/p",
-		"PAD_URI": "https://schul-cloud.org/etherpad/p",
-		"OLD_DOMAIN": "etherpad.schul-cloud.org",
-		"NEW_DOMAIN": "schul-cloud.org"
+		"PAD_URI": "https://dbildungscloud.de/etherpad/p",
+		"OLD_DOMAIN": "etherpad.dbildungscloud.de",
+		"NEW_DOMAIN": "dbildungscloud.de"
 	},
 	"COOKIE": {
 		"SECURE": false,
@@ -22,12 +22,8 @@
 	"PROMETHEUS": {
 		"METRIC_TYPE": "summary"
 	},
+	"FEATURE_SHOW_VERSION_ENABLED": false,
 	"I18N": {
-		"DEFAULT_LANGUAGE": "de",
-		"FALLBACK_LANGUAGE": "de",
-		"DEFAULT_TIMEZONE": "Europe/Berlin",
-		"DEBUG": false,
-		"AVAILABLE_LANGUAGES": "de,en,es"
-	},
-	"FEATURE_SHOW_VERSION_ENABLED": false
+		"DEBUG": false
+	}
 }
