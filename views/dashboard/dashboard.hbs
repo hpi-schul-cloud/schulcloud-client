@@ -66,6 +66,15 @@
             <h2 class="h5 mb-1 mt-2">{{$t "dashboard.headline.welcome"}} {{@root.currentUser.firstName}} {{@root.currentUser.lastName}}!</h2>
         </div>
     </div>
+    {{#if (getConfig "FEATURE_DASHBOARD_DEFAULT_PICTURE_ENABLED")}}
+        <div class="row d-block text-center">
+            <div class="empty-state">
+                <div class="image wide-image center">
+                    {{> 'dashboard/svg_welcome' }}
+                </div>
+            </div>
+        </div>
+    {{/if}}
 </section>
 
 
