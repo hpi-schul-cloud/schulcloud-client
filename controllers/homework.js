@@ -208,6 +208,24 @@ const getCreateHandler = (service) => (req, res, next) => {
 	});
 };
 
+const getDomain = (url) => {
+	let domain;
+	try {
+		domain = new URL(url);
+		return domain.hostname;
+	} catch (e) {
+		return false;
+	}
+};
+
+const sanitizeRefererDomain = (allowedDomain, referrer) => {
+	const domain = getDomain(referrer);
+	if (domain && allowedDomain.indexOf(domain.hostname) === -1) {
+		referrer = '/';
+	}
+	return referrer;
+};
+
 const patchFunction = (service, req, res, next) => {
 	let returnToRooms = false;
 	let referrer;
@@ -216,8 +234,10 @@ const patchFunction = (service, req, res, next) => {
 			returnToRooms = true;
 		}
 		referrer = req.body.referrer.replace('/edit', '');
+		referrer = sanitizeRefererDomain((req.headers.origin || HOST), referrer);
 		delete req.body.referrer;
 	}
+
 	api(req).patch(`/${service}/${req.params.id}`, {
 		// TODO: sanitize
 		json: req.body,
@@ -785,7 +805,6 @@ router.get('/:assignmentId', (req, res, next) => {
 		assignment.warning = ((dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
 				&& assignment.submittable);
 
-
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
 
@@ -850,7 +869,6 @@ router.get('/:assignmentId', (req, res, next) => {
 			const students = ((course || {}).userIds || []).filter((user) => (user.firstName && user.lastName))
 				.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1))
 				.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1));
-
 
 			const assignmentCourse = (assignment.courseId || {});
 			const isCreator = assignment.teacherId.toString() === res.locals.currentUser._id.toString();
@@ -921,7 +939,6 @@ router.get('/:assignmentId', (req, res, next) => {
 				});
 				studentsWithoutSubmission.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1))
 					.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1));
-
 
 				// submission>single=student=upload || submissionS>multi=teacher=overview
 				addClearNameForFileIds(assignment.submission || assignment.submissions);
