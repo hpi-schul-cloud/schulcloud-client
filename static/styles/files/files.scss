@@ -320,6 +320,15 @@
   padding: 0px;
 }
 
+.tag {
+	background-color: #FEF445;
+	border-radius: 20px;
+	padding: 1px 6px;
+	font-size: 10pt;
+	color: $fontColor;
+	margin-left: 4px;
+}
+
 .order-sel {
   margin-top: 2px;
   width: auto;

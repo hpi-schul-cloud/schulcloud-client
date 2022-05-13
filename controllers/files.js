@@ -17,7 +17,7 @@ const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 const { logger, formatError } = require('../helpers');
 const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = require('../config/global');
-const { useNextcloudFilesystem } = require('../helpers/nextcloud');
+const { useNextcloudFilesystem, makeNextcloudFolderName } = require('../helpers/nextcloud');
 
 const router = express.Router();
 
@@ -761,10 +761,17 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
+	const nextcloudUrl = Configuration.get('NEXTCLOUD_REDIRECT_URL') !== ''
+		? Configuration.get('NEXTCLOUD_REDIRECT_URL')
+		+ encodeURI(makeNextcloudFolderName(req.params.teamId, team.name))
+		: '';
+
 	const useNextcloud = useNextcloudFilesystem(res.locals.currentUser);
 
 	res.render('files/files', {
 		title: res.$t('global.headline.files'),
+		nextcloudUrl,
+		useNextcloud,
 		canUploadFile: !useNextcloud,
 		canCreateDir: !useNextcloud,
 		canCreateFile: !useNextcloud,
