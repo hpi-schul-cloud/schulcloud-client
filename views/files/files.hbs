@@ -25,21 +25,23 @@
 						</span>
 						{{/each}}
 					</h2>
-					<div class="pull-right">
-					    {{#if courseUrl}}
-                        <a href="{{courseUrl}}" class="btn btn-secondary">
-                            <i class="fa fa-users"></i>
-                            {{ toCourseText }}
-                        </a>
-                        {{/if}}
-                        {{#if useNextcloud}}
-                        <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
-                            <i class="fa fa-folder-open" aria-hidden="true"></i>
-                            {{$t "teams._team.files.button.toNextcloud"}}
-                            <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
-                        </a>
-                        {{/if}}
-                    </div>
+					<section class="section-teams">
+                        <div class="pull-right">
+                            {{#if courseUrl}}
+                            <a href="{{courseUrl}}" class="btn btn-secondary">
+                                <i class="fa fa-users"></i>
+                                {{ toCourseText }}
+                            </a>
+                            {{/if}}
+                            {{#if useNextcloud}}
+                            <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
+                                <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                {{$t "teams._team.files.button.toNextcloud"}}
+                                <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
+                            </a>
+                            {{/if}}
+                        </div>
+                    </section>
 				</div>
 			</div>
 		</div>
