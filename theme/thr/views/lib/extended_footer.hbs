@@ -7,7 +7,7 @@
 				<h2 class="h4">{{$t "global.link.contact" }}</h2>
 				<ul>
 					{{> "lib/extended_footer_links"}}
-					<li><a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject=Barriere%20melden" target="_blank"
+					<li><a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject={{$t "lib.global.link.accessibilityReport"}}" target="_blank"
 							aria-label="{{$t "lib.global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning" }}">
 							{{$t "lib.global.link.accessibilityReport"}}</a>
 					</li>
