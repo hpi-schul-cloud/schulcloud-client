@@ -17,11 +17,11 @@
                             {{#if this.submission.courseGroupId}}
                                 <b>{{this.submission.courseGroupId.name}}: </b>
                                 {{#each this.submission.courseGroupMembers}}
-                                    <span>{{this.lastName}} {{this.firstName}}</span>
+                                    <span>{{this.lastName}}, {{this.firstName}}</span>
                                 {{/each}}
                             {{else}}
                                 {{#each this.submission.teamMembers}}
-                                    <span>{{this.lastName}} {{this.firstName}}</span>
+                                    <span>{{this.lastName}}, {{this.firstName}}</span>
                                 {{/each}}
                             {{/if}}
                         </td>
@@ -113,7 +113,7 @@
                 <strong>{{$t "homework._task.text.noSubmissionsYetFrom"}}</strong></br>
                 <div class="groupNames">
                     {{#each @root.studentsWithoutSubmission}}
-                        <span>{{this.lastName}} {{this.firstName}}</span>
+                        <span>{{this.lastName}}, {{this.firstName}}</span>
                     {{/each}}
                 </div>
             </div>

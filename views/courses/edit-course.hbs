@@ -125,11 +125,7 @@
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each teachers}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-								{{#if this.displayName}}
-									{{this.displayName}}
-								{{else}}
-									{{this.firstName}} {{this.lastName}}
-								{{/if}}
+									{{this.lastName}}, {{this.firstName}}
 							</option>
 						{{/each}}
 					</select>
@@ -143,7 +139,7 @@
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each substitutions}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-								{{this.firstName}} {{this.lastName}}
+								{{this.lastName}}, {{this.firstName}}
 							</option>
 						{{/each}}
 					</select>

@@ -167,13 +167,13 @@ const editCourseHandler = (req, res, next) => {
 		).sort();
 		const teachers = _teachers.filter(
 			(t) => t.schoolId === res.locals.currentSchool,
-		).sort((a, b) => a.firstName.localeCompare(b.firstName));
+		).sort((a, b) => a.lastName.localeCompare(b.lastName));
 		const students = _students.filter(
 			(s) => s.schoolId === res.locals.currentSchool,
 		).sort((a, b) => a.lastName.localeCompare(b.lastName));
 		const substitutions = _.cloneDeep(
 			teachers,
-		).sort((a, b) => a.firstName.localeCompare(b.firstName));
+		).sort((a, b) => a.lastName.localeCompare(b.lastName));
 
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
