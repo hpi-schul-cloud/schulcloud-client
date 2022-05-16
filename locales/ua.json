@@ -2510,6 +2510,8 @@
                 "discardChange": "Відкинути зміну"
             },
             "link": {
+                "accessibilityReport":"Відгук про доступність",
+				"accessibilityStatement": "Заява про доступність",
                 "dataProtectionDeclaration": "Політика конфіденційності <span style='white-space: nowrap;'>HPI Schul-Cloud</span>",
                 "participate": "Брати участь",
                 "termsOfUseHPI": "Умови використання <span style='white-space: nowrap;'>HPI Schul-Cloud</span>",

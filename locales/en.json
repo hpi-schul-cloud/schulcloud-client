@@ -2354,6 +2354,8 @@
 				"discardChange": "Discard change"
 			},
 			"link": {
+				"accessibilityReport":"Accessibility feedback",
+				"accessibilityStatement": "Accessibility statement",
 				"dataProtectionDeclaration": "Privacy Policy",
 				"github": "GitHub",
 				"participate": "Participate",
