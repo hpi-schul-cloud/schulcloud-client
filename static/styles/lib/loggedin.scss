@@ -199,10 +199,12 @@ aside.nav-sidebar {
 			float: left;
 
 			a:not(.sc-branding) {
+				display: flex;
+				align-items: center;
 				width: 100%;
 				float: left;
 				height: 60px;
-				line-height: 60px;
+			//	line-height: 60px;
 				color: $secondaryColor;
 				fill:$secondaryColor;
 				padding: 0px 20px;
@@ -266,7 +268,7 @@ aside.nav-sidebar {
 
 				i.fa {
 					font-size: 20px;
-					width: 20px;
+					width: 25px;
 					margin-right: 6px;
 					display: inline-block;
 					text-align: center;
@@ -275,7 +277,7 @@ aside.nav-sidebar {
 
 				svg {
 					font-size: 20px;
-					width: 20px;
+					width: 25px;
 					margin-right: 6px;
 					display: inline-block;
 					text-align: center;
