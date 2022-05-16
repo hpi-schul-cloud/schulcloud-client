@@ -254,7 +254,7 @@ aside.nav-sidebar {
 				&.active {
 					background: $colorLightGrey;
 					color: $primaryColor;
-					border-bottom: 1px solid transparent;
+				//	border-bottom: 1px solid transparent;
 
 					svg {
 						fill: $primaryColor;
