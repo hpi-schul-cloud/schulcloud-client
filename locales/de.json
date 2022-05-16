@@ -2354,6 +2354,8 @@
 				"discardChange": "Änderung verwerfen"
 			},
 			"link": {
+				"accessibilityReport":"Barriere melden",
+				"accessibilityStatement": "Barrierefreiheitserklärung",
 				"dataProtectionDeclaration": "Datenschutzerklärung",
 				"github": "GitHub",
 				"participate": "Mitmachen",
