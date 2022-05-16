@@ -971,14 +971,17 @@ router.get(
 			$sort: 'displayName',
 		});
 		const accountPromise = api(req, { json: true, version: 'v3' })
-			.get(`/user/${req.params.id}/account`);
+			.get('/account', {
+				qs: { type: 'userId', value: req.params.id },
+			});
 
 		Promise.all([
 			userPromise,
 			classesPromise,
 			accountPromise,
 		])
-			.then(([user, _classes, account]) => {
+			.then(([user, _classes, accountList]) => {
+				const account = accountList.data[0];
 				const hidePwChangeButton = !account;
 
 				const classes = _classes.map((c) => {
@@ -1406,11 +1409,13 @@ router.get(
 	(req, res, next) => {
 		const userPromise = api(req).get(`/users/admin/students/${req.params.id}`);
 		const accountPromise = api(req, { json: true, version: 'v3' })
-			.get(`/user/${req.params.id}/account`);
+			.get('/account', {
+				qs: { type: 'userId', value: req.params.id },
+			});
 		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
 		Promise.all([userPromise, accountPromise])
-			.then(([user, account]) => {
+			.then(([user, accountList]) => {
 				const consent = user.consent || {};
 				if (consent) {
 					consent.parentConsent = (consent.parentConsents || []).length
@@ -1418,6 +1423,7 @@ router.get(
 						: {};
 				}
 				const canDeleteUser = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
+				const account = accountList.data[0];
 				const hidePwChangeButton = !account;
 				res.render('administration/users_edit', {
 					title: res.$t('administration.controller.link.editingStudents'),
