@@ -95,23 +95,23 @@
             </div>
             <div class="sectionsContainer">
                 <div class="sections">
-                    {{#if useNextcloud}}
-                    <div class="alert info-custom" role="alert">
-                        <i class="fa fa-info-circle pr-1"></i>
-                        <div>{{{$t "info.nextcloudLink" (dict "institute_title" theme.institute_title)}}}</div>
-                    </div>
-
-                    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
-                        <i class="fa fa-external-link" aria-hidden="true"></i>
-                        {{$t "teams._team.files.button.toNextcloud"}}
-                        <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
-                    </a>
-                    {{/if}}
-
                     <!-- Dateien -->
                     <div class="section" data-testid="team_files" data-section="js-files">
                         {{#if canUploadFile}}
                             {{#embed "files/file-upload"}}{{/embed}}
+                        {{/if}}
+
+                        {{#if useNextcloud}}
+                        <div class="alert info-custom" role="alert">
+                            <i class="fa fa-info-circle pr-1"></i>
+                            <div>{{{$t "info.nextcloudLink" (dict "institute_title" theme.institute_title)}}}</div>
+                        </div>
+
+                        <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
+                            <i class="fa fa-external-link" aria-hidden="true"></i>
+                            {{$t "teams._team.files.button.toNextcloud"}}
+                            <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
+                        </a>
                         {{/if}}
 
                         {{#ifneq 0 (arrayLength directories)}}
