@@ -59,7 +59,6 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 		});
 	}
 	res.clearCookie('jwt');
-	res.clearCookie('oc_sessionPassphrase', { domain: Configuration.get('NEXTCLOUD_DOMAIN') });
 	// this is deprecated and only used for cookie removal from now on,
 	// and can be removed after one month (max cookie lifetime from life systems)
 	if (res.locals && res.locals.domain) {

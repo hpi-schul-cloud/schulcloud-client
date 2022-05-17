@@ -21,7 +21,7 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 	if (!req.session.login_challenge) res.redirect('/dashboard/');
 
 	const body = {
-		remember: false,
+		remember: true,
 		remember_for: 0,
 	};
 
@@ -30,6 +30,17 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		delete (req.session.login_challenge);
 		return res.redirect(loginRequest.redirect_to);
 	}).catch(next);
+});
+
+router.all('/logout', csrfProtection, auth.authChecker, (req) => api(req).get('/oauth2/logoutRequest'));
+
+router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next) => {
+	const body = {
+		redirect_to: '',
+	};
+
+	return api(req).patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`,
+		{ body }).then((logoutRequest) => res.redirect(logoutRequest.redirect_to)).catch(next);
 });
 
 const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
