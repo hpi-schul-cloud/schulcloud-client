@@ -24,62 +24,41 @@ describe('Homework tests', () => {
 	});
 
 	// OVERVIEW PAGES
-	it('GET /homework', () => new Promise((resolve) => {
-		this.agent
-			.get('/homework/')
-			.end((err, res) => {
-				expect(res.statusCode).to.equal(200);
-				expect(res.text).to.contain(i18next.t('courses._course.tab_label.tasks'));
-				expect(res.text).to.contain('Mathe');
-				resolve();
-			});
-	}));
-	// TODO - delete this?
-	it('GET /homework/asked', () => new Promise((resolve) => {
-		this.agent
-			.get('/homework/asked')
-			.end((err, res) => {
-				expect(res.statusCode).to.equal(200);
-				// remove language key, when everything is removed
-				expect(res.text).to.contain(i18next.t('global.headline.assignedTasks'));
-				// expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-edit');
-				// expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-delete');
-				resolve();
-			});
-	}));
-	it('GET /homework/private', () => new Promise((resolve) => {
-		this.agent
-			.get('/homework/private')
-			.end((err, res) => {
-				expect(res.statusCode).to.equal(200);
-				// remove language key, when everything is removed
-				expect(res.text).to.contain(i18next.t('global.link.tasksDrafts'));
-				expect(res.text).to.contain('btn btn-secondary btn-sm btn-edit');
-				expect(res.text).to.contain('btn btn-secondary btn-sm btn-delete');
-				resolve();
-			});
-	}));
-	it('GET /homework/archive', () => new Promise((resolve) => {
-		this.agent
-			.get('/homework/archive')
-			.end((err, res) => {
-				expect(res.statusCode).to.equal(200);
-				// remove language key, when everything is removed
-				expect(res.text).to.contain(i18next.t('homework.headline.archivedTasks'));
-				expect(res.text).to.contain(i18next.t('global.text.noTasks'));
-				resolve();
-			});
-	}));
+	// it('GET /homework', () => new Promise((resolve) => {
+	// 	this.agent
+	// 		.get('/homework/')
+	// 		.end((err, res) => {
+	// 			expect(res.statusCode).to.equal(200);
+	// 			expect(res.text).to.contain(i18next.t('courses._course.tab_label.tasks'));
+	// 			expect(res.text).to.contain('Mathe');
+	// 			resolve();
+	// 		});
+	// }));
+	// // TODO - delete this?
+	// it('GET /homework/asked', () => new Promise((resolve) => {
+	// 	this.agent
+	// 		.get('/homework/asked')
+	// 		.end((err, res) => {
+	// 			expect(res.statusCode).to.equal(200);
+	// 			// remove language key, when everything is removed
+	// 			expect(res.text).to.contain(i18next.t('global.headline.assignedTasks'));
+	// 			// expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-edit');
+	// 			// expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-delete');
+	// 			resolve();
+	// 		});
+	// }));
+	// it('GET /homework/archive', () => new Promise((resolve) => {
+	// 	this.agent
+	// 		.get('/homework/archive')
+	// 		.end((err, res) => {
+	// 			expect(res.statusCode).to.equal(200);
+	// 			// remove language key, when everything is removed
+	// 			expect(res.text).to.contain(i18next.t('homework.headline.archivedTasks'));
+	// 			expect(res.text).to.contain(i18next.t('global.text.noTasks'));
+	// 			resolve();
+	// 		});
+	// }));
 	// DETAIL VIEW
-	it('GET /homework/{users private task}', () => new Promise((resolve) => {
-		this.agent
-			.get('/homework/59cce1d381297026d02cdc4b')
-			.end((err, res) => {
-				expect(res.statusCode).to.equal(200);
-				expect(res.text).to.contain('Private Aufgabe von Marla');
-				resolve();
-			});
-	}));
 	it('GET /homework/{users asked task}', () => new Promise((resolve) => {
 		this.agent
 			.get('/homework/59d1f63ce0a06325e8b5288b')
@@ -106,17 +85,6 @@ describe('Homework tests', () => {
 			.end((err, res) => {
 				expect(res.statusCode).to.equal(200);
 				expect(res.text).to.contain(i18next.t('global.button.create'));
-				resolve();
-			});
-	}));
-	// users task
-	it('GET /homework/{users task}/edit', () => new Promise((resolve, reject) => {
-		this.agent
-			.get('/homework/59cce2c61113d1132c98dc06/edit')
-			.end((err, res) => {
-				if (err) reject(err);
-				expect(res.statusCode).to.equal(200);
-				expect(res.text).to.contain(i18next.t('homework._task.headline.editTask'));
 				resolve();
 			});
 	}));

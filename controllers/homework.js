@@ -208,6 +208,24 @@ const getCreateHandler = (service) => (req, res, next) => {
 	});
 };
 
+const getDomain = (url) => {
+	let domain;
+	try {
+		domain = new URL(url);
+		return domain.hostname;
+	} catch (e) {
+		return false;
+	}
+};
+
+const sanitizeRefererDomain = (allowedDomain, referrer) => {
+	const domain = getDomain(referrer);
+	if (domain && allowedDomain.indexOf(domain.hostname) === -1) {
+		referrer = '/';
+	}
+	return referrer;
+};
+
 const patchFunction = (service, req, res, next) => {
 	let returnToRooms = false;
 	let referrer;
@@ -216,8 +234,10 @@ const patchFunction = (service, req, res, next) => {
 			returnToRooms = true;
 		}
 		referrer = req.body.referrer.replace('/edit', '');
+		referrer = sanitizeRefererDomain((req.headers.origin || HOST), referrer);
 		delete req.body.referrer;
 	}
+
 	api(req).patch(`/${service}/${req.params.id}`, {
 		// TODO: sanitize
 		json: req.body,
@@ -446,181 +466,181 @@ router.delete('/submit/:id/files', (req, res, next) => {
 router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandler('comments', true));
 
-const overview = (titleKey) => (req, res, next) => {
-	const { _id: userId, schoolId } = res.locals.currentUser || {};
-	let query = {
-		$populate: ['courseId'],
-		archived: { $ne: res.locals.currentUser._id },
-		schoolId,
-	};
+// const overview = (titleKey) => (req, res, next) => {
+// 	const { _id: userId, schoolId } = res.locals.currentUser || {};
+// 	let query = {
+// 		$populate: ['courseId'],
+// 		archived: { $ne: res.locals.currentUser._id },
+// 		schoolId,
+// 	};
 
-	const tempOrgQuery = (req.query || {}).filterQuery;
-	const filterQueryString = (tempOrgQuery) ? (`&filterQuery=${escape(tempOrgQuery)}`) : '';
+// 	const tempOrgQuery = (req.query || {}).filterQuery;
+// 	const filterQueryString = (tempOrgQuery) ? (`&filterQuery=${escape(tempOrgQuery)}`) : '';
 
-	let itemsPerPage = 10;
-	if (tempOrgQuery) {
-		const filterQuery = JSON.parse(unescape(req.query.filterQuery));
-		if (filterQuery.$limit) {
-			itemsPerPage = filterQuery.$limit;
-		}
-		query = Object.assign(query, filterQuery);
-	} else {
-		if (req._parsedUrl.pathname.includes('private')) {
-			query.private = true;
-		}
-		if (req._parsedUrl.pathname.includes('asked')) {
-			query.private = { $ne: true };
-		}
-	}
-	if (req._parsedUrl.pathname.includes('archive')) {
-		query.archived = userId;
-	}
+// 	let itemsPerPage = 10;
+// 	if (tempOrgQuery) {
+// 		const filterQuery = JSON.parse(unescape(req.query.filterQuery));
+// 		if (filterQuery.$limit) {
+// 			itemsPerPage = filterQuery.$limit;
+// 		}
+// 		query = Object.assign(query, filterQuery);
+// 	} else {
+// 		if (req._parsedUrl.pathname.includes('private')) {
+// 			query.private = true;
+// 		}
+// 		if (req._parsedUrl.pathname.includes('asked')) {
+// 			query.private = { $ne: true };
+// 		}
+// 	}
+// 	if (req._parsedUrl.pathname.includes('archive')) {
+// 		query.archived = userId;
+// 	}
 	// TODO: homework and user in Promise.all, remove populate courseId in homeworks
-	api(req).get('/homework/', {
-		qs: query,
-	}).then((homeworks) => {
-		// ist der aktuelle Benutzer ein Schueler? -> Für Sichtbarkeit von Daten benötigt
-		api(req).get(`/users/${userId}`, {
-			qs: {
-				$populate: ['roles'],
-			},
-		}).then((user) => {
-			const isStudent = (user.roles.map((role) => role.name).indexOf('student') != -1);
+// 	api(req).get('/homework/', {
+// 		qs: query,
+// 	}).then((homeworks) => {
+// 		// ist der aktuelle Benutzer ein Schueler? -> Für Sichtbarkeit von Daten benötigt
+// 		api(req).get(`/users/${userId}`, {
+// 			qs: {
+// 				$populate: ['roles'],
+// 			},
+// 		}).then((user) => {
+// 			const isStudent = (user.roles.map((role) => role.name).indexOf('student') != -1);
 
-			homeworks = homeworks.data.map((assignment) => { // alle Hausaufgaben aus DB auslesen
-				// kein Kurs -> Private Hausaufgabe
-				if (assignment.courseId == null) {
-					assignment.color = '#1DE9B6';
-					assignment.private = true;
-				} else {
-					if (!assignment.private) {
-						assignment.userIds = assignment.courseId.userIds;
-					}
-					// Kursfarbe setzen
-					assignment.color = assignment.courseId.color;
-				}
-				// Schüler:innen sehen Beginndatum nicht in der Übersicht über gestellte Aufgaben (übersichtlicher)
-				if (!assignment.private && isStudent) {
-					delete assignment.availableDate;
-				}
+// 			homeworks = homeworks.data.map((assignment) => { // alle Hausaufgaben aus DB auslesen
+// 				// kein Kurs -> Private Hausaufgabe
+// 				if (assignment.courseId == null) {
+// 					assignment.color = '#1DE9B6';
+// 					assignment.private = true;
+// 				} else {
+// 					if (!assignment.private) {
+// 						assignment.userIds = assignment.courseId.userIds;
+// 					}
+// 					// Kursfarbe setzen
+// 					assignment.color = assignment.courseId.color;
+// 				}
+// 				// Schüler:innen sehen Beginndatum nicht in der Übersicht über gestellte Aufgaben (übersichtlicher)
+// 				if (!assignment.private && isStudent) {
+// 					delete assignment.availableDate;
+// 				}
 
-				assignment.url = `/homework/${assignment._id}`;
-				assignment.privateclass = assignment.private ? 'private' : ''; // Symbol für Private Hausaufgabe anzeigen?
+// 				assignment.url = `/homework/${assignment._id}`;
+// 				assignment.privateclass = assignment.private ? 'private' : ''; // Symbol für Private Hausaufgabe anzeigen?
 
-				assignment.currentUser = res.locals.currentUser;
+// 				assignment.currentUser = res.locals.currentUser;
 
-				assignment.isSubstitution = !assignment.private && ((assignment.courseId || {}).substitutionIds || []).includes(assignment.currentUser._id.toString());
-				assignment.isTeacher = assignment.isSubstitution
-						|| ((assignment.courseId || {}).teacherIds || []).includes(assignment.currentUser._id.toString())
-						|| assignment.teacherId == res.locals.currentUser._id;
-				assignment.actions = getActions(res, assignment, '/homework/');
-				if (!assignment.isTeacher) {
-					assignment.stats = undefined;
-				}
+// 				assignment.isSubstitution = !assignment.private && ((assignment.courseId || {}).substitutionIds || []).includes(assignment.currentUser._id.toString());
+// 				assignment.isTeacher = assignment.isSubstitution
+// 						|| ((assignment.courseId || {}).teacherIds || []).includes(assignment.currentUser._id.toString())
+// 						|| assignment.teacherId == res.locals.currentUser._id;
+// 				assignment.actions = getActions(res, assignment, '/homework/');
+// 				if (!assignment.isTeacher) {
+// 					assignment.stats = undefined;
+// 				}
 
-				// convert UTC dates to current timezone
-				if (assignment.availableDate) {
-					assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
-				}
-				if (assignment.dueDate) {
-					assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
-				}
+// 				// convert UTC dates to current timezone
+// 				if (assignment.availableDate) {
+// 					assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
+// 				}
+// 				if (assignment.dueDate) {
+// 					assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
+// 				}
 
-				const dueDateArray = timesHelper.splitDate(assignment.dueDate, res.$t('format.date'));
-				assignment.submittable = dueDateArray.timestamp >= timesHelper.now() || !assignment.dueDate;
-				assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
-					&& assignment.submittable);
-				return assignment;
-			});
+// 				const dueDateArray = timesHelper.splitDate(assignment.dueDate, res.$t('format.date'));
+// 				assignment.submittable = dueDateArray.timestamp >= timesHelper.now() || !assignment.dueDate;
+// 				assignment.warning = ((dueDateArray.timestamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
+// 					&& assignment.submittable);
+// 				return assignment;
+// 			});
 
-			const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
-				$limit: false,
-			});
-			Promise.resolve(coursesPromise).then((courses) => {
-				const courseList = courses.map((course) => [course._id, course.name]);
-				const filterSettings =						[{
-					type: 'sort',
-					title: res.$t('global.headline.sorting'),
-					displayTemplate: res.$t('global.label.sortBy'),
-					options: [
-						['createdAt', res.$t('global.label.creationDate')],
-						['updatedAt', res.$t('homework.label.sortByLastUpdate')],
-						['availableDate', res.$t('homework.label.sortByAvailabilityDate')],
-						['dueDate', res.$t('homework.label.sortByDueDate')],
-					],
-					defaultSelection: 'dueDate',
-				},
-				{
-					type: 'select',
-					title: res.$t('global.sidebar.link.administrationCourses'),
-					displayTemplate: res.$t('homework.label.filterCourses'),
-					property: 'courseId',
-					multiple: true,
-					expanded: true,
-					options: courseList,
-				},
-				{
-					type: 'date',
-					title: res.$t('homework.headline.dueDate'),
-					displayTemplate: res.$t('homework.label.filterDueDate'),
-					property: 'dueDate',
-					mode: 'fromto',
-					fromLabel: res.$t('homework.label.filterDueDateFrom'),
-					toLabel: res.$t('homework.label.filterDueDateTo'),
-				},
-				{
-					type: 'boolean',
-					title: res.$t('homework.headline.more'),
-					options: {
-						private: res.$t('homework.label.filterMoreDraftTask'),
-						publicSubmissions: res.$t('homework.label.filterMorePublicSubmissions'),
-						teamSubmissions: res.$t('homework.label.filterMoreTeamSubmissions'),
-					},
-					defaultSelection: {
-						private: ((query.private !== undefined) ? ((query.private === true)) : undefined),
-					},
-					applyNegated: {
-						private: [true, false],
-						publicSubmissions: [true, false],
-						teamSubmissions: [true, false],
-					},
-				}];
-					// Pagination in client, because filters are in afterhook
-				const currentPage = parseInt(req.query.p) || 1;
-				const pagination = {
-					currentPage,
-					numPages: Math.ceil(homeworks.length / itemsPerPage),
-					baseUrl: `${req.baseUrl + req._parsedUrl.pathname}?`
-							+ `p={{page}}${filterQueryString}`,
-				};
-				const end = currentPage * itemsPerPage;
-				homeworks = homeworks.slice(end - itemsPerPage, end);
-				// Render overview
-				res.render('homework/overview', {
-					title: titleKey ? res.$t(titleKey) : '',
-					pagination,
-					homeworks,
-					courses,
-					filterSettings: JSON.stringify(filterSettings),
-					addButton: (req._parsedUrl.pathname == '/'
-						|| req._parsedUrl.pathname.includes('private')
-						|| (req._parsedUrl.pathname.includes('asked')
-							&& !isStudent)
-					),
-					createPrivate: req._parsedUrl.pathname.includes('private') || isStudent,
-					isStudent,
-				});
-			});
-		});
-	}).catch((err) => {
-		next(err);
-	});
-};
+// 			const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
+// 				$limit: false,
+// 			});
+// 			Promise.resolve(coursesPromise).then((courses) => {
+// 				const courseList = courses.map((course) => [course._id, course.name]);
+// 				const filterSettings =						[{
+// 					type: 'sort',
+// 					title: res.$t('global.headline.sorting'),
+// 					displayTemplate: res.$t('global.label.sortBy'),
+// 					options: [
+// 						['createdAt', res.$t('global.label.creationDate')],
+// 						['updatedAt', res.$t('homework.label.sortByLastUpdate')],
+// 						['availableDate', res.$t('homework.label.sortByAvailabilityDate')],
+// 						['dueDate', res.$t('homework.label.sortByDueDate')],
+// 					],
+// 					defaultSelection: 'dueDate',
+// 				},
+// 				{
+// 					type: 'select',
+// 					title: res.$t('global.sidebar.link.administrationCourses'),
+// 					displayTemplate: res.$t('homework.label.filterCourses'),
+// 					property: 'courseId',
+// 					multiple: true,
+// 					expanded: true,
+// 					options: courseList,
+// 				},
+// 				{
+// 					type: 'date',
+// 					title: res.$t('homework.headline.dueDate'),
+// 					displayTemplate: res.$t('homework.label.filterDueDate'),
+// 					property: 'dueDate',
+// 					mode: 'fromto',
+// 					fromLabel: res.$t('homework.label.filterDueDateFrom'),
+// 					toLabel: res.$t('homework.label.filterDueDateTo'),
+// 				},
+// 				{
+// 					type: 'boolean',
+// 					title: res.$t('homework.headline.more'),
+// 					options: {
+// 						private: res.$t('homework.label.filterMoreDraftTask'),
+// 						publicSubmissions: res.$t('homework.label.filterMorePublicSubmissions'),
+// 						teamSubmissions: res.$t('homework.label.filterMoreTeamSubmissions'),
+// 					},
+// 					defaultSelection: {
+// 						private: ((query.private !== undefined) ? ((query.private === true)) : undefined),
+// 					},
+// 					applyNegated: {
+// 						private: [true, false],
+// 						publicSubmissions: [true, false],
+// 						teamSubmissions: [true, false],
+// 					},
+// 				}];
+// 					// Pagination in client, because filters are in afterhook
+// 				const currentPage = parseInt(req.query.p) || 1;
+// 				const pagination = {
+// 					currentPage,
+// 					numPages: Math.ceil(homeworks.length / itemsPerPage),
+// 					baseUrl: `${req.baseUrl + req._parsedUrl.pathname}?`
+// 							+ `p={{page}}${filterQueryString}`,
+// 				};
+// 				const end = currentPage * itemsPerPage;
+// 				homeworks = homeworks.slice(end - itemsPerPage, end);
+// 				// Render overview
+// 				res.render('homework/overview', {
+// 					title: titleKey ? res.$t(titleKey) : '',
+// 					pagination,
+// 					homeworks,
+// 					courses,
+// 					filterSettings: JSON.stringify(filterSettings),
+// 					addButton: (req._parsedUrl.pathname == '/'
+// 						|| req._parsedUrl.pathname.includes('private')
+// 						|| (req._parsedUrl.pathname.includes('asked')
+// 							&& !isStudent)
+// 					),
+// 					createPrivate: req._parsedUrl.pathname.includes('private') || isStudent,
+// 					isStudent,
+// 				});
+// 			});
+// 		});
+// 	}).catch((err) => {
+// 		next(err);
+// 	});
+// };
 
-router.get('/', overview('global.headline.tasks'));
-router.get('/asked', overview('global.headline.assignedTasks'));
-router.get('/private', overview('global.headline.draftTasks'));
-router.get('/archive', overview('homework.headline.archivedTasks'));
+// router.get('/', overview('global.headline.tasks'));
+// router.get('/asked', overview('global.headline.assignedTasks'));
+// router.get('/private', overview('global.headline.draftTasks'));
+// router.get('/archive', overview('homework.headline.archivedTasks'));
 
 router.get('/new', (req, res, next) => {
 	const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
@@ -670,6 +690,9 @@ router.get('/:assignmentId/copy', (req, res, next) => {
 				const error = new Error(res.$t('homework._task.text.errorInvalidTaskId'));
 				error.status = 500;
 				return next(error);
+			}
+			if (req.query.returnUrl) {
+				return res.redirect(`/homework/${assignment._id}/edit?returnUrl=${req.query.returnUrl}`);
 			}
 			return res.redirect(`/homework/${assignment._id}/edit`);
 		}).catch((err) => {
@@ -782,7 +805,6 @@ router.get('/:assignmentId', (req, res, next) => {
 		assignment.warning = ((dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
 				&& assignment.submittable);
 
-
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
 
@@ -847,7 +869,6 @@ router.get('/:assignmentId', (req, res, next) => {
 			const students = ((course || {}).userIds || []).filter((user) => (user.firstName && user.lastName))
 				.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1))
 				.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1));
-
 
 			const assignmentCourse = (assignment.courseId || {});
 			const isCreator = assignment.teacherId.toString() === res.locals.currentUser._id.toString();
@@ -918,7 +939,6 @@ router.get('/:assignmentId', (req, res, next) => {
 				});
 				studentsWithoutSubmission.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1))
 					.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1));
-
 
 				// submission>single=student=upload || submissionS>multi=teacher=overview
 				addClearNameForFileIds(assignment.submission || assignment.submissions);

@@ -4,22 +4,42 @@
 			<div  class="col-md-4">
 				<h4>{{$t "global.link.contact" }}</h4>
 				<ul>
-					<li><a href="mailto:nbc-wunsch@netz-21.de" target="_blank" rel="noopener" aria-label="Support-Anfragen {{$t "global.link.openInNewTabWarning"}}">Feedback/Wünsche:  <span class="text-nowrap">nbc-wunsch@netz-21.de</span></a></li>
-					<li><a href="mailto:nbc-support@netz-21.de" target="_blank" rel="noopener" aria-label="Allgemeine Anfragen {{$t "global.link.openInNewTabWarning"}}">Support-Anfragen: <span class="text-nowrap">nbc-support@netz-21.de</span></a></li>
+					<li><a href="mailto:nbc-wunsch@netz-21.de" target="_blank" rel="noopener"
+							aria-label="Support-Anfragen {{$t "global.link.openInNewTabWarning"}}">Feedback/Wünsche</a></li>
+					<li><a href="mailto:nbc-support@netz-21.de" target="_blank" rel="noopener"
+							aria-label="Allgemeine Anfragen {{$t "global.link.openInNewTabWarning"}}">Support-Anfragen</a></li>
+					<li><a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject={{$t "lib.global.link.accessibilityReport"}}" target="_blank" rel="noopener"
+							aria-label="{{$t "lib.global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning" }}">
+							{{$t "lib.global.link.accessibilityReport"}}</a>
+					</li>
 				</ul>
 			</div>
 			<div  class="col-md-4">
 				<h4>{{$t "lib.extended_footer.headline.links"}}</h4>
 				<ul>
-					<li><a href="/imprint">{{$t "global.link.imprint" }}</a></li>
-                    <li>
-                        <a href="{{theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" aria-label="{{$t "login.headline.onlyTermsOfUse"}} {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "login.headline.onlyTermsOfUse"}}</a>
-                    </li>
-                    <li>
-                        <a href="/datenschutz" target="_blank" aria-label="{{$t "global.text.dataProtection"}} {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "global.text.dataProtection"}}</a>
-                    </li>
-					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a></li>
-					<li><a href="{{theme.status_url}}" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a></li>
+					<li><a href="/imprint" aria-label="{{$t "global.link.imprint"}}">{{$t "global.link.imprint" }}</a></li>
+					<li>
+						<a href="{{theme.documents.specificFiles.termsOfUseSchool}}" target="_blank" rel="noopener"
+							aria-label="{{$t "login.headline.onlyTermsOfUse"}} {{$t "global.openInNewTabWarning"}}">
+							{{$t "login.headline.onlyTermsOfUse"}}</a>
+					</li>
+					<li>
+						<a href="/datenschutz" target="_blank" rel="noopener"
+							aria-label="{{$t "global.text.dataProtection"}} {{$t "global.openInNewTabWarning"}}">
+							{{$t "global.text.dataProtection"}}</a>
+					</li>
+					<li><a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener"
+							aria-label="{{$t "lib.global.link.github"}} {{$t "global.link.openInNewTabWarning"}}">
+							{{$t "lib.global.link.github"}}</a>
+					</li>
+					<li><a href="{{theme.status_url}}" target="_blank" rel="noopener"
+							aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">
+							{{$t "lib.global.link.status"}}</a>
+					</li>
+					<li><a href="{{@root.theme.documents.specificFiles.accessibilityStatement}}" target="_blank" rel="noopener"
+							aria-label="{{$t "lib.global.link.accessibilityStatement"}} PDF {{$t "global.link.openInNewTabWarning"}}">
+							{{$t "lib.global.link.accessibilityStatement"}}</a>
+					</li>
 				</ul>
 			</div>
 		</div>

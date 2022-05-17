@@ -1,5 +1,6 @@
 {{#extend "lib/default"}}
     {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="{{getAssetPath '/styles/user/language.css'}}"/>
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/loggedin.css'}}"/>
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/feedback-button.css'}}"/>
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/forms/form-auto-logout-alert.css'}}" />
@@ -20,6 +21,12 @@
 	{{/content}}
 
     {{#content "scripts" mode="append"}}
+        <script
+        src="{{getAssetPath '/scripts/user/language.js'}}"
+        type="text/javascript"
+        nonce="{{nonceValue}}"
+        defer
+    ></script>
         <script src="{{getAssetPath '/scripts/loggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/messenger/welcome.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
@@ -41,13 +48,25 @@
     {{/content}}
 
     {{#content "body"}}
-
+        {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
+            {{#if @root.currentSchoolData.officialSchoolNumber}}
+                {{#if @root.currentSchoolData.inUserMigration}}
+                    {{#userHasPermission 'IMPORT_USER_VIEW'}}
+                        <input type="hidden" id="inUserMigrationStarted" value="{{currentRole}}"/>
+                    {{/userHasPermission}}
+                {{else}}
+                    {{#ifneq @root.currentSchoolData.inUserMigration false}}
+                        {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
+                            <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
+                        {{/userHasPermission}}
+                    {{/ifneq}}
+                {{/if}}
+            {{/if}}
+        {{/ifConfig}}
         {{#if currentSchoolData.inMaintenance}}
-        <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
+            <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
         {{/if}}
-        {{#if currentSchoolData.inUserMigration}}
-            <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
-        {{/if}}
+
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
@@ -106,15 +125,6 @@
 							</p>
 						</div>
 					</section>
-				{{#ifeq currentRole "Demo"}}
-					<section class="demo">
-						<div class="alert alert-warning" role="alert">
-							<p>{{$t "lib.loggedin.text.thisIsADemoAccount" }}
-								<span class="hidden-md-down">{{$t "lib.loggedin.text.allActionsThatCreate" }}</span>
-							</p>
-						</div>
-					</section>
-				{{/ifeq}}
 
                 {{#hasConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER"}}
                     {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER") ""}}
@@ -233,11 +243,12 @@
                                   </div>
                                 </a>
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
-                                <div class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable">
-                                    <div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div>
-                                    <a class="dropdown-item" data-testid="settings" href="/account/">{{$t "lib.loggedin.tab_label.settings" }}</a>
-                                    <a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/">{{$t "lib.loggedin.tab_label.signOut"}}</a>
-                                </div>
+                                <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable" role="menu">
+                                    <li><div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>
+                                    {{> "user/forms/language" language=@root.userLanguage }}
+                                    <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
+                                    <li><a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
+                                </ul>
                               </div>
                             </div>
                         </li>

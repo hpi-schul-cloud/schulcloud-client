@@ -2,20 +2,6 @@
 @import "./blog-card";
 @import "./login";
 
-.demo-login{
-    text-align: center;
-    .form-demo-login{
-        display: inline-block;
-        &:not(:first-of-type){
-            margin-left: var(--space-md);
-            @include media-breakpoint-down(md) {
-                margin:0;
-                display: block;
-            }
-        }
-    }
-}
-
 .btn-primary.btn-outline{
     &:hover {
         background-color: var(--color-primary);

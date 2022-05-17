@@ -8,6 +8,7 @@ const express = require('express');
 const multer = require('multer');
 const shortid = require('shortid');
 const _ = require('lodash');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -694,11 +695,13 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
 	}
 
-	if (['Schüler', 'Demo'].includes(res.locals.currentRole)) {
+	if (['Schüler'].includes(res.locals.currentRole)) {
 		canCreateFile = false;
 	}
 
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
+
+	const showRoomView = Configuration.get('ROOM_VIEW_ENABLED') || false;
 
 	res.render('files/files', {
 		title: res.$t('global.headline.files'),
@@ -713,7 +716,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		courseId: req.params.courseId,
 		ownerId: req.params.courseId,
 		toCourseText: res.$t('global.button.toCourse'),
-		courseUrl: `/courses/${req.params.courseId}/`,
+		courseUrl: (showRoomView ? `/rooms/${req.params.courseId}/` : `/courses/${req.params.courseId}/`),
 		canEditPermissions: true,
 		parentId: req.params.folderId,
 		...res.locals.files,

@@ -637,7 +637,8 @@ const returnAdminPrefix = (roles, res) => {
 
 // with userId to accountId
 const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, next) {
-	api(req, { version: 'v3' }).patch(`/account/${req.params.id}/pw`, { json: req.body })
+	const { password, accountId } = req.body;
+	api(req, { json: true, version: 'v3' }).patch(`/account/${accountId}`, { json: { password } })
 		.then((response) => {
 			logger.info(response);
 			req.session.notification = {
@@ -1052,6 +1053,7 @@ router.get(
 				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 				referrer: req.header('Referer'),
 				hasAccount: !!account,
+				accountId: account ? account._id : null,
 			});
 		});
 	},
@@ -1483,6 +1485,7 @@ router.get(
 					referrer: req.header('Referer'),
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					hasAccount: !!account,
+					accountId: account ? account._id : null,
 				});
 			})
 			.catch((err) => {
@@ -1565,7 +1568,7 @@ const renderClassEdit = (req, res, next) => {
 		.then(() => {
 			const promises = [
 				getSelectOptions(req, 'users', {
-					roles: ['teacher', 'demoTeacher'],
+					roles: ['teacher'],
 					$limit: false,
 				}), // teachers
 				Array.from(Array(13).keys()).map((e) => ({
@@ -1770,12 +1773,12 @@ router.get(
 					$limit: false,
 				}); // TODO limit classes to scope (year before, current and without year)
 				const teachersPromise = getSelectOptions(req, 'users', {
-					roles: ['teacher', 'demoTeacher'],
+					roles: ['teacher'],
 					$sort: 'lastName',
 					$limit: false,
 				});
 				const studentsPromise = getSelectOptions(req, 'users', {
-					roles: ['student', 'demoStudent'],
+					roles: ['student'],
 					$sort: 'lastName',
 					$limit: false,
 				});
@@ -2323,8 +2326,7 @@ const updateSchoolFeatures = async (req, currentFeatures, features) => {
 const schoolFeatureUpdateHandler = async (req, res, next) => {
 	try {
 		// Toggle teacher's studentVisibility permission
-		const studentVisibilityFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_VISIBILITY_ENABLED');
-		if (studentVisibilityFeature) {
+		if (Configuration.get('TEACHER_STUDENT_VISIBILITY__IS_CONFIGURABLE')) {
 			await api(req)
 				.patch('school/teacher/studentvisibility', {
 					json: {
@@ -2856,7 +2858,7 @@ router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
-		const [school, totalStorage, schoolMaintanance, studentVisibility, consentVersions] = await Promise.all([
+		const [school, totalStorage, schoolMaintanance, consentVersions] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'currentYear', 'federalState'],
@@ -2865,7 +2867,6 @@ router.use(
 			}),
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
-			api(req).get('/school/teacher/studentvisibility'),
 			api(req).get('/consentVersions', {
 				qs: {
 					$limit: 100,
@@ -3008,6 +3009,18 @@ router.use(
 			return prov;
 		});
 
+		if (!school.permissions) {
+			school.permissions = {};
+		}
+
+		if (!school.permissions.teacher) {
+			school.permissions.teacher = {};
+		}
+
+		if (!school.permissions.student) {
+			school.permissions.student = {};
+		}
+
 		const ssoTypes = getSSOTypes();
 		const availableSSOTypes = getSSOTypes().filter((type) => type.value !== 'itslearning');
 
@@ -3021,7 +3034,6 @@ router.use(
 			systems,
 			ldapAddable,
 			provider,
-			studentVisibility: studentVisibility.isEnabled,
 			availableSSOTypes,
 			ssoTypes,
 			totalStorage,
