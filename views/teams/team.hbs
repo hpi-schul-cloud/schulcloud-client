@@ -67,23 +67,6 @@
                 <p class="lead">{{description}}</p>
             </div>
         </section>
-        {{#if useNextcloud}}
-        <section class="row mt-0">
-            <div class="col-sm-12">
-                <div class="pull-right">
-                    <a href="{{../filesUrl}}" class="btn btn-add btn-secondary">
-                        <i class="fa fa-folder-open" aria-hidden="true"></i>
-                        {{$t "teams._team.files.button.toTeamFiles"}}
-                    </a>
-                    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
-                        <i class="fa fa-folder-open" aria-hidden="true"></i>
-                        {{$t "teams._team.files.button.toNextcloud"}}
-                        <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-        {{/if}}
 
         {{#if rocketChatURL}}
         <section class="section-chat">
@@ -112,6 +95,25 @@
             </div>
             <div class="sectionsContainer">
                 <div class="sections">
+                    {{#if useNextcloud}}
+                    <div class="alert info-custom" role="alert">
+                        <div class="d-flex flex-row">
+                            <div class="d-flex m-auto"><i class="fa fa-info-circle"></i></div>
+                            <div class="">{{{ $t "info.nextcloudLink" }}}</div>
+                        </div>
+                    </div>
+
+                    <section class="row mt-0">
+                        <div class="col-sm-12">
+                            <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
+                                <i class="fa fa-external-link" aria-hidden="true"></i>
+                            {{$t "teams._team.files.button.toNextcloud"}}
+                                <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
+                                </a>
+                        </div>
+                    </section>
+                    {{/if}}
+
                     <!-- Dateien -->
                     <div class="section" data-testid="team_files" data-section="js-files">
                         {{#if canUploadFile}}
@@ -177,7 +179,7 @@
                             {{/unless}}
                             {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
                                     <button class="btn btn-add btn-secondary btn-file-permissions">
-                                        <i class="fa fa-share-alt" aria-hidden="true"></i>
+                                        <i class="fa fa-cogs" aria-hidden="true"></i>
                                         {{$t "teams._team.files.button.changeSharingSettings"}}
                                     </button>
                             {{/inArray}}

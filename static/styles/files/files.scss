@@ -333,11 +333,11 @@
 		margin-bottom: 0.5rem;
 
 		.tag {
-			background-color: #FEF445;
+			background-color: $secondaryColor;
 			border-radius: 20px;
 			padding: 1px 6px;
 			font-size: 10pt;
-			color: $fontColor;
+			color: $colorWhite;
 			margin-left: 4px;
 		}
 	}
