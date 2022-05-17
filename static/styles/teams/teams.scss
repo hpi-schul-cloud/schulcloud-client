@@ -116,4 +116,10 @@
 	background-color: $colorGrey;
 	border-color: $colorLightGrey;
 	color: $fontColor;
+	display: flex;
+	flex-direction: row;
+
+	i {
+		margin: auto;
+	}
 }

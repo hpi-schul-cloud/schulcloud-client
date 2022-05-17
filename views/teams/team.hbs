@@ -97,21 +97,15 @@
                 <div class="sections">
                     {{#if useNextcloud}}
                     <div class="alert info-custom" role="alert">
-                        <div class="d-flex flex-row">
-                            <div class="d-flex m-auto"><i class="fa fa-info-circle"></i></div>
-                            <div class="">{{{ $t "info.nextcloudLink" }}}</div>
-                        </div>
+                        <i class="fa fa-info-circle pr-1"></i>
+                        <div>{{{ $t "info.nextcloudLink" }}}</div>
                     </div>
 
-                    <section class="row mt-0">
-                        <div class="col-sm-12">
-                            <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
-                                <i class="fa fa-external-link" aria-hidden="true"></i>
-                            {{$t "teams._team.files.button.toNextcloud"}}
-                                <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
-                                </a>
-                        </div>
-                    </section>
+                    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
+                        <i class="fa fa-external-link" aria-hidden="true"></i>
+                        {{$t "teams._team.files.button.toNextcloud"}}
+                        <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
+                    </a>
                     {{/if}}
 
                     <!-- Dateien -->

@@ -33,13 +33,6 @@
                                 {{ toCourseText }}
                             </a>
                             {{/if}}
-                            {{#if useNextcloud}}
-                            <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
-                                <i class="fa fa-folder-open" aria-hidden="true"></i>
-                                {{$t "teams._team.files.button.toNextcloud"}}
-                                <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
-                            </a>
-                            {{/if}}
                         </div>
                     </section>
 				</div>
@@ -64,6 +57,17 @@
 					class="fa fa-arrow-down"></i></button>
 		</div>
 	</div>
+	{{#if useNextcloud}}
+	<div class="alert info-custom mt-3" role="alert">
+        <i class="fa fa-info-circle pr-1"></i>
+        <div>{{{ $t "info.nextcloudLink" }}}</div>
+    </div>
+    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
+        <i class="fa fa-folder-open" aria-hidden="true"></i>
+        {{$t "teams._team.files.button.toNextcloud"}}
+        <span class="tag">{{$t "teams._team.files.button.tag"}}</span>
+    </a>
+    {{/if}}
 </div>
 {{/if}}
 
