@@ -2888,7 +2888,7 @@
 					"shareFolder": "Share folder",
 					"toTeamFiles": "To the team files",
 					"toNextcloud": "Open file area",
-					"tag": "New"
+					"newTag": "New"
 				},
 				"headline": {
 					"changeFilePermissions": "Change share settings",

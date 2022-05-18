@@ -2888,7 +2888,7 @@
 					"shareFolder": "Ordner-Freigabe",
 					"toTeamFiles": "Zu den Team-Dateien",
 					"toNextcloud": "Dateibereich öffnen",
-					"tag": "Neu"
+					"newTag": "Neu"
 				},
 				"headline": {
 					"changeFilePermissions": "Freigabe-Einstellungen ändern",

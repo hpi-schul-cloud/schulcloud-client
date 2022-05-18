@@ -1858,7 +1858,7 @@
 					"shareFolder": "Спільний каталог",
 					"toTeamFiles": "До файлів команди",
 					"toNextcloud": "Відкрийте панель файлів",
-					"tag": "Новий"
+					"newTag": "Новий"
 				},
 				"headline": {
 					"changeFilePermissions": "Змінити налаштування спільного доступу",
