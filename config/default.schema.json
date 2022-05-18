@@ -377,6 +377,11 @@
 			"default": false,
 			"description": "feature toggle activate Room view link."
 		},
+		"ACCESSIBILITY_REPORT_EMAIL": {
+			"type": "string",
+			"default": "lernen.cloud@dataport.de",
+			"description": "Email to report accessibility issue"
+		},
 		"I18N": {
 			"type": "object",
 			"description": "Configuration of I18N",

@@ -2354,6 +2354,8 @@
 				"discardChange": "Descartar cambios"
 			},
 			"link": {
+				"accessibilityReport":"Accesibilidad feedback",
+				"accessibilityStatement": "Declaración de accesibilidad",
 				"dataProtectionDeclaration": "Política de privacidad",
 				"github": "GitHub",
 				"participate": "Participar",
