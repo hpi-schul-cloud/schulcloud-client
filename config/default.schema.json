@@ -503,10 +503,25 @@
 			"default": false,
 			"description": "Enables button Oauth Login feature"
 		},
+		"FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables button for invitations of external experts within teams"
+		},
 		"FEATURE_USER_MIGRATION_ENABLED": {
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled, admin can see a message with link to user migration page"
+		},
+		"FEATURE_DASHBOARD_DEFAULT_PICTURE_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the default picture of the dashboard"
+		},
+		"FEATURE_DASHBOARD_NEWS_ON_TOP_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the order of the dashboard with the news on top"
 		}
 	},
 	"allOf": [
