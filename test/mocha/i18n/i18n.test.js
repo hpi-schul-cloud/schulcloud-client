@@ -6,7 +6,6 @@ const rawDeJson = require('../../../locales/de.json');
 const rawEnJson = require('../../../locales/en.json');
 const rawESJson = require('../../../locales/es.json');
 
-
 const allowedTypes = ['button', 'headline', 'link', 'text', 'format',
 	'placeholder', 'input', 'label', 'img_alt', 'tab_label', 'aria_label'];
 
@@ -61,7 +60,6 @@ describe('i18n test de.json', () => {
 	const DEjson = {};
 	const ENjson = {};
 	const ESjson = {};
-
 
 	it('Load de.json', () => {
 		formatJson(rawDeJson, DEjson);
