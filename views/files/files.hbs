@@ -60,7 +60,7 @@
 	{{#if useNextcloud}}
 	<div class="alert info-custom mt-3" role="alert">
         <i class="fa fa-info-circle pr-1"></i>
-        <div>{{{$t "info.nextcloudLink" (dict "institute_title" theme.institute_title)}}}</div>
+        <div>{{{$t "info.text.nextcloudLink" (dict "institute_title" theme.institute_title)}}}</div>
     </div>
     <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
         <i class="fa fa-external-link" aria-hidden="true"></i>
