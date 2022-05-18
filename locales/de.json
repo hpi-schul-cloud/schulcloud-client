@@ -3167,7 +3167,7 @@
 	},
 	"info": {
 		"text": {
-			"nextcloudLink": "Wir arbeiten an einem neuen Dateibereich. Dort können ab jetzt alle <b>neuen Dateien</b> gespeichert und verwaltet werden (Dateibereich öffnen). Alle Team-Mitglieder haben automatisch Zugriff auf die dort gespeicherten Dateien. Alle bereits <b>bestehenden Dateien</b> in der {{institute_title}} sind weiterhin hier verfügbar."
+			"nextcloudLink": "Wir arbeiten an einem neuen Dateibereich. Dort können ab jetzt alle <b>neuen Dateien</b> gespeichert und verwaltet werden (Dateibereich öffnen). Alle Team-Mitglieder haben automatisch Zugriff auf die dort gespeicherten Dateien. Alle bereits <b>bestehenden Dateien</b> in der {{title}} sind weiterhin hier verfügbar."
 		}
 	}
 }
