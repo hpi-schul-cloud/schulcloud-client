@@ -29,7 +29,7 @@ const addToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	const action = `/${context}/${req.params.courseId}/tools/add`;
 
-	api(req).get('/ltiTools', { qs: { isTemplate: true } })
+	api(req).get('/ltiTools', { qs: { isTemplate: true, isHidden: false } })
 		.then((tools) => {
 			api(req).get(`/${context}/${req.params.courseId}`)
 				.then((course) => {
