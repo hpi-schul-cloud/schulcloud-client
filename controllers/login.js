@@ -7,8 +7,6 @@ const express = require('express');
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
-const apiHelper = require('../helpers/apiHelper');
-const { HYDRA_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 
@@ -252,15 +250,9 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 });
 
 router.get('/logout/', (req, res, next) => {
-	const hydraApi = apiHelper(HYDRA_URL, { keepAlive: false });
-	console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-	console.log(HYDRA_URL);
-	hydraApi(req, { version: '' }).get('/oauth2/sessions/logout')
-		.catch((err) => { logger.error('error during logout.', formatError(err)); });
 	api(req).del('/authentication') // async, ignore result
 		.catch((err) => { logger.error('error during logout.', formatError(err)); });
-	return authHelper
-		.clearCookie(req, res, { destroySession: true })
+	return authHelper.clearCookie(req, res, { destroySession: true })
 		.then(() => res.redirect('/'))
 		.catch(next);
 });
