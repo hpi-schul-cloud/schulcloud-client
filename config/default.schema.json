@@ -503,6 +503,11 @@
 			"default": false,
 			"description": "Enables button Oauth Login feature"
 		},
+		"FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables button for invitations of external experts within teams"
+		},
 		"FEATURE_USER_MIGRATION_ENABLED": {
 			"type": "boolean",
 			"default": false,
