@@ -200,11 +200,11 @@
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
 		},
-		"HYDRA_LOGOUT_URL": {
+		"HYDRA_LOGOUT_URI": {
 			"type": "string",
 			"format": "uri",
 			"pattern": ".*(?<!/)$",
-			"description": "API URL of Hydra Logout (should end without a slash)"
+			"description": "API URI of Hydra Logout (should end without a slash)"
 		},
 		"TEACHER_STUDENT_VISIBILITY": {
 			"type": "object",
