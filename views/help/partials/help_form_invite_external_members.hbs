@@ -1,3 +1,5 @@
 <h2 class="h3 mt-2">{{$t "help.help_fromInviteExternalMember.headline.whoDoYouWantToInviteTheTeam" }}</h2>
 <button type="button" data-role="teacher" class="btn btn-set-role" >{{$t "help.help_fromInviteExternalMember.button.teachersFromOtherSchools" }}</button>
+{{#if (getConfig "FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED")}}
 <button type="button" data-role="expert" class="btn btn-set-role">{{$t "help.help_fromInviteExternalMember.button.externalExperts" }}</button>
+{{/if}}
