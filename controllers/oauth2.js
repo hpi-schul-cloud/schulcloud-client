@@ -39,8 +39,8 @@ router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next
 		redirect_to: '',
 	};
 
-	return api(req).patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`,
-		{ body }).then((logoutRequest) => res.redirect(logoutRequest.redirect_to)).catch(next);
+	return api(req).patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { body })
+		.then((logoutRequest) => res.redirect(logoutRequest.redirect_to)).catch(next);
 });
 
 const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
