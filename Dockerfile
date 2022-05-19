@@ -27,6 +27,7 @@ WORKDIR /home/node/app
 
 COPY package.json package-lock.json ./
 RUN npm ci
+#bad
 COPY . .
 RUN node node_modules/gulp/bin/gulp.js clear-cache && node node_modules/gulp/bin/gulp.js
 
