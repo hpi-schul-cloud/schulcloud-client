@@ -3,7 +3,7 @@ const util = require('util');
 const {
 	KEEP_ALIVE = false,
 	BACKEND_URL = 'http://localhost:3030/api/',
-	FILES_STORAGE__SERVICE_BASE_URL = 'http://localhost:4444/api',
+	FILES_STORAGE__SERVICE_BASE_URL = 'http://localhost:4444',
 	PUBLIC_BACKEND_URL,
 	EDTR_SOURCE = undefined,
 	EDITOR_URL = undefined,

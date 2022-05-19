@@ -532,6 +532,19 @@
 			"type": "string",
 			"default": "",
 			"description": "URL that leads to the nextcloud oauth login"
+		},
+		"FILES_STORAGE": {
+			"type": "object",
+			"description": "Files storage server properties, required always to be defined",
+			"required": ["SERVICE_BASE_URL"],
+			"properties": {
+				"SERVICE_BASE_URL": {
+					"type": "string",
+					"format": "uri",
+					"default": "http://localhost:4444",
+					"description": "The URI of the file service"
+				}
+			}
 		}
 	},
 	"allOf": [
