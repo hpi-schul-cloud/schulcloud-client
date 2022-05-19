@@ -2886,7 +2886,9 @@
 					"deleteFolder": "Eliminar carpeta",
 					"renameFolder": "Renombrar carpeta",
 					"shareFolder": "Compartir carpeta",
-					"toTeamFiles": "A los archivos del equipo"
+					"toTeamFiles": "A los archivos del equipo",
+					"toNextcloud": "Abrir área de archivos",
+					"newTag": "Nuevo"
 				},
 				"headline": {
 					"changeFilePermissions": "Cambiar configuración compartida",
@@ -3161,6 +3163,11 @@
 			"thereWasAProblemWithTheVideo": "Ha habido un problema con la videoconferencia. Inténtalo de nuevo.",
 			"theVideoConferenceHasEither": "La videoconferencia aún no ha comenzado o ya ha finalizado.",
 			"youDoNotHaveTheNecessaryAuthorization": "No tienes la autorización necesaria para participar en la videoconferencia."
+		}
+	},
+	"info": {
+		"text": {
+			"nextcloudLink": "Estamos trabajando en un nuevo espacio de archivos. A partir de ahora, todos los <b>archivos nuevos</b> se pueden guardar y administrar allí (área de archivos abiertos). Todos los miembros del equipo tienen acceso automáticamente a los archivos almacenados allí. Todos los <b>archivos existentes</b> en {{title}} todavía están disponibles aquí."
 		}
 	}
 }

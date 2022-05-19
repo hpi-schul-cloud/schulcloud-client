@@ -1,4 +1,4 @@
-#  Schul-Cloud Client  
+# Schul-Cloud Client  
 _An implementation of the Schul-Cloud client with NodeJS and Express._  
 
 Dev: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/hpi-schul-cloud/schulcloud-client)
