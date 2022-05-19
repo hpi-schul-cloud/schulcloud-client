@@ -98,9 +98,9 @@
 {{/if}}
 {{#if files}}
 <h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "global.headline.files"}}</h3>
+{{/if}}
 {{#embed "files/file-viewer"}}{{/embed}}
 {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
-{{/if}}
 {{#userHasPermission "FOLDER_CREATE"}}
 <section class="new-directory">
 	<div class="row">
