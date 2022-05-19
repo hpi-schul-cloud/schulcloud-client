@@ -264,11 +264,6 @@
 				}
 			}
 		},
-		"NEXTCLOUD_DOMAIN": {
-			"type": "string",
-			"default": ".dbildungscloud.dev",
-			"description": "The Nextcloud domain"
-		},
 		"SKIP_CONDITIONS_CONSENT": {
 			"type": "string",
 			"default": "",
