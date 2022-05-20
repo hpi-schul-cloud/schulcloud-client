@@ -189,20 +189,18 @@ aside.nav-sidebar {
 	ul {
 		flex: 1;
 		width: 100%;
-		float: left;
 		list-style-type: none;
 		padding: 0px;
 		margin: 0px;
 
 		li {
 			width: 100%;
-			float: left;
 
 			a:not(.sc-branding) {
+				display: flex;
+				align-items: center;
 				width: 100%;
-				float: left;
 				height: 60px;
-				line-height: 60px;
 				color: $secondaryColor;
 				fill:$secondaryColor;
 				padding: 0px 20px;
@@ -252,7 +250,6 @@ aside.nav-sidebar {
 				&.active {
 					background: $colorLightGrey;
 					color: $primaryColor;
-					border-bottom: 1px solid transparent;
 
 					svg {
 						fill: $primaryColor;
@@ -266,20 +263,25 @@ aside.nav-sidebar {
 
 				i.fa {
 					font-size: 20px;
-					width: 20px;
+					width: 25px;
 					margin-right: 6px;
 					display: inline-block;
 					text-align: center;
 					vertical-align: middle;
+
+					&:before {
+						vertical-align: inherit;
+					}
 				}
 
 				svg {
 					font-size: 20px;
-					width: 20px;
+					width: 25px;
 					margin-right: 6px;
 					display: inline-block;
 					text-align: center;
 					vertical-align: middle;
+					height: 1em;
 				}
 
 				span {
