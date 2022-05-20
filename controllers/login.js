@@ -252,8 +252,7 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication') // async, ignore result
 		.catch((err) => { logger.error('error during logout.', formatError(err)); });
-	return authHelper
-		.clearCookie(req, res, { destroySession: true })
+	return authHelper.clearCookie(req, res, { destroySession: true })
 		.then(() => res.redirect('/'))
 		.catch(next);
 });
