@@ -1,5 +1,5 @@
 {{#if (userHasRole "student" )}}
-	{{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="nutzungshilfen"}}
+	{{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12 help-icon-card" id="nutzungshilfen"}}
 		{{#content "card-body"}}
 			{{> "help/icon-link-group" links=(jsonParse '[
 				{
@@ -26,7 +26,7 @@
 		{{/content}}
 	{{/embed}}
 {{else}}
-	{{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="nutzungshilfen"}}
+	{{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12 help-icon-card" id="nutzungshilfen"}}
 		{{#content "card-body"}}
 			{{> "help/icon-link-group" links=(jsonParse '[
 				{
