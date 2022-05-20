@@ -215,6 +215,24 @@ fieldset.switch_wrapper {
   padding: 2rem 0 0;
 }
 
+// help area cards
+.help-icon-card {
+  @media (max-width: 1300px) {
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .icon-card__content {
+    @media (max-width: 1300px) {
+      padding-top: 0 !important;
+    }
+  }
+  .icon-card__icon {
+    @media (max-width: 1300px) {
+    display: none !important;
+    }
+  }
+}
+
 // contact cards
 .contact-card {
   .icon-card__content {
