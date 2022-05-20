@@ -2,13 +2,13 @@
 	<div class="row">
 		{{#each files}}
 			<div class="col-sm-12">
-				<div class="card file {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this.id}}">
+				<div class="card file {{#ifeq this.securityCheckStatus "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this.id}}">
 					<div class="openFile">
 						<div class="card-block
-							{{#ifneq this.securityCheck.status "blocked"}} fileviewer{{/ifneq}}"
-							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-type="{{../this.type}}"{{/ifneq}}
-							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-savename="{{../this.saveName}}"{{/ifneq}}
-							{{#ifneq this.securityCheck.status "blocked"}} data-file-viewer-id="{{../this.id}}"{{/ifneq}}
+							{{#ifneq this.securityCheckStatus "blocked"}} fileviewer{{/ifneq}}"
+							{{#ifneq this.securityCheckStatus "blocked"}} data-file-viewer-type="{{../this.type}}"{{/ifneq}}
+							{{#ifneq this.securityCheckStatus "blocked"}} data-file-viewer-savename="{{../this.saveName}}"{{/ifneq}}
+							{{#ifneq this.securityCheckStatus "blocked"}} data-file-viewer-id="{{../this.id}}"{{/ifneq}}
 							tabindex="0" aria-label="{{$t "files.label.clickToOpenFile" (dict "name" this.name)}}"
 							role="button">
 							<div class="card-title">
@@ -25,7 +25,7 @@
 							</div>
 							<div class="card-text">
 							  <small class="file-location">{{#if this.context}}{{$t "files.text.foundIn"}} {{this.context}}{{/if}}</small><br>
-								{{#ifeq this.securityCheck.status "blocked"}}
+								{{#ifeq this.securityCheckStatus "blocked"}}
 									<button
 									class="file-btn btn-file-danger"
 									title="{{$t "files.label.dangerousCode"}}">
