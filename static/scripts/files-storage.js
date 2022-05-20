@@ -6,6 +6,7 @@ const getDataValue = (attr) => () => {
 const getSchoolId = getDataValue('school');
 const getCurrentParentId = getDataValue('parent-id');
 const getCurrentParentType = getDataValue('parent-type');
+const apiBasePath = '/api/v3/file';
 
 function writeFileSizePretty(orgFilesize) {
 	let filesize = orgFilesize;
@@ -38,6 +39,52 @@ function writeFileSizePretty(orgFilesize) {
 	return filesize + unit;
 }
 
+function showAJAXSuccess(message) {
+	$.showNotification(message, 'success', 5000);
+}
+
+function showAJAXError(err) {
+	const errors = {
+		FILE_NAME_EXISTS: 'files._file.text.fileNameExists',
+		FILE_IS_BLOCKED: 'files._file.text.fileIsBlocked',
+		FILE_NOT_FOUND: 'files._file.text.fileNotFound',
+	};
+	if (err.responseJSON) {
+		const { message } = err.responseJSON;
+		$.showNotification($t(errors[message] || 'global.text.internalProblem'), 'danger', 5000);
+	}
+}
+
+const reloadPage = (msg, timeout = 2000) => {
+	if (msg) {
+		showAJAXSuccess(
+			$t(msg),
+		);
+	}
+	setTimeout(() => {
+		window.location.reload();
+	}, timeout);
+};
+
+function rename(fileName, fileRecordId) {
+	$.ajax({
+		data: {
+			fileName,
+		},
+		url: `${apiBasePath}/rename/${fileRecordId}`,
+		type: 'PATCH',
+		success: () => reloadPage(undefined, 0),
+	}).fail(showAJAXError);
+}
+
+function remove(fileRecordId) {
+	$.ajax({
+		url: `${apiBasePath}/delete/${fileRecordId}`,
+		type: 'DELETE',
+		success: () => reloadPage(undefined, 0),
+	}).fail(showAJAXError);
+}
+
 $(document).ready(() => {
 	const $form = $('#files-storage-component').find('.form-upload');
 	const $progressBar = $('#files-storage-component').find('.progress-bar');
@@ -47,33 +94,6 @@ $(document).ready(() => {
 	const $modals = $('#files-storage-component').find('.modal');
 	const $renameModal = $('#files-storage-component').find('.rename-modal');
 	const $deleteModal = $('#files-storage-component').find('.delete-modal');
-
-	function showAJAXSuccess(message) {
-		$.showNotification(message, 'success', 5000);
-	}
-
-	function showAJAXError(err) {
-		const errors = {
-			FILE_NAME_EXISTS: 'global.text.fileNameExists',
-			FILE_IS_BLOCKED: 'global.text.fileIsBlocked.',
-			FILE_NOT_FOUND: 'global.text.fileNotFound.',
-		};
-		if (err.responseJSON) {
-			const { message } = err.responseJSON;
-			$.showNotification($t(errors[message] || 'global.text.internalProblem'), 'danger', 5000);
-		}
-	}
-
-	const reloadPage = (msg, timeout = 2000) => {
-		if (msg) {
-			showAJAXSuccess(
-				$t(msg),
-			);
-		}
-		setTimeout(() => {
-			window.location.reload();
-		}, timeout);
-	};
 
 	/** loads dropzone, if it exists on current page * */
 	let progressBarActive = false;
@@ -93,27 +113,11 @@ $(document).ready(() => {
 
 		$deleteModal
 			.find('.btn-submit')
-			.unbind('click')
 			.on('click', () => {
 				$deleteModal.modal('hide');
 				const fileRecordId = $buttonContext.data('file-id');
-				$.ajax({
-					url: `/api/v3/file/delete/${fileRecordId}`,
-					type: 'DELETE',
-					success: () => reloadPage(undefined, 0),
-				}).fail(showAJAXError);
+				remove(fileRecordId);
 			});
-	}
-
-	function rename(fileName, fileRecordId) {
-		$.ajax({
-			data: {
-				fileName,
-			},
-			url: `/api/v3/file/rename/${fileRecordId}`,
-			type: 'PATCH',
-			success: () => reloadPage(undefined, 0),
-		}).fail(showAJAXError);
 	}
 
 	function updateUploadProcessingProgress() {
@@ -126,6 +130,7 @@ $(document).ready(() => {
 
 			progressBarActive = true;
 		}
+		this.options.url = window.location.href;
 	}
 
 	if ($form.dropzone) {
@@ -136,7 +141,7 @@ $(document).ready(() => {
 				$.ajax({
 					cache: false,
 					data: fdata,
-					url: `/api/v3/file/upload/
+					url: `${apiBasePath}/upload/
 					${getSchoolId()}/
 					${getCurrentParentType()}/
 					${getCurrentParentId()}`,
@@ -149,11 +154,10 @@ $(document).ready(() => {
 					}).fail(showAJAXError);
 			},
 			createImageThumbnails: false,
-			method: 'PUT',
+			method: 'GET',
 			init() {
 				// this is called on per-file basis
 				this.on('processing', updateUploadProcessingProgress);
-
 				this.on('sending', (file, xhr) => {
 					const { send } = xhr;
 					xhr.send = () => {
@@ -196,7 +200,9 @@ $(document).ready(() => {
 	}
 
 	$('button[data-method="download"]').on('click', (e) => {
-		window.open($(e.currentTarget).attr('data-href'), '_blank');
+		const fileRecordId = $(e.currentTarget).attr('data-file-id');
+		const fileName = $(e.currentTarget).attr('data-file-name')
+		window.open(`${apiBasePath}/download/${fileRecordId}/${fileName}`, '_blank');
 		e.stopPropagation();
 	});
 
@@ -204,14 +210,14 @@ $(document).ready(() => {
 		$modals.modal('hide');
 	});
 
-	$('.btn-file-danger').click((e) => {
+	$('.btn-file-danger').on('click', (e) => {
 		e.stopPropagation();
 		e.preventDefault();
 		const $dangerModal = $('.danger-modal');
 		$dangerModal.appendTo('body').modal('show');
 	});
 
-	$($renameModal.find('.btn-submit')).click((e) => {
+	$($renameModal.find('.btn-submit')).on('click', (e) => {
 		e.stopPropagation();
 		e.preventDefault();
 		const fileRecordId = $renameModal.find('#fileRecordId').val();
@@ -269,12 +275,12 @@ $(document).ready(() => {
 
 		$(`#${id}`).html(writeFileSizePretty(size));
 	}
-	$('.file').mouseover(fileMouseOverHandler);
+	$('.file').on('mouseover', fileMouseOverHandler);
 
 	function fileMouseOutHandler() {
 		const id = $(this).attr('data-file-id');
 
 		$(`#${id}`).html('');
 	}
-	$('.file').mouseout(fileMouseOutHandler);
+	$('.file').on('mouseout', fileMouseOutHandler);
 });

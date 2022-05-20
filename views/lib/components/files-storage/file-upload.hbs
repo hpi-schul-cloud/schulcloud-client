@@ -10,9 +10,8 @@
                     <div class="dz-default dz-message" data-dz-message="">
                         <span class="text-muted"><i class="fa fa-cloud-upload dz-clickable" aria-hidden="true"></i>
                             {{#ifeq parentId undefined}}
-                                {{$t "Der upload kann nur nach erste speichern erfolgen"}}
+                                {{$t "files.text.storeFilesForUploadDisabled"}}
                             {{else}}
-
                             {{$t "files.text.storeFilesForUpload"}}
                             {{/ifeq}}
                          </span>
@@ -21,11 +20,10 @@
                 </button>
                 <div class="progress-bar">
                     <div class="progress">
-                        <span class="percent" role="progressbar" aria-valuemin="0" aria-valuemax="100"></span>
+                        <span class="percent" role="progressbar" aria-label="{{$t "files.text.storeFilesForUploadProgress"}}" aria-valuemin="0" aria-valuemax="100"></span>
                         <div class="bar" style="width:0%">&nbsp;</div>
                     </div>
                 </div>
             </button>
         </div>
     </section>
-
