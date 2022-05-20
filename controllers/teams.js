@@ -292,9 +292,8 @@ router.get('/', async (req, res, next) => {
 				.utc()
 				.format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
-			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
-				time.room ? `| ${time.room}` : ''
-			}</div>`;
+			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''
+				}</div>`;
 		});
 
 		return team;
@@ -477,9 +476,8 @@ router.get('/:teamId', async (req, res, next) => {
 					`/rocketChat/channel/${req.params.teamId}`,
 				);
 				const rocketChatURL = Configuration.get('ROCKET_CHAT_URI');
-				rocketChatCompleteURL = `${rocketChatURL}/group/${
-					rocketChatChannel.channelName
-				}`;
+				rocketChatCompleteURL = `${rocketChatURL}/group/${rocketChatChannel.channelName
+					}`;
 			} catch (err) {
 				logger.warn(formatError(err));
 				rocketChatCompleteURL = undefined;
@@ -1137,7 +1135,7 @@ router.post('/:teamId/members', async (req, res, next) => {
 
 		res.sendStatus(200);
 	} catch (err) {
-		logger.error(formatError(err));
+		next(err);
 	}
 });
 
@@ -1159,7 +1157,7 @@ router.patch('/:teamId/members', async (req, res, next) => {
 
 		res.sendStatus(200);
 	} catch (err) {
-		logger.error(formatError(err));
+		next(err);
 	}
 });
 

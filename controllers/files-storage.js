@@ -19,7 +19,7 @@ router.get('/:parentType/:parentId', async (req, res, next) => {
 			files = result.data;
 		}
 	} catch (err) {
-		logger.error(formatError(err));
+		next(err);
 	}
 
 	res.render('files-storage/files', {
