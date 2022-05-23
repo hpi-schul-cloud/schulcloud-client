@@ -19,7 +19,7 @@
     {{#userHasPermission "COURSE_EDIT"}}
     <div class="form-group create-course-event">
         <div class="checkbox disabled">
-            <input id="toggle{{../collapseIdCourse}}" name="isCourseEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdCourse}}" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
+            <input id="toggle{{../collapseIdCourse}}" name="isCourseEvent" type="checkbox" data-Ref="{{../collapseIdCourse}}"  data-toggle="toggle" data-defauttext="{{$t "calendar.button.chooseACourse" }}" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
             <label for="toggle{{../collapseIdCourse}}">
                {{$t "calendar.label.createForCourse" }}
             </label>
@@ -27,9 +27,7 @@
         <div id="collapse{{../collapseIdCourse}}" class="panel-collapse collapse">
             <div class="form-group">
             <label for="courseId">{{$t "calendar.button.availableCourses" }}</label>
-                <select id="courseId" class="course-selection form-control" name="courseId">
-                    <option value="" selected hidden>{{$t "calendar.button.chooseACourse" }}</option>
-                </select>
+                <select id="selection{{../collapseIdCourse}}" class="form-control" name="courseId"></select>
             </div>
         </div>
     </div>
@@ -37,10 +35,10 @@
 {{/if}}
 
 {{#if addTeam}}
-    {{#userHasPermission "COURSE_EDIT"}}
+    {{#userHasPermission "TEAM_EDIT"}}
     <div class="form-group create-team-event">
         <div class="checkbox disabled">
-            <input id="toggle{{../collapseIdTeam}}" name="isTeamEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdTeam}}" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
+            <input id="toggle{{../collapseIdTeam}}" name="isTeamEvent" type="checkbox" data-Ref="{{../collapseIdTeam}}" data-toggle="toggle" data-defauttext="{{$t "calendar.button.chooseATeam" }}" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
             <label for="toggle{{../collapseIdTeam}}">
                {{$t "calendar.label.createForTeam" }}
             </label>
@@ -48,9 +46,7 @@
         <div id="collapse{{../collapseIdTeam}}" class="panel-collapse collapse">
             <div class="form-group">
                 <label for="teamId">{{$t "calendar.button.availableTeams" }}</label>
-                <select id="teamId" class="team-selection form-control" name="teamId">
-                    <option value="" selected hidden>{{$t "calendar.button.chooseATeam" }}</option>
-                </select>
+                <select id="selection{{../collapseIdTeam}}" class="form-control" name="teamId"></select>
             </div>
         </div>
     </div>
