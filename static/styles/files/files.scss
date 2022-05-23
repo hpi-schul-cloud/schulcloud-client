@@ -320,8 +320,35 @@
   padding: 0px;
 }
 
+
+
 .order-sel {
   margin-top: 2px;
   width: auto;
   display: inline-flex;
+}
+
+.btn {
+	margin-bottom: 0.5rem;
+
+	.tag {
+		background-color: $secondaryColor;
+		border-radius: 20px;
+		padding: 1px 6px;
+		font-size: 10pt;
+		color: $colorWhite;
+		margin-left: 4px;
+	}
+}
+
+.info-custom {
+	background-color: $colorGrey;
+	border-color: $colorLightGrey;
+	color: $fontColor;
+	display: flex;
+	flex-direction: row;
+
+	i {
+		margin: auto;
+	}
 }
