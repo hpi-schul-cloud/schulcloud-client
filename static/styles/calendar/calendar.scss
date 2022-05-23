@@ -6,8 +6,13 @@
         float: left;
         width: 100%;
 
+        .fc-icon-chevron-left,
+        .fc-icon-chevron-right {
+            font-size: inherit;
+        }
+
         .fc-time-grid .fc-slats .fc-minor td {
-          border: 0px;
+            border: 0px;
         }
 
         .fc-event {
