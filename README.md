@@ -18,12 +18,8 @@ Master: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client
 * node.js 12 or later
 
 You might take a look at the [Dockerfile](https://github.com/hpi-schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
-
-## Setup  
   
-German docs on installing: [Setup SC](https://docs.dbildungscloud.de/x/vwITD)
-  
-Short version:
+Short setup version:
 
 1. Clone directory into local folder  
 2. Go into the cloned folder and enter `npm install`  
@@ -57,10 +53,10 @@ then clear build files and gulp cache with `gulp clear`
 
 ## How to name your branch and create a pull request (PR)
   
-1. Take the Ticket Number from JIRA (ticketsystem.dbildungscloud.de), e.g. SC-999  
-2. Name the feature branch beginning with Ticket Number, all words separated by dash "-", e.g. `feature/SC-999-fantasy-problem`
+1. Take the Ticket Number from JIRA (ticketsystem.dbildungscloud.de), e.g. BC-999  
+2. Name the feature branch beginning with Ticket Number, all words separated by dash "-", e.g. `feature/BC-999-fantasy-problem`
 3. Create a PR on branch develop containing the Ticket Number in PR title
-4. Keep the `WIP` label as long as this PR is in development, complete PR checklist (is automatically added), keep or increase code test coverage, and pass all tests before you remove the `WIP` label. Reviewers will be added automatically. For more information check our Definition of Done [here](https://docs.dbildungscloud.de/x/mAITD).
+4. Keep the `WIP` label as long as this PR is in development, complete PR checklist (is automatically added), keep or increase code test coverage, and pass all tests before you remove the `WIP` label. Reviewers will be added automatically.
 
 ## Testing  
   
@@ -76,12 +72,12 @@ For html/css components please check [caniuse](https://caniuse.com/).
 
 ## Commiting
 
-Default branch: develop
+Default branch: main
 
 1. Go into project folder
 2. Checkout to develop branch (or clone for the first time)
 3. Run `git pull`
-4. Create a branch for your new feature named feature/SC-*Ticket-ID*-*Description*
+4. Create a branch for your new feature named feature/BC-*Ticket-ID*-*Description*
 5. Run the tests (see above)
 6. Commit with a meanigful commit message(!) even at 4 a.m. and not stuff like "dfsdfsf"
 7. Start a pull request (see above) to branch develop to merge your changes
