@@ -37,17 +37,16 @@
         {{/if}}
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
             {{#inArray "messenger" @root.currentSchoolData.features}}
-                <script nonce="{{nonceValue}}">
-                    window.matrixAssetDomain = '{{getConfig "MATRIX_MESSENGER__EMBED_URI"}}';
-                    window.userLanguage = '{{ @root.userLanguage }}';
-                    window.matrixBlockRoomCreation = {{ @root.matrixBlockRoomCreation }};
-                </script>
-                <script src="{{getAssetPath '/scripts/chatLoggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+                <script src="{{getAssetPath '/scripts/chatLoggedin.js'}}" type="text/javascript" nonce="{{@root.nonceValue}}" defer></script>
             {{/inArray}}
         {{/ifConfig}}
     {{/content}}
 
     {{#content "body"}}
+        <input type="hidden" id="matrixAssetDomain" value='{{getConfig "MATRIX_MESSENGER__EMBED_URI"}}'/>
+        <input type="hidden" id="matrixUserLanguage" value="{{ @root.userLanguage }}"/>
+        <input type="hidden" id="matrixBlockRoomCreation" value="{{ @root.matrixBlockRoomCreation }}"/>
+
         {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
             {{#if @root.currentSchoolData.officialSchoolNumber}}
                 {{#if @root.currentSchoolData.inUserMigration}}
