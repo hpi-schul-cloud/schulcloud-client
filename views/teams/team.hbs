@@ -165,12 +165,11 @@
                         <section style="margin-top: 1rem">
                             <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
 
-                            {{#unless useNextcloud}}
-                                <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
-                                    <i class="fa fa-folder-open" aria-hidden="true"></i>
-                                    {{$t "teams._team.files.button.toTeamFiles"}}
-                                </a>
-                            {{/unless}}
+                            <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
+                                <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                {{$t "teams._team.files.button.toTeamFiles"}}
+                            </a>
+
                             {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
                                     <button class="btn btn-add btn-secondary btn-file-permissions">
                                         <i class="fa fa-cogs" aria-hidden="true"></i>
