@@ -56,6 +56,15 @@
 	}
 	.btn {
 		margin-bottom: 0.5rem;
+
+		.tag {
+			background-color: $secondaryColor;
+			border-radius: 20px;
+			padding: 1px 6px;
+			font-size: 10pt;
+			color: $colorWhite;
+			margin-left: 4px;
+		}
 	}
 
 	.btn-member {
@@ -100,5 +109,17 @@
 .section-team-members {
 	a.btn.disabled {
 		pointer-events: auto;
+	}
+}
+
+.info-custom {
+	background-color: $colorGrey;
+	border-color: $colorLightGrey;
+	color: $fontColor;
+	display: flex;
+	flex-direction: row;
+
+	i {
+		margin: auto;
 	}
 }

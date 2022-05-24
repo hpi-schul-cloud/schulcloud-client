@@ -25,12 +25,16 @@
 						</span>
 						{{/each}}
 					</h2>
-					{{#if courseUrl}}
-					<a href="{{courseUrl}}" class="btn btn-secondary pull-right">
-						<i class="fa fa-graduation-cap"></i>
-						{{ toCourseText }}
-					</a>
-					{{/if}}
+					<section class="section-teams">
+                        <div class="pull-right">
+                            {{#if courseUrl}}
+                            <a href="{{courseUrl}}" class="btn btn-secondary">
+                                <i class="fa fa-users"></i>
+                                {{ toCourseText }}
+                            </a>
+                            {{/if}}
+                        </div>
+                    </section>
 				</div>
 			</div>
 		</div>
@@ -53,6 +57,17 @@
 					class="fa fa-arrow-down"></i></button>
 		</div>
 	</div>
+	{{#if useNextcloud}}
+	<div class="alert info-custom mt-3" role="alert">
+        <i class="fa fa-info-circle pr-1"></i>
+        <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
+    </div>
+    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
+        <i class="fa fa-external-link" aria-hidden="true"></i>
+        {{$t "teams._team.files.button.toNextcloud"}}
+        <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
+    </a>
+    {{/if}}
 </div>
 {{/if}}
 
@@ -81,10 +96,11 @@
 	</div>
 </section>
 {{/if}}
+{{#if files}}
 <h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "global.headline.files"}}</h3>
+{{/if}}
 {{#embed "files/file-viewer"}}{{/embed}}
 {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
-
 {{#userHasPermission "FOLDER_CREATE"}}
 <section class="new-directory">
 	<div class="row">
