@@ -1,5 +1,4 @@
 const express = require('express');
-const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const router = express.Router();
 
