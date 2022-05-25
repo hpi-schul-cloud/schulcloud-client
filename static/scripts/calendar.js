@@ -232,13 +232,11 @@ $(document).ready(() => {
 	const hideArea = (id) => {
 		$(`#collapse${id}`).hide();
 		$(`#collapse${id}`).find('select').hide();
-	//	$(`#selection${id}`).hide();
 	};
 
 	const showArea = (id) => {
 		$(`#collapse${id}`).show();
 		$(`#collapse${id}`).find('select').show();
-		// $(`#selection${id}`).show();
 	};
 
 	const hideAreaByEvent = (event) => {
@@ -269,8 +267,7 @@ $(document).ready(() => {
 		const ref = getRefId(event);
 
 		// hard killed auto generated "_chosen" otherwise it is always displayed twice
-		const $selectionChosen = $(`#selection${ref}_chosen`);
-		$selectionChosen.hide();
+		$(`#selection${ref}_chosen`).hide();
 
 		const $selection = $(`#selection${ref}`);
 		$selection.find('option').remove();
