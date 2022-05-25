@@ -7,6 +7,34 @@
 			"type": "string",
 			"description": "May refere to the schema file to enable auto-fill and validation in some editors."
 		},
+		"API": {
+			"type": "object",
+			"description": "API helper settings.",
+			"properties": {
+				"KEEP_ALIVE": {
+					"type": "boolean",
+					"description": "Add Keep-Alive header to the request connection."
+				},
+				"REQUEST_TIMEOUT_MS": {
+					"type": "integer",
+					"description": "API handler request timeout in milliseconds"
+				},
+				"API_KEY": {
+					"type": "string",
+					"description": "The API Key of the Client for authentication towards the server. required for sending mails."
+				}
+			},
+			"default": {
+				"REQUEST_TIMEOUT_MS": 5000,
+				"API_KEY": "example",
+				"KEEP_ALIVE": false
+			}
+		},
+		"BACKEND_URL": {
+			"type": "string",
+			"format": "uri",
+			"default": "http://localhost:3030/api/"
+		},
 		"CORS": {
 			"type": "boolean",
 			"default": true,
@@ -17,16 +45,7 @@
 			"default": true,
 			"description": "If enabled, additional security header will be set."
 		},
-		"API_KEY": {
-			"type": "string",
-			"default": "example",
-			"description": "The API Key of the Client for authentication towards the server. required for sending mails."
-		},
-		"REQUEST_TIMEOUT_MS": {
-			"type": "integer",
-			"default": 5000,
-			"description": "API handler request timeout in milliseconds"
-		},
+
 		"GLOBAL_LOGIN_ANNOUNCEMENT": {
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage when not loggedin."
@@ -542,14 +561,21 @@
 		"FILES_STORAGE": {
 			"type": "object",
 			"description": "Files storage server properties, required always to be defined",
-			"required": ["SERVICE_BASE_URL"],
 			"properties": {
 				"SERVICE_BASE_URL": {
 					"type": "string",
 					"format": "uri",
-					"default": "http://localhost:4444",
 					"description": "The URI of the file service"
+				},
+				"INCOMING_REQUEST_TIMEOUT": {
+					"type": "integer",
+					"minimum": 0,
+					"description": "Timeout for incoming requests to the File-Storage in milliseconds."
 				}
+			},
+			"default": {
+				"SERVICE_BASE_URL": "http://localhost:4444",
+				"FILES_STORAGE__INCOMING_REQUEST_TIMEOUT": 600000
 			}
 		}
 	},

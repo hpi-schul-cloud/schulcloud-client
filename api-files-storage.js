@@ -1,4 +1,8 @@
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('./helpers/apiHelper');
-const { KEEP_ALIVE, FILES_STORAGE__SERVICE_BASE_URL } = require('./config/global');
 
-module.exports = api(`${FILES_STORAGE__SERVICE_BASE_URL}/api/`, { keepAlive: KEEP_ALIVE });
+const keepAlive = Configuration.get('API__KEEP_ALIVE');
+const url = Configuration.get('FILES_STORAGE__SERVICE_BASE_URL');
+const timeout = Configuration.get('FILES_STORAGE__SERVICE_BASE_URL');
+
+module.exports = api(`${url}/api/`, { keepAlive, timeout });
