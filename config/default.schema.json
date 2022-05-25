@@ -7,15 +7,15 @@
 			"type": "string",
 			"description": "May refere to the schema file to enable auto-fill and validation in some editors."
 		},
-		"API": {
+		"REQUEST_OPTION": {
 			"type": "object",
-			"description": "API helper settings for outgoing requests.",
+			"description": "Request helper options for internal requests.",
 			"properties": {
 				"KEEP_ALIVE": {
 					"type": "boolean",
 					"description": "Add Keep-Alive header to the request connection."
 				},
-				"REQUEST_TIMEOUT_MS": {
+				"TIMEOUT_MS": {
 					"type": "integer",
 					"description": "Outgoing request timeout in milliseconds."
 				},
