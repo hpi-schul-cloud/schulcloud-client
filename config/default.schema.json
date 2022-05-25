@@ -11,7 +11,7 @@
 			"type": "object",
 			"description": "Request helper options for internal requests.",
 			"properties": {
-				"KEEP_CLIENT_API_KEYCLIENT_API_KEYALIVE": {
+				"KEEP_ALIVE": {
 					"type": "boolean",
 					"description": "Add Keep-Alive header to the request connection."
 				},
