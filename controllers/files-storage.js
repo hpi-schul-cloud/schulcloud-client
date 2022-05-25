@@ -10,7 +10,7 @@ const api = require('../api-files-storage');
 router.get('/:parentType/:parentId', async (req, res, next) => {
 	try {
 		let files = [];
-		const checkForObjectIdRegExp = /^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i
+		const checkForObjectIdRegExp = /^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i;
 		const schoolId = res.locals.currentSchool;
 		const { parentType, parentId } = req.params;
 		const valideParentId = checkForObjectIdRegExp.test(parentId) ? parentId : undefined;
