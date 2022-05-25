@@ -6,8 +6,27 @@
         float: left;
         width: 100%;
 
+        .fc-icon-chevron-left,
+        .fc-icon-chevron-right {
+            font-size: inherit;
+        }
+
+        .fc-right {
+            @media (max-width: 480px) {
+                display: none;
+            }
+        }
+
+        .fc-left {
+            .fc-button-group {
+                @media (min-width: 480px) {
+                    display: none !important;
+                }
+            }
+        }
+
         .fc-time-grid .fc-slats .fc-minor td {
-          border: 0px;
+            border: 0px;
         }
 
         .fc-event {
