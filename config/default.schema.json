@@ -11,22 +11,17 @@
 			"type": "object",
 			"description": "Request helper options for internal requests.",
 			"properties": {
-				"KEEP_ALIVE": {
+				"KEEP_CLIENT_API_KEYCLIENT_API_KEYALIVE": {
 					"type": "boolean",
 					"description": "Add Keep-Alive header to the request connection."
 				},
 				"TIMEOUT_MS": {
 					"type": "integer",
 					"description": "Outgoing request timeout in milliseconds."
-				},
-				"CLIENT_API_KEY": {
-					"type": "string",
-					"description": "The API Key of the Client for authentication towards the server. required for sending mails."
 				}
 			},
 			"default": {
 				"TIMEOUT_MS": 8000,
-				"CLIENT_API_KEY": "example",
 				"KEEP_ALIVE": true
 			}
 		},
