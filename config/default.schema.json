@@ -17,23 +17,23 @@
 				},
 				"REQUEST_TIMEOUT_MS": {
 					"type": "integer",
-					"description": "API handler request timeout in milliseconds"
+					"description": "Outgoing request timeout in milliseconds."
 				},
-				"API_KEY": {
+				"CLIENT_API_KEY": {
 					"type": "string",
-					"description": "The API Key of the Client for authentication towards the server. required for sending mails."
+					"description": "[deprecated?] The API Key of the Client for authentication towards the server. required for sending mails."
 				}
 			},
 			"default": {
-				"REQUEST_TIMEOUT_MS": 5000,
+				"REQUEST_TIMEOUT_MS": 8000,
 				"API_KEY": "example",
-				"KEEP_ALIVE": false
+				"KEEP_ALIVE": true
 			}
 		},
-		"BACKEND_URL": {
+		"API_HOST": {
 			"type": "string",
 			"format": "uri",
-			"default": "http://localhost:3030/api/"
+			"default": "http://localhost:3030/api"
 		},
 		"CORS": {
 			"type": "boolean",
@@ -575,7 +575,7 @@
 			},
 			"default": {
 				"SERVICE_BASE_URL": "http://localhost:4444",
-				"FILES_STORAGE__INCOMING_REQUEST_TIMEOUT": 600000
+				"INCOMING_REQUEST_TIMEOUT": 600000
 			}
 		}
 	},

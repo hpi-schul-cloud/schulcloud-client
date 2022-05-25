@@ -28,7 +28,7 @@
         defer
     ></script>
         <script src="{{getAssetPath '/scripts/loggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getAssetPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.API_HOST}}" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/messenger/welcome.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="{{getAssetPath '/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML'}}" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="{{getAssetPath '/vendor/feathersjs/feathers.js'}}" nonce="{{nonceValue}}" defer></script>
