@@ -79,17 +79,11 @@
 								</div>
 							{{/userHasPermission}}
 							{{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
-								{{#userHasPermission 'IMPORT_USER_VIEW'}}
-								<div class="col-md-6 col-sm-6 col-xs-12">
-									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/migration">
-									    <div class="card-block migration">
-									        <div class="card-text">
-									            <h2 class="h4"><i class="fa fa-building"></i> {{$t "administration.dashboard.headline.migration" }}</h2>
-									        </div>
-									    </div>
-									</div>
-								</div>
-								{{/userHasPermission}}
+                                {{#embed "administration/partials/ldap_migration_link"}}{{/embed}}
+                            {{else}}
+                                {{#inArray "ldapUniventionMigrationSchool" @root.currentSchoolData.features}}
+                                    {{#embed "administration/partials/ldap_migration_link"}}{{/embed}}
+                                {{/inArray}}
 							{{/ifConfig}}
 						</div>
 					</div>
