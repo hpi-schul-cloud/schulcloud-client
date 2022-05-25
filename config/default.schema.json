@@ -26,7 +26,7 @@
 			},
 			"default": {
 				"TIMEOUT_MS": 8000,
-				"API_KEY": "example",
+				"CLIENT_API_KEY": "example",
 				"KEEP_ALIVE": true
 			}
 		},
