@@ -27,7 +27,7 @@
         <div id="collapse{{../collapseIdCourse}}" class="panel-collapse collapse">
             <div class="form-group">
             <label for="courseId">{{$t "calendar.button.availableCourses" }}</label>
-                <select id="selection{{../collapseIdCourse}}" class="form-control" name="courseId"></select>
+                <select aria-label="{{$t "calendar.label.createForCourse" }}" id="selection{{../collapseIdCourse}}" class="form-control" name="courseId"></select>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
         <div id="collapse{{../collapseIdTeam}}" class="panel-collapse collapse">
             <div class="form-group">
                 <label for="teamId">{{$t "calendar.button.availableTeams" }}</label>
-                <select id="selection{{../collapseIdTeam}}" class="form-control" name="teamId"></select>
+                <select aria-label="{{$t "calendar.label.createForTeam" }}" id="selection{{../collapseIdTeam}}" class="form-control" name="teamId"></select>
             </div>
         </div>
     </div>

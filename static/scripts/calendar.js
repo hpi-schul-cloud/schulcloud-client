@@ -276,10 +276,10 @@ $(document).ready(() => {
 		$selection.find('option').remove();
 
 		const defaultText = getDefaultText(event);
-		$selection.append(`<option value="" selected hidden>${defaultText}</option>`);
+		$selection.append(`<option aria-label="${defaultText}" value="" selected hidden>${defaultText}</option>`);
 
 		data.forEach((d) => {
-			$selection.append(`<option value="${d._id}">${d.name}</option>`);
+			$selection.append(`<option aria-label="${d.name}" value="${d._id}">${d.name}</option>`);
 		});
 	};
 
