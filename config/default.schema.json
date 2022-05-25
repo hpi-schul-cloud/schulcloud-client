@@ -9,7 +9,7 @@
 		},
 		"API": {
 			"type": "object",
-			"description": "API helper settings.",
+			"description": "API helper settings for outgoing requests.",
 			"properties": {
 				"KEEP_ALIVE": {
 					"type": "boolean",
@@ -21,7 +21,7 @@
 				},
 				"CLIENT_API_KEY": {
 					"type": "string",
-					"description": "[deprecated?] The API Key of the Client for authentication towards the server. required for sending mails."
+					"description": "The API Key of the Client for authentication towards the server. required for sending mails."
 				}
 			},
 			"default": {
