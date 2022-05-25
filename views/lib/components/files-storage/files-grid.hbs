@@ -19,7 +19,7 @@
 									<div class="file-preview"
 										 style="background-image: url({{this.thumbnail}}); -webkit-background-size: 25px ;background-size: 25px;"></div>
 								</div>
-								<a class="col-sm-10 title">
+								<a href="/api/v3/file/download/{{this.id}}/{{this.name}}" class="col-sm-10 title" target="_blank">
 									{{this.name}}
 									{{#if this.size}}
 										<small style="float: right;" class="file-info" id="{{this.id}}"></small>
