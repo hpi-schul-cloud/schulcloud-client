@@ -125,8 +125,8 @@ $(document).ready(() => {
 		timeZone: getCalendarTimezone(),
 		locale: getCalendarLanguage(getLangAttribute()),
 		header: {
-			left: 'title',
-			right: 'dayGridMonth,timeGridWeek,timeGridDay prev,today,next',
+			left: 'title prev,timeGridDay,timeGridWeek,dayGridMonth,next,today',
+			right: 'prev,timeGridDay,timeGridWeek,dayGridMonth,next,today',
 		},
 		events: (info, successCallback) => {
 			$.getJSON(URI.eventList, (events) => successCallback(events));
