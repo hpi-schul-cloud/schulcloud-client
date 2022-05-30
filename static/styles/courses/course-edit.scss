@@ -4,6 +4,7 @@
 	display: flex;
 	font-size: 0;
 	margin-left: 3px;
+	flex-wrap: wrap;
 
 	&__item {
 		display: inline-block;
