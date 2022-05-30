@@ -1291,7 +1291,7 @@
 				"fileIsBlocked": "Die Datei enthält möglicherweise schädlichen Inhalt",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
 				"fileNameExists": "Es existiert bereits eine Datei mit diesem Namen",
-				"fileNotFound": "Die Datei nicht gefunden",
+				"fileNotFound": "Die Datei konnte nicht gefunden werden",
 				"littleHintHowToMoveFiles": "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
 				"movingFilesIsDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
@@ -1364,7 +1364,7 @@
 			"shareFile": "Datei teilen",
 			"size": "Größe",
 			"sortBy": "Sortieren nach...",
-			"storeFilesForUploadProgress": "Dateien werden Hochladen.",
+			"storeFilesForUploadProgress": "Dateien werden hochgeladen",
 			"updatedAt": "Änderungsdatum",
 			"write": "Schreiben"
 		},
@@ -1402,7 +1402,7 @@
 			"searchResultFor": "Suchergebnisse für",
 			"searchResults": "Suchergebnisse",
 			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
-			"storeFilesForUploadDisabled": "Dateien zum Hochladen kann nur nach erste speichern erfolgen.",
+			"storeFilesForUploadDisabled": "Dateien können nur nach dem ersten Speichern hochgeladen werden",
 			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern"
 		}
