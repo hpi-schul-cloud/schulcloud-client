@@ -214,12 +214,6 @@ $(document).ready(() => {
 
 		return checked;
 	};
-	const getCollapse = (event) => {
-		const ref = $(event.target).attr('data-Ref');
-		const $collapse = $(`#collapse${ref}`);
-
-		return $collapse;
-	};
 
 	const TOGGLE = {
 		last: -1,
