@@ -1905,7 +1905,7 @@
 			"contactDetails": "Persona de contacto y datos de contacto",
 			"helpSection": "Artículos de ayuda",
 			"privacyCourse": "Curso de privacidad",
-			"welcomeDocuments": "Documentos de bienvenida para descargar"
+			"documentsToDownload": "Documentos para descargar"
 		},
 		"help_confluenceLinks": {
 			"link": {

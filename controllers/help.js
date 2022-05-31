@@ -94,8 +94,6 @@ router.get('/lernNuggets', (req, res, next) => {
 });
 
 router.get('/faq/documents', async (req, res, next) => {
-	const userRoles = res.locals.currentUser.roles.map(r => r.name);
-
 	const documents = await api(req)
 		.get('/help/documents/', { qs: { theme: res.locals.theme.name } })
 		.catch(() => {
@@ -107,7 +105,7 @@ router.get('/faq/documents', async (req, res, next) => {
 		});
 
 	return res.render('help/accordion-sections', {
-		title: res.$t('help.headline.welcomeDocuments'),
+		title: res.$t('help.headline.documentsToDownload'),
 		breadcrumb: [
 			{
 				title: res.$t('help.headline.helpSection'),
