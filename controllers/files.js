@@ -17,6 +17,7 @@ const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 const { logger, formatError } = require('../helpers');
 const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = require('../config/global');
+const { useNextcloudFilesystem, makeNextcloudFolderName } = require('../helpers/nextcloud');
 
 const router = express.Router();
 
@@ -66,7 +67,6 @@ const addThumbnails = (file) => {
 	}
 	return file;
 };
-
 
 /**
  * sends a signedUrl request to the server
@@ -122,7 +122,6 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = []) => api(req).get(`/files/${
 
 		return Promise.resolve(breadcrumbs);
 	});
-
 
 /**
  * check whether given files can be opened in LibreOffice
@@ -204,7 +203,6 @@ const dataSort = (data, sortBy, sortOrder) => {
 	return sortOrder !== 'desc' ? sortedData : sortedData.reverse();
 };
 
-
 /**
  * fetches all files and directories for a given storageContext
  */
@@ -261,7 +259,6 @@ const FileGetter = (req, res, next) => {
 			}
 			return option;
 		});
-
 
 		res.locals.files = {
 			files: dataSort(
@@ -376,7 +373,6 @@ const getFilesWithSaveName = (files) => files.map((file) => {
 	return file;
 });
 
-
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -424,7 +420,6 @@ router.post('/upload', upload.single('upload'), (req, res, next) => getSignedUrl
 		});
 	}).catch(next));
 
-
 // delete file
 router.delete('/file', (req, res, next) => {
 	const data = {
@@ -469,7 +464,6 @@ router.get('/file', (req, res, next) => {
 		});
 	}).catch(next);
 });
-
 
 // open in LibreOffice Online frame
 router.get('/file/:id/lool', (req, res, next) => {
@@ -672,7 +666,6 @@ router.get('/courses/', (req, res, next) => {
 	}).catch(next);
 });
 
-
 router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) => {
 	const basePath = '/files/courses/';
 	const record = await api(req).get(`/courses/${req.params.courseId}`);
@@ -743,7 +736,6 @@ router.get('/teams/', (req, res, next) => {
 	});
 });
 
-
 router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 	const basePath = '/files/teams/';
 	const team = await api(req).get(`/teams/${req.params.teamId}`);
@@ -769,8 +761,17 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
+	const nextcloudUrl = Configuration.get('NEXTCLOUD_REDIRECT_URL') !== ''
+		? Configuration.get('NEXTCLOUD_REDIRECT_URL')
+		+ encodeURI(makeNextcloudFolderName(req.params.teamId, team.name))
+		: '';
+
+	const useNextcloud = useNextcloudFilesystem(res.locals.currentUser);
+
 	res.render('files/files', {
 		title: res.$t('global.headline.files'),
+		nextcloudUrl,
+		useNextcloud,
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile: true,
@@ -790,7 +791,6 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 	});
 });
 
-
 router.get('/classes/', (req, res, next) => {
 	getScopeDirs(req, res, 'classes').then(async (directories) => {
 		const breadcrumbs = [{
@@ -808,7 +808,6 @@ router.get('/classes/', (req, res, next) => {
 		});
 	});
 });
-
 
 router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 	const basePath = '/files/classes/';

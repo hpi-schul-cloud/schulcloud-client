@@ -3,6 +3,7 @@ const { URL } = require('url');
 const { DOCUMENT_BASE_DIR, SC_THEME } = require('./global');
 
 const specificFiles = {
+	accessibilityStatement: 'Willkommensordner/Barrierefreiheit/Barrierefreiheitserklaerung.pdf',
 	privacyExemplary: 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
 	privacy: 'Onlineeinwilligung/Datenschutzerklaerung-Onlineeinwilligung.pdf',
 	termsOfUseExemplary: 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',

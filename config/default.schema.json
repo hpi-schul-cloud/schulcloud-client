@@ -170,6 +170,10 @@
 				}
 			}
 		},
+		"NO_COLOR": {
+			"type": "string",
+			"description": "The value is used to disable logging color in terminal and is set in production always to true. It is not connected to the loggers it self."
+		},
 		"FEATURE_MATRIX_MESSENGER_ENABLED": {
 			"type": "boolean",
 			"default": false,
@@ -195,6 +199,12 @@
 			"format": "uri",
 			"pattern": ".*(?<!/)$",
 			"description": "Content API URL of ghost blog (should end without a slash)"
+		},
+		"OAUTH2_LOGOUT_URI": {
+			"type": "string",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"description": "API URI of Oauth2 Logout (should end without a slash)"
 		},
 		"TEACHER_STUDENT_VISIBILITY": {
 			"type": "object",
@@ -373,6 +383,11 @@
 			"default": false,
 			"description": "feature toggle activate Room view link."
 		},
+		"ACCESSIBILITY_REPORT_EMAIL": {
+			"type": "string",
+			"default": "lernen.cloud@dataport.de",
+			"description": "Email to report accessibility issue"
+		},
 		"I18N": {
 			"type": "object",
 			"description": "Configuration of I18N",
@@ -494,10 +509,35 @@
 			"default": false,
 			"description": "Enables button Oauth Login feature"
 		},
+		"FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables button for invitations of external experts within teams"
+		},
 		"FEATURE_USER_MIGRATION_ENABLED": {
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled, admin can see a message with link to user migration page"
+		},
+		"FEATURE_DASHBOARD_DEFAULT_PICTURE_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the default picture of the dashboard"
+		},
+		"FEATURE_DASHBOARD_NEWS_ON_TOP_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the order of the dashboard with the news on top"
+		},
+		"FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED": {
+			"type": "boolean",
+			"default": "false",
+			"description": "Enables button on team file pages to open the nextcloud file storage."
+		},
+		"NEXTCLOUD_REDIRECT_URL": {
+			"type": "string",
+			"default": "",
+			"description": "URL that leads to the nextcloud oauth login"
 		}
 	},
 	"allOf": [

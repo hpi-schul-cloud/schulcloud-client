@@ -1654,7 +1654,7 @@
 				"en": "English",
 				"es": "Español",
 				"ua": "Yкраїнський"
-			} 
+			}
 		},
 		"link": {
 			"administrationStudents": "Schüler:innen",
@@ -2354,6 +2354,8 @@
 				"discardChange": "Änderung verwerfen"
 			},
 			"link": {
+				"accessibilityReport":"Barriere melden",
+				"accessibilityStatement": "Barrierefreiheitserklärung",
 				"dataProtectionDeclaration": "Datenschutzerklärung",
 				"github": "GitHub",
 				"participate": "Mitmachen",
@@ -2884,7 +2886,9 @@
 					"deleteFolder": "Ordner löschen",
 					"renameFolder": "Ordner umbenennen",
 					"shareFolder": "Ordner-Freigabe",
-					"toTeamFiles": "Zu den Team-Dateien"
+					"toTeamFiles": "Zu den Team-Dateien",
+					"toNextcloud": "Dateibereich öffnen",
+					"newTag": "Neu"
 				},
 				"headline": {
 					"changeFilePermissions": "Freigabe-Einstellungen ändern",
@@ -3159,6 +3163,11 @@
 			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
 			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen."
+		}
+	},
+	"info": {
+		"text": {
+			"nextcloudLink": "Wir arbeiten an einem neuen Dateibereich. Dort können ab jetzt alle <b>neuen Dateien</b> gespeichert und verwaltet werden (Dateibereich öffnen). Alle Team-Mitglieder haben automatisch Zugriff auf die dort gespeicherten Dateien. Alle bereits <b>bestehenden Dateien</b> in der {{title}} sind weiterhin hier verfügbar."
 		}
 	}
 }

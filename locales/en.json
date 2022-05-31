@@ -2354,6 +2354,8 @@
 				"discardChange": "Discard change"
 			},
 			"link": {
+				"accessibilityReport":"Accessibility feedback",
+				"accessibilityStatement": "Accessibility statement",
 				"dataProtectionDeclaration": "Privacy Policy",
 				"github": "GitHub",
 				"participate": "Participate",
@@ -2884,7 +2886,9 @@
 					"deleteFolder": "Delete folder",
 					"renameFolder": "Rename folder",
 					"shareFolder": "Share folder",
-					"toTeamFiles": "To the team files"
+					"toTeamFiles": "To the team files",
+					"toNextcloud": "Open file area",
+					"newTag": "New"
 				},
 				"headline": {
 					"changeFilePermissions": "Change share settings",
@@ -3159,6 +3163,11 @@
 			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
 			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
 			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference."
+		}
+	},
+	"info": {
+		"text": {
+			"nextcloudLink": "We are working on a new file space. From now on, all <b>new files</b> can be saved and managed there (open file area). All team members automatically have access to the files stored there. All already <b>existing files</b> in the {{title}} are still available here."
 		}
 	}
 }

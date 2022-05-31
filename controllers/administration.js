@@ -310,29 +310,6 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 		message: res.$t('administration.controller.text.userCreatedSuccessfully'),
 	};
 	return redirectHelper.safeBackRedirect(req, res);
-
-	/* deprecated code for template-based e-mails - we keep that for later copy&paste
-    fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
-        if (!err) {
-            let source = data.toString();
-            let template = handlebars.compile(source);
-            let outputString = template({
-                "url": (req.headers.origin || HOST) + "/register/account/" + user._id,
-                "firstName": user.firstName,
-                "lastName": user.lastName
-            });
-
-            let content = {
-                "html": outputString,
-                "text": "Sehr geehrte/r " + user.firstName + " " + user.lastName + ",\n\n" +
-					"Sie wurden in die HPI Schul-Cloud eingeladen," +
-					" bitte registrieren Sie sich unter folgendem Link:\n" +
-                    (req.headers.origin || HOST) + "/register/account/" + user._id + "\n\n" +
-                    "Mit Freundlichen Grüßen" + "\nIhr HPI Schul-Cloud Team"
-            };
-            req.body.content = content;
-        }
-    }); */
 };
 
 const getUserCreateHandler = (internalReturn) => function userCreate(req, res, next) {
@@ -497,33 +474,6 @@ const getDeleteHandler = (service, redirectUrl) => function deleteHandler(req, r
 			} else {
 				redirectHelper.safeBackRedirect(req, res);
 			}
-		})
-		.catch((err) => {
-			next(err);
-		});
-};
-
-const getDeleteAccountForUserHandler = (req, res, next) => {
-	api(req)
-		.get('/accounts/', {
-			qs: {
-				userId: req.params.id,
-			},
-		})
-		.then((accounts) => {
-			// if no account find, user isn't fully registered
-			if (!accounts || accounts.length <= 0) {
-				next();
-				return;
-			}
-
-			// for now there is only one account for a given user
-			const account = accounts[0];
-			api(req)
-				.delete(`/accounts/${account._id}`)
-				.then(() => {
-					next();
-				});
 		})
 		.catch((err) => {
 			next(err);
@@ -1020,42 +970,47 @@ router.get(
 			$populate: ['year'],
 			$sort: 'displayName',
 		});
-		const accountPromise = api(req).get('/accounts/', {
-			qs: { userId: req.params.id },
-		});
+		const accountPromise = api(req, { json: true, version: 'v3' })
+			.get('/account', {
+				qs: { type: 'userId', value: req.params.id },
+			});
 
 		Promise.all([
 			userPromise,
 			classesPromise,
 			accountPromise,
-		]).then(([user, _classes, _account]) => {
-			const account = _account[0];
-			const hidePwChangeButton = !account;
+		])
+			.then(([user, _classes, accountList]) => {
+				const account = accountList.data[0];
+				const hidePwChangeButton = !account;
 
-			const classes = _classes.map((c) => {
-				c.selected = c.teacherIds.includes(user._id);
-				return c;
+				const classes = _classes.map((c) => {
+					c.selected = c.teacherIds.includes(user._id);
+					return c;
+				});
+				const canDeleteUser = res.locals.currentUser.permissions.includes('TEACHER_DELETE');
+				res.render('administration/users_edit', {
+					title: res.$t('administration.controller.link.editTeacher'),
+					action: `/administration/teachers/${user._id}`,
+					submitLabel: res.$t('global.button.save'),
+					closeLabel: res.$t('global.button.cancel'),
+					user,
+					canDeleteUser,
+					consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
+					consent: user.consent,
+					classes,
+					editTeacher: true,
+					hidePwChangeButton,
+					isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
+					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+					referrer: req.header('Referer'),
+					hasAccount: !!account,
+					accountId: account ? account.id : null,
+				});
+			})
+			.catch((err) => {
+				next(err);
 			});
-			const canDeleteUser = res.locals.currentUser.permissions.includes('TEACHER_DELETE');
-			res.render('administration/users_edit', {
-				title: res.$t('administration.controller.link.editTeacher'),
-				action: `/administration/teachers/${user._id}`,
-				submitLabel: res.$t('global.button.save'),
-				closeLabel: res.$t('global.button.cancel'),
-				user,
-				canDeleteUser,
-				consentStatusIcon: getConsentStatusIcon(user.consentStatus, true),
-				consent: user.consent,
-				classes,
-				editTeacher: true,
-				hidePwChangeButton,
-				isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
-				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-				referrer: req.header('Referer'),
-				hasAccount: !!account,
-				accountId: account ? account._id : null,
-			});
-		});
 	},
 );
 
@@ -1453,13 +1408,14 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	(req, res, next) => {
 		const userPromise = api(req).get(`/users/admin/students/${req.params.id}`);
-		const accountPromise = api(req).get('/accounts/', {
-			qs: { userId: req.params.id },
-		});
+		const accountPromise = api(req, { json: true, version: 'v3' })
+			.get('/account', {
+				qs: { type: 'userId', value: req.params.id },
+			});
 		const canSkip = permissionsHelper.userHasPermission(res.locals.currentUser, 'STUDENT_SKIP_REGISTRATION');
 
 		Promise.all([userPromise, accountPromise])
-			.then(([user, [account]]) => {
+			.then(([user, accountList]) => {
 				const consent = user.consent || {};
 				if (consent) {
 					consent.parentConsent = (consent.parentConsents || []).length
@@ -1467,6 +1423,7 @@ router.get(
 						: {};
 				}
 				const canDeleteUser = res.locals.currentUser.permissions.includes('STUDENT_DELETE');
+				const account = accountList.data[0];
 				const hidePwChangeButton = !account;
 				res.render('administration/users_edit', {
 					title: res.$t('administration.controller.link.editingStudents'),
@@ -1485,7 +1442,7 @@ router.get(
 					referrer: req.header('Referer'),
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					hasAccount: !!account,
-					accountId: account ? account._id : null,
+					accountId: account ? account.id : null,
 				});
 			})
 			.catch((err) => {

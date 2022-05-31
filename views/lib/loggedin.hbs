@@ -49,20 +49,13 @@
 
     {{#content "body"}}
         {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
-            {{#if @root.currentSchoolData.officialSchoolNumber}}
-                {{#if @root.currentSchoolData.inUserMigration}}
-                    {{#userHasPermission 'IMPORT_USER_VIEW'}}
-                        <input type="hidden" id="inUserMigrationStarted" value="{{currentRole}}"/>
-                    {{/userHasPermission}}
-                {{else}}
-                    {{#ifneq @root.currentSchoolData.inUserMigration false}}
-                        {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
-                            <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
-                        {{/userHasPermission}}
-                    {{/ifneq}}
-                {{/if}}
-            {{/if}}
+            {{#embed "lib/ldap_migration_banner"}}{{/embed}}
+        {{else}}
+            {{#inArray "ldapUniventionMigrationSchool" @root.currentSchoolData.features}}
+                {{#embed "lib/ldap_migration_banner"}}{{/embed}}
+            {{/inArray}}
         {{/ifConfig}}
+
         {{#if currentSchoolData.inMaintenance}}
             <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
         {{/if}}
@@ -247,7 +240,7 @@
                                     <li><div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>
                                     {{> "user/forms/language" language=@root.userLanguage }}
                                     <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
-                                    <li><a class="dropdown-item localstorageclear" data-testid="logout" href="/logout/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
+                                    <li><a class="dropdown-item localstorageclear" data-testid="logout" href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}} role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
                                 </ul>
                               </div>
                             </div>

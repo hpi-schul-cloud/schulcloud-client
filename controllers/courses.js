@@ -141,6 +141,7 @@ const editCourseHandler = (req, res, next) => {
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher'],
 		$limit: false,
+		$sort: 'lastName',
 	});
 	const studentsPromise = getSelectOptions(req, 'users', {
 		roles: ['student'],
@@ -167,13 +168,13 @@ const editCourseHandler = (req, res, next) => {
 		).sort();
 		const teachers = _teachers.filter(
 			(t) => t.schoolId === res.locals.currentSchool,
-		).sort((a, b) => a.firstName.localeCompare(b.firstName));
+		);
 		const students = _students.filter(
 			(s) => s.schoolId === res.locals.currentSchool,
-		).sort((a, b) => a.firstName.localeCompare(b.firstName));
+		);
 		const substitutions = _.cloneDeep(
 			teachers,
-		).sort((a, b) => a.firstName.localeCompare(b.firstName));
+		);
 
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
@@ -416,6 +417,17 @@ const filterSubstitutionCourses = (courses, userId, res) => {
 
 	return [substitutions, others];
 };
+
+router.get('/getNames', async (req, res, next) => {
+	try {
+		const result = await api(req).get('/courses/');
+		const courseNamesWithId = result.data.map((c) => ({ name: c.name, _id: c._id }));
+
+		res.json(courseNamesWithId);
+	} catch (err) {
+		next(err);
+	}
+});
 
 router.get('/', (req, res, next) => {
 	const { currentUser } = res.locals;

@@ -76,7 +76,6 @@
         </section>
         {{/if}}
 
-
         <div class="course-card">
             <div class="tabContainer" data-active-tab={{activeTab}}>
                 <div class="tabs" data-max-width="1024">
@@ -99,7 +98,20 @@
                     <!-- Dateien -->
                     <div class="section" data-testid="team_files" data-section="js-files">
                         {{#if canUploadFile}}
-                        {{#embed "files/file-upload"}}{{/embed}}
+                            {{#embed "files/file-upload"}}{{/embed}}
+                        {{/if}}
+
+                        {{#if useNextcloud}}
+                        <div class="alert info-custom" role="alert">
+                            <i class="fa fa-info-circle pr-1"></i>
+                            <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
+                        </div>
+
+                        <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
+                            <i class="fa fa-external-link" aria-hidden="true"></i>
+                            {{$t "teams._team.files.button.toNextcloud"}}
+                            <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
+                        </a>
                         {{/if}}
 
                         {{#ifneq 0 (arrayLength directories)}}
@@ -154,19 +166,22 @@
                             <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
 
                             <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
-                                <i class="fa fa-folder-open" aria-hidden="true"></i> {{$t
-                                "teams._team.files.button.toTeamFiles"}}
+                                <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                {{$t "teams._team.files.button.toTeamFiles"}}
                             </a>
+
                             {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
-                            <button class="btn btn-add btn-secondary btn-file-permissions">
-                                <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t
-                                "teams._team.files.button.changeSharingSettings"}}
-                            </button>
+                                    <button class="btn btn-add btn-secondary btn-file-permissions">
+                                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                                        {{$t "teams._team.files.button.changeSharingSettings"}}
+                                    </button>
                             {{/inArray}}
+
                             {{#if ../canCreateDir}}
-                            <button class="btn btn-primary create-directory">
-                                <i class="fa fa-folder" aria-hidden="true"></i> {{$t "global.button.createFolder"}}
-                            </button>
+                                <button class="btn btn-primary create-directory">
+                                    <i class="fa fa-folder" aria-hidden="true"></i>
+                                    {{$t "global.button.createFolder"}}
+                                </button>
                             {{/if}}
                             {{!-- {{#if ../canCreateFile}}
                             <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
@@ -174,6 +189,7 @@
                             </span>
                             {{/if}} --}}
                         </section>
+
 
                     </div>
                     <!--- Neuigkeiten -->

@@ -65,14 +65,40 @@
             <h2 class="h5 mb-1 mt-2">{{$t "dashboard.headline.welcome"}} {{@root.currentUser.firstName}} {{@root.currentUser.lastName}}!</h2>
         </div>
     </div>
+    {{#if (getConfig "FEATURE_DASHBOARD_DEFAULT_PICTURE_ENABLED")}}
+        <div class="row d-block text-center">
+            <div class="empty-state">
+                <div class="image wide-image center">
+                    {{> 'dashboard/svg_welcome' }}
+                </div>
+            </div>
+        </div>
+    {{/if}}
+</section>
+
+{{#if (getConfig "FEATURE_DASHBOARD_NEWS_ON_TOP_ENABLED")}}
+{{#if news}}
+{{>  'dashboard/components/card_section' section-id="news" title=($t "global.headline.news") content=news link-text=($t "dashboard.link.continueReading") href="/news/"}}
+{{else}}
+<section data-testid="news-section" class="section section-news mb-2">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/news/">{{$t "global.headline.news"}}</a></h2>
+        </div>
+    </div>
     <div class="row d-block text-center">
         <div class="empty-state">
-            <div class="image wide-image center">
-                {{> 'dashboard/svg_welcome' }}
+            <div class="image center">
+                {{> 'dashboard/svg_news-empty' }}
             </div>
+            <p class="text-muted dashboard-empty-info">
+                {{$t "dashboard.text.emptyNewsInfo"}}
+            </p>
         </div>
     </div>
 </section>
+{{/if}}
+{{/if}}
 
 {{#if events}}
 <section data-testid="timetable-section" class="section section-timetable">
@@ -151,16 +177,16 @@
 
 {{#if isTeacher}}
     {{#if homeworksFeedbackRequired}}
-        {{> 'dashboard/components/homework_tiles' section-id="tasks-with-required-feedback" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/homework/" redirectToTab="submissions"}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks-with-required-feedback" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/tasks" redirectToTab="submissions"}}
     {{/if}}
 
     {{#if assignedHomeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="published-tasks" title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/homework/asked/"}}
+        {{> 'dashboard/components/homework_tiles' section-id="published-tasks" title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/tasks"}}
     {{else}}
     <section class="section mb-2">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "global.headline.tasks"}}</a></h2>
+                <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/tasks">{{$t "global.headline.tasks"}}</a></h2>
             </div>
         </div>
         <div class="row d-block text-center">
@@ -179,17 +205,17 @@
     {{/if}}
 
     {{#if privateHomeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="private-tasks" title=($t "global.headline.draftTasks") content=privateHomeworks href="/homework/private/"}}
+        {{> 'dashboard/components/homework_tiles' section-id="private-tasks" title=($t "global.headline.draftTasks") content=privateHomeworks href="/tasks"}}
     {{/if}}
 
 {{else if isStudent}}
     {{#if assignedHomeworks}}
-        {{> 'dashboard/components/homework_tiles' section-id="published-tasks" title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/homework/asked/"}}
+        {{> 'dashboard/components/homework_tiles' section-id="published-tasks" title=($t "global.headline.assignedTasks") content=assignedHomeworks href="/tasks"}}
     {{else}}
         <section class="section mb-2">
             <div class="row">
                 <div class="col-sm-12">
-                    <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/homework">{{$t "global.headline.tasks"}}</a></h2>
+                    <h2 class="h5 mb-1 mt-2"><a class="dashboard-title" href="/tasks">{{$t "global.headline.tasks"}}</a></h2>
                 </div>
             </div>
            <div class="row d-block text-center">
@@ -208,14 +234,11 @@
     {{/if}}
 
     {{#if homeworksWithFeedback}}
-        {{> 'dashboard/components/homework_tiles' section-id="tasks-with-feedback" title=($t "dashboard.headline.withFeedback") content=homeworksWithFeedback href="/homework" redirectToTab="feedback"}}
+        {{> 'dashboard/components/homework_tiles' section-id="tasks-with-feedback" title=($t "dashboard.headline.withFeedback") content=homeworksWithFeedback href="/tasks" redirectToTab="feedback"}}
     {{/if}}
 {{/if}}
 
-
-
-
-
+{{#unless (getConfig "FEATURE_DASHBOARD_NEWS_ON_TOP_ENABLED")}}
 {{#if news}}
 {{>  'dashboard/components/card_section' section-id="news" title=($t "global.headline.news") content=news link-text=($t "dashboard.link.continueReading") href="/news/"}}
 {{else}}
@@ -237,6 +260,7 @@
     </div>
 </section>
 {{/if}}
+{{/unless}}
 
 {{#if this.currentSchoolData.pilot}}
 {{#ifneq this.currentRole "Schüler"}}
