@@ -201,7 +201,7 @@ $(document).ready(() => {
 
 	$('button[data-method="download"]').on('click', (e) => {
 		const fileRecordId = $(e.currentTarget).attr('data-file-id');
-		const fileName = $(e.currentTarget).attr('data-file-name')
+		const fileName = $(e.currentTarget).attr('data-file-name');
 		window.open(`${apiBasePath}/download/${fileRecordId}/${fileName}`, '_blank');
 		e.stopPropagation();
 	});

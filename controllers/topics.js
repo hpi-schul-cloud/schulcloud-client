@@ -1,13 +1,13 @@
 const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
-const Nexboard = require('../helpers/nexboard');
 const { randomBytes } = require('crypto');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const Nexboard = require('../helpers/nexboard');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
@@ -133,8 +133,8 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 const getEtherpadSession = async (req, res, courseId) => {
 	return await api(req).post(
 		'/etherpad/sessions', {
-		form: {
-			courseId,
+			form: {
+				courseId,
 		},
 	},
 	).catch((err) => {
@@ -191,7 +191,7 @@ const getNexBoardProjectFromUser = async (req, user) => {
 	return preferences.nexBoardProjectID;
 };
 
-async function createNewNexBoards(req, res, contents = []) {
+async function createNewNexBoards(req, res, contents = [], next) {
 	// eslint-disable-next-line no-return-await
 	return await Promise.all(contents.map(async (content) => {
 		if (content.component === 'neXboard' && content.content.board === '0') {
@@ -257,7 +257,7 @@ router.post('/', async (req, res, next) => {
 	// Check for etherpad component
 	data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
 	// Check for neXboard compontent
-	data.contents = await createNewNexBoards(req, res, data.contents);
+	data.contents = await createNewNexBoards(req, res, data.contents, next);
 
 	data.contents = data.contents.filter(c => c !== undefined);
 
@@ -427,7 +427,7 @@ router.patch('/:topicId', async (req, res, next) => {
 	// create new Etherpads when necessary, if not simple hidden or position patch
 	if (data.contents) data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
 	// create new Nexboard when necessary, if not simple hidden or position patch
-	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents);
+	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents, next);
 
 	if (data.contents) { data.contents = data.contents.filter(c => c !== undefined); }
 
@@ -445,7 +445,7 @@ router.patch('/:topicId', async (req, res, next) => {
 			}
 			// sends a GET request, not a PATCH
 			res.redirect(`/${context}/${req.params.courseId}/topics/${req.params.topicId
-				}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`);
+			}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`);
 		}
 	}).catch((error) => {
 		const statusCode = error.statusCode || 500;

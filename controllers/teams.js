@@ -293,7 +293,7 @@ router.get('/', async (req, res, next) => {
 				.format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
 			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''
-				}</div>`;
+			}</div>`;
 		});
 
 		return team;
@@ -477,7 +477,7 @@ router.get('/:teamId', async (req, res, next) => {
 				);
 				const rocketChatURL = Configuration.get('ROCKET_CHAT_URI');
 				rocketChatCompleteURL = `${rocketChatURL}/group/${rocketChatChannel.channelName
-					}`;
+				}`;
 			} catch (err) {
 				logger.warn(formatError(err));
 				rocketChatCompleteURL = undefined;
