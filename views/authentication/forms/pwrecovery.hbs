@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label class="control-label" for="username">{{$t "login.popup_resetPw.label.yourEmailUsername"}}</label>
+    <label class="control-label" data-testid="username-label" for="username">{{$t "login.popup_resetPw.label.yourEmailUsername"}}</label>
     <input type="text"
            autocomplete="username"
            name="username"
@@ -8,8 +8,9 @@
            maxlength="60"
            placeholder="{{$t "login.popup_resetPw.input.yourEmailUsername"}}"
            class="form-control"
+           data-testid="username"
             required>
 </div>
-<p>
+<p data-testid="info-message">
     {{{$t "login.popup_resetPw.text.contactTeacherAdminForHelp"}}}
 </p>
