@@ -1,0 +1,13 @@
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="{{getAssetPath '/styles/files/forms/form-virus-danger.css'}}" />
+{{/content}}
+
+<div class="text-center">
+    <div class="row">
+        <div class="col-sm-12">
+            <i class="fa fa-exclamation-triangle danger-icon"></i>
+        </div>
+    </div>
+    <p>{{$t "files.text.foundMaliciousContent" }}</p>
+    <p>{{$t "files.text.FileCanNotBeDownloaded" }}</p>
+</div>

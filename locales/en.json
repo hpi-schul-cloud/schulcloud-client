@@ -1288,7 +1288,10 @@
 				"fileAddedSuccess": "File (s) added successfully and will be displayed immediately after the page is refreshed.",
 				"fileAlreadyExists": "A file with this name already exists in the target folder!",
 				"fileAlreadyExistsInDir": "A file with this name already exists in the same folder!",
+				"fileIsBlocked": "The file may contain malicious content",
 				"fileMoved": "The file was moved successfully!",
+				"fileNameExists": "A file with this name already exists",
+				"fileNotFound": "The file could not be found",
 				"littleHintHowToMoveFiles": "<b>Little hint:</b> You can download the file and then upload it to the correct folder.",
 				"movingFilesIsDisabled": "Moving files is currently not possible. We are working on a solution.",
 				"permissionsChangedSuccess": "File permissions changed successfully",
@@ -1361,6 +1364,7 @@
 			"shareFile": "Share file",
 			"size": "Size",
 			"sortBy": "Sort by...",
+			"storeFilesForUploadProgress": "Files uploading",
 			"updatedAt": "Modification date",
 			"write": "Write"
 		},
@@ -1398,6 +1402,7 @@
 			"searchResultFor": "search results for",
 			"searchResults": "Search results",
 			"storeFilesForUpload": "Save files for upload.",
+			"storeFilesForUploadDisabled": "Files can only be uploaded after the first save",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance"
 		}
