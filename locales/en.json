@@ -1910,7 +1910,7 @@
 			"contactDetails": "Contact person and contact details",
 			"helpSection": "Help articles",
 			"privacyCourse": "Privacy course",
-			"welcomeDocuments": "Welcome documents for download"
+			"documentsToDownload": "Documents for download"
 		},
 		"help_confluenceLinks": {
 			"link": {
