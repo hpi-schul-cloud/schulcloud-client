@@ -1,13 +1,13 @@
 const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
-const Nexboard = require('../helpers/nexboard');
 const { randomBytes } = require('crypto');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const Nexboard = require('../helpers/nexboard');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
@@ -21,16 +21,16 @@ const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	let lessonPromise;
 	let action;
-	let	method;
+	let method;
 	const referrer = req.query.returnUrl;
 	if (req.params.topicId) {
 		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
-		+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
+			+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
 		method = 'patch';
 		lessonPromise = api(req).get(`/lessons/${req.params.topicId}`);
 	} else {
 		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
-		+ `/topics${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
+			+ `/topics${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
 		method = 'post';
 		lessonPromise = Promise.resolve({});
 	}
@@ -64,7 +64,7 @@ const editTopicHandler = (req, res, next) => {
 };
 
 const checkInternalComponents = (data, baseUrl) => {
-	const pattern =	new RegExp(
+	const pattern = new RegExp(
 		`(${baseUrl})(?!.*/(edit|new|add|files/my|files/file|account|administration|topics)).*`,
 	);
 	(data.contents || []).forEach((c) => {
@@ -84,16 +84,16 @@ const getEtherpadPadForCourse = async (req, user, courseId, content, oldPadId) =
 			text: content.description,
 			oldPadId
 		},
-	}).then((response) => response.data.padID );
+	}).then((response) => response.data.padID);
 };
 
 async function createNewEtherpad(req, res, contents = [], courseId) {
 	// eslint-disable-next-line no-return-await
 	return await Promise.all(contents.map(async (content) => {
 		if (!content
-			|| typeof(content.component) === 'undefined'
+			|| typeof (content.component) === 'undefined'
 			|| content.component !== 'Etherpad'
-			|| typeof(content.content) === 'undefined'
+			|| typeof (content.content) === 'undefined'
 		) {
 			return content;
 		}
@@ -102,14 +102,14 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 		try {
 			let parsedUrl = new URL(content.content.url);
 			isOldPad = isPadDomainOld(parsedUrl);
-			if(isOldPad) {
+			if (isOldPad) {
 				oldPadId = getPadIdFromUrl(content.content.url);
 			}
 		} catch (err) {
 			logger.error(err.message);
 		};
 		// no pad name supplied, generate one
-		if (typeof(content.content.title) === 'undefined' || content.content.title === '') {
+		if (typeof (content.content.title) === 'undefined' || content.content.title === '') {
 			content.content.title = randomBytes(12).toString('hex');
 		}
 		const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
@@ -135,8 +135,8 @@ const getEtherpadSession = async (req, res, courseId) => {
 		'/etherpad/sessions', {
 			form: {
 				courseId,
-			},
 		},
+	},
 	).catch((err) => {
 		logger.error(err.message);
 		return undefined;
@@ -144,7 +144,7 @@ const getEtherpadSession = async (req, res, courseId) => {
 };
 
 const isPadDomainOld = (url) => {
-	if(url.hostname === Configuration.get('ETHERPAD__OLD_DOMAIN')) {
+	if (url.hostname === Configuration.get('ETHERPAD__OLD_DOMAIN')) {
 		return true;
 	}
 	return false;
@@ -155,7 +155,7 @@ const validatePadDomain = (url) => {
 		Configuration.get('ETHERPAD__OLD_DOMAIN'),
 		Configuration.get('ETHERPAD__NEW_DOMAIN')
 	];
-	if ( whitelist.indexOf(url.hostname) === -1 ) {
+	if (whitelist.indexOf(url.hostname) === -1) {
 		throw new Error(`not a valid etherpad hostname: ${url.hostname}`);
 	}
 }
@@ -191,7 +191,7 @@ const getNexBoardProjectFromUser = async (req, user) => {
 	return preferences.nexBoardProjectID;
 };
 
-async function createNewNexBoards(req, res, contents = []) {
+async function createNewNexBoards(req, res, contents = [], next) {
 	// eslint-disable-next-line no-return-await
 	return await Promise.all(contents.map(async (content) => {
 		if (content.component === 'neXboard' && content.content.board === '0') {
@@ -211,7 +211,7 @@ async function createNewNexBoards(req, res, contents = []) {
 
 				return content;
 			} catch (err) {
-				logger.error(formatError(err));
+				next(err);
 
 				return undefined;
 			}
@@ -257,7 +257,7 @@ router.post('/', async (req, res, next) => {
 	// Check for etherpad component
 	data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
 	// Check for neXboard compontent
-	data.contents = await createNewNexBoards(req, res, data.contents);
+	data.contents = await createNewNexBoards(req, res, data.contents, next);
 
 	data.contents = data.contents.filter(c => c !== undefined);
 
@@ -325,7 +325,7 @@ router.get('/:topicId', (req, res, next) => {
 						const { url } = element.content;
 						const padId = getPadIdFromUrl(url);
 						// set cookie for this pad
-						if(typeof(padId) !== 'undefined') {
+						if (typeof (padId) !== 'undefined') {
 							etherpadPads.push(padId);
 						}
 					}
@@ -427,7 +427,7 @@ router.patch('/:topicId', async (req, res, next) => {
 	// create new Etherpads when necessary, if not simple hidden or position patch
 	if (data.contents) data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
 	// create new Nexboard when necessary, if not simple hidden or position patch
-	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents);
+	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents, next);
 
 	if (data.contents) { data.contents = data.contents.filter(c => c !== undefined); }
 

@@ -23,7 +23,7 @@ spec:
         app: client-ldap
       annotations:
     spec:
-      securityContext:  
+      securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
@@ -37,8 +37,8 @@ spec:
           containerPort: 3100
           protocol: TCP
         env:
-        - name: BACKEND_URL
-          value: "http://api-ldap-svc:3030/api/"
+        - name: API_HOST
+          value: "http://api-ldap-svc:3030/api"
         envFrom:
         - configMapRef:
             name: client-configmap
