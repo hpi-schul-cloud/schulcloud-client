@@ -1,13 +1,9 @@
-const assert = require('assert');
-const app = require('../../../app');
 const chai = require('chai');
+const chaiHttp = require('chai-http');
+const app = require('../../../app');
 
 const { expect } = chai;
-const chaiHttp = require('chai-http');
-
 chai.use(chaiHttp);
-
-const { BACKEND_URL } = require('../../../config/global');
 
 describe('Link tests', () => {
 	before(function (done) {

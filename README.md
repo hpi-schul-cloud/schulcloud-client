@@ -67,7 +67,7 @@ For html/css components please check [caniuse](https://caniuse.com/).
   Ubuntu/Mac: `export SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)  
 	Windows: `set SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)  
 2. run `npm run test`  
-3. If you want to use another backend url than localhost, set the `BACKEND_URL` and `PUBLIC_BACKEND_URL` environment variables (see 1)  
+3. If you want to use another backend url than localhost, set the `API_HOST` and `PUBLIC_BACKEND_URL` environment variables (see 1)  
 4. If you want to list the coverage, run `npm run coverage`
 
 ## Commiting
