@@ -6,6 +6,7 @@
 const express = require('express');
 const marked = require('marked');
 const handlebars = require('handlebars');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -26,6 +27,8 @@ handlebars.registerHelper('ifvalue', (conditional, options) => {
 });
 
 router.use(authHelper.authChecker);
+
+const taskCopyServiceEnabled = Configuration.get('FEATURE_TASK_COPY_ENABLED') || false;
 
 const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
 	qs: query,
@@ -683,7 +686,25 @@ router.get('/new', (req, res, next) => {
 	});
 });
 
-router.get('/:assignmentId/copy', (req, res, next) => {
+router.get('/:assignmentId/copy', async (req, res, next) => {
+	if (taskCopyServiceEnabled) {
+		const { courseId } = req.query;
+		await api(req, { version: 'v3' }).post(`/tasks/${req.params.assignmentId}/copy`, {
+			json: {
+				courseId,
+			},
+		})
+			.then((assignment) => {
+				if (!assignment || !assignment.id) {
+					const error = new Error(res.$t('homework._task.text.errorInvalidTaskId'));
+					error.status = 500;
+					return next(error);
+				}
+				return res.redirect(`/homework/${assignment.id}/edit`);
+			}).catch((err) => {
+				next(err);
+			});
+	}
 	api(req).get(`/homework/copy/${req.params.assignmentId}`)
 		.then((assignment) => {
 			if (!assignment || !assignment._id) {
@@ -892,6 +913,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				courseGroups,
 				courseGroupSelected,
 				path: submissionUploadPath,
+				course: assignment.courseId,
 			};
 
 			// Abgabenübersicht anzeigen -> weitere Daten berechnen
