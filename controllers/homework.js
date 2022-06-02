@@ -688,22 +688,22 @@ router.get('/new', (req, res, next) => {
 
 router.get('/:assignmentId/copy', async (req, res, next) => {
 	if (taskCopyServiceEnabled) {
-		const { courseId } = req.query;
-		await api(req, { version: 'v3' }).post(`/tasks/${req.params.assignmentId}/copy`, {
-			json: {
-				courseId,
-			},
-		})
-			.then((assignment) => {
-				if (!assignment || !assignment.id) {
-					const error = new Error(res.$t('homework._task.text.errorInvalidTaskId'));
-					error.status = 500;
-					return next(error);
-				}
-				return res.redirect(`/homework/${assignment.id}/edit`);
-			}).catch((err) => {
-				next(err);
+		try {
+			const { courseId } = req.query;
+			const result = await api(req, { version: 'v3' }).post(`/tasks/${req.params.assignmentId}/copy`, {
+				json: {
+					courseId,
+				},
 			});
+			if (!result || !result.id) {
+				const error = new Error(res.$t('homework._task.text.errorInvalidTaskId'));
+				error.status = 500;
+				return next(error);
+			}
+			return res.redirect(`/homework/${result.id}/edit`);
+		} catch (err) {
+			next(err);
+		}
 	}
 	api(req).get(`/homework/copy/${req.params.assignmentId}`)
 		.then((assignment) => {
