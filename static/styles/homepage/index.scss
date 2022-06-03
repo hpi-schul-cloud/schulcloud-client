@@ -3,139 +3,147 @@
 @import "./login";
 
 .btn-primary.btn-outline{
-    &:hover {
-        background-color: var(--color-primary);
-        border-color: var(--color-primary);
-        color: var(--color-white);
-    }
-    border: 1px solid var(--color-primary);
-    color: var(--color-primary);
-    background: transparent;
+  &:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
 }
+
 .nav-link {
-	font-size: 16px;
-	line-height: 19.2px;
-	&:hover, &:focus{
-		background-color: rgb(238, 238, 238) !important;
-	}
+  line-height: 19.2px;
+  font-size: 16px;
+  &:hover, &:focus{
+    background-color: rgb(238, 238, 238) !important;
+  }
 }
 
 .section a.btn.btn-white-outlined{
-    display: inline-block;
-    border: 1px solid;
-        text-decoration: none;
-    &:hover{
-            background-color: var(--color-white);
-            color: var(--color-accent);
-    }
+  display: inline-block;
+  border: 1px solid;
+  text-decoration: none;
+  &:hover{
+    background-color: var(--color-white);
+    color: var(--color-accent);
+  }
 }
 
 .grid-align-right{
-    @supports (display: grid) {
-        text-align: right;
-    }
-    @include media-breakpoint-down(md) {
-        text-align: left;
-    }
+  @supports (display: grid) {
+    text-align: right;
+  }
+
+  @include media-breakpoint-down(md) {
+    text-align: left;
+  }
 }
 
 .partner{
-    border: var(--border-width) solid var(--color-gray-light);
-    width: 100%;
-    height: 100%;
-    padding: var(--space-md);
-    object-fit: contain;
-    background: #fff;
-    &:hover {
-        box-shadow: var(--shadow-sm);
-        transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
-    }
+  border: var(--border-width) solid var(--color-gray-light);
+  background: #fff;
+  padding: var(--space-md);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  &:hover {
+    transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+    box-shadow: var(--shadow-sm);
+  }
 }
 
-    thead {
-        border-bottom: 2px solid #54616e;
+thead {
+  border-bottom: 2px solid #54616e;
 
-        th {
-            background-color: transparent;
-            border: none;
-        }
-    }
+  th {
+    border: zero;
+    background-color: transparent;
+  }
+}
 
-    td {
-        text-align: center;
-        vertical-align: middle;
-        font-size: 0.85em;
+td {
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.85em;
 
-        &:first-child{
-            text-align: left;
-        }
-    }
-	img.check {
-		width: 100% !important;
-		max-width: 40px !important;
-	}
-	@include media-breakpoint-down(lg) {
-		.btn-margin {
-			margin-top: 8px;
-		}
-		.prototype-button {
-			width: 100% !important;
-		}
-	}
+  &:first-child{
+    text-align: left;
+  }
+}
+
+img.check {
+  width: 100% !important;
+  max-width: 40px !important;
+}
+
+@include media-breakpoint-down(lg) {
+  .btn-margin {
+    margin-top: 8px;
+  }
+
+  .prototype-button {
+    width: 100% !important;
+  }
+}
 
 .flex-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    h1{
-        font-size: 50px;
+  h1{
+    font-size: 50px;
 
-        @include media-breakpoint-down(sm) {
-        font-size: 40px;
-        }
+    @include media-breakpoint-down(sm) {
+      font-size: 40px;
     }
+  }
 
-    p {
-        margin-bottom: 0;
-    }
-    .teaser{
-        font-size:24px;
+  p {
+    margin-bottom: 0;
+  }
 
-        @include media-breakpoint-down(sm) {
-            font-size:18px;
-        }
-    }
+  .teaser{
+    font-size: 24px;
 
-    .section-img {
-        @include media-breakpoint-down(sm) {
-            width: 40vw;
-        }
+    @include media-breakpoint-down(sm) {
+      font-size: 18px;
     }
-    .check {
-        width: 40px;
+  }
+
+  .section-img {
+    @include media-breakpoint-down(sm) {
+      width: 40vw;
     }
+  }
+
+  .check {
+    width: 40px;
+  }
 }
 
 .section-landing{
-    margin-bottom: 100px;
+  margin-bottom: 100px;
 
-    @include media-breakpoint-down(sm) {
-        margin-bottom: 60px;
-    }
+  @include media-breakpoint-down(sm) {
+    margin-bottom: 60px;
+  }
 }
 
 .heading{
-    font-size: 29px;
+  font-size: 29px;
 }
 
 .section-heading {
-    font-size: 40px;
+  font-size: 40px;
 
-    @include media-breakpoint-down(sm) {
-        font-size: 35px;
-    }
+  @include media-breakpoint-down(sm) {
+    font-size: 35px;
+  }
 
 }
+
 .alert {
-	margin-top: 1rem !important;
+  margin-top: 1rem !important;
 }

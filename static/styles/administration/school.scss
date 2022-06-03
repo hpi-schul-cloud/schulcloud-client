@@ -14,7 +14,7 @@
 }
 
 #policy-file-logo{
-	display: none;
+  display: none;
 }
 
 #logo-filename{
@@ -26,7 +26,7 @@
 }
 
 label {
-  margin-bottom: 0rem;
+  margin-bottom: 0;
 }
 
 #ldapschoolyearadditionalinfo {
@@ -34,31 +34,36 @@ label {
 }
 
 .wizard-card {
-  padding: 20px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 20px;
   padding-bottom: 50px;
   .progressbar {
     margin-top: 20px;
-    margin-left: 12px;
     margin-right: 12px;
+    margin-left: 12px;
   }
+
   .stages {
-    padding-left: 12px;
     padding-right: 12px;
+    padding-left: 12px;
   }
+
   .row.head {
     p {
-      font-weight: bold;
       text-align: center;
+      font-weight: bold;
     }
   }
+
   .row.body {
     text-align: center;
   }
+
   i.fa-check.green {
-    color: green;
+    color: #008000;
   }
+
   i.fa-times.red {
-    color: red;
+    color: #ff0000;
   }
 }

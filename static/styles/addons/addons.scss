@@ -1,13 +1,13 @@
 .card-tool {
-	color: inherit;
+  color: inherit;
 
-	&:hover, &:focus{
-		color: inherit;
-		text-decoration: initial;
-	}
+  &:hover, &:focus{
+    text-decoration: initial;
+    color: inherit;
+  }
 }
 
 .card-img {
-	float: left;
-	margin-right: 10px;
+  float: left;
+  margin-right: 10px;
 }

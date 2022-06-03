@@ -27,7 +27,7 @@
   }
 
   .card.folder {
-	width: 100%;
+    width: 100%;
     padding: 10px;
     width: 100%;
     &:hover {
@@ -54,7 +54,7 @@
   }
 
   .card-title-directory {
-	float: left;
+    float: left;
     color: $primaryColor;
   }
 }
@@ -70,7 +70,7 @@
   left: 0;
   background: rgba(0, 0, 0, 0.8);
   .link {
-    color: #ffffff;
+    color: #fff;
     font-size: 30px;
     position: absolute;
     margin-top: 30%;
@@ -92,7 +92,7 @@
   max-width: 90%;
   max-height: 90%;
   margin-top: 2%;
-  background: #ffffff;
+  background: #fff;
 }
 
 .lightbox:target {
@@ -195,7 +195,7 @@
 }
 
 .filter-options {
-  background: #ffffff;
+  background: #fff;
   position: absolute;
   z-index: 5;
   word-wrap: break-word;
@@ -208,7 +208,7 @@
 
   .filter-option:hover {
     background-color: $primaryColor;
-    color: #ffffff;
+    color: #fff;
   }
 }
 
@@ -314,10 +314,10 @@
 }
 
 .file-btn {
-  border: none;
+  border: zero;
   cursor: pointer;
   background-color: inherit;
-  padding: 0px;
+  padding: 0;
 }
 
 
@@ -329,26 +329,26 @@
 }
 
 .btn {
-	margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 
-	.tag {
-		background-color: $secondaryColor;
-		border-radius: 20px;
-		padding: 1px 6px;
-		font-size: 10pt;
-		color: $colorWhite;
-		margin-left: 4px;
-	}
+  .tag {
+    background-color: $secondaryColor;
+    border-radius: 20px;
+    padding: 1px 6px;
+    font-size: 10pt;
+    color: $colorWhite;
+    margin-left: 4px;
+  }
 }
 
 .info-custom {
-	background-color: $colorGrey;
-	border-color: $colorLightGrey;
-	color: $fontColor;
-	display: flex;
-	flex-direction: row;
+  background-color: $colorGrey;
+  border-color: $colorLightGrey;
+  color: $fontColor;
+  display: flex;
+  flex-direction: row;
 
-	i {
-		margin: auto;
-	}
+  i {
+    margin: auto;
+  }
 }

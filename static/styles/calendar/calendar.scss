@@ -2,141 +2,143 @@
 @import '../lib/bootstrap/scss/bootstrap.scss';
 
 .route-calendar {
-    .fullcalendar {
-        float: left;
-        width: 100%;
+  .fullcalendar {
+    float: left;
+    width: 100%;
 
-        .fc-icon-chevron-left,
-        .fc-icon-chevron-right {
-            font-size: inherit;
-        }
-
-        .fc-right {
-            @media (max-width: 480px) {
-                display: none;
-            }
-        }
-
-        .fc-left {
-            .fc-button-group {
-                @media (min-width: 480px) {
-                    display: none !important;
-                }
-            }
-        }
-
-        .fc-time-grid .fc-slats .fc-minor td {
-            border: 0px;
-        }
-
-        .fc-event {
-            border: 0px;
-            color: #646464;
-            background: #e9e9e9;
-
-            .fc-content {
-                padding: 5px;
-                color: $colorWhite;
-                background: $colorSemiTransparent;
-
-                .fc-title {
-                    font-weight: 600;
-                }
-            }
-
-            &.fc-event-cancelled {
-                background: #f5f5f5;
-                color: #a9a9a9;
-            }
-
-            &:not(.fc-event-cancelled):hover {
-                background: #ddd;
-            }
-
-            &.fc-time-grid-event {
-                &.fc-event-cancelled {
-                    &:after {
-                        color: $primaryColor;
-                        content: attr(data-status);
-                        bottom: 5px;
-                        right: 10px;
-                        position: absolute;
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
-        .fc-toolbar {
-            .fc-button-group {
-                all: revert;
-
-                @extend .btn-group;
-                @extend .btn-group-sm;
-            }
-
-            .fc-button {
-                @extend .btn;
-                @extend .btn-secondary;
-
-                text-shadow: none;
-                box-shadow: none;
-                color: #292b2c;
-                background: #fff;
-                border-color: #ccc;
-
-                &:hover, &:disabled, &.fc-button-active {
-                    color: #292b2c;
-                    background-color: #e6e6e6;
-                }
-
-                &:hover {
-                    color: #292b2c;
-                    background: #e6e6e6;
-                    transition: background-position 0.1s linear;
-                }
-
-                &:disabled {
-                    cursor: default;
-                    opacity: 1;
-                    box-shadow: none;
-                    background: #fff;
-                    border-color: #ccc;
-                }
-
-                &.fc-button-active {
-                    color: #292b2c;
-                    background: #e6e6e6;
-                    border-color: #adadad;
-                }
-            }
-        }
+    .fc-icon-chevron-left,
+    .fc-icon-chevron-right {
+      font-size: inherit;
     }
+
+    .fc-right {
+      @media (max-width: 480px) {
+        display: none;
+      }
+    }
+
+    .fc-left {
+      .fc-button-group {
+        @media (min-width: 480px) {
+          display: none !important;
+        }
+      }
+    }
+
+    .fc-time-grid .fc-slats .fc-minor td {
+      border: 0;
+    }
+
+    .fc-event {
+      border: 0;
+      background: #e9e9e9;
+      color: #646464;
+
+      .fc-content {
+        background: $colorSemiTransparent;
+        padding: 5px;
+        color: $colorWhite;
+
+        .fc-title {
+          font-weight: 600;
+        }
+      }
+
+      &.fc-event-cancelled {
+        background: #f5f5f5;
+        color: #a9a9a9;
+      }
+
+      &:not(.fc-event-cancelled):hover {
+        background: #ddd;
+      }
+
+      &.fc-time-grid-event {
+        &.fc-event-cancelled {
+          &:after {
+            position: absolute;
+            right: 10px;
+            bottom: 5px;
+            color: $primaryColor;
+            font-weight: 600;
+            content: attr(data-status);
+          }
+        }
+      }
+    }
+
+    .fc-toolbar {
+      .fc-button-group {
+        all: revert;
+
+        @extend .btn-group;
+        @extend .btn-group-sm;
+      }
+
+      .fc-button {
+        @extend .btn;
+        @extend .btn-secondary;
+
+        border-color: #ccc;
+        box-shadow: none;
+        background: #fff;
+        text-shadow: none;
+        color: #292b2c;
+
+        &:hover, &:disabled, &.fc-button-active {
+          background-color: #e6e6e6;
+          color: #292b2c;
+        }
+
+        &:hover {
+          transition: background-position 0.1s linear;
+          background: #e6e6e6;
+          color: #292b2c;
+        }
+
+        &:disabled {
+          opacity: 1;
+          border-color: #ccc;
+          box-shadow: none;
+          background: #fff;
+          cursor: default;
+        }
+
+        &.fc-button-active {
+          border-color: #adadad;
+          background: #e6e6e6;
+          color: #292b2c;
+        }
+      }
+    }
+  }
 }
 
 .create-course-event, .create-team-event, .create-videoconference {
+  label {
+    margin-left: 0.5rem;
+  }
+
+  .toggle {
+    width: 7rem !important;
+    height: 2rem !important;
+    .toggle-handle {
+      background: #f5f5f5 !important;
+      width: 0.3rem !important;
+    }
+  }
+
+  .off {
+    background: #808080 !important;
     label {
-        margin-left: 0.5rem;
+      padding-left: 48px !important;
+      color: #f5f5f5 !important;
     }
-    .toggle {
-        height: 2rem !important;
-        width: 7rem !important;
-        .toggle-handle {
-            width: 0.3rem !important;
-            background: whitesmoke !important;
-        }
-    }
+  }
 
-    .off {
-        background: grey !important;
-        label {
-            color: whitesmoke !important;
-            padding-left: 48px !important;
-        }
+  .on {
+    label {
+      padding-right: 48px !important;
     }
-
-    .on {
-        label {
-            padding-right: 48px !important;
-        }
-    }
+  }
 }

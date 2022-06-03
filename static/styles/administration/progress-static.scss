@@ -1,8 +1,8 @@
 @import '../lib/colors';
 
 .stages {
-  font-size: 0;
   text-align: justify;
+  font-size: 0;
 }
 
 .form > input[type="radio"] {
@@ -10,19 +10,19 @@
 }
 
 .stages label {
-  background: #ffffff;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
   border: solid 3px #c0c0c0;
   border-radius: 50%;
-  display: inline-block;
+  background: #fff;
+  width: 3rem;
+  height: 3rem;
+  vertical-align: top;
+  text-align: center;
+  line-height: calc(3rem - 6px);
   font-size: 0;
   font-weight: 700;
-  height: 3rem;
-  line-height: calc(3rem - 6px);
-  position: relative;
-  text-align: center;
-  vertical-align: top;
-  width: 3rem;
-  z-index: 1;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -36,15 +36,15 @@
 }
 
 .stages label.done {
-    color: $colorSuccess;
-  }
+  color: $colorSuccess;
+}
 
 /* for initial state */
 .stages label{
-    font-size: 1rem;
-    &:after{
-        display: none;
-    }
+  font-size: 1rem;
+  &:after{
+    display: none;
+  }
 }
 
 /*
@@ -53,10 +53,10 @@
 }*/
 
 .progressbar {
-  background: #c0c0c0;
   display: inline-block;
-  height: 3px;
   transform: translateY(-3em);
   transition: 0.3s;
+  background: #c0c0c0;
   width: 0;
+  height: 3px;
 }

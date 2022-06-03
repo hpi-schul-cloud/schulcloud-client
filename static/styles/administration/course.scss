@@ -5,13 +5,14 @@
 }
 
 .times {
-  padding: 16px;
+  margin-bottom: 30px;
   box-shadow: 0 1px 1px 0 #c7c7c7 inset;
   background: none repeat scroll 0 0;
-  margin-bottom: 30px;
+  padding: 16px;
   i {
     cursor: pointer;
   }
+
   .disabled {
     cursor: not-allowed;
     input {
@@ -22,11 +23,12 @@
   .disabled > * {
     pointer-events: none;
   }
+
   .new-course-time-add {
     display: inline-block;
     margin-top: 10px;
-    padding-left: 5px;
     cursor: pointer;
+    padding-left: 5px;
     color: $primaryColor;
   }
 }

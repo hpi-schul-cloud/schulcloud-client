@@ -2,133 +2,145 @@
 @import "./variables";
 
 .header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--color-white-transparent);
-    backdrop-filter: blur(5px);
-    color: var(--color-black);
-    box-shadow: var(--shadow-sm);
-    z-index: var(--layer-header);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--layer-header);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--color-white-transparent);
+  width: 100%;
+  color: var(--color-black);
+  backdrop-filter: blur(5px);
+  .container{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    &:after{
+      /* remove bootstrap after attribute from dom - breaks flex alignment*/
+      display: none;
+    }
+  }
+
+  .logo{
+    height: 2.75rem;
+  }
+
+  .nav{
+    display: flex;
+    align-items: center;
+    .nav-link{
+      margin-left: var(--space-xxs);
+      border-radius: var(--radius-sm);
+      padding: var(--space-xs);
+      color: inherit;
+      &:hover, &:focus{
+        background-color: rgb(238, 238, 238);
+      }
+
+      &.active{
+        background-color: var(--color-accent)
+        color: var(--color-white);
+        font-weight: bold;
+      }
+    }
+  }
+
+  ul.nav > li {
+    margin-right: 8px;
+  }
+
+  ul.nav > li > a {
+    margin: 2px !important;
+  }
+
+  ul.nav > li.nav-link-login > a > .fa {
+    margin-right: 8px !important;
+  }
+
+  .btn-primary-nuxt {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-primary);
+    border-radius: 0.25rem;
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    padding: 8px 12px 6px 12px;
+    min-width: 136px;
+    min-height: 35.2px;
+    text-decoration: none !important;
+    line-height: 19.2px;
+    color: var(--color-white);
+    font-family: "PT Sans Narrow", "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    transition-property: background, box-shadow;
+    transition-duration: 0.3s;
+    &:hover {
+      background-color: var(--color-primary-dark);
+      color: var(--color-white);
+    }
+  }
+
+  .btn-primary-nuxt-outline {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-primary);
+    border-radius: 0.25rem;
+    border-color: var(--color-primary);
+    background-color: transparent;
+    padding: 8px 12px 6px 12px;
+    min-width: 136px;
+    min-height: 35.2px;
+    text-decoration: none !important;
+    line-height: 19.2px;
+    color: var(--color-primary);
+    font-family: "PT Sans Narrow", "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    transition-property: background, box-shadow;
+    transition-duration: 0.3s;
+    &:hover {
+      border-color: var(--color-primary-dark);
+      box-shadow: 0 0 0 1px rgb(133, 5, 44);
+      color: var(--color-primary-dark);
+    }
+  }
+
+  @include media-breakpoint-down(md) {
     .container{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        padding: 0 5px;
-        &:after{
-            /* remove bootstrap after attribute from dom - breaks flex alignment*/
-            display: none;
-        }
+      flex-wrap: wrap;
+      justify-content: center;
     }
+
     .logo{
-        height: 2.75rem;
+      margin-top: .25em;
+      height: 2.25rem;
     }
+
     .nav{
-        display: flex;
-        align-items: center;
-        .nav-link{
-            color: inherit;
-            border-radius: var(--radius-sm);
-            padding: var(--space-xs);
-            margin-left: var(--space-xxs);
-            &:hover, &:focus{
-                background-color: rgb(238, 238, 238);
-            }
-            &.active{
-                font-weight: bold;
-				color: var(--color-white);
-				background-color: var(--color-accent)
-            }
-        }
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      padding-top: 2px;
+      text-align: center;
+      white-space: nowrap;
+      > li {
+        display: inline-block;
+        margin-right: 0 !important;
+      }
+
+      .nav-link{
+        margin: 0;
+        margin-bottom: 4px;
+      }
     }
-	ul.nav > li {
-		margin-right: 8px;
-	}
- 	ul.nav > li > a {
-		margin: 2px!important;
-	}
-	ul.nav > li.nav-link-login > a > .fa {
-		margin-right: 8px!important;
-	}
-	.btn-primary-nuxt {
-		display: inline-flex;
-		flex-wrap: nowrap;
-		align-items: center;
-		justify-content: center;
-		text-decoration: none !important;
-		font-size: 16px;
-		font-weight: 700;
-		font-family: "PT Sans Narrow", "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-		line-height: 19.2px;
-		min-width: 136px;
-		min-height: 35.2px;
-		color: var(--color-white);
-		border: 1px solid var(--color-primary);
-		padding: 8px 12px 6px 12px;
-		background-color: var(--color-primary);
-		border-color: var(--color-primary);
-		border-radius: 0.25rem;
-		transition-property: background, box-shadow;
-		transition-duration: 0.3s;
-		&:hover {
-			color: var(--color-white);
-			background-color: var(--color-primary-dark);
-		}
-	}
-	.btn-primary-nuxt-outline {
-		display: inline-flex;
-		flex-wrap: nowrap;
-		align-items: center;
-		justify-content: center;
-		text-decoration: none !important;
-		font-size: 16px;
-		font-weight: 700;
-		font-family: "PT Sans Narrow", "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-		line-height: 19.2px;
-		min-width: 136px;
-		min-height: 35.2px;
-		color: var(--color-primary);
-		border: 1px solid var(--color-primary);
-		padding: 8px 12px 6px 12px;
-		background-color: transparent;
-		border-color: var(--color-primary);
-		border-radius: 0.25rem;
-		transition-property: background, box-shadow;
-		transition-duration: 0.3s;
-		&:hover {
-			border-color: var(--color-primary-dark);
-			color: var(--color-primary-dark);
-			box-shadow: 0 0 0 1px rgb(133, 5, 44);
-		}
-	}
-    @include media-breakpoint-down(md) {
-         .container{
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .logo{
-            margin-top: .25em;
-            height: 2.25rem;
-        }
-        .nav{
-             display: flex;
-			flex-flow: row wrap;
-			text-align: center;
-			justify-content: center;
-			white-space: nowrap;
-			padding-top: 2px;
-            > li {
-                display: inline-block;
-				margin-right: 0 !important;
-            }
-            .nav-link{
-                margin: 0;
-                margin-bottom: 4px;
-            }
-        }
-    }
+  }
 }
 
 

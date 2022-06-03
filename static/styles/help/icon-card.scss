@@ -45,9 +45,9 @@
 
     .icon-card__subtitle {
       display: block;
-      width: 100%;
-      padding: 0;
       margin-bottom: 1.25rem;
+      padding: 0;
+      width: 100%;
       line-height: inherit;
     }
 
@@ -56,6 +56,7 @@
     }
   }
 }
+
 .info_text {
   color: $colorInfo;
 }

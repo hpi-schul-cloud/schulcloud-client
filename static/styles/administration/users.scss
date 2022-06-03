@@ -1,57 +1,65 @@
 @import '../lib/colors';
 .consent-status {
-    &.fa-check {
-        color: orange;
-    }
-    &.fa-check.double-check {
-        color: green;
-    }
-    &.fa-check.double-check {
-        position: relative;
-        left: 3px;
-    }
-    &.fa-check.double-check:last-child {
-        position: relative;
-        left: -3px;
-    }
-    // Legacy
-    // &.fa-circle-thin{
+  &.fa-check {
+    color: #ffa500;
+  }
+
+  &.fa-check.double-check {
+    color: #008000;
+  }
+
+  &.fa-check.double-check {
+    position: relative;
+    left: 3px;
+  }
+
+  &.fa-check.double-check:last-child {
+    position: relative;
+    left: -3px;
+  }
+  // Legacy
+  // &.fa-circle-thin{
     //     color: orange;
     //     font-weight: bold;
-    // }
-    &.fa-times {
-        color: red;
-    }
+  // }
+
+  &.fa-times {
+    color: #ff0000;
+  }
 }
 
 #skipRegistrationCredentials {
-    resize: none;
-    height: 87px;
-    overflow: hidden;
-    margin-bottom: 3px;
+  margin-bottom: 3px;
+  height: 87px;
+  overflow: hidden;
+  resize: none;
 }
 
 .users-register-complete .printonly {
-    display: none;
+  display: none;
 }
 
 @media print {
-    .users-register-complete .aside,
-    .users-register-complete footer,
-    .users-register-complete .mobile-nav-toggle {
-        display: none !important;
-    }
-    .users-register-complete .printonly {
-        display: block;
-    }
-    .users-register-complete .noprint,
-    .users-register-complete.noprint {
-        display: none;
-    }
-    .users-register-complete .pagebreak {
-        page-break-before: always;
-    }
-    .users-register-complete table {
-        width: 100%
-    }
+  .users-register-complete .aside,
+  .users-register-complete footer,
+  .users-register-complete .mobile-nav-toggle {
+    display: none !important;
+  }
+
+  .users-register-complete .printonly {
+    display: block;
+  }
+
+  .users-register-complete .noprint,
+  .users-register-complete.noprint {
+    display: none;
+  }
+
+  .users-register-complete .pagebreak {
+    page-break-before: always;
+  }
+
+  .users-register-complete table {
+    width: 100%
+  }
 }

@@ -2,64 +2,72 @@
   .rocketchat {
     height: 400px;
     iframe {
-      height: 100%;
       width: 100%;
+      height: 100%;
     }
   }
+
   @media (max-width: 1600px) {
     .files {
       .col-xs-3 {
         flex: 0 0 33.33333%;
         max-width: 33.33333%;
       }
+
       .col-xs-9 {
         flex: 0 0 66.66666%;
         max-width: 66.66666%;
       }
     }
   }
+
   @media (max-width: 1300px) {
     .section-news .sc-card-wrapper,
     .files > .row > [class^="col-"] {
-      width: 50%;
       flex: 0 0 50%;
+      width: 50%;
       max-width: 50%;
     }
   }
+
   @media (max-width: 1100px) {
     .section-news .sc-card-wrapper,
     .files > .row > [class^="col-"] {
-      width: 100%;
       flex: 0 0 100%;
+      width: 100%;
       max-width: 100%;
     }
   }
+
   @media (min-width: 767px) {
     .section-chat h4 {
       display: none;
     }
+
     .section-members {
       margin-top: 2rem;
     }
+
     .section-teams-rocket {
       width: calc(100% - 350px);
     }
+
     .rocketchat {
-      background: white;
       position: fixed;
       right: 0;
       bottom: 60px;
-      height: calc(100vh - 135px);
-      width: 350px;
       z-index: 11;
       box-shadow: 0 3px 20px #3837375c;
+      background: #ffffff;
+      width: 350px;
+      height: calc(100vh - 135px);
 
       &__actions {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        border-bottom: 1px solid #dcdcdc;
         padding: 10px 22px;
-        border-bottom: 1px solid gainsboro;
         h3 {
           margin-bottom: 0;
         }
@@ -72,15 +80,19 @@
   .section-news .container-fluid {
     padding: 0;
   }
+
   h4 {
     margin-bottom: 1rem;
   }
+
   .lead:empty {
     margin-bottom: 0;
   }
+
   > section {
     margin-top: 3rem;
   }
+
   .files {
     margin-bottom: 10px;
   }
@@ -94,28 +106,29 @@
 
 .create-course-event, .create-team-event {
   label {
-      margin-right: 0.5rem;
+    margin-right: 0.5rem;
   }
+
   .toggle {
-      height: 2rem !important;
-      width: 7rem !important;
-      .toggle-handle {
-          width: 0.3rem !important;
-          background: whitesmoke !important;
-      }
+    width: 7rem !important;
+    height: 2rem !important;
+    .toggle-handle {
+      background: #f5f5f5 !important;
+      width: 0.3rem !important;
+    }
   }
 
   .off {
-      background: grey !important;
-      label {
-          color: whitesmoke !important;
-          padding-left: 48px !important;
-      }
+    background: #808080 !important;
+    label {
+      padding-left: 48px !important;
+      color: #f5f5f5 !important;
+    }
   }
 
   .on {
-      label {
-          padding-right: 48px !important;
-      }
+    label {
+      padding-right: 48px !important;
+    }
   }
 }

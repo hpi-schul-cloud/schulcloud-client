@@ -5,44 +5,51 @@ src: https://codepen.io/fionnachan/pen/EvaqOB
 @import '../bootstrap/scss/bootstrap-flex';
 
 .confetti-wrapper:not(.hidden) {
-    position: relative;
-    overflow: hidden;
-    transform: translate3d(0,0,0);
-    [id|="confetti"] {
-        position: absolute;
-    }
+  position: relative;
+  transform: translate3d(0,0,0);
+  overflow: hidden;
+  [id|="confetti"] {
+    position: absolute;
+  }
 }
+
 @for $i from 0 through 120 {
-    $colors: (#d13447, #ffbf00, #263672);
-    $w: random(10);
-    $l: random(100);
-    #confetti-#{$i} {
-        &:before{
-            content: '';
-            display: block;
-            width: #{$w}px;
-            height:#{$w*random()}px;
-            background-color: nth($colors, random(3));
-            opacity: random() + 0.5;
-            transform: rotate(#{random()*360}deg);
-        }
-        width: #{$w}px;
-        height: 100%;
-        top: -10%;
-        left: unquote($l+"%");
-        will-change: transform;
-        animation: drop-#{$i} unquote(4+random()+"s") unquote(4*random()+"s") infinite;
-        @include media-breakpoint-down(sm) {
-            animation: drop-#{$i} unquote(6+random()+"s") unquote(6*random()+"s") infinite;
-        }
-        @include media-breakpoint-down(xs) {
-            animation: drop-#{$i} unquote(8+random()+"s") unquote(8*random()+"s") infinite;
-        }
+  $colors: (#d13447, #ffbf00, #263672);
+  $w: random(10);
+  $l: random(100);
+  #confetti-#{$i} {
+
+    &:before{
+      display: block;
+      transform: rotate(#{random()*360}deg);
+      opacity: random() + 0.5;
+
+      background-color: nth($colors, random(3));
+      width: #{$w}px;
+      height: #{$w*random()}px;
+      content: '';
     }
+
+    top: -10%;
+    left: unquote($l+"%");
+    animation: drop-#{$i} unquote(4+random()+"s") unquote(4*random()+"s") infinite;
+    width: #{$w}px;
+    height: 100%;
+    will-change: transform;
+
+    @include media-breakpoint-down(sm) {
+      animation: drop-#{$i} unquote(6+random()+"s") unquote(6*random()+"s") infinite;
+    }
+
+    @include media-breakpoint-down(xs) {
+      animation: drop-#{$i} unquote(8+random()+"s") unquote(8*random()+"s") infinite;
+    }
+  }
   
-    @keyframes drop-#{$i} {
-        100% {
-            transform: translateX(unquote(random(30)-15+"%")) translateY(120%);
-        }
+  @keyframes drop-#{$i} {
+
+    100% {
+      transform: translateX(unquote(random(30)-15+"%")) translateY(120%);
     }
+  }
 }

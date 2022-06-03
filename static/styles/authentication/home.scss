@@ -2,190 +2,215 @@
 @import '../lib/bootstrap/scss/bootstrap';
 
 body {
-    position: absolute;
-    width: 100vw;
-    min-height: 100vh;
-    p{
-        margin: 0 0 10px 0;
-    }
-    ul {
-        list-style-type: none;
-        padding:0;
-        margin:0;
-    }
-    header {
-        background: $colorWhite;
-        box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
-        a {
-            color: $secondaryColor !important;
-            font-size: 1rem;
-            line-height: 1rem;
-            padding: 1rem !important;
-            text-decoration: none;
-        }
-        #title {
-            font-size: 1.5rem;
-            line-height: 1.5rem;
-            font-weight: 400;
-            display: inline-block;
-            padding-left: 0 !important;
-            padding-top: .75rem !important;
-            padding-bottom: .75rem !important;
-            &:hover{
-                text-decoration: none;
-            }
-            .cloud-logo {
-                display: inline-block;
-                width: 173px;
-                height: 2rem;
-                margin-top: -.25rem;
-                margin-bottom: -.5rem;
-                margin-right: .5rem;
-                background: $logoBackground;
-                background-size: contain;
-            }
-        }
-        .nav-item{
-            margin: 0 !important;
-            min-width: 4rem;
-            text-align: center;
-            .nav-link {
-                transition: background-color .3s ease-in-out;
-                &:hover{
-                    background-color: $accentColor;
-                }
-            }
-        }
-        .nav-item:last-of-type{
-            padding-right: 0;
-        }
-        @include media-breakpoint-down(md) {
-            text-align: center;
-            #title, ul.nav{
-                float: none;
-                display: block;
-            }
-            ul.nav .nav-item{
-                float: none;
-                display: inline-block;
-            }
-        }
-    }
-    main{
-		min-height: calc(100vh - 228px);
-		#frontpage-notification-top {
-			.vcenter {
-				display: flex;
-				align-items: center;
-			}
-			.alert{
-				padding:12px 16px;
-				color:white;
-				background-color:#9e292b;
-				border-color:transparent;
-				margin:0;
-			}
-			a {
-				color: white;
-				&:hover {
-					text-decoration: none!important;
-				}
-			}
-			h5 {
-				span {
-					border-bottom: solid 1px white;
-				}
-			}
-			@media (max-width: 1024px) {
-				h5 {
-					margin-left: 10px;
-				}
-			}
-		}
-        .illustration{
-            min-width: 150px;
-            width: 25vw;
-            max-width: 300px;
-            shape-outside: circle(50%);
-        }
-        li{
-            margin-top: 5px;
-            &:before{
-                display: inline-block;
-                font: normal normal normal 14px/1 FontAwesome;
-                font-size: inherit;
-                text-rendering: auto;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-                content: "\f105";
-                margin-right: 5px;
-            }
-        }
-    }
-    #loginarea{
-        .btn{
-            word-wrap: break-word;
-            white-space: normal;
-        }
+  position: absolute;
+  width: 100vw;
+  min-height: 100vh;
+  p{
+    margin: 0 0 10px 0;
+  }
 
-        input {
-            font-size: 1rem;
-            padding: .5rem;
-        }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
 
-        .login-providers {
-            display: none;
-        }
+  header {
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
+    background: $colorWhite;
+    a {
+      padding: 1rem !important;
+      text-decoration: none;
+      line-height: 1rem;
+      color: $secondaryColor !important;
+      font-size: 1rem;
+    }
 
-        .chosen-results {
-            li {
-                line-height: 1.2;
-            }
-        }
-        .email-login-section {
-            display: none;
-        }
-        .ldap-login-section {
-            display: none;
-        }
-        .system-display {
-            display: none;
-        }
+    #title {
+      display: inline-block;
+      padding-top: .75rem !important;
+      padding-bottom: .75rem !important;
+      padding-left: 0 !important;
+      line-height: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: 400;
+      &:hover{
+        text-decoration: none;
+      }
+
+      .cloud-logo {
+        display: inline-block;
+        margin-top: -.25rem;
+        margin-right: .5rem;
+        margin-bottom: -.5rem;
+        background: $logoBackground;
+        background-size: contain;
+        width: 173px;
+        height: 2rem;
+      }
     }
-    aside{
-        .card-block {
-            padding: 1rem 1.25rem;
+
+    .nav-item{
+      margin: 0 !important;
+      min-width: 4rem;
+      text-align: center;
+      .nav-link {
+        transition: background-color .3s ease-in-out;
+        &:hover{
+          background-color: $accentColor;
         }
-        .card-title{
-            break-word: break-all;
-        }
-        #blogfeed{
-            .list-group-item{
-                padding: .75rem .25rem !important;
-            }
-        }
+      }
     }
-    footer:not(.small-footer){
-        background-color: #555;
-        color: #fff;
-        padding:2rem 2rem 0;
-        a{
-            color: #fff;
-            &:hover{
-                color:#fff!important;
-            }
-        }
-        .col-md-4{
-            margin-bottom: 2rem;
-        }
+
+    .nav-item:last-of-type{
+      padding-right: 0;
     }
-    footer.small-footer{
-        position: relative;
+
+    @include media-breakpoint-down(md) {
+      text-align: center;
+      #title, ul.nav{
+        display: block;
+        float: none;
+      }
+
+      ul.nav .nav-item{
+        display: inline-block;
+        float: none;
+      }
     }
+  }
+
+  main{
+    min-height: calc(100vh - 228px);
+    #frontpage-notification-top {
+      .vcenter {
+        display: flex;
+        align-items: center;
+      }
+
+      .alert{
+        margin: 0;
+        border-color: transparent;
+        background-color: #9e292b;
+        padding: 12px 16px;
+        color: #ffffff;
+      }
+
+      a {
+        color: #ffffff;
+        &:hover {
+          text-decoration: none !important;
+        }
+      }
+
+      h5 {
+        span {
+          border-bottom: solid 1px #ffffff;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        h5 {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .illustration{
+      width: 25vw;
+      min-width: 150px;
+      max-width: 300px;
+      shape-outside: circle(50%);
+    }
+
+    li{
+      margin-top: 5px;
+      &:before{
+        display: inline-block;
+        margin-right: 5px;
+        text-rendering: auto;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        content: "\f105";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    }
+  }
+
+  #loginarea{
+    .btn{
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
+    input {
+      padding: .5rem;
+      font-size: 1rem;
+    }
+
+    .login-providers {
+      display: none;
+    }
+
+    .chosen-results {
+      li {
+        line-height: 1.2;
+      }
+    }
+
+    .email-login-section {
+      display: none;
+    }
+
+    .ldap-login-section {
+      display: none;
+    }
+
+    .system-display {
+      display: none;
+    }
+  }
+
+  aside{
+    .card-block {
+      padding: 1rem 1.25rem;
+    }
+
+    .card-title{
+      break-word: break-all;
+    }
+
+    #blogfeed{
+      .list-group-item{
+        padding: .75rem .25rem !important;
+      }
+    }
+  }
+
+  footer:not(.small-footer){
+    background-color: #555;
+    padding: 2rem 2rem 0;
+    color: #fff;
+    a{
+      color: #fff;
+      &:hover{
+        color: #fff !important;
+      }
+    }
+
+    .col-md-4{
+      margin-bottom: 2rem;
+    }
+  }
+
+  footer.small-footer{
+    position: relative;
+  }
 }
 
 .partner-img {
-	img {
-		padding: 5px 20px;
-	}
+  img {
+    padding: 5px 20px;
+  }
 }

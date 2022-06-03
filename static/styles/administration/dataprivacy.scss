@@ -3,99 +3,112 @@
 @import '../lib/datetimepicker/jquery.datetimepicker.min.css';
 
 .panels{
-    /* insert custom css for the forms here */
-    .show-invalid{
-        input:invalid:not([type="checkbox"]):not([type="radio"]){
-            box-shadow: 0 0 5px 1px $colorDanger;
-        }
-        input[type="checkbox"]:invalid + span,
-        input[type="radio"]:invalid + span{
-            color: $colorDanger;
-            font-weight: bold;
-            text-decoration: underline;
-            a{
-                color: $colorDanger;
-            }
-        }
+  /* insert custom css for the forms here */
+  .show-invalid{
+    input:invalid:not([type="checkbox"]):not([type="radio"]){
+      box-shadow: 0 0 5px 1px $colorDanger;
     }
+
+    input[type="checkbox"]:invalid + span,
+    input[type="radio"]:invalid + span{
+      text-decoration: underline;
+      color: $colorDanger;
+      font-weight: bold;
+      a{
+        color: $colorDanger;
+      }
+    }
+  }
 }
 
 .recap{
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    background-color: #eee;
-    padding: 8px;
-    margin: 8px 0;
-    font-family: monospace;
-    p{
-        margin-bottom: 8px;
-        &:last-child{
-            margin-bottom: 0;
-        }
+  margin: 8px 0;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  background-color: #eee;
+  padding: 8px;
+  font-family: monospace;
+  p{
+    margin-bottom: 8px;
+    &:last-child{
+      margin-bottom: 0;
     }
+  }
 }
 
 .form-group{
-    margin-top: 1rem;
-    margin-bottom: 0;
-    sup {
-        color: red;
-        font-size: 16px;
-    }
+  margin-top: 1rem;
+  margin-bottom: 0;
+  sup {
+    color: #ff0000;
+    font-size: 16px;
+  }
 }
+
 .explanation{
-    margin-left: 18px;
-    font-size: .85em;
+  margin-left: 18px;
+  font-size: .85em;
 }
+
 .explanation.nomargin{
-    margin-left: 0px;
+  margin-left: 0;
 }
 
 label{
-    margin-bottom: 0px;
+  margin-bottom: 0;
 }
-input[type="radio"]{
-    margin-right: 4px;
-}
-.error-container {
-	line-height: var(--line-height-sm) !important;
-}
-.error-header-image {
-	display: block;
-	width: 30% !important;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 54px;
 
-	#COLOR {
-		fill: $primaryColor;
-	}
+input[type="radio"]{
+  margin-right: 4px;
 }
+
+.error-container {
+  line-height: var(--line-height-sm) !important;
+}
+
+.error-header-image {
+  display: block;
+  margin-right: auto;
+  margin-bottom: 54px;
+  margin-left: auto;
+  width: 30% !important;
+
+  #COLOR {
+    fill: $primaryColor;
+  }
+}
+
 .error-header-wrapper {
-	margin-top: 80px;
+  margin-top: 80px;
 }
+
 .text-container {
-	max-width: 80%;
-	margin: auto;
+  margin: auto;
+  max-width: 80%;
 }
+
 .h2.error-header-code {
-	margin-bottom: 27px;
+  margin-bottom: 27px;
 }
+
 @media (max-width: 460px) {
-	.error-header-image {
-		width: 80% !important;
-		margin-left: 10%;
-		margin-right: 10%;
-		margin-bottom: 27px
-	}
-	.error-header-wrapper {
-		margin-top: 0;
-	}
-	.text-container {
-		max-width: 100%;
-	}
-	.h2.error-header-code {
-		font-size: 40px !important;
-		margin-bottom: 18px;
-	}
+  .error-header-image {
+    margin-right: 10%;
+    margin-bottom: 27px
+    margin-left: 10%;
+    width: 80% !important;
+  }
+
+  .error-header-wrapper {
+    margin-top: 0;
+  }
+
+  .text-container {
+    max-width: 100%;
+  }
+
+  .h2.error-header-code {
+    margin-bottom: 18px;
+    font-size: 40px !important;
+  }
 }

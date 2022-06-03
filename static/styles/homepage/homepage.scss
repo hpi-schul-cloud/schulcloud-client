@@ -6,46 +6,47 @@
 @import "./sections";
 
 body {
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	min-height: 100vh;
-	min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  min-width: 300px;
+  min-height: 100vh;
 }
+
 main {
-	margin-top: 2.75rem;
-	flex-grow: 1;
+  flex-grow: 1;
+  margin-top: 2.75rem;
 }
 
 @include media-breakpoint-down(md) {
-	main {
-		margin-top: 4.7rem;
-	}
+  main {
+    margin-top: 4.7rem;
+  }
 }
 
 @include media-breakpoint-down(sm) {
-	main {
-		margin-top: 5.2rem;
-	}
+  main {
+    margin-top: 5.2rem;
+  }
 }
 
 @include media-breakpoint-down(xs) {
-	main {
-		margin-top: 8rem;
-	}
+  main {
+    margin-top: 8rem;
+  }
 }
 
 ul {
-	list-style-type: square;
-	padding: 0 1.2rem;
+  padding: 0 1.2rem;
+  list-style-type: square;
 }
 
 h1.section-title {
-	@include media-breakpoint-down(md) {
-		font-size: 36px;
-	}
+  @include media-breakpoint-down(md) {
+    font-size: 36px;
+  }
 }
 
 video {
-	border: 1px solid var(--color-white);
+  border: 1px solid var(--color-white);
 }

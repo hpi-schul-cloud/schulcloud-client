@@ -1,48 +1,48 @@
 // variables from new vue client
 // https://vuepress.test.schul-cloud.org/2-Styles/0-Variables.html
 :root{
-    --radius-round: 100vmax;
-    --radius-sm: 0.25rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 1rem;
-    --border-width: 1px;
+  --radius-round: 100vmax;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --border-width: 1px;
 
-    --layer-behind: -1;
-    --layer-page: 1;
-    --layer-header: 10; // video player defines internally some z-indexes we need to match
-    --layer-dropdown: 11;
-    --layer-modal: 12;
-    --layer-popover: 13;
-    --layer-tooltip: 14;
+  --layer-behind: -1;
+  --layer-page: 1;
+  --layer-header: 10; // video player defines internally some z-indexes we need to match
+  --layer-dropdown: 11;
+  --layer-modal: 12;
+  --layer-popover: 13;
+  --layer-tooltip: 14;
 
-    --color-primary: #9e292b;
-    --color-primary-light: rgb(189, 43, 88);
-    --color-primary-dark: rgb(133, 5, 44);
-    --color-accent: #e98404;
-    --color-accent-light: rgb(236, 150, 42);
-    --color-accent-dark: rgb(175, 99, 3);
-    --color-black: #1d1d21;
-    --color-gray-light: #ddd;
-    --color-gray: #aaa;
-    --color-gray-dark: #444;
-    --color-white: #fff;
-    --color-white-transparent: rgba(255, 255, 255, 0.85);
-    --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-primary: #9e292b;
+  --color-primary-light: rgb(189, 43, 88);
+  --color-primary-dark: rgb(133, 5, 44);
+  --color-accent: #e98404;
+  --color-accent-light: rgb(236, 150, 42);
+  --color-accent-dark: rgb(175, 99, 3);
+  --color-black: #1d1d21;
+  --color-gray-light: #ddd;
+  --color-gray: #aaa;
+  --color-gray-dark: #444;
+  --color-white: #fff;
+  --color-white-transparent: rgba(255, 255, 255, 0.85);
+  --color-overlay: rgba(0, 0, 0, 0.5);
 
-	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 
-    --space-xxxxs: 0.125rem;
-    --space-xxxs: 0.25rem;
-    --space-xxs: 0.375rem;
-    --space-xs: 0.5rem;
-    --space-sm: 0.75rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 3.25rem;
-    --space-xxl: 5.25rem;
-    --space-xxxl: 8.5rem;
+  --space-xxxxs: 0.125rem;
+  --space-xxxs: 0.25rem;
+  --space-xxs: 0.375rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 3.25rem;
+  --space-xxl: 5.25rem;
+  --space-xxxl: 8.5rem;
 
-    --size-content-width-min: 40ch;
-    --size-content-width-max: 80ch;
+  --size-content-width-min: 40ch;
+  --size-content-width-max: 80ch;
 }

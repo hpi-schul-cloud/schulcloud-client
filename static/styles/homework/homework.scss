@@ -3,170 +3,172 @@
 
 
 .count-badge[data-badge]:after {
-	content: attr(data-badge);
-	background: $colorLightGrey;
-	color: $fontColor;
-	display: inline-block;
-	padding: 0.25em 0.4em;
-	font-size: 75%;
-	font-weight: 700;
-	line-height: 1;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: baseline;
-	border-radius: 0.25rem;
+  display: inline-block;
+  border-radius: 0.25rem;
+  background: $colorLightGrey;
+  padding: 0.25em 0.4em;
+  vertical-align: baseline;
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
+  color: $fontColor;
+  font-size: 75%;
+  font-weight: 700;
+  content: attr(data-badge);
 }
 
 
 .homework {
-	width: 100%;
-	margin: 0;
-	padding: 10px 0;
-	clear: both;
-	ol {
-		list-style: none;
-	}
+  clear: both;
+  margin: 0;
+  padding: 10px 0;
+  width: 100%;
+  ol {
+    list-style: none;
+  }
 }
 
 .assignment {
-	width: 100%;
-	position: relative;
-	padding: 10px;
-	text-decoration: none;
+  position: relative;
+  padding: 10px;
+  width: 100%;
+  text-decoration: none;
 
-	a {
-		color: #373a3c;
+  a {
+    color: #373a3c;
 
-		&:hover {
-			text-decoration: none !important;
-			color: #373a3c;
-		}
-	}
+    &:hover {
+      text-decoration: none !important;
+      color: #373a3c;
+    }
+  }
 
-	.dates {
-		float: right;
-		display: flex;
-		color: #373a3c;
-		font-size: $font-size-xs;
+  .dates {
+    display: flex;
+    float: right;
+    color: #373a3c;
+    font-size: $font-size-xs;
 
-		i {
-			font-size: $font-size-lg;
-			padding-right: 10px;
-			align-self: center;
-		}
+    i {
+      align-self: center;
+      padding-right: 10px;
+      font-size: $font-size-lg;
+    }
 
-		i.done {
-			color: $colorSuccess;
-		}
+    i.done {
+      color: $colorSuccess;
+    }
 
-		i.danger {
-			color: $colorDanger;
-		}
+    i.danger {
+      color: $colorDanger;
+    }
 
-		i.closed {
-			color: $colorSemiTransparent;
-		}
-	}
+    i.closed {
+      color: $colorSemiTransparent;
+    }
+  }
 
-	&.has-stats {
-		min-height: 165px;
-	}
+  &.has-stats {
+    min-height: 165px;
+  }
 
-	.state {
-		float: right;
-		text-align: right;
-		clear: right;
-		color: grey;
-		position: relative;
-		display: flex;
-		line-height: 0.8;
-		font-size: 0.8em;
-		width:auto;
-		progress {
-			height: 10px;
-		}
-		div {
-			color: black;
-			align-self: center;
-		}
-	}
+  .state {
+    display: flex;
+    position: relative;
+    float: right;
+    clear: right;
+    width: auto;
+    text-align: right;
+    line-height: 0.8;
+    color: #808080;
+    font-size: 0.8em;
+    progress {
+      height: 10px;
+    }
 
-	&.private {
-		min-height: 165px;
+    div {
+      align-self: center;
+      color: #000000;
+    }
+  }
 
-		h5::before {
-			content: "🔒";
-		}
-	}
+  &.private {
+    min-height: 165px;
 
-	h5 {
-		margin: 0;
-		color: $primaryColor;
-	}
+    h5::before {
+      content: "🔒";
+    }
+  }
 
-	.description {
-		margin: 10px 0;
-		min-height: 50px;
-		color: #373a3c;
-		text-decoration: none;
+  h5 {
+    margin: 0;
+    color: $primaryColor;
+  }
 
-		&:hover {
-			text-decoration: none;
-		}
+  .description {
+    margin: 10px 0;
+    min-height: 50px;
+    text-decoration: none;
+    color: #373a3c;
 
-		word-break: break-word;
+    &:hover {
+      text-decoration: none;
+    }
 
-		@include media-breakpoint-down(xs) {
-			margin-right: 25px;
-		}
+    word-break: break-word;
 
-		h1 {
-			font-size: 1.3rem;
-			font-weight: bold
-		}
+    @include media-breakpoint-down(xs) {
+      margin-right: 25px;
+    }
 
-		h2 {
-			font-size: 1.2rem;
-			font-weight: bold;
-			font-style: italic
-		}
+    h1 {
+      font-size: 1.3rem;
+      font-weight: bold
+    }
 
-		h3 {
-			font-size: 1.1rem;
-			font-style: italic;
-			text-decoration: underline
-		}
+    h2 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      font-style: italic
+    }
 
-		p {
-			font-size: 1rem;
-			margin-bottom: .25rem;
-		}
+    h3 {
+      text-decoration: underline
+      font-size: 1.1rem;
+      font-style: italic;
+    }
 
-		a {
-			text-decoration: underline;
-			color: $primaryColor;
-		}
+    p {
+      margin-bottom: .25rem;
+      font-size: 1rem;
+    }
 
-		blockquote {
-			color: grey;
-			margin-left: 1rem;
-			border-left: 2px solid grey;
-			padding-left: 5px;
-		}
-	}
+    a {
+      text-decoration: underline;
+      color: $primaryColor;
+    }
 
-	.more {
-		position: relative;
-		float: right;
-		padding: 5px 5px 5px 10px;
-		clear: both;
-		text-align: right;
-		color: $primaryColor;
-		text-decoration: none;
-	}
-	.title {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
+    blockquote {
+      margin-left: 1rem;
+      border-left: 2px solid #808080;
+      padding-left: 5px;
+      color: #808080;
+    }
+  }
+
+  .more {
+    position: relative;
+    float: right;
+    clear: both;
+    padding: 5px 5px 5px 10px;
+    text-align: right;
+    text-decoration: none;
+    color: $primaryColor;
+  }
+
+  .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }

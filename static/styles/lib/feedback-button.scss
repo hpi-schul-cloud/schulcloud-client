@@ -4,41 +4,44 @@
   position: fixed;
   top: 80%;
   right: 0;
-  overflow: hidden;
-  cursor: pointer;
-  font-size: 14px;
-  backface-visibility: hidden;
-  border-radius: 0 0 2px 2px;
-  transform-origin: top right;
   transform: rotate(90deg);
   z-index: 500;
+  border-radius: 0 0 2px 2px;
+  cursor: pointer;
+  overflow: hidden;
+  font-size: 14px;
+  backface-visibility: hidden;
+  transform-origin: top right;
   i {
     position: absolute;
     top: 0;
     left: 0;
+    background: rgba(0, 0, 0, 0.2);
     width: 50px;
     height: 50px;
-    background: rgba(0, 0, 0, 0.2);
   }
+
   span {
-    transition: all 0.2s linear;
     display: block;
+    transition: all 0.2s linear;
+    background: $primaryColor;
+    padding: 0 15px 0 65px;
     height: 50px;
     line-height: 50px;
-    padding: 0 15px 0 65px;
     white-space: nowrap;
-    background: $primaryColor;
-    color: #ffffff;
+    color: #fff;
     font-size: large;
   }
+
   svg {
+    transform: rotate(-90deg);
     width: 100%;
     height: 100%;
-    transform: rotate(-90deg);
     .fill {
-      fill: #ffffff;
+      fill: #fff;
     }
   }
+
   &:hover span {
     background: $secondaryColor;
   }

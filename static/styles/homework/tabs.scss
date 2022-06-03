@@ -2,56 +2,62 @@
 @import '../lib/bootstrap/scss/bootstrap-grid';
 
 .tab-links{
+  border-bottom: 1px solid #d3d3d3;
   padding-bottom: 1px;
-  border-bottom: 1px solid lightgrey;
 }
+
 .tab-link {
-  color: #000;
   display: inline-block;
-  text-decoration: none;
-  padding: 5px 10px 0;
-  font-size: 1.1rem;
+  margin-bottom: -2px;
+  border-bottom: 4px solid transparent;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   cursor: pointer;
   @include media-breakpoint-up(sm) {
     font-size: 1.2rem;
   }
-  margin-bottom: -2px;
-  border-bottom: 4px solid transparent;
-  border-top-left-radius:5px;
-  border-top-right-radius:5px;
+  padding: 5px 10px 0;
+  text-decoration: none;
+  color: #000;
+  font-size: 1.1rem;
   &.active {
-    font-weight: 700;
-    color: $primaryColor !important;
     border-bottom: 4px solid $primaryColor;
+    color: $primaryColor !important;
+    font-weight: 700;
   }
+
   &:hover, &:focus{
     text-decoration: none;
-    font-weight: 700;
     color: $primaryColor !important;
+    font-weight: 700;
   }
 }
+
 .tab-content {
-  padding-top: .5rem;
   display: none;
+  clear: both;
+  padding-top: .5rem;
   width: 100%;
-  clear:both;
   &.active {
     display: block;
   }
+
   > h5 {
+    color: $secondaryColor;
     font-size: 1.2rem;
     font-weight: 700;
-    color: $secondaryColor;
   }
 }
 
 @include media-breakpoint-down(xs) {
   .nav-tabs {
-    border-bottom: none;
+    border-bottom: zero;
   }
+
   .nav-item {
     border-bottom: 1px solid #ddd;
   }
+
   .nav-tabs .nav-item + .nav-item {
     margin-left: 0;
     margin-left: 5px;

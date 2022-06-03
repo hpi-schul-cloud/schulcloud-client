@@ -1,16 +1,16 @@
 @import '../lib/colors';
 
 .stages {
-  font-size: 0;
   text-align: justify;
+  font-size: 0;
 }
 
 .stages:after {
-  content: '';
   display: inline-block;
-  font-size: 0;
-  text-align: justify;
   width: 100%;
+  text-align: justify;
+  font-size: 0;
+  content: '';
 }
 
 .form > input[type="radio"] {
@@ -18,20 +18,20 @@
 }
 
 .stages label {
-  background: #ffffff;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
   border: solid 3px #c0c0c0;
   border-radius: 50%;
+  background: #fff;
   cursor: pointer;
-  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  vertical-align: top;
+  text-align: center;
+  line-height: calc(3rem - 6px);
   font-size: 0;
   font-weight: 700;
-  height: 3rem;
-  line-height: calc(3rem - 6px);
-  position: relative;
-  text-align: center;
-  vertical-align: top;
-  width: 3rem;
-  z-index: 1;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -41,10 +41,10 @@
 }
 
 .stages label:after {
-  content: '\2713'; /* Check Symbol */
-  color: #4caf50;
   display: inline-block;
+  color: #4caf50;
   font-size: 16px;
+  content: '\2713'; /* Check Symbol */
   box-sizing: content-box;
 }
 
@@ -66,6 +66,7 @@
   /* draw progressbar */
   @for $k from 1 through 10{
     .sections-#{$k} #section-#{$i}:checked ~ .progressbar {
+
       width: calc(100% / #{$k - 1} * (#{$i - 1}));
     }
   }
@@ -76,10 +77,10 @@
 }
 /* for initial state */
 #section-1:checked ~ .stages label{
-    font-size: 1rem;
-    &:after{
-        display: none;
-    }
+  font-size: 1rem;
+  &:after{
+    display: none;
+  }
 }
 
 /*
@@ -88,12 +89,12 @@
 }*/
 
 .progressbar {
-  background: #c0c0c0;
   display: inline-block;
-  height: 3px;
   transform: translateY(-3em);
   transition: 0.3s;
+  background: #c0c0c0;
   width: 0;
+  height: 3px;
 }
 
 .registration-form .progressbar {
@@ -102,8 +103,8 @@
 
 .panels > section {
   display: none;
-  border-top: solid 1px #c0c0c0;
   margin: 1em 0 0;
+  border-top: solid 1px #c0c0c0;
   padding: 1em 0 0;
 }
 
@@ -122,9 +123,10 @@ new fancy button Design
   transition: all .2s ease-in-out;
   outline: none;
   &:hover, &:focus{
-      filter: opacity(.9);
-      box-shadow: 0 7px 28px rgba(0,0,0,0.25), 0 5px 10px rgba(0,0,0,0.22);
+    filter: opacity(.9);
+    box-shadow: 0 7px 28px rgba(0,0,0,0.25), 0 5px 10px rgba(0,0,0,0.22);
   }
+
   &:disabled{
     opacity: .35;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);

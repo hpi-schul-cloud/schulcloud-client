@@ -4,16 +4,19 @@
   .fa {
     margin-right: 10px;
   }
+
   .fa-active {
     float: right;
     .fa {
-      color: $primaryColor;
       cursor: pointer;
+      color: $primaryColor;
     }
+
     .fa.disabled {
-      color: $colorDarkerGrey;
       cursor: default;
+      color: $colorDarkerGrey;
     }
+
     a {
       text-decoration: none;
     }

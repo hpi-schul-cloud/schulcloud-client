@@ -3,22 +3,24 @@
 .custom-fields {
   margin-right: 2px;
 }
+
 .new-custom-field-add {
   cursor: pointer;
 }
+
 .custom-field-delete {
   cursor: pointer;
 }
 
 .lti-frame {
+  border: 1px solid #808080;
   width: 100%;
   height: 100%;
-  border: 1px solid grey;
 }
 
 // fix for kanzleramt
 .content-wrapper {
-  padding-right: 0px;
+  padding-right: 0;
 }
 
 #safari-workaround {

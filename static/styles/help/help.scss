@@ -29,8 +29,8 @@ label.form-group {
 // Label
 .control-label {
   &.headline{
-    font-weight: bold;
     text-align: left;
+    font-weight: bold;
   }
 }
 
@@ -98,6 +98,7 @@ fieldset.switch_wrapper {
       }
     }
   }
+
   legend {
     font-size: 1rem;
   }
@@ -108,22 +109,22 @@ fieldset.switch_wrapper {
   transition: color .3s ease-in-out, background-color .3s ease-in-out;
   margin-top: 16px;
   border: 1px solid #333;
+  border-radius: .25rem;
   background: transparent;
   padding: 8px 16px;
   color: #333;
   font-weight: bold;
-  border-radius: .25rem;
 
   &:hover:not([disabled]){
     outline: none;
     background-color: #333;
-    color: $colorWhite;
     cursor: pointer;
+    color: $colorWhite;
   }
 
   &:disabled {
-    background-color: $colorGrey;
     border-color: #8a8a8a;
+    background-color: $colorGrey;
   }
 }
 
@@ -193,9 +194,10 @@ fieldset.switch_wrapper {
         padding-left: 8px;
         font-size: inherit;
       }
-		.collapsable-headline:last-of-type {
-			padding-left: 0;
-		}
+
+      .collapsable-headline:last-of-type {
+        padding-left: 0;
+      }
 
       &.single {
         color: $primaryColor;
@@ -218,17 +220,19 @@ fieldset.switch_wrapper {
 // help area cards
 .help-icon-card {
   @media (max-width: 1300px) {
-    padding-top: 0;
     margin-top: 0;
+    padding-top: 0;
   }
+
   .icon-card__content {
     @media (max-width: 1300px) {
       padding-top: 0 !important;
     }
   }
+
   .icon-card__icon {
     @media (max-width: 1300px) {
-    display: none !important;
+      display: none !important;
     }
   }
 }
@@ -253,12 +257,12 @@ fieldset.switch_wrapper {
       }
 
       .control-legend {
-        font-size: 1rem;
-        text-align: left;
         margin-top: .75rem;
         margin-bottom: .25rem;
+        text-align: left;
+        font-size: 1rem;
         font-weight: bold;
-    }
+      }
 
       .chosen-container {
         color: initial;
@@ -303,8 +307,8 @@ fieldset.switch_wrapper {
 }
 
 .info_text {
-  color: $colorInfo;
   margin-right: .2em;
+  color: $colorInfo;
 }
 
 #consent_checkbox {
@@ -322,10 +326,11 @@ fieldset.switch_wrapper {
 
 .white-links {
   a {
-    color:white !important;
+    color: #ffffff !important;
   }
 }
+
 #feedback_header {
-  text-align: left;
   margin-bottom: 1rem;
+  text-align: left;
 }

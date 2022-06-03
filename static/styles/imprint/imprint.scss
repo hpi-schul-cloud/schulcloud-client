@@ -1,12 +1,13 @@
 @import '../lib/colors';
 .section-imprint {
-    padding-top: 5px;
-    strong {
-      font-weight: bold;
-    }
-    ul {
-      list-style-type: disc !important;
-      padding: 0 0 5px 0!important;
-      margin: 5px 5px 5px 40px!important;
-    }
+  padding-top: 5px;
+  strong {
+    font-weight: bold;
+  }
+
+  ul {
+    margin: 5px 5px 5px 40px !important;
+    padding: 0 0 5px 0 !important;
+    list-style-type: disc !important;
+  }
 }

@@ -3,37 +3,42 @@
 
 .empty-state{
   .center{
-    margin: 0 auto;
     float: none;
+    margin: 0 auto;
   }
+
   .btn-first{
     margin-right: 20px;
   }
+
   .image{
-    width: 35%;
-    margin-bottom: 50px;
     opacity: .8;
+    margin-bottom: 50px;
+    width: 35%;
   }
+
   .buttons{
     margin-bottom: 30px;
     .btn {
       @include media-breakpoint-down(xs) {
-        width: 100%;
         margin-bottom: 10px;
+        width: 100%;
       }
     }
   }
+
   .text-wrapper{
     margin-bottom: 30px;
     @include media-breakpoint-up(xs) {
       max-width: 70%;
     }
+
     @include media-breakpoint-down(xs) {
       max-width: 90%;
     }
   }
 
-	#COLOR {
-		fill: $primaryColor;
-	}
+  #COLOR {
+    fill: $primaryColor;
+  }
 }

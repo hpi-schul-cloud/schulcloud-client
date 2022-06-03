@@ -1,13 +1,13 @@
 @import '../homepage/layouts';
 
 .section-title {
-    width: 100%;
-    line-height: 1.75rem;
-    margin-bottom: var(--space-md);
+  margin-bottom: var(--space-md);
+  width: 100%;
+  line-height: 1.75rem;
 }
 
 .section-title.loggedout {
-  color: #9e292b;
   margin-bottom: var(--space-lg);
+  color: #9e292b;
 
 }

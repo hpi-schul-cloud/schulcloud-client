@@ -67,7 +67,7 @@
     max-height: 25rem;
     overflow-y: auto;
     box-sizing: border-box;
-    -webkit-overflow-scrolling: touch; // sass-lint:disable-line no-vendor-prefixes
+    -webkit-overflow-scrolling: touch;
 
     a {
       text-decoration: none;

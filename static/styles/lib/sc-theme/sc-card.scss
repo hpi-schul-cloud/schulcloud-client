@@ -1,185 +1,196 @@
 @import "../colors";
 
 .sc-card {
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  transition: 0.3s;
+  margin: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24);
+  cursor: pointer;
+  max-width: 100% !important;
+  height: 100%;
+  overflow: hidden;
+
+  .rss-icon {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    z-index: 10;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: bold;
+    pointer-events: none;
+  }
+
+  .tag {
+    margin: .5rem 0 0 0;
+    background: #ffffff;
+    padding: 4px 8px;
+    text-shadow: none;
+    color: #000000;
+  }
+
+  .sc-card-header {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    max-width: 100% !important;
-    height: 100%;
-    margin: 0;
-    border-radius: 2px;
-    overflow: hidden;
-    transition: 0.3s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24);
-
-    .rss-icon {
-        color: rgba(255, 255, 255, 0.7);
-        pointer-events: none;
-        position: absolute;
-        bottom: 8px;
-        right: 8px;
-        z-index: 10;
-        font-weight: bold;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    background-color: $secondaryColor;
+    padding: 1rem 1rem .5rem;
+    min-height: 6rem;
+    text-decoration: none !important;
+    color: #fff;
+    &::before {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 5;
+      content: " ";
     }
 
-    .tag {
-        background: white;
-        color: black;
-        margin: .5rem 0 0 0;
-        text-shadow: none;
-        padding: 4px 8px;
+    .sc-card-title {
+      .title {
+        color: inherit;
+        font-size: 1.6rem;
+      }
+
+      small {
+        margin: .75rem 0 .5rem 0;
+        font-size: 0.9rem;
+      }
+      z-index: 10;
+      padding-right: 5px;
+      overflow: hidden;
+      word-break: break-word;
     }
 
-    .sc-card-header {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        position: relative;
-        min-height: 6rem;
-        padding: 1rem 1rem .5rem;
-        color: #fff;
-        text-decoration: none !important;
-        background-color: $secondaryColor;
-        border-top-left-radius: 2px;
-        border-top-right-radius: 2px;
-        &::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            z-index: 5;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-        .sc-card-title {
-            .title {
-                color: inherit;
-                font-size: 1.6rem;
-            }
-            small {
-                font-size: 0.9rem;
-                margin: .75rem 0 .5rem 0;
-            }
-            overflow: hidden;
-            z-index: 10;
-            padding-right: 5px;
-            word-break: break-word;
-        }
-        .sc-card-menu {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            z-index: 10;
-            font-size: 0;
-            .sc-card-menu-action {
-                display: inline-block;
-                width: 32px;
-                height: 32px;
-                padding: 0;
-                margin: 0;
-                border-radius: 50%;
-                background: none;
-                border: none;
-                color: #fff;
-                font-size: 20px;
-                text-decoration: none;
-                text-align: center;
-                vertical-align: middle;
-                line-height: 32px;
-                overflow: hidden;
-                opacity: .5;
-                transition: all .1s ease-in-out;
-                &:hover {
-                    background: rgba(0,0,0,.2);
-                }
-            }
-            .sc-card-menu-info {
-                display: inline-block;
-                padding: 0;
-                margin: 0;
-                color: #fff;
-                font-size: 14px;
-                overflow: hidden;
-            }
-        }
-        &:hover{
-            .sc-card-menu-action{
-                opacity: 1;
-            }
-        }
-    }
-    .sc-card-body {
-        padding: .5rem .5rem 0rem;
+    .sc-card-menu {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      z-index: 10;
+      font-size: 0;
+      .sc-card-menu-action {
+        display: inline-block;
+        transition: all .1s ease-in-out;
+        opacity: .5;
         margin: 0;
-        flex: 1 1 0;
-        width: 100%;
-        border: 1px solid rgba(0,0,0,.125);
-        border-top-width: 0;
-        border-bottom-width: 0;
-        p{
-            word-break: break-all;
-            word-break: break-word;
+        border: zero;
+        border-radius: 50%;
+        background: none;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align: center;
+        text-decoration: none;
+        line-height: 32px;
+        color: #fff;
+        font-size: 20px;
+        &:hover {
+          background: rgba(0,0,0,.2);
         }
-        &:first-of-type{
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
-            border-top-width: 1px;
-        }
-        &:last-of-type{
-            border-bottom-left-radius: 2px;
-            border-bottom-right-radius: 2px;
-            border-bottom-width: 1px;
-        }
+      }
+
+      .sc-card-menu-info {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        color: #fff;
+        font-size: 14px;
+      }
     }
-    .sc-card-footer {
-        flex: 0 1 0;
-        width: 100%;
-        padding: .5rem;
-        border: 1px solid rgba(0,0,0,.125);
-        border-top-width: 0;
-        border-bottom-left-radius: 2px;
-        border-bottom-right-radius: 2px;
-        a, button {
-            float:right;
-            color: $secondaryColor;
-            border: none;
-            border-radius: 2px;
-            padding: 0 8px;
-            display: inline-block;
-            font-size: 15px;
-            text-transform: none;
-            text-decoration: none;
-            text-align: center;
-            line-height: 36px;
-            transition: all .1s ease-in-out;
-            &:hover {
-                background-color: #eee;
-            }
-        }
-        .additionalInfo {
-            float:left;
-        }
+
+    &:hover{
+      .sc-card-menu-action{
+        opacity: 1;
+      }
     }
-     &:hover{
-        .sc-card-header{
-            .sc-card-menu{
-                opacity: 1;
-            }
-        }
-        box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14),0 1px 18px 0 rgba(0,0,0,0.12),0 3px 5px -1px rgba(0,0,0,0.2);
+  }
+
+  .sc-card-body {
+    flex: 1 1 0;
+    margin: 0;
+    border: 1px solid rgba(0,0,0,.125);
+    border-top-width: 0;
+    border-bottom-width: 0;
+    padding: .5rem .5rem 0;
+    width: 100%;
+    p{
+      word-break: break-all;
+      word-break: break-word;
     }
+
+    &:first-of-type{
+      border-top-width: 1px;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+    }
+
+    &:last-of-type{
+      border-bottom-width: 1px;
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+  }
+
+  .sc-card-footer {
+    flex: 0 1 0;
+    border: 1px solid rgba(0,0,0,.125);
+    border-top-width: 0;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    padding: .5rem;
+    width: 100%;
+    a, button {
+      display: inline-block;
+      float: right;
+      transition: all .1s ease-in-out;
+      border: zero;
+      border-radius: 2px;
+      padding: 0 8px;
+      text-align: center;
+      text-transform: none;
+      text-decoration: none;
+      line-height: 36px;
+      color: $secondaryColor;
+      font-size: 15px;
+      &:hover {
+        background-color: #eee;
+      }
+    }
+
+    .additionalInfo {
+      float: left;
+    }
+  }
+
+  &:hover{
+    .sc-card-header{
+      .sc-card-menu{
+        opacity: 1;
+      }
+    }
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14),0 1px 18px 0 rgba(0,0,0,0.12),0 3px 5px -1px rgba(0,0,0,0.2);
+  }
 }
 
 /* IE8-11 specific styles go here */
 @media screen\0 {
-    .sc-card {
-        display: block;
-        .sc-card-footer{
-            a, button {
-                float: none;
-            }
-        }
+  .sc-card {
+    display: block;
+    .sc-card-footer{
+      a, button {
+        float: none;
+      }
     }
+  }
 }

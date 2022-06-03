@@ -3,37 +3,40 @@
 /* CUSTOM CKEDITOR STYLES */
 
 .cke_chrome{
-	border: 0 !important;
+  border: 0 !important;
 }
+
 .cke_inner{
-	.cke_bottom{
-		display: none
-	}
+  .cke_bottom{
+    display: none
+  }
 }
+
 .cke_editable {
-	img, video, iframe{
-		max-width: 100% !important;
-	}
+  img, video, iframe{
+    max-width: 100% !important;
+  }
 }
 
 .cke_dialog_image_ratiolock{
-	display: none;
+  display: none;
 }
 
 .cke_dialog_container{
-	a.cke_dialog_ui_button:hover,
-	a.cke_dialog_ui_button:focus,
-	a.cke_dialog_ui_button:active{
-		background-color: $primaryColor !important;
-		border-color: $primaryColor !important;
-	}
-	a.cke_dialog_ui_button:hover>span,
-	a.cke_dialog_ui_button:focus>span,
-	a.cke_dialog_ui_button:active>span{
-		background-color: transparent !important;
-	}
+  a.cke_dialog_ui_button:hover,
+  a.cke_dialog_ui_button:focus,
+  a.cke_dialog_ui_button:active{
+    border-color: $primaryColor !important;
+    background-color: $primaryColor !important;
+  }
+
+  a.cke_dialog_ui_button:hover>span,
+  a.cke_dialog_ui_button:focus>span,
+  a.cke_dialog_ui_button:active>span{
+    background-color: transparent !important;
+  }
 }
 
 .ckeditor-html5-video{
-	max-width: 500px;
+  max-width: 500px;
 }

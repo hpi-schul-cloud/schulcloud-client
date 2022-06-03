@@ -1,125 +1,137 @@
 @import "../lib/colors";
 
 .section-teams {
-	.dropdown-title {
-		display: flex;
-		margin-top: 5px;
-		.btn-title-dropdown {
-			padding: 0;
-			cursor: pointer;
-			.i-cog {
-				font-size: medium;
-				color: $fontColor;
-			}
-		}
-		.title-headline {
-			display: inline-block;
-			margin-right: 10px;
-		}
-		.dropdown-toggle:hover {
-			color: $primaryColor !important;
-		}
-		.dropdown-toggle:after {
-			display: none;
-		}
-		.dropdown-menu-team {
-			.dropdown-item {
-				padding: 10px 1.5rem;
-				> i {
-					padding: 5px;
-				}
-			}
-		}
-	}
-	.section-news .container-fluid {
-		padding: 0;
-	}
-	> section {
-		margin-top: 3rem;
-	}
+  .dropdown-title {
+    display: flex;
+    margin-top: 5px;
+    .btn-title-dropdown {
+      cursor: pointer;
+      padding: 0;
+      .i-cog {
+        color: $fontColor;
+        font-size: medium;
+      }
+    }
 
-	.section-description {
-		margin-top: 1rem;
-	}
+    .title-headline {
+      display: inline-block;
+      margin-right: 10px;
+    }
 
-	h4 {
-		margin-bottom: 1rem;
-	}
-	.lead:empty {
-		margin-bottom: 0;
-	}
-	.section-upload {
-		margin-top: 1rem;
-	}
-	.files {
-		margin-bottom: 10px;
-	}
-	.btn {
-		margin-bottom: 0.5rem;
+    .dropdown-toggle:hover {
+      color: $primaryColor !important;
+    }
 
-		.tag {
-			background-color: $secondaryColor;
-			border-radius: 20px;
-			padding: 1px 6px;
-			font-size: 10pt;
-			color: $colorWhite;
-			margin-left: 4px;
-		}
-	}
+    .dropdown-toggle:after {
+      display: none;
+    }
 
-	.btn-member {
-		text-decoration: none;
-		color: $colorDarkerGrey;
-	}
-	.btn-member:hover {
-		color: $primaryColor;
-	}
+    .dropdown-menu-team {
+      .dropdown-item {
+        padding: 10px 1.5rem;
+        > i {
+          padding: 5px;
+        }
+      }
+    }
+  }
+
+  .section-news .container-fluid {
+    padding: 0;
+  }
+
+  > section {
+    margin-top: 3rem;
+  }
+
+  .section-description {
+    margin-top: 1rem;
+  }
+
+  h4 {
+    margin-bottom: 1rem;
+  }
+
+  .lead:empty {
+    margin-bottom: 0;
+  }
+
+  .section-upload {
+    margin-top: 1rem;
+  }
+
+  .files {
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    margin-bottom: 0.5rem;
+
+    .tag {
+      margin-left: 4px;
+      border-radius: 20px;
+      background-color: $secondaryColor;
+      padding: 1px 6px;
+      color: $colorWhite;
+      font-size: 10pt;
+    }
+  }
+
+  .btn-member {
+    text-decoration: none;
+    color: $colorDarkerGrey;
+  }
+
+  .btn-member:hover {
+    color: $primaryColor;
+  }
 }
 
 .create-course-event,
 .create-team-event,
 .create-videoconference {
-	label {
-		margin-left: 0.5rem;
-	}
-	.toggle {
-		height: 2rem !important;
-		width: 7rem !important;
-		.toggle-handle {
-			width: 0.3rem !important;
-			background: whitesmoke !important;
-		}
-	}
+  label {
+    margin-left: 0.5rem;
+  }
 
-	.off {
-		background: grey !important;
-		label {
-			color: whitesmoke !important;
-			padding-left: 48px !important;
-		}
-	}
+  .toggle {
+    width: 7rem !important;
+    height: 2rem !important;
+    .toggle-handle {
+      background: #f5f5f5 !important;
+      width: 0.3rem !important;
+    }
+  }
 
-	.on {
-		label {
-			padding-right: 48px !important;
-		}
-	}
+  .off {
+    background: #808080 !important;
+    label {
+      padding-left: 48px !important;
+      color: #f5f5f5 !important;
+    }
+  }
+
+  .on {
+    label {
+      padding-right: 48px !important;
+    }
+  }
 }
 
 .section-team-members {
-	a.btn.disabled {
-		pointer-events: auto;
-	}
+  a.btn.disabled {
+    pointer-events: auto;
+  }
 }
 
 .info-custom {
-	background-color: $colorGrey;
-	border-color: $colorLightGrey;
-	color: $fontColor;
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  border-color: $colorLightGrey;
+  background-color: $colorGrey;
+  color: $fontColor;
 
-	i {
-		margin: auto;
-	}
+  i {
+    margin: auto;
+  }
 }

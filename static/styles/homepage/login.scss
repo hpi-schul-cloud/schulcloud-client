@@ -2,87 +2,98 @@
 @import "../lib/bootstrap/scss/bootstrap";
 // legacy css for login form
 #loginarea {
-	&:not(.demo-login) {
-		border-radius: 0;
-		border: 0px solid var(--color-gray-light);
-		box-shadow: var(--shadow-sm);
-	}
-	.btn {
-		word-wrap: break-word;
-		white-space: normal;
-		min-width: 22ch;
-	}
-	.toggle-btn {
-		margin-bottom: 1rem;
-	}
-	input:not(.chosen-search-input),
-	input:not(.chosen-search-input):-webkit-autofill::first-line,
-	input:not(.chosen-search-input):-webkit-autofill:focus,
-	input:not(.chosen-search-input):-webkit-autofill:hover {
-		font-size: 1rem;
-		padding: 0.5rem;
-		font-family: $font-family-base;
-	}
-	select {
-		width: 100%;
-		padding: 0.25rem 0.5rem;
-		border-radius: 4px;
-	}
-	.login-providers {
-		display: none;
-	}
-	.email-login-section {
-		display: none;
-	}
-	.ldap-login-section {
-		display: none;
-	}
-	.system-display {
-		display: none;
-	}
+  &:not(.demo-login) {
+    border: 0 solid var(--color-gray-light);
+    border-radius: 0;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn {
+    min-width: 22ch;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
+  .toggle-btn {
+    margin-bottom: 1rem;
+  }
+
+  input:not(.chosen-search-input),
+  input:not(.chosen-search-input):-webkit-autofill::first-line,
+  input:not(.chosen-search-input):-webkit-autofill:focus,
+  input:not(.chosen-search-input):-webkit-autofill:hover {
+    padding: 0.5rem;
+    font-family: $font-family-base;
+    font-size: 1rem;
+  }
+
+  select {
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    width: 100%;
+  }
+
+  .login-providers {
+    display: none;
+  }
+
+  .email-login-section {
+    display: none;
+  }
+
+  .ldap-login-section {
+    display: none;
+  }
+
+  .system-display {
+    display: none;
+  }
 
 }
 
 .login-failed-container {
-	margin-top: 30px;
-	max-width: 900px;
+  margin-top: 30px;
+  max-width: 900px;
 
-	li {
-		list-style: none;
-		font-weight: 800;
-		margin-bottom: 10px;
-		font-size: 20px;
-		&::before {
-			display: none;
-		}
-	}
-	.screenshot {
-		width: 60%;
+  li {
+    margin-bottom: 10px;
+    list-style: none;
+    font-size: 20px;
+    font-weight: 800;
+    &::before {
+      display: none;
+    }
+  }
 
-		@include media-breakpoint-down(md) {
-			width: 80%;
-		}
-		@include media-breakpoint-down(xs) {
-			width: 100%;
-		}
-	}
+  .screenshot {
+    width: 60%;
 
-	.steps {
-		margin-bottom: 30px;
-		margin-top: 10px;
-	}
-	.browser {
-		margin-left: 10px 0px 0px 10px;
-	}
+    @include media-breakpoint-down(md) {
+      width: 80%;
+    }
 
-	.logo-container {
-		display: flex;
-		flex-direction: column;
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+    }
+  }
 
-		.sc-logo {
-			cursor: pointer;
-			margin-left: 10px;
-			margin-bottom: 15px;
-		}
-	}
+  .steps {
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+
+  .browser {
+    margin-left: 10px 0 0 10px;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+
+    .sc-logo {
+      margin-bottom: 15px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
 }
