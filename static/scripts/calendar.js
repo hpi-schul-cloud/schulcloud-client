@@ -52,6 +52,14 @@ const getCalendarLanguage = (langAttribute) => {
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
+	const URI = {
+		courseList: '/courses/getNames',
+		teamList: '/teams?json=true',
+		eventList: '/calendar/events',
+		getSingleCourse: (courseId) => `/courses/${courseId}/json`,
+		getSingleTeam: (teamId) => `/teams/${teamId}/json`,
+		getSingleEvent: (eventId) => `/calendar/events/${eventId}`,
+	};
 
 	function showAJAXError(req, textStatus, errorThrown) {
 		$editEventModal.modal('hide');
@@ -70,7 +78,7 @@ $(document).ready(() => {
 	function transformCourseOrTeamEvent(modal, event) {
 		if (event['x-sc-courseId']) {
 			const courseId = event['x-sc-courseId'];
-			$.getJSON(`/courses/${courseId}/json`, (course) => {
+			$.getJSON(URI.getSingleCourse(courseId), (course) => {
 				const $title = modal.find('.modal-title');
 				$title.html(`${$title.html()}, Kurs: ${course.course.name}`);
 
@@ -87,7 +95,7 @@ $(document).ready(() => {
 			});
 		} else if (event['x-sc-teamId']) {
 			const teamId = event['x-sc-teamId'];
-			$.getJSON(`/teams/${teamId}/json`, (team) => {
+			$.getJSON(URI.getSingleTeam(teamId), (team) => {
 				const $title = modal.find('.modal-title');
 				$title.html(`${$title.html()}, Team: ${team.team.name}`);
 
@@ -117,11 +125,11 @@ $(document).ready(() => {
 		timeZone: getCalendarTimezone(),
 		locale: getCalendarLanguage(getLangAttribute()),
 		header: {
-			left: 'title',
-			right: 'dayGridMonth,timeGridWeek,timeGridDay prev,today,next',
+			left: 'title prev,timeGridDay,timeGridWeek,dayGridMonth,next,today',
+			right: 'prev,timeGridDay,timeGridWeek,dayGridMonth,next,today',
 		},
 		events: (info, successCallback) => {
-			$.getJSON('/calendar/events', (events) => successCallback(events));
+			$.getJSON(URI.eventList, (events) => successCallback(events));
 		},
 		eventRender(info) {
 			if (info.event.cancelled) {
@@ -151,14 +159,14 @@ $(document).ready(() => {
 					description: eventData.description,
 					location: eventData.location,
 				},
-				action: `/calendar/events/${eventData._id}`,
+				action: URI.getSingleEvent(eventData._id),
 			});
 
 			if (!eventData['x-sc-teamId']) { // course or non-course event
 				transformCourseOrTeamEvent($editEventModal, eventData);
 				$editEventModal.find('.btn-delete').click(() => {
 					$.ajax({
-						url: `/calendar/events/${eventData._id}`,
+						url: URI.getSingleEvent(eventData._id),
 						type: 'DELETE',
 						error: showAJAXError,
 						success(result) {
@@ -201,63 +209,97 @@ $(document).ready(() => {
 
 	calendar.render();
 
+	const isChecked = (event) => {
+		const checked = $(event.target).is(':checked');
+
+		return checked;
+	};
+
+	const TOGGLE = {
+		last: -1,
+		next: 1,
+	};
+
+	const getRefId = (event) => $(event.target).attr('data-Ref');
+	const getDefaultText = (event) => $(event.target).attr('data-defauttext');
+
+	const hideArea = (id) => {
+		$(`#collapse${id}`).hide();
+		$(`#collapse${id}`).find('select').hide();
+	};
+
+	const showArea = (id) => {
+		$(`#collapse${id}`).show();
+		$(`#collapse${id}`).find('select').show();
+	};
+
+	const hideAreaByEvent = (event) => {
+		const refId = getRefId(event);
+		hideArea(refId);
+		$('.create-videoconference').hide();
+	};
+
+	const toggle = (event, relativeTogglePosition) => {
+		const refId = getRefId(event);
+		const toggleId = Number(refId) + relativeTogglePosition;
+
+		hideArea(2);
+		hideArea(3);
+		hideArea(4);
+		hideArea(5);
+		$(`#toggle${toggleId}`).bootstrapToggle('off');
+
+		showArea(refId);
+	};
+
+	const errorHandler = (jqxhr, textStatus, err) => {
+		// eslint-disable-next-line no-console
+		console.error(err);
+	};
+
+	const addOptionsToSelection = (event, data) => {
+		const ref = getRefId(event);
+
+		// hard killed auto generated "_chosen" otherwise it is always displayed twice
+		$(`#selection${ref}_chosen`).hide();
+
+		const $selection = $(`#selection${ref}`);
+		$selection.find('option').remove();
+
+		const defaultText = getDefaultText(event);
+		$selection.append(`<option aria-label="${defaultText}" value="" selected hidden>${defaultText}</option>`);
+
+		data.forEach((d) => {
+			$selection.append(`<option aria-label="${d.name}" value="${d._id}">${d.name}</option>`);
+		});
+	};
+
+	/**
+	 * important look into calendar.hbs the form-create-event.hbs
+	 * is execute twice and generate invalid html with double usedIds
+	 * see also collapeseIdCourse or collapesedIdTeam
+	 * events are also bind to twice
+	 * */
 	$("input[name='isCourseEvent']").change((event) => {
-		const input = event.target;
-		const isChecked = $(input).is(':checked');
-		const ref = $(input).attr('data-collapseRef');
-		const $collapse = $(`#${ref}`);
-		const $selection = $collapse.find('.course-selection');
-		$selection.find('option')
-			.remove()
-			.end();
-
-		if (isChecked) {
-			// fetch all courses for teacher and show selection
-			$.getJSON('/courses?json=true', (courses) => {
-				$collapse.collapse('show');
-				const $toggleTeam = $(`#toggle${parseInt(ref.substr(ref.length - 1, ref.length), 10) + 1}`);
-				$toggleTeam.bootstrapToggle('off');
-
-				courses.forEach((course) => {
-					const option = document.createElement('option');
-					option.text = course.name;
-					option.value = course._id;
-					$selection.append(option);
-				});
-			});
+		if (isChecked(event)) {
+			$.getJSON(URI.courseList, (courses) => {
+				toggle(event, TOGGLE.next);
+				addOptionsToSelection(event, courses);
+			}).fail(errorHandler);
 		} else {
-			$collapse.collapse('hide');
+			hideAreaByEvent(event);
 		}
 	});
 
 	$("input[name='isTeamEvent']").change((event) => {
-		const input = event.target;
-		const isChecked = $(input).is(':checked');
-		const ref = $(input).attr('data-collapseRef');
-		const $collapse = $(`#${$(input).attr('data-collapseRef')}`);
-		const $selection = $collapse.find('.team-selection');
-		const $videoconferenceToggle = $('.create-videoconference');
-		$selection.find('option')
-			.remove()
-			.end();
-
-		if (isChecked) {
-			// fetch all courses for teacher and show selection
-			$.getJSON('/teams?json=true', (teams) => {
-				$collapse.collapse('show');
-				const $toggleTCourse = $(`#toggle${parseInt(ref.substr(ref.length - 1, ref.length), 10) - 1}`);
-				$toggleTCourse.bootstrapToggle('off');
-				teams.forEach((team) => {
-					const option = document.createElement('option');
-					option.text = team.name;
-					option.value = team._id;
-					$selection.append(option);
-				});
-				$videoconferenceToggle.show();
-			});
+		if (isChecked(event)) {
+			$.getJSON(URI.teamList, (teams) => {
+				toggle(event, TOGGLE.last);
+				addOptionsToSelection(event, teams);
+				$('.create-videoconference').show();
+			}).fail(errorHandler);
 		} else {
-			$collapse.collapse('hide');
-			$videoconferenceToggle.hide();
+			hideAreaByEvent(event);
 		}
 	});
 });

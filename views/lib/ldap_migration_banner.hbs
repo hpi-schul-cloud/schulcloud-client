@@ -1,0 +1,13 @@
+{{#if @root.currentSchoolData.officialSchoolNumber}}
+    {{#if @root.currentSchoolData.inUserMigration}}
+        {{#userHasPermission 'IMPORT_USER_VIEW'}}
+            <input type="hidden" id="inUserMigrationStarted" value="{{currentRole}}"/>
+        {{/userHasPermission}}
+    {{else}}
+        {{#ifneq @root.currentSchoolData.inUserMigration false}}
+            {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
+                <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
+            {{/userHasPermission}}
+        {{/ifneq}}
+    {{/if}}
+{{/if}}

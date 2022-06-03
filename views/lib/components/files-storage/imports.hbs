@@ -1,0 +1,9 @@
+{{#content "styles" mode="append"}}
+    <link rel="stylesheet" href="/styles/files/files.css" />
+{{/content}}
+
+{{#content "scripts" mode="append"}}
+	<script src="{{getAssetPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	<script src="{{getAssetPath '/scripts/files-storage.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+	<script src="{{getAssetPath '/scripts/jquery.cookie.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+{{/content}}
