@@ -395,7 +395,7 @@
 		"ROOM_VIEW_ENABLED": {
 			"type": "boolean",
 			"default": false,
-			"description": "feature toggle activate Room view link."
+			"description": "Feature toggle activate Room view link."
 		},
 		"ACCESSIBILITY_REPORT_EMAIL": {
 			"type": "string",
@@ -497,6 +497,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables Copy course button"
+		},
+		"FEATURE_TASK_COPY_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Feature toggle activate new task copy service."
 		},
 		"FEATURE_COURSE_SHARE": {
 			"type": "boolean",

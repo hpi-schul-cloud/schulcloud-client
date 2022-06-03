@@ -1910,7 +1910,7 @@
 			"contactDetails": "Ansprechpartner:innen und Kontaktdaten",
 			"helpSection": "Hilfeartikel",
 			"privacyCourse": "Datenschutzkurs",
-			"welcomeDocuments": "Willkommensdokumente zum Download"
+			"documentsToDownload": "Dokumente zum Download"
 		},
 		"help_confluenceLinks": {
 			"link": {

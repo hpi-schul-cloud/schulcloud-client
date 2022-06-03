@@ -6,6 +6,7 @@
 const express = require('express');
 const marked = require('marked');
 const handlebars = require('handlebars');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -26,6 +27,8 @@ handlebars.registerHelper('ifvalue', (conditional, options) => {
 });
 
 router.use(authHelper.authChecker);
+
+const nestTaskCopyServiceEnabled = Configuration.get('FEATURE_TASK_COPY_ENABLED') || false;
 
 const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
 	qs: query,
@@ -683,7 +686,28 @@ router.get('/new', (req, res, next) => {
 	});
 });
 
-router.get('/:assignmentId/copy', (req, res, next) => {
+router.get('/:assignmentId/copy', async (req, res, next) => {
+	if (nestTaskCopyServiceEnabled) {
+		try {
+			const { courseId } = req.query;
+			const result = await api(req, { version: 'v3' }).post(`/tasks/${req.params.assignmentId}/copy`, {
+				json: {
+					courseId,
+				},
+			});
+			if (!result || !result.id) {
+				const error = new Error(res.$t('homework._task.text.errorInvalidTaskId'));
+				error.status = 500;
+				return next(error);
+			}
+			if (req.query.returnUrl) {
+				return res.redirect(`/homework/${result.id}/edit?returnUrl=${req.query.returnUrl}`);
+			}
+			return res.redirect(`/homework/${result.id}/edit?returnUrl=${result.id}`);
+		} catch (err) {
+			next(err);
+		}
+	}
 	api(req).get(`/homework/copy/${req.params.assignmentId}`)
 		.then((assignment) => {
 			if (!assignment || !assignment._id) {
@@ -694,10 +718,11 @@ router.get('/:assignmentId/copy', (req, res, next) => {
 			if (req.query.returnUrl) {
 				return res.redirect(`/homework/${assignment._id}/edit?returnUrl=${req.query.returnUrl}`);
 			}
-			return res.redirect(`/homework/${assignment._id}/edit`);
+			return res.redirect(`/homework/${assignment._id}/edit?returnUrl=${assignment._id}`);
 		}).catch((err) => {
 			next(err);
 		});
+	return next;
 });
 
 router.get('/:assignmentId/edit', (req, res, next) => {
@@ -892,6 +917,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				courseGroups,
 				courseGroupSelected,
 				path: submissionUploadPath,
+				course: assignment.courseId,
 			};
 
 			// Abgabenübersicht anzeigen -> weitere Daten berechnen
