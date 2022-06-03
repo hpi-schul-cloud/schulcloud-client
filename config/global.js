@@ -1,8 +1,6 @@
 const util = require('util');
 
 const {
-	KEEP_ALIVE = false,
-	BACKEND_URL = 'http://localhost:3030/api/',
 	PUBLIC_BACKEND_URL,
 	EDTR_SOURCE = undefined,
 	EDITOR_URL = undefined,
@@ -44,8 +42,6 @@ const {
 } = process.env;
 
 const exp = {
-	KEEP_ALIVE,
-	BACKEND_URL,
 	PUBLIC_BACKEND_URL,
 	EDTR_SOURCE,
 	EDITOR_URL,
