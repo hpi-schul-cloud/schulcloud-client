@@ -700,7 +700,10 @@ router.get('/:assignmentId/copy', async (req, res, next) => {
 				error.status = 500;
 				return next(error);
 			}
-			return res.redirect(`/homework/${result.id}/edit`);
+			if (req.query.returnUrl) {
+				return res.redirect(`/homework/${result.id}/edit?returnUrl=${req.query.returnUrl}`);
+			}
+			return res.redirect(`/homework/${result.id}/edit?returnUrl=${result.id}`);
 		} catch (err) {
 			next(err);
 		}
@@ -715,10 +718,11 @@ router.get('/:assignmentId/copy', async (req, res, next) => {
 			if (req.query.returnUrl) {
 				return res.redirect(`/homework/${assignment._id}/edit?returnUrl=${req.query.returnUrl}`);
 			}
-			return res.redirect(`/homework/${assignment._id}/edit`);
+			return res.redirect(`/homework/${assignment._id}/edit?returnUrl=${assignment._id}`);
 		}).catch((err) => {
 			next(err);
 		});
+	return next;
 });
 
 router.get('/:assignmentId/edit', (req, res, next) => {
