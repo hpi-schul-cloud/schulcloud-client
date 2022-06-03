@@ -28,7 +28,7 @@ handlebars.registerHelper('ifvalue', (conditional, options) => {
 
 router.use(authHelper.authChecker);
 
-const taskCopyServiceEnabled = Configuration.get('FEATURE_TASK_COPY_ENABLED') || false;
+const nestTaskCopyServiceEnabled = Configuration.get('FEATURE_TASK_COPY_ENABLED') || false;
 
 const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
 	qs: query,
@@ -687,7 +687,7 @@ router.get('/new', (req, res, next) => {
 });
 
 router.get('/:assignmentId/copy', async (req, res, next) => {
-	if (taskCopyServiceEnabled) {
+	if (nestTaskCopyServiceEnabled) {
 		try {
 			const { courseId } = req.query;
 			const result = await api(req, { version: 'v3' }).post(`/tasks/${req.params.assignmentId}/copy`, {
