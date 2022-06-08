@@ -415,7 +415,7 @@ header {
   text-align: center;
 
   .alert-warning {
-    border: zero;
+    border: none;
     border-radius: 0;
     height: 63px;
   }
@@ -639,7 +639,7 @@ footer {
   }
 
   .dropdown-toggle {
-    border: zero;
+    border: none;
   }
 
   .account-toggle {
@@ -679,7 +679,7 @@ footer {
 
     .dropdown-toggle {
       margin-left: -.75rem;
-      border: zero;
+      border: none;
       border-radius: 50%;
       background: transparent;
       padding: 0 !important;
@@ -709,7 +709,7 @@ footer {
   .minimal-button {
     .dropdown-toggle {
       margin-left: -.75rem;
-      border: zero;
+      border: none;
       border-radius: 50%;
       background: transparent;
       padding: 10px !important;
