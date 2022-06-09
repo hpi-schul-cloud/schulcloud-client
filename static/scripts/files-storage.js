@@ -146,12 +146,7 @@ $(document).ready(() => {
 			${getSchoolId()}/
 			${getCurrentParentType()}/
 			${getCurrentParentId()}`,
-			uploadMultiple: false,
-			parallelUploads: 100,
-			maxFiles: 100,
-			contentType: false,
-			withCredentials: true,
-			binaryBody: true,
+			chunking: true,
 			createImageThumbnails: false,
 			method: 'POST',
 			maxFilesize,
