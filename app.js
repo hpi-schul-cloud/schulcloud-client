@@ -35,7 +35,7 @@ const {
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 	JWT_TIMEOUT_SECONDS,
-	BACKEND_URL,
+	API_HOST,
 	PUBLIC_BACKEND_URL,
 } = require('./config/global');
 
@@ -169,7 +169,7 @@ app.use(async (req, res, next) => {
 	// eslint-disable-next-line max-len
 	res.locals.MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_MEGABYTE = (MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE / 1024 / 1024);
 	res.locals.JWT_TIMEOUT_SECONDS = Number(JWT_TIMEOUT_SECONDS);
-	res.locals.BACKEND_URL = PUBLIC_BACKEND_URL || BACKEND_URL;
+	res.locals.API_HOST = PUBLIC_BACKEND_URL || `${API_HOST}/`;
 	res.locals.version = version;
 	res.locals.sha = sha;
 	res.locals.ROCKETCHAT_SERVICE_ENABLED = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');

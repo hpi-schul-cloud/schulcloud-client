@@ -418,6 +418,17 @@ const filterSubstitutionCourses = (courses, userId, res) => {
 	return [substitutions, others];
 };
 
+router.get('/getNames', async (req, res, next) => {
+	try {
+		const result = await api(req).get('/courses/');
+		const courseNamesWithId = result.data.map((c) => ({ name: c.name, _id: c._id }));
+
+		res.json(courseNamesWithId);
+	} catch (err) {
+		next(err);
+	}
+});
+
 router.get('/', (req, res, next) => {
 	const { currentUser } = res.locals;
 	const userId = currentUser._id.toString();

@@ -12,6 +12,12 @@ if (NODE_ENV === 'test') {
 	formater = format.combine(
 		format.prettyPrint({ depth: 1, colorize }),
 	);
+} else if (NODE_ENV === 'production') {
+	formater = format.combine(
+		format.errors({ stack: true }),
+		format.timestamp(),
+		format.json(),
+	);
 } else {
 	formater = format.combine(
 		format.errors({ stack: true }),

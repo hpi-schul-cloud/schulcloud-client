@@ -1288,7 +1288,10 @@
 				"fileAddedSuccess": "Los archivos se han añadido correctamente y se mostrarán inmediatamente después de que se actualice la página.",
 				"fileAlreadyExists": "¡Ya existe un archivo con este nombre en la carpeta de destino!",
 				"fileAlreadyExistsInDir": "¡Ya existe un archivo con este nombre en la misma carpeta!",
+				"fileIsBlocked": "El archivo puede contener contenido malicioso",
 				"fileMoved": "¡El archivo se ha movido correctamente!",
+				"fileNameExists": "Ya existe un archivo con este nombre",
+				"fileNotFound": "No se pudo encontrar el archivo",
 				"littleHintHowToMoveFiles": "<b>Pequeño consejo:</b> puedes descargar el archivo y luego subirlo a la carpeta correcta.",
 				"movingFilesIsDisabled": "Actualmente no es posible mover archivos. Estamos trabajando en una solución.",
 				"permissionsChangedSuccess": "Los permisos de archivo se han cambiado correctamente",
@@ -1361,6 +1364,7 @@
 			"shareFile": "Compartir archivo",
 			"size": "Tamaño",
 			"sortBy": "Ordenar por...",
+			"storeFilesForUploadProgress": "Carga de archivos",
 			"updatedAt": "Fecha de modificación",
 			"write": "Escribir"
 		},
@@ -1398,6 +1402,7 @@
 			"searchResultFor": "resultados de búsqueda para",
 			"searchResults": "Resultados de la búsqueda",
 			"storeFilesForUpload": "Guardar archivos para subirlos.",
+			"storeFilesForUploadDisabled": "Los archivos solo se pueden cargar después del primer guardado",
 			"studentCanEdit": "¿Los estudiantes pueden editar?",
 			"tips": "SUGERENCIA: abre el documento de LibreOffice en una ventana aparte para mejorar el rendimiento"
 		}
@@ -1905,7 +1910,7 @@
 			"contactDetails": "Persona de contacto y datos de contacto",
 			"helpSection": "Artículos de ayuda",
 			"privacyCourse": "Curso de privacidad",
-			"welcomeDocuments": "Documentos de bienvenida para descargar"
+			"documentsToDownload": "Documentos para descargar"
 		},
 		"help_confluenceLinks": {
 			"link": {

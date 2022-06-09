@@ -31,7 +31,7 @@ router.get('/events/', (req, res, next) => {
 			all: true,
 		},
 	}).then((events) => {
-		Promise.all(events.map(event => recurringEventsHelper.mapEventProps(event, req))).then((responseEvents) => {
+		Promise.all(events.map((event) => recurringEventsHelper.mapEventProps(event, req))).then((responseEvents) => {
 			// TODO: fix next line
 			// eslint-disable-next-line prefer-spread
 			const convertedEvents = [].concat.apply([], events.map(recurringEventsHelper.mapRecurringEvent));
