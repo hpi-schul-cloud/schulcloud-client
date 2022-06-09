@@ -43,9 +43,11 @@
     {{/content}}
 
     {{#content "body"}}
-        <input type="hidden" id="matrixAssetDomain" value='{{getConfig "MATRIX_MESSENGER__EMBED_URI"}}'/>
-        <input type="hidden" id="matrixUserLanguage" value="{{ @root.userLanguage }}"/>
-        <input type="hidden" id="matrixBlockRoomCreation" value="{{ @root.matrixBlockRoomCreation }}"/>
+        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+            <input type="hidden" id="matrixAssetDomain" value='{{getConfig "MATRIX_MESSENGER__EMBED_URI"}}'/>
+            <input type="hidden" id="matrixUserLanguage" value="{{ @root.userLanguage }}"/>
+            <input type="hidden" id="matrixBlockRoomCreation" value="{{ @root.matrixBlockRoomCreation }}"/>
+        {{/ifConfig}}
 
         {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
             {{#if @root.currentSchoolData.officialSchoolNumber}}
