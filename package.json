@@ -9,8 +9,6 @@
 		"debug:container": "nodemon --inspect=0.0.0.0:9310 --config nodemon.json",
 		"local-ssl-proxy": "local-ssl-proxy --source 443 --target 3100",
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
-		"sasslint": "sass-lint -q -v",
-		"sasslint:fix": "sass-lint-auto-fix -s -c ./.sass-lint-auto-fix.yml && sass-lint -q -v",
 		"startd": "echo 'Do you mean 'npm run watch'?'",
 		"test": "cross-env NODE_ENV=test npm run mocha --exit ",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive --opts ./test/mocha/mocha.opts",
@@ -22,7 +20,6 @@
 		"node": "16",
 		"npm": "8"
 	},
-	"sasslintConfig": "./.sass-lint.yml",
 	"husky": {
 		"hooks": {
 			"pre-commit": "npx lint-staged"
@@ -186,8 +183,6 @@
 		"postcss-css-variables": "^0.13.0",
 		"pump": "^1.0.2",
 		"rebuild-changed-entrypoints-webpack-plugin": "^1.0.1",
-		"sass-lint": "^1.13.1",
-		"sass-lint-auto-fix": "^0.21.2",
 		"script-loader": "^0.7.2",
 		"vinyl-map": "^1.0.2",
 		"vinyl-named": "^1.1.0",
