@@ -4,18 +4,19 @@
 		<div class="card-block
 			{{#ifneq this.securityCheckStatus "blocked"}}
 				fileviewer"
-				"data-file-viewer-type"="{{../this.type}}"
-				"data-file-viewer-savename"="{{../this.saveName}}"
-				"data-file-viewer-id"="{{../this.id}}"
+				data-file-viewer-type="{{../this.type}}"
+				data-file-viewer-savename="{{../this.name}}"
+				data-file-viewer-id="{{../this.id}}"
 			{{/ifneq}}
 			tabindex="0"
 			aria-label="{{$t "files.label.clickToOpenFile" (dict "name" this.name)}}"
 			role="button">
 			<div class="card-title">
 				<div class="file-preview-wrapper col-sm-1 no-padding hidden-xs-down">
-				<div class="file-preview" style="background-image: url({{this.thumbnail}}); -webkit-background-size: 25px ;background-size: 25px;"></div>
+				<div class="file-preview" style="background-image: url({{getThumbnailIcon this.name}}); -webkit-background-size: 25px ;background-size: 25px;"></div>
 				</div>
-				<a href="/api/v3/file/download/{{this.id}}/{{this.name}}" class="col-sm-10 title" target="_blank">
+				<a 
+				class="col-sm-10 title">
 					{{this.name}}
 					{{#if this.size}}
 						<small style="float: right;" class="file-info" id="{{this.id}}"></small>
