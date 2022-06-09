@@ -142,24 +142,16 @@ $(document).ready(() => {
 
 	if ($form.dropzone) {
 		$form.dropzone({
-			accept(file, done) {
-				const fdata = new FormData();
-				fdata.append('file', file);
-				$.ajax({
-					cache: false,
-					data: fdata,
-					url: `${apiBasePath}/upload/
-					${getSchoolId()}/
-					${getCurrentParentType()}/
-					${getCurrentParentId()}`,
-					type: 'POST',
-					processData: false,
-					contentType: false,
-				})
-					.done(() => {
-						done();
-					}).fail(showAJAXError);
-			},
+			url: `${apiBasePath}/upload/
+			${getSchoolId()}/
+			${getCurrentParentType()}/
+			${getCurrentParentId()}`,
+			uploadMultiple: false,
+			parallelUploads: 100,
+			maxFiles: 100,
+			contentType: false,
+			withCredentials: true,
+			binaryBody: true,
 			createImageThumbnails: false,
 			method: 'POST',
 			maxFilesize,
@@ -167,13 +159,6 @@ $(document).ready(() => {
 			init() {
 				// this is called on per-file basis
 				this.on('processing', updateUploadProcessingProgress);
-				this.on('sending', (file, xhr) => {
-					const { send } = xhr;
-					xhr.send = () => {
-						send.call(xhr, file);
-					};
-				});
-
 				this.on('totaluploadprogress', (_, total, uploaded) => {
 					const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
 
@@ -191,15 +176,15 @@ $(document).ready(() => {
 				});
 
 				this.on('queuecomplete', () => {
-					progressBarActive = false;
 					finishedFilesSize = 0;
-
-					$progressBar.fadeOut(50, () => {
-						$form.fadeIn(50);
-						reloadPage('files._file.text.fileAddedSuccess');
-					});
+					if (progressBarActive) {
+						$progressBar.fadeOut(50, () => {
+							$form.fadeIn(50);
+							reloadPage('files._file.text.fileAddedSuccess');
+						});
+						progressBarActive = false;
+					}
 				});
-
 				this.on('dragover', () => $form.addClass('focus'));
 				this.on('dragleave', () => $form.removeClass('focus'));
 				this.on('dragend', () => $form.removeClass('focus'));
