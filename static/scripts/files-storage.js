@@ -7,7 +7,7 @@ const getSchoolId = getDataValue('school');
 const getCurrentParentId = getDataValue('parent-id');
 const getCurrentParentType = getDataValue('parent-type');
 const apiBasePath = '/api/v3/file';
-const maxFilesize = 5120;
+const maxFilesize = $('#files-storage-component').data('max-file-size');
 
 const messages = {
 	FILE_NAME_EXISTS: 'files._file.text.fileNameExists',
