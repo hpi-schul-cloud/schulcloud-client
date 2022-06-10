@@ -1290,6 +1290,7 @@
 				"fileAlreadyExistsInDir": "¡Ya existe un archivo con este nombre en la misma carpeta!",
 				"fileIsBlocked": "El archivo puede contener contenido malicioso",
 				"fileMoved": "¡El archivo se ha movido correctamente!",
+				"fileNameEmpty": "¡Por favor ingrese el nombre del archivo!",
 				"fileNameExists": "Ya existe un archivo con este nombre",
 				"fileNotFound": "No se pudo encontrar el archivo",
 				"littleHintHowToMoveFiles": "<b>Pequeño consejo:</b> puedes descargar el archivo y luego subirlo a la carpeta correcta.",

@@ -4,12 +4,13 @@ const getDataValue = (attr) => () => {
 };
 
 const getSchoolId = getDataValue('school');
-const getCurrentParentId = getDataValue('parent-id');
-const getCurrentParentType = getDataValue('parent-type');
+const getCurrentParentId = getDataValue('parentId');
+const getCurrentParentType = getDataValue('parentType');
 const apiBasePath = '/api/v3/file';
-const maxFilesize = $('#files-storage-component').data('max-file-size');
+const maxFilesize = getDataValue('maxFileSize');
 
-const messages = {
+const errorMessages = {
+	FILE_NAME_EMPTY: 'files._file.text.fileNameEmpty',
 	FILE_NAME_EXISTS: 'files._file.text.fileNameExists',
 	FILE_IS_BLOCKED: 'files._file.text.fileIsBlocked',
 	FILE_NOT_FOUND: 'files._file.text.fileNotFound',
@@ -59,7 +60,7 @@ function showErrorMessage(message) {
 function showAJAXError(err) {
 	if (err.responseJSON) {
 		const { message } = err.responseJSON;
-		showErrorMessage(messages[message] || messages.INTERNAL_ERROR);
+		showErrorMessage(errorMessages[message] || errorMessages.INTERNAL_ERROR);
 	}
 }
 
@@ -116,14 +117,14 @@ $(document).ready(() => {
 		$deleteModal
 			.find('.modal-title')
 			.text(
-				$t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }),
+				$t('global.text.sureAboutDeleting', { name: $buttonContext.data('fileName') }),
 			);
 
 		$deleteModal
 			.find('.btn-submit')
 			.on('click', () => {
 				$deleteModal.modal('hide');
-				const fileRecordId = $buttonContext.data('file-id');
+				const fileRecordId = $buttonContext.data('fileId');
 				remove(fileRecordId);
 			});
 	}
@@ -150,7 +151,7 @@ $(document).ready(() => {
 			createImageThumbnails: false,
 			method: 'POST',
 			maxFilesize,
-			dictFileTooBig: messages.FILE_TO_BIG,
+			dictFileTooBig: errorMessages.FILE_TO_BIG,
 			init() {
 				// this is called on per-file basis
 				this.on('processing', updateUploadProcessingProgress);
@@ -218,6 +219,11 @@ $(document).ready(() => {
 		e.preventDefault();
 		const fileRecordId = $renameModal.find('#fileRecordId').val();
 		const fileName = $renameModal.find('#newNameInput').val();
+		console.log(fileName);
+		if (!fileName) {
+			showErrorMessage(errorMessages.FILE_NAME_EMPTY);
+			return
+		}
 		rename(fileName, fileRecordId);
 		$renameModal.modal('hide');
 	});

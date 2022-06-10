@@ -1290,6 +1290,7 @@
 				"fileAlreadyExistsInDir": "A file with this name already exists in the same folder!",
 				"fileIsBlocked": "The file may contain malicious content",
 				"fileMoved": "The file was moved successfully!",
+				"fileNameEmpty": "Please enter the file name!",
 				"fileNameExists": "A file with this name already exists",
 				"fileNotFound": "The file could not be found",
 				"littleHintHowToMoveFiles": "<b>Little hint:</b> You can download the file and then upload it to the correct folder.",
