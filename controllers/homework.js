@@ -827,7 +827,7 @@ router.get('/:assignmentId', (req, res, next) => {
 		}
 		const dueDateTimeStamp = timesHelper.splitDate(assignment.dueDate, res.$t('format.date')).timestamp;
 		assignment.submittable = (dueDateTimeStamp >= timesHelper.now() || !assignment.dueDate);
-		assignment.warning = ((dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
+		assignment.warning = (assignment.dueDate && (dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
 				&& assignment.submittable);
 
 		// file upload path, todo: maybe use subfolders
