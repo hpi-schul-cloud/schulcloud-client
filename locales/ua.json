@@ -1421,12 +1421,17 @@
 			"searchResultFor": "результати пошуку для",
 			"searchResults": "Результати пошуку",
 			"storeFilesForUpload": "Зберегти файли для завантаження.",
-			"storeFilesForUploadDisabled": "Файли можна завантажувати лише після першого збереження",
+			"storeFilesForUploadDisabled": "Файли можна завантажувати лише після того, як {{ parentType }} було збережено вперше.",
 			"studentCanEdit": "Чи можуть учні редагувати?",
 			"tips": "ПОРАДА: Щоб підвищити результати, відкрийте документ LibreOffice в окремому вікні",
 			"newDir": "Новий каталог",
 			"newFile": "Новий файл",
 			"noAccessToThisFile": "Ви не маєте доступу до цього файлу!"
+		},
+		"parentTypes": {
+			"courses": "курс",
+			"tasks": "завдання",
+			"submissions": "подання"
 		},
 		"headline": {
 			"attention": "Увага",
