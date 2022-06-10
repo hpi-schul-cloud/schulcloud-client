@@ -822,13 +822,16 @@ router.get('/:assignmentId', (req, res, next) => {
 		if (assignment.availableDate) {
 			assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
 		}
+
+		assignment.submittable = true;
+		assignment.warning = false;
 		if (assignment.dueDate) {
 			assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
-		}
-		const dueDateTimeStamp = timesHelper.splitDate(assignment.dueDate, res.$t('format.date')).timestamp;
-		assignment.submittable = (dueDateTimeStamp >= timesHelper.now() || !assignment.dueDate);
-		assignment.warning = (assignment.dueDate && (dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
+			const dueDateTimeStamp = timesHelper.splitDate(assignment.dueDate, res.$t('format.date')).timestamp;
+			assignment.submittable = (dueDateTimeStamp >= timesHelper.now());
+			assignment.warning = (dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000))
 				&& assignment.submittable);
+		}
 
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
