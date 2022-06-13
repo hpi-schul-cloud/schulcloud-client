@@ -336,7 +336,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 	}
 };
 
-$('.fileviewer').on('click', function determineViewer(e) {
+$('.fileviewer').on('click', function determineViewer() {
 	const fileviewertype = this.getAttribute('data-file-viewer-type');
 	const fileviewersavename = this.getAttribute('data-file-viewer-savename');
 	const fileviewerid = this.getAttribute('data-file-viewer-id');
