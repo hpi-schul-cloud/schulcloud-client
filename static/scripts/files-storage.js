@@ -219,10 +219,10 @@ $(document).ready(() => {
 		e.preventDefault();
 		const fileRecordId = $renameModal.find('#fileRecordId').val();
 		const fileName = $renameModal.find('#newNameInput').val();
-		console.log(fileName);
+
 		if (!fileName) {
 			showErrorMessage(errorMessages.FILE_NAME_EMPTY);
-			return
+			return;
 		}
 		rename(fileName, fileRecordId);
 		$renameModal.modal('hide');
