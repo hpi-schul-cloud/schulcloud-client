@@ -45,7 +45,7 @@
 						</div>
 						<div class="modal-footer">
 							<a href="/courses/{{course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
-								target="_blank" data-method="DELETE" data-name="{{course.name}}" redirect="/courses/">
+								target="_blank" data-method="DELETE" data-name="{{course.name}}" redirect="/courses/" data-testid="deleteCourse">
 								{{$t "courses.global.button.deleteCourse"}}
 							</a>
 							<button type="button" class="btn btn-secondary btn-cancel">
@@ -54,7 +54,7 @@
 
 							{{> "lib/components/csrfInput"}}
 
-							<button type="submit" class="btn btn-primary btn-submit">
+							<button type="submit" class="btn btn-primary btn-submit" data-testid="submit_course_changes">
 								{{submitLabel}}
 							</button>
 						</div>
@@ -280,7 +280,7 @@
 						</button>
 
                         {{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">
+						<button type="submit" class="btn btn-primary btn-submit" data-testid="submit_course_changes">
 							{{submitLabel}}
 						</button>
 					</div>
@@ -301,7 +301,7 @@
 					</button>
 
                     {{> "lib/components/csrfInput"}}
-					<button type="submit" class="btn btn-primary btn-submit">
+					<button type="submit" class="btn btn-primary btn-submit" data-testid="deleteModalDeleteButton">
 						{{$t "global.headline.delete"}}
 					</button>
 				</div>

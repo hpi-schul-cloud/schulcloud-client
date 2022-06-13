@@ -149,7 +149,7 @@
                         {{/ifCond}}
                         {{#if canDeleteUser}}
                         <button style="margin: 0 10px 20px 0"
-                            class="btn btn-secondary btn-delete">{{$t "administration.users_edit.headline.deleteUser" }}</button>
+                            class="btn btn-secondary btn-delete" data-testid="button_delete-user_submit">{{$t "administration.users_edit.headline.deleteUser" }}</button>
                         {{/if}}
                         <button style="margin: 0 10px 20px 0" style="margin:15px"
                             class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
@@ -174,7 +174,7 @@
 
                     {{> "lib/components/csrfInput"}}
 
-                    <button style="margin: 0 15px 0 0" type="submit" class="btn btn-primary btn-submit">
+                    <button style="margin: 0 15px 0 0" type="submit" class="btn btn-primary btn-submit" data-testid="button_save-user_submit">
                         {{submitLabel}}
                     </button>
                 </div>

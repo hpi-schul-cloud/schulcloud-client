@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-sm-12">
-		<div class="list-group" data-courseId="{{@root/_id}}">
+		<div class="list-group" data-courseId="{{@root/_id}}" data-testid="tool_list">
 			{{#if ltiTools}}
 			{{#each ltiTools}}
 			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}"
@@ -124,7 +124,7 @@
 	<div class="col-sm-12 add-button">
 		{{#userHasPermission "TOOL_CREATE" }}
 		{{#unless @root.isArchived}}
-		<a href="/courses/{{../_id}}/tools/add" aria-label="{{$t "courses._course.tools.text.addNewTool"}}" class="btn btn-primary {{#if ../ltiTools}}w-100{{else}}btn-empty{{/if}}"
+		<a href="/courses/{{../_id}}/tools/add" aria-label="{{$t "courses._course.tools.text.addNewTool"}}" data-testid="add-new-tool" class="btn btn-primary {{#if ../ltiTools}}w-100{{else}}btn-empty{{/if}}"
 			title="{{$t "courses._course.tools.text.addNewTool"}}">
 			<span>{{$t "courses._course.tools.button.addNewTool"}}</span></a>
 		{{/unless}}
