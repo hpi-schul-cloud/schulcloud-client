@@ -1427,11 +1427,10 @@
 			"newDir": "Новий каталог",
 			"newFile": "Новий файл",
 			"noAccessToThisFile": "Ви не маєте доступу до цього файлу!",
-			"parentTypes": {
-				"courses": "курс",
-				"tasks": "завдання",
-				"submissions": "подання"
-			}
+			"courses": "курс",
+			"tasks": "завдання",
+			"submissions": "подання"
+			
 		},
 		"headline": {
 			"attention": "Увага",
