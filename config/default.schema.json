@@ -571,12 +571,14 @@
 					"type": "integer",
 					"minimum": 0,
 					"description": "Timeout for incoming requests to the File-Storage in milliseconds."
+				},
+				"MAX_FILE_SIZE": {
+					"type": "integer",
+					"minimum": 0,
+					"description": "File size of incoming requests to the File-Storage in MB."
 				}
 			},
-			"default": {
-				"SERVICE_BASE_URL": "http://localhost:4444",
-				"INCOMING_REQUEST_TIMEOUT": 600000
-			}
+			"required": ["SERVICE_BASE_URL", "INCOMING_REQUEST_TIMEOUT", "MAX_FILE_SIZE"]
 		}
 	},
 	"allOf": [

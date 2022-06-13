@@ -1,7 +1,7 @@
-    <section class="section-upload" data-school="{{schoolId}}" data-parent-id="{{parentId}}" data-parent-type="{{parentType}}">
+    <section class="section-upload" data-max-file-size="{{getConfig "FILES_STORAGE__MAX_FILE_SIZE"}}" data-school="{{schoolId}}" data-parent-id="{{parentId}}" data-parent-type="{{parentType}}">
         <div class="container-fluid">
             <div class="row">
-                <button 
+                <button
                 {{#ifeq parentId undefined}}
                     disabled
                 {{/ifeq}}
@@ -10,7 +10,7 @@
                     <div class="dz-default dz-message" data-dz-message="">
                         <span class="text-muted"><i class="fa fa-cloud-upload dz-clickable" aria-hidden="true"></i>
                             {{#ifeq parentId undefined}}
-                                {{$t "files.text.storeFilesForUploadDisabled"}}
+                                {{$t "files.text.storeFilesForUploadDisabled" (dict "parentType" ($t (concat "files.text." ../parentType)  ../parentType))}}
                             {{else}}
                             {{$t "files.text.storeFilesForUpload"}}
                             {{/ifeq}}
@@ -24,6 +24,6 @@
                         <div class="bar" style="width:0%">&nbsp;</div>
                     </div>
                 </div>
-            </button>
+            </div>
         </div>
     </section>

@@ -1290,6 +1290,7 @@
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileIsBlocked": "Die Datei enthält möglicherweise schädlichen Inhalt",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
+				"fileNameEmpty": "Bitte geben Sie die Dateiname ein!",
 				"fileNameExists": "Es existiert bereits eine Datei mit diesem Namen",
 				"fileNotFound": "Die Datei konnte nicht gefunden werden",
 				"littleHintHowToMoveFiles": "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
@@ -1402,9 +1403,12 @@
 			"searchResultFor": "Suchergebnisse für",
 			"searchResults": "Suchergebnisse",
 			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
-			"storeFilesForUploadDisabled": "Dateien können nur nach dem ersten Speichern hochgeladen werden",
+			"storeFilesForUploadDisabled": "Dateien können erst nach dem ersten Speichern {{ parentType }} hochgeladen werden.",
 			"studentCanEdit": "Schüler:innen können editieren?",
-			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern"
+			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
+			"courses": "des Kurses",
+			"tasks": "der Aufgabe",
+			"submissions": "der Abgabe"
 		}
 	},
 	"firstLogin": {
