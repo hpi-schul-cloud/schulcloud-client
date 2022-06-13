@@ -1405,12 +1405,12 @@
 			"storeFilesForUpload": "Guardar archivos para subirlos.",
 			"storeFilesForUploadDisabled": "Los archivos solo se pueden cargar después de que {{ parentType }} se haya guardado por primera vez",
 			"studentCanEdit": "¿Los estudiantes pueden editar?",
-			"tips": "SUGERENCIA: abre el documento de LibreOffice en una ventana aparte para mejorar el rendimiento"
-		},
-		"parentTypes": {
-			"courses": "el curso",
-			"tasks": "la tarea",
-			"submissions": "el envío"
+			"tips": "SUGERENCIA: abre el documento de LibreOffice en una ventana aparte para mejorar el rendimiento",
+			"parentTypes": {
+				"courses": "el curso",
+				"tasks": "la tarea",
+				"submissions": "el envío"
+			}
 		}
 	},
 	"firstLogin": {

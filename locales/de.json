@@ -1405,12 +1405,12 @@
 			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
 			"storeFilesForUploadDisabled": "Dateien können erst nach dem ersten Speichern {{ parentType }} hochgeladen werden.",
 			"studentCanEdit": "Schüler:innen können editieren?",
-			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern"
-		},
-		"parentTypes": {
-			"courses": "des Kurses",
-			"tasks": "der Aufgabe",
-			"submissions": "der Abgabe"
+			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
+			"parentTypes": {
+				"courses": "des Kurses",
+				"tasks": "der Aufgabe",
+				"submissions": "der Abgabe"
+			}
 		}
 	},
 	"firstLogin": {
