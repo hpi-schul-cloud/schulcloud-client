@@ -1421,12 +1421,16 @@
 			"searchResultFor": "результати пошуку для",
 			"searchResults": "Результати пошуку",
 			"storeFilesForUpload": "Зберегти файли для завантаження.",
-			"storeFilesForUploadDisabled": "Файли можна завантажувати лише після першого збереження",
+			"storeFilesForUploadDisabled": "Файли можна завантажувати лише після того, як {{ parentType }} було збережено вперше.",
 			"studentCanEdit": "Чи можуть учні редагувати?",
 			"tips": "ПОРАДА: Щоб підвищити результати, відкрийте документ LibreOffice в окремому вікні",
 			"newDir": "Новий каталог",
 			"newFile": "Новий файл",
-			"noAccessToThisFile": "Ви не маєте доступу до цього файлу!"
+			"noAccessToThisFile": "Ви не маєте доступу до цього файлу!",
+			"courses": "курс",
+			"tasks": "завдання",
+			"submissions": "подання"
+			
 		},
 		"headline": {
 			"attention": "Увага",
@@ -1457,6 +1461,7 @@
 				"fileAlreadyExistsInDir": "Файл з такою назвою вже існує в тому самому каталозі!",
 				"fileIsBlocked": "Файл може містити шкідливий вміст",
 				"fileMoved": "Файл успішно переміщено!",
+				"fileNameEmpty": "Будь ласка, введіть назву файлу!",
 				"fileNameExists": "Файл з такою назвою вже існує",
 				"fileNotFound": "Не вдалося знайти файл",
 				"permissionsChangedSuccess": "Дозволи для файлу успішно змінено",

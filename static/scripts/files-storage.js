@@ -4,9 +4,19 @@ const getDataValue = (attr) => () => {
 };
 
 const getSchoolId = getDataValue('school');
-const getCurrentParentId = getDataValue('parent-id');
-const getCurrentParentType = getDataValue('parent-type');
+const getCurrentParentId = getDataValue('parentId');
+const getCurrentParentType = getDataValue('parentType');
 const apiBasePath = '/api/v3/file';
+const maxFilesize = getDataValue('maxFileSize');
+
+const errorMessages = {
+	FILE_NAME_EMPTY: 'files._file.text.fileNameEmpty',
+	FILE_NAME_EXISTS: 'files._file.text.fileNameExists',
+	FILE_IS_BLOCKED: 'files._file.text.fileIsBlocked',
+	FILE_NOT_FOUND: 'files._file.text.fileNotFound',
+	FILE_TO_BIG: 'global.text.fileTooLarge',
+	INTERNAL_ERROR: 'global.text.internalProblem',
+};
 
 function writeFileSizePretty(orgFilesize) {
 	let filesize = orgFilesize;
@@ -39,26 +49,25 @@ function writeFileSizePretty(orgFilesize) {
 	return filesize + unit;
 }
 
-function showAJAXSuccess(message) {
-	$.showNotification(message, 'success', 5000);
+function showSuccessMessage(message) {
+	$.showNotification($t(message), 'success', 5000);
+}
+
+function showErrorMessage(message) {
+	$.showNotification($t(message), 'danger', 5000);
 }
 
 function showAJAXError(err) {
-	const errors = {
-		FILE_NAME_EXISTS: 'files._file.text.fileNameExists',
-		FILE_IS_BLOCKED: 'files._file.text.fileIsBlocked',
-		FILE_NOT_FOUND: 'files._file.text.fileNotFound',
-	};
 	if (err.responseJSON) {
 		const { message } = err.responseJSON;
-		$.showNotification($t(errors[message] || 'global.text.internalProblem'), 'danger', 5000);
+		showErrorMessage(errorMessages[message] || errorMessages.INTERNAL_ERROR);
 	}
 }
 
 const reloadPage = (msg, timeout = 2000) => {
 	if (msg) {
-		showAJAXSuccess(
-			$t(msg),
+		showSuccessMessage(
+			msg,
 		);
 	}
 	setTimeout(() => {
@@ -108,14 +117,14 @@ $(document).ready(() => {
 		$deleteModal
 			.find('.modal-title')
 			.text(
-				$t('global.text.sureAboutDeleting', { name: $buttonContext.data('file-name') }),
+				$t('global.text.sureAboutDeleting', { name: $buttonContext.data('fileName') }),
 			);
 
 		$deleteModal
 			.find('.btn-submit')
 			.on('click', () => {
 				$deleteModal.modal('hide');
-				const fileRecordId = $buttonContext.data('file-id');
+				const fileRecordId = $buttonContext.data('fileId');
 				remove(fileRecordId);
 			});
 	}
@@ -130,41 +139,22 @@ $(document).ready(() => {
 
 			progressBarActive = true;
 		}
-		this.options.url = window.location.href;
 	}
 
 	if ($form.dropzone) {
 		$form.dropzone({
-			accept(file, done) {
-				const fdata = new FormData();
-				fdata.append('file', file);
-				$.ajax({
-					cache: false,
-					data: fdata,
-					url: `${apiBasePath}/upload/
-					${getSchoolId()}/
-					${getCurrentParentType()}/
-					${getCurrentParentId()}`,
-					type: 'POST',
-					processData: false,
-					contentType: false,
-				})
-					.done(() => {
-						done();
-					}).fail(showAJAXError);
-			},
+			url: `${apiBasePath}/upload/
+			${getSchoolId()}/
+			${getCurrentParentType()}/
+			${getCurrentParentId()}`,
+			chunking: true,
 			createImageThumbnails: false,
-			method: 'GET',
+			method: 'POST',
+			maxFilesize,
+			dictFileTooBig: errorMessages.FILE_TO_BIG,
 			init() {
 				// this is called on per-file basis
 				this.on('processing', updateUploadProcessingProgress);
-				this.on('sending', (file, xhr) => {
-					const { send } = xhr;
-					xhr.send = () => {
-						send.call(xhr, file);
-					};
-				});
-
 				this.on('totaluploadprogress', (_, total, uploaded) => {
 					const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
 
@@ -182,19 +172,20 @@ $(document).ready(() => {
 				});
 
 				this.on('queuecomplete', () => {
-					progressBarActive = false;
 					finishedFilesSize = 0;
-
-					$progressBar.fadeOut(50, () => {
-						$form.fadeIn(50);
-						reloadPage('files._file.text.fileAddedSuccess');
-					});
+					if (progressBarActive) {
+						$progressBar.fadeOut(50, () => {
+							$form.fadeIn(50);
+							reloadPage('files._file.text.fileAddedSuccess');
+						});
+						progressBarActive = false;
+					}
 				});
-
 				this.on('dragover', () => $form.addClass('focus'));
 				this.on('dragleave', () => $form.removeClass('focus'));
 				this.on('dragend', () => $form.removeClass('focus'));
 				this.on('drop', () => $form.removeClass('focus'));
+				this.on('error', (file, message) => showErrorMessage(message));
 			},
 		});
 	}
@@ -202,7 +193,13 @@ $(document).ready(() => {
 	$('button[data-method="download"]').on('click', (e) => {
 		const fileRecordId = $(e.currentTarget).attr('data-file-id');
 		const fileName = $(e.currentTarget).attr('data-file-name');
-		window.open(`${apiBasePath}/download/${fileRecordId}/${fileName}`, '_blank');
+		const url = `${apiBasePath}/download/${fileRecordId}/${fileName}`;
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = url.split('/').pop();
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
 		e.stopPropagation();
 	});
 
@@ -222,6 +219,11 @@ $(document).ready(() => {
 		e.preventDefault();
 		const fileRecordId = $renameModal.find('#fileRecordId').val();
 		const fileName = $renameModal.find('#newNameInput').val();
+
+		if (!fileName) {
+			showErrorMessage(errorMessages.FILE_NAME_EMPTY);
+			return;
+		}
 		rename(fileName, fileRecordId);
 		$renameModal.modal('hide');
 	});
@@ -283,4 +285,66 @@ $(document).ready(() => {
 		$(`#${id}`).html('');
 	}
 	$('.file').on('mouseout', fileMouseOutHandler);
+});
+
+window.videoClick = function videoClick(e) {
+	e.stopPropagation();
+	e.preventDefault();
+};
+
+$('.videoclick').on('click', (e) => {
+	window.videoClick(e);
+});
+
+$('.videostop').on('click', () => {
+	window.videojs('my-video').pause();
+	$('#link').html('');
+	$('#picture').attr('src', '');
+	$('#file-view').css('display', 'none');
+});
+
+$('.videostop').on('keypress', (e) => {
+	if (e.key === 'Enter' || e.key === ' ') {
+		document.activeElement.click();
+	}
+});
+
+window.fileViewer = function fileViewer(type, name, id) {
+	$('#my-video').css('display', 'none');
+	let win;
+	const src = `${apiBasePath}/download/${id}/${name}`;
+	switch (type) {
+		case `image/${type.substr(6)}`:
+			window.location.href = '#file-view';
+			$('#file-view').css('display', '');
+			$('#picture').attr('src', src);
+			$('#picture').attr('alt', $t('files.img_alt.altInfoTheImage', { imgName: name }));
+			$('.videostop').trigger('focus');
+			break;
+		case `audio/${type.substr(6)}`:
+		case `video/${type.substr(6)}`:
+			window.location.href = '#file-view';
+			$('#file-view').css('display', '');
+			window.videojs('my-video').src({ type, src });
+			$('#my-video').css('display', '');
+			$('.videostop').trigger('focus');
+			break;
+		default:
+			$('#file-view').hide();
+			win = window.open(src, '_blank');
+			win.focus();
+	}
+};
+
+$('.fileviewer').on('click', function determineViewer() {
+	const fileviewertype = this.getAttribute('data-file-viewer-type');
+	const fileviewersavename = this.getAttribute('data-file-viewer-savename');
+	const fileviewerid = this.getAttribute('data-file-viewer-id');
+	if (
+		fileviewertype
+		&& fileviewersavename
+		&& fileviewerid
+	) {
+		window.fileViewer(fileviewertype, fileviewersavename, fileviewerid);
+	}
 });
