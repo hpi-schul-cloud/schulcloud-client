@@ -21,7 +21,7 @@ router.get('/:slug', async (req, res, next) => {
 				fields: 'html,title',
 			},
 			json: true,
-			timeout: Configuration.get('REQUEST_TIMEOUT_MS'),
+			timeout: Configuration.get('REQUEST_OPTION__TIMEOUT_MS'),
 		};
 
 		await request(options)
