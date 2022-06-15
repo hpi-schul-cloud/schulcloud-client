@@ -20,7 +20,7 @@
 <meta name="baseUrl" content={{baseUrl}}>
 <div class="dropdown dropdown-course minimal-button">
   {{#inArray "COURSE_EDIT" scopedCoursePermission}}
-  <button class="btn btn-sm dropdown-toggle btn-course-dropdown" title="{{$t " global.label.more"}}"
+  <button class="btn btn-sm dropdown-toggle btn-course-dropdown" data-testid="edit_course_dropdown" title="{{$t " global.label.more"}}"
     data-toggle="dropdown">
     <h1 style="white-space: normal;" class="h4" id="page-title" class="course-headline">
       {{{stripOnlyScript ../name}}}
@@ -35,7 +35,7 @@
     <h1>
       {{/inArray}}
       <div class="dropdown-menu dropdown-menu dropdown-menu-course">
-        <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
+        <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit" data-testid="edit_course_option">
           <i class="fa fa-edit" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.editDeleteCourse"}}
         </a>
         {{#unless ../isArchived}}

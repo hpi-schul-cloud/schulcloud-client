@@ -1,0 +1,20 @@
+<div id="files-storage-component">
+    {{#embed
+        "lib/components/files-storage/file-upload"
+        schoolId=schoolId
+        parentId=parentId
+        parentType=parentType
+    }}{{/embed}}
+    <h3
+        class="h6"
+        style="display: block; clear: both; padding: 1.5rem 0 1.5rem"
+    >{{$t "global.headline.files"}}</h3>
+    {{#embed "lib/components/files-storage/file-viewer"}}{{/embed}}
+    {{#embed
+        "lib/components/files-storage/files-grid"
+        schoolId=schoolId
+        parentId=parentId
+        parentType=parentType
+        files=files
+    }}{{/embed}}
+</div>
