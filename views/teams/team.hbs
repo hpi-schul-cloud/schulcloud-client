@@ -40,7 +40,7 @@
                 </a>
                 {{#userHasPermission "TEAM_EDIT"}}
                 {{#inArray "RENAME_TEAM"../ permissions}}
-                <a href="/teams/{{../_id}}/edit" class="dropdown-item">
+                <a href="/teams/{{../_id}}/edit" class="dropdown-item" data-testid="edit_team_members">
                     <i class="fa fa-edit" aria-hidden="true"></i> {{$t "teams._team.dropdown_menu.link.editTeam"}}
                 </a>
                 {{/inArray}}
@@ -54,7 +54,7 @@
                 {{/if}}
                 {{#inArray "DELETE_TEAM" ../permissions}}
                 <a href="/teams/{{../_id}}/" class="dropdown-item" target="_blank" data-method="DELETE"
-                    data-name="{{../name}}" redirect="/teams/">
+                    data-name="{{../name}}" redirect="/teams/" data-testid="delete_team_members">
                     <i class="fa fa-trash" aria-hidden="true"></i> {{$t "global.button.deleteTeam"}}
                 </a>
                 {{/inArray}}
@@ -70,7 +70,7 @@
 
         {{#if rocketChatURL}}
         <section class="section-chat">
-            <div class="rocketchat">
+            <div class="rocketchat" data-testid="rocketchat_wrapper">
                 <iframe src="{{rocketChatURL}}?layout=embedded" frameborder="0"></iframe>
             </div>
         </section>

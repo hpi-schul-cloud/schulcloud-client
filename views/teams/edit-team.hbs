@@ -11,7 +11,7 @@
 
 
     {{#content "page"}}
-        <section class="section-course">
+        <section class="section-course" data-testid="team_options">
             <form action="{{action}}" method="post">
                 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
 
@@ -55,6 +55,7 @@
                                         type="checkbox"
                                         name="rocketChat"
                                         value="true"
+                                        data-testid="rocketchat_checkbox"
                                         {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}
                                         {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}disabled{{/hasConfig}}>
                             </div>
@@ -72,7 +73,7 @@
                 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">
                         <label for="activateConf">{{$t "teams._team.edit.label.activateVideoConferences"}}</label>
-                            <input id="activateConf" type="checkbox" name="videoconference" value="true" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
+                            <input id="activateConf" type="checkbox" name="videoconference" value="true" data-testid="videoconf_checkbox" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
                                 {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
                         {{#inArray "videoconference" @root.schoolData.features}}
                         {{else}}

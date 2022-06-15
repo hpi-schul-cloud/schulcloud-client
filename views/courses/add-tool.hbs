@@ -7,7 +7,7 @@
 
     {{#content "page"}}
         <section class="section-course">
-                <div class="list-group">
+                <div class="list-group" data-testid="course_tool_list_add_tool">
                     {{#if ltiTools}}
                         {{#each ltiTools}}
                             <a class="list-group-item list-group-item-action flex-column align-items-start template_tool card-tool" href="{{this._id}}">

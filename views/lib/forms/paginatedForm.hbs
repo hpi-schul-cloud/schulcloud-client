@@ -21,7 +21,8 @@
 
 	{{#block "buttons"}}{{/block}}
         <button id="prevSection" class="btn btn-secondary" type="button" disabled="disabled">{{$t "global.button.back" }}</button>
-        <button id="nextSection" class="btn btn-primary pull-right" type="submit" value="Submit" data-next-label="{{$t "global.button.next" }}"
+        <button id="nextSection" class="btn btn-primary pull-right" type="submit" value="Submit" data-next-label="{{$t "global.button.next" }}" 
+		{{#unless submit-testid}}{{else}}data-testid="{{submit-testid}}"{{/unless}}
         data-submit-label="{{#unless submit-label}}{{$t "global.button.submit" }}{{else}}{{submit-label}}{{/unless}}">
         {{$t "global.button.next" }}
         </button>
