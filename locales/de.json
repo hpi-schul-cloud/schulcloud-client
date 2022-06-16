@@ -2492,7 +2492,7 @@
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Login mit {{title}}",
-				"loginIserv": "Login über Schulserver"
+				"loginWith": "Login über"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
@@ -2546,7 +2546,8 @@
 			"showPassword": "Passwort anzeigen:",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden.",
-			"userNotFound": "Synchronisation mit dem Schulserver läuft. Bitte in 2 Stunden erneut einloggen oder den Admin kontaktieren."
+			"userNotFound": "Synchronisation mit dem Schulserver läuft. Bitte in 2 Stunden erneut einloggen oder den Admin kontaktieren.",
+			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator."
 		}
 	},
 	"messenger": {

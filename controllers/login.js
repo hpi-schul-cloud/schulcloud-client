@@ -6,12 +6,25 @@ const express = require('express');
 
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const Handlebars = require('handlebars');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 
 const { logger, formatError } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
+
+Handlebars.registerHelper('oauthLink', (oauthConfig) => encodeURI([
+	oauthConfig.authEndpoint,
+	'?client_id=',
+	oauthConfig.clientId,
+	'&redirect_uri=',
+	oauthConfig.codeRedirectUri,
+	'response_type=',
+	oauthConfig.responseType,
+	'&scope=',
+	oauthConfig.scope,
+].join('')));
 
 // SSO Login
 router.get('/tsp-login/', (req, res, next) => {
@@ -73,49 +86,36 @@ const determineRedirectUrl = (req) => {
 	return '/dashboard';
 };
 
-const getIservOauthSystem = (schools) => {
-	for (let schoolIndex = 0; schoolIndex < schools.length; schoolIndex += 1) {
-		const { systems } = schools[schoolIndex];
-		for (let systemIndex = 0; systemIndex < systems.length; systemIndex += 1) {
-			// eslint-disable-next-line max-len
-			if (systems[systemIndex].oauthConfig && systems[systemIndex].oauthConfig.provider === 'iserv') return systems[systemIndex];
+// eslint-disable-next-line max-len
+const getNonOauthSchools = (schools) => [...schools].filter((school) => school.systems.filter((system) => system.type === 'oauth').length === 0);
+
+router.all('/', async (req, res, next) => {
+	const isAuthenticated = await authHelper.isAuthenticated(req);
+	if (isAuthenticated) {
+		redirectAuthenticated(req, res);
+	} else {
+		const schools = await LoginSchoolsCache.get(req);
+		if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
+			const oauthSystems = await api(req, { version: 'v3' }).get('/system?type=oauth')
+				.catch((err) => logger.error('error loading oauth system list', formatError(err)));
+
+			res.render('authentication/home', {
+				schools: getNonOauthSchools(schools),
+				systems: [],
+				oauthSystems: oauthSystems.data || [],
+				inline: true,
+			});
+		} else {
+			res.render('authentication/home', {
+				schools,
+				inline: true,
+				systems: [],
+			});
 		}
 	}
-	return null;
-};
-
-// eslint-disable-next-line max-len
-const getNonOauthSchools = (schools) => [...schools].filter((school) => school.systems.filter((system) => system.oauthConfig).length === 0);
-
-router.all('/', (req, res, next) => {
-	authHelper.isAuthenticated(req).then((isAuthenticated) => {
-		if (isAuthenticated) {
-			return redirectAuthenticated(req, res);
-		}
-		return LoginSchoolsCache.get(req).then((schools) => {
-			if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
-				let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
-				iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
-				res.render('authentication/home', {
-					schools: getNonOauthSchools(schools),
-					systems: [],
-					iservOauthSystem,
-					inline: true,
-				});
-			} else {
-				res.render('authentication/home', {
-					schools,
-					inline: true,
-					systems: [],
-				});
-			}
-		});
-	});
 });
 
-let oauthError = false;
-const mapErrorcodeToTranslation = (errorCode) => {
-	oauthError = true;
+const mapErrorCodeToTranslation = (errorCode) => {
 	switch (errorCode) {
 		case 'sso_user_notfound':
 			return 'login.text.userNotFound';
@@ -126,81 +126,84 @@ const mapErrorcodeToTranslation = (errorCode) => {
 		case 'sso_oauth_unsupported_response_type':
 		case 'sso_auth_code_step':
 			return 'login.text.oauthCodeStep';
+		case 'sso_internal_error':
+			return 'login.text.internalError';
 		default:
 			return 'login.text.oauthLoginFailed';
 	}
 };
 
-/*
-	TODO: Should go over the error pipline and handle it, otherwise error can not logged.
-*/
+const renderLogin = async (req, res) => {
+	await authHelper.clearCookie(req, res);
 
-const handleLoginFailed = (req, res) => authHelper.clearCookie(req, res)
-	.then(() => LoginSchoolsCache.get(req).then((schools) => {
-		const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
-		logger.warn(`User can not logged in. Redirect to ${redirect}`);
-		oauthError = false;
-		if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
-			logger.warn(`User can not logged in via Oauth. Redirect to ${redirect}`);
-			if (req.query.error) {
-				res.locals.notification = {
-					type: 'danger',
-					message: res.$t(mapErrorcodeToTranslation(req.query.error)),
-				};
-			}
-			let iservOauthSystem = JSON.stringify(getIservOauthSystem(schools));
-			iservOauthSystem = iservOauthSystem === 'null' ? '' : iservOauthSystem;
-			const strategyOfSchool = req.query.strategy;
-			const idOfSchool = req.query.schoolId;
-			res.render('authentication/login', {
-				schools: getNonOauthSchools(schools),
-				systems: [],
-				iservOauthSystem,
-				oauthError,
-				hideMenu: true,
-				redirect,
-				idOfSchool,
-				strategyOfSchool,
-			});
-		} else {
-			res.render('authentication/login', {
-				schools,
-				systems: [],
-				hideMenu: true,
-				redirect,
-			});
+	const schools = await LoginSchoolsCache.get(req);
+	const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
+
+	if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
+		let oauthError = false;
+		if (req.query.error) {
+			oauthError = true;
+			res.locals.notification = {
+				type: 'danger',
+				message: res.$t(mapErrorCodeToTranslation(req.query.error)),
+			};
 		}
-	}));
+		const strategyOfSchool = req.query.strategy;
+		const idOfSchool = req.query.schoolId;
+
+		const oauthSystems = await api(req, { version: 'v3' }).get('/system?type=oauth')
+			.catch((err) => logger.error('error loading oauth system list', formatError(err)));
+
+		res.render('authentication/login', {
+			schools: getNonOauthSchools(schools),
+			systems: [],
+			oauthSystems: oauthSystems.data || [],
+			oauthError,
+			hideMenu: true,
+			redirect,
+			idOfSchool,
+			strategyOfSchool,
+		});
+	} else {
+		res.render('authentication/login', {
+			schools,
+			systems: [],
+			hideMenu: true,
+			redirect,
+		});
+	}
+};
 
 router.get('/loginRedirect', (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
-			return redirectAuthenticated(req, res);
+			redirectAuthenticated(req, res);
+		} else if (Configuration.get('FEATURE_MULTI_LOGIN_INSTANCES')) {
+			res.redirect('/login-instances');
+		} else {
+			res.redirect('/login');
 		}
-		if (Configuration.get('FEATURE_MULTI_LOGIN_INSTANCES')) {
-			return res.redirect('/login-instances');
-		}
-		return res.redirect('/login');
 	}).catch(next);
 });
 
-router.all('/login/', (req, res, next) => {
+router.all('/login/', async (req, res, next) => {
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
-			return redirectAuthenticated(req, res);
+			redirectAuthenticated(req, res);
+		} else {
+			renderLogin(req, res);
 		}
-		return handleLoginFailed(req, res);
 	}).catch(next);
 });
 
-router.all('/login/superhero/', (req, res, next) => {
+router.all('/login/superhero/', async (req, res, next) => {
 	res.locals.notification = {
 		type: 'danger',
 		message: res.$t('login.text.superheroForbidden'),
 		statusCode: 401,
 		timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 	};
-	handleLoginFailed(req, res).catch(next);
+	renderLogin(req, res).catch(next);
 });
 
 router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
@@ -251,7 +254,9 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication') // async, ignore result
-		.catch((err) => { logger.error('error during logout.', formatError(err)); });
+		.catch((err) => {
+			logger.error('error during logout.', formatError(err));
+		});
 	return authHelper.clearCookie(req, res, { destroySession: true })
 		.then(() => res.redirect('/'))
 		.catch(next);
