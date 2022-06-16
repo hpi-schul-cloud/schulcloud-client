@@ -30,18 +30,8 @@
 						data-method="DELETE" data-name="{{../title}}" alt="{{$t "homework._task.label.deleteTaskAlt" (dict "title" ../title)}}">
 						<i class='fa fa-trash-o'></i> {{$t "global.headline.delete" }}
 					</a>
-					{{#ifConfig "FEATURE_TASK_COPY_ENABLED" true}}
-						{{#if ../courseId._id}}
-							<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="{{$t "homework._task.label.copyTask"}}" href="/homework/{{../_id}}/copy?courseId={{../courseId._id}}"
-							alt="{{$t "homework._task.label.copyTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
-						{{else}}
-							<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="{{$t "homework._task.label.copyTask"}}" href="/homework/{{../_id}}/copy"
-							alt="{{$t "homework._task.label.copyTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
-						{{/if}}
-					{{else}}
-						<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="{{$t "homework._task.label.copyTask"}}" href="/homework/{{../_id}}/copy"
-							alt="{{$t "homework._task.label.copyTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
-					{{/ifConfig}}
+					<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="{{$t "homework._task.label.copyTask"}}" href="{{@root.copyServiceUrl}}"
+						alt="{{$t "homework._task.label.copyTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
 				{{/userHasPermission}}
 			{{/if}}
 
