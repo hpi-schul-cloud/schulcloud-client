@@ -1,5 +1,4 @@
 const express = require('express');
-const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const router = express.Router();
 
@@ -54,5 +53,6 @@ router.use('/alerts', require('./alerts'));
 router.use('/ghost', require('./ghost'));
 router.use('/blog', require('./blog'));
 router.use('/security/', require('./security'));
+router.use('/files-storage/', require('./files-storage'));
 
 module.exports = router;

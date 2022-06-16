@@ -18,21 +18,21 @@
                 {{#ifneq currentRole "Schüler"}}
                 <div class="form-group">
                     <label for="firstName">{{$t "global.label.firstNameColon" }}</label>
-                    <input id="firstName" type="text" class="form-control" name="firstName" value="{{ ../currentUser.firstName }}">
+                    <input id="firstName" type="text" class="form-control" name="firstName" value="{{ ../currentUser.firstName }}" data-testid="user_first_name">
                 </div>
 
                 <div class="form-group">
                     <label for="lastName">{{$t "global.label.lastNameColon" }}</label>
-                    <input id="lastName" type="text" class="form-control" name="lastName" value="{{ ../currentUser.lastName }}">
+                    <input id="lastName" type="text" class="form-control" name="lastName" value="{{ ../currentUser.lastName }}" data-testid="user_last_name">
                 </div>
 				{{else}}
-					<input type="hidden" disabled name="firstName" value="{{ ../currentUser.firstName }}">
-					<input type="hidden" disabled name="lastName" value="{{ ../currentUser.lastName }}">
+					<input type="hidden" disabled name="firstName" value="{{ ../currentUser.firstName }}" data-testid="user_first_name">
+					<input type="hidden" disabled name="lastName" value="{{ ../currentUser.lastName }}" data-testid="user_last_name">
                 {{/ifneq}}
 
                 <div class="form-group">
                     <label for="email">{{$t "global.label.emailAddress" }}</label>
-                    <input id="email" type="email" class="form-control" name="email" required value="{{ currentUser.email }}">
+                    <input id="email" type="email" class="form-control" name="email" required value="{{ currentUser.email }}" data-testid="user_email">
                 </div>
 
                 <div class="form-group">

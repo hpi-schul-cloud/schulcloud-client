@@ -7,6 +7,7 @@ const { getStaticAssetPath } = require('../../../middleware/assets');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const Globals = require('../../../config/global');
+const filesStorage = require('../../files-storage');
 
 const timesHelper = require('../../timesHelper');
 
@@ -299,6 +300,7 @@ const helpers = () => ({
 		return dict;
 	},
 	isset: (value) => !!value,
+	getThumbnailIcon: (filename) => filesStorage.getThumbnailIcon(filename),
 });
 
 module.exports = helpers;
