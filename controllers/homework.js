@@ -739,8 +739,12 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			return next(error);
 		}
 
-		assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
-		assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
+		if (assignment.availableDate) {
+			assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
+		}
+		if (assignment.dueDate) {
+			assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
+		}
 
 		addClearNameForFileIds(assignment);
 		// assignment.submissions = assignment.submissions.map((s) => { return { submission: s }; });
