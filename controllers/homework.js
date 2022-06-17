@@ -855,8 +855,10 @@ router.get('/:assignmentId', (req, res, next) => {
 				},
 			}),
 		];
+		let copyServiceUrl = `/homework/${req.params.assignmentId}/copy`;
 
 		if (assignment.courseId && assignment.courseId._id) {
+			copyServiceUrl = `/homework/${req.params.assignmentId}/copy?courseId=${assignment.courseId._id}`;
 			promises.push(
 				// Alle Teilnehmer des Kurses
 				api(req).get(`/courses/${assignment.courseId._id}`, {
@@ -920,7 +922,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				courseGroups,
 				courseGroupSelected,
 				path: submissionUploadPath,
-				course: assignment.courseId,
+				copyServiceUrl,
 			};
 
 			// Abgabenübersicht anzeigen -> weitere Daten berechnen
