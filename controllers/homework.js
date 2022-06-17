@@ -204,6 +204,9 @@ const getCreateHandler = (service) => (req, res, next) => {
 				referrer += '#activetabid=submission';
 				res.redirect(referrer);
 			}
+			if (referrer === 'tasks' && data.private) {
+				referrer += '?tab=drafts';
+			}
 			res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
 		});
 	}).catch((err) => {
