@@ -89,6 +89,12 @@ const determineRedirectUrl = (req) => {
 // eslint-disable-next-line max-len
 const getNonOauthSchools = (schools) => [...schools].filter((school) => school.systems.filter((system) => system.type === 'oauth').length === 0);
 
+async function getOauthSystems(req) {
+	return api(req, { version: 'v3' })
+		.get('/system?onlyOauth=true')
+		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
+}
+
 router.all('/', async (req, res, next) => {
 	const isAuthenticated = await authHelper.isAuthenticated(req);
 	if (isAuthenticated) {
@@ -96,8 +102,7 @@ router.all('/', async (req, res, next) => {
 	} else {
 		const schools = await LoginSchoolsCache.get(req);
 		if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
-			const oauthSystems = await api(req, { version: 'v3' }).get('/system?type=oauth')
-				.catch((err) => logger.error('error loading oauth system list', formatError(err)));
+			const oauthSystems = await getOauthSystems(req);
 
 			res.render('authentication/home', {
 				schools: getNonOauthSchools(schools),
@@ -151,7 +156,7 @@ const renderLogin = async (req, res) => {
 		const strategyOfSchool = req.query.strategy;
 		const idOfSchool = req.query.schoolId;
 
-		const oauthSystems = await api(req, { version: 'v3' }).get('/system?type=oauth')
+		const oauthSystems = await api(req, { version: 'v3' }).get('/system?onlyOauth=true')
 			.catch((err) => logger.error('error loading oauth system list', formatError(err)));
 
 		res.render('authentication/login', {
@@ -196,7 +201,7 @@ router.all('/login/', async (req, res, next) => {
 	}).catch(next);
 });
 
-router.all('/login/superhero/', async (req, res, next) => {
+router.all('/login/superhero/', (req, res, next) => {
 	res.locals.notification = {
 		type: 'danger',
 		message: res.$t('login.text.superheroForbidden'),
