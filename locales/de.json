@@ -1288,7 +1288,11 @@
 				"fileAddedSuccess": "Datei(en) erfolgreich hinzugefügt und werden gleich nach einer Aktualisierung der Seite angezeigt.",
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
+				"fileIsBlocked": "Die Datei enthält möglicherweise schädlichen Inhalt",
 				"fileMoved": "Verschieben der Datei war erfolgreich!",
+				"fileNameEmpty": "Bitte geben Sie die Dateiname ein!",
+				"fileNameExists": "Es existiert bereits eine Datei mit diesem Namen",
+				"fileNotFound": "Die Datei konnte nicht gefunden werden",
 				"littleHintHowToMoveFiles": "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
 				"movingFilesIsDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
@@ -1361,6 +1365,7 @@
 			"shareFile": "Datei teilen",
 			"size": "Größe",
 			"sortBy": "Sortieren nach...",
+			"storeFilesForUploadProgress": "Dateien werden hochgeladen",
 			"updatedAt": "Änderungsdatum",
 			"write": "Schreiben"
 		},
@@ -1398,8 +1403,12 @@
 			"searchResultFor": "Suchergebnisse für",
 			"searchResults": "Suchergebnisse",
 			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
+			"storeFilesForUploadDisabled": "Dateien können erst nach dem ersten Speichern {{ parentType }} hochgeladen werden.",
 			"studentCanEdit": "Schüler:innen können editieren?",
-			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern"
+			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
+			"courses": "des Kurses",
+			"tasks": "der Aufgabe",
+			"submissions": "der Abgabe"
 		}
 	},
 	"firstLogin": {
@@ -1905,7 +1914,7 @@
 			"contactDetails": "Ansprechpartner:innen und Kontaktdaten",
 			"helpSection": "Hilfeartikel",
 			"privacyCourse": "Datenschutzkurs",
-			"welcomeDocuments": "Willkommensdokumente zum Download"
+			"documentsToDownload": "Dokumente zum Download"
 		},
 		"help_confluenceLinks": {
 			"link": {

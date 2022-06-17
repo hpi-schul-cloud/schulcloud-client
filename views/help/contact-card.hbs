@@ -21,7 +21,7 @@
     <form class="bug_form" action={{concat "/helpdesk?_csrf=" @root.csrfToken}} method="post" enctype="multipart/form-data">
       {{> "help/forms/form_bug"}}
       {{> "lib/components/csrfInput"}}
-      <button type="submit">{{$t "global.button.submit" }}</button>
+      <button type="submit" data-testid="bug_submit">{{$t "global.button.submit" }}</button>
     </form>
   </div>
 </div>

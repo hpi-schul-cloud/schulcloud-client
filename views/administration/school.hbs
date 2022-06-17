@@ -12,7 +12,7 @@
 <div class="route-administration">
 	{{#ifConfig "FEATURE_NUXT_SCHOOL_ADMIN_BETA" true}}
 		<div>
-			<a class="btn btn-info pull-right" href="/administration/school-settings"><i class="fa fa-arrow-right"></i> {{$t "administration.school.label.beta" }}</a>
+			<a class="btn btn-info pull-right" href="/administration/school-settings" data-testid="button_new_admin_page"><i class="fa fa-arrow-right"></i> {{$t "administration.school.label.beta" }}</a>
 			<div class="clearfix"></div>
 		</div>
 	{{/ifConfig}}

@@ -6,6 +6,7 @@
 const express = require('express');
 const marked = require('marked');
 const handlebars = require('handlebars');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const _ = require('lodash');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -26,6 +27,8 @@ handlebars.registerHelper('ifvalue', (conditional, options) => {
 });
 
 router.use(authHelper.authChecker);
+
+const nestTaskCopyServiceEnabled = Configuration.get('FEATURE_TASK_COPY_ENABLED') || false;
 
 const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
 	qs: query,
@@ -200,6 +203,9 @@ const getCreateHandler = (service) => (req, res, next) => {
 			if (service === 'submissions') {
 				referrer += '#activetabid=submission';
 				res.redirect(referrer);
+			}
+			if (referrer === 'tasks' && data.private) {
+				referrer += '?tab=drafts';
 			}
 			res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
 		});
@@ -683,7 +689,28 @@ router.get('/new', (req, res, next) => {
 	});
 });
 
-router.get('/:assignmentId/copy', (req, res, next) => {
+router.get('/:assignmentId/copy', async (req, res, next) => {
+	if (nestTaskCopyServiceEnabled) {
+		try {
+			const { courseId } = req.query;
+			const result = await api(req, { version: 'v3' }).post(`/tasks/${req.params.assignmentId}/copy`, {
+				json: {
+					courseId,
+				},
+			});
+			if (!result || !result.id) {
+				const error = new Error(res.$t('homework._task.text.errorInvalidTaskId'));
+				error.status = 500;
+				return next(error);
+			}
+			if (req.query.returnUrl) {
+				return res.redirect(`/homework/${result.id}/edit?returnUrl=${req.query.returnUrl}`);
+			}
+			return res.redirect(`/homework/${result.id}/edit?returnUrl=${result.id}`);
+		} catch (err) {
+			next(err);
+		}
+	}
 	api(req).get(`/homework/copy/${req.params.assignmentId}`)
 		.then((assignment) => {
 			if (!assignment || !assignment._id) {
@@ -694,10 +721,11 @@ router.get('/:assignmentId/copy', (req, res, next) => {
 			if (req.query.returnUrl) {
 				return res.redirect(`/homework/${assignment._id}/edit?returnUrl=${req.query.returnUrl}`);
 			}
-			return res.redirect(`/homework/${assignment._id}/edit`);
+			return res.redirect(`/homework/${assignment._id}/edit?returnUrl=${assignment._id}`);
 		}).catch((err) => {
 			next(err);
 		});
+	return next;
 });
 
 router.get('/:assignmentId/edit', (req, res, next) => {
@@ -797,13 +825,16 @@ router.get('/:assignmentId', (req, res, next) => {
 		if (assignment.availableDate) {
 			assignment.availableDate = timesHelper.fromUTC(assignment.availableDate);
 		}
+
+		assignment.submittable = true;
+		assignment.warning = false;
 		if (assignment.dueDate) {
 			assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
-		}
-		const dueDateTimeStamp = timesHelper.splitDate(assignment.dueDate, res.$t('format.date')).timestamp;
-		assignment.submittable = (dueDateTimeStamp >= timesHelper.now() || !assignment.dueDate);
-		assignment.warning = ((dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000)))
+			const dueDateTimeStamp = timesHelper.splitDate(assignment.dueDate, res.$t('format.date')).timestamp;
+			assignment.submittable = (dueDateTimeStamp >= timesHelper.now());
+			assignment.warning = (dueDateTimeStamp <= (timesHelper.now() + (24 * 60 * 60 * 1000))
 				&& assignment.submittable);
+		}
 
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
@@ -827,8 +858,10 @@ router.get('/:assignmentId', (req, res, next) => {
 				},
 			}),
 		];
+		let copyServiceUrl = `/homework/${req.params.assignmentId}/copy`;
 
 		if (assignment.courseId && assignment.courseId._id) {
+			copyServiceUrl = `/homework/${req.params.assignmentId}/copy?courseId=${assignment.courseId._id}`;
 			promises.push(
 				// Alle Teilnehmer des Kurses
 				api(req).get(`/courses/${assignment.courseId._id}`, {
@@ -892,6 +925,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				courseGroups,
 				courseGroupSelected,
 				path: submissionUploadPath,
+				copyServiceUrl,
 			};
 
 			// Abgabenübersicht anzeigen -> weitere Daten berechnen

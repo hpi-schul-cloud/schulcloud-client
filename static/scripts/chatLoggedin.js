@@ -3,6 +3,14 @@ const AUTO_SELECT_ROOM_SCOPES = [
 	'team',
 ];
 
+// base options
+const options = {
+	riotConfig: '/riot_config.json',
+	indexeddbWorkerScript: '/indexeddb-worker.js',
+	language: 'de',
+	forceToggled: true,
+};
+
 function findMatrixUserId(session = null) {
 	if (session) {
 		return session.userId;
@@ -49,16 +57,6 @@ function addMatrixchatElement(session) {
 	const { roomType, roomId } = extractRoomTypeAndIdFromPath(window.location.pathname);
 	const servername = extractServernameFromMatrixUserId(matrixUserId);
 	const matrixRoomId = composeMatrixRoomId(roomType, roomId, servername);
-
-	// base options
-	const options = {
-		riotConfig: '/riot_config.json',
-		indexeddbWorkerScript: '/indexeddb-worker.js',
-		assetDomain: `${window.matrixAssetDomain}/`,
-		language: window.userLanguage || 'de',
-		forceToggled: true,
-		blockRoomCreation: window.matrixBlockRoomCreation,
-	};
 
 	// force the selection of a specific room
 	if (matrixRoomId) {
@@ -115,6 +113,15 @@ let onReadyTriggered = false;
 
 async function onDocumentReady() {
 	// ensure that the initialization is only triggered once
+
+	window.matrixAssetDomain = $('#matrixAssetDomain').val();
+	if (!window.matrixAssetDomain.endsWith('/')) {
+		window.matrixAssetDomain = `${window.matrixAssetDomain}/`;
+	}
+	options.assetDomain = window.matrixAssetDomain;
+	options.language = $('#matrixUserLanguage').val() || 'de';
+	options.matrixBlockRoomCreation = $('#matrixBlockRoomCreation').val();
+
 	if (onReadyTriggered) {
 		return false;
 	}
