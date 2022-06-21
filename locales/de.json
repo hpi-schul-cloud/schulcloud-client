@@ -2492,7 +2492,7 @@
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Login mit {{title}}",
-				"loginWith": "Login über"
+				"loginVia": "Login über"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
