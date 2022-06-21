@@ -803,7 +803,7 @@
 			"hereIsOurRegistrationFormMINT": "Neue MINT-EC-Schulen können sich hier anmelden:",
 			"inBrandenburgTheAdmissionOfNewSchools": "In Brandenburg wird die Aufnahme neuer Schulen gemeinsam mit dem MBJS koordiniert.",
 			"inNiedersachsenTheReferenceSchool": "In Niedersachsen ist das Referenzschulnetzwerk n-21 zuständig für die Aufnahme neuer Schulen.",
-			"inThuringiaTheThuringianInstitute": "In Thüringen ist das Thüringer Institut für Lehrkräftefortbildung, Lehrplanentwicklung und Medien (ThILLM) für die Aufnahme neuer Schulen zuständig.",
+			"inThuringiaTheThuringianInstitute": "In Thüringen ist das Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien (ThILLM) für die Aufnahme neuer Schulen zuständig.",
 			"justWriteAnEmailTo": "Schreiben Sie einfach eine E-Mail an  <a href=\"mailto:schul-cloud-ZfA@bva.bund.de\">schul-cloud-ZfA@bva.bund.de</a>.",
 			"MINTECSchoolsAnd": "<a href='https://www.mint-ec.de' target='_blank'>MINT-EC</a> ist das nationale Excellence-Netzwerk von Schulen mit Sekundarstufe II und ausgeprägtem Profil in Mathematik, Informatik, Naturwissenschaften und Technik (MINT). Seit 2017 nehmen Schulen aus dem Netzwerk am Projekt HPI Schul-Cloud teil.",
 			"ourPartnerOfMINIECAlso": "Unser Partner der MINT-EC bietet zudem regelmäßig Webinare rund um die HPI Schul-Cloud an. Die neuen Termine finden Sie hier:",
@@ -1933,7 +1933,7 @@
 				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
 			},
 			"label": {
-				"lowerSaxonyRegistration": "Über die Interessenbekundung <a href=\"https://www.n-21.de/nbc/interessenbekundung\">(https://www.n-21.de/nbc/interessenbekundung)</a> melden sich Schulen – durch die Schulleitung – für die Niedersächsische Bildungscloud an.",
+				"lowerSaxonyRegistration": "Über die Interessenbekundung <a href=\"https://www.n-21.de/nbc-interesse\">(https://www.n-21.de/nbc-interesse)</a> melden sich Schulen – durch die Schulleitung – für die Niedersächsische Bildungscloud an.",
 				"pedagogicalExperts": "Verwende für die Einladung von pädagogischem Personal als externe/r Expert:in bitte keine E-Mail-Adressen, die bereits im schulischen Kontext genutzt werden und für deren Registrierung in der Niedersächsischen Bildungscloud benötigt werden."
 			}
 		},
