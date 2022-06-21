@@ -11,7 +11,10 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 
-const { logger, formatError } = require('../helpers');
+const {
+	logger,
+	formatError,
+} = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
 Handlebars.registerHelper('oauthLink', (oauthConfig) => encodeURI([
@@ -28,7 +31,10 @@ Handlebars.registerHelper('oauthLink', (oauthConfig) => encodeURI([
 
 // SSO Login
 router.get('/tsp-login/', (req, res, next) => {
-	const { ticket, redirect: redirectParam } = req.query;
+	const {
+		ticket,
+		redirect: redirectParam,
+	} = req.query;
 	let redirect = '/dashboard';
 	if (redirectParam) {
 		if (Array.isArray(redirectParam)) {
@@ -41,7 +47,11 @@ router.get('/tsp-login/', (req, res, next) => {
 		}
 	}
 	redirect = redirectHelper.getValidRedirect(redirect);
-	return authHelper.login({ strategy: 'tsp', ticket, redirect }, req, res, next);
+	return authHelper.login({
+		strategy: 'tsp',
+		ticket,
+		redirect,
+	}, req, res, next);
 });
 
 // Login
@@ -60,11 +70,21 @@ router.post('/login/', (req, res, next) => {
 	if (system) {
 		const [systemId, strategy] = system.split('//');
 		return authHelper.login({
-			strategy, username, password, systemId, schoolId, redirect: validRedirect, privateDevice,
+			strategy,
+			username,
+			password,
+			systemId,
+			schoolId,
+			redirect: validRedirect,
+			privateDevice,
 		}, req, res, errorSink);
 	}
 	return authHelper.login({
-		strategy: 'local', username, password, redirect: validRedirect, privateDevice,
+		strategy: 'local',
+		username,
+		password,
+		redirect: validRedirect,
+		privateDevice,
 	}, req, res, errorSink);
 });
 
@@ -86,8 +106,8 @@ const determineRedirectUrl = (req) => {
 	return '/dashboard';
 };
 
-// eslint-disable-next-line max-len
-const getNonOauthSchools = (schools) => [...schools].filter((school) => school.systems.filter((system) => system.type === 'oauth').length === 0);
+const getNonOauthSchools = (schools) => [...schools]
+	.filter((school) => school.systems.filter((system) => system.oauthConfig).length === 0);
 
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
@@ -156,7 +176,8 @@ const renderLogin = async (req, res) => {
 		const strategyOfSchool = req.query.strategy;
 		const idOfSchool = req.query.schoolId;
 
-		const oauthSystems = await api(req, { version: 'v3' }).get('/system?onlyOauth=true')
+		const oauthSystems = await api(req, { version: 'v3' })
+			.get('/system?onlyOauth=true')
 			.catch((err) => logger.error('error loading oauth system list', formatError(err)));
 
 		res.render('authentication/login', {
@@ -180,25 +201,29 @@ const renderLogin = async (req, res) => {
 };
 
 router.get('/loginRedirect', (req, res, next) => {
-	authHelper.isAuthenticated(req).then((isAuthenticated) => {
-		if (isAuthenticated) {
-			redirectAuthenticated(req, res);
-		} else if (Configuration.get('FEATURE_MULTI_LOGIN_INSTANCES')) {
-			res.redirect('/login-instances');
-		} else {
-			res.redirect('/login');
-		}
-	}).catch(next);
+	authHelper.isAuthenticated(req)
+		.then((isAuthenticated) => {
+			if (isAuthenticated) {
+				redirectAuthenticated(req, res);
+			} else if (Configuration.get('FEATURE_MULTI_LOGIN_INSTANCES')) {
+				res.redirect('/login-instances');
+			} else {
+				res.redirect('/login');
+			}
+		})
+		.catch(next);
 });
 
 router.all('/login/', async (req, res, next) => {
-	authHelper.isAuthenticated(req).then((isAuthenticated) => {
-		if (isAuthenticated) {
-			redirectAuthenticated(req, res);
-		} else {
-			renderLogin(req, res);
-		}
-	}).catch(next);
+	authHelper.isAuthenticated(req)
+		.then((isAuthenticated) => {
+			if (isAuthenticated) {
+				redirectAuthenticated(req, res);
+			} else {
+				renderLogin(req, res);
+			}
+		})
+		.catch(next);
 });
 
 router.all('/login/superhero/', (req, res, next) => {
@@ -208,7 +233,8 @@ router.all('/login/superhero/', (req, res, next) => {
 		statusCode: 401,
 		timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 	};
-	renderLogin(req, res).catch(next);
+	renderLogin(req, res)
+		.catch(next);
 });
 
 router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
@@ -220,7 +246,10 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 		const user = res.locals.currentUser;
 		const redirectUrl = determineRedirectUrl(req);
 		// check consent versions
-		const { haveBeenUpdated, consentStatus } = await api(req)
+		const {
+			haveBeenUpdated,
+			consentStatus,
+		} = await api(req)
 			.get(`/consents/${user._id}/check/`, {
 				qs: {
 					simple: true,
@@ -235,7 +264,11 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	}
 
 	// if this happens: SSO
-	const { accountId, systemId, schoolId } = res.locals.currentPayload || {};
+	const {
+		accountId,
+		systemId,
+		schoolId,
+	} = res.locals.currentPayload || {};
 	if (accountId && systemId && schoolId) {
 		const schools = await LoginSchoolsCache.get(req);
 		if (schools.length > 0) {
@@ -258,7 +291,8 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 });
 
 router.get('/logout/', (req, res, next) => {
-	api(req).del('/authentication') // async, ignore result
+	api(req)
+		.del('/authentication') // async, ignore result
 		.catch((err) => {
 			logger.error('error during logout.', formatError(err));
 		});
