@@ -95,7 +95,7 @@ function remove(fileRecordId) {
 }
 
 $(document).ready(() => {
-	const $form = $('#files-storage-component').find('.form-upload');
+	const $form = $('#files-storage-component').find('.form-files-storage');
 	const $progressBar = $('#files-storage-component').find('.progress-bar');
 	const $progress = $progressBar.find('.bar');
 	const $percentage = $progressBar.find('.percent');
