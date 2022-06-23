@@ -240,33 +240,14 @@ $(document).ready(() => {
 		$deleteModal.modal('hide');
 	});
 
-	function populateRenameModal(fileRecordId, oldName, action, title) {
-		const form = $renameModal.find('.modal-form');
-		form.attr('action', action);
-
-		populateModalForm($renameModal, {
-			title,
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.save'),
-			fields: {
-				fileRecordId,
-				name: oldName,
-			},
-		});
-
-		$renameModal.modal('show');
-	}
 	function fileNameEditClickHandler(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const fileRecordId = $(this).attr('data-file-id');
 		const oldName = $(this).attr('data-file-name');
-
-		populateRenameModal(
-			fileRecordId,
-			oldName,
-			$t('files.label.renameFile'),
-		);
+		$renameModal.find('#newNameInput').val(oldName);
+		$renameModal.find('#fileRecordId').val(fileRecordId);
+		$renameModal.modal('show');
 	}
 
 	$('#files-storage-component').find('.file-name-edit').on('click', fileNameEditClickHandler);
