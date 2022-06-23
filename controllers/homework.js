@@ -16,6 +16,7 @@ const { logger, formatError } = require('../helpers');
 const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
 const { getGradingFileDownloadPath, getGradingFileName, isGraded } = require('../helpers/homework');
 const timesHelper = require('../helpers/timesHelper');
+const apiFileStorage = require('../api-files-storage');
 
 const router = express.Router();
 
@@ -107,6 +108,46 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileI
 			return Promise.all(filePatchPromises);
 		});
 };
+
+async function fileStorageInit(schoolId, parentId, parentType, req, readonly = false) {
+	let files = [];
+
+	if (parentId) {
+		const result = await apiFileStorage(req, { version: 'v3' })
+			.get(`/file/list/${schoolId}/${parentType}/${parentId}`);
+		if (result && result.data) {
+			files = result.data;
+		}
+	}
+
+	const filesStorage = {
+		schoolId,
+		parentId,
+		parentType,
+		files,
+		readonly,
+	};
+	return { filesStorage };
+}
+
+function collectUngradedFiles(submissions) {
+	const ungradedSubmissionsWithFiles = submissions.filter(
+		(submission) => !isGraded(submission) && !_.isEmpty(submission.fileIds),
+	);
+	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.fileIds);
+	const fileNames = _.fromPairs(
+		submissions.flatMap((submission) => submission.fileIds.map((file) => [
+			getGradingFileName(file),
+			{ submissionId: submission._id, teamMemberIds: submission.teamMemberIds },
+		])),
+	);
+
+	return {
+		empty: _.isEmpty(ungradedFiles),
+		urls: ungradedFiles.map(getGradingFileDownloadPath).join(' '),
+		fileNames,
+	};
+}
 
 const getCreateHandler = (service) => (req, res, next) => {
 	if (service === 'homework') {
@@ -206,6 +247,9 @@ const getCreateHandler = (service) => (req, res, next) => {
 			}
 			if (referrer === 'tasks' && data.private) {
 				referrer += '?tab=drafts';
+			}
+			if (referrer === 'saveAndStay') {
+				referrer = `/homework/${data._id}/edit?returnUrl=${data._id}`;
 			}
 			res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
 		});
@@ -498,6 +542,10 @@ router.get('/new', (req, res, next) => {
 		if (req.query.topic) {
 			assignment.lessonId = req.query.topic;
 		}
+		const schoolId = res.locals.currentSchool;
+		const parentType = 'tasks';
+		const data = await fileStorageInit(schoolId, undefined, parentType, req);
+
 		// Render overview
 		res.render('homework/edit', {
 			title: res.$t('global.headline.taskNew'),
@@ -509,6 +557,7 @@ router.get('/new', (req, res, next) => {
 			assignment,
 			courses,
 			lessons: lessons.length ? lessons : false,
+			...data,
 		});
 	});
 });
@@ -583,8 +632,13 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			$limit: false,
 		});
 
-		Promise.resolve(coursesPromise).then((courses) => {
+		Promise.resolve(coursesPromise).then(async (courses) => {
 			courses.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
+			const schoolId = res.locals.currentSchool;
+			const parentId = req.params.assignmentId;
+			const parentType = 'tasks';
+			const data = await fileStorageInit(schoolId, parentId, parentType, req);
+			
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
 			if (assignment.courseId && assignment.courseId._id) {
 				const lessonsPromise = getSelectOptions(req, 'lessons', {
@@ -603,6 +657,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 						courses,
 						lessons,
 						isSubstitution,
+						...data,
 					});
 				});
 			} else {
@@ -617,6 +672,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					courses,
 					lessons: false,
 					isSubstitution,
+					...data,
 				});
 			}
 		});
@@ -712,7 +768,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				}),
 			);
 		}
-		Promise.all(promises).then(([submissions, course, courseGroups]) => {
+		Promise.all(promises).then(async ([submissions, course, courseGroups]) => {
 			assignment.submission = (submissions || {}).data.map((submission) => {
 				submission.teamMemberIds = (submission.teamMembers || []).map((e) => e._id);
 				submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
@@ -821,29 +877,13 @@ router.get('/:assignmentId', (req, res, next) => {
 					assignment.submission.hasFile = true;
 				}
 			}
-
-			res.render('homework/assignment', { ...assignment, ...renderOptions });
+			const schoolId = res.locals.currentSchool;
+			const parentId = req.params.assignmentId;
+			const parentType = 'tasks';
+			const data = await fileStorageInit(schoolId, parentId, parentType, req, true);
+			res.render('homework/assignment', { ...assignment, ...renderOptions, ...data });
 		});
 	}).catch(next);
 });
-
-function collectUngradedFiles(submissions) {
-	const ungradedSubmissionsWithFiles = submissions.filter(
-		(submission) => !isGraded(submission) && !_.isEmpty(submission.fileIds),
-	);
-	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.fileIds);
-	const fileNames = _.fromPairs(
-		submissions.flatMap((submission) => submission.fileIds.map((file) => [
-			getGradingFileName(file),
-			{ submissionId: submission._id, teamMemberIds: submission.teamMemberIds },
-		])),
-	);
-
-	return {
-		empty: _.isEmpty(ungradedFiles),
-		urls: ungradedFiles.map(getGradingFileDownloadPath).join(' '),
-		fileNames,
-	};
-}
 
 module.exports = router;
