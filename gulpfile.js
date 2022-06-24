@@ -8,10 +8,8 @@ const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const gulpCount = require('gulp-count');
 const gulpErrorHandler = require('gulp-error-handle');
-const filelog = require('gulp-filelog');
 const header = require('gulp-header');
 const gulpif = require('gulp-if');
-const optimizejs = require('gulp-optimize-js');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const cssvariables = require('postcss-css-variables');
@@ -19,7 +17,6 @@ const merge = require('merge-stream');
 const rename = require('gulp-rename');
 const rimraf = require('gulp-rimraf');
 const sass = require('gulp-sass')(require('sass'));
-const sassGrapher = require('gulp-sass-grapher');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
 const path = require('path');
@@ -67,7 +64,6 @@ const nonBaseScripts = [
 // used by almost all gulp tasks instead of gulp.src(...)
 // plumber prevents pipes from stopping when errors occur
 // changed only passes on files that were modified since last time
-// filelog logs and counts all processed files
 
 function withTheme(src) {
 	if (typeof src === 'string') {
@@ -85,12 +81,10 @@ const handleError = (error) => {
 const beginPipe = (src) => gulp
 	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
-	.pipe(filelog());
 
 const beginPipeAll = (src) => gulp
 	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
-	.pipe(filelog());
 
 // copy images
 // uses gulp.src instead of beginPipe for performance reasons (logging is slow)
@@ -110,17 +104,11 @@ gulp.task('other-with-theme', gulp.series('other', () => gulp
 	.src(withTheme('./static/other/**/*.*'))
 	.pipe(gulp.dest(`./build/${themeName()}/other`))));
 
-const loadPaths = path.resolve('./static/styles/');
-sassGrapher.init('./static/styles/', {
-	loadPaths,
-});
 let firstRun = true;
 gulp.task('styles', () => {
 	const themeFile = `./theme/${themeName()}/style.scss`;
 	return beginPipe('./static/styles/**/*.{css,sass,scss}')
-		.pipe(gulpif(!firstRun, sassGrapher.ancestors()))
 		.pipe(header(fs.readFileSync(themeFile, 'utf8')))
-		.pipe(filelog('PROCESS: '))
 		.pipe(sourcemaps.init())
 		.pipe(sass({
 			sourceMap: true,
@@ -202,7 +190,6 @@ gulp.task('base-scripts', () => beginPipeAll(baseScripts)
 			],
 		],
 	}))
-	.pipe(optimizejs())
 	.pipe(uglify())
 	.pipe(concat('all.js'))
 	.pipe(gulp.dest(`./build/${themeName()}/scripts`)));
@@ -240,7 +227,6 @@ gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
 		],
 		plugins: ['@babel/plugin-transform-react-jsx'],
 	}))
-	.pipe(optimizejs())
 	.pipe(uglify())
 	.pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
