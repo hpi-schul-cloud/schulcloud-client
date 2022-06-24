@@ -322,7 +322,7 @@ const getDirectoryTree = (set, directory) => {
  */
 const registerSharedPermission = (userId, fileId, shareToken, req, res) => api(req)
 	// check whether sharing is enabled for given file
-	.get(`/files/${fileId}`, { qs: { shareToken } }).then((file) => {
+	.get(`/fileStorage/shared/${fileId}`, { qs: { shareToken } }).then((file) => {
 		if (!file) {
 			// owner permits sharing of given file
 			throw new Error(res.$t('files.text.noAccessToThisFile'));
