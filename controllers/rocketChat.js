@@ -22,7 +22,7 @@ router.get('/Iframe', async (req, res, next) => {
                 </script>`);
 		return result;
 	} catch (err) {
-		return next(err);
+		next(err);
 	}
 });
 
@@ -34,7 +34,7 @@ router.get('/authGet', async (req, res, next) => {
 		});
 		return result;
 	} catch (err) {
-		return next(err);
+		next(err);
 	}
 });
 
