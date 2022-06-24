@@ -27,15 +27,6 @@ window.addEventListener('DOMContentLoaded', () => {
 				});
 			}
 		},
-		onChangeDateTime(ct, input) {
-			const due = $('#dueDate').val().split(' ');
-			if (input[0].id === 'availableDate' && (due[0] === datePickerPlaceholder || due[0] === '')) {
-				const available = $('#availableDate').val();
-				if (available !== '') {
-					$('#dueDate').val(available);
-				}
-			}
-		},
 	});
 
 	Mousetrap.bind(['command+s', 'ctrl+s'], () => {
@@ -78,6 +69,18 @@ window.addEventListener('DOMContentLoaded', () => {
 			$('#teamsize').removeClass('hidden-xl-down');
 		} else {
 			$('#teamsize').addClass('hidden-xl-down');
+		}
+	});
+
+	$('#saveAndStay').on('click', (event) => {
+		event.preventDefault();
+		const availableDate = $('#availableDate').val().split(' ');
+		const dueDate = $('#dueDate').val().split(' ');
+		if (dueDate[0] === '' || dueDate > availableDate) {
+			$('#homework-form').trigger('submit');
+		} else {
+			// eslint-disable-next-line no-alert
+			alert(`${$t('homework._task.text.startDateBeforeSubmissionDate')}`);
 		}
 	});
 });
