@@ -245,11 +245,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 				referrer += '#activetabid=submission';
 				res.redirect(referrer);
 			}
-			if (referrer === 'tasks' && data.private) {
-				referrer += '?tab=drafts';
-			}
-			if (referrer === 'saveAndStay') {
-				referrer = `/homework/${data._id}/edit?returnUrl=${data._id}`;
+			if (referrer === 'tasks') {
+				referrer = `homework/${data._id}/edit?returnUrl=${data._id}`;
 			}
 			res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
 		});
@@ -549,7 +546,7 @@ router.get('/new', (req, res, next) => {
 		// Render overview
 		res.render('homework/edit', {
 			title: res.$t('global.headline.taskNew'),
-			submitLabel: res.$t('global.button.create'),
+			submitLabel: res.$t('global.button.save'),
 			closeLabel: res.$t('global.button.discard'),
 			method: 'post',
 			action: '/homework/',

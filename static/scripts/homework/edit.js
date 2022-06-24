@@ -80,9 +80,4 @@ window.addEventListener('DOMContentLoaded', () => {
 			$('#teamsize').addClass('hidden-xl-down');
 		}
 	});
-
-	$('#saveAndStay').on('click', () => {
-		$('#homework-referrer').val('saveAndStay');
-		$('#homework-form').trigger('submit');
-	});
 });
