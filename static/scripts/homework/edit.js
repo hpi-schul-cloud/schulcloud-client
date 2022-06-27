@@ -72,7 +72,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	$('#saveAndStay').on('click', (event) => {
+	$('#homework-submit-btn').on('click', (event) => {
 		event.preventDefault();
 		const availableDate = $('#availableDate').val().split(' ');
 		const dueDate = $('#dueDate').val().split(' ');
