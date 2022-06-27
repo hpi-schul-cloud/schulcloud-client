@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint no-confusing-arrow: 0 */
 /*
  * One Controller per layout view
@@ -635,7 +636,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			const parentId = req.params.assignmentId;
 			const parentType = 'tasks';
 			const data = await fileStorageInit(schoolId, parentId, parentType, req);
-			
+
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
 			if (assignment.courseId && assignment.courseId._id) {
 				const lessonsPromise = getSelectOptions(req, 'lessons', {
