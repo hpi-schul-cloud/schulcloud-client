@@ -547,7 +547,7 @@ router.get('/new', (req, res, next) => {
 		res.render('homework/edit', {
 			title: res.$t('global.headline.taskNew'),
 			submitLabel: res.$t('global.button.save'),
-			closeLabel: res.$t('global.button.discard'),
+			closeLabel: res.$t('global.button.cancel'),
 			method: 'post',
 			action: '/homework/',
 			referrer: req.query.returnUrl || '/tasks/',
@@ -646,7 +646,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					res.render('homework/edit', {
 						title: res.$t('homework._task.headline.editTask'),
 						submitLabel: res.$t('global.button.save'),
-						closeLabel: res.$t('global.button.discard'),
+						closeLabel: res.$t('global.button.cancel'),
 						method: 'patch',
 						action: `/homework/${req.params.assignmentId}`,
 						referrer: req.query.returnUrl || '/tasks/',
@@ -661,7 +661,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 				res.render('homework/edit', {
 					title: res.$t('homework._task.headline.editTask'),
 					submitLabel: res.$t('global.button.save'),
-					closeLabel: res.$t('global.button.discard'),
+					closeLabel: res.$t('global.button.cancel'),
 					method: 'patch',
 					action: `/homework/${req.params.assignmentId}`,
 					referrer: req.query.returnUrl || '/tasks/',
@@ -701,7 +701,7 @@ router.get('/:assignmentId', (req, res, next) => {
 		qs: {
 			$populate: ['courseId', 'fileIds'],
 		},
-	}).then((assignment) => {
+	}).then(async (assignment) => {
 		// Kursfarbe setzen
 		assignment.color = (assignment.courseId && assignment.courseId.color) ? assignment.courseId.color : '#1DE9B6';
 
@@ -765,7 +765,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				}),
 			);
 		}
-		Promise.all(promises).then(async ([submissions, course, courseGroups]) => {
+		await Promise.all(promises).then(async ([submissions, course, courseGroups]) => {
 			assignment.submission = (submissions || {}).data.map((submission) => {
 				submission.teamMemberIds = (submission.teamMembers || []).map((e) => e._id);
 				submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
