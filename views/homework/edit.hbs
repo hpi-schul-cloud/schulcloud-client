@@ -92,9 +92,11 @@
 				<textarea id="homeworkDescription" name="description" type="text" class="form-control ckeditor customckeditor"
 					placeholder="{{$t "homework.global.placeholder.description" }}">{{assignment.description}}</textarea>
 			</div>
-
-			{{#embed "lib/components/files-storage/files"}}{{/embed}}
-
+			<div class="row">
+				<div class="col-md-12">
+					{{#embed "lib/components/files-storage/files"}}{{/embed}}
+				</div>
+			</div>
 			{{#if method}}
 			<input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
 			{{/if}}
