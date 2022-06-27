@@ -880,13 +880,13 @@ router.post('/permissions/', (req, res) => {
 
 router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
 	.then((file) => {
-		let { shareToken } = file;
+		const { shareTokens } = file;
 
-		if (shareToken) {
-			return Promise.resolve(shareToken);
+		if (shareTokens && shareTokens.length > 0) {
+			return Promise.resolve(shareTokens[0]);
 		}
 
-		shareToken = shortid.generate();
+		const shareToken = shortid.generate();
 		return api(req)
 			.patch(`/fileStorage/shared/${file._id}`, { json: { shareToken } })
 			.then(() => Promise.resolve(shareToken));
