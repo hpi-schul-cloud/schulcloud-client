@@ -882,13 +882,14 @@ router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
 	.then((file) => {
 		let { shareToken } = file;
 
-		if (!shareToken) {
-			shareToken = shortid.generate();
-			return api(req).patch(`/files/${file._id}`, { json: file })
-				.then(() => Promise.resolve(shareToken));
+		if (shareToken) {
+			return Promise.resolve(shareToken);
 		}
 
-		return Promise.resolve(shareToken);
+		shareToken = shortid.generate();
+		return api(req)
+			.patch(`/fileStorage/shared/${file._id}`, { shareToken })
+			.then(() => Promise.resolve(shareToken));
 	})
 	.then((shareToken) => res.json({ shareToken }))
 	.catch(() => res.sendStatus(500)));
