@@ -94,6 +94,13 @@ function remove(fileRecordId) {
 	}).fail(showAJAXError);
 }
 
+function afterUploadFiles() {
+	if (window.localStorage && window.localStorage.getItem('afterUploadFiles')) {
+		showSuccessMessage('files._file.text.fileSavedSuccess');
+		window.localStorage.removeItem('afterUploadFiles');
+	}
+}
+
 $(document).ready(() => {
 	const $form = $('#files-storage-component').find('.form-files-storage');
 	const $progressBar = $('#files-storage-component').find('.progress-bar');
@@ -107,6 +114,8 @@ $(document).ready(() => {
 	/** loads dropzone, if it exists on current page * */
 	let progressBarActive = false;
 	let finishedFilesSize = 0;
+
+	afterUploadFiles();
 
 	function deleteFileClickHandler(e) {
 		e.stopPropagation();
@@ -176,7 +185,8 @@ $(document).ready(() => {
 					if (progressBarActive) {
 						$progressBar.fadeOut(50, () => {
 							$form.fadeIn(50);
-							reloadPage('files._file.text.fileAddedSuccess');
+							window.localStorage.setItem('afterUploadFiles', 'true');
+							reloadPage();
 						});
 						progressBarActive = false;
 					}
