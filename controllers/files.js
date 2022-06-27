@@ -888,7 +888,7 @@ router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
 
 		shareToken = shortid.generate();
 		return api(req)
-			.patch(`/fileStorage/shared/${file._id}`, { shareToken })
+			.patch(`/fileStorage/shared/${file._id}`, { json: { shareToken } })
 			.then(() => Promise.resolve(shareToken));
 	})
 	.then((shareToken) => res.json({ shareToken }))
