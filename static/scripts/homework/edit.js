@@ -1,3 +1,4 @@
+const moment = require('moment-timezone');
 const Mousetrap = require('../mousetrap/mousetrap');
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -74,9 +75,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	$('#homework-submit-btn').on('click', (event) => {
 		event.preventDefault();
-		const availableDate = $('#availableDate').val().split(' ');
-		const dueDate = $('#dueDate').val().split(' ');
-		if (dueDate[0] === '' || dueDate > availableDate) {
+		const defaultDateTimeFormat = 'DD.MM.YYYY HH:mm';
+		const emptyDate = '__.__.____';
+		const availableDate = moment($('#availableDate').val(), defaultDateTimeFormat);
+		const dueDate = moment($('#dueDate').val(), defaultDateTimeFormat);
+
+		const noDueDate = $('#dueDate').val().split(' ')[0] === '' || $('#dueDate').val().split(' ')[0] === emptyDate;
+		if (noDueDate || dueDate > availableDate) {
 			$('#homework-form').trigger('submit');
 		} else {
 			// eslint-disable-next-line no-alert
