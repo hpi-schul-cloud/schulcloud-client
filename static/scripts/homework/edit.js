@@ -1,3 +1,4 @@
+const moment = require('moment-timezone');
 const Mousetrap = require('../mousetrap/mousetrap');
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -25,15 +26,6 @@ window.addEventListener('DOMContentLoaded', () => {
 					minDate: (available[0] !== datePickerPlaceholder) ? available[0] : 0,
 					maxDate: false,
 				});
-			}
-		},
-		onChangeDateTime(ct, input) {
-			const due = $('#dueDate').val().split(' ');
-			if (input[0].id === 'availableDate' && (due[0] === datePickerPlaceholder || due[0] === '')) {
-				const available = $('#availableDate').val();
-				if (available !== '') {
-					$('#dueDate').val(available);
-				}
 			}
 		},
 	});
@@ -78,6 +70,22 @@ window.addEventListener('DOMContentLoaded', () => {
 			$('#teamsize').removeClass('hidden-xl-down');
 		} else {
 			$('#teamsize').addClass('hidden-xl-down');
+		}
+	});
+
+	$('#homework-submit-btn').on('click', (event) => {
+		event.preventDefault();
+		const defaultDateTimeFormat = 'DD.MM.YYYY HH:mm';
+		const emptyDate = '__.__.____';
+		const availableDate = moment($('#availableDate').val(), defaultDateTimeFormat);
+		const dueDate = moment($('#dueDate').val(), defaultDateTimeFormat);
+
+		const noDueDate = $('#dueDate').val().split(' ')[0] === '' || $('#dueDate').val().split(' ')[0] === emptyDate;
+		if (noDueDate || dueDate > availableDate) {
+			$('#homework-form').trigger('submit');
+		} else {
+			// eslint-disable-next-line no-alert
+			alert(`${$t('homework._task.text.startDateBeforeSubmissionDate')}`);
 		}
 	});
 });
