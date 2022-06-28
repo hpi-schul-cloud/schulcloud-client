@@ -17,7 +17,8 @@ const { logger, formatError } = require('../helpers');
 const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
 const { getGradingFileDownloadPath, getGradingFileName, isGraded } = require('../helpers/homework');
 const timesHelper = require('../helpers/timesHelper');
-const apiFileStorage = require('../api-files-storage');
+const filesStoragesHelper = require('../helpers/files-storage');
+
 
 const router = express.Router();
 
@@ -109,27 +110,6 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileI
 			return Promise.all(filePatchPromises);
 		});
 };
-
-async function fileStorageInit(schoolId, parentId, parentType, req, readonly = false) {
-	let files = [];
-
-	if (parentId) {
-		const result = await apiFileStorage(req, { version: 'v3' })
-			.get(`/file/list/${schoolId}/${parentType}/${parentId}`);
-		if (result && result.data) {
-			files = result.data;
-		}
-	}
-
-	const filesStorage = {
-		schoolId,
-		parentId,
-		parentType,
-		files,
-		readonly,
-	};
-	return { filesStorage };
-}
 
 function collectUngradedFiles(submissions) {
 	const ungradedSubmissionsWithFiles = submissions.filter(
@@ -549,7 +529,7 @@ router.get('/new', (req, res, next) => {
 		}
 		const schoolId = res.locals.currentSchool;
 		const parentType = 'tasks';
-		const data = await fileStorageInit(schoolId, undefined, parentType, req);
+		const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, undefined, parentType, req);
 
 		// Render overview
 		res.render('homework/edit', {
@@ -562,7 +542,7 @@ router.get('/new', (req, res, next) => {
 			assignment,
 			courses,
 			lessons: lessons.length ? lessons : false,
-			...data,
+			...filesStorageData,
 		});
 	});
 });
@@ -642,7 +622,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			const schoolId = res.locals.currentSchool;
 			const parentId = req.params.assignmentId;
 			const parentType = 'tasks';
-			const data = await fileStorageInit(schoolId, parentId, parentType, req);
+			const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req);
 
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
 			if (assignment.courseId && assignment.courseId._id) {
@@ -662,7 +642,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 						courses,
 						lessons,
 						isSubstitution,
-						...data,
+						...filesStorageData,
 					});
 				});
 			} else {
@@ -677,7 +657,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					courses,
 					lessons: false,
 					isSubstitution,
-					...data,
+					...filesStorageData,
 				});
 			}
 		});
@@ -885,8 +865,8 @@ router.get('/:assignmentId', (req, res, next) => {
 			const schoolId = res.locals.currentSchool;
 			const parentId = req.params.assignmentId;
 			const parentType = 'tasks';
-			const data = await fileStorageInit(schoolId, parentId, parentType, req, true);
-			res.render('homework/assignment', { ...assignment, ...renderOptions, ...data });
+			const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req, true);
+			res.render('homework/assignment', { ...assignment, ...renderOptions, ...filesStorageData });
 		});
 	}).catch(next);
 });
