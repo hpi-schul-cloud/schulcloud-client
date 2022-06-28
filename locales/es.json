@@ -2493,7 +2493,7 @@
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Iniciar sesión con la nube escolar de HPI",
-				"loginIserv": "Inciar sesión con el servidor escolar"
+				"loginVia": "Iniciar sesión a través de"
 			},
 			"label": {
 				"email": "Tu dirección de correo electrónico",
@@ -2547,7 +2547,8 @@
 			"showPassword": "Mostrar contraseña:",
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
 			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe.",
-			"userNotFound": "La sincronización con el servidor de la escuela está en curso. Por favor, conéctese de nuevo en 2 horas o póngase en contacto con el administrador."
+			"userNotFound": "La sincronización con el servidor de la escuela está en curso. Por favor, conéctese de nuevo en 2 horas o póngase en contacto con el administrador.",
+			"internalError": "Error de servidor interno. Póngase en contacto con el administrador."
 		}
 	},
 	"messenger": {

@@ -502,7 +502,14 @@ router.post('/submit/:id/files/:fileId/permissions', async (req, res) => {
 router.delete('/submit/:id/files', (req, res, next) => {
 	const submissionId = req.params.id;
 	api(req).get(`/submissions/${submissionId}`).then((submission) => {
-		submission.fileIds = _.filter(submission.fileIds, (id) => JSON.stringify(id) !== JSON.stringify(req.body.fileId));
+		submission.fileIds = _.filter(
+			submission.fileIds,
+			(id) => JSON.stringify(id) !== JSON.stringify(req.body.fileId),
+		);
+		submission.gradeFileIds = _.filter(
+			submission.gradeFileIds,
+			(id) => JSON.stringify(id) !== JSON.stringify(req.body.fileId),
+		);
 		return api(req).patch(`/submissions/${submissionId}`, {
 			json: submission,
 		});
