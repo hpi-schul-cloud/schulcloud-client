@@ -240,9 +240,12 @@
 
 {{#embed "lib/components/modal" class="delete-modal" title=($t "global.text.areYouSure")}}
     {{#content "body"}}
+    {{#if useNextcloud}}
     <div class="modal-body">
         <span>{{{$t "teams._team.text.allFilesWillBeDeletedWarning"}}}</span>
     </div>
+    {{/if}}
+
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-close" data-testid="btn-abort-action">
             {{$t "global.button.cancel"}}
@@ -256,7 +259,7 @@
 {{/embed}}
 
 {{#embed "lib/components/modal-form" class="file-permissions-modal" title=($t
-    "teams._team.files.button.changeSharingSettings")}}
+"teams._team.files.button.changeSharingSettings")}}
     {{#content "fields"}}
     {{> "teams/forms/form-file-permissions" teamFiles=true}}
     {{/content}}
@@ -269,7 +272,7 @@
 {{/embed}}
 
 {{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1
-    userId=../userId teamId=../teamId}}
+userId=../userId teamId=../teamId}}
     {{#content "fields"}}
     {{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption}}
     {{/content}}
