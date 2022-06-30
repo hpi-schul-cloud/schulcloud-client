@@ -224,7 +224,7 @@ $(document).ready(() => {
 		$deleteTeamModal
 			.find('.modal-title')
 			.text(
-				$t('global.text.sureAboutDeleting', { name: decodingHelper($buttonContext.data('name')) }),
+				$t('global.text.sureAboutDeleting', { name: $buttonContext.data('name') }),
 			);
 		$deleteTeamModal
 			.find('.btn-submit')
