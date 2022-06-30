@@ -53,7 +53,7 @@
                 {{/inArray}}
                 {{/if}}
                 {{#inArray "DELETE_TEAM" ../permissions}}
-                <a href="/teams/{{../_id}}/" class="dropdown-item" target="_blank" data-method="DELETE"
+                <a href="/teams/{{../_id}}/" class="dropdown-item btn-team-delete" target="_blank" data-method="DELETE"
                     data-name="{{../name}}" redirect="/teams/" data-testid="delete_team_members">
                     <i class="fa fa-trash" aria-hidden="true"></i> {{$t "global.button.deleteTeam"}}
                 </a>
@@ -238,7 +238,7 @@
                 </div>
             </section> -->
 
-{{#embed "lib/components/modal" class="delete-modal" title=($t "global.text.areYouSure")}}
+{{#embed "lib/components/modal" class="delete-team-modal" title=($t "global.text.areYouSure")}}
     {{#content "body"}}
     {{#if useNextcloud}}
     <div class="modal-body">
@@ -246,6 +246,20 @@
     </div>
     {{/if}}
 
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-close" data-testid="btn-abort-action">
+            {{$t "global.button.cancel"}}
+        </button>
+
+        <button type="submit" class="btn btn-primary btn-submit" data-testid="btn-submit-action">
+            {{$t "global.headline.delete"}}
+        </button>
+    </div>
+    {{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal" class="delete-modal" title=($t "global.text.areYouSure")}}
+    {{#content "body"}}
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-close" data-testid="btn-abort-action">
             {{$t "global.button.cancel"}}
