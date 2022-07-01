@@ -233,9 +233,16 @@ $(document).ready(() => {
 				$.ajax({
 					url: $buttonContext.attr('href'),
 					type: 'DELETE',
-					error: showAJAXError,
+					error: function showAJAXError(req, textStatus, errorThrown) {
+						$deleteTeamModal.modal('hide');
+						if (textStatus === 'timeout') {
+							$.showNotification($t('global.text.requestTimeout'), 'warn', 30000);
+						} else {
+							$.showNotification(errorThrown, 'danger');
+						}
+					},
 					success(result) {
-						nextPage($buttonContext.attr('redirect'));
+						window.location.href = $buttonContext.attr('redirect');
 					},
 				});
 			});
