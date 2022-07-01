@@ -1286,6 +1286,7 @@
 				"errorWhileLoadingPermissions": "Unfortunately, there was an error while retrieving the permissions.",
 				"errorWhileOpeningFile": "Error while opening the file",
 				"fileAddedSuccess": "File (s) added successfully and will be displayed immediately after the page is refreshed.",
+				"fileSavedSuccess": "File (s) saved successfully.",
 				"fileAlreadyExists": "A file with this name already exists in the target folder!",
 				"fileAlreadyExistsInDir": "A file with this name already exists in the same folder!",
 				"fileIsBlocked": "The file may contain malicious content",

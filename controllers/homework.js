@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint no-confusing-arrow: 0 */
 /*
  * One Controller per layout view
@@ -16,6 +17,8 @@ const { logger, formatError } = require('../helpers');
 const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
 const { getGradingFileDownloadPath, getGradingFileName, isGraded } = require('../helpers/homework');
 const timesHelper = require('../helpers/timesHelper');
+const filesStoragesHelper = require('../helpers/files-storage');
+
 
 const router = express.Router();
 
@@ -107,6 +110,25 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileI
 			return Promise.all(filePatchPromises);
 		});
 };
+
+function collectUngradedFiles(submissions) {
+	const ungradedSubmissionsWithFiles = submissions.filter(
+		(submission) => !isGraded(submission) && !_.isEmpty(submission.fileIds),
+	);
+	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.fileIds);
+	const fileNames = _.fromPairs(
+		submissions.flatMap((submission) => submission.fileIds.map((file) => [
+			getGradingFileName(file),
+			{ submissionId: submission._id, teamMemberIds: submission.teamMemberIds },
+		])),
+	);
+
+	return {
+		empty: _.isEmpty(ungradedFiles),
+		urls: ungradedFiles.map(getGradingFileDownloadPath).join(' '),
+		fileNames,
+	};
+}
 
 const getCreateHandler = (service) => (req, res, next) => {
 	if (service === 'homework') {
@@ -204,8 +226,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 				referrer += '#activetabid=submission';
 				res.redirect(referrer);
 			}
-			if (referrer === 'tasks' && data.private) {
-				referrer += '?tab=drafts';
+			if (referrer === 'tasks') {
+				referrer = `homework/${data._id}/edit?returnUrl=${data._id}`;
 			}
 			res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
 		});
@@ -505,17 +527,22 @@ router.get('/new', (req, res, next) => {
 		if (req.query.topic) {
 			assignment.lessonId = req.query.topic;
 		}
+		const schoolId = res.locals.currentSchool;
+		const parentType = 'tasks';
+		const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, undefined, parentType, req);
+
 		// Render overview
 		res.render('homework/edit', {
 			title: res.$t('global.headline.taskNew'),
-			submitLabel: res.$t('global.button.create'),
-			closeLabel: res.$t('global.button.discard'),
+			submitLabel: res.$t('global.button.save'),
+			closeLabel: res.$t('global.button.cancel'),
 			method: 'post',
 			action: '/homework/',
 			referrer: req.query.returnUrl || '/tasks/',
 			assignment,
 			courses,
 			lessons: lessons.length ? lessons : false,
+			...filesStorageData,
 		});
 	});
 });
@@ -590,8 +617,13 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			$limit: false,
 		});
 
-		Promise.resolve(coursesPromise).then((courses) => {
+		Promise.resolve(coursesPromise).then(async (courses) => {
 			courses.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
+			const schoolId = res.locals.currentSchool;
+			const parentId = req.params.assignmentId;
+			const parentType = 'tasks';
+			const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req);
+
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
 			if (assignment.courseId && assignment.courseId._id) {
 				const lessonsPromise = getSelectOptions(req, 'lessons', {
@@ -602,7 +634,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					res.render('homework/edit', {
 						title: res.$t('homework._task.headline.editTask'),
 						submitLabel: res.$t('global.button.save'),
-						closeLabel: res.$t('global.button.discard'),
+						closeLabel: res.$t('global.button.cancel'),
 						method: 'patch',
 						action: `/homework/${req.params.assignmentId}`,
 						referrer: req.query.returnUrl || '/tasks/',
@@ -610,13 +642,14 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 						courses,
 						lessons,
 						isSubstitution,
+						...filesStorageData,
 					});
 				});
 			} else {
 				res.render('homework/edit', {
 					title: res.$t('homework._task.headline.editTask'),
 					submitLabel: res.$t('global.button.save'),
-					closeLabel: res.$t('global.button.discard'),
+					closeLabel: res.$t('global.button.cancel'),
 					method: 'patch',
 					action: `/homework/${req.params.assignmentId}`,
 					referrer: req.query.returnUrl || '/tasks/',
@@ -624,6 +657,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					courses,
 					lessons: false,
 					isSubstitution,
+					...filesStorageData,
 				});
 			}
 		});
@@ -655,7 +689,7 @@ router.get('/:assignmentId', (req, res, next) => {
 		qs: {
 			$populate: ['courseId', 'fileIds'],
 		},
-	}).then((assignment) => {
+	}).then(async (assignment) => {
 		// Kursfarbe setzen
 		assignment.color = (assignment.courseId && assignment.courseId.color) ? assignment.courseId.color : '#1DE9B6';
 
@@ -719,7 +753,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				}),
 			);
 		}
-		Promise.all(promises).then(([submissions, course, courseGroups]) => {
+		await Promise.all(promises).then(async ([submissions, course, courseGroups]) => {
 			assignment.submission = (submissions || {}).data.map((submission) => {
 				submission.teamMemberIds = (submission.teamMembers || []).map((e) => e._id);
 				submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
@@ -828,29 +862,13 @@ router.get('/:assignmentId', (req, res, next) => {
 					assignment.submission.hasFile = true;
 				}
 			}
-
-			res.render('homework/assignment', { ...assignment, ...renderOptions });
+			const schoolId = res.locals.currentSchool;
+			const parentId = req.params.assignmentId;
+			const parentType = 'tasks';
+			const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req, true);
+			res.render('homework/assignment', { ...assignment, ...renderOptions, ...filesStorageData });
 		});
 	}).catch(next);
 });
-
-function collectUngradedFiles(submissions) {
-	const ungradedSubmissionsWithFiles = submissions.filter(
-		(submission) => !isGraded(submission) && !_.isEmpty(submission.fileIds),
-	);
-	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.fileIds);
-	const fileNames = _.fromPairs(
-		submissions.flatMap((submission) => submission.fileIds.map((file) => [
-			getGradingFileName(file),
-			{ submissionId: submission._id, teamMemberIds: submission.teamMemberIds },
-		])),
-	);
-
-	return {
-		empty: _.isEmpty(ungradedFiles),
-		urls: ungradedFiles.map(getGradingFileDownloadPath).join(' '),
-		fileNames,
-	};
-}
 
 module.exports = router;

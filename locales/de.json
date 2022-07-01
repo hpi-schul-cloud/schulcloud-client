@@ -1286,6 +1286,7 @@
 				"errorWhileLoadingPermissions": "Leider ist ein Fehler beim Abfragen der Berechtigungen aufgetreten.",
 				"errorWhileOpeningFile": "Fehler beim Öffnen der Datei",
 				"fileAddedSuccess": "Datei(en) erfolgreich hinzugefügt und werden gleich nach einer Aktualisierung der Seite angezeigt.",
+				"fileSavedSuccess": "Datei(en) erfolgreich gespeichert.",
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileIsBlocked": "Die Datei enthält möglicherweise schädlichen Inhalt",
