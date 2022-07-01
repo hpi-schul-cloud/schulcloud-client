@@ -3039,7 +3039,7 @@
 				"messengerNotActiveInTeam": "Este equipo formado por varias escuelas no incluye chat de equipo. A diferencia de tu centro, el administrador de la escuela que ha creado el equipo aún no ha activado el chat.",
 				"theseSettingsWillBeAppliedToNewFiles": "Los siguientes permisos se activarán para carpetas y archivos recién cargados/creados dentro del equipo:",
 				"youCanChangeSettingsForSingleFilesLater": "Puedes editar los permisos de acceso para archivos y carpetas individuales en cualquier momento.",
-				"allFilesWillBeDeletedWarning": "Nota: ¡Todos los archivos del equipo se <b>borrarán irremediablemente</b>!"
+				"allFilesWillBeDeletedWarning": "Todos los <b>archivos</b> del equipo serán <b>borrados irremediablemente</b>."
 			}
 		},
 		"add": {
