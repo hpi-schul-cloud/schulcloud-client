@@ -86,7 +86,7 @@ const getCalendarEvents = (req, res, {
 				try {
 					if (event.hasOwnProperty('x-sc-courseId')) {
 						// create course link
-						event.url = `/courses/${event['x-sc-courseId']}`;
+						event.url = `/rooms/${event['x-sc-courseId']}`;
 						event.alt = res.$t('dashboard.img_alt.showCourse');
 					} else if (event.hasOwnProperty('x-sc-teamId')) {
 						// create team link

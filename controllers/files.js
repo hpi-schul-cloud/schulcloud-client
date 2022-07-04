@@ -694,8 +694,6 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
-	const showRoomView = Configuration.get('ROOM_VIEW_ENABLED') || false;
-
 	res.render('files/files', {
 		title: res.$t('global.headline.files'),
 		canUploadFile: true,
@@ -709,7 +707,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		courseId: req.params.courseId,
 		ownerId: req.params.courseId,
 		toCourseText: res.$t('global.button.toCourse'),
-		courseUrl: (showRoomView ? `/rooms/${req.params.courseId}/` : `/courses/${req.params.courseId}/`),
+		courseUrl: `/rooms/${req.params.courseId}/`,
 		canEditPermissions: true,
 		parentId: req.params.folderId,
 		...res.locals.files,
