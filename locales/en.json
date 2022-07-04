@@ -1288,7 +1288,11 @@
 				"fileAddedSuccess": "File (s) added successfully and will be displayed immediately after the page is refreshed.",
 				"fileAlreadyExists": "A file with this name already exists in the target folder!",
 				"fileAlreadyExistsInDir": "A file with this name already exists in the same folder!",
+				"fileIsBlocked": "The file may contain malicious content",
 				"fileMoved": "The file was moved successfully!",
+				"fileNameEmpty": "Please enter the file name!",
+				"fileNameExists": "A file with this name already exists",
+				"fileNotFound": "The file could not be found",
 				"littleHintHowToMoveFiles": "<b>Little hint:</b> You can download the file and then upload it to the correct folder.",
 				"movingFilesIsDisabled": "Moving files is currently not possible. We are working on a solution.",
 				"permissionsChangedSuccess": "File permissions changed successfully",
@@ -1361,6 +1365,7 @@
 			"shareFile": "Share file",
 			"size": "Size",
 			"sortBy": "Sort by...",
+			"storeFilesForUploadProgress": "Files uploading",
 			"updatedAt": "Modification date",
 			"write": "Write"
 		},
@@ -1398,8 +1403,12 @@
 			"searchResultFor": "search results for",
 			"searchResults": "Search results",
 			"storeFilesForUpload": "Save files for upload.",
+			"storeFilesForUploadDisabled": "Files can only be uploaded after the first {{ parentType }} has been saved.",
 			"studentCanEdit": "Students can edit?",
-			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance"
+			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
+			"courses": "course",
+			"tasks": "task",
+			"submissions": "submission"
 		}
 	},
 	"firstLogin": {
@@ -1905,7 +1914,7 @@
 			"contactDetails": "Contact person and contact details",
 			"helpSection": "Help articles",
 			"privacyCourse": "Privacy course",
-			"welcomeDocuments": "Welcome documents for download"
+			"documentsToDownload": "Documents for download"
 		},
 		"help_confluenceLinks": {
 			"link": {
@@ -1924,7 +1933,7 @@
 				"whoDoYouWantToInviteTheTeam": "Who would you like to invite to the team?"
 			},
 			"label": {
-				"lowerSaxonyRegistration": "Via the expression of interest <a href=\"https://www.n-21.de/nbc/interessenbekundung\">(https://www.n-21.de/nbc/interessenbekundung)</a> schools register - through the school administration - for the Lower Saxony Education Cloud.",
+				"lowerSaxonyRegistration": "Via the expression of interest <a href=\"https://www.n-21.de/nbc-interesse\">(https://www.n-21.de/nbc-interesse)</a> schools register - through the school administration - for the Lower Saxony Education Cloud.",
 				"pedagogicalExperts": "When inviting educational stuff as external experts, please do not use e-mail addresses that are already used and required for the registration in the Lower Saxony Education Cloud."
 			}
 		},
@@ -2483,7 +2492,7 @@
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Login with {{title}}",
-				"loginIserv": "Login via school server"
+				"loginVia": "Login via"
 			},
 			"label": {
 				"email": "Your e-mail address",
@@ -2537,7 +2546,8 @@
 			"showPassword": "Show Password:",
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
 			"superheroText": "You are trying log in with a superhero account.",
-			"userNotFound": "Synchronisation with the school server is in progress. Please log in again in 2 hours or contact the admin."
+			"userNotFound": "Synchronisation with the school server is in progress. Please log in again in 2 hours or contact the admin.",
+			"internalError": "Internal Server Error. Please contact the admin."
 		}
 	},
 	"messenger": {

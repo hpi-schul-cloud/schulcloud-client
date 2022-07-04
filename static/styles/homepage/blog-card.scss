@@ -21,7 +21,8 @@
 a.blog-card-wrapper{
     display: block;
     text-align: center;
-    width: 50ch;
+    flex: 1 1 0;
+    overflow: hidden;
     margin-bottom: 1rem;
     &:hover, :focus{
         text-decoration: none;
@@ -39,6 +40,7 @@ a.blog-card-wrapper{
     }
     @include media-breakpoint-down(md) {
         width: 100%;
+        overflow: visible;
         &:not(:last-of-type){
             margin-right: 0;
             margin-bottom: var(--space-lg);

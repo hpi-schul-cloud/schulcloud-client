@@ -40,7 +40,7 @@ data:
         // Default Content-Security-Policy Header for every site
         // Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
         corsDefault: {
-            defaultSrc: `'self' data: blob: {{TSP_API_BASE_NO_WWW_URL | default("") }}  {{TSP_API_BASE_URL | default("") }} https://{{ DOMAIN }} wss://{{ DOMAIN }} https://api.{{ DOMAIN }} https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }} https://embed.{{ DOMAIN }} https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }} https://oauth.{{ DOMAIN }} https://{{STORAGE_PREFIX}}{{ DOMAIN }} {{ EDTR_SOURCE|default("") }} {{ EDITOR_URL|default("") }}  https://etherpad.{{ DOMAIN }} https://blog.{{ DOMAIN }} https://blog.schul-cloud.org https://docs.dbildungscloud.de https://sc-content-resources.schul-cloud.org  https://blog.hpi-schul-cloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://s3.hidrive.strato.com https://scalelite.bbb.messenger.schule https://headless.schul-cloud.org https://headless.hpi-schul-cloud.de {{ MATRIX_MESSENGER__DISCOVER_URI | default("") }} ${matrixMessengerEmbed} ${matrixMessengerHomeserver} {% if NAMESPACE == "niedersachsen" %}https://portfolio.niedersachsen.cloud{% endif %}`,
+            defaultSrc: `'self' data: blob: {{TSP_API_BASE_NO_WWW_URL | default("") }}  {{TSP_API_BASE_URL | default("") }} https://{{ DOMAIN }} wss://{{ DOMAIN }} https://api.{{ DOMAIN }} https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }} https://embed.{{ DOMAIN }} https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }} https://oauth.{{ DOMAIN }} https://{{STORAGE_PREFIX}}{{ DOMAIN }} {{ EDTR_SOURCE|default("") }} {{ EDITOR_URL|default("") }}  https://etherpad.{{ DOMAIN }} https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://docs.dbildungscloud.de https://sc-content-resources.schul-cloud.org https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://s3.hidrive.strato.com https://scalelite.bbb.messenger.schule {{ MATRIX_MESSENGER__DISCOVER_URI | default("") }} ${matrixMessengerEmbed} ${matrixMessengerHomeserver} {% if NAMESPACE == "niedersachsen" %}https://portfolio.niedersachsen.cloud{% endif %}`,
             fontSrc: `'self' data: ${matrixMessengerEmbed}`,
             styleSrc: `'self' 'unsafe-inline' ${matrixMessengerEmbed}`,
             // scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
@@ -61,7 +61,7 @@ data:
         */
         corsSiteSpecific: {
             '^/$': {
-                defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://blog.hpi-schul-cloud.de https://s3.hidrive.strato.com https://cloud-instances.s3.hidrive.strato.com',
+                defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://blog.dbildungscloud.de https://s3.hidrive.strato.com https://cloud-instances.s3.hidrive.strato.com',
             },
             '^/dashboard': {
                   defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
