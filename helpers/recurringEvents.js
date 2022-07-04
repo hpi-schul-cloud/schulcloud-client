@@ -152,7 +152,7 @@ const mapRecurringEvent = (event) => {
 const mapEventProps = (event, req) => {
 	if (event['x-sc-courseId']) {
 		return api(req).get(`/courses/${event['x-sc-courseId']}`).then((course) => {
-			event.url = event['x-sc-courseTimeId'] ? `/courses/${course._id}` : '';
+			event.url = event['x-sc-courseTimeId'] ? `/rooms/${course._id}` : '';
 			event.color = course.color;
 			return event;
 		}).catch(() => {
