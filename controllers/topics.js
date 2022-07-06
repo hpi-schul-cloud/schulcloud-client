@@ -372,7 +372,6 @@ router.get('/:topicId', (req, res, next) => {
 		const isCourseSubstitutionTeacher = (course.substitutionIds || []).includes(res.locals.currentUser._id);
 		const isTeacher = isCourseTeacher || isCourseSubstitutionTeacher;
 
-		const showRoomView = Configuration.get('ROOM_VIEW_ENABLED') || false;
 		// return for consistent return
 		return res.render('topic/topic', Object.assign({}, lesson, {
 			title: lesson.name,
@@ -388,7 +387,7 @@ router.get('/:topicId', (req, res, next) => {
 			},
 			{
 				title: course.name,
-				url: (showRoomView ? `/rooms/${course._id}` : `/${context}/${course._id}`),
+				url: `/rooms/${course._id}`,
 			},
 			courseGroup._id ? {
 				title: `${courseGroup.name} > Themen`,

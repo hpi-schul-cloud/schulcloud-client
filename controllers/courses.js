@@ -29,13 +29,7 @@ const markSelected = (options, values = []) => options.map((option) => {
 	return option;
 });
 
-const getDefaultRedirectUrl = (courseId) => {
-	let url = `/courses/${courseId}`;
-	if (Configuration.get('ROOM_VIEW_ENABLED')) {
-		url = `/rooms/${courseId}`;
-	}
-	return url;
-};
+const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
@@ -392,7 +386,7 @@ const enrichCourse = (course, res) => {
 	course.content = (course.description || '').substr(0, 140);
 	course.secondaryTitle = '';
 	course.background = course.color;
-	course.memberAmount = course.userIds.length;
+	course.memberAmount = course.userIds ? course.userIds.length : 0;
 	(course.times || []).forEach((time) => {
 		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);

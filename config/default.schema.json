@@ -392,11 +392,6 @@
 			"examples": ["2020-11-01T20:20:00+00:00"],
 			"description": "if this is set, rocketchat will be treated as disabled after this date."
 		},
-		"ROOM_VIEW_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Feature toggle activate Room view link."
-		},
 		"ACCESSIBILITY_REPORT_EMAIL": {
 			"type": "string",
 			"default": "lernen.cloud@dataport.de",
