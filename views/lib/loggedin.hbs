@@ -28,7 +28,7 @@
         defer
     ></script>
         <script src="{{getAssetPath '/scripts/loggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getAssetPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.BACKEND_URL}}" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.API_HOST}}" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/messenger/welcome.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="{{getAssetPath '/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML'}}" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="{{getAssetPath '/vendor/feathersjs/feathers.js'}}" nonce="{{nonceValue}}" defer></script>
@@ -37,32 +37,26 @@
         {{/if}}
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
             {{#inArray "messenger" @root.currentSchoolData.features}}
-                <script nonce="{{nonceValue}}">
-                    window.matrixAssetDomain = '{{getConfig "MATRIX_MESSENGER__EMBED_URI"}}';
-                    window.userLanguage = '{{ @root.userLanguage }}';
-                    window.matrixBlockRoomCreation = {{ @root.matrixBlockRoomCreation }};
-                </script>
-                <script src="{{getAssetPath '/scripts/chatLoggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+                <script src="{{getAssetPath '/scripts/chatLoggedin.js'}}" type="text/javascript" nonce="{{@root.nonceValue}}" defer></script>
             {{/inArray}}
         {{/ifConfig}}
     {{/content}}
 
     {{#content "body"}}
-        {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
-            {{#if @root.currentSchoolData.officialSchoolNumber}}
-                {{#if @root.currentSchoolData.inUserMigration}}
-                    {{#userHasPermission 'IMPORT_USER_VIEW'}}
-                        <input type="hidden" id="inUserMigrationStarted" value="{{currentRole}}"/>
-                    {{/userHasPermission}}
-                {{else}}
-                    {{#ifneq @root.currentSchoolData.inUserMigration false}}
-                        {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
-                            <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
-                        {{/userHasPermission}}
-                    {{/ifneq}}
-                {{/if}}
-            {{/if}}
+        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
+            <input type="hidden" id="matrixAssetDomain" value='{{getConfig "MATRIX_MESSENGER__EMBED_URI"}}'/>
+            <input type="hidden" id="matrixUserLanguage" value="{{ @root.userLanguage }}"/>
+            <input type="hidden" id="matrixBlockRoomCreation" value="{{ @root.matrixBlockRoomCreation }}"/>
         {{/ifConfig}}
+
+        {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
+            {{#embed "lib/ldap_migration_banner"}}{{/embed}}
+        {{else}}
+            {{#inArray "ldapUniventionMigrationSchool" @root.currentSchoolData.features}}
+                {{#embed "lib/ldap_migration_banner"}}{{/embed}}
+            {{/inArray}}
+        {{/ifConfig}}
+
         {{#if currentSchoolData.inMaintenance}}
             <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
         {{/if}}

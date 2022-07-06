@@ -292,8 +292,7 @@ router.get('/', async (req, res, next) => {
 				.utc()
 				.format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
-			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${
-				time.room ? `| ${time.room}` : ''
+			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''
 			}</div>`;
 		});
 
@@ -477,8 +476,7 @@ router.get('/:teamId', async (req, res, next) => {
 					`/rocketChat/channel/${req.params.teamId}`,
 				);
 				const rocketChatURL = Configuration.get('ROCKET_CHAT_URI');
-				rocketChatCompleteURL = `${rocketChatURL}/group/${
-					rocketChatChannel.channelName
+				rocketChatCompleteURL = `${rocketChatURL}/group/${rocketChatChannel.channelName
 				}`;
 			} catch (err) {
 				logger.warn(formatError(err));
@@ -664,9 +662,9 @@ router.get('/:teamId', async (req, res, next) => {
 				nextcloudUrl,
 				useNextcloud,
 				ownerId: req.params.teamId,
-				canUploadFile: !useNextcloud,
-				canCreateDir: !useNextcloud,
-				canCreateFile: !useNextcloud,
+				canUploadFile: true,
+				canCreateDir: true,
+				canCreateFile: true,
 				canEditPermissions: permissions.includes('EDIT_ALL_FILES'),
 				canEditEvents: permissions.includes('CALENDAR_EDIT'),
 				createEventAction: `/teams/${req.params.teamId}/events/`,
@@ -1137,7 +1135,7 @@ router.post('/:teamId/members', async (req, res, next) => {
 
 		res.sendStatus(200);
 	} catch (err) {
-		logger.error(formatError(err));
+		next(err);
 	}
 });
 
@@ -1159,7 +1157,7 @@ router.patch('/:teamId/members', async (req, res, next) => {
 
 		res.sendStatus(200);
 	} catch (err) {
-		logger.error(formatError(err));
+		next(err);
 	}
 });
 

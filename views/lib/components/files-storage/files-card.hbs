@@ -1,0 +1,65 @@
+
+<div class="card file {{#ifeq this.securityCheckStatus "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this.id}}">
+	<div class="openFile">
+		<div class="card-block
+			{{#ifneq this.securityCheckStatus "blocked"}}
+				fileviewer"
+				data-file-viewer-type="{{../this.type}}"
+				data-file-viewer-savename="{{../this.name}}"
+				data-file-viewer-id="{{../this.id}}"
+			{{/ifneq}}
+			tabindex="0"
+			aria-label="{{$t "files.label.clickToOpenFile" (dict "name" this.name)}}"
+			role="button">
+			<div class="card-title">
+				<div class="file-preview-wrapper col-sm-1 no-padding hidden-xs-down">
+				<div class="file-preview" style="background-image: url({{getThumbnailIcon this.name}}); -webkit-background-size: 25px ;background-size: 25px;"></div>
+				</div>
+				<a 
+				class="col-sm-10 title">
+					{{this.name}}
+					{{#if this.size}}
+						<small style="float: right;" class="file-info" id="{{this.id}}"></small>
+					{{/if}}
+				</a>
+			</div>
+			<div class="card-text">
+				<small class="file-location">{{#if this.context}}{{$t "files.text.foundIn"}} {{this.context}}{{/if}}</small><br>
+				{{#ifeq this.securityCheckStatus "blocked"}}
+					<button
+						class="file-btn btn-file-danger"
+						title="{{$t "files.label.dangerousCode"}}">
+						<i aria-hidden="true" class="fa fa-exclamation-triangle"></i>
+					</button>
+				{{else}}
+					<button
+						data-file-id="{{../this.id}}"
+						data-file-name="{{../this.name}}"
+						class="file-btn"
+						data-method="download"
+						title="{{$t "files.label.downloadFile"}}">
+						<i aria-hidden="true" class="fa fa-cloud-download"></i>
+					</button>
+				{{/ifeq}}
+				{{#userHasPermission "FILESTORAGE_EDIT"}}
+					<button
+						data-file-id="{{../this.id}}"
+						data-file-name="{{../this.name}}"
+						title="{{$t "files.label.renameFile"}}"
+						class="file-btn fa fa-edit file-name-edit">
+					</button>
+				{{/userHasPermission}}
+				{{#userHasPermission "FILESTORAGE_REMOVE"}}
+					<button
+						class="file-btn"
+						data-method="delete"
+						title="{{$t "files.label.deleteFile"}}"
+						data-file-id="{{../this.id}}"
+						data-file-name="{{../this.name}}">
+						<i aria-hidden="true" class="fa fa-trash-o"></i>
+					</button>
+				{{/userHasPermission}}
+			</div>
+		</div>
+	</div>
+</div>
