@@ -3038,7 +3038,8 @@
 				"messengerNotActivatedTitle": "Note",
 				"messengerNotActiveInTeam": "This cross-school team does not include team chat. Unlike your school, the school that created the team has not yet activated chatting by the administrator.",
 				"theseSettingsWillBeAppliedToNewFiles": "The following permissions will be activated for newly uploaded/created folders and files within the team:",
-				"youCanChangeSettingsForSingleFilesLater": "You can edit the access permissions for individual files and folders at any time."
+				"youCanChangeSettingsForSingleFilesLater": "You can edit the access permissions for individual files and folders at any time.",
+				"allFilesWillBeDeletedWarning": "All <b>files</b> of the team will be <b>irrevocably deleted</b>!"
 			}
 		},
 		"add": {

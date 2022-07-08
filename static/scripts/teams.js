@@ -35,6 +35,7 @@ $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
 	const $filePermissionsModal = $('.file-permissions-modal');
+	const $deleteTeamModal = $('.delete-team-modal');
 
 	const handler = {
 		get(target, name) {
@@ -176,9 +177,9 @@ $(document).ready(() => {
 	});
 
 	/**
-   	* Leave Team
-   	*
-   	*/
+	 * Leave Team
+	 *
+	 */
 	$('.dropdown-leave-team').click(function leaveTeam(e) {
 		e.stopPropagation();
 		e.preventDefault();
@@ -212,6 +213,39 @@ $(document).ready(() => {
 		});
 
 		return false;
+	});
+
+	$('.btn-team-delete').unbind('click').on('click', function linkDeleteHandler(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $buttonContext = $(this);
+
+		$deleteTeamModal.appendTo('body').modal('show');
+		$deleteTeamModal
+			.find('.modal-title')
+			.text(
+				$t('global.text.sureAboutDeleting', { name: $buttonContext.data('name') }),
+			);
+		$deleteTeamModal
+			.find('.btn-submit')
+			.unbind('click')
+			.on('click', () => {
+				$.ajax({
+					url: $buttonContext.attr('href'),
+					type: 'DELETE',
+					error: function showAJAXError(req, textStatus, errorThrown) {
+						$deleteTeamModal.modal('hide');
+						if (textStatus === 'timeout') {
+							$.showNotification($t('global.text.requestTimeout'), 'warn', 30000);
+						} else {
+							$.showNotification(errorThrown, 'danger');
+						}
+					},
+					success(result) {
+						window.location.href = $buttonContext.attr('redirect');
+					},
+				});
+			});
 	});
 
 	initVideoconferencing();
