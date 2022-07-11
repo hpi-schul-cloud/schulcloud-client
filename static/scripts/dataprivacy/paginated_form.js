@@ -260,7 +260,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 });
 window.addEventListener('load', () => {
-	console.log('window.addEventListener(load);');
 	if (document.querySelector('.form')) {
 		// open first page to toggle show event.
 		setSelectionByIndex(3);
