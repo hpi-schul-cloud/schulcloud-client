@@ -96,7 +96,7 @@ function isSectionValid(sectionIndex) {
 		if (!isValidElements) return false;
 	}
 
-	return !currentInputs.some(input => !input.checkValidity());
+	return !currentInputs.some((input) => !input.checkValidity());
 }
 
 function setSelectionByIndex(index, event) {
@@ -180,8 +180,10 @@ function submitForm(event) {
 				$.showNotification(response.message, response.type, response.time);
 			}
 			if (response.createdCourse) {
-				$('#addclass-create-topic').attr('href',
-					`/courses/${response.createdCourse._id}/topics/add?returnUrl=rooms/${response.createdCourse._id}`);
+				$('#addclass-create-topic').attr(
+					'href',
+					`/courses/${response.createdCourse._id}/topics/add?returnUrl=rooms/${response.createdCourse._id}`,
+				);
 				$('#addclass-create-homework').attr('href', `/homework/new?course=${response.createdCourse._id}`);
 			}
 			document.querySelector('.form').classList.add('form-submitted');
@@ -212,7 +214,6 @@ function nextSection(event) {
 	const currentSection = document.querySelectorAll('form .panels > section[data-panel]')[getSelectionIndex() - 1];
 	const isSubmitPage = ValidationDisabled ? false : currentSection.classList.contains('submit-page');
 	if (ValidationDisabled) { document.querySelector('.form').classList.add('form-submitted'); }
-
 
 	if (!isSubmitPage) {
 		event.preventDefault();
