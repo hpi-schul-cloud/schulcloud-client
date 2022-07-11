@@ -104,6 +104,16 @@ function setSelectionByIndex(index, event) {
 	if (event) {
 		event.preventDefault();
 	}
+
+	function focusFirstFocusableElement(nextSectionNode) {
+		// set keyboard focus to first focusable element in the opened section.
+		const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+		const firstInput = nextSectionNode.querySelectorAll(focusableElements)[0];
+		if (firstInput) {
+			firstInput.focus();
+		}
+	}
+
 	function setSelection(newIndex) {
 		const hideEvent = new CustomEvent('hideSection', {
 			detail: {
@@ -114,12 +124,11 @@ function setSelectionByIndex(index, event) {
 			.dispatchEvent(hideEvent);
 
 		document.querySelector(`.form input[type="radio"]:nth-of-type(${newIndex})`).checked = true;
-		// set keyboard focus to first focusable element in the opened section.
 		const nextSectionNode = document.querySelectorAll('form .panels > section[data-panel]')[newIndex - 1];
-		const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-		const firstInput = nextSectionNode.querySelectorAll(focusableElements)[0];
-		if (firstInput) {
-			firstInput.focus();
+		if (nextSectionNode.querySelector('.force-initial-focus')) {
+			nextSectionNode.querySelector('.force-initial-focus').focus();
+		} else {
+			focusFirstFocusableElement(nextSectionNode);
 		}
 
 		updateButton(newIndex);
@@ -172,7 +181,7 @@ function submitForm(event) {
 				$.showNotification(response.message, response.type, response.time);
 			}
 			if (response.createdCourse) {
-				$('#addclass-create-topic').attr('href', `/courses/${response.createdCourse._id}/topics/add`);
+				$('#addclass-create-topic').attr('href', `/courses/${response.createdCourse._id}/topics/add?returnUrl=rooms/${response.createdCourse._id}`);
 				$('#addclass-create-homework').attr('href', `/homework/new?course=${response.createdCourse._id}`);
 			}
 			document.querySelector('.form').classList.add('form-submitted');
@@ -251,8 +260,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 });
 window.addEventListener('load', () => {
+	console.log('window.addEventListener(load);');
 	if (document.querySelector('.form')) {
 		// open first page to toggle show event.
-		setSelectionByIndex(1);
+		setSelectionByIndex(3);
 	}
 });
