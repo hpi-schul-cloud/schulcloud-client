@@ -22,7 +22,7 @@ Handlebars.registerHelper('oauthLink', (oauthConfig) => encodeURI([
 	'?client_id=',
 	oauthConfig.clientId,
 	'&redirect_uri=',
-	oauthConfig.codeRedirectUri,
+	oauthConfig.redirectUri,
 	'&response_type=',
 	oauthConfig.responseType,
 	'&scope=',
