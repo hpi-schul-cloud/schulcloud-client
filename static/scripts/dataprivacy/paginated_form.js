@@ -184,7 +184,10 @@ function submitForm(event) {
 					'href',
 					`/courses/${response.createdCourse._id}/topics/add?returnUrl=rooms/${response.createdCourse._id}`,
 				);
-				$('#addclass-create-homework').attr('href', `/homework/new?course=${response.createdCourse._id}`);
+				$('#addclass-create-homework').attr(
+					'href',
+					`/homework/new?course=${response.createdCourse._id}&returnUrl=rooms/${response.createdCourse._id}`,
+				);
 			}
 			document.querySelector('.form').classList.add('form-submitted');
 			formSubmitButton.disabled = false;
@@ -263,6 +266,6 @@ window.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
 	if (document.querySelector('.form')) {
 		// open first page to toggle show event.
-		setSelectionByIndex(3);
+		setSelectionByIndex(1);
 	}
 });
