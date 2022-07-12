@@ -47,13 +47,17 @@ const ModeratorInactiveState = Object.freeze({
 
 				$.ajax({
 					type: 'POST',
-					url: `v3/videoconference/event/${event._id}`,
+					url: '/videoconference/',
 					contentType: 'application/json',
 					dataType: 'json',
 					data: JSON.stringify({
-						everyAttendeeJoinsMuted,
-						moderatorMustApproveJoinRequests,
-						everybodyJoinsAsModerator,
+						scopeId: event._id,
+						scopeName: 'event',
+						options: {
+							everyAttendeeJoinsMuted,
+							moderatorMustApproveJoinRequests,
+							everybodyJoinsAsModerator,
+						},
 					}),
 				}).done((response) => {
 					// todo, the browser may block popups...
@@ -83,7 +87,7 @@ const RunningState = Object.freeze({
 });
 
 const ForbiddenState = Object.freeze({
-	condition: permission => !permission,
+	condition: (permission) => !permission,
 	updateUi: (container) => {
 		switchVideoconferenceUIState(container, 'no-permission');
 	},
@@ -99,7 +103,7 @@ function updateVideoconferenceForEvent(container) {
 	const eventId = event._id;
 	$.ajax({
 		type: 'GET',
-		url: `v3/videoconference/event/${eventId}`,
+		url: `/videoconference/event/${eventId}`,
 	}).done((res) => {
 		const { permission, state } = res;
 		STATELIST.forEach((uiState) => {
@@ -121,10 +125,12 @@ function joinConference(container) {
 	const event = JSON.parse(container.attributes['data-event'].value);
 	$.ajax({
 		type: 'POST',
-		url: `v3/videoconference/join/event/${event._id}`,
+		url: '/videoconference/',
 		contentType: 'application/json',
 		dataType: 'json',
 		data: JSON.stringify({
+			scopeId: event._id,
+			scopeName: 'event',
 			options: {},
 		}),
 	}).done((res) => {

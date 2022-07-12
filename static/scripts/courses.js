@@ -202,6 +202,7 @@ $(document).ready(() => {
 		$createVideoconferenceModal.find('[name=everyoneIsModerator]').bootstrapToggle(everybodyJoinsAsModerator ? 'on' : 'off');
 	};
 
+
 	if ($('.bbbTool').length > 0) {
 		const courseId = $('.bbbTool').parent().attr('data-courseId');
 
@@ -210,6 +211,7 @@ $(document).ready(() => {
 			const { permission, state, options } = data;
 
 			setVideoConferenceOptions(options);
+
 
 			if (!permission || permission.length < 0) {
 				$.showNotification(errorMessagesBBB.NO_PERMISSION, 'danger');
@@ -240,7 +242,7 @@ $(document).ready(() => {
 
 						$.ajax({
 							type: 'GET',
-							url: `v3/videoconference/course/${courseId}`,
+							url: `/videoconference/course/${courseId}`,
 							success: videoconferenceResponse,
 						}).done((res) => {
 							if (res.state === 'RUNNING') {
@@ -269,7 +271,7 @@ $(document).ready(() => {
 					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => {
 						$.ajax({
 							method: 'POST',
-							url: 'v3/videoconference/',
+							url: '/videoconference/',
 							contentType: 'application/json',
 							dataType: 'json',
 							data: JSON.stringify({
@@ -305,7 +307,7 @@ $(document).ready(() => {
 
 		$.ajax({
 			type: 'GET',
-			url: `v3/videoconference/course/${courseId}`,
+			url: `/videoconference/course/${courseId}`,
 			success: videoconferenceResponse,
 			error: (error) => {
 				if (error && error.status !== 'SUCCESS') {
@@ -314,6 +316,7 @@ $(document).ready(() => {
 			},
 		});
 	}
+
 
 	// eslint-disable-next-line func-names
 	$('.bbbTool').click(function (e) {
@@ -348,7 +351,7 @@ $(document).ready(() => {
 
 				$.ajax({
 					type: 'POST',
-					url: 'v3/videoconference/',
+					url: '/videoconference/',
 					contentType: 'application/json',
 					dataType: 'json',
 					data: JSON.stringify({
@@ -368,7 +371,7 @@ $(document).ready(() => {
 					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => {
 						$.ajax({
 							type: 'GET',
-							url: `v3/videoconference/course/${courseId}`,
+							url: `/videoconference/course/${courseId}`,
 						}).done((res) => {
 							if (res.state === 'FINISHED') {
 								$('.bbb-state').hide();
