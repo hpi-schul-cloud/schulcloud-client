@@ -38,7 +38,7 @@ const ModeratorInactiveState = Object.freeze({
 			$createVideoconferenceModal.off('submit').on('submit', (ev) => {
 				ev.preventDefault();
 
-				const everyAttendeJoinsMuted = $createVideoconferenceModal
+				const everyAttendeeJoinsMuted = $createVideoconferenceModal
 					.find('[name=startMuted]').is(':checked');
 				const moderatorMustApproveJoinRequests = $createVideoconferenceModal
 					.find('[name=requestModerator]').is(':checked');
@@ -51,13 +51,9 @@ const ModeratorInactiveState = Object.freeze({
 					contentType: 'application/json',
 					dataType: 'json',
 					data: JSON.stringify({
-						scopeId: event._id,
-						scopeName: 'event',
-						options: {
-							everyAttendeJoinsMuted,
-							moderatorMustApproveJoinRequests,
-							everybodyJoinsAsModerator,
-						},
+						everyAttendeeJoinsMuted,
+						moderatorMustApproveJoinRequests,
+						everybodyJoinsAsModerator,
 					}),
 				}).done((response) => {
 					// todo, the browser may block popups...
@@ -87,7 +83,7 @@ const RunningState = Object.freeze({
 });
 
 const ForbiddenState = Object.freeze({
-	condition: permission => !permission,
+	condition: (permission) => !permission,
 	updateUi: (container) => {
 		switchVideoconferenceUIState(container, 'no-permission');
 	},
