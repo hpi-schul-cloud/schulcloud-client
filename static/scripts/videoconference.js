@@ -38,7 +38,7 @@ const ModeratorInactiveState = Object.freeze({
 			$createVideoconferenceModal.off('submit').on('submit', (ev) => {
 				ev.preventDefault();
 
-				const everyAttendeJoinsMuted = $createVideoconferenceModal
+				const everyAttendeeJoinsMuted = $createVideoconferenceModal
 					.find('[name=startMuted]').is(':checked');
 				const moderatorMustApproveJoinRequests = $createVideoconferenceModal
 					.find('[name=requestModerator]').is(':checked');
@@ -47,17 +47,13 @@ const ModeratorInactiveState = Object.freeze({
 
 				$.ajax({
 					type: 'POST',
-					url: '/videoconference/',
+					url: `/video-conference/event/${event._id}`,
 					contentType: 'application/json',
 					dataType: 'json',
 					data: JSON.stringify({
-						scopeId: event._id,
-						scopeName: 'event',
-						options: {
-							everyAttendeJoinsMuted,
-							moderatorMustApproveJoinRequests,
-							everybodyJoinsAsModerator,
-						},
+						everyAttendeeJoinsMuted,
+						moderatorMustApproveJoinRequests,
+						everybodyJoinsAsModerator,
 					}),
 				}).done((response) => {
 					// todo, the browser may block popups...
@@ -103,7 +99,7 @@ function updateVideoconferenceForEvent(container) {
 	const eventId = event._id;
 	$.ajax({
 		type: 'GET',
-		url: `/videoconference/event/${eventId}`,
+		url: `/video-conference/event/${eventId}`,
 	}).done((res) => {
 		const { permission, state } = res;
 		STATELIST.forEach((uiState) => {
@@ -125,12 +121,10 @@ function joinConference(container) {
 	const event = JSON.parse(container.attributes['data-event'].value);
 	$.ajax({
 		type: 'POST',
-		url: '/videoconference/',
+		url: `/video-conference/join/event/${event._id}`,
 		contentType: 'application/json',
 		dataType: 'json',
 		data: JSON.stringify({
-			scopeId: event._id,
-			scopeName: 'event',
 			options: {},
 		}),
 	}).done((res) => {

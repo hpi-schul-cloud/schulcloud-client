@@ -194,14 +194,13 @@ $(document).ready(() => {
 	};
 
 	const setVideoConferenceOptions = (options) => {
-		const { everyAttendeJoinsMuted, everybodyJoinsAsModerator, moderatorMustApproveJoinRequests } = options;
+		const { everyAttendeeJoinsMuted, everybodyJoinsAsModerator, moderatorMustApproveJoinRequests } = options;
 		const $createVideoconferenceModal = $('.create-videoconference-modal');
 
-		$createVideoconferenceModal.find('[name=startMuted]').bootstrapToggle(everyAttendeJoinsMuted ? 'on' : 'off');
+		$createVideoconferenceModal.find('[name=startMuted]').bootstrapToggle(everyAttendeeJoinsMuted ? 'on' : 'off');
 		$createVideoconferenceModal.find('[name=requestModerator]').bootstrapToggle(moderatorMustApproveJoinRequests ? 'on' : 'off');
 		$createVideoconferenceModal.find('[name=everyoneIsModerator]').bootstrapToggle(everybodyJoinsAsModerator ? 'on' : 'off');
 	};
-
 
 	if ($('.bbbTool').length > 0) {
 		const courseId = $('.bbbTool').parent().attr('data-courseId');
@@ -211,7 +210,6 @@ $(document).ready(() => {
 			const { permission, state, options } = data;
 
 			setVideoConferenceOptions(options);
-
 
 			if (!permission || permission.length < 0) {
 				$.showNotification(errorMessagesBBB.NO_PERMISSION, 'danger');
@@ -242,7 +240,7 @@ $(document).ready(() => {
 
 						$.ajax({
 							type: 'GET',
-							url: `/videoconference/course/${courseId}`,
+							url: `/video-conference/course/${courseId}`,
 							success: videoconferenceResponse,
 						}).done((res) => {
 							if (res.state === 'RUNNING') {
@@ -271,7 +269,7 @@ $(document).ready(() => {
 					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => {
 						$.ajax({
 							method: 'POST',
-							url: '/videoconference/',
+							url: '/video-conference/',
 							contentType: 'application/json',
 							dataType: 'json',
 							data: JSON.stringify({
@@ -307,7 +305,7 @@ $(document).ready(() => {
 
 		$.ajax({
 			type: 'GET',
-			url: `/videoconference/course/${courseId}`,
+			url: `/video-conference/course/${courseId}`,
 			success: videoconferenceResponse,
 			error: (error) => {
 				if (error && error.status !== 'SUCCESS') {
@@ -316,7 +314,6 @@ $(document).ready(() => {
 			},
 		});
 	}
-
 
 	// eslint-disable-next-line func-names
 	$('.bbbTool').click(function (e) {
@@ -345,20 +342,20 @@ $(document).ready(() => {
 			$createVideoconferenceModal.off('submit').on('submit', (event) => {
 				event.preventDefault();
 
-				const everyAttendeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
+				const everyAttendeeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
 				const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
 				const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
 
 				$.ajax({
 					type: 'POST',
-					url: '/videoconference/',
+					url: '/video-conference/',
 					contentType: 'application/json',
 					dataType: 'json',
 					data: JSON.stringify({
 						scopeId: courseId,
 						scopeName: 'course',
 						options: {
-							everyAttendeJoinsMuted,
+							everyAttendeeJoinsMuted,
 							moderatorMustApproveJoinRequests,
 							everybodyJoinsAsModerator,
 						},
@@ -371,7 +368,7 @@ $(document).ready(() => {
 					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => {
 						$.ajax({
 							type: 'GET',
-							url: `/videoconference/course/${courseId}`,
+							url: `/video-conference/course/${courseId}`,
 						}).done((res) => {
 							if (res.state === 'FINISHED') {
 								$('.bbb-state').hide();
