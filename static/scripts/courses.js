@@ -240,7 +240,7 @@ $(document).ready(() => {
 
 						$.ajax({
 							type: 'GET',
-							url: `v3/videoconference/course/${courseId}`,
+							url: `/video-conference/course/${courseId}`,
 							success: videoconferenceResponse,
 						}).done((res) => {
 							if (res.state === 'RUNNING') {
@@ -269,7 +269,7 @@ $(document).ready(() => {
 					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => {
 						$.ajax({
 							method: 'POST',
-							url: 'v3/videoconference/',
+							url: '/video-conference/',
 							contentType: 'application/json',
 							dataType: 'json',
 							data: JSON.stringify({
@@ -305,7 +305,7 @@ $(document).ready(() => {
 
 		$.ajax({
 			type: 'GET',
-			url: `v3/videoconference/course/${courseId}`,
+			url: `/video-conference/course/${courseId}`,
 			success: videoconferenceResponse,
 			error: (error) => {
 				if (error && error.status !== 'SUCCESS') {
@@ -348,7 +348,7 @@ $(document).ready(() => {
 
 				$.ajax({
 					type: 'POST',
-					url: 'v3/videoconference/',
+					url: '/video-conference/',
 					contentType: 'application/json',
 					dataType: 'json',
 					data: JSON.stringify({
@@ -368,7 +368,7 @@ $(document).ready(() => {
 					$('.bbbTool').off('click').css({ cursor: 'pointer' }).on('click', () => {
 						$.ajax({
 							type: 'GET',
-							url: `v3/videoconference/course/${courseId}`,
+							url: `/video-conference/course/${courseId}`,
 						}).done((res) => {
 							if (res.state === 'FINISHED') {
 								$('.bbb-state').hide();
