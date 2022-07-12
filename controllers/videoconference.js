@@ -6,18 +6,21 @@ const api = require('../api');
 
 router.get('/:scopeName/:scopeId', (req, res, next) => {
 	const { scopeName, scopeId } = req.params;
-	return authHelper.isAuthenticated(req).then(() => api(req)
-		.get(`v3/videoconference/${scopeName}/${scopeId}`))
+	return authHelper.isAuthenticated(req).then(() => api(req, { version: 'v3' })
+		.get(`/videoconference/${scopeName}/${scopeId}`))
 		.then((response) => res.send(response))
 		.catch(next);
 });
 
 router.post('/', (req, res, next) => {
 	const { scopeName, scopeId, options = {} } = req.body;
-	return authHelper.isAuthenticated(req).then(() => api(req)
-		.post(`v3/videoconference/${scopeName}/${scopeId}`, {
+	return authHelper.isAuthenticated(req).then(() => api(req, { version: 'v3' })
+		.post(`/videoconference/${scopeName}/${scopeId}`, {
+			contentType: 'application/json',
 			body: {
-				options,
+				everyAttendeeJoinsMuted: true, // TODO put real data here
+				moderatorMustApproveJoinRequests: true, // TODO put real data here
+				everybodyJoinsAsModerator: true, // TODO put real data here
 			},
 		}))
 		.then((response) => res.send(response))
