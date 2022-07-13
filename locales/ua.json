@@ -297,7 +297,7 @@
 		"_course": {
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "Ддублювати",
+					"copyCourse": "Копіювати",
 					"editDeleteCourse": "Редагувати/видалити",
 					"inviteToCourse": "Загасити",
 					"shareCourse": "Поділіться"
@@ -612,7 +612,7 @@
 			"nextStep": "Наступний крок"
 		},
 		"headline": {
-			"createDuplicateImport": "Створити, дублювати або імпортувати курс",
+			"createCopyImport": "Створити, копіювати або імпортувати курс",
 			"mySubstitutes": "Мої замісники",
 			"noCourse": "Наразі курсів немає",
 			"courseAttendees": "Учасники курсу",
@@ -2024,11 +2024,11 @@
 		},
 		"button": {
 			"createTeam": "Створити команду",
-			"duplicateTeam": "Дублювати команду",
+			"copyTeam": "Копіювати команду",
 			"foundATeam": "Сформувати команду"
 		},
 		"headline": {
-			"duplicateTeam": "Дублювати команду",
+			"copyTeam": "Копіювати команду",
 			"invitations": "Запрошення",
 			"myTeams": "Мої команди",
 			"teamsConnectSchools": "Команди з'єднують школу",
