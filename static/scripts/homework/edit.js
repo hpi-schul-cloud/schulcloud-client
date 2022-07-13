@@ -79,8 +79,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		const emptyDates = ['__.__.____', '__/__/____'];
 		const noDueDate = $('#dueDate').val().split(' ')[0] === ''
 			|| emptyDates.includes($('#dueDate').val().split(' ')[0]);
-		let availableDate = moment(document.getElementById('availableDate').value,
-			['DD.MM.YYYY hh:mm', 'MM/DD/YYYY hh:mm']).unix();
+		let availableDate = moment(document.getElementById('availableDate')
+			.value, ['DD.MM.YYYY hh:mm', 'MM/DD/YYYY hh:mm'])
+			.unix();
 		let dueDate = moment(document.getElementById('dueDate').value, ['DD.MM.YYYY hh:mm', 'MM/DD/YYYY hh:mm']).unix();
 
 		if (lang === 'ua') {
