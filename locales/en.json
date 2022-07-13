@@ -877,7 +877,7 @@
 			},
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "Duplicate",
+					"copyCourse": "Copy",
 					"editDeleteCourse": "Edit/delete",
 					"inviteToCourse": "Invite",
 					"shareCourse": "Share"
@@ -1185,7 +1185,7 @@
 		},
 		"headline": {
 			"courseAttendees": "Participants of the course:",
-			"createDuplicateImport": "Create, duplicate or import a course",
+			"createCopyImport": "Create, copy or import a course",
 			"expiredCoursesInArchive": "Courses whose end date has been reached can be found in the <a href=\"/courses/?activeTab=archived\">archive",
 			"importCourse": "Import course",
 			"makeTeachingDigital": "Making teaching digital with {{themetitle}}",
@@ -1209,7 +1209,7 @@
 		"text": {
 			"courseNoAccess": "The Courses section is only available to teachers and students.",
 			"descriptionArchivedCourses": "Courses whose end date has been reached can be found here. You can reuse archived courses as templates for the new school year, import a course or create a completely new course.",
-			"descriptionCourseManagement": "You can duplicate archived courses and use them as templates for the new school year, import a course, or create a brand new course.",
+			"descriptionCourseManagement": "You can copy archived courses and use them as templates for the new school year, import a course, or create a brand new course.",
 			"finishImport": "Complete the import. In the next step, set a new course date and add students.",
 			"importCourseAttentionTools": "Attention: Manually replace tools with user data which are included in the topic subsequently (e.g. neXboard, Etherpad, GeoGebra), because changes to this will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
 			"importedCourseWithQR": "You have imported a course via a QR Code.",
@@ -3049,7 +3049,7 @@
 		},
 		"button": {
 			"createTeam": "Create team",
-			"duplicateTeam": "Duplicate team",
+			"copyTeam": "Copy team",
 			"foundATeam": "Form a team"
 		},
 		"form_importTopic": {
@@ -3062,7 +3062,7 @@
 			}
 		},
 		"headline": {
-			"duplicateTeam": "Duplicate team",
+			"copyTeam": "Copy team",
 			"invitations": "Invitations",
 			"membersOfTeam": "Team members: {{teamName}}",
 			"myTeams": "My teams",
