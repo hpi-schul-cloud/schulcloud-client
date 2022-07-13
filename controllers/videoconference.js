@@ -16,11 +16,11 @@ router.post('/', (req, res, next) => {
 	const { scopeName, scopeId, options = {} } = req.body;
 	return authHelper.isAuthenticated(req).then(() => api(req, { version: 'v3' })
 		.post(`/videoconference/${scopeName}/${scopeId}`, {
-			contentType: 'application/json',
 			body: {
-				everyAttendeeJoinsMuted: true, // TODO put real data here
-				moderatorMustApproveJoinRequests: true, // TODO put real data here
-				everybodyJoinsAsModerator: true, // TODO put real data here
+				everyAttendeeJoinsMuted: options.everyAttendeeJoinsMuted,
+				moderatorMustApproveJoinRequests: options.moderatorMustApproveJoinRequests,
+				everybodyJoinsAsModerator: options.everybodyJoinsAsModerator
+				,
 			},
 		}))
 		.then((response) => res.send(response))
