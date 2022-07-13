@@ -77,18 +77,19 @@ window.addEventListener('DOMContentLoaded', () => {
 		event.preventDefault();
 
 		const emptyDates = ['__.__.____', '__/__/____'];
-		const noDueDate = $('#dueDate').val().split(' ')[0] === ''
-			|| emptyDates.includes($('#dueDate').val().split(' ')[0]);
-		let availableDate = moment(document.getElementById('availableDate')
-			.value, ['DD.MM.YYYY hh:mm', 'MM/DD/YYYY hh:mm'])
+		const availableDate = document.getElementById('availableDate').value;
+		const dueDate = document.getElementById('dueDate').value;
+		let availableDateUnix = moment(availableDate, ['DD.MM.YYYY hh:mm', 'MM/DD/YYYY hh:mm'])
 			.unix();
-		let dueDate = moment(document.getElementById('dueDate').value, ['DD.MM.YYYY hh:mm', 'MM/DD/YYYY hh:mm']).unix();
+		let dueDateUnix = moment(dueDate, ['DD.MM.YYYY hh:mm', 'MM/DD/YYYY hh:mm']).unix();
+		const noDueDate = dueDate.split(' ')[0] === ''
+			|| emptyDates.includes(dueDate.split(' ')[0]);
 
 		if (lang === 'ua') {
-			availableDate = moment(document.getElementById('availableDate').value, ['DD/MM/YYYY hh:mm']).unix();
-			dueDate = moment(document.getElementById('dueDate').value, ['DD/MM/YYYY hh:mm']).unix();
+			availableDateUnix = moment(availableDate, ['DD/MM/YYYY hh:mm']).unix();
+			dueDateUnix = moment(dueDate, ['DD/MM/YYYY hh:mm']).unix();
 		}
-		if (noDueDate || dueDate > availableDate) {
+		if (noDueDate || dueDateUnix > availableDateUnix) {
 			$('#homework-form').trigger('submit');
 		} else {
 			// eslint-disable-next-line no-alert
