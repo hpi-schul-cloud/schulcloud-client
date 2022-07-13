@@ -75,12 +75,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	$('#homework-submit-btn').on('click', (event) => {
 		event.preventDefault();
-		const defaultDateTimeFormat = 'DD.MM.YYYY HH:mm';
-		const emptyDate = '__.__.____';
-		const availableDate = moment($('#availableDate').val(), defaultDateTimeFormat);
-		const dueDate = moment($('#dueDate').val(), defaultDateTimeFormat);
 
-		const noDueDate = $('#dueDate').val().split(' ')[0] === '' || $('#dueDate').val().split(' ')[0] === emptyDate;
+		const emptyDates = ['__.__.____', '__/__/____'];
+		const noDueDate = $('#dueDate').val().split(' ')[0] === '' || emptyDates.includes($('#dueDate').val().split(' ')[0]);
+		let availableDate = moment(document.getElementById('availableDate').value, ['DD.MM.YYYY hh:mm', 'MM/DD/YYYY hh:mm']).unix();
+		let dueDate = moment(document.getElementById('dueDate').value, ['DD.MM.YYYY hh:mm', 'MM/DD/YYYY hh:mm']).unix();
+
+		if (lang === 'ua') {
+			availableDate = moment(document.getElementById('availableDate').value, ['DD/MM/YYYY hh:mm']).unix();
+			dueDate = moment(document.getElementById('dueDate').value, ['DD/MM/YYYY hh:mm']).unix();
+		}
 		if (noDueDate || dueDate > availableDate) {
 			$('#homework-form').trigger('submit');
 		} else {
