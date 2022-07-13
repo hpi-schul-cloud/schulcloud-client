@@ -1,5 +1,5 @@
-import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
 import moment from 'moment-timezone';
+import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
 import { dateStringToMoment } from './datetime/datetime';
 
 /* eslint-disable max-len */
@@ -202,7 +202,6 @@ $(document).ready(() => {
 		$createVideoconferenceModal.find('[name=everyoneIsModerator]').bootstrapToggle(everybodyJoinsAsModerator ? 'on' : 'off');
 	};
 
-
 	if ($('.bbbTool').length > 0) {
 		const courseId = $('.bbbTool').parent().attr('data-courseId');
 
@@ -211,7 +210,6 @@ $(document).ready(() => {
 			const { permission, state, options } = data;
 
 			setVideoConferenceOptions(options);
-
 
 			if (!permission || permission.length < 0) {
 				$.showNotification(errorMessagesBBB.NO_PERMISSION, 'danger');
@@ -316,7 +314,6 @@ $(document).ready(() => {
 			},
 		});
 	}
-
 
 	// eslint-disable-next-line func-names
 	$('.bbbTool').click(function (e) {
