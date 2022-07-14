@@ -25,10 +25,12 @@ router.get('/:parentType/:parentId', async (req, res, next) => {
 
 		res.render('files-storage/files', {
 			title: res.$t('global.sidebar.link.file'),
-			schoolId,
-			parentId: valideParentId,
-			parentType,
-			files,
+			filesStorage: {
+				schoolId,
+				parentId: valideParentId,
+				parentType,
+				files,
+			},
 		});
 	} catch (err) {
 		next(err);
