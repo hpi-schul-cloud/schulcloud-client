@@ -194,10 +194,10 @@ $(document).ready(() => {
 	};
 
 	const setVideoConferenceOptions = (options) => {
-		const { everyAttendeJoinsMuted, everybodyJoinsAsModerator, moderatorMustApproveJoinRequests } = options;
+		const { everyAttendeeJoinsMuted, everybodyJoinsAsModerator, moderatorMustApproveJoinRequests } = options;
 		const $createVideoconferenceModal = $('.create-videoconference-modal');
 
-		$createVideoconferenceModal.find('[name=startMuted]').bootstrapToggle(everyAttendeJoinsMuted ? 'on' : 'off');
+		$createVideoconferenceModal.find('[name=startMuted]').bootstrapToggle(everyAttendeeJoinsMuted ? 'on' : 'off');
 		$createVideoconferenceModal.find('[name=requestModerator]').bootstrapToggle(moderatorMustApproveJoinRequests ? 'on' : 'off');
 		$createVideoconferenceModal.find('[name=everyoneIsModerator]').bootstrapToggle(everybodyJoinsAsModerator ? 'on' : 'off');
 	};
@@ -342,7 +342,7 @@ $(document).ready(() => {
 			$createVideoconferenceModal.off('submit').on('submit', (event) => {
 				event.preventDefault();
 
-				const everyAttendeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
+				const everyAttendeeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
 				const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
 				const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
 
@@ -355,7 +355,7 @@ $(document).ready(() => {
 						scopeId: courseId,
 						scopeName: 'course',
 						options: {
-							everyAttendeJoinsMuted,
+							everyAttendeeJoinsMuted,
 							moderatorMustApproveJoinRequests,
 							everybodyJoinsAsModerator,
 						},
