@@ -1,10 +1,12 @@
 const express = require('express');
 const feedr = require('feedr').create();
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const router = express.Router();
+const ghostBaseUrl = Configuration.get('GHOST_BASE_URL');
 
 router.get('/', (req, res) => {
-	feedr.readFeed('https://blog.hpi-schul-cloud.de/rss', {
+	feedr.readFeed(`${ghostBaseUrl}/rss`, {
 		requestOptions: { timeout: 2000 },
 	}, (err, data) => {
 		let blogFeed;

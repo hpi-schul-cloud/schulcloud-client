@@ -877,7 +877,7 @@
 			},
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "Duplicar",
+					"copyCourse": "Copiar",
 					"editDeleteCourse": "Editar/eliminar",
 					"inviteToCourse": "Invitar",
 					"shareCourse": "Compartir"
@@ -1185,7 +1185,7 @@
 		},
 		"headline": {
 			"courseAttendees": "Participantes del curso:",
-			"createDuplicateImport": "Crear, duplicar o importar un curso",
+			"createCopyImport": "Crear, copiar o importar un curso",
 			"expiredCoursesInArchive": "Los cursos que ya han finalizado se pueden encontrar en el <a href=\"/courses/?activeTab=archived\">archivo",
 			"importCourse": "Importar curso",
 			"makeTeachingDigital": "Enseñanza digital con {{themetitle}}",
@@ -1209,7 +1209,7 @@
 		"text": {
 			"courseNoAccess": "La sección Cursos solo está disponible para profesores y estudiantes.",
 			"descriptionArchivedCourses": "Los cursos que ya han finalizado se pueden encontrar aquí. Puedes volver a utilizar cursos archivados como plantillas para el nuevo año escolar, importar un curso o crear un curso completamente nuevo.",
-			"descriptionCourseManagement": "Puedes duplicar cursos archivados y usarlos como plantillas para el nuevo año escolar, importar un curso o crear un curso nuevo.",
+			"descriptionCourseManagement": "Puedes copiar cursos archivados y usarlos como plantillas para el nuevo año escolar, importar un curso o crear un curso nuevo.",
 			"finishImport": "Completa la importación. En el siguiente paso, establece una nueva fecha de curso y añade estudiantes.",
 			"importCourseAttentionTools": "Atención: reemplaza manualmente las herramientas con datos de usuario que se incluyen en el tema posteriormente (por ejemplo, nexBoard, Etherpad, GeoGebra), ya que los cambios en esto afectarán al curso original. Los archivos (imágenes, vídeos y audios) y el material vinculado no se ven afectados y pueden permanecer sin cambios.",
 			"importedCourseWithQR": "Has importado un curso a través de un código QR.",
@@ -3039,7 +3039,8 @@
 				"messengerNotActivatedTitle": "Nota",
 				"messengerNotActiveInTeam": "Este equipo formado por varias escuelas no incluye chat de equipo. A diferencia de tu centro, el administrador de la escuela que ha creado el equipo aún no ha activado el chat.",
 				"theseSettingsWillBeAppliedToNewFiles": "Los siguientes permisos se activarán para carpetas y archivos recién cargados/creados dentro del equipo:",
-				"youCanChangeSettingsForSingleFilesLater": "Puedes editar los permisos de acceso para archivos y carpetas individuales en cualquier momento."
+				"youCanChangeSettingsForSingleFilesLater": "Puedes editar los permisos de acceso para archivos y carpetas individuales en cualquier momento.",
+				"allFilesWillBeDeletedWarning": "Todos los <b>archivos</b> del equipo serán <b>borrados irremediablemente</b>."
 			}
 		},
 		"add": {
@@ -3049,7 +3050,7 @@
 		},
 		"button": {
 			"createTeam": "Crear equipo",
-			"duplicateTeam": "Duplicar curso",
+			"copyTeam": "Copiar curso",
 			"foundATeam": "Formar un equipo"
 		},
 		"form_importTopic": {
@@ -3062,7 +3063,7 @@
 			}
 		},
 		"headline": {
-			"duplicateTeam": "Duplicar curso",
+			"copyTeam": "Copiar curso",
 			"invitations": "Invitaciones",
 			"membersOfTeam": "Miembros del equipo: {{teamName}}",
 			"myTeams": "Mis equipos",

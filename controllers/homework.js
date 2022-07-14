@@ -379,7 +379,7 @@ const getImportHandler = (service) => (req, res, next) => {
 };
 
 const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
-	api(req).delete(`/${service}/${req.params.id}`).then((_) => {
+	api(req, { version: 'v3' }).delete(`/${service}/${req.params.id}`).then((_) => {
 		if (redirectToReferer) {
 			redirectHelper.safeBackRedirect(req, res);
 		} else {
@@ -393,7 +393,7 @@ const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
 
 router.post('/', getCreateHandler('homework'));
 router.patch('/:id', getUpdateHandler('homework'));
-router.delete('/:id', getDeleteHandler('homework'));
+router.delete('/:id', getDeleteHandler('tasks'));
 
 router.delete('/:id/file', (req, res, next) => {
 	const { fileId } = req.body;

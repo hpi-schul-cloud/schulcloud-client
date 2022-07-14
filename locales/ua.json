@@ -297,7 +297,7 @@
 		"_course": {
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "Ддублювати",
+					"copyCourse": "Копіювати",
 					"editDeleteCourse": "Редагувати/видалити",
 					"inviteToCourse": "Загасити",
 					"shareCourse": "Поділіться"
@@ -612,7 +612,7 @@
 			"nextStep": "Наступний крок"
 		},
 		"headline": {
-			"createDuplicateImport": "Створити, дублювати або імпортувати курс",
+			"createCopyImport": "Створити, копіювати або імпортувати курс",
 			"mySubstitutes": "Мої замісники",
 			"noCourse": "Наразі курсів немає",
 			"courseAttendees": "Учасники курсу",
@@ -2014,7 +2014,8 @@
 				"messengerNotActivatedCourse": "Не всі учасники команди можуть брати участь у командному чаті. У деяких школах учасників команд адміністратор ще не активував чат.",
 				"messengerNotActivatedSchool": "Ця міжшкільна команда включає командний чат. На жаль, ви не можете отримати до нього доступ, оскільки чат ще не активований адміністратором у вашій школі.",
 				"messengerNotActiveInTeam": "Ця міжшкільна команда не включає командний чат. На відміну від вашої школи, школа, яка створила команду, ще не активувала чат адміністратором.",
-				"messengerNotActivatedTitle": "Примітка"
+				"messengerNotActivatedTitle": "Примітка",
+				"allFilesWillBeDeletedWarning": "Усі <b>файли</b> команди будуть <b>безповоротно видалені</b>!"
 			}
 		},
 		"add": {
@@ -2024,11 +2025,11 @@
 		},
 		"button": {
 			"createTeam": "Створити команду",
-			"duplicateTeam": "Дублювати команду",
+			"copyTeam": "Копіювати команду",
 			"foundATeam": "Сформувати команду"
 		},
 		"headline": {
-			"duplicateTeam": "Дублювати команду",
+			"copyTeam": "Копіювати команду",
 			"invitations": "Запрошення",
 			"myTeams": "Мої команди",
 			"teamsConnectSchools": "Команди з'єднують школу",
