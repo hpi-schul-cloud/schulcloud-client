@@ -1,3 +1,5 @@
+const apiFilesStorage = require('../api-files-storage');
+
 const getThumbnailIcon = (filename) => {
 	const thumbs = {
 		default: '/images/thumbs/default.png',
@@ -30,6 +32,28 @@ const getThumbnailIcon = (filename) => {
 	return thumbnail;
 };
 
+async function filesStorageInit(schoolId, parentId, parentType, req, readonly = false) {
+	let files = [];
+
+	if (parentId) {
+		const result = await apiFilesStorage(req, { version: 'v3' })
+			.get(`/file/list/${schoolId}/${parentType}/${parentId}`);
+		if (result && result.data) {
+			files = result.data;
+		}
+	}
+
+	const filesStorage = {
+		schoolId,
+		parentId,
+		parentType,
+		files,
+		readonly,
+	};
+	return { filesStorage };
+}
+
 module.exports = {
 	getThumbnailIcon,
+	filesStorageInit,
 };

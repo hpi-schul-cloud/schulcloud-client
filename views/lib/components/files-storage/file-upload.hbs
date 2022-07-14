@@ -1,22 +1,21 @@
     <section class="section-upload" data-max-file-size="{{getConfig "FILES_STORAGE__MAX_FILE_SIZE"}}" data-school="{{schoolId}}" data-parent-id="{{parentId}}" data-parent-type="{{parentType}}">
         <div class="container-fluid">
             <div class="row">
-                <button
                 {{#ifeq parentId undefined}}
-                    disabled
-                {{/ifeq}}
-                type="button" class="form-upload dz-clickable" {{#userHasPermission "FILESTORAGE_CREATE"}}action="/"
+                    <div class="form-files-storage-disabled">
+                        <span class="text-muted"><i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                            {{$t "files.text.storeFilesForUploadDisabled" (dict "parentType" ($t (concat "files.text." ../parentType)  ../parentType))}}
+                        </span>
+                    </div>
+                {{else}}
+                <button
+                    type="button" class="form-files-storage dz-clickable" {{#userHasPermission "FILESTORAGE_CREATE"}}action="/"
                     {{/userHasPermission}}>
                     <div class="dz-default dz-message" data-dz-message="">
                         <span class="text-muted"><i class="fa fa-cloud-upload dz-clickable" aria-hidden="true"></i>
-                            {{#ifeq parentId undefined}}
-                                {{$t "files.text.storeFilesForUploadDisabled" (dict "parentType" ($t (concat "files.text." ../parentType)  ../parentType))}}
-                            {{else}}
                             {{$t "files.text.storeFilesForUpload"}}
-                            {{/ifeq}}
                          </span>
                     </div>
-                    {{> "lib/components/csrfInput"}}
                 </button>
                 <div class="progress-bar">
                     <div class="progress">
@@ -24,6 +23,7 @@
                         <div class="bar" style="width:0%">&nbsp;</div>
                     </div>
                 </div>
+                {{/ifeq}}
             </div>
         </div>
     </section>
