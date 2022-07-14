@@ -1,8 +1,6 @@
 .DS_Store
 .gitignore
-.git
 .github
-.git
 .webpack-changed-plugin-cache
 .gulp-changed-smart.json
 .idea
