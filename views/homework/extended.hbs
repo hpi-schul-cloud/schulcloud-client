@@ -19,7 +19,7 @@
 				{{/if}}
 			</div>
 		</div>
-		{{#embed "homework/components/homework_uploaded_files" deletionAllowed=false submission=this}}{{/embed}}
+		{{#embed "lib/components/files-storage/files"}}{{/embed}}
 		{{#unless @root.inline}}
 			{{#if isTeacher}}
 				{{#userHasPermission "HOMEWORK_EDIT"}}
