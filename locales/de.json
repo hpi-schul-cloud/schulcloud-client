@@ -877,7 +877,7 @@
 			},
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "Duplizieren",
+					"copyCourse": "Kopieren",
 					"editDeleteCourse": "Bearbeiten/löschen",
 					"inviteToCourse": "Einladen",
 					"shareCourse": "Teilen"
@@ -1185,7 +1185,7 @@
 		},
 		"headline": {
 			"courseAttendees": "Teilnehmer:innen des Kurses:",
-			"createDuplicateImport": "Erstelle, dupliziere oder importiere einen Kurs",
+			"createCopyImport": "Erstelle, kopiere oder importiere einen Kurs",
 			"expiredCoursesInArchive": "Kurse, deren Enddatum erreicht ist, findest du im <a href=\"/courses/?activeTab=archived\">Archiv",
 			"importCourse": "Kurs importieren",
 			"makeTeachingDigital": "Mit der {{themetitle}} Unterricht digital gestalten",
@@ -1209,7 +1209,7 @@
 		"text": {
 			"courseNoAccess": "Der Bereich Kurse steht nur Lehrkräften und Schüler:innen zur Verfügung.",
 			"descriptionArchivedCourses": "Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
-			"descriptionCourseManagement": "Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
+			"descriptionCourseManagement": "Du kannst archivierte Kurse kopieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
 			"finishImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler:innen hinzu.",
 			"importCourseAttentionTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. neXboard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
 			"importedCourseWithQR": "Du hast einen Kurs über einen QR-Code importiert.",
@@ -1286,6 +1286,7 @@
 				"errorWhileLoadingPermissions": "Leider ist ein Fehler beim Abfragen der Berechtigungen aufgetreten.",
 				"errorWhileOpeningFile": "Fehler beim Öffnen der Datei",
 				"fileAddedSuccess": "Datei(en) erfolgreich hinzugefügt und werden gleich nach einer Aktualisierung der Seite angezeigt.",
+				"fileSavedSuccess": "Datei(en) erfolgreich gespeichert.",
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileIsBlocked": "Die Datei enthält möglicherweise schädlichen Inhalt",
@@ -3049,7 +3050,7 @@
 		},
 		"button": {
 			"createTeam": "Team anlegen",
-			"duplicateTeam": "Team duplizieren",
+			"copyTeam": "Team kopieren",
 			"foundATeam": "Gründe ein Team"
 		},
 		"form_importTopic": {
@@ -3062,7 +3063,7 @@
 			}
 		},
 		"headline": {
-			"duplicateTeam": "Team duplizieren",
+			"copyTeam": "Team kopieren",
 			"invitations": "Einladungen",
 			"membersOfTeam": "Mitglieder des Teams: {{teamName}}",
 			"myTeams": "Meine Teams",

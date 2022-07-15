@@ -2,7 +2,6 @@
 <script src="{{getAssetPath '/scripts/ckeditor/ckeditor.js'}}" nonce="{{nonceValue}}" defer></script>
 <script src="{{getAssetPath '/scripts/mousetrap/mousetrap.js'}}" nonce="{{nonceValue}}" defer></script>
 <script src="{{getAssetPath '/scripts/jquery/jquery.datetimepicker.full.min.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-<script src="{{getAssetPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 <script src="{{getAssetPath '/scripts/homework/edit.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 
 {{/content}}
@@ -11,6 +10,7 @@
 <link rel="stylesheet" href="{{getAssetPath '/styles/files/upload.css'}}" />
 <link rel="stylesheet" href="{{getAssetPath '/styles/homework/file-upload.css'}}" />
 {{/content}}
+{{> "lib/components/files-storage/imports"}}
 {{#content "page"}}
 
 <div class="row">
@@ -92,11 +92,11 @@
 				<textarea id="homeworkDescription" name="description" type="text" class="form-control ckeditor customckeditor"
 					placeholder="{{$t "homework.global.placeholder.description" }}">{{assignment.description}}</textarea>
 			</div>
-
-			{{#embed "files/file-upload"}}{{/embed}}
-
-			{{#embed "homework/components/homework_uploaded_files" deletionAllowed=true submission=../assignment}}{{/embed}}
-
+			<div class="row">
+				<div class="col-md-12">
+					{{#embed "lib/components/files-storage/files"}}{{/embed}}
+				</div>
+			</div>
 			{{#if method}}
 			<input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
 			{{/if}}
@@ -143,7 +143,7 @@
 				</button>
 
 				{{> "lib/components/csrfInput"}}
-				<button id="homework-submit-btn" type="submit" class="btn btn-primary btn-submit">
+				<button id="homework-submit-btn" type="submit" class="btn btn-primary btn-submit" data-testid="submit-task-btn">
 					{{submitLabel}}
 				</button>
 			</div>

@@ -41,24 +41,26 @@
 						<i aria-hidden="true" class="fa fa-cloud-download"></i>
 					</button>
 				{{/ifeq}}
-				{{#userHasPermission "FILESTORAGE_EDIT"}}
-					<button
-						data-file-id="{{../this.id}}"
-						data-file-name="{{../this.name}}"
-						title="{{$t "files.label.renameFile"}}"
-						class="file-btn fa fa-edit file-name-edit">
-					</button>
-				{{/userHasPermission}}
-				{{#userHasPermission "FILESTORAGE_REMOVE"}}
-					<button
-						class="file-btn"
-						data-method="delete"
-						title="{{$t "files.label.deleteFile"}}"
-						data-file-id="{{../this.id}}"
-						data-file-name="{{../this.name}}">
-						<i aria-hidden="true" class="fa fa-trash-o"></i>
-					</button>
-				{{/userHasPermission}}
+				{{#ifneq readonly true}}
+					{{#userHasPermission "FILESTORAGE_EDIT"}}
+						<button
+							data-file-id="{{../this.id}}"
+							data-file-name="{{../this.name}}"
+							title="{{$t "files.label.renameFile"}}"
+							class="file-btn fa fa-edit file-name-edit">
+						</button>
+					{{/userHasPermission}}
+					{{#userHasPermission "FILESTORAGE_REMOVE"}}
+						<button
+							class="file-btn"
+							data-method="delete"
+							title="{{$t "files.label.deleteFile"}}"
+							data-file-id="{{../this.id}}"
+							data-file-name="{{../this.name}}">
+							<i aria-hidden="true" class="fa fa-trash-o"></i>
+						</button>
+					{{/userHasPermission}}
+				{{/ifneq}}
 			</div>
 		</div>
 	</div>

@@ -246,8 +246,8 @@ const copyCourseHandler = (req, res, next) => {
 		res.render('teams/edit-course', {
 			action,
 			method,
-			title: res.$t('teams.headline.duplicateTeam'),
-			submitLabel: res.$t('teams.button.duplicateTeam'),
+			title: res.$t('teams.headline.copyTeam'),
+			submitLabel: res.$t('teams.button.copyTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			course,
 			classes: classesOfCurrentSchool,
