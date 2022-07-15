@@ -8,11 +8,12 @@
 			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.muteParticipants" }}</p>
 			<input name="startMuted" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
 		</div>
+        {{#if (getConfig "FEATURE_VIDEOCONFERENCE_WAITING_ROOM_ENABLED")}}
 		<div class="checkbox create-videoconference-option">
-			<!-- feature currently not supported in bbb -->
 			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.approvalByTheModerator" }}</p>
-			<input name="requestModerator" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
+			<input name="requestModerator" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein" checked>
 		</div>
+        {{/if}}
 		<div class="checkbox create-videoconference-option">
 			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.allUsersParticipate" }}</p>
 			<input name="everyoneIsModerator" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
