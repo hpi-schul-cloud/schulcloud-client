@@ -168,11 +168,11 @@ const renderLogin = async (req, res) => {
 		let oauthErrorLogout = false;
 		if (req.query.error && req.query.provider === 'iserv' && req.query.error !== 'sso_oauth_access_denied') {
 			oauthErrorLogout = true;
-			res.locals.notification = {
-				type: 'danger',
-				message: res.$t(mapErrorCodeToTranslation(req.query.error)),
-			};
 		}
+		res.locals.notification = {
+			type: 'danger',
+			message: res.$t(mapErrorCodeToTranslation(req.query.error)),
+		};
 		const strategyOfSchool = req.query.strategy;
 		const idOfSchool = req.query.schoolId;
 
