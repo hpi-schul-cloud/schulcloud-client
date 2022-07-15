@@ -166,13 +166,16 @@ const renderLogin = async (req, res) => {
 
 	if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
 		let oauthErrorLogout = false;
-		if (req.query.error && req.query.provider === 'iserv' && req.query.error !== 'sso_oauth_access_denied') {
-			oauthErrorLogout = true;
+		if (req.query.error) {
+			res.locals.notification = {
+				type: 'danger',
+				message: res.$t(mapErrorCodeToTranslation(req.query.error)),
+			};
+			if (req.query.provider === 'iserv' && req.query.error !== 'sso_oauth_access_denied') {
+				oauthErrorLogout = true;
+			}
 		}
-		res.locals.notification = {
-			type: 'danger',
-			message: res.$t(mapErrorCodeToTranslation(req.query.error)),
-		};
+
 		const strategyOfSchool = req.query.strategy;
 		const idOfSchool = req.query.schoolId;
 
