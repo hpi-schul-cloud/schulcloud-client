@@ -67,13 +67,13 @@
     </div>
 
     <div class="form-group mt-3" data-role="expert">
-        {{#if (getConfig "FEATURE_VIDEOCONFERENCE_WAITING_ROOM_ENABLED")}}
-            <h2 class="h3">{{$t "teams._team.members.headline.insertEmailOfExpertToInviteWithVideoConference"}}</h2>
-        {{else}}
-            <h2 class="h3">{{$t "teams._team.members.headline.inviteExternExpert"}}</h2>
-        {{/if}}
+        <h2 class="h3">{{$t "teams._team.members.headline.inviteExternExpert"}}</h2>
         <div class="form-group">
+            {{#if (getConfig "FEATURE_VIDEOCONFERENCE_WAITING_ROOM_ENABLED")}}
+            <label for="emailExpert">{{$t "teams._team.members.label.insertEmailOfExpertToInviteWithVideoConference"}}</label>
+            {{else}}
             <label for="emailExpert">{{$t "teams._team.members.label.insertEmailOfExpertToInvite"}}</label>
+            {{/if}}
             <input class="form-control" type="text" name="email" id="emailExpert" placeholder="{{$t "teams._team.members.placeholder.insertEmail"}}">
         </div>
         {{#ifeq @root.theme.name "n21"}}
