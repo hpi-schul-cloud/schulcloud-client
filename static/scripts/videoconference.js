@@ -51,9 +51,13 @@ const ModeratorInactiveState = Object.freeze({
 					contentType: 'application/json',
 					dataType: 'json',
 					data: JSON.stringify({
-						everyAttendeeJoinsMuted,
-						moderatorMustApproveJoinRequests,
-						everybodyJoinsAsModerator,
+						scopeId: event._id,
+						scopeName: 'event',
+						options: {
+							everyAttendeeJoinsMuted,
+							moderatorMustApproveJoinRequests,
+							everybodyJoinsAsModerator,
+						},
 					}),
 				}).done((response) => {
 					// todo, the browser may block popups...
@@ -146,8 +150,8 @@ function switchVideoconferenceUIState(container, state) {
 
 export function initVideoconferencing() {
 	const videoconferenceEvents = Array.from($('div[data-event]'))
-		.map(div => [div, JSON.parse(div.attributes['data-event'].value)])
-		.filter(tuple => tuple[1].attributes['x-sc-featurevideoconference'] === true);
+		.map((div) => [div, JSON.parse(div.attributes['data-event'].value)])
+		.filter((tuple) => tuple[1].attributes['x-sc-featurevideoconference'] === true);
 
 	videoconferenceEvents.forEach(([container]) => updateVideoconferenceForEvent(container));
 
