@@ -22,7 +22,6 @@
 	"PROMETHEUS": {
 		"METRIC_TYPE": "summary"
 	},
-	"FEATURE_SHOW_VERSION_ENABLED": false,
 	"I18N": {
 		"DEBUG": false
 	},

@@ -66,7 +66,7 @@ docker-compose -f docker-compose.end-to-end-tests-Build.yml up -d server
 cd ..
 
 echo "waiting max 4 minutes for server to be available"
-npx wait-on http://localhost:3030 -t 240000 --httpTimeout 250 --log
+npx wait-on http://localhost:3030/serverversion -t 240000 --httpTimeout 250 --log
 echo "server is now online"
 
 # Execute
