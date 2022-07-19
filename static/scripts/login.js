@@ -44,7 +44,7 @@ $(document).ready(() => {
 	const $submitButton = $('#submit-login');
 	const $loginParams = $('.login-params');
 	const $oauthSystems = $('.oauth-system');
-	const $oauthError = $('.oauth-error');
+	const $oauthErrorLogout = $('.oauth-error-logout');
 
 	const enableDisableLdapBtn = (id) => {
 		if ($btnLoginLdap.data('active') === true) {
@@ -147,8 +147,7 @@ $(document).ready(() => {
 		}
 	});
 
-	// TODO Special Iserv logout function - remove together with Iserv
-	if ($oauthError && $oauthSystems.length > 0 && $oauthError.eq(0).text() === 'true') {
+	if ($oauthErrorLogout && $oauthSystems.length > 0 && $oauthErrorLogout.eq(0).text() === 'true') {
 		const $iservButton = $oauthSystems.find('.btn-oauth[data-provider="iserv"]');
 
 		if ($iservButton.length > 0) {
@@ -157,7 +156,7 @@ $(document).ready(() => {
 			setTimeout(() => {
 				logoutWindow.close();
 			}, 1500);
-			$oauthError.eq(0).text('false');
+			$oauthErrorLogout.eq(0).text('false');
 		}
 	}
 

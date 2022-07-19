@@ -165,14 +165,17 @@ const renderLogin = async (req, res) => {
 	const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 
 	if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
-		let oauthError = false;
+		let oauthErrorLogout = false;
 		if (req.query.error) {
-			oauthError = true;
 			res.locals.notification = {
 				type: 'danger',
 				message: res.$t(mapErrorCodeToTranslation(req.query.error)),
 			};
+			if (req.query.provider === 'iserv' && req.query.error !== 'sso_oauth_access_denied') {
+				oauthErrorLogout = true;
+			}
 		}
+
 		const strategyOfSchool = req.query.strategy;
 		const idOfSchool = req.query.schoolId;
 
@@ -184,7 +187,7 @@ const renderLogin = async (req, res) => {
 			schools: getNonOauthSchools(schools),
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
-			oauthError,
+			oauthErrorLogout,
 			hideMenu: true,
 			redirect,
 			idOfSchool,
