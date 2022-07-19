@@ -4,6 +4,5 @@
 		"HOST_ONLY": true,
 		"SECURE": true,
 		"SAME_SITE": "None"
-	},
-	"FEATURE_SHOW_VERSION_ENABLED": true
+	}
 }

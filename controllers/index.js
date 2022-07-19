@@ -48,7 +48,6 @@ router.use('/addons', require('./addons'));
 router.use('/messenger/', require('./messenger'));
 router.use('/videoconference', require('./videoconference'));
 router.use('/administration/', require('./administration'));
-router.use('/version', require('./version'));
 router.use('/alerts', require('./alerts'));
 router.use('/ghost', require('./ghost'));
 router.use('/blog', require('./blog'));
