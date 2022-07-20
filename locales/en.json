@@ -757,12 +757,6 @@
 		}
 	},
 	"calendar": {
-		"button": {
-			"availableCourses": "Available courses",
-			"availableTeams": "Available teams",
-			"chooseACourse": "Pick a course...",
-			"chooseATeam": "Choose a team"
-		},
 		"headline": {
 			"calendar": "Calendar"
 		},
@@ -772,8 +766,6 @@
 		},
 		"label": {
 			"addVideoConference": "Add a videoconference?",
-			"createForCourse": "Create for course?",
-			"createForTeam": "Create for team?",
 			"location": "Place"
 		},
 		"text": {
@@ -821,7 +813,6 @@
 		},
 		"form_add_lesson": {
 			"label": {
-				"chooseACourse": "Choose a course / subject",
 				"chooseALessonTopic": "Choose a lesson topic"
 			}
 		},
