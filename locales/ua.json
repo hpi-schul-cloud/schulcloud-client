@@ -1284,16 +1284,8 @@
 		}
 	},
 	"calendar": {
-		"button": {
-			"chooseACourse": "Виберіть курс...",
-			"chooseATeam": "Виберіть команду",
-			"availableCourses": "Наявні курси",
-			"availableTeams": "Наявні команди"
-		},
 		"label": {
 			"addVideoConference": "Додати відеоконференцію?",
-			"createForCourse": "Створити для курсу?",
-			"createForTeam": "Створити для команди?",
 			"location": "Місце"
 		},
 		"text": {
@@ -1316,7 +1308,6 @@
 		},
 		"form_add_lesson": {
 			"label": {
-				"chooseACourse": "Вибрати курс / предмет",
 				"chooseALessonTopic": "Вибрати тему уроку"
 			}
 		},
