@@ -757,12 +757,6 @@
 		}
 	},
 	"calendar": {
-		"button": {
-			"availableCourses": "Verfügbare Kurse",
-			"availableTeams": "Verfügbare Teams",
-			"chooseACourse": "Wähle einen Kurs...",
-			"chooseATeam": "Wähle ein Team"
-		},
 		"headline": {
 			"calendar": "Kalender"
 		},
@@ -772,8 +766,6 @@
 		},
 		"label": {
 			"addVideoConference": "Videokonferenz hinzufügen?",
-			"createForCourse": "Für Kurs anlegen?",
-			"createForTeam": "Für Team anlegen?",
 			"location": "Ort"
 		},
 		"text": {
@@ -821,7 +813,6 @@
 		},
 		"form_add_lesson": {
 			"label": {
-				"chooseACourse": "Wähle einen Kurs / Fach",
 				"chooseALessonTopic": "Wähle ein Unterrichtsthema"
 			}
 		},
