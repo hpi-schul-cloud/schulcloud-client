@@ -1,5 +1,5 @@
-import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
 import moment from 'moment-timezone';
+import { ERROR_MESSAGES as errorMessagesBBB, STATES as videoconferenceStates } from './videoconference';
 import { dateStringToMoment } from './datetime/datetime';
 
 /* eslint-disable max-len */
@@ -194,14 +194,13 @@ $(document).ready(() => {
 	};
 
 	const setVideoConferenceOptions = (options) => {
-		const { everyAttendeJoinsMuted, everybodyJoinsAsModerator, moderatorMustApproveJoinRequests } = options;
+		const { everyAttendeeJoinsMuted, everybodyJoinsAsModerator, moderatorMustApproveJoinRequests } = options;
 		const $createVideoconferenceModal = $('.create-videoconference-modal');
 
-		$createVideoconferenceModal.find('[name=startMuted]').bootstrapToggle(everyAttendeJoinsMuted ? 'on' : 'off');
+		$createVideoconferenceModal.find('[name=startMuted]').bootstrapToggle(everyAttendeeJoinsMuted ? 'on' : 'off');
 		$createVideoconferenceModal.find('[name=requestModerator]').bootstrapToggle(moderatorMustApproveJoinRequests ? 'on' : 'off');
 		$createVideoconferenceModal.find('[name=everyoneIsModerator]').bootstrapToggle(everybodyJoinsAsModerator ? 'on' : 'off');
 	};
-
 
 	if ($('.bbbTool').length > 0) {
 		const courseId = $('.bbbTool').parent().attr('data-courseId');
@@ -211,7 +210,6 @@ $(document).ready(() => {
 			const { permission, state, options } = data;
 
 			setVideoConferenceOptions(options);
-
 
 			if (!permission || permission.length < 0) {
 				$.showNotification(errorMessagesBBB.NO_PERMISSION, 'danger');
@@ -317,7 +315,6 @@ $(document).ready(() => {
 		});
 	}
 
-
 	// eslint-disable-next-line func-names
 	$('.bbbTool').click(function (e) {
 		if (!activeBbbCard) {
@@ -345,7 +342,7 @@ $(document).ready(() => {
 			$createVideoconferenceModal.off('submit').on('submit', (event) => {
 				event.preventDefault();
 
-				const everyAttendeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
+				const everyAttendeeJoinsMuted = $createVideoconferenceModal.find('[name=startMuted]').is(':checked');
 				const moderatorMustApproveJoinRequests = $createVideoconferenceModal.find('[name=requestModerator]').is(':checked');
 				const everybodyJoinsAsModerator = $createVideoconferenceModal.find('[name=everyoneIsModerator]').is(':checked');
 
@@ -358,7 +355,7 @@ $(document).ready(() => {
 						scopeId: courseId,
 						scopeName: 'course',
 						options: {
-							everyAttendeJoinsMuted,
+							everyAttendeeJoinsMuted,
 							moderatorMustApproveJoinRequests,
 							everybodyJoinsAsModerator,
 						},
