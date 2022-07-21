@@ -98,30 +98,14 @@ export const STATES = Object.freeze({
 });
 export const STATELIST = [GuestInactiveState, ModeratorInactiveState, RunningState, ForbiddenState];
 
-const setVideoConferenceOptions = (options) => {
-	const { everyAttendeeJoinsMuted, everybodyJoinsAsModerator, moderatorMustApproveJoinRequests } = options;
-	const $createVideoconferenceModal = $('.create-videoconference-modal');
-
-	$createVideoconferenceModal.find('[name=startMuted]')
-		.bootstrapToggle(everyAttendeeJoinsMuted ? 'on' : 'off');
-	$createVideoconferenceModal.find('[name=requestModerator]')
-		.bootstrapToggle(moderatorMustApproveJoinRequests ? 'on' : 'off');
-	$createVideoconferenceModal.find('[name=everyoneIsModerator]')
-		.bootstrapToggle(everybodyJoinsAsModerator ? 'on' : 'off');
-};
-
 function updateVideoconferenceForEvent(container) {
 	const event = JSON.parse(container.attributes['data-event'].value);
 	const eventId = event._id;
-
 	$.ajax({
 		type: 'GET',
 		url: `/videoconference/event/${eventId}`,
 	}).done((res) => {
-		const { permission, state, options } = res;
-		if (options) {
-			setVideoConferenceOptions(options);
-		}
+		const { permission, state } = res;
 		STATELIST.forEach((uiState) => {
 			if (uiState.condition(permission, state)) {
 				uiState.updateUi(container);
