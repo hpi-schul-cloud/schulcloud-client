@@ -38,8 +38,8 @@
 			{{#inArray this.currentUser._id this.archived}}
 				{{#userHasPermission "HOMEWORK_CREATE"}}
 				<a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=open"
-					data-toggle="tooltip" title="{{$t "homework._task.label.moveFromArchive"}}" data-testid="task-details-btn-restore"
-					alt-text="<i class='fa fa-archive'></i> Archivieren">
+					data-toggle="tooltip" title="{{$t "homework._task.label.moveFromArchive"}}"
+					alt-text="<i class='fa fa-archive'></i> Archivieren" data-testid="task-details-btn-restore">
 					<i class='fa fa-mail-reply'></i> {{$t "homework.label.restore" }}
 				</a>
 				{{/userHasPermission}}
