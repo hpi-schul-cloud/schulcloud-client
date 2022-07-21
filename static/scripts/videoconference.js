@@ -112,11 +112,8 @@ function updateVideoconferenceForEvent(container) {
 			}
 		});
 	}).fail((err) => {
-		if (err.status === 403) {
+		if (err.status === 403 && err.message !== 'guests_cannot_join_conference') {
 			ForbiddenState.updateUi(container);
-		} else {
-			// eslint-disable-next-line no-console
-			console.error(err);
 		}
 	});
 }

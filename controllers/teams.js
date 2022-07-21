@@ -623,8 +623,7 @@ router.get('/:teamId', async (req, res, next) => {
 		const schoolUsesVideoconferencing = (
 			res.locals.currentSchoolData.features || []
 		).includes('videoconference');
-		const showVideoconferenceOption = !schoolIsExpertSchool
-			&& schoolUsesVideoconferencing && teamUsesVideoconferencing;
+		const showVideoconferenceOption = schoolUsesVideoconferencing && teamUsesVideoconferencing;
 
 		// leave team
 		const leaveTeamAction = `/teams/${teamId}/members`;
