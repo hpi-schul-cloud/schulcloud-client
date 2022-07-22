@@ -18,10 +18,19 @@
       <div class="title">{{event.title}}</div>
 
       <div class="event-row">
-        <div class="meta"><i class="fa fa-calendar-o" aria-hidden="true"></i>{{event.dayOfTheWeek}}</div>
-        <div class="meta"><i class="fa fa-clock-o" aria-hidden="true"></i>{{event.fromTo}}</div>
+        <div class="meta">
+            <i class="fa fa-calendar-o" aria-hidden="true">&nbsp;</i>
+            {{event.dayOfTheWeek}}
+        </div>
+        <div class="meta">
+            <i class="fa fa-clock-o" aria-hidden="true">&nbsp;</i>
+            {{event.fromTo}}
+        </div>
         {{#if event.location}}
-          <div class="meta"><i class="fa fa-location-arrow" aria-hidden="true"></i>{{event.location}}</div>
+          <div class="meta">
+              <i class="fa fa-location-arrow" aria-hidden="true">&nbsp;</i>
+              {{event.location}}
+          </div>
         {{/if}}
       </div>
 
@@ -30,21 +39,21 @@
           {{#if ../event.attributes.x-sc-featurevideoconference}}
             <div class="event-row">
               <!-- state: DEFAULT -->
-              <i class="fa fa-video-camera video-conference" aria-hidden="true" style="display: none;"></i>
+              <i class="fa fa-video-camera video-conference" aria-hidden="true" style="display: none;">&nbsp;</i>
               <span class="muted video-conference" style="display: none;">{{$t "calendar.text.videoConferenceDetailsAreLoading" }}</span>
               <!-- state: RUNNING -->
-              <i class="fa fa-video-camera video-conference join-conference" aria-hidden="true" style="display: none;"></i>
+              <i class="fa fa-video-camera video-conference join-conference" aria-hidden="true" style="display: none;">&nbsp;</i>
               <a class="video-conference join-conference" href="/videoconference" style="display: none;">{{$t "calendar.text.participateInVideoConference" }}</a>
               <!-- state: FINISHED || NOT_STARTED + permission: JOIN_MEETING -->
-              <i class="fa fa-video-camera video-conference not-started" aria-hidden="true" style="display: none;"></i>
+              <i class="fa fa-video-camera video-conference not-started" aria-hidden="true" style="display: none;">&nbsp;</i>
               <span class="muted video-conference not-started" style="display: none;">{{$t "global.text.videoconferenceNotStartedYet" }}</span>
               <i class="fa fa-info-circle video-conference not-started clickable" style="display: none;"></i>
               <i class="fa fa-repeat video-conference not-started clickable reload" style="display: none;"></i>
               <!-- state: FINISHED || NOT_STARTED + permission: START_MEETING -->
-              <i class="fa fa-video-camera video-conference start-conference" aria-hidden="true" style="display: none;"></i>
+              <i class="fa fa-video-camera video-conference start-conference" aria-hidden="true" style="display: none;">&nbsp;</i>
               <a class="video-conference start-conference" href="#" style="display: none;">{{$t "calendar.text.startAVideoConference" }}</a>
               <!-- no permission -->
-              <i class="fa fa-ban video-conference no-permission" aria-hidden="true" style="display: none;"></i>
+              <i class="fa fa-video-camera video-conference no-permission" aria-hidden="true" style="display: none;">&nbsp;</i>
               <span class="muted video-conference no-permission" style="display: none;">{{$t "calendar.text.noAuthorization" }}</span>
               <i class="fa fa-info-circle video-conference clickable no-permission" aria-hidden="true" style="display: none;"></i>
             </div>
@@ -54,7 +63,7 @@
 
       {{#if event.description}}
       <div class="event-row">
-        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+        <i class="fa fa-file-text-o" aria-hidden="true">&nbsp;</i>
         <span class="card-description">{{event.description}}</span>
       </div>
       {{/if}}

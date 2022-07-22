@@ -106,7 +106,6 @@ function updateVideoconferenceForEvent(container) {
 		url: `/videoconference/event/${eventId}`,
 	}).done((res) => {
 		const { permission, state } = res;
-		console.log(res);
 		STATELIST.forEach((uiState) => {
 			if (uiState.condition(permission, state)) {
 				uiState.updateUi(container);
