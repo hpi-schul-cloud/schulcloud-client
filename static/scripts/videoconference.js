@@ -106,13 +106,14 @@ function updateVideoconferenceForEvent(container) {
 		url: `/videoconference/event/${eventId}`,
 	}).done((res) => {
 		const { permission, state } = res;
+		console.log(res);
 		STATELIST.forEach((uiState) => {
 			if (uiState.condition(permission, state)) {
 				uiState.updateUi(container);
 			}
 		});
-	}).fail((err) => {
-		if (err.status === 403 && err.message !== 'guests_cannot_join_conference') {
+	}).fail((error) => {
+		if (error.status === 403) {
 			ForbiddenState.updateUi(container);
 		}
 	});
