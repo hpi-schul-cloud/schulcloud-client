@@ -30,8 +30,6 @@
 						data-method="DELETE" data-name="{{../title}}" alt="{{$t "homework._task.label.deleteTaskAlt" (dict "title" ../title)}}" data-testid="task-details-btn-delete">
 						<i class='fa fa-trash-o'></i> {{$t "global.headline.delete" }}
 					</a>
-					<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="{{$t "homework._task.label.copyTask"}}" href="{{@root.copyServiceUrl}}"
-						alt="{{$t "homework._task.label.copyTaskAlt" (dict "title" ../title)}}" data-testid="task-details-btn-copy"> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
 				{{/userHasPermission}}
 			{{/if}}
 

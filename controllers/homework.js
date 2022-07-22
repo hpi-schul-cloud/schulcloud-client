@@ -44,12 +44,6 @@ const getActions = (res, item, path) => [{
 	title: res.$t('homework.button.editSubmissionFromList'),
 },
 {
-	link: `${path + item._id}/copy`,
-	class: 'btn-copy',
-	icon: 'copy',
-	title: res.$t('homework.button.copySubmissionFromList'),
-},
-{
 	link: path + item._id,
 	class: 'btn-delete',
 	icon: 'trash-o',
