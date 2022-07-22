@@ -111,12 +111,9 @@ function updateVideoconferenceForEvent(container) {
 				uiState.updateUi(container);
 			}
 		});
-	}).fail((err) => {
-		if (err.status === 403) {
+	}).fail((error) => {
+		if (error.status === 403) {
 			ForbiddenState.updateUi(container);
-		} else {
-			// eslint-disable-next-line no-console
-			console.error(err);
 		}
 	});
 }
