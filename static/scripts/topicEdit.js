@@ -226,6 +226,7 @@ class TopicBlockList extends React.Component {
 		const blocks = $contentBlocksContainer.data('value') || [];
 		return blocks.map((block) => {
 			block.type = TopicBlock.getClassForComponent(block.component);
+			block.topicId = $contentBlocksContainer.data('topicid');
 			return block;
 		});
 	}
@@ -493,7 +494,13 @@ class TopicText extends TopicBlock {
      */
 	render() {
 		const editorId = (this.props.content || {}).editorId || this.editorId;
-		return (
+		const infoBox = <div class="alert info-custom">
+							<div className="fa fa-info-circle" />
+							Dateien können erst nach dem ersten Speichern des Themas hochgeladen werden.
+						</div>;
+
+		return (<>
+			{!this.props.topicId ? infoBox : null}
             <div>
                 <textarea
                     className="form-control ckeditor"
@@ -504,6 +511,7 @@ class TopicText extends TopicBlock {
                     name={`contents[${this.props.position}][content][text]`}
                 />
             </div>
+		</>
 		);
 	}
 }

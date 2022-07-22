@@ -1,3 +1,5 @@
+@import "../lib/colors";
+
 @keyframes in {
 	0% {
 		transform: scale(0.85);
@@ -12,5 +14,19 @@
 	100% {
 		transform: scale(1);
 		opacity: 1;
+	}
+}
+
+.info-custom {
+	background-color: $colorGrey;
+	border-color: $colorLightGrey;
+	color: $fontColor;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 18px;
+
+	i {
+		margin: auto;
 	}
 }
