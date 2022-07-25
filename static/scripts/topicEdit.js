@@ -436,6 +436,7 @@ class TopicText extends TopicBlock {
 			this.editorId = `editor_${randomId}`;
 			this.updateText((this.props.content || {}).text);
 		}
+		this.editor = undefined;
 	}
 
 	componentDidMount() {
@@ -454,6 +455,10 @@ class TopicText extends TopicBlock {
 		editor.on('change:data', () => {
 			this.updateText(editor.getData());
 		});
+
+		console.log(editor.commands.get('imagebrowser').value);
+
+		editor.commands.get('imagebrowser').isEnabled();
 	}
 
 	getStorageContext() {
@@ -498,6 +503,11 @@ class TopicText extends TopicBlock {
 							<div className="fa fa-info-circle" />
 							Dateien können erst nach dem ersten Speichern des Themas hochgeladen werden.
 						</div>;
+
+		// if (!this.props.topicId && this.editor) {
+		// 	console.log(this.editor);
+		// 	console.log(this.editor.commands.get('image'));
+		// }
 
 		return (<>
 			{!this.props.topicId ? infoBox : null}
