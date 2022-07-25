@@ -5,17 +5,18 @@
 <div class="form-group">
 	<div class="create-videoconference">
 		<div class="checkbox create-videoconference-option">
-			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.muteParticipants" }}</p>
-			<input name="startMuted" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
+			<p id="startMuted" class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.muteParticipants" }}</p>
+            <input aria-labelledby="startMuted" name="startMuted" type="checkbox" data-toggle="toggle" data-on="{{$t "global.button.yes" }}" data-off="{{$t "global.button.no" }}">
 		</div>
-		<div class="checkbox create-videoconference-option" style="display:none;">
-			<!-- feature currently not supported in bbb -->
-			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.approvalByTheModerator" }}</p>
-			<input name="requestModerator" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
-		</div>
+        {{#if (getConfig "FEATURE_VIDEOCONFERENCE_WAITING_ROOM_ENABLED")}}
 		<div class="checkbox create-videoconference-option">
-			<p class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.allUsersParticipate" }}</p>
-			<input name="everyoneIsModerator" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
+            <p id="requestModerator" class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.approvalByTheModerator" }}</p>
+			<input aria-labelledby="requestModerator" name="requestModerator" type="checkbox" data-toggle="toggle" data-on="{{$t "global.button.yes" }}" data-off="{{$t "global.button.no" }}" checked>
+		</div>
+        {{/if}}
+		<div class="checkbox create-videoconference-option">
+			<p id="everyoneIsModerator" class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.allUsersParticipate" }}</p>
+			<input aria-labelledby="everyoneIsModerator" name="everyoneIsModerator" type="checkbox" data-toggle="toggle" data-on="{{$t "global.button.yes" }}" data-off="{{$t "global.button.no" }}">
 		</div>
 	</div>
 </div>

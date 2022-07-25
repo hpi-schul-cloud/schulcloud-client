@@ -24,14 +24,12 @@
 			{{#if isTeacher}}
 				{{#userHasPermission "HOMEWORK_EDIT"}}
 					<a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit?returnUrl={{../_id}}"
-						alt="{{$t "homework._task.label.editTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-edit'></i> {{$t "global.button.edit" }}
+						alt="{{$t "homework._task.label.editTaskAlt" (dict "title" ../title)}}" data-testid="task-details-btn-edit"> <i class='fa fa-edit'></i> {{$t "global.button.edit" }}
 					</a>
 					<a class="btn btn-secondary btn-delete" href="/homework/{{../_id}}" redirect="/tasks" target="_blank"
-						data-method="DELETE" data-name="{{../title}}" alt="{{$t "homework._task.label.deleteTaskAlt" (dict "title" ../title)}}">
+						data-method="DELETE" data-name="{{../title}}" alt="{{$t "homework._task.label.deleteTaskAlt" (dict "title" ../title)}}" data-testid="task-details-btn-delete">
 						<i class='fa fa-trash-o'></i> {{$t "global.headline.delete" }}
 					</a>
-					<a class="btn btn-secondary btn-copy" data-toggle="tooltip" title="{{$t "homework._task.label.copyTask"}}" href="{{@root.copyServiceUrl}}"
-						alt="{{$t "homework._task.label.copyTaskAlt" (dict "title" ../title)}}"> <i class='fa fa-copy'></i> {{$t "homework.button.copy" }} </a>
 				{{/userHasPermission}}
 			{{/if}}
 
@@ -39,7 +37,7 @@
 				{{#userHasPermission "HOMEWORK_CREATE"}}
 				<a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=open"
 					data-toggle="tooltip" title="{{$t "homework._task.label.moveFromArchive"}}"
-					alt-text="<i class='fa fa-archive'></i> Archivieren">
+					alt-text="<i class='fa fa-archive'></i> Archivieren" data-testid="task-details-btn-restore">
 					<i class='fa fa-mail-reply'></i> {{$t "homework.label.restore" }}
 				</a>
 				{{/userHasPermission}}
@@ -47,7 +45,7 @@
 				{{#userHasPermission "HOMEWORK_EDIT"}}
 				<a class="btn btn-secondary btn-archive" href="{{this.url}}" target="_blank" data="archive=done"
 					data-toggle="tooltip" title="{{$t "homework._task.label.moveToArchive"}}"
-					alt-text="{{{$t "homework._task.button.restoreAlt"}}}">
+					alt-text="{{{$t "homework._task.button.restoreAlt"}}}" data-testid="task-details-btn-finish">
 					<i class='fa fa-archive'></i> {{$t "homework.button.archive" }}
 				</a>
 				{{/userHasPermission}}

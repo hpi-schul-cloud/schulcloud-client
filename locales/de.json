@@ -757,12 +757,6 @@
 		}
 	},
 	"calendar": {
-		"button": {
-			"availableCourses": "Verfügbare Kurse",
-			"availableTeams": "Verfügbare Teams",
-			"chooseACourse": "Wähle einen Kurs...",
-			"chooseATeam": "Wähle ein Team"
-		},
 		"headline": {
 			"calendar": "Kalender"
 		},
@@ -772,8 +766,6 @@
 		},
 		"label": {
 			"addVideoConference": "Videokonferenz hinzufügen?",
-			"createForCourse": "Für Kurs anlegen?",
-			"createForTeam": "Für Team anlegen?",
 			"location": "Ort"
 		},
 		"text": {
@@ -821,7 +813,6 @@
 		},
 		"form_add_lesson": {
 			"label": {
-				"chooseACourse": "Wähle einen Kurs / Fach",
 				"chooseALessonTopic": "Wähle ein Unterrichtsthema"
 			}
 		},
@@ -2985,6 +2976,7 @@
 					"externTeacher": "Lehrkraft anderer Schule (Team-Admin)",
 					"federalState": "Bundesland",
 					"insertEmailOfExpertToInvite": "Externe Expert:innen verfügen aus Sicherheitsgründen nur über eingeschränkte Berechtigungen - beispielsweise können sie nicht an Videokonferenzen teilnehmen und keine Kurse anlegen. Um eine/n schulfremde/n Expert:in einzuladen, gib die E-Mail-Adresse ein, an die die Einladung verschickt werden soll:",
+					"insertEmailOfExpertToInviteWithVideoConference": "Externe Expert:innen verfügen aus Sicherheitsgründen nur über eingeschränkte Berechtigungen - beispielsweise können sie keine Kurse anlegen. Um eine/n schulfremde/n Expert:in einzuladen, gib die E-Mail-Adresse ein, an die die Einladung verschickt werden soll:",
 					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert eine/n andere/n Eigentümer:in",
 					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
 					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
