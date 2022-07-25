@@ -33,6 +33,7 @@ const initEditor = async (element) => {
 	}
 
 	editor.model.document.on('change:data', () => {
+		editor.updateSourceElement();
 		const submitButton = document.querySelector('.ckeditor-submit');
 		if (submitButton) {
 			const editorContent = editor.getData();
