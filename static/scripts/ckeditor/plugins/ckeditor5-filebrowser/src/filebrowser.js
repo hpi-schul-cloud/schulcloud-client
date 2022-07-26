@@ -43,8 +43,6 @@ export default class FileBrowserPlugin extends Plugin {
 			editor.commands.add('imagebrowser', new ImageBrowserCommand(editor));
 
 			const command = editor.commands.get('imagebrowser');
-			console.log('command is enabled: ', command.isEnabled);
-			console.log('command is enabled: ', command.value);
 
 			view.set({
 				label: t('Insert Image'),
@@ -53,8 +51,9 @@ export default class FileBrowserPlugin extends Plugin {
 				command: 'imagebrowser',
 			});
 
-			view.bind('isEnabled').to(command);
-			console.log('command is enabled after: ', command.isEnabled);
+			view.bind('isEnabled').to(command, 'isEnabled');
+
+			this.listenTo(view, 'execute', () => editor.execute('imagebrowser'));
 
 			return view;
 		});

@@ -441,10 +441,10 @@ class TopicText extends TopicBlock {
 
 	componentDidMount() {
 		const editorId = (this.props.content || {}).editorId || this.editorId;
-		this.initEditor();
+		this.initEditor(this.props.topicId);
 	}
 
-	async initEditor() {
+	async initEditor(topicId) {
 		const storageContext = this.getStorageContext();
 
 		const editorId = (this.props.content || {}).editorId || this.editorId;
@@ -456,9 +456,9 @@ class TopicText extends TopicBlock {
 			this.updateText(editor.getData());
 		});
 
-		console.log(editor.commands.get('imagebrowser').value);
-
-		editor.commands.get('imagebrowser').isEnabled();
+		if (topicId === undefined) {
+			editor.commands.get('imagebrowser').forceDisabled();
+		}
 	}
 
 	getStorageContext() {
