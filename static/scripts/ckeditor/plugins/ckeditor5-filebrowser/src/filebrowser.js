@@ -6,7 +6,9 @@ import imageIcon from '@ckeditor/ckeditor5-core/theme/icons/image.svg';
 
 import audioIcon from '../theme/icons/audio.svg';
 import videoIcon from '../theme/icons/video.svg';
-import ImageBrowserCommand from './imagebrowsercommand';
+import ImageBrowserCommand from './image-browser-command';
+import VideoBrowserCommand from './video-browser-command';
+import AudioBrowserCommand from './audio-browser-command';
 
 export default class FileBrowserPlugin extends Plugin {
 	init() {
@@ -42,8 +44,6 @@ export default class FileBrowserPlugin extends Plugin {
 
 			editor.commands.add('imagebrowser', new ImageBrowserCommand(editor));
 
-			const command = editor.commands.get('imagebrowser');
-
 			view.set({
 				label: t('Insert Image'),
 				icon: imageIcon,
@@ -51,6 +51,7 @@ export default class FileBrowserPlugin extends Plugin {
 				command: 'imagebrowser',
 			});
 
+			const command = editor.commands.get('imagebrowser');
 			view.bind('isEnabled').to(command, 'isEnabled');
 
 			this.listenTo(view, 'execute', () => editor.execute('imagebrowser'));
@@ -61,31 +62,19 @@ export default class FileBrowserPlugin extends Plugin {
 		editor.ui.componentFactory.add('videobrowser', (locale) => {
 			const view = new ButtonView(locale);
 
+			editor.commands.add('videobrowser', new VideoBrowserCommand(editor));
+
 			view.set({
 				label: t('Insert Video'),
 				icon: videoIcon,
 				tooltip: true,
+				command: 'videobrowser',
 			});
 
-			view.on('execute', async () => {
-				const dialogTitle = t('Video Properties');
-				const onCreate = () => {
-					const videoUrl = document.getElementById('url-input').value;
-					if (!videoUrl) return;
-					editor.model.change((writer) => {
-						const videoElement = writer.createElement('video', {
-							source: videoUrl,
-							controls: 'true',
-							controlslist: 'nodownload',
-						});
-						const lastOpenedEditorId = document.getElementById('editor-id').value;
-						if (lastOpenedEditorId === editor.id) {
-							editor.model.insertContent(videoElement, editor.model.document.selection);
-						}
-					});
-				};
-				createFilebrowserModal(editor, t, dialogTitle, onCreate);
-			});
+			const command = editor.commands.get('videobrowser');
+			view.bind('isEnabled').to(command, 'isEnabled');
+
+			this.listenTo(view, 'execute', () => editor.execute('videobrowser'));
 
 			return view;
 		});
@@ -93,31 +82,19 @@ export default class FileBrowserPlugin extends Plugin {
 		editor.ui.componentFactory.add('audiobrowser', (locale) => {
 			const view = new ButtonView(locale);
 
+			editor.commands.add('audiobrowser', new AudioBrowserCommand(editor));
+
 			view.set({
 				label: t('Insert Audio'),
 				icon: audioIcon,
 				tooltip: true,
+				command: 'audiobrowser',
 			});
 
-			view.on('execute', async () => {
-				const dialogTitle = t('Audio Properties');
-				const onCreate = () => {
-					const audioUrl = document.getElementById('url-input').value;
-					if (!audioUrl) return;
-					editor.model.change((writer) => {
-						const audioElement = writer.createElement('audio', {
-							source: audioUrl,
-							controls: 'true',
-							controlslist: 'nodownload',
-						});
-						const lastOpenedEditorId = document.getElementById('editor-id').value;
-						if (lastOpenedEditorId === editor.id) {
-							editor.model.insertContent(audioElement, editor.model.document.selection);
-						}
-					});
-				};
-				createFilebrowserModal(editor, t, dialogTitle, onCreate);
-			});
+			const command = editor.commands.get('audiobrowser');
+			view.bind('isEnabled').to(command, 'isEnabled');
+
+			this.listenTo(view, 'execute', () => editor.execute('audiobrowser'));
 
 			return view;
 		});
