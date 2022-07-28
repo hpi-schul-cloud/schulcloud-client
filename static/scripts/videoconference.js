@@ -38,7 +38,7 @@ const ModeratorInactiveState = Object.freeze({
 			$createVideoconferenceModal.off('submit').on('submit', (ev) => {
 				ev.preventDefault();
 
-				const everyAttendeeJoinsMuted = $createVideoconferenceModal
+				const everyAttendeJoinsMuted = $createVideoconferenceModal
 					.find('[name=startMuted]').is(':checked');
 				const moderatorMustApproveJoinRequests = $createVideoconferenceModal
 					.find('[name=requestModerator]').is(':checked');
@@ -54,7 +54,7 @@ const ModeratorInactiveState = Object.freeze({
 						scopeId: event._id,
 						scopeName: 'event',
 						options: {
-							everyAttendeeJoinsMuted,
+							everyAttendeJoinsMuted,
 							moderatorMustApproveJoinRequests,
 							everybodyJoinsAsModerator,
 						},
@@ -87,7 +87,7 @@ const RunningState = Object.freeze({
 });
 
 const ForbiddenState = Object.freeze({
-	condition: (permission) => !permission,
+	condition: permission => !permission,
 	updateUi: (container) => {
 		switchVideoconferenceUIState(container, 'no-permission');
 	},
@@ -147,8 +147,8 @@ function switchVideoconferenceUIState(container, state) {
 
 export function initVideoconferencing() {
 	const videoconferenceEvents = Array.from($('div[data-event]'))
-		.map((div) => [div, JSON.parse(div.attributes['data-event'].value)])
-		.filter((tuple) => tuple[1].attributes['x-sc-featurevideoconference'] === true);
+		.map(div => [div, JSON.parse(div.attributes['data-event'].value)])
+		.filter(tuple => tuple[1].attributes['x-sc-featurevideoconference'] === true);
 
 	videoconferenceEvents.forEach(([container]) => updateVideoconferenceForEvent(container));
 
