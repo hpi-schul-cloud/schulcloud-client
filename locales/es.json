@@ -769,7 +769,7 @@
 			"location": "Lugar"
 		},
 		"text": {
-			"noAuthorization": "Sin autorización",
+			"noAuthorization": "Sin autorización o la videoconferencia aún no ha comenzado",
 			"participateInVideoConference": "Participar en la videoconferencia",
 			"startAVideoConference": "Iniciar videoconferencia",
 			"videoConferenceDetailsAreLoading": "Cargando detalles de la videoconferencia..."
@@ -2315,7 +2315,7 @@
 			"text": {
 				"refreshStatus": "Para actualizar el estado de nuevo, haz clic en el icono de actualización",
 				"theVideoConferenceHasNotYetStarted": "La videoconferencia aún no ha comenzado.",
-				"youAreNotAuthorisedToAttend": "No estás autorizado a participar en esta videoconferencia. Ponte en contacto con un administrador del equipo para que se te apruebe."
+				"youAreNotAuthorisedToAttend": "La videoconferencia aún no se ha iniciado o usted no está autorizado a participar. Póngase en contacto con un administrador del equipo para iniciarlo o liberarlo."
 			}
 		},
 		"form_ChangeLanguage": {

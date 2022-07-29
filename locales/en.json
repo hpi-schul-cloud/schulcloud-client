@@ -769,7 +769,7 @@
 			"location": "Place"
 		},
 		"text": {
-			"noAuthorization": "No authorization",
+			"noAuthorization": "No authorization or the video conference has not yet started",
 			"participateInVideoConference": "Participate in video conference",
 			"startAVideoConference": "Start video conference",
 			"videoConferenceDetailsAreLoading": "Loading video conference details..."
@@ -2315,7 +2315,7 @@
 			"text": {
 				"refreshStatus": "To refresh status again, click the update icon",
 				"theVideoConferenceHasNotYetStarted": "The video conference has not yet started.",
-				"youAreNotAuthorisedToAttend": "You are not authorized to participate in this video conference. Contact a Team Admin for approval."
+				"youAreNotAuthorisedToAttend": "The video conference has not been started yet or you are not authorized to participate in it. Contact a team admin to start or enable it."
 			}
 		},
 		"form_ChangeLanguage": {
