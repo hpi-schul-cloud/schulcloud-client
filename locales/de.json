@@ -769,7 +769,7 @@
 			"location": "Ort"
 		},
 		"text": {
-			"noAuthorization": "Keine Berechtigung",
+			"noAuthorization": "Keine Berechtigung oder die Videokonferenz wurde noch nicht gestartet",
 			"participateInVideoConference": "An Videokonferenz teilnehmen",
 			"startAVideoConference": "Videokonferenz starten",
 			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen..."
@@ -2315,7 +2315,7 @@
 			"text": {
 				"refreshStatus": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
 				"theVideoConferenceHasNotYetStarted": "Die Videokonferenz wurde noch nicht gestartet.",
-				"youAreNotAuthorisedToAttend": "Du bist nicht berechtigt, an dieser Videokonferenz teilzunehmen. Kontaktiere zur Freigabe einen Team-Admin."
+				"youAreNotAuthorisedToAttend": "Die Videokonferenz wurde noch nicht gestartet oder du bist nicht berechtigt, an ihr teilzunehmen. Kontaktiere zum Start oder zur Freigabe einen Team-Admin."
 			}
 		},
 		"form_ChangeLanguage": {

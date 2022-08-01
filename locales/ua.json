@@ -1289,7 +1289,7 @@
 			"location": "Місце"
 		},
 		"text": {
-			"noAuthorization": "Немає авторизації",
+			"noAuthorization": "Немає авторизації або відеоконференція ще не почалася",
 			"participateInVideoConference": "Взяти участь у відеоконференції",
 			"startAVideoConference": "Почати відеоконференцію",
 			"videoConferenceDetailsAreLoading": "Завантаження деталей відеоконференції..."
@@ -2482,7 +2482,7 @@
 			"text": {
 				"refreshStatus": "Щоб знову оновити статус, натисніть значок оновлення",
 				"theVideoConferenceHasNotYetStarted": "Відеоконференція ще не почалася.",
-				"youAreNotAuthorisedToAttend": "Ви не маєте права брати участь у цій відеоконференції. Зверніться до адміністратора команди для затвердження."
+				"youAreNotAuthorisedToAttend": "Відеоконференція ще не почалася або у вас немає дозволу приєднатися до неї. Щоб розпочати або схвалити, зверніться до адміністратора команди."
 			}
 		},
 		"form_create_videoConference": {
