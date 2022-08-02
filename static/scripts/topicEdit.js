@@ -503,13 +503,8 @@ class TopicText extends TopicBlock {
 		const editorId = (this.props.content || {}).editorId || this.editorId;
 		const infoBox = <div class="alert info-custom">
 							<div className="fa fa-info-circle" />
-							Dateien können erst nach dem ersten Speichern des Themas hochgeladen werden.
+							{$t('topic.topicEdit.label.uploadAfterFirstSave')}
 						</div>;
-
-		// if (!this.props.topicId && this.editor) {
-		// 	console.log(this.editor);
-		// 	console.log(this.editor.commands.get('image'));
-		// }
 
 		return (<>
 			{!this.props.topicId ? infoBox : null}

@@ -3155,7 +3155,8 @@
 				"openSection": "Desbloquear sección",
 				"selectNeXboard": "Seleccionar neXboard",
 				"theLinkHasToBeginWith": "El enlace debe comenzar con '{{- baseUrl}} / ¡tareas! Los estudiantes deben tener acceso a las tareas para verlas incluidas aquí. Atención: si compartes este tema o todo el curso con otro profesor usando un código para compartir, las tareas integradas de esta manera no se tendrán en cuenta.",
-				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https://www.geogebra.org/m/e6g4adXp, la ID del material es 'e6g4adXp'"
+				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https://www.geogebra.org/m/e6g4adXp, la ID del material es 'e6g4adXp'",
+				"uploadAfterFirstSave": "Los archivos solo se pueden cargar después de guardar el tema por primera vez."
 			}
 		}
 	},
