@@ -31,7 +31,7 @@
         <section class="section-homework">
             <div class="dates text-muted">
 				{{#if (userHasRole "student")}}
-				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
+				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}" {{#if submissions}}data-testid="tasks-submission-hint-received"{{/if}}></i>
 				{{/if}}
                 {{i18nDateTime availableDate}}
                 {{#if this.dueDate}}
