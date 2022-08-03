@@ -29,11 +29,23 @@ const instanceInstitute = () => {
 	}
 };
 
+const instanceAllowPaperConsent = () => {
+	switch (SC_THEME) {
+		case 'n21':
+		case 'brb':
+			return false;
+		case 'thr':
+		default:
+			return true;
+	}
+};
+
 const setTheme = (res) => {
 	const documents = defaultDocuments();
 	const baseDir = (res.locals.currentSchoolData || {}).documentBaseDir || documents.documentBaseDir;
 	const themeTitle = instanceSpecificTitle();
 	const instituteTitle = instanceInstitute();
+	const allowPaperConsent = instanceAllowPaperConsent();
 
 	res.locals.theme = {
 		name: SC_THEME,
@@ -48,6 +60,7 @@ const setTheme = (res) => {
 		},
 		url: HOST,
 		status_url: ALERT_STATUS_URL,
+		allow_paper_consent: allowPaperConsent,
 	};
 };
 

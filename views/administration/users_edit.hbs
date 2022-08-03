@@ -64,7 +64,14 @@
             {{#unless hasImportHash}}<button class="btn btn-sm btn-secondary pull-right" id="edit-consent"
                 type="button"> <i style="margin-right: 3px" class="fa fa-edit"></i>
                 {{$t "global.button.edit" }}</button>{{/unless}}
-            <h2 class="h5">{{$t "administration.button.consent" }} {{{consentStatusIcon}}}</h2>
+            <h2 class="h5">
+                {{#if allowConsentOnPaper}}
+                    {{$t "administration.button.consent" }}
+                {{else}}
+                    {{$t "administration.button.consent2" }}
+                {{/if}}
+                {{{consentStatusIcon}}}
+            </h2>
             <div class="row" id="consents-overview">
                 {{#unless editTeacher}}
                 {{#unless hasImportHash}}
@@ -106,15 +113,21 @@
                 </div>
                 {{else}}
                 <div class="col-md-6">
-                    <p>
-                        {{$t "administration.longText.text.thereIsNoDeclarationOfConsent" }}
-                    </p>
-                    <p>
-                        <a class="btn btn-secondary" href="/administration/students/{{user._id}}/skipregistration">
-                            <i class="fa fa-check-square-o"></i>
-                            {{$t "administration.button.receivedConsentOnPaper" }}
-                        </a>
-                    </p>
+                    {{#if allowConsentOnPaper}}
+                        <p>
+                            {{$t "administration.longText.text.thereIsNoDeclarationOfConsent" }}
+                        </p>
+                        <p>
+                            <a class="btn btn-secondary" href="/administration/students/{{user._id}}/skipregistration">
+                                <i class="fa fa-check-square-o"></i>
+                                {{$t "administration.button.receivedConsentOnPaper" }}
+                            </a>
+                        </p>
+                    {{else}}
+                        <p>
+                            {{$t "administration.longText.text.thereIsNoDeclarationOfConsentWithoutPaper"}}
+                        </p>
+                    {{/if}}
                 </div>
                 {{/unless}}
                 {{else}}
