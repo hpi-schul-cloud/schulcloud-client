@@ -134,7 +134,7 @@
 			},
 			"headline": {
 				"importClass": "Importar clase",
-				"questionStudentsNotInSystem": "¿Tus estudiantes no están todavía en {{shortTitle}}?"
+				"questionStudentsNotInSystem": "¿Los alumnos aún no están en la {{shortTitle}}?"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Añadir estudiantes de la clase del año anterior",
@@ -287,7 +287,7 @@
 				"userCreatedErrorSendingTheMail": "El usuario ha sido creado. Error al enviar el correo electrónico. Genera y comparte el enlace de registro en el perfil de usuario de forma independiente. {{errMessage}}",
 				"userCreatedSuccessfully": "Usuario creado correctamente.",
 				"userCreatedSuccessfullyAndRegistration": "El usuario se ha registrado con éxito y el enlace de registro se ha enviado correctamente por correo electrónico.",
-				"whenLoggingInForTheFirstTime": "Al iniciar sesión por primera vez, el estudiante debe cambiar su contraseña. Si ha proporcionado una dirección de correo electrónico, en caso de pérdida, se le puede enviar la contraseña modificada o generar una nueva contraseña. Como alternativa, puedes hacer clic en Editar detrás del nombre del estudiante en el área Administración > Estudiantes. A continuación, el estudiante puede volver a introducir su contraseña en el dispositivo.",
+				"whenLoggingInForTheFirstTime": "Los estudiantes deben cambiar su contraseña la primera vez que se conecten. Si han introducido una dirección de correo electrónico, pueden hacer que se les envíe la contraseña modificada o generar una nueva contraseña si la pierden. Como alternativa, los administradores pueden hacer clic en <i>Editar</i> detrás del nombre en la sección Administración > Estudiantes y renovar la contraseña.",
 				"yourStudentsAreAtLeast": "¿Tus alumnos tienen al menos {{age}} años?",
 				"yourStudentsAreUnder": "¿Tus alumnos tienen menos de {{age}} años?"
 			}
@@ -2355,7 +2355,7 @@
 				"discardChange": "Descartar cambios"
 			},
 			"link": {
-				"accessibilityReport":"Accesibilidad feedback",
+				"accessibilityReport": "Accesibilidad feedback",
 				"accessibilityStatement": "Declaración de accesibilidad",
 				"dataProtectionDeclaration": "Política de privacidad",
 				"github": "GitHub",

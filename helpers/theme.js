@@ -7,12 +7,14 @@ const {
 	ALERT_STATUS_URL,
 } = require('../config/global');
 
-const instanceSpecificTitle = () => {
+const instanceSpecificTitle = (short = false) => {
 	switch (SC_THEME) {
 		case 'n21':
 			return 'Niedersächsischen Bildungscloud';
+			case 'brb':
+				return 'Schul-Cloud Brandenburg';
 		default:
-			return SC_TITLE;
+			return short ? SC_SHORT_TITLE : SC_TITLE;
 	}
 };
 
@@ -33,12 +35,13 @@ const setTheme = (res) => {
 	const documents = defaultDocuments();
 	const baseDir = (res.locals.currentSchoolData || {}).documentBaseDir || documents.documentBaseDir;
 	const themeTitle = instanceSpecificTitle();
+	const shortThemeTitle = instanceSpecificTitle(true);
 	const instituteTitle = instanceInstitute();
 
 	res.locals.theme = {
 		name: SC_THEME,
 		title: SC_TITLE,
-		short_title: SC_SHORT_TITLE,
+		short_title: shortThemeTitle,
 		theme_title: themeTitle,
 		institute_title: instituteTitle,
 		documents: {

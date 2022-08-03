@@ -1804,50 +1804,6 @@ router.get(
 						schoolyears,
 						notes: [
 							{
-								title: res.$t(
-									'administration.controller.link.analogueConsent',
-								),
-								content:
-									// eslint-disable-next-line max-len
-									res.$t(
-										'administration.controller.text.analogueConsent',
-									)
-									+ res.$t(
-										'administration.controller.text.analogueConsentBullets',
-									),
-							},
-							{
-								title: res.$t('administration.controller.text.yourStudentsAreUnder', {
-									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
-								}),
-								content: res.$t('administration.controller.text.registrationExplanation', {
-									title: res.locals.theme.short_title,
-								}),
-							},
-							{
-								title: res.$t('administration.controller.text.yourStudentsAreAtLeast', {
-									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
-								}),
-								content:
-								res.$t('administration.controller.text.passTheRegistrationLinkDirectly')
-									+ res.$t('administration.controller.text.theStepsForTheParentsAreOmitted'),
-							},
-							/* { // TODO - Feature not implemented
-                            "title":"Deine Schüler:innen sind in der Schülerliste rot?",
-                            "content": `Sie sind vom Admin bereits angelegt
-                            (z.B. durch Import aus Schüler-Verwaltungs-Software),
-                            aber es fehlen noch ihre Einverständniserklärungen.
-                            Lade die Schüler:innen deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung
-                            der ${res.locals.theme.short_title} elektronisch abzugeben.
-                            Bereits erfasste Schülerdaten werden beim Registrierungsprozess
-                            automatisch gefunden und ergänzt.`
-                        },
-                        { // TODO - Not implemented yet
-                            "title":"Nutzernamen herausfinden",
-                            "content":"Lorem Amet ad in officia fugiat n
-                            isi anim magna tempor laborum in sit esse nostrud consequat."
-                        }, */
-							{
 								title: res.$t('administration.controller.link.changePassword'),
 								content:
 									// eslint-disable-next-line max-len

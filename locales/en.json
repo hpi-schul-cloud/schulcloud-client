@@ -134,7 +134,7 @@
 			},
 			"headline": {
 				"importClass": "Import class",
-				"questionStudentsNotInSystem": "Your students are not yet in the {{shortTitle}}?"
+				"questionStudentsNotInSystem": "Students are not yet in the {{shortTitle}}?"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Add students from previous year's class",
@@ -287,7 +287,7 @@
 				"userCreatedErrorSendingTheMail": "User created. Error while sending the email. Please generate and share the registration link in the user profile independently. {{errMessage}}",
 				"userCreatedSuccessfully": "User created successfully.",
 				"userCreatedSuccessfullyAndRegistration": "User successfully registered and registration link sent successfully by e-mail.",
-				"whenLoggingInForTheFirstTime": "When logging in for the first time, the student has to change his password. If he has given an e-mail address, he can have the changed password sent to him or generate a new password if it is lost. Alternatively, you can click on Edit behind the student name in the area Administration > Students. Then the student can re-enter his password on your device.",
+				"whenLoggingInForTheFirstTime": "When logging in for the first time, students must change their password. If they have entered an e-mail address, they can have the changed password sent to them or generate a new password if it is lost. Alternatively, admins can click on <i>Edit</i> behind the name in the Administration > Students section and renew the password.",
 				"yourStudentsAreAtLeast": "Are your students at least {{age}} years old?",
 				"yourStudentsAreUnder": "Are your students less than {{age}} years old ?"
 			}
@@ -2355,7 +2355,7 @@
 				"discardChange": "Discard change"
 			},
 			"link": {
-				"accessibilityReport":"Accessibility feedback",
+				"accessibilityReport": "Accessibility feedback",
 				"accessibilityStatement": "Accessibility statement",
 				"dataProtectionDeclaration": "Privacy Policy",
 				"github": "GitHub",

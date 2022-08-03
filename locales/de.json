@@ -134,7 +134,7 @@
 			},
 			"headline": {
 				"importClass": "Klasse importieren",
-				"questionStudentsNotInSystem": "Deine Schüler:innen sind noch nicht in der {{shortTitle}}?"
+				"questionStudentsNotInSystem": "Schüler:innen sind noch nicht in der {{shortTitle}}?"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Schüler:in aus Vorjahresklasse hinzufügen",
@@ -287,7 +287,7 @@
 				"userCreatedErrorSendingTheMail": "Nutzer:in erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. {{errMessage}}",
 				"userCreatedSuccessfully": "Nutzer:in erfolgreich erstellt.",
 				"userCreatedSuccessfullyAndRegistration": "Nutzer:in erfolgreich erstellt und Registrierungslink per E-Mail verschickt.",
-				"whenLoggingInForTheFirstTime": "Beim ersten Login müssen deine Schüler:innen ihr Passwort ändern. Haben sie eine E-Mail-Adresse angegeben, können sie sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler:in hinter dem Namen auf Bearbeiten klicken. Dann kann der/die Schüler:in an deinem Gerät das Passwort neu eingeben.",
+				"whenLoggingInForTheFirstTime": "Beim ersten Login müssen Schüler:innen ihr Passwort ändern. Haben sie eine E-Mail-Adresse angegeben, können sie sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ können Admins im Bereich Verwaltung > Schüler:innen hinter dem Namen auf <i>Bearbeiten</i> klicken und das Passwort erneuern.",
 				"yourStudentsAreAtLeast": "Deine Schüler:innen sind mindestens {{age}} Jahre alt?",
 				"yourStudentsAreUnder": "Deine Schüler:innen sind unter {{age}} Jahre alt?"
 			}
@@ -2355,7 +2355,7 @@
 				"discardChange": "Änderung verwerfen"
 			},
 			"link": {
-				"accessibilityReport":"Barriere melden",
+				"accessibilityReport": "Barriere melden",
 				"accessibilityStatement": "Barrierefreiheitserklärung",
 				"dataProtectionDeclaration": "Datenschutzerklärung",
 				"github": "GitHub",
