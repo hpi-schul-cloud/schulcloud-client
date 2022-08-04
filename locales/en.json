@@ -156,6 +156,7 @@
 				"attentionIfYouChangeTheSchoolYear": "Attention! If you change the school year, your selection of previous year's classes will be reset.",
 				"className": "Class name:",
 				"createClass": "You can create classes independent of school year with free names. These classes cannot be <i>moved</i> by the administrator, but must be updated manually.",
+				"inviteTheParentsViaLink": "Invite parents via a link to register their children for your class and submit the electronic declaration of consent.",
 				"noConsentNecessary": "A declaration of consent does <u>not</u> have to be obtained when registering students. The use of the Schul-Cloud Brandenburg is regulated by the Brandenburg School Act (§ 65 para. 2 BbGSchulG).",
 				"inviteViaLink": "Invitations can be sent by link to register in a selected class:<br/><ul><li>Sending registration links to the stored e-mail addresses (also possible directly during import/creation)</li><li>Print registration links as QR print sheets, cut them out and distribute QR slips to students</li><li>Select one or more users, e.g. all students of a class, and then perform the desired action</li><li>Alternatively: Switch to the edit mode of the user profile and retrieve the individual registration link directly in order to send it manually</li><li>If the school obtains or receives the user data via an external system, the above options cannot be used. The changes must then be made accordingly in the source system.</li></ul>",
 				"linkCopiedToClipboard": "The link has been copied to your clipboard",

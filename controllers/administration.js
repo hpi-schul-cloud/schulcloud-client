@@ -1792,6 +1792,52 @@ router.get(
 						return false;
 					});
 
+					const noConsentNecessary = res.locals.theme.name === 'brb' || res.locals.theme.name === 'n21';
+					const notes = noConsentNecessary ? [
+						{
+							title: res.$t('administration.controller.link.changePassword'),
+							content:
+								// eslint-disable-next-line max-len
+								res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
+						},
+					] : [
+						{
+							title: res.$t(
+								'administration.controller.link.analogueConsent',
+							),
+							content:
+								// eslint-disable-next-line max-len
+								res.$t(
+									'administration.controller.text.analogueConsent',
+								)
+								+ res.$t(
+									'administration.controller.text.analogueConsentBullets',
+								),
+						},
+						{
+							title: res.$t('administration.controller.text.yourStudentsAreUnder', {
+								age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+							}),
+							content: res.$t('administration.controller.text.registrationExplanation', {
+								title: res.locals.theme.short_title,
+							}),
+						},
+						{
+							title: res.$t('administration.controller.text.yourStudentsAreAtLeast', {
+								age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+							}),
+							content:
+							res.$t('administration.controller.text.passTheRegistrationLinkDirectly')
+								+ res.$t('administration.controller.text.theStepsForTheParentsAreOmitted'),
+						},
+						{
+							title: res.$t('administration.controller.link.changePassword'),
+							content:
+								// eslint-disable-next-line max-len
+								res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
+						},
+					];
+
 					res.render('administration/classes-manage', {
 						title: res.$t('administration.controller.headline.manageClass', {
 							name: currentClass.displayName,
@@ -1802,16 +1848,10 @@ router.get(
 						students: filterStudents(res, students),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						schoolyears,
-						notes: [
-							{
-								title: res.$t('administration.controller.link.changePassword'),
-								content:
-									// eslint-disable-next-line max-len
-									res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
-							},
-						],
+						notes,
 						referrer: '/administration/classes/',
 						consentsMissing: usersWithoutConsent.length !== 0,
+						noConsentNecessary,
 					});
 				});
 			});
