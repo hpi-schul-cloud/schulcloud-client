@@ -29,7 +29,7 @@ const instanceInstitute = () => {
 	}
 };
 
-const instanceAllowPaperConsent = () => {
+const instanceCloudConsentNecessary = () => {
 	switch (SC_THEME) {
 		case 'n21':
 		case 'brb':
@@ -45,7 +45,7 @@ const setTheme = (res) => {
 	const baseDir = (res.locals.currentSchoolData || {}).documentBaseDir || documents.documentBaseDir;
 	const themeTitle = instanceSpecificTitle();
 	const instituteTitle = instanceInstitute();
-	const allowPaperConsent = instanceAllowPaperConsent();
+	const cloudConsentNecessary = instanceCloudConsentNecessary();
 
 	res.locals.theme = {
 		name: SC_THEME,
@@ -60,7 +60,7 @@ const setTheme = (res) => {
 		},
 		url: HOST,
 		status_url: ALERT_STATUS_URL,
-		allow_paper_consent: allowPaperConsent,
+		cloud_consent_necessary: cloudConsentNecessary,
 	};
 };
 

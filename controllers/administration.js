@@ -1006,6 +1006,7 @@ router.get(
 					referrer: req.header('Referer'),
 					hasAccount: !!account,
 					accountId: account ? account.id : null,
+					cloudConsentNecessary: res.locals.theme.cloud_consent_necessary,
 				});
 			})
 			.catch((err) => {
@@ -1443,7 +1444,7 @@ router.get(
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					hasAccount: !!account,
 					accountId: account ? account.id : null,
-					allowConsentOnPaper: res.locals.theme.allow_paper_consent,
+					cloudConsentNecessary: res.locals.theme.cloud_consent_necessary,
 				});
 			})
 			.catch((err) => {
