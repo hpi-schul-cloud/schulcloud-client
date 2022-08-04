@@ -30,14 +30,10 @@ const instanceInstitute = () => {
 };
 
 const instanceCloudConsentNecessary = () => {
-	switch (SC_THEME) {
-		case 'n21':
-		case 'brb':
-			return false;
-		case 'thr':
-		default:
-			return true;
+	if (SC_THEME === 'n21' || SC_THEME === 'brb') {
+		return false;
 	}
+	return true;
 };
 
 const setTheme = (res) => {
