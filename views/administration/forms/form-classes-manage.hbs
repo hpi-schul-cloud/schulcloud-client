@@ -53,13 +53,13 @@
 
     <hr class="my-2"/>
     <h2 class="h4">{{$t "administration.classes.headline.questionStudentsNotInSystem" (dict "shortTitle" theme.short_title)}}</h2>
-    <div class="mb-3">
+    <div class="mb-3"> 
         {{#if noConsentNecessary}}
             <p>
-            {{& $t "administration.classes.text.noConsentNecessary" }}
+                {{& noConsentNecessaryText}}
             </p>
             <p>
-            {{& $t "administration.classes.text.inviteViaLink" }}
+                {{& $t "administration.classes.text.inviteViaLink" }}
             </p>
         {{else}}
             <p>

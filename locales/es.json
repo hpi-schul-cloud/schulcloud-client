@@ -157,7 +157,6 @@
 				"className": "Nombre de la clase:",
 				"createClass": "Puedes crear clases independientes del año escolar con nombres libres. El administrador no puede <i>mover</i> estas clases, pero debe actualizarlas manualmente.",
 				"inviteTheParentsViaLink": "Invitar a los padres a través de un enlace a registrar a sus hijos en tu clase y enviar la declaración electrónica de consentimiento.",
-				"noConsentNecessary": "<u>No</u> es necesario obtener una declaración de consentimiento al inscribir a los alumnos. El uso de la Schul-Cloud Brandenburg está regulado por la Ley Escolar de Brandemburgo (§ 65 párrafo 2 BbGSchulG).",
 				"inviteViaLink": "Las invitaciones pueden enviarse a través de un enlace de registro a una clase seleccionada:<br/><ul><li>Envío de enlaces de registro a las direcciones de correo electrónico guardadas (también es posible directamente durante la importación/creación).</li><li>Imprima los enlaces de registro QR como hojas de impresión, recórtelos y distribuya las hojas con el código QR a los alumnos.</li><li>Seleccione uno o varios usuarios, por ejemplo, todos los alumnos de una clase, y realice la acción deseada.</li><li>Alternativamente: Pase al modo de edición del perfil del usuario y recupere el enlace de acceso individual directamente para enviarlo manualmente.</li><li>Si la escuela obtiene o recibe los datos de los usuarios a través de un sistema externo, no se pueden utilizar las opciones anteriores. Los cambios deben realizarse en consecuencia en el sistema de origen.</li></ul>",
 				"linkCopiedToClipboard": "El enlace se ha copiado en tu portapapeles.",
 				"manageClass": "Administrar clase",
@@ -168,6 +167,16 @@
 				"required": "obligatorio",
 				"signAgreement": "En esta página puedes declarar tu consentimiento de la <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">política de privacidad</a> y las <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Condiciones de uso</a> de {{shortTitle}} en nombre de los estudiantes. <br>Al hacer clic en <i>Declarar consentimiento en nombre del estudiante</i> confirmas que has obtenido el consentimiento del estudiante o de sus padres por otro medio.",
 				"theNextStepIsToInviteOrAdd": "En el siguiente paso puedes invitar o añadir estudiantes a la clase."
+			},
+			"brb": {
+				"text": {
+					"noConsentNecessary": "<b>No</b> es necesario obtener una declaración de consentimiento al inscribir a los alumnos. El uso de la Schul-Cloud Brandenburg está regulado por la Ley Escolar de Brandemburgo (§ 65 párrafo 2 BbGSchulG)."
+				}
+			},
+			"n21": {
+				"text": {
+					"noConsentNecessary": "<b>No</b> es necesario obtener una declaración de consentimiento al inscribir a los alumnos. El uso de la Niedersächsische Bildungscloud está regulado por la Ley Escolar de Baja Sajonia (§ 31 párrafo 5 NSchG)."
+				}
 			}
 		},
 		"controller": {

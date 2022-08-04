@@ -1852,6 +1852,8 @@ router.get(
 						referrer: '/administration/classes/',
 						consentsMissing: usersWithoutConsent.length !== 0,
 						noConsentNecessary,
+						// eslint-disable-next-line max-len
+						noConsentNecessaryText: res.$t(`administration.classes.${res.locals.theme.name}.text.noConsentNecessary`),
 					});
 				});
 			});

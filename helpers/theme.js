@@ -11,8 +11,8 @@ const instanceSpecificTitle = (short = false) => {
 	switch (SC_THEME) {
 		case 'n21':
 			return 'Niedersächsischen Bildungscloud';
-			case 'brb':
-				return 'Schul-Cloud Brandenburg';
+		case 'brb':
+			return 'Schul-Cloud Brandenburg';
 		default:
 			return short ? SC_SHORT_TITLE : SC_TITLE;
 	}
