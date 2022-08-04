@@ -119,7 +119,7 @@
 		"button": {
 			"changePassword": "Cambiar contraseña",
 			"consent": "Consentimientos:",
-			"consent2": "Inscripción:",
+			"consentNotNecessary": "Inscripción:",
 			"generatePersonalInvitationLink": "Generar enlace de invitación personal",
 			"printListWithAccessData": "Imprimir lista con datos de acceso",
 			"receivedConsentOnPaper": "Consentimiento recibido en papel",
@@ -528,7 +528,7 @@
 				"provideStudentsAndTheirParents": "Proporciona a tus estudiantes y sus padres enlaces individuales para dar su consentimiento de forma digital o analógica. Cuando se complete el registro, se creará una contraseña de inicio de sesión para el estudiante.",
 				"theNewSchoolYearStartsInThe": "El nuevo año escolar comienza en el {{title}} con el tiempo de preparación una semana antes del final de las vacaciones de verano. Independientemente de esto, puedes realizar cambios en las clases del año escolar actual, pasado y futuro en cualquier momento.",
 				"thereIsNoDeclarationOfConsent": "Todavía no existe ningún formulario de consentimiento para el usuario. Solicita un enlace de invitación personal para completar el registro y compartirlo con el usuario o con sus padres. Durante el registro, el propio usuario otorga el consentimiento. Si una declaración de consentimiento está disponible en papel, el usuario se puede activar haciendo clic en 'Consentimiento recibido en papel' y se puede asignar una contraseña de inicio. Esto desbloqueará el inicio de sesión.",
-				"thereIsNoDeclarationOfConsentWithoutPaper": "El estudiante aún no ha completado la inscripción. Obtenga un enlace de invitación personal para completar la inscripción y distribúyalo al estudiante.",
+				"thereIsNoDeclarationOfConsentNeeded": "El estudiante aún no ha completado la inscripción. Obtenga un enlace de invitación personal para completar la inscripción y distribúyalo al estudiante.",
 				"theSchoolYearEndsAnd": "El año escolar {{schoolName}} finaliza y comienza la fase de transferencia al nuevo año escolar. <strong>Este paso no se puede deshacer.</strong> No se pueden crear ni modificar clases ni usuarios durante este tiempo.",
 				"theSynchronizationOfLDAPMasterData": "La sincronización de los datos maestros LDAP se interrumpe durante la fase de transferencia. Esto significa que los datos de usuario y las clases (si se utilizan) ya no se actualizan a través de LDAP. Todavía es posible iniciar sesión con datos de inicio de sesión que ya se hayan sincronizado. Durante el inicio de sesión también se tienen en cuenta los cambios de contraseña en LDAP.",
 				"useTheTransferPhaseAroundTheSchool": "Utiliza la fase de transferencia en torno al cambio de año escolar para ajustar la afiliación a la clase y los datos personales en el LDAP. Finalmente, transfiere todos los cambios a la nube escolar de HPI a la vez.",
