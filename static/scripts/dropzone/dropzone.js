@@ -563,6 +563,7 @@
             _this.hiddenFileInput.style.left = "0";
             _this.hiddenFileInput.style.height = "0";
             _this.hiddenFileInput.style.width = "0";
+            _this.hiddenFileInput.setAttribute("data-testid", "tasks-edit-fileupload-input");
             document.querySelector(_this.options.hiddenInputContainer).appendChild(_this.hiddenFileInput);
             return _this.hiddenFileInput.addEventListener("change", function() {
               var file, files, _i, _len;
@@ -737,7 +738,7 @@
       if (this.options.dictFallbackText) {
         fieldsString += "<p>" + this.options.dictFallbackText + "</p>";
       }
-      fieldsString += "<input type=\"file\" name=\"" + (this._getParamName(0)) + "\" " + (this.options.uploadMultiple ? 'multiple="multiple"' : void 0) + " data-testid=tasks-edit-fileupload-input/><input type=\"submit\" value=\"Upload!\"></div>";
+      fieldsString += "<input type=\"file\" name=\"" + (this._getParamName(0)) + "\" " + (this.options.uploadMultiple ? 'multiple="multiple"' : void 0) + "/><input type=\"submit\" value=\"Upload!\"></div>";
       fields = Dropzone.createElement(fieldsString);
       if (this.element.tagName !== "FORM") {
         form = Dropzone.createElement("<form action=\"" + this.options.url + "\" enctype=\"multipart/form-data\" method=\"" + this.options.method + "\"></form>");

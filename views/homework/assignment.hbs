@@ -28,7 +28,7 @@
 {{> "lib/components/files-storage/imports"}}
 {{#extend "homework/homework"}}
     {{#content "page"}}
-        <section class="section-homework">
+        <section class="section-homework" data-testid="task-section-task">
             <div class="dates text-muted">
 				{{#if (userHasRole "student")}}
 				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}" {{#if submissions}}data-testid="tasks-submission-hint-received"{{/if}}></i>
