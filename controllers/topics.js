@@ -40,6 +40,7 @@ const editTopicHandler = (req, res, next) => {
 			// so we can share the content through data-value to the react component
 			lesson.contents = JSON.stringify(lesson.contents);
 		}
+
 		res.render('topic/edit-topic', {
 			action,
 			method,
@@ -53,6 +54,7 @@ const editTopicHandler = (req, res, next) => {
 			lesson,
 			courseId: req.params.courseId,
 			topicId: req.params.topicId,
+			schoolId: res.locals.currentSchool,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
 			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
@@ -512,6 +514,5 @@ router.delete('/:topicId/neweditor', async (req, res, next) => {
 		next(err);
 	});
 });
-
 
 module.exports = router;
