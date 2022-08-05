@@ -1792,15 +1792,8 @@ router.get(
 						return false;
 					});
 
-					const noConsentNecessary = res.locals.theme.name === 'brb' || res.locals.theme.name === 'n21';
-					const notes = noConsentNecessary ? [
-						{
-							title: res.$t('administration.controller.link.changePassword'),
-							content:
-								// eslint-disable-next-line max-len
-								res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
-						},
-					] : [
+					const cloudConsentNecessary = res.locals.theme.cloud_consent_necessary;
+					const notes = cloudConsentNecessary ? [
 						{
 							title: res.$t(
 								'administration.controller.link.analogueConsent',
@@ -1836,6 +1829,13 @@ router.get(
 								// eslint-disable-next-line max-len
 								res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
 						},
+					] : [
+						{
+							title: res.$t('administration.controller.link.changePassword'),
+							content:
+								// eslint-disable-next-line max-len
+								res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
+						},
 					];
 
 					res.render('administration/classes-manage', {
@@ -1851,7 +1851,7 @@ router.get(
 						notes,
 						referrer: '/administration/classes/',
 						consentsMissing: usersWithoutConsent.length !== 0,
-						noConsentNecessary,
+						cloudConsentNecessary,
 						// eslint-disable-next-line max-len
 						noConsentNecessaryText: res.$t(`administration.classes.${res.locals.theme.name}.text.noConsentNecessary`),
 					});

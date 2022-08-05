@@ -2,6 +2,7 @@ const { defaultDocuments } = require('../config/documents');
 const {
 	SC_THEME,
 	SC_TITLE,
+	SC_SHORT_TITLE,
 	HOST,
 	ALERT_STATUS_URL,
 } = require('../config/global');
@@ -28,11 +29,19 @@ const instanceInstitute = () => {
 	}
 };
 
+const instanceCloudConsentNecessary = () => {
+	if (SC_THEME === 'n21' || SC_THEME === 'brb') {
+		return false;
+	}
+	return true;
+};
+
 const setTheme = (res) => {
 	const documents = defaultDocuments();
 	const baseDir = (res.locals.currentSchoolData || {}).documentBaseDir || documents.documentBaseDir;
 	const themeTitle = instanceSpecificTitle();
 	const instituteTitle = instanceInstitute();
+	const cloudConsentNecessary = instanceCloudConsentNecessary();
 
 	res.locals.theme = {
 		name: SC_THEME,
@@ -46,6 +55,7 @@ const setTheme = (res) => {
 		},
 		url: HOST,
 		status_url: ALERT_STATUS_URL,
+		cloud_consent_necessary: cloudConsentNecessary,
 	};
 };
 

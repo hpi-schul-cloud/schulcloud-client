@@ -54,14 +54,7 @@
     <hr class="my-2"/>
     <h2 class="h4">{{$t "administration.classes.headline.questionStudentsNotInSystem" (dict "shortTitle" theme.theme_title)}}</h2>
     <div class="mb-3"> 
-        {{#if noConsentNecessary}}
-            <p>
-                {{& noConsentNecessaryText}}
-            </p>
-            <p>
-                {{& $t "administration.classes.text.inviteViaLink" }}
-            </p>
-        {{else}}
+        {{#if cloudConsentNecessary}}
             <p>
                 {{$t "administration.classes.text.inviteTheParentsViaLink" }}
             </p>
@@ -92,6 +85,13 @@
                     </p>
                 {{/if}}
             </div>
+        {{else}}    
+            <p>
+                {{& noConsentNecessaryText}}
+            </p>
+            <p>
+                {{& $t "administration.classes.text.inviteViaLink" }}
+            </p>
         {{/if}}
     </div>
     <div>
