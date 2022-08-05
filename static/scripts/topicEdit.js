@@ -460,7 +460,7 @@ class TopicText extends TopicBlock {
 			this.updateText(editor.getData());
 		});
 
-		if (topicId === undefined) {
+		if (!topicId) {
 			editor.commands.get('imagebrowser').forceDisabled();
 			editor.commands.get('audiobrowser').forceDisabled();
 			editor.commands.get('videobrowser').forceDisabled();
