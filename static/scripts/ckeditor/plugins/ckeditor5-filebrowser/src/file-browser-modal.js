@@ -12,10 +12,12 @@ export default function createFilebrowserModal(editor, t, dialogTitle, onCreate,
 		<button type="button" id="browseServerButton">${t('Browse Server')}</button><br>${additionalInput}`;
 
 	ckeditorFilebrowserDialog.find('.modal-body').html(dialogContent);
-	ckeditorFilebrowserDialog.find('.btn-submit').on('click', () => {
+	ckeditorFilebrowserDialog.find('.btn-submit').on('click', async () => {
 		ckeditorFilebrowserDialog.modal('hide');
-		onCreate();
+		await onCreate();
+		ckeditorFilebrowserDialog.find('.btn-submit').off('click');
 	});
+
 	ckeditorFilebrowserDialog.appendTo('body').modal('show');
 
 	document.getElementById('editor-id').value = editor.id;
