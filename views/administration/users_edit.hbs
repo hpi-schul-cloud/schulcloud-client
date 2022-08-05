@@ -140,7 +140,7 @@
                 </div>
             {{else}}
                 <h2 class="h5">{{$t "administration.button.onlyRegistrationNeeded" }} {{{ @root.consentStatusIcon}}}</h2>
-                {{#unless @root.consent.userConsent.termsOfUseConsent}}
+                {{#unless @root.hasAccount}}
                 <div class="row" id="consents-overview">
                     <div class="col-md-6">
                         <p>
