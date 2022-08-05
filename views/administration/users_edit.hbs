@@ -139,12 +139,12 @@
                     {{/unless}}
                 </div>
             {{else}}
-                <h2 class="h5">{{$t "administration.button.consentNotNecessary" }} {{{ @root.consentStatusIcon}}}</h2>
+                <h2 class="h5">{{$t "administration.button.onlyRegistrationNeeded" }} {{{ @root.consentStatusIcon}}}</h2>
                 {{#unless @root.consent.userConsent.termsOfUseConsent}}
                 <div class="row" id="consents-overview">
                     <div class="col-md-6">
                         <p>
-                            {{$t "administration.longText.text.thereIsNoDeclarationOfConsentNeeded" }}
+                            {{$t "administration.longText.text.registrationNotCompleted" }}
                         </p>
                     </div>
                 </div>
