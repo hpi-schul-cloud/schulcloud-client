@@ -1,9 +1,8 @@
 import Command from '@ckeditor/ckeditor5-core/src/command';
-import createFilebrowserModal from './file-browser-modal';
 import getCookie from '../../../../helpers/cookieManager';
+import createFilebrowserModal from './file-browser-modal';
 
 const apiV3BasePath = '/api/v3';
-const apiV1BasePath = '/api/v1';
 
 export default class ImageBrowserCommand extends Command {
 	execute() {
@@ -51,7 +50,7 @@ export default class ImageBrowserCommand extends Command {
 			headers: {
 				Authorization: `Bearer ${getCookie('jwt')}`,
 			},
-			data: { url: `"http://localhost:4000${url}"`, fileName: `"${fileNameMatch[0]}"` },
+			data: { url: `${window.location.origin}${url}`, fileName: `${fileNameMatch[0]}` },
 		});
 
 		return `/api/v3/file/download/${fileRecord.id}/${fileRecord.name}`;
