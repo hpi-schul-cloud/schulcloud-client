@@ -271,9 +271,13 @@ class TopicBlockList extends React.Component {
 			hidden: false,
 			key: shortid.generate(),
 		};
+
 		if (block.component === 'Etherpad') {
 			block.etherpadBaseUrl = this.state.etherpadBaseUrl;
 		}
+		
+		block.topicId = $contentBlocksContainer.data('topicid');
+
 		const { blocks } = this.state;
 		blocks.push(block);
 		this.updateBlocks(blocks);
