@@ -40,7 +40,6 @@ const editTopicHandler = (req, res, next) => {
 			// so we can share the content through data-value to the react component
 			lesson.contents = JSON.stringify(lesson.contents);
 		}
-
 		res.render('topic/edit-topic', {
 			action,
 			method,

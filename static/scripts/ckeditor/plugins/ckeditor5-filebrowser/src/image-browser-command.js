@@ -19,11 +19,7 @@ export default class ImageBrowserCommand extends Command {
 			let imageUrl;
 
 			if (topicId !== undefined && schoolId !== undefined) {
-				const regex = new RegExp('(?<=/files/file\\?file=).+?(?=&)', 'g');
-				const fileId = courseFileUrl.match(regex)[0];
-
-				if (fileId === null) return;
-				imageUrl = await this.getFileUrl(schoolId, 'lessons', topicId, fileId);
+				imageUrl = await this.copyAsLessonFile(schoolId, 'lessons', topicId, courseFileUrl);
 			} else {
 				imageUrl = courseFileUrl;
 			}
@@ -44,20 +40,18 @@ export default class ImageBrowserCommand extends Command {
 		createFilebrowserModal(this.editor, this.editor.t, dialogTitle, onCreate, additionalInput);
 	}
 
-	async getFileUrl(schoolId, parentType, parentId, fileId) {
-		const url = await $.ajax(`${apiV1BasePath}/fileStorage/signedUrl?file=${fileId}`, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${getCookie('jwt')}`,
-			},
-		});
+	async copyAsLessonFile(schoolId, parentType, parentId, url) {
+		const regex = new RegExp('(?<=name=).+', 'g');
+		const fileNameMatch = url.match(regex);
+
+		if (!fileNameMatch) return;
 
 		const fileRecord = await $.ajax(`${apiV3BasePath}/file/upload-from-url/${schoolId}/${parentType}/${parentId}`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${getCookie('jwt')}`,
 			},
-			data: { url: url.url },
+			data: { url: `"http://localhost:4000${url}"`, fileName: `"${fileNameMatch[0]}"` },
 		});
 
 		return `/api/v3/file/download/${fileRecord.id}/${fileRecord.name}`;
