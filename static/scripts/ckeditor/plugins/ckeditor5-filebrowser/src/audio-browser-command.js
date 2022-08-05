@@ -1,12 +1,14 @@
 import Command from '@ckeditor/ckeditor5-core/src/command';
+import FileBrowserHelper from './file-browser-helper';
 import createFilebrowserModal from './file-browser-modal';
 
 export default class AudioBrowserCommand extends Command {
 	execute() {
 		const { t } = this.editor;
 		const dialogTitle = t('Audio Properties');
-		const onCreate = () => {
-			const audioUrl = document.getElementById('url-input').value;
+		const onCreate = async () => {
+			const audioUrl = await FileBrowserHelper.getFileUrl();
+
 			if (!audioUrl) return;
 			this.editor.model.change((writer) => {
 				const audioElement = writer.createElement('audio', {

@@ -1,12 +1,14 @@
 import Command from '@ckeditor/ckeditor5-core/src/command';
+import FileBrowserHelper from './file-browser-helper';
 import createFilebrowserModal from './file-browser-modal';
 
 export default class VideoBrowserCommand extends Command {
 	execute() {
 		const { t } = this.editor;
 		const dialogTitle = t('Video Properties');
-		const onCreate = () => {
-			const videoUrl = document.getElementById('url-input').value;
+		const onCreate = async () => {
+			const videoUrl = await FileBrowserHelper.getFileUrl();
+
 			if (!videoUrl) return;
 			this.editor.model.change((writer) => {
 				const videoElement = writer.createElement('video', {
