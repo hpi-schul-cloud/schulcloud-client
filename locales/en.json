@@ -134,7 +134,7 @@
 			},
 			"headline": {
 				"importClass": "Import class",
-				"questionStudentsNotInSystem": "Your students are not yet in the {{shortTitle}}?"
+				"questionStudentsNotInSystem": "Students are not yet in the {{shortTitle}}?"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Add students from previous year's class",
@@ -157,6 +157,7 @@
 				"className": "Class name:",
 				"createClass": "You can create classes independent of school year with free names. These classes cannot be <i>moved</i> by the administrator, but must be updated manually.",
 				"inviteTheParentsViaLink": "Invite parents via a link to register their children for your class and submit the electronic declaration of consent.",
+				"inviteViaLink": "If the school obtains or receives the user data via an external system, the above options cannot be used. The changes must then be made accordingly in the source system.<br/><br/>Otherwise, invitations to register can be sent via link from the cloud administration area:<br/><ul><li>Sending registration links to the stored e-mail addresses (also possible directly during import/creation)</li><li>Print registration links as QR print sheets, cut them out and distribute QR slips to students</li><li>Select one or more users, e.g. all students of a class, and then perform the desired action</li><li>Alternatively: Switch to the edit mode of the user profile and retrieve the individual registration link directly in order to send it manually</li></ul>",
 				"linkCopiedToClipboard": "The link has been copied to your clipboard",
 				"manageClass": "Manage class",
 				"manuallyGiveConsentForAllStudent": "Manually declare consent for all students",
@@ -166,6 +167,16 @@
 				"required": "required",
 				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy policy</a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
 				"theNextStepIsToInviteOrAdd": "In the next step you can invite or add students to the class."
+			},
+			"brb": {
+				"text": {
+					"noConsentNecessary": "A declaration of consent does <b>not</b> have to be obtained when registering students. The use of the Schul-Cloud Brandenburg is regulated by the Brandenburg School Act (§ 65 para. 2 BbGSchulG)."
+				}
+			},
+			"n21": {
+				"text": {
+					"noConsentNecessary": "A declaration of consent does <b>not</b> have to be obtained when registering students. The use of the Niedersächsische Bildungscloud is regulated by the Lower Saxony School Act (§ 31 para. 5 NSchG)."
+				}
 			}
 		},
 		"controller": {
@@ -287,7 +298,7 @@
 				"userCreatedErrorSendingTheMail": "User created. Error while sending the email. Please generate and share the registration link in the user profile independently. {{errMessage}}",
 				"userCreatedSuccessfully": "User created successfully.",
 				"userCreatedSuccessfullyAndRegistration": "User successfully registered and registration link sent successfully by e-mail.",
-				"whenLoggingInForTheFirstTime": "When logging in for the first time, the student has to change his password. If he has given an e-mail address, he can have the changed password sent to him or generate a new password if it is lost. Alternatively, you can click on Edit behind the student name in the area Administration > Students. Then the student can re-enter his password on your device.",
+				"whenLoggingInForTheFirstTime": "When logging in for the first time, students must change their password. If they have entered an e-mail address, they can have the changed password sent to them or generate a new password if it is lost. Alternatively, admins can click on <i>Edit</i> behind the name in the Administration > Students section and renew the password.",
 				"yourStudentsAreAtLeast": "Are your students at least {{age}} years old?",
 				"yourStudentsAreUnder": "Are your students less than {{age}} years old ?"
 			}
@@ -2355,7 +2366,7 @@
 				"discardChange": "Discard change"
 			},
 			"link": {
-				"accessibilityReport":"Accessibility feedback",
+				"accessibilityReport": "Accessibility feedback",
 				"accessibilityStatement": "Accessibility statement",
 				"dataProtectionDeclaration": "Privacy Policy",
 				"github": "GitHub",
