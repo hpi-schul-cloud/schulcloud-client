@@ -46,7 +46,6 @@ const setTheme = (res) => {
 	res.locals.theme = {
 		name: SC_THEME,
 		title: SC_TITLE,
-		short_title: SC_SHORT_TITLE,
 		theme_title: themeTitle,
 		institute_title: instituteTitle,
 		documents: {
