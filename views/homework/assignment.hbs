@@ -28,11 +28,19 @@
 {{> "lib/components/files-storage/imports"}}
 {{#extend "homework/homework"}}
     {{#content "page"}}
-        <section class="section-homework">
+        <section class="section-homework" data-testid="task-section-task">
             <div class="dates text-muted">
 				{{#if (userHasRole "student")}}
-				<i class="fa fa-{{#if submissions}}check done{{else if warning}}exclamation-triangle danger{{else}}{{#unless submittable}}ban closed{{/unless}}{{/if}}"></i>
-				{{/if}}
+				{{#if submissions}}
+                        <i class="fa fa-check done" data-testid="tasks-submission-hint-received"></i>
+                    {{else if warning}}
+                        <i class="fa fa-check exclamation-triangle danger"></i>
+                    {{else}}
+                    {{#unless submittable}}
+                        <i class="fa fa-ban closed"></i>
+                    {{/unless}}
+                {{/if}}
+                {{/if}}
                 {{i18nDateTime availableDate}}
                 {{#if this.dueDate}}
                     {{$t "homework.text.till"}}: {{i18nDateTime dueDate}}
@@ -56,11 +64,11 @@
             {{#if courseId._id}}
                 <div class="col-sm-12">
                     <div class="pull-right">
-                        <a id="courseId" href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
+                        <a id="courseId" href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary" data-testid="tasks-navbtn-to-room">
                             <i class="fa fa-folder-open"></i>
                             {{$t "homework.button.toTheCourseFiles" }}
                         </a>
-                        <a class="btn btn-secondary" href="/rooms/{{../courseId._id}}" alt="{{$t "homework.button.toCourseAlt"}}">
+                        <a class="btn btn-secondary" href="/rooms/{{../courseId._id}}" alt="{{$t "homework.button.toCourseAlt"}}" data-testid="tasks-navbtn-to-room-files">
                             <i class="fa fa-graduation-cap"></i>
                             {{$t "global.button.toCourse" }}
                         </a>
