@@ -22,7 +22,8 @@ const editTopicHandler = (req, res, next) => {
 	let lessonPromise;
 	let action;
 	let method;
-	const referrer = req.query.returnUrl;
+	const referrer = req.params.topicId ? req.query.returnUrl : undefined;
+
 	if (req.params.topicId) {
 		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
 			+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
@@ -275,16 +276,12 @@ router.post('/', async (req, res, next) => {
 
 	api(req).post('/lessons/', {
 		json: data, // TODO: sanitize
-	}).then(() => {
+	}).then((lesson) => {
 		if (req.body.referrer) {
 			res.redirect(`${(req.headers.origin)}/${req.body.referrer}`);
 		}
-		res.redirect(
-			context === 'courses'
-				? `/courses/${req.params.courseId
-				}${req.query.courseGroup ? `/groups/${req.query.courseGroup}` : '/?activeTab=topics'}`
-				: `/teams/${req.params.teamId}/?activeTab=topics`,
-		);
+
+		res.redirect(`${(req.headers.origin)}/courses/${req.params.courseId}/topics/${lesson._id}/edit`);
 	}).catch(() => {
 		res.sendStatus(500);
 	});
