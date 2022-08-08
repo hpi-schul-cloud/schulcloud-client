@@ -21,12 +21,17 @@ export default class FileBrowserHelper {
 
 		if (!fileNameMatch) return;
 
+		const headers = { Authorization: `Bearer ${getCookie('jwt')}` };
 		const fileRecord = await $.ajax(`${apiV3BasePath}/file/upload-from-url/${schoolId}/${parentType}/${parentId}`, {
 			method: 'POST',
-			headers: {
-				Authorization: `Bearer ${getCookie('jwt')}`,
+			headers,
+			data: {
+				url: `${window.location.origin}${url}`,
+				fileName: `${fileNameMatch[0]}`,
+				headers: {
+					cookie: document.cookie,
+				},
 			},
-			data: { url: `${window.location.origin}${url}`, fileName: `${fileNameMatch[0]}` },
 		});
 
 		return `/api/v3/file/download/${fileRecord.id}/${fileRecord.name}`;
