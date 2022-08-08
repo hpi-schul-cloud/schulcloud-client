@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import {
 	SortableContainer, SortableElement, SortableHandle, arrayMove,
 } from 'react-sortable-hoc';
-import './calendar';
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';

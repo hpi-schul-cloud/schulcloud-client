@@ -29,16 +29,23 @@ const instanceInstitute = () => {
 	}
 };
 
+const instanceCloudConsentNecessary = () => {
+	if (SC_THEME === 'n21' || SC_THEME === 'brb') {
+		return false;
+	}
+	return true;
+};
+
 const setTheme = (res) => {
 	const documents = defaultDocuments();
 	const baseDir = (res.locals.currentSchoolData || {}).documentBaseDir || documents.documentBaseDir;
 	const themeTitle = instanceSpecificTitle();
 	const instituteTitle = instanceInstitute();
+	const cloudConsentNecessary = instanceCloudConsentNecessary();
 
 	res.locals.theme = {
 		name: SC_THEME,
 		title: SC_TITLE,
-		short_title: SC_SHORT_TITLE,
 		theme_title: themeTitle,
 		institute_title: instituteTitle,
 		documents: {
@@ -48,6 +55,7 @@ const setTheme = (res) => {
 		},
 		url: HOST,
 		status_url: ALERT_STATUS_URL,
+		cloud_consent_necessary: cloudConsentNecessary,
 	};
 };
 
