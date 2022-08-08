@@ -119,6 +119,7 @@
 		"button": {
 			"changePassword": "Cambiar contraseña",
 			"consent": "Consentimientos:",
+			"onlyRegistrationNeeded": "Inscripción:",
 			"generatePersonalInvitationLink": "Generar enlace de invitación personal",
 			"printListWithAccessData": "Imprimir lista con datos de acceso",
 			"receivedConsentOnPaper": "Consentimiento recibido en papel",
@@ -134,7 +135,7 @@
 			},
 			"headline": {
 				"importClass": "Importar clase",
-				"questionStudentsNotInSystem": "¿Tus estudiantes no están todavía en {{shortTitle}}?"
+				"questionStudentsNotInSystem": "¿Los alumnos aún no están en la {{shortTitle}}?"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Añadir estudiantes de la clase del año anterior",
@@ -157,6 +158,7 @@
 				"className": "Nombre de la clase:",
 				"createClass": "Puedes crear clases independientes del año escolar con nombres libres. El administrador no puede <i>mover</i> estas clases, pero debe actualizarlas manualmente.",
 				"inviteTheParentsViaLink": "Invitar a los padres a través de un enlace a registrar a sus hijos en tu clase y enviar la declaración electrónica de consentimiento.",
+				"inviteViaLink": "Si la escuela obtiene o recibe los datos de los usuarios a través de un sistema externo, no se pueden utilizar las opciones anteriores. Los cambios deben realizarse en consecuencia en el sistema de origen.<br/><br/>De lo contrario, se pueden enviar invitaciones para registrarse mediante un enlace a través del área de administración de la nube:<br/><ul><li>Envío de enlaces de registro a las direcciones de correo electrónico guardadas (también es posible directamente durante la importación/creación).</li><li>Imprima los enlaces de registro QR como hojas de impresión, recórtelos y distribuya las hojas con el código QR a los alumnos.</li><li>Seleccione uno o varios usuarios, por ejemplo, todos los alumnos de una clase, y realice la acción deseada.</li><li>Alternativamente: Pase al modo de edición del perfil del usuario y recupere el enlace de acceso individual directamente para enviarlo manualmente.</li></ul>",
 				"linkCopiedToClipboard": "El enlace se ha copiado en tu portapapeles.",
 				"manageClass": "Administrar clase",
 				"manuallyGiveConsentForAllStudent": "Declarar manualmente el consentimiento de todos los estudiantes",
@@ -166,6 +168,16 @@
 				"required": "obligatorio",
 				"signAgreement": "En esta página puedes declarar tu consentimiento de la <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">política de privacidad</a> y las <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Condiciones de uso</a> de {{shortTitle}} en nombre de los estudiantes. <br>Al hacer clic en <i>Declarar consentimiento en nombre del estudiante</i> confirmas que has obtenido el consentimiento del estudiante o de sus padres por otro medio.",
 				"theNextStepIsToInviteOrAdd": "En el siguiente paso puedes invitar o añadir estudiantes a la clase."
+			},
+			"brb": {
+				"text": {
+					"noConsentNecessary": "<b>No</b> es necesario obtener una declaración de consentimiento al inscribir a los alumnos. El uso de la Schul-Cloud Brandenburg está regulado por la Ley Escolar de Brandemburgo (§ 65 párrafo 2 BbGSchulG)."
+				}
+			},
+			"n21": {
+				"text": {
+					"noConsentNecessary": "<b>No</b> es necesario obtener una declaración de consentimiento al inscribir a los alumnos. El uso de la Niedersächsische Bildungscloud está regulado por la Ley Escolar de Baja Sajonia (§ 31 párrafo 5 NSchG)."
+				}
 			}
 		},
 		"controller": {
@@ -287,7 +299,7 @@
 				"userCreatedErrorSendingTheMail": "El usuario ha sido creado. Error al enviar el correo electrónico. Genera y comparte el enlace de registro en el perfil de usuario de forma independiente. {{errMessage}}",
 				"userCreatedSuccessfully": "Usuario creado correctamente.",
 				"userCreatedSuccessfullyAndRegistration": "El usuario se ha registrado con éxito y el enlace de registro se ha enviado correctamente por correo electrónico.",
-				"whenLoggingInForTheFirstTime": "Al iniciar sesión por primera vez, el estudiante debe cambiar su contraseña. Si ha proporcionado una dirección de correo electrónico, en caso de pérdida, se le puede enviar la contraseña modificada o generar una nueva contraseña. Como alternativa, puedes hacer clic en Editar detrás del nombre del estudiante en el área Administración > Estudiantes. A continuación, el estudiante puede volver a introducir su contraseña en el dispositivo.",
+				"whenLoggingInForTheFirstTime": "Los estudiantes deben cambiar su contraseña la primera vez que se conecten. Si han introducido una dirección de correo electrónico, pueden hacer que se les envíe la contraseña modificada o generar una nueva contraseña si la pierden. Como alternativa, los administradores pueden hacer clic en <i>Editar</i> detrás del nombre en la sección Administración > Estudiantes y renovar la contraseña.",
 				"yourStudentsAreAtLeast": "¿Tus alumnos tienen al menos {{age}} años?",
 				"yourStudentsAreUnder": "¿Tus alumnos tienen menos de {{age}} años?"
 			}
@@ -527,6 +539,7 @@
 				"provideStudentsAndTheirParents": "Proporciona a tus estudiantes y sus padres enlaces individuales para dar su consentimiento de forma digital o analógica. Cuando se complete el registro, se creará una contraseña de inicio de sesión para el estudiante.",
 				"theNewSchoolYearStartsInThe": "El nuevo año escolar comienza en el {{title}} con el tiempo de preparación una semana antes del final de las vacaciones de verano. Independientemente de esto, puedes realizar cambios en las clases del año escolar actual, pasado y futuro en cualquier momento.",
 				"thereIsNoDeclarationOfConsent": "Todavía no existe ningún formulario de consentimiento para el usuario. Solicita un enlace de invitación personal para completar el registro y compartirlo con el usuario o con sus padres. Durante el registro, el propio usuario otorga el consentimiento. Si una declaración de consentimiento está disponible en papel, el usuario se puede activar haciendo clic en 'Consentimiento recibido en papel' y se puede asignar una contraseña de inicio. Esto desbloqueará el inicio de sesión.",
+				"registrationNotCompleted": "El estudiante aún no ha completado la inscripción. Obtenga un enlace de invitación personal para completar la inscripción y distribúyalo al estudiante.",
 				"theSchoolYearEndsAnd": "El año escolar {{schoolName}} finaliza y comienza la fase de transferencia al nuevo año escolar. <strong>Este paso no se puede deshacer.</strong> No se pueden crear ni modificar clases ni usuarios durante este tiempo.",
 				"theSynchronizationOfLDAPMasterData": "La sincronización de los datos maestros LDAP se interrumpe durante la fase de transferencia. Esto significa que los datos de usuario y las clases (si se utilizan) ya no se actualizan a través de LDAP. Todavía es posible iniciar sesión con datos de inicio de sesión que ya se hayan sincronizado. Durante el inicio de sesión también se tienen en cuenta los cambios de contraseña en LDAP.",
 				"useTheTransferPhaseAroundTheSchool": "Utiliza la fase de transferencia en torno al cambio de año escolar para ajustar la afiliación a la clase y los datos personales en el LDAP. Finalmente, transfiere todos los cambios a la nube escolar de HPI a la vez.",
@@ -2355,7 +2368,7 @@
 				"discardChange": "Descartar cambios"
 			},
 			"link": {
-				"accessibilityReport":"Accesibilidad feedback",
+				"accessibilityReport": "Accesibilidad feedback",
 				"accessibilityStatement": "Declaración de accesibilidad",
 				"dataProtectionDeclaration": "Política de privacidad",
 				"github": "GitHub",

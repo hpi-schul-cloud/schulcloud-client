@@ -28,9 +28,9 @@
                         <td></td>
                         <td>
                             {{#if this.submission}}
-                                <i class="fa fa-check green" aria-hidden="true"/>
+                                <i class="fa fa-check green" aria-hidden="true" data-testid="task-submissions-task-submitted-icon"/>
                             {{else}}
-                                <i class="fa fa-times red" aria-hidden="true"/>
+                                <i class="fa fa-times red" aria-hidden="true" data-testid="task-submissions-task-notsubmitted-icon"/>
                             {{/if}}
                         </td>
                         <td>
@@ -39,12 +39,12 @@
                             {{else}}
                                 {{#if submission.gradeComment}}
                                     {{#ifneq this.submission.gradeComment ''}}
-                                        <i class="fa fa-check green" aria-hidden="true"></i>
+                                        <i class="fa fa-check green" aria-hidden="true" ></i>
                                     {{/ifneq}}
                                 {{/if}}
                             {{/if}}
                         </td>
-                        <td><i class="fa fa-chevron-down" aria-hidden="true"/></td>
+                        <td><i class="fa fa-chevron-down" aria-hidden="true" data-testid="task-submissions-opensubmission-icon"/></td>
                     </tr>
                     <tr class="evaluation">
                         <td colSpan="6">{{>"homework/evaluation"}}</td>
