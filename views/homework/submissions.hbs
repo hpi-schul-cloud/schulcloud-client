@@ -28,9 +28,9 @@
                         <td></td>
                         <td>
                             {{#if this.submission}}
-                                <i class="fa fa-check green" aria-hidden="true" data-testid="task-submissions-task-submitted-icon"/>
+                                <i class="fa fa-check green" aria-hidden="true"/>
                             {{else}}
-                                <i class="fa fa-times red" aria-hidden="true" data-testid="task-submissions-task-notsubmitted-icon"/>
+                                <i class="fa fa-times red" aria-hidden="true"/>
                             {{/if}}
                         </td>
                         <td>
@@ -44,7 +44,7 @@
                                 {{/if}}
                             {{/if}}
                         </td>
-                        <td><i class="fa fa-chevron-down" aria-hidden="true" data-testid="task-submissions-opensubmission-icon"/></td>
+                        <td><i class="" aria-hidden="true"/></td>
                     </tr>
                     <tr class="evaluation">
                         <td colSpan="6">{{>"homework/evaluation"}}</td>
@@ -68,9 +68,9 @@
                         <td>{{this.student.firstName}}</td>
                         <td>
                             {{#if this.submission}}
-                                <i class="fa fa-check green" aria-hidden="true"/>
+                                <i class="fa fa-check green" aria-hidden="true" data-testid="task-submissions-task-submitted-icon"/>
                             {{else}}
-                                <i class="fa fa-times red" aria-hidden="true"/>
+                                <i class="fa fa-times red" aria-hidden="true" data-testid="task-submissions-task-notsubmitted-icon"/>
                             {{/if}}
                         </td>
                         <td>
@@ -86,7 +86,7 @@
                         </td>
                         <td>
                             {{#if this.submission}}
-                                <i class="fa fa-chevron-down" aria-hidden="true"/>
+                                <i class="fa fa-chevron-down" aria-hidden="true" data-testid="task-submissions-opensubmission-icon"/>
                             {{/if}}
                         </td>
                     </tr>
