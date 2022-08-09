@@ -281,7 +281,9 @@ router.post('/', async (req, res, next) => {
 			res.redirect(`${(req.headers.origin)}/${req.body.referrer}`);
 		}
 
-		res.redirect(`${(req.headers.origin)}/courses/${req.params.courseId}/topics/${lesson._id}/edit`);
+		const courseGroupParam = req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : '';
+
+		res.redirect(`${(req.headers.origin)}/courses/${req.params.courseId}/topics/${lesson._id}/edit${courseGroupParam}`);
 	}).catch(() => {
 		res.sendStatus(500);
 	});
