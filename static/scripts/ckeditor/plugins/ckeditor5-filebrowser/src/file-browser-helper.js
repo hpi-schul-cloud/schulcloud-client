@@ -16,10 +16,11 @@ export default class FileBrowserHelper {
 	}
 
 	static async copyAsLessonFile(schoolId, parentType, parentId, url) {
-		const regex = new RegExp('(?<=name=).+', 'g');
-		const fileNameMatch = url.match(regex);
+		const fileNameMatch = url.match(/(?<=name=).+/);
 
-		if (!fileNameMatch) return;
+		if (!fileNameMatch) {
+			return undefined;
+		}
 
 		const headers = { Authorization: `Bearer ${getCookie('jwt')}` };
 		const fileRecord = await $.ajax(`${apiV3BasePath}/file/upload-from-url/${schoolId}/${parentType}/${parentId}`, {
