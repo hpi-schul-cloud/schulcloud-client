@@ -1,3 +1,4 @@
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const { defaultDocuments } = require('../config/documents');
 const {
 	SC_THEME,
@@ -30,7 +31,7 @@ const instanceInstitute = () => {
 };
 
 const instanceCloudConsentNecessary = () => {
-	if (SC_THEME === 'n21' || SC_THEME === 'brb') {
+	if (!Configuration.get('FEATURE_CONSENT_NECESSARY')) {
 		return false;
 	}
 	return true;
