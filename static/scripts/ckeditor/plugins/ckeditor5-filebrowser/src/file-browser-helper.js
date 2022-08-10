@@ -1,6 +1,5 @@
 import getCookie from '../../../../helpers/cookieManager';
-
-const apiV3BasePath = '/api/v3';
+import { apiV3BasePath, getFileDownloadUrl } from '../../../../helpers/storage';
 
 export default class FileBrowserHelper {
 	static async getFileUrl() {
@@ -35,6 +34,6 @@ export default class FileBrowserHelper {
 			},
 		});
 
-		return `/api/v3/file/download/${fileRecord.id}/${fileRecord.name}`;
+		return getFileDownloadUrl(fileRecord.id, fileRecord.name);
 	}
 }
