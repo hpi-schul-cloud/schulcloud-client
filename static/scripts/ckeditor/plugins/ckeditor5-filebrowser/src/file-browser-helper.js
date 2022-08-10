@@ -1,20 +1,21 @@
 import getCookie from '../../../../helpers/cookieManager';
-import { apiV3BasePath, getFileDownloadUrl } from '../../../../helpers/storage';
+import { apiV3FileStorageBasePath, getFileDownloadUrl } from '../../../../helpers/storage';
 
 export default class FileBrowserHelper {
 	static async getFileUrl() {
-		const topicId = $('#content-blocks').data('topicid');
-		const schoolId = $('#content-blocks').data('schoolid');
+		const topicId = $('#content-blocks').data('parent-id');
+		const schoolId = $('#content-blocks').data('school');
+		const parentType = $('#content-blocks').data('parent-type');
 		const courseFileUrl = $('#url-input').val();
 
 		if (topicId !== undefined && schoolId !== undefined) {
-			return this.copyAsLessonFile(schoolId, 'lessons', topicId, courseFileUrl);
+			return this.copyFile(schoolId, parentType, topicId, courseFileUrl);
 		}
 
 		return courseFileUrl;
 	}
 
-	static async copyAsLessonFile(schoolId, parentType, parentId, url) {
+	static async copyFile(schoolId, parentType, parentId, url) {
 		const fileNameMatch = url.match(/(?<=name=).+/);
 
 		if (!fileNameMatch) {
@@ -22,7 +23,7 @@ export default class FileBrowserHelper {
 		}
 
 		const headers = { Authorization: `Bearer ${getCookie('jwt')}` };
-		const fileRecord = await $.ajax(`${apiV3BasePath}/file/upload-from-url/${schoolId}/${parentType}/${parentId}`, {
+		const fileRecord = await $.ajax(`${apiV3FileStorageBasePath}/upload-from-url/${schoolId}/${parentType}/${parentId}`, {
 			method: 'POST',
 			headers,
 			data: {

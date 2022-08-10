@@ -225,7 +225,7 @@ class TopicBlockList extends React.Component {
 		const blocks = $contentBlocksContainer.data('value') || [];
 		return blocks.map((block) => {
 			block.type = TopicBlock.getClassForComponent(block.component);
-			block.topicId = $contentBlocksContainer.data('topicid');
+			block.topicId = $contentBlocksContainer.data('parent-id');
 			return block;
 		});
 	}
@@ -275,7 +275,7 @@ class TopicBlockList extends React.Component {
 			block.etherpadBaseUrl = this.state.etherpadBaseUrl;
 		}
 
-		block.topicId = $contentBlocksContainer.data('topicid');
+		block.topicId = $contentBlocksContainer.data('parent-id');
 
 		const { blocks } = this.state;
 		blocks.push(block);

@@ -46,7 +46,7 @@
                     <label>{{$t "topic._topic.label.content" }}</label>
 
                     <!-- React Magic -->
-                    <div id="content-blocks" data-value="{{lesson.contents}}" data-topicid="{{lesson._id}}" data-schoolid="{{schoolId}}" data-etherpadbaseurl="{{etherpadBaseUrl}}"
+                    <div id="content-blocks" data-value="{{lesson.contents}}" data-parent-id="{{lesson._id}}" data-school="{{schoolId}}" data-parent-type="lessons" data-etherpadbaseurl="{{etherpadBaseUrl}}"
                         data-iscoursegroup="{{courseGroupId}}" data-nexboardenabled="{{#ifEnv "FEATURE_NEXBOARD_ENABLED" "true"}}true{{/ifEnv}}"></div>
                 </div>
 
