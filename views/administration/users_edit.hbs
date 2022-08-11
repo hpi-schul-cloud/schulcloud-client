@@ -61,7 +61,7 @@
             </div>
             {{/unless}}
 
-            {{#ifCond cloudConsentNecessary '||' editTeacher}}
+            {{#ifCond consentNecessary '||' editTeacher}}
                 {{#unless @root.hasImportHash}}<button class="btn btn-sm btn-secondary pull-right" id="edit-consent"
                     type="button"> <i style="margin-right: 3px" class="fa fa-edit"></i>
                     {{$t "global.button.edit" }}</button>{{/unless}}
