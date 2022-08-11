@@ -2789,7 +2789,8 @@
 				"registrationMustBeDoneByYou": "Die folgende Anmeldung muss von dir als Schüler:in selbst vorgenommen werden, nicht von deinen Eltern.",
 				"thankYouForTakingThisStepWithUs": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
 				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers/der Schülerin* verändert sich der Anmeldeprozess. Bei Schüler:innen unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schüler:innen über {{independentAge}} sie selbst.",
-				"registrationProcessAgeStep": "Wir freuen uns, dass du die Schul-Cloud Brandenburg nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform. Je nach Alter der Schülerin oder des Schülers verändert sich der Anmeldeprozess. Bei Schülerinnen und Schülern unter {{minAge}} werden die Eltern gebeten, ihre Kinder in den folgenden Schritten der Anmeldung zu unterstützen."
+				"registrationProcessAgeStep": "Wir freuen uns, dass du die Schul-Cloud Brandenburg nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform. Je nach Alter der Schülerin oder des Schülers verändert sich der Anmeldeprozess. Bei Schülerinnen und Schülern unter {{minAge}} werden die Eltern gebeten, ihre Kinder in den folgenden Schritten der Anmeldung zu unterstützen.",
+				"nextStepRegistration": "Im nächsten Schritt erfolgt die Registrierung in der {{title}}"
 			}
 		},
 		"deprecatedWarning": {

@@ -41,13 +41,21 @@
 		</div>
 		<p></p>
 		<div id="infotext-u16" class="hidden">
-			<p>{{$t "registration._registration.text.letsTakeThisStepWithYouAndYourChild" (dict "shortTitle" theme.short_title)}}</p>
-			<p>{{$t "registration._registration.text.pleaseRegisterChildThenAgreeToTermsOfUse" (dict "shortTitle" theme.short_title "title" theme.title)}}</p>
+			{{#if cloudConsentNecessary}}
+				<p>{{$t "registration._registration.text.letsTakeThisStepWithYouAndYourChild" (dict "shortTitle" theme.short_title)}}</p>
+				<p>{{$t "registration._registration.text.pleaseRegisterChildThenAgreeToTermsOfUse" (dict "shortTitle" theme.short_title "title" theme.title)}}</p>
+			{{else}}
+				<p>{{$t "registration._registration.text.nextStepRegistration" (dict "title" theme.theme_title)}}</p>
+			{{/if}}
 		</div>
 		<div id="infotext-16" class="hidden">
-			<p>{{$t "registration._registration.text.thankYouForTakingThisStepWithUs" (dict "shortTitle" theme.title)}}</p>
-			<p>{{$t "registration._registration.text.pleaseRegisterFirstAndAgreeToTerms" (dict "themetitle" theme.title)}}</p>
-			<p><strong>{{$t "global.text.attention" }}</strong> {{$t "registration._registration.text.registrationMustBeDoneByYou" }}</p>
+			{{#if cloudConsentNecessary}}
+				<p>{{$t "registration._registration.text.thankYouForTakingThisStepWithUs" (dict "shortTitle" theme.title)}}</p>
+				<p>{{$t "registration._registration.text.pleaseRegisterFirstAndAgreeToTerms" (dict "themetitle" theme.title)}}</p>
+				<p><strong>{{$t "global.text.attention" }}</strong> {{$t "registration._registration.text.registrationMustBeDoneByYou" }}</p>
+			{{else}}
+				<p>{{$t "registration._registration.text.nextStepRegistration" (dict "title" theme.theme_title)}}</p>
+			{{/if}}
 		</div>
     <button id="prevSection" class="btn btn-secondary" type="button">{{$t "global.button.back" }}</button>
 		<button id="showRegistrationForm" class="btn btn-primary pull-right" disabled>{{$t "global.button.next" }}</button>
