@@ -2788,7 +2788,8 @@
 				"pleaseRegisterFirstAndAgreeToTerms": "Please register in the {{shortTitle}} and agree to the Terms of Use so that you can take advantage of the digital learning environment.",
 				"registrationMustBeDoneByYou": "The following registration must be done by you as a student, not by your parents.",
 				"thankYouForTakingThisStepWithUs": "We are pleased that you want to use the {{shortTitle}} and help to take the next step together to digitally support teaching - open source, non-profit and compliant with data protection.",
-				"theRegistrationProcessChangesAccordingToAge": "Depending on the age of the student* the registration process changes. For students below {{minAge}}, a parent or guardian must complete the next steps, for students above {{independentAge}}, they must do it themselves."
+				"theRegistrationProcessChangesAccordingToAge": "Depending on the age of the student* the registration process changes. For students below {{minAge}}, a parent or guardian must complete the next steps, for students above {{independentAge}}, they must do it themselves.",
+				"registrationProcessAgeStep": "We are pleased that you would like to use the Schul-Cloud Brandenburg and help us to take the next step together to digitally support education - open source, non-profit and privacy compliant. Depending on the age of the student, the registration process changes. For students under {{minAge}}, parents are asked to support their children through the following steps of enrollment."
 			}
 		},
 		"deprecatedWarning": {

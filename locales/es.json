@@ -2783,12 +2783,13 @@
 				"agreeSoThatYourChild": "para dar tu conformidad para que tu hijo pueda aprovechar el entorno de aprendizaje.",
 				"letsTakeThisStepWithYouAndYourChild": "Estamos contentos de que permitas a tu hijo usar {{shortTitle}} y colaborar con nosotros para dar el siguiente paso y apoyar la enseñanza digital: con código abierto, sin ánimo de lucro y de conformidad con la protección de datos.",
 				"linguisticNoteWeUseMaleFormForReadability": "Nota lingüística: para una mejor legibilidad, utilizamos la forma masculina en {{shortTitle}} (por ejemplo, \"alumno\", \"profesor\"). Siempre se refiere a todas las personas independientemente de su género. {{shortTitle}} está destinado a todas las personas independientemente de su origen, limitaciones, género y orientación sexual.",
-				"pleaseChooseTheAgeOfTheStudents": "Selecciona la edad del estudiante:",
+				"pleaseChooseTheAgeOfTheStudents": "Por favor, seleccione la edad del alumno:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "Te pedimos que primero registres a tu hijo en {{shortTitle}} y luego, después de proporcionar tus datos, aceptes el uso de {{title}} para que tu hijo pueda aprovechar el entorno de aprendizaje.",
 				"pleaseRegisterFirstAndAgreeToTerms": "Regístrate en {{shortTitle}} y acepta las Condiciones de uso para que puedas aprovechar el entorno de aprendizaje digital.",
 				"registrationMustBeDoneByYou": "El siguiente registro debe ser hecho por ti como estudiante, no por tus padres.",
 				"thankYouForTakingThisStepWithUs": "Estamos contentos que desees utilizar {{shortTitle}} y colaborar con nosotros para dar el siguiente paso y apoyar la enseñanza digital: con código abierto, sin ánimo de lucro y de conformidad con la protección de datos.",
-				"theRegistrationProcessChangesAccordingToAge": "Dependiendo de la edad del alumno* el proceso de registro varía. Para los estudiantes de menos de {{minAge}}, debe completar los siguientes pasos un padre, madre o tutor, para los estudiantes de más de {{independentAge}}, deben hacerlo ellos mismos."
+				"theRegistrationProcessChangesAccordingToAge": "Dependiendo de la edad del alumno* el proceso de registro varía. Para los estudiantes de menos de {{minAge}}, debe completar los siguientes pasos un padre, madre o tutor, para los estudiantes de más de {{independentAge}}, deben hacerlo ellos mismos.",
+				"registrationProcessAgeStep": "Nos complace que quiera utilizar la Schul-Cloud Brandenburg y que nos ayude a dar el siguiente paso hacia el apoyo digital a la enseñanza, de código abierto, sin ánimo de lucro y conforme a la protección de datos. El proceso de inscripción cambia en función de la edad del estudiante. En el caso de los estudiantes menores de {{minAge}} años, se pide a los padres que apoyen a sus hijos en los siguientes pasos de la matrícula."
 			}
 		},
 		"deprecatedWarning": {
