@@ -21,9 +21,13 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1">
-        <h2 class="h4">{{$t "registration._registration.parent.headline.yourChildsData" }}</h2>
-      <p>{{$t "registration._registration.global.text.bellowNYearsOldConsentOfLegalGuardian" (dict "shortTitle" theme.short_title "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
-        <p>{{$t "registration._registration.parent.text.weNeedFollowingDataOfChild" (dict "shortTitle" theme.short_title)}}</p>
+        <h2 class="h4">{{$t "registration._registration.parent.headline.personalData" }}</h2>
+        {{#if cloudConsentNecessary}}
+          <p>{{$t "registration._registration.global.text.bellowNYearsOldConsentOfLegalGuardian" (dict "shortTitle" theme.short_title "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
+        {{else}}
+          <p>{{$t "registration._registration.global.text.weStoreUserDataSafely" (dict "shortTitle" theme.short_title)}}</p>
+        {{/if}}
+        <p>{{$t "registration._registration.global.text.weNeedFollowingDataForRegistration" (dict "title" theme.theme_title)}}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>{{$t "global.label.firstNameColon" }} <sup>*</sup></label>
