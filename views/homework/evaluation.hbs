@@ -1,8 +1,8 @@
 <section class="section-evaluation tab-view">
     <nav class="tab-links">
-        <a id="submission-tab-link" class="tab-link active" user-testid="task-submission-submission-tab">{{$t "homework.label.submission" }}</a>
+        <a id="submission-tab-link" class="tab-link active" data-testid="task-submission-submission-tab">{{$t "homework.label.submission" }}</a>
         {{#if @root.isTeacher}}
-            <a id="comment-tab-link" class="tab-link" user-testid="task-submission-grading-tab">{{$t "homework.label.rating_comment" }}</a>
+            <a id="comment-tab-link" class="tab-link" data-testid="task-submission-grading-tab">{{$t "homework.label.rating_comment" }}</a>
         {{/if}}
     </nav>
     <div class="tabs">
@@ -67,7 +67,7 @@
                         </div>
                         {{#userHasPermission "HOMEWORK_CREATE"}}
                             {{> "lib/components/csrfInput"}}
-                            <button type="submit" class="ckeditor-submit btn btn-primary">{{$t "homework.button.save" }}</button>
+                            <button type="submit" class="ckeditor-submit btn btn-primary" data-testid="tasks-submission-grading-save-and-send-btn">{{$t "homework.button.save" }}</button>
                         {{/userHasPermission}}
                     </form>
             {{else}}
