@@ -2823,9 +2823,9 @@
 				"requestVerificationCode": "Solicita el código de confirmación ahora"
 			},
 			"text": {
-				"pleaseRequestAConfirmationCode": "Solicita un código de confirmación:",
-				"theCodeCanBeRequestedSeveralTimes": "El código se puede solicitar varias veces. Sin embargo, el reenvío invalidará los códigos enviados previamente. Espera un momento antes de volver a hacer la solicitud y verifica la carpeta de correo no deseado en la bandeja de entrada de tu correo electrónico, si es necesario.",
-				"weOnlyHaveToCheckWhether": "Solo necesitamos verificar si tu dirección de correo electrónico realmente existe."
+				"requestConfirmationCode": "Al hacer clic en el siguiente botón, se enviará el código de confirmación:",
+				"theCodeCanBeRequestedSeveralTimes": "El código puede solicitarse varias veces (¡revisa también la carpeta de spam!). Sin embargo, al enviarlo de nuevo se invalidan los códigos enviados hasta el momento.",
+				"confirmEmail": "Mediante un código de confirmación, comprobamos si existe acceso a la dirección de correo electrónico especificada."
 			}
 		},
 		"text": {

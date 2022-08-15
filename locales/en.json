@@ -2820,12 +2820,12 @@
 		},
 		"requestPin": {
 			"button": {
-				"requestVerificationCode": "Request confirmation code now"
+				"requestVerificationCode": "Request confirmation code"
 			},
 			"text": {
-				"pleaseRequestAConfirmationCode": "Please request a confirmation code:",
-				"theCodeCanBeRequestedSeveralTimes": "The code can be requested several times. However, resending will invalidate previously sent codes. Wait a moment before requesting again and check the spam folder in your e-mail inbox if necessary.",
-				"weOnlyHaveToCheckWhether": "We just need to check if your e-mail address really exists."
+				"requestConfirmationCode": "When you click the following button, the confirmation code will be sent:",
+				"theCodeCanBeRequestedSeveralTimes": "The code can be requested several times (check your spam folder too!). However, if it is sent again, the previously sent codes will become invalid.",
+				"confirmEmail": "We use a confirmation code to check whether there is access to the specified email address."
 			}
 		},
 		"text": {
