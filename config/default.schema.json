@@ -575,6 +575,11 @@
 				}
 			},
 			"required": ["SERVICE_BASE_URL", "INCOMING_REQUEST_TIMEOUT", "MAX_FILE_SIZE"]
+		},
+		"FEATURE_CONSENT_NECESSARY": {
+			"type": "boolean",
+			"default": true,
+			"description": "Determines if consent is necessary during registration."
 		}
 	},
 	"allOf": [

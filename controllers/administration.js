@@ -1006,7 +1006,7 @@ router.get(
 					referrer: req.header('Referer'),
 					hasAccount: !!account,
 					accountId: account ? account.id : null,
-					cloudConsentNecessary: res.locals.theme.cloud_consent_necessary,
+					consentNecessary: res.locals.theme.consent_necessary,
 				});
 			})
 			.catch((err) => {
@@ -1444,7 +1444,7 @@ router.get(
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					hasAccount: !!account,
 					accountId: account ? account.id : null,
-					cloudConsentNecessary: res.locals.theme.cloud_consent_necessary,
+					consentNecessary: res.locals.theme.consent_necessary,
 				});
 			})
 			.catch((err) => {
@@ -1794,8 +1794,8 @@ router.get(
 						return false;
 					});
 
-					const cloudConsentNecessary = res.locals.theme.cloud_consent_necessary;
-					const notes = cloudConsentNecessary ? [
+					const consentNecessary = res.locals.theme.consent_necessary;
+					const notes = consentNecessary ? [
 						{
 							title: res.$t(
 								'administration.controller.link.analogueConsent',
@@ -1853,7 +1853,7 @@ router.get(
 						notes,
 						referrer: '/administration/classes/',
 						consentsMissing: usersWithoutConsent.length !== 0,
-						cloudConsentNecessary,
+						consentNecessary,
 						// eslint-disable-next-line max-len
 						noConsentNecessaryText: res.$t(`administration.classes.${res.locals.theme.name}.text.noConsentNecessary`),
 					});
