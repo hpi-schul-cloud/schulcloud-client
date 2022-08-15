@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 const { logger, formatError } = require('../helpers');
+const authHelper = require('../helpers/authentication');
 
 const { HOST } = require('../config/global');
 
@@ -32,6 +33,9 @@ router.get('/:id', (req, res, next) => {
 	return api(req).get(`/link/${req.params.id}?includeShortId=true&redirect=false`)
 		.then((result) => {
 			if (result.target) {
+				if (result.target.match(/^\/files\/fileModel/) && !authHelper.isAuthenticated(req)) {
+					return authHelper.authChecker(req, res, next);
+				}
 				return res.redirect(result.target);
 			}
 			return next(customError);
