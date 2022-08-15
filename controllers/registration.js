@@ -433,7 +433,7 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
 			invalid,
 			secure,
 			correctID,
-			cloudConsentNecessary: res.locals.theme.cloud_consent_necessary
+			cloudConsentNecessary: res.locals.theme.consent_necessary,
 		});
 	});
 

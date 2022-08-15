@@ -21,7 +21,7 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1">
-        <h2 class="h4">{{$t "registration._registration.parent.headline.personalData" }}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.headline.personalData" }}</h2>
         {{#if cloudConsentNecessary}}
           <p>{{$t "registration._registration.global.text.bellowNYearsOldConsentOfLegalGuardian" (dict "shortTitle" theme.short_title "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}</p>
         {{else}}

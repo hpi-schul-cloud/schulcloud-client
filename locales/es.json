@@ -2695,7 +2695,8 @@
 				},
 				"headline": {
 					"language": "Por favor, selecciona tu idioma",
-					"thankYouForRegistering": "¡Gracias por registrarte en {{title}}!"
+					"thankYouForRegistering": "¡Gracias por registrarte en {{title}}!",
+					"personalData": "Información personal"
 				},
 				"label": {
 					"eMail": "Correo electrónico:",
@@ -2733,7 +2734,6 @@
 					}
 				},
 				"headline": {
-					"personalData": "Información personal",
 					"yourChildsSSO": "La cuenta SSO de tu hijo ahora está desbloqueada."
 				},
 				"input": {
@@ -2764,9 +2764,6 @@
 				}
 			},
 			"student": {
-				"headline": {
-					"personalData": "Información personal"
-				},
 				"input": {
 					"yourOfficialFirstName": "Tu nombre oficial, no un apodo",
 					"yourOfficialLastName": "Tus apellidos oficiales"
@@ -2788,7 +2785,7 @@
 				"registrationMustBeDoneByYou": "El siguiente registro debe ser hecho por ti como estudiante, no por tus padres.",
 				"thankYouForTakingThisStepWithUs": "Estamos contentos que desees utilizar {{shortTitle}} y colaborar con nosotros para dar el siguiente paso y apoyar la enseñanza digital: con código abierto, sin ánimo de lucro y de conformidad con la protección de datos.",
 				"theRegistrationProcessChangesAccordingToAge": "Dependiendo de la edad del alumno* el proceso de registro varía. Para los estudiantes de menos de {{minAge}}, debe completar los siguientes pasos un padre, madre o tutor, para los estudiantes de más de {{independentAge}}, deben hacerlo ellos mismos.",
-				"registrationProcessAgeStep": "Nos complace que quiera utilizar la Schul-Cloud Brandenburg y que nos ayude a dar el siguiente paso hacia el apoyo digital a la enseñanza, de código abierto, sin ánimo de lucro y conforme a la protección de datos. El proceso de inscripción cambia en función de la edad del estudiante. En el caso de los estudiantes menores de {{minAge}} años, se pide a los padres que apoyen a sus hijos en los siguientes pasos de la matrícula.",
+				"registrationProcessAgeStep": "Nos complace que quiera utilizar la {{title}} y que nos ayude a dar el siguiente paso hacia el apoyo digital a la enseñanza, de código abierto, sin ánimo de lucro y conforme a la protección de datos. El proceso de inscripción cambia en función de la edad del estudiante. En el caso de los estudiantes menores de {{minAge}} años, se pide a los padres que apoyen a sus hijos en los siguientes pasos de la matrícula.",
 				"nextStepRegistration": "El siguiente paso es registrarse en la {{title}}"
 			}
 		},
