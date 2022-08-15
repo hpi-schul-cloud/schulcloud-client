@@ -26,7 +26,7 @@ describe('Login tests', () => {
 			.get('/login/')
 			.end((err, res) => {
 				expect(res.statusCode).to.equal(200);
-				expect(res.text).to.contain('Schul-Cloud');
+				expect(res.text).to.contain('dBildungscloud');
 				expect(res.text).to.contain(i18next.t('login.input.emailUsername'));
 				expect(res.text).to.contain(i18next.t('global.input.password'));
 				resolve();

@@ -52,42 +52,48 @@
     </div>
 
     <hr class="my-2"/>
-
+    <h2 class="h4">{{$t "administration.classes.headline.questionStudentsNotInSystem" (dict "shortTitle" theme.theme_title)}}</h2>
     <div class="mb-3">
-        <h2 class="h4">{{$t "administration.classes.headline.questionStudentsNotInSystem" (dict "shortTitle" theme.short_title)}}</h2>
-        <p>
-           {{$t "administration.classes.text.inviteTheParentsViaLink" }}
-        </p>
-    </div>
+        {{#if consentNecessary}}
+            <p>
+                {{$t "administration.classes.text.inviteTheParentsViaLink" }}
+            </p>
+            <div class="mb-3">
+                <h2 class="h4">
+                    {{$t "administration.global.text.obtainADeclarationConsent" }}
+                </h2>
+                {{#if schoolUsesLdap}}
+                    <strong>{{$t "administration.global.text.studentsLoginInThePresenceOfGuardian" }}</strong>
 
-    <div class="mb-3">
-        <h2 class="h4">
-            {{$t "administration.global.text.obtainADeclarationConsent" }}
-        </h2>
-        {{#if schoolUsesLdap}}
-            <strong>{{$t "administration.global.text.studentsLoginInThePresenceOfGuardian" }}</strong>
-
-            <p> {{$t "administration.global.text.byConnectingToASchoolState" (dict "shortTitle" theme.short_title)}}</p>
+                    <p> {{$t "administration.global.text.byConnectingToASchoolState" (dict "shortTitle" theme.short_title)}}</p>
+                {{else}}
+                    <strong>{{$t "administration.global.text.inviteparentsAndStudentViaLink" }}</strong>
+                    <p>
+                        {{$t "administration.longText.text.provideStudentsAndTheirParents" }}
+                    </p>
+                    <p>{{$t "administration.students.text.forAllStudentsWithoutAFullConsentForm" }}</p>
+                    <p>
+                        <button data-class="{{class._id}}" data-role="student" class="btn btn-secondary btn-send-links-emails">
+                            {{$t "administration.global.button.sendLinksToStudentEmailAddresses" }}
+                        </button>
+                        <button data-class="{{class._id}}" data-role="student" class="btn btn-secondary btn-print-links">
+                            {{$t "administration.global.button.createLinkSheet" }}
+                        </button>
+                    </p>
+                    <p>
+                        {{{$t "administration.global.text.orSelectStudentFromTable" }}}
+                    </p>
+                {{/if}}
+            </div>
         {{else}}
-            <strong>{{$t "administration.global.text.inviteparentsAndStudentViaLink" }}</strong>
             <p>
-                {{$t "administration.longText.text.provideStudentsAndTheirParents" }}
-            </p>
-            <p>{{$t "administration.students.text.forAllStudentsWithoutAFullConsentForm" }}</p>
-            <p>
-                <button data-class="{{class._id}}" data-role="student" class="btn btn-secondary btn-send-links-emails">
-                    {{$t "administration.global.button.sendLinksToStudentEmailAddresses" }}
-                </button>
-                <button data-class="{{class._id}}" data-role="student" class="btn btn-secondary btn-print-links">
-                    {{$t "administration.global.button.createLinkSheet" }}
-                </button>
+                {{& noConsentNecessaryText}}
             </p>
             <p>
-                {{{$t "administration.global.text.orSelectStudentFromTable" }}}
+                {{& $t "administration.classes.text.inviteViaLink" }}
             </p>
         {{/if}}
     </div>
-
     <div>
         <h2 class="h4 mt-1">{{$t "administration.classes.label.pleaseNote" }}</h2>
         <div class="row">
