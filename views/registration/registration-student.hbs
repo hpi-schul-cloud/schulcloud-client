@@ -39,7 +39,7 @@
 
         <div class="form-group">
               {{> "lib/forms/form-date-input"
-                      label=($t "global.label.dateOfBirth")
+                      label=($t "registration._registration.global.label.studentsDateOfBirth")
                       id="birthDate"
                       value=user.birthday
                       required=true
@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group">
-            <label>{{$t "global.label.emailAddress" }} <sup>*</sup></label>
+            <label>{{$t "registration._registration.global.label.studentEmailAddress" }} <sup>*</sup></label>
             <input class="form-control linked" type="email" name="email" placeholder="{{$t "registration._registration.global.placeholder.studentEmail"}}"
                 value="{{user.email}}" required {{#if user.email}}readonly{{/if}}>
         </div>
