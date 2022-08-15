@@ -64,11 +64,11 @@
             {{#if courseId._id}}
                 <div class="col-sm-12">
                     <div class="pull-right">
-                        <a id="courseId" href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary" data-testid="tasks-navbtn-to-room">
+                        <a id="courseId" href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary" data-testid="tasks-navbtn-to-room-files">
                             <i class="fa fa-folder-open"></i>
                             {{$t "homework.button.toTheCourseFiles" }}
                         </a>
-                        <a class="btn btn-secondary" href="/rooms/{{../courseId._id}}" alt="{{$t "homework.button.toCourseAlt"}}" data-testid="tasks-navbtn-to-room-files">
+                        <a class="btn btn-secondary" href="/rooms/{{../courseId._id}}" alt="{{$t "homework.button.toCourseAlt"}}" data-testid="tasks-navbtn-to-room">
                             <i class="fa fa-graduation-cap"></i>
                             {{$t "global.button.toCourse" }}
                         </a>
