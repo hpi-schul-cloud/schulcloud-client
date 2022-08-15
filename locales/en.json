@@ -2695,7 +2695,7 @@
 				},
 				"headline": {
 					"language": "Please select your language",
-					"thankYouForRegistering": "Thank you for registering to {{shortTitle}}!"
+					"thankYouForRegistering": "Thank you for registering to {{title}}!"
 				},
 				"label": {
 					"eMail": "E-mail:",
@@ -2773,8 +2773,8 @@
 				},
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Please confirm the following declarations of consent so that you can use the {{shortTitle}}.",
-					"useThisDataToSignIn": "With the following data you can login to the {{shortTitle}}. Please keep the login data for the first login.",
-					"youCanNowLogin": "You can now log in to the school cloud. When logging in for the first time, a new password must be selected.",
+					"useThisDataToSignIn": "The following data is used for the first registration in the {{title}}.",
+					"youCanNowLogin": "When logging in for the first time, a new password must be selected.",
 					"yourSSOAccountDetails": "Your SSO account data is now unlocked."
 				}
 			},

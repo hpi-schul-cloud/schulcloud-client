@@ -83,13 +83,13 @@
 
 
       <section data-panel="section-4">
-        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "title" theme.theme_title)}}</h2>
 
         {{#if user.sso}}
             <p>{{$t "registration._registration.student.text.yourSSOAccountDetails" }}</p>
         {{else}}
             <div id="userdata-summary">
-                <p>{{$t "registration._registration.student.text.useThisDataToSignIn" (dict "shortTitle" theme.short_title)}} </p>
+                <p>{{$t "registration._registration.student.text.useThisDataToSignIn" (dict "title" theme.theme_title)}} </p>
                 <div class="print">
                     <div class="recap">
                         <!--<p>Nutzername: <i data-from="firstName"></i>.<i data-from="lastName"></i></p>-->

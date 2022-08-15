@@ -2695,7 +2695,7 @@
 				},
 				"headline": {
 					"language": "Bitte wähle deine Sprache",
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{title}}!"
 				},
 				"label": {
 					"eMail": "E-Mail:",
@@ -2773,8 +2773,8 @@
 				},
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{shortTitle}} nutzen kannst.",
-					"useThisDataToSignIn": "Mit folgenden Daten kannst du dich in der {{shortTitle}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.",
-					"youCanNowLogin": "Du kannst dich jetzt in der HPI Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
+					"useThisDataToSignIn": "Folgende Daten dienen der ersten Anmeldung in der {{title}}.",
+					"youCanNowLogin": "Beim ersten Login muss ein neues Passwort gewählt werden.",
 					"yourSSOAccountDetails": "Deine SSO-Accountdaten sind jetzt freigeschaltet."
 				}
 			},

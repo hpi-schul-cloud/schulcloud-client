@@ -2304,7 +2304,7 @@
 					"studentEmail": "schueler@schul-cloud.org"
 				},
 				"headline": {
-					"thankYouForRegistering": "Дякуємо за реєстрацію в {{shortTitle}}!",
+					"thankYouForRegistering": "Дякуємо за реєстрацію в {{title}}!",
 					"language": "Виберіть свою мову"
 				}
 			},
@@ -2356,8 +2356,8 @@
 				},
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Підтвердьте наведені нижче заяви про згоду, щоб ви могли використовувати {{shortTitle}}.",
-					"useThisDataToSignIn": "З такими даними ви можете увійти до {{shortTitle}}. Збережіть дані для входу в систему для першого входу.",
-					"youCanNowLogin": "Тепер ви можете ввійти в шкільну хмару. При першому вході в систему необхідно вибрати новий пароль.",
+					"useThisDataToSignIn": "Наступні дані використовуються для першої реєстрації в {{title}}.",
+					"youCanNowLogin": "При першому вході в систему необхідно вибрати новий пароль.",
 					"yourSSOAccountDetails": "Дані вашого облікового запису SSO тепер розблоковано."
 				},
 				"headline": {

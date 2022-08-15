@@ -2695,7 +2695,7 @@
 				},
 				"headline": {
 					"language": "Por favor, selecciona tu idioma",
-					"thankYouForRegistering": "¡Gracias por registrarte en {{shortTitle}}!"
+					"thankYouForRegistering": "¡Gracias por registrarte en {{title}}!"
 				},
 				"label": {
 					"eMail": "Correo electrónico:",
@@ -2773,8 +2773,8 @@
 				},
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Confirma las siguientes declaraciones de consentimiento para que puedas utilizar {{shortTitle}}.",
-					"useThisDataToSignIn": "Con los siguientes datos, puedes iniciar sesión en {{shortTitle}}. Guarda los datos de inicio de sesión para el primer inicio de sesión.",
-					"youCanNowLogin": "Ahora puedes iniciar sesión en la nube escolar. Al iniciar sesión por primera vez, debes seleccionar una nueva contraseña.",
+					"useThisDataToSignIn": "Los siguientes datos se utilizan para la primer inscripcón en la {{title}}.",
+					"youCanNowLogin": "Al iniciar sesión por primera vez, debes seleccionar una nueva contraseña.",
 					"yourSSOAccountDetails": "Los datos de tu cuenta SSO ahora están desbloqueados."
 				}
 			},

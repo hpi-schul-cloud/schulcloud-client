@@ -114,28 +114,27 @@
 
 
       <section data-panel="section-5">
-        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
-      {{#if user.sso}}
-              <p>{{$t "registration._registration.parent.headline.yourChildsSSO" }}</p>
-      {{else}}
-        <div>
-          <p>
-            {{{$t "registration._registration.parent.text.yourSonCanLogInWithThisData" (dict "shortTitle" theme.short_title)}}}
-            <div class="print">
-              <div class="recap">
-                <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
-                <p>{{$t "global.label.emailAddress"}} <i data-from="email"></i></p>
-                <p>{{$t "global.label.password" }} <i class="student-password">{{password}}</i></p>
+        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "title" theme.theme_title)}}</h2>
+        {{#if user.sso}}
+          <p>{{$t "registration._registration.parent.headline.yourChildsSSO" }}</p>
+        {{else}}
+          <div>
+            <p>
+              {{{$t "registration._registration.parent.text.yourSonCanLogInWithThisData" (dict "shortTitle" theme.short_title)}}}
+              <div class="print">
+                <div class="recap">
+                  <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
+                  <p>{{$t "global.label.emailAddress"}} <i data-from="email"></i></p>
+                  <p>{{$t "global.label.password" }} <i class="student-password">{{password}}</i></p>
+                </div>
+                <button type="button" class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
+                  <i class="fa fa-print"></i> {{$t "global.button.print" }}
+                </button>
               </div>
-              <button type="button" class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
-                <i class="fa fa-print"></i> {{$t "global.button.print" }}
-              </button>
-            </div>
-          </p>
-
-          <p>{{$t "registration._registration.parent.text.whenLoggingInFor" }}</p>
-        </div>
-      {{/if}}
+            </p>
+            <p>{{$t "registration._registration.parent.text.whenLoggingInFor" }}</p>
+          </div>
+        {{/if}}
         <p>{{$t "registration._registration.parent.text.yourChildCan" }}</p>
 
         <a class="btn btn-primary" href="/logout">{{$t "registration._registration.global.button.openLogin" }}</a>
