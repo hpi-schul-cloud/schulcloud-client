@@ -509,49 +509,6 @@ router.post('/', (req, res, next) => {
 		});
 });
 
-router.post('/copy/:courseId', (req, res, next) => {
-	// map course times to fit model
-	(req.body.times || []).forEach((time) => {
-		time.startTime = moment
-			.duration(time.startTime, 'HH:mm')
-			.asMilliseconds();
-		time.duration = time.duration * 60 * 1000;
-	});
-
-	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
-	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
-
-	delete req.body.startDate;
-	if (startDate.isValid()) {
-		req.body.startDate = startDate.toDate();
-	}
-
-	delete req.body.untilDate;
-	if (untilDate.isValid()) {
-		req.body.untilDate = untilDate.toDate();
-	}
-
-	req.body._id = req.params.courseId;
-	// req.body.courseId = req.params.courseId;
-	req.body.copyCourseId = req.params.courseId;
-
-	req.body.features = [];
-	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
-		if (req.body[feature] === 'true') {
-			req.body.features.push(feature);
-		}
-		delete req.body[feature];
-	});
-
-	api(req)
-		.post('/courses/copy/', {
-			json: req.body, // TODO: sanitize
-		})
-		.then((course) => {
-			res.redirect(getDefaultRedirectUrl(course._id));
-		});
-});
-
 router.get('/add/', editCourseHandler);
 
 /*
