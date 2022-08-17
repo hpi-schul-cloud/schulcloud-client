@@ -735,6 +735,7 @@
 				"class": "Clases del usuario",
 				"errorSendingMail": "¡Se ha producido un error al enviar el correo electrónico con la invitación!",
 				"firstClose": "El usuario debe completar primero el formulario de consentimiento digitalmente",
+				"firstFinishRegistration": "El usuario debe completar primero el proceso de registro.",
 				"successfullySentMail": "¡El correo electrónico con la invitación se ha enviado correctamente!"
 			}
 		},
