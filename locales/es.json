@@ -2782,7 +2782,7 @@
 				"linguisticNoteWeUseMaleFormForReadability": "Nota lingüística: para una mejor legibilidad, utilizamos la forma masculina en {{shortTitle}} (por ejemplo, \"alumno\", \"profesor\"). Siempre se refiere a todas las personas independientemente de su género. {{shortTitle}} está destinado a todas las personas independientemente de su origen, limitaciones, género y orientación sexual.",
 				"pleaseChooseTheAgeOfTheStudents": "Por favor, seleccione la edad del alumno:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "Te pedimos que primero registres a tu hijo en {{shortTitle}} y luego, después de proporcionar tus datos, aceptes el uso de {{title}} para que tu hijo pueda aprovechar el entorno de aprendizaje.",
-				"pleaseRegisterFirstAndAgreeToTerms": "Regístrate en {{shortTitle}} y acepta las Condiciones de uso para que puedas aprovechar el entorno de aprendizaje digital.",
+				"pleaseRegisterFirstAndAgreeToTerms": "Regístrate en {{themeTitle}} y acepta las Condiciones de uso para que puedas aprovechar el entorno de aprendizaje digital.",
 				"registrationMustBeDoneByYou": "El siguiente registro debe ser hecho por ti como estudiante, no por tus padres.",
 				"thankYouForTakingThisStepWithUs": "Estamos contentos que desees utilizar {{shortTitle}} y colaborar con nosotros para dar el siguiente paso y apoyar la enseñanza digital: con código abierto, sin ánimo de lucro y de conformidad con la protección de datos.",
 				"theRegistrationProcessChangesAccordingToAge": "Dependiendo de la edad del alumno* el proceso de registro varía. Para los estudiantes de menos de {{minAge}}, debe completar los siguientes pasos un padre, madre o tutor, para los estudiantes de más de {{independentAge}}, deben hacerlo ellos mismos.",

@@ -2782,7 +2782,7 @@
 				"linguisticNoteWeUseMaleFormForReadability": "Linguistic note: For better readability we use the masculine form in the {{shortTitle}} (e.g. \"student\", \"teacher\"). It always refers to all persons regardless of gender. The {{shortTitle}} is meant for all people regardless of origin, restrictions, gender and sexual orientation.",
 				"pleaseChooseTheAgeOfTheStudents": "Please select the age of the student:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "We kindly ask you to first register your child in the {{shortTitle}} and then, after providing your details, to agree to the use of the {{title}} so that your child can take advantage of the learning environment.",
-				"pleaseRegisterFirstAndAgreeToTerms": "Please register in the {{shortTitle}} and agree to the Terms of Use so that you can take advantage of the digital learning environment.",
+				"pleaseRegisterFirstAndAgreeToTerms": "Please register in the {{themeTitle}} and agree to the Terms of Use so that you can take advantage of the digital learning environment.",
 				"registrationMustBeDoneByYou": "The following registration must be done by you as a student, not by your parents.",
 				"thankYouForTakingThisStepWithUs": "We are pleased that you want to use the {{shortTitle}} and help to take the next step together to digitally support teaching - open source, non-profit and compliant with data protection.",
 				"theRegistrationProcessChangesAccordingToAge": "Depending on the age of the student* the registration process changes. For students below {{minAge}}, a parent or guardian must complete the next steps, for students above {{independentAge}}, they must do it themselves.",
