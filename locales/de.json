@@ -882,7 +882,6 @@
 			},
 			"dropdown_menu": {
 				"link": {
-					"copyCourse": "Kopieren",
 					"editDeleteCourse": "Bearbeiten/löschen",
 					"inviteToCourse": "Einladen",
 					"shareCourse": "Teilen"

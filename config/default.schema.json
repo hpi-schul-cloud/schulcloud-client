@@ -489,16 +489,6 @@
 			"default": true,
 			"description": "To start the application with calendar service."
 		},
-		"FEATURE_COURSE_COPY": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables Copy course button"
-		},
-		"FEATURE_TASK_COPY_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Feature toggle activate new task copy service."
-		},
 		"FEATURE_COURSE_SHARE": {
 			"type": "boolean",
 			"default": false,
