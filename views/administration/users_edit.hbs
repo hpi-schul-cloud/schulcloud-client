@@ -61,48 +61,48 @@
             </div>
             {{/unless}}
 
-            {{#ifCond cloudConsentNecessary '||' editTeacher}}
-                {{#unless @root.hasImportHash}}<button class="btn btn-sm btn-secondary pull-right" id="edit-consent"
+            {{#if consentNecessary}}
+                {{#unless hasImportHash}}<button class="btn btn-sm btn-secondary pull-right" id="edit-consent"
                     type="button"> <i style="margin-right: 3px" class="fa fa-edit"></i>
                     {{$t "global.button.edit" }}</button>{{/unless}}
-                <h2 class="h5">{{$t "administration.button.consent" }} {{{@root.consentStatusIcon}}}</h2>
+                <h2 class="h5">{{$t "administration.button.consent" }} {{{consentStatusIcon}}}</h2>
                 <div class="row" id="consents-overview">
-                    {{#unless @root.editTeacher}}
-                        {{#unless @root.hasImportHash}}
+                    {{#unless editTeacher}}
+                        {{#unless hasImportHash}}
                         <div class="col-md-6">
                             <b>{{$t "administration.global.label.parents" }}</b><br />
-                            <input name="parent_consentId" type="hidden" value="{{@root.consent.parentConsent._id}}" disabled />
+                            <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" disabled />
 
                             <label style="margin: 15px 10px 10px 0"><input name="parent_form" value="analog" type="radio"
-                                    disabled {{#ifeq @root.consent.parentConsent.form 'analog'}}checked{{/ifeq}} />
+                                    disabled {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}} />
                                 {{$t "administration.label.analog" }}</label>
                             <label><input name="parent_form" value="digital" type="radio" disabled
-                                    {{#ifeq @root.consent.parentConsent.form 'digital'}}checked{{/ifeq}} />
+                                    {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}} />
                                 {{$t "administration.label.digital" }}</label>
                             <br />
                             <label><input name="parent_privacyConsent" type="checkbox" value="true" disabled
-                                    {{#if @root.consent.parentConsent.privacyConsent}}checked{{/if}} />
+                                    {{#if consent.parentConsent.privacyConsent}}checked{{/if}} />
                                 {{$t "administration.global.label.dataProtection" }}</label><br />
                             <label style="margin-bottom: 20px"><input name="parent_termsOfUseConsent" type="checkbox"
-                                    value="true" disabled {{#if @root.consent.parentConsent.termsOfUseConsent}}checked{{/if}} />
+                                    value="true" disabled {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}} />
                                 {{$t "administration.label.termsOfUse" }}</label><br />
                         </div>
                         <div class="col-md-6">
                             <b>{{$t "administration.global.label.student" }}</b><br />
-                            <input name="student_consentId" type="hidden" value="{{@root.consent._id}}" disabled />
+                            <input name="student_consentId" type="hidden" value="{{consent._id}}" disabled />
 
                             <label style="margin: 15px 10px 10px 0"><input name="student_form" value="analog" type="radio"
-                                    disabled {{#ifeq @root.consent.userConsent.form 'analog'}}checked{{/ifeq}} />
+                                    disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}} />
                                 {{$t "administration.label.analog" }}</label>
                             <label><input name="student_form" value="digital" type="radio" disabled
-                                    {{#ifeq @root.consent.userConsent.form 'digital'}}checked{{/ifeq}} />
+                                    {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}} />
                                 {{$t "administration.label.digital" }}</label>
                             <br />
                             <label><input name="student_privacyConsent" type="checkbox" value="true" disabled
-                                    {{#if @root.consent.userConsent.privacyConsent}}checked{{/if}} />
+                                    {{#if consent.userConsent.privacyConsent}}checked{{/if}} />
                                 {{$t "administration.global.label.dataProtection" }}</label><br />
                             <label style="margin-bottom: 20px"><input name="student_termsOfUseConsent" type="checkbox"
-                                    value="true" disabled {{#if @root.consent.userConsent.termsOfUseConsent}}checked{{/if}} />
+                                    value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}} />
                                 {{$t "administration.label.termsOfUse" }}</label><br />
                         </div>
                         {{else}}
@@ -111,7 +111,7 @@
                                 {{$t "administration.longText.text.thereIsNoDeclarationOfConsent" }}
                             </p>
                             <p>
-                                <a class="btn btn-secondary" href="/administration/students/{{@root.user._id}}/skipregistration">
+                                <a class="btn btn-secondary" href="/administration/students/{{user._id}}/skipregistration">
                                     <i class="fa fa-check-square-o"></i>
                                     {{$t "administration.button.receivedConsentOnPaper" }}
                                 </a>
@@ -120,36 +120,40 @@
                         {{/unless}}
                     {{else}}
                     <div class="col-md-6">
-                        <input name="consentId" type="hidden" value="{{@root.consent._id}}" disabled />
+                        <input name="consentId" type="hidden" value="{{consent._id}}" disabled />
 
                         <label><input name="form" value="analog" type="radio" disabled
-                                {{#ifeq @root.consent.userConsent.form 'analog'}}checked{{/ifeq}} />
+                                {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}} />
                             {{$t "administration.label.analog" }}</label>
                         <label><input name="form" value="digital" type="radio" disabled
-                                {{#ifeq @root.consent.userConsent.form 'digital'}}checked{{/ifeq}} />
+                                {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}} />
                             {{$t "administration.label.digital" }}</label>
                         <br />
                         <label><input name="privacyConsent" type="checkbox" value="true" disabled
-                                {{#if @root.consent.userConsent.privacyConsent}}checked{{/if}} />
+                                {{#if consent.userConsent.privacyConsent}}checked{{/if}} />
                             {{$t "administration.global.label.dataProtection" }}</label><br />
                         <label><input name="termsOfUseConsent" type="checkbox" value="true" disabled
-                                {{#if @root.consent.userConsent.termsOfUseConsent}}checked{{/if}} />
+                                {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}} />
                             {{$t "administration.global.label.termsOfUse" }}</label><br />
                     </div>
                     {{/unless}}
                 </div>
             {{else}}
-                <h2 class="h5">{{$t "administration.button.onlyRegistrationNeeded" }} {{{ @root.consentStatusIcon}}}</h2>
-                {{#unless @root.hasAccount}}
+                <h2 class="h5">{{$t "administration.button.onlyRegistrationNeeded" }} {{{consentStatusIcon}}}</h2>
+                {{#unless hasAccount}}
                 <div class="row" id="consents-overview">
                     <div class="col-md-6">
                         <p>
-                            {{$t "administration.longText.text.registrationNotCompleted" }}
+                            {{#unless editTeacher}}
+                                {{$t "administration.longText.text.registrationNotCompleted" }}
+                            {{else}}
+                                {{$t "administration.longText.text.teacherRegistrationNotCompleted" }}
+                            {{/unless}}
                         </p>
                     </div>
                 </div>
                 {{/unless}}
-            {{/ifCond}}
+            {{/if}}
 
             <div class="row">
                 <div class="modal-footer w-100">
