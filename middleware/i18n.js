@@ -13,7 +13,7 @@ const middleware = async (req, res, next) => {
 	res.$t = getInstance();
 	const currentLanguage = await getCurrentLanguage(req, res);
 
-	res.locals.userLanguage = currentLanguage || getBrowserLanguage(req);
+	res.locals.userLanguage = currentLanguage;
 	res.locals.availableLanguages = availableLanguages;
 
 	if (currentLanguage) {
