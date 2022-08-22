@@ -2696,7 +2696,8 @@
 				},
 				"headline": {
 					"language": "Please select your language",
-					"thankYouForRegistering": "Thank you for registering to {{shortTitle}}!"
+					"thankYouForRegistering": "Thank you for registering to {{title}}!",
+					"personalData": "Personal Data"
 				},
 				"label": {
 					"eMail": "E-mail:",
@@ -2710,13 +2711,13 @@
 				"text": {
 					"agreementCanBeRevoked": "You can revoke this consent at any time. A short e-mail with the declaration of revocation, stating your first and last name, class and school to the following address is sufficient: <a href=\"mailto:widerruf@dbildungscloud.de?subject=Widerruf der Einwilligung\">widerruf@dbildungscloud.de</a>.",
 					"agreementIsVoluntary": "The consent and thus the use is voluntary, which means that if you do not give your consent, it will not lead to disadvantages for you in class. Participation in lessons outside the {{title}} will be made possible by the school.",
-					"bellowNYearsOldConsentOfLegalGuardian": "The use of the {{shortTitle}} requires the consent of a legal guardian for students under {{age}} years",
+					"bellowNYearsOldConsentOfLegalGuardian": "The use of the {{shortTitle}} requires the consent of a legal guardian for students under {{age}} years.",
 					"iDeclareTheFollowing": "I, <b data-from=\"firstName\"> </b> <b data-from=\"lastName\"> </b>, declare the following:",
 					"inCaseOfRevocationDataDeletion": "In the event of revocation, we will immediately delete the personal data stored on the basis of the consent, unless there is a legal reason for storage or you wish to access the stored data beforehand. You can also find further information on data protection in our <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.dbildungscloud.de/x/GxfGBg\">FAQ</a>.",
 					"languageHint": "Little info: You can change your language at any time in your settings. Settings can be found in the top right corner when you tap on your avatar.",
 					"myDataMayBeProcessed": "I agree that my personal data will be processed in accordance with the school's <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">privacy policy</a> in the {{title}} and in the learning material providers selected and instructed by the school.",
 					"theEmailAddressEnables": "The e-mail address enables notifications to be sent and makes it easier to reset the password.",
-					"weNeedFollowingDataForRegistration": "For the use of the {{shortTitle}} we need the following information:",
+					"weNeedFollowingDataForRegistration": "For the use of the {{title}} we need the following information:",
 					"weStoreUserDataSafely": "The {{shortTitle}} stores the user data securely and does not pass them on to third parties. The data is processed in accordance with the high statutory data protection requirements."
 				}
 			},
@@ -2734,7 +2735,6 @@
 					}
 				},
 				"headline": {
-					"yourChildsData": "Your child's data",
 					"yourChildsSSO": "The SSO account of your child is now unlocked."
 				},
 				"input": {
@@ -2759,24 +2759,20 @@
 					"needFollowingInformationForChild": "we need the following information for your child:",
 					"pleaseConfirmTheFollowing": "Please confirm the following declarations of consent so that your child can take advantage of the {{shortTitle}}:",
 					"studentNeedTheirOwnEmail": "(Students need their own e-mail address)",
-					"weNeedFollowingDataOfChild": "To use the {{shortTitle}} we need the following information of your child:",
 					"whenLoggingInFor": "A new password must be selected at the first login. Students who are at least 14 years old must additionally confirm the declarations of consent at the first login.",
 					"yourChildCan": "Your child can now log in:",
 					"yourSonCanLogInWithThisData": "The following data can be used to log in <b data-from=\"firstName\"></b> <b data-from=\"secondName\"></b> to the {{shortTitle}}. Please pass on the data to your child. In addition, you and your child have received the data by e-mail."
 				}
 			},
 			"student": {
-				"headline": {
-					"personalData": "Personal data"
-				},
 				"input": {
 					"yourOfficialFirstName": "Your official first name, not a nickname",
 					"yourOfficialLastName": "Your official last name"
 				},
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Please confirm the following declarations of consent so that you can use the {{shortTitle}}.",
-					"useThisDataToSignIn": "With the following data you can login to the {{shortTitle}}. Please keep the login data for the first login.",
-					"youCanNowLogin": "You can now log in to the school cloud. When logging in for the first time, a new password must be selected.",
+					"useThisDataToSignIn": "The following data is used for the first registration in the {{title}}.",
+					"youCanNowLogin": "When logging in for the first time, a new password must be selected.",
 					"yourSSOAccountDetails": "Your SSO account data is now unlocked."
 				}
 			},
@@ -2786,10 +2782,12 @@
 				"linguisticNoteWeUseMaleFormForReadability": "Linguistic note: For better readability we use the masculine form in the {{shortTitle}} (e.g. \"student\", \"teacher\"). It always refers to all persons regardless of gender. The {{shortTitle}} is meant for all people regardless of origin, restrictions, gender and sexual orientation.",
 				"pleaseChooseTheAgeOfTheStudents": "Please select the age of the student:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "We kindly ask you to first register your child in the {{shortTitle}} and then, after providing your details, to agree to the use of the {{title}} so that your child can take advantage of the learning environment.",
-				"pleaseRegisterFirstAndAgreeToTerms": "Please register in the {{shortTitle}} and agree to the Terms of Use so that you can take advantage of the digital learning environment.",
+				"pleaseRegisterFirstAndAgreeToTerms": "Please register in the {{themeTitle}} and agree to the Terms of Use so that you can take advantage of the digital learning environment.",
 				"registrationMustBeDoneByYou": "The following registration must be done by you as a student, not by your parents.",
 				"thankYouForTakingThisStepWithUs": "We are pleased that you want to use the {{shortTitle}} and help to take the next step together to digitally support teaching - open source, non-profit and compliant with data protection.",
-				"theRegistrationProcessChangesAccordingToAge": "Depending on the age of the student* the registration process changes. For students below {{minAge}}, a parent or guardian must complete the next steps, for students above {{independentAge}}, they must do it themselves."
+				"theRegistrationProcessChangesAccordingToAge": "Depending on the age of the student* the registration process changes. For students below {{minAge}}, a parent or guardian must complete the next steps, for students above {{independentAge}}, they must do it themselves.",
+				"registrationProcessAgeStep": "We are pleased that you would like to use the {{title}} and help us to take the next step together to digitally support education - open source, non-profit and privacy compliant. Depending on the age of the student, the registration process changes. For students under {{minAge}}, parents are asked to support their children through the following steps of enrollment.",
+				"nextStepRegistration": "The next step is to register in the {{title}}"
 			}
 		},
 		"deprecatedWarning": {
@@ -2820,12 +2818,12 @@
 		},
 		"requestPin": {
 			"button": {
-				"requestVerificationCode": "Request confirmation code now"
+				"requestVerificationCode": "Request confirmation code"
 			},
 			"text": {
-				"pleaseRequestAConfirmationCode": "Please request a confirmation code:",
-				"theCodeCanBeRequestedSeveralTimes": "The code can be requested several times. However, resending will invalidate previously sent codes. Wait a moment before requesting again and check the spam folder in your e-mail inbox if necessary.",
-				"weOnlyHaveToCheckWhether": "We just need to check if your e-mail address really exists."
+				"requestConfirmationCode": "When you click the following button, the confirmation code will be sent:",
+				"theCodeCanBeRequestedSeveralTimes": "The code can be requested several times (check your spam folder too!). However, if it is sent again, the previously sent codes will become invalid.",
+				"confirmEmail": "We use a confirmation code to check whether there is access to the specified email address."
 			}
 		},
 		"text": {

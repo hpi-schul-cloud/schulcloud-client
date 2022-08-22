@@ -21,9 +21,9 @@
       {{#if invalid}}<input type="hidden" name="invalid" value="{{invalid}}" />{{/if}}
 
       <section data-panel="section-1">
-        <h2 class="h4">{{$t "registration._registration.student.headline.personalData" }}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.headline.personalData" }}</h2>
         <p>{{$t "registration._registration.global.text.weStoreUserDataSafely" (dict "shortTitle" theme.short_title)}}</p>
-	  <p>{{$t "registration._registration.global.text.weNeedFollowingDataForRegistration" (dict "shortTitle" theme.short_title)}}</p>
+	      <p>{{$t "registration._registration.global.text.weNeedFollowingDataForRegistration" (dict "title" theme.theme_title)}}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>{{$t "global.label.firstNameColon" }} <sup>*</sup></label>
@@ -39,7 +39,7 @@
 
         <div class="form-group">
               {{> "lib/forms/form-date-input"
-                      label=($t "global.label.dateOfBirth")
+                      label=($t "registration._registration.global.label.studentsDateOfBirth")
                       id="birthDate"
                       value=user.birthday
                       required=true
@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group">
-            <label>{{$t "global.label.emailAddress" }} <sup>*</sup></label>
+            <label>{{$t "registration._registration.global.label.studentEmailAddress" }} <sup>*</sup></label>
             <input class="form-control linked" type="email" name="email" placeholder="{{$t "registration._registration.global.placeholder.studentEmail"}}"
                 value="{{user.email}}" required {{#if user.email}}readonly{{/if}}>
         </div>
@@ -83,13 +83,13 @@
 
 
       <section data-panel="section-4">
-        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "title" theme.theme_title)}}</h2>
 
         {{#if user.sso}}
             <p>{{$t "registration._registration.student.text.yourSSOAccountDetails" }}</p>
         {{else}}
             <div id="userdata-summary">
-                <p>{{$t "registration._registration.student.text.useThisDataToSignIn" (dict "shortTitle" theme.short_title)}} </p>
+                <p>{{$t "registration._registration.student.text.useThisDataToSignIn" (dict "title" theme.theme_title)}} </p>
                 <div class="print">
                     <div class="recap">
                         <!--<p>Nutzername: <i data-from="firstName"></i>.<i data-from="lastName"></i></p>-->

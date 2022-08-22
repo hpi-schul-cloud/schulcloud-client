@@ -2696,12 +2696,13 @@
 				},
 				"headline": {
 					"language": "Bitte wähle deine Sprache",
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{title}}!",
+					"personalData": "Persönliche Daten"
 				},
 				"label": {
 					"eMail": "E-Mail:",
-					"studentEmailAddress": "E-Mail-Adresse des Schülers/der Schülerin:",
-					"studentsDateOfBirth": "Geburtsdatum des Schülers/der Schülerin:",
+					"studentEmailAddress": "E-Mail-Adresse der Schülerin oder des Schülers:",
+					"studentsDateOfBirth": "Geburtsdatum der Schülerin oder des Schülers:",
 					"yourEmailAddress": "Ihre E-Mail-Adresse:"
 				},
 				"placeholder": {
@@ -2710,13 +2711,13 @@
 				"text": {
 					"agreementCanBeRevoked": "Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href=\"mailto:widerruf@dbildungscloud.de?subject=Widerruf der Einwilligung\">widerruf@dbildungscloud.de</a>.",
 					"agreementIsVoluntary": "Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{title}}, wird durch die Schule ermöglicht werden.",
-					"bellowNYearsOldConsentOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler:innen unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
+					"bellowNYearsOldConsentOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler:innen unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten.",
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
 					"inCaseOfRevocationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.dbildungscloud.de/x/GxfGBg\">FAQ</a> entnehmen.",
 					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf deinen Avatar tippst.",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbieter verarbeitet werden.",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
-					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
+					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{title}} benötigen wir folgende Angaben:",
 					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
 				}
 			},
@@ -2734,7 +2735,6 @@
 					}
 				},
 				"headline": {
-					"yourChildsData": "Daten Ihres Kindes",
 					"yourChildsSSO": "Der SSO-Account Ihres Kindes ist jetzt freigeschaltet."
 				},
 				"input": {
@@ -2759,24 +2759,20 @@
 					"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
 					"pleaseConfirmTheFollowing": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{shortTitle}} nutzen kann:",
 					"studentNeedTheirOwnEmail": "(Schüler:innen benötigen eine eigene E-Mail-Adresse)",
-					"weNeedFollowingDataOfChild": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben für Ihr Kind:",
 					"whenLoggingInFor": "Beim ersten Login muss ein neues Passwort gewählt werden. Schüler:innen, die mindestens 14 Jahre alt sind, müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.",
 					"yourChildCan": "Ihr Kind kann sich nun einloggen:",
 					"yourSonCanLogInWithThisData": "Mit folgenden Daten kann sich <b data-from=\"firstName\"></b> <b data-from=\"secondName\"></b> in der {{shortTitle}} anmelden. Bitte geben Sie die Daten an Ihr Kind weiter. Zusätzlich haben Sie und Ihr Kind die Daten per E-Mail erhalten."
 				}
 			},
 			"student": {
-				"headline": {
-					"personalData": "Persönliche Daten"
-				},
 				"input": {
 					"yourOfficialFirstName": "Dein offizieller Vorname, kein Spitzname",
 					"yourOfficialLastName": "Dein offizieller Nachname"
 				},
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{shortTitle}} nutzen kannst.",
-					"useThisDataToSignIn": "Mit folgenden Daten kannst du dich in der {{shortTitle}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.",
-					"youCanNowLogin": "Du kannst dich jetzt in der HPI Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
+					"useThisDataToSignIn": "Folgende Daten dienen der ersten Anmeldung in der {{title}}.",
+					"youCanNowLogin": "Beim ersten Login muss ein neues Passwort gewählt werden.",
 					"yourSSOAccountDetails": "Deine SSO-Accountdaten sind jetzt freigeschaltet."
 				}
 			},
@@ -2784,12 +2780,14 @@
 				"agreeSoThatYourChild": "zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
 				"letsTakeThisStepWithYouAndYourChild": "Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{shortTitle}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
 				"linguisticNoteWeUseMaleFormForReadability": "* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} teilweise die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
-				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers/der Schülerin:",
+				"pleaseChooseTheAgeOfTheStudents": "Bitte das Alter der Schülerin oder des Schülers wählen:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "Wir bitten Sie, Ihr Kind zunächst in der {{shortTitle}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
-				"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{shortTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
+				"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{themeTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
 				"registrationMustBeDoneByYou": "Die folgende Anmeldung muss von dir als Schüler:in selbst vorgenommen werden, nicht von deinen Eltern.",
 				"thankYouForTakingThisStepWithUs": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
-				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers/der Schülerin* verändert sich der Anmeldeprozess. Bei Schüler:innen unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schüler:innen über {{independentAge}} sie selbst."
+				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers/der Schülerin* verändert sich der Anmeldeprozess. Bei Schüler:innen unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schüler:innen über {{independentAge}} sie selbst.",
+				"registrationProcessAgeStep": "Wir freuen uns, dass du die {{title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform. Je nach Alter der Schülerin oder des Schülers verändert sich der Anmeldeprozess. Bei Schülerinnen und Schülern unter {{minAge}} werden die Eltern gebeten, ihre Kinder in den folgenden Schritten der Anmeldung zu unterstützen.",
+				"nextStepRegistration": "Im nächsten Schritt erfolgt die Registrierung in der {{title}}"
 			}
 		},
 		"deprecatedWarning": {
@@ -2820,12 +2818,12 @@
 		},
 		"requestPin": {
 			"button": {
-				"requestVerificationCode": "Bestätigungscode jetzt anfordern"
+				"requestVerificationCode": "Bestätigungscode anfordern"
 			},
 			"text": {
-				"pleaseRequestAConfirmationCode": "Bitte fordere dazu einen Bestätigungscode an:",
-				"theCodeCanBeRequestedSeveralTimes": "Der Code kann mehrfach angefordert werden. Das erneute Zusenden macht bisher versendete Codes allerdings ungültig. Warte vor dem erneuten Anfordern lieber einen Moment länger und prüfe ggf. den Spam-Ordner in deinem E-Mail-Postfach.",
-				"weOnlyHaveToCheckWhether": "Wir müssen nur kurz prüfen, ob es deine E-Mail-Adresse wirklich gibt."
+				"requestConfirmationCode": "Mit Klick auf den folgenden Button wird der Bestätigungscode verschickt:",
+				"theCodeCanBeRequestedSeveralTimes": "Der Code kann mehrfach angefordert werden (bitte auch Spam-Ordner prüfen!). Das erneute Zusenden macht bisher versendete Codes allerdings ungültig.",
+				"confirmEmail": "Durch einen Bestätigungscode prüfen wir, ob der Zugang zur angegebenen E-Mail-Adresse besteht."
 			}
 		},
 		"text": {
