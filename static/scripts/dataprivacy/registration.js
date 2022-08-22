@@ -1,5 +1,5 @@
-import './registration-link-validation';
 import getCookie from '../helpers/cookieManager';
+import './registration-link-validation';
 
 const USER_LANG_KEY = 'USER_LANG';
 const USER_LANG_SET_KEY = 'USER_LANG_SET';
@@ -12,8 +12,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	} else {
 		document.querySelector('#language-screen').style.display = 'block';
 		document.querySelector('#welcome-screen').style.display = 'none';
-		const langFromCookie = getCookie(USER_LANG_KEY);
-		$('#language').val(langFromCookie);
 		$('select').trigger('chosen:updated');
 	}
 
