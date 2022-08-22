@@ -120,7 +120,11 @@
         {{else}}
           <div>
             <p>
-              {{{$t "registration._registration.parent.text.yourSonCanLogInWithThisData" (dict "shortTitle" theme.short_title)}}}
+              {{#if cloudConsentNecessary}}
+                {{{$t "registration._registration.parent.text.yourSonCanLogInWithThisData" (dict "shortTitle" theme.short_title)}}}
+              {{else}}
+                {{$t "registration._registration.student.text.useThisDataToSignIn" (dict "title" theme.theme_title)}}
+              {{/if}}
               <div class="print">
                 <div class="recap">
                   <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
@@ -132,7 +136,11 @@
                 </button>
               </div>
             </p>
-            <p>{{$t "registration._registration.parent.text.whenLoggingInFor" }}</p>
+            {{#if cloudConsentNecessary}}
+              <p>{{$t "registration._registration.parent.text.whenLoggingInFor" }}</p>
+            {{else}}
+              <p>{{$t "registration._registration.student.text.youCanNowLogin"}}</p>
+            {{/if}}
           </div>
         {{/if}}
         <p>{{$t "registration._registration.parent.text.yourChildCan" }}</p>
