@@ -161,9 +161,16 @@
                         {{#unless schoolUsesLdap}}
                         {{#ifCond isAdmin '|| !' editTeacher}}
                         <button style="margin: 0 10px 20px 0" class="btn btn-secondary btn-pw"
-                            {{#if @root.hidePwChangeButton}} disabled
-                            title="{{$t "administration.users_edit.text.firstClose" }}"
-                            {{/if}}>{{$t "administration.users_edit.headline.changePassword" }}</button>
+                            {{#if @root.hidePwChangeButton}}
+                                disabled
+                                {{#if @root.consentNecessary}}
+                                    title="{{$t "administration.users_edit.text.firstClose" }}"
+                                {{else}}
+                                    title="{{$t "administration.users_edit.text.firstFinishRegistration" }}"
+                                {{/if}}
+                            {{/if}}>
+                            {{$t "administration.users_edit.headline.changePassword" }}
+                        </button>
                         {{/ifCond}}
                         {{#if canDeleteUser}}
                         <button style="margin: 0 10px 20px 0"
