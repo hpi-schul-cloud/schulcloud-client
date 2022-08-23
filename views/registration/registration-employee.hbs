@@ -2,6 +2,7 @@
   {{#content "scripts" mode="append"}}
     <script src="{{getAssetPath '/scripts/pwrecovery.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     <script src="{{getAssetPath '/scripts/dataprivacy/user-registration.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    <script src="{{getAssetPath '/scripts/helpers/language.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     <script src="{{getAssetPath '/scripts/base64files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
   {{#content "styles" mode="append"}}
@@ -43,8 +44,7 @@
       <section data-panel="section-3">
         <h2 class="h4">{{$t "registration._registration.employee.headline.yourData" }}</h2>
         <p>{{$t "registration._registration.global.text.weStoreUserDataSafely" (dict "shortTitle" theme.short_title)}}</p>
-
-        <p>{{$t "registration._registration.global.text.weNeedFollowingDataForRegistration" (dict "shortTitle" theme.short_title)}}</p>
+        <p>{{$t "registration._registration.global.text.weNeedFollowingDataForRegistration" (dict "title" theme.theme_title)}}</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>{{$t "global.label.firstNameColon" }} <sup>*</sup></label>
@@ -95,32 +95,24 @@
         </div>
       </section>
 
-
       {{#if needConsent}}
-      <section data-panel="section-4">
-        <h2 class="h4">{{$t "global.headline.declarationOfConsent" }}</h2>
-        <p>{{$t "registration._registration.employee.text.pleaseconfirmTheFollowingDeclarations" (dict "shortTitle" theme.title)}}</p>
-        <p>{{{$t "registration._registration.global.text.iDeclareTheFollowing"}}}</p>
-          {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
-      </section>
+        <section data-panel="section-4">
+          <h2 class="h4">{{$t "global.headline.declarationOfConsent" }}</h2>
+          <p>{{$t "registration._registration.employee.text.pleaseconfirmTheFollowingDeclarations" (dict "shortTitle" theme.title)}}</p>
+          <p>{{{$t "registration._registration.global.text.iDeclareTheFollowing"}}}</p>
+            {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
+        </section>
       {{/if}}
-
-
-
       <section data-panel="section-5" class="submit-page" data-feature="pin">
         <h2 class="h4">{{$t "global.headline.almostThere"}}</h2>
-        {{#embed "registration/request-pin"}}{{/embed}}
-        <div id="pinverification">
-            {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
+          {{#embed "registration/request-pin"}}{{/embed}}
+            <div id="pinverification">
+          {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
         </div>
       </section>
-
-
-
       <section data-panel="section-6">
-        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "shortTitle" theme.short_title)}}</h2>
+        <h2 class="h4">{{$t "registration._registration.global.headline.thankYouForRegistering" (dict "title" theme.theme_title)}}</h2>
         <p>{{$t "registration._registration.employee.text.youCanNowSingIn" (dict "title" theme.title)}}</p>
-
         <a class="btn btn-primary" href="/logout">{{$t "registration._registration.global.button.openLogin" }}</a>
       </section>
       {{/content}}
