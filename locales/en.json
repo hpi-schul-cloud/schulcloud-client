@@ -735,6 +735,7 @@
 				"class": "Classes of the user",
 				"errorSendingMail": "There was an error sending the invitation email!",
 				"firstClose": "The user must first complete the consent form digitally",
+				"firstFinishRegistration": "The user must first complete the registration process.",
 				"successfullySentMail": "The invitation e-mail was sent successfully!"
 			}
 		},
