@@ -10,7 +10,7 @@
     </div>
 {{/if}}
 <div class="table-wrapper {{#unless class}}table table-hover table-bordered{{/unless}}">
-    <table class="{{#if class}}{{class}}{{else}}table table-hover table-bordered{{/if}}">
+    <table class="{{#if class}}{{class}}{{else}}table table-hover table-bordered{{/if}}" data-testid="table_container">
         <caption class="hidden">The description of the table</caption>
         {{#if head}}
             <thead>
@@ -42,6 +42,7 @@
                                             </form>
                                         {{else}}
                                             <a class="btn btn-secondary btn-sm {{this.class}}"
+                                            {{#if this.testId}} data-testid="{{this.testId}}"{{/if}}
                                             {{#if this.link}} href="{{this.link}}" {{else}} href="#0"{{/if}}
                                                 {{#if this.data}}
                                                     {{#each this.data}}
