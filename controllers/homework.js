@@ -215,7 +215,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 			if (service === 'submissions') {
 				referrer += '#activetabid=submission';
 			}
-			if (referrer === 'tasks' || referrer.indexOf('rooms') !== -1) {
+			if (referrer === 'tasks' || referrer.includes('rooms')) {
 				referrer = `homework/${data._id}/edit?returnUrl=homework/${data._id}`;
 			}
 			const url = new URL(referrer, req.headers.origin || HOST);
