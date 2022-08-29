@@ -5,7 +5,6 @@
  */
 
 const express = require('express');
-const marked = require('marked');
 const handlebars = require('handlebars');
 const _ = require('lodash');
 const api = require('../api');
@@ -215,12 +214,12 @@ const getCreateHandler = (service) => (req, res, next) => {
 		return promise.then(() => {
 			if (service === 'submissions') {
 				referrer += '#activetabid=submission';
-				res.redirect(referrer);
 			}
-			if (referrer === 'tasks') {
-				referrer = `homework/${data._id}/edit?returnUrl=${data._id}`;
+			if (referrer === 'tasks' || referrer.indexOf('rooms') !== -1) {
+				referrer = `homework/${data._id}/edit?returnUrl=homework/${data._id}`;
 			}
-			res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
+			const url = new URL(referrer, req.headers.origin || HOST);
+			res.redirect(url);
 		});
 	}).catch((err) => {
 		next(err);
@@ -246,13 +245,9 @@ const sanitizeRefererDomain = (allowedDomain, referrer) => {
 };
 
 const patchFunction = (service, req, res, next) => {
-	let returnToRooms = false;
 	let referrer;
 	if (req.body.referrer) {
-		if (req.body.referrer.includes('rooms')) {
-			returnToRooms = true;
-		}
-		referrer = req.body.referrer.replace('/edit', '');
+		referrer = req.body.referrer;
 		referrer = sanitizeRefererDomain((req.headers.origin || HOST), referrer);
 		delete req.body.referrer;
 	}
@@ -283,10 +278,8 @@ const patchFunction = (service, req, res, next) => {
 			});
 		}
 		if (referrer) {
-			if (returnToRooms) {
-				res.redirect(`${(req.headers.origin || HOST)}/${referrer}`);
-			}
-			res.redirect(referrer);
+			const url = new URL(referrer, req.headers.origin || HOST);
+			res.redirect(url);
 		} else {
 			res.sendStatus(200);
 		}
@@ -341,10 +334,11 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 				message: res.$t('homework._task.text.startDateBeforeSubmissionDate'),
 			};
 			if (req.body.referrer) {
-				referrer = req.body.referrer.replace('/edit', '');
+				referrer = req.body.referrer;
 				delete req.body.referrer;
 			}
-			return res.redirect(referrer);
+			const url = new URL(referrer, req.headers.origin || HOST);
+			return res.redirect(url);
 		}
 	}
 	if (service === 'submissions') {
