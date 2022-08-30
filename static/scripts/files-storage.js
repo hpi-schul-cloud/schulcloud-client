@@ -187,7 +187,9 @@ $(document).ready(() => {
 						$progressBar.fadeOut(50, () => {
 							$form.fadeIn(50);
 							window.localStorage.setItem('afterUploadFiles', 'true');
-							reloadPage();
+							$('#homework-form').find('input[name="referrer"]')
+								.val(window.location.pathname + window.location.search);
+							$('#homework-form').trigger('submit');
 						});
 						progressBarActive = false;
 					}
