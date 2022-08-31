@@ -17,7 +17,19 @@ const {
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
-Handlebars.registerHelper('oauthLink', (oauthConfig, alias = '') => encodeURI([
+Handlebars.registerHelper('oauthLink', (oauthConfig) => encodeURI([
+	oauthConfig.authEndpoint,
+	'?client_id=',
+	oauthConfig.clientId,
+	'&redirect_uri=',
+	oauthConfig.redirectUri,
+	'&response_type=',
+	oauthConfig.responseType,
+	'&scope=',
+	oauthConfig.scope,
+].join('')));
+
+Handlebars.registerHelper('oauthLinkBroker', (oauthConfig, alias) => encodeURI([
 	oauthConfig.authEndpoint,
 	'?client_id=',
 	oauthConfig.clientId,
