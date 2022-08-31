@@ -1409,7 +1409,6 @@
 			"searchResultFor": "search results for",
 			"searchResults": "Search results",
 			"storeFilesForUpload": "Save files for upload.",
-			"storeFilesForUploadDisabled": "Files can only be uploaded after the first {{ parentType }} has been saved.",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
 			"courses": "course",
