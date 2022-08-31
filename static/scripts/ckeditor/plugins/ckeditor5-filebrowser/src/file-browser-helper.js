@@ -24,17 +24,20 @@ export default class FileBrowserHelper {
 		}
 
 		const headers = { Authorization: `Bearer ${getCookie('jwt')}` };
-		const fileRecord = await $.ajax(`${apiV3FileStorageBasePath}/upload-from-url/${schoolId}/${parentType}/${parentId}`, {
-			method: 'POST',
-			headers,
-			data: {
-				url: `${window.location.origin}${url}`,
-				fileName: `${fileNameMatch[0]}`,
-				headers: {
-					cookie: document.cookie,
+		const fileRecord = await $.ajax(
+			`${apiV3FileStorageBasePath}/upload-from-url/${schoolId}/${parentType}/${parentId}`,
+			{
+				method: 'POST',
+				headers,
+				data: {
+					url: `${window.location.origin}${url}`,
+					fileName: `${fileNameMatch[0]}`,
+					headers: {
+						cookie: document.cookie,
+					},
 				},
 			},
-		});
+		);
 
 		return getFileDownloadUrl(fileRecord.id, fileRecord.name);
 	}
