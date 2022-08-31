@@ -17,31 +17,28 @@ const {
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
-Handlebars.registerHelper('oauthLink', (oauthConfig) => encodeURI([
-	oauthConfig.authEndpoint,
-	'?client_id=',
-	oauthConfig.clientId,
-	'&redirect_uri=',
-	oauthConfig.redirectUri,
-	'&response_type=',
-	oauthConfig.responseType,
-	'&scope=',
-	oauthConfig.scope,
-].join('')));
-
-Handlebars.registerHelper('brokerOauthLink', (oauthConfig, alias) => encodeURI([
-	oauthConfig.authEndpoint,
-	'?client_id=',
-	oauthConfig.clientId,
-	'&redirect_uri=',
-	oauthConfig.redirectUri,
-	'&response_type=',
-	oauthConfig.responseType,
-	'&scope=',
-	oauthConfig.scope,
-	'&kc_idp_hint=',
-	alias,
-].join('')));
+Handlebars.registerHelper('oauthLink', (system) => {
+	const encodedURI = [
+		system.oauthConfig.authEndpoint,
+		'?client_id=',
+		system.oauthConfig.clientId,
+		'&redirect_uri=',
+		system.oauthConfig.redirectUri,
+		'&response_type=',
+		system.oauthConfig.responseType,
+		'&scope=',
+		system.oauthConfig.scope,
+	].join('');
+	// provider works for now, but maybe not the best differentiating feature in the future
+	if (system.oauthConfig.provider === 'oauth') {
+		return encodeURI([
+			encodedURI,
+			'&kc_idp_hint=',
+			system.alias,
+		].join(''));
+	}
+	return encodeURI([encodedURI]);
+});
 
 // SSO Login
 router.get('/tsp-login/', (req, res, next) => {
