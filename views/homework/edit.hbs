@@ -90,7 +90,10 @@
 
 				<label for="homeworkDescription">{{$t "homework.global.label.description" }}</label>
 				<textarea id="homeworkDescription" name="description" type="text" class="form-control ckeditor customckeditor"
-					placeholder="{{$t "homework.global.placeholder.description" }}">{{assignment.description}}</textarea>
+					placeholder="{{$t "homework.global.placeholder.description" }}" 
+					{{#ifeq assignment._id undefined}}
+                    	data-disable-file-browser='true'
+                	{{/ifeq}}>{{assignment.description}}</textarea>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
