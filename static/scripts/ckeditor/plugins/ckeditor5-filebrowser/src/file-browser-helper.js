@@ -5,20 +5,12 @@ export default class FileBrowserHelper {
 	static async getFileUrl() {
 		const courseFileUrl = $('#url-input').val();
 
-		const parentId = $('.ckeditor').data('id');
-		const schoolId = $('.ckeditor').data('school');
-		const parentType = $('.ckeditor').data('type');
+		const parentId = $('.ckeditor').data('parent-id');
+		const schoolId = $('.ckeditor').data('school-id');
+		const parentType = $('.ckeditor').data('parent-type');
 
 		if (parentId !== undefined && schoolId !== undefined && parentType !== undefined) {
 			return this.copyFile(schoolId, parentType, parentId, courseFileUrl);
-		}
-
-		const topicId = $('#content-blocks').data('parent-id');
-		const topicSchoolId = $('#content-blocks').data('school');
-		const topicParentType = $('#content-blocks').data('parent-type');
-
-		if (topicId !== undefined && topicSchoolId !== undefined && topicParentType !== undefined) {
-			return this.copyFile(topicSchoolId, topicParentType, topicId, courseFileUrl);
 		}
 
 		return courseFileUrl;
