@@ -3,13 +3,22 @@ import { apiV3FileStorageBasePath, getFileDownloadUrl } from '../../../../helper
 
 export default class FileBrowserHelper {
 	static async getFileUrl() {
-		const topicId = $('#content-blocks').data('parent-id');
-		const schoolId = $('#content-blocks').data('school');
-		const parentType = $('#content-blocks').data('parent-type');
 		const courseFileUrl = $('#url-input').val();
 
-		if (topicId !== undefined && schoolId !== undefined) {
-			return this.copyFile(schoolId, parentType, topicId, courseFileUrl);
+		const parentId = $('.ckeditor').data('id');
+		const schoolId = $('.ckeditor').data('school');
+		const parentType = $('.ckeditor').data('type');
+
+		if (parentId !== undefined && schoolId !== undefined && parentType !== undefined) {
+			return this.copyFile(schoolId, parentType, parentId, courseFileUrl);
+		}
+
+		const topicId = $('#content-blocks').data('parent-id');
+		const topicSchoolId = $('#content-blocks').data('school');
+		const topicParentType = $('#content-blocks').data('parent-type');
+
+		if (topicId !== undefined && topicSchoolId !== undefined && topicParentType !== undefined) {
+			return this.copyFile(topicSchoolId, topicParentType, topicId, courseFileUrl);
 		}
 
 		return courseFileUrl;
