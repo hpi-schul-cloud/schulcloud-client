@@ -17,7 +17,7 @@ const {
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
-Handlebars.registerHelper('oauthLink', (oauthConfig) => encodeURI([
+Handlebars.registerHelper('oauthLink', (oauthConfig, alias = '') => encodeURI([
 	oauthConfig.authEndpoint,
 	'?client_id=',
 	oauthConfig.clientId,
@@ -27,6 +27,8 @@ Handlebars.registerHelper('oauthLink', (oauthConfig) => encodeURI([
 	oauthConfig.responseType,
 	'&scope=',
 	oauthConfig.scope,
+	'&kc_idp_hint=',
+	alias,
 ].join('')));
 
 // SSO Login
