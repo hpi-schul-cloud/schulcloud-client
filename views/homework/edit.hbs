@@ -86,8 +86,14 @@
 			</div>
 			{{/unless}}
 
-			<div class="form-group">
+			{{#ifeq assignment._id undefined}}
+				<div class="alert info-custom">
+					<div class="fa fa-info-circle"></div>
+					{{$t "topic.topicEdit.label.uploadAfterFirstSave"}}
+				</div>
+			{{/ifeq}}
 
+			<div class="form-group">
 				<label for="homeworkDescription">{{$t "homework.global.label.description" }}</label>
 				<textarea id="homeworkDescription" name="description" type="text" class="form-control ckeditor customckeditor"
 					placeholder="{{$t "homework.global.placeholder.description" }}"
