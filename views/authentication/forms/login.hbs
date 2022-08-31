@@ -121,13 +121,23 @@
                 </div>
                 <div class="ldap-system" hidden>{{ ldapSystem }}</div>
                 {{#each oauthSystems as |system|}}
-                    <div class="oauth-system">
-                        <div class="form-group">
-                            <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLinkBroker system.oauthConfig}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
-                                {{$t "login.oauth2.headline.loginVia"}} {{system.alias}}
-                            </button>
+                    {{#if (system.clientId === "")}}
+                        <div class="oauth-system">
+                            <div class="form-group">
+                                <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.oauthConfig}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
+                                    {{$t "login.oauth2.headline.loginVia"}} {{system.alias}}
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    {{else}}
+                        <div class="oauth-system">
+                            <div class="form-group">
+                                <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{brokerOauthLink system.oauthConfig system.alias}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
+                                    {{$t "login.oauth2.headline.loginVia"}} {{system.alias}}
+                                </button>
+                            </div>
+                        </div>
+                    {{/if}}
                 {{/each}}
                 <div class="oauth-error-logout" hidden>{{oauthErrorLogout}}</div>
             </div>

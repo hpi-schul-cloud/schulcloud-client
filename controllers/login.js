@@ -29,7 +29,7 @@ Handlebars.registerHelper('oauthLink', (oauthConfig) => encodeURI([
 	oauthConfig.scope,
 ].join('')));
 
-Handlebars.registerHelper('oauthLinkBroker', (oauthConfig, alias) => encodeURI([
+Handlebars.registerHelper('brokerOauthLink', (oauthConfig, alias) => encodeURI([
 	oauthConfig.authEndpoint,
 	'?client_id=',
 	oauthConfig.clientId,
