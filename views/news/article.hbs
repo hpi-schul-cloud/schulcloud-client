@@ -50,7 +50,7 @@
     </a>
     {{/inArray}}
     {{#inArray 'NEWS_EDIT' ../news.permissions}}
-    <a class="btn btn-secondary btn-delete" href="/news/{{../news.id}}" target="_blank" data-method="DELETE"
+    <a class="btn btn-secondary btn-delete" data-testid="btn-delete-news" href="/news/{{../news.id}}" target="_blank" data-method="DELETE"
         data-name="{{../news.title}}" alt="{{$t "news.button.deleteNewsAlt" (dict "name" ../news.title)}}" redirect="/news/">
         {{$t "global.headline.delete" }}
     </a>
