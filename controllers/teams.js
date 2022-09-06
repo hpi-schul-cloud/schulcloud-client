@@ -274,7 +274,7 @@ router.get('/', async (req, res, next) => {
 			userIds: {
 				$elemMatch: { userId: res.locals.currentUser._id },
 			},
-			$limit: 75,
+			$limit: false,
 		},
 	});
 
@@ -989,6 +989,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 					class: 'btn-delete-member',
 					title: res.$t('teams._team.members.label.removeUser'),
 					icon: 'trash',
+					testId: 'btn-delete-team-member',
 				});
 			}
 			return actions;
@@ -1000,6 +1001,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 					class: 'btn-delete-member disabled',
 					title: res.$t('teams._team.members.label.leavingTeamRequiresNewOwner'),
 					icon: 'trash',
+					testId: 'btn-delete-team-member',
 				});
 			}
 			return actions;
