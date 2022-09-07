@@ -231,7 +231,7 @@
                             <div class="btn-group" data-matomo-mask>
                               <div class="dropdown btn-avatar">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle" href=""
-                                   title='{{ currentUser.displayName }} ({{ currentRole }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{ currentRole }}' data-toggle="dropdown">
+                                   title='{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{ currentRole }}' data-toggle="dropdown">
                                   <div data-testid="initials" class="avatar-circle" >
                                       <span class="initials">{{ currentUser.avatarInitials }}</span>
                                   </div>
