@@ -1,7 +1,7 @@
 {
 	"$schema": "./default.schema.json",
 	"COOKIE": {
-		"SAME_SITE": "Lax",
+		"SAME_SITE": "lax",
 		"HTTP_ONLY": false,
 		"HOST_ONLY": false,
 		"SECURE": false,
