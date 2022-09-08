@@ -3,6 +3,6 @@
 	"COOKIE": {
 		"HOST_ONLY": true,
 		"SECURE": true,
-		"SAME_SITE": "None"
+		"SAME_SITE": "none"
 	}
 }
