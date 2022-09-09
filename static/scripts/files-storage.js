@@ -1,3 +1,5 @@
+import { apiV3FileStorageBasePath, getFileDownloadUrl } from './helpers/storage';
+
 const getDataValue = (attr) => () => {
 	const value = $('#files-storage-component').find('.section-upload').data(attr);
 	return value || undefined;
@@ -6,7 +8,6 @@ const getDataValue = (attr) => () => {
 const getSchoolId = getDataValue('school');
 const getCurrentParentId = getDataValue('parentId');
 const getCurrentParentType = getDataValue('parentType');
-const apiBasePath = '/api/v3/file';
 const maxFilesize = getDataValue('maxFileSize');
 
 const errorMessages = {
@@ -80,7 +81,7 @@ function rename(fileName, fileRecordId) {
 		data: {
 			fileName,
 		},
-		url: `${apiBasePath}/rename/${fileRecordId}`,
+		url: `${apiV3FileStorageBasePath}/rename/${fileRecordId}`,
 		type: 'PATCH',
 		success: () => reloadPage(undefined, 0),
 	}).fail(showAJAXError);
@@ -88,7 +89,7 @@ function rename(fileName, fileRecordId) {
 
 function remove(fileRecordId) {
 	$.ajax({
-		url: `${apiBasePath}/delete/${fileRecordId}`,
+		url: `${apiV3FileStorageBasePath}/delete/${fileRecordId}`,
 		type: 'DELETE',
 		success: () => reloadPage(undefined, 0),
 	}).fail(showAJAXError);
@@ -152,7 +153,7 @@ $(document).ready(() => {
 
 	if ($form.dropzone) {
 		$form.dropzone({
-			url: `${apiBasePath}/upload/
+			url: `${apiV3FileStorageBasePath}/upload/
 			${getSchoolId()}/
 			${getCurrentParentType()}/
 			${getCurrentParentId()}`,
@@ -205,7 +206,7 @@ $(document).ready(() => {
 	$('button[data-method="download"]').on('click', (e) => {
 		const fileRecordId = $(e.currentTarget).attr('data-file-id');
 		const fileName = $(e.currentTarget).attr('data-file-name');
-		const url = `${apiBasePath}/download/${fileRecordId}/${fileName}`;
+		const url = getFileDownloadUrl(fileRecordId, fileName);
 		const a = document.createElement('a');
 		a.href = url;
 		a.download = url.split('/').pop();
@@ -305,7 +306,7 @@ $('.videostop').on('keypress', (e) => {
 window.fileViewer = function fileViewer(type, name, id) {
 	$('#my-video').css('display', 'none');
 	let win;
-	const src = `${apiBasePath}/download/${id}/${name}`;
+	const src = getFileDownloadUrl(id, name);
 	switch (type) {
 		case `image/${type.substr(6)}`:
 			window.location.href = '#file-view';

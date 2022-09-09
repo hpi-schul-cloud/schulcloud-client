@@ -225,6 +225,7 @@ class TopicBlockList extends React.Component {
 		const blocks = $contentBlocksContainer.data('value') || [];
 		return blocks.map((block) => {
 			block.type = TopicBlock.getClassForComponent(block.component);
+			block.topicId = $contentBlocksContainer.data('parent-id');
 			return block;
 		});
 	}
@@ -269,9 +270,13 @@ class TopicBlockList extends React.Component {
 			hidden: false,
 			key: shortid.generate(),
 		};
+
 		if (block.component === 'Etherpad') {
 			block.etherpadBaseUrl = this.state.etherpadBaseUrl;
 		}
+
+		block.topicId = $contentBlocksContainer.data('parent-id');
+
 		const { blocks } = this.state;
 		blocks.push(block);
 		this.updateBlocks(blocks);
@@ -434,14 +439,15 @@ class TopicText extends TopicBlock {
 			this.editorId = `editor_${randomId}`;
 			this.updateText((this.props.content || {}).text);
 		}
+		this.editor = undefined;
 	}
 
 	componentDidMount() {
 		const editorId = (this.props.content || {}).editorId || this.editorId;
-		this.initEditor();
+		this.initEditor(this.props.topicId);
 	}
 
-	async initEditor() {
+	async initEditor(topicId) {
 		const storageContext = this.getStorageContext();
 
 		const editorId = (this.props.content || {}).editorId || this.editorId;
@@ -452,6 +458,12 @@ class TopicText extends TopicBlock {
 		editor.on('change:data', () => {
 			this.updateText(editor.getData());
 		});
+
+		if (!topicId) {
+			editor.commands.get('imagebrowser').forceDisabled();
+			editor.commands.get('audiobrowser').forceDisabled();
+			editor.commands.get('videobrowser').forceDisabled();
+		}
 	}
 
 	getStorageContext() {
@@ -492,7 +504,13 @@ class TopicText extends TopicBlock {
      */
 	render() {
 		const editorId = (this.props.content || {}).editorId || this.editorId;
-		return (
+		const infoBox = <div class="alert info-custom">
+							<div className="fa fa-info-circle" />
+							{$t('topic.topicEdit.label.uploadAfterFirstSave')}
+						</div>;
+
+		return (<>
+			{!this.props.topicId ? infoBox : null}
             <div>
                 <textarea
                     className="form-control ckeditor"
@@ -503,6 +521,7 @@ class TopicText extends TopicBlock {
                     name={`contents[${this.props.position}][content][text]`}
                 />
             </div>
+		</>
 		);
 	}
 }
