@@ -524,7 +524,7 @@ class TopicText extends TopicBlock {
                     onChange={this.updateText.bind(this)}
                     value={(this.props.content || {}).text}
                     name={`contents[${this.props.position}][content][text]`}
-					data-parent-id={this.props.parentId} 
+					data-parent-id={this.props.parentId}
 					data-school-id={this.props.schoolId}
 					data-parent-type={this.props.parentType}
                 />
