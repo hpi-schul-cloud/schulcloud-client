@@ -2420,10 +2420,10 @@
 			},
 			"label": {
 				"currentUser": "Current user:",
-				"fullscreen": "Full screen",
+				"fullscreen": "Full Screen",
 				"notifications": "Notifications",
 				"printQrCode": "Print QR code",
-				"qrCode": "QR code",
+				"qrCode": "QR-Code",
 				"search": "Search",
 				"thereIsAProblem": "There is a problem"
 			},
