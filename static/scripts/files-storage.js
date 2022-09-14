@@ -189,7 +189,7 @@ $(document).ready(() => {
 							window.localStorage.setItem('afterUploadFiles', 'true');
 							$('#homework-form').find('input[name="referrer"]')
 								.val(window.location.pathname + window.location.search);
-							$('#homework-form').trigger('submit');
+							$('#homework-submit-btn').trigger('click');
 						});
 						progressBarActive = false;
 					}
