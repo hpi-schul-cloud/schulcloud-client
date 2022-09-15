@@ -2495,6 +2495,9 @@
 		"link": {
 			"forgotPassword": "¿Se te ha olvidado la contraseña?"
 		},
+		"separatorExternalLogin": {
+			"or": "o"
+		},
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Iniciar sesión con la nube escolar de HPI",

@@ -2495,6 +2495,9 @@
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
 		},
+		"separatorExternalLogin": {
+			"or": "oder"
+		},
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Login mit {{title}}",
