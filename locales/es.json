@@ -2496,7 +2496,7 @@
 			"forgotPassword": "¿Se te ha olvidado la contraseña?"
 		},
 		"separatorExternalLogin": {
-			"or": "o"
+			"text": "o"
 		},
 		"oauth2": {
 			"headline": {

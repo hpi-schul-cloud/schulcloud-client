@@ -1807,7 +1807,7 @@
 			"internalError": "Внутрішня помилка сервера. Будь ласка, зв'яжіться з адміністратором."
 		},
 		"separatorExternalLogin": {
-			"or": "або"
+			"text": "або"
 		},
 		"oauth2": {
 			"headline": {
