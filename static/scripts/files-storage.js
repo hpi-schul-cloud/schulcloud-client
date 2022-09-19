@@ -186,10 +186,15 @@ $(document).ready(() => {
 					if (progressBarActive) {
 						$progressBar.fadeOut(50, () => {
 							$form.fadeIn(50);
-							window.localStorage.setItem('afterUploadFiles', 'true');
+
+							const nameValue = $('#name').val();
+							if (nameValue) {
+								window.localStorage.setItem('afterUploadFiles', 'true');
+							}
+
 							$('#homework-form').find('input[name="referrer"]')
 								.val(window.location.pathname + window.location.search);
-							$('#homework-form').trigger('submit');
+							$('#homework-submit-btn').trigger('click');
 						});
 						progressBarActive = false;
 					}
