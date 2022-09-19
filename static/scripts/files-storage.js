@@ -188,9 +188,7 @@ $(document).ready(() => {
 							$form.fadeIn(50);
 
 							const nameValue = $('#name').val();
-							if (!nameValue) {
-								showSuccessMessage('Datei(en) erfolgreich gespeichert. Bitte neu laden.');
-							} else {
+							if (nameValue) {
 								window.localStorage.setItem('afterUploadFiles', 'true');
 							}
 
