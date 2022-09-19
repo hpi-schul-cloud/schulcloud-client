@@ -6,6 +6,9 @@
 		border-radius: 0;
 		border: 0px solid var(--color-gray-light);
 		box-shadow: var(--shadow-sm);
+		max-width: 30rem;
+		margin-left: auto;
+		margin-right: auto;
 	}
 	.btn {
 		word-wrap: break-word;
@@ -43,12 +46,13 @@
 	.separator-external-login {
 		text-align: center;
     background-image: linear-gradient(to right, #c4d4da 100%, transparent 50%);
-    background-position: 0 50%;
+    background-position: 0 66%;
     background-repeat: repeat-x;
     background-size: 1em 2px;
 		margin-bottom: 1rem;
 	}
 	.separator-external-login-text {
+		font-size: 18px;
 		background: white;
 		padding: 0 .3em
 	}
