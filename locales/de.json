@@ -1260,7 +1260,7 @@
 			"registrationInvalid": "Registrierung fehlerhaft"
 		},
 		"text": {
-			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
+			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach zwei Minuten kannst du den Code erneut anfordern.",
 			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
 			"dataGivenByTeacherOrAdmin": "Diese Daten hat deine Lehrkraft oder dein Admin für dich eingetragen.\n\t\t\tFalls Anpassungen notwendig sind, wende dich bitte an die besagten Personen. Du kannst deine Daten auch nach abgeschlossenem Registrierungsprozess selbst ändern.",
 			"differentEmailParentStudent": "Für diese/n Schüler:in muss eine andere Mailadresse als für die Eltern angegeben werden.",

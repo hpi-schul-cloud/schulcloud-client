@@ -1260,7 +1260,7 @@
 			"registrationInvalid": "Registration incorrect"
 		},
 		"text": {
-			"confirmationCodeAlreadySent": "We have already sent you an e-mail. Please also check your spam folder,\n\t\twhether you really haven't received an e-mail. You can request the code again after one minute.",
+			"confirmationCodeAlreadySent": "We have already sent you an e-mail. Please also check your spam folder,\n\t\twhether you really haven't received an e-mail. You can request the code again after two minutes.",
 			"confirmationCodeSent": "We have just sent you a confirmation code to {{{email }}",
 			"dataGivenByTeacherOrAdmin": "Your teacher or administration has entered this data for you.\n\t\t\tIf changes are required, contract him/her. You can also change your data yourself after the registration process has been completed.",
 			"differentEmailParentStudent": "The student must have a different e-mail address than the parent.",

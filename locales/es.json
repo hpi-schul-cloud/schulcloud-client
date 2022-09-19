@@ -1260,7 +1260,7 @@
 			"registrationInvalid": "Registro incorrecto"
 		},
 		"text": {
-			"confirmationCodeAlreadySent": "Ya te hemos enviado un correo electrónico. Comprueba también tu carpeta de correo no deseado,\n\t\tpara confirmar si no has recibido un correo electrónico. Puedes solicitar el código de nuevo después de un minuto.",
+			"confirmationCodeAlreadySent": "Ya te hemos enviado un correo electrónico. Comprueba también tu carpeta de correo no deseado,\n\t\tpara confirmar si no has recibido un correo electrónico. Puedes solicitar el código de nuevo después de dos minutos.",
 			"confirmationCodeSent": "Te acabamos de enviar un código de confirmación a {{{email }}",
 			"dataGivenByTeacherOrAdmin": "Tu profesor o la administración ha introducido estos datos por ti.\n\t\t\tSi necesitas hacer algún cambio, contacta con él/ella. También puedes cambiar los datos tú mismo después de que se haya completado el proceso de registro.",
 			"differentEmailParentStudent": "El estudiante debe tener una dirección de correo electrónico diferente a la del padre.",
