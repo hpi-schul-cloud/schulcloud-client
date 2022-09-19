@@ -1,8 +1,0 @@
-{
-	"$schema": "./default.schema.json",
-	"COOKIE": {
-		"HOST_ONLY": true,
-		"SECURE": true,
-		"SAME_SITE": "none"
-	}
-}
