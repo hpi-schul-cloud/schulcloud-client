@@ -16,7 +16,7 @@ export default class FileBrowserHelper {
 	}
 
 	static async copyFile(schoolId, parentType, parentId, url) {
-		const fileNameMatch = url.match(/(?<=name=).+/);
+		const fileNameMatch = url.split('name=')[1];
 
 		if (!fileNameMatch) {
 			return undefined;
@@ -30,7 +30,7 @@ export default class FileBrowserHelper {
 				headers,
 				data: {
 					url: `${window.location.origin}${url}`,
-					fileName: `${fileNameMatch[0]}`,
+					fileName: `${fileNameMatch}`,
 					headers: {
 						cookie: document.cookie,
 					},
