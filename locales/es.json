@@ -1260,8 +1260,8 @@
 			"registrationInvalid": "Registro incorrecto"
 		},
 		"text": {
-			"confirmationCodeAlreadySent": "Ya te hemos enviado un correo electrónico. Comprueba también tu carpeta de correo no deseado,\n\t\tpara confirmar si no has recibido un correo electrónico. Puedes solicitar el código de nuevo después de un minuto.",
-			"confirmationCodeSent": "Te acabamos de enviar un código de confirmación a {{{email }}",
+			"confirmationCodeAlreadySent": "Ya hemos enviado un correo electrónico a la dirección de correo electrónico especificada. Por favor, compruebe adicionalmente la carpeta de spam para ver si el correo electrónico puede haber llegado allí. Después de dos minutos, el código puede ser solicitado de nuevo.",
+			"confirmationCodeSent": "Te acabamos de enviar un código de confirmación a {{ email }}",
 			"dataGivenByTeacherOrAdmin": "Tu profesor o la administración ha introducido estos datos por ti.\n\t\t\tSi necesitas hacer algún cambio, contacta con él/ella. También puedes cambiar los datos tú mismo después de que se haya completado el proceso de registro.",
 			"differentEmailParentStudent": "El estudiante debe tener una dirección de correo electrónico diferente a la del padre.",
 			"errorGeneratingConfirmationCode": "¡Vaya, se ha producido un error al crear el código! Verifica tu dirección de correo electrónico ({{ email }}) y vuelve a intentarlo.",
@@ -2827,7 +2827,7 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "Si tienes entre 14 y {{age}} años, confirma también la declaración de consentimiento para que puedas utilizar {{title}}.",
-			"agreeTermsOfUse": "He leído y acepto las <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Condiciones de uso de {{title}}</a>",
+			"agreeTermsOfUse": "He leído y acepto las <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Condiciones de uso de {{title}}</a>.",
 			"andAuthorisedToRepresent": "y con derecho a representar al otro padre en las siguientes declaraciones.",
 			"iAgreeThatThepersonalData": "Doy mi consentimiento para que los datos personales de mi hijo sean procesados de acuerdo con la",
 			"invalidLink": "Desafortunadamente el enlace ya no es válido. Solicita un nuevo enlace a tu profesor o al administrador de la escuela.",

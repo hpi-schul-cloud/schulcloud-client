@@ -46,7 +46,7 @@ $('#resend-pin').on('click', (e) => {
 		timeoutSend = true;
 		setTimeout(() => {
 			timeoutSend = false;
-		}, 60000);
+		}, 120000);
 	} else {
 		$.showNotification($t('dataprivacy.text.confirmationCodeAlreadySent'),
 			'info',
