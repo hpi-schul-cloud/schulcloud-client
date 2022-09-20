@@ -274,7 +274,7 @@ router.get('/', async (req, res, next) => {
 			userIds: {
 				$elemMatch: { userId: res.locals.currentUser._id },
 			},
-			$limit: 75,
+			$limit: false,
 		},
 	});
 

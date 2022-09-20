@@ -1,16 +1,13 @@
     <section class="section-upload" data-max-file-size="{{getConfig "FILES_STORAGE__MAX_FILE_SIZE"}}" data-school="{{schoolId}}" data-parent-id="{{parentId}}" data-parent-type="{{parentType}}">
         <div class="container-fluid">
             <div class="row">
-                {{#ifeq parentId undefined}}
-                    <div class="form-files-storage-disabled" data-testid="tasks-edit-fileupload-disabled">
-                        <span class="text-muted"><i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                            {{$t "files.text.storeFilesForUploadDisabled" (dict "parentType" ($t (concat "files.text." ../parentType)  ../parentType))}}
-                        </span>
-                    </div>
-                {{else}}
                 <button
-                    type="button" class="form-files-storage dz-clickable" {{#userHasPermission "FILESTORAGE_CREATE"}}action="/"
-                    {{/userHasPermission}} data-testid="tasks-edit-fileupload-enabled">
+                    type="button"
+                    class="{{#ifeq parentId undefined}}form-files-storage-disabled{{else}}form-files-storage{{/ifeq}}  dz-clickable" 
+                    {{#userHasPermission "FILESTORAGE_CREATE"}}
+                        action="/"
+                    {{/userHasPermission}} 
+                    data-testid="tasks-edit-fileupload">
                     <div class="dz-default dz-message" data-dz-message="">
                         <span class="text-muted"><i class="fa fa-cloud-upload dz-clickable" aria-hidden="true"></i>
                             {{$t "files.text.storeFilesForUpload"}}
@@ -23,7 +20,6 @@
                         <div class="bar" style="width:0%">&nbsp;</div>
                     </div>
                 </div>
-                {{/ifeq}}
             </div>
         </div>
     </section>
