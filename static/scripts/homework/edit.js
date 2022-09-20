@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	$('#homework-submit-btn').on('click', (event) => {
+	$('#homework-submit-btn').on('submit', (event) => {
 		event.preventDefault();
 
 		const emptyDates = ['__.__.____', '__/__/____'];
