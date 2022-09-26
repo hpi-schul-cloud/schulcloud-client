@@ -87,6 +87,7 @@
 		"handlebars-layouts": "^3.1.4",
 		"handlebars-wax": "^5.1.1",
 		"hbs": "^4.1.2",
+		"html-entities": "^2.3.3",
 		"i18next": "^19.9.2",
 		"i18next-chained-backend": "^2.1.0",
 		"i18next-fetch-backend": "^2.2.0",

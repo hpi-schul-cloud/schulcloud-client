@@ -2,6 +2,7 @@ const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
 const { randomBytes } = require('crypto');
+const { decode } = require('html-entities');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const Nexboard = require('../helpers/nexboard');
 const api = require('../api');
@@ -352,6 +353,11 @@ router.get('/:topicId', (req, res, next) => {
 			? api(req).get(`/courseGroups/${req.query.courseGroup}`)
 			: Promise.resolve({}),
 	]).then(([course, lesson, homeworks, courseGroup]) => {
+		// decode html entities
+		lesson.contents = lesson.contents.map((element) => { 
+			element.title = decode(element.title);
+			return element;
+		});
 		// decorate contents
 		lesson.contents = (lesson.contents || []).map((block) => {
 			block.component = `topic/components/content-${block.component}`;
