@@ -456,7 +456,7 @@ router.patch('/:topicId', async (req, res, next) => {
 });
 
 router.delete('/:topicId', (req, res, next) => {
-	api(req).delete(`/lessons/${req.params.topicId}`).then(() => {
+	api(req, { version: 'v3' }).delete(`/lessons/${req.params.topicId}`).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		next(err);
