@@ -10,7 +10,7 @@
 		"SECURE": false,
 		"EXPIRES_SECONDS": 2592000000,
 		"HTTP_ONLY": false,
-		"SAME_SITE": "Lax",
+		"SAME_SITE": "lax",
 		"HOST_ONLY": false
 	},
 	"COOKIE_SECRET": "ihasDF(=4jA4aF",

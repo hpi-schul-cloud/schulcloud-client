@@ -1260,8 +1260,8 @@
 			"registrationInvalid": "Registration incorrect"
 		},
 		"text": {
-			"confirmationCodeAlreadySent": "We have already sent you an e-mail. Please also check your spam folder,\n\t\twhether you really haven't received an e-mail. You can request the code again after one minute.",
-			"confirmationCodeSent": "We have just sent you a confirmation code to {{{email }}",
+			"confirmationCodeAlreadySent": "We have already sent an e-mail to the specified e-mail address. Please additionally check the spam folder to see if the email may have arrived there. After two minutes, the code can be requested again.",
+			"confirmationCodeSent": "We have just sent you a confirmation code to {{ email }}",
 			"dataGivenByTeacherOrAdmin": "Your teacher or administration has entered this data for you.\n\t\t\tIf changes are required, contract him/her. You can also change your data yourself after the registration process has been completed.",
 			"differentEmailParentStudent": "The student must have a different e-mail address than the parent.",
 			"errorGeneratingConfirmationCode": "Oops, there was an error while creating the code! Please check your e-mail address ({{ email }}) and try again.",
@@ -1408,8 +1408,7 @@
 			"rememberThisSelection": "Remember this selection",
 			"searchResultFor": "search results for",
 			"searchResults": "Search results",
-			"storeFilesForUpload": "Save files for upload.",
-			"storeFilesForUploadDisabled": "Files can only be uploaded after the first {{ parentType }} has been saved.",
+			"storeFilesForUpload": "Place files to upload here, or search computer.",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
 			"courses": "course",
@@ -2421,10 +2420,10 @@
 			},
 			"label": {
 				"currentUser": "Current user:",
-				"fullscreen": "Full screen",
+				"fullscreen": "Full Screen",
 				"notifications": "Notifications",
 				"printQrCode": "Print QR code",
-				"qrCode": "QR code",
+				"qrCode": "QR-Code",
 				"search": "Search",
 				"thereIsAProblem": "There is a problem"
 			},
@@ -2828,7 +2827,7 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "If you are between 14 and {{age}} years old, please also confirm the declaration of consent so that you can use the {{title}}.",
-			"agreeTermsOfUse": "I have read and agree to the <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Terms of Use of the {{title}}</a>",
+			"agreeTermsOfUse": "I have read and agree to the <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Terms of Use of the {{title}}</a>.",
 			"andAuthorisedToRepresent": "and entitled to represent the other parent in the following declarations.",
 			"iAgreeThatThepersonalData": "I consent to my child's personal data being processed in accordance with the",
 			"invalidLink": "Unfortunately the link is no longer valid. Request a new link from your teacher or school administrator.",
@@ -3167,7 +3166,8 @@
 				"openSection": "Unlock section",
 				"selectNeXboard": "Select neXboard",
 				"theLinkHasToBeginWith": "The link must begin with '{{- baseUrl}} / task'! Students must have access to the task to see it included here. Attention: If you share this topic or the entire course with another teacher using a sharing code, the tasks integrated in this way will currently not be considered.",
-				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'"
+				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'",
+				"uploadAfterFirstSave": "Files can only be uploaded after saving the topic for the first time."
 			}
 		}
 	},

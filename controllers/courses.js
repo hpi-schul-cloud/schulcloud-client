@@ -566,6 +566,7 @@ router.get('/:courseId/', async (req, res, next) => {
 			qs: {
 				courseId: req.params.courseId,
 				$populate: ['courseId', 'userIds'],
+				$limit: false,
 			},
 		}),
 		api(req).get(`/courses/${req.params.courseId}/userPermissions`, {

@@ -1260,7 +1260,7 @@
 			"registrationInvalid": "Registrierung fehlerhaft"
 		},
 		"text": {
-			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
+			"confirmationCodeAlreadySent": "Wir haben bereits eine E-Mail an die angegebene E-Mail-Adresse gesendet. Bitte zusätzlich den Spam-Ordner prüfen, ob die E-Mail eventuell dort angekommen ist. Nach zwei Minuten kann der Code erneut angefordert werden",
 			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
 			"dataGivenByTeacherOrAdmin": "Diese Daten hat deine Lehrkraft oder dein Admin für dich eingetragen.\n\t\t\tFalls Anpassungen notwendig sind, wende dich bitte an die besagten Personen. Du kannst deine Daten auch nach abgeschlossenem Registrierungsprozess selbst ändern.",
 			"differentEmailParentStudent": "Für diese/n Schüler:in muss eine andere Mailadresse als für die Eltern angegeben werden.",
@@ -1408,8 +1408,7 @@
 			"rememberThisSelection": "Diese Auswahl merken",
 			"searchResultFor": "Suchergebnisse für",
 			"searchResults": "Suchergebnisse",
-			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
-			"storeFilesForUploadDisabled": "Dateien können erst nach dem ersten Speichern {{ parentType }} hochgeladen werden.",
+			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen, oder Computer durchsuchen.",
 			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
 			"courses": "des Kurses",
@@ -1711,7 +1710,7 @@
 			}
 		},
 		"placeholder": {
-			"Administrator": "Admin",
+			"Administrator": "Administrator",
 			"BetaTeacher": "Beta",
 			"Experte": "Expert:in",
 			"firstName": "Ihren Vornamen hier eingeben",
@@ -3167,7 +3166,8 @@
 				"openSection": "Abschnitt entsperren",
 				"selectNeXboard": "neXboard auswählen",
 				"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler:innen müssen Zugriff auf die Aufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
-				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
+				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'",
+				"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern des Themas hochgeladen werden."
 			}
 		}
 	},

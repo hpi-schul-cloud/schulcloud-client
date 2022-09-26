@@ -333,7 +333,14 @@ $(document).ready(() => {
 
 	// Window History Back
 	$('.historyback').on('click', () => {
-		window.history.back();
+		const { search, origin } = window.location;
+		const urlParams = new URLSearchParams(search);
+		if (urlParams.has('returnUrl')) {
+			const url = new URL(urlParams.get('returnUrl'), origin);
+			window.location = url;
+		} else {
+			window.history.back();
+		}
 	});
 
 	// Window Local Storage Clear

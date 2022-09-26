@@ -23,7 +23,8 @@ const editTopicHandler = (req, res, next) => {
 	let lessonPromise;
 	let action;
 	let method;
-	const referrer = req.query.returnUrl;
+	const referrer = req.params.topicId ? req.query.returnUrl : undefined;
+
 	if (req.params.topicId) {
 		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
 			+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
@@ -54,6 +55,7 @@ const editTopicHandler = (req, res, next) => {
 			lesson,
 			courseId: req.params.courseId,
 			topicId: req.params.topicId,
+			schoolId: res.locals.currentSchool,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
 			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
@@ -275,15 +277,15 @@ router.post('/', async (req, res, next) => {
 
 	api(req).post('/lessons/', {
 		json: data, // TODO: sanitize
-	}).then(() => {
+	}).then((lesson) => {
 		if (req.body.referrer) {
 			res.redirect(`${(req.headers.origin)}/${req.body.referrer}`);
 		}
+
+		const courseGroupParam = req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : '';
+
 		res.redirect(
-			context === 'courses'
-				? `/courses/${req.params.courseId
-				}${req.query.courseGroup ? `/groups/${req.query.courseGroup}` : '/?activeTab=topics'}`
-				: `/teams/${req.params.teamId}/?activeTab=topics`,
+			`${(req.headers.origin)}/courses/${req.params.courseId}/topics/${lesson._id}/edit${courseGroupParam}`,
 		);
 	}).catch(() => {
 		res.sendStatus(500);
@@ -460,7 +462,7 @@ router.patch('/:topicId', async (req, res, next) => {
 });
 
 router.delete('/:topicId', (req, res, next) => {
-	api(req).delete(`/lessons/${req.params.topicId}`).then(() => {
+	api(req, { version: 'v3' }).delete(`/lessons/${req.params.topicId}`).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		next(err);
@@ -518,6 +520,5 @@ router.delete('/:topicId/neweditor', async (req, res, next) => {
 		next(err);
 	});
 });
-
 
 module.exports = router;
