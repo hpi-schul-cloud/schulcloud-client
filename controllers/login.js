@@ -17,24 +17,24 @@ const {
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
-Handlebars.registerHelper('oauthLink', (system) => {
+Handlebars.registerHelper('oauthLink', (oauthConfig, alias) => {
 	const encodedURI = [
-		system.oauthConfig.authEndpoint,
+		oauthConfig.authEndpoint,
 		'?client_id=',
-		system.oauthConfig.clientId,
+		oauthConfig.clientId,
 		'&redirect_uri=',
-		system.oauthConfig.redirectUri,
+		oauthConfig.redirectUri,
 		'&response_type=',
-		system.oauthConfig.responseType,
+		oauthConfig.responseType,
 		'&scope=',
-		system.oauthConfig.scope,
+		oauthConfig.scope,
 	].join('');
 	// provider works for now, but maybe not the best differentiating feature in the future
-	if (system.oauthConfig.provider === 'oauth') {
+	if (oauthConfig.provider === 'oauth') {
 		return encodeURI([
 			encodedURI,
 			'&kc_idp_hint=',
-			system.alias,
+			alias,
 		].join(''));
 	}
 	return encodeURI([encodedURI]);
