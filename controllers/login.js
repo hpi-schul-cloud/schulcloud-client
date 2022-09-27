@@ -17,24 +17,24 @@ const {
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
-Handlebars.registerHelper('oauthLink', (oauthConfig, alias) => {
+Handlebars.registerHelper('oauthLink', (system) => {
 	const encodedURI = [
-		oauthConfig.authEndpoint,
+		system.oauthConfig.authEndpoint,
 		'?client_id=',
-		oauthConfig.clientId,
+		system.oauthConfig.clientId,
 		'&redirect_uri=',
-		oauthConfig.redirectUri,
+		system.oauthConfig.redirectUri,
 		'&response_type=',
-		oauthConfig.responseType,
+		system.oauthConfig.responseType,
 		'&scope=',
-		oauthConfig.scope,
+		system.oauthConfig.scope,
 	].join('');
 	// provider works for now, but maybe not the best differentiating feature in the future
-	if (oauthConfig.provider === 'oauth') {
+	if (system.oauthConfig.provider === 'oauth') {
 		return encodeURI([
 			encodedURI,
 			'&kc_idp_hint=',
-			alias,
+			system.alias,
 		].join(''));
 	}
 	return encodeURI([encodedURI]);
@@ -132,22 +132,15 @@ router.all('/', async (req, res, next) => {
 		redirectAuthenticated(req, res);
 	} else {
 		const schools = await LoginSchoolsCache.get(req);
-		if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
-			const oauthSystems = await getOauthSystems(req);
 
-			res.render('authentication/home', {
-				schools: getNonOauthSchools(schools),
-				systems: [],
-				oauthSystems: oauthSystems.data || [],
-				inline: true,
-			});
-		} else {
-			res.render('authentication/home', {
-				schools,
-				inline: true,
-				systems: [],
-			});
-		}
+		const oauthSystems = await getOauthSystems(req);
+
+		res.render('authentication/home', {
+			schools: getNonOauthSchools(schools),
+			systems: [],
+			oauthSystems: oauthSystems.data || [],
+			inline: true,
+		});
 	}
 });
 
@@ -175,44 +168,34 @@ const renderLogin = async (req, res) => {
 	const schools = await LoginSchoolsCache.get(req);
 	const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
 
-
-	if (Configuration.get('FEATURE_OAUTH_LOGIN_ENABLED') === true) {
-		let oauthErrorLogout = false;
-		if (req.query.error) {
-			res.locals.notification = {
-				type: 'danger',
-				message: res.$t(mapErrorCodeToTranslation(req.query.error)),
-			};
-			if (req.query.provider === 'iserv' && req.query.error !== 'sso_oauth_access_denied') {
-				oauthErrorLogout = true;
-			}
-			const strategyOfSchool = req.query.strategy;
-			const idOfSchool = req.query.schoolId;
-			const oauthSystems = await api(req, { version: 'v3' })
-				.get('/system?onlyOauth=true')
-				.catch((err) => logger.error('error loading oauth system list', formatError(err)));
-
-			res.render('authentication/login', {
-				schools: getNonOauthSchools(schools),
-				systems: [],
-				oauthSystems: oauthSystems.data || [],
-				oauthErrorLogout,
-				hideMenu: true,
-				redirect,
-				idOfSchool,
-				strategyOfSchool,
-			});
-
-		} else {
-			res.render('authentication/login', {
-				schools,
-				systems: [],
-				hideMenu: true,
-				redirect,
-			});
+	let oauthErrorLogout = false;
+	if (req.query.error) {
+		res.locals.notification = {
+			type: 'danger',
+			message: res.$t(mapErrorCodeToTranslation(req.query.error)),
+		};
+		if (req.query.provider === 'iserv' && req.query.error !== 'sso_oauth_access_denied') {
+			oauthErrorLogout = true;
 		}
-	};
+	}
 
+	const strategyOfSchool = req.query.strategy;
+	const idOfSchool = req.query.schoolId;
+
+	const oauthSystems = await api(req, { version: 'v3' })
+		.get('/system?onlyOauth=true')
+		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
+
+	res.render('authentication/login', {
+		schools: getNonOauthSchools(schools),
+		systems: [],
+		oauthSystems: oauthSystems.data || [],
+		oauthErrorLogout,
+		hideMenu: true,
+		redirect,
+		idOfSchool,
+		strategyOfSchool,
+	});
 };
 
 router.get('/loginRedirect', (req, res, next) => {
