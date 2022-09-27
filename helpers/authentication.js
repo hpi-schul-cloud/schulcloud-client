@@ -254,10 +254,7 @@ const login = (payload = {}, req, res, next) => {
 	const { redirect } = payload;
 	delete payload.redirect;
 	return api(req).post('/authentication', { json: payload }).then((data) => {
-		// Vue client reads the JWT from the cookie. Once that is not necessary anymore httpOnly should be set to true
-		setCookie(res, 'jwt', data.accessToken, {
-			httpOnly: false,
-		});
+		setCookie(res, 'jwt', data.accessToken);
 		let redirectUrl = '/login/success';
 		if (redirect) {
 			redirectUrl = `${redirectUrl}?redirect=${redirect}`;
