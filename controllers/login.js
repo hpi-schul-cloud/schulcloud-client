@@ -182,9 +182,7 @@ const renderLogin = async (req, res) => {
 	const strategyOfSchool = req.query.strategy;
 	const idOfSchool = req.query.schoolId;
 
-	const oauthSystems = await api(req, { version: 'v3' })
-		.get('/system?onlyOauth=true')
-		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
+	const oauthSystems = await getOauthSystems(req);
 
 	res.render('authentication/login', {
 		schools: getNonOauthSchools(schools),
