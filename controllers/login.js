@@ -118,7 +118,7 @@ const determineRedirectUrl = (req) => {
 };
 
 const getNonOauthSchools = (schools) => [...schools]
-	.filter((school) => school.systems.filter((system) => system.oauthConfig || system.type == 'oidc').length === 0);
+	.filter((school) => school.systems.filter((system) => system.oauthConfig || system.type === 'oidc').length === 0);
 
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
