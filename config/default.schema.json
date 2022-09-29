@@ -539,6 +539,11 @@
 			"default": "false",
 			"description": "Enables button on team file pages to open the nextcloud file storage."
 		},
+		"FEATURE_LEGACY_HYDRA_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the legacy Hydra endpoints."
+		},
 		"NEXTCLOUD_REDIRECT_URL": {
 			"type": "string",
 			"default": "",
