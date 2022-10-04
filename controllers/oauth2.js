@@ -34,11 +34,12 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		remember_for: 0,
 	};
 
-	return api(req, { version: VERSION }).patch(`/oauth2/loginRequest/${req.session.login_challenge}/?accept=1`,
-		{ body }).then((loginRequest) => {
-		delete (req.session.login_challenge);
-		return res.redirect(loginRequest.redirect_to);
-	}).catch(next);
+	return api(req, { version: VERSION })
+		.patch(`/oauth2/loginRequest/${req.session.login_challenge}/?accept=1`,
+			{ body }).then((loginRequest) => {
+			delete (req.session.login_challenge);
+			return res.redirect(loginRequest.redirect_to);
+		}).catch(next);
 });
 
 router.all('/logout', csrfProtection, auth.authChecker, (req) => {
