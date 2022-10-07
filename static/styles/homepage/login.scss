@@ -40,6 +40,18 @@
 	.system-display {
 		display: none;
 	}
+	.separator-external-login {
+		text-align: center;
+    background-image: linear-gradient(to right, rgba(0,0,0,.15) 100%, transparent 50%);
+    background-position: 0 58%;
+    background-repeat: repeat-x;
+    background-size: 1em 1px;
+		margin: 1.2rem auto;
+	}
+	.separator-external-login-text {
+		background: white;
+		padding: 0 .3em
+	}
 
 }
 

@@ -2494,6 +2494,11 @@
 		"link": {
 			"forgotPassword": "¿Se te ha olvidado la contraseña?"
 		},
+		"separatorExternalLogin": {
+			"text": {
+				"separatorExternalLoginText": "o"
+			}
+		},
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Iniciar sesión con la nube escolar de HPI",
@@ -2712,7 +2717,7 @@
 					"agreementIsVoluntary": "El consentimiento y uso es, por tanto, voluntario, lo que significa que si no das tu consentimiento, no te supondrá ninguna desventaja en clase. La escuela hará posible la participación en lecciones fuera de {{title}}.",
 					"bellowNYearsOldConsentOfLegalGuardian": "El uso de {{shortTitle}} requiere el consentimiento de un tutor legal para estudiantes menores de {{age}} años.",
 					"iDeclareTheFollowing": "Yo, <b data-from=\"firstName\"> </b> <b data-from=\"lastName\"> </b>, declaro lo siguiente:",
-					"inCaseOfRevocationDataDeletion": "En caso de revocación, eliminaremos inmediatamente los datos personales almacenados en virtud de tu consentimiento, a menos que exista una razón legal para el almacenamiento o desees acceder a los datos almacenados de antemano. También puedes encontrar más información sobre la protección de datos en nuestras <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.dbildungscloud.de/x/GxfGBg\">Preguntas frecuentes</a>.",
+					"inCaseOfRevocationDataDeletion": "En caso de revocación, eliminaremos inmediatamente los datos personales almacenados en virtud de tu consentimiento, a menos que exista una razón legal para el almacenamiento o desees acceder a los datos almacenados de antemano. También puedes encontrar más información sobre la protección de datos en nuestras <a class=\"nav-link\" target=\"_blank\" href=\"https://blog.dbildungscloud.de/faq-zum-datenschutz/\" rel=\"noopener\">Preguntas frecuentes</a>.",
 					"languageHint": "Nota informativa: puedes cambiar el idioma en cualquier momento desde la configuración. La configuración se encuentra en la esquina superior derecha cuando tocas en tu avatar.",
 					"myDataMayBeProcessed": "Acepto que mis datos personales se procesen de acuerdo con la <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Política de privacidad</a> en {{title}} y en los proveedores de material de aprendizaje seleccionados e instruidos por la escuela.",
 					"theEmailAddressEnables": "La dirección de correo electrónico permite enviar notificaciones y facilita el restablecimiento de la contraseña.",

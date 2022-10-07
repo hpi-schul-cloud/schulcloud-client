@@ -81,6 +81,24 @@
                     <a href="" class="submit-pwrecovery" data-testid="forgot-password">{{$t "login.link.forgotPassword"}}</a>
                 </div>
             </form>
+
+            {{#if oauthSystems}}
+            <div class="separator-external-login"><span class="separator-external-login-text">{{$t "login.separatorExternalLogin.text.separatorExternalLoginText"}}</span></div>
+            <div class="system-buttons">
+                {{#each oauthSystems as |system|}}
+                    <div class="oauth-system">
+                        <div class="form-group">
+                            <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.oauthConfig system.alias}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
+                                {{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}
+                            </button>
+                        </div>
+                    </div>
+                {{/each}}
+                <div class="oauth-error-logout" hidden>{{oauthErrorLogout}}</div>
+            </div>
+            <div class="form group login-params" data-schoolid="{{idOfSchool}}" data-strategy="{{strategyOfSchool}}"></div>
+            {{/if}}
+
             {{/unless}}
 
             {{#if (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
@@ -101,8 +119,8 @@
                 {{#each oauthSystems as |system|}}
                     <div class="oauth-system">
                         <div class="form-group">
-                            <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.oauthConfig}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
-                                {{$t "login.oauth2.headline.loginVia"}} {{system.alias}}
+                            <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.oauthConfig system.alias}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
+                                {{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}
                             </button>
                         </div>
                     </div>
