@@ -86,7 +86,7 @@ jobs:
 
   trivy-vulnerability-scanning:
     needs:
-      - build_and_push
+      - build_and_push_docker
       - branch_name
     runs-on: ubuntu-latest
     steps:
