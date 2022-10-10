@@ -7,11 +7,11 @@
 		"NEW_DOMAIN": "dbildungscloud.de"
 	},
 	"COOKIE": {
-		"SECURE": false,
+		"SECURE": true,
 		"EXPIRES_SECONDS": 2592000000,
 		"HTTP_ONLY": false,
-		"SAME_SITE": "lax",
-		"HOST_ONLY": false
+		"SAME_SITE": "none",
+		"HOST_ONLY": true
 	},
 	"COOKIE_SECRET": "ihasDF(=4jA4aF",
 	"STUDENT_TEAM_CREATION": "opt-out",
