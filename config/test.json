@@ -1,0 +1,10 @@
+{
+	"$schema": "./default.schema.json",
+	"COOKIE": {
+		"SECURE": true,
+		"EXPIRES_SECONDS": 2592000000,
+		"HTTP_ONLY": false,
+		"SAME_SITE": "none",
+		"HOST_ONLY": true
+	}
+}
