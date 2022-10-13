@@ -33,7 +33,18 @@ router.post('/', (req, res) => {
 			email,
 		},
 	}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
-		res.redirect('/account/');
+		const isSSO = Boolean(res.locals.currentPayload.systemId);
+		const isDiscoverable = res.locals.currentUser.discoverable;
+		res.render('account/settings', {
+			title: res.$t('account.headline.yourAccount'),
+			notification: {
+				type: 'success',
+				message: res.$t('administration.controller.text.changesSuccessfullySaved'),
+			},
+			userId: res.locals.currentUser._id,
+			sso: isSSO,
+			isDiscoverable,
+		});
 	})
 		.catch((err) => {
 			res.render('account/settings', {
