@@ -541,6 +541,11 @@
 		},
 		"FEATURE_LEGACY_HYDRA_ENABLED": {
 			"type": "boolean",
+			"default": false,
+			"description": "Enables the legacy Hydra endpoints."
+		},
+		"FEATURE_LEGACY_LTI_TOOLS_ENABLED": {
+			"type": "boolean",
 			"default": true,
 			"description": "Enables the legacy Hydra endpoints."
 		},

@@ -6,6 +6,15 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
 
+const getVersion = () => {
+	if (Configuration.has('FEATURE_LEGACY_LTI_TOOLS_ENABLED')) {
+		return Configuration.get('FEATURE_LEGACY_LTI_TOOLS_ENABLED') ? 'v1' : 'v3';
+	}
+	return 'v3';
+};
+
+const VERSION = getVersion();
+
 const createToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	api(req).post('/ltiTools/', {
@@ -29,7 +38,7 @@ const addToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	const action = `/${context}/${req.params.courseId}/tools/add`;
 
-	api(req).get('/ltiTools', { qs: { isTemplate: true, isHidden: false } })
+	api(req, { version: VERSION }).get('/ltiTools', { qs: { isTemplate: true, isHidden: false } })
 		.then((tools) => {
 			api(req).get(`/${context}/${req.params.courseId}`)
 				.then((course) => {
@@ -100,9 +109,27 @@ const runToolHandler = (req, res, next) => {
 	});
 };
 
+const runToolHandlerNestImplementation = (req, res, next) => {
+	Promise.all([
+		api(req, { version: 'v3' }, {})
+			.get(`/tools?toolId=${req.params.ltiToolId}&courseId=${req.params.courseId}`),
+	]).then((result) => {
+		res.render('courses/components/run-lti-frame', {
+			url: result.url,
+			method: 'POST',
+			csrf: (result.lti_version === '1.3.0'),
+			formData: Object.keys(result)
+				.map((key) => ({
+					name: key,
+					value: result[key],
+				})),
+		});
+	});
+};
+
 const getDetailHandler = (req, res, next) => {
 	Promise.all([
-		api(req).get(`/ltiTools/${req.params.id}`)])
+		api(req, { version: VERSION }).get(`/ltiTools/${req.params.id}`)])
 		.then((tool) => {
 			res.json({
 				tool,
@@ -154,7 +181,6 @@ const showToolHandler = (req, res, next) => {
 	});
 };
 
-
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -166,7 +192,12 @@ router.get('/', (req, res, next) => {
 router.get('/add', addToolHandler);
 router.post('/add', createToolHandler);
 
-router.get('/run/:ltiToolId', runToolHandler);
+if (VERSION === 'v1') {
+	router.get('/run/:ltiToolId', runToolHandler);
+} else {
+	router.get('/run/:ltiToolId', runToolHandlerNestImplementation);
+}
+
 router.get('/show/:ltiToolId', showToolHandler);
 
 router.get('/:id', getDetailHandler);
@@ -176,7 +207,7 @@ router.delete('/delete/:ltiToolId', async (req, res, next) => {
 		const context = req.originalUrl.split('/')[1];
 		const { ltiToolId } = req.params;
 		// remove tool itself first
-		await api(req).delete(`/ltiTools/${ltiToolId}`);
+		await api(req, { version: VERSION }).delete(`/ltiTools/${ltiToolId}`);
 		// then, remove tool reference from course
 		await api(req).patch(`/${context}/${req.params.courseId}`, {
 			json: {
