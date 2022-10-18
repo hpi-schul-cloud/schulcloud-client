@@ -10,7 +10,7 @@ const router = express.Router();
 // secure routes
 router.use(authHelper.authChecker);
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
 	const {
 		firstName,
 		lastName,
@@ -25,18 +25,19 @@ router.post('/', (req, res) => {
 		throw error;
 	}
 
-	// necessary to trigger reloading of user in authHelper.populateCurrentUser()
-	res.locals.currentUser = null;
+	try {
+		await api(req, { json: true, version: 'v3' }).patch('/account/me', {
+			json: {
+				passwordOld: password,
+				passwordNew: passwordNew !== '' ? passwordNew : undefined,
+				firstName,
+				lastName,
+				email,
+			},
+		});
 
-	return api(req, { json: true, version: 'v3' }).patch('/account/me', {
-		json: {
-			passwordOld: password,
-			passwordNew: passwordNew !== '' ? passwordNew : undefined,
-			firstName,
-			lastName,
-			email,
-		},
-	}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
+		res.locals.currentUser = null; 		// necessary to trigger reloading of user in populateCurrentUser()
+		await authHelper.populateCurrentUser(req, res);
 		const isSSO = Boolean(res.locals.currentPayload.systemId);
 		const isDiscoverable = res.locals.currentUser.discoverable;
 		res.render('account/settings', {
@@ -49,16 +50,15 @@ router.post('/', (req, res) => {
 			sso: isSSO,
 			isDiscoverable,
 		});
-	})
-		.catch((err) => {
-			res.render('account/settings', {
-				title: res.$t('account.headline.yourAccount'),
-				notification: {
-					type: 'danger',
-					message: err.error.message,
-				},
-			});
+	} catch (err) {
+		res.render('account/settings', {
+			title: res.$t('account.headline.yourAccount'),
+			notification: {
+				type: 'danger',
+				message: err.error.message,
+			},
 		});
+	}
 });
 
 router.get('/', (req, res, next) => {
