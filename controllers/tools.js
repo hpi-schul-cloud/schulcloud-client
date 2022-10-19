@@ -17,7 +17,7 @@ const VERSION = getVersion();
 
 const createToolHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
-	api(req).post('/ltiTools/', {
+	api(req, { version: VERSION }).post('/ltiTools/', {
 		json: req.body,
 	}).then((tool) => {
 		if (tool._id) {
@@ -111,7 +111,7 @@ const runToolHandler = (req, res, next) => {
 
 const runToolHandlerNestImplementation = (req, res, next) => {
 	Promise.all([
-		api(req, { version: 'v3' }, {})
+		api(req, { version: 'v3' })
 			.get(`/tools?toolId=${req.params.ltiToolId}&courseId=${req.params.courseId}`),
 	]).then((result) => {
 		res.render('courses/components/run-lti-frame', {
@@ -152,11 +152,11 @@ const showToolHandler = (req, res, next) => {
 
 	Promise.all((req.params.courseId
 		? [
-			api(req).get(`/ltiTools/${req.params.ltiToolId}`),
+			api(req, { version: VERSION }).get(`/ltiTools/${req.params.ltiToolId}`),
 			api(req).get(`/${context}/${req.params.courseId}`),
 		]
 		: [
-			api(req).get('/ltiTools/', { qs: { friendlyUrl: req.params.ltiToolId } }),
+			api(req, { version: VERSION }).get('/ltiTools/', { qs: { friendlyUrl: req.params.ltiToolId } }),
 			Promise.resolve({ name: '' }),
 		]
 	)).then(([tool, course]) => {

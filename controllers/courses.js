@@ -31,6 +31,13 @@ const markSelected = (options, values = []) => options.map((option) => {
 
 const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 
+const getVersion = () => {
+	if (Configuration.has('FEATURE_LEGACY_LTI_TOOLS_ENABLED')) {
+		return Configuration.get('FEATURE_LEGACY_LTI_TOOLS_ENABLED') ? 'v1' : 'v3';
+	}
+	return 'v3';
+};
+
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
  * startDate {Date} - the date the course is first take place
@@ -609,7 +616,7 @@ router.get('/:courseId/', async (req, res, next) => {
 		// ################################ end new Editor check ##################################
 		let ltiTools = [];
 		if (course.ltiToolIds && course.ltiToolIds.length > 0) {
-			ltiTools = await api(req).get('/ltiTools', {
+			ltiTools = await api(req, { version: VERSION }).get('/ltiTools', {
 				qs: {
 					_id: { $in: course.ltiToolIds },
 				},
