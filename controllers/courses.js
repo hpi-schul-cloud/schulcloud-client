@@ -37,6 +37,7 @@ const getVersion = () => {
 	}
 	return 'v3';
 };
+const VERSION = getVersion();
 
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
