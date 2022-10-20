@@ -123,20 +123,33 @@ body {
         }
     }
 
-		#loginarea{
+    #loginarea{
+			.btn{
+					word-wrap: break-word;
+					white-space: normal;
+			}
+			input {
+					font-size: 1rem;
+					padding: .5rem;
+			}
 			.login-providers {
-				display: none;
+					display: none;
+			}
+			.chosen-results {
+					li {
+							line-height: 1.2;
+					}
 			}
 			.email-login-section {
-				display: none;
+					display: none;
 			}
 			.ldap-login-section {
-				display: none;
+					display: none;
 			}
 			.system-display {
-				display: none;
+					display: none;
 			}
-		}
+	}
 
     aside{
         .card-block {
