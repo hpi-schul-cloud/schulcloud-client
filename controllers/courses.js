@@ -617,13 +617,19 @@ router.get('/:courseId/', async (req, res, next) => {
 		// ################################ end new Editor check ##################################
 		let ltiTools = [];
 		if (course.ltiToolIds && course.ltiToolIds.length > 0) {
-			ltiTools = await api(req, { version: VERSION }).get('/ltiTools', {
-				qs: {
-					_id: { $in: course.ltiToolIds },
-				},
-			});
+			if (VERSION === 'v3') {
+				const ltiToolResponse = await api(req, { version: 'v3' }).get('/ltiTools');
+				ltiTools = (ltiToolResponse.data || []).filter((tool) => course.ltiToolIds.includes(tool._id));
+			} else {
+				const ltiToolResponse = await api(req).get('/ltiTools', {
+					qs: {
+						_id: { $in: course.ltiToolIds },
+					},
+				});
+				ltiTools = ltiToolResponse.data || [];
+			}
 		}
-		ltiTools = (ltiTools.data || []).filter(
+		ltiTools = ltiTools.filter(
 			(ltiTool) => ltiTool.isTemplate !== 'true',
 		).map((tool) => {
 			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
