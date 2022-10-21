@@ -9,6 +9,7 @@ $(document).ready(function() {
     function validatePassword(){
         if(password.value != confirm_password.value) {
             confirm_password.setCustomValidity($t('global.text.passwordsAreDifferent'));
+			confirm_password.reportValidity();
         } else {
             confirm_password.setCustomValidity('');
         }
