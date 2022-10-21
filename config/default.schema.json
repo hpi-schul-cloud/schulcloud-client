@@ -546,8 +546,8 @@
 		},
 		"FEATURE_LEGACY_LTI_TOOLS_ENABLED": {
 			"type": "boolean",
-			"default": true,
-			"description": "Enables the legacy Hydra endpoints."
+			"default": false,
+			"description": "Enables the legacy Lti Tools endpoints."
 		},
 		"NEXTCLOUD_REDIRECT_URL": {
 			"type": "string",
