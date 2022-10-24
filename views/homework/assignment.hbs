@@ -28,46 +28,50 @@
 {{#extend "homework/homework"}}
     {{#content "page"}}
         <section class="section-homework" data-testid="task-section-task">
-            <div class="dates text-muted">
-				{{#if (userHasRole "student")}}
-				{{#if submissions}}
-                        <i class="fa fa-check done" data-testid="tasks-submission-hint-received"></i>
-                    {{else if warning}}
-                        <i class="fa fa-check exclamation-triangle danger"></i>
+            <div class="row me-auto">
+            <div class="col-md-4">
+                <div class="dates text-muted">
+                    {{#if (userHasRole "student")}}
+                    {{#if submissions}}
+                            <i class="fa fa-check done" data-testid="tasks-submission-hint-received"></i>
+                        {{else if warning}}
+                            <i class="fa fa-check exclamation-triangle danger"></i>
+                        {{else}}
+                        {{#unless submittable}}
+                            <i class="fa fa-ban closed"></i>
+                        {{/unless}}
+                    {{/if}}
+                    {{/if}}
+                    {{i18nDateTime availableDate}}
+                    {{#if this.dueDate}}
+                        {{$t "homework.text.till"}}: {{i18nDateTime dueDate}}
                     {{else}}
-                    {{#unless submittable}}
-                        <i class="fa fa-ban closed"></i>
-                    {{/unless}}
-                {{/if}}
-                {{/if}}
-                {{i18nDateTime availableDate}}
-                {{#if this.dueDate}}
-                    {{$t "homework.text.till"}}: {{i18nDateTime dueDate}}
-                {{else}}
-                    {{$t "homework.text.noSubmissionDateSet"}}
-                {{/if}}
-				{{#if (userHasRole "student")}}
-				<div>
-					{{#if this.submissions}}
-					{{$t "homework.text.done"}}
-					{{else if this.warning}}
-					{{$t "homework.text.toBeDoneWithin24Hours"}}
-					{{else}}
-					{{#unless this.submittable}}
-					{{$t "homework.text.notDone"}}
-					{{/unless}}
-				{{/if}}
-			</div>
-        {{/if}}
-            </div>
-                 {{#if this.lessonHidden}}
-                <div>
-                    <i class="fa fa-info-circle" aria-hidden="true" style="color:#0A7AC9"></i>
-                    <span class="dates text-muted">Aufgabe nicht sichtbar, da Thema unveröffentlicht</span>
+                        {{$t "homework.text.noSubmissionDateSet"}}
+                    {{/if}}
+                    {{#if (userHasRole "student")}}
+                    <div>
+                        {{#if this.submissions}}
+                        {{$t "homework.text.done"}}
+                        {{else if this.warning}}
+                        {{$t "homework.text.toBeDoneWithin24Hours"}}
+                        {{else}}
+                        {{#unless this.submittable}}
+                        {{$t "homework.text.notDone"}}
+                        {{/unless}}
+                        {{/if}}
+                    </div>
+                    {{/if}}
                 </div>
-                {{/if}}
-            {{#if courseId._id}}
-                <div class="col-sm-12">
+                <div>
+                    {{#if this.lessonHidden}}
+                        <i class="fa fa-info-circle" aria-hidden="true" style="color:#0A7AC9"></i>
+                        <span class="dates text-muted">{{$t "homework.text.hasUnpublishedLesson" }}</span>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                {{#if courseId._id}}
                     <div class="pull-right">
                         <a id="courseId" href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary" data-testid="tasks-navbtn-to-room-files">
                             <i class="fa fa-folder-open"></i>
@@ -82,8 +86,13 @@
                                 alt="{{$t "homework.button.toTopicAlt"}}">{{$t "homework.button.onTheSubject" }}</a>
                         {{/if}}
                     </div>
-                </div>
-			{{/if}}
+                {{/if}}
+            </div>
+            </div>
+
+
+
+
             <div class="tab-view maintabs">
                 <nav class="nav tab-links">
                     <a id="extended-tab-link" class="tab-link active" href="#activetabid=extended">
