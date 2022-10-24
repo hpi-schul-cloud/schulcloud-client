@@ -2195,7 +2195,8 @@
 			"published": "Veröffentlicht:",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"till": "bis",
-			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch weniger als 24 Stunden Zeit."
+			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch weniger als 24 Stunden Zeit.",
+			"hasUnpublishedLesson": "Aufgabe nicht sichtbar, da Thema unveröffentlicht"
 		}
 	},
 	"imprint": {

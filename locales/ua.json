@@ -1574,7 +1574,8 @@
 			"till": "до",
 			"loading": "завантаження...",
 			"doYouReallyWantToDecoupleFileHomework": "Ви впевнені, що хочете від’єднати файл «{{name}}» від домашнього завдання?",
-			"doYouReallyWantToDecoupleFileSubmission": "Ви впевнені, що хочете від’єднати файл «{{name}}» від подання?"
+			"doYouReallyWantToDecoupleFileSubmission": "Ви впевнені, що хочете від’єднати файл «{{name}}» від подання?",
+			"hasUnpublishedLesson": "Завдання не відображається, оскільки тема не опублікована"
 		},
 		"global": {
 			"label": {
