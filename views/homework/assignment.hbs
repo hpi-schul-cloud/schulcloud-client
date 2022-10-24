@@ -21,8 +21,7 @@
                     this.color
                 }
             }
-
-            ;
+        }
     </style>
 {{/content}}
 {{> "lib/components/files-storage/imports"}}
@@ -61,6 +60,12 @@
 			</div>
         {{/if}}
             </div>
+                 {{#if this.lessonHidden}}
+                <div>
+                    <i class="fa fa-info-circle" aria-hidden="true" style="color:#0A7AC9"></i>
+                    <span class="dates text-muted">Aufgabe nicht sichtbar, da Thema unveröffentlicht</span>
+                </div>
+                {{/if}}
             {{#if courseId._id}}
                 <div class="col-sm-12">
                     <div class="pull-right">
