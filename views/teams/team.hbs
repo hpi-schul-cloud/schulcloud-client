@@ -20,6 +20,12 @@
 
 {{#content "page"}}
 <div id="team-wrapper">
+    {{#ifConfig "FEATURE_NUXT_TEAMS_DEEP_INTEGRATION" true}}
+    	<div>
+    		<a class="btn btn-primary pull-right" href="/teams/team{{_id}}" data-testid="button_new_admin_page"><i class="fa fa-arrow-right"></i> {{$t "teams._team.label.deepIntegration" }}</a>
+    		<div class="clearfix"></div>
+    	</div>
+    {{/ifConfig}}
     <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
         <div class="dropdown dropdown-title minimal-button">
             <a href="#0" class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" aria-label="{{$t "

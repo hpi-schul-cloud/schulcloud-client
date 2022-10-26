@@ -2926,7 +2926,8 @@
 				"accessToData": "Zugriff auf Dateien",
 				"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der/die Nutzer:in muss dafür angemeldet sein:",
 				"leadersAndAdmins": "Leiter:innen und Team-Admins",
-				"members": "Teilnehmer:innen"
+				"members": "Teilnehmer:innen",
+				"deepIntegration": "Neue Team Datei Seite testen"
 			},
 			"members": {
 				"add": {

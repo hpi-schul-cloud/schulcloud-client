@@ -509,6 +509,11 @@
 			"default": true,
 			"description": "Enables button to new Nuxt School Admin beta-version page"
 		},
+		"FEATURE_NUXT_TEAMS_DEEP_INTEGRATION": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables button to new Nuxt Teams deep integration page"
+		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",
 			"default": false,
