@@ -509,10 +509,10 @@
 			"default": true,
 			"description": "Enables button to new Nuxt School Admin beta-version page"
 		},
-		"FEATURE_NUXT_TEAMS_DEEP_INTEGRATION": {
+		"FEATURE_LEGACY_TEAM_FILES": {
 			"type": "boolean",
 			"default": true,
-			"description": "Enables button to new Nuxt Teams deep integration page"
+			"description": "Enables Files tab in the team-view of Teams menu"
 		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",
