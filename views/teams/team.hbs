@@ -103,102 +103,104 @@
             </div>
             <div class="sectionsContainer">
                 <div class="sections">
-                    {{#ifConfig "FEATURE_LEGACY_TEAM_FILES" true}}
-                        <!-- Dateien -->
-                        <div class="section" data-testid="team_files" data-section="js-files">
-                            {{#if canUploadFile}}
+                    <!-- Dateien -->
+                    <div class="section" data-testid="team_files" data-section="js-files">
+                        {{#if canUploadFile}}
+                            {{#ifConfig "FEATURE_LEGACY_TEAM_FILES" true}}
                                 {{#embed "files/file-upload"}}{{/embed}}
-                            {{/if}}
-
-                            {{#if useNextcloud}}
+                            {{/ifConfig}}
+                        {{/if}}
+                        {{#if useNextcloud}}
+                        {{#ifConfig "FEATURE_LEGACY_TEAM_FILES" true}}
                             <div class="alert info-custom" role="alert">
                                 <i class="fa fa-info-circle pr-1"></i>
                                 <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
                             </div>
-
                             <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
                                 <i class="fa fa-external-link" aria-hidden="true"></i>
                                 {{$t "teams._team.files.button.toNextcloud"}}
                                 <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
                             </a>
-                            {{/if}}
-
-                            {{#ifneq 0 (arrayLength directories)}}
-                            <section style="margin-top: 1rem" class="directories">
-                                <h5 style="color: #373a3c">{{$t "teams._team.files.headline.folders"}}</h5>
-                                <div class="row">
-                                    {{#each ../directories}}
-                                    <div class="col-sm-6 col-xs-12 col-md-4">
-                                        <button class="card card-block folder locationlink"
-                                            data-loclink="/files/teams/{{../../_id}}/{{this._id}}" aria-label="{{$t "
-                                            files.label.clickToOpenDir" (dict "name" this.name)}}">
-                                            <strong class="card-title-directory">
-                                                <i class="fa fa-folder text-muted" aria-hidden="true"></i> {{this.name}}
-                                            </strong>
-                                            {{#userHasPermission "FOLDER_DELETE"}}
-                                            <div class="pull-right">
-                                                <a data-method="dir-rename" title="{{$t "teams._team.files.button.renameFolder"}}"
-                                                    data-directory-id="{{../this._id}}"
-                                                    data-directory-name="{{../this.name}}" tabindex="0"><i class="fa fa-edit text-muted" aria-hidden="true"></i></a>
-                                                <a data-href="/files/directory/" data-method="delete" title="{{$t "teams._team.files.button.deleteFolder"}}"
-                                                    data-file-name="{{../this.name}}" data-file-id="{{../this._id}}"
-                                                    tabindex="0"><i class="fa fa-trash-o text-muted" aria-hidden="true"></i></a>
-
-                                                {{!-- {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
-                                                <a class="btn-file-share" data-method="dir-share" title="{{$t "
-                                                    teams._team.files.button.shareFolder"}}" data-file-id="{{../this._id}}"
-                                                    data-file-name="{{../this.name}}" tabindex="0">
-                                                    <i class="fa fa-share-alt text-muted" aria-hidden="true"></i>
-                                                </a>
-                                                {{/inArray}}   --}}
-                                            </div>
-                                            {{/userHasPermission}}
-                                        </button>
-                                    </div>
-                                    {{/each}}
-                                </div>
-                            </section>
-                            {{/ifneq}}
-
-                            <section style="padding-top: 2rem; clear: both" class="row">
-                                <div class="col-sm-12">
-                                    {{#ifneq 0 (arrayLength files)}}
-                                    <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
-                                    {{/ifneq}}
-                                    {{#embed "files/file-viewer"}}{{/embed}}
-                                    {{#embed "files/files-grid" files=files teamFiles=true
-                                    canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
-                                </div>
-                            </section>
-                            <section style="margin-top: 1rem">
-                                <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
-
-                                <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
-                                    <i class="fa fa-folder-open" aria-hidden="true"></i>
-                                    {{$t "teams._team.files.button.toTeamFiles"}}
-                                </a>
-
-                                {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
-                                        <button class="btn btn-add btn-secondary btn-file-permissions">
-                                            <i class="fa fa-cogs" aria-hidden="true"></i>
-                                            {{$t "teams._team.files.button.changeSharingSettings"}}
-                                        </button>
-                                {{/inArray}}
-
-                                {{#if ../canCreateDir}}
-                                    <button class="btn btn-primary create-directory">
-                                        <i class="fa fa-folder" aria-hidden="true"></i>
-                                        {{$t "global.button.createFolder"}}
+                        {{/ifConfig}}
+                        {{/if}}
+                        {{#ifneq 0 (arrayLength directories)}}
+                        {{#ifConfig "FEATURE_LEGACY_TEAM_FILES" true}}
+                        <section style="margin-top: 1rem" class="directories">
+                            <h5 style="color: #373a3c">{{$t "teams._team.files.headline.folders"}}</h5>
+                            <div class="row">
+                                {{#each ../directories}}
+                                <div class="col-sm-6 col-xs-12 col-md-4">
+                                    <button class="card card-block folder locationlink"
+                                        data-loclink="/files/teams/{{../../_id}}/{{this._id}}" aria-label="{{$t "
+                                        files.label.clickToOpenDir" (dict "name" this.name)}}">
+                                        <strong class="card-title-directory">
+                                            <i class="fa fa-folder text-muted" aria-hidden="true"></i> {{this.name}}
+                                        </strong>
+                                        {{#userHasPermission "FOLDER_DELETE"}}
+                                        <div class="pull-right">
+                                            <a data-method="dir-rename" title="{{$t "teams._team.files.button.renameFolder"}}"
+                                                data-directory-id="{{../this._id}}"
+                                                data-directory-name="{{../this.name}}" tabindex="0"><i class="fa fa-edit text-muted" aria-hidden="true"></i></a>
+                                            <a data-href="/files/directory/" data-method="delete" title="{{$t "teams._team.files.button.deleteFolder"}}"
+                                                data-file-name="{{../this.name}}" data-file-id="{{../this._id}}"
+                                                tabindex="0"><i class="fa fa-trash-o text-muted" aria-hidden="true"></i></a>
+                                            {{!-- {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
+                                            <a class="btn-file-share" data-method="dir-share" title="{{$t "
+                                                teams._team.files.button.shareFolder"}}" data-file-id="{{../this._id}}"
+                                                data-file-name="{{../this.name}}" tabindex="0">
+                                                <i class="fa fa-share-alt text-muted" aria-hidden="true"></i>
+                                            </a>
+                                            {{/inArray}}   --}}
+                                        </div>
+                                        {{/userHasPermission}}
                                     </button>
-                                {{/if}}
-                                {{!-- {{#if ../canCreateFile}}
-                                <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
-                                    <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
-                                </span>
-                                {{/if}} --}}
-                            </section>
-                        </div>
-                    {{/ifConfig}}
+                                </div>
+                                {{/each}}
+                            </div>
+                        </section>
+                        {{/ifConfig}}
+                        {{/ifneq}}
+                        <section style="padding-top: 2rem; clear: both" class="row">
+                            <div class="col-sm-12">
+                                {{#ifneq 0 (arrayLength files)}}
+                                <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
+                                {{/ifneq}}
+                                {{#embed "files/file-viewer"}}{{/embed}}
+                                {{#embed "files/files-grid" files=files teamFiles=true
+                                canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
+                            </div>
+                        </section>
+                        <section style="margin-top: 1rem">
+                            {{#ifConfig "FEATURE_LEGACY_TEAM_FILES" true}}
+                            <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
+                            <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
+                                <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                {{$t "teams._team.files.button.toTeamFiles"}}
+                            </a>
+                            {{/ifConfig}}
+                            {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
+                            {{#ifConfig "FEATURE_LEGACY_TEAM_FILES" true}}
+                                    <button class="btn btn-add btn-secondary btn-file-permissions">
+                                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                                        {{$t "teams._team.files.button.changeSharingSettings"}}
+                                    </button>
+                            {{/ifConfig}}
+                            {{/inArray}}
+                            {{#ifConfig "FEATURE_LEGACY_TEAM_FILES" true}}
+                            {{#if ../canCreateDir}}
+                                <button class="btn btn-primary create-directory">
+                                    <i class="fa fa-folder" aria-hidden="true"></i>
+                                    {{$t "global.button.createFolder"}}
+                                </button>
+                            {{/if}}
+                            {{!-- {{#if ../canCreateFile}}
+                            <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
+                            </span>
+                            {{/if}} --}}
+                            {{/ifConfig}}
+                        </section>
+                    </div>
                     <!--- Neuigkeiten -->
                     <div class="section" data-section="js-news">
                         {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text=($t
