@@ -15,6 +15,24 @@
 	{{#if canUploadFile}}
 	{{#embed "files/file-upload"}}{{/embed}}
 	{{/if}}
+
+    {{#if useNextcloud}}
+    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary pull-right {{#unless ../nextcloudUrl}}disabled{{/unless}}">
+        <i class="fa fa-external-link" aria-hidden="true"></i>
+        {{$t "teams._team.files.button.toNextcloud"}}
+        <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
+    </a>
+    {{/if}}
+
+    <div class="pull-right">
+        {{#if courseUrl}}
+            <a href="{{courseUrl}}" class="btn btn-secondary">
+                <i class="fa fa-users"></i>
+                {{ toCourseText }}
+            </a>
+        {{/if}}
+    </div>
+
 	<section class="section-title">
 		<div class="container-fluid">
 			<div class="row">
@@ -31,21 +49,7 @@
                             <i class="fa fa-info-circle pr-1"></i>
                             <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
                         </div>
-                        <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
-                            <i class="fa fa-external-link" aria-hidden="true"></i>
-                            {{$t "teams._team.files.button.toNextcloud"}}
-                            <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
-                        </a>
                         {{/if}}
-
-                        <div class="pull-right">
-                            {{#if courseUrl}}
-                            <a href="{{courseUrl}}" class="btn btn-secondary">
-                                <i class="fa fa-users"></i>
-                                {{ toCourseText }}
-                            </a>
-                            {{/if}}
-                        </div>
                     </section>
 				</div>
 			</div>
