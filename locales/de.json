@@ -2924,6 +2924,7 @@
 			},
 			"label": {
 				"accessToData": "Zugriff auf Dateien",
+				"collaborativeFiles": "Neue Team-Dateien Seite testen",
 				"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der/die Nutzer:in muss dafür angemeldet sein:",
 				"leadersAndAdmins": "Leiter:innen und Team-Admins",
 				"members": "Teilnehmer:innen"

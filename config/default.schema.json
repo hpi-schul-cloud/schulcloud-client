@@ -509,6 +509,11 @@
 			"default": true,
 			"description": "Enables button to new Nuxt School Admin beta-version page"
 		},
+		"FEATURE_LEGACY_TEAM_FILES_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables Files tab in the team-view of Teams menu"
+		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",
 			"default": false,

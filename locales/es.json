@@ -2924,6 +2924,7 @@
 			},
 			"label": {
 				"accessToData": "Acceso a archivos",
+				"collaborativeFiles": "Probar la nueva página de archivos del equipo",
 				"emailHasBeenSentAlternativeLink": "La persona invitada ha recibido un correo electrónico. Alternativamente se puede utilizar este enlace y el usuario debe iniciar sesión:",
 				"leadersAndAdmins": "Líderes y administradores de equipo",
 				"members": "Asistentes"
