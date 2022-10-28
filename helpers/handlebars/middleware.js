@@ -94,6 +94,7 @@ module.exports = (req, res, next) => {
 		testId: 'Meine Dateien',
 		icon: 'folder-open',
 		link: '/files/',
+		excludedPermission: 'COLLABORATIVE_FILES_ONLY',
 		children: [
 			{
 				name: res.$t('global.link.filesPersonal'),
@@ -114,7 +115,15 @@ module.exports = (req, res, next) => {
 				link: '/files/shared/',
 			},
 		],
-	}, {
+	},
+	{
+		name: res.$t('global.headline.files'),
+		testId: 'Dateien',
+		icon: 'folder-open',
+		link: '/cfiles/',
+		permission: 'COLLABORATIVE_FILES',
+	},
+	{
 		name: res.$t('global.headline.news'),
 		testId: 'Neuigkeiten',
 		icon: 'newspaper-o',
