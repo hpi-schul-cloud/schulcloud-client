@@ -17,44 +17,38 @@
 	{{/if}}
 
     {{#if useNextcloud}}
-    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary pull-right {{#unless ../nextcloudUrl}}disabled{{/unless}}">
+    <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary pull-right{{#unless ../nextcloudUrl}}disabled{{/unless}}" style="margin-left: 5px">
         <i class="fa fa-external-link" aria-hidden="true"></i>
         {{$t "teams._team.files.button.toNextcloud"}}
         <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
     </a>
     {{/if}}
 
-    <div class="pull-right">
-        {{#if courseUrl}}
-            <a href="{{courseUrl}}" class="btn btn-secondary">
-                <i class="fa fa-users"></i>
-                {{ toCourseText }}
-            </a>
-        {{/if}}
-    </div>
+    {{#if courseUrl}}
+    <a href="{{courseUrl}}" class="btn btn-secondary pull-right">
+        <i class="fa fa-users"></i>
+        {{ toCourseText }}
+    </a>
+    {{/if}}
 
 	<section class="section-title">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-12 no-padding">
 					<h2 class="h5">
 						{{#each breadcrumbs}}
 						<a class="{{#if @last}}active{{/if}}" href="{{this.url}}">{{{stripOnlyScript this.label}}}</a><span> /
 						</span>
 						{{/each}}
 					</h2>
-					<section class="section-teams">
-					    {{#if useNextcloud}}
-                    	<div class="alert info-custom" role="alert">
-                            <i class="fa fa-info-circle pr-1"></i>
-                            <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
-                        </div>
-                        {{/if}}
-                    </section>
-				</div>
 			</div>
 		</div>
 	</section>
+        {{#if useNextcloud}}
+                <div class="alert info-custom" role="alert">
+                    <i class="fa fa-info-circle pr-1"></i>
+                    <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
+                </div>
+        {{/if}}
 	{{#if sortOptions}}
 	<div class="pull-right personal-files-filter">
 		<label for="sortBy" style="position: absolute;left:-999px;">{{$t "files.label.sortBy"}}</label>
