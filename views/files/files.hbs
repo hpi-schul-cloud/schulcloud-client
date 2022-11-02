@@ -12,10 +12,6 @@
 
 {{#content "page"}}
 <div class="route-files">
-	{{#if canUploadFile}}
-	{{#embed "files/file-upload"}}{{/embed}}
-	{{/if}}
-
     {{#if useNextcloud}}
     <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary pull-right{{#unless ../nextcloudUrl}}disabled{{/unless}}" style="margin-left: 5px">
         <i class="fa fa-external-link" aria-hidden="true"></i>
@@ -48,6 +44,9 @@
                     <i class="fa fa-info-circle pr-1"></i>
                     <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
                 </div>
+        {{/if}}
+        {{#if canUploadFile}}
+            {{#embed "files/file-upload"}}{{/embed}}
         {{/if}}
 	{{#if sortOptions}}
 	<div class="pull-right personal-files-filter">
