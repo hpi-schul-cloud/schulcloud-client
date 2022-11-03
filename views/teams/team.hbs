@@ -70,8 +70,8 @@
                     {{#ifConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED" true}}
                         <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}" style="margin-left: auto;">
                             <i class="fa fa-external-link" aria-hidden="true"></i>
-                        {{$t "teams._team.files.button.toNextcloud"}}
-                        <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
+                            {{$t "teams._team.files.button.toNextcloud"}}
+                            <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
                         </a>
                     {{/ifConfig}}
                 {{/if}}
