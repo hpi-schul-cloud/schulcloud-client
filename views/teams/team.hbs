@@ -160,16 +160,18 @@
                         </section>
                         {{/ifConfig}}
                         {{/ifneq}}
+                        {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                         <section style="padding-top: 2rem; clear: both" class="row">
                             <div class="col-sm-12">
                                 {{#ifneq 0 (arrayLength files)}}
-                                <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
+                                    <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
                                 {{/ifneq}}
                                 {{#embed "files/file-viewer"}}{{/embed}}
                                 {{#embed "files/files-grid" files=files teamFiles=true
                                 canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
                             </div>
                         </section>
+                        {{/if}}
                         <section style="margin-top: 1rem">
                             {{#ifConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED" true}}
                             <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
