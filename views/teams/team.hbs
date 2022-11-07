@@ -27,7 +27,7 @@
     	</div>
     {{/userHasPermission}}
     <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
-        <div class="dropdown dropdown-title minimal-button">
+        <div class="dropdown dropdown-title minimal-button" style="flex-wrap: wrap">
             <a href="#0" class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" aria-label="{{$t "
                 global.label.more"}}" data-toggle="dropdown">
                 <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
@@ -66,15 +66,17 @@
                 {{/inArray}}
                 {{/userHasPermission}}
             </div>
+                <div style="margin-left: auto">
                 {{#if useNextcloud}}
                     {{#ifConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED" true}}
-                        <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}" style="margin-left: auto;">
+                        <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
                             <i class="fa fa-external-link" aria-hidden="true"></i>
                             {{$t "teams._team.files.button.toNextcloud"}}
                             <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
                         </a>
                     {{/ifConfig}}
                 {{/if}}
+                        </div>
         </div>
         <section class="row section-description">
             <div class="col-sm-12">
