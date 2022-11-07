@@ -85,12 +85,12 @@
         <div class="course-card">
             <div class="tabContainer" data-active-tab={{activeTab}}>
                 <div class="tabs" data-max-width="1024">
-                    {{#ifConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED" true}}
+                    {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                         <button type="button" class="tab" data-tab="js-files">
                             <i class="fa fa-folder-open" aria-hidden="true"></i>
                             <span class="text">{{$t "global.headline.files"}}</span>
                         </button>
-                    {{/ifConfig}}
+                    {{/if}}
                     <button type="button" class="tab" data-tab="js-news">
                         <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                         <span class="text">{{$t "global.headline.news"}}</span>
@@ -106,12 +106,12 @@
                     <!-- Dateien -->
                     <div class="section" data-testid="team_files" data-section="js-files">
                         {{#if canUploadFile}}
-                            {{#ifConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED" true}}
+                            {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                                 {{#embed "files/file-upload"}}{{/embed}}
-                            {{/ifConfig}}
+                            {{/if}}
                         {{/if}}
                         {{#if useNextcloud}}
-                        {{#ifConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED" true}}
+                        {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                             <div class="alert info-custom" role="alert">
                                 <i class="fa fa-info-circle pr-1"></i>
                                 <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
@@ -121,10 +121,10 @@
                                 {{$t "teams._team.files.button.toNextcloud"}}
                                 <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
                             </a>
-                        {{/ifConfig}}
+                        {{/if}}
                         {{/if}}
                         {{#ifneq 0 (arrayLength directories)}}
-                        {{#ifConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED" true}}
+                        {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                         <section style="margin-top: 1rem" class="directories">
                             <h5 style="color: #373a3c">{{$t "teams._team.files.headline.folders"}}</h5>
                             <div class="row">
@@ -158,7 +158,7 @@
                                 {{/each}}
                             </div>
                         </section>
-                        {{/ifConfig}}
+                        {{/if}}
                         {{/ifneq}}
                         {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                         <section style="padding-top: 2rem; clear: both" class="row">
@@ -173,22 +173,22 @@
                         </section>
                         {{/if}}
                         <section style="margin-top: 1rem">
-                            {{#ifConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED" true}}
+                            {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                             <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
                             <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
                                 <i class="fa fa-folder-open" aria-hidden="true"></i>
                                 {{$t "teams._team.files.button.toTeamFiles"}}
                             </a>
-                            {{/ifConfig}}
+                            {{/if}}
                             {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
-                            {{#ifConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED" true}}
+                            {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                                     <button class="btn btn-add btn-secondary btn-file-permissions">
                                         <i class="fa fa-cogs" aria-hidden="true"></i>
                                         {{$t "teams._team.files.button.changeSharingSettings"}}
                                     </button>
-                            {{/ifConfig}}
+                            {{/if}}
                             {{/inArray}}
-                            {{#ifConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED" true}}
+                            {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                             {{#if ../canCreateDir}}
                                 <button class="btn btn-primary create-directory">
                                     <i class="fa fa-folder" aria-hidden="true"></i>
@@ -200,7 +200,7 @@
                                 <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
                             </span>
                             {{/if}} --}}
-                            {{/ifConfig}}
+                            {{/if}}
                         </section>
                     </div>
                     <!--- Neuigkeiten -->
