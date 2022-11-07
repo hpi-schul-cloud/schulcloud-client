@@ -63,10 +63,12 @@
                     {{/if}}
                 </div>
                 <div>
-                    {{#if this.lessonHidden}}
-                        <i class="fa fa-info-circle" aria-hidden="true" style="color:#0A7AC9"></i>
-                        <span class="dates text-muted">{{$t "homework.text.hasUnpublishedLesson" }}</span>
-                    {{/if}}
+                    {{#unless this.private}}
+                        {{#if this.lessonHidden }}
+                            <i class="fa fa-info-circle" aria-hidden="true" style="color:#0A7AC9"></i>
+                            <span class="dates text-muted">{{$t "homework.text.hasUnpublishedLesson" }}</span>
+                        {{/if}}
+                    {{/unless}}
                 </div>
             </div>
 
