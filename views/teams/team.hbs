@@ -169,7 +169,7 @@
                         <section style="padding-top: 2rem; clear: both" class="row">
                             <div class="col-sm-12">
                                 {{#ifneq 0 (arrayLength files)}}
-                                <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
+                                    <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
                                 {{/ifneq}}
                                 {{#embed "files/file-viewer"}}{{/embed}}
                                 {{#embed "files/files-grid" files=files teamFiles=true
