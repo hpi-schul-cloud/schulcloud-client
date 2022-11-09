@@ -2924,6 +2924,7 @@
 			},
 			"label": {
 				"accessToData": "Access to files",
+				"collaborativeFiles": "Try new team files page",
 				"emailHasBeenSentAlternativeLink": "The invited person has received an e-mail. Alternatively this link can be used, the user must be logged in:",
 				"leadersAndAdmins": "Leaders and team admins",
 				"members": "Attendees"
