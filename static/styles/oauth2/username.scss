@@ -12,8 +12,8 @@ body {
   border: 1px solid transparent;
   border-radius: .25rem;
   color: $colorWhite;
-  font-family: 'PT Sans','Helvetica Neue',Helvetica,Arial,'sans-serif';
-  font-size: 1rem;
+  font-family: 'dejavu-font','Lucida Grande','Lucida Sans Unicode','Helvetica Neue',Helvetica,Arial,'sans-serif';
+  font-size: 12px;
   height: 20px;
   line-height: 1.25;
   padding: .125rem .25rem;
@@ -22,6 +22,8 @@ body {
   vertical-align: middle;
   white-space: nowrap;
   width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cloud-logo {
