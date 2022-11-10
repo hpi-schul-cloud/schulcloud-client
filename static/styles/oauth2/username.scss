@@ -22,6 +22,9 @@ body {
   vertical-align: middle;
   white-space: nowrap;
   width: 170px;
+	overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cloud-logo {
