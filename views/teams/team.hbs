@@ -27,7 +27,7 @@
     	</div>
     {{/userHasPermission}}
     <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
-        <div class="dropdown dropdown-title minimal-button">
+        <div class="dropdown dropdown-title minimal-button" style="flex-wrap: wrap">
             <a href="#0" class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" aria-label="{{$t "
                 global.label.more"}}" data-toggle="dropdown">
                 <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
@@ -66,8 +66,18 @@
                 {{/inArray}}
                 {{/userHasPermission}}
             </div>
+                <div style="margin-left: auto">
+                {{#if useNextcloud}}
+                    {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
+                        <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
+                            <i class="fa fa-external-link" aria-hidden="true"></i>
+                            {{$t "teams._team.files.button.toNextcloud"}}
+                            <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
+                        </a>
+                    {{/if}}
+                {{/if}}
+                        </div>
         </div>
-
         <section class="row section-description">
             <div class="col-sm-12">
                 <p class="lead">{{description}}</p>
@@ -105,23 +115,18 @@
                 <div class="sections">
                     <!-- Dateien -->
                     <div class="section" data-testid="team_files" data-section="js-files">
+                        {{#if useNextcloud}}
+                            {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
+                                <div class="alert info-custom" role="alert">
+                                    <i class="fa fa-info-circle pr-1"></i>
+                                    <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
+                                </div>
+                            {{/if}}
+                        {{/if}}
                         {{#if canUploadFile}}
                             {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                                 {{#embed "files/file-upload"}}{{/embed}}
                             {{/if}}
-                        {{/if}}
-                        {{#if useNextcloud}}
-                        {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
-                            <div class="alert info-custom" role="alert">
-                                <i class="fa fa-info-circle pr-1"></i>
-                                <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
-                            </div>
-                            <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
-                                <i class="fa fa-external-link" aria-hidden="true"></i>
-                                {{$t "teams._team.files.button.toNextcloud"}}
-                                <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
-                            </a>
-                        {{/if}}
                         {{/if}}
                         {{#ifneq 0 (arrayLength directories)}}
                         {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
