@@ -156,7 +156,7 @@ $(document).ready(() => {
 			success(linkData) {
 				populateModalForm($invitationModal, {
 					title: $t('global.headline.invitationLinkGenerated'),
-					closeLabel: $t('global.button.cancel'),
+					closeLabel: $t('global.button.close'),
 					submitLabel: $t('global.button.save'),
 					fields: { invitation: linkData.shortLink },
 				});

@@ -2195,7 +2195,8 @@
 			"published": "Veröffentlicht:",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"till": "bis",
-			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch weniger als 24 Stunden Zeit."
+			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch weniger als 24 Stunden Zeit.",
+			"hasUnpublishedLesson": "Aufgabe nicht sichtbar, da Thema unveröffentlicht"
 		}
 	},
 	"imprint": {
@@ -2923,6 +2924,7 @@
 			},
 			"label": {
 				"accessToData": "Zugriff auf Dateien",
+				"collaborativeFiles": "Neue Team-Dateien Seite testen",
 				"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der/die Nutzer:in muss dafür angemeldet sein:",
 				"leadersAndAdmins": "Leiter:innen und Team-Admins",
 				"members": "Teilnehmer:innen"

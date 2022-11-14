@@ -45,9 +45,9 @@
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage when not loggedin."
 		},
-		"GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER": {
+		"GLOBAL_ANNOUNCEMENT_TEACHER": {
 			"type": "string",
-			"description": "global announcement, shown only to administrator and teacher"
+			"description": "global announcement, shown only to teacher"
 		},
 		"GLOBAL_ANNOUNCEMENT": {
 			"type": "string",
@@ -508,6 +508,11 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Enables button to new Nuxt School Admin beta-version page"
+		},
+		"FEATURE_LEGACY_TEAM_FILES_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables Files tab in the team-view of Teams menu"
 		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",

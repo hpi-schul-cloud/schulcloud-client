@@ -2195,7 +2195,8 @@
 			"published": "Publicado:",
 			"ratingHasBeenSaved": "¡Se ha guardado la clasificación!",
 			"till": "hasta",
-			"toBeDoneWithin24Hours": "¡Cuidado! Te quedan menos de 24 horas para completar la tarea."
+			"toBeDoneWithin24Hours": "¡Cuidado! Te quedan menos de 24 horas para completar la tarea.",
+			"hasUnpublishedLesson": "Tarea no visible, porque el tema no está publicado"
 		}
 	},
 	"imprint": {
@@ -2923,6 +2924,7 @@
 			},
 			"label": {
 				"accessToData": "Acceso a archivos",
+				"collaborativeFiles": "Probar la nueva página de archivos del equipo",
 				"emailHasBeenSentAlternativeLink": "La persona invitada ha recibido un correo electrónico. Alternativamente se puede utilizar este enlace y el usuario debe iniciar sesión:",
 				"leadersAndAdmins": "Líderes y administradores de equipo",
 				"members": "Asistentes"

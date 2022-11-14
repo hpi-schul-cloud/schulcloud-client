@@ -2195,7 +2195,8 @@
 			"published": "Published:",
 			"ratingHasBeenSaved": "Rating has been saved!",
 			"till": "till",
-			"toBeDoneWithin24Hours": "Watch out! You have less than 24 hours left to complete the task."
+			"toBeDoneWithin24Hours": "Watch out! You have less than 24 hours left to complete the task.",
+			"hasUnpublishedLesson": "Task not visible, because topic is unpublished"
 		}
 	},
 	"imprint": {
@@ -2923,6 +2924,7 @@
 			},
 			"label": {
 				"accessToData": "Access to files",
+				"collaborativeFiles": "Try new team files page",
 				"emailHasBeenSentAlternativeLink": "The invited person has received an e-mail. Alternatively this link can be used, the user must be logged in:",
 				"leadersAndAdmins": "Leaders and team admins",
 				"members": "Attendees"

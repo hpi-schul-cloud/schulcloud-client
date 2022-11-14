@@ -120,12 +120,12 @@
 						</div>
 					</section>
 
-                {{#hasConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER"}}
-                    {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER") ""}}
-                        {{#if (userHasRole "administrator" "teacher")}}
+                {{#hasConfig "GLOBAL_ANNOUNCEMENT_TEACHER"}}
+                    {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_TEACHER") ""}}
+                        {{#if (userHasRole "teacher")}}
                             <section class="demo">
                                 <div class="alert alert-info" role="alert">
-                                    <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER"}}}</div>
+                                    <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_TEACHER"}}}</div>
                                 </div>
                             </section>
                         {{/if}}
