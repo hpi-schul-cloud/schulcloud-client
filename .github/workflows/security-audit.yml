@@ -5,11 +5,6 @@ on:
     paths:
       - 'package.json'
       - 'package-lock.json'
-  push:
-    branches:
-      - 'master'
-      - 'develop'
-      - 'release*'
 
 jobs:
   PROD:
