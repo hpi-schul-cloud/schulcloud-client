@@ -334,9 +334,21 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+	const features = new Set([]);
+
+	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			features.add(feature);
+		}
+
+		delete req.body[feature];
+	});
+
+	req.body.features = Array.from(features);
+
 	api(req)
 		.post('/teams/', {
-			json: req.body, // TODO: sanitize
+			json: req.body,
 		})
 		.then((team) => res.redirect(`/teams/${team._id}`))
 		.catch(next);
