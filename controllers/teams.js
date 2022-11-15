@@ -333,9 +333,14 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-router.post('/', (req, res, next) => api(req).post('/teams/', {
-	json: req.body, // TODO: sanitize
-}).then((team) => res.redirect(`/teams/${team._id}`)).catch(next));
+router.post('/', (req, res, next) => {
+	api(req)
+		.post('/teams/', {
+			json: req.body, // TODO: sanitize
+		})
+		.then((team) => res.redirect(`/teams/${team._id}`))
+		.catch(next);
+});
 
 router.post('/copy/:teamId', (req, res, next) => {
 	// map course times to fit model
