@@ -344,7 +344,9 @@ router.post('/', (req, res, next) => {
 		delete req.body[feature];
 	});
 
-	req.body.features = Array.from(features);
+	if (features.size > 0) {
+		req.body.features = Array.from(features);
+	}
 
 	api(req)
 		.post('/teams/', {
