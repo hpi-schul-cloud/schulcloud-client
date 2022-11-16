@@ -9,7 +9,6 @@ const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const { logger } = require('../helpers');
-const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
 
@@ -304,14 +303,6 @@ router.post('/:id/share', (req, res, next) => {
 
 // eslint-disable-next-line consistent-return
 router.get('/:topicId', (req, res, next) => {
-	// ############################# start new Edtior ###################################
-	if (req.query.edtr && EDTR_SOURCE) {
-		// return to skip rendering old editor
-		return res.render('topic/topic-edtr', {
-			EDTR_SOURCE,
-		});
-	}
-	// ############################## end new Edtior ######################################
 
 	const context = req.originalUrl.split('/')[1];
 	Promise.all([
@@ -356,7 +347,7 @@ router.get('/:topicId', (req, res, next) => {
 			: Promise.resolve({}),
 	]).then(([course, lesson, homeworks, courseGroup]) => {
 		// decode html entities
-		lesson.contents = lesson.contents.map((element) => { 
+		lesson.contents = lesson.contents.map((element) => {
 			element.title = decode(element.title);
 			return element;
 		});
