@@ -2,8 +2,6 @@ const util = require('util');
 
 const {
 	PUBLIC_BACKEND_URL,
-	EDTR_SOURCE = undefined,
-	EDITOR_URL = undefined,
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
 	SC_TITLE = 'dBildungscloud',
@@ -43,8 +41,6 @@ const {
 
 const exp = {
 	PUBLIC_BACKEND_URL,
-	EDTR_SOURCE,
-	EDITOR_URL,
 	SC_DOMAIN,
 	SC_THEME,
 	SC_TITLE,
