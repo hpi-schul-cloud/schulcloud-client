@@ -471,6 +471,18 @@ $(document).ready(() => {
 		$modals.modal('hide');
 	});
 
+	$renameModal.find('#modal-form-rename').on('submit', (e) => {
+		const fileName = $renameModal.find('#newNameInput').val();
+
+		if (!fileName) {
+			e.preventDefault();
+			$.showNotification($t('files._file.text.fileNameEmpty'), 'danger', 5000);
+			return;
+		} else {
+			this.submit();
+		}
+	});
+
 	function fileMouseOverHandler() {
 		const size = $(this).attr('data-file-size');
 		const id = $(this).attr('data-file-id');
@@ -485,20 +497,6 @@ $(document).ready(() => {
 		$(`#${id}`).html('');
 	}
 	$('.file').mouseout(fileMouseOutHandler);
-
-	$($modals.find('.btn-submit')).on('click', (e) => {
-		e.stopPropagation();
-		e.preventDefault();
-		const fileRecordId = $modals.find('#fileRecordId').val();
-		const fileName = $modals.find('#newNameInput').val();
-
-		if (!fileName) {
-			$.showNotification($t('files._file.text.fileNameEmpty'), 'danger', 5000);
-			return;
-		}
-		rename(fileName, fileRecordId);
-		$modals.modal('hide');
-	});
 
 	function populateRenameModal(oldName, action, title) {
 		const form = $renameModal.find('.modal-form');
