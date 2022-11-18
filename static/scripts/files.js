@@ -478,9 +478,8 @@ $(document).ready(() => {
 			e.preventDefault();
 			$.showNotification($t('files._file.text.fileNameEmpty'), 'danger', 5000);
 			return;
-		} else {
-			this.submit();
 		}
+			this.submit();
 	});
 
 	function fileMouseOverHandler() {
