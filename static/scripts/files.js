@@ -486,6 +486,20 @@ $(document).ready(() => {
 	}
 	$('.file').mouseout(fileMouseOutHandler);
 
+	$($modals.find('.btn-submit')).on('click', (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+		const fileRecordId = $modals.find('#fileRecordId').val();
+		const fileName = $modals.find('#newNameInput').val();
+
+		if (!fileName) {
+			$.showNotification($t('files._file.text.fileNameEmpty'), 'danger', 5000);
+			return;
+		}
+		rename(fileName, fileRecordId);
+		$modals.modal('hide');
+	});
+
 	function populateRenameModal(oldName, action, title) {
 		const form = $renameModal.find('.modal-form');
 		form.attr('action', action);
