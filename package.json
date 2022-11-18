@@ -9,10 +9,10 @@
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
 		"startd": "echo 'Do you mean 'npm run watch'?'",
 		"test": "cross-env NODE_ENV=test npm run mocha --exit ",
-		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive --opts ./test/mocha/mocha.opts",
+		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
 		"build": "gulp clear && gulp",
 		"dev": "gulp clear && gulp watch-reload",
-		"coverage": "cross-env NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js --opts ./test/mocha/mocha.opts"
+		"coverage": "cross-env NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js"
 	},
 	"engines": {
 		"node": "16",
@@ -171,7 +171,7 @@
 		"imagemin-lint-staged": "^0.5.1",
 		"istanbul": "^0.4.5",
 		"lint-staged": "^10.5.4",
-		"mocha": "^7.1.2",
+		"mocha": "^10.1.0",
 		"node-sass": "^6.0.0",
 		"nodemon": "^2.0.20",
 		"postcss-css-variables": "^0.13.0",
