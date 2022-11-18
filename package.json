@@ -100,7 +100,6 @@
 		"mathjax": "^2.7.9",
 		"merge-stream": "^2.0.0",
 		"method-override": "^2.3.7",
-		"minimist": "^1.2.6",
 		"moment": "^2.29.1",
 		"moment-timezone": "^0.5.33",
 		"morgan": "^1.9.1",
