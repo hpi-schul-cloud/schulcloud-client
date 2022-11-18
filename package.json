@@ -162,7 +162,7 @@
 		"gulp-if": "^2.0.2",
 		"gulp-nodemon": "^2.5.0",
 		"gulp-plumber": "^1.1.0",
-		"gulp-postcss": "^7.0.1",
+		"gulp-postcss": "^9.0.1",
 		"gulp-rimraf": "^0.2.1",
 		"gulp-sass": "^5.0.0",
 		"gulp-sourcemaps": "^2.6.4",
