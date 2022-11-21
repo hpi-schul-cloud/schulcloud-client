@@ -49,7 +49,6 @@
                     {{#inArray "rocketChat" @root.schoolData.features}}
                         <div class="form-group">
                             <div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
-                                <label for="activateRC">{{$t "teams._team.edit.label.activateMessengerForTeam"}}</label>
                                     <input
                                         id="activateRC"
                                         type="checkbox"
@@ -58,6 +57,7 @@
                                         data-testid="rocketchat_checkbox"
                                         {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}
                                         {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}disabled{{/hasConfig}}>
+                                    <label for="activateRC">{{$t "teams._team.edit.label.activateMessengerForTeam"}}</label>
                             </div>
                             {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
                                 <p class="alert alert-info">
@@ -72,9 +72,9 @@
                 {{! Videoconferences are activated for instace }}
                 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">
-                        <label for="activateConf">{{$t "teams._team.edit.label.activateVideoConferences"}}</label>
                             <input id="activateConf" type="checkbox" name="videoconference" value="true" data-testid="videoconf_checkbox" {{#inArray "videoconference" @root.team.features}}checked{{/inArray}}
                                 {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
+                            <label for="activateConf">{{$t "teams._team.edit.label.activateVideoConferences"}}</label>
                         {{#inArray "videoconference" @root.schoolData.features}}
                         {{else}}
                         <small class="form-text text-muted">
