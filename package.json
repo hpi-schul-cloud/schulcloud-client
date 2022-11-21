@@ -8,11 +8,10 @@
 		"debug:container": "nodemon --inspect=0.0.0.0:9310 --config nodemon.json",
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
 		"startd": "echo 'Do you mean 'npm run watch'?'",
-		"test": "cross-env NODE_ENV=test npm run mocha --exit ",
-		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
+		"test": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
 		"build": "gulp clear && gulp",
 		"dev": "gulp clear && gulp watch-reload",
-		"coverage": "cross-env NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js"
+		"coverage": "nyc npm run test"
 	},
 	"engines": {
 		"node": "16",
@@ -169,10 +168,10 @@
 		"gulp-uglify": "^2.0.1",
 		"husky": "^4.3.8",
 		"imagemin-lint-staged": "^0.5.1",
-		"istanbul": "^0.4.5",
 		"lint-staged": "^10.5.4",
 		"mocha": "^10.1.0",
 		"nodemon": "^2.0.20",
+		"nyc": "^15.1.0",
 		"postcss-css-variables": "^0.13.0",
 		"pump": "^1.0.2",
 		"rebuild-changed-entrypoints-webpack-plugin": "^1.0.1",
