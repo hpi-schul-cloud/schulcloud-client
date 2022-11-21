@@ -17,6 +17,11 @@
 		"node": "16",
 		"npm": "8"
 	},
+	"lint-staged": {
+		"static/images/**/*.{png,jpeg,jpg,gif,svg}": [
+			"imagemin-lint-staged"
+		]
+	},
 	"husky": {
 		"hooks": {
 			"pre-commit": "npx lint-staged"
