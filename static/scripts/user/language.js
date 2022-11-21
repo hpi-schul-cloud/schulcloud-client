@@ -3,6 +3,7 @@ $(document).ready(() => {
 	$('.dropdown-submenu a.toggle-dropdown').on('click', function (e) {
 		e.stopPropagation();
 		e.preventDefault();
+		e.stopImmediatePropagation();
 		$(this).toggleClass('open');
 		if (!$(this).next().hasClass('show')) {
 			$(this)
