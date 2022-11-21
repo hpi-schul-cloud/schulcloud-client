@@ -333,9 +333,28 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-router.post('/', (req, res, next) => api(req).post('/teams/', {
-	json: req.body, // TODO: sanitize
-}).then((team) => res.redirect(`/teams/${team._id}`)).catch(next));
+router.post('/', (req, res, next) => {
+	const features = new Set([]);
+
+	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			features.add(feature);
+		}
+
+		delete req.body[feature];
+	});
+
+	if (features.size > 0) {
+		req.body.features = Array.from(features);
+	}
+
+	api(req)
+		.post('/teams/', {
+			json: req.body,
+		})
+		.then((team) => res.redirect(`/teams/${team._id}`))
+		.catch(next);
+});
 
 router.post('/copy/:teamId', (req, res, next) => {
 	// map course times to fit model
