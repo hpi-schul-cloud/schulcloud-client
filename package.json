@@ -11,7 +11,7 @@
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
 		"build": "gulp clear && gulp",
 		"dev": "gulp clear && gulp watch-reload",
-		"coverage": "nyc npm run test"
+		"coverage": "nyc npm run mocha"
 	},
 	"engines": {
 		"node": "16",
