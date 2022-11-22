@@ -58,7 +58,7 @@
               <div class="row">
                 <div class="form-group col-md-6">
                     <label for="nameOfTheCourse">{{$t "global.label.nameOfTheCourse"}}</label>
-                    <input id="nameOfTheCourse" class="form-control js-course-name-input" name="name" type="text" placeholder="{{$t "courses.add.input.egMaths"}}" value="{{course.name}}" autocomplete="off"
+                    <input id="nameOfTheCourse" class="form-control js-course-name-input" name="name" type="text" placeholder="{{$t "courses.add.input.egMaths"}}" value="{{{course.name}}}" autocomplete="off"
                            required autofocus data-testid="coursename"/>
                 </div>
 
@@ -239,7 +239,7 @@
                  class="btn btn-delete-course btn-secondary pull-left"
                  target="_blank"
                  data-method="DELETE"
-                 data-name="{{course.name}}"
+                 data-name="{{{course.name}}}"
                  redirect="/courses/">{{$t "courses.global.button.deleteCourse"}}</a>
             {{/if}}
           {{/content}}

@@ -4,8 +4,6 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-const { decode } = require('html-entities');
-
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
@@ -171,11 +169,6 @@ const editCourseHandler = (req, res, next) => {
 		const substitutions = _.cloneDeep(
 			teachers,
 		);
-
-		// decode course name to display it properly in an input field
-		if (course.name) {
-			course.name = decode(course.name);
-		}
 
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;

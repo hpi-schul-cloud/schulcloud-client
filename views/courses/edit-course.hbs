@@ -45,7 +45,7 @@
 						</div>
 						<div class="modal-footer">
 							<a href="/courses/{{course._id}}/" class="btn btn-delete-course btn-secondary pull-left"
-								target="_blank" data-method="DELETE" data-name="{{course.name}}" redirect="/courses/" data-testid="delete_course">
+								target="_blank" data-method="DELETE" data-name="{{{course.name}}}" redirect="/courses/" data-testid="delete_course">
 								{{$t "courses.global.button.deleteCourse"}}
 							</a>
 							<button type="button" class="btn btn-secondary btn-cancel">
@@ -81,7 +81,7 @@
 
 				<div class="form-group">
 					<label for="mathsClass">{{$t "global.label.nameOfTheCourse"}}</label>
-					<input id="mathsClass" class="form-control" name="name" type="text" placeholder="{{$t "courses.global.input.mathsClass"}}" value="{{course.name}}"
+					<input id="mathsClass" class="form-control" name="name" type="text" placeholder="{{$t "courses.global.input.mathsClass"}}" value="{{{course.name}}}"
 						{{#if course.isArchived}}disabled{{/if}} required autofocus />
 				</div>
 
