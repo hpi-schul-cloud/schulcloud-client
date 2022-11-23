@@ -2660,9 +2660,9 @@
 		},
 		"response": {
 			"text": {
-				"didYouChangeEmail": "¿Has <b>cambiado</b> o ha cambiado tu <b>dirección de correo electrónico</b> en la nube escolar de HPI? Continúa utilizando la dirección de correo electrónico anterior para iniciar sesión; al mismo tiempo estamos trabajando para realizar la adaptación correspondiente del software",
+				"didYouChangeEmail": "¿Has <b>cambiado</b> o ha cambiado tu <b>dirección de correo electrónico</b> en la Cloud? Continúa utilizando la dirección de correo electrónico anterior para iniciar sesión.",
 				"didYouRegisterCorrectly": "¿Has completado el registro? La función de contraseña olvidada solo funciona después de haber completado el proceso de registro. Puedes acceder a él a través del <b>enlace de registro</b> que has recibido de un profesor o administrador de la escuela. Ponte en contacto con ellos si aún no has recibido el enlace.",
-				"didYouRegisterPerThirdParty": "¿Te has registrado en la nube escolar de HPI a través de un <b>sistema de terceros/SSO</b> (Moodle, iServ, ItsLearning, etc.)? Utiliza este sistema de terceros para iniciar sesión en la nube escolar.",
+				"didYouRegisterPerThirdParty": "¿Te has registrado en la Cloud a través de un <b>sistema de terceros/SSO</b> (iServ, Schulportal, etc.)? Utiliza este sistema de terceros para iniciar sesión en la Cloud.",
 				"emailHasBeenSent": "Hemos enviado un correo electrónico a la dirección de correo electrónico almacenada en tu cuenta. </p> <br> Si no has recibido un correo electrónico, comprueba lo siguiente: </br>",
 				"wasYourEmailCorrect": "¿Has introducido tu <b>dirección de correo electrónico correcta</b>?"
 			}
