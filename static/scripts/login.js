@@ -28,7 +28,6 @@ $(document).ready(() => {
 	const $btnToggleProviders = $('.btn-toggle-providers');
 	const $btnHideProviders = $('.btn-hide-providers');
 	const $btnLogin = $('.btn-login');
-	const $oauthButton = $('.btn-oauth');
 	const $ldapButton = $('.btn-ldap');
 	const $cloudButton = $('.btn-cloud');
 	const $emailLoginSection = $('.email-login-section');
@@ -44,8 +43,8 @@ $(document).ready(() => {
 	const $pwRecoveryModal = $('.pwrecovery-modal');
 	const $submitButton = $('#submit-login');
 	const $loginParams = $('.login-params');
-	const $iservOauthSystem = $('.iserv-oauth-system');
-	const $oauthError = $('.oauth-error');
+	const $oauthSystems = $('.oauth-system');
+	const $oauthErrorLogout = $('.oauth-error-logout');
 
 	const enableDisableLdapBtn = (id) => {
 		if ($btnLoginLdap.data('active') === true) {
@@ -82,7 +81,7 @@ $(document).ready(() => {
 			$btnLoginLdap.data('active', true);
 			enableDisableLdapBtn($school.val());
 			$btnLoginCloud.prop('disabled', false);
-		// eslint-disable-next-line max-len
+			// eslint-disable-next-line max-len
 		}, $submitButton.data('timeout') * 1000, $btnLoginLdap.data('timeout') * 1000, $btnLoginCloud.data('timeout') * 1000);
 		if ($btnLoginLdap.data('timeout')) {
 			countdownNum = $btnLoginLdap.data('timeout');
@@ -148,25 +147,26 @@ $(document).ready(() => {
 		}
 	});
 
-	if ($oauthError && $oauthButton[0] && $oauthError[0].innerText === 'true') {
-		let logoutWindow = null;
-		const closeLogoutWindow = () => {
-			logoutWindow.close();
-		};
-		const iservOauthSystem = JSON.parse($iservOauthSystem[0].innerText);
-		logoutWindow = window.open(iservOauthSystem.oauthConfig.logoutEndpoint);
-		window.focus();
-		setTimeout(closeLogoutWindow, 1500);
-		$oauthError[0].innerText = 'false';
+	if ($oauthErrorLogout && $oauthSystems.length > 0 && $oauthErrorLogout.eq(0).text() === 'true') {
+		const $iservButton = $oauthSystems.find('.btn-oauth[data-provider="iserv"]');
+
+		if ($iservButton.length > 0) {
+			const logoutWindow = window.open($iservButton.eq(0).data('logout'));
+			window.focus();
+			setTimeout(() => {
+				logoutWindow.close();
+			}, 1500);
+			$oauthErrorLogout.eq(0).text('false');
+		}
 	}
 
-	$oauthButton.on('click', () => {
-		const iservOauthSystem = JSON.parse($oauthButton[0].dataset.system);
-		window.location.href = `${iservOauthSystem.oauthConfig.authEndpoint}?
-		client_id=${iservOauthSystem.oauthConfig.clientId}
-		&redirect_uri=${iservOauthSystem.oauthConfig.codeRedirectUri}
-		&response_type=${iservOauthSystem.oauthConfig.responseType}
-		&scope=${iservOauthSystem.oauthConfig.scope}`;
+	$oauthSystems.each((index, element) => {
+		const $oauthButton = $(element).find('.btn-oauth').eq(0);
+
+		// eslint-disable-next-line func-names
+		$oauthButton.on('click', function () {
+			window.location.href = $(this).data('href');
+		});
 	});
 
 	$cloudButton.on('click', () => {
@@ -249,7 +249,9 @@ $(document).ready(() => {
 	});
 
 	const triggerAutoLogin = (strategy, schoolid) => {
-		if (strategy === 'iserv') {
+		const $oauthButton = $oauthSystems.find(`.btn-oauth[data-provider="${strategy}"]`);
+
+		if ($oauthButton.length > 0) {
 			$oauthButton.trigger('click');
 		} else if (strategy === 'ldap') {
 			$school.val(schoolid);

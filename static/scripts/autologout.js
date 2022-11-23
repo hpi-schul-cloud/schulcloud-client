@@ -92,7 +92,7 @@ $(document).ready(() => {
 					}
 				} else {
 					// Session was expired due to inactivity - autologout
-					window.location.href = '/login';
+					window.location.href = '/logout';
 					/* eslint-disable-next-line max-len */
 					$.showNotification($t('autologout.text.sessionAlreadyExpired'), 'danger', false);
 				}

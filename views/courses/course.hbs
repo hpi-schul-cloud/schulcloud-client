@@ -39,20 +39,12 @@
           <i class="fa fa-edit" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.editDeleteCourse"}}
         </a>
         {{#unless ../isArchived}}
-        <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
-          <i class="fa fa-envelope-o" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.inviteToCourse"}}
-        </a>
         {{#ifConfig "FEATURE_COURSE_SHARE" true}}
         <a href="#" class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
           <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.shareCourse"}}
         </a>
         {{/ifConfig}}
         {{/unless}}
-        {{#ifConfig "FEATURE_COURSE_COPY" true}}
-        <a href="/courses/{{../_id}}/copy" class="dropdown-item">
-          <i class="fa fa-clone" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.duplicateCourse"}}
-        </a>
-        {{/ifConfig}}
       </div>
 </div>
 <div class="row description">
@@ -65,68 +57,27 @@
     <p class="text-muted">{{$t "courses._course.text.nextClass"}} {{i18nDateTime nextEvent}}</p>
     {{/if}}
     {{/unless}}
-    {{#ifConfig "ROOM_VIEW_ENABLED" false}}
-      <div class="btn-group pull-right">
-        <a href="/files/courses/{{../id}}" class="btn btn-add btn-secondary pull-right">
-          <i class="fa fa-folder-open" aria-hidden="true"></i>
-          {{$t "courses._course.link.toCourseFiles"}}
-        </a>
-      </div>
-    {{/ifConfig}}
   </div>
 </div>
 <section class="section-course">
   <div class="tabContainer" data-active-tab={{activeTab}}>
     <div class="tabs" data-max-width="1024">
-      {{#ifConfig "ROOM_VIEW_ENABLED" true}}
-        <a href="/rooms/{{../_id}}" class="tab" data-testid="topics">
-            <i class="fa fa-file-text-o" aria-hidden="true"></i>
-            <span class="text">{{$t "courses._course.tab_label.topics"}}</span>
-        </a>
-      {{else}}
-        <button class="tab" data-testid="topics" data-tab="js-topics" type="button">
-          <span class="text">{{$t "courses._course.tab_label.oldTopics"}}</span>
-        </button>
-        <button class="tab" data-testid="hometasks" data-tab="js-homeworks" type="button">
-          {{#if isTeacher}}
-          <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge"
-              data-badge="{{ add (arrayLength ../privateHomeworks) ( add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) ) }}" /></span>
-          {{else}}
-          <span class="text">{{$t "courses._course.tab_label.tasks"}} <span class="count-badge"
-              data-badge="{{ add (arrayLength ../assignedHomeworks) (arrayLength ../homeworksWithSubmission) }}" /></span>
-          {{/if}}
-        </button>
-      {{/ifConfig}}
+      <a href="/rooms/{{../_id}}" class="tab" data-testid="topics">
+          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+          <span class="text">{{$t "courses._course.tab_label.topics"}}</span>
+      </a>
       <button class="tab" data-testid="tools" data-tab="js-tools" type="button">
-        {{#ifConfig "ROOM_VIEW_ENABLED" true}}
-          <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
-          <span class="text">{{$t "courses._course.tab_label.tools"}}</span>
-        {{else}}
-          <span class="text">{{$t "courses._course.tab_label.tools"}} <span class="count-badge"
-            data-badge="{{../ltiTools.length}}" /></span>
-        {{/ifConfig}}
+        <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+        <span class="text">{{$t "courses._course.tab_label.tools"}}</span>
       </button>
       <button class="tab" data-testid="groups" data-tab="js-groups" type="button">
-        {{#ifConfig "ROOM_VIEW_ENABLED" true}}
-          <i class="fa fa-users" aria-hidden="true"></i>
-          <span class="text">{{$t "courses._course.tab_label.groups"}}</span>
-        {{else}}
-          <span class="text">{{$t "courses._course.tab_label.groups"}} <span class="count-badge"
-            data-badge="{{../courseGroups.length}}" /></span>
-        {{/ifConfig}}
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <span class="text">{{$t "courses._course.tab_label.groups"}}</span>
       </button>
     </div>
   </div>
   <div class="sectionsContainer">
     <div class="sections">
-      <!-- Themen -->
-      <div class="section" data-section="js-topics">
-        {{> "courses/components/topics" archived=@root.isArchived}}
-      </div>
-      <!--- Aufgaben -->
-      <div class="section" data-section="js-homeworks">
-        {{> "courses/components/tasks" archived=@root.isArchived}}
-      </div>
       <!-- Tools -->
       <div name="js-tools-section" name="js-tools" class="section" data-section="js-tools">
         {{> "courses/components/tools" archived=@root.isArchived}}

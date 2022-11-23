@@ -246,8 +246,8 @@ const copyCourseHandler = (req, res, next) => {
 		res.render('teams/edit-course', {
 			action,
 			method,
-			title: res.$t('teams.headline.duplicateTeam'),
-			submitLabel: res.$t('teams.button.duplicateTeam'),
+			title: res.$t('teams.headline.copyTeam'),
+			submitLabel: res.$t('teams.button.copyTeam'),
 			closeLabel: res.$t('global.button.cancel'),
 			course,
 			classes: classesOfCurrentSchool,
@@ -274,7 +274,7 @@ router.get('/', async (req, res, next) => {
 			userIds: {
 				$elemMatch: { userId: res.locals.currentUser._id },
 			},
-			$limit: 75,
+			$limit: false,
 		},
 	});
 
@@ -333,9 +333,28 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-router.post('/', (req, res, next) => api(req).post('/teams/', {
-	json: req.body, // TODO: sanitize
-}).then((team) => res.redirect(`/teams/${team._id}`)).catch(next));
+router.post('/', (req, res, next) => {
+	const features = new Set([]);
+
+	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
+		if (req.body[feature] === 'true') {
+			features.add(feature);
+		}
+
+		delete req.body[feature];
+	});
+
+	if (features.size > 0) {
+		req.body.features = Array.from(features);
+	}
+
+	api(req)
+		.post('/teams/', {
+			json: req.body,
+		})
+		.then((team) => res.redirect(`/teams/${team._id}`))
+		.catch(next);
+});
 
 router.post('/copy/:teamId', (req, res, next) => {
 	// map course times to fit model
@@ -623,8 +642,13 @@ router.get('/:teamId', async (req, res, next) => {
 		const schoolUsesVideoconferencing = (
 			res.locals.currentSchoolData.features || []
 		).includes('videoconference');
-		const showVideoconferenceOption = !schoolIsExpertSchool
-			&& schoolUsesVideoconferencing && teamUsesVideoconferencing;
+
+		let showVideoconferenceOption;
+		if (Configuration.get('FEATURE_VIDEOCONFERENCE_WAITING_ROOM_ENABLED')) {
+			showVideoconferenceOption = schoolUsesVideoconferencing && teamUsesVideoconferencing;
+		} else {
+			showVideoconferenceOption = !schoolIsExpertSchool && schoolUsesVideoconferencing && teamUsesVideoconferencing;
+		}
 
 		// leave team
 		const leaveTeamAction = `/teams/${teamId}/members`;
@@ -984,6 +1008,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 					class: 'btn-delete-member',
 					title: res.$t('teams._team.members.label.removeUser'),
 					icon: 'trash',
+					testId: 'btn-delete-team-member',
 				});
 			}
 			return actions;
@@ -995,6 +1020,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 					class: 'btn-delete-member disabled',
 					title: res.$t('teams._team.members.label.leavingTeamRequiresNewOwner'),
 					icon: 'trash',
+					testId: 'btn-delete-team-member',
 				});
 			}
 			return actions;

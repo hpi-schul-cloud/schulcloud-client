@@ -2,13 +2,13 @@ const moment = require('moment');
 const express = require('express');
 const shortId = require('shortid');
 const { randomBytes } = require('crypto');
+const { decode } = require('html-entities');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const Nexboard = require('../helpers/nexboard');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const { logger } = require('../helpers');
-const { EDTR_SOURCE } = require('../config/global');
 
 const router = express.Router({ mergeParams: true });
 
@@ -22,7 +22,8 @@ const editTopicHandler = (req, res, next) => {
 	let lessonPromise;
 	let action;
 	let method;
-	const referrer = req.query.returnUrl;
+	const referrer = req.params.topicId ? req.query.returnUrl : undefined;
+
 	if (req.params.topicId) {
 		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
 			+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
@@ -53,6 +54,7 @@ const editTopicHandler = (req, res, next) => {
 			lesson,
 			courseId: req.params.courseId,
 			topicId: req.params.topicId,
+			schoolId: res.locals.currentSchool,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
 			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
@@ -274,15 +276,15 @@ router.post('/', async (req, res, next) => {
 
 	api(req).post('/lessons/', {
 		json: data, // TODO: sanitize
-	}).then(() => {
+	}).then((lesson) => {
 		if (req.body.referrer) {
 			res.redirect(`${(req.headers.origin)}/${req.body.referrer}`);
 		}
+
+		const courseGroupParam = req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : '';
+
 		res.redirect(
-			context === 'courses'
-				? `/courses/${req.params.courseId
-				}${req.query.courseGroup ? `/groups/${req.query.courseGroup}` : '/?activeTab=topics'}`
-				: `/teams/${req.params.teamId}/?activeTab=topics`,
+			`${(req.headers.origin)}/courses/${req.params.courseId}/topics/${lesson._id}/edit${courseGroupParam}`,
 		);
 	}).catch(() => {
 		res.sendStatus(500);
@@ -301,14 +303,6 @@ router.post('/:id/share', (req, res, next) => {
 
 // eslint-disable-next-line consistent-return
 router.get('/:topicId', (req, res, next) => {
-	// ############################# start new Edtior ###################################
-	if (req.query.edtr && EDTR_SOURCE) {
-		// return to skip rendering old editor
-		return res.render('topic/topic-edtr', {
-			EDTR_SOURCE,
-		});
-	}
-	// ############################## end new Edtior ######################################
 
 	const context = req.originalUrl.split('/')[1];
 	Promise.all([
@@ -352,6 +346,11 @@ router.get('/:topicId', (req, res, next) => {
 			? api(req).get(`/courseGroups/${req.query.courseGroup}`)
 			: Promise.resolve({}),
 	]).then(([course, lesson, homeworks, courseGroup]) => {
+		// decode html entities
+		lesson.contents = lesson.contents.map((element) => {
+			element.title = decode(element.title);
+			return element;
+		});
 		// decorate contents
 		lesson.contents = (lesson.contents || []).map((block) => {
 			block.component = `topic/components/content-${block.component}`;
@@ -372,7 +371,6 @@ router.get('/:topicId', (req, res, next) => {
 		const isCourseSubstitutionTeacher = (course.substitutionIds || []).includes(res.locals.currentUser._id);
 		const isTeacher = isCourseTeacher || isCourseSubstitutionTeacher;
 
-		const showRoomView = Configuration.get('ROOM_VIEW_ENABLED') || false;
 		// return for consistent return
 		return res.render('topic/topic', Object.assign({}, lesson, {
 			title: lesson.name,
@@ -388,7 +386,7 @@ router.get('/:topicId', (req, res, next) => {
 			},
 			{
 				title: course.name,
-				url: (showRoomView ? `/rooms/${course._id}` : `/${context}/${course._id}`),
+				url: `/rooms/${course._id}`,
 			},
 			courseGroup._id ? {
 				title: `${courseGroup.name} > Themen`,
@@ -455,7 +453,7 @@ router.patch('/:topicId', async (req, res, next) => {
 });
 
 router.delete('/:topicId', (req, res, next) => {
-	api(req).delete(`/lessons/${req.params.topicId}`).then(() => {
+	api(req, { version: 'v3' }).delete(`/lessons/${req.params.topicId}`).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		next(err);
@@ -513,6 +511,5 @@ router.delete('/:topicId/neweditor', async (req, res, next) => {
 		next(err);
 	});
 });
-
 
 module.exports = router;

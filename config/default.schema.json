@@ -45,9 +45,9 @@
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage when not loggedin."
 		},
-		"GLOBAL_ANNOUNCEMENT_ADMIN_TEACHER": {
+		"GLOBAL_ANNOUNCEMENT_TEACHER": {
 			"type": "string",
-			"description": "global announcement, shown only to administrator and teacher"
+			"description": "global announcement, shown only to teacher"
 		},
 		"GLOBAL_ANNOUNCEMENT": {
 			"type": "string",
@@ -117,6 +117,11 @@
 			"description": "defines wether students may create teams or not. if enabled system wide there are options general enabled or opt-in/-out by school admin required."
 		},
 		"FEATURE_VIDEOCONFERENCE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, adds video conferences to teams and courses."
+		},
+		"FEATURE_VIDEOCONFERENCE_WAITING_ROOM_ENABLED": {
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled, adds video conferences to teams and courses."
@@ -208,11 +213,12 @@
 			"minLength": 10,
 			"description": "Content API Key of ghost blog"
 		},
-		"GHOST_API_URL": {
+		"GHOST_BASE_URL": {
 			"type": "string",
 			"format": "uri",
+			"default": "https://blog.dbildungscloud.de",
 			"pattern": ".*(?<!/)$",
-			"description": "Content API URL of ghost blog (should end without a slash)"
+			"description": "Base URL of ghost blog (should end without a slash)"
 		},
 		"OAUTH2_LOGOUT_URI": {
 			"type": "string",
@@ -289,8 +295,8 @@
 			"properties": {
 				"SAME_SITE": {
 					"type": "string",
-					"default": "Lax",
-					"enum": ["None", "Lax", "Strict"],
+					"default": "lax",
+					"enum": ["none", "lax", "strict"],
 					"description": "Value for cookies sameSite property. When SECURE flag is false, 'None' is not allowed in SAME_SITE and Lax should be used as default instead"
 				},
 				"HTTP_ONLY": {
@@ -338,7 +344,7 @@
 					"then": {
 						"properties": {
 							"SAME_SITE": {
-								"enum": ["Lax", "Strict"]
+								"enum": ["lax", "strict"]
 							}
 						}
 					}
@@ -392,11 +398,6 @@
 			"examples": ["2020-11-01T20:20:00+00:00"],
 			"description": "if this is set, rocketchat will be treated as disabled after this date."
 		},
-		"ROOM_VIEW_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Feature toggle activate Room view link."
-		},
 		"ACCESSIBILITY_REPORT_EMAIL": {
 			"type": "string",
 			"default": "lernen.cloud@dataport.de",
@@ -434,11 +435,6 @@
 				}
 			},
 			"required": ["DEFAULT_LANGUAGE", "AVAILABLE_LANGUAGES"]
-		},
-		"FEATURE_SHOW_VERSION_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "enable the /versions route"
 		},
 		"FEATURE_PROMETHEUS_ENABLED": {
 			"type": "boolean",
@@ -493,16 +489,6 @@
 			"default": true,
 			"description": "To start the application with calendar service."
 		},
-		"FEATURE_COURSE_COPY": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables Copy course button"
-		},
-		"FEATURE_TASK_COPY_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Feature toggle activate new task copy service."
-		},
 		"FEATURE_COURSE_SHARE": {
 			"type": "boolean",
 			"default": false,
@@ -522,6 +508,11 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Enables button to new Nuxt School Admin beta-version page"
+		},
+		"FEATURE_LEGACY_TEAM_FILES_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables Files tab in the team-view of Teams menu"
 		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",
@@ -553,6 +544,11 @@
 			"default": "false",
 			"description": "Enables button on team file pages to open the nextcloud file storage."
 		},
+		"FEATURE_LEGACY_HYDRA_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the legacy Hydra endpoints."
+		},
 		"NEXTCLOUD_REDIRECT_URL": {
 			"type": "string",
 			"default": "",
@@ -579,6 +575,11 @@
 				}
 			},
 			"required": ["SERVICE_BASE_URL", "INCOMING_REQUEST_TIMEOUT", "MAX_FILE_SIZE"]
+		},
+		"FEATURE_CONSENT_NECESSARY": {
+			"type": "boolean",
+			"default": true,
+			"description": "Determines if consent is necessary during registration."
 		}
 	},
 	"allOf": [
@@ -636,7 +637,6 @@
 		"COOKIE_SECRET",
 		"STUDENT_TEAM_CREATION",
 		"FEATURE_ETHERPAD_ENABLED",
-		"FEATURE_EXTENSION_PORTFOLIO_ENABLED",
-		"FEATURE_SHOW_VERSION_ENABLED"
+		"FEATURE_EXTENSION_PORTFOLIO_ENABLED"
 	]
 }

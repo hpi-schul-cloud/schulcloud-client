@@ -322,7 +322,7 @@ const getDirectoryTree = (set, directory) => {
  */
 const registerSharedPermission = (userId, fileId, shareToken, req, res) => api(req)
 	// check whether sharing is enabled for given file
-	.get(`/files/${fileId}`, { qs: { shareToken } }).then((file) => {
+	.get(`/fileStorage/shared/${fileId}`, { qs: { shareToken } }).then((file) => {
 		if (!file) {
 			// owner permits sharing of given file
 			throw new Error(res.$t('files.text.noAccessToThisFile'));
@@ -694,8 +694,6 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
-	const showRoomView = Configuration.get('ROOM_VIEW_ENABLED') || false;
-
 	res.render('files/files', {
 		title: res.$t('global.headline.files'),
 		canUploadFile: true,
@@ -709,7 +707,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		courseId: req.params.courseId,
 		ownerId: req.params.courseId,
 		toCourseText: res.$t('global.button.toCourse'),
-		courseUrl: (showRoomView ? `/rooms/${req.params.courseId}/` : `/courses/${req.params.courseId}/`),
+		courseUrl: `/rooms/${req.params.courseId}/`,
 		canEditPermissions: true,
 		parentId: req.params.folderId,
 		...res.locals.files,
@@ -880,15 +878,16 @@ router.post('/permissions/', (req, res) => {
 
 router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
 	.then((file) => {
-		let { shareToken } = file;
+		const { shareTokens } = file;
 
-		if (!shareToken) {
-			shareToken = shortid.generate();
-			return api(req).patch(`/files/${file._id}`, { json: file })
-				.then(() => Promise.resolve(shareToken));
+		if (shareTokens && shareTokens.length > 0) {
+			return Promise.resolve(shareTokens[0]);
 		}
 
-		return Promise.resolve(shareToken);
+		const shareToken = shortid.generate();
+		return api(req)
+			.patch(`/fileStorage/shared/${file._id}`, { json: { shareToken } })
+			.then(() => Promise.resolve(shareToken));
 	})
 	.then((shareToken) => res.json({ shareToken }))
 	.catch(() => res.sendStatus(500)));

@@ -20,7 +20,7 @@
                 submission=@root.submission}}{{/embed}}
         {{/ifneq}}
       {{else}}
-        <div class="form-group section-uploaded-files">
+        <div class="form-group section-uploaded-files" data-testid="section-uploadedfiles">
             <label>{{$t "homework.label.filesUploadedForDelivery" }}</label>
             <ul class="list-group-files js-file-list d-flex flex-row"></ul>
         </div>
@@ -98,7 +98,7 @@
     {{#if @root.submittable}}
         {{> "lib/components/csrfInput"}}
         {{#userHasPermission "SUBMISSIONS_CREATE"}}
-            <button type="submit" class="ckeditor-submit btn btn-primary btn-submit" disabled="true">{{$t "homework.button.save" }}</button>
+            <button type="submit" class="ckeditor-submit btn btn-primary btn-submit" disabled="true" data-testid="tasks-submission-save-and-send-btn">{{$t "homework.button.save" }}</button>
         {{/userHasPermission}}
 
         {{#if @root.submission}}

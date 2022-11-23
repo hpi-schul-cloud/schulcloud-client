@@ -5,7 +5,6 @@ const { nonceValueSet } = require('./csp');
 const prometheus = require('./prometheus');
 const { tokenInjector, duplicateTokenHandler, csrfErrorHandler } = require('./csrf');
 const logger = require('./logger');
-const { sha } = require('./version');
 
 module.exports = {
 	filterLog,
@@ -18,5 +17,4 @@ module.exports = {
 	duplicateTokenHandler,
 	csrfErrorHandler,
 	logger,
-	sha,
 };

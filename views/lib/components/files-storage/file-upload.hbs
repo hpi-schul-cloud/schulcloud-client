@@ -2,21 +2,17 @@
         <div class="container-fluid">
             <div class="row">
                 <button
-                {{#ifeq parentId undefined}}
-                    disabled
-                {{/ifeq}}
-                type="button" class="form-upload dz-clickable" {{#userHasPermission "FILESTORAGE_CREATE"}}action="/"
-                    {{/userHasPermission}}>
+                    type="button"
+                    class="{{#ifeq parentId undefined}}form-files-storage-disabled{{else}}form-files-storage{{/ifeq}}  dz-clickable" 
+                    {{#userHasPermission "FILESTORAGE_CREATE"}}
+                        action="/"
+                    {{/userHasPermission}} 
+                    data-testid="tasks-edit-fileupload">
                     <div class="dz-default dz-message" data-dz-message="">
                         <span class="text-muted"><i class="fa fa-cloud-upload dz-clickable" aria-hidden="true"></i>
-                            {{#ifeq parentId undefined}}
-                                {{$t "files.text.storeFilesForUploadDisabled" (dict "parentType" ($t (concat "files.text." ../parentType)  ../parentType))}}
-                            {{else}}
                             {{$t "files.text.storeFilesForUpload"}}
-                            {{/ifeq}}
                          </span>
                     </div>
-                    {{> "lib/components/csrfInput"}}
                 </button>
                 <div class="progress-bar">
                     <div class="progress">

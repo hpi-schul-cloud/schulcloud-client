@@ -1,11 +1,13 @@
+import getCookie from '../helpers/cookieManager';
 import './dataprivacy';
 import './registration-link-validation';
-import getCookie from '../helpers/cookieManager';
 
 const USER_LANG_KEY = 'USER_LANG';
 
 const parentMailInput = document.querySelector('input[name="parent_email"]');
 const studentMailInput = document.querySelector('input[name="email"]');
+const passwordInput = document.querySelector('input[id="password"]');
+const passwordConfirmInput = document.querySelector('input[id="password-control"]');
 
 function validateDifferentEmails() {
 	if (
@@ -22,6 +24,16 @@ function validateDifferentEmails() {
 	}
 	parentMailInput.reportValidity();
 }
+
+function validatePassword() {
+	if (passwordInput.value !== passwordConfirmInput.value) {
+		passwordConfirmInput.setCustomValidity($t('global.text.passwordsAreDifferent'));
+		passwordConfirmInput.reportValidity();
+	} else {
+		passwordConfirmInput.setCustomValidity('');
+	}
+}
+
 function goBack(event) {
 	event.stopPropagation();
 	event.preventDefault();
@@ -35,6 +47,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			studentMailInput.addEventListener(event, validateDifferentEmails, false);
 		});
 	}
+
+	if (passwordInput) passwordInput.onchange = validatePassword;
+	if (passwordConfirmInput) passwordConfirmInput.onkeyup = validatePassword;
 
 	const firstSection = document.querySelector(
 		'.form section[data-panel="section-1"]:not(.noback)',
@@ -65,16 +80,4 @@ window.addEventListener('DOMContentLoaded', () => {
 			false,
 		);
 	});
-});
-
-$('#language').change(() => {
-	const selectedLanguage = $('#language option:selected').val();
-	if (selectedLanguage) {
-		const currentURL = new URL(window.location.href);
-		currentURL.searchParams.set('lng', selectedLanguage);
-		document.cookie = `${USER_LANG_KEY}=${selectedLanguage}; path=/`;
-		window.location.href = currentURL.toString();
-		return false;
-	}
-	return true;
 });

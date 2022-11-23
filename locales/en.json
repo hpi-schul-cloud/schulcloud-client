@@ -119,6 +119,7 @@
 		"button": {
 			"changePassword": "Change Password",
 			"consent": "Consents:",
+			"onlyRegistrationNeeded": "Registration:",
 			"generatePersonalInvitationLink": "Generate personal invitation link",
 			"printListWithAccessData": "Print list with access data",
 			"receivedConsentOnPaper": "Received Consent on Paper",
@@ -134,7 +135,7 @@
 			},
 			"headline": {
 				"importClass": "Import class",
-				"questionStudentsNotInSystem": "Your students are not yet in the {{shortTitle}}?"
+				"questionStudentsNotInSystem": "Students are not yet in the {{shortTitle}}?"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Add students from previous year's class",
@@ -157,6 +158,7 @@
 				"className": "Class name:",
 				"createClass": "You can create classes independent of school year with free names. These classes cannot be <i>moved</i> by the administrator, but must be updated manually.",
 				"inviteTheParentsViaLink": "Invite parents via a link to register their children for your class and submit the electronic declaration of consent.",
+				"inviteViaLink": "If the school obtains or receives the user data via an external system, the above options cannot be used. The changes must then be made accordingly in the source system.<br/><br/>Otherwise, invitations to register can be sent via link from the cloud administration area:<br/><ul><li>Sending registration links to the stored e-mail addresses (also possible directly during import/creation)</li><li>Print registration links as QR print sheets, cut them out and distribute QR slips to students</li><li>Select one or more users, e.g. all students of a class, and then perform the desired action</li><li>Alternatively: Switch to the edit mode of the user profile and retrieve the individual registration link directly in order to send it manually</li></ul>",
 				"linkCopiedToClipboard": "The link has been copied to your clipboard",
 				"manageClass": "Manage class",
 				"manuallyGiveConsentForAllStudent": "Manually declare consent for all students",
@@ -166,6 +168,16 @@
 				"required": "required",
 				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy policy</a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
 				"theNextStepIsToInviteOrAdd": "In the next step you can invite or add students to the class."
+			},
+			"brb": {
+				"text": {
+					"noConsentNecessary": "A declaration of consent does <b>not</b> have to be obtained when registering students. The use of the Schul-Cloud Brandenburg is regulated by the Brandenburg School Act (§ 65 para. 2 BbGSchulG)."
+				}
+			},
+			"n21": {
+				"text": {
+					"noConsentNecessary": "A declaration of consent does <b>not</b> have to be obtained when registering students. The use of the Niedersächsische Bildungscloud is regulated by the Lower Saxony School Act (§ 31 para. 5 NSchG)."
+				}
 			}
 		},
 		"controller": {
@@ -287,7 +299,7 @@
 				"userCreatedErrorSendingTheMail": "User created. Error while sending the email. Please generate and share the registration link in the user profile independently. {{errMessage}}",
 				"userCreatedSuccessfully": "User created successfully.",
 				"userCreatedSuccessfullyAndRegistration": "User successfully registered and registration link sent successfully by e-mail.",
-				"whenLoggingInForTheFirstTime": "When logging in for the first time, the student has to change his password. If he has given an e-mail address, he can have the changed password sent to him or generate a new password if it is lost. Alternatively, you can click on Edit behind the student name in the area Administration > Students. Then the student can re-enter his password on your device.",
+				"whenLoggingInForTheFirstTime": "When logging in for the first time, students must change their password. If they have entered an e-mail address, they can have the changed password sent to them or generate a new password if it is lost. Alternatively, admins can click on <i>Edit</i> behind the name in the Administration > Students section and renew the password.",
 				"yourStudentsAreAtLeast": "Are your students at least {{age}} years old?",
 				"yourStudentsAreUnder": "Are your students less than {{age}} years old ?"
 			}
@@ -527,6 +539,8 @@
 				"provideStudentsAndTheirParents": "Provide your students and their parents with individual links to give their consent in digital or analog form. When registration is complete, a login password will be created for the student.",
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{title}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
 				"thereIsNoDeclarationOfConsent": "There is no consent form for the user yet. Call a personal invitation link to complete the registration and distribute it to the user or his parents. During registration, the consent is then granted by the user himself. If a declaration of consent is available in paper form, the user can be activated by clicking on 'Received consent on paper' and a start password can be assigned. This will unlock the login.",
+				"registrationNotCompleted": "The student has not yet completed the registration. Retrieve a personal invitation link to complete the registration and distribute it to the student.",
+				"teacherRegistrationNotCompleted": "The teacher has not yet completed the registration. Retrieve a personal invitation link to complete the registration and distribute it to the teacher.",
 				"theSchoolYearEndsAnd": "The school year {{schoolName}} is ended and the transfer phase  to the new school year begins. <strong>This step cannot be undone.</strong> No classes and users can be created or changed during this time.",
 				"theSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data is interrupted during the transfer phase. This means that user data and classes (if used) are no longer updated via LDAP. It is still possible to log in with login data that has already been synchronized. Password changes in the LDAP during login are also taken into account.",
 				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the HPI school cloud at once.",
@@ -721,6 +735,7 @@
 				"class": "Classes of the user",
 				"errorSendingMail": "There was an error sending the invitation email!",
 				"firstClose": "The user must first complete the consent form digitally",
+				"firstFinishRegistration": "The user must first complete the registration process.",
 				"successfullySentMail": "The invitation e-mail was sent successfully!"
 			}
 		},
@@ -757,12 +772,6 @@
 		}
 	},
 	"calendar": {
-		"button": {
-			"availableCourses": "Available courses",
-			"availableTeams": "Available teams",
-			"chooseACourse": "Pick a course...",
-			"chooseATeam": "Choose a team"
-		},
 		"headline": {
 			"calendar": "Calendar"
 		},
@@ -772,12 +781,10 @@
 		},
 		"label": {
 			"addVideoConference": "Add a videoconference?",
-			"createForCourse": "Create for course?",
-			"createForTeam": "Create for team?",
 			"location": "Place"
 		},
 		"text": {
-			"noAuthorization": "No authorization",
+			"noAuthorization": "No authorization or the video conference has not yet started",
 			"participateInVideoConference": "Participate in video conference",
 			"startAVideoConference": "Start video conference",
 			"videoConferenceDetailsAreLoading": "Loading video conference details..."
@@ -821,7 +828,6 @@
 		},
 		"form_add_lesson": {
 			"label": {
-				"chooseACourse": "Choose a course / subject",
 				"chooseALessonTopic": "Choose a lesson topic"
 			}
 		},
@@ -877,7 +883,6 @@
 			},
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "Duplicate",
 					"editDeleteCourse": "Edit/delete",
 					"inviteToCourse": "Invite",
 					"shareCourse": "Share"
@@ -1185,7 +1190,7 @@
 		},
 		"headline": {
 			"courseAttendees": "Participants of the course:",
-			"createDuplicateImport": "Create, duplicate or import a course",
+			"createCopyImport": "Create, copy or import a course",
 			"expiredCoursesInArchive": "Courses whose end date has been reached can be found in the <a href=\"/courses/?activeTab=archived\">archive",
 			"importCourse": "Import course",
 			"makeTeachingDigital": "Making teaching digital with {{themetitle}}",
@@ -1209,7 +1214,7 @@
 		"text": {
 			"courseNoAccess": "The Courses section is only available to teachers and students.",
 			"descriptionArchivedCourses": "Courses whose end date has been reached can be found here. You can reuse archived courses as templates for the new school year, import a course or create a completely new course.",
-			"descriptionCourseManagement": "You can duplicate archived courses and use them as templates for the new school year, import a course, or create a brand new course.",
+			"descriptionCourseManagement": "You can copy archived courses and use them as templates for the new school year, import a course, or create a brand new course.",
 			"finishImport": "Complete the import. In the next step, set a new course date and add students.",
 			"importCourseAttentionTools": "Attention: Manually replace tools with user data which are included in the topic subsequently (e.g. neXboard, Etherpad, GeoGebra), because changes to this will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
 			"importedCourseWithQR": "You have imported a course via a QR Code.",
@@ -1255,8 +1260,8 @@
 			"registrationInvalid": "Registration incorrect"
 		},
 		"text": {
-			"confirmationCodeAlreadySent": "We have already sent you an e-mail. Please also check your spam folder,\n\t\twhether you really haven't received an e-mail. You can request the code again after one minute.",
-			"confirmationCodeSent": "We have just sent you a confirmation code to {{{email }}",
+			"confirmationCodeAlreadySent": "We have already sent an e-mail to the specified e-mail address. Please additionally check the spam folder to see if the email may have arrived there. After two minutes, the code can be requested again.",
+			"confirmationCodeSent": "We have just sent you a confirmation code to {{ email }}",
 			"dataGivenByTeacherOrAdmin": "Your teacher or administration has entered this data for you.\n\t\t\tIf changes are required, contract him/her. You can also change your data yourself after the registration process has been completed.",
 			"differentEmailParentStudent": "The student must have a different e-mail address than the parent.",
 			"errorGeneratingConfirmationCode": "Oops, there was an error while creating the code! Please check your e-mail address ({{ email }}) and try again.",
@@ -1286,6 +1291,7 @@
 				"errorWhileLoadingPermissions": "Unfortunately, there was an error while retrieving the permissions.",
 				"errorWhileOpeningFile": "Error while opening the file",
 				"fileAddedSuccess": "File (s) added successfully and will be displayed immediately after the page is refreshed.",
+				"fileSavedSuccess": "File (s) saved successfully.",
 				"fileAlreadyExists": "A file with this name already exists in the target folder!",
 				"fileAlreadyExistsInDir": "A file with this name already exists in the same folder!",
 				"fileIsBlocked": "The file may contain malicious content",
@@ -1402,8 +1408,7 @@
 			"rememberThisSelection": "Remember this selection",
 			"searchResultFor": "search results for",
 			"searchResults": "Search results",
-			"storeFilesForUpload": "Save files for upload.",
-			"storeFilesForUploadDisabled": "Files can only be uploaded after the first {{ parentType }} has been saved.",
+			"storeFilesForUpload": "Place files to upload here, or search computer.",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
 			"courses": "course",
@@ -2190,7 +2195,8 @@
 			"published": "Published:",
 			"ratingHasBeenSaved": "Rating has been saved!",
 			"till": "till",
-			"toBeDoneWithin24Hours": "Watch out! You have less than 24 hours left to complete the task."
+			"toBeDoneWithin24Hours": "Watch out! You have less than 24 hours left to complete the task.",
+			"hasUnpublishedLesson": "Task not visible, because topic is unpublished"
 		}
 	},
 	"imprint": {
@@ -2323,7 +2329,7 @@
 			"text": {
 				"refreshStatus": "To refresh status again, click the update icon",
 				"theVideoConferenceHasNotYetStarted": "The video conference has not yet started.",
-				"youAreNotAuthorisedToAttend": "You are not authorized to participate in this video conference. Contact a Team Admin for approval."
+				"youAreNotAuthorisedToAttend": "The video conference has not been started yet or you are not authorized to participate in it. Contact a team admin to start or enable it."
 			}
 		},
 		"form_ChangeLanguage": {
@@ -2363,7 +2369,7 @@
 				"discardChange": "Discard change"
 			},
 			"link": {
-				"accessibilityReport":"Accessibility feedback",
+				"accessibilityReport": "Accessibility feedback",
 				"accessibilityStatement": "Accessibility statement",
 				"dataProtectionDeclaration": "Privacy Policy",
 				"github": "GitHub",
@@ -2415,10 +2421,10 @@
 			},
 			"label": {
 				"currentUser": "Current user:",
-				"fullscreen": "Full screen",
+				"fullscreen": "Full Screen",
 				"notifications": "Notifications",
 				"printQrCode": "Print QR code",
-				"qrCode": "QR code",
+				"qrCode": "QR-Code",
 				"search": "Search",
 				"thereIsAProblem": "There is a problem"
 			},
@@ -2489,10 +2495,15 @@
 		"link": {
 			"forgotPassword": "Forgot Password?"
 		},
+		"separatorExternalLogin": {
+			"text": {
+				"separatorExternalLoginText": "or"
+			}
+		},
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Login with {{title}}",
-				"loginIserv": "Login via school server"
+				"loginVia": "Login via"
 			},
 			"label": {
 				"email": "Your e-mail address",
@@ -2546,7 +2557,8 @@
 			"showPassword": "Show Password:",
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
 			"superheroText": "You are trying log in with a superhero account.",
-			"userNotFound": "Synchronisation with the school server is in progress. Please log in again in 2 hours or contact the admin."
+			"userNotFound": "Synchronisation with the school server is in progress. Please log in again in 2 hours or contact the admin.",
+			"internalError": "Internal Server Error. Please contact the admin."
 		}
 	},
 	"messenger": {
@@ -2689,7 +2701,8 @@
 				},
 				"headline": {
 					"language": "Please select your language",
-					"thankYouForRegistering": "Thank you for registering to {{shortTitle}}!"
+					"thankYouForRegistering": "Thank you for registering to {{title}}!",
+					"personalData": "Personal Data"
 				},
 				"label": {
 					"eMail": "E-mail:",
@@ -2703,13 +2716,13 @@
 				"text": {
 					"agreementCanBeRevoked": "You can revoke this consent at any time. A short e-mail with the declaration of revocation, stating your first and last name, class and school to the following address is sufficient: <a href=\"mailto:widerruf@dbildungscloud.de?subject=Widerruf der Einwilligung\">widerruf@dbildungscloud.de</a>.",
 					"agreementIsVoluntary": "The consent and thus the use is voluntary, which means that if you do not give your consent, it will not lead to disadvantages for you in class. Participation in lessons outside the {{title}} will be made possible by the school.",
-					"bellowNYearsOldConsentOfLegalGuardian": "The use of the {{shortTitle}} requires the consent of a legal guardian for students under {{age}} years",
+					"bellowNYearsOldConsentOfLegalGuardian": "The use of the {{shortTitle}} requires the consent of a legal guardian for students under {{age}} years.",
 					"iDeclareTheFollowing": "I, <b data-from=\"firstName\"> </b> <b data-from=\"lastName\"> </b>, declare the following:",
-					"inCaseOfRevocationDataDeletion": "In the event of revocation, we will immediately delete the personal data stored on the basis of the consent, unless there is a legal reason for storage or you wish to access the stored data beforehand. You can also find further information on data protection in our <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.dbildungscloud.de/x/GxfGBg\">FAQ</a>.",
+					"inCaseOfRevocationDataDeletion": "In the event of revocation, we will immediately delete the personal data stored on the basis of the consent, unless there is a legal reason for storage or you wish to access the stored data beforehand. You can also find further information on data protection in our <a class=\"nav-link\" target=\"_blank\" href=\"https://blog.dbildungscloud.de/faq-zum-datenschutz/\" rel=\"noopener\">FAQ</a>.",
 					"languageHint": "Little info: You can change your language at any time in your settings. Settings can be found in the top right corner when you tap on your avatar.",
 					"myDataMayBeProcessed": "I agree that my personal data will be processed in accordance with the school's <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">privacy policy</a> in the {{title}} and in the learning material providers selected and instructed by the school.",
 					"theEmailAddressEnables": "The e-mail address enables notifications to be sent and makes it easier to reset the password.",
-					"weNeedFollowingDataForRegistration": "For the use of the {{shortTitle}} we need the following information:",
+					"weNeedFollowingDataForRegistration": "For the use of the {{title}} we need the following information:",
 					"weStoreUserDataSafely": "The {{shortTitle}} stores the user data securely and does not pass them on to third parties. The data is processed in accordance with the high statutory data protection requirements."
 				}
 			},
@@ -2727,7 +2740,6 @@
 					}
 				},
 				"headline": {
-					"yourChildsData": "Your child's data",
 					"yourChildsSSO": "The SSO account of your child is now unlocked."
 				},
 				"input": {
@@ -2752,24 +2764,20 @@
 					"needFollowingInformationForChild": "we need the following information for your child:",
 					"pleaseConfirmTheFollowing": "Please confirm the following declarations of consent so that your child can take advantage of the {{shortTitle}}:",
 					"studentNeedTheirOwnEmail": "(Students need their own e-mail address)",
-					"weNeedFollowingDataOfChild": "To use the {{shortTitle}} we need the following information of your child:",
 					"whenLoggingInFor": "A new password must be selected at the first login. Students who are at least 14 years old must additionally confirm the declarations of consent at the first login.",
 					"yourChildCan": "Your child can now log in:",
 					"yourSonCanLogInWithThisData": "The following data can be used to log in <b data-from=\"firstName\"></b> <b data-from=\"secondName\"></b> to the {{shortTitle}}. Please pass on the data to your child. In addition, you and your child have received the data by e-mail."
 				}
 			},
 			"student": {
-				"headline": {
-					"personalData": "Personal data"
-				},
 				"input": {
 					"yourOfficialFirstName": "Your official first name, not a nickname",
 					"yourOfficialLastName": "Your official last name"
 				},
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Please confirm the following declarations of consent so that you can use the {{shortTitle}}.",
-					"useThisDataToSignIn": "With the following data you can login to the {{shortTitle}}. Please keep the login data for the first login.",
-					"youCanNowLogin": "You can now log in to the school cloud. When logging in for the first time, a new password must be selected.",
+					"useThisDataToSignIn": "The following data is used for the first registration in the {{title}}.",
+					"youCanNowLogin": "When logging in for the first time, a new password must be selected.",
 					"yourSSOAccountDetails": "Your SSO account data is now unlocked."
 				}
 			},
@@ -2779,10 +2787,12 @@
 				"linguisticNoteWeUseMaleFormForReadability": "Linguistic note: For better readability we use the masculine form in the {{shortTitle}} (e.g. \"student\", \"teacher\"). It always refers to all persons regardless of gender. The {{shortTitle}} is meant for all people regardless of origin, restrictions, gender and sexual orientation.",
 				"pleaseChooseTheAgeOfTheStudents": "Please select the age of the student:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "We kindly ask you to first register your child in the {{shortTitle}} and then, after providing your details, to agree to the use of the {{title}} so that your child can take advantage of the learning environment.",
-				"pleaseRegisterFirstAndAgreeToTerms": "Please register in the {{shortTitle}} and agree to the Terms of Use so that you can take advantage of the digital learning environment.",
+				"pleaseRegisterFirstAndAgreeToTerms": "Please register in the {{themeTitle}} and agree to the Terms of Use so that you can take advantage of the digital learning environment.",
 				"registrationMustBeDoneByYou": "The following registration must be done by you as a student, not by your parents.",
 				"thankYouForTakingThisStepWithUs": "We are pleased that you want to use the {{shortTitle}} and help to take the next step together to digitally support teaching - open source, non-profit and compliant with data protection.",
-				"theRegistrationProcessChangesAccordingToAge": "Depending on the age of the student* the registration process changes. For students below {{minAge}}, a parent or guardian must complete the next steps, for students above {{independentAge}}, they must do it themselves."
+				"theRegistrationProcessChangesAccordingToAge": "Depending on the age of the student* the registration process changes. For students below {{minAge}}, a parent or guardian must complete the next steps, for students above {{independentAge}}, they must do it themselves.",
+				"registrationProcessAgeStep": "We are pleased that you would like to use the {{title}} and help us to take the next step together to digitally support education - open source, non-profit and privacy compliant. Depending on the age of the student, the registration process changes. For students under {{minAge}}, parents are asked to support their children through the following steps of enrollment.",
+				"nextStepRegistration": "The next step is to register in the {{title}}"
 			}
 		},
 		"deprecatedWarning": {
@@ -2813,17 +2823,17 @@
 		},
 		"requestPin": {
 			"button": {
-				"requestVerificationCode": "Request confirmation code now"
+				"requestVerificationCode": "Request confirmation code"
 			},
 			"text": {
-				"pleaseRequestAConfirmationCode": "Please request a confirmation code:",
-				"theCodeCanBeRequestedSeveralTimes": "The code can be requested several times. However, resending will invalidate previously sent codes. Wait a moment before requesting again and check the spam folder in your e-mail inbox if necessary.",
-				"weOnlyHaveToCheckWhether": "We just need to check if your e-mail address really exists."
+				"requestConfirmationCode": "When you click the following button, the confirmation code will be sent:",
+				"theCodeCanBeRequestedSeveralTimes": "The code can be requested several times (check your spam folder too!). However, if it is sent again, the previously sent codes will become invalid.",
+				"confirmEmail": "We use a confirmation code to check whether there is access to the specified email address."
 			}
 		},
 		"text": {
 			"acceptConsentWithoutParents": "If you are between 14 and {{age}} years old, please also confirm the declaration of consent so that you can use the {{title}}.",
-			"agreeTermsOfUse": "I have read and agree to the <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Terms of Use of the {{title}}</a>",
+			"agreeTermsOfUse": "I have read and agree to the <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Terms of Use of the {{title}}</a>.",
 			"andAuthorisedToRepresent": "and entitled to represent the other parent in the following declarations.",
 			"iAgreeThatThepersonalData": "I consent to my child's personal data being processed in accordance with the",
 			"invalidLink": "Unfortunately the link is no longer valid. Request a new link from your teacher or school administrator.",
@@ -2914,6 +2924,7 @@
 			},
 			"label": {
 				"accessToData": "Access to files",
+				"collaborativeFiles": "Try new team files page",
 				"emailHasBeenSentAlternativeLink": "The invited person has received an e-mail. Alternatively this link can be used, the user must be logged in:",
 				"leadersAndAdmins": "Leaders and team admins",
 				"members": "Attendees"
@@ -2983,6 +2994,7 @@
 					"externTeacher": "Teacher of other school (Team admin)",
 					"federalState": "State",
 					"insertEmailOfExpertToInvite": "For security reasons, external experts have limited access rights - such as, participating in video conferences or creating courses. To invite an external expert, please enter the e-mail address you want the invitation to be sent to.",
+					"insertEmailOfExpertToInviteWithVideoConference": "For security reasons, external experts have limited access rights - such as creating courses. To invite an external expert, please enter the e-mail address you want the invitation to be sent to.",
 					"leavingTeamRequiresNewOwner": "Leaving the team requires a different owner",
 					"reallyWantToRmClass": "Do you really want to remove this class?",
 					"reallyWantToRmInvitation": "Do you really want to cancel the invitation?",
@@ -3037,7 +3049,8 @@
 				"messengerNotActivatedTitle": "Note",
 				"messengerNotActiveInTeam": "This cross-school team does not include team chat. Unlike your school, the school that created the team has not yet activated chatting by the administrator.",
 				"theseSettingsWillBeAppliedToNewFiles": "The following permissions will be activated for newly uploaded/created folders and files within the team:",
-				"youCanChangeSettingsForSingleFilesLater": "You can edit the access permissions for individual files and folders at any time."
+				"youCanChangeSettingsForSingleFilesLater": "You can edit the access permissions for individual files and folders at any time.",
+				"allFilesWillBeDeletedWarning": "All <b>files</b> of the team will be <b>irrevocably deleted</b>!"
 			}
 		},
 		"add": {
@@ -3047,7 +3060,7 @@
 		},
 		"button": {
 			"createTeam": "Create team",
-			"duplicateTeam": "Duplicate team",
+			"copyTeam": "Copy team",
 			"foundATeam": "Form a team"
 		},
 		"form_importTopic": {
@@ -3060,7 +3073,7 @@
 			}
 		},
 		"headline": {
-			"duplicateTeam": "Duplicate team",
+			"copyTeam": "Copy team",
 			"invitations": "Invitations",
 			"membersOfTeam": "Team members: {{teamName}}",
 			"myTeams": "My teams",
@@ -3160,7 +3173,8 @@
 				"openSection": "Unlock section",
 				"selectNeXboard": "Select neXboard",
 				"theLinkHasToBeginWith": "The link must begin with '{{- baseUrl}} / task'! Students must have access to the task to see it included here. Attention: If you share this topic or the entire course with another teacher using a sharing code, the tasks integrated in this way will currently not be considered.",
-				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'"
+				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'",
+				"uploadAfterFirstSave": "Files can only be uploaded after saving the topic for the first time."
 			}
 		}
 	},

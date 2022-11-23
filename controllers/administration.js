@@ -1006,6 +1006,7 @@ router.get(
 					referrer: req.header('Referer'),
 					hasAccount: !!account,
 					accountId: account ? account.id : null,
+					consentNecessary: res.locals.theme.consent_necessary,
 				});
 			})
 			.catch((err) => {
@@ -1443,6 +1444,7 @@ router.get(
 					CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 					hasAccount: !!account,
 					accountId: account ? account.id : null,
+					consentNecessary: res.locals.theme.consent_necessary,
 				});
 			})
 			.catch((err) => {
@@ -1536,8 +1538,7 @@ const renderClassEdit = (req, res, next) => {
 			const mode = req.locals.mode;
 			Promise.all(promises).then(
 				([teachers, gradeLevels, currentClass]) => {
-					let schoolyears = getSelectableYears(res.locals.currentSchoolData);
-					schoolyears = schoolyears.sort((a, b) => a.startDate.localeCompare(b.startDate));
+					const schoolyears = getSelectableYears(res.locals.currentSchoolData);
 
 					const allSchoolYears = res.locals.currentSchoolData.years.schoolYears
 						.sort((a, b) => b.startDate.localeCompare(a.startDate));
@@ -1792,6 +1793,52 @@ router.get(
 						return false;
 					});
 
+					const consentNecessary = res.locals.theme.consent_necessary;
+					const notes = consentNecessary ? [
+						{
+							title: res.$t(
+								'administration.controller.link.analogueConsent',
+							),
+							content:
+								// eslint-disable-next-line max-len
+								res.$t(
+									'administration.controller.text.analogueConsent',
+								)
+								+ res.$t(
+									'administration.controller.text.analogueConsentBullets',
+								),
+						},
+						{
+							title: res.$t('administration.controller.text.yourStudentsAreUnder', {
+								age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+							}),
+							content: res.$t('administration.controller.text.registrationExplanation', {
+								title: res.locals.theme.short_title,
+							}),
+						},
+						{
+							title: res.$t('administration.controller.text.yourStudentsAreAtLeast', {
+								age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
+							}),
+							content:
+							res.$t('administration.controller.text.passTheRegistrationLinkDirectly')
+								+ res.$t('administration.controller.text.theStepsForTheParentsAreOmitted'),
+						},
+						{
+							title: res.$t('administration.controller.link.changePassword'),
+							content:
+								// eslint-disable-next-line max-len
+								res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
+						},
+					] : [
+						{
+							title: res.$t('administration.controller.link.changePassword'),
+							content:
+								// eslint-disable-next-line max-len
+								res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
+						},
+					];
+
 					res.render('administration/classes-manage', {
 						title: res.$t('administration.controller.headline.manageClass', {
 							name: currentClass.displayName,
@@ -1802,60 +1849,12 @@ router.get(
 						students: filterStudents(res, students),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						schoolyears,
-						notes: [
-							{
-								title: res.$t(
-									'administration.controller.link.analogueConsent',
-								),
-								content:
-									// eslint-disable-next-line max-len
-									res.$t(
-										'administration.controller.text.analogueConsent',
-									)
-									+ res.$t(
-										'administration.controller.text.analogueConsentBullets',
-									),
-							},
-							{
-								title: res.$t('administration.controller.text.yourStudentsAreUnder', {
-									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
-								}),
-								content: res.$t('administration.controller.text.registrationExplanation', {
-									title: res.locals.theme.short_title,
-								}),
-							},
-							{
-								title: res.$t('administration.controller.text.yourStudentsAreAtLeast', {
-									age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
-								}),
-								content:
-								res.$t('administration.controller.text.passTheRegistrationLinkDirectly')
-									+ res.$t('administration.controller.text.theStepsForTheParentsAreOmitted'),
-							},
-							/* { // TODO - Feature not implemented
-                            "title":"Deine Schüler:innen sind in der Schülerliste rot?",
-                            "content": `Sie sind vom Admin bereits angelegt
-                            (z.B. durch Import aus Schüler-Verwaltungs-Software),
-                            aber es fehlen noch ihre Einverständniserklärungen.
-                            Lade die Schüler:innen deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung
-                            der ${res.locals.theme.short_title} elektronisch abzugeben.
-                            Bereits erfasste Schülerdaten werden beim Registrierungsprozess
-                            automatisch gefunden und ergänzt.`
-                        },
-                        { // TODO - Not implemented yet
-                            "title":"Nutzernamen herausfinden",
-                            "content":"Lorem Amet ad in officia fugiat n
-                            isi anim magna tempor laborum in sit esse nostrud consequat."
-                        }, */
-							{
-								title: res.$t('administration.controller.link.changePassword'),
-								content:
-									// eslint-disable-next-line max-len
-									res.$t('administration.controller.text.whenLoggingInForTheFirstTime'),
-							},
-						],
+						notes,
 						referrer: '/administration/classes/',
 						consentsMissing: usersWithoutConsent.length !== 0,
+						consentNecessary,
+						// eslint-disable-next-line max-len
+						noConsentNecessaryText: res.$t(`administration.classes.${res.locals.theme.name}.text.noConsentNecessary`),
 					});
 				});
 			});

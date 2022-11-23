@@ -32,7 +32,16 @@ const initEditor = async (element) => {
 		};
 	}
 
+	const isFileBrowserDisabled = 	$('.ckeditor').data('disable-file-browser');
+
+	if (isFileBrowserDisabled) {
+		editor.commands.get('imagebrowser').forceDisabled();
+		editor.commands.get('audiobrowser').forceDisabled();
+		editor.commands.get('videobrowser').forceDisabled();
+	}
+
 	editor.model.document.on('change:data', () => {
+		editor.updateSourceElement();
 		const submitButton = document.querySelector('.ckeditor-submit');
 		if (submitButton) {
 			const editorContent = editor.getData();

@@ -8,7 +8,16 @@ const api = require('../api');
 
 const csrfProtection = csrf({ cookie: true });
 
-router.get('/login', csrfProtection, (req, res, next) => api(req)
+const getVersion = () => {
+	if (Configuration.has('FEATURE_LEGACY_HYDRA_ENABLED')) {
+		return Configuration.get('FEATURE_LEGACY_HYDRA_ENABLED') ? 'v1' : 'v3';
+	}
+	return 'v3';
+};
+
+const VERSION = getVersion();
+
+router.get('/login', csrfProtection, (req, res, next) => api(req, { version: VERSION })
 	.get(`/oauth2/loginRequest/${req.query.login_challenge}`).then((loginRequest) => {
 		req.session.login_challenge = req.query.login_challenge;
 		if (loginRequest.skip) {
@@ -25,21 +34,26 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		remember_for: 0,
 	};
 
-	return api(req).patch(`/oauth2/loginRequest/${req.session.login_challenge}/?accept=1`,
-		{ body }).then((loginRequest) => {
-		delete (req.session.login_challenge);
-		return res.redirect(loginRequest.redirect_to);
-	}).catch(next);
+	return api(req, { version: VERSION })
+		.patch(
+			`/oauth2/loginRequest/${req.session.login_challenge}/?accept=1`,
+			{ body },
+		).then((loginRequest) => {
+			delete (req.session.login_challenge);
+			return res.redirect(loginRequest.redirect_to);
+		}).catch(next);
 });
 
-router.all('/logout', csrfProtection, auth.authChecker, (req) => api(req).get('/oauth2/logoutRequest'));
+router.all('/logout', csrfProtection, auth.authChecker, (req) => {
+	api(req, { version: VERSION }).get('/oauth2/logoutRequest');
+});
 
 router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next) => {
 	const body = {
 		redirect_to: '',
 	};
 
-	return api(req).patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { body })
+	return api(req, { version: VERSION }).patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { body })
 		.then((logoutRequest) => res.redirect(logoutRequest.redirect_to)).catch(next);
 });
 
@@ -50,7 +64,7 @@ const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
 		remember_for: 60 * 60 * 24 * 30,
 	};
 
-	return api(r).patch(`/oauth2/consentRequest/${challenge}/?accept=1`, { body })
+	return api(r, { version: VERSION }).patch(`/oauth2/consentRequest/${challenge}/?accept=1`, { body })
 		.then((consentRequest) => w.redirect(consentRequest.redirect_to));
 };
 
@@ -73,7 +87,7 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w, next) => {
 		// An error occurred (at hydra)
 		return w.send(`${r.query.error}<br />${r.query.error_description}`);
 	}
-	return api(r).get(`/oauth2/consentRequest/${r.query.consent_challenge}`)
+	return api(r, { version: VERSION }).get(`/oauth2/consentRequest/${r.query.consent_challenge}`)
 		.then((consentRequest) => api(r)
 			.get(`/ltiTools/?oAuthClientId=${consentRequest.client.client_id}&isLocal=true`).then((tool) => {
 				if (consentRequest.skip || tool.data[0].skipConsent) {

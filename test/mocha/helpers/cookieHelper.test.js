@@ -17,7 +17,7 @@ describe('cookie helper tests', () => {
 			const cookieValue = 'testValue';
 			const cookieExpires = 'Wed Nov 18 2020 10:36:23 GMT+0100';
 			// eslint-disable-next-line no-trailing-spaces
-			const checkString = `Set-Cookie: ${cookieName}=${cookieValue}; httpOnly=false; hostOnly=false; sameSite=Lax; secure=false; expires=${cookieExpires}`;
+			const checkString = `Set-Cookie: ${cookieName}=${cookieValue}; httpOnly=false; hostOnly=true; sameSite=none; secure=true; expires=${cookieExpires}`;
 			cookieHelper.setCookie(mockRes, cookieName, cookieValue, { expires: cookieExpires });
 
 			const result = mockRes.getCookie();

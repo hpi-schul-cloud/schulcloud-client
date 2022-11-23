@@ -1,3 +1,4 @@
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const { defaultDocuments } = require('../config/documents');
 const {
 	SC_THEME,
@@ -48,6 +49,7 @@ const setTheme = (res) => {
 		},
 		url: HOST,
 		status_url: ALERT_STATUS_URL,
+		consent_necessary: Configuration.get('FEATURE_CONSENT_NECESSARY'),
 	};
 };
 

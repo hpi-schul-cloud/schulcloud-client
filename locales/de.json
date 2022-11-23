@@ -119,6 +119,7 @@
 		"button": {
 			"changePassword": "Passwort ändern",
 			"consent": "Einwilligungen:",
+			"onlyRegistrationNeeded": "Registrierung:",
 			"generatePersonalInvitationLink": "Persönlichen Einladungslink generieren",
 			"printListWithAccessData": "Liste mit Zugangsdaten drucken",
 			"receivedConsentOnPaper": "Einverständnis auf Papier erhalten",
@@ -134,7 +135,7 @@
 			},
 			"headline": {
 				"importClass": "Klasse importieren",
-				"questionStudentsNotInSystem": "Deine Schüler:innen sind noch nicht in der {{shortTitle}}?"
+				"questionStudentsNotInSystem": "Schüler:innen sind noch nicht in der {{shortTitle}}?"
 			},
 			"label": {
 				"addStudentFromPreviousYearClass": "Schüler:in aus Vorjahresklasse hinzufügen",
@@ -156,7 +157,8 @@
 				"attentionIfYouChangeTheSchoolYear": "Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.",
 				"className": "Klassenname:",
 				"createClass": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Admin <i>versetzt</i> werden, sondern müssen manuell aktualisiert werden.",
-				"inviteTheParentsViaLink": " Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
+				"inviteTheParentsViaLink": "Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
+				"inviteViaLink": "Falls die Schule die Daten der Nutzenden über ein externes System bezieht bzw. übermittelt bekommt, sind keine weiteren Schritte in der Cloud notwendig. Die Registrierung erfolgt über das externe System.<br/><br/>Anderenfalls können über den Verwaltungsbereich der Cloud Einladungen zur Registrierung per Link versendet werden:<br/><ul><li>Versand von Registrierungslinks an die hinterlegten E-Mail-Adressen (auch direkt beim Importieren/Anlegen möglich)</li><li>Registrierungslinks als QR-Druckbogen drucken, ausschneiden und QR-Zettel an Schüler:innen verteilen</li><li>Einen oder mehrere Nutzer:innen auswählen, z.B. alle Schüler:innen einer Klasse, und dann die gewünschte Aktion durchführen</li><li>Alternativ möglich: Wechseln in den Bearbeiten-Modus des Nutzerprofils und den individuellen Registrierungslink direkt abrufen, um ihn händisch zu versenden</li></ul>",
 				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
 				"manageClass": "Klasse verwalten",
 				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler:innen erklären",
@@ -166,6 +168,16 @@
 				"required": "erforderlich",
 				"signAgreement": "Du kannst auf dieser Seite im Namen deiner Schüler:innen das Einverständnis zur {{linkPrivacyPolicy}} und zur {{linkTermsOfUse}} der {{shortTitle}} erklären. <br>Durch den Klick auf <i>Einverständnis im Namen der Schüler:in erklären</i> bestätigst du, dass du das Einverständnis des Schülers/der Schülerin bzw. der Eltern auf anderem Wege erhalten hast.",
 				"theNextStepIsToInviteOrAdd": "Im nächsten Schritt kannst du Schüler:innen zur Klasse einladen oder hinzufügen."
+			},
+			"brb": {
+				"text": {
+					"noConsentNecessary": "Eine Einverständniserklärung bei der Registrierung von Schüler:innen muss <b>nicht</b> eingeholt werden. Die Nutzung der Schul-Cloud Brandenburg ist im brandenburgischen Schulgesetz (§ 65 Abs. 2 BbGSchulG) geregelt."
+				}
+			},
+			"n21": {
+				"text": {
+					"noConsentNecessary": "Eine Einverständniserklärung bei der Registrierung von Schüler:innen muss <b>nicht</b> eingeholt werden. Die Nutzung der Niedersächsischen Bildungscloud ist im niedersächsischen Schulgesetz (§ 31 Abs. 5 NSchG) geregelt."
+				}
 			}
 		},
 		"controller": {
@@ -287,7 +299,7 @@
 				"userCreatedErrorSendingTheMail": "Nutzer:in erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. {{errMessage}}",
 				"userCreatedSuccessfully": "Nutzer:in erfolgreich erstellt.",
 				"userCreatedSuccessfullyAndRegistration": "Nutzer:in erfolgreich erstellt und Registrierungslink per E-Mail verschickt.",
-				"whenLoggingInForTheFirstTime": "Beim ersten Login müssen deine Schüler:innen ihr Passwort ändern. Haben sie eine E-Mail-Adresse angegeben, können sie sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler:in hinter dem Namen auf Bearbeiten klicken. Dann kann der/die Schüler:in an deinem Gerät das Passwort neu eingeben.",
+				"whenLoggingInForTheFirstTime": "Beim ersten Login müssen Schüler:innen ihr Passwort ändern. Haben sie eine E-Mail-Adresse angegeben, können sie sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ können Admins im Bereich Verwaltung > Schüler:innen hinter dem Namen auf <i>Bearbeiten</i> klicken und das Passwort erneuern.",
 				"yourStudentsAreAtLeast": "Deine Schüler:innen sind mindestens {{age}} Jahre alt?",
 				"yourStudentsAreUnder": "Deine Schüler:innen sind unter {{age}} Jahre alt?"
 			}
@@ -527,6 +539,8 @@
 				"provideStudentsAndTheirParents": "Lass deinen Schüler:innen und den Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für die Schüler:innen erstellt.",
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{title}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thereIsNoDeclarationOfConsent": "Es liegt noch keine Einverständniserklärung für den/die Schüler:in vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den/die Schüler:in oder die Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den/die Schüler:in selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, wird diese per Klick auf 'Einverständnis auf Papier erhalten' aktiviert und ein Startpasswort vergeben. Damit ist der Login dann freigeschaltet.",
+				"registrationNotCompleted": "Der oder die Schüler:in hat die Registrierung noch nicht abgeschlossen. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung ab und verteile ihn an den/die Schüler:in.",
+				"teacherRegistrationNotCompleted": "Die Lehrkraft hat die Registrierung noch nicht abgeschlossen. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung ab und verteile ihn an die Lehrkraft.",
 				"theSchoolYearEndsAnd": "Das Schuljahr {{schoolName}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.</strong> Es können in dieser Zeit keine Klassen und Nutzer:innen angelegt oder geändert werden.",
 				"theSynchronizationOfLDAPMasterData": "Die Synchronisierung von LDAP-Stammdaten wird während der Transferphase unterbrochen. Somit werden Nutzerdaten und Klassen (sofern verwendet) nicht mehr über LDAP aktualisiert. Der Login mit bereits synchronisierten Login-Daten ist weiterhin möglich. Passwortänderungen im LDAP während des Logins werden ebenfalls berücksichtigt.",
 				"useTheTransferPhaseAroundTheSchool": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.",
@@ -721,6 +735,7 @@
 				"class": "Klassen des Nutzers/der Nutzerin",
 				"errorSendingMail": "Beim Senden der Einladungs-E-Mail ist ein Fehler aufgetreten!",
 				"firstClose": "Der/die Nutzer:in muss zuerst die Einverständniserklärung digital abschließen",
+				"firstFinishRegistration": "Der/die Nutzer:in muss zuerst die Registrierung abschließen.",
 				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
 			}
 		},
@@ -757,12 +772,6 @@
 		}
 	},
 	"calendar": {
-		"button": {
-			"availableCourses": "Verfügbare Kurse",
-			"availableTeams": "Verfügbare Teams",
-			"chooseACourse": "Wähle einen Kurs...",
-			"chooseATeam": "Wähle ein Team"
-		},
 		"headline": {
 			"calendar": "Kalender"
 		},
@@ -772,12 +781,10 @@
 		},
 		"label": {
 			"addVideoConference": "Videokonferenz hinzufügen?",
-			"createForCourse": "Für Kurs anlegen?",
-			"createForTeam": "Für Team anlegen?",
 			"location": "Ort"
 		},
 		"text": {
-			"noAuthorization": "Keine Berechtigung",
+			"noAuthorization": "Keine Berechtigung oder die Videokonferenz wurde noch nicht gestartet",
 			"participateInVideoConference": "An Videokonferenz teilnehmen",
 			"startAVideoConference": "Videokonferenz starten",
 			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen..."
@@ -821,7 +828,6 @@
 		},
 		"form_add_lesson": {
 			"label": {
-				"chooseACourse": "Wähle einen Kurs / Fach",
 				"chooseALessonTopic": "Wähle ein Unterrichtsthema"
 			}
 		},
@@ -877,7 +883,6 @@
 			},
 			"dropdown_menu": {
 				"link": {
-					"duplicateCourse": "Duplizieren",
 					"editDeleteCourse": "Bearbeiten/löschen",
 					"inviteToCourse": "Einladen",
 					"shareCourse": "Teilen"
@@ -1185,7 +1190,7 @@
 		},
 		"headline": {
 			"courseAttendees": "Teilnehmer:innen des Kurses:",
-			"createDuplicateImport": "Erstelle, dupliziere oder importiere einen Kurs",
+			"createCopyImport": "Erstelle, kopiere oder importiere einen Kurs",
 			"expiredCoursesInArchive": "Kurse, deren Enddatum erreicht ist, findest du im <a href=\"/courses/?activeTab=archived\">Archiv",
 			"importCourse": "Kurs importieren",
 			"makeTeachingDigital": "Mit der {{themetitle}} Unterricht digital gestalten",
@@ -1209,7 +1214,7 @@
 		"text": {
 			"courseNoAccess": "Der Bereich Kurse steht nur Lehrkräften und Schüler:innen zur Verfügung.",
 			"descriptionArchivedCourses": "Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
-			"descriptionCourseManagement": "Du kannst archivierte Kurse duplizieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
+			"descriptionCourseManagement": "Du kannst archivierte Kurse kopieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
 			"finishImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler:innen hinzu.",
 			"importCourseAttentionTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. neXboard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
 			"importedCourseWithQR": "Du hast einen Kurs über einen QR-Code importiert.",
@@ -1255,7 +1260,7 @@
 			"registrationInvalid": "Registrierung fehlerhaft"
 		},
 		"text": {
-			"confirmationCodeAlreadySent": "Wir haben dir bereits eine E-Mail gesendet. Bitte prüfe auch deinen Spam-Ordner,\n\t\tob du wirklich keine E-Mail erhalten hast. Nach einer Minute kannst du den Code erneut anfordern.",
+			"confirmationCodeAlreadySent": "Wir haben bereits eine E-Mail an die angegebene E-Mail-Adresse gesendet. Bitte zusätzlich den Spam-Ordner prüfen, ob die E-Mail eventuell dort angekommen ist. Nach zwei Minuten kann der Code erneut angefordert werden",
 			"confirmationCodeSent": "Wir haben dir soeben einen Bestätigungscode an {{ email }} gesendet.",
 			"dataGivenByTeacherOrAdmin": "Diese Daten hat deine Lehrkraft oder dein Admin für dich eingetragen.\n\t\t\tFalls Anpassungen notwendig sind, wende dich bitte an die besagten Personen. Du kannst deine Daten auch nach abgeschlossenem Registrierungsprozess selbst ändern.",
 			"differentEmailParentStudent": "Für diese/n Schüler:in muss eine andere Mailadresse als für die Eltern angegeben werden.",
@@ -1286,6 +1291,7 @@
 				"errorWhileLoadingPermissions": "Leider ist ein Fehler beim Abfragen der Berechtigungen aufgetreten.",
 				"errorWhileOpeningFile": "Fehler beim Öffnen der Datei",
 				"fileAddedSuccess": "Datei(en) erfolgreich hinzugefügt und werden gleich nach einer Aktualisierung der Seite angezeigt.",
+				"fileSavedSuccess": "Datei(en) erfolgreich gespeichert.",
 				"fileAlreadyExists": "Es existiert bereits eine Datei mit diesem Namen im Zielordner!",
 				"fileAlreadyExistsInDir": "Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!",
 				"fileIsBlocked": "Die Datei enthält möglicherweise schädlichen Inhalt",
@@ -1402,8 +1408,7 @@
 			"rememberThisSelection": "Diese Auswahl merken",
 			"searchResultFor": "Suchergebnisse für",
 			"searchResults": "Suchergebnisse",
-			"storeFilesForUpload": "Dateien zum Hochladen ablegen.",
-			"storeFilesForUploadDisabled": "Dateien können erst nach dem ersten Speichern {{ parentType }} hochgeladen werden.",
+			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen, oder Computer durchsuchen.",
 			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
 			"courses": "des Kurses",
@@ -1705,7 +1710,7 @@
 			}
 		},
 		"placeholder": {
-			"Administrator": "Admin",
+			"Administrator": "Administrator",
 			"BetaTeacher": "Beta",
 			"Experte": "Expert:in",
 			"firstName": "Ihren Vornamen hier eingeben",
@@ -2190,7 +2195,8 @@
 			"published": "Veröffentlicht:",
 			"ratingHasBeenSaved": "Bewertung wurde gespeichert!",
 			"till": "bis",
-			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch weniger als 24 Stunden Zeit."
+			"toBeDoneWithin24Hours": "Pass auf! Du hast für die Aufgabe nur noch weniger als 24 Stunden Zeit.",
+			"hasUnpublishedLesson": "Aufgabe nicht sichtbar, da Thema unveröffentlicht"
 		}
 	},
 	"imprint": {
@@ -2323,7 +2329,7 @@
 			"text": {
 				"refreshStatus": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
 				"theVideoConferenceHasNotYetStarted": "Die Videokonferenz wurde noch nicht gestartet.",
-				"youAreNotAuthorisedToAttend": "Du bist nicht berechtigt, an dieser Videokonferenz teilzunehmen. Kontaktiere zur Freigabe einen Team-Admin."
+				"youAreNotAuthorisedToAttend": "Die Videokonferenz wurde noch nicht gestartet oder du bist nicht berechtigt, an ihr teilzunehmen. Kontaktiere zum Start oder zur Freigabe einen Team-Admin."
 			}
 		},
 		"form_ChangeLanguage": {
@@ -2363,7 +2369,7 @@
 				"discardChange": "Änderung verwerfen"
 			},
 			"link": {
-				"accessibilityReport":"Barriere melden",
+				"accessibilityReport": "Barriere melden",
 				"accessibilityStatement": "Barrierefreiheitserklärung",
 				"dataProtectionDeclaration": "Datenschutzerklärung",
 				"github": "GitHub",
@@ -2489,10 +2495,15 @@
 		"link": {
 			"forgotPassword": "Passwort vergessen?"
 		},
+		"separatorExternalLogin": {
+			"text": {
+				"separatorExternalLoginText": "oder"
+			}
+		},
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Login mit {{title}}",
-				"loginIserv": "Login über Schulserver"
+				"loginVia": "Login über"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
@@ -2546,7 +2557,8 @@
 			"showPassword": "Passwort anzeigen:",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden.",
-			"userNotFound": "Synchronisation mit dem Schulserver läuft. Bitte in 2 Stunden erneut einloggen oder den Admin kontaktieren."
+			"userNotFound": "Synchronisation mit dem Schulserver läuft. Bitte in 2 Stunden erneut einloggen oder den Admin kontaktieren.",
+			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator."
 		}
 	},
 	"messenger": {
@@ -2689,12 +2701,13 @@
 				},
 				"headline": {
 					"language": "Bitte wähle deine Sprache",
-					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{shortTitle}}!"
+					"thankYouForRegistering": "Vielen Dank für die Registrierung in der {{title}}!",
+					"personalData": "Persönliche Daten"
 				},
 				"label": {
 					"eMail": "E-Mail:",
-					"studentEmailAddress": "E-Mail-Adresse des Schülers/der Schülerin:",
-					"studentsDateOfBirth": "Geburtsdatum des Schülers/der Schülerin:",
+					"studentEmailAddress": "E-Mail-Adresse der Schülerin oder des Schülers:",
+					"studentsDateOfBirth": "Geburtsdatum der Schülerin oder des Schülers:",
 					"yourEmailAddress": "Ihre E-Mail-Adresse:"
 				},
 				"placeholder": {
@@ -2703,13 +2716,13 @@
 				"text": {
 					"agreementCanBeRevoked": "Die Einwilligung kann jederzeit von dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href=\"mailto:widerruf@dbildungscloud.de?subject=Widerruf der Einwilligung\">widerruf@dbildungscloud.de</a>.",
 					"agreementIsVoluntary": "Die Einwilligung und damit die Nutzung ist freiwillig, das heißt, wenn du deine Einwilligung nicht erteilst, führt diese für dich nicht zu Nachteilen im Unterricht. Eine Teilnahme am Unterricht, außerhalb der {{title}}, wird durch die Schule ermöglicht werden.",
-					"bellowNYearsOldConsentOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler:innen unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten",
+					"bellowNYearsOldConsentOfLegalGuardian": "Für die Nutzung der {{shortTitle}} bedarf es für Schüler:innen unter {{age}} Jahren der Einwilligung eines Erziehungsberechtigten.",
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
-					"inCaseOfRevocationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://docs.dbildungscloud.de/x/GxfGBg\">FAQ</a> entnehmen.",
+					"inCaseOfRevocationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://blog.dbildungscloud.de/faq-zum-datenschutz/\" rel=\"noopener\">FAQ</a> entnehmen.",
 					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf deinen Avatar tippst.",
 					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbieter verarbeitet werden.",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
-					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben:",
+					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{title}} benötigen wir folgende Angaben:",
 					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
 				}
 			},
@@ -2727,7 +2740,6 @@
 					}
 				},
 				"headline": {
-					"yourChildsData": "Daten Ihres Kindes",
 					"yourChildsSSO": "Der SSO-Account Ihres Kindes ist jetzt freigeschaltet."
 				},
 				"input": {
@@ -2752,24 +2764,20 @@
 					"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
 					"pleaseConfirmTheFollowing": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{shortTitle}} nutzen kann:",
 					"studentNeedTheirOwnEmail": "(Schüler:innen benötigen eine eigene E-Mail-Adresse)",
-					"weNeedFollowingDataOfChild": "Für die Nutzung der {{shortTitle}} benötigen wir folgende Angaben für Ihr Kind:",
 					"whenLoggingInFor": "Beim ersten Login muss ein neues Passwort gewählt werden. Schüler:innen, die mindestens 14 Jahre alt sind, müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.",
 					"yourChildCan": "Ihr Kind kann sich nun einloggen:",
 					"yourSonCanLogInWithThisData": "Mit folgenden Daten kann sich <b data-from=\"firstName\"></b> <b data-from=\"secondName\"></b> in der {{shortTitle}} anmelden. Bitte geben Sie die Daten an Ihr Kind weiter. Zusätzlich haben Sie und Ihr Kind die Daten per E-Mail erhalten."
 				}
 			},
 			"student": {
-				"headline": {
-					"personalData": "Persönliche Daten"
-				},
 				"input": {
 					"yourOfficialFirstName": "Dein offizieller Vorname, kein Spitzname",
 					"yourOfficialLastName": "Dein offizieller Nachname"
 				},
 				"text": {
 					"pleaseConfirmTheFollowingDeclarations": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{shortTitle}} nutzen kannst.",
-					"useThisDataToSignIn": "Mit folgenden Daten kannst du dich in der {{shortTitle}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.",
-					"youCanNowLogin": "Du kannst dich jetzt in der HPI Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.",
+					"useThisDataToSignIn": "Folgende Daten dienen der ersten Anmeldung in der {{title}}.",
+					"youCanNowLogin": "Beim ersten Login muss ein neues Passwort gewählt werden.",
 					"yourSSOAccountDetails": "Deine SSO-Accountdaten sind jetzt freigeschaltet."
 				}
 			},
@@ -2777,12 +2785,14 @@
 				"agreeSoThatYourChild": "zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
 				"letsTakeThisStepWithYouAndYourChild": "Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{shortTitle}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
 				"linguisticNoteWeUseMaleFormForReadability": "* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{shortTitle}} teilweise die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{shortTitle}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung.",
-				"pleaseChooseTheAgeOfTheStudents": "Bitte wähle das Alter des Schülers/der Schülerin:",
+				"pleaseChooseTheAgeOfTheStudents": "Bitte das Alter der Schülerin oder des Schülers wählen:",
 				"pleaseRegisterChildThenAgreeToTermsOfUse": "Wir bitten Sie, Ihr Kind zunächst in der {{shortTitle}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.",
-				"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{shortTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
+				"pleaseRegisterFirstAndAgreeToTerms": "Bitte registriere dich zunächst in der {{themeTitle}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.",
 				"registrationMustBeDoneByYou": "Die folgende Anmeldung muss von dir als Schüler:in selbst vorgenommen werden, nicht von deinen Eltern.",
 				"thankYouForTakingThisStepWithUs": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
-				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers/der Schülerin* verändert sich der Anmeldeprozess. Bei Schüler:innen unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schüler:innen über {{independentAge}} sie selbst."
+				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers/der Schülerin* verändert sich der Anmeldeprozess. Bei Schüler:innen unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schüler:innen über {{independentAge}} sie selbst.",
+				"registrationProcessAgeStep": "Wir freuen uns, dass du die {{title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform. Je nach Alter der Schülerin oder des Schülers verändert sich der Anmeldeprozess. Bei Schülerinnen und Schülern unter {{minAge}} werden die Eltern gebeten, ihre Kinder in den folgenden Schritten der Anmeldung zu unterstützen.",
+				"nextStepRegistration": "Im nächsten Schritt erfolgt die Registrierung in der {{title}}"
 			}
 		},
 		"deprecatedWarning": {
@@ -2813,12 +2823,12 @@
 		},
 		"requestPin": {
 			"button": {
-				"requestVerificationCode": "Bestätigungscode jetzt anfordern"
+				"requestVerificationCode": "Bestätigungscode anfordern"
 			},
 			"text": {
-				"pleaseRequestAConfirmationCode": "Bitte fordere dazu einen Bestätigungscode an:",
-				"theCodeCanBeRequestedSeveralTimes": "Der Code kann mehrfach angefordert werden. Das erneute Zusenden macht bisher versendete Codes allerdings ungültig. Warte vor dem erneuten Anfordern lieber einen Moment länger und prüfe ggf. den Spam-Ordner in deinem E-Mail-Postfach.",
-				"weOnlyHaveToCheckWhether": "Wir müssen nur kurz prüfen, ob es deine E-Mail-Adresse wirklich gibt."
+				"requestConfirmationCode": "Mit Klick auf den folgenden Button wird der Bestätigungscode verschickt:",
+				"theCodeCanBeRequestedSeveralTimes": "Der Code kann mehrfach angefordert werden (bitte auch Spam-Ordner prüfen!). Das erneute Zusenden macht bisher versendete Codes allerdings ungültig.",
+				"confirmEmail": "Durch einen Bestätigungscode prüfen wir, ob der Zugang zur angegebenen E-Mail-Adresse besteht."
 			}
 		},
 		"text": {
@@ -2914,6 +2924,7 @@
 			},
 			"label": {
 				"accessToData": "Zugriff auf Dateien",
+				"collaborativeFiles": "Neue Team-Dateien Seite testen",
 				"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der/die Nutzer:in muss dafür angemeldet sein:",
 				"leadersAndAdmins": "Leiter:innen und Team-Admins",
 				"members": "Teilnehmer:innen"
@@ -2983,6 +2994,7 @@
 					"externTeacher": "Lehrkraft anderer Schule (Team-Admin)",
 					"federalState": "Bundesland",
 					"insertEmailOfExpertToInvite": "Externe Expert:innen verfügen aus Sicherheitsgründen nur über eingeschränkte Berechtigungen - beispielsweise können sie nicht an Videokonferenzen teilnehmen und keine Kurse anlegen. Um eine/n schulfremde/n Expert:in einzuladen, gib die E-Mail-Adresse ein, an die die Einladung verschickt werden soll:",
+					"insertEmailOfExpertToInviteWithVideoConference": "Externe Expert:innen verfügen aus Sicherheitsgründen nur über eingeschränkte Berechtigungen - beispielsweise können sie keine Kurse anlegen. Um eine/n schulfremde/n Expert:in einzuladen, gib die E-Mail-Adresse ein, an die die Einladung verschickt werden soll:",
 					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert eine/n andere/n Eigentümer:in",
 					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
 					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
@@ -3037,7 +3049,8 @@
 				"messengerNotActivatedTitle": "Hinweis",
 				"messengerNotActiveInTeam": "Dieses schulübergreifende Team beinhaltet keinen Teamchat. Im Gegensatz zu deiner Schule ist in der Schule die das Team erstellt hat Chatten noch nicht durch den Admin aktiviert.",
 				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
-				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten."
+				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten.",
+				"allFilesWillBeDeletedWarning": "Alle <b>Dateien</b> des Teams werden <b>unwiderruflich gelöscht</b>!"
 			}
 		},
 		"add": {
@@ -3047,7 +3060,7 @@
 		},
 		"button": {
 			"createTeam": "Team anlegen",
-			"duplicateTeam": "Team duplizieren",
+			"copyTeam": "Team kopieren",
 			"foundATeam": "Gründe ein Team"
 		},
 		"form_importTopic": {
@@ -3060,7 +3073,7 @@
 			}
 		},
 		"headline": {
-			"duplicateTeam": "Team duplizieren",
+			"copyTeam": "Team kopieren",
 			"invitations": "Einladungen",
 			"membersOfTeam": "Mitglieder des Teams: {{teamName}}",
 			"myTeams": "Meine Teams",
@@ -3160,7 +3173,8 @@
 				"openSection": "Abschnitt entsperren",
 				"selectNeXboard": "neXboard auswählen",
 				"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler:innen müssen Zugriff auf die Aufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
-				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
+				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'",
+				"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern des Themas hochgeladen werden."
 			}
 		}
 	},

@@ -4,6 +4,8 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
+const { decode } = require('html-entities');
+
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
@@ -29,13 +31,7 @@ const markSelected = (options, values = []) => options.map((option) => {
 	return option;
 });
 
-const getDefaultRedirectUrl = (courseId) => {
-	let url = `/courses/${courseId}`;
-	if (Configuration.get('ROOM_VIEW_ENABLED')) {
-		url = `/rooms/${courseId}`;
-	}
-	return url;
-};
+const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
@@ -175,6 +171,11 @@ const editCourseHandler = (req, res, next) => {
 		const substitutions = _.cloneDeep(
 			teachers,
 		);
+
+		// decode course name to display it properly in an input field
+		if (course.name) {
+			course.name = decode(course.name);
+		}
 
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
@@ -392,7 +393,7 @@ const enrichCourse = (course, res) => {
 	course.content = (course.description || '').substr(0, 140);
 	course.secondaryTitle = '';
 	course.background = course.color;
-	course.memberAmount = course.userIds.length;
+	course.memberAmount = course.userIds ? course.userIds.length : 0;
 	(course.times || []).forEach((time) => {
 		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
@@ -515,49 +516,6 @@ router.post('/', (req, res, next) => {
 		});
 });
 
-router.post('/copy/:courseId', (req, res, next) => {
-	// map course times to fit model
-	(req.body.times || []).forEach((time) => {
-		time.startTime = moment
-			.duration(time.startTime, 'HH:mm')
-			.asMilliseconds();
-		time.duration = time.duration * 60 * 1000;
-	});
-
-	const startDate = timesHelper.dateStringToMoment(req.body.startDate);
-	const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
-
-	delete req.body.startDate;
-	if (startDate.isValid()) {
-		req.body.startDate = startDate.toDate();
-	}
-
-	delete req.body.untilDate;
-	if (untilDate.isValid()) {
-		req.body.untilDate = untilDate.toDate();
-	}
-
-	req.body._id = req.params.courseId;
-	// req.body.courseId = req.params.courseId;
-	req.body.copyCourseId = req.params.courseId;
-
-	req.body.features = [];
-	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
-		if (req.body[feature] === 'true') {
-			req.body.features.push(feature);
-		}
-		delete req.body[feature];
-	});
-
-	api(req)
-		.post('/courses/copy/', {
-			json: req.body, // TODO: sanitize
-		})
-		.then((course) => {
-			res.redirect(getDefaultRedirectUrl(course._id));
-		});
-});
-
 router.get('/add/', editCourseHandler);
 
 /*
@@ -615,6 +573,7 @@ router.get('/:courseId/', async (req, res, next) => {
 			qs: {
 				courseId: req.params.courseId,
 				$populate: ['courseId', 'userIds'],
+				$limit: false,
 			},
 		}),
 		api(req).get(`/courses/${req.params.courseId}/userPermissions`, {

@@ -2,12 +2,10 @@ const util = require('util');
 
 const {
 	PUBLIC_BACKEND_URL,
-	EDTR_SOURCE = undefined,
-	EDITOR_URL = undefined,
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
-	SC_TITLE = 'HPI Schul-Cloud',
-	SC_SHORT_TITLE = 'HPI Schul-Cloud',
+	SC_TITLE = 'dBildungscloud',
+	SC_SHORT_TITLE = 'dBildungscloud',
 	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/cloud-instances/',
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	REDIS_URI,
@@ -43,8 +41,6 @@ const {
 
 const exp = {
 	PUBLIC_BACKEND_URL,
-	EDTR_SOURCE,
-	EDITOR_URL,
 	SC_DOMAIN,
 	SC_THEME,
 	SC_TITLE,

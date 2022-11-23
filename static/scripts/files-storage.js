@@ -1,3 +1,5 @@
+import { apiV3FileStorageBasePath, getFileDownloadUrl } from './helpers/storage';
+
 const getDataValue = (attr) => () => {
 	const value = $('#files-storage-component').find('.section-upload').data(attr);
 	return value || undefined;
@@ -6,7 +8,6 @@ const getDataValue = (attr) => () => {
 const getSchoolId = getDataValue('school');
 const getCurrentParentId = getDataValue('parentId');
 const getCurrentParentType = getDataValue('parentType');
-const apiBasePath = '/api/v3/file';
 const maxFilesize = getDataValue('maxFileSize');
 
 const errorMessages = {
@@ -80,7 +81,7 @@ function rename(fileName, fileRecordId) {
 		data: {
 			fileName,
 		},
-		url: `${apiBasePath}/rename/${fileRecordId}`,
+		url: `${apiV3FileStorageBasePath}/rename/${fileRecordId}`,
 		type: 'PATCH',
 		success: () => reloadPage(undefined, 0),
 	}).fail(showAJAXError);
@@ -88,14 +89,21 @@ function rename(fileName, fileRecordId) {
 
 function remove(fileRecordId) {
 	$.ajax({
-		url: `${apiBasePath}/delete/${fileRecordId}`,
+		url: `${apiV3FileStorageBasePath}/delete/${fileRecordId}`,
 		type: 'DELETE',
 		success: () => reloadPage(undefined, 0),
 	}).fail(showAJAXError);
 }
 
+function afterUploadFiles() {
+	if (window.localStorage && window.localStorage.getItem('afterUploadFiles')) {
+		showSuccessMessage('files._file.text.fileSavedSuccess');
+		window.localStorage.removeItem('afterUploadFiles');
+	}
+}
+
 $(document).ready(() => {
-	const $form = $('#files-storage-component').find('.form-upload');
+	const $form = $('#files-storage-component').find('.form-files-storage');
 	const $progressBar = $('#files-storage-component').find('.progress-bar');
 	const $progress = $progressBar.find('.bar');
 	const $percentage = $progressBar.find('.percent');
@@ -107,6 +115,8 @@ $(document).ready(() => {
 	/** loads dropzone, if it exists on current page * */
 	let progressBarActive = false;
 	let finishedFilesSize = 0;
+
+	afterUploadFiles();
 
 	function deleteFileClickHandler(e) {
 		e.stopPropagation();
@@ -143,7 +153,7 @@ $(document).ready(() => {
 
 	if ($form.dropzone) {
 		$form.dropzone({
-			url: `${apiBasePath}/upload/
+			url: `${apiV3FileStorageBasePath}/upload/
 			${getSchoolId()}/
 			${getCurrentParentType()}/
 			${getCurrentParentId()}`,
@@ -176,7 +186,15 @@ $(document).ready(() => {
 					if (progressBarActive) {
 						$progressBar.fadeOut(50, () => {
 							$form.fadeIn(50);
-							reloadPage('files._file.text.fileAddedSuccess');
+
+							const nameValue = $('#name').val();
+							if (nameValue) {
+								window.localStorage.setItem('afterUploadFiles', 'true');
+							}
+
+							$('#homework-form').find('input[name="referrer"]')
+								.val(window.location.pathname + window.location.search);
+							$('#homework-submit-btn').trigger('click');
 						});
 						progressBarActive = false;
 					}
@@ -193,7 +211,7 @@ $(document).ready(() => {
 	$('button[data-method="download"]').on('click', (e) => {
 		const fileRecordId = $(e.currentTarget).attr('data-file-id');
 		const fileName = $(e.currentTarget).attr('data-file-name');
-		const url = `${apiBasePath}/download/${fileRecordId}/${fileName}`;
+		const url = getFileDownloadUrl(fileRecordId, fileName);
 		const a = document.createElement('a');
 		a.href = url;
 		a.download = url.split('/').pop();
@@ -240,33 +258,14 @@ $(document).ready(() => {
 		$deleteModal.modal('hide');
 	});
 
-	function populateRenameModal(fileRecordId, oldName, action, title) {
-		const form = $renameModal.find('.modal-form');
-		form.attr('action', action);
-
-		populateModalForm($renameModal, {
-			title,
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.save'),
-			fields: {
-				fileRecordId,
-				name: oldName,
-			},
-		});
-
-		$renameModal.modal('show');
-	}
 	function fileNameEditClickHandler(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const fileRecordId = $(this).attr('data-file-id');
 		const oldName = $(this).attr('data-file-name');
-
-		populateRenameModal(
-			fileRecordId,
-			oldName,
-			$t('files.label.renameFile'),
-		);
+		$renameModal.find('#newNameInput').val(oldName);
+		$renameModal.find('#fileRecordId').val(fileRecordId);
+		$renameModal.modal('show');
 	}
 
 	$('#files-storage-component').find('.file-name-edit').on('click', fileNameEditClickHandler);
@@ -312,7 +311,7 @@ $('.videostop').on('keypress', (e) => {
 window.fileViewer = function fileViewer(type, name, id) {
 	$('#my-video').css('display', 'none');
 	let win;
-	const src = `${apiBasePath}/download/${id}/${name}`;
+	const src = getFileDownloadUrl(id, name);
 	switch (type) {
 		case `image/${type.substr(6)}`:
 			window.location.href = '#file-view';
