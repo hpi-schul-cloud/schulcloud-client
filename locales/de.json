@@ -2540,7 +2540,7 @@
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
 			"loginFailedFirstHintFirstText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer (nicht gemeint ist der neue Ableger Edge) empfehlen wir aufgrund veralteter Technologien nicht.",
 			"loginFailedFirstHintSecondText": "Solltest du einen der beschriebenen Browser verwenden und trotzdem Probleme haben, dann bitten wir dich alle Browsererweiterungen zu deaktivieren und den Login erneut zu probieren. Bitte teste an dieser Stelle bitte auch einen Refresh.",
-			"loginFailedFithHint": "5. Hast du schon Alternativen ausprobiert??",
+			"loginFailedFithHint": "5. Hast du schon Alternativen ausprobiert?",
 			"loginFailedFithHintText": "Versuche dich testweise in einem anderen Browser einzuloggen. Du kannst auch den Privaten/Inkognito-Modus deines Browsers ausprobieren (dieser ist direkt im Browser auswählbar - oben rechts im Auswahlmenü). Alternativ kannst du es auch mal auf einem anderen Gerät (PC, Tablet, Smartphone) versuchen. Bleibt das Problem bestehen, kann ein anderer Internet-Zugang Abhilfe schaffen.",
 			"loginFailedFourthHint": "4. Bist du auf der richtigen URL?",
 			"loginFailedFourthHintText": "Hier findest du alle Instanzen. Klicke auf das Logo deines Bundeslandes und teste die Anmeldung erneut:",
