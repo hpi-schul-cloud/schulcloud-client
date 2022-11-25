@@ -342,7 +342,7 @@
 				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:"
 			},
 			"text": {
-				"beforeTheSchoolCloudCanBeUsed": "Before the use of the {{shortTitle}}, parents and / or students must have gone through the electronic consent process.",
+				"beforeTheSchoolCloudCanBeUsed": "Before the use of the {{shortTitle}} is possible, parents and / or students must have gone through the electronic consent process.",
 				"studentUnderYears": "<b>Students under {{age}} years: </b> the parents <br/> <b> Students from {{age}} years: </b> to the students themselves <br/>"
 			}
 		},
