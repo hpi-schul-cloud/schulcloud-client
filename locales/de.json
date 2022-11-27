@@ -2664,7 +2664,7 @@
 				"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einer Lehrkraft oder Admin bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
 				"didYouRegisterPerThirdParty": "Werden deine Anmeldedaten außerhalb der Cloud verwaltet, wende dich bitte an das <b>Drittsystem</b> (IServ, Schulportal, etc.) oder deine Schule.",
 				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
-				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse/Nutzername korrekt</b>eingegeben?"
+				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse/Nutzername korrekt</b> eingegeben?"
 			}
 		},
 		"text": {
