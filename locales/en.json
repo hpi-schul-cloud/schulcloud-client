@@ -1276,6 +1276,12 @@
 			"registrationInvalidOutdatedLink": "The registration link is very old and no longer correctly linked with the corresponding user."
 		}
 	},
+	"email": {
+		"supportDBC": "support@dbildungscloud.de",
+		"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+		"supportNBC": "nbc-support@netz-21.de",
+		"supportTHR": "schulcloud-support@thillm.de"
+	},
 	"files": {
 		"_file": {
 			"headline": {
@@ -3213,11 +3219,5 @@
 		"text": {
 			"nextcloudLink": "We are working on a new file space. From now on, all <b>new files</b> can be saved and managed there (open file area). All team members automatically have access to the files stored there. All already <b>existing files</b> in the {{title}} are still available here."
 		}
-	},
-	"email": {
-		"supportDBC": "support@dbildungscloud.de",
-		"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
-		"supportNBC": "nbc-support@netz-21.de",
-		"supportTHR": "schulcloud-support@thillm.de"
 	}
 }

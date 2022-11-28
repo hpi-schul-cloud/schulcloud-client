@@ -2966,6 +2966,12 @@
 			"registrationInvalidOutdatedLink": "Посилання на реєстрацію дуже старе і більше не пов’язане правильно з відповідним користувачем."
 		}
 	},
+	"email": {
+		"supportDBC": "support@dbildungscloud.de",
+		"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+		"supportNBC": "nbc-support@netz-21.de",
+		"supportTHR": "schulcloud-support@thillm.de"
+	},
 	"alert": {
 		"text": {
 			"furtherCase": "+ {{amount}} інший інцидент",
@@ -3222,11 +3228,5 @@
 		"text": {
 			"nextcloudLink": "Ми працюємо над новим файловим простором. Відтепер усі <b>нові файли</b> можна зберігати та керувати ними (відкрита область файлів). Усі члени команди автоматично мають доступ до файлів, які там зберігаються. Усі <b>існуючі файли</b> в {{title}} все ще доступні тут."
 		}
-	},
-	"email": {
-		"supportDBC": "support@dbildungscloud.de",
-		"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
-		"supportNBC": "nbc-support@netz-21.de",
-		"supportTHR": "schulcloud-support@thillm.de"
 	}
 }
