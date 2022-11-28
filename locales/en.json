@@ -1277,10 +1277,12 @@
 		}
 	},
 	"email": {
-		"supportDBC": "support@dbildungscloud.de",
-		"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
-		"supportNBC": "nbc-support@netz-21.de",
-		"supportTHR": "schulcloud-support@thillm.de"
+		"support": {
+			"supportDBC": "support@dbildungscloud.de",
+			"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+			"supportNBC": "nbc-support@netz-21.de",
+			"supportTHR": "schulcloud-support@thillm.de"
+		}
 	},
 	"files": {
 		"_file": {
