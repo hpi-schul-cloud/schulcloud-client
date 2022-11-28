@@ -2567,14 +2567,10 @@
 			"loginFailedSixthHint": "6. ¿Ha eliminado las cookies y los datos del sitio web?",
 			"loginFailedThirdHint": "3. ¿Ha olvidado su contraseña?",
 			"loginFailedThirdHintFifthText": "Para Turingia en: ",
-			"loginFailedThirdHintFirstEmail": "support@dbildungscloud.de",
 			"loginFailedThirdHintFirstText": "Si ha olvidado su contraseña, por favor, restablézcala utilizando la función de contraseña olvidada (enlace directamente en la ventana de acceso). Si la función de olvido de contraseña no funciona, un profesor o un administrador de la escuela también puede restablecer la contraseña. Por razones técnicas, esta función no puede restablecer la contraseña en la propia administración de usuarios de la escuela. Para ello, ponte en contacto con tus profesores o con un administrador de tu centro.",
-			"loginFailedThirdHintFourthEmail": "schul-cloud@bildungsserver.berlin-brandenburg.de",
 			"loginFailedThirdHintFourthText": "Para la Baja Sajonia en: ",
 			"loginFailedThirdHintSixthText": "Para Brandenburgo en: ",
-			"loginFailedThirdHintSecondEmail": "nbc-support@netz-21.de",
 			"loginFailedThirdHintSecondText": "Si esto tampoco funciona, póngase en contacto con el servicio de asistencia técnica.",
-			"loginFailedThirdHintThirdEmail": "schulcloud-support@thillm.de",
 			"loginFailedThirdHintThirdText": "Para el dBildungscloud en: ",
 			"oauthCodeStep": "Fallo al iniciar sesión con el servidor escolar. Vuelva a iniciar sesión o póngase en contacto con el servicio de asistencia.",
 			"oauthLoginFailed": "Fallo al iniciar sesión con el servidor escolar.",
@@ -3217,5 +3213,11 @@
 		"text": {
 			"nextcloudLink": "Estamos trabajando en un nuevo espacio de archivos. A partir de ahora, todos los <b>archivos nuevos</b> se pueden guardar y administrar allí (área de archivos abiertos). Todos los miembros del equipo tienen acceso automáticamente a los archivos almacenados allí. Todos los <b>archivos existentes</b> en {{title}} todavía están disponibles aquí."
 		}
+	},
+	"email": {
+		"supportDBC": "support@dbildungscloud.de",
+		"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+		"supportNBC": "nbc-support@netz-21.de",
+		"supportTHR": "schulcloud-support@thillm.de"
 	}
 }

@@ -2567,14 +2567,10 @@
 			"loginFailedSixthHint": "6. Have you deleted your cookies and website data?",
 			"loginFailedThirdHint": "3. Have you forgotten your password?",
 			"loginFailedThirdHintFifthText": "For Thuringia under: ",
-			"loginFailedThirdHintFirstEmail": "support@dbildungscloud.de",
 			"loginFailedThirdHintFirstText": "If you have forgotten your password, please reset it using the forgotten password function (link directly in the login window). If the forgotten password function does not work, a teacher or an admin of the school can also reset the password. For technical reasons, this function cannot reset the password in the school's own user administration. To do this, contact your teachers or an admin at your school.",
-			"loginFailedThirdHintFourthEmail": "schul-cloud@bildungsserver.berlin-brandenburg.de",
 			"loginFailedThirdHintFourthText": "For Lower Saxony under: ",
 			"loginFailedThirdHintSixthText": "For Brandenburg under: ",
-			"loginFailedThirdHintSecondEmail": "nbc-support@netz-21.de",
 			"loginFailedThirdHintSecondText": "If this does not work either, please contact support.",
-			"loginFailedThirdHintThirdEmail": "schulcloud-support@thillm.de",
 			"loginFailedThirdHintThirdText": "For the dBildungscloud at: ",
 			"oauthLoginFailed": "Login via school server failed.",
 			"oauthCodeStep": "Login via school server failed. Please log in again or contact support.",
@@ -3217,5 +3213,11 @@
 		"text": {
 			"nextcloudLink": "We are working on a new file space. From now on, all <b>new files</b> can be saved and managed there (open file area). All team members automatically have access to the files stored there. All already <b>existing files</b> in the {{title}} are still available here."
 		}
+	},
+	"email": {
+		"supportDBC": "support@dbildungscloud.de",
+		"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+		"supportNBC": "nbc-support@netz-21.de",
+		"supportTHR": "schulcloud-support@thillm.de"
 	}
 }

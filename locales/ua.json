@@ -1812,14 +1812,10 @@
 			"loginFailedSixthHint": "6. Ви видалили файли cookie та дані веб-сайту?",
 			"loginFailedThirdHint": "3. Ви забули свій пароль?",
 			"loginFailedThirdHintFifthText": "Для Тюрінгії під: ",
-			"loginFailedThirdHintFirstEmail": "support@dbildungscloud.de",
 			"loginFailedThirdHintFirstText": "Якщо ви забули свій пароль, будь ласка, скиньте його за допомогою функції 'Забули пароль' (посилання безпосередньо у вікні входу). Якщо функція забутого пароля не спрацьовує, вчитель або адміністратор школи також може скинути пароль. З технічних причин ця функція не дозволяє скинути пароль у власному кабінеті користувача школи. Для цього зверніться до вчителів або адміністрації школи.",
-			"loginFailedThirdHintFourthEmail": "schul-cloud@bildungsserver.berlin-brandenburg.de",
 			"loginFailedThirdHintFourthText": "Для Нижньої Саксонії під: ",
 			"loginFailedThirdHintSixthText": "Для Бранденбургу під: ",
-			"loginFailedThirdHintSecondEmail": "nbc-support@netz-21.de",
 			"loginFailedThirdHintSecondText": "Якщо і це не допоможе, зверніться до служби підтримки.",
-			"loginFailedThirdHintThirdEmail": "schulcloud-support@thillm.de",
 			"loginFailedThirdHintThirdText": "Для dBildungscloud на: ",
 			"errorFirstLogin": "Під час обробки даних першого входу в систему сталася помилка.",
 			"superheroText": "Ви намагаєтеся увійти за допомогою облікового запису супергероя.",
@@ -3226,5 +3222,11 @@
 		"text": {
 			"nextcloudLink": "Ми працюємо над новим файловим простором. Відтепер усі <b>нові файли</b> можна зберігати та керувати ними (відкрита область файлів). Усі члени команди автоматично мають доступ до файлів, які там зберігаються. Усі <b>існуючі файли</b> в {{title}} все ще доступні тут."
 		}
+	},
+	"email": {
+		"supportDBC": "support@dbildungscloud.de",
+		"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+		"supportNBC": "nbc-support@netz-21.de",
+		"supportTHR": "schulcloud-support@thillm.de"
 	}
 }
