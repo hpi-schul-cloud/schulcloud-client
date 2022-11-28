@@ -1276,6 +1276,16 @@
 			"registrationInvalidOutdatedLink": "El enlace de registro es muy antiguo y ya no está vinculado correctamente con el usuario correspondiente."
 		}
 	},
+	"email": {
+		"support": {
+			"text": {
+				"supportDBC": "support@dbildungscloud.de",
+				"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+				"supportNBC": "nbc-support@netz-21.de",
+				"supportTHR": "schulcloud-support@thillm.de"
+			}
+		}
+	},
 	"files": {
 		"_file": {
 			"headline": {
@@ -2538,21 +2548,42 @@
 			"errorFirstLogin": "Se ha producido un error al procesar los datos del primer inicio de sesión.",
 			"loginFailed": "Error de inicio de sesion.",
 			"loginFailedFirstHint": "1. ¿Qué navegador utilizas?",
-			"loginFailedFirstHintText": "Generalmente recomendamos utilizar las últimas versiones de Google Chrome, Firefox y Safari. No recomendamos Internet Explorer debido a tecnologías obsoletas.",
-			"loginFailedFithHint": "5. ¿Estás en la URL correcta?",
-			"loginFailedFithHintText": "Aquí puedes encontrar todas las instancias de dBildungscloud:",
-			"loginFailedFourthHint": "4. ¿Ya has comprobado tus datos de inicio de sesión?",
-			"loginFailedFourthHintText": "Asegúrate también de que el campo 'Más opciones' no esté expandido al iniciar sesión y verifica si hay espacios en el nombre de usuario o la contraseña. También puedes probar la función de contraseña olvidada.",
+			"loginFailedFirstHintFirstText": " En general, recomendamos el uso de los navegadores Google Chrome, Firefox y Safari en su última versión. No recomendamos Internet Explorer (no el nuevo vástago Edge) debido a las tecnologías anticuadas.",
+			"loginFailedFirstHintSecondText": "Si utiliza uno de los navegadores descritos y sigue teniendo problemas, desactive todas las extensiones del navegador e intente iniciar sesión de nuevo. Por favor, pruebe también una actualización en este punto.",
+			"loginFailedFithHint": "5. ¿Ya ha probado alternativas?",
+			"loginFailedFithHintText": "Intenta entrar en un navegador diferente para hacer una prueba. También puedes probar el modo privado/incógnito de tu navegador (se puede seleccionar directamente en el navegador - arriba a la derecha en el menú de selección). También puedes probarlo en otro dispositivo (PC, tableta, smartphone). Si el problema persiste, un acceso a Internet diferente puede ayudar.",
+			"loginFailedFourthHint": "4. ¿Está usted en la URL correcta?",
+			"loginFailedFourthHintText": "Aquí puede encontrar todas las instancias. Haga clic en el logotipo de su estado federado y pruebe de nuevo el registro:",
 			"loginFailedLogoBrandenburg": "Logotipo de Brandeburgo",
 			"loginFailedLogoNiedersachen": "Logotipo de Baja Sajonia",
 			"loginFailedLogoOpen": "Logotipo abierto",
 			"loginFailedLogoSchulCloud": "Logotipo de la nube escolar",
 			"loginFailedLogoTühringen": "Logotipo de Turingia",
 			"loginFailedScreenshot": "Error de inicio de sesión",
-			"loginFailedSecondHint": "2. ¿Has eliminado tus cookies y los datos del sitio web?",
-			"loginFailedThirdHint": "3. ¿Has intentado iniciar sesión en otro dispositivo (por ejemplo, un ordenador portátil en lugar de un teléfono móvil)?",
-			"oauthLoginFailed": "Fallo al iniciar sesión con el servidor escolar.",
+			"loginFailedSecondHint": "2. ¿Has comprobado ya tus datos de acceso?",
+			"loginFailedSecondHintFirstSubsection": "2.1 ¿Tienes una cuenta directamente en la nube educativa y te conectas con tu dirección de correo electrónico?",
+			"loginFailedSecondHintFirstSubsectionFirstText": "Asegúrese también de que el campo 'Más opciones' no esté plegado al iniciar la sesión.",
+			"loginFailedSecondHintFirstSubsectionFourthText": "¿Ha introducido la dirección de correo electrónico correcta? Puedes comprobarlo fácilmente volviendo a abrir el correo electrónico de registro que tú o tus padres recibisteis después de inscribiros y comprobando qué dirección aparece allí.",
+			"loginFailedSecondHintFirstSubsectionSecondText": "Compruebe que no hay espacios antes, dentro o después del nombre de usuario o la contraseña. Esto ocurre sobre todo al copiar y pegar desde otras páginas.",
+			"loginFailedSecondHintFirstSubsectionThirdText": "¿Ya no está seguro de su contraseña? A continuación, utilice la función de contraseña olvidada (← inserte aquí el enlace a la página de contraseña olvidada de la instancia) bajo el botón de inicio de sesión.",
+			"loginFailedSecondHintSecondSubsection": "2.2 ¿Su escuela utiliza su propia administración de usuarios? (LDAP/IServ)?",
+			"loginFailedSecondHintSecondSubsectionFirstText": "Asegúrese de que su escuela o el dominio LDAP/IServ de su escuela está seleccionado en el campo 'Más opciones' y que el campo no se ha cerrado de nuevo con menos.",
+			"loginFailedSecondHintSecondSubsectionFourthText": "La función de contraseña olvidada no funciona en este caso.",
+			"loginFailedSecondHintSecondSubsectionSecondText": "Utiliza tu nombre de usuario (por ejemplo, nombre.apellido) tal y como lo usas en tu escuela y la contraseña correspondiente.",
+			"loginFailedSecondHintSecondSubsectionText": "Entonces deberías haber recibido más información sobre la inscripción por parte de tu profesor o de los administradores de tu centro.",
+			"loginFailedSecondHintSecondSubsectionThirdText": "Su información de usuario, incluyendo su contraseña, será entonces gestionada por el administrador de esta administración de usuarios (probablemente el administrador de su escuela). Por favor, póngase en contacto con él/ella directamente si tiene algún problema de acceso.",
+			"loginFailedSecondHintText": "Hay diferentes <b>tipos de registro</b> para los que tenemos diferentes consejos:",
+			"loginFailedSecondHintThirdSubsection": "2.3 Si no sabes qué tipo de inscripción se aplica a tu centro, pregunta a tus profesores o a un administrador de tu centro.",
+			"loginFailedSixthHint": "6. ¿Ha eliminado las cookies y los datos del sitio web?",
+			"loginFailedThirdHint": "3. ¿Ha olvidado su contraseña?",
+			"loginFailedThirdHintFifthText": "Para Turingia en: ",
+			"loginFailedThirdHintFirstText": "Si ha olvidado su contraseña, por favor, restablézcala utilizando la función de contraseña olvidada (enlace directamente en la ventana de acceso). Si la función de olvido de contraseña no funciona, un profesor o un administrador de la escuela también puede restablecer la contraseña. Por razones técnicas, esta función no puede restablecer la contraseña en la propia administración de usuarios de la escuela. Para ello, ponte en contacto con tus profesores o con un administrador de tu centro.",
+			"loginFailedThirdHintFourthText": "Para la Baja Sajonia en: ",
+			"loginFailedThirdHintSixthText": "Para Brandenburgo en: ",
+			"loginFailedThirdHintSecondText": "Si esto tampoco funciona, póngase en contacto con el servicio de asistencia técnica.",
+			"loginFailedThirdHintThirdText": "Para el dBildungscloud en: ",
 			"oauthCodeStep": "Fallo al iniciar sesión con el servidor escolar. Vuelva a iniciar sesión o póngase en contacto con el servicio de asistencia.",
+			"oauthLoginFailed": "Fallo al iniciar sesión con el servidor escolar.",
 			"pleaseWaitXSeconds": "Por favor, espera {{seconds}} segundos",
 			"showPassword": "Mostrar contraseña:",
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
