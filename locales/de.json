@@ -1787,7 +1787,7 @@
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
 			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
-			"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
+			"specialCharacters": "!§$%&/()=?\\;:,.#+*~-",
 			"sunday": "Sonntag",
 			"sureAboutDeleting": "Bist du dir sicher, dass du '{{ name }}' löschen möchtest?",
 			"sureAboutDiscardingChanges": "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
