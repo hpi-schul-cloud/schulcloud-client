@@ -554,6 +554,11 @@
 			"default": "",
 			"description": "URL that leads to the nextcloud oauth login"
 		},
+		"FEATURE_USE_LOGIN_ENDPOINTS_V3": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the usage of the new login endpoints"
+		},
 		"FILES_STORAGE": {
 			"type": "object",
 			"description": "Files storage server properties, required always to be defined",
