@@ -339,10 +339,10 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "Para invitar a la nube escolar de HPI, envía el siguiente enlace a:"
+				"distributeLinkToInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace a:"
 			},
 			"text": {
-				"beforeTheSchoolCloudCanBeUsed": "Antes de que sea posible el uso de la nube escolar de HPI, los padres y/o estudiantes deben haber pasado por el proceso de consentimiento electrónico.",
+				"beforeTheSchoolCloudCanBeUsed": "Antes de que sea posible el uso de la {{shortTitle}}, los padres y/o estudiantes deben haber pasado por el proceso de consentimiento electrónico.",
 				"studentUnderYears": "<b>Estudiantes menores de {{age}} años: </b> los padres <br/> <b> Estudiantes de {{age}} años: </b> los propios estudiantes <br/>"
 			}
 		},
