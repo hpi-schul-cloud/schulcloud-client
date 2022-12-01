@@ -1142,11 +1142,11 @@
 		},
 		"form_InvitationStudent": {
 			"text": {
-				"beforeTheSchoolCloudCanBeUsed": "Перш ніж використовувати шкільну хмару HPI, батьки та/або учні повинні пройти процедуру електронної згоди.",
+				"beforeTheSchoolCloudCanBeUsed": "Перш ніж використовувати {{shortTitle}}, батьки та/або учні повинні пройти процедуру електронної згоди.",
 				"studentUnderYears": "<b>Учні віком до {{age}} років: </b> батьки <br/> <b> Учні віком від {{age}} років: </b> самі учні <br/>"
 			},
 			"label": {
-				"distributeLinkToInvite": "Щоб запросити до шкільної хмари HPI, відправте це посилання на:"
+				"distributeLinkToInvite": "Щоб запросити до {{shortTitle}}, відправте це посилання на:"
 			}
 		},
 		"form_InvitationTeacher": {
