@@ -339,10 +339,10 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "To invite to the HPI school cloud, send the following link to:"
+				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:"
 			},
 			"text": {
-				"beforeTheSchoolCloudCanBeUsed": "Before the use of the HPI school cloud is possible, parents and / or students must have gone through the electronic consent process.",
+				"beforeTheSchoolCloudCanBeUsed": "Before the use of the {{shortTitle}} is possible, parents and / or students must have gone through the electronic consent process.",
 				"studentUnderYears": "<b>Students under {{age}} years: </b> the parents <br/> <b> Students from {{age}} years: </b> to the students themselves <br/>"
 			}
 		},
@@ -2691,11 +2691,11 @@
 		},
 		"response": {
 			"text": {
-				"didYouChangeEmail": "Have you <b>changed</b> or had your <b>e-mail address</b> changed in the HPI School Cloud? Please continue to use the old e-mail address for login; we are working on a corresponding adaptation of the software at the same time",
+				"didYouChangeEmail": "Have you changed or had your <b>e-mail address changed</b> in the Cloud? Please continue to use the old e-mail address for login.",
 				"didYouRegisterCorrectly": "Did you complete the registration? The Forgot password function only works after you have completed the registration process. You can access it through the <b>registration link</b>, which you received from a teacher or school administrator. Please contact these people if you have not yet received a link.",
-				"didYouRegisterPerThirdParty": "Have you registered in the HPI School Cloud via a <b>third party system/SSO</b> (Moodle, iServ, ItsLearning etc.)? Please use this third party system to log in to the school cloud.",
+				"didYouRegisterPerThirdParty": "If your credentials are managed outside the Cloud, please contact the <b>third-party system</b> (IServ, Schulportal, etc.) or your school.",
 				"emailHasBeenSent": "We have sent an e-mail to the email address stored in your account. </p> <br> If you have not received an e-mail, please check the following options: </br>",
-				"wasYourEmailCorrect": "Did you enter your <b>correct e-mail address</b>?"
+				"wasYourEmailCorrect": "Did you enter your <b>correct e-mail address/username</b>?"
 			}
 		},
 		"text": {
