@@ -10,7 +10,7 @@
         <input type="hidden" name="_method" data-force-value="true" value="patch"/>
       {{else}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit">
-        <input type="hidden" name="submitted" data-force-value="true" value="true"/>
+        <input type="hidden" name="submitted" value="true"/>
       {{/if}}
 
       {{#if @root.submission}}

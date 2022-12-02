@@ -67,7 +67,7 @@
                         </div>
                         {{#userHasPermission "HOMEWORK_CREATE"}}
                             {{> "lib/components/csrfInput"}}
-                            <input type="hidden" name="graded" data-force-value="true" value="true"/>
+                            <input type="hidden" name="graded" value="true"/>
                             <button type="submit" class="ckeditor-submit btn btn-primary" data-testid="tasks-submission-grading-save-and-send-btn">{{$t "homework.button.save" }}</button>
                         {{/userHasPermission}}
                     </form>
