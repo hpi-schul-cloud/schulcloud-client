@@ -1787,7 +1787,7 @@
 			"saturday": "Sábado",
 			"severalSecurityTokens": "Se han enviado varios tokens de seguridad (CSRF) con la solicitud. Inténtalo de nuevo.",
 			"somethingWentWrong": "¡Algo ha salido mal!",
-			"specialCharacters": "! § $% & / () =? \\;:,. # + * ~",
+			"specialCharacters": "! § $% & / () =? \\;:,. # + * ~ -",
 			"sunday": "Domingo",
 			"sureAboutDeleting": "¿Estás seguro de que deseas eliminar '{{ name }}'?",
 			"sureAboutDiscardingChanges": "¿Estás seguro de que deseas descartar los cambios?",
