@@ -27,24 +27,21 @@
                         </td>
                         <td></td>
                         <td>
-                            {{#if this.submission}}
+                            {{#if this.submission.submitted}}
                                 <i class="fa fa-check green" aria-hidden="true" data-testid="task-submissions-task-submitted-icon"/>
                             {{else}}
                                 <i class="fa fa-times red" aria-hidden="true" data-testid="task-submissions-task-notsubmitted-icon"/>
                             {{/if}}
                         </td>
                         <td>
-                            {{#if this.submission.grade}}
-                                {{this.submission.grade}}%
-                            {{else}}
-                                {{#if submission.gradeComment}}
-                                    {{#ifneq this.submission.gradeComment ''}}
-                                        <i class="fa fa-check green" aria-hidden="true" ></i>
-                                    {{/ifneq}}
+                            {{#if this.submission.graded}}
+                                {{#if this.submission.grade}}
+                                    {{this.submission.grade}}%
+                                {{else}}
+                                    <i class="fa fa-check green" aria-hidden="true" ></i>
                                 {{/if}}
                             {{/if}}
                         </td>
-
                         <td><i class="fa fa-chevron-down" aria-hidden="true" data-testid="task-submissions-opensubmission-icon"/></td>
                     </tr>
                     <tr class="evaluation">
@@ -68,20 +65,18 @@
                         <td>{{this.student.lastName}}</td>
                         <td>{{this.student.firstName}}</td>
                         <td>
-                            {{#if this.submission}}
+                            {{#if this.submission.submitted}}
                                 <i class="fa fa-check green" aria-hidden="true" data-testid="task-submissions-task-submitted-icon"/>
                             {{else}}
                                 <i class="fa fa-times red" aria-hidden="true" data-testid="task-submissions-task-notsubmitted-icon"/>
                             {{/if}}
                         </td>
                         <td>
-                            {{#if this.submission.grade}}
-                                {{this.submission.grade}}%
-                            {{else}}
-                                {{#if submission.gradeComment}}
-                                    {{#ifneq this.submission.gradeComment ''}}
-                                        <i class="fa fa-check green" aria-hidden="true"></i>
-                                    {{/ifneq}}
+                            {{#if this.submission.graded}}
+                                {{#if this.submission.grade}}
+                                    {{this.submission.grade}}%
+                                {{else}}
+                                    <i class="fa fa-check green" aria-hidden="true" ></i>
                                 {{/if}}
                             {{/if}}
                         </td>
