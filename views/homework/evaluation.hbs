@@ -8,7 +8,7 @@
     <div class="tabs">
         <div id="submission" class="tab-content active">
             <div class="comment">
-                {{#if this.submission}}
+                {{#if this.submission.submitted}}
                     {{#ifneq 0 (arrayLength this.submission.fileIds)}}
                         {{#embed "homework/components/submission_files"
                             fileIds=../submission.fileIds
@@ -30,7 +30,7 @@
         </div>
         <div id="comment" class="tab-content submission-editor">
             {{#if @root.isTeacher}}
-                {{#if this.submission}}
+                {{#if this.submission.submitted}}
                     {{#embed "files/file-upload"}}{{/embed}}
                     <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
                     <input name="teamMembers" id="teamMembers" type="hidden" data-force-value="true" value="{{userIds this.submission.teamMembers}}" />
