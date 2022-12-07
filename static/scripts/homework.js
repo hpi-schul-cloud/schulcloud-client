@@ -145,9 +145,9 @@ $(document).ready(() => {
 		enableSubmissionWhenFileIsUploaded();
 	});
 
-	function ajaxForm(element, after, contentTest) {
-		const submitButton = element.find('[type=submit]')[0];
-		let submitButtonText = submitButton.innerHTML || submitButton.value;
+	$('.btn-submit').on('click', (event) => {
+		const submitButton = event.currentTarget;
+		let submitButtonText = submitButton.innerHTML;
 		submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)', '');
 
 		const bounces = '<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
@@ -157,6 +157,10 @@ $(document).ready(() => {
 
 		submitButton.style.display = 'inline-block';
 
+		$('form.submissionForm.ajaxForm').trigger('submit');
+	});
+
+	function ajaxForm(element, after, contentTest) {
 		const content = element.serialize();
 		if (contentTest) {
 			if (contentTest(content) === false) {

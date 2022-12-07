@@ -2113,7 +2113,8 @@
 			"importing": "importar",
 			"importSubmission": "Importar el envío de los estudiantes",
 			"onTheSubject": "En el tema",
-			"save": "Guardar y enviar",
+			"save": "Guardar",
+			"submit": "Enviar",
 			"toCourseAlt": "Al curso de la tarea",
 			"toTheCourseFiles": "A los archivos del curso",
 			"toTopicAlt": "Al tema de la tarea"

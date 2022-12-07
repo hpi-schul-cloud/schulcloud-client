@@ -2113,7 +2113,8 @@
 			"importing": "import",
 			"importSubmission": "Import student submission",
 			"onTheSubject": "On the subject",
-			"save": "Save and send",
+			"save": "Save",
+			"submit": "Submit",
 			"toCourseAlt": "To the course of the task",
 			"toTheCourseFiles": "To the course files",
 			"toTopicAlt": "To the topic of the task"
