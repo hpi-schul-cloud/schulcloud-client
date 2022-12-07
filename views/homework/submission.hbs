@@ -115,9 +115,9 @@
             {{/if}}
 
             {{#userHasPermission "SUBMISSIONS_CREATE"}}
-                <div>
-                    <button class="ckeditor-submit btn btn-primary btn-submit" name="submitted" value="false" data-testid="tasks-submission-save-btn">{{$t "homework.button.save" }}</button>
-                    <button class="ckeditor-submit btn btn-primary btn-submit" name="submitted" value="true"  data-testid="tasks-submission-submit-btn">{{$t "homework.button.submit" }}</button>
+                <div class="submit-button-container">
+                    <button class="btn btn-primary btn-submit" name="submitted" value="false" {{#if @root.submission.submitted}}disabled="true"{{/if}} data-testid="tasks-submission-save-btn">{{$t "homework.button.save" }}</button>
+                    <button class="btn btn-primary btn-submit" name="submitted" value="true"  data-testid="tasks-submission-submit-btn">{{$t "homework.button.submit" }}</button>
                 </div>
             {{/userHasPermission}}
         </div>
