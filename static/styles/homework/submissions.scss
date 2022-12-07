@@ -191,3 +191,9 @@
 		padding-right: 0.5rem;
 	}
 }
+
+.button-container {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
