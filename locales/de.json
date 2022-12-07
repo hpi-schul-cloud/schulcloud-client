@@ -2565,9 +2565,9 @@
 			"loginFailedSecondHintFirstSubsectionFirstText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist.",
 			"loginFailedSecondHintFirstSubsectionFourthText": "Hast du die richtige E-Mail-Adresse eingegeben? Du kannst das ganz einfach überprüfen, in dem du die Registrierungsmail, die du oder deine Eltern nach der Registrierung erhalten haben, erneut öffnest und schaust, welche Adresse dort vermerkt ist.",
 			"loginFailedSecondHintFirstSubsectionSecondText": "Prüfe, dass keine Leerzeichen vor, im oder nach dem Benutzernamen oder Passwort enthalten sind. Das passiert vor allem beim Kopieren & Einfügen aus anderen Seiten.",
-			"loginFailedSecondHintFirstSubsectionThirdText": "Bist du dir mit deinem Passwort nicht mehr sicher? Dann benutze die Passwort vergessen Funktion (← hier Link zur Passwort vergessen Seite der Instanz einfügen) unter dem Anmelden Button.",
-			"loginFailedSecondHintSecondSubsection": "2.2 Verwendet deine Schule eine eigene Nutzerverwaltung? (LDAP/IServ)?",
-			"loginFailedSecondHintSecondSubsectionFirstText": "Achte darauf, dass deine Schule bzw. die LDAP/IServ-Domain deiner Schule im Feld 'Mehr Optionen' ausgewählt ist und das Feld nicht mit weniger wieder geschlossen wurde.",
+			"loginFailedSecondHintFirstSubsectionThirdText": "Bist du dir mit deinem Passwort nicht mehr sicher? Dann benutze die Passwort vergessen Funktion unter dem Anmelden Button.",
+			"loginFailedSecondHintSecondSubsection": "2.2 Verwendet deine Schule eine eigene Nutzerverwaltung (LDAP)?",
+			"loginFailedSecondHintSecondSubsectionFirstText": "Achte darauf, dass deine Schule bzw. die LDAP-Domain deiner Schule im Feld 'Mehr Optionen' ausgewählt ist und das Feld nicht mit weniger wieder geschlossen wurde.",
 			"loginFailedSecondHintSecondSubsectionFourthText": "Die Passwort vergessen Funktion funktioniert in diesem Fall nicht.",
 			"loginFailedSecondHintSecondSubsectionSecondText": "Nutze deinen Benutzernamen (z.B. vorname.nachname), wie du ihn auch an deiner Schule verwendest und das dazugehörige Passwort.",
 			"loginFailedSecondHintSecondSubsectionText": "Dann solltest du zur Anmeldung weitere Informationen von deiner Lehrkraft oder den Admins deiner Schule erhalten haben.",
@@ -2691,7 +2691,7 @@
 		},
 		"response": {
 			"text": {
-				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der HPI Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login.",
+				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login.",
 				"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einer Lehrkraft oder Admin bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
 				"didYouRegisterPerThirdParty": "Werden deine Anmeldedaten außerhalb der Cloud verwaltet, wende dich bitte an das <b>Drittsystem</b> (IServ, Schulportal, etc.) oder deine Schule.",
 				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
