@@ -515,7 +515,7 @@ router.get('/new', (req, res, next) => {
 		}
 		const schoolId = res.locals.currentSchool;
 		const parentType = 'tasks';
-		const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, undefined, parentType, req);
+		const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, undefined, parentType, req);
 
 		// Render overview
 		res.render('homework/edit', {
@@ -528,7 +528,7 @@ router.get('/new', (req, res, next) => {
 			assignment,
 			courses,
 			lessons: lessons.length ? lessons : false,
-			...filesStorageData,
+			taskFilesStorageData,
 		});
 	});
 });
@@ -569,7 +569,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			const schoolId = res.locals.currentSchool;
 			const parentId = req.params.assignmentId;
 			const parentType = 'tasks';
-			const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req);
+			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req);
 
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
 			if (assignment.courseId && assignment.courseId._id) {
@@ -589,7 +589,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 						courses,
 						lessons,
 						isSubstitution,
-						...filesStorageData,
+						taskFilesStorageData,
 					});
 				});
 			} else {
@@ -604,7 +604,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					courses,
 					lessons: false,
 					isSubstitution,
-					...filesStorageData,
+					taskFilesStorageData,
 				});
 			}
 		});
@@ -809,8 +809,8 @@ router.get('/:assignmentId', (req, res, next) => {
 			const schoolId = res.locals.currentSchool;
 			const parentId = req.params.assignmentId;
 			const parentType = 'tasks';
-			const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req, true);
-			res.render('homework/assignment', { ...assignment, ...renderOptions, ...filesStorageData });
+			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req, true);
+			res.render('homework/assignment', { ...assignment, ...renderOptions, taskFilesStorageData });
 		});
 	}).catch(next);
 });
