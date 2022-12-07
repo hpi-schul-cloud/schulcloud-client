@@ -810,7 +810,11 @@ router.get('/:assignmentId', (req, res, next) => {
 			const parentId = req.params.assignmentId;
 			const parentType = 'tasks';
 			const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req, true);
-			res.render('homework/assignment', { ...assignment, ...renderOptions, ...filesStorageData });
+
+			const numberOfSubmittedSubmissions = submissions.data.filter((submission) => submission.submitted).length;
+			res.render('homework/assignment', {
+				...assignment, ...renderOptions, ...filesStorageData, numberOfSubmittedSubmissions,
+			});
 		});
 	}).catch(next);
 });
