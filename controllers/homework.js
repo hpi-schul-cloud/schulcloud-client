@@ -744,6 +744,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				path: submissionUploadPath,
 			};
 
+			const studentsWithSubmission = [];
 			// Abgabenübersicht anzeigen -> weitere Daten berechnen
 			if (!assignment.private && (isTeacher || assignment.publicSubmissions)) {
 				// Daten für Abgabenübersicht
@@ -765,7 +766,6 @@ router.get('/:assignmentId', (req, res, next) => {
 								|| (submission.teamMembers && submission.teamMembers.includes(student._id.toString())))[0],
 				}));
 
-				const studentsWithSubmission = [];
 				assignment.submissions.forEach((e) => {
 					if (e.courseGroupId) {
 						e.courseGroupMembers.forEach((c) => {
@@ -811,9 +811,9 @@ router.get('/:assignmentId', (req, res, next) => {
 			const parentType = 'tasks';
 			const filesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req, true);
 
-			const numberOfSubmittedSubmissions = submissions.data.filter((submission) => submission.submitted).length;
+			const numberOfStudentsWithSubmission = studentsWithSubmission.length;
 			res.render('homework/assignment', {
-				...assignment, ...renderOptions, ...filesStorageData, numberOfSubmittedSubmissions,
+				...assignment, ...renderOptions, ...filesStorageData, numberOfStudentsWithSubmission,
 			});
 		});
 	}).catch(next);
