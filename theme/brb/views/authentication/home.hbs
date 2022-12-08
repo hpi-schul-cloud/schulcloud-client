@@ -65,20 +65,20 @@
 
 			<section class="card">
 				<div class="card-block">
-					<h4>{{$t "landingPage.brb.headline.generalInquiriesSupport" (dict "shortTitle" theme.short_title)}}</h4>
-				    <p>{{$t "landingPage.brb.text.generalInquiriesSupport"}}</p>
+					<h4>{{$t "landingPage.brb.headline.generalInquiriesSupportTitle" (dict "shortTitle" theme.short_title)}}</h4>
+				    <ul>
+						<li>{{{$t "landingPage.brb.generalInquiriesSupport.phone1"}}}</li>
+						<li>{{{$t "landingPage.brb.generalInquiriesSupport.phone2"}}}</li>
+						<li>{{{$t "landingPage.brb.generalInquiriesSupport.onlineChat"}}}</li>
+						<li>{{{$t "landingPage.brb.generalInquiriesSupport.email"}}}</li>
+					</ul>
 				</div>
 			</section>
 
 			<section id="furtherInformation" class="card">
 				<div class="card-block">
 					<h4>{{$t "landingPage.brb.headline.furtherInformation" (dict "shortTitle" theme.short_title)}}</h4>
-                    <ul>
-						<li>{{{$t "landingPage.brb.text.furtherInformation.phone1"}}}</li>
-						<li>{{{$t "landingPage.brb.text.furtherInformation.phone2"}}}</li>
-						<li>{{{$t "landingPage.brb.text.furtherInformation.onlineChat"}}}</li>
-						<li>{{{$t "landingPage.brb.text.furtherInformation.email"}}}</li>
-					</ul>
+                    <p>{{{$t "landingPage.brb.text.furtherInformation"}}}</p>
 				</div>
 			</section>
 
