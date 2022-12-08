@@ -2236,7 +2236,7 @@
 		"brb": {
 			"headline": {
 				"advantages": "Ventajas de la {{shortTitle}}",
-				"generalInquiriesSupport": "General Inquiries & Support",
+				"generalInquiriesSupportTitle": "General Inquiries & Support",
 				"furtherInformation": "Entrada en la nube de la escuela",
 				"registration": "Regístrese en la {{shortTitle}}",
 				"valueStatement": "El desarrollo de la nube se caracteriza por"

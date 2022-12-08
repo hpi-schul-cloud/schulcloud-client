@@ -2236,7 +2236,7 @@
 		"brb": {
 			"headline": {
 				"advantages": "Vorteile der {{shortTitle}}",
-				"generalInquiriesSupport": "Allgemeine Anfragen & Support",
+				"generalInquiriesSupportTitle": "Allgemeine Anfragen & Support",
 				"furtherInformation": "Einstieg in die Schul-Cloud",
 				"registration": "Nutzung der {{shortTitle}}",
 				"valueStatement": "Die Entwicklung der Cloud zeichnet sich aus durch"

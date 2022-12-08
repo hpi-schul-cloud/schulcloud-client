@@ -3199,7 +3199,7 @@
 				"access": "Низькопороговий доступ до цифрового навчального контенту",
 				"advantages": "Переваги {{shortTitle}}",
 				"furtherInformation": "Додаткова інформація про початок роботи в {{shortTitle}}",
-				"generalInquiriesSupport": "Загальні питання та підтримка"
+				"generalInquiriesSupportTitle": "Загальні питання та підтримка"
 			},
 			"img_alt": {
 				"text": "Учні сідають разом і використовують {{shortTitle}} на своїх мобільних пристроях."
