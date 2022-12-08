@@ -2236,6 +2236,7 @@
 		"brb": {
 			"headline": {
 				"advantages": "Vorteile der {{shortTitle}}",
+				"generalInquiriesSupport": "Allgemeine Anfragen & Support",
 				"furtherInformation": "Einstieg in die Schul-Cloud",
 				"registration": "Nutzung der {{shortTitle}}",
 				"valueStatement": "Die Entwicklung der Cloud zeichnet sich aus durch"
@@ -2248,6 +2249,7 @@
 			},
 			"text": {
 				"advantages": "<li>Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten</li><li>Austausch digitaler, selbst erstellter Materialien</li><li>Digitale Bildung jenseits separater Computerräume</li><li>Professionelle Wartung</li><li>Ständige Verfügbarkeit neuester Software für Lehrkräfte, Schülerinnen und Schüler</li><li>IT-Anwendungen entsprechen aktuellsten Sicherheitsstandards</li><li>Anlaufstelle für neue digitale Lernangebote</li><li>Direktes Feedback durch die Nutzerinnen und Nutzer</li><li>Anregung zu selbstbestimmtem Lernen</li><li>Bereitstellung eigens entworfener Lernangebote</li><li>Erweiterung der Unterrichtsmethoden</li><li>Vernetzung unterschiedlicher Lernorte</li><br>",
+				"generalInquiriesSupport": "<li> 03378 209 184 </li> <li>03378 209 185</li> <li><a href=\"https://yulinc.netucate.net/live/lisum001/scbb_direct\" target=\"_blank\" >Online Chat</a> <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">Office Hour</a> </li>",
 				"furtherInformation": "Weitere Informationen und Hilfen finden Sie <a href=\"https://bildungsserver.berlin-brandenburg.de/schul-cloud-einstieg\" target=\"_blank\" rel=\"noopener\">hier <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i></a>.",
 				"registration": "Die Registrierung der Schule für die {{shortTitle}} wird durch die Schulleitung durchgeführt. Die einzelnen Schritte und hilfreiche Dokumente finden Sie auf dem <a href=\"https://bildungsserver.berlin-brandenburg.de/schul-cloud-einstieg/informationen-und-hinweise-fuer-schulleitungen\" target=\"_blank\" rel=\"noopener\"><span style='white-space: nowrap;'>Bildungsserver Berlin-Brandenburg <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i></span></a>.",
 				"registration2": "Lehrkräfte, Schülerinnen und Schüler erhalten von ihrer Schule einen Registrierungslink oder Login-Daten für die erstmalige Anmeldung in der {{shortTitle}}.<br>Bei Fragen zum Anmeldeprozess wenden sich Lehrkräfte, Schülerinnen und Schüler sowie Eltern bitte an die benannten Schul-Cloud Admins ihrer Schule bzw. an die zuständigen Lehrkräfte vor Ort.",
