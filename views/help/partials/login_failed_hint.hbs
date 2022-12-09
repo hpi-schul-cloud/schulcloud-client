@@ -9,35 +9,39 @@
 					<img class="browser" src="{{getAssetPath '/images/firefox.png'}}" alt="Chrome" height="42" width="42">
 					<img class="browser" src="{{getAssetPath '/images/safari.png'}}" alt="Safari" height="42" width="42">
 				</div>
-				<br/>
 				<p>{{ $t "login.text.loginFailedFirstHintSecondText"}}</p>
 			</div>
 			<div class="steps">
 				<li class="sub-header">{{$t "login.text.loginFailedSecondHint"}}</li>
 				<p>{{{ $t "login.text.loginFailedSecondHintText"}}}</p>
-				<b>{{ $t "login.text.loginFailedSecondHintFirstSubsection"}}</b>
-				<div>
-					<ul>
-						<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionFirstText"}}</li>
-						<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionSecondText"}}</li>
-						<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionThirdText"}}</li>
-						<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionFourthText"}}</li>
-					</ul>
-					<img class="screenshot"src="{{getAssetPath '/images/login-fail.png'}}" alt={{$t "login.text.loginFailedScreenshot"}}>
+				<div class="sub-step">
+					<b>{{ $t "login.text.loginFailedSecondHintFirstSubsection"}}</b>
+					<div>
+						<ul>
+							<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionFirstText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionSecondText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionThirdText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionFourthText"}}</li>
+							<img class="screenshot"src="{{getAssetPath '/images/login-fail.png'}}" alt={{$t "login.text.loginFailedScreenshot"}}>
+						</ul>
+					</div>
 				</div>
-				<p><b>{{ $t "login.text.loginFailedSecondHintSecondSubsection"}}</b></p>
-				<p>{{ $t "login.text.loginFailedSecondHintSecondSubsectionText"}}</p>
-				<div>
-					<ul>
-						<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionFirstText"}}</li>
-						<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionSecondText"}}</li>
-						<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionThirdText"}}</li>
-						<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionFourthText"}}</li>
-					</ul>
+				<div class="sub-step">
+					<b>{{ $t "login.text.loginFailedSecondHintSecondSubsection"}}</b>
+					<p>{{ $t "login.text.loginFailedSecondHintSecondSubsectionText"}}</p>
+					<div>
+						<ul>
+							<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionFirstText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionSecondText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionThirdText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionFourthText"}}</li>
+						</ul>
+					</div>
 				</div>
-				<bt/>
-				<p><b>{{ $t "login.text.loginFailedSecondHintThirdSubsection"}}</b></p>
-				<p>{{ $t "login.text.loginFailedSecondHintThirdSubsectionText"}}</p>
+				<div class="sub-step">
+					<b>{{ $t "login.text.loginFailedSecondHintThirdSubsection"}}</b>
+					<p>{{ $t "login.text.loginFailedSecondHintThirdSubsectionText"}}</p>
+				</div>
 			</div>
 			<div class="steps">
 				<li class="sub-header">{{$t "login.text.loginFailedThirdHint"}}</li>
