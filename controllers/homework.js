@@ -427,6 +427,7 @@ router.post('/submit/:id/grade-files', (req, res, next) => {
 		} else if ('fileIds' in req.body) {
 			submission.gradeFileIds = submission.gradeFileIds.concat(req.body.fileIds);
 		}
+		submission.graded = true;
 		return api(req).patch(`/submissions/${submissionId}`, {
 			json: submission,
 		});

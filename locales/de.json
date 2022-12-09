@@ -339,10 +339,10 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:"
+				"distributeLinkToInvite": "Um in die {{shortTitle}} einzuladen, verteile folgenden Link an:"
 			},
 			"text": {
-				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler:innen den elektronischen Einwilligungsprozess durchlaufen haben.",
+				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der {{shortTitle}} möglich ist, müssen Eltern und/oder Schüler:innen den elektronischen Einwilligungsprozess durchlaufen haben.",
 				"studentUnderYears": "<b>Schüler:innen unter {{age}} Jahre: </b> die Eltern <br/> <b>Schüler:innen ab {{age}} Jahre: </b> an die Schüler:innen selbst <br/>"
 			}
 		},
@@ -1276,6 +1276,16 @@
 			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem/r Nutzer:in verknüpft."
 		}
 	},
+	"email": {
+		"support": {
+			"text": {
+				"supportDBC": "support@dbildungscloud.de",
+				"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+				"supportNBC": "nbc-support@netz-21.de",
+				"supportTHR": "schulcloud-support@thillm.de"
+			}
+		}
+	},
 	"files": {
 		"_file": {
 			"headline": {
@@ -1777,7 +1787,7 @@
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
 			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
-			"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
+			"specialCharacters": "!§$%&/()=?\\;:,.#+*~-",
 			"sunday": "Sonntag",
 			"sureAboutDeleting": "Bist du dir sicher, dass du '{{ name }}' löschen möchtest?",
 			"sureAboutDiscardingChanges": "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
@@ -2538,19 +2548,40 @@
 			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
 			"loginFailed": "Login fehlgeschlagen.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
-			"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
-			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
-			"loginFailedFithHintText": "Hier findest du alle dBildungscloud Instanzen:",
-			"loginFailedFourthHint": "4. Hast du deine Anmeldedaten schon überprüft?",
-			"loginFailedFourthHintText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
+			"loginFailedFirstHintFirstText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer (nicht gemeint ist der neue Ableger Edge) empfehlen wir aufgrund veralteter Technologien nicht.",
+			"loginFailedFirstHintSecondText": "Solltest du einen der beschriebenen Browser verwenden und trotzdem Probleme haben, dann bitten wir dich alle Browsererweiterungen zu deaktivieren und den Login erneut zu probieren. Bitte teste an dieser Stelle bitte auch einen Refresh.",
+			"loginFailedFithHint": "5. Hast du schon Alternativen ausprobiert?",
+			"loginFailedFithHintText": "Versuche dich testweise in einem anderen Browser einzuloggen. Du kannst auch den Privaten/Inkognito-Modus deines Browsers ausprobieren (dieser ist direkt im Browser auswählbar - oben rechts im Auswahlmenü). Alternativ kannst du es auch mal auf einem anderen Gerät (PC, Tablet, Smartphone) versuchen. Bleibt das Problem bestehen, kann ein anderer Internet-Zugang Abhilfe schaffen.",
+			"loginFailedFourthHint": "4. Bist du auf der richtigen URL?",
+			"loginFailedFourthHintText": "Hier findest du alle Instanzen. Klicke auf das Logo deines Bundeslandes und teste die Anmeldung erneut:",
 			"loginFailedLogoBrandenburg": "Logo Brandenburg",
 			"loginFailedLogoNiedersachen": "Logo Niedersachsen",
 			"loginFailedLogoOpen": "Logo Open",
 			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
 			"loginFailedLogoTühringen": "Logo Thüringen",
 			"loginFailedScreenshot": "Login fehlgeschlagen",
-			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
-			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
+			"loginFailedSecondHint": "2. Hast du deine Anmeldedaten schon überprüft?",
+			"loginFailedSecondHintFirstSubsection": "2.1 Hast du einen Account direkt in der Bildungscloud und meldest dich mit deiner E-Mail-Adresse an?",
+			"loginFailedSecondHintFirstSubsectionFirstText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist.",
+			"loginFailedSecondHintFirstSubsectionFourthText": "Hast du die richtige E-Mail-Adresse eingegeben? Du kannst das ganz einfach überprüfen, in dem du die Registrierungsmail, die du oder deine Eltern nach der Registrierung erhalten haben, erneut öffnest und schaust, welche Adresse dort vermerkt ist.",
+			"loginFailedSecondHintFirstSubsectionSecondText": "Prüfe, dass keine Leerzeichen vor, im oder nach dem Benutzernamen oder Passwort enthalten sind. Das passiert vor allem beim Kopieren & Einfügen aus anderen Seiten.",
+			"loginFailedSecondHintFirstSubsectionThirdText": "Bist du dir mit deinem Passwort nicht mehr sicher? Dann benutze die Passwort vergessen Funktion unter dem Anmelden Button.",
+			"loginFailedSecondHintSecondSubsection": "2.2 Verwendet deine Schule eine eigene Nutzerverwaltung (LDAP)?",
+			"loginFailedSecondHintSecondSubsectionFirstText": "Achte darauf, dass deine Schule bzw. die LDAP-Domain deiner Schule im Feld 'Mehr Optionen' ausgewählt ist und das Feld nicht mit weniger wieder geschlossen wurde.",
+			"loginFailedSecondHintSecondSubsectionFourthText": "Die Passwort vergessen Funktion funktioniert in diesem Fall nicht.",
+			"loginFailedSecondHintSecondSubsectionSecondText": "Nutze deinen Benutzernamen (z.B. vorname.nachname), wie du ihn auch an deiner Schule verwendest und das dazugehörige Passwort.",
+			"loginFailedSecondHintSecondSubsectionText": "Dann solltest du zur Anmeldung weitere Informationen von deiner Lehrkraft oder den Admins deiner Schule erhalten haben.",
+			"loginFailedSecondHintSecondSubsectionThirdText": "Deine Nutzerinformationen, darunter auch dein Passwort, wird dann vom Administrator dieser Nutzerverwaltung (vermutlich dem Admin deiner Schule) verwaltet. Bitte wende dich zum Klären von Login-Problemen direkt an ihn.",
+			"loginFailedSecondHintText": "Es gibt verschiedene <b>Arten der Anmeldung</b>, für die wir unterschiedliche Tipps haben:",
+			"loginFailedSecondHintThirdSubsection": "2.3 Falls du nicht weißt, welche Art der Anmeldung für deine Schule zutrifft, erkundige dich dazu bitte bei deinen Lehrkräften oder einem Admin deiner Schule.",
+			"loginFailedSixthHint": "6. Hast du deine Cookies und Website-Daten gelöscht?",
+			"loginFailedThirdHint": "3. Hast du dein Passwort vergessen?",
+			"loginFailedThirdHintFifthText": "Für Thüringen unter: ",
+			"loginFailedThirdHintFirstText": "Falls du dein Passwort vergessen hast, setze es bitte über die Passwort-vergessen-Funktion (Link direkt im Anmeldefenster) zurück. Sollte die Passwort-Vergessen-Funktion nicht funktionieren, kann auch eine Lehrkraft oder ein Admin der Schule das Passwort zurücksetzen. Diese Funktion kann aus technischen Gründen nicht das Passwort in schuleigenen Nutzerverwaltungen zurücksetzen. Wende dich dazu an deine Lehrkräfte oder einen Admin deiner Schule.",
+			"loginFailedThirdHintFourthText": "Für Niedersachsen unter: ",
+			"loginFailedThirdHintSixthText": "Für Brandenburg unter: ",
+			"loginFailedThirdHintSecondText": "Falls das ebenfalls nicht funktioniert, kontakiere bitte den Support.",
+			"loginFailedThirdHintThirdText": "Für die dBildungscloud unter: ",
 			"oauthLoginFailed": "Login über Schulserver fehlgeschlagen.",
 			"oauthCodeStep": "Login über Schulserver fehlgeschlagen. Bitte erneut einloggen oder den Support kontaktieren.",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
@@ -2660,11 +2691,11 @@
 		},
 		"response": {
 			"text": {
-				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der HPI Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
+				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login.",
 				"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einer Lehrkraft oder Admin bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
-				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der HPI Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der HPI Schul-Cloud einzuloggen.",
+				"didYouRegisterPerThirdParty": "Werden deine Anmeldedaten außerhalb der Cloud verwaltet, wende dich bitte an das <b>Drittsystem</b> (IServ, Schulportal, etc.) oder deine Schule.",
 				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
-				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
+				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse/Nutzername korrekt</b> eingegeben?"
 			}
 		},
 		"text": {
