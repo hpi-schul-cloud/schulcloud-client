@@ -44,6 +44,7 @@
 
                     <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
+                        <input type="hidden" name="isEvaluator" value="true" />
 
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
                         {{#if this.submission.courseGroupId}}

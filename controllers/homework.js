@@ -48,8 +48,12 @@ const getActions = (res, item, path) => [{
 },
 ];
 
-const handleTeamSubmissionsBody = (body) => {
-	body.teamSubmissionOptions === 'courseGroup' ? body.teamMembers = [] : body.courseGroupId = null;
+const handleTeamSubmissionsBody = (body, currentUser) => {
+	if (body.isEvaluator) {
+		return;
+	}
+
+	body.teamSubmissionOptions === 'courseGroup' ? body.teamMembers = [currentUser._id] : body.courseGroupId = null;
 };
 
 const sendNotification = (courseId, title, message, userId, req, link) => {
@@ -170,7 +174,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		}
 	}
 
-	handleTeamSubmissionsBody(req.body);
+	handleTeamSubmissionsBody(req.body, res.locals.currentUser);
 
 	if (req.body.teamMembers && typeof req.body.teamMembers === 'string') {
 		req.body.teamMembers = [req.body.teamMembers];
@@ -348,7 +352,7 @@ const getUpdateHandler = (service) => function updateHandler(req, res, next) {
 		if (req.body.grade) {
 			req.body.grade = parseInt(req.body.grade, 10);
 		}
-		handleTeamSubmissionsBody(req.body);
+		handleTeamSubmissionsBody(req.body, res.locals.currentUser);
 	}
 	return patchFunction(service, req, res, next);
 };
