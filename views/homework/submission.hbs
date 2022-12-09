@@ -46,8 +46,8 @@
                 {{#each @root.students}}
                     <option value="{{this._id}}"
                         {{#if @root.submission}}
+                            {{#inArray this._id @root.submission.teamMemberIds}}selected{{/inArray}}
                             {{#ifeq this._id @root.submission.studentId._id}} selected{{/ifeq}}
-                            {{#ifeq this._id @root.currentUser._id}} selected{{/ifeq}}
                         {{else}}
                             {{#ifeq this._id @root.currentUser._id}} selected{{/ifeq}}
                         {{/if}}
