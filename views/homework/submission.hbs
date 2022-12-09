@@ -1,43 +1,21 @@
 <section id="submission" class="tab-content section-homeworkdetails">
   {{#if @root.submittable}}
     <div class="comment editor submission-editor">
-      <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
-      {{#embed "files/file-upload" path=@root.path}}{{/embed}}
-
-      {{#if @root.submission}}
+        {{#if @root.submission}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{@root.submission._id}}">
         <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
         <input type="hidden" name="_method" data-force-value="true" value="patch"/>
-      {{else}}
+        {{else}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit">
         <input type="hidden" name="submitted" value="true"/>
-      {{/if}}
-
-      {{#if @root.submission}}
-        {{#ifneq 0 (arrayLength @root.submission.fileIds)}}
-            {{#embed "homework/components/submission_files"
-                fileIds=@root.submission.fileIds
-                deletionAllowed=true
-                submission=@root.submission}}{{/embed}}
-        {{/ifneq}}
-      {{else}}
-        <div class="form-group section-uploaded-files" data-testid="section-uploadedfiles">
-            <label>{{$t "homework.label.filesUploadedForDelivery" }}</label>
-            <ul class="list-group-files js-file-list d-flex flex-row"></ul>
-        </div>
-        <input type="hidden" name="_method" data-force-value="true" value="post"/>
-        <input name="schoolId" type="hidden" data-force-value="true" value="{{@root.currentSchool}}"/>
-        <input name="studentId" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}"/>
-      {{/if}}
-
-      {{#if @root.teamSubmissions}}
-        <hr>
-        <p class="submissionLabel"><i class="fa fa-users"></i>
-        {{#if maxTeamMembers}}
-            {{{$t "homework._task.label.teamSubmissionMaxX" (dict "maxTeamMembers" @root.maxTeamMembers)}}}
-        {{else}}
-            {{$t "homework._task.label.teamSubmission"}}
         {{/if}}
+        {{#if @root.teamSubmissions}}
+        <p class="submissionLabel"><i class="fa fa-users"></i>
+            {{#if maxTeamMembers}}
+                {{{$t "homework._task.label.teamSubmissionMaxX" (dict "maxTeamMembers" @root.maxTeamMembers)}}}
+            {{else}}
+                {{$t "homework._task.label.teamSubmission"}}
+            {{/if}}
         </p>
         <div class="form-group">
             <input name="teamSubmissionOptions" value="teamMembers" type="radio" id="teamMembers1" {{#unless @root.courseGroupSelected}}checked{{/unless}}/>
@@ -73,14 +51,33 @@
             </select>
         </div>
         <hr>
-      {{/if}}
+        {{/if}}
         <p class="submissionLabel"><i class="fa fa-text-width"></i>{{$t "homework._task.label.textDelivery"}}</p>
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
-
         <div class="form-group">
             <textarea id="evaluation" name="comment" class="form-control ckeditor customckeditor"
                   placeholder="{{$t "homework._task.input.createSubmission"}}">{{@root.submission.comment}}</textarea>
         </div>
+        <hr>
+      <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
+      {{#embed "files/file-upload" path=@root.path}}{{/embed}}
+
+      {{#if @root.submission}}
+        {{#ifneq 0 (arrayLength @root.submission.fileIds)}}
+            {{#embed "homework/components/submission_files"
+                fileIds=@root.submission.fileIds
+                deletionAllowed=true
+                submission=@root.submission}}{{/embed}}
+        {{/ifneq}}
+      {{else}}
+        <div class="form-group section-uploaded-files" data-testid="section-uploadedfiles">
+            <label>{{$t "homework.label.filesUploadedForDelivery" }}</label>
+            <ul class="list-group-files js-file-list d-flex flex-row"></ul>
+        </div>
+        <input type="hidden" name="_method" data-force-value="true" value="post"/>
+        <input name="schoolId" type="hidden" data-force-value="true" value="{{@root.currentSchool}}"/>
+        <input name="studentId" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}"/>
+      {{/if}}
   {{else}}
     {{#if @root.submission}}
         {{#if @root.submission.hasFile}}
