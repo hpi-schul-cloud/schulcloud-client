@@ -17,7 +17,6 @@ const { getGradingFileDownloadPath, getGradingFileName, isGraded } = require('..
 const timesHelper = require('../helpers/timesHelper');
 const filesStoragesHelper = require('../helpers/files-storage');
 
-
 const router = express.Router();
 
 handlebars.registerHelper('ifvalue', (conditional, options) => {
@@ -536,7 +535,7 @@ router.get('/new', (req, res, next) => {
 router.get('/:assignmentId/edit', (req, res, next) => {
 	api(req).get(`/homework/${req.params.assignmentId}`, {
 		qs: {
-			$populate: ['courseId', 'fileIds'],
+			$populate: ['courseId'],
 		},
 	}).then((assignment) => {
 		const isTeacher = (assignment.teacherId == res.locals.currentUser._id) || ((assignment.courseId || {}).teacherIds || []).includes(res.locals.currentUser._id);
@@ -556,9 +555,6 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 		if (assignment.dueDate) {
 			assignment.dueDate = timesHelper.fromUTC(assignment.dueDate);
 		}
-
-		addClearNameForFileIds(assignment);
-		// assignment.submissions = assignment.submissions.map((s) => { return { submission: s }; });
 
 		const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
 			$limit: false,
@@ -613,28 +609,11 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 	});
 });
 
-// files>single=student=upload,teacher=upload || files>multi=teacher=overview ||
-const addClearNameForFileIds = (files) => {
-	if (files == undefined) return;
-
-	if (files.length > 0) {
-		files.forEach((submission) => {
-			addClearNameForFileIds(submission);
-		});
-	} else if (files.fileIds && files.fileIds.length > 0) {
-		return files.fileIds.map((file) => {
-			if (file.name) {
-				file.clearName = file.name.replace(/%20/g, ' '); // replace to spaces
-			}
-			return file;
-		});
-	}
-};
 
 router.get('/:assignmentId', (req, res, next) => {
 	api(req).get(`/homework/${req.params.assignmentId}`, {
 		qs: {
-			$populate: ['courseId', 'fileIds'],
+			$populate: ['courseId'],
 		},
 	}).then(async (assignment) => {
 		// Kursfarbe setzen
@@ -657,23 +636,12 @@ router.get('/:assignmentId', (req, res, next) => {
 
 		// file upload path, todo: maybe use subfolders
 		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
-
-		const breadcrumbTitle = ((assignment.archived || []).includes(res.locals.currentUser._id))
-			? (res.$t('homework.headline.breadcrumbArchived'))
-			: ((assignment.private)
-				? (res.$t('homework.headline.breadcrumbPrivate'))
-				: (res.$t('homework.headline.breadcrumbAssigned')));
-		const breadcrumbUrl = ((assignment.archived || []).includes(res.locals.currentUser._id))
-			? ('/homework/archive')
-			: ((assignment.private)
-				? ('/homework/private')
-				: ('/homework/asked'));
 		const promises = [
 			// Abgaben auslesen
 			api(req).get('/submissions/', {
 				qs: {
 					homeworkId: assignment._id,
-					$populate: ['homeworkId', 'fileIds', 'gradeFileIds', 'teamMembers', 'studentId', 'courseGroupId'],
+					$populate: ['homeworkId', 'gradeFileIds', 'teamMembers', 'studentId', 'courseGroupId'],
 				},
 			}),
 		];
@@ -698,15 +666,37 @@ router.get('/:assignmentId', (req, res, next) => {
 				}),
 			);
 		}
+		async function findSubmissionFiles(submission, submitters, teachers, submittable) {
+			const isTeacher = teachers.has(res.locals.currentUser._id);
+			const { filesStorage } = await filesStoragesHelper.filesStorageInit(submission.schoolId, submission._id, 'submissions', req, false);
+
+			const submissionFilesStorageData = _.clone(filesStorage);
+			submissionFilesStorageData.files = filesStorage.files.filter((file) => submitters.has(file.creatorId));
+			submissionFilesStorageData.readonly = isTeacher || !submittable;
+
+			const gradeFilesStorageData = _.clone(filesStorage);
+			gradeFilesStorageData.files = filesStorage.files.filter((file) => teachers.has(file.creatorId));
+			gradeFilesStorageData.readonly = !isTeacher || !submittable;
+
+			submission.submissionFiles = { filesStorage: submissionFilesStorageData };
+			submission.gradeFiles = { filesStorage: gradeFilesStorageData };
+
+			return submission;
+		}
+
+		const teachers = new Set();
+
 		await Promise.all(promises).then(async ([submissions, course, courseGroups]) => {
 			assignment.submission = (submissions || {}).data.map((submission) => {
 				submission.teamMemberIds = (submission.teamMembers || []).map((e) => e._id);
-				submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
+				submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds || [];
 				submission.courseGroupMembers = (_.find((courseGroups || {}).data, (cg) => JSON.stringify(cg._id) === JSON.stringify((submission.courseGroupId || {})._id)) || {}).userIds; // need full user objects here, double populating not possible above
+				submission.submitters = new Set([submission.studentId, ...submission.teamMemberIds, ...submission.courseGroupMemberIds]);
+
 				return submission;
 			}).filter((submission) => ((submission.studentId || {})._id == res.locals.currentUser._id)
-					|| (submission.teamMemberIds.includes(res.locals.currentUser._id.toString()))
-					|| ((submission.courseGroupMemberIds || []).includes(res.locals.currentUser._id.toString())))[0];
+				|| (submission.teamMemberIds.includes(res.locals.currentUser._id.toString()))
+				|| ((submission.courseGroupMemberIds || []).includes(res.locals.currentUser._id.toString())))[0];
 
 			courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
 				? ((courseGroups || {}).data || [])
@@ -721,22 +711,13 @@ router.get('/:assignmentId', (req, res, next) => {
 				.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1));
 
 			const assignmentCourse = (assignment.courseId || {});
-			const isCreator = assignment.teacherId.toString() === res.locals.currentUser._id.toString();
-			const isCourseTeacher = (assignmentCourse.teacherIds || []).includes(res.locals.currentUser._id);
-			const isCourseSubstitutionTeacher = (assignmentCourse.substitutionIds || []).includes(res.locals.currentUser._id);
-			const isTeacher = isCreator || isCourseTeacher || isCourseSubstitutionTeacher;
+			teachers.add(assignment.teacherId, ...assignmentCourse.teacherIds, ...assignmentCourse.substitutionIds);
+			const isTeacher = teachers.has(res.locals.currentUser._id);
 
 			const renderOptions = {
 				title: (assignment.courseId == null)
 					? assignment.name
 					: (`${assignment.courseId.name} - ${assignment.name}`),
-				// BC-533 - remove old taskoverview
-				/* breadcrumb: [
-					{
-						title: res.$t('homework.headline.breadcrumb', { breadcrumbtitle: breadcrumbTitle }),
-						url: breadcrumbUrl,
-					},
-				], */
 				isTeacher,
 				students,
 				courseGroups,
@@ -762,7 +743,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				const studentSubmissions = students.map((student) => ({
 					student,
 					submission: assignment.submissions.filter((submission) => (submission.studentId._id == student._id)
-								|| (submission.teamMembers && submission.teamMembers.includes(student._id.toString())))[0],
+						|| (submission.teamMembers && submission.teamMembers.includes(student._id.toString())))[0],
 				}));
 
 				const studentsWithSubmission = [];
@@ -778,6 +759,7 @@ router.get('/:assignmentId', (req, res, next) => {
 					} else {
 						studentsWithSubmission.push(e.studentId.toString());
 					}
+					e.submitters = new Set(studentsWithSubmission);
 				});
 				const studentsWithoutSubmission = [];
 				((assignment.courseId || {}).userIds || []).forEach((e) => {
@@ -790,8 +772,6 @@ router.get('/:assignmentId', (req, res, next) => {
 				studentsWithoutSubmission.sort((a, b) => ((a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1))
 					.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1));
 
-				// submission>single=student=upload || submissionS>multi=teacher=overview
-				addClearNameForFileIds(assignment.submission || assignment.submissions);
 				assignment.submissions = assignment.submissions.map((s) => ({ submission: s }));
 
 				renderOptions.studentSubmissions = studentSubmissions;
@@ -800,16 +780,16 @@ router.get('/:assignmentId', (req, res, next) => {
 				renderOptions.ungradedFileSubmissions = collectUngradedFiles(submissions.data);
 			}
 
-			if (assignment.submission) {
-				assignment.submission.hasFile = false;
-				if (assignment.submission.fileIds.length > 0) {
-					assignment.submission.hasFile = true;
-				}
+			if (Array.isArray(assignment.submissions)) {
+				assignment.submissions = await Promise.all(assignment.submissions.map(async (submission) => ({ submission: await findSubmissionFiles(submission.submission, submission.submission.submitters, teachers, false) })));
 			}
-			const schoolId = res.locals.currentSchool;
-			const parentId = req.params.assignmentId;
-			const parentType = 'tasks';
-			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req, true);
+
+			if (assignment.submission) {
+				assignment.submission = await findSubmissionFiles(assignment.submission, assignment.submission.submitters, teachers, assignment.submittable);
+			}
+
+			const { schoolId, _id } = assignment;
+			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, _id, 'tasks', req, true);
 			res.render('homework/assignment', { ...assignment, ...renderOptions, taskFilesStorageData });
 		});
 	}).catch(next);
