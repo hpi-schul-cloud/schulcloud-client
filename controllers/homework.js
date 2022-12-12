@@ -398,7 +398,7 @@ router.delete('/:id/file', (req, res, next) => {
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
-router.delete('/submit/:id', getDeleteHandler('submissions', true));
+router.delete('/submit/:id', getDeleteHandler('submissions'));
 router.get('/submit/:id/delete', getDeleteHandler('submissions', true));
 
 router.post('/submit/:id/files', (req, res, next) => {
