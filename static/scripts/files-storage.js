@@ -1,7 +1,7 @@
 import { apiV3FileStorageBasePath, getFileDownloadUrl } from './helpers/storage';
 
 const getDataValue = (attr) => () => {
-	const value = $('#files-storage-component').find('.section-upload').data(attr);
+	const value = $('.files-storage-component').find('.section-upload').data(attr);
 	return value || undefined;
 };
 
@@ -103,14 +103,14 @@ function afterUploadFiles() {
 }
 
 $(document).ready(() => {
-	const $form = $('#files-storage-component').find('.form-files-storage');
-	const $progressBar = $('#files-storage-component').find('.progress-bar');
+	const $form = $('.files-storage-component').find('.form-files-storage');
+	const $progressBar = $('.files-storage-component').find('.progress-bar');
 	const $progress = $progressBar.find('.bar');
 	const $percentage = $progressBar.find('.percent');
 
-	const $modals = $('#files-storage-component').find('.modal');
-	const $renameModal = $('#files-storage-component').find('.rename-modal');
-	const $deleteModal = $('#files-storage-component').find('.delete-modal');
+	const $modals = $('.modal');
+	const $renameModal = $('.files-storage-rename-modal');
+	const $deleteModal = $('.files-storage-delete-modal');
 
 	/** loads dropzone, if it exists on current page * */
 	let progressBarActive = false;
@@ -228,7 +228,7 @@ $(document).ready(() => {
 	$('.btn-file-danger').on('click', (e) => {
 		e.stopPropagation();
 		e.preventDefault();
-		const $dangerModal = $('.danger-modal');
+		const $dangerModal = $('.files-storage-danger-modal');
 		$dangerModal.appendTo('body').modal('show');
 	});
 
@@ -246,9 +246,9 @@ $(document).ready(() => {
 		$renameModal.modal('hide');
 	});
 
-	$('#files-storage-component').find('button[data-method="delete"]').on('click', deleteFileClickHandler);
-	$('#files-storage-component').find('a[data-method="delete"]').on('click', deleteFileClickHandler);
-	$('#files-storage-component').find('a[data-method="delete"]').on('keypress', (e) => {
+	$('.files-storage-component').find('button[data-method="delete"]').on('click', deleteFileClickHandler);
+	$('.files-storage-component').find('a[data-method="delete"]').on('click', deleteFileClickHandler);
+	$('.files-storage-component').find('a[data-method="delete"]').on('keypress', (e) => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			deleteFileClickHandler(e);
 		}
@@ -268,7 +268,7 @@ $(document).ready(() => {
 		$renameModal.modal('show');
 	}
 
-	$('#files-storage-component').find('.file-name-edit').on('click', fileNameEditClickHandler);
+	$('.files-storage-component').find('.file-name-edit').on('click', fileNameEditClickHandler);
 
 	function fileMouseOverHandler() {
 		const size = $(this).attr('data-file-size');
