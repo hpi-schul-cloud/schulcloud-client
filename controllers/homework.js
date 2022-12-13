@@ -658,11 +658,12 @@ router.get('/:assignmentId', (req, res, next) => {
 		}
 		async function findSubmissionFiles(submission, submitters, teachers, submittable) {
 			const isTeacher = teachers.has(res.locals.currentUser._id);
+			const isCreator = submitters.has(res.locals.currentUser._id);
 			const { filesStorage } = await filesStoragesHelper.filesStorageInit(submission.schoolId, submission._id, 'submissions', req, false);
 
 			const submissionFilesStorageData = _.clone(filesStorage);
 			submissionFilesStorageData.files = filesStorage.files.filter((file) => submitters.has(file.creatorId));
-			submissionFilesStorageData.readonly = isTeacher || !submittable;
+			submissionFilesStorageData.readonly = (!isCreator && isTeacher) || !submittable;
 
 			const gradeFilesStorageData = _.clone(filesStorage);
 			gradeFilesStorageData.files = filesStorage.files.filter((file) => teachers.has(file.creatorId));
