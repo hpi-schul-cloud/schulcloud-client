@@ -12,6 +12,7 @@
         <input name="studentId" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}"/>
         <input type="hidden" name="submitted" value="true"/>
         {{/if}}
+        <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submission" />
         {{#if @root.teamSubmissions}}
         <p class="submissionLabel"><i class="fa fa-users"></i>
             {{#if maxTeamMembers}}

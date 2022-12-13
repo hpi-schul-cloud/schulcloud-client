@@ -52,6 +52,7 @@
                         <input name="studentId" type="hidden" data-force-value="true" value="{{this.submission.studentId._id}}" />
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
                 {{/if}}
+                        <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submissions" />
                         <div class="comment form-group">
                             <div class="form-group">
                                 <label>{{$t "homework.label.rating" }}<small> {{$t "homework.label.inPercent" }}</small></label>

@@ -102,6 +102,24 @@ function afterUploadFiles() {
 	}
 }
 
+function handleAfterUploadComplete() {
+	if (getCurrentParentType() === 'tasks') {
+		const nameValue = $('#name').val();
+		if (nameValue) {
+			window.localStorage.setItem('afterUploadFiles', 'true');
+		}
+
+		$('#homework-form').find('input[name="referrer"]')
+			.val(window.location.pathname + window.location.search);
+		$('#homework-submit-btn').trigger('click');
+	}
+
+	if (getCurrentParentType() === 'submissions') {
+		window.localStorage.setItem('afterUploadFiles', 'true');
+		$('.submissionForm').find('.ckeditor-submit').trigger('click');
+	}
+}
+
 $(document).ready(() => {
 	const $form = $('.files-storage-component').find('.form-files-storage');
 	const $progressBar = $('.files-storage-component').find('.progress-bar');
@@ -186,15 +204,7 @@ $(document).ready(() => {
 					if (progressBarActive) {
 						$progressBar.fadeOut(50, () => {
 							$form.fadeIn(50);
-
-							const nameValue = $('#name').val();
-							if (nameValue) {
-								window.localStorage.setItem('afterUploadFiles', 'true');
-							}
-
-							$('#homework-form').find('input[name="referrer"]')
-								.val(window.location.pathname + window.location.search);
-							$('#homework-submit-btn').trigger('click');
+							handleAfterUploadComplete();
 						});
 						progressBarActive = false;
 					}

@@ -175,6 +175,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		req.body.teamMembers = [req.body.teamMembers];
 	}
 	let referrer;
+	const base = req.headers.origin || HOST;
 	if (req.body.referrer) {
 		referrer = req.body.referrer;
 	} else if (req.header('Referer').indexOf('homework/new') !== -1) {
@@ -203,7 +204,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 							}),
 						data.teacherId,
 						req,
-						`${(req.headers.origin || HOST)}/${referrer}`,
+						`${base}/${referrer}`,
 					);
 				});
 		}
@@ -211,13 +212,10 @@ const getCreateHandler = (service) => (req, res, next) => {
 			? addFilePermissionsForTeamMembers(req, data.teamMembers, data.courseGroupId, data.fileIds)
 			: Promise.resolve({});
 		return promise.then(() => {
-			if (service === 'submissions') {
-				referrer += '#activetabid=submission';
-			}
 			if (referrer === 'tasks' || referrer.includes('rooms')) {
 				referrer = `homework/${data._id}/edit?returnUrl=homework/${data._id}`;
 			}
-			const url = new URL(referrer, req.headers.origin || HOST);
+			const url = new URL(referrer, base);
 			res.redirect(url);
 		});
 	}).catch((err) => {
@@ -245,9 +243,10 @@ const sanitizeRefererDomain = (allowedDomain, referrer) => {
 
 const patchFunction = (service, req, res, next) => {
 	let referrer;
+	let base = req.headers.origin || HOST;
 	if (req.body.referrer) {
 		referrer = req.body.referrer;
-		referrer = sanitizeRefererDomain((req.headers.origin || HOST), referrer);
+		referrer = sanitizeRefererDomain(base, referrer);
 		delete req.body.referrer;
 	}
 
@@ -270,14 +269,13 @@ const patchFunction = (service, req, res, next) => {
 							' ',
 							data.studentId,
 							req,
-							`${(req.headers.origin || HOST)}/homework/${homework._id}`);
+							`${base}/homework/${homework._id}`);
 					});
-				const redirectPath = `${req.header('Referrer')}#activetabid=submissions`;
-				res.redirect(redirectPath);
+				base = req.header('Referrer');
 			});
 		}
 		if (referrer) {
-			const url = new URL(referrer, req.headers.origin || HOST);
+			const url = new URL(referrer, base);
 			res.redirect(url);
 		} else {
 			res.sendStatus(200);
