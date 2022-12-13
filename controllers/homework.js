@@ -101,22 +101,23 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileI
 };
 
 function collectUngradedFiles(submissions) {
-	const ungradedSubmissionsWithFiles = submissions.filter(
-		(submission) => !isGraded(submission) && !_.isEmpty(submission.fileIds),
-	);
-	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.fileIds);
-	const fileNames = _.fromPairs(
+	const ungradedSubmissionsWithFiles = submissions.filter((submission) => !submission.submission.graded);
+	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.submission.submissionFiles.filesStorage.files);
+/*	const fileNames = _.fromPairs(
 		submissions.flatMap((submission) => submission.fileIds.map((file) => [
-			getGradingFileName(file),
+			//getGradingFileName(file),
 			{ submissionId: submission._id, teamMemberIds: submission.teamMemberIds },
 		])),
 	);
-
-	return {
+ */
+console.log(JSON.stringify(ungradedSubmissionsWithFiles));
+	const res = {
 		empty: _.isEmpty(ungradedFiles),
 		urls: ungradedFiles.map(getGradingFileDownloadPath).join(' '),
-		fileNames,
+		fileNames: ungradedFiles.map(getGradingFileName),
 	};
+	console.log(res);
+	return res;
 }
 
 const getCreateHandler = (service) => (req, res, next) => {
@@ -775,11 +776,8 @@ router.get('/:assignmentId', (req, res, next) => {
 				renderOptions.studentSubmissions = studentSubmissions;
 				renderOptions.studentsWithoutSubmission = studentsWithoutSubmission;
 
-				renderOptions.ungradedFileSubmissions = collectUngradedFiles(submissions.data);
-			}
-
-			if (Array.isArray(assignment.submissions)) {
 				assignment.submissions = await Promise.all(assignment.submissions.map(async (submission) => ({ submission: await findSubmissionFiles(submission.submission, submission.submission.submitters, teachers, false) })));
+				renderOptions.ungradedFileSubmissions = collectUngradedFiles(assignment.submissions);
 			}
 
 			if (assignment.submission) {
