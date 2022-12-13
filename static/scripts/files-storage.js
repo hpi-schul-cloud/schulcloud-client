@@ -102,7 +102,7 @@ function afterUploadFiles() {
 	}
 }
 
-function handleAfterUploadComplete() {
+function submitAfterUpload() {
 	if (getCurrentParentType() === 'tasks') {
 		const nameValue = $('#name').val();
 		if (nameValue) {
@@ -204,7 +204,7 @@ $(document).ready(() => {
 					if (progressBarActive) {
 						$progressBar.fadeOut(50, () => {
 							$form.fadeIn(50);
-							handleAfterUploadComplete();
+							submitAfterUpload();
 						});
 						progressBarActive = false;
 					}

@@ -1,19 +1,19 @@
 <section id="submission" class="tab-content section-homeworkdetails">
   {{#if @root.submittable}}
     <div class="comment editor submission-editor">
-        {{#if @root.submission}}
+    {{#if @root.submission}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{@root.submission._id}}">
-        <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
-        <input type="hidden" name="_method" data-force-value="true" value="patch"/>
-        {{else}}
+            <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
+            <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+    {{else}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit">
-        <input type="hidden" name="_method" data-force-value="true" value="post"/>
-        <input name="schoolId" type="hidden" data-force-value="true" value="{{@root.currentSchool}}"/>
-        <input name="studentId" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}"/>
-        <input type="hidden" name="submitted" value="true"/>
-        {{/if}}
-        <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submission" />
-        {{#if @root.teamSubmissions}}
+            <input type="hidden" name="_method" data-force-value="true" value="post"/>
+            <input name="schoolId" type="hidden" data-force-value="true" value="{{@root.currentSchool}}"/>
+            <input name="studentId" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}"/>
+            <input type="hidden" name="submitted" value="true"/>
+    {{/if}}
+            <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submission" />
+    {{#if @root.teamSubmissions}}
         <p class="submissionLabel"><i class="fa fa-users"></i>
             {{#if maxTeamMembers}}
                 {{{$t "homework._task.label.teamSubmissionMaxX" (dict "maxTeamMembers" @root.maxTeamMembers)}}}
@@ -55,7 +55,7 @@
             </select>
         </div>
         <hr>
-        {{/if}}
+    {{/if}}
         <p class="submissionLabel"><i class="fa fa-text-width"></i>{{$t "homework._task.label.textDelivery"}}</p>
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
         <div class="form-group">
@@ -64,7 +64,7 @@
         </div>
         <hr>
       <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
-      {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}
+    {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}
   {{else}}
     {{#if @root.submission}}
         {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}
@@ -94,7 +94,7 @@
 			{{/userHasPermission}}
 		{{/if}}
     {{/if}}
-    </form>
+            </form>
     </div>
 
     {{#embed "lib/components/modal" class="delete-modal" title="${res.$t('global.text.areYousure')}"}}

@@ -13,7 +13,6 @@ const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const { logger, formatError } = require('../helpers');
 const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
-const { getGradingFileDownloadPath, getGradingFileName, isGraded } = require('../helpers/homework');
 const timesHelper = require('../helpers/timesHelper');
 const filesStoragesHelper = require('../helpers/files-storage');
 
@@ -106,8 +105,8 @@ function collectUngradedFiles(submissions) {
 
 	return {
 		empty: _.isEmpty(ungradedFiles),
-		urls: ungradedFiles.map(getGradingFileDownloadPath).join(' '),
-		fileNames: ungradedFiles.map(getGradingFileName),
+		urls: ungradedFiles.map(filesStoragesHelper.getFileDownloadPath).join(' '),
+		fileNames: ungradedFiles.map((file) => file.name),
 	};
 }
 
