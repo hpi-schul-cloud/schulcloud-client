@@ -49,7 +49,7 @@ const getActions = (res, item, path) => [{
 ];
 
 const handleTeamSubmissionsBody = (body, currentUser) => {
-	if (body.isEvaluator) {
+	if (body.isEvaluation) {
 		return;
 	}
 
