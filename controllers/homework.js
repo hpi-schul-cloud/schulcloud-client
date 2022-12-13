@@ -49,6 +49,10 @@ const getActions = (res, item, path) => [{
 ];
 
 const handleTeamSubmissionsBody = (body, currentUser) => {
+	if (body.isEvaluation) {
+		return;
+	}
+
 	body.teamSubmissionOptions === 'courseGroup' ? body.teamMembers = [currentUser._id] : body.courseGroupId = null;
 };
 
