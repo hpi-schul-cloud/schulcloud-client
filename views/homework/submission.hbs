@@ -78,8 +78,20 @@
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
 
         <div class="form-group">
-            <textarea id="evaluation" name="comment" class="form-control ckeditor customckeditor"
-                  placeholder="{{$t "homework._task.input.createSubmission"}}">{{@root.submission.comment}}</textarea>
+            <textarea
+                id="evaluation"
+                name="comment"
+                class="form-control ckeditor customckeditor"
+                data-parent-id="{{@root.submission._id}}"
+                data-school-id="{{@root.submission.schoolId}}"
+                data-parent-type="submissions"
+                placeholder="{{$t "homework._task.input.createSubmission"}}"
+                {{#ifeq @root.submission._id undefined}}
+                    	data-disable-file-browser='true'
+                {{/ifeq}}
+            >
+                    {{@root.submission.comment}}
+            </textarea>
         </div>
   {{else}}
     {{#if @root.submission}}
