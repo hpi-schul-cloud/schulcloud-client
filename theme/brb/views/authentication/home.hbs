@@ -63,6 +63,18 @@
 				{{> "authentication/forms/login"}}
 			</div>
 
+			<section class="card">
+				<div class="card-block">
+					<h4>{{$t "landingPage.brb.headline.generalInquiriesSupport" (dict "shortTitle" theme.short_title)}}</h4>
+				    <ul>
+						<li>{{{$t "landingPage.brb.text.phone1"}}}</li>
+						<li>{{{$t "landingPage.brb.text.phone2"}}}</li>
+						<li>{{{$t "landingPage.brb.text.onlineChat"}}}</li>
+						<li>{{{$t "landingPage.brb.text.email"}}}</li>
+					</ul>
+				</div>
+			</section>
+
 			<section id="furtherInformation" class="card">
 				<div class="card-block">
 					<h4>{{$t "landingPage.brb.headline.furtherInformation" (dict "shortTitle" theme.short_title)}}</h4>
