@@ -711,7 +711,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1));
 
 			const assignmentCourse = (assignment.courseId || {});
-			teachers.add(assignment.teacherId, ...assignmentCourse.teacherIds, ...assignmentCourse.substitutionIds);
+			teachers.add(assignment.teacherId, ...assignmentCourse.teacherIds || [], ...assignmentCourse.substitutionIds || []);
 			const isTeacher = teachers.has(res.locals.currentUser._id);
 
 			const renderOptions = {
