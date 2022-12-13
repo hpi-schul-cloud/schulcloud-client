@@ -103,21 +103,12 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileI
 function collectUngradedFiles(submissions) {
 	const ungradedSubmissionsWithFiles = submissions.filter((submission) => !submission.submission.graded);
 	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.submission.submissionFiles.filesStorage.files);
-/*	const fileNames = _.fromPairs(
-		submissions.flatMap((submission) => submission.fileIds.map((file) => [
-			//getGradingFileName(file),
-			{ submissionId: submission._id, teamMemberIds: submission.teamMemberIds },
-		])),
-	);
- */
-console.log(JSON.stringify(ungradedSubmissionsWithFiles));
-	const res = {
+
+	return {
 		empty: _.isEmpty(ungradedFiles),
 		urls: ungradedFiles.map(getGradingFileDownloadPath).join(' '),
 		fileNames: ungradedFiles.map(getGradingFileName),
 	};
-	console.log(res);
-	return res;
 }
 
 const getCreateHandler = (service) => (req, res, next) => {
