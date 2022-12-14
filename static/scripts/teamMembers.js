@@ -17,7 +17,6 @@ $(document).ready(() => {
 
 			const key = e.target.getAttribute('key');
 			let url = window.location.pathname;
-
 			if (key <= 2) {
 				if (sortDirection === 'asc') {
 					window.location = `${url}?sortDirection=desc&sortBy=${key}`;
@@ -28,20 +27,19 @@ $(document).ready(() => {
 		})
 	}
 
+	const className = sortDirection === 'desc' ? 'fa-caret-down' : 'fa-caret-up';
+
 	if (role === 'Administrator') {
-		if (sortDirection === 'desc') {
-			$('.col-sort').append(
-				"<i class='col-sort-icon fa fa-caret-down'></i>"
-			);
-		} else {
-			$('.col-sort').append(
-				"<i class='col-sort-icon fa fa-caret-up'></i>"
-			);
-		}
+		$('.col-sort').each((index, elem) => {
+			if (index < 3) {
+				$(elem).append(
+					$(`<i class='col-sort-icon fa ${className}'></i>`)
+				);
+			}
+		})
 
 		sortByAscDesc();
 	}
-
 
 	const handler = {
 		get(target, name) {

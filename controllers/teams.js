@@ -842,6 +842,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const $limit = false;
 	const method = 'patch';
 	const { sortDirection } = req.query;
+	const { sortBy } = req.query;
 
 	const roleTranslations = {
 		teammember: res.$t('teams._team.members.text.member'),
@@ -1103,14 +1104,13 @@ router.get('/:teamId/members', async (req, res, next) => {
 				|| res.locals.currentSchoolData.isTeamCreationByStudentsEnabled;
 		});
 
-		body.sort((a,b) => {
-			if (a === b) return 0;
+		body.sort((a, b) => {
+			if (a[sortBy] === b[sortBy]) return 0;
 
 			if (sortDirection === 'asc') {
-				return a < b ? -1 : 1;
-			} else {
-				return a < b ? 1 : -1;
+				return a[sortBy] < b[sortBy] ? -1 : 1;
 			}
+			return a[sortBy] < b[sortBy] ? 1 : -1;
 		});
 
 		res.render(
