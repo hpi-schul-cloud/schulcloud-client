@@ -96,7 +96,7 @@
 			}
 		},
 		"text": {
-			"centralIdentityManagement": "Your user data is synchronized by a central identity management (IDM). Changes to it can only be made in the source system (e.g. school server) on which the data in the IDM is based. Please contact your school's local administrator to make changes to your user data.",
+			"centralIdentityManagement": "Your user data is automatically synchronized by a identity management (IDM) system. Changes to it can only be made in the source system (e.g. school server or Schulportal) that the data in the IDM is based on. Please contact the local admin of your school to make changes to your user data.",
 			"noDeviceEntered": "No devices entered",
 			"preferencesUpdateError": "There was an error in the preferences!",
 			"preferencesUpdates": "Preferences have been updated!"
@@ -2113,7 +2113,8 @@
 			"importing": "import",
 			"importSubmission": "Import student submission",
 			"onTheSubject": "On the subject",
-			"save": "Save and send",
+			"saveAndSend": "Save and send",
+			"submit": "Submit",
 			"toCourseAlt": "To the course of the task",
 			"toTheCourseFiles": "To the course files",
 			"toTopicAlt": "To the topic of the task"

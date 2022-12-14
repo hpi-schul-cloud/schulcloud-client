@@ -24,7 +24,7 @@
             <input type="hidden" name="_method" value="patch" />
             <div class="form-group" id="enableStudentsTeamsCreate">
 				<label>
-					<input type="checkbox" name="enablestudentteamcreation"
+					<input type="checkbox" name="enablestudentteamcreation" data-testid="student_team_checkbox"
 						   value="true"
 						{{#ifConfig "STUDENT_TEAM_CREATION" "opt-in"}}
 						   {{#ifeq ../school.enableStudentTeamCreation true}}
@@ -42,7 +42,7 @@
 				</label>
             </div>
             {{> "lib/components/csrfInput"}}
-            <button type="submit" class="btn btn-primary btn-submit">{{$t "global.button.save" }}</button>
+            <button type="submit" class="btn btn-primary btn-submit" data-testid="button_save_team_administration">{{$t "global.button.save" }}</button>
         </form>
 			{{/ifConfig}}
 		{{/ifConfig}}
