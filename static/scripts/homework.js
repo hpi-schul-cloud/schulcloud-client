@@ -127,7 +127,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 $(document).ready(() => {
-	$('.btn-submit').on('click', (event) => {
+	$('.submission-button').on('click', (event) => {
 		const submitButton = event.currentTarget;
 		let submitButtonText = submitButton.innerHTML;
 		submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)', '');
