@@ -17,7 +17,7 @@
 			<div class="row">
 					<h2 class="h5">
 						{{#each breadcrumbs}}
-						<a class="{{#if @last}}active{{/if}}" href="{{this.url}}">{{{stripOnlyScript this.label}}}</a><span> /
+						<a class="{{#if @last}}active{{/if}}" href="{{this.url}}" data-testid="fileSectionTitle">{{{stripOnlyScript this.label}}}</a><span> /
 						</span>
 						{{/each}}
 					</h2>
@@ -34,7 +34,7 @@
                 {{/if}}
 
                 {{#if courseUrl}}
-                        <a href="{{courseUrl}}" class="btn btn-secondary pull-right">
+                        <a href="{{courseUrl}}" data-testid="navigateToCourseBtn" class="btn btn-secondary pull-right">
                             <i class="fa fa-users"></i>
                             {{ toCourseText }}
                         </a>
@@ -64,7 +64,7 @@
 
 		<label for="sortOrder" style="position: absolute;left:-999px">{{$t "global.headline.sorting"}}</label>
 		<div style="margin: 1px 0 0 10px;">
-			<button id="sortButton"
+			<button id="sortButton" data-testid="sortOrderBtn"
 				style="height: 40px; width: 40px; background-color: white; border: 1px solid rgba(0,0,0,.15); border-radius: 5px;">
 				<i class="fa fa-arrow-down"></i>
             </button>
@@ -74,21 +74,21 @@
 {{/if}}
 
 {{#if directories}}
-<h3 class="h6" style="padding: 1rem 0 1.5rem">{{$t "files.label.folder"}}</h3>
+<h3 class="h6" data-testid="folderTitle" style="padding: 1rem 0 1.5rem">{{$t "files.label.folder"}}</h3>
 <section class="directories">
 	<div class="row">
 		{{#each directories}}
 		<div class="col-xs-12">
-			<button class="card card-block folder openfolder" data-folder-id="{{this._id}}" aria-label="{{$t "
+			<button class="card card-block folder openfolder" data-testid="folderOpenButton" data-folder-id="{{this._id}}" aria-label="{{$t "
 				files.label.clickToOpenDir" (dict "name" this.name)}}">
 				<strong class="card-title-directory">
-					<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
+					<i class="fa fa-folder" data-testid="folderIcon" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
 				</strong>
 				{{#userHasPermission "FOLDER_DELETE"}}
 				<div class="pull-right">
-					<a data-method="dir-rename" title="{{$t "files.label.renameFolder"}}" data-directory-id="{{../this._id}}"
+					<a data-method="dir-rename" data-testid="editFolderName" title="{{$t "files.label.renameFolder"}}" data-directory-id="{{../this._id}}"
 						data-directory-name="{{../this.name}}" tabindex="0"><i class="fa fa-edit directory-icon" aria-hidden="true"></i></a>
-					<a data-href="/files/directory/" data-method="delete" title="{{$t "files.label.deleteFolder"}}"
+					<a data-href="/files/directory/" data-testid="deleteFolder" data-method="delete" title="{{$t "files.label.deleteFolder"}}"
 						data-file-id="{{../this._id}}" data-file-name="{{{../this.name}}}" tabindex="0"><i class="fa fa-trash-o directory-icon" aria-hidden="true"></i></a>
 				</div>
 				{{/userHasPermission}}
@@ -99,7 +99,7 @@
 </section>
 {{/if}}
 {{#if files}}
-<h3 class="h6" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "global.headline.files"}}</h3>
+<h3 class="h6" data-testid="fileTitle" style="display: block; clear: both; padding: 1.5rem 0 1.5rem">{{$t "global.headline.files"}}</h3>
 {{/if}}
 {{#embed "files/file-viewer"}}{{/embed}}
 {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
@@ -109,11 +109,11 @@
 		{{#if ../canCreateDir}}
 		<div class="col-sm-12">
 			<div data-toggle="modal">
-				<button class="btn btn-primary create-directory">
+				<button class="btn btn-primary create-directory" data-testid="createNewFolderBtn">
 					<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
 				</button>
 				{{#if ../canCreateFile}}
-				<button class="btn btn-primary new-file" data-file-path="{{this.path}}">
+				<button class="btn btn-primary new-file" data-testid="createNewFileBtn" data-file-path="{{this.path}}">
 					<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFile" }}
 				</button>
 				{{/if}}
