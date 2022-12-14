@@ -170,7 +170,10 @@ const getCreateHandler = (service) => (req, res, next) => {
 		req.body.teamMembers = [req.body.teamMembers];
 	}
 	let referrer;
-	const base = req.headers.origin || HOST;
+	let base = req.headers.origin || HOST;
+	if (service === 'submissions') {
+		base = req.header('Referrer');
+	}
 	if (req.body.referrer) {
 		referrer = req.body.referrer;
 	} else if (req.header('Referer').indexOf('homework/new') !== -1) {
