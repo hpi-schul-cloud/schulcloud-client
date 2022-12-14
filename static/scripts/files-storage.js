@@ -116,7 +116,7 @@ function submitAfterUpload() {
 
 	if (getCurrentParentType() === 'submissions') {
 		window.localStorage.setItem('afterUploadFiles', 'true');
-		$('.submissionForm').find('.ckeditor-submit').trigger('click');
+		$('form.submissionForm.ajaxForm').trigger('submit');
 	}
 }
 
