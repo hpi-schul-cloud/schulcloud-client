@@ -3,6 +3,46 @@
 // jshint esversion: 6
 
 $(document).ready(() => {
+
+	const params = new Proxy(new URLSearchParams(window.location.search), {
+		get: (searchParams, prop) => searchParams.get(prop),
+	});
+	const sortDirection = params.sortDirection;
+	const role = $('.dropdown-name').attr('current-user');
+
+	const sortByAscDesc = () => {
+		$('.col-sort').click((e) => {
+			e.stopPropagation();
+			e.preventDefault();
+
+			const key = e.target.getAttribute('key');
+			let url = window.location.pathname;
+
+			if (key <= 2) {
+				if (sortDirection === 'asc') {
+					window.location = url + `?sortDirection=desc&sortBy=${key}`;
+				} else  {
+					window.location = url + `?sortDirection=asc&sortBy=${key}`;
+				}
+			}
+		})
+	}
+
+	if(role === 'Administrator') {
+		sortDirection === 'desc'
+		?  $('.col-sort').append(
+				"<i class='col-sort-icon fa fa-caret-down'></i>"
+			)
+		: 1
+		? sortDirection === 'asc'
+			? $('.col-sort').append(
+					"<i class='col-sort-icon fa fa-caret-up'></i>"
+				)
+			: 1
+		: 1;
+		sortByAscDesc();
+	}
+
 	const handler = {
 		get(target, name) {
 			return name in target ? target[name] : '';

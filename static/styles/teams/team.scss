@@ -1,3 +1,4 @@
+@import "../lib/colors";
 #team-wrapper {
   .rocketchat {
     height: 400px;
@@ -118,4 +119,12 @@
           padding-right: 48px !important;
       }
   }
+}
+
+.col-sort-icon {
+	color: $colorTertiary;
+	pointer-events: none;
+	position: fixed;
+	padding-top: 5px;
+	margin-left: 10px;
 }

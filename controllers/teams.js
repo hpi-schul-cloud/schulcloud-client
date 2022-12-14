@@ -841,6 +841,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const schoolId = res.locals.currentSchool;
 	const $limit = false;
 	const method = 'patch';
+	const sortBy = req.query.sortBy;
+	const sortDirection = req.query.sortDirection;
 
 	const roleTranslations = {
 		teammember: res.$t('teams._team.members.text.member'),
@@ -1100,6 +1102,18 @@ router.get('/:teamId/members', async (req, res, next) => {
 			return res.locals.currentUser.permissions.includes('STUDENT_LIST')
 				|| !user.roles.includes(studentRoleId)
 				|| res.locals.currentSchoolData.isTeamCreationByStudentsEnabled;
+		});
+
+		body.sort((a,b) => {
+			return a === b
+			? 0
+			: a < b
+			? sortDirection === 'asc'
+				? -1
+				: 1
+			: sortDirection === 'asc'
+			? 1
+			: -1;
 		});
 
 		res.render(
