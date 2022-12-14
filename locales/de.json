@@ -96,7 +96,7 @@
 			}
 		},
 		"text": {
-			"centralIdentityManagement": "Deine Nutzerdaten werden von einem zentralen Identitätsmanagement (IDM) synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver), das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Admin deiner Schule, um Änderungen an deinen Nutzerdaten vorzunehmen.",
+			"centralIdentityManagement": "Deine Nutzerdaten werden automatisch von einem Identitätsmanagement (IDM) synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver oder Schulportal), das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Admin deiner Schule, um Änderungen an deinen Nutzerdaten vorzunehmen.",
 			"noDeviceEntered": "Keine Geräte eingetragen",
 			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!",
 			"preferencesUpdates": "Präferenzen wurden aktualisiert!"
