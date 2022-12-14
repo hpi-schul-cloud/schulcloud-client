@@ -10,7 +10,6 @@
         <input type="hidden" name="_method" data-force-value="true" value="patch"/>
       {{else}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit">
-        <input type="hidden" name="submitted" value="true"/>
       {{/if}}
 
       {{#if @root.submission}}
@@ -98,22 +97,30 @@
 
     {{#if @root.submittable}}
         {{> "lib/components/csrfInput"}}
-        {{#userHasPermission "SUBMISSIONS_CREATE"}}
-            <button type="submit" class="ckeditor-submit btn btn-primary btn-submit" disabled="true" data-testid="tasks-submission-save-and-send-btn">{{$t "homework.button.save" }}</button>
-        {{/userHasPermission}}
 
-        {{#if @root.submission}}
-			{{#userHasPermission "SUBMISSIONS_EDIT"}}
-				{{#ifeq @root.currentUser._id @root.submission.studentId._id}}
-					<a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission"
-						target="_blank"
-						data-method="delete-submission"
-						data-name="{{$t "homework.button.hrefDataName" }}"
-						alt="{{$t "homework.button.hrefAlt" }}"
-					><i class="fa fa-trash-o"></i> {{$t "global.headline.delete" }}</a>
-				{{/ifeq}}
-			{{/userHasPermission}}
-		{{/if}}
+        <div class="button-container">
+            {{#if @root.submission}}
+                {{#userHasPermission "SUBMISSIONS_EDIT"}}
+                    {{#ifeq @root.currentUser._id @root.submission.studentId._id}}
+                        <div>
+                            <a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission"
+                                target="_blank"
+                                data-method="delete-submission"
+                                data-name="{{$t "homework.button.hrefDataName" }}"
+                                alt="{{$t "homework.button.hrefAlt" }}"
+                            ><i class="fa fa-trash-o"></i> {{$t "global.headline.delete" }}</a>
+                        </div>
+                    {{/ifeq}}
+                {{/userHasPermission}}
+            {{/if}}
+
+            {{#userHasPermission "SUBMISSIONS_CREATE"}}
+                <div class="submit-button-container">
+                    <button class="btn btn-primary btn-submit submission-button" name="submitted" value="false" {{#if @root.submission.submitted}}disabled="true"{{/if}} data-testid="tasks-submission-save-btn">{{$t "global.button.save" }}</button>
+                    <button class="btn btn-primary btn-submit submission-button" name="submitted" value="true"  data-testid="tasks-submission-submit-btn">{{$t "homework.button.submit" }}</button>
+                </div>
+            {{/userHasPermission}}
+        </div>
     {{/if}}
     </form>
     </div>

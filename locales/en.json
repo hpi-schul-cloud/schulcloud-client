@@ -96,7 +96,7 @@
 			}
 		},
 		"text": {
-			"centralIdentityManagement": "Your user data is synchronized by a central identity management (IDM). Changes to it can only be made in the source system (e.g. school server) on which the data in the IDM is based. Please contact your school's local administrator to make changes to your user data.",
+			"centralIdentityManagement": "Your user data is automatically synchronized by a identity management (IDM) system. Changes to it can only be made in the source system (e.g. school server or Schulportal) that the data in the IDM is based on. Please contact the local admin of your school to make changes to your user data.",
 			"noDeviceEntered": "No devices entered",
 			"preferencesUpdateError": "There was an error in the preferences!",
 			"preferencesUpdates": "Preferences have been updated!"
@@ -2113,7 +2113,8 @@
 			"importing": "import",
 			"importSubmission": "Import student submission",
 			"onTheSubject": "On the subject",
-			"save": "Save and send",
+			"saveAndSend": "Save and send",
+			"submit": "Submit",
 			"toCourseAlt": "To the course of the task",
 			"toTheCourseFiles": "To the course files",
 			"toTopicAlt": "To the topic of the task"
@@ -2236,6 +2237,7 @@
 		"brb": {
 			"headline": {
 				"advantages": "Advantages of the {{shortTitle}}",
+				"generalInquiriesSupport": "General Inquiries & Support",
 				"furtherInformation": "Entry into the School-Cloud",
 				"registration": "Register for the {{shortTitle}}",
 				"valueStatement": "The development of the cloud is characterized by"
@@ -2253,7 +2255,11 @@
 				"registration2": "Teachers and students receive a registration link or login data from their school for the initial registration in the {{shortTitle}}.<br>If you have any questions about the registration process, please contact the designated school cloud admins at your school or the responsible on-site teachers.",
 				"valueStatement": "<li>a consistent use of open source solutions,</li><li>a consistently user-centered development,</li><li>a strictly modular structure,</li><li>which is important for a large country Function of cross-school cooperation,</li><li>the EU-DSGVO/data protection conformity through privacy by design,</li><li>the possibility of creating synergies through national cooperation.</li><br>",
 				"welcome": "With the {{shortTitle}}, schools in Brandenburg have an intuitively usable and data protection-compliant digital teaching-learning environment for school lessons that can be used across all types of schools. The basic idea of the school cloud is to make educational content accessible everywhere on a web-based basis.",
-				"welcome2": "Since August 1st, 2021, the {{shortTitle}} has been transferred to a cross-state teaching and learning infrastructure based on an administrative agreement between the federal states of Brandenburg, Lower Saxony and Thuringia, taking into account state-specific requirements, and jointly further developed."
+				"welcome2": "Since August 1st, 2021, the {{shortTitle}} has been transferred to a cross-state teaching and learning infrastructure based on an administrative agreement between the federal states of Brandenburg, Lower Saxony and Thuringia, taking into account state-specific requirements, and jointly further developed.",
+				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 184 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Office hours <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"phone2": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Office hours <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"onlineChat": "<i class=\"fa fa-comment\"></i> Online Chat <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Office hours <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
 			}
 		},
 		"label": {
