@@ -2283,6 +2283,9 @@
 	$(() => {
 		if ($.fn.spectrum.load) {
 			$.fn.spectrum.processNativeColorInputs();
+			$("label[for='selectColor']").on('click', function(e) {
+                if(e.target.nodeName === 'LABEL') e.preventDefault();
+            });
 		}
 	});
 }));
