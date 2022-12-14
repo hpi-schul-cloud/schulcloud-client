@@ -127,36 +127,21 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 $(document).ready(() => {
-	function enableSubmissionWhenFileIsUploaded() {
-		const fileList = $('.list-group-files');
-		const filesCount = fileList.children().length;
-		const fileIsUploaded = !!filesCount;
-		const submitButton = document.querySelector('.ckeditor-submit');
-		if (submitButton) {
-			submitButton.setAttribute('fileIsUploaded', fileIsUploaded);
-			const editorContainsText = submitButton.getAttribute('editorContainsText');
-			submitButton.disabled = !editorContainsText && !fileIsUploaded;
-		}
-	}
-
-	// enable submit button when at least one file was uploaded
-	enableSubmissionWhenFileIsUploaded();
-	$('.list-group-files').bind('DOMSubtreeModified', () => {
-		enableSubmissionWhenFileIsUploaded();
-	});
-
-	function ajaxForm(element, after, contentTest) {
-		const submitButton = element.find('[type=submit]')[0];
-		let submitButtonText = submitButton.innerHTML || submitButton.value;
+	$('.submission-button').on('click', (event) => {
+		const submitButton = event.currentTarget;
+		let submitButtonText = submitButton.innerHTML;
 		submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)', '');
 
 		const bounces = '<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
 		const loadingspinner = '<div class="loadingspinner">';
 		submitButton.innerHTML = `${submitButtonText}${loadingspinner}${bounces}`;
-		submitButton.disabled = true;
 
 		submitButton.style.display = 'inline-block';
 
+		$('form.submissionForm.ajaxForm').trigger('submit');
+	});
+
+	function ajaxForm(element, after, contentTest) {
 		const content = element.serialize();
 		if (contentTest) {
 			if (contentTest(content) === false) {

@@ -2113,7 +2113,8 @@
 			"importing": "importiere",
 			"importSubmission": "Abgabe des Schülers/ der Schülerin importieren",
 			"onTheSubject": "Zum Thema",
-			"save": "Speichern und Abschicken",
+			"saveAndSend": "Speichern und Abschicken",
+			"submit": "Abgeben",
 			"toCourseAlt": "Zum Kurs der Aufgabe",
 			"toTheCourseFiles": "Zu den Kursdateien",
 			"toTopicAlt": "Zum Thema der Aufgabe"
