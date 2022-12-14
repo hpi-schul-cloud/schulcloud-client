@@ -96,7 +96,7 @@
 			}
 		},
 		"text": {
-			"centralIdentityManagement": "Los datos de usuario se sincronizan mediante una administración de identidades central (IDM). Los cambios en él solo se pueden realizar en el sistema de origen (por ejemplo, el servidor escolar) en el que se basan los datos en el IDM. Ponte en contacto con el administrador local de tu escuela para realizar cambios en tus datos de usuario.",
+			"centralIdentityManagement": "Los datos de usuario se sincronizan automáticamente mediante una administración de identidades (IDM). Los cambios en él solo se pueden realizar en el sistema de origen (por ejemplo, el servidor escolar o Schulportal) en el que se basan los datos en el IDM. Ponte en contacto con el administrador local de tu escuela para realizar cambios en tus datos de usuario.",
 			"noDeviceEntered": "No se han introducido dispositivos",
 			"preferencesUpdateError": "¡Ha habido un error en las preferencias!",
 			"preferencesUpdates": "¡Se han actualizado las preferencias!"
