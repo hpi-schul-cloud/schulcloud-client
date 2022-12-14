@@ -347,6 +347,8 @@
 	color: $fontColor;
 	display: flex;
 	flex-direction: row;
+	align-items: center;
+	gap: 18px;
 
 	i {
 		margin: auto;

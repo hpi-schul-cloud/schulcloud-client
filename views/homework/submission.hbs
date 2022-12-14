@@ -56,6 +56,12 @@
         </div>
         <hr>
     {{/if}}
+        {{#ifeq @root.submission undefined}}
+            <div class="alert info-custom">
+                <div class="fa fa-info-circle"></div>
+                {{$t "topic.topicEdit.label.uploadAfterFirstSave"}}
+            </div>
+		{{/ifeq}}
         <p class="submissionLabel"><i class="fa fa-text-width"></i>{{$t "homework._task.label.textDelivery"}}</p>
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
         <div class="form-group">
@@ -63,7 +69,7 @@
                   placeholder="{{$t "homework._task.input.createSubmission"}}">{{@root.submission.comment}}</textarea>
         </div>
         <hr>
-      <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
+        <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
     {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}
   {{else}}
     {{#if @root.submission}}
