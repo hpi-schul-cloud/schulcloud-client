@@ -2236,6 +2236,7 @@
 		"brb": {
 			"headline": {
 				"advantages": "Ventajas de la {{shortTitle}}",
+				"generalInquiriesSupport": "General Inquiries & Support",
 				"furtherInformation": "Entrada en la nube de la escuela",
 				"registration": "Regístrese en la {{shortTitle}}",
 				"valueStatement": "El desarrollo de la nube se caracteriza por"
@@ -2253,8 +2254,13 @@
 				"registration2": "Los profesores y los estudiantes reciben un enlace de registro o los datos de acceso de su escuela para el registro inicial en la {{shortTitle}}.<br>Si tiene alguna pregunta sobre el proceso de registro, los profesores, los alumnos y los padres deben ponerse en contacto con los administradores de School Cloud designados en su escuela o con los profesores correspondientes en el centro.",
 				"valueStatement": "<li>un uso coherente de las soluciones de código abierto,</li><li>un desarrollo coherente centrado en el usuario,</li><li>una estructura estrictamente modular,</li><li>la función de la cooperación inter-escolar, que es importante para un país con una gran extension,</li><li>la conformidad de la EU-DSGVO/protección de datos a través de Privacy by Design,</li><li>la posibilidad de crear sinergias mediante la cooperación entre países.</li><br>",
 				"welcome": "Con la {{shortTitle}}, las escuelas de Brandenburgo disponen de un entorno digital de enseñanza-aprendizaje de uso intuitivo y que cumple con la protección de datos para las lecciones escolares que puede utilizarse en todo tipo de escuelas. La idea básica de la nube escolar es hacer que los contenidos educativos sean accesibles en cualquier lugar a través de la web.",
-				"welcome2": "Desde el 01.08.2021, la {{shortTitle}} se ha transferido a una infraestructura de enseñanza y aprendizaje interestatal sobre la base de un acuerdo administrativo entre los estados conjuntos de Brandenburgo, Baja Sajonia y Turingia, teniendo en cuenta los requisitos específicos de cada estado, y se está desarrollando conjuntamente."
+				"welcome2": "Desde el 01.08.2021, la {{shortTitle}} se ha transferido a una infraestructura de enseñanza y aprendizaje interestatal sobre la base de un acuerdo administrativo entre los estados conjuntos de Brandenburgo, Baja Sajonia y Turingia, teniendo en cuenta los requisitos específicos de cada estado, y se está desarrollando conjuntamente.",
+				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 184 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Horario Oficial <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"phone2": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Horario Oficial <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"onlineChat": "<i class=\"fa fa-comment\"></i> Online Chat <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
 			}
+
 		},
 		"label": {
 			"welcome": "Bienvenid@ a {{shortTitle}}!"
