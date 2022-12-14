@@ -841,8 +841,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 	const schoolId = res.locals.currentSchool;
 	const $limit = false;
 	const method = 'patch';
-	const sortBy = req.query.sortBy;
-	const sortDirection = req.query.sortDirection;
+	const { sortDirection } = req.query;
 
 	const roleTranslations = {
 		teammember: res.$t('teams._team.members.text.member'),
@@ -1105,15 +1104,13 @@ router.get('/:teamId/members', async (req, res, next) => {
 		});
 
 		body.sort((a,b) => {
-			return a === b
-			? 0
-			: a < b
-			? sortDirection === 'asc'
-				? -1
-				: 1
-			: sortDirection === 'asc'
-			? 1
-			: -1;
+			if (a === b) return 0;
+
+			if (sortDirection === 'asc') {
+				return a < b ? -1 : 1;
+			} else {
+				return a < b ? 1 : -1;
+			}
 		});
 
 		res.render(
