@@ -119,7 +119,7 @@
 		"react": "^16.14.0",
 		"react-dom": "^16.14.0",
 		"react-sortable-hoc": "^1.11.0",
-		"redis": "^2.8.0",
+		"redis": "^4.5.1",
 		"request": "^2.79.0",
 		"request-promise": "^4.2.6",
 		"sanitize-html": "^2.6.1",
