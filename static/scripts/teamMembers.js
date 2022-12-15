@@ -16,16 +16,16 @@ $(document).ready(() => {
 			e.preventDefault();
 
 			const key = e.target.getAttribute('key');
-			let url = window.location.pathname;
+			const url = window.location.pathname;
 			if (key <= 2) {
 				if (sortDirection === 'asc') {
 					window.location = `${url}?sortDirection=desc&sortBy=${key}`;
-				} else  {
+				} else {
 					window.location = `${url}?sortDirection=asc&sortBy=${key}`;
 				}
 			}
-		})
-	}
+		});
+	};
 
 	const className = sortDirection === 'desc' ? 'fa-caret-down' : 'fa-caret-up';
 
@@ -33,13 +33,13 @@ $(document).ready(() => {
 		$('.col-sort').each((index, elem) => {
 			if (index < 3) {
 				$(elem).append(
-					$(`<i class='col-sort-icon fa ${className}'></i>`)
+					$(`<i class='col-sort-icon fa ${className}'></i>`),
 				);
 			}
-		})
+		});
 
 		sortByAscDesc();
-	}
+	};
 
 	const handler = {
 		get(target, name) {
