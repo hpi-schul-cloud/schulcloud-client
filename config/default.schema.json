@@ -118,12 +118,12 @@
 		},
 		"FEATURE_VIDEOCONFERENCE_ENABLED": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "If enabled, adds video conferences to teams and courses."
 		},
 		"FEATURE_VIDEOCONFERENCE_WAITING_ROOM_ENABLED": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "If enabled, adds video conferences to teams and courses."
 		},
 		"FEATURE_ASSET_CACHING_ENABLED": {
