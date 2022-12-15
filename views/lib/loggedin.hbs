@@ -66,14 +66,14 @@
             <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
                 <ul class="sidebar-list">
                     <li>
-                        <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
+                        <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}-sel">
                             <div class="cloud-logo"></div>
                             <div class="sc-title"><span>{{theme.short_title}}</span></div>
                         </a>
                     </li>
                     {{#each sidebarItems}}
                         <li>
-								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.testId}}-sel" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
                                 {{#if this.isExternalIcon}}
                                     {{{this.icon}}}
                                 {{else}}
@@ -86,7 +86,7 @@
                                 {{#if this.children}}
                                     <ul class="subitems">
                                         {{#each this.children}}
-                                            <li data-testid="{{this.testId}}">
+                                            <li data-testid="{{this.testId}}-sel">
 												<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
 													{{#if this.isExternalIcon}}
 														{{{this.icon}}}
@@ -256,7 +256,7 @@
                                 {{#unless notitle}}
                                 {{#if title}}
                                   <div>
-                                      <h1 class="h4" id="page-title" data-testid="{{title}}Text">{{{stripOnlyScript title}}}</h1>
+                                      <h1 class="h4" id="page-title" data-testid="{{title}}-text">{{{stripOnlyScript title}}}</h1>
                                   </div>
                                   {{/if}}
                                 {{/unless}}
