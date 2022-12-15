@@ -46,7 +46,7 @@
                 </a>
                 {{#userHasPermission "TEAM_EDIT"}}
                 {{#inArray "RENAME_TEAM"../ permissions}}
-                <a href="/teams/{{../_id}}/edit" class="dropdown-item" data-testid="edit_team_members">
+                <a href="/teams/{{../_id}}/edit" class="dropdown-item" data-testid="edit_team">
                     <i class="fa fa-edit" aria-hidden="true"></i> {{$t "teams._team.dropdown_menu.link.editTeam"}}
                 </a>
                 {{/inArray}}
