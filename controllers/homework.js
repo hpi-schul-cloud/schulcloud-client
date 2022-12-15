@@ -662,18 +662,18 @@ router.get('/:assignmentId', (req, res, next) => {
 				}),
 			);
 		}
-		async function findSubmissionFiles(submission, submitters, teachers, submittable) {
+		async function findSubmissionFiles(submission, submitters, teachers, readonly) {
 			const isTeacher = teachers.has(res.locals.currentUser._id);
 			const isCreator = submitters.has(res.locals.currentUser._id);
-			const { filesStorage } = await filesStoragesHelper.filesStorageInit(submission.schoolId, submission._id, 'submissions', req, false);
+			const { filesStorage } = await filesStoragesHelper.filesStorageInit(submission.schoolId, submission._id, 'submissions', req, readonly);
 
 			const submissionFilesStorageData = _.clone(filesStorage);
 			submissionFilesStorageData.files = filesStorage.files.filter((file) => submitters.has(file.creatorId));
-			submissionFilesStorageData.readonly = (!isCreator && isTeacher) || !submittable;
+			submissionFilesStorageData.readonly = readonly || (!isCreator && isTeacher);
 
 			const gradeFilesStorageData = _.clone(filesStorage);
 			gradeFilesStorageData.files = filesStorage.files.filter((file) => teachers.has(file.creatorId));
-			gradeFilesStorageData.readonly = !isTeacher || !submittable;
+			gradeFilesStorageData.readonly = !isTeacher;
 
 			submission.submissionFiles = { filesStorage: submissionFilesStorageData };
 			submission.gradeFiles = { filesStorage: gradeFilesStorageData };
@@ -774,12 +774,12 @@ router.get('/:assignmentId', (req, res, next) => {
 				renderOptions.studentSubmissions = studentSubmissions;
 				renderOptions.studentsWithoutSubmission = studentsWithoutSubmission;
 
-				assignment.submissions = await Promise.all(assignment.submissions.map(async (submission) => ({ submission: await findSubmissionFiles(submission.submission, submission.submission.submitters, teachers, false) })));
+				assignment.submissions = await Promise.all(assignment.submissions.map(async (submission) => ({ submission: await findSubmissionFiles(submission.submission, submission.submission.submitters, teachers, true) })));
 				renderOptions.ungradedFileSubmissions = collectUngradedFiles(assignment.submissions);
 			}
 
 			if (assignment.submission) {
-				assignment.submission = await findSubmissionFiles(assignment.submission, assignment.submission.submitters, teachers, assignment.submittable);
+				assignment.submission = await findSubmissionFiles(assignment.submission, assignment.submission.submitters, teachers, !assignment.submittable);
 			}
 
 			const { schoolId, _id } = assignment;
