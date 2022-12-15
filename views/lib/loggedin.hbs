@@ -238,7 +238,7 @@
                                 </a>
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
                                 <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable" role="menu">
-                                    <li><div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>
+                                    <li><div class="dropdown-name" data-testid="name-in-the-icon" current-user="{{currentRole}}">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>
                                     {{> "user/forms/language" language=@root.userLanguage }}
                                     <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
                                     <li><a class="dropdown-item localstorageclear" data-testid="logout" href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}} role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
