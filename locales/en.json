@@ -1421,7 +1421,7 @@
 			"storeFilesForUpload": "Place files to upload here, or search computer.",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
-			"uploadAfterFirstSave": "Files can only be uploaded after saving for the first time."
+			"uploadAfterFirstSave": "Files can only be uploaded after the first save."
 		}
 	},
 	"firstLogin": {
