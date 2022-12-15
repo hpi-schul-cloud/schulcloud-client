@@ -39,7 +39,7 @@ $(document).ready(() => {
 		});
 
 		sortByAscDesc();
-	};
+	}
 
 	const handler = {
 		get(target, name) {
