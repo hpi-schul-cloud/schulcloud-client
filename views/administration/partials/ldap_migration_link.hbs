@@ -11,17 +11,19 @@
         </div>
     {{/userHasPermission}}
 {{else}}
-    {{#ifneq @root.currentSchoolData.inUserMigration false}}
-        {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="card h-100 teacher-option locationlink" data-loclink="/administration/migration">
-                    <div class="card-block migration">
-                        <div class="card-text">
-                            <h2 class="h4"><i class="fa fa-building"></i> {{$t "administration.dashboard.headline.migration" }}</h2>
+    {{#ifConfig "FEATURE_USER_MIGRATION_CENTRAL_LDAP" true}}
+        {{#if @root.currentSchoolData.officialSchoolNumber}}
+            {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="card h-100 teacher-option locationlink" data-loclink="/administration/migration">
+                        <div class="card-block migration">
+                            <div class="card-text">
+                                <h2 class="h4"><i class="fa fa-building"></i> {{$t "administration.dashboard.headline.migration" }}</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {{/userHasPermission}}
-    {{/ifneq}}
+            {{/userHasPermission}}
+        {{/if}}
+    {{/ifConfig}}
 {{/if}}
