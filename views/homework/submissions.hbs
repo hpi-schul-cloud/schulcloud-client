@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             {{#each @root.submissions}}
-                <tbody class="usersubmission" id="{{this.id}}">
+                <tbody class="usersubmission" id="{{this.submission.courseGroupId.name}}">
                     <tr class="userinfo">
                         <td class="groupNames">
                             {{#if this.submission.courseGroupId}}
