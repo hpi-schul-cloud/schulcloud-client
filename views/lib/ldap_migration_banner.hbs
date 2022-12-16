@@ -4,11 +4,11 @@
         <input type="hidden" id="inUserMigrationStarted" value="{{currentRole}}"/>
     {{/userHasPermission}}
 {{else}}
-    {{#if @root.currentSchoolData.officialSchoolNumber}}
-        {{#ifneq @root.currentSchoolData.inUserMigration false}}
+    {{#ifConfig "FEATURE_USER_MIGRATION_CENTRAL_LDAP" true}}
+        {{#if @root.currentSchoolData.officialSchoolNumber}}
             {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
                 <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
             {{/userHasPermission}}
-        {{/ifneq}}
-    {{/if}}
+        {{/if}}
+    {{/ifConfig}}
 {{/if}}
