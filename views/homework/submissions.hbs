@@ -64,7 +64,7 @@
                 </tr>
             </thead>
             {{#each @root.studentSubmissions}}
-                <tbody class="usersubmission">
+                <tbody class="usersubmission" id="this.submission._id">
                     <tr class="userinfo">
                         <td>{{this.student.lastName}}</td>
                         <td>{{this.student.firstName}}</td>
