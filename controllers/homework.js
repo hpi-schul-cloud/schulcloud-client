@@ -277,7 +277,7 @@ const patchFunction = (service, req, res, next) => {
 							req,
 							`${(req.headers.origin || HOST)}/homework/${homework._id}`);
 					});
-				const redirectPath = `${req.header('Referrer')}#activetabid=submissions&submissionId=${req.params.id}`;
+				const redirectPath = `${req.header('Referrer')}#activetabid=submissions&submissionId=${req.params.id}&activeSubmissionTabId=comment-tab-link`;
 				res.redirect(redirectPath);
 			});
 		}
