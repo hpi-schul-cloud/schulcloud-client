@@ -29,11 +29,21 @@ window.addEventListener('load', () => {
 		$(this).addClass('active');
 		range.find('>.tabs>.tab-content.active').removeClass('active');
 		range.find(`>.tabs>#${this.id.replace('-tab-link', '')}.tab-content`).addClass('active');
+		const activeSubmissionTabId = $(this).attr('id');
+		if (activeSubmissionTabId === 'submission-tab-link' || activeSubmissionTabId === 'comment-tab-link') {
+			const urlWithParams = new URL(window.location.href.replace('#', '?'));
+			if (urlWithParams.searchParams.get('activeSubmissionTabId')) {
+				urlWithParams.searchParams.set('activeSubmissionTabId', activeSubmissionTabId);
+			} else {
+				urlWithParams.searchParams.append('activeSubmissionTabId', activeSubmissionTabId);
+			}
+			window.location = urlWithParams.href.replace('?', '#');
+		}
 	});
 
-	const urlWithParams = window.location.href.replace('#', '?');
-	if (new URL(urlWithParams).searchParams.get('activetabid')) {
-		const id = new URL(urlWithParams).searchParams.get('activetabid');
+	const urlWithParams = new URL(window.location.href.replace('#', '?'));
+	if (urlWithParams.searchParams.get('activetabid')) {
+		const id = urlWithParams.searchParams.get('activetabid');
 		const range = $(`#${id}`).closest('.tab-view');
 		range.find('>.tab-links .tab-link.active').removeClass('active');
 		range.find('>.tabs>.tab-content.active').removeClass('active');
@@ -41,10 +51,16 @@ window.addEventListener('load', () => {
 		range.find(`>.tab-links>#${id}-tab-link`).addClass('active');
 		$(`#${id}`).addClass('active');
 
-		if (new URL(urlWithParams).searchParams.get('submissionId')) {
-			const userInfoId = new URL(urlWithParams).searchParams.get('submissionId');
+		if (urlWithParams.searchParams.get('submissionId')) {
+			const userInfoId = urlWithParams.searchParams.get('submissionId');
 
 			$(`#${userInfoId}`).addClass('active');
+
+			if (urlWithParams.searchParams.get('activeSubmissionTabId')) {
+				const activeSubmissionTabId = urlWithParams.searchParams.get('activeSubmissionTabId');
+
+				$(`#${activeSubmissionTabId}`).addClass('active');
+			}
 		}
 	}
 });
