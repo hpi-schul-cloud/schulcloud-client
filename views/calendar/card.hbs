@@ -51,7 +51,7 @@
               <i class="fa fa-repeat video-conference not-started clickable reload" style="display: none;"></i>
               <!-- state: FINISHED || NOT_STARTED + permission: START_MEETING -->
               <i class="fa fa-video-camera video-conference start-conference" aria-hidden="true" style="display: none;">&nbsp;</i>
-              <a class="video-conference start-conference" href="#" style="display: none;">{{$t "calendar.text.startAVideoConference" }}</a>
+              <a class="video-conference start-conference" href="#" style="display: none;" data-testid="start_video_conference_link">{{$t "calendar.text.startAVideoConference" }}</a>
               <!-- no permission -->
               <i class="fa fa-video-camera video-conference no-permission" aria-hidden="true" style="display: none;">&nbsp;</i>
               <span class="muted video-conference no-permission" style="display: none;">{{$t "calendar.text.noAuthorization" }}</span>
