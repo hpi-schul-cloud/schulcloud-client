@@ -58,7 +58,8 @@ window.addEventListener('load', () => {
 
 			if (urlWithParams.searchParams.get('activeSubmissionTabId')) {
 				const activeSubmissionTabId = urlWithParams.searchParams.get('activeSubmissionTabId');
-
+				const tabView = $(`#${activeSubmissionTabId}`).closest('.tab-view');
+				tabView.find('>.tab-links .tab-link.active').removeClass('active');
 				$(`#${activeSubmissionTabId}`).addClass('active');
 			}
 		}
