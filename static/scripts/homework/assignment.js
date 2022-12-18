@@ -58,9 +58,12 @@ window.addEventListener('load', () => {
 
 			if (urlWithParams.searchParams.get('activeSubmissionTabId')) {
 				const activeSubmissionTabId = urlWithParams.searchParams.get('activeSubmissionTabId');
-				const tabView = $(`#${activeSubmissionTabId}`).closest('.tab-view');
-				tabView.find('>.tab-links .tab-link.active').removeClass('active');
+				const tabViewRange = $(`#${activeSubmissionTabId}`).closest('.tab-view');
+				tabViewRange.find('>.tab-links .tab-link.active').removeClass('active');
 				$(`#${activeSubmissionTabId}`).addClass('active');
+				tabViewRange.find('>.tabs>.tab-content.active').removeClass('active');
+				const tabContentId = activeSubmissionTabId.replace('-tab-link', '');
+				tabViewRange.find(`>.tabs>#${tabContentId}.tab-content`).addClass('active');
 			}
 		}
 	}
