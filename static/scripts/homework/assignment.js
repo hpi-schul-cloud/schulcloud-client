@@ -9,16 +9,16 @@ window.addEventListener('load', () => {
 		$('.usersubmission.active td:last-of-type i.fa-chevron-down')
 			.removeClass('fa-chevron-down').addClass('fa-chevron-up');
 
-		const userInfoId = $(this).attr('id');
+		const userInfoId = $(this).parent('.usersubmission').attr('id');
 		const urlWithParams = window.location.href.replace('#', '?');
-		const actualId = new URL(urlWithParams).searchParams.get('userInfo');
+		const actualId = new URL(urlWithParams).searchParams.get('submissionId');
 		const url = window.location.pathname;
 		if (actualId) {
 			if (actualId === userInfoId) {
 				window.location = `${url}#activetabid=submissions`;
 			}
 		} else if (userInfoId) {
-			window.location = `${url}#activetabid=submissions&userInfo=${userInfoId}`;
+			window.location = `${url}#activetabid=submissions&submissionId=${userInfoId}`;
 		}
 	});
 
@@ -41,8 +41,8 @@ window.addEventListener('load', () => {
 		range.find(`>.tab-links>#${id}-tab-link`).addClass('active');
 		$(`#${id}`).addClass('active');
 
-		if (new URL(urlWithParams).searchParams.get('userInfo')) {
-			const userInfoId = new URL(urlWithParams).searchParams.get('userInfo');
+		if (new URL(urlWithParams).searchParams.get('submissionId')) {
+			const userInfoId = new URL(urlWithParams).searchParams.get('submissionId');
 
 			$(`#${userInfoId}`).addClass('active');
 		}
