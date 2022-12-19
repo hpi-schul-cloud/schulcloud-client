@@ -684,7 +684,7 @@ router.get('/:assignmentId', (req, res, next) => {
 		const teachers = new Set();
 
 		await Promise.all(promises).then(async ([submissions, course, courseGroups]) => {
-			assignment.submission = (submissions || {}).data.map((submission) => {
+			assignment.submission = _.cloneDeep((submissions || {}).data.map((submission) => {
 				submission.teamMemberIds = (submission.teamMembers || []).map((e) => e._id);
 				submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds || [];
 				submission.courseGroupMembers = (_.find((courseGroups || {}).data, (cg) => JSON.stringify(cg._id) === JSON.stringify((submission.courseGroupId || {})._id)) || {}).userIds; // need full user objects here, double populating not possible above
@@ -693,7 +693,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				return submission;
 			}).filter((submission) => ((submission.studentId || {})._id == res.locals.currentUser._id)
 				|| (submission.teamMemberIds.includes(res.locals.currentUser._id.toString()))
-				|| ((submission.courseGroupMemberIds || []).includes(res.locals.currentUser._id.toString())))[0];
+				|| ((submission.courseGroupMemberIds || []).includes(res.locals.currentUser._id.toString())))[0]);
 
 			courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
 				? ((courseGroups || {}).data || [])
