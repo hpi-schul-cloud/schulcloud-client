@@ -6,7 +6,7 @@
 	<div class="create-videoconference">
 		<div class="checkbox create-videoconference-option">
 			<p id="startMuted" class="create-videoconference-option-text">{{$t "lib.form_create_videoConference.text.muteParticipants" }}</p>
-            <input aria-labelledby="startMuted" name="startMuted" type="checkbox" data-toggle="toggle" data-on="{{$t "global.button.yes" }}" data-off="{{$t "global.button.no" }}" data-testid="toggle_mute_participants" checked>
+            <input aria-labelledby="startMuted" name="startMuted" type="checkbox" data-toggle="toggle" data-on="{{$t "global.button.yes" }}" data-off="{{$t "global.button.no" }}" data-testid="toggle_mute_participants">
 		</div>
         {{#if (getConfig "FEATURE_VIDEOCONFERENCE_WAITING_ROOM_ENABLED")}}
 		<div class="checkbox create-videoconference-option">
