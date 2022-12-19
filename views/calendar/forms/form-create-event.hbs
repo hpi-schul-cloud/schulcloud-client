@@ -8,8 +8,8 @@
     {{> "lib/forms/form-datetime-input" label=($t "global.label.to") id="endDate" class="input-group" }}
 </div>
 <div class="form-group">
-    <label data-testid="description_team_event" class="control-label" for="description">{{$t "global.label.description" }}</label>
-    <textarea class="form-control" name="description" placeholder=""></textarea>
+    <label class="control-label" for="description">{{$t "global.label.description" }}</label>
+    <textarea class="form-control" name="description" aria-label="{{$t "global.label.description"}}" placeholder="" data-testid="team_event_description" ></textarea>
 </div>
 <div class="form-group">
     <label class="control-label" for="location">{{$t "calendar.label.location" }}</label>
@@ -19,7 +19,7 @@
     {{#if ../showVideoconferenceOption}}
     <div class="form-group create-videoconference hidden">
         <div class="checkbox disabled">
-            <input id="featureVideoConference" name="featureVideoConference" type="checkbox" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}">
+            <input id="featureVideoConference" name="featureVideoConference" type="checkbox" data-toggle="toggle" data-on="{{$t "global.button.yes"}}" data-off="{{$t "global.button.no"}}" data-testid="toggle_team_video_conference">
             <label for="featureVideoConference">
                 {{$t "calendar.label.addVideoConference" }}
             </label>
