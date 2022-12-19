@@ -105,7 +105,7 @@
                         <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                         <span class="text">{{$t "global.headline.news"}}</span>
                     </button>
-                    <button type="button" class="tab" data-tab="js-events">
+                    <button type="button" class="tab" data-tab="js-events" data-testid="team_calendar_tab">
                         <i class="fa fa-table" aria-hidden="true"></i>
                         <span class="text">{{$t "global.link.calendar"}}</span>
                     </button>
@@ -232,7 +232,7 @@
                         </div>
                         <div style="margin-top: .5rem">
                             {{#inArray "CALENDAR_CREATE" permissions}}
-                            <button type="button" class="btn btn-add btn-primary btn-create-event pull-right">
+                            <button type="button" class="btn btn-add btn-primary btn-create-event pull-right" data-testid="add_team_event" >
                                 {{$t "teams._team.events.button.addDate"}}
                             </button>
                             {{/inArray}}
@@ -314,7 +314,7 @@ userId=../userId teamId=../teamId}}
     {{> "calendar/forms/form-create-event" collapseIdCourse="4" collapseIdTeam="5"}}
     {{/content}}
     {{#content "additional-actions"}}
-    <button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
+    <button type="button" class="btn btn-primary btn-danger btn-delete pull-left" data-testid="delete_team_event">
         <i class="fa fa-trash-o" aria-hidden="true"></i> {{$t "global.headline.delete"}}
     </button>
     {{/content}}
