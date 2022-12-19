@@ -1421,9 +1421,7 @@
 			"storeFilesForUpload": "Place files to upload here, or search computer.",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
-			"courses": "course",
-			"tasks": "task",
-			"submissions": "submission"
+			"uploadAfterFirstSave": "Files can only be uploaded after the first save."
 		}
 	},
 	"firstLogin": {
@@ -3211,8 +3209,7 @@
 				"openSection": "Unlock section",
 				"selectNeXboard": "Select neXboard",
 				"theLinkHasToBeginWith": "The link must begin with '{{- baseUrl}} / task'! Students must have access to the task to see it included here. Attention: If you share this topic or the entire course with another teacher using a sharing code, the tasks integrated in this way will currently not be considered.",
-				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'",
-				"uploadAfterFirstSave": "Files can only be uploaded after saving the topic for the first time."
+				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'"
 			}
 		}
 	},

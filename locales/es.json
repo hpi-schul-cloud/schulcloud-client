@@ -1421,9 +1421,7 @@
 			"storeFilesForUpload": "Coloque aquí los archivos para cargar, o busque en los ordenadores.",
 			"studentCanEdit": "¿Los estudiantes pueden editar?",
 			"tips": "SUGERENCIA: abre el documento de LibreOffice en una ventana aparte para mejorar el rendimiento",
-			"courses": "el curso",
-			"tasks": "la tarea",
-			"submissions": "el envío"
+			"uploadAfterFirstSave": "Los archivos solo se pueden cargar después del primer guardado."
 		}
 	},
 	"firstLogin": {
@@ -3212,8 +3210,7 @@
 				"openSection": "Desbloquear sección",
 				"selectNeXboard": "Seleccionar neXboard",
 				"theLinkHasToBeginWith": "El enlace debe comenzar con '{{- baseUrl}} / ¡tareas! Los estudiantes deben tener acceso a las tareas para verlas incluidas aquí. Atención: si compartes este tema o todo el curso con otro profesor usando un código para compartir, las tareas integradas de esta manera no se tendrán en cuenta.",
-				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https://www.geogebra.org/m/e6g4adXp, la ID del material es 'e6g4adXp'",
-				"uploadAfterFirstSave": "Los archivos solo se pueden cargar después de guardar el tema por primera vez."
+				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https://www.geogebra.org/m/e6g4adXp, la ID del material es 'e6g4adXp'"
 			}
 		}
 	},
