@@ -96,7 +96,7 @@
 			}
 		},
 		"text": {
-			"centralIdentityManagement": "Deine Nutzerdaten werden von einem zentralen Identitätsmanagement (IDM) synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver), das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Admin deiner Schule, um Änderungen an deinen Nutzerdaten vorzunehmen.",
+			"centralIdentityManagement": "Deine Nutzerdaten werden automatisch von einem Identitätsmanagement (IDM) synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver oder Schulportal), das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Admin deiner Schule, um Änderungen an deinen Nutzerdaten vorzunehmen.",
 			"noDeviceEntered": "Keine Geräte eingetragen",
 			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!",
 			"preferencesUpdates": "Präferenzen wurden aktualisiert!"
@@ -1421,9 +1421,7 @@
 			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen, oder Computer durchsuchen.",
 			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
-			"courses": "des Kurses",
-			"tasks": "der Aufgabe",
-			"submissions": "der Abgabe"
+			"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern hochgeladen werden."
 		}
 	},
 	"firstLogin": {
@@ -2113,7 +2111,8 @@
 			"importing": "importiere",
 			"importSubmission": "Abgabe des Schülers/ der Schülerin importieren",
 			"onTheSubject": "Zum Thema",
-			"save": "Speichern und Abschicken",
+			"saveAndSend": "Speichern und Abschicken",
+			"submit": "Abgeben",
 			"toCourseAlt": "Zum Kurs der Aufgabe",
 			"toTheCourseFiles": "Zu den Kursdateien",
 			"toTopicAlt": "Zum Thema der Aufgabe"
@@ -3210,8 +3209,7 @@
 				"openSection": "Abschnitt entsperren",
 				"selectNeXboard": "neXboard auswählen",
 				"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler:innen müssen Zugriff auf die Aufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
-				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'",
-				"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern des Themas hochgeladen werden."
+				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
 			}
 		}
 	},

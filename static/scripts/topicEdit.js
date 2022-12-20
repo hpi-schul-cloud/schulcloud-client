@@ -1,11 +1,9 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-classes-per-file */
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-	SortableContainer, SortableElement, SortableHandle, arrayMove,
-} from 'react-sortable-hoc';
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';
 
@@ -511,7 +509,7 @@ class TopicText extends TopicBlock {
 		const editorId = (this.props.content || {}).editorId || this.editorId;
 		const infoBox = <div class="alert info-custom">
 							<div className="fa fa-info-circle" />
-							{$t('topic.topicEdit.label.uploadAfterFirstSave')}
+							{$t('files.text.uploadAfterFirstSave')}
 						</div>;
 
 		return (<>

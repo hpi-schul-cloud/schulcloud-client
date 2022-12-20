@@ -96,7 +96,7 @@
 			}
 		},
 		"text": {
-			"centralIdentityManagement": "Los datos de usuario se sincronizan mediante una administración de identidades central (IDM). Los cambios en él solo se pueden realizar en el sistema de origen (por ejemplo, el servidor escolar) en el que se basan los datos en el IDM. Ponte en contacto con el administrador local de tu escuela para realizar cambios en tus datos de usuario.",
+			"centralIdentityManagement": "Los datos de usuario se sincronizan automáticamente mediante una administración de identidades (IDM). Los cambios en él solo se pueden realizar en el sistema de origen (por ejemplo, el servidor escolar o Schulportal) en el que se basan los datos en el IDM. Ponte en contacto con el administrador local de tu escuela para realizar cambios en tus datos de usuario.",
 			"noDeviceEntered": "No se han introducido dispositivos",
 			"preferencesUpdateError": "¡Ha habido un error en las preferencias!",
 			"preferencesUpdates": "¡Se han actualizado las preferencias!"
@@ -1421,9 +1421,7 @@
 			"storeFilesForUpload": "Coloque aquí los archivos para cargar, o busque en los ordenadores.",
 			"studentCanEdit": "¿Los estudiantes pueden editar?",
 			"tips": "SUGERENCIA: abre el documento de LibreOffice en una ventana aparte para mejorar el rendimiento",
-			"courses": "el curso",
-			"tasks": "la tarea",
-			"submissions": "el envío"
+			"uploadAfterFirstSave": "Los archivos solo se pueden cargar después del primer guardado."
 		}
 	},
 	"firstLogin": {
@@ -2113,7 +2111,8 @@
 			"importing": "importar",
 			"importSubmission": "Importar el envío de los estudiantes",
 			"onTheSubject": "En el tema",
-			"save": "Guardar y enviar",
+			"saveAndSend": "Guardar y enviar",
+			"submit": "Enviar",
 			"toCourseAlt": "Al curso de la tarea",
 			"toTheCourseFiles": "A los archivos del curso",
 			"toTopicAlt": "Al tema de la tarea"
@@ -3211,8 +3210,7 @@
 				"openSection": "Desbloquear sección",
 				"selectNeXboard": "Seleccionar neXboard",
 				"theLinkHasToBeginWith": "El enlace debe comenzar con '{{- baseUrl}} / ¡tareas! Los estudiantes deben tener acceso a las tareas para verlas incluidas aquí. Atención: si compartes este tema o todo el curso con otro profesor usando un código para compartir, las tareas integradas de esta manera no se tendrán en cuenta.",
-				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https://www.geogebra.org/m/e6g4adXp, la ID del material es 'e6g4adXp'",
-				"uploadAfterFirstSave": "Los archivos solo se pueden cargar después de guardar el tema por primera vez."
+				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https://www.geogebra.org/m/e6g4adXp, la ID del material es 'e6g4adXp'"
 			}
 		}
 	},
