@@ -1,10 +1,10 @@
 {{#extend "lib/components/modal"}}
     {{#content "body"}}
-        <div class="modal-body">
+        <div class="modal-body" data-testid="move-file-popup-section">
             {{#block "fields"}}{{/block}}
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-close">
+        <div class="modal-footer" >
+            <button type="button" data-testid="ok-btn" class="btn btn-secondary btn-close">
                 OK
             </button>
         </div>

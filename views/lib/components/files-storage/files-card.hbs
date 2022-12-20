@@ -1,5 +1,5 @@
 
-<div class="card file {{#ifeq this.securityCheckStatus "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this.id}}">
+<div class="card file {{#ifeq this.securityCheckStatus "blocked"}}btn-file-danger{{/ifeq}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this.id}}">
 	<div class="openFile">
 		<div class="card-block
 			{{#ifneq this.securityCheckStatus "blocked"}}

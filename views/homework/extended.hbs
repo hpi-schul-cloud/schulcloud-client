@@ -19,7 +19,7 @@
 				{{/if}}
 			</div>
 		</div>
-		{{#embed "lib/components/files-storage/files"}}{{/embed}}
+		{{#embed "lib/components/files-storage/files" taskFilesStorageData}}{{/embed}}
 		{{#unless @root.inline}}
 			{{#if isTeacher}}
 				{{#userHasPermission "HOMEWORK_EDIT"}}
