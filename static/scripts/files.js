@@ -122,7 +122,7 @@ $(document).ready(() => {
 
 	// TODO: replace with something cooler
 	const reloadFiles = () => {
-		window.location.reload();
+		// window.location.reload();
 	};
 
 	function showAJAXSuccess(message) {
