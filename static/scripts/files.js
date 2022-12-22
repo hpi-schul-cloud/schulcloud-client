@@ -122,7 +122,7 @@ $(document).ready(() => {
 
 	// TODO: replace with something cooler
 	const reloadFiles = () => {
-		window.location.reload();
+		$form.reset();
 	};
 
 	function showAJAXSuccess(message) {
@@ -176,9 +176,7 @@ $(document).ready(() => {
 		}
 
 		// post file meta to proxy file service for persisting data
-		$.post('/files/fileModel', params, (data, status, jqXHR) => {
-			// do nothing
-		});
+		$.post('/files/fileModel', params);
 
 		this.removeFile(file);
 	}
