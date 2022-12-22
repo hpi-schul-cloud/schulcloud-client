@@ -176,7 +176,9 @@ $(document).ready(() => {
 		}
 
 		// post file meta to proxy file service for persisting data
-		$.post('/files/fileModel', params);
+		$.post('/files/fileModel', params, (data, status, jqXHR) => {
+			// do nothing
+		});
 
 		this.removeFile(file);
 	}
