@@ -29,6 +29,7 @@
                     {{#embed "files/file-upload"}}{{/embed}}
                     <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
                     <input name="teamMembers" id="teamMembers" type="hidden" data-force-value="true" value="{{userIds this.submission.teamMembers}}" />
+                    <input name="comment" id="comment" type="hidden" data-force-value="true" value="{{userIds this.submission.gradeComment}}" />
                     {{#ifneq 0 (arrayLength this.submission.gradeFileIds)}}
                         {{#embed "homework/components/submission_files"
                             fileIds=../submission.gradeFileIds
