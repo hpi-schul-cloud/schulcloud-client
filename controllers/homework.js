@@ -16,7 +16,6 @@ const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
 const timesHelper = require('../helpers/timesHelper');
 const filesStoragesHelper = require('../helpers/files-storage');
 
-
 const router = express.Router();
 
 handlebars.registerHelper('ifvalue', (conditional, options) => {

@@ -200,7 +200,7 @@
 		},
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "If enabled, user will see messages/incidents from e.g status.dbildungscloud"
 		},
 		"ALERT_STATUS_URL": {
