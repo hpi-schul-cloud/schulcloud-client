@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="sc-card-body ckcontent" data-testid="body_of_element">
-            {{truncateHTML (conflictFreeHtml this.content) 200}}
+            {{truncatePure (stripHTMLTags (conflictFreeHtml this.content)) 200}}
         </div>
         <div class="sc-card-footer">
             {{#if additionalInfoName}}
