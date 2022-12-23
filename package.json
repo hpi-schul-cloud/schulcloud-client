@@ -98,7 +98,7 @@
 		"i18next-sync-fs-backend": "^1.1.1",
 		"jquery": "^3.6.0",
 		"jquery-datetimepicker": "^2.5.20",
-		"jsonwebtoken": "^8.5.1",
+		"jsonwebtoken": "^9.0.0",
 		"lodash": "^4.17.21",
 		"mathjax": "^2.7.9",
 		"merge-stream": "^2.0.0",
