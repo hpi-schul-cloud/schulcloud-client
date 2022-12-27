@@ -122,8 +122,7 @@ $(document).ready(() => {
 
 	// TODO: replace with something cooler
 	const reloadFiles = () => {
-		console.log('reload Page: files');
-		window.location.reload();
+		$('#uploadedfiles').load(' #uploadedfiles > *');
 	};
 
 	function showAJAXSuccess(message) {
@@ -287,6 +286,9 @@ $(document).ready(() => {
 							// eslint-disable-next-line max-len
 							$t('files._file.text.fileAddedSuccess'),
 						);
+						setTimeout(() => {
+							reloadFiles(); // waiting for success message
+						}, 2000);
 					});
 				});
 
