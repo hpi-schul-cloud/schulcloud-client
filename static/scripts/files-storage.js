@@ -71,6 +71,7 @@ const reloadPage = (msg, timeout = 2000) => {
 			msg,
 		);
 	}
+	console.log('reload Page: file-storage');
 	setTimeout(() => {
 		window.location.reload();
 	}, timeout);

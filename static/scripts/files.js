@@ -122,7 +122,8 @@ $(document).ready(() => {
 
 	// TODO: replace with something cooler
 	const reloadFiles = () => {
-		// window.location.reload();
+		console.log('reload Page: files');
+		window.location.reload();
 	};
 
 	function showAJAXSuccess(message) {
