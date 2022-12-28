@@ -38,11 +38,11 @@ window.onload = function () {
 	localStorage.clear();
 
 	if (grade && grade.value && grade.submissionId === submissionId) {
-		$("input[name='grade']").val(grade);
+		$("input[name='grade']").val(grade.value);
 	}
 
 	if (gradeComment && gradeComment.value && gradeComment.submissionId === submissionId) {
-		document.querySelector('.ck-editor__editable').ckeditorInstance.setData(gradeComment);
+		document.querySelector('.ck-editor__editable').ckeditorInstance.setData(gradeComment.value);
 	}
 };
 
