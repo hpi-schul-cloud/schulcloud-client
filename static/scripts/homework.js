@@ -24,19 +24,24 @@ window.addEventListener('keydown', (e) => {
 });
 
 window.onbeforeunload = function () {
-	localStorage.setItem('grade', $("input[name='grade']").val());
-	localStorage.setItem('gradeComment', $("textarea[name='gradeComment']").val());
+	const submissionId = $("input[name='submissionId']").val();
+	const grade = { value: $("input[name='grade']").val(), submissionId };
+	const gradeComment = { value: $("textarea[name='gradeComment']").val(), submissionId };
+	localStorage.setItem('grade', JSON.stringify(grade));
+	localStorage.setItem('gradeComment', JSON.stringify(gradeComment));
 };
 
 window.onload = function () {
-	const grade = localStorage.getItem('grade');
-	const gradeComment = localStorage.getItem('gradeComment');
+	const grade = JSON.parse(localStorage.getItem('grade'));
+	const gradeComment = JSON.parse(localStorage.getItem('gradeComment'));
+	const submissionId = $("input[name='submissionId']").val();
+	localStorage.clear();
 
-	if (grade) {
+	if (grade && grade.value && grade.submissionId === submissionId) {
 		$("input[name='grade']").val(grade);
 	}
 
-	if (gradeComment) {
+	if (gradeComment && gradeComment.value && gradeComment.submissionId === submissionId) {
 		document.querySelector('.ck-editor__editable').ckeditorInstance.setData(gradeComment);
 	}
 };
