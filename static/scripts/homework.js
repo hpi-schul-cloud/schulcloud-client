@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import multiDownload from 'multi-download';
 
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 import { softNavigate } from './helpers/navigation';
 import { getQueryParameters } from './helpers/queryStringParameter';
 import { requestUploadUrl, createFileModel, associateFilesWithSubmission } from './homework/api-requests';
@@ -24,7 +25,7 @@ window.addEventListener('keydown', (e) => {
 });
 
 window.onbeforeunload = function () {
-	localStorage.setItem('grade', $("input[name='gradeComment']").val());
+	localStorage.setItem('grade', $("input[name='grade]").val());
 	localStorage.setItem('gradeComment', $("textarea[name='gradeComment']").val());
 };
 
@@ -37,7 +38,7 @@ window.onload = function () {
 	}
 
 	if (gradeComment) {
-		$("textarea[name='gradeComment']").val(gradeComment);
+		document.querySelector('.ck-editor__editable').ckeditorInstance.setData(gradeComment);
 	}
 };
 
