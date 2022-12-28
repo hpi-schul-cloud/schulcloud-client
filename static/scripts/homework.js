@@ -319,7 +319,7 @@ $(document).ready(() => {
 						setTimeout(() => {
 							// just reload if submission already exists
 							if ($("input[name='submissionId']").val()) {
-								$('#uploadedfiles').load(' #uploadedfiles > *');
+								$('#filesSection').load(' #filesSection > *');
 							}
 						}, 1500);
 					});

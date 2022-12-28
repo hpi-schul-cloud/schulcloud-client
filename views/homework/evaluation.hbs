@@ -26,16 +26,18 @@
         <div id="comment" class="tab-content submission-editor">
             {{#if @root.isTeacher}}
                 {{#if this.submission.submitted}}
-                    {{#embed "files/file-upload"}}{{/embed}}
-                    <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
-                    <input name="teamMembers" id="teamMembers" type="hidden" data-force-value="true" value="{{userIds this.submission.teamMembers}}" />
-                    {{#ifneq 0 (arrayLength this.submission.gradeFileIds)}}
-                        {{#embed "homework/components/submission_files"
-                            fileIds=../submission.gradeFileIds
-                            grading=true
-                            deletionAllowed=true
-                            submission=../submission}}{{/embed}}
-                    {{/ifneq}}
+                    <div id="filesSection">
+                        {{#embed "files/file-upload"}}{{/embed}}
+                        <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
+                        <input name="teamMembers" id="teamMembers" type="hidden" data-force-value="true" value="{{userIds this.submission.teamMembers}}" />
+                        {{#ifneq 0 (arrayLength this.submission.gradeFileIds)}}
+                            {{#embed "homework/components/submission_files"
+                                fileIds=../submission.gradeFileIds
+                                grading=true
+                                deletionAllowed=true
+                                submission=../submission}}{{/embed}}
+                        {{/ifneq}}
+                    </div>
 
                     <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
