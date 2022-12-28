@@ -23,6 +23,24 @@ window.addEventListener('keydown', (e) => {
 	}
 });
 
+window.onbeforeunload = function () {
+	localStorage.setItem('grade', $("input[name='gradeComment']").val());
+	localStorage.setItem('gradeComment', $("textarea[name='gradeComment']").val());
+};
+
+window.onload = function () {
+	const grade = localStorage.getItem('grade');
+	const gradeComment = localStorage.getItem('gradeComment');
+
+	if (grade) {
+		$("input[name='grade']").val(grade);
+	}
+
+	if (gradeComment) {
+		$("textarea[name='gradeComment']").val(gradeComment);
+	}
+};
+
 function isSubmissionGradeUpload() {
 	// Uses the fact that the page can only ever contain one file upload form,
 	// either nested in the submission or the comment tab. And if it is in the
@@ -319,7 +337,8 @@ $(document).ready(() => {
 						setTimeout(() => {
 							// just reload if submission already exists
 							if ($("input[name='submissionId']").val()) {
-								$('#filesSection').load(' #filesSection > *');
+								// $('#filesSection').load(' #filesSection > *');
+								window.location.reload();
 							}
 						}, 1500);
 					});
