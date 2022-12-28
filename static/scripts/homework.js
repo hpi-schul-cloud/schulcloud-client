@@ -24,7 +24,7 @@ window.addEventListener('keydown', (e) => {
 });
 
 window.onbeforeunload = function () {
-	localStorage.setItem('grade', $("input[name='grade]").val());
+	localStorage.setItem('grade', $("input[name='grade']").val());
 	localStorage.setItem('gradeComment', $("textarea[name='gradeComment']").val());
 };
 
