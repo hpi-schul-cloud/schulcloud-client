@@ -406,7 +406,7 @@ $(document).ready(() => {
 				data: { fileId, teamMembers },
 				type: 'DELETE',
 				success() {
-					window.location.reload();
+					$('#filesSection').load(' #filesSection > *');
 				},
 				error: showAJAXError,
 			});
@@ -443,7 +443,7 @@ $(document).ready(() => {
 				data: { fileId },
 				type: 'DELETE',
 				success() {
-					window.location.reload();
+					$('#filesSection').load(' #filesSection > *');
 				},
 				error: showAJAXError,
 			});
