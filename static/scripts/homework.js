@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import multiDownload from 'multi-download';
 
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 import { softNavigate } from './helpers/navigation';
 import { getQueryParameters } from './helpers/queryStringParameter';
 import { requestUploadUrl, createFileModel, associateFilesWithSubmission } from './homework/api-requests';
