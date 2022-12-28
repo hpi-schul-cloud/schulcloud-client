@@ -23,7 +23,7 @@ window.addEventListener('keydown', (e) => {
 	}
 });
 
-window.onbeforeunload = function () {
+function saveTempData() {
 	const submissionId = $("input[name='submissionId']").val();
 	const grade = { value: $("input[name='grade']").val(), submissionId };
 	const gradeComment = { value: $("textarea[name='gradeComment']").val(), submissionId };
@@ -343,6 +343,7 @@ $(document).ready(() => {
 							// just reload if submission already exists
 							if ($("input[name='submissionId']").val()) {
 								// $('#filesSection').load(' #filesSection > *');
+								saveTempData();
 								window.location.reload();
 							}
 						}, 1500);
@@ -430,6 +431,7 @@ $(document).ready(() => {
 				data: { fileId, teamMembers },
 				type: 'DELETE',
 				success() {
+					saveTempData();
 					window.location.reload();
 				},
 				error: showAJAXError,
@@ -467,6 +469,7 @@ $(document).ready(() => {
 				data: { fileId },
 				type: 'DELETE',
 				success() {
+					saveTempData()
 					window.location.reload();
 				},
 				error: showAJAXError,
