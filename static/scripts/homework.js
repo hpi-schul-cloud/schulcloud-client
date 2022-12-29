@@ -23,6 +23,30 @@ window.addEventListener('keydown', (e) => {
 	}
 });
 
+function saveTempData() {
+	const submissionId = $("input[name='submissionId']").val();
+	const grade = { value: $("input[name='grade']").val(), submissionId };
+	const gradeComment = { value: $("textarea[name='gradeComment']").val(), submissionId };
+	localStorage.setItem('grade', JSON.stringify(grade));
+	localStorage.setItem('gradeComment', JSON.stringify(gradeComment));
+}
+
+window.onload = function onload() {
+	const grade = JSON.parse(localStorage.getItem('grade'));
+	const gradeComment = JSON.parse(localStorage.getItem('gradeComment'));
+	const submissionId = $("input[name='submissionId']").val();
+	localStorage.removeItem('grade');
+	localStorage.removeItem('gradeComment');
+
+	if (grade && grade.value && grade.submissionId === submissionId) {
+		$("input[name='grade']").val(grade.value);
+	}
+
+	if (gradeComment && gradeComment.value && gradeComment.submissionId === submissionId) {
+		document.querySelector('.ck-editor__editable').ckeditorInstance.setData(gradeComment.value);
+	}
+};
+
 function isSubmissionGradeUpload() {
 	// Uses the fact that the page can only ever contain one file upload form,
 	// either nested in the submission or the comment tab. And if it is in the
@@ -319,6 +343,7 @@ $(document).ready(() => {
 						setTimeout(() => {
 							// just reload if submission already exists
 							if ($("input[name='submissionId']").val()) {
+								saveTempData();
 								window.location.reload();
 							}
 						}, 1500);
@@ -406,6 +431,7 @@ $(document).ready(() => {
 				data: { fileId, teamMembers },
 				type: 'DELETE',
 				success() {
+					saveTempData();
 					window.location.reload();
 				},
 				error: showAJAXError,
@@ -443,6 +469,7 @@ $(document).ready(() => {
 				data: { fileId },
 				type: 'DELETE',
 				success() {
+					saveTempData();
 					window.location.reload();
 				},
 				error: showAJAXError,
