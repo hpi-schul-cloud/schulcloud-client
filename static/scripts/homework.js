@@ -29,13 +29,14 @@ function saveTempData() {
 	const gradeComment = { value: $("textarea[name='gradeComment']").val(), submissionId };
 	localStorage.setItem('grade', JSON.stringify(grade));
 	localStorage.setItem('gradeComment', JSON.stringify(gradeComment));
-};
+}
 
-window.onload = function () {
+window.onload = function onload() {
 	const grade = JSON.parse(localStorage.getItem('grade'));
 	const gradeComment = JSON.parse(localStorage.getItem('gradeComment'));
 	const submissionId = $("input[name='submissionId']").val();
-	localStorage.clear();
+	localStorage.removeItem('grade');
+	localStorage.removeItem('gradeComment');
 
 	if (grade && grade.value && grade.submissionId === submissionId) {
 		$("input[name='grade']").val(grade.value);
@@ -342,7 +343,6 @@ $(document).ready(() => {
 						setTimeout(() => {
 							// just reload if submission already exists
 							if ($("input[name='submissionId']").val()) {
-								// $('#filesSection').load(' #filesSection > *');
 								saveTempData();
 								window.location.reload();
 							}
@@ -469,7 +469,7 @@ $(document).ready(() => {
 				data: { fileId },
 				type: 'DELETE',
 				success() {
-					saveTempData()
+					saveTempData();
 					window.location.reload();
 				},
 				error: showAJAXError,
