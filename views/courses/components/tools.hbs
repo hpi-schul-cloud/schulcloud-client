@@ -108,7 +108,6 @@
 				{{#unless @root.isArchived}}
 				{{#userHasPermission "TOOL_CREATE" }}
 				<h2 class="h4">{{$t "courses._course.tools.headline.addToolToCourse"}}</h2>
-				<p class="text-muted"></p>
 				{{else}}
 				<h2 class="h4 text-muted">{{$t "courses._course.tools.headline.noToolsYet"}}</h2>
 				{{/userHasPermission}}
