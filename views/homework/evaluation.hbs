@@ -46,14 +46,15 @@
                             <input name="courseGroupId" type="hidden" value="{{this.submission.courseGroupId._id}}"/>
                             <input name="teamSubmissionOptions" type="hidden" value="courseGroup"/>
                         {{/if}}
+                        <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submissions&submissionId={{this.submission._id}}&activeSubmissionTabId=comment-tab-link" />
                 {{else}}
                     <form class="form" method="post" action="/homework/submit">
                         <input type="hidden" name="_method" data-force-value="true" value="post" />
                         <input name="schoolId" type="hidden" data-force-value="true" value="{{this.submission.studentId.schoolId}}" />
                         <input name="studentId" type="hidden" data-force-value="true" value="{{this.submission.studentId._id}}" />
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
-                {{/if}}
                         <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submissions" />
+                {{/if}}
                         <div class="comment form-group">
                             <div class="form-group">
                                 <label>{{$t "homework.label.rating" }}<small> {{$t "homework.label.inPercent" }}</small></label>

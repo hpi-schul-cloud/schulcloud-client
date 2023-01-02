@@ -605,7 +605,6 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 	});
 });
 
-
 router.get('/:assignmentId', (req, res, next) => {
 	api(req).get(`/homework/${req.params.assignmentId}`, {
 		qs: {
@@ -663,9 +662,24 @@ router.get('/:assignmentId', (req, res, next) => {
 			);
 		}
 		async function findSubmissionFiles(submission, submitters, teachers, readonly) {
+			const { schoolId } = submission;
+			const parentId = submission._id;
+			const parentType = 'submissions';
 			const isTeacher = teachers.has(res.locals.currentUser._id);
 			const isCreator = submitters.has(res.locals.currentUser._id);
-			const { filesStorage } = await filesStoragesHelper.filesStorageInit(submission.schoolId, submission._id, 'submissions', req, readonly);
+			let filesStorage = {
+				schoolId,
+				parentId,
+				parentType,
+				files: [],
+				readonly,
+			};
+
+			if (submission.submitted || isCreator) {
+				const result = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req, readonly);
+				// eslint-disable-next-line prefer-destructuring
+				filesStorage = result.filesStorage;
+			}
 
 			const submissionFilesStorageData = _.clone(filesStorage);
 			submissionFilesStorageData.files = filesStorage.files.filter((file) => submitters.has(file.creatorId));
