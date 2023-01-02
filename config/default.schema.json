@@ -551,7 +551,7 @@
 		},
 		"FEATURE_LEGACY_HYDRA_ENABLED": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Enables the legacy Hydra endpoints."
 		},
 		"NEXTCLOUD_REDIRECT_URL": {
