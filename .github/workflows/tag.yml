@@ -9,6 +9,9 @@ on:
 jobs:
   build_and_push_docker:
     runs-on: ubuntu-latest
+    permissions:
+        contents: read
+        packages: write
     strategy:
       matrix:
         tennens: [default, brb, int, n21, thr ]

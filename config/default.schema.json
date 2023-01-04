@@ -529,6 +529,11 @@
 			"default": false,
 			"description": "If enabled, admin can see a message with link to user migration page"
 		},
+		"FEATURE_USER_MIGRATION_CENTRAL_LDAP": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled school admins can start user migration without specifying an LDAP for the school based on a central LDAP"
+		},
 		"FEATURE_DASHBOARD_DEFAULT_PICTURE_ENABLED": {
 			"type": "boolean",
 			"default": true,
@@ -546,7 +551,7 @@
 		},
 		"FEATURE_LEGACY_HYDRA_ENABLED": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Enables the legacy Hydra endpoints."
 		},
 		"NEXTCLOUD_REDIRECT_URL": {

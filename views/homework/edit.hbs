@@ -89,7 +89,7 @@
 			{{#ifeq assignment._id undefined}}
 				<div class="alert info-custom">
 					<div class="fa fa-info-circle"></div>
-					{{$t "topic.topicEdit.label.uploadAfterFirstSave"}}
+					{{$t "files.text.uploadAfterFirstSave"}}
 				</div>
 			{{/ifeq}}
 
@@ -106,7 +106,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					{{#embed "lib/components/files-storage/files"}}{{/embed}}
+					{{#embed "lib/components/files-storage/files" taskFilesStorageData}}{{/embed}}
 				</div>
 			</div>
 			{{#if method}}

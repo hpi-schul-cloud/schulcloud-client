@@ -96,7 +96,7 @@
 			}
 		},
 		"text": {
-			"centralIdentityManagement": "Los datos de usuario se sincronizan mediante una administración de identidades central (IDM). Los cambios en él solo se pueden realizar en el sistema de origen (por ejemplo, el servidor escolar) en el que se basan los datos en el IDM. Ponte en contacto con el administrador local de tu escuela para realizar cambios en tus datos de usuario.",
+			"centralIdentityManagement": "Los datos de usuario se sincronizan automáticamente mediante una administración de identidades (IDM). Los cambios en él solo se pueden realizar en el sistema de origen (por ejemplo, el servidor escolar o Schulportal) en el que se basan los datos en el IDM. Ponte en contacto con el administrador local de tu escuela para realizar cambios en tus datos de usuario.",
 			"noDeviceEntered": "No se han introducido dispositivos",
 			"preferencesUpdateError": "¡Ha habido un error en las preferencias!",
 			"preferencesUpdates": "¡Se han actualizado las preferencias!"
@@ -1421,9 +1421,7 @@
 			"storeFilesForUpload": "Coloque aquí los archivos para cargar, o busque en los ordenadores.",
 			"studentCanEdit": "¿Los estudiantes pueden editar?",
 			"tips": "SUGERENCIA: abre el documento de LibreOffice en una ventana aparte para mejorar el rendimiento",
-			"courses": "el curso",
-			"tasks": "la tarea",
-			"submissions": "el envío"
+			"uploadAfterFirstSave": "Los archivos solo se pueden cargar después del primer guardado."
 		}
 	},
 	"firstLogin": {
@@ -2113,7 +2111,8 @@
 			"importing": "importar",
 			"importSubmission": "Importar el envío de los estudiantes",
 			"onTheSubject": "En el tema",
-			"save": "Guardar y enviar",
+			"saveAndSend": "Guardar y enviar",
+			"submit": "Enviar",
 			"toCourseAlt": "Al curso de la tarea",
 			"toTheCourseFiles": "A los archivos del curso",
 			"toTopicAlt": "Al tema de la tarea"
@@ -2236,6 +2235,7 @@
 		"brb": {
 			"headline": {
 				"advantages": "Ventajas de la {{shortTitle}}",
+				"generalInquiriesSupport": "General Inquiries & Support",
 				"furtherInformation": "Entrada en la nube de la escuela",
 				"registration": "Regístrese en la {{shortTitle}}",
 				"valueStatement": "El desarrollo de la nube se caracteriza por"
@@ -2253,8 +2253,13 @@
 				"registration2": "Los profesores y los estudiantes reciben un enlace de registro o los datos de acceso de su escuela para el registro inicial en la {{shortTitle}}.<br>Si tiene alguna pregunta sobre el proceso de registro, los profesores, los alumnos y los padres deben ponerse en contacto con los administradores de School Cloud designados en su escuela o con los profesores correspondientes en el centro.",
 				"valueStatement": "<li>un uso coherente de las soluciones de código abierto,</li><li>un desarrollo coherente centrado en el usuario,</li><li>una estructura estrictamente modular,</li><li>la función de la cooperación inter-escolar, que es importante para un país con una gran extension,</li><li>la conformidad de la EU-DSGVO/protección de datos a través de Privacy by Design,</li><li>la posibilidad de crear sinergias mediante la cooperación entre países.</li><br>",
 				"welcome": "Con la {{shortTitle}}, las escuelas de Brandenburgo disponen de un entorno digital de enseñanza-aprendizaje de uso intuitivo y que cumple con la protección de datos para las lecciones escolares que puede utilizarse en todo tipo de escuelas. La idea básica de la nube escolar es hacer que los contenidos educativos sean accesibles en cualquier lugar a través de la web.",
-				"welcome2": "Desde el 01.08.2021, la {{shortTitle}} se ha transferido a una infraestructura de enseñanza y aprendizaje interestatal sobre la base de un acuerdo administrativo entre los estados conjuntos de Brandenburgo, Baja Sajonia y Turingia, teniendo en cuenta los requisitos específicos de cada estado, y se está desarrollando conjuntamente."
+				"welcome2": "Desde el 01.08.2021, la {{shortTitle}} se ha transferido a una infraestructura de enseñanza y aprendizaje interestatal sobre la base de un acuerdo administrativo entre los estados conjuntos de Brandenburgo, Baja Sajonia y Turingia, teniendo en cuenta los requisitos específicos de cada estado, y se está desarrollando conjuntamente.",
+				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 184 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Horario Oficial <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"phone2": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Horario Oficial <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"onlineChat": "<i class=\"fa fa-comment\"></i> Online Chat <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
 			}
+
 		},
 		"label": {
 			"welcome": "Bienvenid@ a {{shortTitle}}!"
@@ -3205,8 +3210,7 @@
 				"openSection": "Desbloquear sección",
 				"selectNeXboard": "Seleccionar neXboard",
 				"theLinkHasToBeginWith": "El enlace debe comenzar con '{{- baseUrl}} / ¡tareas! Los estudiantes deben tener acceso a las tareas para verlas incluidas aquí. Atención: si compartes este tema o todo el curso con otro profesor usando un código para compartir, las tareas integradas de esta manera no se tendrán en cuenta.",
-				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https://www.geogebra.org/m/e6g4adXp, la ID del material es 'e6g4adXp'",
-				"uploadAfterFirstSave": "Los archivos solo se pueden cargar después de guardar el tema por primera vez."
+				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https://www.geogebra.org/m/e6g4adXp, la ID del material es 'e6g4adXp'"
 			}
 		}
 	},

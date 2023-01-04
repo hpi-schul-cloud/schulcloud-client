@@ -1,43 +1,24 @@
 <section id="submission" class="tab-content section-homeworkdetails">
   {{#if @root.submittable}}
     <div class="comment editor submission-editor">
-      <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
-      {{#embed "files/file-upload" path=@root.path}}{{/embed}}
-
-      {{#if @root.submission}}
+    {{#if @root.submission}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{@root.submission._id}}">
-        <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
-        <input type="hidden" name="_method" data-force-value="true" value="patch"/>
-      {{else}}
+            <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
+            <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+    {{else}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit">
-        <input type="hidden" name="submitted" value="true"/>
-      {{/if}}
-
-      {{#if @root.submission}}
-        {{#ifneq 0 (arrayLength @root.submission.fileIds)}}
-            {{#embed "homework/components/submission_files"
-                fileIds=@root.submission.fileIds
-                deletionAllowed=true
-                submission=@root.submission}}{{/embed}}
-        {{/ifneq}}
-      {{else}}
-        <div class="form-group section-uploaded-files" data-testid="section-uploadedfiles">
-            <label>{{$t "homework.label.filesUploadedForDelivery" }}</label>
-            <ul class="list-group-files js-file-list d-flex flex-row"></ul>
-        </div>
-        <input type="hidden" name="_method" data-force-value="true" value="post"/>
-        <input name="schoolId" type="hidden" data-force-value="true" value="{{@root.currentSchool}}"/>
-        <input name="studentId" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}"/>
-      {{/if}}
-
-      {{#if @root.teamSubmissions}}
-        <hr>
+            <input type="hidden" name="_method" data-force-value="true" value="post"/>
+            <input name="schoolId" type="hidden" data-force-value="true" value="{{@root.currentSchool}}"/>
+            <input name="studentId" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}"/>
+    {{/if}}
+            <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submission" />
+    {{#if @root.teamSubmissions}}
         <p class="submissionLabel"><i class="fa fa-users"></i>
-        {{#if maxTeamMembers}}
-            {{{$t "homework._task.label.teamSubmissionMaxX" (dict "maxTeamMembers" @root.maxTeamMembers)}}}
-        {{else}}
-            {{$t "homework._task.label.teamSubmission"}}
-        {{/if}}
+            {{#if maxTeamMembers}}
+                {{{$t "homework._task.label.teamSubmissionMaxX" (dict "maxTeamMembers" @root.maxTeamMembers)}}}
+            {{else}}
+                {{$t "homework._task.label.teamSubmission"}}
+            {{/if}}
         </p>
         <div class="form-group">
             <input name="teamSubmissionOptions" value="teamMembers" type="radio" id="teamMembers1" {{#unless @root.courseGroupSelected}}checked{{/unless}}/>
@@ -73,49 +54,72 @@
             </select>
         </div>
         <hr>
-      {{/if}}
+    {{/if}}
+        {{#ifeq @root.submission undefined}}
+            <div class="alert info-custom">
+                <div class="fa fa-info-circle"></div>
+                {{$t "files.text.uploadAfterFirstSave"}}
+            </div>
+		{{/ifeq}}
         <p class="submissionLabel"><i class="fa fa-text-width"></i>{{$t "homework._task.label.textDelivery"}}</p>
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
-
         <div class="form-group">
-            <textarea id="evaluation" name="comment" class="form-control ckeditor customckeditor"
-                  placeholder="{{$t "homework._task.input.createSubmission"}}">{{@root.submission.comment}}</textarea>
+            <textarea
+                id="evaluation"
+                name="comment"
+                class="form-control ckeditor customckeditor"
+                data-parent-id="{{@root.submission._id}}"
+                data-school-id="{{@root.submission.schoolId}}"
+                data-parent-type="submissions"
+                placeholder="{{$t "homework._task.input.createSubmission"}}"
+                {{#ifeq @root.submission._id undefined}}
+                    	data-disable-file-browser='true'
+                {{/ifeq}}
+            >
+                    {{@root.submission.comment}}
+            </textarea>
         </div>
+        <hr>
+        <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
+    {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}
   {{else}}
     {{#if @root.submission}}
-        {{#if @root.submission.hasFile}}
-            {{#embed "homework/components/submission_files" fileIds=@root.submission.fileIds deletionAllowed=false submission=@root.submission}}{{/embed}}
-        {{/if}}
+        {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}
+        <div class="comment">
+                {{{@root.submission.comment}}}
+        </div>
+    {{else}}
+        <p>{{$t "homework.text.noSubmission" }}.</p>
     {{/if}}
-    <div class="comment">
-        {{#if @root.submission.comment}}
-            {{{@root.submission.comment}}}
-        {{else}}
-            <p>{{$t "homework.text.noSubmission" }}.</p>
-        {{/if}}
-    </div>
   {{/if}}
-
     {{#if @root.submittable}}
         {{> "lib/components/csrfInput"}}
-        {{#userHasPermission "SUBMISSIONS_CREATE"}}
-            <button type="submit" class="ckeditor-submit btn btn-primary btn-submit" disabled="true" data-testid="tasks-submission-save-and-send-btn">{{$t "homework.button.save" }}</button>
-        {{/userHasPermission}}
 
-        {{#if @root.submission}}
-			{{#userHasPermission "SUBMISSIONS_EDIT"}}
-				{{#ifeq @root.currentUser._id @root.submission.studentId._id}}
-					<a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission"
-						target="_blank"
-						data-method="delete-submission"
-						data-name="{{$t "homework.button.hrefDataName" }}"
-						alt="{{$t "homework.button.hrefAlt" }}"
-					><i class="fa fa-trash-o"></i> {{$t "global.headline.delete" }}</a>
-				{{/ifeq}}
-			{{/userHasPermission}}
-		{{/if}}
+        <div class="button-container">
+            {{#if @root.submission}}
+                {{#userHasPermission "SUBMISSIONS_EDIT"}}
+                    {{#ifeq @root.currentUser._id @root.submission.studentId._id}}
+                        <div>
+                            <a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission"
+                                target="_blank"
+                                data-method="delete-submission"
+                                data-name="{{$t "homework.button.hrefDataName" }}"
+                                alt="{{$t "homework.button.hrefAlt" }}"
+                            ><i class="fa fa-trash-o"></i> {{$t "global.headline.delete" }}</a>
+                        </div>
+                    {{/ifeq}}
+                {{/userHasPermission}}
+            {{/if}}
+
+            {{#userHasPermission "SUBMISSIONS_CREATE"}}
+                <div class="submit-button-container">
+                    <button class="btn btn-primary btn-submit submission-button" name="submitted" value="false" {{#if @root.submission.submitted}}disabled="true"{{/if}} data-testid="tasks-submission-save-btn">{{$t "global.button.save" }}</button>
+                    <button class="btn btn-primary btn-submit submission-button" name="submitted" value="true"  data-testid="tasks-submission-submit-btn">{{$t "homework.button.submit" }}</button>
+                </div>
+            {{/userHasPermission}}
+        </div>
     {{/if}}
-    </form>
+            </form>
     </div>
 
     {{#embed "lib/components/modal" class="delete-modal" title="${res.$t('global.text.areYousure')}"}}
@@ -129,11 +133,5 @@
                 </button>
             </div>
         {{/content}}
-    {{/embed}}
-
-    {{#embed "lib/components/modal-information" class="danger-modal" title="Achtung"}}
-	    {{#content "fields"}}
-		    {{> "files/forms/form-virus-danger"}}
-	    {{/content}}
     {{/embed}}
 </section>

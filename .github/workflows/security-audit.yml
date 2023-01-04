@@ -6,6 +6,9 @@ on:
       - 'package.json'
       - 'package-lock.json'
 
+permissions:
+  contents: read
+
 jobs:
   PROD:
     runs-on: ubuntu-latest

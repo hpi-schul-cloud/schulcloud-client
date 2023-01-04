@@ -7,3 +7,47 @@
 	<script src="{{getAssetPath '/scripts/files-storage.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	<script src="{{getAssetPath '/scripts/jquery.cookie.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
+
+{{#content "body" mode="append"}} 
+
+{{#embed "lib/components/files-storage/file-viewer"}}{{/embed}}
+{{#embed "lib/components/modal" class="files-storage-delete-modal" title=($t "global.text.areYouSure")}}
+	{{#content "body"}}
+
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary btn-close" data-testid="delete-file-dialog-cancel-btn">
+				{{$t "global.button.cancel" }}
+			</button>
+
+			<button type="submit" class="btn btn-primary btn-submit" data-testid="delete-file-dialog-submit-btn">
+				{{$t "global.headline.delete" }}
+			</button>
+		</div>
+	{{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal" class="files-storage-rename-modal" title=($t "files.label.renameFile")}}
+	{{#content "body"}}
+		<div class="modal-body">
+			{{> "lib/components/files-storage/forms/form-name-edit"}}
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary btn-close" data-testid="rename-file-dialog-cancel-btn">
+				{{$t "global.button.cancel" }}
+			</button>
+
+			<button type="submit" class="btn btn-primary btn-submit" data-testid="rename-file-dialog-submit-btn">
+				{{$t "global.button.save" }}
+			</button>
+		</div>
+	{{/content}}
+{{/embed}}
+
+
+{{#embed "lib/components/modal-information" class="files-storage-danger-modal" title=($t "files.headline.attention")}}
+	{{#content "fields"}}
+		{{> "lib/components/files-storage/forms/form-virus-danger"}}
+	{{/content}}
+{{/embed}}
+
+{{/content}}
