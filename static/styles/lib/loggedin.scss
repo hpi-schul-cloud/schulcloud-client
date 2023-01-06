@@ -203,7 +203,7 @@ aside.nav-sidebar {
 				height: 60px;
 				color: $secondaryColor;
 				fill:$secondaryColor;
-				padding: 0px 5px;
+				padding: 0px 20px;
 				font-size: 16px;
 				text-decoration: none;
 				overflow-x: visible;
@@ -264,7 +264,6 @@ aside.nav-sidebar {
 				i.fa {
 					font-size: 20px;
 					width: 25px;
-					margin-right: 6px;
 					display: inline-block;
 					text-align: center;
 					vertical-align: middle;
@@ -277,7 +276,6 @@ aside.nav-sidebar {
 				svg {
 					font-size: 20px;
 					width: 25px;
-					margin-right: 6px;
 					display: inline-block;
 					text-align: center;
 					vertical-align: middle;
@@ -288,6 +286,7 @@ aside.nav-sidebar {
 					display: inline-block;
 					text-transform: uppercase;
 					text-decoration: none;
+					margin-left: 6px;
 
 					@include media-breakpoint-down(md) {
 						display: none;
