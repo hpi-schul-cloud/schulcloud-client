@@ -15,4 +15,8 @@ $('document').ready(() => {
 	retrybtn.click(() => {
 		$('#retryform').submit();
 	});
+
+	setTimeout(() => {
+		window.location.href = '/';
+	}, 10000);
 });
