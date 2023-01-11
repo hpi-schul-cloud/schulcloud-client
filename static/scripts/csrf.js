@@ -17,6 +17,6 @@ $('document').ready(() => {
 	});
 
 	setTimeout(() => {
-		window.location.reload(true);
+		window.location.href = '/';
 	}, 10000);
 });
