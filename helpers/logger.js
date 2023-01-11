@@ -26,7 +26,6 @@ if (NODE_ENV === 'test') {
 	);
 }
 
-
 const logger = createLogger({
 	level: logLevel,
 	exitOnError: false,

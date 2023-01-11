@@ -50,7 +50,7 @@ router.all('/logout', csrfProtection, auth.authChecker, (req) => {
 
 router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next) => {
 	const body = {
-		redirect_to: '/logout',
+		redirect_to: '',
 	};
 
 	return api(req, { version: VERSION }).patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { body })
