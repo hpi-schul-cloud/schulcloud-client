@@ -2288,7 +2288,8 @@
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden.",
 				"oneTabIsEnough": "Ein Reiter ist genug",
-				"youAreAlreadyLoginInOtherTab": "Es scheint, dass Sie bereits in einer anderen Registerkarte bei Schulcloud angemeldet sind. Schließen Sie die anderen Tabs und melden Sie sich erneut an, um fortzufahren."
+				"youAreAlreadyLoginInOtherTab": "Es scheint, dass Sie bereits in einer anderen Registerkarte bei Schulcloud angemeldet sind.",
+				"closeAnotherTabs": "Schließen Sie die anderen Tabs und melden Sie sich erneut an, um fortzufahren."
 			}
 		},
 		"error": {

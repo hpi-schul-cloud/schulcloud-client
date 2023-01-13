@@ -16,8 +16,8 @@
         {{else}}
             <p>
                 {{$t "lib.csrf_content.text.youAreAlreadyLoginInOtherTab" }}
-                {{!-- <br>
-                {{$t "lib.csrf_content.text.ifYouDontWantToTakeAnyAction" }} --}}
+                <br>
+                {{$t "lib.csrf_content.text.closeAnotherTabs" }}
             </p>
             {{#if previousError}}
                 <p>
@@ -26,7 +26,7 @@
                     </b>
                 </p>
                 <a href=".">
-                    <button class="btn btn-primary">{{$t "global.button.reload" }}</button>
+                    <button class="btn btn-primary">{{$t "global.link.loginToSchulcloud" }}</button>
                 </a>
             {{else}}
                 <form id="retryform" method="POST">
@@ -36,7 +36,7 @@
                             <input type="hidden" name="{{../this.name}}" value="{{../this.value}}">
                         {{/ifneq}}
                     {{/each}}
-                    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" id="retrybtn">{{$t "global.link.loginToSchulcloud" }}</a>
+                    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" id="retrybtn">{{$t "global.button.reload" }}</a>
                 </form>
             {{/if}}
         {{/if}}

@@ -2289,7 +2289,8 @@
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "No hemos podido asegurarnos de que esta solicitud venga realmente de ti. Haz clic en el botón de abajo para confirmar.",
 				"yourRequestCouldNotBeVerified": "No se ha podido verificar tu solicitud.",
 				"oneTabIsEnough": "Una pestaña es suficiente",
-				"youAreAlreadyLoginInOtherTab": "Parece que ya has iniciado sesión Schulcloud en otras pestañas. Cierre las otras pestañas y vuelva a iniciar sesión para continuar."
+				"youAreAlreadyLoginInOtherTab": "Parece que ya has iniciado sesión Schulcloud en otras pestañas.",
+				"closeAnotherTabs": "Cierre las otras pestañas y vuelva a iniciar sesión para continuar."
 			}
 		},
 		"error": {
