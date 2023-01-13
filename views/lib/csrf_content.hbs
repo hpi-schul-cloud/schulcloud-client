@@ -1,8 +1,8 @@
 <div class="error-header-wrapper pb-3">
-    {{> 'lib/components/svg_error_content' }}
+    {{> 'lib/components/svg_error_to_much_tabs' }}
     {{!-- <h1 class="h2 error-header-code">CSRF</h1> --}}
     <p class="error-header-text">
-        {{$t "lib.csrf_content.text.youAreAlreadyLoginInOtherTab" }}
+        {{$t "lib.csrf_content.text.oneTabIsEnough" }}
     </p>
 
     <div class="noiframe">
@@ -15,9 +15,9 @@
             </a>
         {{else}}
             <p>
-                {{$t "lib.csrf_content.text.weCouldNotMakeSureThatThisRequestReallyCameFromYou" }}
-                <br>
-                {{$t "lib.csrf_content.text.ifYouDontWantToTakeAnyAction" }}
+                {{$t "lib.csrf_content.text.youAreAlreadyLoginInOtherTab" }}
+                {{!-- <br>
+                {{$t "lib.csrf_content.text.ifYouDontWantToTakeAnyAction" }} --}}
             </p>
             {{#if previousError}}
                 <p>
