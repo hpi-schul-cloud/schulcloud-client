@@ -1679,11 +1679,12 @@
 			}
 		},
 		"link": {
+			"loginToSchulcloud": "Login to Schulcloud",
 			"administrationStudents": "Students",
 			"archive": "Archive",
 			"calendar": "Calendar",
 			"contact": "Contact",
-			"courseData": "My course files",
+			"courseData": "My course ",
 			"courseDataContent": "Here you will find all files used in the respective courses in class. All participants of the course, i.e. the teacher and the students, have access to these files.",
 			"files": "My Files",
 			"filesContent": "Here you can find all files used in the respective teams. All participants of the team have access to these files.",
@@ -2285,7 +2286,9 @@
 				"unfortunatelyTheRequestFailedAgain": "Sorry, the request failed again. To continue using it, please reload the page.",
 				"weCouldNotMakeSureThat": "We could not make sure that this request really came from you. Please click the button below to reload the page.",
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "We could not make sure that this request really came from you. Please click the button below to confirm.",
-				"yourRequestCouldNotBeVerified": "Your request could not be verified."
+				"yourRequestCouldNotBeVerified": "Your request could not be verified.",
+				"oneTabIsEnough": "One tab is enough",
+				"youAreAlreadyLoginInOtherTab": "It appears that you are already logged into Schulcloud in another tabs. Close the other tabs and login again to continue."
 			}
 		},
 		"error": {

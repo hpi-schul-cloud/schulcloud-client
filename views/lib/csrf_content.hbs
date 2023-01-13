@@ -1,8 +1,8 @@
 <div class="error-header-wrapper pb-3">
     {{> 'lib/components/svg_error_content' }}
-    <h1 class="h2 error-header-code">CSRF</h1>
+    {{!-- <h1 class="h2 error-header-code">CSRF</h1> --}}
     <p class="error-header-text">
-        {{$t "lib.csrf_content.text.yourRequestCouldNotBeVerified" }}
+        {{$t "lib.csrf_content.text.youAreAlreadyLoginInOtherTab" }}
     </p>
 
     <div class="noiframe">
@@ -10,7 +10,7 @@
             <p>
                 {{$t "lib.csrf_content.text.weCouldNotMakeSureThat" }}
             </p>
-            <a href="#">
+            <a href=".">
                 <button class="btn btn-primary">{{$t "global.button.reload" }}</button>
             </a>
         {{else}}
@@ -25,7 +25,7 @@
                         {{$t "lib.csrf_content.text.unfortunatelyTheRequestFailedAgain" }}
                     </b>
                 </p>
-                <a href="#">
+                <a href=".">
                     <button class="btn btn-primary">{{$t "global.button.reload" }}</button>
                 </a>
             {{else}}
@@ -36,7 +36,7 @@
                             <input type="hidden" name="{{../this.name}}" value="{{../this.value}}">
                         {{/ifneq}}
                     {{/each}}
-                    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" id="retrybtn">{{$t "global.link.openInNewTab" }}</a>
+                    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" id="retrybtn">{{$t "global.link.loginToSchulcloud" }}</a>
                 </form>
             {{/if}}
         {{/if}}
