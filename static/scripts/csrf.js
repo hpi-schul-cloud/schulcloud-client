@@ -7,7 +7,7 @@ function inIframe() {
 }
 $('document').ready(() => {
 	const retrybtn = $('#retrybtn');
-	retrybtn.html($t('global.button.tryAgain'));
+	retrybtn.html($t('global.button.loginInSchulcloud'));
 	if (inIframe()) {
 		$('.iframe').removeClass('hidden');
 		$('.noiframe').addClass('hidden');

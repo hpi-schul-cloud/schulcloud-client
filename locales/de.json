@@ -1611,7 +1611,8 @@
 			"submit": "Absenden",
 			"toCourse": "Zum Kurs",
 			"tryAgain": "Erneut versuchen",
-			"yes": "Ja"
+			"yes": "Ja",
+			"loginInSchulcloud": "Anmeldung bei Schulcloud"
 		},
 		"headline": {
 			"actions": "Aktionen",
@@ -1679,7 +1680,6 @@
 			}
 		},
 		"link": {
-			"loginToSchulcloud": "Anmeldung bei Schulcloud",
 			"administrationStudents": "Schüler:innen",
 			"archive": "Archiv",
 			"calendar": "Termine",
@@ -2287,7 +2287,7 @@
 				"weCouldNotMakeSureThat": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke auf den Button unten zum erneuten Laden der Seite.",
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden.",
-				"oneTabIsEnough": "Ein Reiter ist genug",
+				"yourSessionHasExpired": "Ihre Sitzung ist abgelaufen",
 				"youAreAlreadyLoginInOtherTab": "Es scheint, dass Sie bereits in einer anderen Registerkarte bei Schulcloud angemeldet sind.",
 				"closeAnotherTabs": "Schließen Sie die anderen Tabs und melden Sie sich erneut an, um fortzufahren."
 			}

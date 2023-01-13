@@ -1611,7 +1611,8 @@
 			"submit": "Submit",
 			"toCourse": "To the course",
 			"tryAgain": "Try again",
-			"yes": "Yes"
+			"yes": "Yes",
+			"loginToSchulcloud": "Login to Schulcloud"
 		},
 		"headline": {
 			"actions": "Actions",
@@ -1679,7 +1680,6 @@
 			}
 		},
 		"link": {
-			"loginToSchulcloud": "Login to Schulcloud",
 			"administrationStudents": "Students",
 			"archive": "Archive",
 			"calendar": "Calendar",
@@ -2287,7 +2287,7 @@
 				"weCouldNotMakeSureThat": "We could not make sure that this request really came from you. Please click the button below to reload the page.",
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "We could not make sure that this request really came from you. Please click the button below to confirm.",
 				"yourRequestCouldNotBeVerified": "Your request could not be verified.",
-				"oneTabIsEnough": "One tab is enough",
+				"yourSessionHasExpired": "Your session has expired",
 				"youAreAlreadyLoginInOtherTab": "It appears that you are already logged into Schulcloud in another tabs.",
 				"closeAnotherTabs": " Close the other tabs and login again to continue."
 			}

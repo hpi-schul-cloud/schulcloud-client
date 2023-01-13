@@ -2,7 +2,7 @@
     {{> 'lib/components/svg_error_to_much_tabs' }}
     {{!-- <h1 class="h2 error-header-code">CSRF</h1> --}}
     <p class="error-header-text">
-        {{$t "lib.csrf_content.text.oneTabIsEnough" }}
+        {{$t "lib.csrf_content.text.yourSessionHasExpired" }}
     </p>
 
     <div class="noiframe">
@@ -26,7 +26,7 @@
                     </b>
                 </p>
                 <a href=".">
-                    <button class="btn btn-primary">{{$t "global.link.loginToSchulcloud" }}</button>
+                    <button class="btn btn-primary">{{$t "global.button.reload" }}</button>
                 </a>
             {{else}}
                 <form id="retryform" method="POST">
@@ -41,10 +41,9 @@
             {{/if}}
         {{/if}}
     </div>
-    {{!-- <div class="hidden iframe">
+    <div class="hidden iframe">
         <p>
-            {{$t "lib.csrf_content.text.theSchoolCloudWasEmbedded" }} <a href="{{baseUrl}}"
-                rel="noopener noreferrer" target="_blank">{{$t "lib.csrf_content.link.openThisPageInASeparateWindow" }}</a>.
+           <a href="{{baseUrl}}" rel="noopener noreferrer" >{{$t "global.button.reload" }}</a>.
         </p>
-    </div> --}}
+    </div>
 </div>

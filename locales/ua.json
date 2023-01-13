@@ -102,7 +102,8 @@
 			"toCourse": "До курсу",
 			"done": "Готово",
 			"addDraftTask": "Додайте чернетку",
-			"discard": "Відхилити"
+			"discard": "Відхилити",
+			"loginInSchulcloud": "Вхід в Schulcloud"
 		},
 		"text": {
 			"friday": "П'ятниця",
@@ -176,7 +177,6 @@
 			"search": "пошук..."
 		},
 		"link": {
-			"loginToSchulcloud": "Вхід в Schulcloud",
 			"openInNewTab": "відкрити в новій вкладці",
 			"administrationStudents": "Учні",
 			"archive": "Архів",
@@ -2472,7 +2472,7 @@
 				"weCouldNotMakeSureThat": "Ми не могли переконатися, що цей запит дійсно надійшов від вас. Натисніть кнопку нижче, щоб перезавантажити сторінку.",
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Ми не могли переконатися, що цей запит дійсно надійшов від вас. Натисніть кнопку нижче, щоб підтвердити.",
 				"yourRequestCouldNotBeVerified": "Не вдалося підтвердити ваш запит.",
-				"oneTabIsEnough": "Достатньо однієї таблетки",
+				"yourSessionHasExpired": "Ваша сесія закінчилася",
 				"youAreAlreadyLoginInOtherTab": "Здається, що ви вже ввійшли в Schulcloud на іншій вкладці.",
 				"closeAnotherTabs": "Закрийте інші вкладки та увійдіть знову, щоб продовжити."
 
