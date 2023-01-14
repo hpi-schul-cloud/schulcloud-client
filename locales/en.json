@@ -1612,7 +1612,7 @@
 			"toCourse": "To the course",
 			"tryAgain": "Try again",
 			"yes": "Yes",
-			"loginToSchulcloud": "Login to Schulcloud"
+			"loginToNewSession": "Login to new Session"
 		},
 		"headline": {
 			"actions": "Actions",
@@ -1684,7 +1684,7 @@
 			"archive": "Archive",
 			"calendar": "Calendar",
 			"contact": "Contact",
-			"courseData": "My course ",
+			"courseData": "My course files",
 			"courseDataContent": "Here you will find all files used in the respective courses in class. All participants of the course, i.e. the teacher and the students, have access to these files.",
 			"files": "My Files",
 			"filesContent": "Here you can find all files used in the respective teams. All participants of the team have access to these files.",
@@ -2288,7 +2288,7 @@
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "We could not make sure that this request really came from you. Please click the button below to confirm.",
 				"yourRequestCouldNotBeVerified": "Your request could not be verified.",
 				"yourSessionHasExpired": "Your session has expired",
-				"youAreAlreadyLoginInOtherTab": "It appears that you are already logged into Schulcloud in another tabs.",
+				"youAreAlreadyLoginInOtherTab": "Es scheint, dass Sie bereits in einer anderen Registerkarte angemeldet sind.",
 				"closeAnotherTabs": " Close the other tabs and login again to continue."
 			}
 		},

@@ -103,7 +103,7 @@
 			"done": "Готово",
 			"addDraftTask": "Додайте чернетку",
 			"discard": "Відхилити",
-			"loginInSchulcloud": "Вхід в Schulcloud"
+			"loginToNewSession": "Вхід на нову сесію"
 		},
 		"text": {
 			"friday": "П'ятниця",
@@ -2473,7 +2473,7 @@
 				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Ми не могли переконатися, що цей запит дійсно надійшов від вас. Натисніть кнопку нижче, щоб підтвердити.",
 				"yourRequestCouldNotBeVerified": "Не вдалося підтвердити ваш запит.",
 				"yourSessionHasExpired": "Ваша сесія закінчилася",
-				"youAreAlreadyLoginInOtherTab": "Здається, що ви вже ввійшли в Schulcloud на іншій вкладці.",
+				"youAreAlreadyLoginInOtherTab": "З'являється повідомлення про те, що ви вже увійшли в іншу вкладку.",
 				"closeAnotherTabs": "Закрийте інші вкладки та увійдіть знову, щоб продовжити."
 
 			}
