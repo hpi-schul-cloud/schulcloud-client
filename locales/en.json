@@ -3047,7 +3047,8 @@
 					"selectPersons": "Select people",
 					"selectRole": "Specify role",
 					"selectSchool": "Select school",
-					"teamAdmin": "Team admin"
+					"teamAdmin": "Team admin",
+					"teamMember": "Team member"
 				},
 				"text": {
 					"addedMemberFailure": "Problem while adding attendee",
