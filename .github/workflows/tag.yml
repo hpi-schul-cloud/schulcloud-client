@@ -7,7 +7,7 @@ on:
       - '[0-9]*'
 
 jobs:
-  build_and_push_docker:
+  build_and_push:
     runs-on: ubuntu-latest
     permissions:
         contents: read
