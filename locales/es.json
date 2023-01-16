@@ -3052,7 +3052,8 @@
 					"selectPersons": "Seleccionar personas",
 					"selectRole": "Especificar rol",
 					"selectSchool": "Seleccionar escuela",
-					"teamAdmin": "Administrador del equipo"
+					"teamAdmin": "Administrador del equipo",
+					"teamMember": "Miembro del equipo"
 				},
 				"text": {
 					"addedMemberFailure": "Problema al añadir el asistente",

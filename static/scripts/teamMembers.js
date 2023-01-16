@@ -262,7 +262,7 @@ $(document).ready(() => {
 
 		const userId = $('#teacher').val();
 		// eslint-disable-next-line no-nested-ternary
-		const userRole = state.role === 'teacher' ? 'teamadministrator'
+		const userRole = state.role === 'teacher' ? 'teammember'
 			: (state.role === 'expert' ? 'teamexpert' : '');
 		let email;
 
