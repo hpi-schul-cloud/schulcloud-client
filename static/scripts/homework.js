@@ -45,7 +45,8 @@ window.onload = function onload() {
 	}
 
 	if (gradeComment && gradeComment.value && gradeComment.submissionId === submissionId) {
-		document.querySelector('.ck-editor__editable').ckeditorInstance.setData(gradeComment.value);
+		document.querySelector('.usersubmission.active .ck-editor__editable')
+			.ckeditorInstance.setData(gradeComment.value);
 	}
 };
 
