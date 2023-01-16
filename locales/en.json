@@ -2289,7 +2289,7 @@
 				"yourRequestCouldNotBeVerified": "Your request could not be verified.",
 				"yourSessionHasExpired": "Your session has expired",
 				"youAreAlreadyLoginInOtherTab": "Es scheint, dass Sie bereits in einer anderen Registerkarte angemeldet sind.",
-				"closeAnotherTabs": "Close the other tabs and login again to continue."
+				"closeAnotherTabs": "Close the other tabs and login again to authorize CSRF token."
 			}
 		},
 		"error": {

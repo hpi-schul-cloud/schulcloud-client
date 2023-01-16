@@ -7,7 +7,7 @@ function inIframe() {
 }
 $('document').ready(() => {
 	const retrybtn = $('#retrybtn');
-	retrybtn.html($t('global.button.loginToNewSession'));
+	retrybtn.html($t('global.button.loginAgain'));
 	if (inIframe()) {
 		$('.iframe').removeClass('hidden');
 		$('.noiframe').addClass('hidden');
@@ -15,8 +15,4 @@ $('document').ready(() => {
 	retrybtn.click(() => {
 		$('#retryform').submit();
 	});
-
-	setTimeout(() => {
-		window.location.href = '/';
-	}, 10000);
 });

@@ -1612,7 +1612,7 @@
 			"toCourse": "Para el curso",
 			"tryAgain": "Inténtalo de nuevo",
 			"yes": "Sí",
-			"loginToNewSession": "Iniciar nueva sesión"
+			"loginAgain": "Inicia sesión nuevamente"
 		},
 		"headline": {
 			"actions": "Acciones",
@@ -2290,7 +2290,7 @@
 				"yourRequestCouldNotBeVerified": "No se ha podido verificar tu solicitud.",
 				"yourSessionHasExpired": "Tu seccion ha expirado",
 				"youAreAlreadyLoginInOtherTab": "Parece que ya has iniciado sesión en otra pestaña.",
-				"closeAnotherTabs": "Cierre las otras pestañas y vuelva a iniciar sesión para continuar."
+				"closeAnotherTabs": "Cierre las otras pestañas y vuelva a iniciar sesión para autorizar el token CSRF."
 			}
 		},
 		"error": {

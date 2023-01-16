@@ -1,6 +1,5 @@
 <div class="error-header-wrapper pb-3">
     {{> 'lib/components/svg_error_to_many_tabs' }}
-    <h1 class="h2 error-header-code">CSRF</h1>
     <p class="error-header-text">
         {{$t "lib.csrf_content.text.yourSessionHasExpired" }}
     </p>
@@ -43,7 +42,7 @@
     </div>
     <div class="hidden iframe">
         <p>
-           <a href="{{baseUrl}}" rel="noopener noreferrer" >{{$t "global.button.reload" }}</a>.
+           <a href="{{baseUrl}}" rel="noopener noreferrer" >{{$t "global.button.loginAgain" }}</a>.
         </p>
     </div>
 </div>

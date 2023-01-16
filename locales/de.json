@@ -1612,7 +1612,7 @@
 			"toCourse": "Zum Kurs",
 			"tryAgain": "Erneut versuchen",
 			"yes": "Ja",
-			"loginToNewSession": "Anmeldung zur neuen Sitzung"
+			"loginAgain": "Erneut anmelden"
 		},
 		"headline": {
 			"actions": "Aktionen",
@@ -2289,7 +2289,7 @@
 				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden.",
 				"yourSessionHasExpired": "Ihre Sitzung ist abgelaufen",
 				"youAreAlreadyLoginInOtherTab": "Es scheint, dass Sie bereits in einer anderen Registerkarte bei Schulcloud angemeldet sind.",
-				"closeAnotherTabs": "Schließen Sie die anderen Tabs und melden Sie sich erneut an, um fortzufahren."
+				"closeAnotherTabs": "Schließen Sie die anderen Registerkarten und melden Sie sich erneut an, um das CSRF-Token zu autorisieren."
 			}
 		},
 		"error": {

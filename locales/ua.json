@@ -103,7 +103,7 @@
 			"done": "Готово",
 			"addDraftTask": "Додайте чернетку",
 			"discard": "Відхилити",
-			"loginToNewSession": "Вхід на нову сесію"
+			"loginAgain": "Увійдіть ще раз"
 		},
 		"text": {
 			"friday": "П'ятниця",
@@ -2474,7 +2474,7 @@
 				"yourRequestCouldNotBeVerified": "Не вдалося підтвердити ваш запит.",
 				"yourSessionHasExpired": "Ваша сесія закінчилася",
 				"youAreAlreadyLoginInOtherTab": "З'являється повідомлення про те, що ви вже увійшли в іншу вкладку.",
-				"closeAnotherTabs": "Закрийте інші вкладки та увійдіть знову, щоб продовжити."
+				"closeAnotherTabs": "Закрийте інші вкладки та увійдіть знову, щоб авторизувати токе CSRF."
 
 			}
 		},
