@@ -51,13 +51,13 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close historyback">
+                    <button type="button" class="btn btn-secondary btn-close historyback" data-testid="topic-discardchanges-btn">
                         {{closeLabel}}
                     </button>
 
                     {{> "lib/components/csrfInput"}}
 
-                    <button type="submit" class="btn btn-primary btn-submit">
+                    <button type="submit" class="btn btn-primary btn-submit" data-testid="topic-submitchanges-btn">
                         {{submitLabel}}
                     </button>
                 </div>
