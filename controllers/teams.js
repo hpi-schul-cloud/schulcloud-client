@@ -1223,11 +1223,13 @@ router.delete('/:teamId/members', async (req, res, next) => {
 	const classIds = courseOld.classIds.filter(
 		(_class) => _class !== req.body.classIdToRemove,
 	);
+	const action = req.body.action ?? '';
 
 	await api(req).patch(`/teams/${req.params.teamId}`, {
 		json: {
 			userIds,
 			classIds,
+			action,
 		},
 	});
 

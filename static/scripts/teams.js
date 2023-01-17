@@ -199,12 +199,13 @@ $(document).ready(() => {
 		e.stopPropagation();
 		e.preventDefault();
 		const userIdToRemove = $(this).data('payload').userId;
-
+		const action = 'leave';
 		$.ajax({
 			url: $(this).attr('action'),
 			method: 'DELETE',
 			data: {
 				userIdToRemove,
+				action,
 			},
 		}).done(() => {
 			window.location.replace('/teams');
