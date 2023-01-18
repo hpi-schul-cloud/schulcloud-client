@@ -187,7 +187,9 @@
 					"classUsers": "Nutzer:innen der Klasse",
 					"consentStatus": "Registrierung",
 					"createdOn": "Erstellt am",
-					"email": "E-Mail-Adresse"
+					"email": "E-Mail-Adresse",
+					"migrated": "Zuletzt migriert am",
+					"outdated": "Veraltet seit"
 				}
 			},
 			"headline": {

@@ -187,7 +187,9 @@
 					"classUsers": "Users of the class",
 					"consentStatus": "Registration",
 					"createdOn": "Created on",
-					"email": "E-mail address"
+					"email": "E-mail address",
+					"migrated": "last migrated on",
+					"outdated": "outdated since"
 				}
 			},
 			"headline": {

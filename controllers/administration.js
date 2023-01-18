@@ -1196,6 +1196,8 @@ router.get(
 					res.$t('administration.controller.global.label.class'),
 					res.$t('administration.controller.global.label.createdOn'),
 					res.$t('administration.controller.global.label.consentStatus'),
+					res.$t('administration.controller.global.label.migrated'),
+					res.$t('administration.controller.global.label.outdated'),
 				];
 				if (hasEditPermission) {
 					head.push(''); // Add space for action buttons
@@ -1231,6 +1233,8 @@ router.get(
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
 						},
+						timesHelper.dateToDateString(user.lastLoginSystemChange),
+						timesHelper.dateToDateString(user.outdated),
 					];
 					if (hasEditPermission) {
 						row.push(actions);
