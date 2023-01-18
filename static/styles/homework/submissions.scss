@@ -199,4 +199,9 @@
 
 .submit-button-container {
 	margin-left: auto;
+
+	.submission-button.btn-secondary {
+		color: $primaryColor;
+		border-color: $primaryColor;
+	}
 }
