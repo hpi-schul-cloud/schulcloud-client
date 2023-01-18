@@ -757,20 +757,24 @@ router.get('/:assignmentId', (req, res, next) => {
 						|| (submission.teamMembers && submission.teamMembers.includes(student._id.toString())))[0],
 				}));
 
-				const studentsWithSubmission = [];
+				let studentsWithSubmission = [];
 				assignment.submissions.forEach((e) => {
+					const submitters = [];
+
 					if (e.courseGroupId) {
 						e.courseGroupMembers.forEach((c) => {
-							studentsWithSubmission.push(c._id.toString());
+							submitters.push(c._id.toString());
 						});
 					} else if (e.teamMembers) {
 						e.teamMembers.forEach((c) => {
-							studentsWithSubmission.push(c._id.toString());
+							submitters.push(c._id.toString());
 						});
 					} else {
-						studentsWithSubmission.push(e.studentId.toString());
+						submitters.push(e.studentId.toString());
 					}
-					e.submitters = new Set(studentsWithSubmission);
+
+					e.submitters = new Set(submitters);
+					studentsWithSubmission = [...studentsWithSubmission, ...submitters] 
 				});
 				const studentsWithoutSubmission = [];
 				((assignment.courseId || {}).userIds || []).forEach((e) => {
