@@ -200,8 +200,11 @@
 .submit-button-container {
 	margin-left: auto;
 
-	.submission-button.btn-secondary {
-		color: $primaryColor;
-		border-color: $primaryColor;
+	.save-button{
+		@include button-variant($primaryColor, $btn-secondary-bg, $btn-primary-border);
+
+		.loadingspinner > div {
+			background-color: $primaryColor;
+		}
 	}
 }
