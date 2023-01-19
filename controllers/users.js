@@ -38,7 +38,6 @@ router.patch('/language', async (req, res, next) => {
 		setCookie(res, 'USER_LANG', language);
 		return res.json({});
 	} catch (err) {
-		console.log('eldorado');
 		return next(err);
 	}
 });
