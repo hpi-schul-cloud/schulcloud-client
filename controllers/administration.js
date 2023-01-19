@@ -1199,10 +1199,10 @@ router.get(
 					res.$t('administration.controller.global.label.migrated'),
 					res.$t('administration.controller.global.label.outdated'),
 				];
+
 				if (hasEditPermission) {
 					head.push(''); // Add space for action buttons
 				}
-
 				const body = users.map((user) => {
 					const icon = getConsentStatusIcon(user.consentStatus);
 					const actions = [
@@ -1233,9 +1233,17 @@ router.get(
 							useHTML: true,
 							content: `<p class="text-center m-0">${icon}</p>`,
 						},
-						timesHelper.dateToDateString(user.lastLoginSystemChange),
-						timesHelper.dateToDateString(user.outdated),
 					];
+					if (user.lastLoginSystemChange) {
+						row.push(timesHelper.dateToDateString(user.lastLoginSystemChange));
+					} else {
+						row.push('');
+					}
+					if (user.outdated) {
+						row.push(timesHelper.dateToDateString(user.outdated));
+					} else {
+						row.push('');
+					}
 					if (hasEditPermission) {
 						row.push(actions);
 					}

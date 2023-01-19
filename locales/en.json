@@ -188,8 +188,8 @@
 					"consentStatus": "Registration",
 					"createdOn": "Created on",
 					"email": "E-mail address",
-					"migrated": "last migrated on",
-					"outdated": "outdated since"
+					"migrated": "Last migrated on",
+					"outdated": "Outdated since"
 				}
 			},
 			"headline": {
