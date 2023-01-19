@@ -199,4 +199,12 @@
 
 .submit-button-container {
 	margin-left: auto;
+
+	.save-button{
+		@include button-variant($primaryColor, $btn-secondary-bg, $btn-primary-border);
+
+		.loadingspinner > div {
+			background-color: $primaryColor;
+		}
+	}
 }

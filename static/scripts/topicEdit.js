@@ -70,7 +70,8 @@ class TopicBlockWrapper extends React.Component {
 
 		return (
             <div className={`content-block ${this.props.hidden ? 'content-block-hidden' : ''}`}>
-                <div className="card">
+                <div className="card"
+					data-testid={`topic-content-element-${this.props.component}-${this.props.position}`}>
                     <div className="card-header">
                         <div className="input-group">
 
