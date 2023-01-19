@@ -8,21 +8,16 @@
     <div class="tabs">
         <div id="submission" class="tab-content active">
             <div class="comment">
-                {{#if this.submission}}
-                    {{#ifneq 0 (arrayLength this.submission.fileIds)}}
-                        {{#embed "homework/components/submission_files"
-                            fileIds=../submission.fileIds
-                            deletionAllowed=false
-                            submission=../submission}}{{/embed}}
-                        <hr>
-                    {{/ifneq}}
-                    <div class="ckcontent print">
-                        <div class="btn btn-secondary btn-print mb-1"
-                            data-toggle="tooltip" title="{{$t "homework._task.label.printSubmission"}}">
-                                <i class='fa fa-print'></i> {{$t "global.button.print" }}
-                        </div>
-                        {{{this.submission.comment}}}
+                {{#if this.submission.submitted}}
+                    {{#embed "lib/components/files-storage/files" this.submission.submissionFiles}}{{/embed}}
+                <hr>
+                <div class="ckcontent print">
+                    <div class="btn btn-secondary btn-print mb-1"
+                        data-toggle="tooltip" title="{{$t "homework._task.label.printSubmission"}}">
+                            <i class='fa fa-print'></i> {{$t "global.button.print" }}
                     </div>
+                    {{{this.submission.comment}}}
+                </div>
                 {{else}}
                     {{$t "homework.text.noSubmission" }}
                 {{/if}}
@@ -30,7 +25,7 @@
         </div>
         <div id="comment" class="tab-content submission-editor">
             {{#if @root.isTeacher}}
-                {{#if this.submission}}
+                {{#if this.submission.submitted}}
                     {{#embed "files/file-upload"}}{{/embed}}
                     <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
                     <input name="teamMembers" id="teamMembers" type="hidden" data-force-value="true" value="{{userIds this.submission.teamMembers}}" />
@@ -44,18 +39,21 @@
 
                     <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
+                        <input type="hidden" name="isEvaluation" value="true" />
 
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
                         {{#if this.submission.courseGroupId}}
                             <input name="courseGroupId" type="hidden" value="{{this.submission.courseGroupId._id}}"/>
                             <input name="teamSubmissionOptions" type="hidden" value="courseGroup"/>
                         {{/if}}
+                        <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submissions&submissionId={{this.submission._id}}&activeSubmissionTabId=comment-tab-link" />
                 {{else}}
                     <form class="form" method="post" action="/homework/submit">
                         <input type="hidden" name="_method" data-force-value="true" value="post" />
                         <input name="schoolId" type="hidden" data-force-value="true" value="{{this.submission.studentId.schoolId}}" />
                         <input name="studentId" type="hidden" data-force-value="true" value="{{this.submission.studentId._id}}" />
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
+                        <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submissions" />
                 {{/if}}
                         <div class="comment form-group">
                             <div class="form-group">
@@ -63,11 +61,23 @@
                                 <input data-testid="evaluation_procent" type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}" />
                             </div>
                             <label>{{$t "homework.label.comment" }}</label>
-                            <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control ckeditor customckeditor" placeholder="{{$t "homework.input.gradeComment"}}">{{this.submission.gradeComment}}</textarea>
+                            <textarea 
+                                id="evaluation {{this.submission._id}}" 
+                                name="gradeComment" 
+                                type="text" 
+                                class="form-control ckeditor customckeditor" 
+                                placeholder="{{$t "homework.input.gradeComment"}}"
+                                data-parent-id="{{this.submission._id}}"
+                                data-school-id="{{this.submission.schoolId}}"
+                                data-parent-type="submissions"
+                            >
+                                    {{this.submission.gradeComment}}
+                            </textarea>
                         </div>
                         {{#userHasPermission "HOMEWORK_CREATE"}}
                             {{> "lib/components/csrfInput"}}
-                            <button type="submit" class="ckeditor-submit btn btn-primary" data-testid="tasks-submission-grading-save-and-send-btn">{{$t "homework.button.save" }}</button>
+                            <input type="hidden" name="graded" value="true"/>
+                            <button type="submit" class="ckeditor-submit btn btn-primary" data-testid="tasks-submission-grading-save-and-send-btn">{{$t "homework.button.saveAndSend" }}</button>
                         {{/userHasPermission}}
                     </form>
             {{else}}

@@ -15,7 +15,7 @@
         <h2 class="h5 title">{{{stripOnlyScript this.name}}}</h2>
         <div class="description">
             {{#if this.description}}
-                {{{ truncateHTML (conflictFreeHtml this.description) 140 false }}}
+                {{{ conflictFreeHtml this.description }}}
             {{else}}
                 {{$t "homework.text.noDescriptionAvailable" }}
             {{/if}}

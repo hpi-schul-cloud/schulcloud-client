@@ -1,11 +1,9 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-classes-per-file */
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-	SortableContainer, SortableElement, SortableHandle, arrayMove,
-} from 'react-sortable-hoc';
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';
 
@@ -72,7 +70,8 @@ class TopicBlockWrapper extends React.Component {
 
 		return (
             <div className={`content-block ${this.props.hidden ? 'content-block-hidden' : ''}`}>
-                <div className="card">
+                <div className="card"
+					data-testid={`topic-content-element-${this.props.component}-${this.props.position}`}>
                     <div className="card-header">
                         <div className="input-group">
 
@@ -345,6 +344,7 @@ class TopicBlockList extends React.Component {
 						<button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-text-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicText)}>
 								{`+ ${$t('topic.topicEdit.button.text')}`}
@@ -352,6 +352,7 @@ class TopicBlockList extends React.Component {
 						<button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-geogebra-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
 								{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
@@ -359,6 +360,7 @@ class TopicBlockList extends React.Component {
                         <button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-material-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicResources)}>
 								{`+ ${$t('topic.topicEdit.button.material')}`}
@@ -366,6 +368,7 @@ class TopicBlockList extends React.Component {
 						{neXboardEnabled ? <button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-nexboard-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicNexboard)}>
 								{`+ ${$t('topic.topicEdit.button.neXboard')}`}
@@ -373,6 +376,7 @@ class TopicBlockList extends React.Component {
 						<button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-etherpad-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicEtherpad)}>
 								{`+ ${$t('topic.topicEdit.button.etherpad')}`}
@@ -380,6 +384,7 @@ class TopicBlockList extends React.Component {
                         <button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-task-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicInternal)}>
 								{`+ ${$t('global.headline.task')}`}
@@ -511,7 +516,7 @@ class TopicText extends TopicBlock {
 		const editorId = (this.props.content || {}).editorId || this.editorId;
 		const infoBox = <div class="alert info-custom">
 							<div className="fa fa-info-circle" />
-							{$t('topic.topicEdit.label.uploadAfterFirstSave')}
+							{$t('files.text.uploadAfterFirstSave')}
 						</div>;
 
 		return (<>
@@ -694,7 +699,7 @@ class TopicResources extends TopicBlock {
                 </div>
 
                 <div className="btn-group" role="group" >
-                    <button type="button" className="btn btn-secondary btn-add" onClick={this.addResource.bind(this, '')}>{`+ ${$t('topic.topicEdit.button.material')}`}</button>
+                    <button type="button" className="btn btn-secondary btn-add" data-testid="topic-material-addmaterial-btn" onClick={this.addResource.bind(this, '')}>{`+ ${$t('topic.topicEdit.button.material')}`}</button>
                 </div>
             </div>
 		);

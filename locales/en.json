@@ -96,7 +96,7 @@
 			}
 		},
 		"text": {
-			"centralIdentityManagement": "Your user data is synchronized by a central identity management (IDM). Changes to it can only be made in the source system (e.g. school server) on which the data in the IDM is based. Please contact your school's local administrator to make changes to your user data.",
+			"centralIdentityManagement": "Your user data is automatically synchronized by a identity management (IDM) system. Changes to it can only be made in the source system (e.g. school server or Schulportal) that the data in the IDM is based on. Please contact the local admin of your school to make changes to your user data.",
 			"noDeviceEntered": "No devices entered",
 			"preferencesUpdateError": "There was an error in the preferences!",
 			"preferencesUpdates": "Preferences have been updated!"
@@ -341,10 +341,10 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "To invite to the HPI school cloud, send the following link to:"
+				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:"
 			},
 			"text": {
-				"beforeTheSchoolCloudCanBeUsed": "Before the use of the HPI school cloud is possible, parents and / or students must have gone through the electronic consent process.",
+				"beforeTheSchoolCloudCanBeUsed": "Before the use of the {{shortTitle}} is possible, parents and / or students must have gone through the electronic consent process.",
 				"studentUnderYears": "<b>Students under {{age}} years: </b> the parents <br/> <b> Students from {{age}} years: </b> to the students themselves <br/>"
 			}
 		},
@@ -1278,6 +1278,16 @@
 			"registrationInvalidOutdatedLink": "The registration link is very old and no longer correctly linked with the corresponding user."
 		}
 	},
+	"email": {
+		"support": {
+			"text": {
+				"supportDBC": "support@dbildungscloud.de",
+				"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+				"supportNBC": "nbc-support@netz-21.de",
+				"supportTHR": "schulcloud-support@thillm.de"
+			}
+		}
+	},
 	"files": {
 		"_file": {
 			"headline": {
@@ -1413,9 +1423,7 @@
 			"storeFilesForUpload": "Place files to upload here, or search computer.",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
-			"courses": "course",
-			"tasks": "task",
-			"submissions": "submission"
+			"uploadAfterFirstSave": "Files can only be uploaded after the first save."
 		}
 	},
 	"firstLogin": {
@@ -1779,7 +1787,7 @@
 			"saturday": "Saturday",
 			"severalSecurityTokens": "Several security tokens (CSRF) were sent with the request. Please try again.",
 			"somethingWentWrong": "Something went wrong!",
-			"specialCharacters": "! § $% & / () =? \\;:,. # + * ~",
+			"specialCharacters": "! § $% & / () =? \\;:,. # + * ~ -",
 			"sunday": "Sunday",
 			"sureAboutDeleting": "Are you sure you want to delete '{{ name }}'?",
 			"sureAboutDiscardingChanges": "Are you sure you want to discard the changes?",
@@ -2105,7 +2113,8 @@
 			"importing": "import",
 			"importSubmission": "Import student submission",
 			"onTheSubject": "On the subject",
-			"save": "Save and send",
+			"saveAndSend": "Save and send",
+			"submit": "Submit",
 			"toCourseAlt": "To the course of the task",
 			"toTheCourseFiles": "To the course files",
 			"toTopicAlt": "To the topic of the task"
@@ -2228,6 +2237,7 @@
 		"brb": {
 			"headline": {
 				"advantages": "Advantages of the {{shortTitle}}",
+				"generalInquiriesSupport": "General Inquiries & Support",
 				"furtherInformation": "Entry into the School-Cloud",
 				"registration": "Register for the {{shortTitle}}",
 				"valueStatement": "The development of the cloud is characterized by"
@@ -2245,7 +2255,11 @@
 				"registration2": "Teachers and students receive a registration link or login data from their school for the initial registration in the {{shortTitle}}.<br>If you have any questions about the registration process, please contact the designated school cloud admins at your school or the responsible on-site teachers.",
 				"valueStatement": "<li>a consistent use of open source solutions,</li><li>a consistently user-centered development,</li><li>a strictly modular structure,</li><li>which is important for a large country Function of cross-school cooperation,</li><li>the EU-DSGVO/data protection conformity through privacy by design,</li><li>the possibility of creating synergies through national cooperation.</li><br>",
 				"welcome": "With the {{shortTitle}}, schools in Brandenburg have an intuitively usable and data protection-compliant digital teaching-learning environment for school lessons that can be used across all types of schools. The basic idea of the school cloud is to make educational content accessible everywhere on a web-based basis.",
-				"welcome2": "Since August 1st, 2021, the {{shortTitle}} has been transferred to a cross-state teaching and learning infrastructure based on an administrative agreement between the federal states of Brandenburg, Lower Saxony and Thuringia, taking into account state-specific requirements, and jointly further developed."
+				"welcome2": "Since August 1st, 2021, the {{shortTitle}} has been transferred to a cross-state teaching and learning infrastructure based on an administrative agreement between the federal states of Brandenburg, Lower Saxony and Thuringia, taking into account state-specific requirements, and jointly further developed.",
+				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 184 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Office hours <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"phone2": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Office hours <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"onlineChat": "<i class=\"fa fa-comment\"></i> Online Chat <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Office hours <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
 			}
 		},
 		"label": {
@@ -2539,20 +2553,42 @@
 			"accessDenied": "Login via school server denied. Please log in again and allow access.",
 			"errorFirstLogin": "An error has occurred while processing the FirstLogin data.",
 			"loginFailed": "Login failed.",
-			"loginFailedFirstHint": "1. Which browser do you use?",
-			"loginFailedFirstHintText": "We generally recommend using the latest versions of Google Chrome, Firefox and Safari. We do not recommend Internet Explorer due to outdated technologies.",
-			"loginFailedFithHint": "5. Are you on the right URL?",
-			"loginFailedFithHintText": "Here you can find all dBildungscloud instances:",
-			"loginFailedFourthHint": "4. Have you already checked your login details?",
-			"loginFailedFourthHintText": "Please also make sure that the 'More options' field is not expanded when logging in and check for spaces in the username or password. You might also like to try the Forgot-Password function.",
+			"loginFailedFirstHint": "1. Which browser are you using?",
+			"loginFailedFirstHintFirstText": " We generally recommend the use of Google Chrome, Firefox and Safari browsers in the latest version. We do not recommend Internet Explorer (not the new offshoot Edge) due to outdated technologies.",
+			"loginFailedFirstHintSecondText": "If you use one of the described browsers and still have problems, please deactivate all browser extensions and try the login again. Please also try reloading the page at this point.",
+			"loginFailedFithHint": "5. Have you already tried alternatives?",
+			"loginFailedFithHintText": "Try logging in to a different browser as a test. You can also try the private/incognito mode of your browser (this can be selected directly in the application menu of the browser). Alternatively, you can also try it on another device (PC, tablet, smartphone). If the problem persists, a different internet access may help.",
+			"loginFailedFourthHint": "4. Are you on the right URL?",
+			"loginFailedFourthHintText": "Here you can find all instances. Click on the logo of your federal state and test the registration again:",
 			"loginFailedLogoBrandenburg": "Logo Brandenburg",
 			"loginFailedLogoNiedersachen": "Logo Lower Saxony",
 			"loginFailedLogoOpen": "Logo Open",
 			"loginFailedLogoSchulCloud": "Logo School Cloud",
 			"loginFailedLogoTühringen": "Logo Thuringia",
 			"loginFailedScreenshot": "Login failed",
-			"loginFailedSecondHint": "2. Have you deleted your cookies and website data?",
-			"loginFailedThirdHint": "3. Have you tried to log in on another device (e.g. laptop instead of mobile phone) ?",
+			"loginFailedSecondHint": "2. Have you checked your login details yet?",
+			"loginFailedSecondHintFirstSubsection": "2.1 Do you have an account directly in the education cloud and log in with your email address?",
+			"loginFailedSecondHintFirstSubsectionFirstText": "Please also make sure that the 'More options' box is not folded out when logging in.",
+			"loginFailedSecondHintFirstSubsectionFourthText": "Have you entered the correct email address? You can easily check this by reopening the registration email that you or your parents received after registering and see which address is listed there.",
+			"loginFailedSecondHintFirstSubsectionSecondText": "Check that there are no spaces before, in or after the user name or password. This happens especially when copying & pasting from other pages.",
+			"loginFailedSecondHintFirstSubsectionThirdText": "Are you no longer sure of your password? Then use the forgotten password function under the login button.",
+			"loginFailedSecondHintSecondSubsection": "2.2 Does your school use its own user administration (LDAP)?",
+			"loginFailedSecondHintSecondSubsectionFirstText": "Make sure that your school or your school's LDAP domain is selected in the 'More options' field and that the field has not been closed again with less.",
+			"loginFailedSecondHintSecondSubsectionFourthText": "The forgotten password function does not work in this case.",
+			"loginFailedSecondHintSecondSubsectionSecondText": "Use your username (e.g. firstname.lastname) as you use it at your school and the corresponding password.",
+			"loginFailedSecondHintSecondSubsectionText": "Then you should have received further information on registration from your teacher or the admins of your school.",
+			"loginFailedSecondHintSecondSubsectionThirdText": "Your user information, including your password, will then be managed by the admin of this user administration (probably an admin of your school). Please contact them directly if you have any login problems.",
+			"loginFailedSecondHintText": "There are different <b>types of registration</b> for which we have different tips.<br/>If you do not know which type of registration applies to your school, please ask your teachers or the admins of your school.",
+			"loginFailedSecondHintThirdSubsection": "Other third-party systems, e.g. school server",
+			"loginFailedSecondHintThirdSubsectionText": "For other systems, please ask your teachers or your school for the correct registration.",
+			"loginFailedSixthHint": "6. Have you deleted your cookies and website data?",
+			"loginFailedThirdHint": "3. Have you forgotten your password?",
+			"loginFailedThirdHintFifthText": "For Thuringia under: ",
+			"loginFailedThirdHintFirstText": "If you have forgotten your password, please reset it using the forgotten password function (link directly in the login window). If the forgotten password function does not work, a teacher or an admin of the school can also reset the password. For technical reasons, this function cannot reset the password in the school's own user administration and third-party systems. To do this, contact your teachers or an admin at your school.",
+			"loginFailedThirdHintFourthText": "For Lower Saxony under: ",
+			"loginFailedThirdHintSixthText": "For Brandenburg under: ",
+			"loginFailedThirdHintSecondText": "If this does not work either, please contact support.",
+			"loginFailedThirdHintThirdText": "For the dBildungscloud at: ",
 			"oauthLoginFailed": "Login via school server failed.",
 			"oauthCodeStep": "Login via school server failed. Please log in again or contact support.",
 			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
@@ -2662,11 +2698,11 @@
 		},
 		"response": {
 			"text": {
-				"didYouChangeEmail": "Have you <b>changed</b> or had your <b>e-mail address</b> changed in the HPI School Cloud? Please continue to use the old e-mail address for login; we are working on a corresponding adaptation of the software at the same time",
+				"didYouChangeEmail": "Have you changed or had your <b>e-mail address changed</b> in the Cloud? Please continue to use the old e-mail address for login.",
 				"didYouRegisterCorrectly": "Did you complete the registration? The Forgot password function only works after you have completed the registration process. You can access it through the <b>registration link</b>, which you received from a teacher or school administrator. Please contact these people if you have not yet received a link.",
-				"didYouRegisterPerThirdParty": "Have you registered in the HPI School Cloud via a <b>third party system/SSO</b> (Moodle, iServ, ItsLearning etc.)? Please use this third party system to log in to the school cloud.",
+				"didYouRegisterPerThirdParty": "If your credentials are managed outside the Cloud, please contact the <b>third-party system</b> (IServ, Schulportal, etc.) or your school.",
 				"emailHasBeenSent": "We have sent an e-mail to the email address stored in your account. </p> <br> If you have not received an e-mail, please check the following options: </br>",
-				"wasYourEmailCorrect": "Did you enter your <b>correct e-mail address</b>?"
+				"wasYourEmailCorrect": "Did you enter your <b>correct e-mail address/username</b>?"
 			}
 		},
 		"text": {
@@ -3013,7 +3049,8 @@
 					"selectPersons": "Select people",
 					"selectRole": "Specify role",
 					"selectSchool": "Select school",
-					"teamAdmin": "Team admin"
+					"teamAdmin": "Team admin",
+					"teamMember": "Team member"
 				},
 				"text": {
 					"addedMemberFailure": "Problem while adding attendee",
@@ -3175,8 +3212,7 @@
 				"openSection": "Unlock section",
 				"selectNeXboard": "Select neXboard",
 				"theLinkHasToBeginWith": "The link must begin with '{{- baseUrl}} / task'! Students must have access to the task to see it included here. Attention: If you share this topic or the entire course with another teacher using a sharing code, the tasks integrated in this way will currently not be considered.",
-				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'",
-				"uploadAfterFirstSave": "Files can only be uploaded after saving the topic for the first time."
+				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'"
 			}
 		}
 	},

@@ -96,7 +96,7 @@
 			}
 		},
 		"text": {
-			"centralIdentityManagement": "Deine Nutzerdaten werden von einem zentralen Identitätsmanagement (IDM) synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver), das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Admin deiner Schule, um Änderungen an deinen Nutzerdaten vorzunehmen.",
+			"centralIdentityManagement": "Deine Nutzerdaten werden automatisch von einem Identitätsmanagement (IDM) synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver oder Schulportal), das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Admin deiner Schule, um Änderungen an deinen Nutzerdaten vorzunehmen.",
 			"noDeviceEntered": "Keine Geräte eingetragen",
 			"preferencesUpdateError": "Es ist ein Fehler bei den Präferenzen aufgetreten!",
 			"preferencesUpdates": "Präferenzen wurden aktualisiert!"
@@ -341,10 +341,10 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "Um in die HPI Schul-Cloud einzuladen, verteile folgenden Link an:"
+				"distributeLinkToInvite": "Um in die {{shortTitle}} einzuladen, verteile folgenden Link an:"
 			},
 			"text": {
-				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der HPI Schul-Cloud möglich ist, müssen Eltern und/oder Schüler:innen den elektronischen Einwilligungsprozess durchlaufen haben.",
+				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der {{shortTitle}} möglich ist, müssen Eltern und/oder Schüler:innen den elektronischen Einwilligungsprozess durchlaufen haben.",
 				"studentUnderYears": "<b>Schüler:innen unter {{age}} Jahre: </b> die Eltern <br/> <b>Schüler:innen ab {{age}} Jahre: </b> an die Schüler:innen selbst <br/>"
 			}
 		},
@@ -1278,6 +1278,16 @@
 			"registrationInvalidOutdatedLink": "Der Registrierungslink ist sehr alt und nicht mehr korrekt mit dem/r Nutzer:in verknüpft."
 		}
 	},
+	"email": {
+		"support": {
+			"text": {
+				"supportDBC": "support@dbildungscloud.de",
+				"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+				"supportNBC": "nbc-support@netz-21.de",
+				"supportTHR": "schulcloud-support@thillm.de"
+			}
+		}
+	},
 	"files": {
 		"_file": {
 			"headline": {
@@ -1413,9 +1423,7 @@
 			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen, oder Computer durchsuchen.",
 			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
-			"courses": "des Kurses",
-			"tasks": "der Aufgabe",
-			"submissions": "der Abgabe"
+			"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern hochgeladen werden."
 		}
 	},
 	"firstLogin": {
@@ -1779,7 +1787,7 @@
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
 			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
-			"specialCharacters": "!§$%&/()=?\\;:,.#+*~",
+			"specialCharacters": "!§$%&/()=?\\;:,.#+*~-",
 			"sunday": "Sonntag",
 			"sureAboutDeleting": "Bist du dir sicher, dass du '{{ name }}' löschen möchtest?",
 			"sureAboutDiscardingChanges": "Bist du dir sicher, dass du die Änderungen verwerfen möchtest?",
@@ -2105,7 +2113,8 @@
 			"importing": "importiere",
 			"importSubmission": "Abgabe des Schülers/ der Schülerin importieren",
 			"onTheSubject": "Zum Thema",
-			"save": "Speichern und Abschicken",
+			"saveAndSend": "Speichern und Abschicken",
+			"submit": "Abgeben",
 			"toCourseAlt": "Zum Kurs der Aufgabe",
 			"toTheCourseFiles": "Zu den Kursdateien",
 			"toTopicAlt": "Zum Thema der Aufgabe"
@@ -2228,6 +2237,7 @@
 		"brb": {
 			"headline": {
 				"advantages": "Vorteile der {{shortTitle}}",
+				"generalInquiriesSupport": "Allgemeine Anfragen & Support",
 				"furtherInformation": "Einstieg in die Schul-Cloud",
 				"registration": "Nutzung der {{shortTitle}}",
 				"valueStatement": "Die Entwicklung der Cloud zeichnet sich aus durch"
@@ -2245,7 +2255,11 @@
 				"registration2": "Lehrkräfte, Schülerinnen und Schüler erhalten von ihrer Schule einen Registrierungslink oder Login-Daten für die erstmalige Anmeldung in der {{shortTitle}}.<br>Bei Fragen zum Anmeldeprozess wenden sich Lehrkräfte, Schülerinnen und Schüler sowie Eltern bitte an die benannten Schul-Cloud Admins ihrer Schule bzw. an die zuständigen Lehrkräfte vor Ort.",
 				"valueStatement": "<li>eine konsequente Nutzung von Open Source Lösungen,</li><li>eine durchgängig nutzerzentrierte Entwicklung,</li><li>einen strikt modularen Aufbau,</li><li>die für ein Flächenland wichtige Funktion der schulübergreifenden Zusammenarbeit,</li><li>die EU-DSGVO/Datenschutz-Konformität durch Privacy by Design,</li><li>die Möglichkeit, durch die Zusammenarbeit der Verbundländer Brandenburg, Niedersachsen und Thüringen Synergien zu schaffen.</li><br>",
 				"welcome": "Mit der {{shortTitle}} steht Schulen in Brandenburg eine intuitiv nutzbare und datenschutzkonforme, digitale Lehr-Lernumgebung für den Schulunterricht bereit, die schulformübergreifend eingesetzt werden kann. Die Grundidee der Schul-Cloud ist es, Bildungsinhalte webbasiert überall erreichbar zu machen.",
-				"welcome2": "Seit dem 01.08.2021 wird die {{shortTitle}} auf Grundlage eines Verwaltungsabkommens der Verbundländer Brandenburg, Niedersachsen und Thüringen unter Berücksichtigung landesspezifischer Anforderungen in eine länderübergreifende Lehr- und Lerninfrastruktur überführt und gemeinschaftlich weiterentwickelt."
+				"welcome2": "Seit dem 01.08.2021 wird die {{shortTitle}} auf Grundlage eines Verwaltungsabkommens der Verbundländer Brandenburg, Niedersachsen und Thüringen unter Berücksichtigung landesspezifischer Anforderungen in eine länderübergreifende Lehr- und Lerninfrastruktur überführt und gemeinschaftlich weiterentwickelt.",
+				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 184 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"phone2": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"onlineChat": "<i class=\"fa fa-comment\"></i> Online Chat <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
+				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
 			}
 		},
 		"label": {
@@ -2540,19 +2554,41 @@
 			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
 			"loginFailed": "Login fehlgeschlagen.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
-			"loginFailedFirstHintText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer empfehlen wir aufgrund veralteter Technologien nicht.",
-			"loginFailedFithHint": "5. Bist du auf der richtigen URL?",
-			"loginFailedFithHintText": "Hier findest du alle dBildungscloud Instanzen:",
-			"loginFailedFourthHint": "4. Hast du deine Anmeldedaten schon überprüft?",
-			"loginFailedFourthHintText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist und prüfe auf Leerzeichen im Benutzernamen oder Passwort. Versuche auch gerne die Passwort-Vergessen-Funktion.",
+			"loginFailedFirstHintFirstText": " Wir empfehlen allgemein die Verwendung der Browser Google Chrome, Firefox und Safari in der stets aktuellsten Version. Den Internet Explorer (nicht gemeint ist der neue Ableger Edge) empfehlen wir aufgrund veralteter Technologien nicht.",
+			"loginFailedFirstHintSecondText": "Solltest du einen der beschriebenen Browser verwenden und trotzdem Probleme haben, dann bitten wir dich alle Browsererweiterungen zu deaktivieren und den Login erneut zu probieren. Bitte teste an dieser Stelle bitte auch ein Neuladen der Seite.",
+			"loginFailedFithHint": "5. Hast du schon Alternativen ausprobiert?",
+			"loginFailedFithHintText": "Versuche dich testweise in einem anderen Browser einzuloggen. Du kannst auch den Privaten/Inkognito-Modus deines Browsers ausprobieren (dieser ist direkt im Anwendungsmenüs des Browsers auswählbar). Alternativ kannst du es auch mal auf einem anderen Gerät (PC, Tablet, Smartphone) versuchen. Bleibt das Problem bestehen, kann ein anderer Internet-Zugang Abhilfe schaffen.",
+			"loginFailedFourthHint": "4. Bist du auf der richtigen URL?",
+			"loginFailedFourthHintText": "Hier findest du alle Instanzen. Klicke auf das Logo deines Bundeslandes und teste die Anmeldung erneut:",
 			"loginFailedLogoBrandenburg": "Logo Brandenburg",
 			"loginFailedLogoNiedersachen": "Logo Niedersachsen",
 			"loginFailedLogoOpen": "Logo Open",
 			"loginFailedLogoSchulCloud": "Logo Schul-Cloud",
 			"loginFailedLogoTühringen": "Logo Thüringen",
 			"loginFailedScreenshot": "Login fehlgeschlagen",
-			"loginFailedSecondHint": "2. Hast du deine Cookies und Website-Daten gelöscht?",
-			"loginFailedThirdHint": "3. Hast du schon versucht dich auf einem anderen Gerät einzuloggen (bspw. Laptop statt Handy) ?",
+			"loginFailedSecondHint": "2. Hast du deine Anmeldedaten schon überprüft?",
+			"loginFailedSecondHintFirstSubsection": "2.1 Hast du einen Account direkt in der Bildungscloud und meldest dich mit deiner E-Mail-Adresse an?",
+			"loginFailedSecondHintFirstSubsectionFirstText": "Achte bitte auch darauf, dass das Feld 'Mehr Optionen' beim Anmelden nicht ausgeklappt ist.",
+			"loginFailedSecondHintFirstSubsectionFourthText": "Hast du die richtige E-Mail-Adresse eingegeben? Du kannst das ganz einfach überprüfen, indem du die Registrierungsmail, die du oder deine Eltern nach der Registrierung erhalten haben, erneut öffnest und schaust, welche Adresse dort vermerkt ist.",
+			"loginFailedSecondHintFirstSubsectionSecondText": "Prüfe, dass keine Leerzeichen vor, im oder nach dem Benutzernamen oder Passwort enthalten sind. Das passiert vor allem beim Kopieren & Einfügen aus anderen Seiten.",
+			"loginFailedSecondHintFirstSubsectionThirdText": "Bist du dir mit deinem Passwort nicht mehr sicher? Dann benutze die Passwort-vergessen-Funktion unter dem Anmelden-Button.",
+			"loginFailedSecondHintSecondSubsection": "2.2 Verwendet deine Schule eine eigene Nutzerverwaltung (LDAP)?",
+			"loginFailedSecondHintSecondSubsectionFirstText": "Achte darauf, dass deine Schule bzw. die LDAP-Domain deiner Schule im Feld 'Mehr Optionen' ausgewählt ist und das Feld nicht mit weniger wieder geschlossen wurde.",
+			"loginFailedSecondHintSecondSubsectionFourthText": "Die Passwort-vergessen-Funktion funktioniert in diesem Fall nicht.",
+			"loginFailedSecondHintSecondSubsectionSecondText": "Nutze deinen Benutzernamen (z.B. vorname.nachname), wie du ihn auch an deiner Schule verwendest und das dazugehörige Passwort.",
+			"loginFailedSecondHintSecondSubsectionText": "Dann solltest du zur Anmeldung weitere Informationen von deiner Lehrkraft oder den Admins deiner Schule erhalten haben.",
+			"loginFailedSecondHintSecondSubsectionThirdText": "Deine Nutzerinformationen, darunter auch dein Passwort, wird dann vom Admin dieser Nutzerverwaltung (vermutlich einem Admin deiner Schule) verwaltet. Bitte wende dich zum Klären von Login-Problemen direkt an diese.",
+			"loginFailedSecondHintText": "Es gibt verschiedene <b>Arten der Anmeldung</b>, für die wir unterschiedliche Tipps haben.<br/>Falls du nicht weißt, welche Art der Anmeldung für deine Schule zutrifft, erkundige dich dazu bitte bei deinen Lehrkräften oder die Admins deiner Schule.",
+			"loginFailedSecondHintThirdSubsection": "2.3 Weitere Drittsysteme, z.B. Schulserver",
+			"loginFailedSecondHintThirdSubsectionText": "Bei anderen Systemen frage bitte deine Lehrkräfte oder deine Schule nach der richtigen Anmeldung.",
+			"loginFailedSixthHint": "6. Hast du deine Cookies und Website-Daten gelöscht?",
+			"loginFailedThirdHint": "3. Hast du dein Passwort vergessen?",
+			"loginFailedThirdHintFifthText": "Für Thüringen unter: ",
+			"loginFailedThirdHintFirstText": "Falls du dein Passwort vergessen hast, setze es bitte über die Passwort-vergessen-Funktion (Link direkt im Anmeldefenster) zurück. Sollte die Passwort-Vergessen-Funktion nicht funktionieren, kann auch eine Lehrkraft oder ein Admin der Schule das Passwort zurücksetzen. Diese Funktion kann aus technischen Gründen nicht das Passwort in schuleigenen Nutzerverwaltungen und Drittsystemen zurücksetzen. Wende dich dazu an deine Lehrkräfte oder einen Admin deiner Schule.",
+			"loginFailedThirdHintFourthText": "Für Niedersachsen unter: ",
+			"loginFailedThirdHintSixthText": "Für Brandenburg unter: ",
+			"loginFailedThirdHintSecondText": "Falls das ebenfalls nicht funktioniert, kontaktiere bitte den Support.",
+			"loginFailedThirdHintThirdText": "Für die dBildungscloud unter: ",
 			"oauthLoginFailed": "Login über Schulserver fehlgeschlagen.",
 			"oauthCodeStep": "Login über Schulserver fehlgeschlagen. Bitte erneut einloggen oder den Support kontaktieren.",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
@@ -2662,11 +2698,11 @@
 		},
 		"response": {
 			"text": {
-				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der HPI Schul-Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login; wir arbeiten parallel an einer entsprechenden Anpassung der Software",
+				"didYouChangeEmail": "Hast du deine <b>E-Mail-Adresse</b> in der Cloud <b>geändert</b> oder ändern lassen? Bitte benutzte weiterhin die alte E-Mail-Adresse zum Login.",
 				"didYouRegisterCorrectly": "Hast du die Registrierung komplett abgeschlossen? Die Passwort-Vergessen-Funktion funktioniert erst, wenn du den Registrierungsprozess durchlaufen hast. Zu diesem gelangst du durch den <b>Registrierungslink</b>, den du von einer Lehrkraft oder Admin bekommen hast. Bitte wende dich an diese Personen, falls du noch keinen Link bekommen hast.",
-				"didYouRegisterPerThirdParty": "Hast du dich via <b>Drittsystem/SSO</b> (Moodle, iServ, ItsLearning etc.) in der HPI Schul-Cloud registriert? Bitte benutzte dieses Drittsystem, um dich in der HPI Schul-Cloud einzuloggen.",
+				"didYouRegisterPerThirdParty": "Werden deine Anmeldedaten außerhalb der Cloud verwaltet, wende dich bitte an das <b>Drittsystem</b> (IServ, Schulportal, etc.) oder deine Schule.",
 				"emailHasBeenSent": "Wir haben eine E-Mail an die in deinem Account hinterlegte E-Mail-Adresse gesendet.</p> <br>Solltest du keine E-Mail erhalten haben, prüfe bitte folgende Möglichkeiten: </br>",
-				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse korrekt</b> eingegeben?"
+				"wasYourEmailCorrect": "Hast du deine <b>E-Mail-Adresse/Nutzername korrekt</b> eingegeben?"
 			}
 		},
 		"text": {
@@ -3013,7 +3049,8 @@
 					"selectPersons": "Personen auswählen",
 					"selectRole": "Rolle angeben",
 					"selectSchool": "Schule auswählen",
-					"teamAdmin": "Team-Admin"
+					"teamAdmin": "Team-Admin",
+					"teamMember": "Team-Mitglied"
 				},
 				"text": {
 					"addedMemberFailure": "Problem beim Hinzufügen der Teilnehmer:innen",
@@ -3175,8 +3212,7 @@
 				"openSection": "Abschnitt entsperren",
 				"selectNeXboard": "neXboard auswählen",
 				"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler:innen müssen Zugriff auf die Aufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
-				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'",
-				"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern des Themas hochgeladen werden."
+				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
 			}
 		}
 	},

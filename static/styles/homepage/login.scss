@@ -59,15 +59,6 @@
 	margin-top: 30px;
 	max-width: 900px;
 
-	li {
-		list-style: none;
-		font-weight: 800;
-		margin-bottom: 10px;
-		font-size: 20px;
-		&::before {
-			display: none;
-		}
-	}
 	.screenshot {
 		width: 60%;
 
@@ -82,6 +73,21 @@
 	.steps {
 		margin-bottom: 30px;
 		margin-top: 10px;
+
+		.sub-header {
+			list-style: none;
+			font-weight: 800;
+			margin-bottom: 10px;
+			font-size: 20px;
+			&::before {
+				display: none;
+			}
+		}
+
+		.sub-step {
+			margin-bottom: 20px;
+			margin-top: 10px;
+		}
 	}
 	.browser {
 		margin-left: 10px 0px 0px 10px;

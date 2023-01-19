@@ -250,36 +250,53 @@ const authChecker = (req, res, next) => {
 		});
 };
 
+const loginSuccessfulHandler = (res, redirect) => (data) => {
+	setCookie(res, 'jwt', data.accessToken);
+	let redirectUrl = '/login/success';
+	if (redirect) {
+		redirectUrl = `${redirectUrl}?redirect=${redirect}`;
+	}
+	res.redirect(redirectUrl);
+};
+
+const loginErrorHandler = (res, next) => (e) => {
+	res.locals.notification = {
+		type: 'danger',
+		message: res.$t('login.text.loginFailed'),
+		statusCode: e.statusCode,
+		timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
+	};
+
+	// Email Domain Blocked
+	if (e.statusCode === 400 && e.error.message === 'EMAIL_DOMAIN_BLOCKED') {
+		res.locals.notification.message = res.$t('global.text.emailDomainBlocked');
+	}
+
+	// Too Many Requests
+	if (e.statusCode === 429) {
+		res.locals.notification.timeToWait = e.error.data.timeToWait;
+	}
+
+	next(e);
+};
+
 const login = (payload = {}, req, res, next) => {
 	const { redirect } = payload;
 	delete payload.redirect;
-	return api(req).post('/authentication', { json: payload }).then((data) => {
-		setCookie(res, 'jwt', data.accessToken);
-		let redirectUrl = '/login/success';
-		if (redirect) {
-			redirectUrl = `${redirectUrl}?redirect=${redirect}`;
-		}
-		res.redirect(redirectUrl);
-	}).catch((e) => {
-		res.locals.notification = {
-			type: 'danger',
-			message: res.$t('login.text.loginFailed'),
-			statusCode: e.statusCode,
-			timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
-		};
-
-		// Email Domain Blocked
-		if (e.statusCode === 400 && e.error.message === 'EMAIL_DOMAIN_BLOCKED') {
-			res.locals.notification.message = res.$t('global.text.emailDomainBlocked');
-		}
-
-		// Too Many Requests
-		if (e.statusCode === 429) {
-			res.locals.notification.timeToWait = e.error.data.timeToWait;
-		}
-
-		next(e);
-	});
+	const useNewEndpoints = Configuration.get('FEATURE_USE_LOGIN_ENDPOINTS_V3');
+	if (useNewEndpoints && payload.strategy === 'local') {
+		return api(req, { version: 'v3' }).post('/authentication/local', { json: payload })
+			.then(loginSuccessfulHandler(res, redirect))
+			.catch(loginErrorHandler(res, next));
+	}
+	if (useNewEndpoints && payload.strategy === 'ldap') {
+		return api(req, { version: 'v3' }).post('/authentication/ldap', { json: payload })
+			.then(loginSuccessfulHandler(res, redirect))
+			.catch(loginErrorHandler(res, next));
+	}
+	return api(req, { version: 'v1' }).post('/authentication', { json: payload })
+		.then(loginSuccessfulHandler(res, redirect))
+		.catch(loginErrorHandler(res, next));
 };
 
 const etherpadCookieHelper = (etherpadSession, padId, res) => {

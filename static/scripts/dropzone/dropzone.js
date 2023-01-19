@@ -563,7 +563,7 @@
             _this.hiddenFileInput.style.left = "0";
             _this.hiddenFileInput.style.height = "0";
             _this.hiddenFileInput.style.width = "0";
-            _this.hiddenFileInput.setAttribute("data-testid", "tasks-edit-fileupload-input");
+            _this.hiddenFileInput.setAttribute("data-testid", "fileupload-input");
             document.querySelector(_this.options.hiddenInputContainer).appendChild(_this.hiddenFileInput);
             return _this.hiddenFileInput.addEventListener("change", function() {
               var file, files, _i, _len;

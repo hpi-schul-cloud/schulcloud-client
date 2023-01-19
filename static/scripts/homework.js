@@ -23,6 +23,30 @@ window.addEventListener('keydown', (e) => {
 	}
 });
 
+function saveTempData() {
+	const submissionId = $("input[name='submissionId']").val();
+	const grade = { value: $("input[name='grade']").val(), submissionId };
+	const gradeComment = { value: $("textarea[name='gradeComment']").val(), submissionId };
+	localStorage.setItem('grade', JSON.stringify(grade));
+	localStorage.setItem('gradeComment', JSON.stringify(gradeComment));
+}
+
+window.onload = function onload() {
+	const grade = JSON.parse(localStorage.getItem('grade'));
+	const gradeComment = JSON.parse(localStorage.getItem('gradeComment'));
+	const submissionId = $("input[name='submissionId']").val();
+	localStorage.removeItem('grade');
+	localStorage.removeItem('gradeComment');
+
+	if (grade && grade.value && grade.submissionId === submissionId) {
+		$("input[name='grade']").val(grade.value);
+	}
+
+	if (gradeComment && gradeComment.value && gradeComment.submissionId === submissionId) {
+		document.querySelector('.ck-editor__editable').ckeditorInstance.setData(gradeComment.value);
+	}
+};
+
 function isSubmissionGradeUpload() {
 	// Uses the fact that the page can only ever contain one file upload form,
 	// either nested in the submission or the comment tab. And if it is in the
@@ -127,36 +151,21 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 $(document).ready(() => {
-	function enableSubmissionWhenFileIsUploaded() {
-		const fileList = $('.list-group-files');
-		const filesCount = fileList.children().length;
-		const fileIsUploaded = !!filesCount;
-		const submitButton = document.querySelector('.ckeditor-submit');
-		if (submitButton) {
-			submitButton.setAttribute('fileIsUploaded', fileIsUploaded);
-			const editorContainsText = submitButton.getAttribute('editorContainsText');
-			submitButton.disabled = !editorContainsText && !fileIsUploaded;
-		}
-	}
-
-	// enable submit button when at least one file was uploaded
-	enableSubmissionWhenFileIsUploaded();
-	$('.list-group-files').bind('DOMSubtreeModified', () => {
-		enableSubmissionWhenFileIsUploaded();
-	});
-
-	function ajaxForm(element, after, contentTest) {
-		const submitButton = element.find('[type=submit]')[0];
-		let submitButtonText = submitButton.innerHTML || submitButton.value;
+	$('.submission-button').on('click', (event) => {
+		const submitButton = event.currentTarget;
+		let submitButtonText = submitButton.innerHTML;
 		submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)', '');
 
 		const bounces = '<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
 		const loadingspinner = '<div class="loadingspinner">';
 		submitButton.innerHTML = `${submitButtonText}${loadingspinner}${bounces}`;
-		submitButton.disabled = true;
 
 		submitButton.style.display = 'inline-block';
 
+		$('form.submissionForm.ajaxForm').trigger('submit');
+	});
+
+	function ajaxForm(element, after, contentTest) {
 		const content = element.serialize();
 		if (contentTest) {
 			if (contentTest(content) === false) {
@@ -334,6 +343,7 @@ $(document).ready(() => {
 						setTimeout(() => {
 							// just reload if submission already exists
 							if ($("input[name='submissionId']").val()) {
+								saveTempData();
 								window.location.reload();
 							}
 						}, 1500);
@@ -421,6 +431,7 @@ $(document).ready(() => {
 				data: { fileId, teamMembers },
 				type: 'DELETE',
 				success() {
+					saveTempData();
 					window.location.reload();
 				},
 				error: showAJAXError,
@@ -458,6 +469,7 @@ $(document).ready(() => {
 				data: { fileId },
 				type: 'DELETE',
 				success() {
+					saveTempData();
 					window.location.reload();
 				},
 				error: showAJAXError,

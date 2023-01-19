@@ -471,6 +471,17 @@ $(document).ready(() => {
 		$modals.modal('hide');
 	});
 
+	$renameModal.find('#modal-form-rename').on('submit', (e) => {
+		const fileName = $renameModal.find('#newNameInput').val();
+
+		if (!fileName) {
+			e.preventDefault();
+			$.showNotification($t('files._file.text.fileNameEmpty'), 'danger', 5000);
+			return;
+		}
+			this.submit();
+	});
+
 	function fileMouseOverHandler() {
 		const size = $(this).attr('data-file-size');
 		const id = $(this).attr('data-file-id');

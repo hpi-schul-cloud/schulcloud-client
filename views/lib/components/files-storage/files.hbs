@@ -1,4 +1,4 @@
-<div id="files-storage-component">
+<div class="files-storage-component">
     {{#ifneq filesStorage.readonly true}}
         {{#embed
             "lib/components/files-storage/file-upload"
@@ -7,7 +7,6 @@
             parentType=../filesStorage.parentType
         }}{{/embed}}
     {{/ifneq}}
-    {{#embed "lib/components/files-storage/file-viewer"}}{{/embed}}
     {{#embed
         "lib/components/files-storage/files-grid"
         schoolId=filesStorage.schoolId

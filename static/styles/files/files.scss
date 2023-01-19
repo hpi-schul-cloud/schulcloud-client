@@ -102,7 +102,6 @@
 
 .files {
   width: 100%;
-  float: left;
   margin-bottom: 40px;
 
   h5 {
@@ -347,6 +346,8 @@
 	color: $fontColor;
 	display: flex;
 	flex-direction: row;
+	align-items: center;
+	gap: 18px;
 
 	i {
 		margin: auto;

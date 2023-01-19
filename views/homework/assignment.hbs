@@ -24,15 +24,15 @@
         }
     </style>
 {{/content}}
-{{> "lib/components/files-storage/imports"}}
 {{#extend "homework/homework"}}
+{{> "lib/components/files-storage/imports"}}
     {{#content "page"}}
         <section class="section-homework" data-testid="task-section-task">
             <div class="row me-auto">
             <div class="col-md-4">
                 <div class="dates text-muted">
                     {{#if (userHasRole "student")}}
-                    {{#if submissions}}
+                    {{#if @root.submission.submitted}}
                             <i class="fa fa-check done" data-testid="tasks-submission-hint-received"></i>
                         {{else if warning}}
                             <i class="fa fa-check exclamation-triangle danger"></i>
@@ -49,17 +49,17 @@
                         {{$t "homework.text.noSubmissionDateSet"}}
                     {{/if}}
                     {{#if (userHasRole "student")}}
-                    <div>
-                        {{#if this.submissions}}
-                        {{$t "homework.text.done"}}
-                        {{else if this.warning}}
-                        {{$t "homework.text.toBeDoneWithin24Hours"}}
-                        {{else}}
-                        {{#unless this.submittable}}
-                        {{$t "homework.text.notDone"}}
-                        {{/unless}}
-                        {{/if}}
-                    </div>
+                        <div>
+                            {{#if @root.submission.submitted}}
+                                {{$t "homework.text.done"}}
+                            {{else if this.warning}}
+                                {{$t "homework.text.toBeDoneWithin24Hours"}}
+                            {{else}}
+                                {{#unless this.submittable}}
+                                    {{$t "homework.text.notDone"}}
+                                {{/unless}}
+                            {{/if}}
+                        </div>
                     {{/if}}
                 </div>
                 <div>

@@ -2,27 +2,59 @@
 	{{#if notification.statusCode}}
 		<h4>{{$t "login.headline.loginFailedHint"}}</h4>
 			<div class="steps">
-				<li> {{$t "login.text.loginFailedFirstHint"}}</li>
-				<p>{{ $t "login.text.loginFailedFirstHintText"}}</p>
+				<li class="sub-header"> {{$t "login.text.loginFailedFirstHint"}}</li>
+				<p>{{ $t "login.text.loginFailedFirstHintFirstText"}}</p>
+				<div>
 					<img class="browser" src="{{getAssetPath '/images/chrome.png'}}" alt="Firefox" height="42" width="42">
 					<img class="browser" src="{{getAssetPath '/images/firefox.png'}}" alt="Chrome" height="42" width="42">
 					<img class="browser" src="{{getAssetPath '/images/safari.png'}}" alt="Safari" height="42" width="42">
+				</div>
+				<p>{{ $t "login.text.loginFailedFirstHintSecondText"}}</p>
 			</div>
 			<div class="steps">
-				<li> {{$t "login.text.loginFailedSecondHint"}}</li>
-				<a href="https://support.google.com/accounts/answer/32050?co=GENIE.Platform%3DDesktop&hl=de" target="_blank">{{$t "help.text.hereYouCanFindOut" }}</a>
+				<li class="sub-header">{{$t "login.text.loginFailedSecondHint"}}</li>
+				<p>{{{ $t "login.text.loginFailedSecondHintText"}}}</p>
+				<div class="sub-step">
+					<b>{{ $t "login.text.loginFailedSecondHintFirstSubsection"}}</b>
+					<div>
+						<ul>
+							<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionFirstText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionSecondText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionThirdText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintFirstSubsectionFourthText"}}</li>
+							<img class="screenshot"src="{{getAssetPath '/images/login-fail.png'}}" alt={{$t "login.text.loginFailedScreenshot"}}>
+						</ul>
+					</div>
+				</div>
+				<div class="sub-step">
+					<b>{{ $t "login.text.loginFailedSecondHintSecondSubsection"}}</b>
+					<p>{{ $t "login.text.loginFailedSecondHintSecondSubsectionText"}}</p>
+					<div>
+						<ul>
+							<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionFirstText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionSecondText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionThirdText"}}</li>
+							<li>{{$t "login.text.loginFailedSecondHintSecondSubsectionFourthText"}}</li>
+						</ul>
+					</div>
+				</div>
+				<div class="sub-step">
+					<b>{{ $t "login.text.loginFailedSecondHintThirdSubsection"}}</b>
+					<p>{{ $t "login.text.loginFailedSecondHintThirdSubsectionText"}}</p>
+				</div>
 			</div>
 			<div class="steps">
-				<li>{{$t "login.text.loginFailedThirdHint"}}</li>
+				<li class="sub-header">{{$t "login.text.loginFailedThirdHint"}}</li>
+				<p>{{$t "login.text.loginFailedThirdHintFirstText"}}</p>
+				<p><b>{{$t "login.text.loginFailedThirdHintSecondText"}}</b></p>
+				<p>{{$t "login.text.loginFailedThirdHintThirdText"}}<a href="mailto:{{$t "email.support.text.supportDBC"}}">{{$t "email.support.text.supportDBC"}}</a></p>
+				<p>{{$t "login.text.loginFailedThirdHintFourthText"}}<a href="mailto:{{$t "email.support.text.supportNBC"}}">{{$t "email.support.text.supportNBC"}}</a></p>
+				<p>{{$t "login.text.loginFailedThirdHintFifthText"}}<a href="mailto:{{$t "email.support.text.supportTHR"}}">{{$t "email.support.text.supportTHR"}}</a></p>
+				<p>{{$t "login.text.loginFailedThirdHintSixthText"}}<a href="mailto:{{$t "email.support.text.supportBRB"}}">{{$t "email.support.text.supportBRB"}}</a></p>
 			</div>
 			<div class="steps">
-				<li> {{$t "login.text.loginFailedFourthHint"}}</li>
+				<li class="sub-header">{{$t "login.text.loginFailedFourthHint"}}</li>
 				<p>{{ $t "login.text.loginFailedFourthHintText"}}</p>
-				<img class="screenshot"src="{{getAssetPath '/images/login-fail.png'}}" alt={{$t "login.text.loginFailedScreenshot"}}>
-			</div>
-			<div class="steps">
-				<li>{{$t "login.text.loginFailedFithHint"}}</li>
-				<p>{{ $t "login.text.loginFailedFithHintText"}}</p>
 				<div class="logo-container">
 					<a href="https://dBildungscloud.de/"><img class="sc-logo" src="{{getAssetPath '/images/logo/logo-dBildungscloud.svg'}}" alt={{$t "loginFailedLogodBildungscloud" }} target="_blank" width="200"></a>
 					<a href="https://brandenburg.schul-cloud.org"><img class="sc-logo" src="{{getAssetPath '/images/brb-logo.png'}}" alt={{$t "loginFailedLogoBrandenburg" }} target="_blank" width="200"></a>
@@ -30,5 +62,14 @@
 					<a href="https://niedersachsen.cloud/"><img class="sc-logo" src="{{getAssetPath '/images/n21-logo.png'}}" alt={{$t "loginFailedLogoNiedersachsen" }} target="_blank" width="200"></a>
 				</div>
 			</div>
+			<div class="steps">
+				<li class="sub-header">{{$t "login.text.loginFailedFithHint"}}</li>
+				<p>{{ $t "login.text.loginFailedFithHintText"}}</p>
+			</div>
+			<div class="steps">
+				<li class="sub-header">{{$t "login.text.loginFailedSixthHint"}}</li>
+				<a href="https://support.google.com/accounts/answer/32050?co=GENIE.Platform%3DDesktop&hl=de" target="_blank">{{$t "help.text.hereYouCanFindOut" }}</a>
+			</div>
+
 	{{/if}}
 </div>

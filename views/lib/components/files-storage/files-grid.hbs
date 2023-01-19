@@ -1,4 +1,4 @@
-<section class="files" data-testid="tasks-edit-section-files">
+<section class="files" data-testid="{{parentType}}-section-files">
 	<div class="row">
 		{{#each files}}
 			<div class="col-sm-12">
@@ -7,42 +7,3 @@
 		{{/each}}
 	</div>
 </section>
-
-{{#embed "lib/components/modal" class="delete-modal" title=($t "global.text.areYouSure")}}
-	{{#content "body"}}
-
-		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary btn-close" data-testid="delete-file-dialog-cancel-btn">
-				{{$t "global.button.cancel" }}
-			</button>
-
-			<button type="submit" class="btn btn-primary btn-submit" data-testid="delete-file-dialog-submit-btn">
-				{{$t "global.headline.delete" }}
-			</button>
-		</div>
-	{{/content}}
-{{/embed}}
-
-{{#embed "lib/components/modal" class="rename-modal" title=($t "files.label.renameFile")}}
-	{{#content "body"}}
-		<div class="modal-body">
-			{{> "lib/components/files-storage/forms/form-name-edit"}}
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary btn-close" data-testid="rename-file-dialog-cancel-btn">
-				{{$t "global.button.cancel" }}
-			</button>
-
-			<button type="submit" class="btn btn-primary btn-submit" data-testid="rename-file-dialog-submit-btn">
-				{{$t "global.button.save" }}
-			</button>
-		</div>
-	{{/content}}
-{{/embed}}
-
-
-{{#embed "lib/components/modal-information" class="danger-modal" title=($t "files.headline.attention")}}
-	{{#content "fields"}}
-		{{> "lib/components/files-storage/forms/form-virus-danger"}}
-	{{/content}}
-{{/embed}}

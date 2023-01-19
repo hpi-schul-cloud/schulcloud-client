@@ -247,6 +247,11 @@
 			border-radius: 5px;
 			outline: none;
 		}
+
+		.row > div,
+		.row > h2 {
+			max-width: 1140px;
+		}
 	}
 
 	.disabled {
