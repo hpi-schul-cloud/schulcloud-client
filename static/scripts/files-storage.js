@@ -150,10 +150,10 @@ $(document).ready(() => {
 	}
 
 	// eslint-disable-next-line array-callback-return
-	$filesStorageComponents.map((_k, el) => {
-		const $filesStorageComponent = $(el);
+	$filesStorageComponents.map((_index, element) => {
+		const $filesStorageComponent = $(element);
 		const $form = $filesStorageComponent.find('.form-files-storage');
-		const getDataValue = (attr) => () => {
+		const getDataValue = (attr) => {
 			const value = $filesStorageComponent.find('.section-upload').data(attr);
 			return value || undefined;
 		};
@@ -186,9 +186,9 @@ $(document).ready(() => {
 		if ($form.dropzone) {
 			$form.dropzone({
 				url: `${apiV3FileStorageBasePath}/upload/
-			${getSchoolId()}/
-			${getCurrentParentType()}/
-			${getCurrentParentId()}`,
+			${getSchoolId}/
+			${getCurrentParentType}/
+			${getCurrentParentId}`,
 				chunking: true,
 				createImageThumbnails: false,
 				method: 'POST',
@@ -218,7 +218,7 @@ $(document).ready(() => {
 						if (progressBarActive) {
 							$progressBar.fadeOut(50, () => {
 								$form.fadeIn(50);
-								submitAfterUpload(getCurrentParentType(), getCurrentParentId());
+								submitAfterUpload(getCurrentParentType, getCurrentParentId);
 							});
 							progressBarActive = false;
 						}
