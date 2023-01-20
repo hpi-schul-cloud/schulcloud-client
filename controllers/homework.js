@@ -724,8 +724,8 @@ router.get('/:assignmentId', (req, res, next) => {
 			const assignmentCourse = (assignment.courseId || {});
 
 			teachers.add(assignment.teacherId);
-			(assignmentCourse.teacherIds || []).forEach(teachers.add, teachers);
-			(assignmentCourse.substitutionIds || []).forEach(teachers.add, teachers);
+			(assignmentCourse.teacherIds || []).forEach((teacher) => teachers.add(teacher));
+			(assignmentCourse.substitutionIds || []).forEach((teacher) => teachers.add(teacher));
 			const isTeacher = teachers.has(res.locals.currentUser._id);
 
 			const renderOptions = {
