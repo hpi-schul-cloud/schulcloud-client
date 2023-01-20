@@ -7,7 +7,7 @@ export default class AudioBrowserCommand extends Command {
 		const { t } = this.editor;
 		const dialogTitle = t('Audio Properties');
 		const onCreate = async () => {
-			const audioUrl = await FileBrowserHelper.getFileUrl();
+			const audioUrl = await FileBrowserHelper.getFileUrl(this.editor.sourceElement);
 
 			if (!audioUrl) return;
 			this.editor.model.change((writer) => {
