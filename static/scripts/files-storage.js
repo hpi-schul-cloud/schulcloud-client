@@ -153,15 +153,12 @@ $(document).ready(() => {
 	$filesStorageComponents.map((_index, element) => {
 		const $filesStorageComponent = $(element);
 		const $form = $filesStorageComponent.find('.form-files-storage');
-		const getDataValue = (attr) => {
-			const value = $filesStorageComponent.find('.section-upload').data(attr);
-			return value || undefined;
-		};
+		const uploadSection = $filesStorageComponent.find('.section-upload');
 
-		const getSchoolId = getDataValue('school');
-		const getCurrentParentId = getDataValue('parentId');
-		const getCurrentParentType = getDataValue('parentType');
-		const maxFilesize = getDataValue('maxFileSize');
+		const schoolId = uploadSection.data('school');
+		const parentId = uploadSection.data('parentId');
+		const parentType = uploadSection.data('parentType');
+		const maxFilesize = uploadSection.data('maxFileSize');
 
 		const $progressBar = $filesStorageComponent.find('.progress-bar');
 		const $progress = $progressBar.find('.bar');
@@ -186,9 +183,9 @@ $(document).ready(() => {
 		if ($form.dropzone) {
 			$form.dropzone({
 				url: `${apiV3FileStorageBasePath}/upload/
-			${getSchoolId}/
-			${getCurrentParentType}/
-			${getCurrentParentId}`,
+			${schoolId}/
+			${parentType}/
+			${parentId}`,
 				chunking: true,
 				createImageThumbnails: false,
 				method: 'POST',
@@ -218,7 +215,7 @@ $(document).ready(() => {
 						if (progressBarActive) {
 							$progressBar.fadeOut(50, () => {
 								$form.fadeIn(50);
-								submitAfterUpload(getCurrentParentType, getCurrentParentId);
+								submitAfterUpload(parentType, parentId);
 							});
 							progressBarActive = false;
 						}
