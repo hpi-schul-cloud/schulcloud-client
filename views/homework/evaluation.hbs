@@ -29,7 +29,7 @@
                 {{#if this.submission.submitted}}
                     <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
                     <input name="teamMembers" id="teamMembers" type="hidden" data-force-value="true" value="{{userIds this.submission.teamMembers}}" />
-                    <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
+                    <form class="form {{this.submission._id}}" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
                         <input type="hidden" name="isEvaluation" value="true" />
 

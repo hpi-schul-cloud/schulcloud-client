@@ -1,15 +1,5 @@
 import { apiV3FileStorageBasePath, getFileDownloadUrl } from './helpers/storage';
 
-const getDataValue = (attr) => () => {
-	const value = $('.files-storage-component').find('.section-upload').data(attr);
-	return value || undefined;
-};
-
-const getSchoolId = getDataValue('school');
-const getCurrentParentId = getDataValue('parentId');
-const getCurrentParentType = getDataValue('parentType');
-const maxFilesize = getDataValue('maxFileSize');
-
 const errorMessages = {
 	FILE_NAME_EMPTY: 'files._file.text.fileNameEmpty',
 	FILE_NAME_EXISTS: 'files._file.text.fileNameExists',
@@ -102,8 +92,8 @@ function afterUploadFiles() {
 	}
 }
 
-function submitAfterUpload() {
-	if (getCurrentParentType() === 'tasks') {
+function submitAfterUpload(type, id) {
+	if (type === 'tasks') {
 		const nameValue = $('#name').val();
 		if (nameValue) {
 			window.localStorage.setItem('afterUploadFiles', 'true');
@@ -114,25 +104,17 @@ function submitAfterUpload() {
 		$('#homework-submit-btn').trigger('click');
 	}
 
-	if (getCurrentParentType() === 'submissions') {
+	if (type === 'submissions') {
 		window.localStorage.setItem('afterUploadFiles', 'true');
-		$('form.submissionForm.ajaxForm').trigger('submit');
+		$(`form.${id}`).trigger('submit');
 	}
 }
 
 $(document).ready(() => {
-	const $form = $('.files-storage-component').find('.form-files-storage');
-	const $progressBar = $('.files-storage-component').find('.progress-bar');
-	const $progress = $progressBar.find('.bar');
-	const $percentage = $progressBar.find('.percent');
-
+	const $filesStorageComponents = $('.files-storage-component');
 	const $modals = $('.modal');
 	const $renameModal = $('.files-storage-rename-modal');
 	const $deleteModal = $('.files-storage-delete-modal');
-
-	/** loads dropzone, if it exists on current page * */
-	let progressBarActive = false;
-	let finishedFilesSize = 0;
 
 	afterUploadFiles();
 
@@ -157,66 +139,109 @@ $(document).ready(() => {
 			});
 	}
 
-	function updateUploadProcessingProgress() {
-		if (!progressBarActive) {
-			$progress.css('width', '0%');
+	function fileNameEditClickHandler(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const fileRecordId = $(this).attr('data-file-id');
+		const oldName = $(this).attr('data-file-name');
+		$renameModal.find('#newNameInput').val(oldName);
+		$renameModal.find('#fileRecordId').val(fileRecordId);
+		$renameModal.modal('show');
+	}
 
-			$form.fadeOut(50, () => {
-				$progressBar.fadeIn(50);
-			});
+	// eslint-disable-next-line array-callback-return
+	$filesStorageComponents.map((_k, el) => {
+		const $filesStorageComponent = $(el);
+		const $form = $filesStorageComponent.find('.form-files-storage');
+		const getDataValue = (attr) => () => {
+			const value = $filesStorageComponent.find('.section-upload').data(attr);
+			return value || undefined;
+		};
 
-			progressBarActive = true;
+		const getSchoolId = getDataValue('school');
+		const getCurrentParentId = getDataValue('parentId');
+		const getCurrentParentType = getDataValue('parentType');
+		const maxFilesize = getDataValue('maxFileSize');
+
+		const $progressBar = $filesStorageComponent.find('.progress-bar');
+		const $progress = $progressBar.find('.bar');
+		const $percentage = $progressBar.find('.percent');
+
+		/** loads dropzone, if it exists on current page * */
+		let progressBarActive = false;
+		let finishedFilesSize = 0;
+
+		function updateUploadProcessingProgress() {
+			if (!progressBarActive) {
+				$progress.css('width', '0%');
+
+				$form.fadeOut(50, () => {
+					$progressBar.fadeIn(50);
+				});
+
+				progressBarActive = true;
+			}
 		}
-	}
 
-	if ($form.dropzone) {
-		$form.dropzone({
-			url: `${apiV3FileStorageBasePath}/upload/
-			${getSchoolId()}/
-			${getCurrentParentType()}/
-			${getCurrentParentId()}`,
-			chunking: true,
-			createImageThumbnails: false,
-			method: 'POST',
-			maxFilesize,
-			dictFileTooBig: errorMessages.FILE_TO_BIG,
-			init() {
-				// this is called on per-file basis
-				this.on('processing', updateUploadProcessingProgress);
-				this.on('totaluploadprogress', (_, total, uploaded) => {
-					const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
+		if ($form.dropzone) {
+			$form.dropzone({
+				url: `${apiV3FileStorageBasePath}/upload/
+			${getSchoolId}/
+			${getCurrentParentType}/
+			${getCurrentParentId}`,
+				chunking: true,
+				createImageThumbnails: false,
+				method: 'POST',
+				maxFilesize,
+				dictFileTooBig: errorMessages.FILE_TO_BIG,
+				init() {
+					// this is called on per-file basis
+					this.on('processing', updateUploadProcessingProgress);
+					this.on('totaluploadprogress', (_, total, uploaded) => {
+						const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
 
-					$progress.stop().animate(
-						{ width: `${realProgress}%` },
-						{
-							step(now) {
-								if ($percentage && $percentage.setAttribute) {
-									$percentage.html(`${Math.ceil(now)}%`);
-									$percentage.setAttribute('aria-valuenow', `${Math.ceil(now)}%`);
-								}
+						$progress.stop().animate(
+							{ width: `${realProgress}%` },
+							{
+								step(now) {
+									if ($percentage && $percentage.setAttribute) {
+										$percentage.html(`${Math.ceil(now)}%`);
+										$percentage.setAttribute('aria-valuenow', `${Math.ceil(now)}%`);
+									}
+								},
 							},
-						},
-					);
-				});
+						);
+					});
 
-				this.on('queuecomplete', () => {
-					finishedFilesSize = 0;
-					if (progressBarActive) {
-						$progressBar.fadeOut(50, () => {
-							$form.fadeIn(50);
-							submitAfterUpload();
-						});
-						progressBarActive = false;
-					}
-				});
-				this.on('dragover', () => $form.addClass('focus'));
-				this.on('dragleave', () => $form.removeClass('focus'));
-				this.on('dragend', () => $form.removeClass('focus'));
-				this.on('drop', () => $form.removeClass('focus'));
-				this.on('error', (file, message) => showErrorMessage(message));
-			},
+					this.on('queuecomplete', () => {
+						finishedFilesSize = 0;
+						if (progressBarActive) {
+							$progressBar.fadeOut(50, () => {
+								$form.fadeIn(50);
+								submitAfterUpload(getCurrentParentType, getCurrentParentId);
+							});
+							progressBarActive = false;
+						}
+					});
+					this.on('dragover', () => $form.addClass('focus'));
+					this.on('dragleave', () => $form.removeClass('focus'));
+					this.on('dragend', () => $form.removeClass('focus'));
+					this.on('drop', () => $form.removeClass('focus'));
+					this.on('error', (file, message) => showErrorMessage(message));
+				},
+			});
+		}
+
+		$($filesStorageComponent).find('button[data-method="delete"]').on('click', deleteFileClickHandler);
+		$($filesStorageComponent).find('a[data-method="delete"]').on('click', deleteFileClickHandler);
+		$($filesStorageComponent).find('a[data-method="delete"]').on('keypress', (e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				deleteFileClickHandler(e);
+			}
 		});
-	}
+
+		$($filesStorageComponent).find('.file-name-edit').on('click', fileNameEditClickHandler);
+	});
 
 	$('button[data-method="download"]').on('click', (e) => {
 		const fileRecordId = $(e.currentTarget).attr('data-file-id');
@@ -256,29 +281,9 @@ $(document).ready(() => {
 		$renameModal.modal('hide');
 	});
 
-	$('.files-storage-component').find('button[data-method="delete"]').on('click', deleteFileClickHandler);
-	$('.files-storage-component').find('a[data-method="delete"]').on('click', deleteFileClickHandler);
-	$('.files-storage-component').find('a[data-method="delete"]').on('keypress', (e) => {
-		if (e.key === 'Enter' || e.key === ' ') {
-			deleteFileClickHandler(e);
-		}
-	});
-
 	$deleteModal.find('.close, .btn-close').on('click', () => {
 		$deleteModal.modal('hide');
 	});
-
-	function fileNameEditClickHandler(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		const fileRecordId = $(this).attr('data-file-id');
-		const oldName = $(this).attr('data-file-name');
-		$renameModal.find('#newNameInput').val(oldName);
-		$renameModal.find('#fileRecordId').val(fileRecordId);
-		$renameModal.modal('show');
-	}
-
-	$('.files-storage-component').find('.file-name-edit').on('click', fileNameEditClickHandler);
 
 	function fileMouseOverHandler() {
 		const size = $(this).attr('data-file-size');
