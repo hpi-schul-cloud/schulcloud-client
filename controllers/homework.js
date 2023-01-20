@@ -584,7 +584,10 @@ router.get('/:assignmentId', (req, res, next) => {
 				.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1));
 
 			const assignmentCourse = (assignment.courseId || {});
-			teachers.add(assignment.teacherId, ...assignmentCourse.teacherIds || [], ...assignmentCourse.substitutionIds || []);
+
+			teachers.add(assignment.teacherId);
+			(assignmentCourse.teacherIds || []).forEach((teacher) => teachers.add(teacher));
+			(assignmentCourse.substitutionIds || []).forEach((teacher) => teachers.add(teacher));
 			const isTeacher = teachers.has(res.locals.currentUser._id);
 
 			const renderOptions = {
