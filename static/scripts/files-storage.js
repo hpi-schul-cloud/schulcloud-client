@@ -186,9 +186,9 @@ $(document).ready(() => {
 		if ($form.dropzone) {
 			$form.dropzone({
 				url: `${apiV3FileStorageBasePath}/upload/
-			${getSchoolId}/
-			${getCurrentParentType}/
-			${getCurrentParentId}`,
+			${getSchoolId()}/
+			${getCurrentParentType()}/
+			${getCurrentParentId()}`,
 				chunking: true,
 				createImageThumbnails: false,
 				method: 'POST',
@@ -218,7 +218,7 @@ $(document).ready(() => {
 						if (progressBarActive) {
 							$progressBar.fadeOut(50, () => {
 								$form.fadeIn(50);
-								submitAfterUpload(getCurrentParentType, getCurrentParentId);
+								submitAfterUpload(getCurrentParentType(), getCurrentParentId());
 							});
 							progressBarActive = false;
 						}
