@@ -6,7 +6,7 @@
                 <i class='fa fa-print'></i>
         </button>
         {{#if @root.submission.grade includeZero=true}}
-        {{{$t "homework._task.text.youHaveSolvedXPercent" (dict "grade" @root.submission.grade)}}}
+            {{{$t "homework._task.text.youHaveSolvedXPercent" (dict "grade" @root.submission.grade)}}}
         {{/if}}
 
         <div class="comment ckcontent">

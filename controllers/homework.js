@@ -174,14 +174,12 @@ const getCreateHandler = (service) => (req, res, next) => {
 					);
 				});
 		}
-		const promise = Promise.resolve({});
-		return promise.then(() => {
-			if (referrer === 'tasks' || referrer.includes('rooms')) {
-				referrer = `homework/${data._id}/edit?returnUrl=homework/${data._id}`;
-			}
-			const url = new URL(referrer, base);
-			res.redirect(url);
-		});
+
+		if (referrer === 'tasks' || referrer.includes('rooms')) {
+			referrer = `homework/${data._id}/edit?returnUrl=homework/${data._id}`;
+		}
+		const url = new URL(referrer, base);
+		res.redirect(url);
 	}).catch((err) => {
 		next(err);
 	});
