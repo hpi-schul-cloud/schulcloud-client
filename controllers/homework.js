@@ -71,38 +71,6 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
 	}
 };
 
-/**
- * adds file permissions for co workers to a submission file
- */
-const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileIds) => {
-	// if submission has an courseGroup, use the corresponding users instead of teamMembers
-	const courseGroupPromise = courseGroupId
-		? api(req).get(`/courseGroups/${courseGroupId}`, { qs: { $populate: ['userIds'] } })
-		: Promise.resolve({ userIds: teamMembers });
-	const filePromises = fileIds.map((f) => api(req).get(`/files/${f}`));
-
-	return Promise.all([courseGroupPromise, Promise.all(filePromises)])
-		.then(([{ userIds }, files]) => {
-			const filePatchPromises = files.map((file) => {
-				const userPermissions = userIds
-					.filter((id) => file.permissions.findIndex((p) => p.refId.toString() === id.toString()) === -1)
-					.map((id) => ({
-						refId: id,
-						refPermModel: 'user',
-						write: false,
-						read: true,
-						create: false,
-						delete: false,
-					}));
-
-				file.permissions = [...file.permissions, ...userPermissions];
-
-				return api(req).patch(`/files/${file._id}`, { json: file });
-			});
-			return Promise.all(filePatchPromises);
-		});
-};
-
 function collectUngradedFiles(submissions) {
 	const ungradedSubmissionsWithFiles = submissions.filter((submission) => !submission.submission.graded);
 	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.submission.submissionFiles.filesStorage.files);
@@ -206,16 +174,12 @@ const getCreateHandler = (service) => (req, res, next) => {
 					);
 				});
 		}
-		const promise = service === 'submissions'
-			? addFilePermissionsForTeamMembers(req, data.teamMembers, data.courseGroupId, data.fileIds)
-			: Promise.resolve({});
-		return promise.then(() => {
-			if (referrer === 'tasks' || referrer.includes('rooms')) {
-				referrer = `homework/${data._id}/edit?returnUrl=homework/${data._id}`;
-			}
-			const url = new URL(referrer, base);
-			res.redirect(url);
-		});
+
+		if (referrer === 'tasks' || referrer.includes('rooms')) {
+			referrer = `homework/${data._id}/edit?returnUrl=homework/${data._id}`;
+		}
+		const url = new URL(referrer, base);
+		res.redirect(url);
 	}).catch((err) => {
 		next(err);
 	});
@@ -253,24 +217,18 @@ const patchFunction = (service, req, res, next) => {
 		json: req.body,
 	}).then(async (data) => {
 		if (service === 'submissions') {
-			// add file permissions for co Worker
-			const { fileIds } = data;
-			const { teamMembers } = data;
-			const { courseGroupId } = data;
-			await addFilePermissionsForTeamMembers(req, teamMembers, courseGroupId, fileIds).then(() => {
-				api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
-					.then((homework) => {
-						sendNotification(data.studentId,
-							res.$t('homework._task.text.submissionGradedNotification', {
-								coursename: homework.courseId.name,
-							}),
-							' ',
-							data.studentId,
-							req,
-							`${base}/homework/${homework._id}`);
-					});
-				base = req.header('Referrer');
-			});
+			api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
+				.then((homework) => {
+					sendNotification(data.studentId,
+						res.$t('homework._task.text.submissionGradedNotification', {
+							coursename: homework.courseId.name,
+						}),
+						' ',
+						data.studentId,
+						req,
+						`${base}/homework/${homework._id}`);
+				});
+			base = req.header('Referrer');
 		}
 		if (referrer) {
 			const url = new URL(referrer, base);
@@ -375,109 +333,11 @@ router.post('/', getCreateHandler('homework'));
 router.patch('/:id', getUpdateHandler('homework'));
 router.delete('/:id', getDeleteHandler('tasks'));
 
-router.delete('/:id/file', (req, res, next) => {
-	const { fileId } = req.body;
-	const homeworkId = req.params.id;
-	api(req).get(`/homework/${homeworkId}`).then((homework) => {
-		const fileIds = _.filter(homework.fileIds, (id) => JSON.stringify(id) !== JSON.stringify(fileId));
-		return api(req).patch(`/homework/${homeworkId}`, {
-			json: {
-				fileIds,
-			},
-		});
-	})
-		.then((result) => res.json(result))
-		.catch((err) => next(err));
-});
-
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
 router.delete('/submit/:id', getDeleteHandler('submissions', true));
 router.get('/submit/:id/delete', getDeleteHandler('submissions', true));
-
-router.post('/submit/:id/files', (req, res, next) => {
-	const submissionId = req.params.id;
-	api(req).get(`/submissions/${submissionId}`).then((submission) => {
-		delete submission.grade;
-		delete submission.gradeComment;
-		delete submission.comment;
-
-		const files = req.body.fileId || req.body.fileIds;
-		submission.fileIds = submission.fileIds.concat(files);
-
-		return api(req).patch(`/submissions/${submissionId}`, {
-			json: submission,
-		});
-	})
-		.then((result) => res.json(result))
-		.catch((err) => next(err));
-});
-
-router.post('/submit/:id/grade-files', (req, res, next) => {
-	const submissionId = req.params.id;
-	api(req).get(`/submissions/${submissionId}`).then((submission) => {
-		if ('fileId' in req.body) {
-			submission.gradeFileIds.push(req.body.fileId);
-		} else if ('fileIds' in req.body) {
-			submission.gradeFileIds = submission.gradeFileIds.concat(req.body.fileIds);
-		}
-		submission.graded = true;
-		return api(req).patch(`/submissions/${submissionId}`, {
-			json: submission,
-		});
-	})
-		.then((result) => res.json(result))
-		.catch((err) => next(err));
-});
-
-/* adds shared permission for teacher in the corresponding homework */
-router.post('/submit/:id/files/:fileId/permissions', async (req, res) => {
-	const { fileId, id: submissionId } = req.params;
-	const { homeworkId, teamMembers } = req.body;
-
-	// if homework is already given, just fetch homework
-	const homeworkPromise = homeworkId
-		? api(req).get(`/homework/${homeworkId}`)
-		: api(req).get(`/submissions/${submissionId}`, { qs: { $populate: ['homeworkId'] } });
-
-	const filePromise = api(req).get(`/files/${fileId}`);
-	const promises = teamMembers ? [filePromise, homeworkPromise] : [filePromise];
-
-	try {
-		const [file, homework] = await Promise.all(promises);
-
-		if (teamMembers) {
-			// wait for result now
-			// todo move logic to backend
-			await addFilePermissionsForTeamMembers(
-				req, teamMembers, homework.courseGroupId, [fileId],
-			);
-		}
-		res.json(file);
-	} catch (err) {
-		res.send(err);
-	}
-});
-
-router.delete('/submit/:id/files', (req, res, next) => {
-	const submissionId = req.params.id;
-	api(req).get(`/submissions/${submissionId}`).then((submission) => {
-		submission.fileIds = _.filter(
-			submission.fileIds,
-			(id) => JSON.stringify(id) !== JSON.stringify(req.body.fileId),
-		);
-		submission.gradeFileIds = _.filter(
-			submission.gradeFileIds,
-			(id) => JSON.stringify(id) !== JSON.stringify(req.body.fileId),
-		);
-		return api(req).patch(`/submissions/${submissionId}`, {
-			json: submission,
-		});
-	})
-		.then((result) => res.json(result))
-		.catch((err) => next(err));
-});
 
 router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandler('comments', true));
@@ -777,7 +637,7 @@ router.get('/:assignmentId', (req, res, next) => {
 					}
 
 					e.submitters = new Set(submitters);
-					studentsWithSubmission = [...studentsWithSubmission, ...submitters] 
+					studentsWithSubmission = [...studentsWithSubmission, ...submitters];
 				});
 				const studentsWithoutSubmission = [];
 				((assignment.courseId || {}).userIds || []).forEach((e) => {
