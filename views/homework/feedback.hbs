@@ -1,26 +1,20 @@
 <section id="feedback" class="tab-content section-homeworkdetails">
+    {{#ifCond @root.submission "&&" @root.submission.graded}}
     <div class="homework print">
         <button type="button" class="btn btn-secondary btn-print btn-sm pull-right mb-1"
             data-toggle="tooltip" title="{{$t "homework._task.label.printGradeComment"}}">
                 <i class='fa fa-print'></i>
         </button>
         {{#if @root.submission.grade includeZero=true}}
-           {{{$t "homework._task.text.youHaveSolvedXPercent" (dict "grade" @root.submission.grade)}}}
+            {{{$t "homework._task.text.youHaveSolvedXPercent" (dict "grade" @root.submission.grade)}}}
         {{/if}}
 
         <div class="comment ckcontent">
-            {{#if @root.submission.gradeComment}}
                 {{{@root.submission.gradeComment}}}
-            {{else}}
-                <p>{{$t "homework.text.noEvaluationTextAvailable" }}</p>
-            {{/if}}
         </div>
-        {{#ifneq 0 (arrayLength @root.submission.gradeFileIds)}}
-            {{#embed "homework/components/submission_files"
-                fileIds=../submission.gradeFileIds
-                grading=true
-                deletionAllowed=false
-                submission=../submission}}{{/embed}}
-        {{/ifneq}}
+        {{#embed "lib/components/files-storage/files" @root.submission.gradeFiles}}{{/embed}}
     </div>
+    {{else}}
+    <p>{{$t "homework.text.noEvaluationTextAvailable" }}</p>
+    {{/ifCond}}
 </section>
