@@ -2,12 +2,12 @@ import getCookie from '../../../../helpers/cookieManager';
 import { apiV3FileStorageBasePath, getFileDownloadUrl } from '../../../../helpers/storage';
 
 export default class FileBrowserHelper {
-	static async getFileUrl() {
+	static async getFileUrl(sourceElement) {
 		const courseFileUrl = $('#url-input').val();
 
-		const parentId = $('.ckeditor').data('parent-id');
-		const schoolId = $('.ckeditor').data('school-id');
-		const parentType = $('.ckeditor').data('parent-type');
+		const parentId = sourceElement.getAttribute('data-parent-id');
+		const parentType = sourceElement.getAttribute('data-parent-type');
+		const schoolId = sourceElement.getAttribute('data-school-id');
 
 		if (parentId !== undefined && schoolId !== undefined && parentType !== undefined) {
 			return this.copyFile(schoolId, parentType, parentId, courseFileUrl);
