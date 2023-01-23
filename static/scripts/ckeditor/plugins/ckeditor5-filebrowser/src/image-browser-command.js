@@ -9,7 +9,7 @@ export default class ImageBrowserCommand extends Command {
 		const dialogTitle = this.editor.t('Image Properties');
 
 		const onCreate = async () => {
-			const imageUrl = await FileBrowserHelper.getFileUrl();
+			const imageUrl = await FileBrowserHelper.getFileUrl(this.editor.sourceElement);
 
 			if (!imageUrl) return;
 			const imageAltText = document.getElementById('alt-text-input').value;
