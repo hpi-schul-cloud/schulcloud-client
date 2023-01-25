@@ -7,7 +7,7 @@ export default class VideoBrowserCommand extends Command {
 		const { t } = this.editor;
 		const dialogTitle = t('Video Properties');
 		const onCreate = async () => {
-			const videoUrl = await FileBrowserHelper.getFileUrl();
+			const videoUrl = await FileBrowserHelper.getFileUrl(this.editor.sourceElement);
 
 			if (!videoUrl) return;
 			this.editor.model.change((writer) => {

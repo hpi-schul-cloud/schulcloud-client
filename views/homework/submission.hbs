@@ -2,7 +2,7 @@
   {{#if @root.submittable}}
     <div class="comment editor submission-editor">
     {{#if @root.submission}}
-        <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{@root.submission._id}}">
+        <form class="form submissionForm ajaxForm {{this.submission._id}}"  method="post" action="/homework/submit/{{@root.submission._id}}">
             <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
             <input type="hidden" name="_method" data-force-value="true" value="patch"/>
     {{else}}
@@ -113,8 +113,14 @@
 
             {{#userHasPermission "SUBMISSIONS_CREATE"}}
                 <div class="submit-button-container">
-                    <button class="btn btn-primary btn-submit submission-button" name="submitted" value="false" {{#if @root.submission.submitted}}disabled="true"{{/if}} data-testid="tasks-submission-save-btn">{{$t "global.button.save" }}</button>
-                    <button class="btn btn-primary btn-submit submission-button" name="submitted" value="true"  data-testid="tasks-submission-submit-btn">{{$t "homework.button.submit" }}</button>
+                    <button class="btn btn-submit submission-button save-button" name="submitted" value="false" {{#if @root.submission.submitted}}disabled="true"{{/if}} data-testid="tasks-submission-save-btn">
+                        <i class="fa fa-floppy-o"></i>
+                        {{$t "global.button.save" }}
+                    </button>
+                    <button class="btn btn-primary btn-submit submission-button" name="submitted" value="true"  data-testid="tasks-submission-submit-btn">
+                        <i class="fa fa-check-circle"></i>
+                        {{$t "homework.button.submit" }}
+                    </button>
                 </div>
             {{/userHasPermission}}
         </div>

@@ -24,9 +24,10 @@ window.addEventListener('keydown', (e) => {
 });
 
 function saveTempData() {
-	const submissionId = $("input[name='submissionId']").val();
-	const grade = { value: $("input[name='grade']").val(), submissionId };
-	const gradeComment = { value: $("textarea[name='gradeComment']").val(), submissionId };
+	const submissionId = $('#submissions').find('>.table.table-hover .usersubmission.active').attr('id');
+	const submissionRange = $(`#${submissionId}`);
+	const grade = { value: submissionRange.find("input[name='grade']").val(), submissionId };
+	const gradeComment = { value: submissionRange.find("textarea[name='gradeComment']").val(), submissionId };
 	localStorage.setItem('grade', JSON.stringify(grade));
 	localStorage.setItem('gradeComment', JSON.stringify(gradeComment));
 }
@@ -34,16 +35,18 @@ function saveTempData() {
 window.onload = function onload() {
 	const grade = JSON.parse(localStorage.getItem('grade'));
 	const gradeComment = JSON.parse(localStorage.getItem('gradeComment'));
-	const submissionId = $("input[name='submissionId']").val();
+	const submissionId = $('#submissions').find('>.table.table-hover .usersubmission.active').attr('id');
+	const submissionRange = $(`#${submissionId}`);
 	localStorage.removeItem('grade');
 	localStorage.removeItem('gradeComment');
 
 	if (grade && grade.value && grade.submissionId === submissionId) {
-		$("input[name='grade']").val(grade.value);
+		submissionRange.find("input[name='grade']").val(grade.value);
 	}
 
 	if (gradeComment && gradeComment.value && gradeComment.submissionId === submissionId) {
-		document.querySelector('.ck-editor__editable').ckeditorInstance.setData(gradeComment.value);
+		document.querySelector('.usersubmission.active .ck-editor__editable')
+			.ckeditorInstance.setData(gradeComment.value);
 	}
 };
 

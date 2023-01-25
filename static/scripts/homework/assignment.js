@@ -53,17 +53,16 @@ window.addEventListener('load', () => {
 
 		if (urlWithParams.searchParams.get('submissionId')) {
 			const userInfoId = urlWithParams.searchParams.get('submissionId');
+			const userInfoRange = $(`#${userInfoId}`);
 
-			$(`#${userInfoId}`).addClass('active');
-
+			userInfoRange.addClass('active');
 			if (urlWithParams.searchParams.get('activeSubmissionTabId')) {
 				const activeSubmissionTabId = urlWithParams.searchParams.get('activeSubmissionTabId');
-				const tabViewRange = $(`#${activeSubmissionTabId}`).closest('.tab-view');
-				tabViewRange.find('>.tab-links .tab-link.active').removeClass('active');
-				$(`#${activeSubmissionTabId}`).addClass('active');
-				tabViewRange.find('>.tabs>.tab-content.active').removeClass('active');
+				userInfoRange.find('.tab-link.active').removeClass('active');
+				userInfoRange.find('#'.concat(activeSubmissionTabId)).addClass('active');
+				userInfoRange.find('>.evaluation .tabs .tab-content.active').removeClass('active');
 				const tabContentId = activeSubmissionTabId.replace('-tab-link', '');
-				tabViewRange.find(`>.tabs>#${tabContentId}.tab-content`).addClass('active');
+				userInfoRange.find(`#${tabContentId}`).addClass('active');
 			}
 		}
 	}
