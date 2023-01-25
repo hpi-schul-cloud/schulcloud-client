@@ -15,7 +15,7 @@
       {{/ifConfig}}
     </div>
     <div class="column event-details">
-      <div class="title">{{event.title}}</div>
+      <div class="title" data-testid="team-event-calender-title">{{event.title}}</div>
 
       <div class="event-row">
         <div class="meta">
@@ -43,7 +43,7 @@
               <span class="muted video-conference" style="display: none;">{{$t "calendar.text.videoConferenceDetailsAreLoading" }}</span>
               <!-- state: RUNNING -->
               <i class="fa fa-video-camera video-conference join-conference" aria-hidden="true" style="display: none;">&nbsp;</i>
-              <a class="video-conference join-conference" href="/videoconference" style="display: none;">{{$t "calendar.text.participateInVideoConference" }}</a>
+              <a class="video-conference join-conference" href="/videoconference" style="display: none;" data-testid="participate-video-conf-link">{{$t "calendar.text.participateInVideoConference" }}</a>
               <!-- state: FINISHED || NOT_STARTED + permission: JOIN_MEETING -->
               <i class="fa fa-video-camera video-conference not-started" aria-hidden="true" style="display: none;">&nbsp;</i>
               <span class="muted video-conference not-started" style="display: none;">{{$t "global.text.videoconferenceNotStartedYet" }}</span>
@@ -55,7 +55,7 @@
               <!-- no permission -->
               <i class="fa fa-video-camera video-conference no-permission" aria-hidden="true" style="display: none;">&nbsp;</i>
               <span class="muted video-conference no-permission" style="display: none;">{{$t "calendar.text.noAuthorization" }}</span>
-              <i class="fa fa-info-circle video-conference clickable no-permission" aria-hidden="true" style="display: none;"></i>
+              <i class="fa fa-info-circle video-conference clickable no-permission" aria-hidden="true" style="display: none;" data-testid="video-conference-not-started-info-icon"></i>
             </div>
           {{/if}}
         {{/if}}
@@ -64,7 +64,7 @@
       {{#if event.description}}
       <div class="event-row">
         <i class="fa fa-file-text-o" aria-hidden="true">&nbsp;</i>
-        <span class="card-description">{{event.description}}</span>
+        <span class="card-description" data-testid="team-event-calendar-description">{{event.description}}</span>
       </div>
       {{/if}}
     </div>

@@ -380,6 +380,7 @@
 										type="checkbox"
 										name="rocketChat"
 										value="true"
+                                        data-testid="school-admin-activate-chat-checkbox"
 										{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}
 										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
 											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
@@ -407,7 +408,7 @@
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
 							<label>
-								<input type="checkbox" name="videoconference" value="true"
+								<input type="checkbox" name="videoconference" value="true" data-testid="school-admin-video-conference-checkbox"
 									{{#inArray "videoconference" ../../school.features}}checked{{/inArray}}>
 								{{$t "administration.school.label.enableVideoConference" }}
 								<p class="text-muted">
@@ -426,7 +427,7 @@
 								</option>
 								{{/each}} </select> </div> {{/if}}
 						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">{{$t "administration.school.button.saveGeneralSettings" }}</button>
+						<button type="submit" class="btn btn-primary btn-submit" data-testid="school-admin-save-general-setting">{{$t "administration.school.button.saveGeneralSettings" }}</button>
 					</form>
 
 					{{#if ../school.fileStorageType}}
