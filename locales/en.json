@@ -1765,7 +1765,7 @@
 			"errorChangingFilePermissions": "Problem changing permissions",
 			"errorWhileLoadingPage": "This page could not be loaded",
 			"filesTooLarge": "The attached files exceed the maximum permitted total size!",
-			"fileTooLarge": "The attached files exceed the maximum permitted size!",
+			"fileTooLarge": "The attached files exceed the maximum permitted size of {{ maxFileSizeInGb }} GB!",
 			"fileWrongFormat": "'{{filename}}' is not an image, video or valid file!",
 			"forThisWeNeedTheFollowingInformationFromYou": "For this we need the following information from you:",
 			"friday": "Friday",

@@ -181,6 +181,9 @@ $(document).ready(() => {
 		}
 
 		if ($form.dropzone) {
+			const maxFileSizeInGb = String(Number(maxFilesize) / 1000);
+			const fileTooBigError = $t('global.text.fileTooLarge', { maxFileSizeInGb });
+
 			$form.dropzone({
 				url: `${apiV3FileStorageBasePath}/upload/
 			${schoolId}/
@@ -190,7 +193,7 @@ $(document).ready(() => {
 				createImageThumbnails: false,
 				method: 'POST',
 				maxFilesize,
-				dictFileTooBig: errorMessages.FILE_TO_BIG,
+				dictFileTooBig: fileTooBigError,
 				init() {
 					// this is called on per-file basis
 					this.on('processing', updateUploadProcessingProgress);
