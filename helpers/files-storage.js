@@ -1,4 +1,3 @@
-const { Configuration } = require('@hpi-schul-cloud/commons');
 const apiFilesStorage = require('../api-files-storage');
 
 const getThumbnailIcon = (filename) => {
@@ -50,7 +49,6 @@ async function filesStorageInit(schoolId, parentId, parentType, req, readonly = 
 		parentType,
 		files,
 		readonly,
-		maxFileSize: Configuration.get('FILES_STORAGE__MAX_FILE_SIZE'),
 	};
 	return { filesStorage };
 }
