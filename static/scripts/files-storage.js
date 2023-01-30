@@ -5,7 +5,6 @@ const errorMessages = {
 	FILE_NAME_EXISTS: 'files._file.text.fileNameExists',
 	FILE_IS_BLOCKED: 'files._file.text.fileIsBlocked',
 	FILE_NOT_FOUND: 'files._file.text.fileNotFound',
-	FILE_TO_BIG: 'global.text.fileTooLarge',
 	INTERNAL_ERROR: 'global.text.internalProblem',
 };
 
