@@ -37,10 +37,23 @@
 				vertical-align: middle;
 				cursor: pointer;
 			}
+			svg {
+				color: $secondaryColor;
+				vertical-align: middle;
+				margin-right: 12px;
+				cursor: pointer;
+				@include media-breakpoint-down(xs) {
+					margin-right: unset;
+				}
+			}
 			&.active .text,
 			&.active i.fa,
 			&:hover {
 				color: $primaryColor;
+				text-decoration: none;
+			}
+			&.active svg {
+				fill: $primaryColor;
 				text-decoration: none;
 			}
 		}
