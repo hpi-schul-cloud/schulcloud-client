@@ -40,7 +40,11 @@
 			svg {
 				color: $secondaryColor;
 				vertical-align: middle;
+				margin-right: 12px;
 				cursor: pointer;
+				@include media-breakpoint-down(xs) {
+					margin-right: unset;
+				}
 			}
 			&.active .text,
 			&.active i.fa,
