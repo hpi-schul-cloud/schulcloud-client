@@ -60,7 +60,9 @@ function populateModalForm(modal, data) {
 		$btnSubmit.hide();
 	}
 
+	console.log('data', data);
 	if (data.submitDataTestId) {
+		console.log('data.submitDataTestId', data.submitDataTestId);
 		$btnSubmit.attr('data-testid', data.submitDataTestId);
 	}
 
