@@ -56,13 +56,7 @@ function populateModalForm(modal, data) {
 
 	if (data.submitLabel) {
 		$btnSubmit.html(data.submitLabel);
-		const dataTestId = `btn-submit-${data.title}`;
-		console.log('dataTestId', dataTestId);
-		$btnSubmit.prop('data-testid', `btn-submit-${data.title}`);
-		console.log(
-			'$btnSubmit.prop(\'data-testid\')',
-			$btnSubmit.prop('data-testid')
-		);
+		$btnSubmit.attr('data-testid', `btn-submit-${data.title}`);
 	} else {
 		$btnSubmit.hide();
 	}
