@@ -15,7 +15,7 @@ const setStorageContext = () => {
 				storageContext = '/files/courses/';
 			}
 		} else {
-			storageContext = document.getElementById('courseId').getAttribute('href') || 'courses';
+			storageContext = document.getElementById('courseId')?.getAttribute('href') || '/files/courses';
 		}
 		ckeditorConfig.filebrowser.browseUrl = storageContext;
 	}

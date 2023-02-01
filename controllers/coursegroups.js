@@ -155,12 +155,16 @@ router.get('/:courseGroupId/', (req, res, next) => {
 		_.each(courseGroup.userIds, u => u.displayName = `${u.firstName} ${u.lastName}`);
 		_.each(course.teacherIds, t => t.displayName = `${t.firstName} ${t.lastName}`);
 
+		const isTeacher = course.teacherIds.some((teacher) => teacher._id === res.locals.currentUser._id);
+		const isSubstitutionTeacher = course.substitutionIds.includes(res.locals.currentUser._id);
+
 		res.render('courses/courseGroup', Object.assign({}, courseGroup, {
 			course,
 			title: courseGroup.name,
 			lessons,
 			doneSubmissions,
 			openSubmissions,
+			isTeacher: isTeacher || isSubstitutionTeacher,
 			breadcrumb: [{
 				title: res.$t("courses.headline.myCourses"),
 				url: '/rooms-overview',
