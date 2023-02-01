@@ -9,6 +9,7 @@ const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const { logger } = require('../helpers');
+const filesStoragesHelper = require('../helpers/files-storage');
 
 const router = express.Router({ mergeParams: true });
 
@@ -36,11 +37,16 @@ const editTopicHandler = (req, res, next) => {
 		lessonPromise = Promise.resolve({});
 	}
 
-	lessonPromise.then((lesson) => {
+	lessonPromise.then(async (lesson) => {
 		if (lesson.contents) {
 			// so we can share the content through data-value to the react component
 			lesson.contents = JSON.stringify(lesson.contents);
 		}
+
+		const schoolId = res.locals.currentSchool;
+		const {filesStorage} = await filesStoragesHelper
+			.filesStorageInit(schoolId, lesson._id, 'lessons', req, false);
+
 		res.render('topic/edit-topic', {
 			action,
 			method,
@@ -54,11 +60,12 @@ const editTopicHandler = (req, res, next) => {
 			lesson,
 			courseId: req.params.courseId,
 			topicId: req.params.topicId,
-			schoolId: res.locals.currentSchool,
+			schoolId,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
 			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
 			referrer,
+			lessonFilesStorageData: filesStorage,
 		});
 	}).catch((err) => {
 		next(err);
@@ -78,16 +85,14 @@ const checkInternalComponents = (data, baseUrl) => {
 	return data;
 };
 
-const getEtherpadPadForCourse = async (req, user, courseId, content, oldPadId) => {
-	return api(req).post('/etherpad/pads', {
-		json: {
-			courseId,
-			padName: content.content.title,
-			text: content.description,
-			oldPadId
-		},
-	}).then((response) => response.data.padID);
-};
+const getEtherpadPadForCourse = async (req, user, courseId, content, oldPadId) => api(req).post('/etherpad/pads', {
+	json: {
+		courseId,
+		padName: content.content.title,
+		text: content.description,
+		oldPadId,
+	},
+}).then((response) => response.data.padID);
 
 async function createNewEtherpad(req, res, contents = [], courseId) {
 	// eslint-disable-next-line no-return-await
@@ -102,14 +107,14 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 		let isOldPad;
 		let oldPadId;
 		try {
-			let parsedUrl = new URL(content.content.url);
+			const parsedUrl = new URL(content.content.url);
 			isOldPad = isPadDomainOld(parsedUrl);
 			if (isOldPad) {
 				oldPadId = getPadIdFromUrl(content.content.url);
 			}
 		} catch (err) {
 			logger.error(err.message);
-		};
+		}
 		// no pad name supplied, generate one
 		if (typeof (content.content.title) === 'undefined' || content.content.title === '') {
 			content.content.title = randomBytes(12).toString('hex');
@@ -132,38 +137,36 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 	});
 }
 
-const getEtherpadSession = async (req, res, courseId) => {
-	return await api(req).post(
-		'/etherpad/sessions', {
-			form: {
-				courseId,
+const getEtherpadSession = async (req, res, courseId) => await api(req).post(
+	'/etherpad/sessions', {
+		form: {
+			courseId,
 		},
 	},
-	).catch((err) => {
-		logger.error(err.message);
-		return undefined;
-	});
-};
+).catch((err) => {
+	logger.error(err.message);
+	return undefined;
+});
 
 const isPadDomainOld = (url) => {
 	if (url.hostname === Configuration.get('ETHERPAD__OLD_DOMAIN')) {
 		return true;
 	}
 	return false;
-}
+};
 
 const validatePadDomain = (url) => {
 	const whitelist = [
 		Configuration.get('ETHERPAD__OLD_DOMAIN'),
-		Configuration.get('ETHERPAD__NEW_DOMAIN')
+		Configuration.get('ETHERPAD__NEW_DOMAIN'),
 	];
 	if (whitelist.indexOf(url.hostname) === -1) {
 		throw new Error(`not a valid etherpad hostname: ${url.hostname}`);
 	}
-}
+};
 
 const getPadIdFromUrl = (path) => {
-	path += "";
+	path += '';
 	let parsedUrl;
 	try {
 		parsedUrl = new URL(path);
@@ -171,10 +174,10 @@ const getPadIdFromUrl = (path) => {
 	} catch (err) {
 		logger.error(err.message);
 		return undefined;
-	};
+	}
 	path = parsedUrl.pathname;
 	return path.substring(path.lastIndexOf('/') + 1);
-}
+};
 
 const getNexBoardAPI = () => {
 	if (!NEXBOARD_USER_ID && !NEXBOARD_API_KEY) {
@@ -239,7 +242,6 @@ router.get('/:topicId/nexboard/boards', getNexBoards);
 
 router.get('/nexboard/boards', getNexBoards);
 
-
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -248,9 +250,7 @@ router.get('/', (req, res, next) => {
 	res.redirect(`/${context}/${req.params.courseId}`);
 });
 
-
 router.get('/add', editTopicHandler);
-
 
 router.post('/', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
@@ -261,7 +261,7 @@ router.post('/', async (req, res, next) => {
 	// Check for neXboard compontent
 	data.contents = await createNewNexBoards(req, res, data.contents, next);
 
-	data.contents = data.contents.filter(c => c !== undefined);
+	data.contents = data.contents.filter((c) => c !== undefined);
 
 	data.time = moment(data.time || 0, 'HH:mm').toString();
 	data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
@@ -296,14 +296,13 @@ router.post('/:id/share', (req, res, next) => {
 	api(req).get(`/lessons/${req.params.id}`).then((topic) => {
 		topic.shareToken = topic.shareToken || shortId.generate();
 		api(req).patch(`/lessons/${req.params.id}`, { json: topic })
-			.then(result => res.json(result))
+			.then((result) => res.json(result))
 			.catch((err) => { res.err(err); });
 	});
 });
 
 // eslint-disable-next-line consistent-return
 router.get('/:topicId', (req, res, next) => {
-
 	const context = req.originalUrl.split('/')[1];
 	Promise.all([
 		api(req).get(`/${context}/${req.params.courseId}`),
@@ -312,7 +311,7 @@ router.get('/:topicId', (req, res, next) => {
 				$populate: ['materialIds'],
 			},
 		}).then((lesson) => {
-			let etherpadPads = [];
+			const etherpadPads = [];
 			if (typeof lesson.contents !== 'undefined') {
 				lesson.contents.forEach((element) => {
 					if (element.component === 'Etherpad') {
@@ -345,7 +344,7 @@ router.get('/:topicId', (req, res, next) => {
 		req.query.courseGroup
 			? api(req).get(`/courseGroups/${req.query.courseGroup}`)
 			: Promise.resolve({}),
-	]).then(([course, lesson, homeworks, courseGroup]) => {
+	]).then(async ([course, lesson, homeworks, courseGroup]) => {
 		// decode html entities
 		lesson.contents = lesson.contents.map((element) => {
 			element.title = decode(element.title);
@@ -372,11 +371,12 @@ router.get('/:topicId', (req, res, next) => {
 		const isTeacher = isCourseTeacher || isCourseSubstitutionTeacher;
 
 		// return for consistent return
-		return res.render('topic/topic', Object.assign({}, lesson, {
+		return res.render('topic/topic', {
+			...lesson,
 			title: lesson.name,
 			context,
-			homeworks: homeworks.filter(task => !task.private),
-			myhomeworks: homeworks.filter(task => task.private),
+			homeworks: homeworks.filter((task) => !task.private),
+			myhomeworks: homeworks.filter((task) => task.private),
 			courseId: req.params.courseId,
 			isCourseGroupTopic: courseGroup._id !== undefined,
 			isTeacher,
@@ -393,7 +393,7 @@ router.get('/:topicId', (req, res, next) => {
 				url: `/${context}/${course._id}/groups/${courseGroup._id}`,
 			} : {},
 			],
-		}), (error, html) => {
+		}, (error, html) => {
 			if (error) {
 				throw new Error('error in GET /:topicId - res.render', error);
 			}
@@ -427,7 +427,7 @@ router.patch('/:topicId', async (req, res, next) => {
 	// create new Nexboard when necessary, if not simple hidden or position patch
 	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents, next);
 
-	if (data.contents) { data.contents = data.contents.filter(c => c !== undefined); }
+	if (data.contents) { data.contents = data.contents.filter((c) => c !== undefined); }
 
 	// recheck internal components by pattern
 	checkInternalComponents(data, req.headers.origin);
@@ -487,7 +487,7 @@ router.get('/add/neweditor', async (req, res, next) => {
 	res.redirect(`/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`);
 });
 
-const boolean = v => v === 1 || v === 'true' || v === true || v === '1';
+const boolean = (v) => v === 1 || v === 'true' || v === true || v === '1';
 router.patch('/:topicId/neweditor', (req, res, next) => {
 	if (req.body.hidden !== undefined) {
 		apiEditor(req).patch(`/helpers/setVisibility/${req.params.topicId}`, {

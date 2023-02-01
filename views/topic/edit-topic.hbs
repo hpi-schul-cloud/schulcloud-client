@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{getAssetPath '/styles/courses/course.css'}}" />
         <link rel="stylesheet" href="{{getAssetPath '/styles/topics/topics.css'}}" />
     {{/content}}
-
+    {{> "lib/components/files-storage/imports"}}
     {{#content "page"}}
         <section class="section-course-edit">
             <form action="{{action}}" method="post">
@@ -49,7 +49,11 @@
                     <div id="content-blocks" data-value="{{lesson.contents}}" data-parent-id="{{lesson._id}}" data-school-id="{{schoolId}}" data-parent-type="lessons" data-etherpadbaseurl="{{etherpadBaseUrl}}"
                         data-iscoursegroup="{{courseGroupId}}" data-nexboardenabled="{{#ifEnv "FEATURE_NEXBOARD_ENABLED" "true"}}true{{/ifEnv}}"></div>
                 </div>
-
+                <div class="files-storage-component">
+                    {{#embed
+                        "lib/components/files-storage/files-grid" @root.lessonFilesStorageData
+                    }}{{/embed}}
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-close historyback" data-testid="topic-discardchanges-btn">
                         {{closeLabel}}
