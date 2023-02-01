@@ -58,11 +58,6 @@ function populateModalForm(modal, data) {
 		$btnSubmit.html(data.submitLabel);
 		const dataTestId = `btn-submit-${data.title}`;
 		console.log('dataTestId', dataTestId);
-		$btnSubmit.attr('data-testid', `btn-submit-${data.title}`);
-		console.log(
-			'$btnSubmit.attr(\'data-testid\')',
-			$btnSubmit.attr('data-testid')
-		);
 		$btnSubmit.prop('data-testid', `btn-submit-${data.title}`);
 		console.log(
 			'$btnSubmit.prop(\'data-testid\')',
