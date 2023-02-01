@@ -56,6 +56,7 @@ function populateModalForm(modal, data) {
 
 	if (data.submitLabel) {
 		$btnSubmit.html(data.submitLabel);
+		$btnSubmit.prop('data-testid', `btn-submit-${data.title}`);
 	} else {
 		$btnSubmit.hide();
 	}
