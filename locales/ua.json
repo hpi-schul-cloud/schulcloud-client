@@ -1981,8 +1981,7 @@
 					"selectPersons": "Вибрати людей",
 					"selectRole": "Визначити роль",
 					"selectSchool": "Вибрати школу",
-					"teamAdmin": "Адміністратор команди",
-					"teamMember": "Член команди"
+					"teamAdmin": "Адміністратор команди"
 				},
 				"text": {
 					"addTeacherOrStudentFromYourSchool": "Додати до команди викладачів та учнів своєї школи.",
