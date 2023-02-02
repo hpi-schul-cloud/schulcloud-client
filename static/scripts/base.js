@@ -65,6 +65,11 @@ function populateModalForm(modal, data) {
 		$btnSubmit.attr('data-testid', `submit-btn-${sanitizedDataTestId}`);
 	}
 
+	if (data.closeDataTestId) {
+		const sanitizedDataTestId = data.closeDataTestId.replace(/[^A-Za-z0-9_-]*/img, '');
+		$btnClose.attr('data-testid', `cancel-btn-${sanitizedDataTestId}`);
+	}
+
 	$btnClose.html(data.closeLabel);
 
 	if (data.action) {
