@@ -459,6 +459,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					taskFilesStorageData,
 				});
 			}
+		}).catch((err) => {
+			next(err);
 		});
 	}).catch((err) => {
 		next(err);
