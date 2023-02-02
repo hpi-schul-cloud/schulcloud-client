@@ -3047,8 +3047,7 @@
 					"selectPersons": "Personen auswählen",
 					"selectRole": "Rolle angeben",
 					"selectSchool": "Schule auswählen",
-					"teamAdmin": "Team-Admin",
-					"teamMember": "Team-Mitglied"
+					"teamAdmin": "Team-Admin"
 				},
 				"text": {
 					"addedMemberFailure": "Problem beim Hinzufügen der Teilnehmer:innen",
