@@ -349,16 +349,19 @@ router.get('/new', (req, res, next) => {
 	Promise.resolve(coursesPromise).then(async (courses) => {
 		courses = courses.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 		let lessons = [];
+
 		if (req.query.course) {
-			lessonsPromise = getSelectOptions(req, 'lessons', {
+			const lessonsPromise = getSelectOptions(req, 'lessons', {
 				courseId: req.query.course,
 			});
+
 			try {
 				lessons = await lessonsPromise;
 			} catch (error) {
 				// TODO log error
 				logger.error('Error getting lessons', formatError(error));
 			}
+
 			lessons = (lessons || []).sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 		}
 		const assignment = { private: (req.query.private == 'true') };
