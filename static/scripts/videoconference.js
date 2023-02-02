@@ -34,6 +34,7 @@ const ModeratorInactiveState = Object.freeze({
 				submitLabel: $t('global.button.create'),
 				submitDataTestId: event.title,
 				closeDataTestId: event.title,
+				titleTestDataId: event.title,
 			});
 
 			$createVideoconferenceModal.appendTo('body').modal('show');
