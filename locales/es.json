@@ -1765,7 +1765,7 @@
 			"errorChangingFilePermissions": "Hay un problema para cambiar los permisos",
 			"errorWhileLoadingPage": "Esta página no se ha podido cargar",
 			"filesTooLarge": "Los archivos adjuntos superan el tamaño total máximo permitido.",
-			"fileTooLarge": "Los archivos adjuntos superan el tamaño máximo permitido.",
+			"fileTooLarge": "Los archivos adjuntos superan el tamaño máximo permitido de {{ maxFileSizeInGb }} GB.",
 			"fileWrongFormat": "'{{filename}}' no es una imagen, vídeo o archivo válido.",
 			"forThisWeNeedTheFollowingInformationFromYou": "Para ello, necesitamos la siguiente información tuya:",
 			"friday": "Viernes",
@@ -3048,8 +3048,7 @@
 					"selectPersons": "Seleccionar personas",
 					"selectRole": "Especificar rol",
 					"selectSchool": "Seleccionar escuela",
-					"teamAdmin": "Administrador del equipo",
-					"teamMember": "Miembro del equipo"
+					"teamAdmin": "Administrador del equipo"
 				},
 				"text": {
 					"addedMemberFailure": "Problema al añadir el asistente",
