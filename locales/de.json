@@ -1765,7 +1765,7 @@
 			"errorChangingFilePermissions": "Problem beim Ändern der Berechtigungen",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
 			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
-			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe!",
+			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe von {{ maxFileSizeInGb }} GB!",
 			"fileWrongFormat": "'{{filename}}' ist kein Bild, Video oder zulässige Datei!",
 			"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 			"friday": "Freitag",
