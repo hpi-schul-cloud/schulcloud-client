@@ -65,7 +65,6 @@ $(document).ready(() => {
 				startDate,
 				endDate,
 			},
-			submitDataTestId: event.title
 		});
 
 		$createEventModal.appendTo('body').modal('show');
