@@ -9,7 +9,7 @@
     </select>
     </div>
 {{/if}}
-<div class="table-wrapper {{#unless class}}table table-hover table-bordered{{/unless}}">
+<div class="{{#if isSorted}}is-sorted{{else}}{{/if}} table-wrapper {{#unless class}}table table-hover table-bordered{{/unless}}">
     <table class="{{#if class}}{{class}}{{else}}table table-hover table-bordered{{/if}}" data-testid="table_container">
         <caption class="hidden">The description of the table</caption>
         {{#if head}}
