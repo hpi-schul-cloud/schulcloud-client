@@ -5,7 +5,6 @@ const errorMessages = {
 	FILE_NAME_EXISTS: 'files._file.text.fileNameExists',
 	FILE_IS_BLOCKED: 'files._file.text.fileIsBlocked',
 	FILE_NOT_FOUND: 'files._file.text.fileNotFound',
-	FILE_TO_BIG: 'global.text.fileTooLarge',
 	INTERNAL_ERROR: 'global.text.internalProblem',
 };
 
@@ -181,6 +180,9 @@ $(document).ready(() => {
 		}
 
 		if ($form.dropzone) {
+			const maxFileSizeInGb = String((Number(maxFilesize) / 1024).toFixed(2));
+			const dictFileTooBig = $t('global.text.fileTooLarge', { maxFileSizeInGb });
+
 			$form.dropzone({
 				url: `${apiV3FileStorageBasePath}/upload/
 			${schoolId}/
@@ -190,7 +192,7 @@ $(document).ready(() => {
 				createImageThumbnails: false,
 				method: 'POST',
 				maxFilesize,
-				dictFileTooBig: errorMessages.FILE_TO_BIG,
+				dictFileTooBig,
 				init() {
 					// this is called on per-file basis
 					this.on('processing', updateUploadProcessingProgress);
