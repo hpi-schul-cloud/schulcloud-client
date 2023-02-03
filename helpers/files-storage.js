@@ -32,7 +32,7 @@ const getThumbnailIcon = (filename) => {
 	return thumbnail;
 };
 
-async function filesStorageInit(schoolId, next, parentId, parentType, req, readonly = false) {
+async function filesStorageInit(schoolId, parentId, parentType, req, readonly, next) {
 	let files = [];
 
 	if (parentId) {
