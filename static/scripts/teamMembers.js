@@ -17,10 +17,10 @@ $(document).ready(() => {
 			const key = e.target.getAttribute('key');
 			const url = window.location.pathname;
 			if (key <= 2) {
-				if (sortDirection === 'asc') {
-					window.location = `${url}?sortDirection=desc&sortBy=${key}`;
-				} else {
+				if (sortDirection === 'desc') {
 					window.location = `${url}?sortDirection=asc&sortBy=${key}`;
+				} else {
+					window.location = `${url}?sortDirection=desc&sortBy=${key}`;
 				}
 			}
 		});
@@ -28,10 +28,10 @@ $(document).ready(() => {
 
 	const className = sortDirection === 'desc' ? 'fa-caret-down' : 'fa-caret-up';
 
-		$(thClass).each((index, elem) => {
-			if (index < 3) {
-				$(elem).append(
-					$(`<i class='col-sort-icon fa ${className}'></i>`),
+	$(thClass).each((index, elem) => {
+		if (index < 3) {
+			$(elem).append(
+				$(`<i class='col-sort-icon fa ${className}'></i>`),
 				);
 			}
 		});
