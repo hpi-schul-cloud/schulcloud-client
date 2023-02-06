@@ -311,11 +311,12 @@ $(document).ready(() => {
 		const $buttonContext = $(this);
 
 		$deleteModal.appendTo('body').modal('show');
-		$deleteModal
-			.find('.modal-title')
-			.text(
-				$t('global.text.sureAboutDeleting', { name: decodingHelper($buttonContext.data('name')) }),
-			);
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', {
+				name: decodingHelper($buttonContext.data('name')),
+				interpolation: { escapeValue: false },
+			}),
+		);
 		$deleteModal
 			.find('.btn-submit')
 			.unbind('click')
