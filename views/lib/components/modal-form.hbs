@@ -9,7 +9,7 @@
                 {{#block "fields"}}{{/block}}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-close" data-testid="btn-cancel">
+                <button type="button" class="btn btn-secondary btn-close" data-testid="btn-cancel-{{title}}">
                     {{closeLabel}}
                 </button>
 
@@ -17,7 +17,7 @@
 
                 {{> "lib/components/csrfInput"}}
 
-                <button type="submit" class="btn btn-primary btn-submit" data-testid="btn-submit">
+                <button type="submit" class="btn btn-primary btn-submit" data-testid="btn-submit" >
                     {{submitLabel}}
                 </button>
             </div>

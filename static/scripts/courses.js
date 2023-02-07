@@ -335,6 +335,7 @@ $(document).ready(() => {
 						title: $t('courses._course.headline.createVideoconference', { coursename: data.course.name }),
 						closeLabel: $t('global.button.cancel'),
 						submitLabel: $t('global.button.create'),
+						submitDataTestId: data.course.name,
 					});
 				},
 			});

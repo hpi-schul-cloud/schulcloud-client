@@ -54,10 +54,25 @@ function populateModalForm(modal, data) {
 
 	$title.html(data.title);
 
+	if (data.titleDataTestId) {
+		const sanitizedDataTestId = data.titleDataTestId.replace(/[^A-Za-z0-9_-]*/img, '');
+		$title.attr('data-testid', `title-${sanitizedDataTestId}`);
+	}
+
 	if (data.submitLabel) {
 		$btnSubmit.html(data.submitLabel);
 	} else {
 		$btnSubmit.hide();
+	}
+
+	if (data.submitDataTestId) {
+		const sanitizedDataTestId = data.submitDataTestId.replace(/[^A-Za-z0-9_-]*/img, '');
+		$btnSubmit.attr('data-testid', `submit-btn-${sanitizedDataTestId}`);
+	}
+
+	if (data.closeDataTestId) {
+		const sanitizedDataTestId = data.closeDataTestId.replace(/[^A-Za-z0-9_-]*/img, '');
+		$btnClose.attr('data-testid', `cancel-btn-${sanitizedDataTestId}`);
 	}
 
 	$btnClose.html(data.closeLabel);
@@ -296,11 +311,12 @@ $(document).ready(() => {
 		const $buttonContext = $(this);
 
 		$deleteModal.appendTo('body').modal('show');
-		$deleteModal
-			.find('.modal-title')
-			.text(
-				$t('global.text.sureAboutDeleting', { name: decodingHelper($buttonContext.data('name')) }),
-			);
+		$deleteModal.find('.modal-title').text(
+			$t('global.text.sureAboutDeleting', {
+				name: decodingHelper($buttonContext.data('name')),
+				interpolation: { escapeValue: false },
+			}),
+		);
 		$deleteModal
 			.find('.btn-submit')
 			.unbind('click')
