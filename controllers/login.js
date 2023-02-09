@@ -122,7 +122,7 @@ const getNonOauthSchools = (schools) => [...schools]
 
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
-		.get('/system?onlyOauth=true')
+		.get('/systems/public?onlyOauth=true')
 		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
 }
 
