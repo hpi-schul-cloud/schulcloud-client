@@ -49,12 +49,14 @@
                     <div id="content-blocks" data-value="{{lesson.contents}}" data-parent-id="{{lesson._id}}" data-school-id="{{schoolId}}" data-parent-type="lessons" data-etherpadbaseurl="{{etherpadBaseUrl}}"
                         data-iscoursegroup="{{courseGroupId}}" data-nexboardenabled="{{#ifEnv "FEATURE_NEXBOARD_ENABLED" "true"}}true{{/ifEnv}}"></div>
                 </div>
+                {{#ifneq 0 (arrayLength @root.lessonFilesStorageData.files)}}
                 <label>{{$t "topic._topic.label.embeddedFiles" }}</label>
                 <div class="files-storage-component">
                     {{#embed
                         "lib/components/files-storage/files-grid" @root.lessonFilesStorageData
                     }}{{/embed}}
                 </div>
+                {{/ifneq}}
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-close historyback" data-testid="topic-discardchanges-btn">
                         {{closeLabel}}
