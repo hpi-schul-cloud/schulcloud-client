@@ -44,8 +44,8 @@ const editTopicHandler = (req, res, next) => {
 		}
 
 		const schoolId = res.locals.currentSchool;
-		const {filesStorage} = await filesStoragesHelper
-			.filesStorageInit(schoolId, lesson._id, 'lessons', req, false);
+		const { filesStorage } = await filesStoragesHelper
+			.filesStorageInit(schoolId, lesson._id, 'lessons', false, req);
 
 		res.render('topic/edit-topic', {
 			action,
