@@ -3158,6 +3158,7 @@
 			},
 			"label": {
 				"content": "Inhalte",
+				"embeddedFiles": "Verwendete Dateien",
 				"expandDraftTasks": "Entwürfe ein/ausklappen",
 				"expandTasks": "gestellte Aufgaben ein/ausklappen",
 				"titleOfTheTopic": "Titel des Themas"

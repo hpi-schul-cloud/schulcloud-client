@@ -3159,6 +3159,7 @@
 			},
 			"label": {
 				"content": "Contenido",
+				"embeddedFiles": "Archivos utilizados",
 				"expandDraftTasks": "Expandir/contraer los borradores",
 				"expandTasks": "Expandir/contraer las tareas establecidas",
 				"titleOfTheTopic": "Título del tema"
