@@ -451,6 +451,36 @@ $(document).ready(() => {
 			payload: userIdToRemove,
 		});
 
+		if (userIdToRemove.files && userIdToRemove.files.length > 0) {
+			const $deleteInfoText = $deleteMemberModal.find('.confirm');
+			const $deleteInfoAlert = $deleteMemberModal.find('.alert');
+			const $deleteInfoTextAlt = $deleteMemberModal.find('.confirm_alt');
+			const $fileList = $deleteMemberModal.find('.file-list');
+
+			let fileListHtmlLi = '';
+
+			for (const file of userIdToRemove.files) {
+				fileListHtmlLi = `${fileListHtmlLi}<li>${file}</li>`;
+			}
+
+			$deleteInfoText.hide();
+			$deleteInfoAlert.show();
+			$deleteInfoTextAlt.show();
+			$fileList.show();
+
+			$fileList.html(fileListHtmlLi);
+		} else {
+			const $deleteInfoText = $deleteMemberModal.find('.confirm');
+			const $deleteInfoAlert = $deleteMemberModal.find('.alert');
+			const $deleteInfoTextAlt = $deleteMemberModal.find('.confirm_alt');
+			const $fileList = $deleteMemberModal.find('.file-list');
+
+			$deleteInfoAlert.hide();
+			$deleteInfoTextAlt.hide();
+			$fileList.hide();
+			$deleteInfoText.show();
+		}
+
 		// Needed?? const $modalForm = $deleteMemberModal.find('.modal-form');
 		$deleteMemberModal.appendTo('body').modal('show');
 	});
