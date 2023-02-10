@@ -2121,6 +2121,7 @@
 		"_topic": {
 			"label": {
 				"content": "Контент",
+				"embeddedFiles": "Використані файли",
 				"titleOfTheTopic": "Назва теми",
 				"expandTasks": "Скласти завдання всередину/назовні",
 				"expandDraftTasks": "Скласти чернетки всередину/назовні"

@@ -8,20 +8,19 @@ $(document).ready(() => {
 		get: (searchParams, prop) => searchParams.get(prop),
 	});
 	const { sortDirection } = params;
-	const role = $('.dropdown-name').attr('current-user');
+	const thClass = '.is-sorted.table-wrapper .col-sort';
 
 	const sortByAscDesc = () => {
-		$('.col-sort').click((e) => {
+		$(thClass).click((e) => {
 			e.stopPropagation();
 			e.preventDefault();
-
 			const key = e.target.getAttribute('key');
 			const url = window.location.pathname;
 			if (key <= 2) {
-				if (sortDirection === 'asc') {
-					window.location = `${url}?sortDirection=desc&sortBy=${key}`;
-				} else {
+				if (sortDirection === 'desc') {
 					window.location = `${url}?sortDirection=asc&sortBy=${key}`;
+				} else {
+					window.location = `${url}?sortDirection=desc&sortBy=${key}`;
 				}
 			}
 		});
@@ -29,17 +28,15 @@ $(document).ready(() => {
 
 	const className = sortDirection === 'desc' ? 'fa-caret-down' : 'fa-caret-up';
 
-	if (role === 'Administrator') {
-		$('.col-sort').each((index, elem) => {
-			if (index < 3) {
-				$(elem).append(
-					$(`<i class='col-sort-icon fa ${className}'></i>`),
+	$(thClass).each((index, elem) => {
+		if (index < 3) {
+			$(elem).append(
+				$(`<i class='col-sort-icon fa ${className}'></i>`),
 				);
 			}
 		});
 
 		sortByAscDesc();
-	}
 
 	const handler = {
 		get(target, name) {

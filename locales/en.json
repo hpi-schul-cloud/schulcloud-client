@@ -3160,6 +3160,7 @@
 			},
 			"label": {
 				"content": "Content",
+				"embeddedFiles": "Files used",
 				"expandDraftTasks": "Fold drafts in/out",
 				"expandTasks": "Fold tasks set in/out",
 				"titleOfTheTopic": "Title of the topic"
