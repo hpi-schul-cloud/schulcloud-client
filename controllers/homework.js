@@ -349,16 +349,19 @@ router.get('/new', (req, res, next) => {
 	Promise.resolve(coursesPromise).then(async (courses) => {
 		courses = courses.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 		let lessons = [];
+
 		if (req.query.course) {
-			lessonsPromise = getSelectOptions(req, 'lessons', {
+			const lessonsPromise = getSelectOptions(req, 'lessons', {
 				courseId: req.query.course,
 			});
+
 			try {
 				lessons = await lessonsPromise;
 			} catch (error) {
 				// TODO log error
 				logger.error('Error getting lessons', formatError(error));
 			}
+
 			lessons = (lessons || []).sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 		}
 		const assignment = { private: (req.query.private == 'true') };
@@ -370,7 +373,7 @@ router.get('/new', (req, res, next) => {
 		}
 		const schoolId = res.locals.currentSchool;
 		const parentType = 'tasks';
-		const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, undefined, parentType, req);
+		const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, undefined, parentType, false, req);
 
 		// Render overview
 		res.render('homework/edit', {
@@ -421,7 +424,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			const schoolId = res.locals.currentSchool;
 			const parentId = req.params.assignmentId;
 			const parentType = 'tasks';
-			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req);
+			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, false, req);
 
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
 			if (assignment.courseId && assignment.courseId._id) {
@@ -459,6 +462,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					taskFilesStorageData,
 				});
 			}
+		}).catch((err) => {
+			next(err);
 		});
 	}).catch((err) => {
 		next(err);
@@ -536,7 +541,7 @@ router.get('/:assignmentId', (req, res, next) => {
 			};
 
 			if (submission.submitted || isCreator) {
-				const result = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req, readonly);
+				const result = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, readonly, req);
 				// eslint-disable-next-line prefer-destructuring
 				filesStorage = result.filesStorage;
 			}
@@ -664,8 +669,10 @@ router.get('/:assignmentId', (req, res, next) => {
 			}
 
 			const { schoolId, _id } = assignment;
-			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, _id, 'tasks', req, true);
+			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, _id, 'tasks', true, req);
 			res.render('homework/assignment', { ...assignment, ...renderOptions, taskFilesStorageData });
+		}).catch((err) => {
+			next(err);
 		});
 	}).catch(next);
 });
