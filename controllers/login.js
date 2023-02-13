@@ -18,7 +18,7 @@ const {
 const { LoginSchoolsCache } = require('../helpers/cache');
 
 Handlebars.registerHelper('oauthLink', (id) => {
-	const apiUrl = `${Configuration.get('API_HOST')}/v3/sso/login/${id}`;
+	const apiUrl = `${Configuration.get('API_URL')}/v3/sso/login/${id}`;
 	return apiUrl;
 });
 
