@@ -6,5 +6,6 @@
 		"HTTP_ONLY": false,
 		"SAME_SITE": "none",
 		"HOST_ONLY": true
-	}
+	},
+	"API_URL": "http://localhost:3030/api"
 }

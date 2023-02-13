@@ -30,6 +30,12 @@
 			"format": "uri",
 			"default": "http://localhost:3030/api"
 		},
+		"API_URL": {
+			"type": "string",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"description": "The server api url that is accessible from the web (should end without a slash)."
+		},
 		"CORS": {
 			"type": "boolean",
 			"default": true,
