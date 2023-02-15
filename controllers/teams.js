@@ -1054,11 +1054,16 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 		let files;
 
-		files = await api(req).get('/fileStorage', {
-			qs: {
-				owner: req.params.teamId,
-			},
-		});
+		try {
+			files = await api(req)
+				.get('/fileStorage', {
+					qs: {
+						owner: req.params.teamId,
+					},
+				});
+		} catch (e) {
+			files = null;
+		}
 
 		/* note: fileStorage can return arrays and error objects */
 		if (!Array.isArray(files)) {
@@ -1088,11 +1093,9 @@ router.get('/:teamId/members', async (req, res, next) => {
 				return 0;
 			});
 
-		team.userIds.map((user) => {
+		team.userIds.forEach((user) => {
 			user.files = files.filter((file) => file.creator === user.userId._id).map((file) => file.saveName);
-			return 0;
 		});
-
 
 		const body = team.userIds.map((user) => {
 			let actions = [];
