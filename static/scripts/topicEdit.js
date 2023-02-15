@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';
-import imageNotFound from './helpers/imageNotFound';
+import showFallbackImageOnError from './helpers/showFallbackImageOnError';
 
 /**
  * A wrapper for each block including a title field, remove, sortable, ...
@@ -476,7 +476,7 @@ class TopicText extends TopicBlock {
 			editor.commands.get('videobrowser').forceDisabled();
 		}
 
-		imageNotFound();
+		showFallbackImageOnError();
 	}
 
 	getStorageContext() {

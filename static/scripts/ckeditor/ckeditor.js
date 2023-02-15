@@ -1,5 +1,5 @@
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
-import imageNotFound from '../helpers/imageNotFound';
+import showFallbackImageOnError from '../helpers/showFallbackImageOnError';
 import ckeditorConfig from './ckeditor-config';
 
 const url = window.location.pathname;
@@ -41,7 +41,7 @@ const initEditor = async (element) => {
 		editor.commands.get('videobrowser').forceDisabled();
 	}
 
-	imageNotFound();
+	showFallbackImageOnError();
 
 	editor.model.document.on('change:data', () => {
 		editor.updateSourceElement();
