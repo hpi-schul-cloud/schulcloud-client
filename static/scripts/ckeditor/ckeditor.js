@@ -1,4 +1,5 @@
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import imageNotFound from '../helpers/imageNotFound';
 import ckeditorConfig from './ckeditor-config';
 
 const url = window.location.pathname;
@@ -39,6 +40,8 @@ const initEditor = async (element) => {
 		editor.commands.get('audiobrowser').forceDisabled();
 		editor.commands.get('videobrowser').forceDisabled();
 	}
+
+	imageNotFound();
 
 	editor.model.document.on('change:data', () => {
 		editor.updateSourceElement();
