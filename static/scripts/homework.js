@@ -4,15 +4,6 @@ import multiDownload from 'multi-download';
 import { softNavigate } from './helpers/navigation';
 import { getQueryParameters } from './helpers/queryStringParameter';
 
-function getDataValue(attr) {
-	return () => {
-		const value = $('.section-upload').data(attr);
-		return (value || undefined);
-	};
-}
-
-const getOwnerId = getDataValue('owner');
-const getCurrentParent = getDataValue('parent');
 let lastFocusedElement;
 
 window.addEventListener('keydown', (e) => {
@@ -20,15 +11,6 @@ window.addEventListener('keydown', (e) => {
 		lastFocusedElement.focus();
 	}
 });
-
-function saveTempData() {
-	const submissionId = $('#submissions').find('>.table.table-hover .usersubmission.active').attr('id');
-	const submissionRange = $(`#${submissionId}`);
-	const grade = { value: submissionRange.find("input[name='grade']").val(), submissionId };
-	const gradeComment = { value: submissionRange.find("textarea[name='gradeComment']").val(), submissionId };
-	localStorage.setItem('grade', JSON.stringify(grade));
-	localStorage.setItem('gradeComment', JSON.stringify(gradeComment));
-}
 
 window.onload = function onload() {
 	const grade = JSON.parse(localStorage.getItem('grade'));
@@ -47,13 +29,6 @@ window.onload = function onload() {
 			.ckeditorInstance.setData(gradeComment.value);
 	}
 };
-
-function isSubmissionGradeUpload() {
-	// Uses the fact that the page can only ever contain one file upload form,
-	// either nested in the submission or the comment tab. And if it is in the
-	// comment tab, then it is the submission grade upload
-	return $('#comment .section-upload').length > 0;
-}
 
 function showAJAXError(req, textStatus, errorThrown) {
 	if (textStatus === 'timeout') {
@@ -253,76 +228,6 @@ $(document).ready(() => {
 	document.querySelectorAll('.importsubmission').forEach(
 		(btn) => { btn.addEventListener('click', importSubmission); },
 	);
-
-	/**
-     * deletes the reference to the submission
-     */
-	$('a[data-method="delete-file"]').on('click', function actionDeleteFile(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		const $buttonContext = $(this);
-		const $deleteModal = $('.delete-modal');
-		const fileId = $buttonContext.data('file-id');
-
-		$deleteModal.appendTo('body').modal('show');
-		$deleteModal.find('.modal-title').text(
-			$t('homework.text.doYouReallyWantToDecoupleFileSubmission', { name: $buttonContext.data('file-name') }),
-		);
-
-		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
-			// delete reference in submission
-			const submissionId = $("input[name='submissionId']").val();
-			const teamMembers = $('#teamMembers').val();
-			$.ajax({
-				url: `/homework/submit/${submissionId}/files`,
-				data: { fileId, teamMembers },
-				type: 'DELETE',
-				success() {
-					saveTempData();
-					window.location.reload();
-				},
-				error: showAJAXError,
-			});
-		});
-	});
-
-	$('a[data-method="delete-file-homework-edit"]').on('click', function actionDeleteFileHomeworkEdit(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		const $buttonContext = $(this);
-		const $deleteModal = $('.delete-modal');
-		const fileId = $buttonContext.data('file-id');
-
-		$deleteModal.appendTo('body').modal('show');
-		$deleteModal.find('.modal-title').text(
-			$t('homework.text.doYouReallyWantToDecoupleFileHomework', { name: $buttonContext.data('file-name') }),
-		);
-
-		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
-			/*
-			// delete the file
-			$.ajax({
-				url: $buttonContext.attr('href'),
-				type: 'DELETE',
-				data: {
-					id: fileId,
-				},
-				success() {
-			*/
-			// delete reference in homework
-			const homeworkId = $("input[name='homeworkId']").val();
-			$.ajax({
-				url: `/homework/${homeworkId}/file`,
-				data: { fileId },
-				type: 'DELETE',
-				success() {
-					saveTempData();
-					window.location.reload();
-				},
-				error: showAJAXError,
-			});
-		});
-	});
 
 	// typeset all MathJAX formulas displayed
 	MathJax.Hub.Typeset(); // eslint-disable-line no-undef
