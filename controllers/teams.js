@@ -1062,11 +1062,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 					},
 				});
 		} catch (e) {
-			files = null;
-		}
-
-		/* note: fileStorage can return arrays and error objects */
-		if (!Array.isArray(files)) {
 			if ((files || {}).code) {
 				logger.warn(files);
 			}
