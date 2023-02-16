@@ -46,32 +46,6 @@ export function createFileModel(params) {
 }
 
 /**
- * Associate new file models with a submission, by updating the submission.
- * Then give read-access to all team-members of that submission.
- *
- * @param {Object} options
- * @param {ObjectId} options.submissionId The id of the submission that the file will be associated with
- * @param {[ObjectId]} options.fileIds The ids of the new file models. Results of `createFileModel`.signedUrl
- * @param {enum} options.associationType The type of file association for the new file. One of ['files', 'grade-files']
- * @param {[ObjectId]} options.teamMembers A list of ids of users that should get read access to the file
- * @returns {Promise}
- */
-export async function associateFilesWithSubmission({
-	submissionId,
-	fileIds,
-	associationType = 'files',
-	teamMembers,
-}) {
-	return $.post(
-		`/homework/submit/${submissionId}/${associationType}`,
-		{ fileIds, teamMembers },
-	).then(() => Promise.all(fileIds.map((fileId) => $.post(
-		`/homework/submit/${submissionId}/files/${fileId}/permissions`,
-		{ teamMembers },
-	))));
-}
-
-/**
  * Perform the upload flow for a file without association to a submission
  *
  * @param {Object} options

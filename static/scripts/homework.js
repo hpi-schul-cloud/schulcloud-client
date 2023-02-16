@@ -3,8 +3,6 @@ import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
 import { getQueryParameters } from './helpers/queryStringParameter';
-import { requestUploadUrl, createFileModel, associateFilesWithSubmission } from './homework/api-requests';
-import extendWithBulkUpload from './homework/bulk-upload';
 
 function getDataValue(attr) {
 	return () => {
@@ -120,8 +118,6 @@ function importSubmission(e) {
 		});
 	}
 }
-
-extendWithBulkUpload($);
 
 window.addEventListener('DOMContentLoaded', () => {
 	/* FEATHERS FILTER MODULE */
@@ -340,13 +336,6 @@ $(document).ready(() => {
 			// Clicking a link, even if it is a download link, triggers a `beforeunload` event. Undo those changes here.
 			setTimeout(() => document.querySelector('body').classList.add('loaded'), 1000);
 		});
-	});
-
-	$('.bulk-upload').connectBulkUpload({
-		successAlert: '#bulk-grading-success',
-		warningAlert: '#bulk-grading-error',
-		parent: getCurrentParent(),
-		owner: getOwnerId(),
 	});
 
 	const $dontShowAgainAlertModal = $('.dontShowAgainAlert-modal');
