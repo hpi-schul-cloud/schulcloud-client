@@ -5,27 +5,26 @@ const { NODE_ENV } = require('../config/global');
 const { format, transports, createLogger } = winston;
 
 const logLevel = Configuration.get('LOG_LEVEL');
-const colorize = NODE_ENV !== 'production';
-let formater;
+const noColor = Configuration.get('NO_COLOR');
 
+let formatter;
 if (NODE_ENV === 'test') {
-	formater = format.combine(
-		format.prettyPrint({ depth: 1, colorize }),
+	formatter = format.combine(
+		format.prettyPrint({ depth: 1, colorize: !noColor }),
 	);
 } else if (NODE_ENV === 'production') {
-	formater = format.combine(
+	formatter = format.combine(
 		format.errors({ stack: true }),
 		format.timestamp(),
 		format.json(),
 	);
 } else {
-	formater = format.combine(
+	formatter = format.combine(
 		format.errors({ stack: true }),
 		format.timestamp(),
-		format.prettyPrint({ depth: 3, colorize }),
+		format.prettyPrint({ depth: 3, colorize: !noColor }),
 	);
 }
-
 
 const logger = createLogger({
 	level: logLevel,
@@ -33,7 +32,7 @@ const logger = createLogger({
 	transports: [
 		new transports.Console({
 			level: logLevel,
-			format: formater,
+			format: formatter,
 			handleExceptions: true,
 			handleRejections: true,
 		}),
