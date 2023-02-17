@@ -1052,7 +1052,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			}
 		}
 
-		let files;
+		let files = [];
 
 		try {
 			files = await api(req)
@@ -1062,10 +1062,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 					},
 				});
 		} catch (e) {
-			if ((files || {}).code) {
-				logger.warn(files);
-			}
-			files = [];
+			logger.warn(e);
 		}
 
 		files = files.filter((file) => file);
