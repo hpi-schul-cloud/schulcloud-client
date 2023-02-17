@@ -294,6 +294,7 @@ router.get('/logout/', (req, res, next) => {
 		});
 	return authHelper.clearCookie(req, res, { destroySession: true })
 		.then(() => res.redirect('/'))
+		.then(() => window.location.reload(true))
 		.catch(next);
 });
 

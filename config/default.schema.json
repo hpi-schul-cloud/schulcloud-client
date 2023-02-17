@@ -179,12 +179,12 @@
 				},
 				"SCHOOL_SETTINGS_VISIBLE": {
 					"type": "boolean",
-					"default": false,
+					"default": true,
 					"description": "Only if enabled, school admins can activate the messenger in their school setting"
 				},
 				"SCHOOL_ROOM_ENABLED": {
 					"type": "boolean",
-					"default": false,
+					"default": true,
 					"description": "If enabled, school admins can choose to create a room for all students and teachers of the school"
 				}
 			}
