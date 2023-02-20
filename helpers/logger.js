@@ -5,7 +5,7 @@ const { NODE_ENV } = require('../config/global');
 const { format, transports, createLogger } = winston;
 
 const logLevel = Configuration.get('LOG_LEVEL');
-const noColor = Configuration.get('NO_COLOR');
+const noColor = Configuration.has('NO_COLOR') && Configuration.get('NO_COLOR');
 
 let formatter;
 if (NODE_ENV === 'test') {
