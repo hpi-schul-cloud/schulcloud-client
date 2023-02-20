@@ -2,6 +2,8 @@
 const logger = require('./logger');
 
 const tokenInjector = (req, res, next) => {
+	const newToken = req.csrfToken();
+	res.cookie('XSRF-TOKEN', newToken);
 	res.locals.csrfToken = req.csrfToken();
 	next();
 };
@@ -25,6 +27,7 @@ const duplicateTokenHandler = (req, res, next) => {
 const csrfErrorHandler = (err, req, res, next) => {
 	if (err.code === 'EBADCSRFTOKEN') {
 	  // convert body object to array
+	  res.cookie('XSRF-TOKEN', null);
 	  res.locals.csrfToken = req.csrfToken();
 	  // send base URL for opening in new tab
 	  const baseUrl = req.headers.origin;
