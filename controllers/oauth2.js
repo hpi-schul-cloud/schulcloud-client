@@ -44,8 +44,11 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		}).catch(next);
 });
 
-router.all('/logout', csrfProtection, auth.authChecker, (req) => {
-	api(req, { version: VERSION }).get('/oauth2/logoutRequest');
+router.all('/logout', csrfProtection, auth.authChecker, (req, res, next) => {
+    api(req, { version: VERSION }).get('/oauth2/logoutRequest')
+    .then((logoutRequest) => {
+        res.redirect(logoutRequest.redirect_to);
+    }).catch(next);
 });
 
 router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next) => {
