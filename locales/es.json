@@ -3034,8 +3034,10 @@
 					"reallyWantToRmClass": "¿Estás seguro de que quieres eliminar esta clase?",
 					"reallyWantToRmInvitation": "¿Estás seguro de que quieres cancelar la invitación?",
 					"reallyWantToRmUser": "¿Estás seguro de que deseas eliminar a este asistente?",
+					"reallyWantToRmUserWFiles": "¿Realmente desea eliminar este asistente y todos los archivos anteriores?",
 					"removeClass": "Eliminar clase",
 					"removeUser": "Eliminar usuario",
+					"removeUserWFilesIntro": "Va a eliminar un participante. También se eliminarán todos los archivos vinculados a ese usuario. Si no quieres perder estos archivos, cópialos antes de eliminar a attendee.",
 					"roleOfInvitedTeacher": "Rol del profesor invitado",
 					"selectRoleForMember": "Introduce el rol que se le debe dar al asistente.",
 					"sendInvitationAgain": "Reenviar invitación"
