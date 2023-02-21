@@ -292,9 +292,10 @@ router.get('/logout/', (req, res, next) => {
 		.catch((err) => {
 			logger.error('error during logout.', formatError(err));
 		});
+
 	return authHelper.clearCookie(req, res, { destroySession: true })
-		.then(() => res.redirect('/'))
-		.then(() => window.location.reload(true))
+		// eslint-disable-next-line prefer-template
+		.then(() => res.redirect('/?rand=' + Math.random()))
 		.catch(next);
 });
 
