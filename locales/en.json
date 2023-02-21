@@ -3035,8 +3035,10 @@
 					"reallyWantToRmClass": "Do you really want to remove this class?",
 					"reallyWantToRmInvitation": "Do you really want to cancel the invitation?",
 					"reallyWantToRmUser": "Do you really want to remove this attendee?",
+					"reallyWantToRmUserWFiles": "Do you really want to remove this attendee and all above files?",
 					"removeClass": "Remove class",
 					"removeUser": "Remove user",
+					"removeUserWFilesIntro": "You are going to delete attendee. All files linked to that user will also be removed. If you don't want to lose these files, copy them before deleting attendee.",
 					"roleOfInvitedTeacher": "Role of the invited teacher",
 					"selectRoleForMember": "Enter which role the attendee should be given.",
 					"sendInvitationAgain": "Resend invitation"
