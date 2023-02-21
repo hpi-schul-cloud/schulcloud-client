@@ -33,8 +33,6 @@ window.onload = function onload() {
 function showAJAXError(req, textStatus, errorThrown) {
 	if (textStatus === 'timeout') {
 		$.showNotification($t('global.text.requestTimeout'), 'danger');
-	} else if (errorThrown === 'Conflict') {
-		$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
 	} else {
 		$.showNotification(errorThrown, 'danger', 15000);
 	}
