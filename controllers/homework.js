@@ -494,8 +494,6 @@ router.get('/:assignmentId', (req, res, next) => {
 				&& assignment.submittable);
 		}
 
-		// file upload path, todo: maybe use subfolders
-		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
 		const promises = [
 			// Abgaben auslesen
 			api(req).get('/submissions/', {
@@ -601,7 +599,6 @@ router.get('/:assignmentId', (req, res, next) => {
 				students,
 				courseGroups,
 				courseGroupSelected,
-				path: submissionUploadPath,
 			};
 
 			// Abgabenübersicht anzeigen -> weitere Daten berechnen
