@@ -448,6 +448,31 @@ $(document).ready(() => {
 			payload: userIdToRemove,
 		});
 
+		const $deleteInfoText = $deleteMemberModal.find('.confirm');
+		const $deleteInfoAlert = $deleteMemberModal.find('.alert');
+		const $deleteInfoTextAlt = $deleteMemberModal.find('.confirm_alt');
+		const $fileList = $deleteMemberModal.find('.file-list');
+
+		if (userIdToRemove.files && userIdToRemove.files.length > 0) {
+			let fileListHtmlLi = '';
+
+			for (const file of userIdToRemove.files) {
+				fileListHtmlLi += `<li>${file}</li>`;
+			}
+
+			$deleteInfoText.hide();
+			$deleteInfoAlert.show();
+			$deleteInfoTextAlt.show();
+			$fileList.show();
+
+			$fileList.html(fileListHtmlLi);
+		} else {
+			$deleteInfoAlert.hide();
+			$deleteInfoTextAlt.hide();
+			$fileList.hide();
+			$deleteInfoText.show();
+		}
+
 		// Needed?? const $modalForm = $deleteMemberModal.find('.modal-form');
 		$deleteMemberModal.appendTo('body').modal('show');
 	});
