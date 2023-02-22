@@ -10,5 +10,5 @@
 	"FEATURE_LOG_REQUEST": true,
 	"FEATURE_PROMETHEUS_ENABLED": true,
 	"FEATURE_ALERTS_ENABLED": true,
-	"API_URL": "http://localhost:3030/api"
+	"PUBLIC_BACKEND_URL": "http://localhost:3030/api"
 }

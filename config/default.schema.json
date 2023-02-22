@@ -30,7 +30,7 @@
 			"format": "uri",
 			"default": "http://localhost:3030/api"
 		},
-		"API_URL": {
+		"PUBLIC_BACKEND_URL": {
 			"type": "string",
 			"format": "uri",
 			"pattern": ".*(?<!/)$",

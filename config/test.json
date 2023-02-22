@@ -7,5 +7,5 @@
 		"SAME_SITE": "none",
 		"HOST_ONLY": true
 	},
-	"API_URL": "http://localhost:3030/api"
+	"PUBLIC_BACKEND_URL": "http://localhost:3030/api"
 }
