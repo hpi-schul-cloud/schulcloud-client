@@ -27,9 +27,10 @@
   }
 
   .card.folder {
-	width: 100%;
+    width: 100%;
     padding: 10px;
     width: 100%;
+
     &:hover {
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
       background: #f9f9f9;
@@ -54,7 +55,7 @@
   }
 
   .card-title-directory {
-	float: left;
+    float: left;
     color: $primaryColor;
   }
 }
@@ -69,6 +70,7 @@
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.8);
+
   .link {
     color: #ffffff;
     font-size: 30px;
@@ -140,17 +142,19 @@
       padding: 7px 7px 0 7px;
       vertical-align: text-top;
       color: #ccc;
+
       &:hover {
         color: $primaryColor;
       }
     }
 
-    .fa-exclamation-triangle{
+    .fa-exclamation-triangle {
       color: $colorDanger;
     }
 
     .card-block {
       padding: 10px;
+
       a:hover {
         text-decoration: none;
       }
@@ -198,6 +202,7 @@
   position: absolute;
   z-index: 5;
   word-wrap: break-word;
+
   .filter-option {
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.1rem;
@@ -291,7 +296,7 @@
   bottom: 10%;
   border-radius: 5px;
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
-  0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
 }
 
 .popup-overlay.active {
@@ -319,37 +324,37 @@
   padding: 0px;
 }
 
-
-
 .order-sel {
   margin-top: 2px;
   width: auto;
   display: inline-flex;
 }
 
-.btn {
-	margin-bottom: 0.5rem;
+.route-files {
+  .btn {
+    margin-bottom: 0.5rem;
 
-	.tag {
-		background-color: $secondaryColor;
-		border-radius: 20px;
-		padding: 1px 6px;
-		font-size: 10pt;
-		color: $colorWhite;
-		margin-left: 4px;
-	}
-}
+    .tag {
+      background-color: $secondaryColor;
+      border-radius: 20px;
+      padding: 1px 6px;
+      font-size: 10pt;
+      color: $colorWhite;
+      margin-left: 4px;
+    }
+  }
 
-.info-custom {
-	background-color: $colorGrey;
-	border-color: $colorLightGrey;
-	color: $fontColor;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 18px;
+  .info-custom {
+    background-color: $colorGrey;
+    border-color: $colorLightGrey;
+    color: $fontColor;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
 
-	i {
-		margin: auto;
-	}
+    i {
+      margin: auto;
+    }
+  }
 }
