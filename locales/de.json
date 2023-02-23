@@ -3035,8 +3035,10 @@
 					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
 					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
 					"reallyWantToRmUser": "Möchtest du diese/n Teilnehmer:in wirklich entfernen?",
+					"reallyWantToRmUserWFiles": "Möchtest du diese/n Teilnehmer:in und sein Dateien wirklich entfernen?",
 					"removeClass": "Klasse entfernen",
 					"removeUser": "Nutzer:in entfernen",
+					"removeUserWFilesIntro": "Sie werden einen Teilnehmer löschen. Alle Dateien, die mit diesem Benutzer verknüpft sind, werden ebenfalls entfernt. Wenn Sie diese Dateien nicht verlieren möchten, kopieren Sie sie vor dem Löschen des Teilnehmers.",
 					"roleOfInvitedTeacher": "Rolle der eingeladenen Lehrkraft",
 					"selectRoleForMember": "Gib ein, welche Rolle der/die Teilnehmer:in erhalten soll.",
 					"sendInvitationAgain": "Einladung erneut versenden"
@@ -3158,6 +3160,7 @@
 			},
 			"label": {
 				"content": "Inhalte",
+				"embeddedFiles": "Verwendete Dateien",
 				"expandDraftTasks": "Entwürfe ein/ausklappen",
 				"expandTasks": "gestellte Aufgaben ein/ausklappen",
 				"titleOfTheTopic": "Titel des Themas"

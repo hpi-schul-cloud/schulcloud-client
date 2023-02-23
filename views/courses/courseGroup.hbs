@@ -50,14 +50,12 @@
 							<p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
 							{{#unless course.isArchived}}
 							<div class="right-btn-group">
-								{{#if @root.isTeacher}}
-									<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
-										href="/courses/{{../courseId}}/topics/{{_id}}?courseGroup={{../_id}}"
-										target="_blank" data-method="DELETE" data-name="{{this.name}}"
-										redirect="/courses/{{../courseId}}/groups/{{../_id}}">
-										<i class="fa fa-trash-o"></i>
-									</a>
-								{{/if}}
+								<a class="delete-topic btn btn-secondary btn-sm btn-icon-card"
+									href="/courses/{{../courseId}}/topics/{{_id}}?courseGroup={{../_id}}"
+									target="_blank" data-method="DELETE" data-name="{{this.name}}"
+									redirect="/courses/{{../courseId}}/groups/{{../_id}}">
+									<i class="fa fa-trash-o"></i>
+								</a>
 								<a class="btn btn-secondary btn-sm btn-icon-card"
 									href="/courses/{{../courseId}}/topics/{{_id}}/edit?courseGroup={{../_id}}&returnUrl=courses/{{../courseId}}/groups/{{../_id}}"
 									title="{{$t "global.button.editTopic"}}">

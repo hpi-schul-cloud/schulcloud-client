@@ -51,6 +51,9 @@
 .alert-warning {
   @include alert-variant($alert-warning-bg, $alert-warning-border, $alert-warning-text);
 }
+.alert-warning-v2 {
+	@include alert-variant($alert-warning-v2-bg, $alert-warning-v2-border, $alert-warning-v2-text);
+}
 .alert-danger {
   @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
 }
