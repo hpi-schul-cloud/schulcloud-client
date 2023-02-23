@@ -286,6 +286,23 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	return null;
 });
 
+// eslint-disable-next-line consistent-return
+const sessionDestroyer = (req, res, rej, next) => {
+	if (req.url === '/logout') {
+		req.session.destroy((err) => {
+			if (err) {
+				rej(`Error destroying session: ${err}`);
+			} else {
+				// clear the CSRF token to prevent re-use after logout
+				res.locals.csrfToken = null;
+			}
+			return next();
+		});
+	} else {
+		return next();
+	}
+};
+
 router.get('/logout/', (req, res, next) => {
 	api(req)
 		.del('/authentication') // async, ignore result
@@ -293,7 +310,7 @@ router.get('/logout/', (req, res, next) => {
 			logger.error('error during logout.', formatError(err));
 		});
 
-	return authHelper.clearCookie(req, res, { destroySession: true })
+	return authHelper.clearCookie(req, res, sessionDestroyer)
 		// eslint-disable-next-line prefer-template
 		.then(() => res.redirect('/?rand=' + Math.random()))
 		.catch(next);
