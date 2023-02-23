@@ -845,36 +845,6 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 		.catch(next);
 });
 
-router.post('/:courseId/importTopic', (req, res, next) => {
-	const { shareToken } = req.body;
-	// try to find topic for given shareToken
-	api(req)
-		.get('/lessons/', { qs: { shareToken } })
-		.then((lessons) => {
-			if ((lessons.data || []).length <= 0) {
-				req.session.notification = {
-					type: 'danger',
-					message: res.$t('global.text.noTopicFoundWithCode'),
-				};
-
-				redirectHelper.safeBackRedirect(req, res);
-			}
-
-			api(req)
-				.post('/lessons/copy', {
-					json: {
-						lessonId: lessons.data[0]._id,
-						newCourseId: req.params.courseId,
-						shareToken,
-					},
-				})
-				.then(() => {
-					redirectHelper.safeBackRedirect(req, res);
-				});
-		})
-		.catch((err) => res.status(err.statusCode || 500).send(err));
-});
-
 router.get('/:courseId/edit', editCourseHandler);
 
 router.get('/:courseId/copy', copyCourseHandler);

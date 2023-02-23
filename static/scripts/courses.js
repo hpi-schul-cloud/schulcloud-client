@@ -106,23 +106,6 @@ $(document).ready(() => {
 		});
 	});
 
-	$('.btn-import-topic').click(function importTopic(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		const courseId = $(this).attr('data-courseId');
-		const $importModal = $('.import-modal');
-		populateModalForm($importModal, {
-			title: $t('courses._course.topic.headline.importTopic'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.save'),
-			fields: { courseId },
-		});
-
-		const $modalForm = $importModal.find('.modal-form');
-		$modalForm.attr('action', `/courses/${courseId}/importTopic`);
-		$importModal.appendTo('body').modal('show');
-	});
-
 	$('.move-handle').click((e) => {
 		e.stopPropagation();
 	});

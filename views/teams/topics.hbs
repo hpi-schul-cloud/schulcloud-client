@@ -33,11 +33,6 @@
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 <span class="hidden-lg-down">{{$t "courses._course.topic.text.addTopic"}}</span>
             </a>
-            <button data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic"
-                title="{{$t "courses._course.topic.button.importTopic"}}">
-                <i class="fa fa-exchange" aria-hidden="true"></i>
-                <span class="hidden-lg-down">{{$t "courses._course.topic.text.importTopic"}}</span>
-            </button>
             {{/userHasPermission}}
             <h2 class="h4">{{$t "global.headline.topics"}}</h2>
 
@@ -69,10 +64,6 @@
                                     <a class="btn btn-secondary btn-sm move-handle" title="Thema verschieben">
                                         <i class="fa fa-arrows" aria-hidden="true"></i>
                                     </a>
-                                    <a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
-                                        class="btn btn-secondary btn-sm btn-create-share" title="Thema teilen">
-                                        <i class="fa fa-share-alt" aria-hidden="true"></i>
-                                    </a>
                                 </div>
                                 {{/userHasPermission}}
                             </div>
@@ -99,10 +90,6 @@
                                     <button class="btn btn-secondary btn-sm move-handle" title="{{$t "courses._course.topic.text.moveTopic"}}">
                                         <i class="fa fa-arrows" aria-hidden="true"></i>
                                     </button>
-                                    <a href="#0" data-href="{{../_id}}" data-courseId="{{../courseId}}"
-                                        class="btn btn-secondary btn-sm btn-create-share" title="{{$t "courses._course.topic.text.shareTopic"}}">
-                                        <i class="fa fa-share-alt" aria-hidden="true"></i>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +160,7 @@
                 <h2 class="h4">
                     <small title="{{$t "teams.topics.headline.collapse/ExpandStudentGroups"}}"><i class="fa fa-chevron-right collapse-icon"
                             aria-hidden="true"></i></small>
-                    {{{$t "teams.topics.text.schoolGroups"}}} 
+                    {{{$t "teams.topics.text.schoolGroups"}}}
                     <small>{{$t "teams.topics.text.group"}}</small>
                 </h2>
             </a>
@@ -265,12 +252,6 @@
                     {{> "teams/forms/form-invitation"}}
                 {{/content}}
             {{/embed}} --}}
-
-    {{#embed "lib/components/modal-form" class="import-modal"}}
-    {{#content "fields"}}
-    {{> "teams/forms/form-import-topic"}}
-    {{/content}}
-    {{/embed}}
 
     {{#embed "lib/components/modal-form" class="share-topic-modal"}}
     {{#content "fields"}}

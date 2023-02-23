@@ -1426,36 +1426,6 @@ router.patch('/:teamId/positions', (req, res, next) => {
 	res.sendStatus(200);
 });
 
-router.post('/:teamId/importTopic', (req, res, next) => {
-	const { shareToken } = req.body;
-	// try to find topic for given shareToken
-	api(req)
-		.get('/lessons/', { qs: { shareToken } })
-		.then((lessons) => {
-			if ((lessons.data || []).length <= 0) {
-				req.session.notification = {
-					type: 'danger',
-					message: res.$t('global.text.noTopicFoundWithCode'),
-				};
-
-				redirectHelper.safeBackRedirect(req, res);
-			}
-
-			api(req)
-				.post('/lessons/copy', {
-					json: {
-						lessonId: lessons.data[0]._id,
-						newTeamId: req.params.teamId,
-						shareToken,
-					},
-				})
-				.then(() => {
-					redirectHelper.safeBackRedirect(req, res);
-				});
-		})
-		.catch((err) => res.status(err.statusCode || 500).send(err));
-});
-
 // return shareToken
 router.get('/:id/share', (req, res, next) => api(req)
 	.get(`/teams/share/${req.params.id}`)

@@ -24,13 +24,6 @@
                 <div class="row padding-top">
                     <div class="col-sm-12">
                         <div class="pull-right">
-                            {{#ifConfig "FEATURE_TOPIC_SHARE_IMPORT" true}}
-                            <a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
-                                class="btn btn-sm btn-add btn-secondary btn-create-share"
-                                role="button"
-                                aria-label="{{$t "topic._topic.text.shareWithOthersTeachers" }}">
-                                <i class="fa fa-share-alt"></i>
-                            </a>
                             {{/ifConfig}}
                             <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
                                 class="btn btn-secondary btn-sm btn-add"
@@ -113,12 +106,14 @@
                     <div class="row padding-top">
                         <div class="col-sm-12">
                             <div class="pull-right">
+                                <p>TODO REMOVE START</p>
                                 {{#ifConfig "FEATURE_TOPIC_SHARE_IMPORT" true}}
                                 <a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
                                     class="btn btn-add btn-secondary btn-create-share">
                                     <i class="fa fa-share-alt"></i>
                                     {{$t "topic._topic.text.shareWithOthersTeachers" }}
                                 </a>
+                                <p>TODO REMOVE END</p>
                                 {{/ifConfig}}
                                 <a href="/{{../context}}/{{../courseId}}/topics/{{../_id}}/edit"
                                     class="btn btn-add btn-primary">{{$t "global.button.edit" }}</a>
