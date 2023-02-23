@@ -99,7 +99,13 @@ app.set('view cache', true);
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
-	const morganLogFormat = Configuration.get('MORGAN_LOG_FORMAT');
+	let morganLogFormat = Configuration.get('MORGAN_LOG_FORMAT');
+	const noColor = Configuration.has('NO_COLOR') && Configuration.get('NO_COLOR');
+
+	if (morganLogFormat === 'dev' && noColor) {
+		morganLogFormat = ':method :url :status :response-time ms - :res[content-length]';
+	}
+
 	app.use(morgan(morganLogFormat, {
 		skip(req, res) {
 			return req && ((req.route || {}).path || '').includes('tsp-login');
