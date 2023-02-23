@@ -188,7 +188,7 @@ $(document).ready(() => {
 	if ($form.dropzone) {
 		const maxFilesize = $('.section-upload').data('maxFileSize');
 
-		const maxFileSizeInGb = String((Number(maxFilesize) / 1024 / 1024 / 1024).toFixed(2));
+		const maxFileSizeInGb = String((Number(maxFilesize) / 1000 / 1000 / 1000).toFixed(2));
 		const dictFileTooBig = $t('global.text.fileTooLarge', { maxFileSizeInGb });
 
 		$form.dropzone({
