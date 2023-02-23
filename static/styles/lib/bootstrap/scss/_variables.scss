@@ -598,6 +598,10 @@ $state-warning-bg:               #fcf8e3 !default;
 $mark-bg:                        $state-warning-bg !default;
 $state-warning-border:           darken($state-warning-bg, 5%) !default;
 
+$state-warning-v2-text:          rgb(0,0,0) !default;
+$state-warning-v2-bg: 					 rgba(255, 131, 17, 0.12) !default;
+$state-warning-v2-border:        darken($state-warning-v2-bg, 5%) !default;
+
 $state-danger-text:              #a94442 !default;
 $state-danger-bg:                #f2dede !default;
 $state-danger-border:            darken($state-danger-bg, 5%) !default;
@@ -730,6 +734,10 @@ $alert-info-border:           $state-info-border !default;
 $alert-warning-bg:            $state-warning-bg !default;
 $alert-warning-text:          $state-warning-text !default;
 $alert-warning-border:        $state-warning-border !default;
+
+$alert-warning-v2-bg: 				$state-warning-v2-bg !default;
+$alert-warning-v2-text: 			$state-warning-v2-text !default;
+$alert-warning-v2-border:     $state-warning-v2-border !default;
 
 $alert-danger-bg:             $state-danger-bg !default;
 $alert-danger-text:           $state-danger-text !default;
