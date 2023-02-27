@@ -64,6 +64,7 @@ function writeFileSizePretty(orgFilesize) {
 	let iterator = 0;
 
 	while (filesize > 1024) {
+		// We use the Windows convention here that file sizes are measured in KB (1KB = 1024B, instead of 1kB = 1000B).
 		filesize = Math.round((filesize / 1024) * 100) / 100;
 		iterator += 1;
 	}
@@ -188,7 +189,8 @@ $(document).ready(() => {
 	if ($form.dropzone) {
 		const maxFilesize = $('.section-upload').data('maxFileSize');
 
-		const maxFileSizeInGb = String((Number(maxFilesize) / 1000 / 1000 / 1000).toFixed(2));
+		// We use the Windows convention here that file sizes are measured in KB (1KB = 1024B, instead of 1kB = 1000B).
+		const maxFileSizeInGb = String((Number(maxFilesize) / 1024 / 1024 / 1024).toFixed(2));
 		const dictFileTooBig = $t('global.text.fileTooLarge', { maxFileSizeInGb });
 
 		$form.dropzone({
