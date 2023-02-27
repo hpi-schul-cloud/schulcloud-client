@@ -286,7 +286,6 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	return null;
 });
 
-// eslint-disable-next-line consistent-return
 const sessionDestroyer = (req, res, rej, next) => {
 	if (req.url === '/logout') {
 		req.session.destroy((err) => {
@@ -296,11 +295,9 @@ const sessionDestroyer = (req, res, rej, next) => {
 				// clear the CSRF token to prevent re-use after logout
 				res.locals.csrfToken = null;
 			}
-			return next();
 		});
-	} else {
-		return next();
 	}
+	return next();
 };
 
 router.get('/logout/', (req, res, next) => {
