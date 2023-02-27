@@ -306,7 +306,6 @@ router.get('/logout/', (req, res, next) => {
 		.catch((err) => {
 			logger.error('error during logout.', formatError(err));
 		});
-
 	return authHelper.clearCookie(req, res, sessionDestroyer)
 		.then(() => res.redirect(`/?rand=${Math.random()}`))
 		.catch(next);
