@@ -29,6 +29,7 @@ router.get('/events/', (req, res, next) => {
 	api(req).get('/calendar/', {
 		qs: {
 			all: true,
+			admin: false,
 		},
 	}).then((events) => {
 		Promise.all(events.map((event) => recurringEventsHelper.mapEventProps(event, req))).then((responseEvents) => {
