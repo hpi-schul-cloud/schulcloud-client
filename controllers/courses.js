@@ -13,7 +13,6 @@ const { EDITOR_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
-const redirectHelper = require('../helpers/redirect');
 const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 
@@ -848,31 +847,5 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 router.get('/:courseId/edit', editCourseHandler);
 
 router.get('/:courseId/copy', copyCourseHandler);
-
-// return shareToken
-router.get('/:id/share', (req, res, next) => api(req)
-	.get(`/courses-share/${req.params.id}`)
-	.then((course) => res.json(course)));
-
-// return course Name for given shareToken
-router.get('/share/:id', (req, res, next) => api(req)
-	.get('/courses-share', { qs: { shareToken: req.params.id } })
-	.then((name) => res.json({ msg: name, status: 'success' }))
-	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
-
-router.post('/import', (req, res, next) => {
-	const { shareToken } = req.body;
-	const courseName = req.body.name;
-
-	api(req)
-		.post('/courses-share', { json: { shareToken, courseName } })
-		.then((course) => {
-			if (course.errors && course.message && course.code) {
-				throw course;
-			}
-			res.redirect(`/courses/${course._id}/edit/`);
-		})
-		.catch(next);
-});
 
 module.exports = router;
