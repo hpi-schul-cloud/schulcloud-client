@@ -2181,8 +2181,6 @@
 		},
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "By activating this option, the submissions of all course participants will be visible to all other students in the course.",
-			"bulkGradingError": "Submissions could not be assigned to all files based on the name. Go to comments/grading to assign the following files to the respective submission:",
-			"bulkGradingSuccess": "Task could be assigned to all files. Please reload page.",
 			"creatorCanNotBeRemoved": "You cannot remove the creator of the task!",
 			"done": "Great! You've completed your task!",
 			"doYouReallyWantToDelete": "Are you sure you want to delete '{{name}}'?",
