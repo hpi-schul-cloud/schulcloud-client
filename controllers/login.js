@@ -233,6 +233,16 @@ router.all('/login/superhero/', (req, res, next) => {
 		.catch(next);
 });
 
+const sessionDestroyer = (req) => new Promise((resolve, reject) => {
+	req.session.destroy((err) => {
+		if (err) {
+			reject(err);
+		} else {
+			resolve();
+		}
+	});
+});
+
 router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	if (res.locals.currentUser) {
 		if (res.locals.currentPayload.forcePasswordChange) {
@@ -253,12 +263,13 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 			});
 
 		if (consentStatus === 'ok' && haveBeenUpdated === false) {
+			await sessionDestroyer(req);
 			return res.redirect(redirectUrl);
 		}
 		// make sure fistLogin flag is not set
+		await sessionDestroyer(req);
 		return res.redirect('/firstLogin');
 	}
-
 	// if this happens: SSO
 	const {
 		accountId,
