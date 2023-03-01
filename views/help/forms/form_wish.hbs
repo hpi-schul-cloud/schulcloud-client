@@ -7,8 +7,8 @@
 <center>
 <label class="form-group col-md-6">
 		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.eachTopicSeparate"}}</span>
-		<select class="form-control" name="problemArea" class="problemArea" aria-placeholder={{$t "help.contact.text.chooseArea"}}>
-			<option value="" disabled selected hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
+		<select class="form-control" name="problemArea" class="problemArea" data-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" aria-placeholder={{$t "help.chooseTopicArea.text.chooseArea"}} multiple required>
+			<option value="" disabled hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
 			<option value="Aufgaben">{{$t "help.chooseTopicArea.text.pTasks"}}</option>
 			<option value="Authentifizierung">{{$t "help.chooseTopicArea.text.pAuthentication"}}</option>
 			<option value="Dateien">{{$t "help.chooseTopicArea.text.pMyFiles"}}</option>
