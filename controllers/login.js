@@ -307,7 +307,8 @@ router.get('/logout/', (req, res, next) => {
 			logger.error('error during logout.', formatError(err));
 		});
 	return authHelper.clearCookie(req, res, sessionDestroyer)
-		.then(() => res.redirect(`/?rand=${Math.random()}`))
+		// eslint-disable-next-line prefer-template, no-return-assign
+		.then(() => res.statusCode = 307)
 		.catch(next);
 });
 
