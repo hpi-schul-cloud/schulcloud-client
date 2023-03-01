@@ -2176,8 +2176,6 @@
 		},
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "Al activar esta opción, los envíos de todos los participantes del curso serán visibles para todos los demás estudiantes del curso.",
-			"bulkGradingError": "Los envíos no se han podido asignar a todos los archivos según el nombre. Ve a comentarios/calificación para asignar los siguientes archivos al envío respectivo:",
-			"bulkGradingSuccess": "Se pueden asignar las tareas a todos los archivos. Vuelve a cargar la página.",
 			"creatorCanNotBeRemoved": "¡No puedes eliminar al creador de la tarea!",
 			"done": "¡Genial! ¡Has completado tu tarea!",
 			"doYouReallyWantToDelete": "¿Estás seguro de que deseas eliminar '{{name}}'?",
