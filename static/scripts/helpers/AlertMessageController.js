@@ -9,6 +9,8 @@ function getIconTag(status) {
 			return '<i class="fa fa-exclamation-circle text-danger"></i>';
 		case 'done':
 			return '<i class="fa fa-check-circle text-success"></i>';
+		case 'warning':
+			return '<i class="fa fa-check-circle text-warning"></i>';
 		default:
 			return '<i class="fa fa-info-circle text-info"></i>';
 	}
@@ -31,15 +33,15 @@ class AlertMessageController {
 			messageText = message.text;
 		}
 
-		// if message includes url
-		let url = '';
-		if (message.url) {
-			url = `
-				<a href="${message.url}" rel="noopener" target="_blank" style="float: right;">
-					${message.url.replace(/(^\w+:|^)\/\//, '')}
-				</a>
-				`;
-		}
+		// // if message includes url
+		// let url = '';
+		// if (message.url) {
+		// 	url = `
+		// 		<a href="${message.url}" rel="noopener" target="_blank" style="float: right;">
+		// 			${message.url.replace(/(^\w+:|^)\/\//, '')}
+		// 		</a>
+		// 		`;
+		// }
 
 		const item = document.createElement('div');
 		if (this.loggedin) {
@@ -50,14 +52,12 @@ class AlertMessageController {
 			</div>
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
-			${url}
 			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			<div class="text-muted" style="float: left;">${datetime.toDateTimeString(message.timestamp)}</div> <br>
 			${messageText}
-			${url}
 			<div style="clear: both;"></div>`;
 		}
 		return item;
