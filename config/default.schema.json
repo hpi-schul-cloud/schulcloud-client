@@ -45,13 +45,13 @@
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage when not loggedin."
 		},
-		"GLOBAL_ANNOUNCEMENT_TEACHER": {
+		"GLOBAL_ANNOUNCEMENT_TEXT": {
 			"type": "string",
-			"description": "global announcement, shown only to teacher"
+			"description": "global announcement, shown to all user roles specified in GLOBAL_ANNOUNCEMENT_ROLES"
 		},
-		"GLOBAL_ANNOUNCEMENT": {
+		"GLOBAL_ANNOUNCEMENT_ROLES": {
 			"type": "string",
-			"description": "global announcement, shown as notification in header on startpage"
+			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
 		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
 			"type": "string",
