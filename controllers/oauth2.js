@@ -45,7 +45,7 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 });
 
 router.all('/logout', csrfProtection, auth.authChecker, (req) => {
-	req.session.destroy();
+	req.logout();
     res.clearCookie('csrfToken');
 	api(req, { version: VERSION }).get('/oauth2/logoutRequest');
 });
@@ -54,7 +54,7 @@ router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next
 	const body = {
 		redirect_to: '',
 	};
-	req.session.destroy();
+	req.logout();
     res.clearCookie('csrfToken');
 	return api(req, { version: VERSION }).patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { body })
 		.then((logoutRequest) => res.redirect(logoutRequest.redirect_to)).catch(next);
