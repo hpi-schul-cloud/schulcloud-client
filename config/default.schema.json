@@ -51,7 +51,7 @@
 		},
 		"GLOBAL_ANNOUNCEMENT_ROLES": {
 			"type": "string",
-			"description": "roles the text in GLOBAL_ANNOUNCEMENT_TEXT should be shown to"
+			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
 		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
 			"type": "string",
