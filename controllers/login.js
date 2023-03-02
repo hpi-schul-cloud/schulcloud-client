@@ -233,6 +233,16 @@ router.all('/login/superhero/', (req, res, next) => {
 		.catch(next);
 });
 
+const destroyer = (req) => new Promise((resolve, reject) => {
+	req.session.destroy((err) => {
+		if (err) {
+			reject(err);
+		} else {
+			resolve();
+		}
+	});
+});
+
 router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 	if (res.locals.currentUser) {
 		if (res.locals.currentPayload.forcePasswordChange) {
@@ -253,9 +263,11 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 			});
 
 		if (consentStatus === 'ok' && haveBeenUpdated === false) {
+			await destroyer(req);
 			return res.redirect(redirectUrl);
 		}
 		// make sure fistLogin flag is not set
+		await destroyer(req);
 		return res.redirect('/firstLogin');
 	}
 
@@ -287,7 +299,7 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 });
 
 const sessionDestroyer = (req, res, rej, next) => {
-	if (req.url === "/logout") {
+	if (req.url === '/logout') {
 		req.session.destroy((err) => {
 			if (err) {
 				rej(`Error destroying session: ${err}`);
@@ -300,15 +312,18 @@ const sessionDestroyer = (req, res, rej, next) => {
 	return next();
 };
 
-router.get("/logout/", (req, res, next) => {
+router.get('/logout/', (req, res, next) => {
 	api(req)
-		.del("/authentication") // async, ignore result
+		.del('/authentication') // async, ignore result
 		.catch((err) => {
-			logger.error("error during logout.", formatError(err));
+			logger.error('error during logout.', formatError(err));
 		});
-	return authHelper
-		.clearCookie(req, res, sessionDestroyer)
-		.then(() => res.redirect(`/?rand=${Math.random()}`))
+	return authHelper.clearCookie(req, res, sessionDestroyer)
+		// eslint-disable-next-line prefer-template, no-return-assign
+		.then(() => {
+		res.statusCode = 307;
+		res.redirect('/');
+		})
 		.catch(next);
 });
 
