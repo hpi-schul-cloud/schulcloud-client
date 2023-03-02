@@ -45,6 +45,10 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 });
 
 router.all('/logout', csrfProtection, auth.authChecker, (req) => {
+	req.session.destroy(() => {
+		res.clearCookie("connect.sid");
+		res.locals.csrfToken = null;
+	  });
 	api(req, { version: VERSION }).get('/oauth2/logoutRequest');
 });
 
