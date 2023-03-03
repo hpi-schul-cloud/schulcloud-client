@@ -31,7 +31,7 @@ const sessionDestroyer = (req, res, rej, next) => {
 	return next();
 };
 
-router.get('/login', csrfProtection, sessionDestroyer,(req, res, next) => api(req, { version: VERSION })
+router.get('/login', csrfProtection,(req, res, next) => api(req, { version: VERSION })
 	.get(`/oauth2/loginRequest/${req.query.login_challenge}`).then((loginRequest) => {
 		req.session.login_challenge = req.query.login_challenge;
 		if (loginRequest.skip) {
@@ -58,7 +58,7 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		}).catch(next);
 });
 
-router.all('/logout', csrfProtection, auth.authChecker, (req) => {
+router.all('/logout', csrfProtection, auth.authChecker, sessionDestroyer, (req) => {
 	api(req, { version: VERSION }).get('/oauth2/logoutRequest');
 });
 
