@@ -17,12 +17,22 @@ const getVersion = () => {
 
 const VERSION = getVersion();
 
-router.get('/login', csrfProtection, (req, res, next) => api(req, { version: VERSION })
+const sessionDestroyer = (req, res, rej, next) => {
+	if (req.url === "/login") {
+		req.session.destroy((err) => {
+			if (err) {
+				rej(`Error destroying session: ${err}`);
+			} else {
+				// clear the CSRF token to prevent re-use after logout
+				res.locals.csrfToken = null;
+			}
+		});
+	}
+	return next();
+};
+
+router.get('/login', csrfProtection, sessionDestroyer,(req, res, next) => api(req, { version: VERSION })
 	.get(`/oauth2/loginRequest/${req.query.login_challenge}`).then((loginRequest) => {
-		req.session.destroy(() => {
-			res.clearCookie("connect.sid");
-			res.locals.csrfToken = null;
-		})
 		req.session.login_challenge = req.query.login_challenge;
 		if (loginRequest.skip) {
 			return res.redirect('/oauth2/login/success');
