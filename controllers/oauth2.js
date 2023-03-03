@@ -18,7 +18,7 @@ const getVersion = () => {
 const VERSION = getVersion();
 
 const sessionDestroyer = (req, res, rej, next) => {
-	if (req.url === "/login") {
+	if (req.url === "/logout") {
 		req.session.destroy((err) => {
 			if (err) {
 				rej(`Error destroying session: ${err}`);
