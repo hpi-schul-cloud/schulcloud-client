@@ -18,11 +18,7 @@ const getVersion = () => {
 const VERSION = getVersion();
 
 const sessionDestroyer = (req, res, rej, next) => {
-<<<<<<< HEAD
 	if (req.url === "/logout") {
-=======
-	if (req.url === "/login") {
->>>>>>> 9330f814c724699f458877542ab6f61a9e12f3d1
 		req.session.destroy((err) => {
 			if (err) {
 				rej(`Error destroying session: ${err}`);
@@ -35,11 +31,7 @@ const sessionDestroyer = (req, res, rej, next) => {
 	return next();
 };
 
-<<<<<<< HEAD
 router.get('/login', csrfProtection,(req, res, next) => api(req, { version: VERSION })
-=======
-router.get('/login', csrfProtection, sessionDestroyer,(req, res, next) => api(req, { version: VERSION })
->>>>>>> 9330f814c724699f458877542ab6f61a9e12f3d1
 	.get(`/oauth2/loginRequest/${req.query.login_challenge}`).then((loginRequest) => {
 		req.session.login_challenge = req.query.login_challenge;
 		if (loginRequest.skip) {
