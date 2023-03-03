@@ -19,6 +19,7 @@ const VERSION = getVersion();
 
 router.get('/login', csrfProtection, (req, res, next) => api(req, { version: VERSION })
 	.get(`/oauth2/loginRequest/${req.query.login_challenge}`).then((loginRequest) => {
+		req.session.regenerate();
 		req.session.login_challenge = req.query.login_challenge;
 		if (loginRequest.skip) {
 			return res.redirect('/oauth2/login/success');
