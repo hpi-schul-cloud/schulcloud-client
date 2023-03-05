@@ -17,28 +17,31 @@ const getVersion = () => {
 
 const VERSION = getVersion();
 
-const sessionDestroyer = (req, res, rej, next) => {
-	if (req.url === "/logout") {
-		req.session.destroy((err) => {
-			if (err) {
-				rej(`Error destroying session: ${err}`);
-			} else {
-				// clear the CSRF token to prevent re-use after logout
-				res.locals.csrfToken = null;
-			}
-		});
-	}
-	return next();
-};
+router.get('/login', csrfProtection, async (req, res, next) => {
+	try {
+	  const loginRequest = await api(req, { version: VERSION }).get(`/oauth2/loginRequest/${req.query.login_challenge}`);
 
-router.get('/login', csrfProtection,(req, res, next) => api(req, { version: VERSION })
-	.get(`/oauth2/loginRequest/${req.query.login_challenge}`).then((loginRequest) => {
-		req.session.login_challenge = req.query.login_challenge;
-		if (loginRequest.skip) {
+	  if (req.session.userId && req.session.userId === loginRequest.user_id) {
+		delete req.session.userId;
+		req.session.regenerate(() => {
+		  res.locals.csrfToken = req.csrfToken();
+		  if (loginRequest.skip) {
 			return res.redirect('/oauth2/login/success');
+		  }
+		  return res.redirect(Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL'));
+		});
+	  } else {
+		req.session.userId = loginRequest.user_id;
+		res.locals.csrfToken = req.csrfToken();
+		if (loginRequest.skip) {
+		  return res.redirect('/oauth2/login/success');
 		}
 		return res.redirect(Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL'));
-	}).catch(next));
+	  }
+	} catch (error) {
+	  next(error);
+	}
+  });
 
 router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) => {
 	if (!req.session.login_challenge) res.redirect('/dashboard/');
@@ -58,7 +61,7 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		}).catch(next);
 });
 
-router.all('/logout', csrfProtection, auth.authChecker, sessionDestroyer, (req) => {
+router.all('/logout', csrfProtection, auth.authChecker, (req) => {
 	api(req, { version: VERSION }).get('/oauth2/logoutRequest');
 });
 
