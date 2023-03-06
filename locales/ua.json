@@ -2902,7 +2902,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Вибрати область",
-				"eachTopicSeparate": " Подавайте кожну тему окремо.",
+				"severalTopicsPossible": " Можливий вибір декількох тем.",
 				"pAddOns": "Доповнення",
 				"pAuthentication": "Аутентифікація",
 				"pCalendar": "Календар",

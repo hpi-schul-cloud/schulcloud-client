@@ -1806,7 +1806,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Select area",
-				"eachTopicSeparate": " Please submit each topic separately.",
+				"severalTopicsPossible": " Selection of several topics is possible.",
 				"pAddOns": "Add-Ons",
 				"pAuthentication": " Authentication",
 				"pCalendar": "Calendar",

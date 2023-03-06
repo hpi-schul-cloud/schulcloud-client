@@ -1806,7 +1806,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Selecciona el área",
-				"eachTopicSeparate": " Por favor, presenta cada tema por separado.",
+				"severalTopicsPossible": " Posibilidad de elegir entre varios temas.",
 				"pAddOns": "Complementos",
 				"pAuthentication": "Autenticación",
 				"pCalendar": "Calendario",
