@@ -17,31 +17,14 @@ const getVersion = () => {
 
 const VERSION = getVersion();
 
-router.get('/login', csrfProtection, async (req, res, next) => {
-	try {
-	  const loginRequest = await api(req, { version: VERSION }).get(`/oauth2/loginRequest/${req.query.login_challenge}`);
-
-	  if (req.session.userId && req.session.userId === loginRequest.user_id) {
-		delete req.session.userId;
-		req.session.regenerate(() => {
-		  res.locals.csrfToken = req.csrfToken();
-		  if (loginRequest.skip) {
-			return res.redirect('/oauth2/login/success');
-		  }
-		  return res.redirect(Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL'));
-		});
-	  } else {
-		req.session.userId = loginRequest.user_id;
-		res.locals.csrfToken = req.csrfToken();
-		if (loginRequest.skip) {
-		  return res.redirect('/oauth2/login/success');
-		}
+router.get('/login', csrfProtection, (req, res, next) => api(req, { version: VERSION })
+	.get(`/oauth2/loginRequest/${req.query.login_challenge}`).then((loginRequest) => {
+		req.session.login_challenge = req.query.login_challenge;
+		// if (loginRequest.skip) {
+		// 	return res.redirect('/oauth2/login/success');
+		// }
 		return res.redirect(Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL'));
-	  }
-	} catch (error) {
-	  next(error);
-	}
-  });
+	}).catch(next));
 
 router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) => {
 	if (!req.session.login_challenge) res.redirect('/dashboard/');
@@ -69,6 +52,7 @@ router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next
 	const body = {
 		redirect_to: '',
 	};
+
 	return api(req, { version: VERSION }).patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { body })
 		.then((logoutRequest) => res.redirect(logoutRequest.redirect_to)).catch(next);
 });
