@@ -499,11 +499,6 @@
 			"default": false,
 			"description": "Enables Course import"
 		},
-		"FEATURE_TOPIC_SHARE_IMPORT": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables Topic Share button"
-		},
 		"FEATURE_NUXT_SCHOOL_ADMIN_BETA": {
 			"type": "boolean",
 			"default": true,
