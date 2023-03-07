@@ -8,10 +8,13 @@ function getIconTag(status) {
 			$('.alert-button').addClass('danger');
 			return '<i class="fa fa-exclamation-circle text-danger"></i>';
 		case 'done':
+			$('.alert-button').addClass('success');
 			return '<i class="fa fa-check-circle text-success"></i>';
 		case 'warning':
+			$('.alert-button').addClass('warning');
 			return '<i class="fa fa-check-circle text-warning"></i>';
 		default:
+			$('.alert-button').addClass('info');
 			return '<i class="fa fa-info-circle text-info"></i>';
 	}
 }
@@ -47,17 +50,17 @@ class AlertMessageController {
 		if (this.loggedin) {
 			item.className = 'alert-item';
 			item.innerHTML = `
-			<div class="alert-date text-nowrap text-muted">
-					${datetime.fromNow(message.timestamp)}
-			</div>
 			<div class="alert-title">${icon} ${message.title}</div>
-			${message.text}
+				${message.text}
+			<div class="alert-date text-nowrap text-muted">
+				${datetime.fromNow(message.timestamp)}
+			</div>
 			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
+		    ${messageText}
 			<div class="text-muted" style="float: left;">${datetime.toDateTimeString(message.timestamp)}</div> <br>
-			${messageText}
 			<div style="clear: both;"></div>`;
 		}
 		return item;
@@ -123,7 +126,7 @@ class AlertMessageController {
 					$('.alert-button').find('.js-alert-content').append(
 						this.readMore(messageArray.length - max, messageArray[max].url),
 					);
-				} else if (length != 0 && length > max) {
+				} else if (length !== 0 && length > max) {
 					$('.alert-section').append(
 						this.readMore(length - max, messageArray[max].url),
 					);
