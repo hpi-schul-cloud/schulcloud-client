@@ -6,7 +6,7 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const api = require('../api');
 const permissionsHelper = require('./permissions');
-const wordlist = require('../static/other/wordlist.js');
+const wordlist = require('../static/other/wordlist');
 
 const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
 const logger = require('./logger');

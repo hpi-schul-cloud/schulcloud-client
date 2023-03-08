@@ -1070,14 +1070,12 @@
 					"createAnotherTopic": "Create another topic",
 					"createAnotherTopicWithNewEditor": "Create another topic in the new editor",
 					"createFirstTopic": "Create a topic",
-					"createFirstTopicWithNewEditor": "Create a topic in the new topic tool",
-					"importTopic": "Import topic"
+					"createFirstTopicWithNewEditor": "Create a topic in the new topic tool"
 				},
 				"headline": {
 					"createFirstTopic": "Create the first topic in your course",
 					"createFirstTopicWithNewEditor": "Create the first topic with the new topic tool",
 					"firstTopicSuccess": "Done - The first topic in your course!",
-					"importTopic": "Import topic",
 					"noTopic": "There are no topics in this course.",
 					"noTopicWithTool": "There are no topics in this course that were created with the new topic tool.",
 					"noTopicWithToolYet": "There are no topics in this course yet that were created with the new topic tool.",
@@ -1102,9 +1100,6 @@
 					"editSortDeleteShareTopicsHere": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-arrows\"></i> or delete <i class=\"fa fa-trash-o\"></i> topic at any time.",
 					"externalLinkToGeoGebra": "This is external content of the provider GeoGebra. It will open in a new window or tab.",
 					"hideTopic": "Hide topic",
-					"importTopic": "Import topic",
-					"importTopicAdviseChangeData": "<strong>Attention</strong>: Manually replace tools user data which are included in the topic subsequently (e.g. nexBoard, Etherpad, GeoGebra), because changes to this will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
-					"insertCodeToImportTopic": "Insert a code to import other users' topics. Files included in the topic are placed in your course folder.",
 					"moveTopic": "Move topic",
 					"revealTopic": "Show topic again",
 					"shareTopic": "Share topic"
