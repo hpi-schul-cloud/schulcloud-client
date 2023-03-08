@@ -9,23 +9,10 @@
 		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.severalTopicsPossible"}}</span>
 		<select class="form-control" name="problemArea" class="problemArea" data-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" aria-placeholder={{$t "help.chooseTopicArea.text.chooseArea"}} multiple required>
 			<option value="" disabled hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
-			<option value="Aufgaben">{{$t "help.chooseTopicArea.text.pTasks"}}</option>
-			<option value="Authentifizierung">{{$t "help.chooseTopicArea.text.pAuthentication"}}</option>
-			<option value="Dateien">{{$t "help.chooseTopicArea.text.pMyFiles"}}</option>
-			<option value="Datenschutz">{{$t "help.chooseTopicArea.text.pPrivacy"}}</option>
-			<option value="Externe Tools">{{$t "help.chooseTopicArea.text.pExternalTools"}}</option>
-			<option value="Hilfebereich">{{$t "help.chooseTopicArea.text.pHelparea"}}</option>
-			<option value="Kommunikation">{{$t "help.chooseTopicArea.text.pCommunication"}}</option>
-			<option value="Kurse">{{$t "help.chooseTopicArea.text.pCourses"}}</option>
-			<option value="Lern-Store">{{$t "help.chooseTopicArea.text.pLernStore"}}</option>
-			<option value="Mobile Nutzung">{{$t "help.chooseTopicArea.text.pMobileUse"}}</option>
-			<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
-			<option value="Sonstige">{{$t "help.chooseTopicArea.text.pOther"}}</option>
-			<option value="Teams">{{$t "help.chooseTopicArea.text.pTeams"}}</option>
-			<option value="Termine">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
-			<option value="Uebersicht">{{$t "help.chooseTopicArea.text.pDashboard"}}</option>
-			<option value="Verwaltung">{{$t "help.chooseTopicArea.text.pManagement"}}</option>
-			<option value="Zusatzangebote">{{$t "help.chooseTopicArea.text.pAddOns"}}</option>
+				{{#each helpOptions}}
+					<option value={{ this.optionValue}}>{{ this.optionText }}</option>
+
+				{{/each}}
 		</select>
 </label>
 </center>
