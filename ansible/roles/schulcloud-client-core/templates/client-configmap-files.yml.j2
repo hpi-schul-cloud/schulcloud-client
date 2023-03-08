@@ -35,6 +35,8 @@ data:
         // Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
         corsDefault: {
             defaultSrc: `'self' data: blob: {{TSP_API_BASE_NO_WWW_URL | default("") }}  {{TSP_API_BASE_URL | default("") }} https://{{ DOMAIN }} wss://{{ DOMAIN }} https://api.{{ DOMAIN }} https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }} https://embed.{{ DOMAIN }} https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }} https://oauth.{{ DOMAIN }} https://{{STORAGE_PREFIX}}{{ DOMAIN }} https://etherpad.{{ DOMAIN }} https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://docs.dbildungscloud.de https://sc-content-resources.schul-cloud.org https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://s3.hidrive.strato.com https://scalelite.bbb.messenger.schule {% if NAMESPACE == "niedersachsen" %}https://portfolio.niedersachsen.cloud{% endif %}`,
+            fontSrc: `'self' data: `,
+            styleSrc: `'self' 'unsafe-inline'`,
             // scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
             scriptSrc: `'self' 'unsafe-eval'`,
             frameSrc: `'self' https://{{ LIBREOFFICE_PREFIX }}{{ DOMAIN }} https://docs.dbildungscloud.de https://{{ ROCKETCHAT_DNS_PREFIX }}{{ DOMAIN }}`,
