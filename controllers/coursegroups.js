@@ -2,6 +2,7 @@ const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+
 const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -43,7 +44,7 @@ const editCourseGroupHandler = (req, res, next) => {
 		coursePromise,
 	]).then(([courseGroup, course]) => {
 		const students = course.userIds;
-		_.each(students, s => s.displayName = `${s.firstName} ${s.lastName}`);
+		_.each(students, (s) => s.displayName = `${s.firstName} ${s.lastName}`);
 
 		// if not a teacher, automatically add student to group, just when adding courseGroups
 		if (!permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') && !courseGroupId) {
@@ -74,7 +75,7 @@ router.get('/add', editCourseGroupHandler);
 router.post('/', (req, res, next) => {
 	// if not a teacher, automatically add student to group
 	if (!permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')) {
-		if (!_.some(req.body.userIds, u => JSON.stringify(u) === JSON.stringify(res.locals.currentUser._id))) {
+		if (!_.some(req.body.userIds, (u) => JSON.stringify(u) === JSON.stringify(res.locals.currentUser._id))) {
 			if (!req.body.userIds) req.body.userIds = [];
 
 			req.body.userIds.push(res.locals.currentUser._id);
@@ -133,14 +134,14 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			return s;
 		});
 
-		lessons = (lessons.data || []).map(lesson => Object.assign(lesson, {
+		lessons = (lessons.data || []).map((lesson) => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}?courseGroup=${req.params.courseGroupId}`,
 		}));
 		// get team-homework which does not have an group-submission from this group
 		openSubmissions = (openSubmissions.data || [])
-			.filter(os => os.teamSubmissions)
-			.filter(os => os.maxTeamMembers >= (courseGroup.userIds || []).length)
-			.filter(os => _.every(doneSubmissions, s => JSON.stringify(s.homeworkId._id) !== JSON.stringify(os._id)))
+			.filter((os) => os.teamSubmissions)
+			.filter((os) => os.maxTeamMembers >= (courseGroup.userIds || []).length)
+			.filter((os) => _.every(doneSubmissions, (s) => JSON.stringify(s.homeworkId._id) !== JSON.stringify(os._id)))
 			.map((os) => {
 				os.title = res.$t('courses._course.groups._group.headline.homework', { name: os.name });
 				os.content = os.description.substr(0, 140);
@@ -152,17 +153,18 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			});
 
 		// get display names for teachers and students
-		_.each(courseGroup.userIds, u => u.displayName = `${u.firstName} ${u.lastName}`);
-		_.each(course.teacherIds, t => t.displayName = `${t.firstName} ${t.lastName}`);
+		_.each(courseGroup.userIds, (u) => u.displayName = `${u.firstName} ${u.lastName}`);
+		_.each(course.teacherIds, (t) => t.displayName = `${t.firstName} ${t.lastName}`);
 
-		res.render('courses/courseGroup', Object.assign({}, courseGroup, {
+		res.render('courses/courseGroup', {
+			...courseGroup,
 			course,
 			title: courseGroup.name,
 			lessons,
 			doneSubmissions,
 			openSubmissions,
 			breadcrumb: [{
-				title: res.$t("courses.headline.myCourses"),
+				title: res.$t('courses.headline.myCourses'),
 				url: '/rooms-overview',
 			},
 			{
@@ -170,7 +172,7 @@ router.get('/:courseGroupId/', (req, res, next) => {
 				url: `/rooms/${course._id}`,
 			},
 			],
-		}));
+		});
 	}).catch(next);
 });
 
@@ -179,7 +181,7 @@ router.patch('/:courseGroupId', (req, res, next) => {
 
 	// if not a teacher, automatically add student to group
 	if (!permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')) {
-		if (!_.some(req.body.userIds, u => JSON.stringify(u) === JSON.stringify(res.locals.currentUser._id))) {
+		if (!_.some(req.body.userIds, (u) => JSON.stringify(u) === JSON.stringify(res.locals.currentUser._id))) {
 			req.body.userIds.push(res.locals.currentUser._id);
 		}
 	}
@@ -192,7 +194,6 @@ router.patch('/:courseGroupId', (req, res, next) => {
 		res.sendStatus(500);
 	});
 });
-
 
 router.get('/:courseGroupId/edit', editCourseGroupHandler);
 

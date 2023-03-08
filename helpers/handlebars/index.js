@@ -1,6 +1,6 @@
 module.exports = {
-    helpers: require('./helpers'),
+	helpers: require('./helpers'),
 
-    // add some useful information to res.locals
-    middleware: require('./middleware')
+	// add some useful information to res.locals
+	middleware: require('./middleware'),
 };
