@@ -9,9 +9,9 @@
 		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.severalTopicsPossible"}}</span>
 		<select class="form-control" name="problemArea" class="problemArea" data-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" aria-placeholder={{$t "help.chooseTopicArea.text.chooseArea"}} multiple required>
 			<option value="" disabled hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
-				{{#each helpOptions}}
-					<option value={{ this.optionValue}}>{{ this.optionText }}</option>
-				{{/each}}
+			{{#each helpOptions}}
+				<option value={{ this.optionValue}}>{{ this.optionText }}</option>
+			{{/each}}
 		</select>
 </label>
 </center>
