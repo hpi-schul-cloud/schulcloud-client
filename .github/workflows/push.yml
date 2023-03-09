@@ -114,6 +114,7 @@ jobs:
   trivy-vulnerability-scanning:
     needs:
       - build_and_push_docker
+      - branch_meta
     runs-on: ubuntu-latest
     permissions:
         actions: read
@@ -123,7 +124,7 @@ jobs:
       - name: run trivy vulnerability scanner
         uses: aquasecurity/trivy-action@9ab158e8597f3b310480b9a69402b419bc03dbd5
         with:
-          image-ref: 'ghcr.io/${{ github.repository }}-default:${{ github.sha }}'
+          image-ref: 'ghcr.io/${{ github.repository }}-default:${{ needs.branch_meta.outputs.sha }}'
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
