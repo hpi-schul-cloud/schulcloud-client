@@ -78,8 +78,13 @@ jobs:
       steps:
           - name: Extract branch name
             shell: bash
-            run: echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
             id: extract_branch
+            run: |
+              if [ "${{ github.event_name }}" == 'pull_request' ]; then
+                echo "branch=${{ github.event.pull_request.head.ref }}" >> $GITHUB_OUTPUT
+              else
+                echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+              fi
 
   deploy:
     needs:
