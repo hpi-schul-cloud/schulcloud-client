@@ -24,6 +24,8 @@ jobs:
       contains(github.event.issue.labels.*.name, 'ready-for-ci') == 'true') ||
       github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
+    needs:
+        - branch_name
     permissions:
         packages: write
     strategy:
@@ -52,7 +54,7 @@ jobs:
         run: |
          mkdir -p ~/.docker
          echo '{"experimental": "enabled"}' >> ~/.docker/config.json
-         echo "IMAGE_EXISTS=$(docker manifest inspect ghcr.io/${{ github.repository }}-${{ matrix.tennens }}:${{ github.sha }} > /dev/null && echo 1 || echo 0)" >> $GITHUB_ENV
+         echo "IMAGE_EXISTS=$(docker manifest inspect ghcr.io/${{ github.repository }}-${{ matrix.tennens }}:${{ needs.branch_name.outputs.sha }} > /dev/null && echo 1 || echo 0)" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         if: ${{ env.IMAGE_EXISTS == 0 }}
@@ -68,13 +70,14 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/${{ github.repository }}-${{ matrix.tennens }}:${{ github.sha }}
+          tags: ghcr.io/${{ github.repository }}-${{ matrix.tennens }}:${{ needs.branch_name.outputs.sha }}
           labels: ${{ steps.docker_meta_img.outputs.labels }}
 
   branch_name:
       runs-on: ubuntu-latest
       outputs:
           branch: ${{ steps.extract_branch.outputs.branch }}
+          sha: ${{ steps.extract_sha.outputs.sha }}
       steps:
           - name: Extract branch name
             shell: bash
@@ -82,8 +85,10 @@ jobs:
             run: |
               if [ "${{ github.event_name }}" == 'pull_request' ]; then
                 echo "branch=${{ github.event.pull_request.head.ref }}" >> $GITHUB_OUTPUT
+                echo "sha=${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
               else
                 echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+                echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
               fi
 
   deploy:
@@ -109,7 +114,6 @@ jobs:
   trivy-vulnerability-scanning:
     needs:
       - build_and_push_docker
-      - branch_name
     runs-on: ubuntu-latest
     permissions:
         actions: read
@@ -133,7 +137,6 @@ jobs:
   end-to-end-tests:
       needs:
           - build_and_push_docker
-          - branch_name
       uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e_call.yml@main
       with:
           ref: ${{ github.ref }}
