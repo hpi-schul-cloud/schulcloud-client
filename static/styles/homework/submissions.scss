@@ -1,8 +1,6 @@
 @import "../lib/colors";
 @import "../lib/bootstrap/scss/bootstrap-flex";
 
-@import "./bulk-upload";
-
 .tab-content#submissions {
 	table {
 		border: none;
@@ -160,26 +158,6 @@
 	40% {
 		-webkit-transform: scale(1);
 		transform: scale(1);
-	}
-}
-
-.section-uploaded-files {
-	.fa {
-		margin-right: 10px;
-	}
-	.fa-active {
-		float: right;
-		.fa {
-			color: $primaryColor;
-			cursor: pointer;
-		}
-		.fa.disabled {
-			color: $colorDarkerGrey;
-			cursor: default;
-		}
-		a {
-			text-decoration: none;
-		}
 	}
 }
 

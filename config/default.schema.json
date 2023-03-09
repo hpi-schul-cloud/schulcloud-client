@@ -51,13 +51,13 @@
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage when not loggedin."
 		},
-		"GLOBAL_ANNOUNCEMENT_TEACHER": {
+		"GLOBAL_ANNOUNCEMENT_TEXT": {
 			"type": "string",
-			"description": "global announcement, shown only to teacher"
+			"description": "global announcement, shown to all user roles specified in GLOBAL_ANNOUNCEMENT_ROLES"
 		},
-		"GLOBAL_ANNOUNCEMENT": {
+		"GLOBAL_ANNOUNCEMENT_ROLES": {
 			"type": "string",
-			"description": "global announcement, shown as notification in header on startpage"
+			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
 		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
 			"type": "string",
@@ -505,11 +505,6 @@
 			"default": false,
 			"description": "Enables Course import"
 		},
-		"FEATURE_TOPIC_SHARE_IMPORT": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables Topic Share button"
-		},
 		"FEATURE_NUXT_SCHOOL_ADMIN_BETA": {
 			"type": "boolean",
 			"default": true,
@@ -587,7 +582,7 @@
 				"MAX_FILE_SIZE": {
 					"type": "integer",
 					"minimum": 0,
-					"description": "File size of incoming requests to the File-Storage in MB."
+					"description": "Maximum file size for incoming requests in Byte"
 				}
 			},
 			"required": ["SERVICE_BASE_URL", "INCOMING_REQUEST_TIMEOUT", "MAX_FILE_SIZE"]

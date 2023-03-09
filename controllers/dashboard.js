@@ -39,6 +39,7 @@ const getCalendarEvents = (req, res, {
 			all: 'false', // must set to false to use from and until request
 			from: start.toISOString(true),
 			until: end.toISOString(true),
+			admin: 'false',
 		},
 	})
 	.then((eve) => Promise.all(

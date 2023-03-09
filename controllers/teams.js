@@ -8,7 +8,6 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
-const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
@@ -1424,61 +1423,6 @@ router.patch('/:teamId/positions', (req, res, next) => {
 	}
 
 	res.sendStatus(200);
-});
-
-router.post('/:teamId/importTopic', (req, res, next) => {
-	const { shareToken } = req.body;
-	// try to find topic for given shareToken
-	api(req)
-		.get('/lessons/', { qs: { shareToken } })
-		.then((lessons) => {
-			if ((lessons.data || []).length <= 0) {
-				req.session.notification = {
-					type: 'danger',
-					message: res.$t('global.text.noTopicFoundWithCode'),
-				};
-
-				redirectHelper.safeBackRedirect(req, res);
-			}
-
-			api(req)
-				.post('/lessons/copy', {
-					json: {
-						lessonId: lessons.data[0]._id,
-						newTeamId: req.params.teamId,
-						shareToken,
-					},
-				})
-				.then(() => {
-					redirectHelper.safeBackRedirect(req, res);
-				});
-		})
-		.catch((err) => res.status(err.statusCode || 500).send(err));
-});
-
-// return shareToken
-router.get('/:id/share', (req, res, next) => api(req)
-	.get(`/teams/share/${req.params.id}`)
-	.then((course) => res.json(course)));
-
-// return course Name for given shareToken
-router.get('/share/:id', (req, res, next) => api(req)
-	.get('/teams/share', { qs: { shareToken: req.params.id } })
-	.then((name) => res.json({ msg: name, status: 'success' }))
-	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
-
-router.post('/import', (req, res, next) => {
-	const { shareToken } = req.body;
-	const courseName = req.body.name;
-
-	api(req)
-		.post('/teams/share', { json: { shareToken, courseName } })
-		.then((course) => {
-			res.redirect(`/teams/${course._id}/edit/`);
-		})
-		.catch((err) => {
-			res.status(err.statusCode || 500).send(err);
-		});
 });
 
 module.exports = router;
