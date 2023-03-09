@@ -21,7 +21,9 @@ router.get('/articles', (req, res, next) => {
 	});
 });
 
-router.get('/', (req, res, next) => res.redirect('/help/articles'));
+router.get('/', (req, res, next) => {
+	return res.redirect('/help/articles');
+});
 
 router.get('/contact', (req, res, next) => {
 	res.render('help/contact', {
@@ -113,5 +115,6 @@ router.get('/faq/documents', async (req, res, next) => {
 		sections: documents,
 	});
 });
+
 
 module.exports = router;

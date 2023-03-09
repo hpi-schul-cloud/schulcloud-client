@@ -3,6 +3,7 @@ const rp = require('request-promise');
 const logger = require('../helpers/logger');
 const { FEATURE_INSIGHTS_ENABLED, INSIGHTS_COLLECTOR_URI, KEEP_ALIVE } = require('../config/global');
 
+
 const router = express.Router();
 
 router.use(require('../helpers/authentication').authChecker);

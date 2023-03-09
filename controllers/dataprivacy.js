@@ -7,7 +7,9 @@ const { specificFiles } = require('../config/documents');
 
 const router = express.Router();
 
-const privacyUrl = () => new URL(`${SC_THEME}/${specificFiles.privacyExemplary}`, DOCUMENT_BASE_DIR);
+const privacyUrl = () => {
+	return new URL(`${SC_THEME}/${specificFiles.privacyExemplary}`, DOCUMENT_BASE_DIR);
+};
 
 const downloadPolicyPdf = (res, fileData, fileTitle) => {
 	const download = Buffer.from(fileData, 'base64');

@@ -1,5 +1,4 @@
 const rp = require('request-promise');
-
 const DEFAULT_BASE_URL = 'https://nexboard.nexenio.com/portal/api/v1/public/';
 
 class Nexboard {

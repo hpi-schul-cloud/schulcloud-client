@@ -10,7 +10,7 @@ module.exports = (userSettings, options) => {
 		currentPage: 1,
 	};
 
-	const settings = { ...defaultSettings, ...userSettings };
+	const settings = Object.assign({}, defaultSettings, userSettings);
 	settings.baseUrl = decodeURI(settings.baseUrl);
 
 	// only show paginationif it can be actually used
