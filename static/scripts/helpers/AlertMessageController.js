@@ -59,8 +59,9 @@ class AlertMessageController {
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
-		    ${messageText}
-			<div class="text-muted" style="float: left;">${datetime.toDateTimeString(message.timestamp)}</div> <br>
+		   						 ${messageText}
+			<br>
+			<div class="text-muted" style="float: left;">Created: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
 		return item;
@@ -120,7 +121,7 @@ class AlertMessageController {
 					});
 				}
 			}
-			const { length } = messageArray.filter(message => message.status === 'danger');
+			const { length } = messageArray.filter((message) => message.status === 'danger');
 			if (messageArray.length > max) {
 				if (this.loggedin) {
 					$('.alert-button').find('.js-alert-content').append(
