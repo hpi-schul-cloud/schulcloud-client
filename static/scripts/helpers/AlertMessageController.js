@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const datetime = require('../datetime/datetime');
 
 const max = 2;
@@ -28,22 +29,12 @@ class AlertMessageController {
 	buildMessage(message) {
 		const icon = getIconTag(message.status);
 
-		// show only 150 charckters of message
-		let messageText;
-		if (message.text.length > 113) {
-			messageText = `${message.text.substring(0, 113)}...`;
-		} else {
-			messageText = message.text;
-		}
-
-		// // if message includes url
-		// let url = '';
-		// if (message.url) {
-		// 	url = `
-		// 		<a href="${message.url}" rel="noopener" target="_blank" style="float: right;">
-		// 			${message.url.replace(/(^\w+:|^)\/\//, '')}
-		// 		</a>
-		// 		`;
+		// // show only 150 charckters of message
+		// let messageText;
+		// if (message.text.length > 113) {
+		// 	messageText = `${message.text.substring(0, 113)}...`;
+		// } else {
+		// 	messageText = message.text;
 		// }
 
 		const item = document.createElement('div');
@@ -59,7 +50,7 @@ class AlertMessageController {
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
-		   						 ${messageText}
+			${messageText}
 			<br>
 			<div class="text-muted" style="float: left;">Created: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;

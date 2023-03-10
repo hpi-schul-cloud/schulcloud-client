@@ -52,8 +52,11 @@
   background-color: $dropdown-bg;
   background-clip: padding-box;
   border: $dropdown-border-width solid $dropdown-border-color;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 0.18);
   @include border-radius($border-radius);
-  @include box-shadow($dropdown-box-shadow);
+  // @include box-shadow($dropdown-box-shadow);
 }
 
 // Dividers (basically an `<hr>`) within the dropdown
