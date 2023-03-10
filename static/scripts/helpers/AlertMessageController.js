@@ -60,13 +60,13 @@ class AlertMessageController {
 
 	readMore(length, url) {
 		const item = document.createElement('div');
-		let text = '';
+		// let text = '';
 
-		if (length > 1) {
-			text = $t('alert.text.furtherCases', { amount: length });
-		} else {
-			text = $t('alert.text.furtherCase', { amount: length });
-		}
+		// if (length > 1) {
+		// 	text = $t('alert.text.furtherCases', { amount: length });
+		// } else {
+		// 	text = $t('alert.text.furtherCase', { amount: length });
+		// }
 
 		if (this.loggedin) {
 			item.className = 'alert-item text-center';
@@ -112,18 +112,18 @@ class AlertMessageController {
 					});
 				}
 			}
-			const { length } = messageArray.filter((message) => message.status === 'danger');
-			if (messageArray.length > max) {
-				if (this.loggedin) {
-					$('.alert-button').find('.js-alert-content').append(
-						this.readMore(messageArray.length - max, messageArray[max].url),
-					);
-				} else if (length !== 0 && length > max) {
-					$('.alert-section').append(
-						this.readMore(length - max, messageArray[max].url),
-					);
-				}
-			}
+			// const { length } = messageArray.filter((message) => message.status === 'danger');
+			// if (messageArray.length > max) {
+			// 	if (this.loggedin) {
+			// 		$('.alert-button').find('.js-alert-content').append(
+			// 			this.readMore(messageArray.length - max, messageArray[max].url),
+			// 		);
+			// 	} else if (length !== 0 && length > max) {
+			// 		$('.alert-section').append(
+			// 			this.readMore(length - max, messageArray[max].url),
+			// 		);
+			// 	}
+			// }
 		}
 	}
 }
