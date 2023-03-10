@@ -17,27 +17,9 @@ const {
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
-Handlebars.registerHelper('oauthLink', (oauthConfig, alias) => {
-	const encodedURI = [
-		oauthConfig.authEndpoint,
-		'?client_id=',
-		oauthConfig.clientId,
-		'&redirect_uri=',
-		oauthConfig.redirectUri,
-		'&response_type=',
-		oauthConfig.responseType,
-		'&scope=',
-		oauthConfig.scope,
-	].join('');
-	// provider works for now, but maybe not the best differentiating feature in the future
-	if (oauthConfig.provider === 'oauth') {
-		return encodeURI([
-			encodedURI,
-			'&kc_idp_hint=',
-			alias,
-		].join(''));
-	}
-	return encodeURI([encodedURI]);
+Handlebars.registerHelper('oauthLink', (id) => {
+	const apiUrl = `${Configuration.get('PUBLIC_BACKEND_URL')}/v3/sso/login/${id}`;
+	return apiUrl;
 });
 
 // SSO Login
