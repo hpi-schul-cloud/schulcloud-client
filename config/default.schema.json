@@ -516,7 +516,7 @@
 		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "Enables button Oauth Login feature"
 		},
 		"FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED": {
