@@ -579,6 +579,8 @@ router.get('/:teamId', async (req, res, next) => {
 
 		files.map(addThumbnails);
 
+		const userOwnedFiles = JSON.stringify(files.filter((file) => file.creator === res.locals.currentUser._id).map((filteredFile) => filteredFile.name) );
+
 		directories
 			.sort((a, b) => {
 				if (b && b.updatedAt && a && a.updatedAt) {
@@ -681,6 +683,7 @@ router.get('/:teamId', async (req, res, next) => {
 				showVideoconferenceOption,
 				directories,
 				files,
+				userOwnedFiles,
 				filesUrl: `/files/teams/${req.params.teamId}`,
 				nextcloudUrl,
 				useNextcloud,

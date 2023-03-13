@@ -3033,6 +3033,7 @@
 					"removeClass": "Eliminar clase",
 					"removeUser": "Eliminar usuario",
 					"removeUserWFilesIntro": "Va a eliminar un participante. También se eliminarán todos los archivos vinculados a ese usuario. Si no quieres perder estos archivos, cópialos antes de eliminar a attendee.",
+					"removeYourselfWFilesIntro": "También se eliminarán todos los archivos vinculados a usted.",
 					"roleOfInvitedTeacher": "Rol del profesor invitado",
 					"selectRoleForMember": "Introduce el rol que se le debe dar al asistente.",
 					"sendInvitationAgain": "Reenviar invitación"

@@ -185,12 +185,32 @@ $(document).ready(() => {
 		e.preventDefault();
 		const $leaveTeamModal = $('.leave-team-modal');
 		const userId = $(this).data('user-id');
+		const userFilesToRemove = $(this).data('user-files');
 		populateModalForm($leaveTeamModal, {
 			title: $t('teams._team.headline.leaveTeam'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.button.leaveTeam'),
 			payload: { userId },
 		});
+
+		const $deleteInfoAlert = $leaveTeamModal.find('.alert');
+		const $fileList = $leaveTeamModal.find('.file-list');
+
+		if (userFilesToRemove && userFilesToRemove.length > 0) {
+			let fileListHtmlLi = '';
+
+			for (const file of userFilesToRemove) {
+				fileListHtmlLi += `<li>${file}</li>`;
+			}
+
+			$deleteInfoAlert.show();
+			$fileList.show();
+
+			$fileList.html(fileListHtmlLi);
+		} else {
+			$deleteInfoAlert.hide();
+			$fileList.hide();
+		}
 
 		$leaveTeamModal.appendTo('body').modal('show');
 	});
