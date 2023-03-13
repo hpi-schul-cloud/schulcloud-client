@@ -50,7 +50,7 @@ class AlertMessageController {
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${messageText}
 			<br>
-			<div class="text-muted" style="float: left;">Created: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
 		return item;
@@ -108,18 +108,6 @@ class AlertMessageController {
 					});
 				}
 			}
-			// const { length } = messageArray.filter((message) => message.status === 'danger');
-			// if (messageArray.length > max) {
-			// 	if (this.loggedin) {
-			// 		$('.alert-button').find('.js-alert-content').append(
-			// 			this.readMore(messageArray.length - max, messageArray[max].url),
-			// 		);
-			// 	} else if (length !== 0 && length > max) {
-			// 		$('.alert-section').append(
-			// 			this.readMore(length - max, messageArray[max].url),
-			// 		);
-			// 	}
-			// }
 		}
 	}
 }
