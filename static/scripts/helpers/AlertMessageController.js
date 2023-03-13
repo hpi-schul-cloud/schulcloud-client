@@ -1,8 +1,6 @@
 /* eslint-disable no-undef */
 const datetime = require('../datetime/datetime');
 
-const max = 2;
-
 function getIconTag(status) {
 	switch (status) {
 		case 'danger':
@@ -44,7 +42,7 @@ class AlertMessageController {
 			<div class="alert-title">${icon} ${message.title}</div>
 				${message.text}
 			<div class="alert-date text-nowrap text-muted">
-				${datetime.fromNow(message.timestamp)}
+			   Created:	${datetime.fromNow(message.timestamp)}
 			</div>
 			<div style="clear: both;"></div>`;
 		} else {
@@ -60,13 +58,13 @@ class AlertMessageController {
 
 	readMore(length, url) {
 		const item = document.createElement('div');
-		// let text = '';
+		let text = '';
 
-		// if (length > 1) {
-		// 	text = $t('alert.text.furtherCases', { amount: length });
-		// } else {
-		// 	text = $t('alert.text.furtherCase', { amount: length });
-		// }
+		if (length > 1) {
+			text = $t('alert.text.furtherCases', { amount: length });
+		} else {
+			text = $t('alert.text.furtherCase', { amount: length });
+		}
 
 		if (this.loggedin) {
 			item.className = 'alert-item text-center';
@@ -96,17 +94,15 @@ class AlertMessageController {
 						$('.alert-button').css('visibility', 'visible');
 					}
 					$('.alert-button').find('.js-alert-content').empty();
-					messageArray.forEach((message, index) => {
-						if (index < max) {
-							$('.alert-button').find('.js-alert-content').append(this.buildMessage(message));
-						}
+					messageArray.forEach((message) => {
+						$('.alert-button').find('.js-alert-content').append(this.buildMessage(message));
 					});
 				}
 			} else {
 				$('.alert-section').empty();
 				if (messageArray.length >= 1) {
-					messageArray.forEach((message, index) => {
-						if (message.status === 'danger' && index < max) {
+					messageArray.forEach((message) => {
+						if (message.status === 'danger') {
 							$('.alert-section').append(this.buildMessage(message));
 						}
 					});
