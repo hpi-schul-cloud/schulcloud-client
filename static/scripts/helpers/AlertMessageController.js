@@ -41,8 +41,9 @@ class AlertMessageController {
 			item.innerHTML = `
 			<div class="alert-title">${icon} ${message.title}</div>
 				${message.text}
+			<br>
 			<div class="alert-date text-nowrap text-muted">
-			   Created:	${datetime.fromNow(message.timestamp)}
+				Updated:  ${datetime.fromNow(message.timestamp)}
 			</div>
 			<div style="clear: both;"></div>`;
 		} else {
