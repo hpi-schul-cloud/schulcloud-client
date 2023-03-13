@@ -283,13 +283,12 @@ const loginErrorHandler = (res, next) => (e) => {
 const login = (payload = {}, req, res, next) => {
 	const { redirect } = payload;
 	delete payload.redirect;
-	const useNewEndpoints = Configuration.get('FEATURE_USE_LOGIN_ENDPOINTS_V3');
-	if (useNewEndpoints && payload.strategy === 'local') {
+	if (payload.strategy === 'local') {
 		return api(req, { version: 'v3' }).post('/authentication/local', { json: payload })
 			.then(loginSuccessfulHandler(res, redirect))
 			.catch(loginErrorHandler(res, next));
 	}
-	if (useNewEndpoints && payload.strategy === 'ldap') {
+	if (payload.strategy === 'ldap') {
 		return api(req, { version: 'v3' }).post('/authentication/ldap', { json: payload })
 			.then(loginSuccessfulHandler(res, redirect))
 			.catch(loginErrorHandler(res, next));
