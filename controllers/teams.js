@@ -579,7 +579,7 @@ router.get('/:teamId', async (req, res, next) => {
 
 		files.map(addThumbnails);
 
-		const userOwnedFiles = JSON.stringify(files.filter((file) => file.creator === res.locals.currentUser._id).map((filteredFile) => filteredFile.name) );
+		const userOwnedFiles = JSON.stringify(files.filter((file) => file.creator === res.locals.currentUser._id).map((filteredFile) => filteredFile.name));
 
 		directories
 			.sort((a, b) => {
