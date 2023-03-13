@@ -44,7 +44,7 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		}).catch(next);
 });
 
-router.all('/logout', csrfProtection, auth.authChecker, (req) => {
+router.get('/logout', csrfProtection, auth.authChecker, (req) => {
 	api(req, { version: VERSION }).get('/oauth2/logoutRequest');
 });
 
