@@ -42,9 +42,6 @@ const toDateTimeString = (date, showOffset = false, format = DATETIME_FORMAT.dat
 
 const fromNow = (date) => toMoment(date).fromNow();
 
-// eslint-disable-next-line max-len
-const upDated = (date, showOffset = false, format = 'YYYY-MM-DD') => toMoment(date).format(format) + addStringOffset(showOffset);
-
 function inputRange({
 	from, toOffset = 0, toOffsetBase = 'y', format = DATETIME_FORMAT.dateTime(),
 }) {
@@ -66,5 +63,4 @@ export {
 	toDateTimeString,
 	toMoment,
 	dateStringToMoment,
-	upDated,
 };

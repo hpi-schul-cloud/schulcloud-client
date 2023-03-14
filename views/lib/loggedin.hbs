@@ -2,6 +2,7 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="{{getAssetPath '/styles/user/language.css'}}"/>
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/loggedin.css'}}"/>
+        <link rel="stylesheet" href="{{getAssetPath '/styles/lib/bootstrap/scss/_alert.scss'}}">
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/feedback-button.css'}}"/>
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/forms/form-auto-logout-alert.css'}}" />
         {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
@@ -156,7 +157,7 @@
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
 								   data-toggle="dropdown">
-                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true" id="iconChange"></i>
                                 </a>
 
                                 <div class="dropdown-menu">
@@ -347,7 +348,7 @@
                     {{/inArray}}
                 </p>
                 <div class="modal-danger">
-                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true" id="iconChange"></i>
                     {{$t "global.text.attention" }}
                 </div>
                 <div id="member-modal-body">
@@ -383,7 +384,7 @@
         <div class="modal-body-text">
             <p>{{$t "messenger.text.welcomeMatrix" }}</p>
             <div class="modal-danger">
-                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                <i class="fa fa-exclamation-triangle" aria-hidden="true" id="iconChange"></i>
                 {{$t "global.text.attention" }}
             </div>
             <div id="member-modal-body">

@@ -7,6 +7,22 @@ if (window.opener && window.opener !== window) {
     window.isInline = true;
 }
 
+function statusIconColor(status) {
+    let iconColorStatus = document.getElementById('iconChange');
+    switch (status) {
+        case 'danger':
+            iconColorStatus.addClass('alert-danger');
+        case 'done':
+            iconColorStatus.addClass('alert-success');
+        case 'warning':
+            iconColorStatus.addClass('alert-warning');
+        case 'info':
+            iconColorStatus.addClass('alert-info');
+        default:
+            return  iconColorStatus.addClass('alert-info');
+    }
+}
+
 function toggleMobileNav() {
     document.querySelector('aside.nav-sidebar').classList.toggle('active');
     this.classList.toggle('active');
