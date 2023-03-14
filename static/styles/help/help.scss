@@ -57,6 +57,18 @@ label.form-group {
   text-align: left;
 }
 
+// since chosen hides the select we need to make it visible for form validation
+select:invalid {
+	height: 0px !important;
+	opacity: 0 !important;
+	position: absolute !important;
+	display: flex !important;
+}
+
+select:invalid[multiple] {
+  	margin-top: 15px !important;
+}
+
 // Toggle
 fieldset.switch_wrapper {
   display: inline-block;

@@ -24,11 +24,13 @@ jobs:
       contains(github.event.issue.labels.*.name, 'ready-for-ci') == 'true') ||
       github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
+    needs:
+        - branch_meta
     permissions:
         packages: write
     strategy:
       matrix:
-        tennens: [default, brb, int, n21, thr ]
+        tenants: [default, brb, int, n21, thr ]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -37,7 +39,7 @@ jobs:
         id: docker_meta_img
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/${{ github.repository }}-${{ matrix.tennens }}
+          images: ghcr.io/${{ github.repository }}-${{ matrix.tenants }}
           tags: |
             type=ref,event=branch,enable=false,priority=600
             type=sha,enable=true,priority=600,prefix=
@@ -52,7 +54,7 @@ jobs:
         run: |
          mkdir -p ~/.docker
          echo '{"experimental": "enabled"}' >> ~/.docker/config.json
-         echo "IMAGE_EXISTS=$(docker manifest inspect ghcr.io/${{ github.repository }}-${{ matrix.tennens }}:${{ github.sha }} > /dev/null && echo 1 || echo 0)" >> $GITHUB_ENV
+         echo "IMAGE_EXISTS=$(docker manifest inspect ghcr.io/${{ github.repository }}-${{ matrix.tenants }}:${{ needs.branch_meta.outputs.sha }} > /dev/null && echo 1 || echo 0)" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         if: ${{ env.IMAGE_EXISTS == 0 }}
@@ -63,31 +65,39 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           build-args: |
-            SC_THEME_BUILD=${{ matrix.tennens }}
+            SC_THEME_BUILD=${{ matrix.tenants }}
           context: .
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/${{ github.repository }}-${{ matrix.tennens }}:${{ github.sha }}
+          tags: ghcr.io/${{ github.repository }}-${{ matrix.tenants }}:${{ needs.branch_meta.outputs.sha }}
           labels: ${{ steps.docker_meta_img.outputs.labels }}
 
-  branch_name:
+  branch_meta:
       runs-on: ubuntu-latest
       outputs:
-          branch: ${{ steps.extract_branch.outputs.branch }}
+          branch: ${{ steps.extract_branch_meta.outputs.branch }}
+          sha: ${{ steps.extract_branch_meta.outputs.sha }}
       steps:
           - name: Extract branch name
             shell: bash
-            run: echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
-            id: extract_branch
+            id: extract_branch_meta
+            run: |
+              if [ "${{ github.event_name }}" == 'pull_request' ]; then
+                echo "branch=${{ github.event.pull_request.head.ref }}" >> $GITHUB_OUTPUT
+                echo "sha=${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
+              else
+                echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+                echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+              fi
 
   deploy:
     needs:
       - build_and_push_docker
-      - branch_name
+      - branch_meta
     uses: hpi-schul-cloud/dof_app_deploy/.github/workflows/deploy.yml@main
     with:
-      branch: ${{ needs.branch_name.outputs.branch }}
+      branch: ${{ needs.branch_meta.outputs.branch }}
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
       DEV_VAULT: ${{ secrets.DEV_VAULT }}
@@ -104,7 +114,7 @@ jobs:
   trivy-vulnerability-scanning:
     needs:
       - build_and_push_docker
-      - branch_name
+      - branch_meta
     runs-on: ubuntu-latest
     permissions:
         actions: read
@@ -114,7 +124,7 @@ jobs:
       - name: run trivy vulnerability scanner
         uses: aquasecurity/trivy-action@9ab158e8597f3b310480b9a69402b419bc03dbd5
         with:
-          image-ref: 'ghcr.io/${{ github.repository }}-default:${{ github.sha }}'
+          image-ref: 'ghcr.io/${{ github.repository }}-default:${{ needs.branch_meta.outputs.sha }}'
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
@@ -128,10 +138,10 @@ jobs:
   end-to-end-tests:
       needs:
           - build_and_push_docker
-          - branch_name
+          - branch_meta
       uses: hpi-schul-cloud/end-to-end-tests/.github/workflows/e2e_call.yml@main
       with:
-          ref: ${{ github.ref }}
+          ref: ${{ needs.branch_meta.outputs.branch }}
 
   test-successful:
       runs-on: ubuntu-latest
