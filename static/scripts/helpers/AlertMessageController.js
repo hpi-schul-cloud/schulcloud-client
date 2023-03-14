@@ -27,14 +27,6 @@ class AlertMessageController {
 	buildMessage(message) {
 		const icon = getIconTag(message.status);
 
-		// // show only 150 charckters of message
-		// let messageText;
-		// if (message.text.length > 113) {
-		// 	messageText = `${message.text.substring(0, 113)}...`;
-		// } else {
-		// 	messageText = message.text;
-		// }
-
 		const item = document.createElement('div');
 		if (this.loggedin) {
 			item.className = 'alert-item';
@@ -51,7 +43,8 @@ class AlertMessageController {
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${messageText}
 			<br>
-			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted" style="float: left;">Created: ${datetime.toDateTimeString(message.create)}</div>
+			<div class="text-muted" style="float: right;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
 		return item;

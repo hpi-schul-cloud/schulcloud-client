@@ -11,15 +11,15 @@ function statusIconColor(status) {
     let iconColorStatus = document.getElementById('iconChange');
     switch (status) {
         case 'danger':
-            iconColorStatus.addClass('alert-danger');
+            iconColorStatus.classList.add('danger');
         case 'done':
-            iconColorStatus.addClass('alert-success');
+            iconColorStatus.classList.add('success');
         case 'warning':
-            iconColorStatus.addClass('alert-warning');
+            iconColorStatus.classList.add('warning');
         case 'info':
-            iconColorStatus.addClass('alert-info');
+            iconColorStatus.classList.add('info');
         default:
-            return  iconColorStatus.addClass('alert-info');
+            return  iconColorStatus.classList.add('info');
     }
 }
 
