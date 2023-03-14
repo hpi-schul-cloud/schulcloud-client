@@ -5,9 +5,6 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-            <script src="{{getAssetPath '/scripts/chatLoggedout.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        {{/ifConfig}}
     {{/content}}
 
     {{#content "body"}}
