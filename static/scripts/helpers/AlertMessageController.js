@@ -35,7 +35,7 @@ class AlertMessageController {
 				${message.text}
 			<br>
 			<div class="alert-date text-nowrap text-muted">
-				Updated:  ${datetime.fromNow(message.timestamp)}
+			  Updated: ${datetime.fromNow(message.timestamp)}  |  Created: ${datetime.fromNow(message.created)}
 			</div>
 			<div style="clear: both;"></div>`;
 		} else {

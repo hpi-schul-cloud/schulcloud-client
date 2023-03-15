@@ -4,24 +4,24 @@ import initAlerts from './alerts';
 iFrameListen();
 
 if (window.opener && window.opener !== window) {
-    window.isInline = true;
+	window.isInline = true;
 }
 
-function statusIconColor(status) {
-    let iconColorStatus = document.getElementById('iconChange');
-    switch (status) {
-        case 'danger':
-            iconColorStatus.classList.add('danger');
-        case 'done':
-            iconColorStatus.classList.add('success');
-        case 'warning':
-            iconColorStatus.classList.add('warning');
-        case 'info':
-            iconColorStatus.classList.add('info');
-        default:
-            return  iconColorStatus.classList.add('info');
-    }
-}
+// function statusIconColor(status) {
+//     let iconColorStatus = document.getElementById('iconChange');
+//     switch (status) {
+//         case 'danger':
+//             iconColorStatus.classList.add('danger');
+//         case 'done':
+//             iconColorStatus.classList.add('success');
+//         case 'warning':
+//             iconColorStatus.classList.add('warning');
+//         case 'info':
+//             iconColorStatus.classList.add('info');
+//         default:
+//             return  iconColorStatus.classList.add('info');
+//     }
+// }
 
 function toggleMobileNav() {
     document.querySelector('aside.nav-sidebar').classList.toggle('active');
