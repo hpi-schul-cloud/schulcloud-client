@@ -43,7 +43,6 @@ class AlertMessageController {
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${messageText}
 			<br>
-			<div class="text-muted" style="float: left;">Created: ${datetime.toDateTimeString(message.created)}</div>
 			<div class="text-muted" style="float: right;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
