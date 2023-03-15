@@ -176,12 +176,6 @@ const helpers = () => ({
 		const opts = allowedRoles.pop();
 		return opts.data.local.currentUser.roles.some((r) => allowedRoles.includes(r.name));
 	},
-	userHasRoleFromArray: (args, currentUser) => {
-		const allowedRoles = args
-			.split(',')
-			.map((role) => role.trim());
-		return currentUser.roles.some((r) => allowedRoles.includes(r.name));
-	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
 		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
 		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW')
