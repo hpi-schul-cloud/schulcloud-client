@@ -291,8 +291,8 @@ router.get('/logout/', (req, res, next) => {
 	return authHelper.clearCookie(req, res, sessionDestroyer)
 		// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
-			res.statusCode = 307;
-			res.redirect('/');
+		res.statusCode = 307;
+		res.redirect('/');
 		})
 		.catch(next);
 });
