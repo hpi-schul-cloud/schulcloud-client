@@ -73,7 +73,8 @@ class TopicBlockWrapper extends React.Component {
             <div className={`content-block ${this.props.hidden ? 'content-block-hidden' : ''}`}>
                 <div className="card"
 					data-testid={`topic-content-element-${this.props.component}-${this.props.position}`}>
-                    <div className="card-header">
+                    <div className="card-header"
+						data-testid={`topic-card-header-${this.props.position}`}>
                         <div className="input-group">
 
                             <span className="input-group-btn">
@@ -122,6 +123,7 @@ class TopicBlockWrapper extends React.Component {
 								<button
 									aria-label={$t('global.label.settings')}
 									className="btn btn-secondary dropdown-toggle"
+									data-testid={`topic-dropdown-toggle-element-${this.props.position}`}
 									type="button"
 									data-toggle="dropdown">
                                     <i className="fa fa-cog"></i>
@@ -129,7 +131,8 @@ class TopicBlockWrapper extends React.Component {
                                 <div className="dropdown-menu dropdown-menu-right">
                                     <button
 										className="dropdown-item text-danger"
-										onClick={this.onRemoveWithCallback.bind(this)}>
+										onClick={this.onRemoveWithCallback.bind(this)}
+										data-testid={`topic-dropdown-option-delete-${this.props.position}`}>
                                         <span>
 											<i className="fa fa-trash" aria-hidden="true"/> {$t('global.button.remove')}
 										</span>
@@ -140,7 +143,8 @@ class TopicBlockWrapper extends React.Component {
                             <DragHandle />
                         </div>
                     </div>
-                    <div className="card-block">
+                    <div className="card-block"
+						data-testid={`topic-card-block-${this.props.position}`}>
                         <this.props.type {...this.props} addOnBeforeRemoveCallback={this.addOnBeforeRemoveCallback.bind(this)} />
                     </div>
                 </div>

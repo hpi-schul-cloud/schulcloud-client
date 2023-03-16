@@ -115,17 +115,6 @@
                 </div>
               </div>
 
-              {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-                {{#inArray "messenger" @root.currentSchoolData.features}}
-                  <div class="form-group">
-                    <label>
-                      <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
-                      {{$t "courses._course.edit.label.activateBidirectionalMessenger"}}
-                    </label>
-                  </div>
-                {{/inArray}}
-              {{/ifConfig}}
-
               <div class="form-group">
               <div class="times" id="timesContainer">
                   <div class="row">
@@ -226,8 +215,8 @@
               </div>
 
               <div class="pull-right">
-                <a class="btn btn-secondary" data-testid="einen-weiteren-kurs-anlegen-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
-                <a class="btn btn-primary force-initial-focus" data-testid="zur-uebersicht-btn" href="/rooms-overview">{{$t "courses.add.link.courseOverview"}}</a>
+                <a class="btn btn-secondary" data-testid="courses-add-another-course-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
+                <a class="btn btn-primary force-initial-focus" data-testid="courses-to-overview-btn" href="/rooms-overview">{{$t "courses.add.link.courseOverview"}}</a>
               </div>
             </section>
 

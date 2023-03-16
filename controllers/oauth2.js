@@ -45,10 +45,12 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 });
 
 router.all('/logout', csrfProtection, auth.authChecker, (req) => {
+	console.log(4545454545)
 	api(req, { version: VERSION }).get('/oauth2/logoutRequest');
 });
 
 router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next) => {
+	console.log(787878787)
 	const body = {
 		redirect_to: '',
 	};

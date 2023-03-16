@@ -3,18 +3,7 @@ import multiDownload from 'multi-download';
 
 import { softNavigate } from './helpers/navigation';
 import { getQueryParameters } from './helpers/queryStringParameter';
-import { requestUploadUrl, createFileModel, associateFilesWithSubmission } from './homework/api-requests';
-import extendWithBulkUpload from './homework/bulk-upload';
 
-function getDataValue(attr) {
-	return () => {
-		const value = $('.section-upload').data(attr);
-		return (value || undefined);
-	};
-}
-
-const getOwnerId = getDataValue('owner');
-const getCurrentParent = getDataValue('parent');
 let lastFocusedElement;
 
 window.addEventListener('keydown', (e) => {
@@ -22,15 +11,6 @@ window.addEventListener('keydown', (e) => {
 		lastFocusedElement.focus();
 	}
 });
-
-function saveTempData() {
-	const submissionId = $('#submissions').find('>.table.table-hover .usersubmission.active').attr('id');
-	const submissionRange = $(`#${submissionId}`);
-	const grade = { value: submissionRange.find("input[name='grade']").val(), submissionId };
-	const gradeComment = { value: submissionRange.find("textarea[name='gradeComment']").val(), submissionId };
-	localStorage.setItem('grade', JSON.stringify(grade));
-	localStorage.setItem('gradeComment', JSON.stringify(gradeComment));
-}
 
 window.onload = function onload() {
 	const grade = JSON.parse(localStorage.getItem('grade'));
@@ -50,18 +30,9 @@ window.onload = function onload() {
 	}
 };
 
-function isSubmissionGradeUpload() {
-	// Uses the fact that the page can only ever contain one file upload form,
-	// either nested in the submission or the comment tab. And if it is in the
-	// comment tab, then it is the submission grade upload
-	return $('#comment .section-upload').length > 0;
-}
-
 function showAJAXError(req, textStatus, errorThrown) {
 	if (textStatus === 'timeout') {
 		$.showNotification($t('global.text.requestTimeout'), 'danger');
-	} else if (errorThrown === 'Conflict') {
-		$.showNotification($t('homework.text.fileAlreadyExists'), 'danger');
 	} else {
 		$.showNotification(errorThrown, 'danger', 15000);
 	}
@@ -120,8 +91,6 @@ function importSubmission(e) {
 		});
 	}
 }
-
-extendWithBulkUpload($);
 
 window.addEventListener('DOMContentLoaded', () => {
 	/* FEATHERS FILTER MODULE */
@@ -198,13 +167,6 @@ $(document).ready(() => {
 		return false;
 	});
 
-	$('.btn-file-danger').on('click', (e) => {
-		e.stopPropagation();
-		e.preventDefault();
-		const $dangerModal = $('.danger-modal');
-		$dangerModal.appendTo('body').modal('show');
-	});
-
 	// Abgabe löschen
 	$('a[data-method="delete-submission"]').on('click', function action(e) {
 		e.stopPropagation();
@@ -258,228 +220,6 @@ $(document).ready(() => {
 		(btn) => { btn.addEventListener('click', importSubmission); },
 	);
 
-	// file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
-	const $uploadForm = $('.form-upload');
-	const $progressBar = $('.progress-bar');
-	const $progress = $progressBar.find('.bar');
-	const $percentage = $progressBar.find('.percent');
-
-	let progressBarActive = false;
-	let finishedFilesSize = 0;
-
-	/**
-     * adds a new file item in the uploaded file section without reload, when no submission exists
-     * @param section - the major file list
-     * @param file - the new file
-     */
-	function addNewUploadedFile(section, file) {
-		const filesCount = section.children().length === 0 ? -1 : section.children().length;
-		const $fileListItem = $(`<li class="list-group-item">
-				<i class="fa fa-file" aria-hidden="true"></i>
-				<a href="/files/file?file=${file._id}" target="_blank">${file.name}</a>
-			</li>`)
-			.append(`<input type="hidden" name="fileIds[${filesCount + 1}]" value="${file._id}" />`);
-		section.append($fileListItem);
-	}
-
-	if ($uploadForm.dropzone) {
-		$uploadForm.dropzone({
-			accept: function accept(file, done) {
-				// get signed url before processing the file
-				// this is called on per-file basis
-				file.submissionId = $(this.element).parents('.submission-editor').find('[name="submissionId"]').val();
-				file.teamMemberIds = $(this.element).parents('.submission-editor').find('[name="teamMembers"]').val();
-				if (!Array.isArray(file.teamMemberIds)) {
-					file.teamMemberIds = (file.teamMemberIds || '').split(',');
-				}
-				requestUploadUrl(file, getCurrentParent())
-					.then((data) => {
-						file.signedUrl = data.signedUrl;
-						done();
-					})
-					.fail(showAJAXError);
-			},
-			createImageThumbnails: false,
-			maxFilesize: 1024,
-			method: 'put',
-			init() {
-				// this is called on per-file basis
-				this.on('processing', function processFile(file) {
-					if (!progressBarActive) {
-						$progress.css('width', '0%');
-
-						$uploadForm.fadeOut(50, () => {
-							$progressBar.fadeIn(50);
-						});
-
-						progressBarActive = true;
-					}
-
-					this.options.url = file.signedUrl.url;
-					this.options.headers = file.signedUrl.header;
-				});
-
-				this.on('sending', (file, xhr, formData) => {
-					const xhrSend = xhr.send;
-					xhr.send = function sendFile() {
-						xhrSend.call(xhr, file);
-					};
-				});
-
-				this.on('totaluploadprogress', (progress, total, uploaded) => {
-					const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
-
-					$progress.stop().animate({ width: `${realProgress}%` }, {
-						step(now) {
-							$percentage.html(`${Math.ceil(now)}%`);
-						},
-					});
-				});
-
-				this.on('queuecomplete', () => {
-					progressBarActive = false;
-					finishedFilesSize = 0;
-
-					$progressBar.fadeOut(50, () => {
-						$uploadForm.fadeIn(50);
-						// delay for error messages
-						setTimeout(() => {
-							// just reload if submission already exists
-							if ($("input[name='submissionId']").val()) {
-								saveTempData();
-								window.location.reload();
-							}
-						}, 1500);
-					});
-				});
-
-				this.on('success', async function onSuccessfulUpload(file) {
-					finishedFilesSize += file.size;
-
-					const parentId = getCurrentParent();
-					const params = {
-						name: file.name,
-						owner: getOwnerId(),
-						type: file.type,
-						size: file.size,
-						storageFileName: file.signedUrl.header['x-amz-meta-flat-name'],
-						thumbnail: file.signedUrl.header['x-amz-meta-thumbnail'],
-					};
-
-					if (parentId) {
-						params.parent = parentId;
-					}
-					const { submissionId, teamMemberIds } = file;
-
-					// post file meta to proxy file service for persisting data
-					await createFileModel(params).then(async (data) => {
-						// add submitted file reference to submission
-						// hint: this only runs when an submission is already existing. if not, the file submission will
-						// be only saved when hitting the save button in the corresponding submission form
-						// const submissionId = $("input[name='submissionId']").val();
-						const homeworkId = $("input[name='homeworkId']").val();
-						if (submissionId) {
-							const associationType = isSubmissionGradeUpload() ? 'grade-files' : 'files';
-							await associateFilesWithSubmission({
-								submissionId, fileIds: [data._id], associationType, teamMembers: teamMemberIds,
-							});
-						} else {
-							addNewUploadedFile($('.js-file-list'), data);
-						}
-					}).fail(showAJAXError);
-
-					this.removeFile(file);
-				});
-
-				this.on('dragover', (file, response) => {
-					$uploadForm.addClass('focus');
-				});
-
-				this.on('dragleave', () => {
-					$uploadForm.removeClass('focus');
-				});
-
-				this.on('dragend', (file, response) => {
-					$uploadForm.removeClass('focus');
-				});
-
-				this.on('drop', (file, response) => {
-					$uploadForm.removeClass('focus');
-				});
-			},
-		});
-	}
-
-	/**
-     * deletes the reference to the submission
-     */
-	$('a[data-method="delete-file"]').on('click', function actionDeleteFile(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		const $buttonContext = $(this);
-		const $deleteModal = $('.delete-modal');
-		const fileId = $buttonContext.data('file-id');
-
-		$deleteModal.appendTo('body').modal('show');
-		$deleteModal.find('.modal-title').text(
-			$t('homework.text.doYouReallyWantToDecoupleFileSubmission', { name: $buttonContext.data('file-name') }),
-		);
-
-		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
-			// delete reference in submission
-			const submissionId = $("input[name='submissionId']").val();
-			const teamMembers = $('#teamMembers').val();
-			$.ajax({
-				url: `/homework/submit/${submissionId}/files`,
-				data: { fileId, teamMembers },
-				type: 'DELETE',
-				success() {
-					saveTempData();
-					window.location.reload();
-				},
-				error: showAJAXError,
-			});
-		});
-	});
-
-	$('a[data-method="delete-file-homework-edit"]').on('click', function actionDeleteFileHomeworkEdit(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		const $buttonContext = $(this);
-		const $deleteModal = $('.delete-modal');
-		const fileId = $buttonContext.data('file-id');
-
-		$deleteModal.appendTo('body').modal('show');
-		$deleteModal.find('.modal-title').text(
-			$t('homework.text.doYouReallyWantToDecoupleFileHomework', { name: $buttonContext.data('file-name') }),
-		);
-
-		$deleteModal.find('.btn-submit').unbind('click').on('click', () => {
-			/*
-			// delete the file
-			$.ajax({
-				url: $buttonContext.attr('href'),
-				type: 'DELETE',
-				data: {
-					id: fileId,
-				},
-				success() {
-			*/
-			// delete reference in homework
-			const homeworkId = $("input[name='homeworkId']").val();
-			$.ajax({
-				url: `/homework/${homeworkId}/file`,
-				data: { fileId },
-				type: 'DELETE',
-				success() {
-					saveTempData();
-					window.location.reload();
-				},
-				error: showAJAXError,
-			});
-		});
-	});
-
 	// typeset all MathJAX formulas displayed
 	MathJax.Hub.Typeset(); // eslint-disable-line no-undef
 
@@ -492,13 +232,6 @@ $(document).ready(() => {
 			// Clicking a link, even if it is a download link, triggers a `beforeunload` event. Undo those changes here.
 			setTimeout(() => document.querySelector('body').classList.add('loaded'), 1000);
 		});
-	});
-
-	$('.bulk-upload').connectBulkUpload({
-		successAlert: '#bulk-grading-success',
-		warningAlert: '#bulk-grading-error',
-		parent: getCurrentParent(),
-		owner: getOwnerId(),
 	});
 
 	const $dontShowAgainAlertModal = $('.dontShowAgainAlert-modal');

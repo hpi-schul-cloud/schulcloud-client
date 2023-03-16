@@ -11,7 +11,6 @@ const STATIC_RESSOURCES = [
 	'/styles',
 	'/vendor',
 	'/indexeddb-worker.js',
-	'/riot_config.json',
 	'/robots.txt',
 ];
 

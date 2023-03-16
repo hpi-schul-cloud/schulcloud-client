@@ -6,7 +6,7 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const api = require('../api');
 const permissionsHelper = require('./permissions');
-const wordlist = require('../static/other/wordlist.js');
+const wordlist = require('../static/other/wordlist');
 
 const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
 const logger = require('./logger');
@@ -133,13 +133,6 @@ const populateCurrentUser = async (req, res) => {
 				res.locals.currentSchool = res.locals.currentUser.schoolId;
 				res.locals.currentSchoolData = data2;
 				res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
-
-				const userPermissions = res.locals.currentUser.permissions;
-				const userHasPermissions = userPermissions.includes('MESSENGER_ROOM_CREATE');
-				const schoolFeatures = res.locals.currentSchoolData.features || [];
-				const schoolAllowsRoomCreation = schoolFeatures.includes('messengerStudentRoomCreate');
-				const blockRoomCreation = (!userHasPermissions && !schoolAllowsRoomCreation);
-				res.locals.matrixBlockRoomCreation = blockRoomCreation ? 'true' : 'false';
 				return data2;
 			});
 		}).catch((e) => {
