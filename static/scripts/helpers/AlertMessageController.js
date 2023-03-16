@@ -34,7 +34,7 @@ class AlertMessageController {
 			<div class="alert-title">${icon} ${message.title}</div>
 				${message.text}
 			<br>
-			<div class="alert-date text-nowrap text-muted">
+			<div class="alert-date style="float: left;" text-nowrap text-muted">
 			  Updated: ${datetime.fromNow(message.timestamp)}  |  Created: ${datetime.fromNow(message.created)}
 			</div>
 			<div style="clear: both;"></div>`;
@@ -44,7 +44,7 @@ class AlertMessageController {
 			${messageText}
 			<br>
 			<div class="text-muted" style="float: left;">Created: ${datetime.toDateTimeString(message.created)}</div>
-			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted" style="float: right;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
 		return item;
@@ -91,6 +91,13 @@ class AlertMessageController {
 					messageArray.forEach((message) => {
 						$('.alert-button').find('.js-alert-content').append(this.buildMessage(message));
 					});
+				}
+				if (message.status === 'info') {
+					$('.fa-exclamation-triangle').css('background-color', 	$('.fa-exclamation-triangle-status-info'));
+				} else if (message.status === 'done') {
+					$('.fa-exclamation-triangle').css('background-color',	$('.fa-exclamation-triangle-status-done'));
+				} else if (message.status === 'warning') {
+					$('.fa-exclamation-triangle').css('background-color', $('.fa-exclamation-triangle-status-warning'));
 				}
 			} else {
 				$('.alert-section').empty();
