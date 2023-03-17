@@ -92,13 +92,13 @@ class AlertMessageController {
 						$('.alert-button').find('.js-alert-content').append(this.buildMessage(message));
 					});
 				}
-				// if (message.status === 'info') {
-				// 	$('.fa-exclamation-triangle').css('background-color', $('.fa-exclamation-triangle-status-info'));
-				// } else if (message.status === 'done') {
-				// 	$('.fa-exclamation-triangle').css('background-color', $('.fa-exclamation-triangle-status-done'));
-				// } else if (message.status === 'warning') {
-				// 	$('.fa-exclamation-triangle').css('background-color', $('.fa-exclamation-triangle-status-warning'));
-				// }
+				if (message.status === 'info') {
+					$('.fa-exclamation-triangle').css('background-color', $('.fa-exclamation-triangle-status-info'));
+				} else if (message.status === 'done') {
+					$('.fa-exclamation-triangle').css('background-color', $('.fa-exclamation-triangle-status-done'));
+				} else if (message.status === 'warning') {
+					$('.fa-exclamation-triangle').css('background-color', $('.fa-exclamation-triangle-status-warning'));
+				}
 			} else {
 				$('.alert-section').empty();
 				if (messageArray.length >= 1) {
