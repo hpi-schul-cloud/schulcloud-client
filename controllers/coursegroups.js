@@ -175,7 +175,8 @@ router.get('/:courseGroupId/', (req, res, next) => {
 				title: course.name,
 				url: `/rooms/${course._id}`,
 			},
-			],});
+			],
+		});
 	}).catch(next);
 });
 
@@ -191,7 +192,7 @@ router.patch('/:courseGroupId', (req, res, next) => {
 
 	api(req).patch(`/courseGroups/${req.params.courseGroupId}`, {
 		json: req.body, // TODO: sanitize
-	}).then((_) => {
+	}).then(() => {
 		res.redirect(`/courses/${req.params.courseId}/groups/${req.params.courseGroupId}`);
 	}).catch((error) => {
 		res.sendStatus(500);
