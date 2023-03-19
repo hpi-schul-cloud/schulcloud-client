@@ -157,8 +157,20 @@
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
 								   data-toggle="dropdown">
-                                    <i class="fa fa-exclamation-triangle {{#if (eq status "done")}}fa-exclamation-triangle-status-done{{else if (eq status "info")}}fa-exclamation-triangle-status-info{{else if (eq status "danger")}}fa-exclamation-triangle{{else if (eq status "warning")}}fa-exclamation-triangle-status-warning{{/if}}"></i>
-                                    {{!-- <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> --}}
+                                        <i class="fa fa-exclamation-triangle
+                                            {{#if (eq status "done")}}
+                                                fa-exclamation-triangle-status-done
+                                            {{else if (eq status "info")}}
+                                                fa-exclamation-triangle-status-info
+                                            {{else if (eq status "danger")}}
+                                                fa-exclamation-triangle
+                                            {{else if (eq status "warning")}}
+                                                fa-exclamation-triangle-status-warning
+                                            {{/if}}"
+                                            aria-hidden="true">
+                                            </i>
+                                            {{!-- <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> --}}
+                                            {{$t "global.text.attention" }}                                    {{!-- <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> --}}
                                 </a>
 
                                 <div class="dropdown-menu">
@@ -347,7 +359,18 @@
                     {{/inArray}}
                 </p>
                 <div class="modal-danger">
-                    <i class="fa fa-exclamation-triangle {{#if (eq status "done")}}fa-exclamation-triangle-status-done{{else if (eq status "info")}}fa-exclamation-triangle-status-info{{else if (eq status "danger")}}fa-exclamation-triangle{{else if (eq status "warning")}}fa-exclamation-triangle-status-warning{{/if}}"></i>
+                     <i class="fa fa-exclamation-triangle
+                        {{#if (eq status "done")}}
+                            fa-exclamation-triangle-status-done
+                        {{else if (eq status "info")}}
+                            fa-exclamation-triangle-status-info
+                        {{else if (eq status "danger")}}
+                            fa-exclamation-triangle
+                        {{else if (eq status "warning")}}
+                            fa-exclamation-triangle-status-warning
+                        {{/if}}"
+                        aria-hidden="true">
+                    </i>
                     {{!-- <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> --}}
                     {{$t "global.text.attention" }}
                 </div>
@@ -384,9 +407,20 @@
         <div class="modal-body-text">
             <p>{{$t "messenger.text.welcomeMatrix" }}</p>
             <div class="modal-danger">
-                <i class="fa fa-exclamation-triangle {{#if (eq status "done")}}fa-exclamation-triangle-status-done{{else if (eq status "info")}}fa-exclamation-triangle-status-info{{else if (eq status "danger")}}fa-exclamation-triangle{{else if (eq status "warning")}}fa-exclamation-triangle-status-warning{{/if}}"></i>
-                {{!-- <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> --}}
-                {{$t "global.text.attention" }}
+                <i class="fa fa-exclamation-triangle
+                    {{#if (eq status "done")}}
+                        fa-exclamation-triangle-status-done
+                    {{else if (eq status "info")}}
+                        fa-exclamation-triangle-status-info
+                    {{else if (eq status "danger")}}
+                        fa-exclamation-triangle
+                    {{else if (eq status "warning")}}
+                        fa-exclamation-triangle-status-warning
+                    {{/if}}"
+                    aria-hidden="true">
+                    </i>
+                    {{!-- <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> --}}
+                    {{$t "global.text.attention" }}
             </div>
             <div id="member-modal-body">
                 <div class="text-center">
