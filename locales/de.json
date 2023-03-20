@@ -2380,7 +2380,7 @@
 				"userName": "Benutzername:"
 			},
 			"label": {
-				"help": "Hilfe",
+				"helpSection": "Hilfebereich",
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
 			"link": {

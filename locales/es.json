@@ -2381,7 +2381,7 @@
 				"userName": "Nombre de usuario:"
 			},
 			"label": {
-				"help": "Ayuda",
+				"helpSection": "Sección de ayuda",
 				"playEnterTheCloud": "Juega a \"Enter The Cloud\" (Entra en la nube)"
 			},
 			"link": {
