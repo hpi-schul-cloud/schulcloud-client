@@ -45,19 +45,19 @@ class AlertMessageController {
 		if (this.loggedin) {
 			item.className = 'alert-item';
 			item.innerHTML = `
-			<div class="alert-date text-nowrap text-muted">
-					${datetime.fromNow(message.timestamp)}
-			</div>
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
-			${url}
+			<div class="alert-date text-nowrap text-muted">
+				${datetime.fromNow(message.timestamp)}
+			</div>
 			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
-			<div class="text-muted" style="float: left;">${datetime.toDateTimeString(message.timestamp)}</div> <br>
+			<br>
 			${messageText}
-			${url}
+			<div class="text-muted" style="float: left;">Created: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
 		return item;
