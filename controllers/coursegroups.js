@@ -155,8 +155,7 @@ router.get('/:courseGroupId/', (req, res, next) => {
 		_.each(courseGroup.userIds, u => u.displayName = `${u.firstName} ${u.lastName}`);
 		_.each(course.teacherIds, t => t.displayName = `${t.firstName} ${t.lastName}`);
 
-		res.render('courses/courseGroup', {
-			...courseGroup,
+		res.render('courses/courseGroup', Object.assign({}, courseGroup, {
 			course,
 			title: courseGroup.name,
 			lessons,
@@ -179,19 +178,20 @@ router.patch('/:courseGroupId', (req, res, next) => {
 
 	// if not a teacher, automatically add student to group
 	if (!permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')) {
-		if (!_.some(req.body.userIds, (u) => JSON.stringify(u) === JSON.stringify(res.locals.currentUser._id))) {
+		if (!_.some(req.body.userIds, u => JSON.stringify(u) === JSON.stringify(res.locals.currentUser._id))) {
 			req.body.userIds.push(res.locals.currentUser._id);
 		}
 	}
 
 	api(req).patch(`/courseGroups/${req.params.courseGroupId}`, {
 		json: req.body, // TODO: sanitize
-	}).then(() => {
+	}).then((_) => {
 		res.redirect(`/courses/${req.params.courseId}/groups/${req.params.courseGroupId}`);
 	}).catch((error) => {
 		res.sendStatus(500);
 	});
 });
+
 
 router.get('/:courseGroupId/edit', editCourseGroupHandler);
 
