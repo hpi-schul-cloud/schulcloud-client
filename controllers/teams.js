@@ -501,36 +501,6 @@ router.get('/:teamId', async (req, res, next) => {
 				rocketChatCompleteURL = undefined;
 			}
 		}
-		let notificationMessage;
-		if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
-			/* eslint-disable max-len */
-			let matrixNotification;
-			// Is messenger feature flag set in the school which created this team?
-			const teamsSchoolHasMessengerEnabled = (course.schoolIds[0].features || []).includes('messenger');
-			// Is the messenger in the current users school activated?
-			const usersSchoolHasMessengerEnabled = (res.locals.currentSchoolData.features || []).includes('messenger');
-			// Are there members of other schools in the team which have not activated the messenger?
-			// > Filter team schoolIds to only include schools which really have students in the team
-			const filteredSchoolIds = course.schoolIds.filter((school) => !!course.userIds.find((user) => user.schoolId === school.id));
-			// > Find if at least one participating school hasn't activated the messenger
-			const otherUsersSchoolsHaveNotMessengerEnabled = !!filteredSchoolIds.find((school) => !(school.features || []).includes('messenger'));
-
-			if (!teamsSchoolHasMessengerEnabled && usersSchoolHasMessengerEnabled) {
-				matrixNotification = res.$t('teams._team.text.messengerNotActiveInTeam');
-			} else if (teamsSchoolHasMessengerEnabled && !usersSchoolHasMessengerEnabled) {
-				matrixNotification = res.$t('teams._team.text.messengerNotActivatedSchool');
-			} else if (teamsSchoolHasMessengerEnabled && otherUsersSchoolsHaveNotMessengerEnabled) {
-				matrixNotification = res.$t('teams._team.text.messengerNotActivatedCourse');
-			}
-			if (matrixNotification) {
-				notificationMessage = {
-					message: matrixNotification,
-					type: 'info',
-					title: res.$t('teams._team.text.messengerNotActivatedTitle'),
-					iconClass: 'fa fa-info-circle',
-				};
-			}
-		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
@@ -703,7 +673,6 @@ router.get('/:teamId', async (req, res, next) => {
 				userId: res.locals.currentUser._id,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
-				notificationMessage,
 			},
 		);
 	} catch (e) {

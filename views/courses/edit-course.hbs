@@ -179,18 +179,6 @@
 					</select>
 				</div>
 
-				{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-					{{#inArray "messenger" @root.schoolData.features}}
-						<div class="form-group">
-							<label>
-								<input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
-								{{$t "courses._course.edit.label.activateBidirectionalMessenger"}}
-							</label>
-						</div>
-					{{/inArray}}
-				{{/ifConfig}}
-
-
 				<label>{{$t "administration.global.label.chooseDate"}}</label>
 				<div class="times" id="timesContainer">
 					<label>{{$t "administration.global.label.timeSpan"}}</label>

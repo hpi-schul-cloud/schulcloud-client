@@ -5,11 +5,6 @@
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/bootstrap/scss/_alert.scss'}}">
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/feedback-button.css'}}"/>
         <link rel="stylesheet" href="{{getAssetPath '/styles/lib/forms/form-auto-logout-alert.css'}}" />
-        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-			{{#inArray "messenger" @root.currentSchoolData.features}}
-				<link rel="stylesheet" href="{{getAssetPath '/styles/lib/chatLoggedin.css'}}"/>
-			{{/inArray}}
-		{{/ifConfig}}
 		<noscript>
 			<style>
 				.section-title,
@@ -30,25 +25,14 @@
     ></script>
         <script src="{{getAssetPath '/scripts/loggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.API_HOST}}" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getAssetPath '/scripts/messenger/welcome.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="{{getAssetPath '/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML'}}" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="{{getAssetPath '/vendor/feathersjs/feathers.js'}}" nonce="{{nonceValue}}" defer></script>
         {{#if @root.currentUser.preferences.enterthecloud}}
             <script type="text/javascript" src="{{getAssetPath '/vendor/enterthecloud.min.js'}}" nonce="{{nonceValue}}" defer></script>
         {{/if}}
-        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-            {{#inArray "messenger" @root.currentSchoolData.features}}
-                <script src="{{getAssetPath '/scripts/chatLoggedin.js'}}" type="text/javascript" nonce="{{@root.nonceValue}}" defer></script>
-            {{/inArray}}
-        {{/ifConfig}}
     {{/content}}
 
     {{#content "body"}}
-        {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-            <input type="hidden" id="matrixAssetDomain" value='{{getConfig "MATRIX_MESSENGER__EMBED_URI"}}'/>
-            <input type="hidden" id="matrixUserLanguage" value="{{ @root.userLanguage }}"/>
-            <input type="hidden" id="matrixBlockRoomCreation" value="{{ @root.matrixBlockRoomCreation }}"/>
-        {{/ifConfig}}
 
         {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
             {{#embed "lib/ldap_migration_banner"}}{{/embed}}

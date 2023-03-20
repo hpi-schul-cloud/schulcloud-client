@@ -294,8 +294,13 @@ router.get('/logout/', (req, res, next) => {
 	return authHelper.clearCookie(req, res, sessionDestroyer)
 		// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
+<<<<<<< HEAD
 			res.statusCode = 307;
 			res.redirect('/');
+=======
+		res.statusCode = 307;
+		res.redirect('/');
+>>>>>>> 62bead079 (BC-3290 removing matrix message integration (#3136))
 		})
 		.catch(next);
 });
