@@ -1,7 +1,5 @@
 const datetime = require('../datetime/datetime');
 
-const max = 2;
-
 function getIconTag(status) {
 	switch (status) {
 		case 'danger':
@@ -29,16 +27,6 @@ class AlertMessageController {
 			messageText = `${message.text.substring(0, 113)}...`;
 		} else {
 			messageText = message.text;
-		}
-
-		// if message includes url
-		let url = '';
-		if (message.url) {
-			url = `
-				<a href="${message.url}" rel="noopener" target="_blank" style="float: right;">
-					${message.url.replace(/(^\w+:|^)\/\//, '')}
-				</a>
-				`;
 		}
 
 		const item = document.createElement('div');
@@ -101,8 +89,8 @@ class AlertMessageController {
 						$('.alert-button').css('visibility', 'visible');
 					}
 					$('.alert-button').find('.js-alert-content').empty();
-					messageArray.forEach((message, index) => {
-						if (index < max) {
+					messageArray.forEach((message) => {
+						if (message) {
 							$('.alert-button').find('.js-alert-content').append(this.buildMessage(message));
 						}
 					});
@@ -110,22 +98,32 @@ class AlertMessageController {
 			} else {
 				$('.alert-section').empty();
 				if (messageArray.length >= 1) {
-					messageArray.forEach((message, index) => {
-						if (message.status === 'danger' && index < max) {
+					messageArray.forEach((message) => {
+						if (message.status === 'danger') {
 							$('.alert-section').append(this.buildMessage(message));
+						}
+						if (message.status === 'info') {
+							// eslint-disable-next-line max-len
+							$('.fa-exclamation-triangle').css('background-color', $('.fa-exclamation-triangle-status-info'));
+						} else if (message.status === 'done') {
+							// eslint-disable-next-line max-len
+							$('.fa-exclamation-triangle').css('background-color', $('.fa-exclamation-triangle-status-done'));
+						} else if (message.status === 'warning') {
+							// eslint-disable-next-line max-len
+							$('.fa-exclamation-triangle').css('background-color', $('.fa-exclamation-triangle-status-warning'));
 						}
 					});
 				}
 			}
-			const { length } = messageArray.filter(message => message.status === 'danger');
-			if (messageArray.length > max) {
+			const { length } = messageArray.filter((message) => message.status === 'danger');
+			if (messageArray) {
 				if (this.loggedin) {
 					$('.alert-button').find('.js-alert-content').append(
-						this.readMore(messageArray.length - max, messageArray[max].url),
+						this.readMore(messageArray, messageArray.url),
 					);
-				} else if (length != 0 && length > max) {
+				} else if (length !== 0) {
 					$('.alert-section').append(
-						this.readMore(length - max, messageArray[max].url),
+						this.readMore(length, messageArray.url),
 					);
 				}
 			}
