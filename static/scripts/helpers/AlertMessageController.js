@@ -11,7 +11,6 @@ function getIconTag(status) {
 			return '<i class="fa fa-info-circle text-info"></i>';
 	}
 }
-
 class AlertMessageController {
 	constructor(loggedin) {
 		this.loggedin = loggedin;
@@ -20,14 +19,6 @@ class AlertMessageController {
 
 	buildMessage(message) {
 		const icon = getIconTag(message.status);
-
-		// show only 150 charckters of message
-		// let messageText;
-		// if (message.text.length > 113) {
-		// 	messageText = `${message.text.substring(0, 113)}...`;
-		// } else {
-		// 	messageText = message.text;
-		// }
 
 		const item = document.createElement('div');
 		if (this.loggedin) {
@@ -50,32 +41,6 @@ class AlertMessageController {
 		}
 		return item;
 	}
-
-	// readMore() {
-	// 	const item = document.createElement('div');
-		// let text = '';
-
-		// if (length > 1) {
-		// 	text = $t('alert.text.furtherCases', { amount: length });
-		// } else {
-		// 	text = $t('alert.text.furtherCase', { amount: length });
-		// }
-
-		// if (this.loggedin) {
-		// 	item.className = 'alert-item text-center';
-		// 	item.innerHTML = `
-		// 	<a href="${url}" rel="noopener" target="_blank">
-		// 		${text}
-		// 	</a>`;
-		// } else {
-		// 	item.className = 'alert alert-info alert-card';
-		// 	item.innerHTML = `
-		// 	<a href="${url}" rel="noopener" target="_blank">
-		// 		${text}
-		// 	</a>`;
-		// }
-	// 	return item;
-	// }
 
 	showAlert(messageArray) {
 		if (Array.isArray(messageArray)) {
