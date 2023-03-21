@@ -27,6 +27,7 @@
   }
 
   &:last-child {
+		display: flex;
     margin-bottom: 0;
     @include border-bottom-radius($list-group-border-radius);
   }

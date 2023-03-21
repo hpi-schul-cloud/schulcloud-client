@@ -287,6 +287,8 @@ aside.nav-sidebar {
 					text-transform: uppercase;
 					text-decoration: none;
 					margin-left: 6px;
+					text-overflow: ellipsis;
+    			overflow: hidden;
 
 					@include media-breakpoint-down(md) {
 						display: none;
@@ -902,6 +904,9 @@ footer {
 	.link {
 		padding-left: 8px;
 		text-transform: uppercase;
+		white-space: nowrap;
+    overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.delimiter {
