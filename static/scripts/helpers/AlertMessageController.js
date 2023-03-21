@@ -35,7 +35,7 @@ class AlertMessageController {
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			<br>
 			${message.text}
-			<div class="text-muted" style="float: left;">Created: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted" style="float: right;">Created: ${datetime.toDateTimeString(message.created)}</div>
 			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
@@ -81,14 +81,14 @@ class AlertMessageController {
 				}
 			}
 			const { length } = messageArray.filter((message) => message.status === 'danger');
-			if (messageArray) {
+			if (messageArray && length > 0) {
 				if (this.loggedin) {
 					$('.alert-button').find('.js-alert-content').append(
-						this.readMore(messageArray, messageArray.url),
+						this.readMore(messageArray),
 					);
-				} else if (length !== 0) {
+				} else {
 					$('.alert-section').append(
-						this.readMore(length, messageArray.url),
+						this.readMore(length),
 					);
 				}
 			}
