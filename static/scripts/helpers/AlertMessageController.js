@@ -19,7 +19,6 @@ class AlertMessageController {
 
 	buildMessage(message) {
 		const icon = getIconTag(message.status);
-
 		const item = document.createElement('div');
 		if (this.loggedin) {
 			item.className = 'alert-item';
