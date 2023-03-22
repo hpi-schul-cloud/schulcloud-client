@@ -1,6 +1,6 @@
 const datetime = require('../datetime/datetime');
 
-const max = 2;
+const max = 4;
 
 function getIconTag(status) {
 	switch (status) {
