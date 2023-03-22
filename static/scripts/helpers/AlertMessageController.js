@@ -19,10 +19,6 @@ class AlertMessageController {
 
 	buildMessage(message) {
 		const icon = getIconTag(message.status);
-<<<<<<< HEAD
-=======
-
->>>>>>> 230e31d24 (BC-3348 Added functionality filter status alerts if they dont have any events.)
 		const item = document.createElement('div');
 		if (this.loggedin) {
 			item.className = 'alert-item';
@@ -57,13 +53,10 @@ class AlertMessageController {
 						$('.alert-button').css('visibility', 'visible');
 					}
 					$('.alert-button').find('.js-alert-content').empty();
-<<<<<<< HEAD
 					messageArray.forEach((message) => {
 						if (message) {
-=======
 					messageArray.forEach((message, index) => {
 						if (index) {
->>>>>>> 230e31d24 (BC-3348 Added functionality filter status alerts if they dont have any events.)
 							$('.alert-button').find('.js-alert-content').append(this.buildMessage(message));
 						}
 					});
