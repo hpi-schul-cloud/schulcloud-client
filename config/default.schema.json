@@ -548,6 +548,11 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Determines if consent is necessary during registration."
+		},
+		"FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Makes the new school administration page the default page"
 		}
 	},
 	"allOf": [
