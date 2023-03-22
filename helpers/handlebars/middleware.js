@@ -213,6 +213,7 @@ module.exports = (req, res, next) => {
 	});
 
 	// admin views
+	const newSchoolAdminPageAsDefault = FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED === 'true';
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.management'),
 		testId: 'Verwaltung',
@@ -254,7 +255,7 @@ module.exports = (req, res, next) => {
 				name: res.$t('global.link.school'),
 				testId: 'Schule',
 				icon: 'building',
-				link: FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED
+				link: newSchoolAdminPageAsDefault
 					? '/administration/school-settings/'
 					: '/administration/school/',
 			},
