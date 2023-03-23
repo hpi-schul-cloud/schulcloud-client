@@ -2,6 +2,11 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
 {
 	"name": "Node.js",
+
+	"containerEnv": {
+		"PUBLIC_BACKEND_URL": "http://host.docker.internal:3030/api",
+		"API_HOST": "http://host.docker.internal:3030/api"
+	},
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/javascript-node:0-16",
 
