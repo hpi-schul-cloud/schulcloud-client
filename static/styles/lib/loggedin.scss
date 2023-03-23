@@ -287,6 +287,8 @@ aside.nav-sidebar {
 					text-transform: uppercase;
 					text-decoration: none;
 					margin-left: 6px;
+					text-overflow: ellipsis;
+    			overflow: hidden;
 
 					@include media-breakpoint-down(md) {
 						display: none;
@@ -891,16 +893,25 @@ footer {
 	}
 
 	.list-group-item {
+		display: flex;
 		padding-left: 15px;
 		padding-right: 15px;
 		margin-bottom: 0;
-		font-size: 14px;
+		font-size: 16px;
 		border-width: 0;
 		border-bottom-width: 1px;
 	}
 
+	.list-group-item svg {
+		fill: $primaryColor;
+	}
+
 	.link {
 		padding-left: 8px;
+		text-transform: uppercase;
+		white-space: nowrap;
+    overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.delimiter {
