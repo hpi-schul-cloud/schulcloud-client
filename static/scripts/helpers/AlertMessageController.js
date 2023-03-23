@@ -80,6 +80,9 @@ class AlertMessageController {
 	}
 
 	showAlert(messageArray) {
+		if (!messageArray || messageArray.length === 0) {
+			return; // If messageArray is empty, we do not show the triangle
+		}
 		if (Array.isArray(messageArray)) {
 			// keep data in local storage
 			// silently overwrite old data
@@ -101,15 +104,16 @@ class AlertMessageController {
 				$('.alert-section').empty();
 				if (messageArray.length >= 1) {
 					messageArray.forEach((message, index) => {
-						if (message.status === 'danger' && index < max) {
+						if (index < max) {
 							$('.alert-section').append(this.buildMessage(message));
-						} else if (message.status === 'info') {
-							// eslint-disable-next-line max-len
+						}
+						if (message.status === 'info') {
 							$('.fa-exclamation-triangle').css('color', $('$colorInfo'));
 						}
 					});
 				}
 			}
+
 			const { length } = messageArray.filter((message) => message.status === 'danger');
 			if (messageArray.length) {
 				if (this.loggedin) {
