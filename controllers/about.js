@@ -17,12 +17,12 @@ router.get('/', (req, res, next) => {
 		const template = isAuthenticated ? 'about/about_loggedin' : 'about/about_guest';
 		if (isAuthenticated) {
 			return authHelper.populateCurrentUser(req, res)
-				.then(_ => authHelper.restrictSidebar(req, res))
-				.then(_ => Promise.resolve(template));
+				.then((_) => authHelper.restrictSidebar(req, res))
+				.then((_) => Promise.resolve(template));
 		}
 		return Promise.resolve(template);
-	}).then(template => res.render(template, {
-		title: res.$t("about.headline.project"),
+	}).then((template) => res.render(template, {
+		title: res.$t('about.headline.project'),
 		inline: !!template.includes('guest'),
 		schools,
 		hiddenBPSchools,

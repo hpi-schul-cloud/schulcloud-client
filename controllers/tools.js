@@ -154,7 +154,6 @@ const showToolHandler = (req, res, next) => {
 	});
 };
 
-
 // secure routes
 router.use(authHelper.authChecker);
 

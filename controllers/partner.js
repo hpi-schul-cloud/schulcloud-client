@@ -9,11 +9,11 @@ const partners = require('../helpers/partner/partners.json');
 
 // Sort Content-Partners, Sponsors & Advisers by Name
 partners.content_partners = orderBy(partners.content_partners,
-	[x => x.name.toLowerCase()], ['asc']);
+	[(x) => x.name.toLowerCase()], ['asc']);
 partners.sponsors = orderBy(partners.sponsors,
-	[x => x.name.toLowerCase()], ['asc']);
+	[(x) => x.name.toLowerCase()], ['asc']);
 partners.advisers = orderBy(partners.advisers,
-	[x => x.name.toLowerCase()], ['asc']);
+	[(x) => x.name.toLowerCase()], ['asc']);
 
 const hiddenAdvisers = partners.advisers.splice(4);
 const hiddenContentPartners = partners.content_partners.splice(4);
@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
 				.then(() => Promise.resolve(template));
 		}
 		return Promise.resolve(template);
-	}).then(template => res.render(template, {
+	}).then((template) => res.render(template, {
 		title: res.$t('global.link.partner'),
 		inline: !!template.includes('guest'),
 		partners,
