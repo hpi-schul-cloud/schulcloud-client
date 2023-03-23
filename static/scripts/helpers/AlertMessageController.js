@@ -1,7 +1,5 @@
 const datetime = require('../datetime/datetime');
 
-const max = 2;
-
 function getIconTag(status) {
 	switch (status) {
 		case 'danger':
@@ -13,7 +11,6 @@ function getIconTag(status) {
 			return '<i class="fa fa-info-circle text-info"></i>';
 	}
 }
-
 class AlertMessageController {
 	constructor(loggedin) {
 		this.loggedin = loggedin;
@@ -79,18 +76,6 @@ class AlertMessageController {
 							$('.fa-exclamation-triangle').css('color', $colorInfo);
 						}
 					});
-				}
-			}
-			const { length } = messageArray.filter((message) => message.status === 'danger');
-			if (messageArray && length > 0) {
-				if (this.loggedin) {
-					$('.alert-button').find('.js-alert-content').append(
-						this.readMore(messageArray.length),
-					);
-				} else if (length !== 0) {
-					$('.alert-section').append(
-						this.readMore(length - max, messageArray[max].url),
-					);
 				}
 			}
 		}
