@@ -1,5 +1,7 @@
 const datetime = require('../datetime/datetime');
 
+const max = 2;
+
 function getIconTag(status) {
 	switch (status) {
 		case 'danger':
@@ -11,8 +13,8 @@ function getIconTag(status) {
 			return '<i class="fa fa-info-circle text-info"></i>';
 	}
 }
-// eslint-disable-next-line import/prefer-default-export
-export class AlertMessageController {
+
+class AlertMessageController {
 	constructor(loggedin) {
 		this.loggedin = loggedin;
 		this.showAlert(JSON.parse(localStorage.getItem('SC-Alerts')) || []);
@@ -21,27 +23,41 @@ export class AlertMessageController {
 	buildMessage(message) {
 		const icon = getIconTag(message.status);
 
-		const messageText = message.text;
+		// show only 150 charckters of message
+		let messageText;
+		if (message.text.length > 113) {
+			messageText = `${message.text.substring(0, 113)}...`;
+		} else {
+			messageText = message.text;
+		}
+
+		// if message includes url
+		let url = '';
+		if (message.url) {
+			url = `
+				<a href="${message.url}" rel="noopener" target="_blank" style="float: right;">
+					${message.url.replace(/(^\w+:|^)\/\//, '')}
+				</a>
+				`;
+		}
 
 		const item = document.createElement('div');
 		if (this.loggedin) {
 			item.className = 'alert-item';
 			item.innerHTML = `
+			<div class="alert-date text-nowrap text-muted">
+					${datetime.fromNow(message.timestamp)}
+			</div>
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
-			<div class="alert-date text-nowrap text-muted">
-				${datetime.fromNow(message.created)}
-			</div>
-			<div class="alert-date text-nowrap text-muted">
-				${datetime.fromNow(message.timestamp)}
-			</div>
+			${url}
 			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
+			<div class="text-muted" style="float: left;">${datetime.toDateTimeString(message.timestamp)}</div> <br>
 			${messageText}
-			<div class="text-muted" style="float: left;">Created:${datetime.toDateTimeString(message.created)}</div>
-			<div class="text-muted" style="float: left;">Updated:${datetime.toDateTimeString(message.timestamp)}</div>
+			${url}
 			<div style="clear: both;"></div>`;
 		}
 		return item;
@@ -86,7 +102,7 @@ export class AlertMessageController {
 					}
 					$('.alert-button').find('.js-alert-content').empty();
 					messageArray.forEach((message, index) => {
-						if (index) {
+						if (index < max) {
 							$('.alert-button').find('.js-alert-content').append(this.buildMessage(message));
 						}
 					});
@@ -94,29 +110,27 @@ export class AlertMessageController {
 			} else {
 				$('.alert-section').empty();
 				if (messageArray.length >= 1) {
-					messageArray.forEach((message) => {
-						if (message.status === 'danger') {
+					messageArray.forEach((message, index) => {
+						if (message.status === 'danger' && index < max) {
 							$('.alert-section').append(this.buildMessage(message));
-						}
-						if (message.status === 'info') {
-							// eslint-disable-next-line no-undef
-							$('.fa-exclamation-triangle').css('color', $colorInfo);
 						}
 					});
 				}
 			}
 			const { length } = messageArray.filter((message) => message.status === 'danger');
-			if (messageArray && length > 0) {
+			if (messageArray.length > max) {
 				if (this.loggedin) {
 					$('.alert-button').find('.js-alert-content').append(
-						this.readMore(messageArray),
+						this.readMore(messageArray.length - max, messageArray[max].url),
 					);
-				} else {
+				} else if (length !== 0 && length > max) {
 					$('.alert-section').append(
-						this.readMore(length),
+						this.readMore(length - max, messageArray[max].url),
 					);
 				}
 			}
 		}
 	}
 }
+
+export default AlertMessageController;
