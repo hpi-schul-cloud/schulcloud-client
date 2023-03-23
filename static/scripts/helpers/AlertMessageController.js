@@ -31,22 +31,13 @@ class AlertMessageController {
 			messageText = message.text;
 		}
 
-		// if message includes url
-		let url = '';
-		if (message.url) {
-			url = `
-				<a href="${message.url}" rel="noopener" target="_blank" style="float: right;">
-					${message.url.replace(/(^\w+:|^)\/\//, '')}
-				</a>
-				`;
-		}
-
 		const item = document.createElement('div');
 		if (this.loggedin) {
 			item.className = 'alert-item';
 			item.innerHTML = `
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
+			<br>
 			<div class="alert-date text-nowrap text-muted">Created:${datetime.fromNow(message.created)}</div>
 			<div class="alert-date text-nowrap text-muted">Upated:${datetime.fromNow(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
@@ -54,7 +45,8 @@ class AlertMessageController {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${messageText}
-			<div class="text-muted" style="float: left;">Created: ${datetime.toDateTimeString(message.created)}</div>
+			<br>
+			<div class="text-muted" style="float: right;">Created: ${datetime.toDateTimeString(message.created)}</div>
 			<div class="text-muted" style="float: left;">Upated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
@@ -111,17 +103,20 @@ class AlertMessageController {
 					messageArray.forEach((message, index) => {
 						if (message.status === 'danger' && index < max) {
 							$('.alert-section').append(this.buildMessage(message));
+						} else if (message.status === 'info') {
+							// eslint-disable-next-line max-len
+							$('.fa-exclamation-triangle').css('color', $('$colorInfo'));
 						}
 					});
 				}
 			}
 			const { length } = messageArray.filter((message) => message.status === 'danger');
-			if (messageArray.length > max) {
+			if (messageArray.length) {
 				if (this.loggedin) {
 					$('.alert-button').find('.js-alert-content').append(
 						this.readMore(messageArray.length - max, messageArray[max].url),
 					);
-				} else if (length !== 0 && length > max) {
+				} else if (length !== 0 && length) {
 					$('.alert-section').append(
 						this.readMore(length - max, messageArray[max].url),
 					);
