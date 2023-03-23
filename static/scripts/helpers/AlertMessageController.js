@@ -89,7 +89,7 @@ class AlertMessageController {
 			localStorage.setItem('SC-Alerts', JSON.stringify(messageArray));
 			if (this.loggedin) {
 				$('.alert-button').css('visibility', 'hidden');
-				if (messageArray.length >= 1) {
+				if (messageArray) {
 					if (!$('body').hasClass('fullscreen')) {
 						$('.alert-button').css('visibility', 'visible');
 					}
@@ -104,10 +104,10 @@ class AlertMessageController {
 				$('.alert-section').empty();
 				if (messageArray.length >= 1) {
 					messageArray.forEach((message, index) => {
-						if (index < max) {
+						if (message.status === 'danger' && index < max) {
 							$('.alert-section').append(this.buildMessage(message));
-						}
-						if (message.status === 'info') {
+						} else if (message.status === 'info') {
+							// eslint-disable-next-line max-len
 							$('.fa-exclamation-triangle').css('color', $('$colorInfo'));
 						}
 					});
