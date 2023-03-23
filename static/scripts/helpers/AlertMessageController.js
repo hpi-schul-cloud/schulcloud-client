@@ -11,7 +11,8 @@ function getIconTag(status) {
 			return '<i class="fa fa-info-circle text-info"></i>';
 	}
 }
-class AlertMessageController {
+// eslint-disable-next-line import/prefer-default-export
+export class AlertMessageController {
 	constructor(loggedin) {
 		this.loggedin = loggedin;
 		this.showAlert(JSON.parse(localStorage.getItem('SC-Alerts')) || []);
@@ -46,6 +47,32 @@ class AlertMessageController {
 		return item;
 	}
 
+	readMore(length, url) {
+		const item = document.createElement('div');
+		let text = '';
+
+		if (length > 1) {
+			text = $t('alert.text.furtherCases', { amount: length });
+		} else {
+			text = $t('alert.text.furtherCase', { amount: length });
+		}
+
+		if (this.loggedin) {
+			item.className = 'alert-item text-center';
+			item.innerHTML = `
+			<a href="${url}" rel="noopener" target="_blank">
+				${text}
+			</a>`;
+		} else {
+			item.className = 'alert alert-info alert-card';
+			item.innerHTML = `
+			<a href="${url}" rel="noopener" target="_blank">
+				${text}
+			</a>`;
+		}
+		return item;
+	}
+
 	showAlert(messageArray) {
 		if (Array.isArray(messageArray)) {
 			// keep data in local storage
@@ -66,7 +93,7 @@ class AlertMessageController {
 				}
 			} else {
 				$('.alert-section').empty();
-				if (messageArray.length > 0) {
+				if (messageArray.length >= 1) {
 					messageArray.forEach((message) => {
 						if (message.status === 'danger') {
 							$('.alert-section').append(this.buildMessage(message));
@@ -78,8 +105,18 @@ class AlertMessageController {
 					});
 				}
 			}
+			const { length } = messageArray.filter((message) => message.status === 'danger');
+			if (messageArray && length > 0) {
+				if (this.loggedin) {
+					$('.alert-button').find('.js-alert-content').append(
+						this.readMore(messageArray),
+					);
+				} else {
+					$('.alert-section').append(
+						this.readMore(length),
+					);
+				}
+			}
 		}
 	}
 }
-
-export default AlertMessageController;
