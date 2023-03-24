@@ -39,7 +39,7 @@ class AlertMessageController {
 			${message.text}
 			<br>
 			<div class="alert-date text-nowrap text-muted">Created:${datetime.toDateTimeString(message.created)}</div>
-			<div class="alert-date text-nowrap text-muted">Upated:${datetime.fromNow(message.timestamp)}</div>
+			<div class="alert-date text-nowrap text-muted">Updated:${datetime.fromNow(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
@@ -47,7 +47,7 @@ class AlertMessageController {
 			${messageText}
 			<br>
 			<div class="text-muted" style="float: right;">Created: ${datetime.toDateTimeString(message.created)}</div>
-			<div class="text-muted" style="float: right;">Upated: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
 		return item;
@@ -106,11 +106,10 @@ class AlertMessageController {
 					messageArray.forEach((message) => {
 						if (message.status) {
 							$('.alert-section').append(this.buildMessage(message));
-						} else if (message.status === 'info') {
-							// eslint-disable-next-line max-len
-							$('.fa-exclamation-triangle').css('color', $('$colorInfo'));
+						} if (message.status === 'info') {
+							$('.alert-section .fa-exclamation-triangle').addClass('fa-exclamation-triangle-info');
 						} else if (message.status === 'danger') {
-							$('.fa-exclamation-triangle').css('color', $('$colorDanger'));
+							$('.alert-section .fa-exclamation-triangle').addClass('fa-exclamation-triangle');
 						}
 					});
 				}
