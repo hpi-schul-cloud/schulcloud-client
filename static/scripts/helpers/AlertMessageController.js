@@ -38,7 +38,7 @@ class AlertMessageController {
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
 			<br>
-			<div class="alert-date text-nowrap text-muted">Created:${datetime.fromNow(message.created)}</div>
+			<div class="alert-date text-nowrap text-muted">Created:${datetime.toDateTimeString(message.created)}</div>
 			<div class="alert-date text-nowrap text-muted">Upated:${datetime.fromNow(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		} else {
@@ -47,7 +47,7 @@ class AlertMessageController {
 			${messageText}
 			<br>
 			<div class="text-muted" style="float: right;">Created: ${datetime.toDateTimeString(message.created)}</div>
-			<div class="text-muted" style="float: left;">Upated: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted" style="float: right;">Upated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
 		return item;
@@ -116,7 +116,7 @@ class AlertMessageController {
 				}
 			}
 
-			const { length } = messageArray.filter((message) => message.status === 'danger');
+			const { length } = messageArray.filter((message) => message.status);
 			if (messageArray.length) {
 				if (this.loggedin) {
 					$('.alert-button').find('.js-alert-content').append(
