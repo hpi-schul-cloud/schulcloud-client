@@ -109,7 +109,7 @@ class AlertMessageController {
 						} else if (message.status === 'info') {
 							// eslint-disable-next-line max-len
 							$('.fa-exclamation-triangle').css('color', $('$colorInfo'));
-						} else if (message.status === 'info') {
+						} else if (message.status === 'danger') {
 							$('.fa-exclamation-triangle').css('color', $('$colorDanger'));
 						}
 					});
