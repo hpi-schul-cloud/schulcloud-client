@@ -14,7 +14,7 @@ jobs:
         packages: write
     strategy:
       matrix:
-        tennens: [default, brb, int, n21, thr ]
+        tenants: [default, brb, n21, thr ]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -23,7 +23,7 @@ jobs:
         id: docker_meta_img_hub
         uses: docker/metadata-action@v4
         with:
-          images: schulcloud/schulcloud-client-${{ matrix.tennens }}
+          images: schulcloud/schulcloud-client-${{ matrix.tenants }}
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           build-args: |
-            SC_THEME_BUILD=${{ matrix.tennens }}
+            SC_THEME_BUILD=${{ matrix.tenants }}
           context: .
           file: ./Dockerfile
           platforms: linux/amd64

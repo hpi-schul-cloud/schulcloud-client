@@ -30,7 +30,7 @@ jobs:
         packages: write
     strategy:
       matrix:
-        tenants: [default, brb, int, n21, thr ]
+        tenants: [default, brb, n21, thr ]
     steps:
       - uses: actions/checkout@v3
         with:

@@ -228,6 +228,7 @@ class TopicBlockList extends React.Component {
 	loadState() {
 		const blocks = $contentBlocksContainer.data('value') || [];
 		return blocks.map((block) => {
+			block.key = shortid.generate();
 			block.type = TopicBlock.getClassForComponent(block.component);
 			block.parentId = $contentBlocksContainer.data('parent-id');
 			block.schoolId = $contentBlocksContainer.data('school-id');
