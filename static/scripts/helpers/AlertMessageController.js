@@ -1,6 +1,6 @@
 const datetime = require('../datetime/datetime');
 
-const max = 2;
+const max = 10;
 
 function getIconTag(status) {
 	switch (status) {
@@ -103,8 +103,8 @@ class AlertMessageController {
 			} else {
 				$('.alert-section').empty();
 				if (messageArray.length >= 1) {
-					messageArray.forEach((message, index) => {
-						if (message.status === 'danger' && index < max) {
+					messageArray.forEach((message) => {
+						if (message.status) {
 							$('.alert-section').append(this.buildMessage(message));
 						} else if (message.status === 'info') {
 							// eslint-disable-next-line max-len
