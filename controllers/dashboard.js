@@ -194,7 +194,7 @@ router.get('/', (req, res, next) => {
 				homeworks.lessonHidden = false;
 			}
 			if (homeworks.taskCard != null) {
-				homeworks.url = `/task-cards/${homeworks.taskCard}`;
+				homeworks.url = `/beta-task/${homeworks.taskCard}`;
 			} else {
 				homeworks.url = `/homework/${homeworks._id}`;
 			}
