@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const datetime = require('../datetime/datetime');
 
 const max = 10;
@@ -38,15 +39,15 @@ class AlertMessageController {
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
 			<br>
-			<div class="alert-date text-nowrap text-muted">Created:${datetime.toDateTimeString(message.created)}</div>
-			<div class="alert-date text-nowrap text-muted">Updated:${datetime.fromNow(message.timestamp)}</div>
+			<div class="alert-date text-nowrap text-muted">Created: ${datetime.toDateTimeString(message.created_at)}</div>
+			<div class="alert-date text-nowrap text-muted">Updated: ${datetime.fromNow(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${messageText}
 			<br>
-			<div class="text-muted" style="float: right;">Created: ${datetime.toDateTimeString(message.created)}</div>
+			<div class="text-muted" style="float: right;">Created: ${datetime.toDateTimeString(message.created_at)}</div>
 			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
