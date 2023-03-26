@@ -106,10 +106,6 @@ class AlertMessageController {
 					messageArray.forEach((message) => {
 						if (message.status) {
 							$('.alert-section').append(this.buildMessage(message));
-						} if (message.status === 'info') {
-							$('.alert-section .fa-exclamation-triangle').addClass('fa-exclamation-triangle-info');
-						} else if (message.status === 'danger') {
-							$('.alert-section .fa-exclamation-triangle').addClass('fa-exclamation-triangle');
 						}
 					});
 				}

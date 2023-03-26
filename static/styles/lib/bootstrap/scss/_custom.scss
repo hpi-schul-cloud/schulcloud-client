@@ -367,7 +367,7 @@ $dropdown-border-color: rgba(0, 0, 0, .15) !default;
 $dropdown-border-width: $border-width !default;
 $dropdown-divider-bg: #e5e5e5 !default;
 $dropdown-box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .175) !default;
-$dropdown-link-color: $secondaryColor !default;
+$dropdown-link-color: $primaryColor !default;
 $dropdown-link-hover-color: darken($secondaryColor, 20%) !default;
 $dropdown-link-hover-bg: #f5f5f5 !default;
 $dropdown-link-active-color: $component-active-color !default;
