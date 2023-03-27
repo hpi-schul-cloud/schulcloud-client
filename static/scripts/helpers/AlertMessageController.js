@@ -39,7 +39,7 @@ class AlertMessageController {
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
 			<br>
-			<div class="alert-date text-nowrap text-muted">Created: ${datetime.toDateTimeString(message.created_at)}</div>
+			<div class="alert-date text-nowrap text-muted"> | Created: ${datetime.toDateTimeString(message.created_at)}</div>
 			<div class="alert-date text-nowrap text-muted">Updated: ${datetime.fromNow(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		} else {
@@ -47,35 +47,9 @@ class AlertMessageController {
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${messageText}
 			<br>
-			<div class="text-muted" style="float: right;">Created: ${datetime.toDateTimeString(message.created_at)}</div>
+			<div class="text-muted" style="float: right;"> | Created: ${datetime.toDateTimeString(message.created_at)}</div>
 			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
-		}
-		return item;
-	}
-
-	readMore(length, url) {
-		const item = document.createElement('div');
-		let text = '';
-
-		if (length > 1) {
-			text = $t('alert.text.furtherCases', { amount: length });
-		} else {
-			text = $t('alert.text.furtherCase', { amount: length });
-		}
-
-		if (this.loggedin) {
-			item.className = 'alert-item text-center';
-			item.innerHTML = `
-			<a href="${url}" rel="noopener" target="_blank">
-				${text}
-			</a>`;
-		} else {
-			item.className = 'alert alert-info alert-card';
-			item.innerHTML = `
-			<a href="${url}" rel="noopener" target="_blank">
-				${text}
-			</a>`;
 		}
 		return item;
 	}
@@ -109,19 +83,6 @@ class AlertMessageController {
 							$('.alert-section').append(this.buildMessage(message));
 						}
 					});
-				}
-			}
-
-			const { length } = messageArray.filter((message) => message.status);
-			if (messageArray.length) {
-				if (this.loggedin) {
-					$('.alert-button').find('.js-alert-content').append(
-						this.readMore(messageArray.length - max, messageArray[max].url),
-					);
-				} else if (length !== 0 && length) {
-					$('.alert-section').append(
-						this.readMore(length - max, messageArray[max].url),
-					);
 				}
 			}
 		}
