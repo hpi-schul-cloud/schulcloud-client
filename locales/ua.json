@@ -930,7 +930,7 @@
 				"chooseACounty": "Виберіть округ, до якого належить ваша школа.",
 				"county": "Округ",
 				"counties": "Округи",
-				"beta": "Спробуйте нову сторінку адміністратора"
+				"newPage": "На нову сторінку адміністратора"
 			},
 			"link": {
 				"moreInfo": "Докладніше",
@@ -2566,14 +2566,13 @@
 				"userName": "Ім'я користувача:"
 			},
 			"link": {
-				"sendRequestOrProblem": "Відправте запит або проблему",
 				"training": "Підвищення кваліфікації"
 			},
 			"img_alt": {
 				"learnCloud": "Навчальна хмара"
 			},
 			"label": {
-				"help": "Довідка",
+				"helpSection": "Розділ довідки",
 				"playEnterTheCloud": "Play Enter The Cloud"
 			}
 		},
