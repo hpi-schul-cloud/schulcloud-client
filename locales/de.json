@@ -2380,11 +2380,10 @@
 				"userName": "Benutzername:"
 			},
 			"label": {
-				"help": "Hilfe",
+				"helpSection": "Hilfebereich",
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
 			"link": {
-				"sendRequestOrProblem": "Wunsch oder Problem senden",
 				"training": "Fortbildungen"
 			}
 		},
