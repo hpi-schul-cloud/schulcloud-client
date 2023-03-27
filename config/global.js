@@ -37,6 +37,7 @@ const {
 	SC_SUPERHERO_USER_NAME = 'superhero@schul-cloud.org',
 	FEATURE_NUXT_SCHOOL_ADMIN_BETA,
 	ALERT_STATUS_URL = 'https://status.dbildungscloud.de',
+	FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED,
 } = process.env;
 
 const exp = {
@@ -76,6 +77,7 @@ const exp = {
 	SC_SUPERHERO_USER_NAME,
 	FEATURE_NUXT_SCHOOL_ADMIN_BETA,
 	ALERT_STATUS_URL,
+	FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED,
 };
 
 // eslint-disable-next-line no-console
