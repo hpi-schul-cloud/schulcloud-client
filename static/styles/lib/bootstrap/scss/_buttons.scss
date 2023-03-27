@@ -66,6 +66,12 @@ fieldset[disabled] a.btn {
 .btn-secondary {
   @include button-variant($btn-secondary-color, $btn-secondary-bg, $btn-secondary-border);
 }
+
+.btn-alert-info {
+  @include button-variant($btn-alert-secondary-color, $btn-info-bg, $btn-info-border);
+  color: $btn-alert-secondary-color !important;
+}
+
 .btn-info {
   @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
 }

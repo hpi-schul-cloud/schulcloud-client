@@ -1,15 +1,14 @@
 /* eslint-disable max-len */
 const datetime = require('../datetime/datetime');
 
-const max = 10;
-
 function getIconTag(status) {
 	switch (status) {
 		case 'danger':
 			$('.alert-button').addClass('danger');
 			return '<i class="fa fa-exclamation-circle text-danger"></i>';
-		case 'done':
-			return '<i class="fa fa-check-circle text-success"></i>';
+		case 'info':
+			$('.alert-button').addClass('info');
+			return '<i class="fa fa-info-circle text-info"></i>';
 		default:
 			return '<i class="fa fa-info-circle text-info"></i>';
 	}
@@ -39,16 +38,16 @@ class AlertMessageController {
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
 			<br>
-			<div class="alert-date text-nowrap text-muted"> | Created: ${datetime.toDateTimeString(message.created_at)}</div>
-			<div class="alert-date text-nowrap text-muted">Updated: ${datetime.fromNow(message.timestamp)}</div>
+			<div class="alert-date text-nowrap text-muted"> Created: ${datetime.toDateTimeString(message.created_at)}</div>
+			<div class="alert-date text-nowrap text-muted"> Updated: ${datetime.fromNow(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${messageText}
 			<br>
-			<div class="text-muted" style="float: right;"> | Created: ${datetime.toDateTimeString(message.created_at)}</div>
-			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted" style="float: right;"> Created: ${datetime.toDateTimeString(message.created_at)}</div>
+			<div class="text-muted" style="float: left;"> Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		}
 		return item;
@@ -69,8 +68,8 @@ class AlertMessageController {
 						$('.alert-button').css('visibility', 'visible');
 					}
 					$('.alert-button').find('.js-alert-content').empty();
-					messageArray.forEach((message, index) => {
-						if (index < max) {
+					messageArray.forEach((message) => {
+						if (message) {
 							$('.alert-button').find('.js-alert-content').append(this.buildMessage(message));
 						}
 					});
