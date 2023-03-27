@@ -6,6 +6,7 @@ const {
 	FEATURE_EXTENSIONS_ENABLED,
 	NOTIFICATION_SERVICE_ENABLED,
 	FEATURE_TEAMS_ENABLED,
+	FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED,
 } = require('../../config/global');
 
 const makeActive = (items, currentUrl) => {
@@ -212,6 +213,7 @@ module.exports = (req, res, next) => {
 	});
 
 	// admin views
+	const newSchoolAdminPageAsDefault = FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED === 'true';
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.management'),
 		testId: 'Verwaltung',
@@ -253,7 +255,9 @@ module.exports = (req, res, next) => {
 				name: res.$t('global.link.school'),
 				testId: 'Schule',
 				icon: 'building',
-				link: '/administration/school/',
+				link: newSchoolAdminPageAsDefault
+					? '/administration/school-settings/'
+					: '/administration/school/',
 			},
 		],
 	});
