@@ -2563,7 +2563,7 @@
 			"showPassword": "Show Password:",
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
 			"superheroText": "You are trying log in with a superhero account.",
-			"userNotFound": "Synchronisation with the school server is in progress. Please log in again in 2 hours or contact the admin.",
+			"userNotFound": "User not found.",
 			"internalError": "Internal Server Error. Please contact the admin."
 		}
 	},
