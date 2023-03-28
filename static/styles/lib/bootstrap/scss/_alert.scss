@@ -46,7 +46,7 @@
   @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
 }
 .alert-info {
-  @include alert-variant($alert-info-text, $alert-info-border, $alert-info-text);
+  @include alert-variant($alert-info-color, $alert-info-color, $alert-info-color);
 }
 .alert-warning {
   @include alert-variant($alert-warning-bg, $alert-warning-border, $alert-warning-text);
