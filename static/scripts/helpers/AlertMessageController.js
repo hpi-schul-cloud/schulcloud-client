@@ -7,10 +7,10 @@ function getIconTag(status) {
 			$('.alert-button').addClass('danger');
 			return '<i class="fa fa-exclamation-circle text-danger"></i>';
 		case 'info':
-			$('.alert-button').addClass('info');
-			return '<i class="fa fa-info-circle text-info"></i>';
+			$('.alert-button').addClass('alert-info-color');
+			return '<i class="fa fa-info-circle alert-info-color"></i>';
 		default:
-			return '<i class="fa fa-info-circle text-info"></i>';
+			return '<i class="fa fa-info-circle alert-info-color"></i>';
 	}
 }
 
@@ -42,7 +42,7 @@ class AlertMessageController {
 			<div class="alert-date text-nowrap text-muted"> Updated: ${datetime.fromNow(message.timestamp)}</div>
 			<div style="clear: both;"></div>`;
 		} else {
-			item.className = 'alert alert-info alert-card';
+			item.className = 'alert alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${messageText}
 			<br>
