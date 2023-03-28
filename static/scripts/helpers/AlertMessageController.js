@@ -8,9 +8,9 @@ function getIconTag(status) {
 			return '<i class="fa fa-exclamation-circle text-danger"></i>';
 		case 'info':
 			$('.alert-button').addClass('info');
-			return '<i class="fa fa-info-circle alert-info"></i>';
+			return '<i class="fa fa-info-circle text-info"></i>';
 		default:
-			return '<i class="fa fa-info-circle alert-info"></i>';
+			return '<i class="fa fa-info-circle text-info"></i>';
 	}
 }
 
@@ -22,14 +22,6 @@ class AlertMessageController {
 
 	buildMessage(message) {
 		const icon = getIconTag(message.status);
-
-		// show only 150 charckters of message
-		let messageText;
-		if (message.text.length > 113) {
-			messageText = `${message.text.substring(0, 113)}...`;
-		} else {
-			messageText = message.text;
-		}
 
 		const item = document.createElement('div');
 		if (this.loggedin) {
@@ -44,7 +36,7 @@ class AlertMessageController {
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
-			${messageText}
+			${message.text}
 			<br>
 			<div class="text-muted" style="float: right;"> Created: ${datetime.toDateTimeString(message.created_at)}</div>
 			<div class="text-muted" style="float: left;"> Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
@@ -75,16 +67,6 @@ class AlertMessageController {
 					});
 				}
 			}
-			// else {
-			// 	$('.alert-section').empty();
-			// 	if (messageArray.length >= 1) {
-			// 		messageArray.forEach((message) => {
-			// 			if (message.status) {
-			// 				$('.alert-section').append(this.buildMessage(message));
-			// 			}
-			// 		});
-			// 	}
-			// }
 		}
 	}
 }
