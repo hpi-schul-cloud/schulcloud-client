@@ -834,13 +834,16 @@ footer {
 
 		.alert-title {
 			font-size: 16px;
-			padding-bottom: 2px;
+			padding-bottom: 3px;
+		}
+		.alert-date-wrapper {
+			display: flex;
+			justify-content: space-between;
+			gap: 1em;
 		}
 
 		.alert-date {
-			padding-top: 2px;
-			gap: 1em;
-			float: left;
+			padding: 3px 5px;
 		}
 
 		&:not(:first-child) {
