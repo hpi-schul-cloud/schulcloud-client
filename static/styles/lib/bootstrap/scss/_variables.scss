@@ -283,9 +283,9 @@ $btn-secondary-color:            $gray-dark !default;
 $btn-secondary-bg:               #fff !default;
 $btn-secondary-border:           #ccc !default;
 
-$btn-alert-secondary-color:      $brand-info !default;
-$btn-alert-info-bg:              $brand-info !default;
-$btn-info-border:                $btn-info-bg !default;
+$btn-alert-info:                 #0A7AC9  !default;
+$btn-alert-info-bg:              $btn-alert-info !default;
+$btn-alert-info-border:          $btn-alert-info !default;
 
 $btn-info-color:                 #fff !default;
 $btn-info-bg:                    $brand-info !default;

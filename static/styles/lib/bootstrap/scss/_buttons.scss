@@ -72,7 +72,7 @@ fieldset[disabled] a.btn {
 }
 
 .btn-info {
-  @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+  @include button-variant($btn-info-color, $btn-secondary-bg, $btn-alert-info-border);
 }
 .btn-success {
   @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);

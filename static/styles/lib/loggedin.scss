@@ -839,7 +839,8 @@ footer {
 
 		.alert-date {
 			padding-top: 2px;
-			float: right;
+			gap: 1em;
+			float: left;
 		}
 
 		&:not(:first-child) {
