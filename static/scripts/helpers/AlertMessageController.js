@@ -30,19 +30,21 @@ class AlertMessageController {
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
 			<br>
-			<div class="alert-date-wrapper">
-				<div class="alert-date text-nowrap text-muted"> Created: ${datetime.fromNow(message.created_at)}</div>
-				<div class="alert-date text-nowrap text-muted"> Updated: ${datetime.fromNow(message.timestamp)}</div>
-			</div>`;
+			<div class="alert-date text-nowrap text-muted">
+			Updated: ${datetime.fromNow(message.timestamp)}
+			</div>
+			<div class="alert-date text-nowrap text-muted">
+				Created: ${datetime.fromNow(message.created_at)}
+			</div>
+			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${message.text}
 			<br>
-			<div class="alert-date-wrapper">
-			<div class="text-muted"> Created: ${datetime.toDateTimeString(message.created_at)}</div>
-			<div class="text-muted"> Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
-			</div>`;
+			<div class="text-muted text-muted" style="float: left;"> Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted style="float: left;"> Created: ${datetime.toDateTimeString(message.created_at)}</div>
+			<div style="clear: both;"></div>`;
 		}
 		return item;
 	}
