@@ -2557,7 +2557,6 @@
 			"loginFailedThirdHintSixthText": "For Brandenburg under: ",
 			"loginFailedThirdHintSecondText": "If this does not work either, please contact support.",
 			"loginFailedThirdHintThirdText": "For the dBildungscloud at: ",
-			"oauthLoginFailed": "Login failed.",
 			"oauthCodeStep": "Login failed. Please log in again or contact support.",
 			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
 			"showPassword": "Show Password:",

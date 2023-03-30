@@ -2559,7 +2559,6 @@
 			"loginFailedThirdHintSecondText": "Si esto tampoco funciona, póngase en contacto con el servicio de asistencia.",
 			"loginFailedThirdHintThirdText": "Para el dBildungscloud en: ",
 			"oauthCodeStep": "Error de inicio de sesion. Vuelva a iniciar sesión o póngase en contacto con el soporte.",
-			"oauthLoginFailed": "Error de inicio de sesion.",
 			"pleaseWaitXSeconds": "Por favor, espera {{seconds}} segundos",
 			"showPassword": "Mostrar contraseña:",
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
