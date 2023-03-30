@@ -2518,7 +2518,7 @@
 			}
 		},
 		"text": {
-			"accessDenied": "Login über Schulserver abgelehnt. Bitte erneut einloggen und Zugriff zulassen.",
+			"accessDenied": "Login abgelehnt. Bitte erneut einloggen und Zugriff zulassen.",
 			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
 			"loginFailed": "Login fehlgeschlagen.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
@@ -2557,8 +2557,8 @@
 			"loginFailedThirdHintSixthText": "Für Brandenburg unter: ",
 			"loginFailedThirdHintSecondText": "Falls das ebenfalls nicht funktioniert, kontaktiere bitte den Support.",
 			"loginFailedThirdHintThirdText": "Für die dBildungscloud unter: ",
-			"oauthLoginFailed": "Login über Schulserver fehlgeschlagen.",
-			"oauthCodeStep": "Login über Schulserver fehlgeschlagen. Bitte erneut einloggen oder den Support kontaktieren.",
+			"oauthLoginFailed": "Login fehlgeschlagen.",
+			"oauthCodeStep": "Login fehlgeschlagen. Bitte erneut einloggen oder den Support kontaktieren.",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
 			"showPassword": "Passwort anzeigen:",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",

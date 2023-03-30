@@ -2518,7 +2518,7 @@
 			}
 		},
 		"text": {
-			"accessDenied": "Login via school server denied. Please log in again and allow access.",
+			"accessDenied": "Login denied. Please log in again and allow access.",
 			"errorFirstLogin": "An error has occurred while processing the FirstLogin data.",
 			"loginFailed": "Login failed.",
 			"loginFailedFirstHint": "1. Which browser are you using?",
@@ -2557,8 +2557,8 @@
 			"loginFailedThirdHintSixthText": "For Brandenburg under: ",
 			"loginFailedThirdHintSecondText": "If this does not work either, please contact support.",
 			"loginFailedThirdHintThirdText": "For the dBildungscloud at: ",
-			"oauthLoginFailed": "Login via school server failed.",
-			"oauthCodeStep": "Login via school server failed. Please log in again or contact support.",
+			"oauthLoginFailed": "Login failed.",
+			"oauthCodeStep": "Login failed. Please log in again or contact support.",
 			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
 			"showPassword": "Show Password:",
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
