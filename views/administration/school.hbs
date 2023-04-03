@@ -408,8 +408,10 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12 no-padding">
+
 					<form action="/administration/ldap/config/" method="GET">
 						{{> "lib/components/csrfInput"}}
+						{{#userHasPermission "SYSTEM_EDIT"}}
 						<button type="submit" class="btn btn-primary btn-add-modal ">
 							{{$t "administration.school.button.addSystem" }}
 						</button>
@@ -418,6 +420,7 @@
 							{{$t "administration.school.button.addLDAPSystem" }}
 						</button>
 						{{/if}}
+						{{/userHasPermission}}
 					</form>
 				</div>
 			</div>
