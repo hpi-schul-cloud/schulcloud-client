@@ -3,7 +3,7 @@
 		<a id="title" href="/" aria-label="{{$t "global.link.landing"}}">
 			<img class="logo" alt="{{theme.title}}" src="{{getAssetPath '/images/logo/logo-dBildungscloud.svg'}}" />
 		</a>
-		{{!-- <ul>
+		<ul>
 	    	<li class="nav-item alert-button">
 				<div class="dropdown minimal-button">
 					<a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
@@ -16,15 +16,7 @@
 					</div>
 				</div>
             </li>
-		</ul> --}}
-		<div class="dropdown minimal-button">
-			<a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" href="" title="{{ $t "lib.loggedin.label.thereIsAProblem" }}" aria-label="{{ $t "lib.loggedin.label.thereIsAProblem" }}" data-toggle="dropdown">
-				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-			</a>
-			<div class="dropdown-menu">
-				<div class="content js-alert-content"></div>
-			</div>
-		</div>
+		</ul>
 		{{#unless hideMenu}}
 			<ul class="nav">
                 <li>
