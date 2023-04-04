@@ -17,21 +17,14 @@
 				</div>
             </li>
 		</ul> --}}
-		{{#if status}}
-			<div class="dropdown minimal-button">
-				<a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" href="" title="{{ $t "lib.loggedin.label.thereIsAProblem" }}" aria-label="{{ $t "lib.loggedin.label.thereIsAProblem" }}" data-toggle="dropdown">
-				{{#if (eq status "danger")}}
-					<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-				{{else}}
-					<i class="fa fa-exclamation-triangle exclamation-triangle-status-info" aria-hidden="true"></i>
-				{{/if}}
-				</a>
-				<div class="dropdown-menu">
-					<div class="content js-alert-content"></div>
-				</div>
+		<div class="dropdown minimal-button">
+			<a class="btn btn-secondary btn-thin dropdown-toggle btn-alert" href="" title="{{ $t "lib.loggedin.label.thereIsAProblem" }}" aria-label="{{ $t "lib.loggedin.label.thereIsAProblem" }}" data-toggle="dropdown">
+				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+			</a>
+			<div class="dropdown-menu">
+				<div class="content js-alert-content"></div>
 			</div>
-		{{/if}}
-
+		</div>
 		{{#unless hideMenu}}
 			<ul class="nav">
                 <li>
