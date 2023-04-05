@@ -31,7 +31,7 @@ class AlertMessageController {
 			${message.text}
 			<br>
 			<div class="alert-date text-nowrap text-muted" style="float: left;">Updated: ${datetime.fromNow(message.timestamp)}</div>
-			<div class="alert-date text-nowrap text-muted" style="float: left;">Created: ${datetime.toDateTimeString(message.created_at)}</div>
+			<div class="alert-date text-nowrap text-muted" style="float: left;"> <span>|</span> Created: ${datetime.toDateTimeString(message.created_at)}</div>
 			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
@@ -39,7 +39,7 @@ class AlertMessageController {
 			${message.text}
 			<br>
 			<div class="text-muted" style="float: left;"> Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
-			<div class="text-muted" style="float: left;"> Created: ${datetime.toDateTimeString(message.created_at)}</div>
+			<div class="text-muted" style="float: left;"> <span>|</span> Created: ${datetime.toDateTimeString(message.created_at)}</div>
 			<div style="clear: both;"></div>`;
 		}
 		return item;
