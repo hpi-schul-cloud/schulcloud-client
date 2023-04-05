@@ -106,6 +106,7 @@ $(document).ready(() => {
 						title: $t('courses._course.tools.add.headline.videoConference'),
 						closeLabel: $t('global.button.cancel'),
 						submitLabel: $t('global.button.add'),
+						submitDataTestId: 'add-bbb-tool-modal',
 					});
 					$addBbbToolModal.appendTo('body').modal('show');
 					$addBbbToolModal.off('submit').on('submit', (event) => {
@@ -120,6 +121,7 @@ $(document).ready(() => {
 					closeLabel: $t('global.button.cancel'),
 					submitLabel: $t('global.button.save'),
 					fields: tool,
+					submitDataTestId: 'edit-tool-modal',
 				});
 				populateCustomFields($editModal, tool.customs);
 				$editModal.appendTo('body').modal('show');

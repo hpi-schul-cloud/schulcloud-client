@@ -46,6 +46,7 @@ $(document).ready(() => {
 			title: $t('administration.users_edit.headline.changePassword'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.save'),
+			submitDataTestId: 'change-password-modal',
 			fields: undefined,
 		});
 		$pwModal.appendTo('body').modal('show');
@@ -59,6 +60,7 @@ $(document).ready(() => {
 			title: $t('administration.users_edit.headline.deleteUser'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.headline.delete'),
+			submitDataTestId: 'delete-user-modal',
 			fields: {
 				displayName,
 			},
@@ -73,6 +75,7 @@ $(document).ready(() => {
 			title: $t('administration.users_edit.headline.completeRegistration'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.save'),
+			submitDataTestId: 'complete-registration-modal',
 			fields: undefined,
 		});
 		$skipregModal.appendTo('body').modal('show');
@@ -158,6 +161,7 @@ $(document).ready(() => {
 					title: $t('global.headline.invitationLinkGenerated'),
 					closeLabel: $t('global.button.close'),
 					submitLabel: $t('global.button.save'),
+					submitDataTestId: 'invitation-link-generation-modal',
 					fields: { invitation: linkData.shortLink },
 				});
 				$invitationModal.find('.btn-submit').remove();
