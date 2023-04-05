@@ -55,7 +55,7 @@
   @include border-radius($border-radius);
   max-height: 400px;
   overflow-y: auto;
-  box-shadow: 4px 4px 5px -4px rgba(0, 0, 0, 0.30);
+  box-shadow: 4px 4px 5px -4px rgba(0, 0, 0, 0.15);
 }
 
 // Dividers (basically an `<hr>`) within the dropdown
