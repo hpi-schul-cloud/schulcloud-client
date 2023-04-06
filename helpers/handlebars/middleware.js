@@ -64,55 +64,49 @@ module.exports = (req, res, next) => {
 	res.locals.sidebarItems = [{
 		name: res.$t('global.link.overview'),
 		testId: 'Übersicht',
-		icon: 'th-large',
+		icon: 'view-grid-outline',
 		link: '/dashboard/',
 	},
 	{
 		name: res.$t('global.sidebar.link.administrationCourses'),
 		testId: 'Course-Overview',
-		icon: 'graduation-cap',
+		icon: 'school-outline',
 		link: '/rooms-overview/',
 	}, {
 		name: res.$t('global.headline.tasks'),
 		testId: 'Aufgaben',
-		icon:
-			// eslint-disable-next-line max-len
-			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10.382 13.295c.39.39.39 1.02 0 1.4l-4.588 4.588a1 1 0 01-1.414 0l-2.088-2.088a.984.984 0 010-1.4 1 1 0 011.412-.002l1.383 1.377 3.884-3.876a1 1 0 011.411.001zM21 15a1 1 0 110 2h-8a1 1 0 110-2h8zM8 5a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1h4zM7 7H5v2h2V7zm14 0a1 1 0 110 2h-8a1 1 0 110-2h8z"/></svg>',
-		isExternalIcon: true,
+		icon: 'format-list-checks',
 		link: '/tasks',
 		permission: 'TASK_DASHBOARD_VIEW_V3',
 	}, {
 		name: res.$t('global.headline.tasks'),
 		testId: 'Aufgaben',
-		icon:
-			// eslint-disable-next-line max-len
-			'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10.382 13.295c.39.39.39 1.02 0 1.4l-4.588 4.588a1 1 0 01-1.414 0l-2.088-2.088a.984.984 0 010-1.4 1 1 0 011.412-.002l1.383 1.377 3.884-3.876a1 1 0 011.411.001zM21 15a1 1 0 110 2h-8a1 1 0 110-2h8zM8 5a1 1 0 011 1v4a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1h4zM7 7H5v2h2V7zm14 0a1 1 0 110 2h-8a1 1 0 110-2h8z"/></svg>',
-		isExternalIcon: true,
+		icon: 'format-list-checks',
 		link: '/tasks',
 		permission: 'TASK_DASHBOARD_TEACHER_VIEW_V3',
 	}, {
 		name: res.$t('global.link.files'),
 		testId: 'Meine Dateien',
-		icon: 'folder-open',
+		icon: 'folder-open-outline',
 		link: '/files/',
 		excludedPermission: 'COLLABORATIVE_FILES_ONLY',
 		children: [
 			{
 				name: res.$t('global.link.filesPersonal'),
 				testId: 'persönliche Dateien',
-				icon: 'folder-open-o',
+				icon: 'folder-open-outline',
 				link: '/files/my/',
 			},
 			{
 				name: res.$t('global.sidebar.link.administrationCourses'),
 				testId: 'Kurse',
-				icon: 'folder-open-o',
+				icon: 'folder-open-outline',
 				link: '/files/courses/',
 			},
 			{
 				name: res.$t('global.link.filesShared'),
 				testId: 'geteilte Dateien',
-				icon: 'folder-open-o',
+				icon: 'folder-open-outline',
 				link: '/files/shared/',
 			},
 		],
@@ -120,19 +114,19 @@ module.exports = (req, res, next) => {
 	{
 		name: res.$t('global.headline.files'),
 		testId: 'Dateien',
-		icon: 'folder-open',
+		icon: 'folder-open-outline',
 		link: '/cfiles/',
 		permission: 'COLLABORATIVE_FILES',
 	},
 	{
 		name: res.$t('global.headline.news'),
 		testId: 'Neuigkeiten',
-		icon: 'newspaper-o',
+		icon: 'newspaper-variant-outline',
 		link: '/news/',
 	}, {
 		name: res.$t('global.link.calendar'),
 		testId: 'Termine',
-		icon: 'table',
+		icon: 'calendar-outline',
 		link: '/calendar/',
 	}];
 
@@ -153,7 +147,7 @@ module.exports = (req, res, next) => {
 		res.locals.sidebarItems.push({
 			name: res.$t('global.sidebar.link.addons'),
 			testId: 'Add-ons',
-			icon: 'puzzle-piece',
+			icon: 'puzzle-outline',
 			link: '/addons/',
 		});
 	}
@@ -162,7 +156,7 @@ module.exports = (req, res, next) => {
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.management'),
 		testId: 'Verwaltung',
-		icon: 'cogs',
+		icon: 'cog-outline',
 		link: '/administration/',
 		permission: 'STUDENT_LIST',
 		excludedPermission: 'ADMIN_VIEW',
@@ -170,7 +164,7 @@ module.exports = (req, res, next) => {
 			{
 				name: res.$t('global.link.administrationStudents'),
 				testId: 'Schüler:innen',
-				icon: 'odnoklassniki',
+				icon: 'account-school-outline',
 				link: '/administration/students/',
 			},
 			{
@@ -192,7 +186,7 @@ module.exports = (req, res, next) => {
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.management'),
 		testId: 'Verwaltung',
-		icon: 'cogs',
+		icon: 'cog-outline',
 		link: '/administration/',
 		permission: 'TEACHER_LIST',
 		excludedPermission: ['ADMIN_VIEW', 'STUDENT_LIST'],
@@ -217,14 +211,14 @@ module.exports = (req, res, next) => {
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.management'),
 		testId: 'Verwaltung',
-		icon: 'cogs',
+		icon: 'cog-outline',
 		link: '/administration/',
 		permission: 'ADMIN_VIEW',
 		children: [
 			{
 				name: res.$t('global.link.administrationStudents'),
 				testId: 'Schüler:innen',
-				icon: 'odnoklassniki',
+				icon: 'account-school-outline',
 				link: '/administration/students/',
 			},
 			{
@@ -236,7 +230,7 @@ module.exports = (req, res, next) => {
 			{
 				name: res.$t('global.sidebar.link.administrationCourses'),
 				testId: 'Kurse',
-				icon: 'graduation-cap',
+				icon: 'school-outline',
 				link: '/administration/courses/',
 			},
 			{
@@ -248,7 +242,7 @@ module.exports = (req, res, next) => {
 			{
 				name: res.$t('global.link.teams'),
 				testId: 'Teams',
-				icon: 'users',
+				icon: 'account-group-outline',
 				link: '/administration/teams/',
 			},
 			{
@@ -277,13 +271,13 @@ module.exports = (req, res, next) => {
 		res.locals.sidebarItems.splice(2, 0, {
 			name: res.$t('global.link.teams'),
 			testId: 'Teams',
-			icon: 'users',
+			icon: 'account-group-outline',
 			link: '/teams/',
 		});
 		res.locals.sidebarItems.find((i) => i.name === res.$t('global.link.files')).children.splice(2, 0, {
 			name: res.$t('global.link.teams'),
 			testId: 'Teams',
-			icon: 'folder-open-o',
+			icon: 'folder-open-outline',
 			link: '/files/teams/',
 		});
 		/*
@@ -298,33 +292,27 @@ module.exports = (req, res, next) => {
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.helpArea'),
 		testId: 'Hilfebereich',
-		icon: 'question-circle',
+		icon: 'help-circle-outline',
 		link: '/help/',
 		children: [
 			{
 				name: res.$t('help.headline.helpSection'),
 				testId: 'Hilfeartikel',
-				icon:
-					// eslint-disable-next-line max-len
-					'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6C4.89 2 4 2.9 4 4V20C4 21.11 4.89 22 6 22H18C19.11 22 20 21.11 20 20V8L14 2M18 20H6V4H13V9H18V20M15 13C15 14.89 12.75 15.07 12.75 16.76H11.25C11.25 14.32 13.5 14.5 13.5 13C13.5 12.18 12.83 11.5 12 11.5S10.5 12.18 10.5 13H9C9 11.35 10.34 10 12 10S15 11.35 15 13M12.75 17.5V19H11.25V17.5H12.75Z" /></svg>',
+				icon: 'file-question-outline',
 				link: '/help/articles/',
-				isExternalIcon: true,
 			},
 			{
 				name: res.$t('global.link.contact'),
 				testId: 'Kontakt',
-				icon: 'comment-o',
+				icon: 'chat-outline',
 				link: '/help/contact/',
 			},
 			{
 				name: res.$t('lib.help_menu.link.training'),
 				testId: 'Fortbildungen',
-				icon:
-					// eslint-disable-next-line max-len
-					'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 13V11L12 12L10 11V13L8 14L10 15V17L12 16L14 17V15L16 14M14 2H7A2 2 0 0 0 5 4V18A2 2 0 0 0 7 20H8V18H7V4H13V8H17V18H16V20H17A2 2 0 0 0 19 18V7M14 13V11L12 12L10 11V13L8 14L10 15V17L12 16L14 17V15L16 14M10 23L12 22L14 23V18H10M14 13V11L12 12L10 11V13L8 14L10 15V17L12 16L14 17V15L16 14Z" /></svg>',
+				icon: 'file-certificate-outline',
 				link: 'https://lernen.cloud/',
 				isExternalLink: true,
-				isExternalIcon: true,
 			},
 		],
 	});
