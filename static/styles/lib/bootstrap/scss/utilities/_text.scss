@@ -42,9 +42,9 @@
 
 @include text-emphasis-variant('.text-success', $brand-success);
 
-@include text-emphasis-variant('.text-info', $alert-info-color);
+// @include text-emphasis-variant('.text-info', $alert-info-color);
 
-@include text-emphasis-variant('.alert-info', $alert-info-color);
+// @include text-emphasis-variant('.alert-info', $alert-info-color);
 
 @include text-emphasis-variant('.text-warning', $brand-warning);
 
