@@ -47,6 +47,7 @@ $gray:                      #55595c !default;
 $gray-light:                #818a91 !default;
 $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
+$gray-alert:                #9e9e9e !default;
 
 $brand-primary:             #9e292b !default;
 $brand-secondary:           #54616e !default;
@@ -209,6 +210,7 @@ $lead-font-weight: 300 !default;
 $small-font-size: 80% !default;
 
 $text-muted: $gray !default;
+$text-muted-alert: $gray-alert !default;
 
 $abbr-border-color: $gray-light !default;
 
