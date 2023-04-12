@@ -7,6 +7,7 @@ const express = require('express');
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const Handlebars = require('handlebars');
+const shortid = require('shortid');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
@@ -16,6 +17,7 @@ const {
 	formatError,
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
+const { setCookie } = require('../helpers/cookieHelper');
 
 Handlebars.registerHelper('oauthLink', (id) => {
 	const apiUrl = `${Configuration.get('PUBLIC_BACKEND_URL')}/v3/sso/login/${id}`;
@@ -79,6 +81,102 @@ router.post('/login/', (req, res, next) => {
 		redirect: validRedirect,
 		privateDevice,
 	}, req, res, errorSink);
+});
+
+router.post('/login/local', async (req, res) => {
+	const {
+		username,
+		password,
+	} = req.body;
+
+	const payload = {
+		username,
+		password,
+	};
+
+	return authHelper.newLogin(req, res, 'local', payload, req.query.redirect);
+});
+
+router.post('/login/ldap', async (req, res) => {
+	const {
+		username,
+		password,
+		schoolId,
+		systemId,
+	} = req.body;
+
+	const payload = {
+		username,
+		password,
+		systemId,
+		schoolId,
+	};
+
+	return authHelper.newLogin(req, res, 'ldap', payload, req.query.redirect);
+});
+
+const redirectLoginError = (res, error) => {
+	authHelper.setErrorNotification(res, error);
+	res.redirect('/login');
+};
+
+router.get('/login/oauth2/:systemId', async (req, res) => {
+	const { redirect } = req.query;
+	const { systemId } = req.params;
+
+	try {
+		const response = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
+
+		const { oauthConfig } = response.data;
+
+		if (!oauthConfig) {
+			return redirectLoginError(res, {
+				type: 'UNPROCESSABLE_ENTITY',
+				code: 422,
+			});
+		}
+
+		const state = shortid.generate();
+
+		const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state);
+
+		req.session.oauth2State = {
+			state,
+			systemId,
+			postLoginRedirect: redirect,
+		};
+
+		return res.redirect(authenticationUrl.toString());
+	} catch (error) {
+		return redirectLoginError(res, error);
+	}
+});
+
+router.get('/login/oauth2-redirect', async (req, res) => {
+	const { code, error } = req.query;
+	const { oauth2State } = req.session;
+
+	if (error) {
+		return redirectLoginError(res, {
+			type: error.toUpperCase(),
+			code: 401,
+		});
+	}
+
+	if (!oauth2State || !oauth2State.systemId) {
+		return redirectLoginError(res, {
+			type: 'UNAUTHORIZED',
+			code: 401,
+		});
+	}
+
+	const payload = {
+		code,
+		systemId: oauth2State.systemId,
+		redirectUri: authHelper.oauth2RedirectUri,
+	};
+
+	return authHelper.newLogin(req, res, 'oauth2', payload, oauth2State.postLoginRedirect);
 });
 
 const redirectAuthenticated = (req, res) => {

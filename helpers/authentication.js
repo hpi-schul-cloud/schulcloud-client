@@ -13,6 +13,7 @@ const logger = require('./logger');
 const { formatError } = require('./logFilter');
 
 const { setCookie } = require('./cookieHelper');
+const redirectHelper = require('./redirect');
 
 const rolesDisplayName = {
 	teacher: 'Lehrer',
@@ -252,25 +253,47 @@ const loginSuccessfulHandler = (res, redirect) => (data) => {
 	res.redirect(redirectUrl);
 };
 
-const loginErrorHandler = (res, next) => (e) => {
-	res.locals.notification = {
-		type: 'danger',
-		message: res.$t('login.text.loginFailed'),
-		statusCode: e.statusCode,
-		timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
-	};
+const mapErrorToTranslationKey = (error) => {
+	switch (error.type) {
+		case 'ACCESS_DENIED':
+			return 'login.text.accessDenied';
+		case 'USER_NOT_FOUND':
+			return 'login.text.userNotFound';
+		case 'SCHOOL_IN_MIGRATION':
+			return 'login.text.schoolInMigration';
+		case 'INTERNAL_SERVER_ERROR':
+			return 'login.text.internalError';
+		default:
+			return 'login.text.loginFailed';
+	}
+};
+
+const setErrorNotification = (res, error) => {
+	let message = res.$t(mapErrorToTranslationKey(error));
 
 	// Email Domain Blocked
-	if (e.statusCode === 400 && e.error.message === 'EMAIL_DOMAIN_BLOCKED') {
-		res.locals.notification.message = res.$t('global.text.emailDomainBlocked');
+	if (error.code === 400 && error.message === 'EMAIL_DOMAIN_BLOCKED') {
+		message = res.$t('global.text.emailDomainBlocked');
 	}
 
 	// Too Many Requests
-	if (e.statusCode === 429) {
-		res.locals.notification.timeToWait = e.error.data.timeToWait;
+	let timeToWait;
+	if (error.code === 429 && error.data.timeToWait) {
+		timeToWait = error.data.timeToWait;
 	}
 
-	next(e);
+	res.locals.notification = {
+		type: 'danger',
+		statusCode: error.code,
+		message: message || res.$t('login.text.loginFailed'),
+		timeToWait: timeToWait || Configuration.get('LOGIN_BLOCK_TIME'),
+	};
+};
+
+const loginErrorHandler = (res, next) => (errorResponse) => {
+	setErrorNotification(res, errorResponse.error);
+
+	next(errorResponse);
 };
 
 const login = (payload = {}, req, res, next) => {
@@ -289,6 +312,58 @@ const login = (payload = {}, req, res, next) => {
 	return api(req, { version: 'v1' }).post('/authentication', { json: payload })
 		.then(loginSuccessfulHandler(res, redirect))
 		.catch(loginErrorHandler(res, next));
+};
+
+const requestLogin = (req, strategy, payload = {}) => {
+	switch (strategy) {
+		case 'local':
+			return api(req, { version: 'v3' }).post('/authentication/local', { json: payload });
+		case 'ldap':
+			return api(req, { version: 'v3' }).post('/authentication/ldap', { json: payload });
+		case 'oauth2':
+			return api(req, { version: 'v3' }).post('/authentication/oauth2', { json: payload });
+		default:
+			return api(req, { version: 'v1' }).post('/authentication', { json: payload });
+	}
+};
+
+const newLogin = async (req, res, strategy, payload, redirect) => {
+	try {
+		const response = await requestLogin(req, strategy, payload);
+
+		setCookie(res, 'jwt', response.accessToken);
+
+		let redirectUrl = '/login/success';
+
+		if (redirect) {
+			redirectUrl = `${redirectUrl}?redirect=${redirectHelper.getValidRedirect(redirect)}`;
+		}
+
+		return res.redirect(redirectUrl);
+	} catch (errorResponse) {
+		setErrorNotification(res, errorResponse.error);
+
+		return res.redirect('/login');
+	}
+};
+
+// TODO use correct env
+const oauth2RedirectUri = new URL('/login/oauth2-redirect', Configuration.get('API_HOST').replace('api', '')).toString();
+
+const getAuthenticationUrl = (oauthConfig, state) => {
+	const authenticationUrl = new URL(oauthConfig.authEndpoint);
+
+	authenticationUrl.searchParams.append('client_id', oauthConfig.clientId);
+	authenticationUrl.searchParams.append('redirect_uri', oauth2RedirectUri);
+	authenticationUrl.searchParams.append('response_type', oauthConfig.responseType);
+	authenticationUrl.searchParams.append('scope', oauthConfig.scope);
+	authenticationUrl.searchParams.append('state', state);
+
+	if (oauthConfig.idpHint) {
+		authenticationUrl.searchParams.append('kc_idp_hint', oauthConfig.idpHint);
+	}
+
+	return authenticationUrl.toString();
 };
 
 const etherpadCookieHelper = (etherpadSession, padId, res) => {
@@ -311,4 +386,8 @@ module.exports = {
 	etherpadCookieHelper,
 	generatePassword,
 	generateConsentPassword,
+	setErrorNotification,
+	oauth2RedirectUri,
+	getAuthenticationUrl,
+	newLogin,
 };
