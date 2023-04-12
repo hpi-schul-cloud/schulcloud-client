@@ -831,15 +831,21 @@ footer {
 	.alert-item {
 		padding: 10px 15px;
 		font-size: 14px;
+		border-top: 1px solid #e5e5e5;
 
 		.alert-title {
 			font-size: 16px;
-			padding-bottom: 3px;
+			padding-bottom: 2px;
 		}
 
 		.alert-date {
 			padding-top: 3px;
-			margin-right: 5px;
+			float: right;
+			font-size: 14px !important;
+		}
+
+		&:not(:first-child) {
+			border-top: 1px solid #e5e5e5;
 		}
 	}
 }
