@@ -6,7 +6,6 @@ const express = require('express');
 
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const Handlebars = require('handlebars');
 const shortid = require('shortid');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -17,12 +16,6 @@ const {
 	formatError,
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
-const { setCookie } = require('../helpers/cookieHelper');
-
-Handlebars.registerHelper('oauthLink', (id) => {
-	const apiUrl = `${Configuration.get('PUBLIC_BACKEND_URL')}/v3/sso/login/${id}`;
-	return apiUrl;
-});
 
 // SSO Login
 router.get('/tsp-login/', (req, res, next) => {
@@ -84,6 +77,7 @@ router.post('/login/', (req, res, next) => {
 });
 
 router.post('/login/local', async (req, res) => {
+	const { redirect } = req.query;
 	const {
 		username,
 		password,
@@ -94,10 +88,11 @@ router.post('/login/local', async (req, res) => {
 		password,
 	};
 
-	return authHelper.newLogin(req, res, 'local', payload, req.query.redirect);
+	await authHelper.loginUser(req, res, 'local', payload, redirect);
 });
 
 router.post('/login/ldap', async (req, res) => {
+	const { redirect } = req.query;
 	const {
 		username,
 		password,
@@ -112,7 +107,7 @@ router.post('/login/ldap', async (req, res) => {
 		schoolId,
 	};
 
-	return authHelper.newLogin(req, res, 'ldap', payload, req.query.redirect);
+	await authHelper.loginUser(req, res, 'ldap', payload, redirect);
 });
 
 const redirectLoginError = (res, error) => {
@@ -121,7 +116,7 @@ const redirectLoginError = (res, error) => {
 };
 
 router.get('/login/oauth2/:systemId', async (req, res) => {
-	const { redirect } = req.query;
+	const { redirect, migration } = req.query;
 	const { systemId } = req.params;
 
 	try {
@@ -144,6 +139,7 @@ router.get('/login/oauth2/:systemId', async (req, res) => {
 			state,
 			systemId,
 			postLoginRedirect: redirect,
+			migration,
 		};
 
 		return res.redirect(authenticationUrl.toString());
@@ -176,7 +172,15 @@ router.get('/login/oauth2-redirect', async (req, res) => {
 		redirectUri: authHelper.oauth2RedirectUri,
 	};
 
-	return authHelper.newLogin(req, res, 'oauth2', payload, oauth2State.postLoginRedirect);
+	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
+		await authHelper.migrateUser(req, res, payload);
+	} else {
+		const redirect = oauth2State.postLoginRedirect;
+
+		await authHelper.loginUser(req, res, 'oauth2', payload, redirect);
+	}
+
+	return delete req.session.oauth2State;
 });
 
 const redirectAuthenticated = (req, res) => {
@@ -262,12 +266,22 @@ const renderLogin = async (req, res) => {
 	const strategyOfSchool = req.query.strategy;
 	const idOfSchool = req.query.schoolId;
 
-	const oauthSystems = await getOauthSystems(req);
+	const oauthSystemsResponse = await getOauthSystems(req);
+	const oauthSystems = oauthSystemsResponse.data || [];
+
+	oauthSystems.forEach((system) => {
+		const serverLoginUrl = `${Configuration.get('PUBLIC_BACKEND_URL')}/v3/sso/login/${system.id}`;
+		const clientLoginUrl = `/login/oauth2/${system.id}`;
+
+		system.loginLink = Configuration.get('FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED')
+			? clientLoginUrl
+			: serverLoginUrl;
+	});
 
 	res.render('authentication/login', {
 		schools: getNonOauthSchools(schools),
 		systems: [],
-		oauthSystems: oauthSystems.data || [],
+		oauthSystems,
 		oauthErrorLogout,
 		hideMenu: true,
 		redirect,
@@ -291,6 +305,8 @@ router.get('/loginRedirect', (req, res, next) => {
 });
 
 router.all('/login/', async (req, res, next) => {
+	console.log(res.locals);
+
 	authHelper.isAuthenticated(req)
 		.then((isAuthenticated) => {
 			if (isAuthenticated) {
@@ -313,7 +329,7 @@ router.all('/login/superhero/', (req, res, next) => {
 		.catch(next);
 });
 
-router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
+router.get('/login/success', authHelper.authChecker, async (req, res) => {
 	if (res.locals.currentUser) {
 		if (res.locals.currentPayload.forcePasswordChange) {
 			return res.redirect('/forcePasswordChange');
@@ -332,11 +348,12 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 				},
 			});
 
-		if (consentStatus === 'ok' && haveBeenUpdated === false) {
+		if (consentStatus === 'ok' && haveBeenUpdated === false && (res.locals.currentUser.preferences || {}).firstLogin) {
 			return res.redirect(redirectUrl);
 		}
+
 		// make sure fistLogin flag is not set
-		return res.redirect('/firstLogin');
+		return res.redirect(`/firstLogin?redirect=${redirectUrl}`);
 	}
 
 	// if this happens: SSO

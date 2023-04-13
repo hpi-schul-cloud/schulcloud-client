@@ -67,6 +67,15 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 	}
 };
 
+const etherpadCookieHelper = (etherpadSession, padId, res) => {
+	const encodedPadId = encodeURI(padId);
+	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
+	setCookie(res, 'sessionID', etherpadSession.data.sessionID, {
+		path: `${padPath}/${encodedPadId}`,
+		expires: new Date(etherpadSession.data.validUntil * 1000),
+	});
+};
+
 const isJWT = (req) => (req && req.cookies && req.cookies.jwt);
 
 const isAuthenticated = (req) => {
@@ -215,6 +224,7 @@ const authChecker = (req, res, next) => {
 	isAuthenticated(req)
 		.then((isAuthenticated2) => {
 			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
+
 			if (isAuthenticated2) {
 				// fetch user profile
 				populateCurrentUser(req, res)
@@ -288,6 +298,8 @@ const setErrorNotification = (res, error) => {
 		message: message || res.$t('login.text.loginFailed'),
 		timeToWait: timeToWait || Configuration.get('LOGIN_BLOCK_TIME'),
 	};
+
+	console.log(res.locals.notification);
 };
 
 const loginErrorHandler = (res, next) => (errorResponse) => {
@@ -314,39 +326,6 @@ const login = (payload = {}, req, res, next) => {
 		.catch(loginErrorHandler(res, next));
 };
 
-const requestLogin = (req, strategy, payload = {}) => {
-	switch (strategy) {
-		case 'local':
-			return api(req, { version: 'v3' }).post('/authentication/local', { json: payload });
-		case 'ldap':
-			return api(req, { version: 'v3' }).post('/authentication/ldap', { json: payload });
-		case 'oauth2':
-			return api(req, { version: 'v3' }).post('/authentication/oauth2', { json: payload });
-		default:
-			return api(req, { version: 'v1' }).post('/authentication', { json: payload });
-	}
-};
-
-const newLogin = async (req, res, strategy, payload, redirect) => {
-	try {
-		const response = await requestLogin(req, strategy, payload);
-
-		setCookie(res, 'jwt', response.accessToken);
-
-		let redirectUrl = '/login/success';
-
-		if (redirect) {
-			redirectUrl = `${redirectUrl}?redirect=${redirectHelper.getValidRedirect(redirect)}`;
-		}
-
-		return res.redirect(redirectUrl);
-	} catch (errorResponse) {
-		setErrorNotification(res, errorResponse.error);
-
-		return res.redirect('/login');
-	}
-};
-
 // TODO use correct env
 const oauth2RedirectUri = new URL('/login/oauth2-redirect', Configuration.get('API_HOST').replace('api', '')).toString();
 
@@ -366,13 +345,98 @@ const getAuthenticationUrl = (oauthConfig, state) => {
 	return authenticationUrl.toString();
 };
 
-const etherpadCookieHelper = (etherpadSession, padId, res) => {
-	const encodedPadId = encodeURI(padId);
-	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
-	setCookie(res, 'sessionID', etherpadSession.data.sessionID, {
-		path: `${padPath}/${encodedPadId}`,
-		expires: new Date(etherpadSession.data.validUntil * 1000),
+const requestLogin = (req, strategy, payload = {}) => {
+	switch (strategy) {
+		case 'local':
+			return api(req, { version: 'v3' }).post('/authentication/local', { json: payload });
+		case 'ldap':
+			return api(req, { version: 'v3' }).post('/authentication/ldap', { json: payload });
+		case 'oauth2':
+			return api(req, { version: 'v3' }).post('/authentication/oauth2', { json: payload });
+		default:
+			return api(req, { version: 'v1' }).post('/authentication', { json: { strategy, ...payload } });
+	}
+};
+
+const getMigrationStatus = async (req, res, userId, accessToken) => {
+	const { data } = await api(req, { version: 'v3', accessToken }).get('/user-login-migrations', {
+		qs: {
+			userId,
+		},
 	});
+
+	const migration = Array.isArray(data) && data.length > 0 ? data[0] : null;
+
+	return migration;
+};
+
+const getMigrationRedirect = (res, migration) => {
+	let {
+		sourceSystemId,
+	} = migration;
+	const {
+		targetSystemId,
+		mandatorySince,
+	} = migration;
+
+	if (!sourceSystemId) {
+		sourceSystemId = '0000d186816abba584714c92'; // TODO modify migration page to not require sourceSystem anymore
+	}
+
+	return `/migration?sourceSystem=${sourceSystemId}&targetSystem=${targetSystemId}&origin=${sourceSystemId}&mandatory=${!!mandatorySince}`;
+};
+
+const loginUser = async (req, res, strategy, payload, redirect) => {
+	try {
+		throw {
+			error: {
+				type: 'ERROR',
+				code: 500,
+			},
+		};
+
+		const { accessToken } = await requestLogin(req, strategy, payload);
+
+		const currentUser = jwt.decode(accessToken);
+
+		const migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
+
+		setCookie(res, 'jwt', accessToken);
+
+		if (migration) {
+			const migrationRedirect = getMigrationRedirect(res, migration);
+
+			res.redirect(migrationRedirect);
+		} else {
+			let redirectUrl = '/login/success';
+
+			if (redirect) {
+				redirectUrl = `${redirectUrl}?redirect=${redirectHelper.getValidRedirect(redirect)}`;
+			}
+
+			res.redirect(redirectUrl);
+		}
+	} catch (errorResponse) {
+		setErrorNotification(res, errorResponse.error);
+
+		await clearCookie(req, res);
+
+		res.redirect('/login');
+	}
+};
+
+const migrateUser = async (res, req, payload) => {
+	try {
+		await api(req, { version: 'v3' }).post('/user-login-migrations/migrate-to-oauth2', {
+			json: payload,
+		});
+
+		res.redirect('/migration/success');
+	} catch (error) {
+		res.redirect('/migration/error');
+	}
+
+	await clearCookie(req, res);
 };
 
 module.exports = {
@@ -389,5 +453,6 @@ module.exports = {
 	setErrorNotification,
 	oauth2RedirectUri,
 	getAuthenticationUrl,
-	newLogin,
+	loginUser,
+	migrateUser,
 };
