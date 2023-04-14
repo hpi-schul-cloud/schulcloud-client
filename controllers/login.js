@@ -76,11 +76,11 @@ router.post('/login/', (req, res, next) => {
 	}, req, res, errorSink);
 });
 
-router.post('/login/local', async (req, res) => {
-	const { redirect } = req.query;
+router.post('/login/email', async (req, res) => {
 	const {
 		username,
 		password,
+		redirect,
 	} = req.body;
 
 	const payload = {
@@ -92,12 +92,12 @@ router.post('/login/local', async (req, res) => {
 });
 
 router.post('/login/ldap', async (req, res) => {
-	const { redirect } = req.query;
 	const {
 		username,
 		password,
 		schoolId,
 		systemId,
+		redirect,
 	} = req.body;
 
 	const payload = {
@@ -110,25 +110,26 @@ router.post('/login/ldap', async (req, res) => {
 	await authHelper.loginUser(req, res, 'ldap', payload, redirect);
 });
 
-const redirectLoginError = (res, error) => {
-	authHelper.setErrorNotification(res, error);
-	res.redirect('/login');
-};
+// eslint-disable-next-line consistent-return
+router.post('/login/oauth2', async (req, res) => {
+	const {
+		systemId,
+		migration,
+		redirect,
+	} = req.body;
 
-router.get('/login/oauth2/:systemId', async (req, res) => {
-	const { redirect, migration } = req.query;
-	const { systemId } = req.params;
+	console.log(redirect);
 
 	try {
 		const response = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
 
-		const { oauthConfig } = response.data;
+		const { oauthConfig } = response;
 
 		if (!oauthConfig) {
-			return redirectLoginError(res, {
+			return authHelper.handleLoginError(req, res, {
 				type: 'UNPROCESSABLE_ENTITY',
 				code: 422,
-			});
+			}, redirect);
 		}
 
 		const state = shortid.generate();
@@ -142,28 +143,32 @@ router.get('/login/oauth2/:systemId', async (req, res) => {
 			migration,
 		};
 
-		return res.redirect(authenticationUrl.toString());
+		res.redirect(authenticationUrl.toString());
 	} catch (error) {
-		return redirectLoginError(res, error);
+		await authHelper.handleLoginError(req, res, error.error, redirect);
 	}
 });
 
-router.get('/login/oauth2-redirect', async (req, res) => {
+// eslint-disable-next-line consistent-return
+router.get('/login/oauth2/callback', async (req, res) => {
 	const { code, error } = req.query;
 	const { oauth2State } = req.session;
 
-	if (error) {
-		return redirectLoginError(res, {
-			type: error.toUpperCase(),
+	if (!oauth2State || !oauth2State.systemId) {
+		return authHelper.handleLoginError(req, res, {
+			type: 'UNAUTHORIZED',
 			code: 401,
 		});
 	}
 
-	if (!oauth2State || !oauth2State.systemId) {
-		return redirectLoginError(res, {
-			type: 'UNAUTHORIZED',
+	const redirect = oauth2State.postLoginRedirect;
+	console.log(redirect);
+
+	if (error) {
+		return authHelper.handleLoginError(req, res, {
+			type: error.toUpperCase(),
 			code: 401,
-		});
+		}, redirect);
 	}
 
 	const payload = {
@@ -172,15 +177,13 @@ router.get('/login/oauth2-redirect', async (req, res) => {
 		redirectUri: authHelper.oauth2RedirectUri,
 	};
 
+	delete req.session.oauth2State;
+
 	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
 		await authHelper.migrateUser(req, res, payload);
 	} else {
-		const redirect = oauth2State.postLoginRedirect;
-
 		await authHelper.loginUser(req, res, 'oauth2', payload, redirect);
 	}
-
-	return delete req.session.oauth2State;
 });
 
 const redirectAuthenticated = (req, res) => {
@@ -250,7 +253,7 @@ const renderLogin = async (req, res) => {
 	await authHelper.clearCookie(req, res);
 
 	const schools = await LoginSchoolsCache.get(req);
-	const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
+	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
 
 	let oauthErrorLogout = false;
 	if (req.query.error) {
@@ -268,15 +271,6 @@ const renderLogin = async (req, res) => {
 
 	const oauthSystemsResponse = await getOauthSystems(req);
 	const oauthSystems = oauthSystemsResponse.data || [];
-
-	oauthSystems.forEach((system) => {
-		const serverLoginUrl = `${Configuration.get('PUBLIC_BACKEND_URL')}/v3/sso/login/${system.id}`;
-		const clientLoginUrl = `/login/oauth2/${system.id}`;
-
-		system.loginLink = Configuration.get('FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED')
-			? clientLoginUrl
-			: serverLoginUrl;
-	});
 
 	res.render('authentication/login', {
 		schools: getNonOauthSchools(schools),
@@ -305,8 +299,6 @@ router.get('/loginRedirect', (req, res, next) => {
 });
 
 router.all('/login/', async (req, res, next) => {
-	console.log(res.locals);
-
 	authHelper.isAuthenticated(req)
 		.then((isAuthenticated) => {
 			if (isAuthenticated) {

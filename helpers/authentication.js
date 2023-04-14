@@ -278,7 +278,7 @@ const mapErrorToTranslationKey = (error) => {
 	}
 };
 
-const setErrorNotification = (res, error) => {
+const setErrorNotification = (res, req, error) => {
 	let message = res.$t(mapErrorToTranslationKey(error));
 
 	// Email Domain Blocked
@@ -292,20 +292,32 @@ const setErrorNotification = (res, error) => {
 		timeToWait = error.data.timeToWait;
 	}
 
-	res.locals.notification = {
+	req.session.notification = {
 		type: 'danger',
-		statusCode: error.code,
+		statusCode: error.code || 500,
 		message: message || res.$t('login.text.loginFailed'),
 		timeToWait: timeToWait || Configuration.get('LOGIN_BLOCK_TIME'),
 	};
-
-	console.log(res.locals.notification);
 };
 
-const loginErrorHandler = (res, next) => (errorResponse) => {
-	setErrorNotification(res, errorResponse.error);
+const loginErrorHandler = (res, req, next) => (errorResponse) => {
+	setErrorNotification(res, req, errorResponse.error);
 
 	next(errorResponse);
+};
+
+const handleLoginError = async (req, res, error, redirect) => {
+	setErrorNotification(res, req, error);
+
+	if (req.session.oauth2State) {
+		delete req.session.oauth2State;
+	}
+
+	await clearCookie(req, res);
+
+	const errorRedirect = redirect ? `/login?redirect=${redirectHelper.getValidRedirect(redirect)}` : '/login';
+
+	res.redirect(errorRedirect);
 };
 
 const login = (payload = {}, req, res, next) => {
@@ -327,7 +339,7 @@ const login = (payload = {}, req, res, next) => {
 };
 
 // TODO use correct env
-const oauth2RedirectUri = new URL('/login/oauth2-redirect', Configuration.get('API_HOST').replace('api', '')).toString();
+const oauth2RedirectUri = new URL('/login/oauth2/callback', 'http://localhost:3100').toString();
 
 const getAuthenticationUrl = (oauthConfig, state) => {
 	const authenticationUrl = new URL(oauthConfig.authEndpoint);
@@ -388,13 +400,6 @@ const getMigrationRedirect = (res, migration) => {
 
 const loginUser = async (req, res, strategy, payload, redirect) => {
 	try {
-		throw {
-			error: {
-				type: 'ERROR',
-				code: 500,
-			},
-		};
-
 		const { accessToken } = await requestLogin(req, strategy, payload);
 
 		const currentUser = jwt.decode(accessToken);
@@ -417,11 +422,7 @@ const loginUser = async (req, res, strategy, payload, redirect) => {
 			res.redirect(redirectUrl);
 		}
 	} catch (errorResponse) {
-		setErrorNotification(res, errorResponse.error);
-
-		await clearCookie(req, res);
-
-		res.redirect('/login');
+		await handleLoginError(req, res, errorResponse.error, redirect);
 	}
 };
 
@@ -455,4 +456,5 @@ module.exports = {
 	getAuthenticationUrl,
 	loginUser,
 	migrateUser,
+	handleLoginError,
 };

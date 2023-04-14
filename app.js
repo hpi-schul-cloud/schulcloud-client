@@ -188,7 +188,6 @@ app.use(async (req, res, next) => {
 	return next();
 });
 
-
 app.use(methodOverride('_method')); // for GET requests
 app.use(methodOverride((req, res, next) => { // for POST requests
 	if (req.body && typeof req.body === 'object' && '_method' in req.body) {
