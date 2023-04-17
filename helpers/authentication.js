@@ -306,7 +306,7 @@ const loginErrorHandler = (res, req, next) => (errorResponse) => {
 	next(errorResponse);
 };
 
-const handleLoginError = async (req, res, error, redirect) => {
+const handleLoginError = async (req, res, error, redirect, strategy) => {
 	setErrorNotification(res, req, error);
 
 	if (req.session.oauth2State) {
@@ -315,9 +315,15 @@ const handleLoginError = async (req, res, error, redirect) => {
 
 	await clearCookie(req, res);
 
-	const errorRedirect = redirect ? `/login?redirect=${redirectHelper.getValidRedirect(redirect)}` : '/login';
+	const query = new URLSearchParams();
+	if (redirect) {
+		query.append('redirect', redirectHelper.getValidRedirect(redirect));
+	}
+	if (strategy === 'ldap' || strategy === 'email') {
+		query.append('strategy', strategy);
+	}
 
-	res.redirect(errorRedirect);
+	res.redirect(redirectHelper.joinPathWithQuery('/login', query.toString()));
 };
 
 const login = (payload = {}, req, res, next) => {
@@ -387,7 +393,12 @@ const getMigrationRedirect = (res, migration) => {
 		mandatorySince,
 	} = migration;
 
-	return `/migration?targetSystem=${targetSystemId}&mandatory=${!!mandatorySince}`;
+	const query = new URLSearchParams({
+		targetSystem: targetSystemId,
+		mandatory: !!mandatorySince,
+	});
+
+	return redirectHelper.joinPathWithQuery('/migration', query.toString());
 };
 
 const loginUser = async (req, res, strategy, payload, redirect) => {
@@ -401,20 +412,20 @@ const loginUser = async (req, res, strategy, payload, redirect) => {
 		setCookie(res, 'jwt', accessToken);
 
 		if (migration) {
-			const migrationRedirect = getMigrationRedirect(res, migration, currentUser.systemId);
+			const migrationRedirect = getMigrationRedirect(res, migration);
 
 			res.redirect(migrationRedirect);
 		} else {
-			let redirectUrl = '/login/success';
+			const query = new URLSearchParams();
 
 			if (redirect) {
-				redirectUrl = `${redirectUrl}?redirect=${redirectHelper.getValidRedirect(redirect)}`;
+				query.append('redirect', redirectHelper.getValidRedirect(redirect));
 			}
 
-			res.redirect(redirectUrl);
+			res.redirect(redirectHelper.joinPathWithQuery('/login/success', query.toString()));
 		}
 	} catch (errorResponse) {
-		await handleLoginError(req, res, errorResponse.error, redirect);
+		await handleLoginError(req, res, errorResponse.error, redirect, strategy);
 	}
 };
 
@@ -424,9 +435,26 @@ const migrateUser = async (res, req, payload) => {
 			json: payload,
 		});
 
-		res.redirect(`/migration/success?targetSystem=${payload.systemId}`);
-	} catch (error) {
-		res.redirect('/migration/error');
+		const query = new URLSearchParams({
+			targetSystem: payload.systemId,
+		});
+
+		res.redirect(redirectHelper.joinPathWithQuery('/migration/success', query.toString()));
+	} catch (errorResponse) {
+		const query = new URLSearchParams({
+			targetSystem: payload.systemId,
+		});
+
+		if (errorResponse.error && errorResponse.error.details) {
+			const { details } = errorResponse.error;
+
+			if (details.sourceSchoolNumber && details.targetSchoolNumber) {
+				query.append('sourceSchoolNumber', details.sourceSchoolNumber);
+				query.append('targetSchoolNumber', details.targetSchoolNumber);
+			}
+		}
+
+		res.redirect(redirectHelper.joinPathWithQuery('/migration/error', query.toString()));
 	}
 
 	await clearCookie(req, res);

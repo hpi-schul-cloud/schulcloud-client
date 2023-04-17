@@ -92,12 +92,15 @@ router.post('/login/email', async (req, res) => {
 });
 
 router.get('/login/email', (req, res) => {
-	let redirect = '/login?strategy=email';
+	const query = new URLSearchParams({
+		strategy: 'email',
+	});
+
 	if (req.query.redirect) {
-		redirect += `&redirect=${redirectHelper.getValidRedirect(req.query.redirect)}`;
+		query.append('redirect', redirectHelper.getValidRedirect(req.query.redirect));
 	}
 
-	res.redirect(redirect);
+	res.redirect(redirectHelper.joinPathWithQuery('/login', query.toString()));
 });
 
 router.post('/login/ldap', async (req, res) => {
@@ -119,13 +122,16 @@ router.post('/login/ldap', async (req, res) => {
 	await authHelper.loginUser(req, res, 'ldap', payload, redirect);
 });
 
-router.get('/login/email', (req, res) => {
-	let redirect = '/login?strategy=ldap';
+router.get('/login/ldap', (req, res) => {
+	const query = new URLSearchParams({
+		strategy: 'ldap',
+	});
+
 	if (req.query.redirect) {
-		redirect += `&redirect=${redirectHelper.getValidRedirect(req.query.redirect)}`;
+		query.append('redirect', redirectHelper.getValidRedirect(req.query.redirect));
 	}
 
-	res.redirect(redirect);
+	res.redirect(redirectHelper.joinPathWithQuery('/login', query.toString()));
 });
 
 // eslint-disable-next-line consistent-return
