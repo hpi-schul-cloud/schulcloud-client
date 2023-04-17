@@ -1862,6 +1862,7 @@
 				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo (opcional)"
 			},
 			"text": {
+				"noProblemAreaSelected": "Tienes que elegir un tema.",
 				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)</li> <li>Sistema operativo y versión (por ejemplo, Windows 10)</li>",
 				"problemAlreadyKnownText": "¿Has comprobado si tu problema ya es conocido? Nos ayuda a resolver los problemas más rápidamente si sólo se comparten problemas nuevos."
 			}

@@ -6,6 +6,42 @@ import './help/contactForm';
 const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE =	Number($('.form-control-file').data('maxAttachmentSizeMb')) * 1024 * 1024;
 
 $(document).ready(() => {
+	const setValidity = (element, errorMessageElement, showError = true) => {
+		if (showError) {
+			element.setCustomValidity('The input is required');
+			if (errorMessageElement) {
+				$(errorMessageElement).css('visibility', 'visible');
+			}
+		} else {
+			element.setCustomValidity('');
+			if (errorMessageElement) {
+				$(errorMessageElement).css('visibility', 'hidden');
+			}
+		}
+	};
+
+	const validateProblemAreaSelection = () => {
+		const selectedOptionsArray = $('#problemArea').val();
+		const input = $('.chosen-search-input')[0];
+
+		if (selectedOptionsArray.length < 1) {
+			setValidity(input, '#problemAreaError', true);
+			$('.chosen-search-input').css('box-shadow', 'none');
+			$('#problemArea_chosen').css('box-shadow', '0 0 5px 1px #ff1134');
+		} else {
+			setValidity(input, '#problemAreaError', false);
+			$('#problemArea_chosen').css('box-shadow', 'none');
+		}
+	};
+
+	$('#problemArea').on('change', () => {
+		validateProblemAreaSelection();
+	});
+
+	$('#bug_submit').on('click', () => {
+		validateProblemAreaSelection();
+	});
+
 	$('.btn-poll').on('click', (e) => {
 		e.preventDefault();
 

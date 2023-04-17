@@ -69,6 +69,12 @@ select:invalid[multiple] {
   	margin-top: 15px !important;
 }
 
+// invalid form error
+.problem-area-validation-error{
+	visibility: hidden;
+	color: $colorDanger;
+}
+
 // Toggle
 fieldset.switch_wrapper {
   display: inline-block;
