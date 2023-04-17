@@ -42,6 +42,10 @@ $(document).ready(() => {
 		validateProblemAreaSelection();
 	});
 
+	$('#wish_submit').on('click', () => {
+		validateProblemAreaSelection();
+	});
+
 	$('.btn-poll').on('click', (e) => {
 		e.preventDefault();
 
