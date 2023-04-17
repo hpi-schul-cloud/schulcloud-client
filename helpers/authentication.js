@@ -338,7 +338,7 @@ const login = (payload = {}, req, res, next) => {
 		.catch(loginErrorHandler(res, next));
 };
 
-const oauth2RedirectUri = new URL('/login/oauth2/callback', Configuration.get('HOST')).toString();
+const oauth2RedirectUri = new URL('/login/oauth2-callback', Configuration.get('HOST')).toString();
 
 const getAuthenticationUrl = (oauthConfig, state) => {
 	const authenticationUrl = new URL(oauthConfig.authEndpoint);
@@ -383,11 +383,13 @@ const getMigrationStatus = async (req, res, userId, accessToken) => {
 
 const getMigrationRedirect = (res, migration) => {
 	const {
+		sourceSystemId,
 		targetSystemId,
 		mandatorySince,
 	} = migration;
 
-	return `/migration?targetSystem=${targetSystemId}&mandatory=${!!mandatorySince}`;
+	// TODO: N21-844 - Change link parameters to entity to make 'local to oauth' migration possible
+	return `/migration?sourceSystem=${sourceSystemId}&targetSystem=${targetSystemId}&origin=${sourceSystemId}&mandatory=${!!mandatorySince}`;
 };
 
 const loginUser = async (req, res, strategy, payload, redirect) => {
@@ -401,7 +403,7 @@ const loginUser = async (req, res, strategy, payload, redirect) => {
 		setCookie(res, 'jwt', accessToken);
 
 		if (migration) {
-			const migrationRedirect = getMigrationRedirect(res, migration);
+			const migrationRedirect = getMigrationRedirect(res, migration, currentUser.systemId);
 
 			res.redirect(migrationRedirect);
 		} else {
@@ -424,7 +426,7 @@ const migrateUser = async (res, req, payload) => {
 			json: payload,
 		});
 
-		res.redirect('/migration/success'); // TODO systems + school number error
+		res.redirect(`/migration/success?targetSystem=${payload.systemId}`);
 	} catch (error) {
 		res.redirect('/migration/error');
 	}

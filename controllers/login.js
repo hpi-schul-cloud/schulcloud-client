@@ -91,6 +91,15 @@ router.post('/login/email', async (req, res) => {
 	await authHelper.loginUser(req, res, 'local', payload, redirect);
 });
 
+router.get('/login/email', (req, res) => {
+	let redirect = '/login?strategy=email';
+	if (req.query.redirect) {
+		redirect += `&redirect=${redirectHelper.getValidRedirect(req.query.redirect)}`;
+	}
+
+	res.redirect(redirect);
+});
+
 router.post('/login/ldap', async (req, res) => {
 	const {
 		username,
@@ -110,14 +119,17 @@ router.post('/login/ldap', async (req, res) => {
 	await authHelper.loginUser(req, res, 'ldap', payload, redirect);
 });
 
-// eslint-disable-next-line consistent-return
-router.post('/login/oauth2', async (req, res) => {
-	const {
-		systemId,
-		migration,
-		redirect,
-	} = req.body;
+router.get('/login/email', (req, res) => {
+	let redirect = '/login?strategy=ldap';
+	if (req.query.redirect) {
+		redirect += `&redirect=${redirectHelper.getValidRedirect(req.query.redirect)}`;
+	}
 
+	res.redirect(redirect);
+});
+
+// eslint-disable-next-line consistent-return
+const redirectOAuth2Authentication = async (req, res, systemId, migration, redirect) => {
 	try {
 		const response = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
 
@@ -145,10 +157,30 @@ router.post('/login/oauth2', async (req, res) => {
 	} catch (error) {
 		await authHelper.handleLoginError(req, res, error.error, redirect);
 	}
+};
+
+router.post('/login/oauth2', async (req, res) => {
+	const {
+		systemId,
+		migration,
+		redirect,
+	} = req.body;
+
+	await redirectOAuth2Authentication(req, res, systemId, migration, redirect);
+});
+
+router.get('/login/oauth2/:systemId', async (req, res) => {
+	const { systemId } = req.params;
+	const {
+		migration,
+		redirect,
+	} = req.query;
+
+	await redirectOAuth2Authentication(req, res, systemId, migration, redirect);
 });
 
 // eslint-disable-next-line consistent-return
-router.get('/login/oauth2/callback', async (req, res) => {
+router.get('/login/oauth2-callback', async (req, res) => {
 	const { code, error } = req.query;
 	const { oauth2State } = req.session;
 
