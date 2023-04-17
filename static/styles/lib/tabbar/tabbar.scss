@@ -31,7 +31,7 @@
 					display: none;
 				}
 			}
-			i.fa {
+			i.fa, i.mdi {
 				color: $secondaryColor;
 				font-size: 1,25em;
 				vertical-align: middle;
@@ -48,6 +48,7 @@
 			}
 			&.active .text,
 			&.active i.fa,
+			&.active i.mdi,
 			&:hover {
 				color: $primaryColor;
 				text-decoration: none;
