@@ -42,40 +42,6 @@ router.get('/tsp-login/', (req, res, next) => {
 	}, req, res, next);
 });
 
-// Login
-router.post('/login/', (req, res, next) => {
-	const {
-		username,
-		password,
-		system,
-		schoolId,
-		redirect,
-	} = req.body;
-	const validRedirect = redirectHelper.getValidRedirect(redirect);
-	const privateDevice = req.body.privateDevice === 'true';
-	const errorSink = () => next();
-
-	if (system) {
-		const [systemId, strategy] = system.split('//');
-		return authHelper.login({
-			strategy,
-			username,
-			password,
-			systemId,
-			schoolId,
-			redirect: validRedirect,
-			privateDevice,
-		}, req, res, errorSink);
-	}
-	return authHelper.login({
-		strategy: 'local',
-		username,
-		password,
-		redirect: validRedirect,
-		privateDevice,
-	}, req, res, errorSink);
-});
-
 router.post('/login/email', async (req, res) => {
 	const {
 		username,
@@ -117,8 +83,6 @@ router.post('/login/oauth2', async (req, res) => {
 		migration,
 		redirect,
 	} = req.body;
-
-	console.log(redirect);
 
 	try {
 		const response = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
@@ -162,7 +126,6 @@ router.get('/login/oauth2/callback', async (req, res) => {
 	}
 
 	const redirect = oauth2State.postLoginRedirect;
-	console.log(redirect);
 
 	if (error) {
 		return authHelper.handleLoginError(req, res, {

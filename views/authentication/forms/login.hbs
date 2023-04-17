@@ -120,7 +120,7 @@
                     {{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}
                     <form method="post" action="/login/oauth2" class="login-form">
                         <input type="hidden" name="strategy" value="oauth2"/>
-                        <input type="hidden" name="redirect" value="{{redirect}}"/>
+                        <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
                         <input type="hidden" name="systemId" value="{{system.id}}"/>
                         {{> "lib/components/csrfInput"}}
                         <div class="oauth-system">
@@ -147,7 +147,7 @@
             <div class="email-login-section">
                 <form method="post" action="{{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}/login/email{{else}}/login{{/if}}" class="login-form">
                     <input type="hidden" name="strategy" value="local"/>
-                    <input type="hidden" name="redirect" value="{{redirect}}" />
+                    <input type="hidden" name="redirect" value="{{redirect}}"/>
                         <div class="form-group">
                             <label class="usernameEmailPlaceholder" for="name">{{$t "login.input.email"}}</label>
                             <input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg usernameEmailPlaceholder" placeholder="{{$t "login.input.email"}}" style="margin-bottom: 0.5rem" data-testid="username-email" required >
