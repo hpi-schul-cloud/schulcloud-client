@@ -30,7 +30,7 @@ class AlertMessageController {
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
 			<br>
-			<div class="alert-date text-nowrap text-muted" style="float: left;">Updated: ${datetime.fromNow(message.timestamp)} <span style="margin-right: 5px;"></span>|</div>
+			<div class="alert-date text-nowrap text-muted" style="float: left;">Updated: ${datetime.fromNow(message.timestamp)} <span style="margin-right: 3px;"></span>|</div>
 			<div class="alert-date text-nowrap text-muted" style="float: left; margin-left: 5px;">Created: ${datetime.toDateTimeString(message.created_at)}</div>
 			<div style="clear: both;"></div>`;
 		} else {
@@ -38,7 +38,7 @@ class AlertMessageController {
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${message.text}
 			<br>
-			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)} <span style="margin-right: 5px;"></span>|</div>
+			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}<span style="margin-right: 3px;"></span>|</div>
 			<div class="text-muted" style="float: left; margin-left: 5px;">Created: ${datetime.toDateTimeString(message.created_at)}</div>
 			<div style="clear: both;"></div>`;
 		}
