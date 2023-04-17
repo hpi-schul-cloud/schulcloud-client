@@ -432,7 +432,7 @@ const migrateUser = async (res, req, payload) => {
 			json: payload,
 		});
 
-		res.redirect('/migration/success');
+		res.redirect('/migration/success'); // TODO systems + school number error
 	} catch (error) {
 		res.redirect('/migration/error');
 	}
