@@ -338,8 +338,7 @@ const login = (payload = {}, req, res, next) => {
 		.catch(loginErrorHandler(res, next));
 };
 
-// TODO use correct env
-const oauth2RedirectUri = new URL('/login/oauth2/callback', 'http://localhost:3100').toString();
+const oauth2RedirectUri = new URL('/login/oauth2/callback', Configuration.get('HOST')).toString();
 
 const getAuthenticationUrl = (oauthConfig, state) => {
 	const authenticationUrl = new URL(oauthConfig.authEndpoint);
@@ -383,19 +382,12 @@ const getMigrationStatus = async (req, res, userId, accessToken) => {
 };
 
 const getMigrationRedirect = (res, migration) => {
-	let {
-		sourceSystemId,
-	} = migration;
 	const {
 		targetSystemId,
 		mandatorySince,
 	} = migration;
 
-	if (!sourceSystemId) {
-		sourceSystemId = '0000d186816abba584714c92'; // TODO modify migration page to not require sourceSystem anymore
-	}
-
-	return `/migration?sourceSystem=${sourceSystemId}&targetSystem=${targetSystemId}&origin=${sourceSystemId}&mandatory=${!!mandatorySince}`;
+	return `/migration?targetSystem=${targetSystemId}&mandatory=${!!mandatorySince}`;
 };
 
 const loginUser = async (req, res, strategy, payload, redirect) => {
