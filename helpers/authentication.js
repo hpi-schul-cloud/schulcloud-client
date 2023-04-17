@@ -383,13 +383,11 @@ const getMigrationStatus = async (req, res, userId, accessToken) => {
 
 const getMigrationRedirect = (res, migration) => {
 	const {
-		sourceSystemId,
 		targetSystemId,
 		mandatorySince,
 	} = migration;
 
-	// TODO: N21-844 - Change link parameters to entity to make 'local to oauth' migration possible
-	return `/migration?sourceSystem=${sourceSystemId}&targetSystem=${targetSystemId}&origin=${sourceSystemId}&mandatory=${!!mandatorySince}`;
+	return `/migration?targetSystem=${targetSystemId}&mandatory=${!!mandatorySince}`;
 };
 
 const loginUser = async (req, res, strategy, payload, redirect) => {
