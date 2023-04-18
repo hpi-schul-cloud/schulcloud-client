@@ -20,30 +20,34 @@ $(document).ready(() => {
 		}
 	};
 
-	const validateProblemAreaSelection = () => {
-		const selectedOptionsArray = $('#problemArea').val();
+	const validateProblemAreaSelection = (tab) => {
+		const selectedOptionsArray = $(`#problemArea${tab}`).val();
 		const input = $('.chosen-search-input')[0];
 
 		if (selectedOptionsArray.length < 1) {
-			setValidity(input, '#problemAreaError', true);
+			setValidity(input, `#problemAreaError${tab}`, true);
 			$('.chosen-search-input').css('box-shadow', 'none');
-			$('#problemArea_chosen').css('box-shadow', '0 0 5px 1px #ff1134');
+			$(`#problemArea${tab}_chosen`).css('box-shadow', '0 0 5px 1px #ff1134').scrollTop();
 		} else {
-			setValidity(input, '#problemAreaError', false);
-			$('#problemArea_chosen').css('box-shadow', 'none');
+			setValidity(input, `#problemAreaError${tab}`, false);
+			$(`#problemArea${tab}_chosen`).css('box-shadow', 'none');
 		}
 	};
 
-	$('#problemArea').on('change', () => {
-		validateProblemAreaSelection();
+	$('#problemAreaBug').on('change', () => {
+		validateProblemAreaSelection('Bug');
+	});
+
+	$('#problemAreaWish').on('change', () => {
+		validateProblemAreaSelection('Wish');
 	});
 
 	$('#bug_submit').on('click', () => {
-		validateProblemAreaSelection();
+		validateProblemAreaSelection('Bug');
 	});
 
 	$('#wish_submit').on('click', () => {
-		validateProblemAreaSelection();
+		validateProblemAreaSelection('Wish');
 	});
 
 	$('.btn-poll').on('click', (e) => {

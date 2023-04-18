@@ -9,13 +9,13 @@
 <center>
 <label class="form-group col-md-6">
 		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.severalTopicsPossible"}}</span>
-		<select class="form-control" id="problemArea" name="problemArea" class="problemArea" data-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" data-testid='select-problem' aria-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" multiple required>
+		<select class="form-control" id="problemAreaBug" name="problemArea" class="problemArea" data-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" data-testid='select-problem' aria-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" multiple required>
 			<option value="" disabled hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
 			{{#each helpOptions}}
 				<option value={{ this.optionValue }}>{{ this.optionText }}</option>
 			{{/each}}
 		</select>
-		<span class="small problem-area-validation-error" id="problemAreaError">{{$t "help.form_bug.text.noProblemAreaSelected"}}</span>
+		<span class="small problem-area-validation-error" id="problemAreaErrorBug">{{$t "help.form_bug.text.noProblemAreaSelected"}}</span>
 </label>
 </center>
 
