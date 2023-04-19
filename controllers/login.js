@@ -212,13 +212,13 @@ router.get('/login/oauth2-callback', async (req, res) => {
 		redirectUri: authHelper.oauth2RedirectUri,
 	};
 
-	delete req.session.oauth2State;
-
 	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
 		await authHelper.migrateUser(req, res, payload);
 	} else {
 		await authHelper.loginUser(req, res, 'oauth2', payload, redirect);
 	}
+
+	delete req.session.oauth2State;
 });
 
 const redirectAuthenticated = (req, res) => {
