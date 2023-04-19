@@ -429,7 +429,7 @@ const loginUser = async (req, res, strategy, payload, redirect) => {
 	}
 };
 
-const migrateUser = async (res, req, payload) => {
+const migrateUser = async (req, res, payload) => {
 	try {
 		await api(req, { version: 'v3' }).post('/user-login-migrations/migrate-to-oauth2', {
 			json: payload,

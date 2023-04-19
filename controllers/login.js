@@ -173,10 +173,6 @@ router.post('/login/oauth2', async (req, res) => {
 	} = req.body;
 
 	await redirectOAuth2Authentication(req, res, systemId, migration, redirect);
-
-	console.log('POST');
-	console.log(migration);
-	console.log(req.session.oauth2State);
 });
 
 router.get('/login/oauth2/:systemId', async (req, res) => {
@@ -187,10 +183,6 @@ router.get('/login/oauth2/:systemId', async (req, res) => {
 	} = req.query;
 
 	await redirectOAuth2Authentication(req, res, systemId, migration, redirect);
-
-	console.log('GET');
-	console.log(migration);
-	console.log(req.session.oauth2State);
 });
 
 // eslint-disable-next-line consistent-return
@@ -219,10 +211,6 @@ router.get('/login/oauth2-callback', async (req, res) => {
 		systemId: oauth2State.systemId,
 		redirectUri: authHelper.oauth2RedirectUri,
 	};
-
-	console.log('Callback');
-	console.log(oauth2State);
-	console.log(await authHelper.isAuthenticated(req));
 
 	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
 		await authHelper.migrateUser(req, res, payload);
