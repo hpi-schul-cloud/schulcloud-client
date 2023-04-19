@@ -203,7 +203,7 @@ aside.nav-sidebar {
 				height: 60px;
 				color: $secondaryColor;
 				fill:$secondaryColor;
-				padding: 0px 20px;
+				padding: 0px 16px;
 				font-size: 16px;
 				text-decoration: none;
 				overflow-x: visible;
@@ -262,11 +262,10 @@ aside.nav-sidebar {
 				}
 
 				i.mdi {
-					font-size: 20px;
-					width: 25px;
+					font-size: 24px;
+					width: 24px;
 					display: inline-block;
 					text-align: center;
-					vertical-align: middle;
 
 					&:before {
 						vertical-align: inherit;
@@ -274,19 +273,18 @@ aside.nav-sidebar {
 				}
 
 				svg {
-					font-size: 20px;
-					width: 25px;
+					width: 24px;
 					display: inline-block;
 					text-align: center;
-					vertical-align: middle;
-					height: 1em;
+					height: 24px;
+					margin-bottom: 2px;
 				}
 
 				span {
 					display: inline-block;
 					text-transform: uppercase;
 					text-decoration: none;
-					margin-left: 6px;
+					margin-left: 8px;
 					text-overflow: ellipsis;
     			overflow: hidden;
 
