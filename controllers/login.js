@@ -108,9 +108,11 @@ router.post('/login/ldap', async (req, res) => {
 		username,
 		password,
 		schoolId,
-		systemId,
+		system,
 		redirect,
 	} = req.body;
+
+	const systemId = system.split('//')[0];
 
 	const payload = {
 		username,
