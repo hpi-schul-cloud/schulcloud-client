@@ -266,6 +266,8 @@ aside.nav-sidebar {
 					width: 24px;
 					display: inline-block;
 					text-align: center;
+					vertical-align: text-top;
+					margin-bottom: 2px;
 
 					&:before {
 						vertical-align: inherit;
