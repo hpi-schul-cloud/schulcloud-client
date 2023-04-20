@@ -278,6 +278,27 @@ const mapErrorToTranslationKey = (error) => {
 	}
 };
 
+const loginErrorHandler = (res, next) => (e) => {
+	res.locals.notification = {
+		type: 'danger',
+		message: res.$t('login.text.loginFailed'),
+		statusCode: e.statusCode,
+		timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
+	};
+
+	// Email Domain Blocked
+	if (e.statusCode === 400 && e.error.message === 'EMAIL_DOMAIN_BLOCKED') {
+		res.locals.notification.message = res.$t('global.text.emailDomainBlocked');
+	}
+
+	// Too Many Requests
+	if (e.statusCode === 429) {
+		res.locals.notification.timeToWait = e.error.data.timeToWait;
+	}
+
+	next(e);
+};
+
 const setErrorNotification = (res, req, error) => {
 	let message = res.$t(mapErrorToTranslationKey(error));
 
@@ -298,12 +319,6 @@ const setErrorNotification = (res, req, error) => {
 		message: message || res.$t('login.text.loginFailed'),
 		timeToWait: timeToWait || Configuration.get('LOGIN_BLOCK_TIME'),
 	};
-};
-
-const loginErrorHandler = (res, req, next) => (errorResponse) => {
-	setErrorNotification(res, req, errorResponse.error);
-
-	next(errorResponse);
 };
 
 const handleLoginError = async (req, res, error, redirect, strategy) => {
@@ -471,7 +486,6 @@ module.exports = {
 	etherpadCookieHelper,
 	generatePassword,
 	generateConsentPassword,
-	setErrorNotification,
 	oauth2RedirectUri,
 	getAuthenticationUrl,
 	loginUser,
