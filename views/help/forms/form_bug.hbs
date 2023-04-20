@@ -8,7 +8,7 @@
 <span class="icon-card__subtitle">{{$t "help.contact.text.whichAreaOfSchulCloud" (dict "themeTitle" theme.theme_title "shortTitle" theme.short_title)}}</span>
 <center>
 <label class="form-group col-md-6">
-		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.severalTopicsPossible"}}</span>
+		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.severalTopicsPossible"}}  {{$t "help.global.label.requiredField"}}</span>
 		<select class="form-control" id="problemAreaBug" name="problemArea" class="problemArea" data-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" data-testid='select-problem' aria-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" multiple required>
 			<option value="" disabled hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
 			{{#each helpOptions}}
@@ -31,11 +31,11 @@
 <span class="icon-card__subtitle">{{$t "help.contact.text.contactSupportSubtitle"}}</span>
 
 <label class="form-group">
-	<span class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}</span>
+	<span class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}  {{$t "help.global.label.requiredField"}}</span>
 	<input class="form-control" type="text" name="title" placeholder="{{$t "help.placeholder.briefDescriptionOfTheProblem" }}" data-testid="bug_headline" required>
 </label>
 <label class="form-group">
-	<span class="control-label">{{$t "help.form_bug.label.problemDescription" }}</span>
+	<span class="control-label">{{$t "help.form_bug.label.problemDescription" }}  {{$t "help.global.label.requiredField"}}</span>
 <textarea class="form-control" cols="50" name="problemDescription" rows="14" data-testid="bug_description" required></textarea>
 </label>
 <label class="form-group">
@@ -44,7 +44,7 @@
 </label>
 <label class="form-group">
 	<span class="control-label">
-		{{$t "help.global.label.replyEmail" }}
+		{{$t "help.global.label.replyEmail" }}  {{$t "help.global.label.requiredField"}}
 	</span>
 	<input class="form-control" type="email" name="replyEmail" placeholder="{{$t "help.placeholder.email"}}" value="{{ userEmail }}" data-testid="bug_email" required>
 </label>

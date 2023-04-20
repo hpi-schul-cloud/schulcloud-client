@@ -1894,7 +1894,8 @@
 			"label": {
 				"briefDescriptionOfTheProblem": "Brief description of the problem",
 				"furtherInformation": "Further information about your browser and operating system (optional)",
-				"replyEmail": "E-mail address for any queries"
+				"replyEmail": "E-mail address for any queries",
+				"requiredField": "(required)"
 			}
 		},
 		"headline": {
