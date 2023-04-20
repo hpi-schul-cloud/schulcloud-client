@@ -88,7 +88,6 @@
                 {{#each oauthSystems as |system|}}
                     {{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}
                     <form method="post" action="/login/oauth2" class="login-form">
-                        <input type="hidden" name="strategy" value="oauth2"/>
                         <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
                         <input type="hidden" name="systemId" value="{{system.id}}"/>
                         {{> "lib/components/csrfInput"}}

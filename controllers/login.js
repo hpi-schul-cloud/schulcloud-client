@@ -6,6 +6,7 @@ const express = require('express');
 
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const Handlebars = require('handlebars');
 const shortid = require('shortid');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -16,6 +17,11 @@ const {
 	formatError,
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
+
+Handlebars.registerHelper('oauthLink', (id) => {
+	const apiUrl = `${Configuration.get('PUBLIC_BACKEND_URL')}/v3/sso/login/${id}`;
+	return apiUrl;
+});
 
 // SSO Login
 router.get('/tsp-login/', (req, res, next) => {
