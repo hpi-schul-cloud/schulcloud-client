@@ -109,7 +109,7 @@ $(document).ready(() => {
 			$systems.append(`<option ${selected ? 'selected' : ''} value="${system._id}//${system.type}">${system.type}${systemAlias}</option>`);
 		});
 		// eslint-disable-next-line no-unused-expressions
-		systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
+		$systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
 		$systems.trigger('chosen:updated');
 	};
 
