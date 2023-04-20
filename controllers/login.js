@@ -242,7 +242,8 @@ const determineRedirectUrl = (req) => {
 };
 
 const getNonOauthSchools = (schools) => [...schools]
-	.filter((school) => school.systems.filter((system) => system.oauthConfig || system.type === 'oidc').length === 0);
+	// eslint-disable-next-line max-len
+	.filter((school) => school.systems.some((system) => system.type === 'ldap' && !(system.oauthConfig || system.type === 'oidc')));
 
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
