@@ -241,9 +241,9 @@ const determineRedirectUrl = (req) => {
 	return '/dashboard';
 };
 
-const getNonOauthSchools = (schools) => [...schools]
+const getNonOauthSchools = (schools) => schools
 	// eslint-disable-next-line max-len
-	.filter((school) => school.systems.some((system) => system.type === 'ldap' && !(system.oauthConfig || system.type === 'oidc')));
+	.filter((school) => school.systems.some((system) => system.type === 'ldap' && !system.oauthConfig));
 
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
