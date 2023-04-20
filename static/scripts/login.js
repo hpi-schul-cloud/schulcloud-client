@@ -96,6 +96,10 @@ $(document).ready(() => {
 	const loadSystems = (systems) => {
 		$systems.empty();
 		systems.forEach((system) => {
+			if (system.type !== 'ldap') {
+				return;
+			}
+
 			const systemAlias = system.alias ? ` (${system.alias})` : '';
 			let selected;
 			if (storage.local.getItem('loginSystem') === system._id) {

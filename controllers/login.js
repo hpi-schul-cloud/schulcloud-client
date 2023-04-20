@@ -241,7 +241,7 @@ const determineRedirectUrl = (req) => {
 	return '/dashboard';
 };
 
-const getNonOauthSchools = (schools) => schools
+const filterSchoolsWithLdapLogin = (schools) => schools
 	// eslint-disable-next-line max-len
 	.filter((school) => school.systems.some((system) => system.type === 'ldap' && !system.oauthConfig));
 
@@ -261,7 +261,7 @@ router.all('/', async (req, res, next) => {
 		const oauthSystems = await getOauthSystems(req);
 
 		res.render('authentication/home', {
-			schools: getNonOauthSchools(schools),
+			schools: filterSchoolsWithLdapLogin(schools),
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
@@ -311,7 +311,7 @@ const renderLogin = async (req, res) => {
 	const oauthSystems = oauthSystemsResponse.data || [];
 
 	res.render('authentication/login', {
-		schools: getNonOauthSchools(schools),
+		schools: filterSchoolsWithLdapLogin(schools),
 		systems: [],
 		oauthSystems,
 		oauthErrorLogout,
