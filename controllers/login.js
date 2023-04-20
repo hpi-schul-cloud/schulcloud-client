@@ -140,7 +140,7 @@ const mapErrorCodeToTranslation = (errorCode) => {
 		case 'sso_internal_error':
 			return 'login.text.internalError';
 		default:
-			return 'login.text.oauthLoginFailed';
+			return 'login.text.loginFailed';
 	}
 };
 
