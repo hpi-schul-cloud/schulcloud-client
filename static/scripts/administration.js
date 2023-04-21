@@ -130,7 +130,7 @@ $(document).ready(() => {
 			title: $t('global.button.add'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
-			submitDataTestId: 'add-modal--rss',
+			submitDataTestId: 'add-modal-rss',
 		});
 		$addRSSModal.appendTo('body').modal('show');
 	});
@@ -141,7 +141,7 @@ $(document).ready(() => {
 			title: $t('administration.school.headline.addPolicy'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
-			submitDataTestId: 'add-modal--policy',
+			submitDataTestId: 'add-modal-Spolicy',
 		});
 		$addPolicyModal.appendTo('body').modal('show');
 	});
