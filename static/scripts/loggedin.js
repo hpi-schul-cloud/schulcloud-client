@@ -117,13 +117,15 @@ $(document).ready(function () {
         let $cancelModal = $('.cancel-modal');
         populateModalForm($cancelModal, {
             title: $t('global.text.sureAboutDiscardingChanges'),
+			submitDataTestId: 'cancel-modal',
         });
         $cancelModal.appendTo('body').modal('show');
     });
 
     populateModalForm($featureModal, {
         title: $t('loggedin.text.newFeaturesAvailable'),
-        closeLabel: $t('global.button.cancel')
+        closeLabel: $t('global.button.cancel'),
+		submitDataTestId: 'feature-modal',
     });
 
     // from: https://stackoverflow.com/a/187557
