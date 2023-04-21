@@ -1859,7 +1859,7 @@
 				"problemAlreadyKnown": "Ist das Problem bereits bekannt?",
 				"problemDescription": "Problembeschreibung",
 				"statusPage": "Status-Seite",
-				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf (optional)"
+				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
 			},
 			"text": {
 				"noProblemAreaSelected": "Sie müssen ein Thema auswählen.",
@@ -1893,7 +1893,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
-				"furtherInformation": "Weitere Informationen zu deinem Browser und Betriebssystem (optional)",
+				"furtherInformation": "Weitere Informationen zu deinem Browser und Betriebssystem",
 				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen",
 				"requiredField": "(Pflichtfeld)"
 			}
