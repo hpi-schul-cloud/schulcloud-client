@@ -159,6 +159,7 @@ $(document).ready(() => {
 					description: eventData.description,
 					location: eventData.location,
 				},
+				submitDataTestId: 'edit-event-modal',
 				action: URI.getSingleEvent(eventData._id),
 			});
 
@@ -199,6 +200,7 @@ $(document).ready(() => {
 					startDate,
 					endDate,
 				},
+				submitDataTestId: 'create-event-modal',
 			});
 			$createEventModal.appendTo('body').modal('show');
 		},
