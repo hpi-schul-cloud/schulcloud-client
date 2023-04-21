@@ -141,7 +141,7 @@ $(document).ready(() => {
 			title: $t('administration.school.headline.addPolicy'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
-			submitDataTestId: 'add-modal-Spolicy',
+			submitDataTestId: 'add-modal-policy',
 		});
 		$addPolicyModal.appendTo('body').modal('show');
 	});
