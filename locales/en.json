@@ -1801,7 +1801,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Select area",
-				"severalTopicsPossible": " Selection of several topics is possible.",
+				"severalTopicsPossible": " Selection of several topics is possible",
 				"pAddOns": "Add-Ons",
 				"pAuthentication": "Authentication",
 				"pCalendar": "Calendar",
@@ -1859,7 +1859,7 @@
 				"problemAlreadyKnown": "Is the problem already known?",
 				"problemDescription": "Problem description",
 				"statusPage": "Status page",
-				"theProblemOccursOnTheDevice": "The problem occurs on this device (optional)"
+				"theProblemOccursOnTheDevice": "The problem occurs on this device"
 			},
 			"text": {
 				"noProblemAreaSelected": "You have to choose a problem area.",
@@ -1893,7 +1893,7 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Brief description of the problem",
-				"furtherInformation": "Further information about your browser and operating system (optional)",
+				"furtherInformation": "Further information about your browser and operating system",
 				"replyEmail": "E-mail address for any queries",
 				"requiredField": "(required)"
 			}

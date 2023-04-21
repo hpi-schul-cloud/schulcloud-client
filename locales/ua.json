@@ -2806,7 +2806,7 @@
 			"label": {
 				"maxSizeFiles": "Зображення, відео та файли",
 				"problemDescription": "Опис проблеми",
-				"theProblemOccursOnTheDevice": "Проблема виникає на цьому пристрої (за бажанням)",
+				"theProblemOccursOnTheDevice": "Проблема виникає на цьому пристрої",
 				"problemAlreadyKnown": "Проблема вже відома?",
 				"knownProblemLink": "Крім того, можна перевірити нашу <a href=\"https://status.hpi-schul-cloud.de\">сторінку стану</a>, щоб побачити, чи є у нас зараз проблеми з нашими технічними системами.",
 				"statusPage": "Сторінка стану"
@@ -2897,7 +2897,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Вибрати область",
-				"severalTopicsPossible": " Можливий вибір декількох тем.",
+				"severalTopicsPossible": " Можливий вибір декількох тем",
 				"pAddOns": "Доповнення",
 				"pAuthentication": "Аутентифікація",
 				"pCalendar": "Календар",
