@@ -523,6 +523,7 @@ $(document).ready(() => {
 			fields: {
 				name: oldName,
 			},
+			submitDataTestId: 'rename-modal',
 		});
 
 		$renameModal.modal('show');
@@ -592,6 +593,7 @@ $(document).ready(() => {
 					fields: {
 						invitation: link.newUrl,
 					},
+					submitDataTestId: 'share-modal',
 				});
 
 				$input.val(link.newUrl);
@@ -653,6 +655,7 @@ $(document).ready(() => {
 					fields: {
 						fileId,
 					},
+					submitDataTestId: 'permission-modal',
 				});
 
 				$loader.hide();
@@ -866,6 +869,7 @@ $(document).ready(() => {
 				fileName: $context.attr('data-file-name'),
 				filePath: $context.attr('data-file-path'),
 			},
+			submitDataTestId: 'move-modal',
 		});
 
 		$moveModal.find('.modal-footer').empty();
