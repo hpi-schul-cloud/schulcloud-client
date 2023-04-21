@@ -27,12 +27,12 @@ label.form-group {
 }
 
 // Label
-  .control-label {
-    &.headline{
-      font-weight: bold;
-      text-align: left;
-    }
-  }  
+.control-label {
+  &.headline{
+    font-weight: bold;
+    text-align: left;
+  }
+}  
 
 .icon-card__title {
   margin-top: 2rem;
