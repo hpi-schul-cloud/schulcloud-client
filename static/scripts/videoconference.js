@@ -163,6 +163,7 @@ export function initVideoconferencing() {
 		populateModalForm($updateConferenceStatusModal, {
 			title: '',
 			closeLabel: $t('global.button.ok'),
+			submitDataTestId: 'update-conference-status-modal',
 		});
 
 		$updateConferenceStatusModal.appendTo('body').modal('show');
@@ -176,6 +177,7 @@ export function initVideoconferencing() {
 		populateModalForm($forbiddenModal, {
 			title: '',
 			closeLabel: $t('global.button.ok'),
+			submitDataTestId: 'forbidden-modal',
 		});
 
 		$forbiddenModal.appendTo('body').modal('show');

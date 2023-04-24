@@ -11,6 +11,7 @@ $(document).ready(() => {
 	populateModalForm($pollModal, {
 		title: $t('dashboard.headline.poll2Title'),
 		closeLabel: $t('global.button.cancel'),
+		submitDataTestId: 'poll-modal',
 	});
 
 	const prefs = $('#preferences').html();

@@ -95,6 +95,7 @@ $(document).ready(() => {
 					closeLabel: $t('global.button.cancel'),
 					submitLabel: $t('global.button.save'),
 					fields: { invitation: data.newUrl },
+					submitDataTestId: 'invitation-modal',
 				});
 				$invitationModal.find('.btn-submit').remove();
 				$invitationModal.find('input[name="invitation"]').click(function inputNameInvitation() {
@@ -145,6 +146,7 @@ $(document).ready(() => {
 					title: $t('courses._course.headline.shareCodeGenerated'),
 					closeLabel: $t('global.button.close'),
 					fields: { shareToken: data.shareToken },
+					submitDataTestId: 'share-modal',
 				});
 				$shareModal.find('.btn-submit').remove();
 				$shareModal.find('input[name="shareToken"]').click(function inputNameShareToken() {
@@ -384,6 +386,7 @@ $(document).ready(() => {
 		populateModalForm($bbbReloadInfoModal, {
 			title: '',
 			closeLabel: 'OK',
+			submitDataTestId: 'bbb-reload-info-modal',
 		});
 
 		$bbbReloadInfoModal.appendTo('body').modal('show');

@@ -85,6 +85,7 @@ $(document).ready(function () {
 				title: $t('content.headline.addContentToTopic'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.send'),
+				submitDataTestId: 'edit-content-modal',
 				fields: fields
 			});
 			populateCourseSelection($editModal, result.courses);
@@ -103,7 +104,8 @@ $(document).ready(function () {
 	$('.external-link').on('click', function () {
 		populateModalForm($externalLinkModal, {
 				title: $t('content.headline.youAreLeavingSC'),
-				closeLabel: $t('global.button.cancel')
+				closeLabel: $t('global.button.cancel'),
+				submitDataTestId: 'external-link-modal',
 		});
 		$externalLinkModal.find('.external-link-btn').attr('href', $(this).data('external-link'));
 		var provider = $externalLinkModal.find('.provider');
