@@ -22,8 +22,8 @@ function togglePresentationMode() {
     const contentArea = $('#main-content');
     const toggleButton = $('.btn-fullscreen');
     $('body').toggleClass('fullscreen');
-    toggleButton.children('i').toggleClass('fa-compress');
-    toggleButton.children('i').toggleClass('fa-expand');
+    toggleButton.children('i').toggleClass('mdi-arrow-collapse');
+    toggleButton.children('i').toggleClass('mdi-arrow-expand');
 
     $('.alert-button').toggle().css('visibility');
 }

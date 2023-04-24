@@ -5,6 +5,8 @@
 @import "./bootstrap/scss/bootstrap-flex";
 
 $fa-font-path: "/vendor-optimized/font-awesome/fonts";
+$mdi-font-path: "/vendor-optimized/@mdi/font/fonts";
+@import "@mdi/font/scss/materialdesignicons.scss";
 @import "font-awesome/scss/font-awesome.scss";
 @import "./chosen/bootstrap-chosen";
 @import "./datetimepicker/jquery.datetimepicker.min.css";
