@@ -47,7 +47,7 @@ class AlertMessageController {
 	}
 
 	showAlert(messageArray) {
-		if (!messageArray || messageArray.length) {
+		if (!messageArray || messageArray.length === 0) {
 			return; // If messageArray is empty, we do not show the triangle
 		}
 		if (Array.isArray(messageArray)) {
