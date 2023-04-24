@@ -2806,12 +2806,13 @@
 			"label": {
 				"maxSizeFiles": "Зображення, відео та файли",
 				"problemDescription": "Опис проблеми",
-				"theProblemOccursOnTheDevice": "Проблема виникає на цьому пристрої (за бажанням)",
+				"theProblemOccursOnTheDevice": "Проблема виникає на цьому пристрої",
 				"problemAlreadyKnown": "Проблема вже відома?",
 				"knownProblemLink": "Крім того, можна перевірити нашу <a href=\"https://status.hpi-schul-cloud.de\">сторінку стану</a>, щоб побачити, чи є у нас зараз проблеми з нашими технічними системами.",
 				"statusPage": "Сторінка стану"
 			},
 			"text": {
+				"noProblemAreaSelected": "Треба вибрати проблемну зону.",
 				"iAgreeThatTheFollowingInformationMayBe": "Я погоджуюся, що для кращого розв'язання моєї проблеми може бути передана така інформація: <li>Ім’я та версія браузера (наприклад, Firefox 69.0)<li> </li> Операційна система та версія (наприклад, Windows 10)</li>",
 				"problemAlreadyKnownText": "Ви перевірили, чи ваша проблема вже відома? Це допомагає нам швидше розв'язувати проблеми, якщо ви ділитеся лише новими проблемами."
 			}
@@ -2819,8 +2820,9 @@
 		"global": {
 			"label": {
 				"briefDescriptionOfTheProblem": "Короткий опис проблеми",
-				"furtherInformation": "Додаткова інформація про ваш браузер та операційну систему (за бажанням)",
-				"replyEmail": "Адреса електронної пошти для будь-яких запитів"
+				"furtherInformation": "Додаткова інформація про ваш браузер та операційну систему",
+				"replyEmail": "Адреса електронної пошти для будь-яких запитів",
+				"requiredField": "(oбов'язково)"
 			},
 			"headline": {
 				"principal": "Директор школи"
@@ -2895,7 +2897,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Вибрати область",
-				"severalTopicsPossible": " Можливий вибір декількох тем.",
+				"severalTopicsPossible": " Можливий вибір декількох тем",
 				"pAddOns": "Доповнення",
 				"pAuthentication": "Аутентифікація",
 				"pCalendar": "Календар",
