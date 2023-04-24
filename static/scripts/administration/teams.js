@@ -76,6 +76,7 @@ $(window).ready(() => {
 			title: $t('administration.teams.headline.messageToTeamOwners'),
 			closeLabel: $t('global.button.discard'),
 			submitLabel: $t('global.button.submit'),
+			submitDataTestId: 'message-modal',
 		});
 
 		$messageModal.appendTo('body').modal('show');
@@ -98,6 +99,7 @@ $(window).ready(() => {
 			fields: {
 				name,
 			},
+			submitDataTestId: 'delete-team-modal',
 		});
 
 		$deleteModal.appendTo('body').modal('show');
@@ -120,6 +122,7 @@ $(window).ready(() => {
 			fields: {
 				name,
 			},
+			submitDataTestId: 'remove-all-members-modal',
 		});
 
 		$removeModal.appendTo('body').modal('show');
@@ -138,6 +141,7 @@ $(window).ready(() => {
 			title: $t('administration.teams.headline.newTeamOwner'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('administration.teams.button.appointTeamOwner'),
+			submitDataTestId: 'appoint-team-owner-modal',
 		});
 
 		$removeModal.appendTo('body').modal('show');
