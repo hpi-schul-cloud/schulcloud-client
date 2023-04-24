@@ -2564,7 +2564,7 @@
 			"superheroText": "You are trying log in with a superhero account.",
 			"userNotFound": "User not found.",
 			"internalError": "Internal Server Error. Please contact the admin.",
-			"schoolInMigration": "Your school is changing the login system. You must log in with your old login system and migrate your account, before you can log in with the new login system."
+			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system."
 		}
 	},
 	"messenger": {

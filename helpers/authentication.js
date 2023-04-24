@@ -297,8 +297,8 @@ const loginErrorHandler = (res, next) => (e) => {
 	next(e);
 };
 
-const setErrorNotification = (res, req, error) => {
-	let message = res.$t(mapErrorToTranslationKey(error));
+const setErrorNotification = (res, req, error, systemName) => {
+	let message = res.$t(mapErrorToTranslationKey(error), { systemName });
 
 	// Email Domain Blocked
 	if (error.code === 400 && error.message === 'EMAIL_DOMAIN_BLOCKED') {
@@ -319,8 +319,8 @@ const setErrorNotification = (res, req, error) => {
 	};
 };
 
-const handleLoginError = async (req, res, error, redirect, strategy) => {
-	setErrorNotification(res, req, error);
+const handleLoginError = async (req, res, error, redirect, strategy, systemName) => {
+	setErrorNotification(res, req, error, systemName);
 
 	if (req.session.oauth2State) {
 		delete req.session.oauth2State;
@@ -414,7 +414,7 @@ const getMigrationRedirect = (res, migration) => {
 	return redirectHelper.joinPathWithQuery('/migration', query.toString());
 };
 
-const loginUser = async (req, res, strategy, payload, redirect) => {
+const loginUser = async (req, res, strategy, payload, redirect, systemName) => {
 	try {
 		const { accessToken } = await requestLogin(req, strategy, payload);
 
@@ -438,7 +438,7 @@ const loginUser = async (req, res, strategy, payload, redirect) => {
 			res.redirect(redirectHelper.joinPathWithQuery('/login/success', query.toString()));
 		}
 	} catch (errorResponse) {
-		await handleLoginError(req, res, errorResponse.error, redirect, strategy);
+		await handleLoginError(req, res, errorResponse.error, redirect, strategy, systemName);
 	}
 };
 

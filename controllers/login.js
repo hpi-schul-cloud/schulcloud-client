@@ -94,7 +94,7 @@ router.post('/login/email', async (req, res) => {
 		password,
 	};
 
-	await authHelper.loginUser(req, res, 'local', payload, redirect);
+	await authHelper.loginUser(req, res, 'local', payload, redirect, 'Email');
 });
 
 router.get('/login/email', (req, res) => {
@@ -127,7 +127,7 @@ router.post('/login/ldap', async (req, res) => {
 		schoolId,
 	};
 
-	await authHelper.loginUser(req, res, 'ldap', payload, redirect);
+	await authHelper.loginUser(req, res, 'ldap', payload, redirect, 'LDAP');
 });
 
 router.get('/login/ldap', (req, res) => {
@@ -145,9 +145,9 @@ router.get('/login/ldap', (req, res) => {
 // eslint-disable-next-line consistent-return
 const redirectOAuth2Authentication = async (req, res, systemId, migration, redirect) => {
 	try {
-		const response = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
+		const system = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
 
-		const { oauthConfig } = response;
+		const { oauthConfig } = system;
 
 		if (!oauthConfig) {
 			return authHelper.handleLoginError(req, res, {
@@ -163,6 +163,7 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 		req.session.oauth2State = {
 			state,
 			systemId,
+			systemName: system.displayName,
 			postLoginRedirect: redirect,
 			migration,
 		};
@@ -223,7 +224,7 @@ router.get('/login/oauth2-callback', async (req, res) => {
 	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
 		await authHelper.migrateUser(req, res, payload);
 	} else {
-		await authHelper.loginUser(req, res, 'oauth2', payload, redirect);
+		await authHelper.loginUser(req, res, 'oauth2', payload, redirect, oauth2State.systemName);
 	}
 
 	delete req.session.oauth2State;
