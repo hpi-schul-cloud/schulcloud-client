@@ -9,13 +9,13 @@
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
 		"startd": "echo 'Do you mean 'npm run watch'?'",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
-		"build": "gulp clear && gulp",
-		"dev": "gulp clear && gulp watch-reload",
+		"build": "gulp clear && cross-env NODE_OPTIONS=--openssl-legacy-provider gulp",
+		"dev": "gulp clear && cross-env NODE_OPTIONS=--openssl-legacy-provider gulp watch-reload",
 		"coverage": "nyc npm run mocha"
 	},
 	"engines": {
-		"node": "16",
-		"npm": "8"
+		"node": "18",
+		"npm": "9"
 	},
 	"lint-staged": {
 		"static/images/**/*.{png,jpeg,jpg,gif,svg}": [
