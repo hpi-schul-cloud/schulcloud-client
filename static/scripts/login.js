@@ -240,6 +240,7 @@ $(document).ready(() => {
 			title: $t('login.popup_resetPw.headline.resetPassword'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('login.popup_resetPw.button.resetPassword'),
+			submitDataTestId: 'password-recovery-modal',
 		});
 		$pwRecoveryModal.appendTo('body').modal('show');
 	});
