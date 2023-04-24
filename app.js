@@ -188,7 +188,6 @@ app.use(async (req, res, next) => {
 	return next();
 });
 
-
 app.use(methodOverride('_method')); // for GET requests
 app.use(methodOverride((req, res, next) => { // for POST requests
 	if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -205,12 +204,13 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 app.use(require('./middleware/i18n'));
 app.use(require('./middleware/datetime'));
 
+app.get('/', (req, res, next) => {
+	const url = Configuration.get('ROOT_URL_REDIRECT');
+	res.redirect(url);
+});
+
 // Initialize the modules and their routes
 app.use(require('./controllers'));
-
-app.get('/', (req, res, next) => {
-	res.redirect('/login/');
-});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
