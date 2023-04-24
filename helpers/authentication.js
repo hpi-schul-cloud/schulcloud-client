@@ -271,8 +271,6 @@ const mapErrorToTranslationKey = (error) => {
 			return 'login.text.userNotFound';
 		case 'SCHOOL_IN_MIGRATION':
 			return 'login.text.schoolInMigration';
-		case 'INTERNAL_SERVER_ERROR':
-			return 'login.text.internalError';
 		default:
 			return 'login.text.loginFailed';
 	}
