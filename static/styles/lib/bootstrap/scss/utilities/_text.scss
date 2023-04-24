@@ -8,11 +8,6 @@
 .text-nowrap         { white-space: nowrap !important; }
 .text-truncate       { @include text-truncate; }
 
-// alert datetime aligment
-.alert-datetime-wrapper {
-  display: flex;
-  padding-top: 3px;
-}
 // Responsive alignment
 
 @each $breakpoint in map-keys($grid-breakpoints) {

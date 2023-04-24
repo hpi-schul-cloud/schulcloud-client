@@ -1,6 +1,7 @@
 @import './colors';
 @import './bootstrap/scss/bootstrap-flex';
-@import "./editor";
+@import './editor';
+@import './bootstrap/scss/custom';
 
 // page transition animation
 .section-title,
@@ -831,7 +832,7 @@ footer {
 	.alert-item {
 		padding: 6px 15px;
 		font-size: 14px;
-		border-top: 1px solid #e5e5e5;
+		border-top: 1px solid $dropdown-divider-bg;
 
 		.alert-title {
 			font-size: 16px;
