@@ -4,6 +4,7 @@ export default function createFilebrowserModal(editor, t, dialogTitle, onCreate,
 		title: dialogTitle,
 		closeLabel: t('Cancel'),
 		submitLabel: t('OK'),
+		submitDataTestId: 'file-browser-modal',
 	});
 
 	const dialogContent = `<label for="url-input" style="display: none">${t('URL')}:</label>

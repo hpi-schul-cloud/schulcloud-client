@@ -1801,7 +1801,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Selecciona el área",
-				"severalTopicsPossible": " Posibilidad de elegir entre varios temas.",
+				"severalTopicsPossible": " Posibilidad de elegir entre varios temas",
 				"pAddOns": "Complementos",
 				"pAuthentication": "Autenticación",
 				"pCalendar": "Calendario",
@@ -1859,9 +1859,10 @@
 				"problemAlreadyKnown": "¿Se conoce ya el problema?",
 				"problemDescription": "Descripción del problema:",
 				"statusPage": "Página de situación",
-				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo (opcional)"
+				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo"
 			},
 			"text": {
+				"noProblemAreaSelected": "Tienes que elegir un tema.",
 				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)</li> <li>Sistema operativo y versión (por ejemplo, Windows 10)</li>",
 				"problemAlreadyKnownText": "¿Has comprobado si tu problema ya es conocido? Nos ayuda a resolver los problemas más rápidamente si sólo se comparten problemas nuevos."
 			}
@@ -1892,8 +1893,9 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Breve descripción del problema",
-				"furtherInformation": "Información adicional sobre tu navegador y sistema operativo (opcional)",
-				"replyEmail": "Dirección de correo electrónico para cualquier consulta."
+				"furtherInformation": "Información adicional sobre tu navegador y sistema operativo",
+				"replyEmail": "Dirección de correo electrónico para cualquier consulta.",
+				"requiredField": "(obligatorio)"
 			}
 		},
 		"headline": {
