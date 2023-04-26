@@ -197,6 +197,16 @@ $(document).ready(() => {
 				dictFileTooBig,
 				init() {
 					// this is called on per-file basis
+					this.on('addedfiles', () => {
+						console.log('>>> addedfiles');
+						console.log('parentId', parentId);
+						if (parentId === '') {
+							const form = document.getElementById('homework-form');
+							const formData = new FormData(form);
+							console.log('formData', formData);
+							$.post('/homework/create', {});
+						}
+					});
 					this.on('processing', updateUploadProcessingProgress);
 					this.on('totaluploadprogress', (_, total, uploaded) => {
 						const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);

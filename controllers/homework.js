@@ -185,6 +185,24 @@ const getCreateHandler = (service) => (req, res, next) => {
 	});
 };
 
+const getSilentCreateHandler = (service) => (req, res, next) => {
+	console.log('create silently!');
+
+	api(req).post(`/${service}/`, {
+		// TODO: sanitize
+		json: {
+			name: 'Titel',
+			schoolId: '5f2987e020834114b8efd6f8',
+			teacherId: '0000d231816abba584714c9e',
+			availableDate: Date.now(),
+		},
+	}).then((data) => {
+		console.log('data', data);
+	}).catch((err) => {
+		next(err);
+	});
+};
+
 const getDomain = (url) => {
 	let domain;
 	try {
@@ -330,6 +348,7 @@ const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
 };
 
 router.post('/', getCreateHandler('homework'));
+router.post('/create', getSilentCreateHandler('homework'));
 router.patch('/:id', getUpdateHandler('homework'));
 router.delete('/:id', getDeleteHandler('tasks'));
 
