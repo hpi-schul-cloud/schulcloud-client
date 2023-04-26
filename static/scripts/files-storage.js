@@ -195,16 +195,22 @@ $(document).ready(() => {
 				method: 'POST',
 				maxFilesize,
 				dictFileTooBig,
+				autoProcessQueue: false,
 				init() {
 					// this is called on per-file basis
-					this.on('addedfiles', () => {
-						console.log('>>> addedfiles');
-						console.log('parentId', parentId);
+					this.on('addedfiles', async () => {
 						if (parentId === '') {
 							const form = document.getElementById('homework-form');
 							const formData = new FormData(form);
 							console.log('formData', formData);
-							$.post('/homework/create', {});
+							const homework = await $.post('/homework/create', {});
+
+							this.options.url = `${apiV3FileStorageBasePath}/upload/
+							${schoolId}/
+							${parentType}/
+							${homework._id}`;
+
+							this.processQueue();
 						}
 					});
 					this.on('processing', updateUploadProcessingProgress);
@@ -229,7 +235,7 @@ $(document).ready(() => {
 						if (progressBarActive) {
 							$progressBar.fadeOut(50, () => {
 								$form.fadeIn(50);
-								submitAfterUpload(parentType, parentId);
+								// submitAfterUpload(parentType, parentId);
 							});
 							progressBarActive = false;
 						}

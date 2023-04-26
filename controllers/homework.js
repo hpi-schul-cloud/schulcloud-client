@@ -197,7 +197,7 @@ const getSilentCreateHandler = (service) => (req, res, next) => {
 			availableDate: Date.now(),
 		},
 	}).then((data) => {
-		console.log('data', data);
+		res.json(data);
 	}).catch((err) => {
 		next(err);
 	});
