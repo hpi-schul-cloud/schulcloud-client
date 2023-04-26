@@ -202,8 +202,18 @@ $(document).ready(() => {
 						if (parentId === '') {
 							const form = document.getElementById('homework-form');
 							const formData = new FormData(form);
-							console.log('formData', formData);
-							const homework = await $.post('/homework/create', {});
+/* 
+							const formDataObj = {};
+    						formData.forEach((value, key) => { formDataObj[key] = value; });
+							console.log('formData', formDataObj); */
+
+							const homework = await $.ajax({
+								url: '/homework/create',
+								type: 'post',
+								data: formData,
+								contentType: 'multipart/form-data',
+								processData: false,
+							});
 
 							this.options.url = `${apiV3FileStorageBasePath}/upload/
 							${schoolId}/

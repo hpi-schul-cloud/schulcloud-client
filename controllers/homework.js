@@ -186,16 +186,11 @@ const getCreateHandler = (service) => (req, res, next) => {
 };
 
 const getSilentCreateHandler = (service) => (req, res, next) => {
-	console.log('create silently!');
+	if (req.body.availableDate === undefined) req.body.availableDate = new Date();
+	if (req.body.name === undefined) req.body.name = res.$t('global.label.title');
 
 	api(req).post(`/${service}/`, {
-		// TODO: sanitize
-		json: {
-			name: 'Titel',
-			schoolId: '5f2987e020834114b8efd6f8',
-			teacherId: '0000d231816abba584714c9e',
-			availableDate: Date.now(),
-		},
+		json: req.body,
 	}).then((data) => {
 		res.json(data);
 	}).catch((err) => {
