@@ -571,7 +571,7 @@
 				"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
 				"allStudentsVisibility": "Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schüler:innen der Schule für jede Lehrkraft zu aktivieren, ist es erforderlich, dass jede/r Schüler:in wirksam in diese Datenverarbeitung eingewilligt hat.",
 				"authentication": "Authentifizierung",
-				"beta": " Neue Admin-Seite testen",
+				"newPage": "Zur neuen Admin-Seite",
 				"changeOfClasses": "Änderung von Klassen/neue Klassen",
 				"changeOfUserData": "Änderung von Nutzerdaten/neue Nutzer:innen",
 				"chooseACounty": "Bitte wählen Sie den Kreis, zu dem die Schule gehört",
@@ -1173,7 +1173,7 @@
 				"invalidDurationError": "Die Länge der Schulstunde darf nicht negativ sein",
 				"invalidTimeError": "Das Startdatum des Kurses sollte nicht nach dem Enddatum liegen.",
 				"mathsClass": "Mathe 10a",
-				"noCourseTeacher": "Sie müssen eine Lehrkraft auswählen",
+				"noCourseTeacher": "Sie müssen eine Lehrkraft auswählen.",
 				"selectClasses": "Klasse(n) auswählen",
 				"selectStudents": "Schüler:innen auswählen"
 			},
@@ -1801,7 +1801,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Bereich wählen",
-				"severalTopicsPossible": " Auswahl mehrerer Themen möglich.",
+				"severalTopicsPossible": " Auswahl mehrerer Themen möglich",
 				"pAddOns": "Zusatzangebote",
 				"pAuthentication": "Authentifizierung",
 				"pCalendar": "Termine",
@@ -1859,9 +1859,10 @@
 				"problemAlreadyKnown": "Ist das Problem bereits bekannt?",
 				"problemDescription": "Problembeschreibung",
 				"statusPage": "Status-Seite",
-				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf (optional)"
+				"theProblemOccursOnTheDevice": "Das Problem tritt auf diesem Gerät auf"
 			},
 			"text": {
+				"noProblemAreaSelected": "Sie müssen ein Thema auswählen.",
 				"iAgreeThatTheFollowingInformationMayBe": "Ich bin damit einverstanden, dass zur besseren Bearbeitung meines Problems folgende Informationen mitgeschickt werden dürfen: <li>Browser Name und Version (z.B. Firefox 69.0)</li> <li>Betriebssystem und Version (z.B. Windows 10)</li>",
 				"problemAlreadyKnownText": "Hast du geschaut, ob dein Problem bereits bekannt ist? Denn es hilft uns, schneller voran zu kommen, wenn nur neue Probleme mitgeteilt werden."
 			}
@@ -1892,8 +1893,9 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Kurzbeschreibung des Problems",
-				"furtherInformation": "Weitere Informationen zu deinem Browser und Betriebssystem (optional)",
-				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen"
+				"furtherInformation": "Weitere Informationen zu deinem Browser und Betriebssystem",
+				"replyEmail": "E-Mail-Adresse für eventuelle Rückfragen",
+				"requiredField": "(Pflichtfeld)"
 			}
 		},
 		"headline": {
@@ -2518,7 +2520,7 @@
 			}
 		},
 		"text": {
-			"accessDenied": "Login über Schulserver abgelehnt. Bitte erneut einloggen und Zugriff zulassen.",
+			"accessDenied": "Login abgelehnt. Bitte erneut einloggen und Zugriff zulassen.",
 			"errorFirstLogin": "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.",
 			"loginFailed": "Login fehlgeschlagen.",
 			"loginFailedFirstHint": "1. Welchen Browser benutzt du?",
@@ -2557,13 +2559,12 @@
 			"loginFailedThirdHintSixthText": "Für Brandenburg unter: ",
 			"loginFailedThirdHintSecondText": "Falls das ebenfalls nicht funktioniert, kontaktiere bitte den Support.",
 			"loginFailedThirdHintThirdText": "Für die dBildungscloud unter: ",
-			"oauthLoginFailed": "Login über Schulserver fehlgeschlagen.",
-			"oauthCodeStep": "Login über Schulserver fehlgeschlagen. Bitte erneut einloggen oder den Support kontaktieren.",
+			"oauthCodeStep": "Login fehlgeschlagen. Bitte erneut einloggen oder den Support kontaktieren.",
 			"pleaseWaitXSeconds": "Bitte {{seconds}} Sekunden warten",
 			"showPassword": "Passwort anzeigen:",
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden.",
-			"userNotFound": "Synchronisation mit dem Schulserver läuft. Bitte in 2 Stunden erneut einloggen oder den Admin kontaktieren.",
+			"userNotFound": "Nutzer wurde nicht gefunden.",
 			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator."
 		}
 	},

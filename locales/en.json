@@ -571,7 +571,7 @@
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
 				"authentication": "Authentication",
-				"beta": "Try new admin page",
+				"newPage": "To the new admin page",
 				"changeOfClasses": "Change of classes / new classes",
 				"changeOfUserData": "Change of user data / new users",
 				"chooseACounty": "Please choose the county your school belongs to.",
@@ -1801,7 +1801,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Select area",
-				"severalTopicsPossible": " Selection of several topics is possible.",
+				"severalTopicsPossible": " Selection of several topics is possible",
 				"pAddOns": "Add-Ons",
 				"pAuthentication": "Authentication",
 				"pCalendar": "Calendar",
@@ -1859,9 +1859,10 @@
 				"problemAlreadyKnown": "Is the problem already known?",
 				"problemDescription": "Problem description",
 				"statusPage": "Status page",
-				"theProblemOccursOnTheDevice": "The problem occurs on this device (optional)"
+				"theProblemOccursOnTheDevice": "The problem occurs on this device"
 			},
 			"text": {
+				"noProblemAreaSelected": "You have to choose a problem area.",
 				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)</li> <li> Operating system and version (e.g. Windows 10)</li>",
 				"problemAlreadyKnownText": "Have you checked if your problem is already known? It helps us to solve problems faster if only new issues are shared."
 			}
@@ -1892,8 +1893,9 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Brief description of the problem",
-				"furtherInformation": "Further information about your browser and operating system (optional)",
-				"replyEmail": "E-mail address for any queries"
+				"furtherInformation": "Further information about your browser and operating system",
+				"replyEmail": "E-mail address for any queries",
+				"requiredField": "(required)"
 			}
 		},
 		"headline": {
@@ -2518,7 +2520,7 @@
 			}
 		},
 		"text": {
-			"accessDenied": "Login via school server denied. Please log in again and allow access.",
+			"accessDenied": "Login denied. Please log in again and allow access.",
 			"errorFirstLogin": "An error has occurred while processing the FirstLogin data.",
 			"loginFailed": "Login failed.",
 			"loginFailedFirstHint": "1. Which browser are you using?",
@@ -2557,13 +2559,12 @@
 			"loginFailedThirdHintSixthText": "For Brandenburg under: ",
 			"loginFailedThirdHintSecondText": "If this does not work either, please contact support.",
 			"loginFailedThirdHintThirdText": "For the dBildungscloud at: ",
-			"oauthLoginFailed": "Login via school server failed.",
-			"oauthCodeStep": "Login via school server failed. Please log in again or contact support.",
+			"oauthCodeStep": "Login failed. Please log in again or contact support.",
 			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
 			"showPassword": "Show Password:",
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
 			"superheroText": "You are trying log in with a superhero account.",
-			"userNotFound": "Synchronisation with the school server is in progress. Please log in again in 2 hours or contact the admin.",
+			"userNotFound": "User not found.",
 			"internalError": "Internal Server Error. Please contact the admin."
 		}
 	},

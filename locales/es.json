@@ -571,7 +571,7 @@
 				"afterTheTransferPhaseEnded": "Una vez finalizada la fase de transferencia",
 				"allStudentsVisibility": "La activación de esta opción tiene un nivel alto según la ley de protección de datos. Para activar la visibilidad de todos los alumnos de la escuela para cada profesor, es necesario que cada alumno haya dado su consentimiento de manera efectiva para este tratamiento de datos.",
 				"authentication": "Autenticación",
-				"beta": "Prueba la nueva página de administración",
+				"newPage": "A la nueva página de administración",
 				"changeOfClasses": "Cambio de clases / nuevas clases",
 				"changeOfUserData": "Cambio de datos de usuario / nuevos usuarios",
 				"chooseACounty": "Por favor, seleccione el distrito al que pertenece la escuela",
@@ -1801,7 +1801,7 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Selecciona el área",
-				"severalTopicsPossible": " Posibilidad de elegir entre varios temas.",
+				"severalTopicsPossible": " Posibilidad de elegir entre varios temas",
 				"pAddOns": "Complementos",
 				"pAuthentication": "Autenticación",
 				"pCalendar": "Calendario",
@@ -1859,9 +1859,10 @@
 				"problemAlreadyKnown": "¿Se conoce ya el problema?",
 				"problemDescription": "Descripción del problema:",
 				"statusPage": "Página de situación",
-				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo (opcional)"
+				"theProblemOccursOnTheDevice": "El problema se produce en este dispositivo"
 			},
 			"text": {
+				"noProblemAreaSelected": "Tienes que elegir un tema.",
 				"iAgreeThatTheFollowingInformationMayBe": "Acepto que la siguiente información puede transferirse para gestionar mejor mi problema: <li>nombre y versión del navegador (por ejemplo, Firefox 69.0)</li> <li>Sistema operativo y versión (por ejemplo, Windows 10)</li>",
 				"problemAlreadyKnownText": "¿Has comprobado si tu problema ya es conocido? Nos ayuda a resolver los problemas más rápidamente si sólo se comparten problemas nuevos."
 			}
@@ -1892,8 +1893,9 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Breve descripción del problema",
-				"furtherInformation": "Información adicional sobre tu navegador y sistema operativo (opcional)",
-				"replyEmail": "Dirección de correo electrónico para cualquier consulta."
+				"furtherInformation": "Información adicional sobre tu navegador y sistema operativo",
+				"replyEmail": "Dirección de correo electrónico para cualquier consulta.",
+				"requiredField": "(obligatorio)"
 			}
 		},
 		"headline": {
@@ -2519,7 +2521,7 @@
 			}
 		},
 		"text": {
-			"accessDenied": "Inicio de sesión a través del servidor de la escuela denegado. Por favor, conéctese de nuevo y permita el acceso.",
+			"accessDenied": "Inicio de sesión rechazado. Vuelva a iniciar sesión y permita el acceso.",
 			"errorFirstLogin": "Se ha producido un error al procesar los datos del primer inicio de sesión.",
 			"loginFailed": "Error de inicio de sesion.",
 			"loginFailedFirstHint": "1. ¿Qué navegador utilizas?",
@@ -2558,13 +2560,12 @@
 			"loginFailedThirdHintSixthText": "Para Brandenburgo en: ",
 			"loginFailedThirdHintSecondText": "Si esto tampoco funciona, póngase en contacto con el servicio de asistencia.",
 			"loginFailedThirdHintThirdText": "Para el dBildungscloud en: ",
-			"oauthCodeStep": "Fallo al iniciar sesión con el servidor escolar. Vuelva a iniciar sesión o póngase en contacto con el servicio de asistencia.",
-			"oauthLoginFailed": "Fallo al iniciar sesión con el servidor escolar.",
+			"oauthCodeStep": "Error de inicio de sesion. Vuelva a iniciar sesión o póngase en contacto con el soporte.",
 			"pleaseWaitXSeconds": "Por favor, espera {{seconds}} segundos",
 			"showPassword": "Mostrar contraseña:",
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
 			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe.",
-			"userNotFound": "La sincronización con el servidor de la escuela está en curso. Por favor, conéctese de nuevo en 2 horas o póngase en contacto con el administrador.",
+			"userNotFound": "Usuario no encontrado.",
 			"internalError": "Error de servidor interno. Póngase en contacto con el administrador."
 		}
 	},

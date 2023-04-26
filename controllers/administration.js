@@ -2881,7 +2881,9 @@ router.use(
 			let tableActions = [];
 			const editable = (item.type === 'ldap' && item.ldapConfig.provider === 'general')
 					|| item.type === 'moodle' || item.type === 'iserv';
-			if (editable) {
+			const hasSystemPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'SYSTEM_EDIT');
+
+			if (editable && hasSystemPermission) {
 				tableActions = tableActions.concat([
 					{
 						link: item.type === 'ldap' ? `/administration/ldap/config?id=${item._id}`

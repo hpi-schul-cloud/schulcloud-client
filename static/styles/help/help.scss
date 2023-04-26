@@ -69,6 +69,12 @@ select:invalid[multiple] {
   	margin-top: 15px !important;
 }
 
+// invalid form error
+.problem-area-validation-error{
+	visibility: hidden;
+	color: $colorDanger;
+}
+
 // Toggle
 fieldset.switch_wrapper {
   display: inline-block;
@@ -260,7 +266,20 @@ fieldset.switch_wrapper {
       .control-label {
         display: block;
         margin-bottom: 4px;
-        padding-right: 2rem;
+        padding-right: 10px;
+        text-align: left;
+      }
+
+      .label-wrapper {
+        display: flex;
+      
+        .required-label{
+          color: $colorDarkerGrey;
+          font-weight: 400;
+        }
+      }
+
+      .data-consent {
         text-align: left;
       }
 

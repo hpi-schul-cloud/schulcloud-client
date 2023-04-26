@@ -61,7 +61,7 @@
                                 {{#if this.isExternalIcon}}
                                     {{{this.icon}}}
                                 {{else}}
-                                    <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
+                                    <i class="mdi mdi-{{this.icon}}" aria-hidden="true"></i>
                                 {{/if}}
                                 <span class="link-name">{{this.name}}</span>
                             </a>
@@ -75,7 +75,7 @@
 													{{#if this.isExternalIcon}}
 														{{{this.icon}}}
 													{{else}}
-														<i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
+														<i class="mdi mdi-{{this.icon}}" aria-hidden="true"></i>
 													{{/if}}
 													<span class="link-name">{{this.name}}</span>
 												</a>
@@ -93,7 +93,7 @@
 
 		<section class="content-wrapper">
 					<a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
-						<i class="fa fa-bars" aria-hidden="true"></i>
+						<i class="mdi mdi-menu" aria-hidden="true"></i>
 					</a>
 				<div class="content-min-height">
 					<section class="demo" id="offlineAlert" style="display:none;">
@@ -140,7 +140,7 @@
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-alert-info btn-thin dropdown-toggle" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
 								   data-toggle="dropdown">
-                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                    <i class="mdi mdi-alert" aria-hidden="true"></i>
                                 </a>
                                 <div class="dropdown-menu">
                                     <div class="content js-alert-content"></div>
@@ -150,14 +150,14 @@
                         <li class="nav-item fullscreen-action">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" href="" title="{{$t "lib.loggedin.label.fullscreen"}}" aria-label="{{$t "lib.loggedin.label.fullscreen"}}" data-toggle="dropdown">
-                                    <i class="fa fa-expand" data-testid="fullscreen-mode" aria-hidden="true"></i>
+                                    <i class="mdi mdi-arrow-expand" data-testid="fullscreen-mode" aria-hidden="true"></i>
                                 </a>
                             </div>
                         </li>
                         <li class="nav-item qr-code-action">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" href="" title="{{$t "lib.loggedin.label.qrCode"}}" aria-label="{{$t "lib.loggedin.label.qrCode"}}" data-toggle="dropdown">
-                                    <i class="fa fa-qrcode" aria-hidden="true"></i>
+                                    <i class="mdi mdi-qrcode" aria-hidden="true"></i>
                                 </a>
                                 <div class="dropdown-menu print">
                                     <div class="content qr-show"></div>

@@ -12,7 +12,7 @@
 <div class="route-administration">
 	{{#ifConfig "FEATURE_NUXT_SCHOOL_ADMIN_BETA" true}}
 		<div>
-			<a class="btn btn-info pull-right" href="/administration/school-settings" data-testid="button_new_admin_page"><i class="fa fa-arrow-right"></i> {{$t "administration.school.label.beta" }}</a>
+			<a class="btn btn-info pull-right" href="/administration/school-settings" data-testid="button_new_admin_page"><i class="fa fa-arrow-right"></i> {{$t "administration.school.label.newPage" }}</a>
 			<div class="clearfix"></div>
 		</div>
 	{{/ifConfig}}
@@ -410,6 +410,7 @@
 				<div class="col-sm-12 no-padding">
 					<form action="/administration/ldap/config/" method="GET">
 						{{> "lib/components/csrfInput"}}
+						{{#userHasPermission "SYSTEM_CREATE"}}
 						<button type="submit" class="btn btn-primary btn-add-modal ">
 							{{$t "administration.school.button.addSystem" }}
 						</button>
@@ -418,6 +419,7 @@
 							{{$t "administration.school.button.addLDAPSystem" }}
 						</button>
 						{{/if}}
+						{{/userHasPermission}}
 					</form>
 				</div>
 			</div>

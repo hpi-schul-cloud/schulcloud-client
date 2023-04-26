@@ -28,7 +28,7 @@ router.get('/tsp-login/', (req, res, next) => {
 		ticket,
 		redirect: redirectParam,
 	} = req.query;
-	let redirect = '/';
+	let redirect = '/dashboard';
 	if (redirectParam) {
 		if (Array.isArray(redirectParam)) {
 			const redirects = redirectParam.filter((v) => v !== 'true');
@@ -140,7 +140,7 @@ const mapErrorCodeToTranslation = (errorCode) => {
 		case 'sso_internal_error':
 			return 'login.text.internalError';
 		default:
-			return 'login.text.oauthLoginFailed';
+			return 'login.text.loginFailed';
 	}
 };
 
@@ -291,8 +291,8 @@ router.get('/logout/', (req, res, next) => {
 	return authHelper.clearCookie(req, res, sessionDestroyer)
 		// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
-			res.statusCode = 307;
-			res.redirect('/');
+		res.statusCode = 307;
+		res.redirect('/');
 		})
 		.catch(next);
 });
