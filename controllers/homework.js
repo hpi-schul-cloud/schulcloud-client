@@ -185,9 +185,27 @@ const getCreateHandler = (service) => (req, res, next) => {
 	});
 };
 
+const removePropsWithEmptyValue = (body) => {
+	Object.keys(body).forEach((key) => {
+		if (body[key] === '' || body[key] === '__.__.____ __:__') {
+			delete body[key];
+		}
+	});
+};
+
 const getSilentCreateHandler = (service) => (req, res, next) => {
-	if (req.body.availableDate === undefined) req.body.availableDate = new Date();
-	if (req.body.name === undefined) req.body.name = res.$t('global.label.title');
+	removePropsWithEmptyValue(req.body);
+
+	if (service === 'homework' && req.body.availableDate === undefined) {
+		req.body.availableDate = new Date();
+	}
+	if (service === 'homework' && req.body.name === undefined) {
+		req.body.name = res.$t('global.label.title');
+	}
+
+	if (service === 'submissions' && req.body.teamMembers === undefined) {
+		req.body.teamMembers = [req.body.studentId];
+	}
 
 	api(req).post(`/${service}/`, {
 		json: req.body,
@@ -350,6 +368,7 @@ router.delete('/:id', getDeleteHandler('tasks'));
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
+router.post('/submit/create', getSilentCreateHandler('submissions'));
 router.delete('/submit/:id', getDeleteHandler('submissions', true));
 router.get('/submit/:id/delete', getDeleteHandler('submissions', true));
 
@@ -675,13 +694,17 @@ router.get('/:assignmentId', (req, res, next) => {
 				renderOptions.ungradedFileSubmissions = collectUngradedFiles(assignment.submissions);
 			}
 
+			const submissionFilesStorageData = { filesStorage: { parentType: 'submissions', schoolId: assignment.schoolId } };
+
 			if (assignment.submission) {
 				assignment.submission = await findSubmissionFiles(assignment.submission, assignment.submission.submitters, teachers, !assignment.submittable);
 			}
 
 			const { schoolId, _id } = assignment;
 			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, _id, 'tasks', true, req);
-			res.render('homework/assignment', { ...assignment, ...renderOptions, taskFilesStorageData });
+			res.render('homework/assignment', {
+				...assignment, ...renderOptions, taskFilesStorageData, submissionFilesStorageData,
+			});
 		}).catch((err) => {
 			next(err);
 		});

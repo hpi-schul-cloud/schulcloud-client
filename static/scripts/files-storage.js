@@ -200,19 +200,16 @@ $(document).ready(() => {
 					// this is called on per-file basis
 					this.on('addedfiles', async () => {
 						if (parentId === '') {
-							const form = document.getElementById('homework-form');
-							const formData = new FormData(form);
-/* 
-							const formDataObj = {};
-    						formData.forEach((value, key) => { formDataObj[key] = value; });
-							console.log('formData', formDataObj); */
+							const isSubmissionFile = parentType === 'submissions';
+							const formId = isSubmissionFile ? '#submission-form' : '#homework-form';
+							const form = $(formId);
 
+							const submissionUrl = isSubmissionFile ? '/submit' : '';
+							const url = `/homework${submissionUrl}/create`;
 							const homework = await $.ajax({
-								url: '/homework/create',
+								url,
 								type: 'post',
-								data: formData,
-								contentType: 'multipart/form-data',
-								processData: false,
+								data: form.serialize(),
 							});
 
 							this.options.url = `${apiV3FileStorageBasePath}/upload/
