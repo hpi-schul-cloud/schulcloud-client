@@ -203,7 +203,7 @@ aside.nav-sidebar {
 				height: 60px;
 				color: $secondaryColor;
 				fill:$secondaryColor;
-				padding: 0px 20px;
+				padding: 0px 16px;
 				font-size: 16px;
 				text-decoration: none;
 				overflow-x: visible;
@@ -219,7 +219,7 @@ aside.nav-sidebar {
 					line-height: 40px;
 					border-bottom: 1px solid transparent;
 
-					.fa,
+					.mdi,
 					svg {
 						margin-left: 10px;
 					}
@@ -228,7 +228,7 @@ aside.nav-sidebar {
 						height: 60px;
 						line-height: 60px;
 
-						.fa,
+						.mdi,
 						svg {
 							display: inline-block;
 							margin: 0;
@@ -240,7 +240,7 @@ aside.nav-sidebar {
 						height: 40px;
 						line-height: 40px;
 
-						.fa,
+						.mdi,
 						svg {
 							margin-left: 10px;
 						}
@@ -261,12 +261,13 @@ aside.nav-sidebar {
 					cursor: pointer;
 				}
 
-				i.fa {
-					font-size: 20px;
-					width: 25px;
+				i.mdi {
+					font-size: 24px;
+					width: 24px;
 					display: inline-block;
 					text-align: center;
-					vertical-align: middle;
+					vertical-align: text-top;
+					margin-bottom: 2px;
 
 					&:before {
 						vertical-align: inherit;
@@ -274,19 +275,19 @@ aside.nav-sidebar {
 				}
 
 				svg {
-					font-size: 20px;
-					width: 25px;
+					width: 24px;
 					display: inline-block;
 					text-align: center;
-					vertical-align: middle;
-					height: 1em;
+					height: 24px;
+					margin-bottom: 2px;
 				}
 
 				span {
 					display: inline-block;
 					text-transform: uppercase;
 					text-decoration: none;
-					margin-left: 6px;
+					margin-left: 8px;
+					margin-bottom: 2px;
 					text-overflow: ellipsis;
     			overflow: hidden;
 
@@ -310,12 +311,12 @@ aside.nav-sidebar {
 	top: 8px;
 	left: 8px;
 	padding: 14px;
-	font-size: 22px;
+	font-size: 24px;
 	line-height: 22px;
 	cursor: pointer;
 	transition: transform .3s linear, z-index 0s linear .3s;
 
-	.fa {
+	.mdi {
 		transition: color .1s linear .1s;
 	}
 
@@ -716,9 +717,9 @@ footer {
 			text-align: center;
 			background: transparent;
 
-			.fa {
+			.fa, .mdi {
 				display: inline-block;
-				font-size: 20px;
+				font-size: 24px;
 				line-height: 1em;
 				width: 1em;
 				height: 1em;

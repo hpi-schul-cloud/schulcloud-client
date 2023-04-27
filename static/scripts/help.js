@@ -6,6 +6,50 @@ import './help/contactForm';
 const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE =	Number($('.form-control-file').data('maxAttachmentSizeMb')) * 1024 * 1024;
 
 $(document).ready(() => {
+	const setValidity = (element, errorMessageElement, showError = true) => {
+		if (showError) {
+			element.setCustomValidity('The input is required');
+			if (errorMessageElement) {
+				$(errorMessageElement).css('visibility', 'visible');
+			}
+		} else {
+			element.setCustomValidity('');
+			if (errorMessageElement) {
+				$(errorMessageElement).css('visibility', 'hidden');
+			}
+		}
+	};
+
+	const validateProblemAreaSelection = (tab) => {
+		const selectedOptionsArray = $(`#problemArea${tab}`).val();
+		const input = $('.chosen-search-input')[0];
+
+		if (selectedOptionsArray.length < 1) {
+			setValidity(input, `#problemAreaError${tab}`, true);
+			$('.chosen-search-input').css('box-shadow', 'none');
+			$(`#problemArea${tab}_chosen`).css('box-shadow', '0 0 5px 1px #ff1134').scrollTop();
+		} else {
+			setValidity(input, `#problemAreaError${tab}`, false);
+			$(`#problemArea${tab}_chosen`).css('box-shadow', 'none');
+		}
+	};
+
+	$('#problemAreaBug').on('change', () => {
+		validateProblemAreaSelection('Bug');
+	});
+
+	$('#problemAreaWish').on('change', () => {
+		validateProblemAreaSelection('Wish');
+	});
+
+	$('#bug_submit').on('click', () => {
+		validateProblemAreaSelection('Bug');
+	});
+
+	$('#wish_submit').on('click', () => {
+		validateProblemAreaSelection('Wish');
+	});
+
 	$('.btn-poll').on('click', (e) => {
 		e.preventDefault();
 
