@@ -82,7 +82,7 @@ function collectUngradedFiles(submissions) {
 	};
 }
 
-const getCreateHandler = (service) => (req, res, next) => {
+const prepareRequestBodyForHomework = (service, req, res) => {
 	if (service === 'homework') {
 		const {
 			courseId,
@@ -128,15 +128,28 @@ const getCreateHandler = (service) => (req, res, next) => {
 				message: res.$t('homework._task.text.startDateBeforeSubmissionDate'),
 			};
 			redirectHelper.safeBackRedirect(req, res);
-			return;
+			return false;
 		}
 	}
 
-	handleTeamSubmissionsBody(req.body, res.locals.currentUser);
+	return true;
+};
 
-	if (req.body.teamMembers && typeof req.body.teamMembers === 'string') {
-		req.body.teamMembers = [req.body.teamMembers];
+const prepareRequestBodyForSubmission = (service, req, res) => {
+	if (service === 'submissions') {
+		handleTeamSubmissionsBody(req.body, res.locals.currentUser);
+
+		if (req.body.teamMembers && typeof req.body.teamMembers === 'string') {
+			req.body.teamMembers = [req.body.teamMembers];
+		}
 	}
+};
+
+const getCreateHandler = (service) => (req, res, next) => {
+	if (!prepareRequestBodyForHomework(service, req, res)) return;
+
+	prepareRequestBodyForSubmission(req, res);
+
 	let referrer;
 	let base = req.headers.origin || HOST;
 	if (service === 'submissions') {
@@ -150,6 +163,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		referrer = req.header('Referer');
 	}
 	delete req.body.referrer;
+
 	api(req).post(`/${service}/`, {
 		// TODO: sanitize
 		json: req.body,
@@ -185,27 +199,18 @@ const getCreateHandler = (service) => (req, res, next) => {
 	});
 };
 
-const removePropsWithEmptyValue = (body) => {
-	Object.keys(body).forEach((key) => {
-		if (body[key] === '' || body[key] === '__.__.____ __:__') {
-			delete body[key];
-		}
-	});
-};
-
 const getSilentCreateHandler = (service) => (req, res, next) => {
-	removePropsWithEmptyValue(req.body);
-
-	if (service === 'homework' && req.body.availableDate === undefined) {
-		req.body.availableDate = new Date();
-	}
-	if (service === 'homework' && req.body.name === undefined) {
+	if (service === 'homework' && req.body.name === '') {
 		req.body.name = res.$t('global.label.title');
 	}
 
-	if (service === 'submissions' && req.body.teamMembers === undefined) {
+	if (!prepareRequestBodyForHomework(service, req, res)) return;
+
+	if (service === 'submissions' && !req.body.isEvaluation && req.body.teamMembers === undefined) {
 		req.body.teamMembers = [req.body.studentId];
 	}
+
+	prepareRequestBodyForSubmission(req, res);
 
 	api(req).post(`/${service}/`, {
 		json: req.body,
