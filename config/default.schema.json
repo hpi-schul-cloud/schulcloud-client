@@ -147,6 +147,11 @@
 			"default": "/login",
 			"description": "The URL to authenticate. Unauthenticated users are redirected to this URL with ?redirect= pointing to the original request URL"
 		},
+		"ROOT_URL_REDIRECT": {
+			"type": "string",
+			"default": "/login",
+			"description": "The URL to redirect to when accessing '/'"
+		},
 		"FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED": {
 			"type": "boolean",
 			"default": false,
