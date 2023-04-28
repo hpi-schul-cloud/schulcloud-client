@@ -2071,7 +2071,7 @@
 				"noSubmissionsYetFrom": "Bisher keine Abgabe von:",
 				"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
 				"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet",
-				"youHaveSolvedXPercent": "Du hast <b class=\"grade\">{{grade}}%</b> richtig gelöst."
+				"youHaveSolvedXPercent": "Du hast <b class=\"grade\" data-testid=\"feedback-grade\">{{grade}}%</b> richtig gelöst."
 			}
 		},
 		"button": {
