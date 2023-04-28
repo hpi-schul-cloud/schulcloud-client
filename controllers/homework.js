@@ -215,6 +215,16 @@ const getSilentCreateHandler = (service) => (req, res, next) => {
 	api(req).post(`/${service}/`, {
 		json: req.body,
 	}).then((data) => {
+		data.availableDate = timesHelper
+			.fromUTC(data.availableDate)
+			.format(res.$t('format.dateTime'));
+
+		if (data.dueDate) {
+			data.dueDate = timesHelper
+				.fromUTC(data.dueDate)
+				.format(res.$t('format.dateTime'));
+		}
+
 		res.json(data);
 	}).catch((err) => {
 		next(err);

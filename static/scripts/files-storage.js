@@ -206,19 +206,32 @@ $(document).ready(() => {
 
 							const submissionUrl = isSubmissionFile ? '/submit' : '';
 							const url = `/homework${submissionUrl}/create`;
-							const homework = await $.ajax({
+							const entity = await $.ajax({
 								url,
 								type: 'post',
 								data: form.serialize(),
 							});
 
+							/* *** */
+							// we need to fill empty "required" values from the return values
+							if (parentType === 'tasks') {
+								$('#name').val(entity.name);
+								$('#availableDate').val(entity.availableDate);
+								$('#homework-form').attr('action', `/homework/${entity._id}`);
+								$('#homework-form').attr('method', 'patch');
+							}
+							if (parentType === 'submissions') {
+								// TODO ... set required fields
+							}
+							/* *** */
+
 							this.options.url = `${apiV3FileStorageBasePath}/upload/
 							${schoolId}/
 							${parentType}/
-							${homework._id}`;
-
-							this.processQueue();
+							${entity._id}`;
 						}
+
+						this.processQueue();
 					});
 					this.on('processing', updateUploadProcessingProgress);
 					this.on('totaluploadprogress', (_, total, uploaded) => {
@@ -242,7 +255,7 @@ $(document).ready(() => {
 						if (progressBarActive) {
 							$progressBar.fadeOut(50, () => {
 								$form.fadeIn(50);
-								// submitAfterUpload(parentType, parentId);
+								submitAfterUpload(parentType, parentId);
 							});
 							progressBarActive = false;
 						}
