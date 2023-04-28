@@ -320,6 +320,8 @@ const setErrorNotification = (res, req, error, systemName) => {
 };
 
 const handleLoginError = async (req, res, error, redirect, strategy, systemName) => {
+	logger.error(error);
+
 	setErrorNotification(res, req, error, systemName);
 
 	if (req.session.oauth2State) {
@@ -438,6 +440,8 @@ const loginUser = async (req, res, strategy, payload, redirect, systemName) => {
 			res.redirect(redirectHelper.joinPathWithQuery('/login/success', query.toString()));
 		}
 	} catch (errorResponse) {
+		logger.error(errorResponse);
+
 		await handleLoginError(req, res, errorResponse.error, redirect, strategy, systemName);
 	}
 };
@@ -459,6 +463,8 @@ const migrateUser = async (req, res, payload) => {
 		});
 
 		if (errorResponse.error && errorResponse.error.details) {
+			logger.error(errorResponse.error);
+
 			const { details } = errorResponse.error;
 
 			if (details.sourceSchoolNumber && details.targetSchoolNumber) {
