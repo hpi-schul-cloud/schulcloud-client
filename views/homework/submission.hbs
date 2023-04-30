@@ -72,6 +72,7 @@
                 data-school-id="{{@root.submission.schoolId}}"
                 data-parent-type="submissions"
                 placeholder="{{$t "homework._task.input.createSubmission"}}"
+                data-testid="submission-comment"
                 {{#ifeq @root.submission._id undefined}}
                     	data-disable-file-browser='true'
                 {{/ifeq}}
