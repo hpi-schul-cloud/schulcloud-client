@@ -48,7 +48,10 @@ $gray-light:                #818a91 !default;
 $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
 $gray-alert:                #9e9e9e !default;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 61d216a3c (Added functionality for to update status event.)
 $brand-primary:             #9e292b !default;
 $brand-secondary:           #54616e !default;
 $brand-success:             #5cb85c !default;
@@ -213,6 +216,7 @@ $text-muted: $gray !default;
 $text-muted-alert: $gray-alert !default;
 
 $abbr-border-color: $gray-light !default;
+$text-muted-alert: $gray-alert !default;
 
 $blockquote-small-color:  $gray-light !default;
 $blockquote-font-size:    ($font-size-base * 1.25) !default;
@@ -284,6 +288,9 @@ $btn-primary-border:             $btn-primary-bg !default;
 $btn-secondary-color:            $gray-dark !default;
 $btn-secondary-bg:               #fff !default;
 $btn-secondary-border:           #ccc !default;
+$btn-alert-info:                 #0A7AC9  !default;
+$btn-alert-info-bg:              $btn-alert-info !default;
+$btn-alert-info-border:          $btn-alert-info !default;
 
 $btn-alert-info:                 #0A7AC9  !default;
 $btn-alert-info-bg:              $btn-alert-info !default;

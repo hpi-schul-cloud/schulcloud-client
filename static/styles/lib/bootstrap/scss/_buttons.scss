@@ -66,11 +66,17 @@ fieldset[disabled] a.btn {
 .btn-secondary {
   @include button-variant($btn-secondary-color, $btn-secondary-bg, $btn-secondary-border);
 }
+<<<<<<< HEAD
 
 .btn-alert-info {
   @include button-variant($btn-alert-info, $gray-lightest, $btn-alert-info-border);
 }
 
+=======
+.btn-alert-info {
+  @include button-variant($btn-alert-info, $gray-lightest, $btn-alert-info-border);
+}
+>>>>>>> 61d216a3c (Added functionality for to update status event.)
 .btn-info {
   @include button-variant($btn-info-color, $gray-lightest, $btn-alert-info-border);
 }
