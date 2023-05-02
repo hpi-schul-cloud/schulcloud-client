@@ -99,8 +99,6 @@ function submitAfterUpload(type, id) {
 			window.localStorage.setItem('afterUploadFiles', 'true');
 		}
 
-		$('#homework-form').find('input[name="referrer"]')
-			.val(window.location.pathname + window.location.search);
 		$('#homework-submit-btn').trigger('click');
 	}
 
@@ -199,6 +197,9 @@ $(document).ready(() => {
 				init() {
 					// this is called on per-file basis
 					this.on('addedfiles', async () => {
+						$('#homework-form').find('input[name="referrer"]')
+							.val(window.location.pathname + window.location.search);
+
 						if (parentId === '') {
 							const isSubmissionFile = parentType === 'submissions';
 							const formId = isSubmissionFile ? '#submission-form' : '#homework-form';
@@ -218,7 +219,9 @@ $(document).ready(() => {
 								$('#name').val(entity.name);
 								$('#availableDate').val(entity.availableDate);
 								$('#homework-form').attr('action', `/homework/${entity._id}`);
-								$('#homework-form').attr('method', 'patch');
+								$('[name="_method"]').val('patch');
+								$('[name="referrer"]')
+									.val(`/homework/${entity._id}/edit?returnUrl=homework/${entity._id}`);
 							}
 							if (parentType === 'submissions') {
 								// TODO ... set required fields
