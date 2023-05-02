@@ -30,7 +30,7 @@ $brand-secondary: $secondaryColor !default;
 $brand-success: #5cb85c !default;
 $brand-info: #5bc0de !default;
 $brand-warning: #f0ad4e !default;
-$brand-danger: #d9534f !default;
+$brand-danger: #ff1134 !default;
 $brand-inverse: $gray-dark !default;
 // Options
 //
@@ -234,6 +234,16 @@ $btn-padding-x-lg: 1.5rem !default;
 $btn-padding-y-lg: .75rem !default;
 $btn-block-spacing-y: .5rem !default;
 $btn-toolbar-margin: .5rem !default;
+// Status alert colors
+$alert-info-color: #0A7AC9 !default;
+$alert-info-bg:      $alert-info-color !default;
+$alert-info-border:  $alert-info-color !default;
+// Alerts
+//
+// Define alert colors, border radius, and padding.
+$btn-alert-info:  #0A7AC9 !default;
+$btn-alert-info-bg: $btn-alert-info !default;
+$btn-alert-info-border: $btn-alert-info !default;
 // Allows for customizing button radius independently from global border radius
 $btn-border-radius: $border-radius !default;
 $btn-border-radius-lg: $border-radius-lg !default;

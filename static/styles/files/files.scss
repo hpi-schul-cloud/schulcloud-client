@@ -151,6 +151,17 @@
     .fa-exclamation-triangle {
       color: $colorDanger;
     }
+    .fa-exclamation-circle {
+      color: $colorDanger;
+    }
+
+    .statusAlertDivider {
+      margin-right: 5px;
+    }
+
+    .fa-exclamation-triangle-info {
+      color: $colorInfo;
+    }
 
     .card-block {
       padding: 10px;
