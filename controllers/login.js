@@ -59,7 +59,6 @@ router.post('/login/', (req, res, next) => {
 	const validRedirect = redirectHelper.getValidRedirect(redirect);
 	const privateDevice = req.body.privateDevice === 'true';
 	const errorSink = () => next();
-
 	if (system) {
 		const [systemId, strategy] = system.split('//');
 		return authHelper.login({
@@ -172,6 +171,7 @@ const renderLogin = async (req, res) => {
 		oauthSystems: oauthSystems.data || [],
 		oauthErrorLogout,
 		hideMenu: true,
+		isLogin: true,
 		redirect,
 		idOfSchool,
 		strategyOfSchool,
