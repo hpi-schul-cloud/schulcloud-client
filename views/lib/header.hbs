@@ -3,20 +3,22 @@
 		<a id="title" href="/" aria-label="{{$t "global.link.landing"}}">
 			<img class="logo" alt="{{theme.title}}" src="{{getAssetPath '/images/logo/logo-dBildungscloud.svg'}}" />
 		</a>
-		<section class="nav navbar-nav float-xs-none dropdowns">
-			<div class="nav-item alert-button">
-				<div class="dropdown minimal-button">
-					<a class="btn btn-alert-info btn-thin dropdown-toggle btn-alert" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
-						data-toggle="dropdown">
-						<i class="mdi mdi-alert" aria-hidden="true"></i>
-					</a>
-					<div class="dropdown-menu">
-							<div class="content js-alert-content">
+		{{#if isLoginPage}}
+			<section class="nav navbar-nav float-xs-none dropdowns">
+				<div class="nav-item alert-button">
+					<div class="dropdown minimal-button">
+						<a class="btn btn-alert-info btn-thin dropdown-toggle btn-alert" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
+							data-toggle="dropdown">
+							<i class="mdi mdi-alert" aria-hidden="true"></i>
+						</a>
+						<div class="dropdown-menu">
+								<div class="content js-alert-content">
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		{{/if}}	
 		{{#unless hideMenu}}
 			<ul class="nav">
                 <li>
