@@ -66,8 +66,11 @@ fieldset[disabled] a.btn {
 .btn-secondary {
   @include button-variant($btn-secondary-color, $btn-secondary-bg, $btn-secondary-border);
 }
+.btn-alert-info {
+  @include button-variant($btn-alert-info, $gray-lightest, $btn-alert-info-border);
+}
 .btn-info {
-  @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+  @include button-variant($btn-info-color, $gray-lightest, $btn-alert-info-border);
 }
 .btn-success {
   @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
