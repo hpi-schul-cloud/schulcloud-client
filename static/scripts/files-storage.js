@@ -154,7 +154,7 @@ $(document).ready(() => {
 		const uploadSection = $filesStorageComponent.find('.section-upload');
 
 		const schoolId = uploadSection.data('school');
-		const parentId = uploadSection.data('parentId');
+		let parentId = uploadSection.data('parentId');
 		const parentType = uploadSection.data('parentType');
 		const maxFilesize = uploadSection.data('maxFileSize');
 
@@ -213,6 +213,8 @@ $(document).ready(() => {
 								data: form.serialize(),
 							});
 
+							parentId = entity._id;
+
 							/* *** */
 							// we need to fill empty "required" values from the return values
 							if (parentType === 'tasks') {
@@ -224,9 +226,19 @@ $(document).ready(() => {
 									.val(`/homework/${entity._id}/edit?returnUrl=homework/${entity._id}`);
 							}
 							if (parentType === 'submissions') {
-								// TODO ... set required fields
+								form.attr('action', `/homework/submit/${entity._id}`);
+								$('[name="_method"]').val('patch');
+								form.addClass(entity._id);
+
+
+								/* $('#evaluation').val(entity.comment);
+								$('#teamMembers').val(entity.teamMembers);
+								$('<input>').attr({
+									type: 'hidden',
+									value: entity._id,
+									name: 'submissionId',
+								}).appendTo(form); */
 							}
-							/* *** */
 
 							this.options.url = `${apiV3FileStorageBasePath}/upload/
 							${schoolId}/
