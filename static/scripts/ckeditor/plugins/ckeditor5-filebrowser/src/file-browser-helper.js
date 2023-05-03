@@ -10,7 +10,10 @@ export default class FileBrowserHelper {
 		const parentType = sourceElement.getAttribute('data-parent-type');
 		const schoolId = sourceElement.getAttribute('data-school-id');
 
-		if (parentId === '') parentId = await createHomework(parentType, false);
+		if (parentId === '') {
+			parentId = await createHomework(parentType, false);
+			sourceElement.setAttribute('data-parent-id', parentId);
+		}
 
 		if (parentId !== undefined && schoolId !== undefined && parentType !== undefined) {
 			return this.copyFile(schoolId, parentType, parentId, courseFileUrl);
