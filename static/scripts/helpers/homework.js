@@ -11,25 +11,18 @@ export async function createHomework(parentType, dropzone) {
 		data: form.serialize(),
 	});
 
-	// we need to fill empty "required" values from the return values
-	if (parentType === 'tasks') {
+	form.attr('action', `/homework${submissionUrl}/${entity._id}`);
+	$('[name="_method"]').val('patch');
+
+	if (isSubmissionFile) {
+		form.addClass(entity._id);
+	} else {
 		$('#name').val(entity.name);
 		$('#availableDate').val(entity.availableDate);
-		$('#homework-form').attr('action', `/homework/${entity._id}`);
-		$('[name="_method"]').val('patch');
 
-		if (dropzone) {
-			$('[name="referrer"]')
-				.val(`/homework/${entity._id}/edit?returnUrl=homework/${entity._id}`);
-		}
-		else {
-			$('[name="referrer"]').val(`/homework/${entity._id}`);
-		}
-	}
-	if (parentType === 'submissions') {
-		form.attr('action', `/homework/submit/${entity._id}`);
-		$('[name="_method"]').val('patch');
-		form.addClass(entity._id);
+		const editUrl = dropzone ? `/edit?returnUrl=homework/${entity._id}` : '';
+		const referrer = `/homework/${entity._id}${editUrl}`;
+		$('[name="referrer"]').val(referrer);
 	}
 
 	return entity._id;
