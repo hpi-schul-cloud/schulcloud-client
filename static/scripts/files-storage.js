@@ -1,4 +1,5 @@
 import { apiV3FileStorageBasePath, getFileDownloadUrl } from './helpers/storage';
+import { createHomework } from './helpers/homework';
 
 const errorMessages = {
 	FILE_NAME_EMPTY: 'files._file.text.fileNameEmpty',
@@ -201,39 +202,12 @@ $(document).ready(() => {
 							.val(window.location.pathname + window.location.search);
 
 						if (parentId === '') {
-							const isSubmissionFile = parentType === 'submissions';
-							const formId = isSubmissionFile ? '#submission-form' : '#homework-form';
-							const form = $(formId);
-
-							const submissionUrl = isSubmissionFile ? '/submit' : '';
-							const url = `/homework${submissionUrl}/create`;
-							const entity = await $.ajax({
-								url,
-								type: 'post',
-								data: form.serialize(),
-							});
-
-							parentId = entity._id;
-
-							// we need to fill empty "required" values from the return values
-							if (parentType === 'tasks') {
-								$('#name').val(entity.name);
-								$('#availableDate').val(entity.availableDate);
-								$('#homework-form').attr('action', `/homework/${entity._id}`);
-								$('[name="_method"]').val('patch');
-								$('[name="referrer"]')
-									.val(`/homework/${entity._id}/edit?returnUrl=homework/${entity._id}`);
-							}
-							if (parentType === 'submissions') {
-								form.attr('action', `/homework/submit/${entity._id}`);
-								$('[name="_method"]').val('patch');
-								form.addClass(entity._id);
-							}
+							parentId = await createHomework(parentType, true);
 
 							this.options.url = `${apiV3FileStorageBasePath}/upload/
 							${schoolId}/
 							${parentType}/
-							${entity._id}`;
+							${parentId}`;
 						}
 
 						this.processQueue();

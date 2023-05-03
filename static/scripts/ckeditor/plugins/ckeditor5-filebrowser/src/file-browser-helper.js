@@ -1,5 +1,6 @@
 import getCookie from '../../../../helpers/cookieManager';
 import { apiV3FileStorageBasePath, getFileDownloadUrl } from '../../../../helpers/storage';
+import { createHomework } from '../../../../helpers/homework';
 
 export default class FileBrowserHelper {
 	static async getFileUrl(sourceElement) {
@@ -9,35 +10,7 @@ export default class FileBrowserHelper {
 		const parentType = sourceElement.getAttribute('data-parent-type');
 		const schoolId = sourceElement.getAttribute('data-school-id');
 
-		if (parentId === '') {
-			const isSubmissionFile = parentType === 'submissions';
-			const formId = isSubmissionFile ? '#submission-form' : '#homework-form';
-			const form = $(formId);
-
-			const submissionUrl = isSubmissionFile ? '/submit' : '';
-			const url = `/homework${submissionUrl}/create`;
-			const entity = await $.ajax({
-				url,
-				type: 'post',
-				data: form.serialize(),
-			});
-
-			parentId = entity._id;
-
-			// we need to fill empty "required" values from the return values
-			if (parentType === 'tasks') {
-				$('#name').val(entity.name);
-				$('#availableDate').val(entity.availableDate);
-				$('#homework-form').attr('action', `/homework/${entity._id}`);
-				$('[name="_method"]').val('patch');
-				$('[name="referrer"]').val(`/homework/${entity._id}`);
-			}
-			if (parentType === 'submissions') {
-				form.attr('action', `/homework/submit/${entity._id}`);
-				$('[name="_method"]').val('patch');
-				form.addClass(entity._id);
-			}
-		}
+		if (parentId === '') parentId = await createHomework(parentType, false);
 
 		if (parentId !== undefined && schoolId !== undefined && parentType !== undefined) {
 			return this.copyFile(schoolId, parentType, parentId, courseFileUrl);
