@@ -148,7 +148,7 @@ const prepareRequestBodyForSubmission = (service, req, res) => {
 const getCreateHandler = (service) => (req, res, next) => {
 	if (!prepareRequestBodyForHomework(service, req, res)) return;
 
-	prepareRequestBodyForSubmission(req, res);
+	prepareRequestBodyForSubmission(service, req, res);
 
 	let referrer;
 	let base = req.headers.origin || HOST;
@@ -210,7 +210,7 @@ const getSilentCreateHandler = (service) => (req, res, next) => {
 		req.body.teamMembers = [req.body.studentId];
 	}
 
-	prepareRequestBodyForSubmission(req, res);
+	prepareRequestBodyForSubmission(service, req, res);
 
 	api(req).post(`/${service}/`, {
 		json: req.body,
@@ -228,7 +228,7 @@ const getSilentCreateHandler = (service) => (req, res, next) => {
 		res.json(data);
 	}).catch((err) => {
 		next(err);
-	});
+	});		
 };
 
 const getDomain = (url) => {
