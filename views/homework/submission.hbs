@@ -55,12 +55,6 @@
         </div>
         <hr>
     {{/if}}
-        {{#ifeq @root.submission undefined}}
-            <div class="alert info-custom">
-                <div class="fa fa-info-circle"></div>
-                {{$t "files.text.uploadAfterFirstSave"}}
-            </div>
-		{{/ifeq}}
         <p class="submissionLabel"><i class="fa fa-text-width"></i>{{$t "homework._task.label.textDelivery"}}</p>
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
         <div class="form-group">
