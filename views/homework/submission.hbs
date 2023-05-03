@@ -63,12 +63,9 @@
                 name="comment"
                 class="form-control ckeditor customckeditor"
                 data-parent-id="{{@root.submission._id}}"
-                data-school-id="{{@root.submission.schoolId}}"
+                data-school-id="{{@root.currentSchool}}"
                 data-parent-type="submissions"
                 placeholder="{{$t "homework._task.input.createSubmission"}}"
-                {{#ifeq @root.submission._id undefined}}
-                    	data-disable-file-browser='true'
-                {{/ifeq}}
             >
                     {{@root.submission.comment}}
             </textarea>

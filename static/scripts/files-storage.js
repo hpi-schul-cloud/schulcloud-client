@@ -215,7 +215,6 @@ $(document).ready(() => {
 
 							parentId = entity._id;
 
-							/* *** */
 							// we need to fill empty "required" values from the return values
 							if (parentType === 'tasks') {
 								$('#name').val(entity.name);
@@ -229,15 +228,6 @@ $(document).ready(() => {
 								form.attr('action', `/homework/submit/${entity._id}`);
 								$('[name="_method"]').val('patch');
 								form.addClass(entity._id);
-
-
-								/* $('#evaluation').val(entity.comment);
-								$('#teamMembers').val(entity.teamMembers);
-								$('<input>').attr({
-									type: 'hidden',
-									value: entity._id,
-									name: 'submissionId',
-								}).appendTo(form); */
 							}
 
 							this.options.url = `${apiV3FileStorageBasePath}/upload/

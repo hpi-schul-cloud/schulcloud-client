@@ -90,7 +90,7 @@
 				<textarea id="homeworkDescription" name="description" type="text" class="form-control ckeditor customckeditor"
 					placeholder="{{$t "homework.global.placeholder.description" }}"
 					data-parent-id="{{assignment._id}}"
-					data-school-id="{{assignment.schoolId}}"
+					data-school-id="{{currentSchool}}"
 					data-parent-type="tasks"
 					>{{assignment.description}}</textarea>
 			</div>
