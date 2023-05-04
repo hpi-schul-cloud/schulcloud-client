@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-export async function createHomework(parentType, dropzone) {
+export async function createHomework(parentType) {
 	const isSubmissionFile = parentType === 'submissions';
 	const formId = isSubmissionFile ? '#submission-form' : '#homework-form';
 	const form = $(formId);
@@ -21,10 +21,6 @@ export async function createHomework(parentType, dropzone) {
 		} else {
 			$('#name').val(entity.name);
 			$('#availableDate').val(entity.availableDate);
-
-			const editUrl = dropzone ? `/edit?returnUrl=homework/${entity._id}` : '';
-			const referrer = `/homework/${entity._id}${editUrl}`;
-			$('[name="referrer"]').val(referrer);
 		}
 
 		return entity._id;
