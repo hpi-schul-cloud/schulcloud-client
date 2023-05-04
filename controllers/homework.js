@@ -228,7 +228,7 @@ const getSilentCreateHandler = (service) => (req, res, next) => {
 		res.json(data);
 	}).catch((err) => {
 		next(err);
-	});		
+	});
 };
 
 const getDomain = (url) => {

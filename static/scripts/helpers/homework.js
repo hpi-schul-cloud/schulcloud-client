@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 export async function createHomework(parentType, dropzone) {
 	const isSubmissionFile = parentType === 'submissions';
 	const formId = isSubmissionFile ? '#submission-form' : '#homework-form';
