@@ -360,24 +360,25 @@ router.get('/loginRedirect', (req, res, next) => {
 
 router.all('/login/', async (req, res, next) => {
 	authHelper.isAuthenticated(req)
-		.then((isAuthenticated) => {
+		.then(async (isAuthenticated) => {
 			if (isAuthenticated) {
 				redirectAuthenticated(req, res);
 			} else {
-				renderLogin(req, res);
+				await renderLogin(req, res);
 			}
 		})
 		.catch(next);
 });
 
-router.all('/login/superhero/', (req, res, next) => {
+router.all('/login/superhero/', async (req, res, next) => {
 	res.locals.notification = {
 		type: 'danger',
 		message: res.$t('login.text.superheroForbidden'),
 		statusCode: 401,
 		timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 	};
-	renderLogin(req, res)
+
+	await renderLogin(req, res)
 		.catch(next);
 });
 
