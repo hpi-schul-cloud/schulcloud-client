@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const datetime = require('../datetime/datetime');
 
 function getIconTag(status) {
@@ -30,26 +29,32 @@ class AlertMessageController {
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
 			<br>
-			<div class="alert-date text-nowrap text-muted" style="float: left;">Updated: ${datetime.fromNow(message.timestamp)} <span style="margin-right: 2px;"></span>|</div>
-			<div class="alert-date text-nowrap text-muted" style="float: left; margin-left: 5px;">Created: ${datetime.toDateTimeString(message.createdAt)}</div>
+			<div class="alert-date text-nowrap text-muted" style="float: left;">
+				Updated: ${datetime.fromNow(message.timestamp)}
+			</div>
+			<div class="alert-date text-nowrap text-muted" style="float: left;">
+				<span>|</span> Created: ${datetime.toDateTimeString(message.created_at)}
+			</div>
 			<div style="clear: both;"></div>`;
 		} else {
 			item.className = 'alert alert-info alert-card';
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${message.text}
 			<br>
-			<div class="text-muted" style="float: left;">Updated: ${datetime.toDateTimeString(message.timestamp)}<span style="margin-right: 2px;"></span>|</div>
-			<div class="text-muted" style="float: left; margin-left: 5px;">Created: ${datetime.toDateTimeString(message.createdAt)}</div>
+			<div class="text-muted" style="float: left;"> Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted" style="float: left;">
+				<span>|</span> Created: ${datetime.toDateTimeString(message.created_at)}
+			</div>
 			<div style="clear: both;"></div>`;
 		}
 		return item;
 	}
 
 	showAlert(messageArray) {
+		if (!messageArray || messageArray.length === 0) {
+			return; // If messageArray is empty, we do not show the triangle
+		}
 		if (Array.isArray(messageArray)) {
-			if (!messageArray || messageArray.length === 0) {
-				return; // If messageArray is empty, we do not show the triangle
-			}
 			// keep data in local storage
 			// silently overwrite old data
 			localStorage.setItem('SC-Alerts', JSON.stringify(messageArray));
