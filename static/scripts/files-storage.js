@@ -200,7 +200,7 @@ $(document).ready(() => {
 					this.on('addedfiles', async () => {
 						parentId = $(element).find('.section-upload').attr('data-parent-id');
 
-						if (parentId === '') parentId = await createHomework(parentType, true);
+						if (parentId === '') parentId = await createHomework(parentType);
 
 						this.options.url = `${apiV3FileStorageBasePath}/upload/
 						${schoolId}/

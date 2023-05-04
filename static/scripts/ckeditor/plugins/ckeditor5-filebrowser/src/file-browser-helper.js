@@ -11,9 +11,13 @@ export default class FileBrowserHelper {
 		const schoolId = sourceElement.getAttribute('data-school-id');
 
 		if (parentId === '') {
-			parentId = await createHomework(parentType, false);
+			parentId = await createHomework(parentType);
+
 			sourceElement.setAttribute('data-parent-id', parentId);
 			$('.section-upload').attr('data-parent-id', parentId);
+
+			const referrer = `/homework/${parentId}`;
+			$('[name="referrer"]').val(referrer);
 		}
 
 		if (parentId !== undefined && schoolId !== undefined && parentType !== undefined) {
