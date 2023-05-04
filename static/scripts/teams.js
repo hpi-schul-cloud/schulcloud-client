@@ -188,6 +188,7 @@ $(document).ready(() => {
 		e.preventDefault();
 		const $leaveTeamModal = $('.leave-team-modal');
 		const userId = $(this).data('user-id');
+		const { files } = $(this).data('user-files');
 		populateModalForm($leaveTeamModal, {
 			title: $t('teams._team.headline.leaveTeam'),
 			closeLabel: $t('global.button.cancel'),
@@ -195,6 +196,25 @@ $(document).ready(() => {
 			submitDataTestId: 'leave-team-modal',
 			payload: { userId },
 		});
+
+		const $deleteInfoAlert = $leaveTeamModal.find('.alert');
+		const $fileList = $leaveTeamModal.find('.file-list');
+
+		if (files && files.length > 0) {
+			let fileListHtmlLi = '';
+
+			for (const file of files) {
+				fileListHtmlLi += `<li>${file}</li>`;
+			}
+
+			$deleteInfoAlert.show();
+			$fileList.show();
+
+			$fileList.html(fileListHtmlLi);
+		} else {
+			$deleteInfoAlert.hide();
+			$fileList.hide();
+		}
 
 		$leaveTeamModal.appendTo('body').modal('show');
 	});
