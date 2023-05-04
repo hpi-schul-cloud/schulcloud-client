@@ -19,7 +19,7 @@ $(document).ready(() => {
 	let rst = rstDefault; // remaining session time in sec
 	let processing = false;
 
-	populateModalForm($autoLoggoutAlertModal, {});
+	populateModalForm($autoLoggoutAlertModal, { submitDataTestId: 'auto-logout-alert-modal' });
 
 	const showAutoLogoutModal = ((status) => {
 		// switching between  to texts inlcuded in the modal

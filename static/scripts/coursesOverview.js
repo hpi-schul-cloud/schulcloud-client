@@ -42,7 +42,8 @@ $(document).ready(function () {
         populateModalForm($importModal, {
             title: $t('courses.headline.importCourse'),
             closeLabel: $t('global.button.cancel'),
-            submitLabel: $t('global.button.import')
+            submitLabel: $t('global.button.import'),
+			submitDataTestId: 'import-modal',
         });
 
         let $modalForm = $importModal.find(".modal-form");

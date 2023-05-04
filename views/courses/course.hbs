@@ -63,15 +63,15 @@
   <div class="tabContainer" data-active-tab={{activeTab}}>
     <div class="tabs" data-max-width="1024">
       <a href="/rooms/{{../_id}}" class="tab" data-testid="topics">
-          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+          <i class="mdi mdi-file-document-outline" aria-hidden="true"></i>
           <span class="text">{{$t "courses._course.tab_label.topics"}}</span>
       </a>
       <button class="tab" data-testid="tools" data-tab="js-tools" type="button">
-        <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+        <i class="mdi mdi-puzzle-outline" aria-hidden="true"></i>
         <span class="text">{{$t "courses._course.tab_label.tools"}}</span>
       </button>
       <button class="tab" data-testid="groups" data-tab="js-groups" type="button">
-        <i class="fa fa-users" aria-hidden="true"></i>
+        <i class="mdi mdi-account-group-outline" aria-hidden="true"></i>
         <span class="text">{{$t "courses._course.tab_label.groups"}}</span>
       </button>
     </div>
@@ -96,7 +96,7 @@
       {{$t "global.button.cancel"}}
     </button>
 
-    <button type="submit" class="btn btn-primary btn-submit">
+    <button type="submit" class="btn btn-primary btn-submit" data-testid="delete-course-btn" >
       {{$t "global.headline.delete"}}
     </button>
   </div>

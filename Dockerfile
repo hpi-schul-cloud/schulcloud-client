@@ -1,11 +1,11 @@
-FROM docker.io/node:16 as git
+FROM docker.io/node:18 as git
 
 RUN mkdir /app && chown -R node:node /app
 WORKDIR /app
 COPY .git .
 RUN git config --global --add safe.directory /app && echo "{\"sha\": \"$(git rev-parse HEAD)\", \"version\": \"$(git describe --tags --abbrev=0)\", \"commitDate\": \"$(git log -1 --format=%cd --date=format:'%Y-%m-%dT%H:%M:%SZ')\", \"birthdate\": \"$(date +%Y-%m-%dT%H:%M:%SZ)\"}" > /app/version
 
-FROM docker.io/node:16-alpine
+FROM docker.io/node:18-alpine
 
 ENV TZ=Europe/Berlin
 
@@ -53,6 +53,6 @@ COPY config /home/node/app/config
 COPY bin /home/node/app/bin
 COPY --from=git /app/version /home/node/app/static/version
 # "build" .. this basically throws out non relevant files for the theme under build and does scss to css stuff
-RUN node node_modules/gulp/bin/gulp.js clear-cache && node node_modules/gulp/bin/gulp.js
+RUN export NODE_OPTIONS=--openssl-legacy-provider && node node_modules/gulp/bin/gulp.js clear-cache && node node_modules/gulp/bin/gulp.js
 
 CMD npm start

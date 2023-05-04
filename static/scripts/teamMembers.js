@@ -91,6 +91,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.headline.addMember'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
+			submitDataTestId: 'add-member-modal',
 		});
 
 		// Needed? const $modalForm = $addMemberModal.find('.modal-form');
@@ -161,6 +162,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.add.headline.inviteExternMember'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.add.button.inviteMember'),
+			submitDataTestId: 'invite-external-member-modal',
 		});
 
 		$('#federalstate').trigger('change');
@@ -322,6 +324,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.add.headline.sendInvitationAgain'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.add.button.sendInvitation'),
+			submitDataTestId: 'resend-invitation-modal',
 		});
 
 		$resendInvitationModal.appendTo('body').modal('show');
@@ -357,6 +360,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.add.headline.deleteInvitation'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.add.button.deleteInvitation'),
+			submitDataTestId: 'delete-invitation-modal',
 		});
 
 		$deleteMemberModal.appendTo('body').modal('show');
@@ -395,6 +399,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.headline.editMember'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.button.editMember'),
+			submitDataTestId: 'edit-member-modal',
 			payload: userId,
 		});
 
@@ -445,6 +450,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.headline.deleteMember'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.button.deleteMember'),
+			submitDataTestId: 'delete-member-modal',
 			payload: userIdToRemove,
 		});
 
@@ -511,6 +517,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.headline.deleteClass'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.button.deleteClass'),
+			submitDataTestId: 'delete-class-modal',
 			payload: classIdToRemove,
 		});
 

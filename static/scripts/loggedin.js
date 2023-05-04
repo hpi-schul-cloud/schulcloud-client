@@ -22,8 +22,8 @@ function togglePresentationMode() {
     const contentArea = $('#main-content');
     const toggleButton = $('.btn-fullscreen');
     $('body').toggleClass('fullscreen');
-    toggleButton.children('i').toggleClass('fa-compress');
-    toggleButton.children('i').toggleClass('fa-expand');
+    toggleButton.children('i').toggleClass('mdi-arrow-collapse');
+    toggleButton.children('i').toggleClass('mdi-arrow-expand');
 
     $('.alert-button').toggle().css('visibility');
 }
@@ -117,13 +117,15 @@ $(document).ready(function () {
         let $cancelModal = $('.cancel-modal');
         populateModalForm($cancelModal, {
             title: $t('global.text.sureAboutDiscardingChanges'),
+			submitDataTestId: 'cancel-modal',
         });
         $cancelModal.appendTo('body').modal('show');
     });
 
     populateModalForm($featureModal, {
         title: $t('loggedin.text.newFeaturesAvailable'),
-        closeLabel: $t('global.button.cancel')
+        closeLabel: $t('global.button.cancel'),
+		submitDataTestId: 'feature-modal',
     });
 
     // from: https://stackoverflow.com/a/187557

@@ -258,6 +258,11 @@ const nodeModules = {
 		'**/*',
 	],
 
+	// material design
+	'@mdi/font': [
+		'**/*',
+	],
+
 	// video.js
 	'video.js/dist': ['video.min.js'],
 	'video.js/dist/lang': ['*.js'],
