@@ -198,17 +198,17 @@ $(document).ready(() => {
 				init() {
 					// this is called on per-file basis
 					this.on('addedfiles', async () => {
-						$('#homework-form').find('input[name="referrer"]')
-							.val(window.location.pathname + window.location.search);
+						parentId = $(element).find('.section-upload').attr('data-parent-id');
 
-						if (parentId === '') {
-							parentId = await createHomework(parentType, true);
+						if (parentId === '') parentId = await createHomework(parentType, true);
 
-							this.options.url = `${apiV3FileStorageBasePath}/upload/
-							${schoolId}/
-							${parentType}/
-							${parentId}`;
-						}
+						this.options.url = `${apiV3FileStorageBasePath}/upload/
+						${schoolId}/
+						${parentType}/
+						${parentId}`;
+
+						const referrer = `/homework/${parentId}/edit?returnUrl=homework/${parentId}`;
+						$('#homework-form').find('input[name="referrer"]').val(referrer);
 
 						this.processQueue();
 					});

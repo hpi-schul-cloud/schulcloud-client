@@ -13,6 +13,7 @@ export default class FileBrowserHelper {
 		if (parentId === '') {
 			parentId = await createHomework(parentType, false);
 			sourceElement.setAttribute('data-parent-id', parentId);
+			$('.section-upload').attr('data-parent-id', parentId);
 		}
 
 		if (parentId !== undefined && schoolId !== undefined && parentType !== undefined) {
