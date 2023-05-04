@@ -475,7 +475,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, false, req);
 
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
-			if (assignment.courseId && assignment.courseId._id) {
+			if (assignment.courseId?._id) {
 				const lessonsPromise = getSelectOptions(req, 'lessons', {
 					courseId: assignment.courseId._id,
 				});
@@ -525,7 +525,7 @@ router.get('/:assignmentId', (req, res, next) => {
 		},
 	}).then(async (assignment) => {
 		// Kursfarbe setzen
-		assignment.color = (assignment.courseId && assignment.courseId.color) ? assignment.courseId.color : '#1DE9B6';
+		assignment.color = (assignment.courseId?.color) ? assignment.courseId.color : '#1DE9B6';
 
 		// convert UTC dates to current timezone
 		if (assignment.availableDate) {
@@ -552,7 +552,7 @@ router.get('/:assignmentId', (req, res, next) => {
 			}),
 		];
 
-		if (assignment.courseId && assignment.courseId._id) {
+		if (assignment.courseId?._id) {
 			promises.push(
 				// Alle Teilnehmer des Kurses
 				api(req).get(`/courses/${assignment.courseId._id}`, {
@@ -667,7 +667,7 @@ router.get('/:assignmentId', (req, res, next) => {
 				const studentSubmissions = students.map((student) => ({
 					student,
 					submission: assignment.submissions.filter((submission) => (submission.studentId._id == student._id)
-						|| (submission.teamMembers && submission.teamMembers.includes(student._id.toString())))[0],
+						|| (submission.teamMembers?.includes(student._id.toString())))[0],
 				}));
 
 				let studentsWithSubmission = [];

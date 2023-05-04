@@ -87,7 +87,7 @@ function remove(fileRecordId) {
 }
 
 function afterUploadFiles() {
-	if (window.localStorage && window.localStorage.getItem('afterUploadFiles')) {
+	if (window.localStorage?.getItem('afterUploadFiles')) {
 		showSuccessMessage('files._file.text.fileSavedSuccess');
 		window.localStorage.removeItem('afterUploadFiles');
 	}
@@ -220,7 +220,7 @@ $(document).ready(() => {
 							{ width: `${realProgress}%` },
 							{
 								step(now) {
-									if ($percentage && $percentage.setAttribute) {
+									if ($percentage?.setAttribute) {
 										$percentage.html(`${Math.ceil(now)}%`);
 										$percentage.setAttribute('aria-valuenow', `${Math.ceil(now)}%`);
 									}
