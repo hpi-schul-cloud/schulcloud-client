@@ -130,6 +130,13 @@ router.post('/login/ldap', async (req, res) => {
 
 	const systemIdAndAliasCombination = system.split('//');
 
+	if (systemIdAndAliasCombination.length < 2) {
+		return authHelper.handleLoginError(req, res, {
+			type: 'BAD_REQUEST',
+			code: 400,
+		}, redirect);
+	}
+
 	const systemId = systemIdAndAliasCombination[0];
 
 	const payload = {
@@ -459,8 +466,8 @@ router.get('/logout/', (req, res, next) => {
 	return authHelper.clearCookie(req, res, sessionDestroyer)
 		// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
-		res.statusCode = 307;
-		res.redirect('/');
+			res.statusCode = 307;
+			res.redirect('/');
 		})
 		.catch(next);
 });
