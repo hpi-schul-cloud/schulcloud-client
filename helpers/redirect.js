@@ -20,7 +20,7 @@ const getValidRedirect = (redirectUrl) => {
 	return collapseLeadingSlashes(relativeUrl);
 };
 
-const joinPathWithQuery = (path, query) => (query ? `${path}?${query}` : path);
+const joinPathWithQuery = (path, paramsString) => (paramsString ? `${path}?${paramsString}` : path);
 
 /**
  * Perform a safe redirect to the referer header of the request

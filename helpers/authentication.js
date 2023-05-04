@@ -306,7 +306,7 @@ const setErrorNotification = (res, req, error, systemName) => {
 	}
 
 	// Too Many Requests
-	let timeToWait;
+	let timeToWait = Configuration.get('LOGIN_BLOCK_TIME');
 	if (error.code === 429 && error.data.timeToWait) {
 		timeToWait = error.data.timeToWait;
 	}
@@ -314,12 +314,12 @@ const setErrorNotification = (res, req, error, systemName) => {
 	req.session.notification = {
 		type: 'danger',
 		statusCode: error.code || 500,
-		message: message || res.$t('login.text.loginFailed'),
-		timeToWait: timeToWait || Configuration.get('LOGIN_BLOCK_TIME'),
+		message,
+		timeToWait,
 	};
 };
 
-const handleLoginError = async (req, res, error, redirect, strategy, systemName) => {
+const handleLoginError = async (req, res, error, postLoginRedirect, strategy, systemName) => {
 	logger.error(error);
 
 	setErrorNotification(res, req, error, systemName);
@@ -330,15 +330,17 @@ const handleLoginError = async (req, res, error, redirect, strategy, systemName)
 
 	await clearCookie(req, res);
 
-	const query = new URLSearchParams();
-	if (redirect) {
-		query.append('redirect', redirectHelper.getValidRedirect(redirect));
+	const queryString = new URLSearchParams();
+	if (postLoginRedirect) {
+		queryString.append('redirect', redirectHelper.getValidRedirect(postLoginRedirect));
 	}
 	if (strategy === 'ldap' || strategy === 'email') {
-		query.append('strategy', strategy);
+		queryString.append('strategy', strategy);
 	}
 
-	res.redirect(redirectHelper.joinPathWithQuery('/login', query.toString()));
+	const redirect = redirectHelper.joinPathWithQuery('/login', queryString.toString());
+
+	res.redirect(redirect);
 };
 
 const login = (payload = {}, req, res, next) => {
@@ -408,75 +410,87 @@ const getMigrationRedirect = (res, migration) => {
 		mandatorySince,
 	} = migration;
 
-	const query = new URLSearchParams({
+	const queryString = new URLSearchParams({
 		targetSystem: targetSystemId,
 		mandatory: !!mandatorySince,
 	});
 
-	return redirectHelper.joinPathWithQuery('/migration', query.toString());
+	const redirect = redirectHelper.joinPathWithQuery('/migration', queryString.toString());
+
+	return redirect;
 };
 
-const loginUser = async (req, res, strategy, payload, redirect, systemName) => {
+// eslint-disable-next-line consistent-return
+const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemName) => {
+	let accessToken;
 	try {
-		const { accessToken } = await requestLogin(req, strategy, payload);
+		const loginResponse = await requestLogin(req, strategy, payload);
 
-		const currentUser = jwt.decode(accessToken);
-
-		const migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
-
-		setCookie(res, 'jwt', accessToken);
-
-		if (migration) {
-			const migrationRedirect = getMigrationRedirect(res, migration);
-
-			res.redirect(migrationRedirect);
-		} else {
-			const query = new URLSearchParams();
-
-			if (redirect) {
-				query.append('redirect', redirectHelper.getValidRedirect(redirect));
-			}
-
-			res.redirect(redirectHelper.joinPathWithQuery('/login/success', query.toString()));
-		}
+		accessToken = loginResponse.accessToken;
 	} catch (errorResponse) {
 		logger.error(errorResponse);
 
-		await handleLoginError(req, res, errorResponse.error, redirect, strategy, systemName);
+		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
+	}
+
+	const currentUser = jwt.decode(accessToken);
+
+	let migration;
+	try {
+		migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
+	} catch (errorResponse) {
+		logger.error(errorResponse);
+
+		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
+	}
+
+	setCookie(res, 'jwt', accessToken);
+
+	if (migration) {
+		const migrationRedirect = getMigrationRedirect(res, migration);
+
+		res.redirect(migrationRedirect);
+	} else {
+		const queryString = new URLSearchParams();
+
+		if (postLoginRedirect) {
+			queryString.append('redirect', redirectHelper.getValidRedirect(postLoginRedirect));
+		}
+
+		const redirect = redirectHelper.joinPathWithQuery('/login/success', queryString.toString());
+
+		res.redirect(redirect);
 	}
 };
 
+// eslint-disable-next-line consistent-return
 const migrateUser = async (req, res, payload) => {
+	const queryString = new URLSearchParams({
+		targetSystem: payload.systemId,
+	});
+
 	try {
 		await api(req, { version: 'v3' }).post('/user-login-migrations/migrate-to-oauth2', {
 			json: payload,
 		});
-
-		const query = new URLSearchParams({
-			targetSystem: payload.systemId,
-		});
-
-		res.redirect(redirectHelper.joinPathWithQuery('/migration/success', query.toString()));
 	} catch (errorResponse) {
-		const query = new URLSearchParams({
-			targetSystem: payload.systemId,
-		});
-
 		if (errorResponse.error && errorResponse.error.details) {
 			logger.error(errorResponse.error);
 
 			const { details } = errorResponse.error;
 
 			if (details.sourceSchoolNumber && details.targetSchoolNumber) {
-				query.append('sourceSchoolNumber', details.sourceSchoolNumber);
-				query.append('targetSchoolNumber', details.targetSchoolNumber);
+				queryString.append('sourceSchoolNumber', details.sourceSchoolNumber);
+				queryString.append('targetSchoolNumber', details.targetSchoolNumber);
 			}
 		}
-
-		res.redirect(redirectHelper.joinPathWithQuery('/migration/error', query.toString()));
 	}
 
 	await clearCookie(req, res);
+
+	const redirect = redirectHelper.joinPathWithQuery('/migration/error', queryString.toString());
+
+	res.redirect(redirect);
 };
 
 module.exports = {

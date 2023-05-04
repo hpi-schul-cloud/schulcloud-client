@@ -98,17 +98,20 @@ router.post('/login/email', async (req, res) => {
 });
 
 router.get('/login/email', (req, res) => {
-	const query = new URLSearchParams({
+	const queryString = new URLSearchParams({
 		strategy: 'email',
 	});
 
 	if (req.query.redirect) {
-		query.append('redirect', redirectHelper.getValidRedirect(req.query.redirect));
+		queryString.append('redirect', redirectHelper.getValidRedirect(req.query.redirect));
 	}
 
-	res.redirect(redirectHelper.joinPathWithQuery('/login', query.toString()));
+	const redirect = redirectHelper.joinPathWithQuery('/login', queryString.toString());
+
+	res.redirect(redirect);
 });
 
+// eslint-disable-next-line consistent-return
 router.post('/login/ldap', async (req, res) => {
 	const {
 		username,
@@ -118,7 +121,16 @@ router.post('/login/ldap', async (req, res) => {
 		redirect,
 	} = req.body;
 
-	const systemId = system.split('//')[0];
+	if (!system) {
+		return authHelper.handleLoginError(req, res, {
+			type: 'BAD_REQUEST',
+			code: 400,
+		}, redirect);
+	}
+
+	const systemIdAndAliasCombination = system.split('//');
+
+	const systemId = systemIdAndAliasCombination[0];
 
 	const payload = {
 		username,
@@ -131,47 +143,50 @@ router.post('/login/ldap', async (req, res) => {
 });
 
 router.get('/login/ldap', (req, res) => {
-	const query = new URLSearchParams({
+	const queryString = new URLSearchParams({
 		strategy: 'ldap',
 	});
 
 	if (req.query.redirect) {
-		query.append('redirect', redirectHelper.getValidRedirect(req.query.redirect));
+		queryString.append('redirect', redirectHelper.getValidRedirect(req.query.redirect));
 	}
 
-	res.redirect(redirectHelper.joinPathWithQuery('/login', query.toString()));
+	const redirect = redirectHelper.joinPathWithQuery('/login', queryString.toString());
+
+	res.redirect(redirect);
 });
 
 // eslint-disable-next-line consistent-return
 const redirectOAuth2Authentication = async (req, res, systemId, migration, redirect) => {
+	let system;
 	try {
-		const system = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
-
-		const { oauthConfig } = system;
-
-		if (!oauthConfig) {
-			return authHelper.handleLoginError(req, res, {
-				type: 'UNPROCESSABLE_ENTITY',
-				code: 422,
-			}, redirect);
-		}
-
-		const state = shortid.generate();
-
-		const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state);
-
-		req.session.oauth2State = {
-			state,
-			systemId,
-			systemName: system.displayName,
-			postLoginRedirect: redirect,
-			migration,
-		};
-
-		res.redirect(authenticationUrl.toString());
+		system = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
 	} catch (error) {
-		await authHelper.handleLoginError(req, res, error.error, redirect);
+		return authHelper.handleLoginError(req, res, error.error, redirect);
 	}
+
+	const { oauthConfig } = system;
+
+	if (!oauthConfig) {
+		return authHelper.handleLoginError(req, res, {
+			type: 'UNPROCESSABLE_ENTITY',
+			code: 422,
+		}, redirect);
+	}
+
+	const state = shortid.generate();
+
+	const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state);
+
+	req.session.oauth2State = {
+		state,
+		systemId,
+		systemName: system.displayName,
+		postLoginRedirect: redirect,
+		migration,
+	};
+
+	res.redirect(authenticationUrl.toString());
 };
 
 router.post('/login/oauth2', async (req, res) => {
@@ -385,7 +400,7 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 				},
 			});
 
-		if (consentStatus === 'ok' && haveBeenUpdated === false && (res.locals.currentUser.preferences || {}).firstLogin) {
+		if (consentStatus === 'ok' && haveBeenUpdated === false && (user.preferences || {}).firstLogin) {
 			return res.redirect(redirectUrl);
 		}
 
