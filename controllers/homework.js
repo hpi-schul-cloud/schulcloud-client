@@ -206,7 +206,7 @@ const getSilentCreateHandler = (service) => (req, res, next) => {
 
 	if (!prepareRequestBodyForHomework(service, req, res)) return;
 
-	if (service === 'submissions' && !req.body.isEvaluation && req.body.teamMembers === undefined) {
+	if (service === 'submissions' && !req.body.isEvaluation && !req.body.teamMembers) {
 		req.body.teamMembers = [req.body.studentId];
 	}
 
