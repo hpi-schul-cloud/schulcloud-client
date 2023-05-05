@@ -200,12 +200,8 @@ $(document).ready(() => {
 		const $deleteInfoAlert = $leaveTeamModal.find('.alert');
 		const $fileList = $leaveTeamModal.find('.file-list');
 
-		if (files && files.length > 0) {
-			let fileListHtmlLi = '';
-
-			for (const file of files) {
-				fileListHtmlLi += `<li>${file}</li>`;
-			}
+		if (files?.length) {
+			const fileListHtmlLi = files.map((file) => `<li>${file}</li>`).join('');
 
 			$deleteInfoAlert.show();
 			$fileList.show();
