@@ -762,6 +762,10 @@
 		"text": {
 			"furtherCase": "+{{amount}} weiterer Vorfall",
 			"furtherCases": "+{{amount}} weitere Vorfälle"
+		},
+		"dateTime": {
+			"updateAt": "Aktualisiert:",
+			"createAt": "Erstellt:"
 		}
 	},
 	"autologout": {
@@ -2595,12 +2599,6 @@
 	"navigation": {
 		"text": {
 			"errorNavigation": "Fehler bei AJAX-Navigation"
-		}
-	},
-	"statusEvent": {
-		"dateTime": {
-			"updateAt": "Aktualisiert:",
-			"createAt": "Erstellt:"
 		}
 	},
 	"news": {

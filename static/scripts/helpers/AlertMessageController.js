@@ -29,11 +29,12 @@ class AlertMessageController {
 			<div class="alert-title">${icon} ${message.title}</div>
 			${message.text}
 			<br>
+			<div class="alert-date text-nowrap text-muted" style="float: left;"> 
+			 ${$t('alert.dateTime.updateAt')} ${datetime.fromNow(message.timestamp)}
+			</div>
+			<span>|</span>
 			<div class="alert-date text-nowrap text-muted" style="float: left;">
-				Updated: ${datetime.fromNow(message.timestamp)}
-			</div> ${$t('statusEvent.dateTime.updateAt')}
-			<div class="alert-date text-nowrap text-muted" style="float: left;">
-				<span>|</span> Create: ${datetime.toDateTimeString(message.created_at)}
+			${$t('alert.dateTime.createAt')} ${datetime.toDateTimeString(message.createdAt)}
 			</div>
 			<div style="clear: both;"></div>`;
 		} else {
@@ -41,10 +42,13 @@ class AlertMessageController {
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${message.text}
 			<br>
-			<div class="text-muted" style="float: left;"> ${$t('administration.text.noEntriesToPrint')}
-			${datetime.toDateTimeString(message.timestamp)}</div>
 			<div class="text-muted" style="float: left;">
-				<span>|</span> Created: ${datetime.toDateTimeString(message.created_at)}
+				${$t('alert.dateTime.updateAt')}
+				${datetime.toDateTimeString(message.timestamp)}
+			</div>
+			<span>|</span>
+			<div class="text-muted" style="float: left;">
+				 ${$t('alert.dateTime.createAt')} ${datetime.toDateTimeString(message.createdAt)}
 			</div>
 			<div style="clear: both;"></div>`;
 		}

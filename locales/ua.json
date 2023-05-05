@@ -2638,12 +2638,6 @@
 			}
 		}
 	},
-	"statusEvent": {
-		"dateTime": {
-			"updateAt": "Оновлено:",
-			"createAt": "Створено:"
-		}
-	},
 	"imprint": {
 		"imprint_infotext_below": {
 			"text": {
@@ -2959,6 +2953,10 @@
 		"text": {
 			"furtherCase": "+ {{amount}} інший інцидент",
 			"furtherCases": "+{{amount}} подальших інцидентів"
+		},
+		"dateTime": {
+			"updateAt": "Оновлено:",
+			"createAt": "Створено:"
 		}
 	},
 	"navigation": {
