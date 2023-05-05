@@ -2598,6 +2598,12 @@
 			"errorNavigation": "Error de navegación de AJAX"
 		}
 	},
+	"statusEvent": {
+		"dateTime": {
+			"updateAt": "Actualizado:",
+    		"createAt": "Creado:"
+		}
+	},
 	"news": {
 		"_news": {
 			"headline": {

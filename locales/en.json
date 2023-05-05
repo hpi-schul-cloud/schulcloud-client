@@ -2597,6 +2597,12 @@
 			"errorNavigation": "AJAX navigation error"
 		}
 	},
+	"statusEvent": {
+		"dateTime": {
+			"updateAt": "Updated:",
+			"createAt": "Created:"
+		}
+	},
 	"news": {
 		"_news": {
 			"headline": {

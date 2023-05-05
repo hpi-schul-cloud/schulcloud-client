@@ -31,9 +31,9 @@ class AlertMessageController {
 			<br>
 			<div class="alert-date text-nowrap text-muted" style="float: left;">
 				Updated: ${datetime.fromNow(message.timestamp)}
-			</div>
+			</div> ${$t('statusEvent.dateTime.updateAt')}
 			<div class="alert-date text-nowrap text-muted" style="float: left;">
-				<span>|</span> Created: ${datetime.toDateTimeString(message.created_at)}
+				<span>|</span> Create: ${datetime.toDateTimeString(message.created_at)}
 			</div>
 			<div style="clear: both;"></div>`;
 		} else {
@@ -41,7 +41,8 @@ class AlertMessageController {
 			item.innerHTML = `<h6 style="overflow: hidden; text-overflow: ellipsis;">${icon} ${message.title}</h6>
 			${message.text}
 			<br>
-			<div class="text-muted" style="float: left;"> Updated: ${datetime.toDateTimeString(message.timestamp)}</div>
+			<div class="text-muted" style="float: left;"> ${$t('administration.text.noEntriesToPrint')}
+			${datetime.toDateTimeString(message.timestamp)}</div>
 			<div class="text-muted" style="float: left;">
 				<span>|</span> Created: ${datetime.toDateTimeString(message.created_at)}
 			</div>

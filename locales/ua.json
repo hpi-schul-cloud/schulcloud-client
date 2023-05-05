@@ -2638,6 +2638,12 @@
 			}
 		}
 	},
+	"statusEvent": {
+		"dateTime": {
+			"updateAt": "Оновлено:",
+			"createAt": "Створено:"
+		}
+	},
 	"imprint": {
 		"imprint_infotext_below": {
 			"text": {
