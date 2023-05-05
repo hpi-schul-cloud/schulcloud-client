@@ -2565,7 +2565,8 @@
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden.",
 			"userNotFound": "Nutzer wurde nicht gefunden.",
-			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator."
+			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator.",
+			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an."
 		}
 	},
 	"messenger": {

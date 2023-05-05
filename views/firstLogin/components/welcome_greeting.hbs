@@ -71,7 +71,7 @@
             </div>
         </div>
         <div class="text-xs-center text-sm-right mt-2 mb-3">
-            <a class="btn btn-secondary mt-1" data-testid="btn_schul-cloud_erkunden" href="/dashboard">{{$t "firstLogin.button.getStartedImmediately" }}</a>
+            <a class="btn btn-secondary mt-1" data-testid="btn_schul-cloud_erkunden" href="{{#if @root.redirectUrl}}{{@root.redirectUrl}}{{else}}/dashboard{{/if}}">{{$t "firstLogin.button.getStartedImmediately" }}</a>
             {{#inArray 'administrator' roleNames}}
                 <a class="btn btn-primary mt-1" href="/help/confluence/40304667">{{$t "firstLogin.button.takeALookAtTheFirstSteps" }}</a>
             {{else}}

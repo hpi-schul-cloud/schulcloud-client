@@ -20,6 +20,8 @@ const getValidRedirect = (redirectUrl) => {
 	return collapseLeadingSlashes(relativeUrl);
 };
 
+const joinPathWithQuery = (path, paramsString) => (paramsString ? `${path}?${paramsString}` : path);
+
 /**
  * Perform a safe redirect to the referer header of the request
  * @param {Object} req Express request object
@@ -34,4 +36,5 @@ const safeBackRedirect = (req, res, appendage = '') => {
 module.exports = {
 	getValidRedirect,
 	safeBackRedirect,
+	joinPathWithQuery,
 };
