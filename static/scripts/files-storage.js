@@ -100,7 +100,7 @@ function submitAfterUpload(type, id) {
 			window.localStorage.setItem('afterUploadFiles', 'true');
 		}
 
-		$('#homework-submit-btn').trigger('click');
+		$('#homework-form').trigger('submit');
 	}
 
 	if (type === 'submissions') {
@@ -200,7 +200,9 @@ $(document).ready(() => {
 					this.on('addedfiles', async () => {
 						parentId = $(element).find('.section-upload').attr('data-parent-id');
 
-						if (parentId === '') parentId = await createParent(parentType);
+						if (parentId === '') {
+							parentId = await createParent(parentType);
+						}
 
 						this.options.url = `${apiV3FileStorageBasePath}/upload/
 						${schoolId}/
