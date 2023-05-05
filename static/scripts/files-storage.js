@@ -1,5 +1,5 @@
 import { apiV3FileStorageBasePath, getFileDownloadUrl } from './helpers/storage';
-import { createHomework } from './helpers/homework';
+import { createParent } from './helpers/homework';
 
 const errorMessages = {
 	FILE_NAME_EMPTY: 'files._file.text.fileNameEmpty',
@@ -200,7 +200,7 @@ $(document).ready(() => {
 					this.on('addedfiles', async () => {
 						parentId = $(element).find('.section-upload').attr('data-parent-id');
 
-						if (parentId === '') parentId = await createHomework(parentType);
+						if (parentId === '') parentId = await createParent(parentType);
 
 						this.options.url = `${apiV3FileStorageBasePath}/upload/
 						${schoolId}/

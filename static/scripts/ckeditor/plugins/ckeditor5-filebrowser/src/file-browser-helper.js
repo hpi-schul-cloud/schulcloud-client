@@ -1,6 +1,6 @@
 import getCookie from '../../../../helpers/cookieManager';
 import { apiV3FileStorageBasePath, getFileDownloadUrl } from '../../../../helpers/storage';
-import { createHomework } from '../../../../helpers/homework';
+import { createParent } from '../../../../helpers/homework';
 
 export default class FileBrowserHelper {
 	static async getFileUrl(sourceElement) {
@@ -11,7 +11,7 @@ export default class FileBrowserHelper {
 		const schoolId = sourceElement.getAttribute('data-school-id');
 
 		if (parentId === '') {
-			parentId = await createHomework(parentType);
+			parentId = await createParent(parentType);
 
 			sourceElement.setAttribute('data-parent-id', parentId);
 			$('.section-upload').attr('data-parent-id', parentId);

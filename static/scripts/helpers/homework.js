@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-export async function createHomework(parentType) {
+export async function createParent(parentType) {
 	const isSubmissionFile = parentType === 'submissions';
 	const formId = isSubmissionFile ? '#submission-form' : '#homework-form';
 	const form = $(formId);
