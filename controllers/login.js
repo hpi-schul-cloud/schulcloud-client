@@ -7,6 +7,7 @@ const express = require('express');
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const Handlebars = require('handlebars');
+const shortid = require('shortid');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
@@ -81,6 +82,176 @@ router.post('/login/', (req, res, next) => {
 	}, req, res, errorSink);
 });
 
+router.post('/login/email', async (req, res) => {
+	const {
+		username,
+		password,
+		redirect,
+	} = req.body;
+
+	const payload = {
+		username,
+		password,
+	};
+
+	await authHelper.loginUser(req, res, 'local', payload, redirect, 'Email');
+});
+
+router.get('/login/email', (req, res) => {
+	const queryString = new URLSearchParams({
+		strategy: 'email',
+	});
+
+	if (req.query.redirect) {
+		queryString.append('redirect', redirectHelper.getValidRedirect(req.query.redirect));
+	}
+
+	const redirect = redirectHelper.joinPathWithQuery('/login', queryString.toString());
+
+	res.redirect(redirect);
+});
+
+// eslint-disable-next-line consistent-return
+router.post('/login/ldap', async (req, res) => {
+	const {
+		username,
+		password,
+		schoolId,
+		system,
+		redirect,
+	} = req.body;
+
+	if (!system) {
+		return authHelper.handleLoginError(req, res, {
+			type: 'BAD_REQUEST',
+			code: 400,
+		}, redirect);
+	}
+
+	const systemIdAndAliasCombination = system.split('//');
+
+	if (systemIdAndAliasCombination.length < 2) {
+		return authHelper.handleLoginError(req, res, {
+			type: 'BAD_REQUEST',
+			code: 400,
+		}, redirect);
+	}
+
+	const systemId = systemIdAndAliasCombination[0];
+
+	const payload = {
+		username,
+		password,
+		systemId,
+		schoolId,
+	};
+
+	await authHelper.loginUser(req, res, 'ldap', payload, redirect, 'LDAP');
+});
+
+router.get('/login/ldap', (req, res) => {
+	const queryString = new URLSearchParams({
+		strategy: 'ldap',
+	});
+
+	if (req.query.redirect) {
+		queryString.append('redirect', redirectHelper.getValidRedirect(req.query.redirect));
+	}
+
+	const redirect = redirectHelper.joinPathWithQuery('/login', queryString.toString());
+
+	res.redirect(redirect);
+});
+
+// eslint-disable-next-line consistent-return
+const redirectOAuth2Authentication = async (req, res, systemId, migration, redirect) => {
+	let system;
+	try {
+		system = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
+	} catch (error) {
+		return authHelper.handleLoginError(req, res, error.error, redirect);
+	}
+
+	const { oauthConfig } = system;
+
+	if (!oauthConfig) {
+		return authHelper.handleLoginError(req, res, {
+			type: 'UNPROCESSABLE_ENTITY',
+			code: 422,
+		}, redirect);
+	}
+
+	const state = shortid.generate();
+
+	const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state);
+
+	req.session.oauth2State = {
+		state,
+		systemId,
+		systemName: system.displayName,
+		postLoginRedirect: redirect,
+		migration,
+	};
+
+	res.redirect(authenticationUrl.toString());
+};
+
+router.post('/login/oauth2', async (req, res) => {
+	const {
+		systemId,
+		migration,
+		redirect,
+	} = req.body;
+
+	await redirectOAuth2Authentication(req, res, systemId, migration, redirect);
+});
+
+router.get('/login/oauth2/:systemId', async (req, res) => {
+	const { systemId } = req.params;
+	const {
+		migration,
+		redirect,
+	} = req.query;
+
+	await redirectOAuth2Authentication(req, res, systemId, migration, redirect);
+});
+
+// eslint-disable-next-line consistent-return
+router.get('/login/oauth2-callback', async (req, res) => {
+	const { code, error } = req.query;
+	const { oauth2State } = req.session;
+
+	if (!oauth2State || !oauth2State.systemId) {
+		return authHelper.handleLoginError(req, res, {
+			type: 'UNAUTHORIZED',
+			code: 401,
+		});
+	}
+
+	const redirect = oauth2State.postLoginRedirect;
+
+	if (error) {
+		return authHelper.handleLoginError(req, res, {
+			type: error.toUpperCase(),
+			code: 401,
+		}, redirect);
+	}
+
+	const payload = {
+		code,
+		systemId: oauth2State.systemId,
+		redirectUri: authHelper.oauth2RedirectUri,
+	};
+
+	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
+		await authHelper.migrateUser(req, res, payload);
+	} else {
+		await authHelper.loginUser(req, res, 'oauth2', payload, redirect, oauth2State.systemName);
+	}
+
+	delete req.session.oauth2State;
+});
+
 const redirectAuthenticated = (req, res) => {
 	let redirectUrl = '/login/success';
 	if (req.query && req.query.redirect) {
@@ -99,8 +270,9 @@ const determineRedirectUrl = (req) => {
 	return '/dashboard';
 };
 
-const getNonOauthSchools = (schools) => [...schools]
-	.filter((school) => school.systems.filter((system) => system.oauthConfig || system.type === 'oidc').length === 0);
+const filterSchoolsWithLdapLogin = (schools) => schools
+	// eslint-disable-next-line max-len
+	.filter((school) => school.systems.some((system) => system.type === 'ldap' && !system.oauthConfig));
 
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
@@ -118,7 +290,7 @@ router.all('/', async (req, res, next) => {
 		const oauthSystems = await getOauthSystems(req);
 
 		res.render('authentication/home', {
-			schools: getNonOauthSchools(schools),
+			schools: filterSchoolsWithLdapLogin(schools),
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
@@ -148,7 +320,7 @@ const renderLogin = async (req, res) => {
 	await authHelper.clearCookie(req, res);
 
 	const schools = await LoginSchoolsCache.get(req);
-	const redirect = redirectHelper.getValidRedirect(req.query && req.query.redirect ? req.query.redirect : '');
+	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
 
 	let oauthErrorLogout = false;
 	if (req.query.error) {
@@ -164,12 +336,13 @@ const renderLogin = async (req, res) => {
 	const strategyOfSchool = req.query.strategy;
 	const idOfSchool = req.query.schoolId;
 
-	const oauthSystems = await getOauthSystems(req);
+	const oauthSystemsResponse = await getOauthSystems(req);
+	const oauthSystems = oauthSystemsResponse.data || [];
 
 	res.render('authentication/login', {
-		schools: getNonOauthSchools(schools),
+		schools: filterSchoolsWithLdapLogin(schools),
 		systems: [],
-		oauthSystems: oauthSystems.data || [],
+		oauthSystems,
 		oauthErrorLogout,
 		hideMenu: true,
 		redirect,
@@ -194,28 +367,29 @@ router.get('/loginRedirect', (req, res, next) => {
 
 router.all('/login/', async (req, res, next) => {
 	authHelper.isAuthenticated(req)
-		.then((isAuthenticated) => {
+		.then(async (isAuthenticated) => {
 			if (isAuthenticated) {
 				redirectAuthenticated(req, res);
 			} else {
-				renderLogin(req, res);
+				await renderLogin(req, res);
 			}
 		})
 		.catch(next);
 });
 
-router.all('/login/superhero/', (req, res, next) => {
+router.all('/login/superhero/', async (req, res, next) => {
 	res.locals.notification = {
 		type: 'danger',
 		message: res.$t('login.text.superheroForbidden'),
 		statusCode: 401,
 		timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 	};
-	renderLogin(req, res)
+
+	await renderLogin(req, res)
 		.catch(next);
 });
 
-router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
+router.get('/login/success', authHelper.authChecker, async (req, res) => {
 	if (res.locals.currentUser) {
 		if (res.locals.currentPayload.forcePasswordChange) {
 			return res.redirect('/forcePasswordChange');
@@ -234,11 +408,12 @@ router.get('/login/success', authHelper.authChecker, async (req, res, next) => {
 				},
 			});
 
-		if (consentStatus === 'ok' && haveBeenUpdated === false) {
+		if (consentStatus === 'ok' && haveBeenUpdated === false && (user.preferences || {}).firstLogin) {
 			return res.redirect(redirectUrl);
 		}
+
 		// make sure fistLogin flag is not set
-		return res.redirect('/firstLogin');
+		return res.redirect(`/firstLogin?redirect=${redirectUrl}`);
 	}
 
 	// if this happens: SSO
@@ -291,8 +466,8 @@ router.get('/logout/', (req, res, next) => {
 	return authHelper.clearCookie(req, res, sessionDestroyer)
 		// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
-		res.statusCode = 307;
-		res.redirect('/');
+			res.statusCode = 307;
+			res.redirect('/');
 		})
 		.catch(next);
 });
