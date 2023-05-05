@@ -103,18 +103,20 @@ window.addEventListener('DOMContentLoaded', () => {
 		window.localStorage?.removeItem(`isPrivateChecked-${homeworkId}`);
 	});
 
-	$('#cancel-modal-submit-btn').on('click', (event) => {
-		// const homeworkId = $("input[name='homeworkId']").val();
-		// if (window.localStorage?.getItem('isCreatedSilently')) {
-		// 	// TODO : Delete homework
-		// 	$.ajax({
-		// 		url: `/homework/${homeworkId}`,
-		// 		type: 'DELETE',
-		// 	}).done((r) => {
-		// 		// ...
-		// 	});
-		console.log('>> #modal-submit-btn.click');
+	$('#cancel-modal-submit-btn').on('click', async (event) => {
 		const homeworkId = $('.section-upload').attr('data-parent-id');
+		const isCreatedSilently = window.localStorage?.getItem(`isCreatedSilently-${homeworkId}`);
+		console.log('click');
+		console.log('homeworkId', homeworkId);
+		console.log('isCreatedSilently', isCreatedSilently);
+
+		if (isCreatedSilently === 'true') {
+			await $.ajax({
+				url: `/homework/${homeworkId}`,
+				type: 'DELETE',
+			});
+		}
+
 		window.localStorage?.removeItem(`isCreatedSilently-${homeworkId}`);
 		window.localStorage?.removeItem(`isPrivateChecked-${homeworkId}`);
 	});
