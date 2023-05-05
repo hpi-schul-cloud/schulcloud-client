@@ -5,7 +5,7 @@ export async function createParent(parentType) {
 	const form = $(formId);
 
 	const submissionUrl = isSubmissionFile ? '/submit' : '';
-	const url = `/homework${submissionUrl}/create`;
+	const url = `/homework${submissionUrl}/silent`;
 	try {
 		const entity = await $.ajax({
 			url,

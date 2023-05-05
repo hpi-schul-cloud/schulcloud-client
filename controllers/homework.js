@@ -376,14 +376,14 @@ const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
 };
 
 router.post('/', getCreateHandler('homework'));
-router.post('/create', getSilentCreateHandler('homework'));
+router.post('/silent', getSilentCreateHandler('homework'));
 router.patch('/:id', getUpdateHandler('homework'));
 router.delete('/:id', getDeleteHandler('tasks'));
 
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
-router.post('/submit/create', getSilentCreateHandler('submissions'));
+router.post('/submit/silent', getSilentCreateHandler('submissions'));
 router.delete('/submit/:id', getDeleteHandler('submissions', true));
 router.get('/submit/:id/delete', getDeleteHandler('submissions', true));
 
