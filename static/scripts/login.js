@@ -95,17 +95,22 @@ $(document).ready(() => {
 
 	const loadSystems = (systems) => {
 		$systems.empty();
-		systems.forEach((system) => {
+
+		const ldapSystems = systems.filter((system) => system.type === 'ldap');
+
+		ldapSystems.forEach((system) => {
 			const systemAlias = system.alias ? ` (${system.alias})` : '';
-			let selected;
+			let selected = false;
 			if (storage.local.getItem('loginSystem') === system._id) {
 				selected = true;
 			}
 			// eslint-disable-next-line max-len
 			$systems.append(`<option ${selected ? 'selected' : ''} value="${system._id}//${system.type}">${system.type}${systemAlias}</option>`);
 		});
+
 		// eslint-disable-next-line no-unused-expressions
-		systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
+		ldapSystems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
+
 		$systems.trigger('chosen:updated');
 	};
 
