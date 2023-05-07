@@ -209,7 +209,11 @@ $(document).ready(() => {
 						${parentType}/
 						${parentId}`;
 
-						const referrer = `/homework/${parentId}/edit?returnUrl=homework/${parentId}`;
+						const url = new URL(window.location.href);
+						const courseId = url.searchParams?.get('course');
+						const referrer = courseId
+							? `/homework/${parentId}/edit?course=${courseId}&returnUrl=homework/${parentId}`
+							: `/homework/${parentId}/edit?returnUrl=homework/${parentId}`;
 						$('#homework-form').find('input[name="referrer"]').val(referrer);
 
 						this.processQueue();

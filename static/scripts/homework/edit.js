@@ -111,6 +111,14 @@ window.addEventListener('DOMContentLoaded', () => {
 		console.log('isCreatedSilently', isCreatedSilently);
 
 		if (isCreatedSilently === 'true') {
+			const urlString = window.location.href;
+			const url = new URL(urlString);
+			const courseId = url.searchParams?.get('course');
+			const newReturnURL = courseId ? `/rooms/${courseId}` : '/tasks';
+
+			url.searchParams?.set('returnUrl', newReturnURL);
+			history.pushState({}, null, url);
+
 			await $.ajax({
 				url: `/homework/${homeworkId}`,
 				type: 'DELETE',
