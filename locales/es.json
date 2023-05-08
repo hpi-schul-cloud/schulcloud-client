@@ -3014,6 +3014,7 @@
 					"removeClass": "Eliminar clase",
 					"removeUser": "Eliminar usuario",
 					"removeUserWFilesIntro": "Va a eliminar un participante. También se eliminarán todos los archivos vinculados a ese usuario. Si no quieres perder estos archivos, cópialos antes de eliminar a attendee.",
+					"leaveTeamWFilesIntro": "Vas a dejar el equipo. Todos los archivos vinculados a que también se eliminará. Si usted no quiere perder estos archivos, copiarlos antes de salir.",
 					"roleOfInvitedTeacher": "Rol del profesor invitado",
 					"selectRoleForMember": "Introduce el rol que se le debe dar al asistente.",
 					"sendInvitationAgain": "Reenviar invitación"

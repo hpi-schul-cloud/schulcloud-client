@@ -515,7 +515,7 @@ router.get('/:teamId', async (req, res, next) => {
 		});
 		/* note: fileStorage can return arrays and error objects */
 		if (!Array.isArray(files)) {
-			if ((files || {}).code) {
+			if (files?.code) {
 				logger.warn(files);
 			}
 			files = [];
@@ -527,7 +527,7 @@ router.get('/:teamId', async (req, res, next) => {
 			// set saveName attribute with escaped quotes
 			file.saveName = file.name.replace(/'/g, "\\'");
 
-			if (file && file.permissions) {
+			if (file?.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
 			}
@@ -540,7 +540,7 @@ router.get('/:teamId', async (req, res, next) => {
 		// Sort by most recent files and limit to 6 files
 		files
 			.sort((a, b) => {
-				if (b && b.updatedAt && a && a.updatedAt) {
+				if (b?.updatedAt && a?.updatedAt) {
 					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
@@ -551,12 +551,16 @@ router.get('/:teamId', async (req, res, next) => {
 
 		directories
 			.sort((a, b) => {
-				if (b && b.updatedAt && a && a.updatedAt) {
+				if (b?.updatedAt && a?.updatedAt) {
 					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
 			})
 			.slice(0, 6);
+
+		const userFiles = JSON.stringify({
+			files: files.filter((file) => file.creator === res.locals.currentUser._id).map((file) => file.name),
+		});
 
 		const news = await api(req, { version: 'v3' })
 			.get(`/team/${req.params.teamId}/news`, {
@@ -671,6 +675,7 @@ router.get('/:teamId', async (req, res, next) => {
 					course.times,
 				),
 				userId: res.locals.currentUser._id,
+				userFiles,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
 			},
@@ -945,7 +950,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const teamUserIds = team.userIds.map((user) => user.userId._id);
 		users = users.filter((user) => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter((s) => s._id === schoolId)[0];
-		const currentFederalStateId = (currentSchool || {}).federalState;
+		const currentFederalStateId = currentSchool?.federalState;
 		let couldLeave = true; // will be set to false if current user is the only teamowner
 
 		const rolesExternal = [
@@ -1036,7 +1041,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		files = files.filter((file) => file);
 		files = files.map((file) => {
 			file.saveName = file.name.replace(/'/g, "\\'");
-			if (file && file.permissions) {
+			if (file?.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
 			}
@@ -1047,7 +1052,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 		files
 			.sort((a, b) => {
-				if (b && b.updatedAt && a && a.updatedAt) {
+				if (b?.updatedAt && a?.updatedAt) {
 					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
@@ -1069,7 +1074,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				user.userId.firstName || '',
 				user.userId.lastName || '',
 				roleTranslations[user.role.name],
-				(user.userId.schoolId && user.userId.schoolId.name) || '',
+				(user?.userId?.schoolId?.name) || '',
 				{
 					payload: {
 						userId: user.userId._id,
