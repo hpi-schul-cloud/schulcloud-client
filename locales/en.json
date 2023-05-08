@@ -3011,6 +3011,7 @@
 					"removeClass": "Remove class",
 					"removeUser": "Remove user",
 					"removeUserWFilesIntro": "You are going to delete attendee. All files linked to that user will also be removed. If you don't want to lose these files, copy them before deleting attendee.",
+					"leaveTeamWFilesIntro": "You are going to leave team. All files linked to that you will also be removed. If you don't want to lose these files, copy them before leave.",
 					"roleOfInvitedTeacher": "Role of the invited teacher",
 					"selectRoleForMember": "Enter which role the attendee should be given.",
 					"sendInvitationAgain": "Resend invitation"
