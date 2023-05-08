@@ -11,6 +11,7 @@ const { getCurrentLanguage } = require('../helpers/i18n');
 const converter = new showdown.Converter();
 
 const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
+const redirectHelper = require('../helpers/redirect');
 
 const router = express.Router();
 
@@ -31,11 +32,13 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 // firstLogin
 router.get('/', async (req, res, next) => {
 	const { currentUser } = res.locals;
+	const { redirect } = req.query;
+	const redirectUrl = redirect ? redirectHelper.getValidRedirect(redirect) : '/dashboard';
 
 	if (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === true) {
 		return api(req)
 			.post('/firstLogin/', { json: req.body })
-			.then(() => res.redirect('/dashboard'))
+			.then(() => res.redirect(redirectUrl))
 			.catch((err) => {
 				res.status(500)
 					.send(
@@ -86,9 +89,9 @@ router.get('/', async (req, res, next) => {
 	} = await api(req)
 		.get(`/consents/${currentUser._id}/check/`);
 
-	// Skip in case of firstlogin is done and no consent updates are availlable
+	// Skip in case of first login is done and no consent updates are available
 	if (haveBeenUpdated === false && (currentUser.preferences || {}).firstLogin) {
-		return res.redirect('/dashboard');
+		return res.redirect(redirectUrl);
 	}
 	let updatedConsents = {};
 
@@ -240,6 +243,7 @@ router.get('/', async (req, res, next) => {
 		updatedConsents,
 		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 		roleNames: res.locals.roles,
+		redirectUrl,
 	};
 
 	if (haveBeenUpdated) {

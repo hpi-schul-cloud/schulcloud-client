@@ -25,6 +25,11 @@
 				"KEEP_ALIVE": true
 			}
 		},
+		"HOST": {
+			"type": "string",
+			"format": "uri",
+			"default": "http://localhost:3100"
+		},
 		"API_HOST": {
 			"type": "string",
 			"format": "uri",
@@ -553,6 +558,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Makes the new school administration page the default page"
+		},
+		"FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Changes the login flow to one that supports user login migrations"
 		}
 	},
 	"allOf": [
