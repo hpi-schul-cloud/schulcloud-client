@@ -211,9 +211,11 @@ $(document).ready(() => {
 
 						const url = new URL(window.location.href);
 						const courseId = url.searchParams?.get('course');
+						const isPrivateChecked = $('#privateTaskVisible').is(':checked');
+						const params = `&isCreatedSilently=true&isPrivateChecked=${isPrivateChecked}`;
 						const referrer = courseId
-							? `/homework/${parentId}/edit?course=${courseId}&returnUrl=homework/${parentId}`
-							: `/homework/${parentId}/edit?returnUrl=homework/${parentId}`;
+							? `/homework/${parentId}/edit?course=${courseId}&returnUrl=homework/${parentId}${params}`
+							: `/homework/${parentId}/edit?returnUrl=homework/${parentId}${params}`;
 						$('#homework-form').find('input[name="referrer"]').val(referrer);
 
 						this.processQueue();

@@ -23,10 +23,6 @@ export async function createParent(parentType) {
 			$('#availableDate').val(entity.availableDate);
 		}
 
-		const checked = $('#privateTaskVisible').is(':checked');
-		window.localStorage.setItem(`isPrivateChecked-${entity._id}`, checked);
-		window.localStorage.setItem(`isCreatedSilently-${entity._id}`, 'true');
-
 		return entity._id;
 	} catch (error) {
 		window.location.href = '/error';

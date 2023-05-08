@@ -96,45 +96,12 @@ window.addEventListener('DOMContentLoaded', () => {
 			alert(`${$t('homework._task.text.startDateBeforeSubmissionDate')}`);
 		}
 	});
-	
-	$('#homework-submit-btn').on('click', (event) => {
-		const homeworkId = $('.section-upload').attr('data-parent-id');
-		window.localStorage?.removeItem(`isCreatedSilently-${homeworkId}`);
-		window.localStorage?.removeItem(`isPrivateChecked-${homeworkId}`);
-	});
 
-	$('#cancel-modal-submit-btn').on('click', async (event) => {
-		const homeworkId = $('.section-upload').attr('data-parent-id');
-		const isCreatedSilently = window.localStorage?.getItem(`isCreatedSilently-${homeworkId}`);
-		console.log('click');
-		console.log('homeworkId', homeworkId);
-		console.log('isCreatedSilently', isCreatedSilently);
+	const urlString = window.location.href;
+	const url = new URL(urlString);
+	const isCreatedSilently = url.searchParams?.get('isCreatedSilently');
+	const isPrivateChecked = url.searchParams?.get('isPrivateChecked');
 
-		if (isCreatedSilently === 'true') {
-			const urlString = window.location.href;
-			const url = new URL(urlString);
-			const courseId = url.searchParams?.get('course');
-			const newReturnURL = courseId ? `/rooms/${courseId}` : '/tasks';
-
-			url.searchParams?.set('returnUrl', newReturnURL);
-			history.pushState({}, null, url);
-
-			await $.ajax({
-				url: `/homework/${homeworkId}`,
-				type: 'DELETE',
-			});
-		}
-
-		window.localStorage?.removeItem(`isCreatedSilently-${homeworkId}`);
-		window.localStorage?.removeItem(`isPrivateChecked-${homeworkId}`);
-	});
-
-	const homeworkId = $('.section-upload').attr('data-parent-id');
-	const isCreatedSilently = window.localStorage?.getItem(`isCreatedSilently-${homeworkId}`);
-	const isPrivateChecked = window.localStorage?.getItem(`isPrivateChecked-${homeworkId}`);
-	console.log('edit');
-	console.log('isCreatedSilently', isCreatedSilently);
-	console.log('isPrivateChecked', isPrivateChecked);
 	if (isCreatedSilently && !isPrivateChecked) {
 		$('#privateTaskVisible').attr('checked', 'false');
 	}
