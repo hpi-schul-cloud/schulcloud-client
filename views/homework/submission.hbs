@@ -108,13 +108,11 @@
 
             {{#userHasPermission "SUBMISSIONS_CREATE"}}
                 <div class="submit-button-container">
-                    <button class="btn btn-submit submission-button save-button" name="submitted" value="false" {{#if @root.submission.submitted}}disabled="true"{{/if}} data-testid="tasks-submission-save-btn">
-                        <i class="fa fa-floppy-o"></i>
-                        {{$t "global.button.save" }}
+                    <button class="btn btn-submit submission-button save-button" name="submitted" value="false" {{#if @root.submission.submitted}}hidden="true"{{/if}} data-testid="tasks-submission-save-btn">
+                        {{$t "homework.button.saveDraft" }}
                     </button>
                     <button class="btn btn-primary btn-submit submission-button" name="submitted" value="true"  data-testid="tasks-submission-submit-btn">
-                        <i class="fa fa-check-circle"></i>
-                        {{$t "homework.button.submit" }}
+                        {{$t "homework.button.saveAndSubmit" }}
                     </button>
                 </div>
             {{/userHasPermission}}

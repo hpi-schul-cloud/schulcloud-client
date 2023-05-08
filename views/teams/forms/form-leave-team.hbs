@@ -1,4 +1,8 @@
 <div class="form-group">
-    <label for="invitation">{{$t "teams._team.members.label.doYouReallyWantToLeaveTeam"}}</label>
+    <div class="alert alert-warning-v2 pa-2 mb-4" role="alert" style="display: flex">
+        <i class="fa fa-exclamation-triangle" style="margin: 8px 8px 0 0; color: rgb(255, 131, 17)" aria-hidden="true"></i><p>{{$t "teams._team.members.label.leaveTeamWFilesIntro"}}</p>
+    </div>
+    <ul class="file-list"></ul>
+    <label for="invitation" >{{$t "teams._team.members.label.doYouReallyWantToLeaveTeam"}}</label>
     <input type="hidden" name="userToRemove">
 </div>
