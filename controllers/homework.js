@@ -200,8 +200,10 @@ const getCreateHandler = (service) => (req, res, next) => {
 };
 
 const getSilentCreateHandler = (service) => (req, res, next) => {
-	if (service === 'homework' && req.body.name === '') {
-		req.body.name = res.$t('global.label.title');
+	if (service === 'homework') {
+		if (req.body.name === '') {
+			req.body.name = res.$t('global.label.title');
+		}
 		req.body.private = 'true';
 	}
 
