@@ -17,7 +17,7 @@ export default class FileBrowserHelper {
 			$('.section-upload').attr('data-parent-id', parentId);
 
 			const referrer = `/homework/${parentId}`;
-			$('[name="referrer"]').val(referrer);
+			$('input[name="referrer"]').val(referrer);
 		}
 
 		if (parentId !== undefined && schoolId !== undefined && parentType !== undefined) {

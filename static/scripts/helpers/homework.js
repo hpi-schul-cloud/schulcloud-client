@@ -14,7 +14,7 @@ export async function createParent(parentType) {
 		});
 
 		form.attr('action', `/homework${submissionUrl}/${entity._id}`);
-		$('[name="_method"]').val('patch');
+		$('input[name="_method"]').val('patch');
 
 		if (isSubmissionFile) {
 			form.addClass(entity._id);
