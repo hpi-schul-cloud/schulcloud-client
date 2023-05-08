@@ -2568,7 +2568,8 @@
 			"superheroForbidden": "Estás intentando iniciar sesión con una cuenta de superhéroe. Utiliza otra cuenta",
 			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe.",
 			"userNotFound": "Usuario no encontrado.",
-			"internalError": "Error de servidor interno. Póngase en contacto con el administrador."
+			"internalError": "Error de servidor interno. Póngase en contacto con el administrador.",
+			"schoolInMigration": "Su escuela está en proceso de cambiar el sistema de registro a {{systemName}}. Antes de que pueda iniciar sesión a través de {{systemName}}, debe mover su cuenta. Para hacer esto, inicie sesión con su antiguo sistema."
 		}
 	},
 	"messenger": {

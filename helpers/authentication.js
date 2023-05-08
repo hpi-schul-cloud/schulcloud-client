@@ -13,6 +13,7 @@ const logger = require('./logger');
 const { formatError } = require('./logFilter');
 
 const { setCookie } = require('./cookieHelper');
+const redirectHelper = require('./redirect');
 
 const rolesDisplayName = {
 	teacher: 'Lehrer',
@@ -64,6 +65,15 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 	if (res.locals && res.locals.domain) {
 		res.clearCookie('jwt', { domain: res.locals.domain });
 	}
+};
+
+const etherpadCookieHelper = (etherpadSession, padId, res) => {
+	const encodedPadId = encodeURI(padId);
+	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
+	setCookie(res, 'sessionID', etherpadSession.data.sessionID, {
+		path: `${padPath}/${encodedPadId}`,
+		expires: new Date(etherpadSession.data.validUntil * 1000),
+	});
 };
 
 const isJWT = (req) => (req && req.cookies && req.cookies.jwt);
@@ -214,6 +224,7 @@ const authChecker = (req, res, next) => {
 	isAuthenticated(req)
 		.then((isAuthenticated2) => {
 			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
+
 			if (isAuthenticated2) {
 				// fetch user profile
 				populateCurrentUser(req, res)
@@ -252,6 +263,19 @@ const loginSuccessfulHandler = (res, redirect) => (data) => {
 	res.redirect(redirectUrl);
 };
 
+const mapErrorToTranslationKey = (error) => {
+	switch (error.type) {
+		case 'ACCESS_DENIED':
+			return 'login.text.accessDenied';
+		case 'USER_NOT_FOUND':
+			return 'login.text.userNotFound';
+		case 'SCHOOL_IN_MIGRATION':
+			return 'login.text.schoolInMigration';
+		default:
+			return 'login.text.loginFailed';
+	}
+};
+
 const loginErrorHandler = (res, next) => (e) => {
 	res.locals.notification = {
 		type: 'danger',
@@ -273,6 +297,52 @@ const loginErrorHandler = (res, next) => (e) => {
 	next(e);
 };
 
+const setErrorNotification = (res, req, error, systemName) => {
+	let message = res.$t(mapErrorToTranslationKey(error), { systemName });
+
+	// Email Domain Blocked
+	if (error.code === 400 && error.message === 'EMAIL_DOMAIN_BLOCKED') {
+		message = res.$t('global.text.emailDomainBlocked');
+	}
+
+	// Too Many Requests
+	let timeToWait = Configuration.get('LOGIN_BLOCK_TIME');
+	if (error.code === 429 && error.data.timeToWait) {
+		timeToWait = error.data.timeToWait;
+	}
+
+	req.session.notification = {
+		type: 'danger',
+		statusCode: error.code || 500,
+		message,
+		timeToWait,
+	};
+};
+
+const handleLoginError = async (req, res, error, postLoginRedirect, strategy, systemName) => {
+	logger.error(error);
+
+	setErrorNotification(res, req, error, systemName);
+
+	if (req.session.oauth2State) {
+		delete req.session.oauth2State;
+	}
+
+	await clearCookie(req, res);
+
+	const queryString = new URLSearchParams();
+	if (postLoginRedirect) {
+		queryString.append('redirect', redirectHelper.getValidRedirect(postLoginRedirect));
+	}
+	if (strategy === 'ldap' || strategy === 'email') {
+		queryString.append('strategy', strategy);
+	}
+
+	const redirect = redirectHelper.joinPathWithQuery('/login', queryString.toString());
+
+	res.redirect(redirect);
+};
+
 const login = (payload = {}, req, res, next) => {
 	const { redirect } = payload;
 	delete payload.redirect;
@@ -291,13 +361,136 @@ const login = (payload = {}, req, res, next) => {
 		.catch(loginErrorHandler(res, next));
 };
 
-const etherpadCookieHelper = (etherpadSession, padId, res) => {
-	const encodedPadId = encodeURI(padId);
-	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
-	setCookie(res, 'sessionID', etherpadSession.data.sessionID, {
-		path: `${padPath}/${encodedPadId}`,
-		expires: new Date(etherpadSession.data.validUntil * 1000),
+const oauth2RedirectUri = new URL('/login/oauth2-callback', Configuration.get('HOST')).toString();
+
+const getAuthenticationUrl = (oauthConfig, state) => {
+	const authenticationUrl = new URL(oauthConfig.authEndpoint);
+
+	authenticationUrl.searchParams.append('client_id', oauthConfig.clientId);
+	authenticationUrl.searchParams.append('redirect_uri', oauth2RedirectUri);
+	authenticationUrl.searchParams.append('response_type', oauthConfig.responseType);
+	authenticationUrl.searchParams.append('scope', oauthConfig.scope);
+	authenticationUrl.searchParams.append('state', state);
+
+	if (oauthConfig.idpHint) {
+		authenticationUrl.searchParams.append('kc_idp_hint', oauthConfig.idpHint);
+	}
+
+	return authenticationUrl.toString();
+};
+
+const requestLogin = (req, strategy, payload = {}) => {
+	switch (strategy) {
+		case 'local':
+			return api(req, { version: 'v3' }).post('/authentication/local', { json: payload });
+		case 'ldap':
+			return api(req, { version: 'v3' }).post('/authentication/ldap', { json: payload });
+		case 'oauth2':
+			return api(req, { version: 'v3' }).post('/authentication/oauth2', { json: payload });
+		default:
+			return api(req, { version: 'v1' }).post('/authentication', { json: { strategy, ...payload } });
+	}
+};
+
+const getMigrationStatus = async (req, res, userId, accessToken) => {
+	const { data } = await api(req, { version: 'v3', accessToken }).get('/user-login-migrations', {
+		qs: {
+			userId,
+		},
 	});
+
+	const migration = Array.isArray(data) && data.length > 0 ? data[0] : null;
+
+	return migration;
+};
+
+const getMigrationRedirect = (res, migration) => {
+	const {
+		targetSystemId,
+		mandatorySince,
+	} = migration;
+
+	const queryString = new URLSearchParams({
+		targetSystem: targetSystemId,
+		mandatory: !!mandatorySince,
+	});
+
+	const redirect = redirectHelper.joinPathWithQuery('/migration', queryString.toString());
+
+	return redirect;
+};
+
+// eslint-disable-next-line consistent-return
+const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemName) => {
+	let accessToken;
+	try {
+		const loginResponse = await requestLogin(req, strategy, payload);
+
+		accessToken = loginResponse.accessToken;
+	} catch (errorResponse) {
+		logger.error(errorResponse);
+
+		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
+	}
+
+	const currentUser = jwt.decode(accessToken);
+
+	let migration;
+	try {
+		migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
+	} catch (errorResponse) {
+		logger.error(errorResponse);
+
+		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
+	}
+
+	setCookie(res, 'jwt', accessToken);
+
+	if (migration) {
+		const migrationRedirect = getMigrationRedirect(res, migration);
+
+		res.redirect(migrationRedirect);
+	} else {
+		const queryString = new URLSearchParams();
+
+		if (postLoginRedirect) {
+			queryString.append('redirect', redirectHelper.getValidRedirect(postLoginRedirect));
+		}
+
+		const redirect = redirectHelper.joinPathWithQuery('/login/success', queryString.toString());
+
+		res.redirect(redirect);
+	}
+};
+
+// eslint-disable-next-line consistent-return
+const migrateUser = async (req, res, payload) => {
+	const queryString = new URLSearchParams({
+		targetSystem: payload.systemId,
+	});
+
+	try {
+		await api(req, { version: 'v3' }).post('/user-login-migrations/migrate-to-oauth2', {
+			json: payload,
+		});
+	} catch (errorResponse) {
+		if (errorResponse.error && errorResponse.error.details) {
+			logger.error(errorResponse.error);
+
+			const { details } = errorResponse.error;
+
+			if (details.sourceSchoolNumber && details.targetSchoolNumber) {
+				queryString.append('sourceSchoolNumber', details.sourceSchoolNumber);
+				queryString.append('targetSchoolNumber', details.targetSchoolNumber);
+			}
+		}
+	}
+
+	await clearCookie(req, res);
+
+	const redirect = redirectHelper.joinPathWithQuery('/migration/error', queryString.toString());
+
+	res.redirect(redirect);
 };
 
 module.exports = {
@@ -311,4 +504,9 @@ module.exports = {
 	etherpadCookieHelper,
 	generatePassword,
 	generateConsentPassword,
+	oauth2RedirectUri,
+	getAuthenticationUrl,
+	loginUser,
+	migrateUser,
+	handleLoginError,
 };
