@@ -761,11 +761,9 @@
 	"alert": {
 		"text": {
 			"furtherCase": "otro(s) {{amount}} incidente(s) más",
-			"furtherCases": "más de {{amount}} incidentes adicionales"
-		},
-		"dateTime": {
-			"updateAt": "Actualizado:",
-    		"createAt": "Creado:"
+			"furtherCases": "más de {{amount}} incidentes adicionales",
+			"updatedAt": "Actualizado:",
+			"createdAt": "Creado:"
 		}
 	},
 	"autologout": {
