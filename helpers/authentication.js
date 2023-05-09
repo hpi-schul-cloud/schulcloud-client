@@ -320,8 +320,6 @@ const setErrorNotification = (res, req, error, systemName) => {
 };
 
 const handleLoginError = async (req, res, error, postLoginRedirect, strategy, systemName) => {
-	logger.error(error);
-
 	setErrorNotification(res, req, error, systemName);
 
 	if (req.session.oauth2State) {
@@ -428,7 +426,7 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 
 		accessToken = loginResponse.accessToken;
 	} catch (errorResponse) {
-		logger.error(errorResponse);
+		logger.error('Login failed.');
 
 		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
 	}
@@ -439,7 +437,7 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 	try {
 		migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
 	} catch (errorResponse) {
-		logger.error(errorResponse);
+		logger.error('Fetching migration status failed');
 
 		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
 	}
@@ -469,13 +467,15 @@ const migrateUser = async (req, res, payload) => {
 		targetSystem: payload.systemId,
 	});
 
+	let redirect = redirectHelper.joinPathWithQuery('/migration/success', queryString.toString());
+
 	try {
 		await api(req, { version: 'v3' }).post('/user-login-migrations/migrate-to-oauth2', {
 			json: payload,
 		});
 	} catch (errorResponse) {
 		if (errorResponse.error && errorResponse.error.details) {
-			logger.error(errorResponse.error);
+			logger.error('Migration failed');
 
 			const { details } = errorResponse.error;
 
@@ -484,11 +484,11 @@ const migrateUser = async (req, res, payload) => {
 				queryString.append('targetSchoolNumber', details.targetSchoolNumber);
 			}
 		}
+
+		redirect = redirectHelper.joinPathWithQuery('/migration/error', queryString.toString());
 	}
 
 	await clearCookie(req, res);
-
-	const redirect = redirectHelper.joinPathWithQuery('/migration/error', queryString.toString());
 
 	res.redirect(redirect);
 };
