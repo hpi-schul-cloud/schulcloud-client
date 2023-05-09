@@ -348,27 +348,8 @@ $(document).ready(() => {
 	});
 
 	// Window History Back
-	$('.historyback').on('click', async () => {
-		const { origin, href } = window.location;
-		const currentUrl = new URL(href);
-		const isCreatedSilently = currentUrl.searchParams?.get('isCreatedSilently');
-
-		// if homework was created silently, delete it
-		if (isCreatedSilently === 'true') {
-			const homeworkId = $('.section-upload').attr('data-parent-id');
-			const courseId = currentUrl.searchParams?.get('course');
-			const newReturnURL = courseId ? `/rooms/${courseId}` : '/tasks';
-
-			await $.ajax({
-				url: `/homework/${homeworkId}`,
-				type: 'DELETE',
-			});
-
-			currentUrl.searchParams?.set('returnUrl', newReturnURL);
-			window.history.pushState({}, null, currentUrl);
-		}
-
-		const { search } = window.location;
+	$('.historyback').on('click', () => {
+		const { search, origin } = window.location;
 		const urlParams = new URLSearchParams(search);
 		if (urlParams.has('returnUrl')) {
 			const url = new URL(urlParams.get('returnUrl'), origin);

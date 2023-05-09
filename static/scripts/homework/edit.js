@@ -1,5 +1,6 @@
 const moment = require('moment-timezone');
 const Mousetrap = require('../mousetrap/mousetrap');
+const { event } = require('jquery');
 
 window.addEventListener('DOMContentLoaded', () => {
 	const lang = $('html').attr('lang');
@@ -105,4 +106,35 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (isCreatedSilently && !isPrivateChecked) {
 		$('#privateTaskVisible').attr('checked', 'false');
 	}
+
+	$('.historyback').on('click', async (e) => {
+		e.stopImmediatePropagation();
+
+		const { origin, href } = window.location;
+		const currentUrl = new URL(href);
+
+		// if homework was created silently, delete it
+		if (isCreatedSilently === 'true') {
+			const homeworkId = $('.section-upload').attr('data-parent-id');
+			const courseId = currentUrl.searchParams?.get('course');
+			const newReturnURL = courseId ? `/rooms/${courseId}` : '/tasks';
+
+			await $.ajax({
+				url: `/homework/${homeworkId}`,
+				type: 'DELETE',
+			});
+
+			currentUrl.searchParams?.set('returnUrl', newReturnURL);
+			window.history.pushState({}, null, currentUrl);
+		}
+
+		const { search } = window.location;
+		const urlParams = new URLSearchParams(search);
+		if (urlParams.has('returnUrl')) {
+			const returnUrl = new URL(urlParams.get('returnUrl'), origin);
+			window.location = returnUrl;
+		} else {
+			window.history.back();
+		}
+	});
 });
