@@ -1416,7 +1416,7 @@
 			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen, oder Computer durchsuchen.",
 			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
-			"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern hochgeladen werden."
+			"uploadAfterFirstSave": "Um Dateien hochzuladen, muss die Abgabe zuvor als Entwurf gespeichert werden. Dazu bitte die Schaltfläche 'Entwurf speichern' unten rechts nutzen."
 		}
 	},
 	"firstLogin": {
