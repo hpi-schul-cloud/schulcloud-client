@@ -1,6 +1,5 @@
 const moment = require('moment-timezone');
 const Mousetrap = require('../mousetrap/mousetrap');
-const { event } = require('jquery');
 
 window.addEventListener('DOMContentLoaded', () => {
 	const lang = $('html').attr('lang');
