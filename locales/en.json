@@ -761,7 +761,9 @@
 	"alert": {
 		"text": {
 			"furtherCase": "+ {{amount}} another incident",
-			"furtherCases": "+{{amount}} further incidents"
+			"furtherCases": "+{{amount}} further incidents",
+			"updatedAt": "Updated:",
+    		"createdAt": "Created:"
 		}
 	},
 	"autologout": {
@@ -1416,7 +1418,8 @@
 			"storeFilesForUpload": "Place files to upload here, or search computer.",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
-			"uploadAfterFirstSave": "Files can only be uploaded after the first save."
+			"uploadAfterFirstSave": "Files can only be uploaded after the first save.",
+			"uploadAfterFirstSaveSubmission": "To upload files, the submission must first be saved as a draft. To do so, please use the 'Save Draft' button at the bottom right."
 		}
 	},
 	"firstLogin": {
@@ -2086,7 +2089,9 @@
 			"importing": "import",
 			"importSubmission": "Import student submission",
 			"onTheSubject": "On the subject",
+			"saveDraft": "Save draft",
 			"saveAndSend": "Save and send",
+			"saveAndSubmit": "Send submission",
 			"submit": "Submit",
 			"toCourseAlt": "To the course of the task",
 			"toTheCourseFiles": "To the course files",
@@ -2565,7 +2570,8 @@
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
 			"superheroText": "You are trying log in with a superhero account.",
 			"userNotFound": "User not found.",
-			"internalError": "Internal Server Error. Please contact the admin."
+			"internalError": "Internal Server Error. Please contact the admin.",
+			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system."
 		}
 	},
 	"messenger": {
@@ -3010,6 +3016,7 @@
 					"removeClass": "Remove class",
 					"removeUser": "Remove user",
 					"removeUserWFilesIntro": "You are going to delete attendee. All files linked to that user will also be removed. If you don't want to lose these files, copy them before deleting attendee.",
+					"leaveTeamWFilesIntro": "You are going to leave team. All files linked to that you will also be removed. If you don't want to lose these files, copy them before leave.",
 					"roleOfInvitedTeacher": "Role of the invited teacher",
 					"selectRoleForMember": "Enter which role the attendee should be given.",
 					"sendInvitationAgain": "Resend invitation"

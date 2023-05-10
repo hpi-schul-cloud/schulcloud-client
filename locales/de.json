@@ -761,7 +761,9 @@
 	"alert": {
 		"text": {
 			"furtherCase": "+{{amount}} weiterer Vorfall",
-			"furtherCases": "+{{amount}} weitere Vorfälle"
+			"furtherCases": "+{{amount}} weitere Vorfälle",
+			"updatedAt": "Aktualisiert:",
+			"createdAt": "Erstellt:"
 		}
 	},
 	"autologout": {
@@ -1416,7 +1418,8 @@
 			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen, oder Computer durchsuchen.",
 			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
-			"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern hochgeladen werden."
+			"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern hochgeladen werden.",
+			"uploadAfterFirstSaveSubmission": "Um Dateien hochzuladen, muss die Abgabe zuvor als Entwurf gespeichert werden. Dazu bitte die Schaltfläche 'Entwurf speichern' unten rechts nutzen."
 		}
 	},
 	"firstLogin": {
@@ -2086,7 +2089,9 @@
 			"importing": "importiere",
 			"importSubmission": "Abgabe des Schülers/ der Schülerin importieren",
 			"onTheSubject": "Zum Thema",
+			"saveDraft": "Entwurf speichern",
 			"saveAndSend": "Speichern und Abschicken",
+			"saveAndSubmit": "Abgabe senden",
 			"submit": "Abgeben",
 			"toCourseAlt": "Zum Kurs der Aufgabe",
 			"toTheCourseFiles": "Zu den Kursdateien",
@@ -2565,7 +2570,8 @@
 			"superheroForbidden": "Du versuchst dich mit einem Superhero Account anzumelden. Bitte benutze einen anderen Account",
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden.",
 			"userNotFound": "Nutzer wurde nicht gefunden.",
-			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator."
+			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator.",
+			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an."
 		}
 	},
 	"messenger": {
@@ -3010,6 +3016,7 @@
 					"removeClass": "Klasse entfernen",
 					"removeUser": "Nutzer:in entfernen",
 					"removeUserWFilesIntro": "Sie werden einen Teilnehmer löschen. Alle Dateien, die mit diesem Benutzer verknüpft sind, werden ebenfalls entfernt. Wenn Sie diese Dateien nicht verlieren möchten, kopieren Sie sie vor dem Löschen des Teilnehmers.",
+					"leaveTeamWFilesIntro": "Sie werden das Team verlassen. Alle Dateien, die mit Ihnen verknüpft sind, werden ebenfalls entfernt. Wenn Sie diese Dateien nicht verlieren wollen, kopieren Sie sie vor dem Verlassen.",
 					"roleOfInvitedTeacher": "Rolle der eingeladenen Lehrkraft",
 					"selectRoleForMember": "Gib ein, welche Rolle der/die Teilnehmer:in erhalten soll.",
 					"sendInvitationAgain": "Einladung erneut versenden"

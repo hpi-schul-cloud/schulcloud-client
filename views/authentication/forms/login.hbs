@@ -12,7 +12,7 @@
 
             {{#unless (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
             <form method="post" action="/login" class="login-form">
-                <input type="hidden" name="redirect" value={{redirect}} />
+                <input type="hidden" name="redirect" value="{{redirect}}" />
 
                     <div class="form-group">
                         <label for="name">{{$t "login.input.emailUsername"}}</label>
@@ -86,6 +86,18 @@
             <div class="separator-external-login"><span class="separator-external-login-text">{{$t "login.separatorExternalLogin.text.separatorExternalLoginText"}}</span></div>
             <div class="system-buttons">
                 {{#each oauthSystems as |system|}}
+                    {{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}
+                    <form method="post" action="/login/oauth2" class="login-form">
+                        <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
+                        <input type="hidden" name="systemId" value="{{system.id}}"/>
+                        {{> "lib/components/csrfInput"}}
+                        <div class="oauth-system">
+                            <div class="form-group">
+                                <input autofocus aria-label="login" type="submit" class="btn btn-block btn-secondary" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-testid="submit-oauth-login-{{system.alias}}"/>
+                            </div>
+                        </div>
+                    </form>
+                    {{else}}
                     <div class="oauth-system">
                         <div class="form-group">
                             <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.id}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
@@ -93,6 +105,7 @@
                             </button>
                         </div>
                     </div>
+                    {{/if}}
                 {{/each}}
                 <div class="oauth-error-logout" hidden>{{oauthErrorLogout}}</div>
             </div>
@@ -117,6 +130,18 @@
                 </div>
                 <div class="ldap-system" hidden>{{ ldapSystem }}</div>
                 {{#each oauthSystems as |system|}}
+                    {{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}
+                    <form method="post" action="/login/oauth2" class="login-form">
+                        <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
+                        <input type="hidden" name="systemId" value="{{system.id}}"/>
+                        {{> "lib/components/csrfInput"}}
+                        <div class="oauth-system">
+                            <div class="form-group">
+                                <input autofocus aria-label="login" type="submit" class="btn btn-block btn-secondary" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-testid="submit-oauth-login-{{system.alias}}"/>
+                            </div>
+                        </div>
+                    </form>
+                    {{else}}
                     <div class="oauth-system">
                         <div class="form-group">
                             <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.id}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
@@ -124,6 +149,7 @@
                             </button>
                         </div>
                     </div>
+                    {{/if}}
                 {{/each}}
                 <div class="oauth-error-logout" hidden>{{oauthErrorLogout}}</div>
             </div>
@@ -131,8 +157,8 @@
 
             {{!-- Email Login --}}
             <div class="email-login-section">
-                <form method="post" action="/login" class="login-form">
-                    <input type="hidden" name="redirect" value={{redirect}} />
+                <form method="post" action="{{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}/login/email{{else}}/login{{/if}}" class="login-form">
+                    <input type="hidden" name="redirect" value="{{redirect}}"/>
                         <div class="form-group">
                             <label class="usernameEmailPlaceholder" for="name">{{$t "login.input.email"}}</label>
                             <input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg usernameEmailPlaceholder" placeholder="{{$t "login.input.email"}}" style="margin-bottom: 0.5rem" data-testid="username-email" required >
@@ -171,8 +197,8 @@
 
             {{!-- Ldap Login --}}
             <div class="ldap-login-section">
-                <form method="post" action="/login" class="login-form">
-                    <input type="hidden" name="redirect" value={{redirect}} />
+                <form method="post" action="{{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}/login/ldap{{else}}/login{{/if}}" class="login-form">
+                    <input type="hidden" name="redirect" value="{{redirect}}" />
                         <div class="form-group">
                             <label class="usernameEmailPlaceholder" for="name">{{$t "login.input.username"}}</label>
                             <input type="text" id="name" autocomplete="off" name="username" class="form-control form-control-lg usernameEmailPlaceholder" placeholder="{{$t "login.input.username"}}" style="margin-bottom: 0.5rem" data-testid="username-ldap" required >
@@ -233,7 +259,6 @@
             {{/if}}
 		</div>
 	</div>
-<div class="alert-section"></div>
 <div>
 	{{#if notification.statusCode}}
 		{{#embed "help/partials/login_failed_hint"}}{{/embed}}
