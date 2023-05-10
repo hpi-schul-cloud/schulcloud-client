@@ -2957,7 +2957,9 @@
 	"alert": {
 		"text": {
 			"furtherCase": "+ {{amount}} інший інцидент",
-			"furtherCases": "+{{amount}} подальших інцидентів"
+			"furtherCases": "+{{amount}} подальших інцидентів",
+			"updatedAt": "Оновлено:",
+			"createdAt": "Створено:"
 		}
 	},
 	"navigation": {
