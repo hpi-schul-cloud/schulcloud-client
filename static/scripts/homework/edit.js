@@ -100,11 +100,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	const urlString = window.location.href;
 	const url = new URL(urlString);
 	const isCreatedSilently = url.searchParams?.get('isCreatedSilently');
-	const isPrivateChecked = url.searchParams?.get('isPrivateChecked');
-
-	if (isCreatedSilently && !isPrivateChecked) {
-		$('#privateTaskVisible').attr('checked', 'false');
-	}
 
 	$('.historyback').on('click', async (e) => {
 		e.stopImmediatePropagation();
