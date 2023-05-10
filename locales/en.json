@@ -761,7 +761,9 @@
 	"alert": {
 		"text": {
 			"furtherCase": "+ {{amount}} another incident",
-			"furtherCases": "+{{amount}} further incidents"
+			"furtherCases": "+{{amount}} further incidents",
+			"updatedAt": "Updated:",
+    		"createdAt": "Created:"
 		}
 	},
 	"autologout": {
