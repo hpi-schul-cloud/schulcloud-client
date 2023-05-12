@@ -146,7 +146,7 @@ jobs:
       needs:
           - build_and_push_docker
           - branch_meta
-		  - deploy
+          - deploy
       uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@BC-4030-run-selected-reduced-e2e-tests-for-pr
       with:
           ref: ${{ needs.branch_meta.outputs.branch }}
