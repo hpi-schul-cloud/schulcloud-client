@@ -985,6 +985,7 @@
 				"groups": "Groups",
 				"tasks": "Tasks",
 				"tools": "Tools",
+				"tools(new)": "Tools (new)",
 				"oldTopics": "Topics",
 				"topics": "Learning content"
 			},
