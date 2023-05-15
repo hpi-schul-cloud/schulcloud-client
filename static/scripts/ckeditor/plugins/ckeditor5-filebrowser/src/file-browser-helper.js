@@ -9,6 +9,7 @@ export default class FileBrowserHelper {
 		let parentId = sourceElement.getAttribute('data-parent-id');
 		const parentType = sourceElement.getAttribute('data-parent-type');
 		const schoolId = sourceElement.getAttribute('data-school-id');
+		const homeworkId = sourceElement.getAttribute('data-homework-id');
 
 		if (parentId === '') {
 			parentId = await createParent(parentType);
@@ -16,8 +17,13 @@ export default class FileBrowserHelper {
 			sourceElement.setAttribute('data-parent-id', parentId);
 			$('.section-upload').attr('data-parent-id', parentId);
 
-			const referrer = `/homework/${parentId}`;
-			$('input[name="referrer"]').val(referrer);
+			if (parentType === 'submissions') {
+				const referrer = `/homework/${homeworkId}#activetabid=submission`;
+				$('input[name="referrer"]').val(referrer);
+			} else {
+				const referrer = `/homework/${parentId}`;
+				$('input[name="referrer"]').val(referrer);
+			}
 		}
 
 		if (parentId !== undefined && schoolId !== undefined && parentType !== undefined) {
