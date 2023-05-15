@@ -217,6 +217,7 @@ $(document).ready(() => {
 							: basereferrer;
 						$('#homework-form').find('input[name="referrer"]').val(referrer);
 
+						this.options.autoProcessQueue = true;
 						this.processQueue();
 					});
 					this.on('processing', updateUploadProcessingProgress);
