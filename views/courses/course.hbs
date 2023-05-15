@@ -66,10 +66,12 @@
           <i class="mdi mdi-file-document-outline" aria-hidden="true"></i>
           <span class="text">{{$t "courses._course.tab_label.topics"}}</span>
       </a>
+    {{#if (getConfig "FEATURE_CTL_TOOLS_TAB_ENABLED")}}
       <a href="/rooms/{{../_id}}?tab=tools" class="tab" data-testid="tools(neu)">
         <i class="mdi mdi-puzzle-outline" aria-hidden="true"></i>
         <span class="text">{{$t "courses._course.tab_label.tools(new)"}}</span>
       </a>
+    {{/if}}
       <button class="tab" data-testid="tools" data-tab="js-tools" type="button">
         <i class="mdi mdi-puzzle-outline" aria-hidden="true"></i>
         <span class="text">{{$t "courses._course.tab_label.tools"}}</span>

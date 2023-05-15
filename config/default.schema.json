@@ -482,6 +482,11 @@
 			"default": true,
 			"description": "Enables Files tab in the team-view of Teams menu"
 		},
+		"FEATURE_CTL_TOOLS_TAB_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables new CTL-tool tab in a course"
+		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",
 			"default": false,
