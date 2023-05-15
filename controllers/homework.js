@@ -204,7 +204,7 @@ const getSilentCreateHandler = (service) => (req, res, next) => {
 		if (req.body.name === '') {
 			req.body.name = res.$t('global.label.title');
 		}
-		req.body.private = 'true';
+		req.body.private = true;
 	}
 
 	if (!prepareRequestBodyForHomework(service, req, res)) return;

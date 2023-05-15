@@ -21,6 +21,7 @@ export async function createParent(parentType) {
 		} else {
 			$('#name').val(entity.name);
 			$('#availableDate').val(entity.availableDate);
+			$('#privateTaskVisible').attr('checked', entity.private);
 		}
 
 		return entity._id;
