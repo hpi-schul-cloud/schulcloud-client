@@ -96,4 +96,39 @@ window.addEventListener('DOMContentLoaded', () => {
 			alert(`${$t('homework._task.text.startDateBeforeSubmissionDate')}`);
 		}
 	});
+
+	const urlString = window.location.href;
+	const url = new URL(urlString);
+	const isCreatedSilently = url.searchParams?.get('isCreatedSilently');
+
+	$('.historyback').on('click', async (e) => {
+		e.stopImmediatePropagation();
+
+		const { origin, href } = window.location;
+		const currentUrl = new URL(href);
+
+		// if homework was created silently, delete it
+		if (isCreatedSilently === 'true') {
+			const homeworkId = $('.section-upload').attr('data-parent-id');
+			const courseId = currentUrl.searchParams?.get('course');
+			const newReturnURL = courseId ? `/rooms/${courseId}` : '/tasks';
+
+			await $.ajax({
+				url: `/homework/${homeworkId}`,
+				type: 'DELETE',
+			});
+
+			currentUrl.searchParams?.set('returnUrl', newReturnURL);
+			window.history.pushState({}, null, currentUrl);
+		}
+
+		const { search } = window.location;
+		const urlParams = new URLSearchParams(search);
+		if (urlParams.has('returnUrl')) {
+			const returnUrl = new URL(urlParams.get('returnUrl'), origin);
+			window.location = returnUrl;
+		} else {
+			window.history.back();
+		}
+	});
 });

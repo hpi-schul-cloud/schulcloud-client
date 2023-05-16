@@ -1418,8 +1418,7 @@
 			"storeFilesForUpload": "Place files to upload here, or search computer.",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
-			"uploadAfterFirstSave": "Files can only be uploaded after the first save.",
-			"uploadAfterFirstSaveSubmission": "To upload files, the submission must first be saved as a draft. To do so, please use the 'Save Draft' button at the bottom right."
+			"uploadAfterFirstSave": "Files can only be uploaded after the first save."
 		}
 	},
 	"firstLogin": {

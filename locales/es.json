@@ -1418,8 +1418,7 @@
 			"storeFilesForUpload": "Coloque aquí los archivos para cargar, o busque en los ordenadores.",
 			"studentCanEdit": "¿Los estudiantes pueden editar?",
 			"tips": "SUGERENCIA: abre el documento de LibreOffice en una ventana aparte para mejorar el rendimiento",
-			"uploadAfterFirstSave": "Los archivos solo se pueden cargar después del primer guardado.",
-			"uploadAfterFirstSaveSubmission": "Para cargar archivos, el envío debe guardarse primero como borrador. Para ello, utilice el botón 'Guardar borrador' situado en la parte inferior derecha."
+			"uploadAfterFirstSave": "Los archivos solo se pueden cargar después del primer guardado."
 		}
 	},
 	"firstLogin": {
