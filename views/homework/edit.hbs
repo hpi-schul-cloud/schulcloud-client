@@ -8,7 +8,6 @@
 {{#extend "homework/homework"}}
 {{#content "styles" mode="append"}}
 <link rel="stylesheet" href="{{getAssetPath '/styles/files/upload.css'}}" />
-<link rel="stylesheet" href="{{getAssetPath '/styles/homework/file-upload.css'}}" />
 {{/content}}
 {{> "lib/components/files-storage/imports"}}
 {{#content "page"}}
@@ -20,8 +19,8 @@
 
 			<div class="form-group">
 				<label for="name">{{$t "global.label.title" }}</label>
-				<input id="name" class="form-control" name="name" type="text" placeholder="{{$t "global.label.title"}}" required
-					value="{{{assignment.name}}}" data-testid="homework-name" maxlength="80" />
+				<input id="name" class="form-control" name="name" type="text" placeholder="{{$t "global.label.title"}}"
+					value="{{{assignment.name}}}" data-testid="homework-name" maxlength="80" required/>
 			</div>
 
 			<div class="row">
@@ -86,23 +85,14 @@
 			</div>
 			{{/unless}}
 
-			{{#ifeq assignment._id undefined}}
-				<div class="alert info-custom">
-					<div class="fa fa-info-circle"></div>
-					{{$t "files.text.uploadAfterFirstSave"}}
-				</div>
-			{{/ifeq}}
-
 			<div class="form-group">
 				<label for="homeworkDescription">{{$t "homework.global.label.description" }}</label>
 				<textarea id="homeworkDescription" name="description" type="text" class="form-control ckeditor customckeditor"
 					placeholder="{{$t "homework.global.placeholder.description" }}"
 					data-parent-id="{{assignment._id}}"
-					data-school-id="{{assignment.schoolId}}"
+					data-school-id="{{currentSchool}}"
 					data-parent-type="tasks"
-					{{#ifeq assignment._id undefined}}
-                    	data-disable-file-browser='true'
-                	{{/ifeq}}>{{assignment.description}}</textarea>
+					>{{assignment.description}}</textarea>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
