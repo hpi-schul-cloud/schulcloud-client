@@ -204,13 +204,15 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 app.use(require('./middleware/i18n'));
 app.use(require('./middleware/datetime'));
 
+const redirectUrl = Configuration.get('ROOT_URL_REDIRECT');
+if (redirectUrl !== '') {
+	app.get('/', (req, res, next) => {
+		res.redirect(redirectUrl);
+	});
+}
+
 // Initialize the modules and their routes
 app.use(require('./controllers'));
-
-app.get('/', (req, res, next) => {
-	const url = Configuration.get('ROOT_URL_REDIRECT');
-	res.redirect(url);
-});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
