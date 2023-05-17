@@ -204,6 +204,7 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 app.use(require('./middleware/i18n'));
 app.use(require('./middleware/datetime'));
 
+
 const redirectUrl = Configuration.get('ROOT_URL_REDIRECT');
 if (redirectUrl !== '') {
 	app.get('/', (req, res, next) => {
