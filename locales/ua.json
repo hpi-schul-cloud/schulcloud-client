@@ -1602,7 +1602,7 @@
 				"maxGroupSize": "Максимальний розмір групи: <b>{{maxTeamMembers}} учасників </b>",
 				"noSubmissionsYet": "Немає доступних подань.",
 				"noSubmissionsYetFrom": "Ще немає подання від:",
-				"youHaveSolvedXPercent": "Ви правильно розв’язали <b class=\"grade\">{{grade}}</b>."
+				"youHaveSolvedXPercent": "Ви правильно розв’язали <b class=\"grade\" data-testid=\"feedback-grade\">{{grade}}</b>."
 			},
 			"button": {
 				"restoreAlt": "<i class='fa fa-mail-reply'> </i> Відновити"
