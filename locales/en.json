@@ -2073,7 +2073,7 @@
 				"noSubmissionsYetFrom": "No submission yet from:",
 				"startDateBeforeSubmissionDate": "The start date must be before the submission date!",
 				"submissionGradedNotification": "Your submission in the field {{coursename}} has been graded",
-				"youHaveSolvedXPercent": "You have solved <b class=\"grade\">{{grade}}%</b> correctly."
+				"youHaveSolvedXPercent": "You have solved <b class=\"grade\" data-testid=\"feedback-grade\">{{grade}}%</b> correctly."
 			}
 		},
 		"button": {
