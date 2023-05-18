@@ -57,6 +57,11 @@
   overflow: visible;
 }
 
+.js-alert-content {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
 // Dividers (basically an `<hr>`) within the dropdown
 .dropdown-divider {
   @include nav-divider($dropdown-divider-bg);
