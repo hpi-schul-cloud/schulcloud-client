@@ -1426,8 +1426,7 @@
 			"newDir": "Новий каталог",
 			"newFile": "Новий файл",
 			"noAccessToThisFile": "Ви не маєте доступу до цього файлу!",
-			"uploadAfterFirstSave": "Файли можна завантажувати лише після першого збереження.",
-			"uploadAfterFirstSaveSubmission": "Щоб завантажити файли, заявку потрібно спочатку зберегти як чернетку. Для цього скористайтеся кнопкою 'Зберегти чернетку' внизу праворуч."
+			"uploadAfterFirstSave": "Файли можна завантажувати лише після першого збереження."
 		},
 		"headline": {
 			"attention": "Увага",
@@ -1603,7 +1602,7 @@
 				"maxGroupSize": "Максимальний розмір групи: <b>{{maxTeamMembers}} учасників </b>",
 				"noSubmissionsYet": "Немає доступних подань.",
 				"noSubmissionsYetFrom": "Ще немає подання від:",
-				"youHaveSolvedXPercent": "Ви правильно розв’язали <b class=\"grade\">{{grade}}</b>."
+				"youHaveSolvedXPercent": "Ви правильно розв’язали <b class=\"grade\" data-testid=\"feedback-grade\">{{grade}}</b>."
 			},
 			"button": {
 				"restoreAlt": "<i class='fa fa-mail-reply'> </i> Відновити"
