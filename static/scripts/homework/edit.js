@@ -85,7 +85,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		const noDueDate = dueDate.split(' ')[0] === ''
 			|| emptyDates.includes(dueDate.split(' ')[0]);
 
-		if (lang === 'ua') {
+		if (lang === 'uk') {
 			availableDateUnix = moment(availableDate, ['DD/MM/YYYY hh:mm']).unix();
 			dueDateUnix = moment(dueDate, ['DD/MM/YYYY hh:mm']).unix();
 		}
