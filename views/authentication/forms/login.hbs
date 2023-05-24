@@ -93,7 +93,7 @@
                         {{> "lib/components/csrfInput"}}
                         <div class="oauth-system">
                             <div class="form-group">
-                                <input autofocus aria-label="login" type="submit" class="btn btn-block btn-secondary" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-testid="submit-oauth-login-{{system.alias}}"/>
+                                <input autofocus aria-label="login" type="submit" class="btn btn-block btn-secondary" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-provider="{{system.oauthConfig.provider}}" data-testid="submit-oauth-login-{{system.alias}}"/>
                             </div>
                         </div>
                     </form>
@@ -137,9 +137,7 @@
                         {{> "lib/components/csrfInput"}}
                         <div class="oauth-system">
                             <div class="form-group">
-                                <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.id}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login-{{system.alias}}">
-                                    {{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}
-                                </button>
+                                <input autofocus aria-label="login" type="submit" class="btn btn-block btn-secondary" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-provider="{{system.oauthConfig.provider}}" data-testid="submit-oauth-login-{{system.alias}}"/>
                             </div>
                         </div>
                     </form>
