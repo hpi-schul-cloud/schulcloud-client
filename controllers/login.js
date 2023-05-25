@@ -285,16 +285,21 @@ router.all('/', async (req, res, next) => {
 	if (isAuthenticated) {
 		redirectAuthenticated(req, res);
 	} else {
-		const schools = await LoginSchoolsCache.get(req);
+		const redirectUrl = Configuration.get('ROOT_URL_REDIRECT');
+		if (redirectUrl !== '') {
+			res.redirect(redirectUrl);
+		} else {
+			const schools = await LoginSchoolsCache.get(req);
 
-		const oauthSystems = await getOauthSystems(req);
+			const oauthSystems = await getOauthSystems(req);
 
-		res.render('authentication/home', {
-			schools: filterSchoolsWithLdapLogin(schools),
-			systems: [],
-			oauthSystems: oauthSystems.data || [],
-			inline: true,
-		});
+			res.render('authentication/home', {
+				schools: filterSchoolsWithLdapLogin(schools),
+				systems: [],
+				oauthSystems: oauthSystems.data || [],
+				inline: true,
+			});
+		}
 	}
 });
 
