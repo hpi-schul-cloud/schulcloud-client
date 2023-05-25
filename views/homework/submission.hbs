@@ -2,11 +2,11 @@
   {{#if @root.submittable}}
     <div class="comment editor submission-editor">
     {{#if @root.submission}}
-        <form class="form submissionForm ajaxForm {{this.submission._id}}"  method="post" action="/homework/submit/{{@root.submission._id}}">
+        <form class="form submissionForm ajaxForm {{this.submission._id}}" method="post" action="/homework/submit/{{@root.submission._id}}">
             <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
             <input type="hidden" name="_method" data-force-value="true" value="patch"/>
     {{else}}
-        <form class="form submissionForm ajaxForm" method="post" action="/homework/submit">
+        <form class="form submissionForm ajaxForm" id="submission-form" method="post" action="/homework/submit">
             <input type="hidden" name="_method" data-force-value="true" value="post"/>
             <input name="schoolId" type="hidden" data-force-value="true" value="{{@root.currentSchool}}"/>
             <input name="studentId" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}"/>
@@ -55,12 +55,6 @@
         </div>
         <hr>
     {{/if}}
-        {{#ifeq @root.submission undefined}}
-            <div class="alert info-custom">
-                <div class="fa fa-info-circle"></div>
-                {{$t "files.text.uploadAfterFirstSaveSubmission"}}
-            </div>
-		{{/ifeq}}
         <p class="submissionLabel"><i class="fa fa-text-width"></i>{{$t "homework._task.label.textDelivery"}}</p>
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
         <div class="form-group">
@@ -69,19 +63,22 @@
                 name="comment"
                 class="form-control ckeditor customckeditor"
                 data-parent-id="{{@root.submission._id}}"
-                data-school-id="{{@root.submission.schoolId}}"
+                data-school-id="{{@root.currentSchool}}"
                 data-parent-type="submissions"
+                data-homework-id="{{@root._id}}"
                 placeholder="{{$t "homework._task.input.createSubmission"}}"
-                {{#ifeq @root.submission._id undefined}}
-                    	data-disable-file-browser='true'
-                {{/ifeq}}
-            >
+                data-testid="submission-text"
+           >
                     {{@root.submission.comment}}
             </textarea>
         </div>
         <hr>
         <p class="submissionLabel"><i class="fa fa-folder-open"></i>{{$t "homework._task.label.fileUpload"}}</p>
-    {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}
+        {{#if @root.submission}}
+            {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}
+        {{else}}
+            {{#embed "lib/components/files-storage/files" submissionFilesStorageData}}{{/embed}}
+        {{/if}}
   {{else}}
     {{#if @root.submission}}
         {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}

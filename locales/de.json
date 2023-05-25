@@ -1419,8 +1419,7 @@
 			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen, oder Computer durchsuchen.",
 			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
-			"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern hochgeladen werden.",
-			"uploadAfterFirstSaveSubmission": "Um Dateien hochzuladen, muss die Abgabe zuvor als Entwurf gespeichert werden. Dazu bitte die Schaltfläche 'Entwurf speichern' unten rechts nutzen."
+			"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern hochgeladen werden."
 		}
 	},
 	"firstLogin": {
@@ -1674,7 +1673,7 @@
 				"de": "Deutsch",
 				"en": "English",
 				"es": "Español",
-				"ua": "Yкраїнський"
+				"uk": "Yкраїнський"
 			}
 		},
 		"link": {
@@ -2075,7 +2074,7 @@
 				"noSubmissionsYetFrom": "Bisher keine Abgabe von:",
 				"startDateBeforeSubmissionDate": "Das Beginndatum muss vor dem Abgabedatum liegen!",
 				"submissionGradedNotification": "Deine Abgabe im Fach {{coursename}} wurde bewertet",
-				"youHaveSolvedXPercent": "Du hast <b class=\"grade\">{{grade}}%</b> richtig gelöst."
+				"youHaveSolvedXPercent": "Du hast <b class=\"grade\" data-testid=\"feedback-grade\">{{grade}}%</b> richtig gelöst."
 			}
 		},
 		"button": {

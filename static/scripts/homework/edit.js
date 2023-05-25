@@ -85,7 +85,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		const noDueDate = dueDate.split(' ')[0] === ''
 			|| emptyDates.includes(dueDate.split(' ')[0]);
 
-		if (lang === 'ua') {
+		if (lang === 'uk') {
 			availableDateUnix = moment(availableDate, ['DD/MM/YYYY hh:mm']).unix();
 			dueDateUnix = moment(dueDate, ['DD/MM/YYYY hh:mm']).unix();
 		}
@@ -94,6 +94,41 @@ window.addEventListener('DOMContentLoaded', () => {
 		} else {
 			// eslint-disable-next-line no-alert
 			alert(`${$t('homework._task.text.startDateBeforeSubmissionDate')}`);
+		}
+	});
+
+	const urlString = window.location.href;
+	const url = new URL(urlString);
+	const isCreatedSilently = url.searchParams?.get('isCreatedSilently');
+
+	$('.historyback').on('click', async (e) => {
+		e.stopImmediatePropagation();
+
+		const { origin, href } = window.location;
+		const currentUrl = new URL(href);
+
+		// if homework was created silently, delete it
+		if (isCreatedSilently === 'true') {
+			const homeworkId = $('.section-upload').attr('data-parent-id');
+			const courseId = currentUrl.searchParams?.get('course');
+			const newReturnURL = courseId ? `/rooms/${courseId}` : '/tasks';
+
+			await $.ajax({
+				url: `/homework/${homeworkId}`,
+				type: 'DELETE',
+			});
+
+			currentUrl.searchParams?.set('returnUrl', newReturnURL);
+			window.history.pushState({}, null, currentUrl);
+		}
+
+		const { search } = window.location;
+		const urlParams = new URLSearchParams(search);
+		if (urlParams.has('returnUrl')) {
+			const returnUrl = new URL(urlParams.get('returnUrl'), origin);
+			window.location = returnUrl;
+		} else {
+			window.history.back();
 		}
 	});
 });

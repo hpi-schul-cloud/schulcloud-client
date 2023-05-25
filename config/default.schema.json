@@ -154,8 +154,8 @@
 		},
 		"ROOT_URL_REDIRECT": {
 			"type": "string",
-			"default": "/login",
-			"description": "The URL to redirect to when accessing '/'"
+			"default": "",
+			"description": "The URL to redirect to when accessing '/'. Leave empty for no redirect."
 		},
 		"FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED": {
 			"type": "boolean",
@@ -403,7 +403,7 @@
 				},
 				"AVAILABLE_LANGUAGES": {
 					"type": "string",
-					"default": "de,en,es,ua",
+					"default": "de,en,es,uk",
 					"description": "Available languages"
 				}
 			},
