@@ -204,6 +204,7 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 app.use(require('./middleware/i18n'));
 app.use(require('./middleware/datetime'));
 
+// Initialize the modules and their routes
 app.use(require('./controllers'));
 
 app.get('/', (req, res, next) => {
