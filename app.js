@@ -207,11 +207,6 @@ app.use(require('./middleware/datetime'));
 // Initialize the modules and their routes
 app.use(require('./controllers'));
 
-app.get('/', (req, res, next) => {
-	// TODO: redirect based on "ROOT_URL_REDIRECT"
-	res.redirect('/login/');
-});
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
 	const url = req.originalUrl || req.url;
