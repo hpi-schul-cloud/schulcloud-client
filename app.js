@@ -208,6 +208,7 @@ app.use(require('./middleware/datetime'));
 app.use(require('./controllers'));
 
 app.get('/', (req, res, next) => {
+	// TODO: redirect based on "ROOT_URL_REDIRECT"
 	res.redirect('/login/');
 });
 
