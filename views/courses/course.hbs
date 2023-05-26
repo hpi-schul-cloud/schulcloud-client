@@ -62,14 +62,22 @@
 <section class="section-course">
   <div class="tabContainer" data-active-tab={{activeTab}}>
     <div class="tabs" data-max-width="1024">
-      <a href="/rooms/{{../_id}}" class="tab" data-testid="topics">
+      <a href="/rooms/{{../_id}}?tab=learn-content" class="tab" data-testid="topics">
           <i class="mdi mdi-file-document-outline" aria-hidden="true"></i>
           <span class="text">{{$t "courses._course.tab_label.topics"}}</span>
       </a>
-      <button class="tab" data-testid="tools" data-tab="js-tools" type="button">
-        <i class="mdi mdi-puzzle-outline" aria-hidden="true"></i>
-        <span class="text">{{$t "courses._course.tab_label.tools"}}</span>
-      </button>
+      {{#if (getConfig "FEATURE_CTL_TOOLS_TAB_ENABLED")}}
+        <a href="/rooms/{{../_id}}?tab=tools" class="tab" data-testid="tools">
+          <i class="mdi mdi-puzzle-outline" aria-hidden="true"></i>
+          <span class="text">{{$t "courses._course.tab_label.tools"}}</span>
+        </a>
+      {{/if}}
+      {{#if (getConfig "FEATURE_LTI_TOOLS_TAB_ENABLED")}}
+        <button class="tab" data-testid="tools" data-tab="js-tools" type="button">
+          <i class="mdi mdi-puzzle-outline" aria-hidden="true"></i>
+          <span class="text">{{$t "courses._course.tab_label.oldTools"}}</span>
+        </button>
+      {{/if}}
       <button class="tab" data-testid="groups" data-tab="js-groups" type="button">
         <i class="mdi mdi-account-group-outline" aria-hidden="true"></i>
         <span class="text">{{$t "courses._course.tab_label.groups"}}</span>
