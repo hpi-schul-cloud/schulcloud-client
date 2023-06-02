@@ -147,7 +147,7 @@ jobs:
           #- build_and_push_docker
           - branch_meta
           #- deploy  # to start tests only after deploy
-      uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@BC-4030-run-selected-reduced-e2e-tests-for-pr
+      uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@BC-4030-selected-tests-sub-branch
       with:
           ref: ${{ needs.branch_meta.outputs.branch }}
 
