@@ -1,4 +1,5 @@
 import { apiV3FileStorageBasePath, getFileDownloadUrl } from './helpers/storage';
+import { createParent } from './helpers/homework';
 
 const errorMessages = {
 	FILE_NAME_EMPTY: 'files._file.text.fileNameEmpty',
@@ -86,7 +87,7 @@ function remove(fileRecordId) {
 }
 
 function afterUploadFiles() {
-	if (window.localStorage && window.localStorage.getItem('afterUploadFiles')) {
+	if (window.localStorage?.getItem('afterUploadFiles')) {
 		showSuccessMessage('files._file.text.fileSavedSuccess');
 		window.localStorage.removeItem('afterUploadFiles');
 	}
@@ -99,9 +100,7 @@ function submitAfterUpload(type, id) {
 			window.localStorage.setItem('afterUploadFiles', 'true');
 		}
 
-		$('#homework-form').find('input[name="referrer"]')
-			.val(window.location.pathname + window.location.search);
-		$('#homework-submit-btn').trigger('click');
+		$('#homework-form').trigger('submit');
 	}
 
 	if (type === 'submissions') {
@@ -156,7 +155,7 @@ $(document).ready(() => {
 		const uploadSection = $filesStorageComponent.find('.section-upload');
 
 		const schoolId = uploadSection.data('school');
-		const parentId = uploadSection.data('parentId');
+		let parentId = uploadSection.data('parentId');
 		const parentType = uploadSection.data('parentType');
 		const maxFilesize = uploadSection.data('maxFileSize');
 
@@ -195,8 +194,32 @@ $(document).ready(() => {
 				method: 'POST',
 				maxFilesize,
 				dictFileTooBig,
+				autoProcessQueue: false,
 				init() {
 					// this is called on per-file basis
+					this.on('addedfiles', async () => {
+						parentId = $(element).find('.section-upload').attr('data-parent-id');
+
+						if (parentId === '') {
+							parentId = await createParent(parentType);
+						}
+
+						this.options.url = `${apiV3FileStorageBasePath}/upload/
+						${schoolId}/
+						${parentType}/
+						${parentId}`;
+
+						const url = new URL(window.location.href);
+						const courseId = url.searchParams?.get('course');
+						const basereferrer =`/homework/${parentId}/edit?returnUrl=homework/${parentId}&isCreatedSilently=true`;
+						const referrer = courseId
+							? `${basereferrer}&course=${courseId}`
+							: basereferrer;
+						$('#homework-form').find('input[name="referrer"]').val(referrer);
+
+						this.options.autoProcessQueue = true;
+						this.processQueue();
+					});
 					this.on('processing', updateUploadProcessingProgress);
 					this.on('totaluploadprogress', (_, total, uploaded) => {
 						const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
@@ -205,7 +228,7 @@ $(document).ready(() => {
 							{ width: `${realProgress}%` },
 							{
 								step(now) {
-									if ($percentage && $percentage.setAttribute) {
+									if ($percentage?.setAttribute) {
 										$percentage.html(`${Math.ceil(now)}%`);
 										$percentage.setAttribute('aria-valuenow', `${Math.ceil(now)}%`);
 									}

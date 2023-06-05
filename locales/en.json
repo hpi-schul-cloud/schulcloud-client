@@ -984,7 +984,8 @@
 			"tab_label": {
 				"groups": "Groups",
 				"tasks": "Tasks",
-				"tools": "Tools",
+				"tools": "Tools (new)",
+				"oldTools": "Tools",
 				"oldTopics": "Topics",
 				"topics": "Learning content"
 			},
@@ -1418,8 +1419,7 @@
 			"storeFilesForUpload": "Place files to upload here, or search computer.",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
-			"uploadAfterFirstSave": "Files can only be uploaded after the first save.",
-			"uploadAfterFirstSaveSubmission": "To upload files, the submission must first be saved as a draft. To do so, please use the 'Save Draft' button at the bottom right."
+			"uploadAfterFirstSave": "Files can only be uploaded after the first save."
 		}
 	},
 	"firstLogin": {
@@ -1673,7 +1673,7 @@
 				"de": "Deutsch",
 				"en": "English",
 				"es": "Español",
-				"ua": "Yкраїнський"
+				"uk": "Yкраїнський"
 			}
 		},
 		"link": {
@@ -2074,7 +2074,7 @@
 				"noSubmissionsYetFrom": "No submission yet from:",
 				"startDateBeforeSubmissionDate": "The start date must be before the submission date!",
 				"submissionGradedNotification": "Your submission in the field {{coursename}} has been graded",
-				"youHaveSolvedXPercent": "You have solved <b class=\"grade\">{{grade}}%</b> correctly."
+				"youHaveSolvedXPercent": "You have solved <b class=\"grade\" data-testid=\"feedback-grade\">{{grade}}%</b> correctly."
 			}
 		},
 		"button": {

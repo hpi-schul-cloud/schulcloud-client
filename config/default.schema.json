@@ -154,8 +154,8 @@
 		},
 		"ROOT_URL_REDIRECT": {
 			"type": "string",
-			"default": "/login",
-			"description": "The URL to redirect to when accessing '/'"
+			"default": "",
+			"description": "The URL to redirect to when accessing '/'. Leave empty for no redirect."
 		},
 		"FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED": {
 			"type": "boolean",
@@ -403,7 +403,7 @@
 				},
 				"AVAILABLE_LANGUAGES": {
 					"type": "string",
-					"default": "de,en,es,ua",
+					"default": "de,en,es,uk",
 					"description": "Available languages"
 				}
 			},
@@ -481,6 +481,16 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Enables Files tab in the team-view of Teams menu"
+		},
+		"FEATURE_CTL_TOOLS_TAB_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables new CTL-tool tab in a course"
+		},
+		"FEATURE_LTI_TOOLS_TAB_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables old LTI-tool tab in a course"
 		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",

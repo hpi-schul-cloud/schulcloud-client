@@ -9,7 +9,7 @@
             {{{$t "homework._task.text.youHaveSolvedXPercent" (dict "grade" @root.submission.grade)}}}
         {{/if}}
 
-        <div class="comment ckcontent">
+        <div class="comment ckcontent" data-testid="feedback-comment">
                 {{{@root.submission.gradeComment}}}
         </div>
         {{#embed "lib/components/files-storage/files" @root.submission.gradeFiles}}{{/embed}}

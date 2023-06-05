@@ -53,18 +53,19 @@
                                 <input data-testid="evaluation_procent" type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}" />
                             </div>
                             <label>{{$t "homework.label.comment" }}</label>
-                            <textarea 
-                                id="evaluation {{this.submission._id}}" 
-                                name="gradeComment" 
-                                type="text" 
-                                class="form-control ckeditor customckeditor" 
+                            <textarea
+                                id="evaluation {{this.submission._id}}"
+                                name="gradeComment"
+                                type="text"
+                                class="form-control ckeditor customckeditor"
                                 placeholder="{{$t "homework.input.gradeComment"}}"
                                 data-parent-id="{{this.submission._id}}"
                                 data-school-id="{{this.submission.schoolId}}"
                                 data-parent-type="submissions"
+                                data-testid="submission-comment"
                             >
                                     {{this.submission.gradeComment}}
-                            </textarea>                        
+                            </textarea>
                         </div>
                         {{#embed "lib/components/files-storage/files" this.submission.gradeFiles}}{{/embed}}
                         {{#userHasPermission "HOMEWORK_CREATE"}}
