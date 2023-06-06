@@ -3014,7 +3014,7 @@
 					"reallyWantToRmUserWFiles": "Möchtest du diese/n Teilnehmer:in und sein Dateien wirklich entfernen?",
 					"removeClass": "Klasse entfernen",
 					"removeUser": "Nutzer:in entfernen",
-					"removeUserWFilesIntro": "Sie werden einen Teilnehmer löschen. Alle Dateien, die mit diesem Benutzer verknüpft sind, werden ebenfalls entfernt. Wenn Sie diese Dateien nicht verlieren möchten, kopieren Sie sie vor dem Löschen des Teilnehmers.",
+					"removeUserWFilesIntro": "Sie werden den Teilnehmer löschen. Alle Dateien, die mit diesem Benutzer verknüpft sind, werden ebenfalls entfernt und alle Ordner werden dem Besitzer zugewiesen. Wenn Sie diese Dateien nicht verlieren möchten, kopieren Sie sie vor dem Löschen des Teilnehmers.",
 					"leaveTeamWFilesIntro": "Sie werden das Team verlassen. Alle Dateien, die mit Ihnen verknüpft sind, werden ebenfalls entfernt. Wenn Sie diese Dateien nicht verlieren wollen, kopieren Sie sie vor dem Verlassen.",
 					"roleOfInvitedTeacher": "Rolle der eingeladenen Lehrkraft",
 					"selectRoleForMember": "Gib ein, welche Rolle der/die Teilnehmer:in erhalten soll.",
