@@ -347,6 +347,7 @@ const renderLogin = async (req, res) => {
 		hideMenu: true,
 		redirect,
 		idOfSchool,
+		isLogin: true,
 		strategyOfSchool,
 	});
 };

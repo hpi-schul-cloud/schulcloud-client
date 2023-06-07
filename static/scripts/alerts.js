@@ -7,7 +7,7 @@ export default function initAlerts(viewToInit) {
 	}
 	initialized = true;
 
-	const view = viewToInit === 'loggedin';
+	const view = viewToInit;
 	const alertMessageController = new AlertMessageController(view);
 
 	// EBS-System | Alert

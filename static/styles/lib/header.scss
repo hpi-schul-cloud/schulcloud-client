@@ -1,0 +1,31 @@
+@import "./loggedin.scss";
+
+.content-wrapper{
+	width: 75%;
+	padding-left: 0px;
+}
+
+.input-group-addon {
+  width: 2.5rem;
+}
+
+
+
+.dropdown-toggle {
+	font-size: 1.25rem;
+	border: none;
+	background: transparent;
+	border-radius: 50%;
+
+	.avatar-circle:hover {
+		background-color: darken($secondaryColor, 17%);
+	}
+	&:after {
+		display: none;
+	}
+}
+
+.dropdown-menu {
+	width: 400px;
+	margin-left: -350px;
+}

@@ -21,6 +21,9 @@
             /* remove bootstrap after attribute from dom - breaks flex alignment*/
             display: none;
         }
+				.header-alert-button {
+					margin-top: .4rem;
+				}
     }
     .logo{
         height: 2.75rem;
@@ -107,6 +110,12 @@
          .container{
             flex-wrap: wrap;
             justify-content: center;
+						&:not(:has(.alert-button)) {
+							justify-content: center;
+  					}
+						&:has(.alert-button) {
+							justify-content: space-around;
+						}
         }
         .logo{
             margin-top: .25em;
