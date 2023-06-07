@@ -1228,17 +1228,10 @@ router.post('/external/invite', (req, res, next) => {
 });
 
 router.delete('/:teamId/members', async (req, res, next) => {
-
-	console.log('0000');
-	console.log('DELETE');
-	console.log('123123');
-	console.log('123123');
 	const courseOld = await api(req).get(`/teams/${req.params.teamId}`);
-
 	const userIds = courseOld.userIds.filter(
 		(user) => user.userId !== req.body.userIdToRemove,
 	);
-	console.log(userIds.length);
 	const classIds = courseOld.classIds.filter(
 		(_class) => _class !== req.body.classIdToRemove,
 	);
@@ -1251,7 +1244,6 @@ router.delete('/:teamId/members', async (req, res, next) => {
 		},
 	});
 
-	console.log('123123');
 	res.sendStatus(200);
 });
 
