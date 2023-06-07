@@ -114,9 +114,11 @@
 							justify-content: center;
   					}
 						&:has(.alert-button) {
-							justify-content: space-around;
+							justify-content: space-between;
 						}
         }
+
+
         .logo{
             margin-top: .25em;
             height: 2.25rem;
