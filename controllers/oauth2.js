@@ -89,22 +89,21 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 	}
 	return api(req, { version: VERSION }).get(`/oauth2/consentRequest/${req.query.consent_challenge}`)
 		.then(async (consentRequest) => {
-			const clientId = consentRequest.client.client_id;
+			let skipConsent = consentRequest.context && consentRequest.context.skipConsent;
 
-			console.log(consentRequest.context);
+			// Cannot skip consent for CTL-Tools with legacy hydra endpoints.
+			// Legacy endpoints are not supported by CTL-Tools.
+			if (VERSION === 'v1') {
+				const tools = await api(req)
+					.get(`/ltiTools/?oAuthClientId=${consentRequest.client.client_id}&isLocal=true`);
 
-			const [ltiTools, ctlTools] = await Promise.all([
-				api(req).get(`/ltiTools?oAuthClientId=${clientId}&isLocal=true`),
-				api(req, { version: 'v3' }).get(`/tools?clientId=${clientId}`),
-			]);
-
-			let skipConsent = false;
-			if (ctlTools.data && ctlTools.data.length === 1) {
-				({ skipConsent } = ctlTools.data[0]);
-			} else if (ltiTools.data && ltiTools.data.length === 1) {
-				({ skipConsent } = ltiTools.data[0]);
-			} else {
-				throw new Error(`Unable to find tool with clientId ${clientId} for consent`);
+				if (tools.data && Array.isArray(tools.data) && tools.data.length === 1) {
+					({ skipConsent } = tools.data[0]);
+				} else {
+					throw new Error(
+						`Cannot find a LtiTool with client_id ${consentRequest.client.client_id} for consent request`,
+					);
+				}
 			}
 
 			if (consentRequest.skip || skipConsent) {
