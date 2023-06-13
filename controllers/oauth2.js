@@ -91,6 +91,8 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 		.then(async (consentRequest) => {
 			const clientId = consentRequest.client.client_id;
 
+			console.log(consentRequest.context);
+
 			const [ltiTools, ctlTools] = await Promise.all([
 				api(req).get(`/ltiTools?oAuthClientId=${clientId}&isLocal=true`),
 				api(req, { version: 'v3' }).get(`/tools?clientId=${clientId}`),
