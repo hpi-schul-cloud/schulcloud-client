@@ -88,26 +88,25 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w, next) => {
 		return w.send(`${r.query.error}<br />${r.query.error_description}`);
 	}
 	return api(r, { version: VERSION }).get(`/oauth2/consentRequest/${r.query.consent_challenge}`)
-		.then((consentRequest) => api(r)
-			.get(`/ltiTools/?oAuthClientId=${consentRequest.client.client_id}&isLocal=true`).then((tool) => {
-				if (consentRequest.skip || tool.data[0].skipConsent) {
-					return acceptConsent(r, w, r.query.consent_challenge, consentRequest.requested_scope);
-				}
-				return w.render('oauth2/consent', {
-					inline: true,
-					title: w.$t('login.oauth2.headline.loginWithSchoolCloud', {
-						title: w.locals.theme.title,
-					}),
-					subtitle: '',
-					client: consentRequest.client.client_name,
-					action: `/oauth2/consent?challenge=${r.query.consent_challenge}`,
-					buttonLabel: w.$t('global.button.accept'),
-					scopes: consentRequest.requested_scope.map((scope) => ({
-						display: displayScope(scope, w),
-						value: scope,
-					})),
-				});
-			})).catch(next);
+		.then((consentRequest) => {
+			if (consentRequest.skip) {
+				return acceptConsent(r, w, r.query.consent_challenge, consentRequest.requested_scope);
+			}
+			return w.render('oauth2/consent', {
+				inline: true,
+				title: w.$t('login.oauth2.headline.loginWithSchoolCloud', {
+					title: w.locals.theme.title,
+				}),
+				subtitle: '',
+				client: consentRequest.client.client_name,
+				action: `/oauth2/consent?challenge=${r.query.consent_challenge}`,
+				buttonLabel: w.$t('global.button.accept'),
+				scopes: consentRequest.requested_scope.map((scope) => ({
+					display: displayScope(scope, w),
+					value: scope,
+				})),
+			});
+		}).catch(next);
 });
 
 router.post('/consent', auth.authChecker, (r, w) => acceptConsent(r, w, r.query.challenge, r.body.grantScopes, true));
