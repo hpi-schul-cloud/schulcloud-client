@@ -101,7 +101,7 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 					({ skipConsent } = tools.data[0]);
 				} else {
 					throw new Error(
-						`Unable find a singular LtiTool with client_id ${consentRequest.client.client_id} for consent request`,
+						`Unable to find a singular LtiTool with client_id ${consentRequest.client.client_id} for consent request`,
 					);
 				}
 			}
