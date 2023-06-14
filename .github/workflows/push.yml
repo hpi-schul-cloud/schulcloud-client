@@ -150,7 +150,7 @@ jobs:
       uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@main
       with:
           ref: ${{ needs.branch_meta.outputs.branch }}
-			secrets: inherit
+	  secrets: inherit
 
 #  test-successful:
 #      runs-on: ubuntu-latest
