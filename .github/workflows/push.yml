@@ -12,7 +12,7 @@ permissions:
     contents: read
 
 jobs:
-  build_and_push_docker:
+  #build_and_push_docker:
     # this basically means do not execute it as dependabot unless it is labeled as ready-for-ci
     # because automated processes and pr from forks are dangerous, therefore those prs won't have access to secrets, labeling them acts like allow-listing them
     # more details here https://docs.github.com/en/rest/dependabot/secrets?apiVersion=2022-11-28
