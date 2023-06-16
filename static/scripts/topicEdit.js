@@ -395,6 +395,14 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicInternal)}>
 								{`+ ${$t('global.headline.task')}`}
 						</button>
+						<button
+							type="button"
+							className="btn btn-secondary"
+							data-testid="topic-addcontent-h5p-btn"
+							aria-label={$t('global.button.add')}
+							onClick={this.addBlock.bind(this, TopicH5P)}>
+							{`+ ${$t('topic.topicEdit.button.h5p')}`}
+						</button>
                     </div>
                 </div>
             </div>
@@ -432,6 +440,8 @@ class TopicBlock extends React.Component {
 				return TopicNexboard;
 			case 'Etherpad':
 				return TopicEtherpad;
+			case 'H5P':
+				return TopicH5P;
 			case 'internal':
 				return TopicInternal;
 		}
@@ -1019,6 +1029,111 @@ class TopicNexboard extends TopicBlock {
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
                        value={(this.props.content || {}).url } />
             </div>
+		);
+	}
+}
+
+/**
+ * Class representing H5P
+ * @extends React.Component<{ content: { contentId: string } }>
+ */
+class TopicH5P extends TopicBlock {
+	/**
+	* Initialize the topic.
+	* @param {Object} props - Properties from React Component.
+	*/
+	constructor(props) {
+		super(props);
+	}
+
+	/**
+	* This function returns the name of the component that will be used to render the block in view mode.
+	*/
+	static get component() {
+		return 'H5P';
+	}
+
+	openEditor(id) {
+		const w = 1280;
+		const h = 1080;
+
+		const x = window.top.outerWidth / 2 + window.top.screenX - (w / 2);
+		const y = window.top.outerHeight / 2 + window.top.screenY - (h / 2);
+
+		const editorPopup = window.open(
+			`/h5p/editor/${id ?? ''}?inline=1`,
+			'h5p-editor',
+			`width=${w}, height=${h}, left=${x}, top=${y}, 
+			fullscreen=yes, toolbar=no, location=no, directories=no, status=no, scrollbars=yes, resizable=yes`,
+		);
+
+		editorPopup.addEventListener('add-content', (event) => {
+			this.props.onUpdate({ content: event.detail });
+		});
+
+		editorPopup.focus();
+	}
+
+	/**
+	* Render the block (an textarea)
+	*/
+	render() {
+		const infoBox = <div class="alert info-custom">
+			<div className="fa fa-info-circle" />
+			{$t('files.text.uploadAfterFirstSave')}
+		</div>;
+
+		const saved = !!this.props.parentId;
+
+		const { contentId, title, contentType } = this.props.content;
+
+		const h5pPreview = <div className="card">
+			<div className="card-block">
+				<h4 className="card-title">
+					<a href="#" target="_blank">
+						{title}
+					</a>
+				</h4>
+				<p className="card-text">{contentType}</p>
+			</div>
+			<div className="card-footer">
+				<a className="btn-remove-h5p" onClick={this.openEditor.bind(this, contentId)}>
+					<i className="fa fa-trash-o"></i>
+				</a>
+			</div>
+			<input
+				type="hidden"
+				value={contentId}
+				name={`contents[${this.props.position}][content][contentId]`}
+			/>
+			<input
+				type="hidden"
+				value={title}
+				name={`contents[${this.props.position}][content][title]`}
+			/>
+			<input
+				type="hidden"
+				value={contentType}
+				name={`contents[${this.props.position}][content][contentType]`}
+			/>
+		</div>;
+
+		return (
+			<div>
+				{saved || infoBox}
+				{contentId && h5pPreview}
+				<div>
+					<button
+						disabled={!saved}
+						type="button"
+						className="btn btn-secondary btn-add"
+						data-testid="topic-h5p-create-btn"
+						onClick={this.openEditor.bind(this, contentId)}
+					>
+						{`+ ${$t('topic.topicEdit.button.h5p')}`}
+					</button>
+				</div>
+			</div>
 		);
 	}
 }

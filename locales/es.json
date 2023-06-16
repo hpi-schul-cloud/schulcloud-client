@@ -3169,7 +3169,8 @@
 				"geoGebraWorksheet": "Hoja de trabajo de GeoGebra",
 				"material": "Material de aprendizaje",
 				"neXboard": "neXboard",
-				"text": "Texto"
+				"text": "Texto",
+				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Lluvia de ideas sobre el tema XYZ",

@@ -2160,7 +2160,8 @@
 				"text": "Текст",
 				"material": "Навчальний матеріал",
 				"etherpad": "Etherpad",
-				"neXboard": "neXboard"
+				"neXboard": "neXboard",
+				"h5p": "H5P"
 			},
 			"label": {
 				"descriptionEtherpad": "Опис Etherpad",

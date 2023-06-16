@@ -3168,7 +3168,8 @@
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
 				"neXboard": "neXboard",
-				"text": "Text"
+				"text": "Text",
+				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",

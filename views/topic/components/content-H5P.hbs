@@ -1,0 +1,12 @@
+<h2 class="h4">{{title}}</h2>
+
+<div>
+  {{#if content.contentId}}
+    <iframe scrolling="no"
+      src="/api/v3/h5p-editor/play/{{content.contentId}}"
+      style="width: 100%; overflow: auto;" allowfullscreen>
+    </iframe>
+  {{else}}
+    <p>No content</p>
+  {{/if}}
+</div>
