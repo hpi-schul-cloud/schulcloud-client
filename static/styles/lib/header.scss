@@ -1,2 +1,87 @@
 @import "./alerts.scss";
+@import "./colors";
+@import "./bootstrap/scss/bootstrap-flex";
 
+
+.input-group-addon {
+	width: auto;
+}
+
+.alert-button {
+	.dropdown-menu {
+		left: -20rem !important;
+	}
+
+	@media (max-width: 450px) {
+		.dropdown-menu {
+			width: 70vw;
+			left: -14.5rem !important;
+		}
+
+		.dropdown-menu::before,
+		.dropdown-menu::after {
+			content: none !important;
+		}
+	}
+
+	@media (max-width: 400px) {
+		.dropdown-menu {
+			width: 70vw;
+			left: -14rem !important;
+		}
+
+		.dropdown-menu::before,
+		.dropdown-menu::after {
+			content: none !important;
+		}
+	}
+
+	@media (max-width: 370px) {
+		.dropdown-menu {
+			width: 70vw;
+			left: -13.5rem !important;
+		}
+
+		.dropdown-menu::before,
+		.dropdown-menu::after {
+			content: none !important;
+		}
+	}
+
+	@media (max-width: 300px) {
+		.dropdown-menu {
+			width: 70vw;
+			left: -10rem !important;
+		}
+
+		.dropdown-menu::before,
+		.dropdown-menu::after {
+			content: none !important;
+		}
+	}
+}
+
+.navbar-nav {
+	.minimal-button {
+		float: right;
+		.dropdown-menu {
+			&:after,
+			&:before {
+				left: -320px;
+			}
+
+			&:after {
+				left: 19.75rem;
+			}
+
+			&:before {
+				left: 19.75rem;
+			}
+
+			@include media-breakpoint-down(sm) {
+				left: 19.75rem;
+			}
+
+		}
+	}
+}

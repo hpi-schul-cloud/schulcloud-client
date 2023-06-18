@@ -109,7 +109,6 @@
     @include media-breakpoint-down(md) {
          .container{
             flex-wrap: wrap;
-            justify-content: center;
 						&:not(:has(.alert-button)) {
 							justify-content: center;
   					}
