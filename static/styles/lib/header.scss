@@ -2,7 +2,6 @@
 @import "./colors";
 @import "./bootstrap/scss/bootstrap-flex";
 
-
 .input-group-addon {
 	width: auto;
 }
@@ -81,7 +80,6 @@
 			@include media-breakpoint-down(sm) {
 				left: 19.75rem;
 			}
-
 		}
 	}
 }
