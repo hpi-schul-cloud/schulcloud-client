@@ -89,7 +89,7 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 	}
 	return api(req, { version: VERSION }).get(`/oauth2/consentRequest/${req.query.consent_challenge}`)
 		.then(async (consentRequest) => {
-			let skipConsent = consentRequest.context && consentRequest.context.skipConsent;
+			let skipConsent = consentRequest.context?.skipConsent;
 
 			// Cannot skip consent for CTL-Tools with legacy hydra endpoints.
 			// Legacy endpoints are not supported by CTL-Tools.
