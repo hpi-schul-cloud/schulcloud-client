@@ -1067,7 +1067,7 @@ class TopicH5P extends TopicBlock {
 			fullscreen=yes, toolbar=no, location=no, directories=no, status=no, scrollbars=yes, resizable=yes`,
 		);
 
-		editorPopup.addEventListener('add-content', (event) => {
+		editorPopup.addEventListener('save-content', (event) => {
 			this.props.onUpdate({ content: event.detail });
 		});
 
@@ -1080,7 +1080,7 @@ class TopicH5P extends TopicBlock {
 	render() {
 		const infoBox = <div class="alert info-custom">
 			<div className="fa fa-info-circle" />
-			{$t('files.text.uploadAfterFirstSave')}
+			{$t('h5p.text.createAfterFirstSave')}
 		</div>;
 
 		const saved = !!this.props.parentId;
