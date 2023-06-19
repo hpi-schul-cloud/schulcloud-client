@@ -1087,52 +1087,57 @@ class TopicH5P extends TopicBlock {
 
 		const { contentId, title, contentType } = this.props.content;
 
-		const h5pPreview = <div className="card">
-			<div className="card-block">
-				<h4 className="card-title">
-					<a href="#" target="_blank">
-						{title}
-					</a>
-				</h4>
-				<p className="card-text">{contentType}</p>
-			</div>
-			<div className="card-footer">
-				<a className="btn-remove-h5p" onClick={this.openEditor.bind(this, contentId)}>
-					<i className="fa fa-trash-o"></i>
-				</a>
-			</div>
-			<input
-				type="hidden"
-				value={contentId}
-				name={`contents[${this.props.position}][content][contentId]`}
-			/>
-			<input
-				type="hidden"
-				value={title}
-				name={`contents[${this.props.position}][content][title]`}
-			/>
-			<input
-				type="hidden"
-				value={contentType}
-				name={`contents[${this.props.position}][content][contentType]`}
-			/>
-		</div>;
+		const h5pPreview =
+			<div className="card-columns">
+				<div className="card">
+					<div className="card-block">
+						<h4 className="card-title">
+							<a href="#" target="_blank">
+								{title}
+							</a>
+						</h4>
+						<p className="card-text">{contentType}</p>
+					</div>
+					<div className="card-footer">
+						<a className="btn-edit-h5p" onClick={this.openEditor.bind(this, contentId)}>
+							<i className="fa fa-edit"></i>
+						</a>
+					</div>
+					<input
+						type="hidden"
+						value={contentId}
+						name={`contents[${this.props.position}][content][contentId]`}
+					/>
+					<input
+						type="hidden"
+						value={title}
+						name={`contents[${this.props.position}][content][title]`}
+					/>
+					<input
+						type="hidden"
+						value={contentType}
+						name={`contents[${this.props.position}][content][contentType]`}
+					/>
+				</div>
+			</div>;
 
 		return (
 			<div>
 				{saved || infoBox}
 				{contentId && h5pPreview}
-				<div>
-					<button
-						disabled={!saved}
-						type="button"
-						className="btn btn-secondary btn-add"
-						data-testid="topic-h5p-create-btn"
-						onClick={this.openEditor.bind(this, contentId)}
-					>
-						{`+ ${$t('topic.topicEdit.button.h5p')}`}
-					</button>
-				</div>
+				{!contentId && 
+					<div>
+						<button
+							disabled={!saved}
+							type="button"
+							className="btn btn-secondary btn-add"
+							data-testid="topic-h5p-create-btn"
+							onClick={this.openEditor.bind(this, contentId)}
+							>
+							{`+ ${$t('topic.topicEdit.button.h5p')}`}
+						</button>
+					</div>
+				}
 			</div>
 		);
 	}
