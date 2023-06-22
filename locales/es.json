@@ -249,7 +249,6 @@
 				"manageClass": "Administrar clase",
 				"removeMembers": "Eliminar miembros de tu propia escuela del equipo",
 				"resetPassword": "Restablecer la contraseña",
-				"schoolPrivacyPolicy": "Política de Privacidad",
 				"sendEntryToDevelopmentTeam": "Enviar entrada al equipo de desarrollo",
 				"sendMessageToOwner": "Envía un mensaje al propietario",
 				"toGiveConsent": "Dar consentimiento",
@@ -1759,7 +1758,7 @@
 			"areYouSure": "¿Estás seguro?",
 			"attention": "Atención:",
 			"dataProtection": "Política de Privacidad",
-			"dataProtectionFile": "Política de Privacidad",
+			"dataProtectionFile": "Política de Privacidad de la Escuela",
 			"emailDomainBlocked": "Este proveedor de correo ya no es compatible. Ponte en contacto con el administrador de tu escuela.",
 			"errorChangingFilePermissions": "Hay un problema para cambiar los permisos",
 			"errorWhileLoadingPage": "Esta página no se ha podido cargar",
@@ -2738,8 +2737,7 @@
 					"myDataMayBeProcessed": "Acepto que mis datos personales se procesen de acuerdo con la <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Política de privacidad</a> en {{title}} y en los proveedores de material de aprendizaje seleccionados e instruidos por la escuela.",
 					"theEmailAddressEnables": "La dirección de correo electrónico permite enviar notificaciones y facilita el restablecimiento de la contraseña.",
 					"weNeedFollowingDataForRegistration": "Para el uso de {{title}}, necesitamos la siguiente información:",
-					"weStoreUserDataSafely": "{{shortTitle}} almacena los datos del usuario de forma segura y no los transmite a terceros. Los datos se procesan de acuerdo con los estrictos requisitos legales de protección de datos.",
-					"privacyPolicy": "Política de Privacidad"
+					"weStoreUserDataSafely": "{{shortTitle}} almacena los datos del usuario de forma segura y no los transmite a terceros. Los datos se procesan de acuerdo con los estrictos requisitos legales de protección de datos."
 				}
 			},
 			"headline": {

@@ -249,7 +249,6 @@
 				"manageClass": "Manage class",
 				"removeMembers": "Remove members of your own school from the team",
 				"resetPassword": "Reset Password",
-				"schoolPrivacyPolicy": "Privacy Policy",
 				"sendEntryToDevelopmentTeam": "Send entry to development team",
 				"sendMessageToOwner": "Send message to owner",
 				"toGiveConsent": "Give consent",
@@ -1759,7 +1758,7 @@
 			"areYouSure": "Are you sure?",
 			"attention": "Attention:",
 			"dataProtection": "Privacy Policy",
-			"dataProtectionFile": "Privacy Policy",
+			"dataProtectionFile": "Privacy Policy of School",
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
 			"errorWhileLoadingPage": "This page could not be loaded",
@@ -2737,8 +2736,7 @@
 					"myDataMayBeProcessed": "I agree that my personal data will be processed in accordance with the school's <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Privacy Policy</a> in the {{title}} and in the learning material providers selected and instructed by the school.",
 					"theEmailAddressEnables": "The e-mail address enables notifications to be sent and makes it easier to reset the password.",
 					"weNeedFollowingDataForRegistration": "For the use of the {{title}} we need the following information:",
-					"weStoreUserDataSafely": "The {{shortTitle}} stores the user data securely and does not pass them on to third parties. The data is processed in accordance with the high statutory data protection requirements.",
-					"privacyPolicy": "Privacy Policy"
+					"weStoreUserDataSafely": "The {{shortTitle}} stores the user data securely and does not pass them on to third parties. The data is processed in accordance with the high statutory data protection requirements."
 				}
 			},
 			"headline": {
