@@ -227,17 +227,12 @@ router.get('/', async (req, res, next) => {
 
 	// THANKS
 	sections.push('thanks');
-	const privacyData = _.get(updatedConsents, 'privacy.data');
-	const consentDataId = privacyData && privacyData.length > 0
-		? privacyData[0].consentDataId : undefined;
-	const schoolPrivacyLink = consentDataId ? `base64Files/${consentDataId}` : undefined;
 	const renderObject = {
 		title: res.$t('login.headline.firstLogin'),
 		hideMenu: true,
 		sso: !!(res.locals.currentPayload || {}).systemId,
 		now: Date.now(),
 		sections: sections.map((name) => `firstLogin/sections/${name}`),
-		schoolPrivacyLink,
 		submitPageIndex,
 		userConsent,
 		updatedConsents,
