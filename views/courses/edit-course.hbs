@@ -118,6 +118,19 @@
 					</div>
 				</div>
 
+				{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+                    <div class="form-group">
+                        <input id="activateConf" type="checkbox" name="videoconference" value="true" data-testid="videoconf_checkbox" {{#inArray "videoconference" @root.course.features}}checked{{/inArray}} {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
+                        <label for="activateConf">{{$t "teams._team.edit.label.activateVideoConferences"}}</label>
+                        {{#inArray "videoconference" @root.schoolData.features}}
+                        {{else}}
+                            <small class="form-text text-muted">
+                                {{$t "teams._team.edit.text.videoConferencesNotAllowedBySchool"}}
+                            </small>
+                        {{/inArray}}
+                    </div>
+                {{/ifConfig}}
+
 				<div class="form-group">
 					<label for="teacherId">{{$t "administration.global.label.teachingTeacher"}}</label>
 
