@@ -83,6 +83,7 @@
                 </div>
               </div>
 
+            {{#ifConfig "FEATURE_CTL_TOOLS_TAB_ENABLED" true}}
             {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -96,6 +97,7 @@
                         {{/inArray}}
                     </div>
                 </div>
+            {{/ifConfig}}
             {{/ifConfig}}
 
               <div class="row">
