@@ -147,7 +147,7 @@ jobs:
           #- build_and_push_docker
           - branch_meta
           #- deploy  # to start tests only after deploy
-      uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@main
+      uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@bc-4051-workflow
       with:
           ref: ${{ needs.branch_meta.outputs.branch }}
       secrets: inherit
