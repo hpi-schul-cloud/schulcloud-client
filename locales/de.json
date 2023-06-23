@@ -3201,7 +3201,7 @@
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
 			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen.",
 			"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Admin, um diese Option zu ermöglichen."
-		},
+		}
 	},
 	"info": {
 		"text": {
