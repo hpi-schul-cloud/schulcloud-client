@@ -183,7 +183,7 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 
 	const state = shortid.generate();
 
-	const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state);
+	const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state, migration);
 
 	req.session.oauth2State = {
 		state,
