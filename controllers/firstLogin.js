@@ -244,6 +244,7 @@ router.get('/', async (req, res, next) => {
 		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 		roleNames: res.locals.roles,
 		redirectUrl,
+		showAlerts: true,
 	};
 
 	if (haveBeenUpdated) {
