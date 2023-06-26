@@ -294,6 +294,7 @@ router.all('/', async (req, res, next) => {
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
+			showAlerts: true,
 		});
 	}
 });
