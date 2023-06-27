@@ -6,6 +6,7 @@
 	width: auto;
 }
 
+//TODO in BC-3743: media code needs to be changed and refactored in terms of implementation BC-3743
 .alert-button {
 	.dropdown-menu {
 		left: -20rem !important;
@@ -41,11 +42,6 @@
 	.minimal-button {
 		float: right;
 		.dropdown-menu {
-			&:after,
-			&:before {
-				left: -320px;
-			}
-
 			&:after {
 				left: 19.75rem;
 			}
