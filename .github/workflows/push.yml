@@ -144,6 +144,7 @@ jobs:
 
   cy-e2e-tests:
     needs:
+      - branch_meta
       - deploy
     uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@bc-4051-workflow
     with:
