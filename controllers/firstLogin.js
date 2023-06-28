@@ -29,6 +29,22 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 	},
 });
 
+const getSchoolPrivacy = async (req, res) => {
+	const qs = {
+		schoolId: res.locals.currentUser.schoolId,
+		consentTypes: ['privacy'],
+		consentDataId: { $exists: true },
+		$limit: 1,
+		$sort: {
+			publishedAt: -1,
+		},
+	};
+
+	const consentVersion = await api(req).get('/consentVersions', { qs });
+
+	return consentVersion.data.length ? `/base64Files/${consentVersion.data[0].consentDataId}` : undefined;
+};
+
 // firstLogin
 router.get('/', async (req, res, next) => {
 	const { currentUser } = res.locals;
@@ -233,6 +249,8 @@ router.get('/', async (req, res, next) => {
 		sso: !!(res.locals.currentPayload || {}).systemId,
 		now: Date.now(),
 		sections: sections.map((name) => `firstLogin/sections/${name}`),
+		schoolPrivacyLink: await getSchoolPrivacy(req, res),
+		schoolPrivacyName: res.$t('global.text.dataProtection'),
 		submitPageIndex,
 		userConsent,
 		updatedConsents,
