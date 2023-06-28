@@ -327,6 +327,7 @@ class TopicBlockList extends React.Component {
      */
 	render() {
 		const neXboardEnabled = ($contentBlocksContainer.data('nexboardenabled') === true);
+		const h5pEditorEnabled = ($contentBlocksContainer.data('h5peditorenabled') === true);
 		return (
             <div>
                 <SortableList
@@ -395,14 +396,15 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicInternal)}>
 								{`+ ${$t('global.headline.task')}`}
 						</button>
-						<button
+						{h5pEditorEnabled ? <button
 							type="button"
 							className="btn btn-secondary"
 							data-testid="topic-addcontent-h5p-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicH5P)}>
-							{`+ ${$t('topic.topicEdit.button.h5p')}`}
-						</button>
+								{`+ ${$t('topic.topicEdit.button.h5p')}`}
+							</button> : ''
+						}
                     </div>
                 </div>
             </div>
