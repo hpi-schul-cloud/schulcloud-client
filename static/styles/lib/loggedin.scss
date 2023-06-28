@@ -652,6 +652,14 @@ footer {
 	.navbar-nav .nav-item {
 		float: none;
 		display: inline-block;
+		@include media-breakpoint-down(sm) {
+			.breadcrumb,
+			.btn-fullscreen,
+			.qr-code-action,
+			.help-drodown {
+				display: none;
+			}
+		}
 	}
 
 	.nav-item button,
@@ -662,6 +670,7 @@ footer {
 			background: transparent;
 		}
 	}
+
 }
 
 .navbar-nav {
