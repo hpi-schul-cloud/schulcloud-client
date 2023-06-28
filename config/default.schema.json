@@ -532,6 +532,11 @@
 			"default": false,
 			"description": "Enables the legacy Hydra endpoints."
 		},
+		"FEATURE_SHOW_ALERTS_ON_HOMEPAGE": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables to show the alerts on the homepage"
+		},
 		"NEXTCLOUD_REDIRECT_URL": {
 			"type": "string",
 			"default": "",

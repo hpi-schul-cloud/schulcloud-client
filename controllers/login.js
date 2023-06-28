@@ -11,7 +11,6 @@ const shortid = require('shortid');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
-const { SC_THEME } = require('../config/global');
 
 const {
 	logger,
@@ -281,8 +280,6 @@ async function getOauthSystems(req) {
 		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
 }
 
-const isDBC = () => SC_THEME === 'default';
-
 router.all('/', async (req, res, next) => {
 	const isAuthenticated = await authHelper.isAuthenticated(req);
 	if (isAuthenticated) {
@@ -297,7 +294,7 @@ router.all('/', async (req, res, next) => {
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
-			showAlerts: !isDBC(),
+			showAlerts: (Configuration.get('FEATURE_SHOW_ALERTS_ON_HOMEPAGE')),
 		});
 	}
 });
