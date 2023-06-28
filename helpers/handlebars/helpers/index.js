@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+const { Blob } = require('buffer');
 const moment = require('moment');
 const { stripHtml } = require('string-strip-html');
 const { Configuration } = require('@hpi-schul-cloud/commons');
@@ -300,6 +301,21 @@ const helpers = () => ({
 	},
 	isset: (value) => !!value,
 	getThumbnailIcon: (filename) => filesStorage.getThumbnailIcon(filename),
+	loadImageFromBase64: (base64Url) => {
+		const base64 = base64Url.replace(
+			/^data:image\/[a-z]+;base64,/,
+			'',
+		);
+		const byteString = atob(base64);
+		const arrayBuffer = new ArrayBuffer(byteString.length);
+		const int8Array = new Uint8Array(arrayBuffer);
+		// eslint-disable-next-line no-plusplus
+		for (let i = 0; i < byteString.length; i++) {
+			int8Array[i] = byteString.charCodeAt(i);
+		}
+		const logo = new Blob([int8Array], { type: 'mimeString' });
+		return URL.createObjectURL(logo);
+	},
 });
 
 module.exports = helpers;
