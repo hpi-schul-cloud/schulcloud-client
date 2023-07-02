@@ -1,4 +1,4 @@
 ---
 CLIENT_PORT: 3100
-SCHULCLOUD_CLIENT_IMAGE: schulcloud/schulcloud-client
+SCHULCLOUD_CLIENT_IMAGE: quay.io/schulcloudverbund/schulcloud-client
 

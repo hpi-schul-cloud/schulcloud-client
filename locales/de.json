@@ -904,7 +904,8 @@
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
-					"substitute": "Vertretungslehrkräfte"
+					"substitute": "Vertretungslehrkräfte",
+					"activateVideoConferences": "Videokonferenzen für Kurs aktivieren"
 				},
 				"text": {
 					"attentionDeletion": "Alle Daten werden unwiderruflich gelöscht.",
@@ -2391,6 +2392,7 @@
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
 			"link": {
+				"releaseNotes": "Was ist neu?",
 				"training": "Fortbildungen"
 			}
 		},
@@ -2902,9 +2904,6 @@
 				},
 				"placeholder": {
 					"teamName": "A-Team"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Admin, um diese Option zu ermöglichen."
 				}
 			},
 			"events": {
@@ -3201,7 +3200,8 @@
 		"text": {
 			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
-			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen."
+			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen.",
+			"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Admin, um diese Option zu ermöglichen."
 		}
 	},
 	"info": {

@@ -904,7 +904,8 @@
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Permitir a los estudiantes escribir mensajes en el chat del curso.",
-					"substitute": "Profesores suplentes"
+					"substitute": "Profesores suplentes",
+					"activateVideoConferences": "Habilitar videoconferencia para el curso"
 				},
 				"text": {
 					"attentionDeletion": "Todos los datos se eliminarán de forma permanente.",
@@ -2392,6 +2393,7 @@
 				"playEnterTheCloud": "Juega a \"Enter The Cloud\" (Entra en la nube)"
 			},
 			"link": {
+				"releaseNotes": "¿Qué hay de nuevo?",
 				"training": "Formaciones avanzadas"
 			}
 		},
@@ -2903,9 +2905,6 @@
 				},
 				"placeholder": {
 					"teamName": "Equipo A"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Las videoconferencias no están permitidas en tu escuela. Ponte en contacto con el administrador de tu escuela para habilitar esta opción."
 				}
 			},
 			"events": {
@@ -3202,7 +3201,8 @@
 		"text": {
 			"thereWasAProblemWithTheVideo": "Ha habido un problema con la videoconferencia. Inténtalo de nuevo.",
 			"theVideoConferenceHasEither": "La videoconferencia aún no ha comenzado o ya ha finalizado.",
-			"youDoNotHaveTheNecessaryAuthorization": "No tienes la autorización necesaria para participar en la videoconferencia."
+			"youDoNotHaveTheNecessaryAuthorization": "No tienes la autorización necesaria para participar en la videoconferencia.",
+			"videoConferencesNotAllowedBySchool": "Las videoconferencias no están permitidas en tu escuela. Ponte en contacto con el administrador de tu escuela para habilitar esta opción."
 		}
 	},
 	"info": {
