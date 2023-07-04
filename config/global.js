@@ -3,7 +3,7 @@ const util = require('util');
 const {
 	PUBLIC_BACKEND_URL,
 	SC_DOMAIN = 'localhost',
-	SC_THEME = 'n21',
+	SC_THEME = 'default',
 	SC_TITLE = 'dBildungscloud',
 	SC_SHORT_TITLE = 'dBildungscloud',
 	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/cloud-instances/',
