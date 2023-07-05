@@ -123,6 +123,7 @@ aside.nav-sidebar {
 
 		@include media-breakpoint-down(xs) {
 			max-width: 100% !important;
+			z-index: -1 !important;
 		}
 
 		.cloud-logo {
@@ -164,7 +165,7 @@ aside.nav-sidebar {
 
 	@include media-breakpoint-down(xs) {
 		position: absolute;
-		width: 100%;
+		// width: 100%;
 		height: 100vh;
 		padding-top: 50px;
 		overflow: auto;
@@ -180,7 +181,6 @@ aside.nav-sidebar {
 		.sc-branding {
 			box-sizing: border-box;
 			padding-left: 54px;
-
 			.cloud-logo {
 				display: none;
 			}
@@ -719,7 +719,7 @@ footer {
 			margin-left: -.75rem;
 			text-align: center;
 			background: transparent;
-
+			z-index: 1 !important;
 			.fa, .mdi {
 				display: inline-block;
 				font-size: 24px;
@@ -1016,6 +1016,11 @@ footer {
 }
 
 @media (max-width: 575px) {
+	.topbar {
+		z-index: -1 !important;
+		margin-top: -60px !important;
+	}
+
   .breadcrumb,
   .btn-fullscreen,
   .qr-code-action,
@@ -1024,10 +1029,7 @@ footer {
 		z-index: 1 !important;
   }
 
-	.topbar {
-		z-index: -1;
-		margin-top: -60px !important;
-	}
+
 	.mdi-menu {
 		margin-left: -0.3em;
 	}
