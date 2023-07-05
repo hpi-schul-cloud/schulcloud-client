@@ -1,4 +1,3 @@
-{{#if showAlerts}}
 <header class="mb-1 top-margin">
     <div class="container">
         <nav class="navbar-light">
@@ -8,21 +7,10 @@
                 href="/"
                 aria-label="{{$t 'global.link.landing'}}"
             ><div class="cloud-logo"></div></a>
-            {{> "lib/components/alerts"}}
+            {{#if showAlerts}}
+                {{> "lib/components/alerts"}}
+            {{/if}}
         </nav>
     </div>
 </header>
-{{else}}
-<header class="mb-1 top-margin">
-    <div class="container">
-        <nav class="navbar-light">
-            <a
-                id="title"
-                class="pull-left"
-                href="/"
-                aria-label="{{$t 'global.link.landing'}}"
-            ><div class="cloud-logo"></div></a>
-        </nav>
-    </div>
-</header>
-{{/if}}
+

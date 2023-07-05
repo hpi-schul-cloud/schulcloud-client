@@ -294,7 +294,7 @@ router.all('/', async (req, res, next) => {
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
-			showAlerts: (Configuration.get('FEATURE_SHOW_ALERTS_ON_HOMEPAGE')),
+			showAlerts: (Configuration.get('FEATURE_ALERTS_ON_HOMEPAGE_ENABLED')),
 		});
 	}
 });
