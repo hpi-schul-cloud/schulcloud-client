@@ -905,7 +905,8 @@
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Allow Students to write messages in the course chat.",
-					"substitute": "Substitute teachers"
+					"substitute": "Substitute teachers",
+					"activateVideoConferences": "Activate video conferences for course"
 				},
 				"text": {
 					"attentionDeletion": "All data will be permanently deleted.",
@@ -2391,6 +2392,7 @@
 				"playEnterTheCloud": "Play Enter The Cloud"
 			},
 			"link": {
+				"releaseNotes": "What's new?",
 				"training": "Advanced trainings"
 			}
 		},
@@ -2902,9 +2904,6 @@
 				},
 				"placeholder": {
 					"teamName": "A-Team"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Video conferences are not allowed at your school. Contact your school administrator to enable this option."
 				}
 			},
 			"events": {
@@ -3201,7 +3200,8 @@
 		"text": {
 			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
 			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
-			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference."
+			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference.",
+			"videoConferencesNotAllowedBySchool": "Video conferences are not allowed at your school. Contact your school administrator to enable this option."
 		}
 	},
 	"info": {

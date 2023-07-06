@@ -342,7 +342,8 @@
 				},
 				"label": {
 					"substitute": "Замісні викладачі",
-					"activateBidirectionalMessenger": "Дозволити учням писати повідомлення в чаті курсу."
+					"activateBidirectionalMessenger": "Дозволити учням писати повідомлення в чаті курсу.",
+					"activateVideoConferences": "Увімкніть відеоконференцію для курсу"
 				}
 			},
 			"groups": {
@@ -1865,9 +1866,6 @@
 				},
 				"placeholder": {
 					"teamName": "Команда «А»"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "У вашій школі заборонено проводити відеоконференції. Зверніться до адміністратора школи, щоб увімкнути цей варіант."
 				}
 			},
 			"button": {
@@ -2570,6 +2568,7 @@
 				"userName": "Ім'я користувача:"
 			},
 			"link": {
+				"releaseNotes": "Що нового?",
 				"training": "Підвищення кваліфікації"
 			},
 			"img_alt": {
@@ -2991,7 +2990,8 @@
 		"text": {
 			"theVideoConferenceHasEither": "Відеоконференція або ще не розпочалася, або вже закінчилася.",
 			"thereWasAProblemWithTheVideo": "Виникла проблема з відеоконференцією. Спробуйте ще раз.",
-			"youDoNotHaveTheNecessaryAuthorization": "Ви не маєте необхідного дозволу на участь у відеоконференції."
+			"youDoNotHaveTheNecessaryAuthorization": "Ви не маєте необхідного дозволу на участь у відеоконференції.",
+			"videoConferencesNotAllowedBySchool": "У вашій школі заборонено проводити відеоконференції. Зверніться до адміністратора школи, щоб увімкнути цей варіант."
 		}
 	},
 	"security": {

@@ -81,33 +81,50 @@ const displayScope = (scope, w) => {
 	}
 };
 
-router.get('/consent', csrfProtection, auth.authChecker, (r, w, next) => {
+router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 	// This endpoint is hit when hydra initiates the consent flow
-	if (r.query.error) {
+	if (req.query.error) {
 		// An error occurred (at hydra)
-		return w.send(`${r.query.error}<br />${r.query.error_description}`);
+		return res.send(`${req.query.error}<br />${req.query.error_description}`);
 	}
-	return api(r, { version: VERSION }).get(`/oauth2/consentRequest/${r.query.consent_challenge}`)
-		.then((consentRequest) => api(r)
-			.get(`/ltiTools/?oAuthClientId=${consentRequest.client.client_id}&isLocal=true`).then((tool) => {
-				if (consentRequest.skip || tool.data[0].skipConsent) {
-					return acceptConsent(r, w, r.query.consent_challenge, consentRequest.requested_scope);
+	return api(req, { version: VERSION }).get(`/oauth2/consentRequest/${req.query.consent_challenge}`)
+		.then(async (consentRequest) => {
+			let skipConsent = consentRequest.context?.skipConsent;
+
+			// Cannot skip consent for CTL-Tools with legacy hydra endpoints.
+			// Legacy endpoints are not supported by CTL-Tools.
+			if (VERSION === 'v1') {
+				const tools = await api(req)
+					.get(`/ltiTools/?oAuthClientId=${consentRequest.client.client_id}&isLocal=true`);
+
+				if (tools.data && Array.isArray(tools.data) && tools.data.length === 1) {
+					({ skipConsent } = tools.data[0]);
+				} else {
+					throw new Error(
+						`Unable to find a singular LtiTool with client_id ${consentRequest.client.client_id} for consent request`,
+					);
 				}
-				return w.render('oauth2/consent', {
-					inline: true,
-					title: w.$t('login.oauth2.headline.loginWithSchoolCloud', {
-						title: w.locals.theme.title,
-					}),
-					subtitle: '',
-					client: consentRequest.client.client_name,
-					action: `/oauth2/consent?challenge=${r.query.consent_challenge}`,
-					buttonLabel: w.$t('global.button.accept'),
-					scopes: consentRequest.requested_scope.map((scope) => ({
-						display: displayScope(scope, w),
-						value: scope,
-					})),
-				});
-			})).catch(next);
+			}
+
+			if (consentRequest.skip || skipConsent) {
+				return acceptConsent(req, res, req.query.consent_challenge, consentRequest.requested_scope);
+			}
+
+			return res.render('oauth2/consent', {
+				inline: true,
+				title: res.$t('login.oauth2.headline.loginWithSchoolCloud', {
+					title: res.locals.theme.title,
+				}),
+				subtitle: '',
+				client: consentRequest.client.client_name,
+				action: `/oauth2/consent?challenge=${req.query.consent_challenge}`,
+				buttonLabel: res.$t('global.button.accept'),
+				scopes: consentRequest.requested_scope.map((scope) => ({
+					display: displayScope(scope, res),
+					value: scope,
+				})),
+			});
+		}).catch(next);
 });
 
 router.post('/consent', auth.authChecker, (r, w) => acceptConsent(r, w, r.query.challenge, r.body.grantScopes, true));
