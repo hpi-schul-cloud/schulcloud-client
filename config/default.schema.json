@@ -176,6 +176,11 @@
 			"default": false,
 			"description": "If enabled, user will see messages/incidents from e.g status.dbildungscloud"
 		},
+		"FEATURE_ALERTS_ON_HOMEPAGE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables to show the alerts on the homepage"
+		},
 		"ALERT_STATUS_URL": {
 			"type": "string",
 			"default": null,
@@ -532,11 +537,7 @@
 			"default": false,
 			"description": "Enables the legacy Hydra endpoints."
 		},
-		"FEATURE_SHOW_ALERTS_ON_HOMEPAGE": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables to show the alerts on the homepage"
-		},
+
 		"NEXTCLOUD_REDIRECT_URL": {
 			"type": "string",
 			"default": "",
