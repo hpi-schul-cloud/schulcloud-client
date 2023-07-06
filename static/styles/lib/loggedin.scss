@@ -159,7 +159,6 @@ aside.nav-sidebar {
 			@include media-breakpoint-down(xs) {
 				display: inline-block;
 			}
-			
 		}
 	}
 
@@ -1021,13 +1020,18 @@ footer {
 		margin-top: -60px !important;
 	}
 
+	.sc-branding {
+		width: fit-content;
+	}
+
   .breadcrumb,
   .btn-fullscreen,
   .qr-code-action,
   .help-drodown {
     display: none !important;
-		z-index: 1 !important;
   }
+
+	
 
 
 	.mdi-menu {
@@ -1040,5 +1044,9 @@ footer {
 	}
 	.avatar-circle {
 		margin-left: -1em;
+	}
+	.mdi-alert,
+	.avatar-circle {
+		z-index: 1 !important;
 	}
 }
