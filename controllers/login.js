@@ -294,6 +294,7 @@ router.all('/', async (req, res, next) => {
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
+			showAlerts: (Configuration.get('FEATURE_ALERTS_ON_HOMEPAGE_ENABLED')),
 		});
 	}
 });
@@ -347,6 +348,7 @@ const renderLogin = async (req, res) => {
 		hideMenu: true,
 		redirect,
 		idOfSchool,
+		showAlerts: true,
 		strategyOfSchool,
 	});
 };
