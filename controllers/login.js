@@ -358,8 +358,6 @@ router.get('/loginRedirect', (req, res, next) => {
 		.then((isAuthenticated) => {
 			if (isAuthenticated) {
 				redirectAuthenticated(req, res);
-			} else if (Configuration.get('FEATURE_MULTI_LOGIN_INSTANCES')) {
-				res.redirect('/login-instances');
 			} else {
 				res.redirect('/login');
 			}
