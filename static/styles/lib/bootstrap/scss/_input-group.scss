@@ -55,7 +55,8 @@
 		width: 1%;
 	}
 	white-space: nowrap;
-	vertical-align: middle; // Match the inputs
+	display: flex;
+  align-items: center;
 }
 
 // Sizing options
