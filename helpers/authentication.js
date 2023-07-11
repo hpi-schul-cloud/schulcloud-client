@@ -429,7 +429,6 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 	let accessToken;
 	try {
 		const loginResponse = await requestLogin(req, strategy, payload);
-		console.log(loginResponse);
 
 		accessToken = loginResponse.accessToken;
 	} catch (errorResponse) {

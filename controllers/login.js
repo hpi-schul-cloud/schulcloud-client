@@ -326,7 +326,7 @@ const renderLogin = async (req, res) => {
 	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
 
 	let oauthErrorLogout = false;
-	console.log('asds', req.query.error);
+
 	if (req.query.error) {
 		res.locals.notification = {
 			type: 'danger',
