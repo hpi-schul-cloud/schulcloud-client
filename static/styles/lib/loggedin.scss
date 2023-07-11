@@ -814,3 +814,57 @@ footer {
 .school-logo {
 	max-height: 60px;
 }
+
+.content-wrapper .cloud-logo {
+	display: inline-block;
+	vertical-align: top;
+	width: 50px;
+	height: 30px;
+	margin: -5px 0.25rem 0 0;
+	background: $logoBackground;
+	background-size: contain;
+
+	@include media-breakpoint-down(md) {
+		width: 100%;
+		margin-right: 0;
+	}
+
+	@include media-breakpoint-down(xs) {
+		width: 45px;
+		margin-right: 0;
+	}
+}
+
+
+@media (min-width: 575px) {
+  .content-wrapper .cloud-logo {
+		display: none !important;
+	}
+}
+
+@media (max-width: 575px) {
+	.sc-branding {
+		width: fit-content;
+	}
+
+  .breadcrumb,
+  .btn-fullscreen,
+  .qr-code-action,
+  .help-drodown {
+    display: none !important;
+  }
+
+	.content-wrapper .cloud-logo {
+		width: 9.375em;  /* (150px / 16px) */
+		height: 50px;
+		margin: -12px 0 0 2.5em;
+		position: absolute;
+		z-index: 1 !important;
+	}
+	.mdi-menu {
+		margin-left: -0.3em;
+	}
+	.avatar-circle {
+		margin-left: -1em;
+	}
+}
