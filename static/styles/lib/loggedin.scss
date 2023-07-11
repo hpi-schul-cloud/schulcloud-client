@@ -1019,6 +1019,9 @@ footer {
 		z-index: -1 !important;
 		margin-top: -60px !important;
 	}
+	.navbar-nav .dropdown-menu {
+		z-index: 1 !important;
+	}
 
 	.sc-branding {
 		width: fit-content;
@@ -1031,9 +1034,6 @@ footer {
     display: none !important;
   }
 
-	
-
-
 	.mdi-menu {
 		margin-left: -0.3em;
 	}
@@ -1045,8 +1045,5 @@ footer {
 	.avatar-circle {
 		margin-left: -1em;
 	}
-	.mdi-alert,
-	.avatar-circle {
-		z-index: 1 !important;
-	}
+
 }
