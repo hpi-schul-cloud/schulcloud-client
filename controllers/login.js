@@ -312,6 +312,8 @@ const mapErrorCodeToTranslation = (errorCode) => {
 			return 'login.text.oauthCodeStep';
 		case 'sso_internal_error':
 			return 'login.text.internalError';
+		case 'sso_user_notfound_in_unprovisioned_school':
+			return 'login.text.userNotFoundInUnprovisionedSchool';
 		default:
 			return 'login.text.loginFailed';
 	}
@@ -324,10 +326,14 @@ const renderLogin = async (req, res) => {
 	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
 
 	let oauthErrorLogout = false;
+	console.log('asds', req.query.error);
 	if (req.query.error) {
 		res.locals.notification = {
 			type: 'danger',
-			message: res.$t(mapErrorCodeToTranslation(req.query.error)),
+			message: res.$t(mapErrorCodeToTranslation(req.query.error), {
+				systemName: 'moin.schule',
+				shortTitle: res.locals.theme.short_title,
+			}),
 		};
 		if (req.query.provider === 'iserv' && req.query.error !== 'sso_oauth_access_denied') {
 			oauthErrorLogout = true;

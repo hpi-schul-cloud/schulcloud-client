@@ -271,6 +271,8 @@ const mapErrorToTranslationKey = (error) => {
 			return 'login.text.userNotFound';
 		case 'SCHOOL_IN_MIGRATION':
 			return 'login.text.schoolInMigration';
+		case 'USER_NOT_FOUND_IN_UNPROVISIONED_SCHOOL':
+			return 'login.text.userNotFoundInUnprovisionedSchool';
 		default:
 			return 'login.text.loginFailed';
 	}
@@ -298,7 +300,7 @@ const loginErrorHandler = (res, next) => (e) => {
 };
 
 const setErrorNotification = (res, req, error, systemName) => {
-	let message = res.$t(mapErrorToTranslationKey(error), { systemName });
+	let message = res.$t(mapErrorToTranslationKey(error), { systemName, shortTitle: res.locals.theme.short_title });
 
 	// Email Domain Blocked
 	if (error.code === 400 && error.message === 'EMAIL_DOMAIN_BLOCKED') {
@@ -427,6 +429,7 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 	let accessToken;
 	try {
 		const loginResponse = await requestLogin(req, strategy, payload);
+		console.log(loginResponse);
 
 		accessToken = loginResponse.accessToken;
 	} catch (errorResponse) {
