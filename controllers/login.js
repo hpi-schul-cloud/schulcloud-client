@@ -312,7 +312,7 @@ const mapErrorCodeToTranslation = (errorCode) => {
 			return 'login.text.oauthCodeStep';
 		case 'sso_internal_error':
 			return 'login.text.internalError';
-		case 'sso_user_notfound_in_unprovisioned_school':
+		case 'sso_user_not_found_after_provisioning':
 			return 'login.text.userNotFoundInUnprovisionedSchool';
 		default:
 			return 'login.text.loginFailed';
