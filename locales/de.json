@@ -2573,7 +2573,8 @@
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden.",
 			"userNotFound": "Nutzer wurde nicht gefunden.",
 			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator.",
-			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an."
+			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an.",
+			"userNotFoundInUnprovisionedSchool": "Login fehlgeschlagen. Entweder ist die Schule noch nicht zu {{systemName}} umgezogen oder die Erstellung neuer Nutzer in der {{shortTitle}} ist für die Schule nicht aktiv. Bitte wenden Sie sich an Ihren Schuladministrator."
 		}
 	},
 	"messenger": {
