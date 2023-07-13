@@ -835,14 +835,16 @@ footer {
 	}
 }
 
-
 @media (min-width: 575px) {
   .content-wrapper .cloud-logo {
 		display: none !important;
 	}
 }
 
+
+
 @media (max-width: 575px) {
+
 	.sc-branding {
 		width: fit-content;
 	}
@@ -857,7 +859,7 @@ footer {
 	.content-wrapper .cloud-logo {
 		width: 9.375em;  /* (150px / 16px) */
 		height: 50px;
-		margin: -12px 0 0 2.5em;
+		margin-left: 5rem;
 		position: absolute;
 		z-index: 1 !important;
 	}
@@ -867,4 +869,5 @@ footer {
 	.avatar-circle {
 		margin-left: -1em;
 	}
+
 }

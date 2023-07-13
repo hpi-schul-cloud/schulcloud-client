@@ -49,7 +49,9 @@ body {
             @media (max-width: 991px) {
                 .cloud-logo {
                     width: 100% !important;
-                    margin-left: 0 !important;
+                    // margin-left: 0 !important;
+                    position: absolute;
+                    left: 0;
                 }
             }
         }
