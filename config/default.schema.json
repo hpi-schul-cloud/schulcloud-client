@@ -211,10 +211,15 @@
 				"IS_CONFIGURABLE": {
 					"type": "boolean",
 					"description": "Allows school admin to toggle teachers' STUDENT_LIST permission."
+				},
+				"IS_ENABLED_BY_DEFAULT": {
+					"type": "boolean",
+					"description": "Grants teachers STUDENT_LIST permission by default."
 				}
 			},
 			"default": {
-				"IS_CONFIGURABLE": false
+				"IS_CONFIGURABLE": false,
+				"IS_ENABLED_BY_DEFAULT": true
 			}
 		},
 		"FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED": {
