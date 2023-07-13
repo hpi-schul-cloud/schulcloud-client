@@ -2972,7 +2972,7 @@ router.use(
 		}
 
 		if (!school.permissions.teacher) {
-			school.permissions.teacher = {};
+			school.permissions.teacher = null;
 		}
 
 		if (!school.permissions.student) {
