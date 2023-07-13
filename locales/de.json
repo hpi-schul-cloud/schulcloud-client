@@ -569,6 +569,7 @@
 				"activeMatrixFunction": "Matrix Messenger aktivieren",
 				"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
 				"allStudentsVisibility": "Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schüler:innen der Schule für jede Lehrkraft zu aktivieren, ist es erforderlich, dass jede/r Schüler:in wirksam in diese Datenverarbeitung eingewilligt hat.",
+				"allStudentsVisibilityDisabled": "Dies ist eine instanzweite Einstellung zur Steuerung der Sichtbarkeit von Schülern für Lehrer, und die Einstellung kann aufgrund der instanzweiten Einstellung der Konfigurierbarkeit nicht bearbeitet werden.",
 				"authentication": "Authentifizierung",
 				"newPage": "Zur neuen Admin-Seite",
 				"changeOfClasses": "Änderung von Klassen/neue Klassen",

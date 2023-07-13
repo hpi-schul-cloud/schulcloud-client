@@ -569,6 +569,7 @@
 				"activeMatrixFunction": "Activar Matrix Messenger",
 				"afterTheTransferPhaseEnded": "Una vez finalizada la fase de transferencia",
 				"allStudentsVisibility": "La activación de esta opción tiene un nivel alto según la ley de protección de datos. Para activar la visibilidad de todos los alumnos de la escuela para cada profesor, es necesario que cada alumno haya dado su consentimiento de manera efectiva para este tratamiento de datos.",
+				"allStudentsVisibilityDisabled": "Este es un ajuste de toda la instancia para controlar la visibilidad de los estudiantes para los profesores y el ajuste podría no ser editable debido al ajuste de configurabilidad de toda la instancia.",
 				"authentication": "Autenticación",
 				"newPage": "A la nueva página de administración",
 				"changeOfClasses": "Cambio de clases / nuevas clases",

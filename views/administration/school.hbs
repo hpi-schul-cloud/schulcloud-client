@@ -270,7 +270,11 @@
                                     {{/ifConfig}}
                                 >
                         {{$t "administration.school.label.studentVisibility" }} <i class="fa fa-eye"></i>
-                                <p class="text-muted">{{$t "administration.school.label.allStudentsVisibility" }}</p>
+                                {{#ifConfig "TEACHER_STUDENT_VISIBILITY__IS_CONFIGURABLE" true}}
+                                    <p class="text-muted">{{$t "administration.school.label.allStudentsVisibility" }}</p>
+                                    {{else}}
+                                        <p class="text-muted">{{$t "administration.school.label.allStudentsVisibilityDisabled" }}</p>
+                                {{/ifConfig}}
                             </label>
                         </div>
 
