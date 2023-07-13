@@ -736,6 +736,12 @@
 				"firstClose": "Der/die Nutzer:in muss zuerst die Einverständniserklärung digital abschließen",
 				"firstFinishRegistration": "Der/die Nutzer:in muss zuerst die Registrierung abschließen.",
 				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
+			},
+			"inputAria": {
+				"firstName": "Vorname des Nutzers/der Nutzerin",
+				"lastName": "Nachname des Nutzers/der Nutzerin",
+				"email": "E-Mail-Adresse des Nutzers/der Nutzerin",
+				"chooseClass": "Klasse des Nutzers/der Nutzerin auswählen"
 			}
 		},
 		"users_registrationComplete": {

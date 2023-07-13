@@ -17,25 +17,25 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>{{$t "global.label.firstNameColon" }} <sup>*</sup></label>
-                        <input class="form-control" name="firstName" type="text" required
+                        <label for="firstName">{{$t "global.label.firstNameColon" }} <sup>*</sup></label>
+                        <input class="form-control" name="firstName" id="firstName" type="text" aria-label="{{$t "administration.users_edit.inputAria.firstName"}}" required
                             {{#if schoolUsesLdap}}readonly{{/if}} value="{{user.firstName}}" />
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>{{$t "global.label.lastNameColon" }} <sup>*</sup></label>
-                        <input class="form-control" name="lastName" type="text" required
+                        <label for="lastName">{{$t "global.label.lastNameColon" }} <sup>*</sup></label>
+                        <input class="form-control" name="lastName" id="lastName" type="text" aria-label="{{$t "administration.users_edit.inputAria.lastName"}}" required
                             {{#if schoolUsesLdap}}readonly{{/if}} value="{{user.lastName}}" />
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>{{$t "global.label.emailAddress" }} <sup>*</sup></label>
-                <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org"
-                    value="{{user.email}}" required {{#if schoolUsesLdap}}readonly{{/if}}>
+                <label for="email">{{$t "global.label.emailAddress" }} <sup>*</sup></label>
+                <input class="form-control linked" type="email" name="email" id="email" placeholder="user@schul-cloud.org"
+                    value="{{user.email}}" aria-label="{{$t "administration.users_edit.inputAria.email"}}" required {{#if schoolUsesLdap}}readonly{{/if}}>
             </div>
             {{#unless editTeacher}}
             <div class="form-group">
@@ -50,9 +50,9 @@
             </div>
             {{else}}
             <div class="form-group mb-2">
-                <Label>{{$t "administration.global.label.classes" }}</Label>
-                <select class="form-control form-control-lg" type="text" name="classes" multiple="true"
-                    placeholder="{{$t "administration.users_edit.text.class" }}">
+                <label for="classes">{{$t "administration.global.label.classes" }}</label>
+                <select class="form-control form-control-lg" type="text" name="classes" id="classes" multiple="true"
+                    placeholder="{{$t "administration.users_edit.text.class" }}" aria-label="{{$t "administration.users_edit.inputAria.chooseClass"}}">
                     {{#each classes}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.displayName}}
                         ({{this.year.name}})</option>
