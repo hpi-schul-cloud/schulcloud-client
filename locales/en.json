@@ -737,11 +737,11 @@
 				"firstFinishRegistration": "The user must first complete the registration process.",
 				"successfullySentMail": "The invitation e-mail was sent successfully!"
 			},
-			"inputAria": {
+			"aria_label": {
 				"firstName": "First name of the user",
 				"lastName": "Last name of the user",
 				"email": "E-mail address of the user",
-				"chooseClass": "Select class of the user"
+				"birthdate": "Birthdate of the user"
 			}
 		},
 		"users_registrationComplete": {

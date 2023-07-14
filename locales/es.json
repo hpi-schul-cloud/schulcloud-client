@@ -737,11 +737,11 @@
 				"firstFinishRegistration": "El usuario debe completar primero el proceso de registro.",
 				"successfullySentMail": "¡El correo electrónico con la invitación se ha enviado correctamente!"
 			},
-			"inputAria": {
+			"aria_label": {
 				"firstName": "Nombre del usuario",
 				"lastName": "Apellido del usuario",
 				"email": "Correo electrónico del usuario",
-				"chooseClass": "Seleccionar clase del usuario"
+				"birthdate": "Fecha de nacimiento del usuario"
 			}
 		},
 		"users_registrationComplete": {
