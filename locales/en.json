@@ -569,7 +569,7 @@
 				"activeMatrixFunction": "Activate Matrix Messenger",
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
-				"allStudentsVisibilityDisabled": "This is an instance-wide setting for controlling visibility of students for teachers and setting might not be editable due to instance-wide setting of configurability.",
+				"allStudentsVisibilityDisabled": "This is an instance-wide setting for controlling visibility of students for teachers and it is not editable due to instance-wide setting of configurability.",
 				"authentication": "Authentication",
 				"newPage": "To the new admin page",
 				"changeOfClasses": "Change of classes / new classes",
