@@ -60,6 +60,7 @@ body {
 
             @media (max-width: 991px) {
                .cloud-logo {
+                    background: $logoBackgroundTablet;
                     margin-left: 0.5em!important;
                     position: absolute;
                     left: 0;
