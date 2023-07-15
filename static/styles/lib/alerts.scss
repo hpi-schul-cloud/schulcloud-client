@@ -161,11 +161,11 @@
 			}
 
 			@include media-breakpoint-down(sm) {
-				left: -216px;
+				left: -290px;
 
 				&::after,
 				&::before {
-					left: 210px;
+					left: 285px;
 				}
 			}
 		}
