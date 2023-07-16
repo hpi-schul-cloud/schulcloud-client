@@ -108,11 +108,11 @@
                     {{#hasConfig "GLOBAL_ANNOUNCEMENT_ROLES"}}
                         {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_TEXT") ""}}
                             {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ""}}
-                                {{#if (userHasRoleFromArray (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ../currentUser)}}
+                                {{#if (userHasRol   eFromArray (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ../currentUser)}}
                                     <section class="demo">
-                                        <div class="alert alert-info" role="alert">
-                                            <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_TEXT"}}}</div>
-                                        </div>
+                                            <div class="alert alert-info" role="alert" style="background-color: #D9EDF7">
+                                                <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_TEXT"}}}</div>
+                                            </div>
                                     </section>
                                 {{/if}}
                             {{/ifneq}}
