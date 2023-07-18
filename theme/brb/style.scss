@@ -15,6 +15,7 @@ $colorGrey: rgba(232, 232, 232, 0.5);
 $logoBackground: url("/images/logo/cloud-transparent-mono.svg") center / contain no-repeat;
 $logoBackgroundTablet: url("/images/logo/cloud-transparent-mono-48-48.svg") center / contain no-repeat;
 $logoBackgroundLanding: url("/images/logo/cloud-transparent-mono-long.svg") center / contain no-repeat;
+$logoBackgroundMobile: url("/images/logo/brb-logo-mono-mobile.svg") center / contain no-repeat;
 
 aside.nav-sidebar{
     .sc-branding{
@@ -64,9 +65,15 @@ body {
                     margin-left: 0.5em!important;
                     position: absolute;
                     left: 0;
-                    width: 12rem !important;
+                    width: 13rem !important;
                 }
             }
+            @media (max-width: 557px) {
+                .cloud-logo {
+                    background: $logoBackgroundMobile !important;
+                     width: 7rem !important;
+                 }
+             }
         }
     }
 }
