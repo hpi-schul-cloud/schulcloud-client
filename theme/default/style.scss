@@ -28,6 +28,11 @@ aside.nav-sidebar{
             padding: 0;
             .cloud-logo{
                 background: $logoBackgroundTablet;
+                width: 9.375em;
+                height: 2rem;
+            }
+            .container__mobile {
+                height: 56px;
             }
         }
     }

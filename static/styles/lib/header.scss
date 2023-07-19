@@ -39,8 +39,15 @@
 }
 
 .navbar-nav {
+
+	@include media-breakpoint-down(sm) {
+		height: 56px;
+  }
 	.minimal-button {
 		float: right;
+		@include media-breakpoint-down(sm) {
+			margin-top: 5px;
+		}
 		.dropdown-menu {
 			&:after {
 				left: 19.75rem;

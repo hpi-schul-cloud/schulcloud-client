@@ -70,9 +70,9 @@ body {
             }
             @media (max-width: 557px) {
                 .cloud-logo {
-                    margin-left: 0.2em!important;
                     background: $logoBackgroundMobile !important;
-                     width: 7rem !important;
+                    width: 9rem !important;
+                    margin-top: -0.5rem;
                  }
              }
         }

@@ -48,12 +48,13 @@ body {
 
             @media (max-width: 991px) {
                 .cloud-logo {
-                    background: $logoBackgroundTablet;
-                    margin-left: 0.5em!important;
+                    margin-left: 0.2em!important;
+                    background: $logoBackgroundMobile !important;
+                    width: 9.375em;
+                    height: 2rem;
                     position: absolute;
                     left: 0;
-                    width: 12rem !important;
-                }
+                 }
             }
         }
     }
