@@ -2,6 +2,15 @@
 @import "./colors";
 @import "./bootstrap/scss/bootstrap-flex";
 
+
+.minimal-button {
+	margin-top: 5px;
+}
+
+@include media-breakpoint-down(sm) {
+	margin-top: 5px;
+}
+
 .input-group-addon {
 	width: auto;
 }
@@ -39,6 +48,10 @@
 }
 
 .navbar-nav {
+
+	@include media-breakpoint-down(md) {
+		height: 56px;
+  }
 
 	@include media-breakpoint-down(sm) {
 		height: 56px;
