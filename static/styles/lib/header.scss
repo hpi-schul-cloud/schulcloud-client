@@ -2,13 +2,6 @@
 @import "./colors";
 @import "./bootstrap/scss/bootstrap-flex";
 
-
-.minimal-button {
-	margin-top: 5px;
-}
-
-
-
 .input-group-addon {
 	width: auto;
 }
@@ -56,9 +49,7 @@
   }
 	.minimal-button {
 		float: right;
-		@include media-breakpoint-down(sm) {
-			margin-top: 5px;
-		}
+		margin-top: 3px;
 		.dropdown-menu {
 			&:after {
 				left: 19.75rem;
