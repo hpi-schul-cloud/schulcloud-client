@@ -54,7 +54,11 @@ router.get('/', async (req, res, next) => {
 			if (!fileId) {
 				res.redirect(privacyUrl());
 			}
-			const fileTitle = res.$t('global.text.dataProtectionFile');
+
+			const fileTitle = res.locals.theme.name === 'thr'
+				? res.$t('global.text.dataProtectionFileThr')
+				: res.$t('global.text.dataProtectionFile');
+
 			await getBase64File(req, res, fileId, fileTitle);
 		} else {
 			res.redirect(privacyUrl());
