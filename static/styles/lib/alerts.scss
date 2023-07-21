@@ -1,6 +1,8 @@
 @import "./colors";
 @import "./bootstrap/scss/bootstrap-flex";
 
+$dropdownMobileleft: 17.8em;
+
 .alert-button {
 	visibility: hidden;
 
@@ -165,7 +167,7 @@
 				left: -290px;
 				&::after,
 				&::before {
-					left: 285px;
+					left: $dropdownMobileleft;
 				}
 			}
 		}
