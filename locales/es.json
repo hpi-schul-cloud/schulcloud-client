@@ -1759,7 +1759,9 @@
 			"areYouSure": "¿Estás seguro?",
 			"attention": "Atención:",
 			"dataProtection": "Política de Privacidad",
+			"dataProtectionThr": "Política de Privacidad",
 			"dataProtectionFile": "Política de Privacidad de la Escuela",
+			"dataProtectionFileThr": "Política de Privacidad de la Escuela",
 			"emailDomainBlocked": "Este proveedor de correo ya no es compatible. Ponte en contacto con el administrador de tu escuela.",
 			"errorChangingFilePermissions": "Hay un problema para cambiar los permisos",
 			"errorWhileLoadingPage": "Esta página no se ha podido cargar",
@@ -2574,7 +2576,8 @@
 			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe.",
 			"userNotFound": "Usuario no encontrado.",
 			"internalError": "Error de servidor interno. Póngase en contacto con el administrador.",
-			"schoolInMigration": "Su escuela está en proceso de cambiar el sistema de registro a {{systemName}}. Antes de que pueda iniciar sesión a través de {{systemName}}, debe mover su cuenta. Para hacer esto, inicie sesión con su antiguo sistema."
+			"schoolInMigration": "Su escuela está en proceso de cambiar el sistema de registro a {{systemName}}. Antes de que pueda iniciar sesión a través de {{systemName}}, debe mover su cuenta. Para hacer esto, inicie sesión con su antiguo sistema.",
+			"userNotFoundInUnprovisionedSchool": "Error de inicio de sesion. La escuela aún no se ha mudado a {{systemName}} o la creación de nuevos usuarios en {{shortTitle}} no está activa para la escuela. Comuníquese con el administrador de su escuela."
 		}
 	},
 	"messenger": {
