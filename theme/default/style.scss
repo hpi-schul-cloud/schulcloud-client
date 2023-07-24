@@ -27,8 +27,7 @@ aside.nav-sidebar{
         .sc-branding{
             padding: 0;
             .cloud-logo{
-                background: $logoBackgroundTablet;
-                width: 9.375em;
+                background: $logoBackgroundTablet !important;
                 height: 2rem;
             }
         }

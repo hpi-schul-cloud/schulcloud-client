@@ -12,6 +12,7 @@ $colorGrey: rgba(232, 232, 232, 0.5);
 $logoBackground: url("/images/logo/cloud-transparent-mono.svg") no-repeat center;
 $logoBackgroundTablet: url("/images/logo/cloud-transparent-mono-48-48.svg") center / contain no-repeat;
 $logoBackgroundLanding: url("/images/logo/cloud-transparent-mono-long.svg") center / contain no-repeat;
+$logoBackgroundMobile: url("/images/logo/n21-logo-mobile.svg") center / contain no-repeat;
 
 aside.nav-sidebar{
     .sc-branding{
@@ -58,6 +59,7 @@ body {
             @media (max-width: 991px) {
                 .cloud-logo {
                     @include cloud-logo;
+                    background: $logoBackgroundMobile !important;;
                     margin-left: 3.2px !important;
                  }
             }
