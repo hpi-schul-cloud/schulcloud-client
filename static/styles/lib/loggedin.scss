@@ -820,7 +820,7 @@ footer {
 	vertical-align: top;
 	width: 50px;
 	height: 30px;
-	margin: -5px 0.25rem 0 0;
+	margin: -5px 4px 0 0;
 	background: $logoBackground;
 	background-size: contain;
 
@@ -854,10 +854,10 @@ footer {
   }
 
 	.content-wrapper .cloud-logo {
-		width: 9.375em;  /* (150px / 16px) */
+		width: 15px;
 		height: 50px;
-		margin-left: 2.8em;
-    margin-top: -0.8em;
+		margin-left: 44.8px;
+    margin-top: -12.8px;
 		position: absolute;
 		z-index: 1 !important;
 	}
