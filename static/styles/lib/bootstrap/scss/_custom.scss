@@ -238,6 +238,9 @@ $btn-toolbar-margin: .5rem !default;
 $alert-info-color: #0A7AC9 !default;
 $alert-info-bg:      $alert-info-color !default;
 $alert-info-border:  $alert-info-color !default;
+// Announcement colors
+$alert-announcement-color: #D9EDF7 !default;
+$alert-announcement-bg: $alert-announcement-color !default;
 // Alerts
 //
 // Define alert colors, border radius, and padding.
@@ -484,6 +487,7 @@ $state-warning-v2-border: darken($state-warning-v2-bg, 5%) !default;
 $state-danger-text: #a94442 !default;
 $state-danger-bg: #f2dede !default;
 $state-danger-border: darken($state-danger-bg, 5%) !default;
+$state-announcement-bg: #d9edf7 !default;
 // Cards
 $card-spacer-x: 1.25rem !default;
 $card-spacer-y: .75rem !default;
@@ -585,6 +589,7 @@ $alert-warning-v2-text: $state-warning-v2-text !default;
 $alert-danger-bg: $state-danger-bg !default;
 $alert-danger-text: $state-danger-text !default;
 $alert-danger-border: $state-danger-border !default;
+$alert-announcement-bg: $state-announcement-bg !default;
 // Progress bars
 $progress-bg: #eee !default;
 $progress-bar-color: #0074d9 !default;
