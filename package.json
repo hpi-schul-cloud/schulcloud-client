@@ -34,7 +34,7 @@
 		"@ckeditor/ckeditor5-block-quote": "^20.0.0",
 		"@ckeditor/ckeditor5-ckfinder": "^20.0.0",
 		"@ckeditor/ckeditor5-core": "^20.0.0",
-		"@ckeditor/ckeditor5-dev-utils": "^20.0.0",
+		"@ckeditor/ckeditor5-dev-utils": "^38.1.2",
 		"@ckeditor/ckeditor5-dev-webpack-plugin": "^20.0.0",
 		"@ckeditor/ckeditor5-easy-image": "^20.0.0",
 		"@ckeditor/ckeditor5-editor-classic": "^20.0.0",
