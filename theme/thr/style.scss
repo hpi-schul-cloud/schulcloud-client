@@ -1,4 +1,3 @@
-@import "../../static/styles/lib/bootstrap/scss/mixins";
 
 $primaryColor: #2876D0;
 $secondaryColor: #185888;
@@ -50,7 +49,6 @@ body {
 
             @media (max-width: 991px) {
                 .cloud-logo {
-                    @include cloud-logo;
                     margin-left: 3.2px !important;
                  }
             }
