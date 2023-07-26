@@ -15,7 +15,7 @@
 	@media (max-width: 450px) {
 		.dropdown-menu {
 			width: 70vw;
-			left: -70px !important;
+			margin-left: 80px;
 		}
 
 		.dropdown-menu::before,
@@ -63,8 +63,9 @@
 			padding: 0 !important;
 			border-radius: 50%;
 			border: none;
-			margin-left: -0.75rem;
+			margin-left: -12px;
 			background: transparent;
+			margin-top: -8px;
 
 			.avatar-circle {
 				background-color: $secondaryColor;
@@ -94,13 +95,14 @@
 			border-radius: 50%;
 			border: none;
 			margin-left: -0.75rem;
+			margin-top: -2px;
 			text-align: center;
 			background: transparent;
 
 			.fa,
 			.mdi {
 				display: inline-block;
-				font-size: 24px;
+				font-size: 20px;
 				line-height: 1em;
 				width: 1em;
 				height: 1em;
@@ -161,11 +163,10 @@
 			}
 
 			@include media-breakpoint-down(sm) {
-				left: -216px;
-
+				left: -290px;
 				&::after,
 				&::before {
-					left: 210px;
+					left: 284px;
 				}
 			}
 		}
