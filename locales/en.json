@@ -736,6 +736,12 @@
 				"firstClose": "The user must first complete the consent form digitally",
 				"firstFinishRegistration": "The user must first complete the registration process.",
 				"successfullySentMail": "The invitation e-mail was sent successfully!"
+			},
+			"aria_label": {
+				"firstName": "First name of the user",
+				"lastName": "Last name of the user",
+				"email": "E-mail address of the user",
+				"birthdate": "Birthdate of the user"
 			}
 		},
 		"users_registrationComplete": {
@@ -762,7 +768,7 @@
 			"furtherCase": "+ {{amount}} another incident",
 			"furtherCases": "+{{amount}} further incidents",
 			"updatedAt": "Updated:",
-    		"createdAt": "Created:"
+			"createdAt": "Created:"
 		}
 	},
 	"autologout": {
@@ -1759,7 +1765,9 @@
 			"areYouSure": "Are you sure?",
 			"attention": "Attention:",
 			"dataProtection": "Privacy Policy",
+			"dataProtectionThr": "Privacy Policy",
 			"dataProtectionFile": "Privacy Policy of School",
+			"dataProtectionFileThr": "Privacy Policy of School",
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
 			"errorWhileLoadingPage": "This page could not be loaded",
@@ -2573,7 +2581,8 @@
 			"superheroText": "You are trying log in with a superhero account.",
 			"userNotFound": "User not found.",
 			"internalError": "Internal Server Error. Please contact the admin.",
-			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system."
+			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system.",
+			"userNotFoundInUnprovisionedSchool": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator."
 		}
 	},
 	"messenger": {

@@ -736,6 +736,12 @@
 				"firstClose": "El usuario debe completar primero el formulario de consentimiento digitalmente",
 				"firstFinishRegistration": "El usuario debe completar primero el proceso de registro.",
 				"successfullySentMail": "¡El correo electrónico con la invitación se ha enviado correctamente!"
+			},
+			"aria_label": {
+				"firstName": "Nombre del usuario",
+				"lastName": "Apellido del usuario",
+				"email": "Correo electrónico del usuario",
+				"birthdate": "Fecha de nacimiento del usuario"
 			}
 		},
 		"users_registrationComplete": {
@@ -1759,7 +1765,9 @@
 			"areYouSure": "¿Estás seguro?",
 			"attention": "Atención:",
 			"dataProtection": "Política de Privacidad",
+			"dataProtectionThr": "Política de Privacidad",
 			"dataProtectionFile": "Política de Privacidad de la Escuela",
+			"dataProtectionFileThr": "Política de Privacidad de la Escuela",
 			"emailDomainBlocked": "Este proveedor de correo ya no es compatible. Ponte en contacto con el administrador de tu escuela.",
 			"errorChangingFilePermissions": "Hay un problema para cambiar los permisos",
 			"errorWhileLoadingPage": "Esta página no se ha podido cargar",
@@ -2238,7 +2246,6 @@
 				"onlineChat": "<i class=\"fa fa-comment\"></i> Online Chat <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
 				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
 			}
-
 		},
 		"label": {
 			"welcome": "Bienvenid@ a {{shortTitle}}!"
@@ -2574,7 +2581,8 @@
 			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe.",
 			"userNotFound": "Usuario no encontrado.",
 			"internalError": "Error de servidor interno. Póngase en contacto con el administrador.",
-			"schoolInMigration": "Su escuela está en proceso de cambiar el sistema de registro a {{systemName}}. Antes de que pueda iniciar sesión a través de {{systemName}}, debe mover su cuenta. Para hacer esto, inicie sesión con su antiguo sistema."
+			"schoolInMigration": "Su escuela está en proceso de cambiar el sistema de registro a {{systemName}}. Antes de que pueda iniciar sesión a través de {{systemName}}, debe mover su cuenta. Para hacer esto, inicie sesión con su antiguo sistema.",
+			"userNotFoundInUnprovisionedSchool": "Error de inicio de sesion. La escuela aún no se ha mudado a {{systemName}} o la creación de nuevos usuarios en {{shortTitle}} no está activa para la escuela. Comuníquese con el administrador de su escuela."
 		}
 	},
 	"messenger": {
