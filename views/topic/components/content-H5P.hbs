@@ -1,10 +1,26 @@
 <h2 class="h4">{{title}}</h2>
 
-<div>
-  {{#if content.contentId}}
-    <iframe scrolling="no"
-      src="/api/v3/h5p-editor/play/{{content.contentId}}"
-      style="width: 100%; overflow: auto;" allowfullscreen>
-    </iframe>
-  {{/if}}
-</div>
+{{#if content.contentId}}
+    <div class="card-columns">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">
+                    <a
+                        href="/h5p/player/{{content.contentId}}?inline=1"
+                        target="_blank"
+                        class="externalLink"
+                    >
+                        {{content.title}}
+                    </a>
+                    {{#ifeq @root.theme.name "brb"}}
+                        <div class="external-source-warning">
+                            <h5>{{$t "topic._topic.text.warningMain"}}</h5>
+                            <h6>{{$t "topic._topic.text.warningFooter"}}</h6>
+                        </div>
+                    {{/ifeq}}
+                </h4>
+                <p class="card-text">{{content.contentType}}</p>
+            </div>
+        </div>
+    </div>
+{{/if}}
