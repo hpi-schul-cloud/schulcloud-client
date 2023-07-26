@@ -92,12 +92,12 @@
         </aside>
 
 		<section class="content-wrapper">
-					<a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
+					{{!-- <a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
 						<i class="mdi mdi-menu" aria-hidden="true"></i>
 					</a>
                     <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
                         <div class="cloud-logo"></div>
-                    </a>
+                    </a> --}}
 				<div class="content-min-height">
 					<section class="demo" id="offlineAlert" style="display:none;">
 						<div class="alert alert-warning" role="alert">
@@ -125,7 +125,12 @@
 
                 {{> "lib/components/notification"}}
 				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.aria_label.topMenu"}}">
-
+	                <a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
+						<i class="mdi mdi-menu" aria-hidden="true"></i>
+					</a>
+                    <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
+                        <div class="cloud-logo"></div>
+                    </a>
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
