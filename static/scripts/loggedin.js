@@ -9,6 +9,13 @@ if (window.opener && window.opener !== window) {
 
 function toggleMobileNav() {
     document.querySelector('aside.nav-sidebar').classList.toggle('active');
+	const announcementAlert = document.querySelector('.alert-announcement');
+	if (announcementAlert.style.display === 'none') {
+		announcementAlert.style.display = 'block';
+	} else {
+		announcementAlert.style.display = 'none';
+	}
+	document.querySelector('.alert-announcement').classList.toggle('active');
     this.classList.toggle('active');
 }
 
