@@ -1,0 +1,174 @@
+@import "./colors";
+@import "./bootstrap/scss/bootstrap-flex";
+
+.alert-button {
+	visibility: hidden;
+
+	&.danger i {
+		color: $colorDanger;
+	}
+
+	.dropdown-menu {
+		width: 400px;
+	}
+
+	@media (max-width: 450px) {
+		.dropdown-menu {
+			width: 70vw;
+			margin-left: 80px;
+		}
+
+		.dropdown-menu::before,
+		.dropdown-menu::after {
+			content: none !important;
+		}
+	}
+	.alert-item {
+		padding: 6px 15px;
+		font-size: 14px;
+		border-top: 1px solid $dropdown-divider-bg;
+
+		.alert-title {
+			font-size: 16px;
+			padding-bottom: 2px;
+		}
+
+		.alert-date {
+			padding-top: 2px;
+			float: right;
+		}
+
+		&:not(:first-child) {
+			border-top: 1px solid #e5e5e5;
+		}
+	}
+}
+
+.navbar-nav {
+	.btn-thin {
+		padding-left: 5px !important;
+		padding-right: 5px !important;
+	}
+
+	.btn-avatar {
+		.dropdown-menu {
+			min-width: 12rem;
+
+			.dropdown-item {
+				padding: 8px 1.5rem;
+			}
+		}
+
+		.dropdown-toggle {
+			padding: 0 !important;
+			border-radius: 50%;
+			border: none;
+			margin-left: -12px;
+			background: transparent;
+			margin-top: -8px;
+
+			.avatar-circle {
+				background-color: $secondaryColor;
+			}
+
+			.avatar-circle:hover {
+				background-color: darken($secondaryColor, 17%);
+			}
+
+			&:after {
+				display: none;
+			}
+		}
+
+		.dropdown-name {
+			text-align: left;
+			padding: 5px 15px 10px 15px;
+			border-bottom: solid 1px lightgrey;
+			margin-bottom: 5px;
+			cursor: default;
+		}
+	}
+
+	.minimal-button {
+		.dropdown-toggle {
+			padding: 10px !important;
+			border-radius: 50%;
+			border: none;
+			margin-left: -0.75rem;
+			margin-top: -2px;
+			text-align: center;
+			background: transparent;
+
+			.fa,
+			.mdi {
+				display: inline-block;
+				font-size: 20px;
+				line-height: 1em;
+				width: 1em;
+				height: 1em;
+			}
+
+			.tag {
+				position: absolute;
+				border-radius: 50%;
+				top: 0;
+				right: 0px;
+			}
+
+			&:hover {
+				background-color: $colorLightGrey;
+			}
+
+			&:after {
+				display: none;
+			}
+		}
+
+		&.open {
+			.dropdown-toggle {
+				background-color: rgba(0, 0, 0, 0.05);
+			}
+		}
+
+		.dropdown-menu {
+			padding: 0;
+			left: -25px;
+
+			/* this CS forms the triangles */
+			&:after,
+			&:before {
+				content: "";
+				display: block;
+				position: absolute;
+				top: -10px;
+				width: 0;
+				height: 0;
+				border-style: solid;
+			}
+
+			/* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
+			&:after {
+				left: 20px;
+				border-color: transparent transparent #fff transparent;
+				border-width: 11px;
+				margin-top: -11px;
+			}
+
+			/* this border color controlls the outside, thin border */
+			&:before {
+				left: 20px;
+				border-color: transparent transparent rgba(0, 0, 0, 0.15) transparent;
+				border-width: 11px;
+				margin-top: -12px;
+			}
+
+			@include media-breakpoint-down(sm) {
+				left: -290px;
+				&::after,
+				&::before {
+					left: 284px;
+				}
+			}
+		}
+	}
+}

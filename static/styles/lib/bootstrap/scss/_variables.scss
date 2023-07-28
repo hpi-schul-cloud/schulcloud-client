@@ -479,7 +479,6 @@ $dropdown-item-padding-x:        1.5rem !default;
 
 $dropdown-header-color:          $gray-light !default;
 
-
 // Z-index master list
 //
 // Warning: Avoid customizing these values. They're used for a bird's eye view
@@ -610,6 +609,8 @@ $state-warning-v2-border:        darken($state-warning-v2-bg, 5%) !default;
 $state-danger-text:              #a94442 !default;
 $state-danger-bg:                #f2dede !default;
 $state-danger-border:            darken($state-danger-bg, 5%) !default;
+
+$state-announcement-bg:          #d9edf7 !default;
 
 
 // Cards
@@ -747,6 +748,8 @@ $alert-warning-v2-border:     $state-warning-v2-border !default;
 $alert-danger-bg:             $state-danger-bg !default;
 $alert-danger-text:           $state-danger-text !default;
 $alert-danger-border:         $state-danger-border !default;
+
+$alert-announcement-bg:       $state-announcement-bg !default;
 
 
 // Progress bars

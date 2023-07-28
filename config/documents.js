@@ -8,7 +8,9 @@ const specificFiles = {
 	privacy: 'Onlineeinwilligung/Datenschutzerklaerung-Onlineeinwilligung.pdf',
 	termsOfUseExemplary: 'Onlineeinwilligung/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
 	termsOfUse: 'Onlineeinwilligung/Nutzungsordnung-Onlineeinwilligung.pdf',
-	termsOfUseSchool: 'Willkommensordner/Datenschutz/Nutzungsordnung_Schueler-innen.pdf',
+	termsOfUseSchool: SC_THEME === 'thr'
+		? 'Willkommensordner/Datenschutz/Nutzungsordnung.pdf'
+		: 'Willkommensordner/Datenschutz/Nutzungsordnung_Schueler-innen.pdf',
 };
 
 const globalFiles = {

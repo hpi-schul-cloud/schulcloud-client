@@ -271,6 +271,8 @@ const mapErrorToTranslationKey = (error) => {
 			return 'login.text.userNotFound';
 		case 'SCHOOL_IN_MIGRATION':
 			return 'login.text.schoolInMigration';
+		case 'USER_NOT_FOUND_IN_UNPROVISIONED_SCHOOL':
+			return 'login.text.userNotFoundInUnprovisionedSchool';
 		default:
 			return 'login.text.loginFailed';
 	}
@@ -298,7 +300,7 @@ const loginErrorHandler = (res, next) => (e) => {
 };
 
 const setErrorNotification = (res, req, error, systemName) => {
-	let message = res.$t(mapErrorToTranslationKey(error), { systemName });
+	let message = res.$t(mapErrorToTranslationKey(error), { systemName, shortTitle: res.locals.theme.short_title });
 
 	// Email Domain Blocked
 	if (error.code === 400 && error.message === 'EMAIL_DOMAIN_BLOCKED') {
@@ -361,7 +363,7 @@ const login = (payload = {}, req, res, next) => {
 
 const oauth2RedirectUri = new URL('/login/oauth2-callback', Configuration.get('HOST')).toString();
 
-const getAuthenticationUrl = (oauthConfig, state) => {
+const getAuthenticationUrl = (oauthConfig, state, migration) => {
 	const authenticationUrl = new URL(oauthConfig.authEndpoint);
 
 	authenticationUrl.searchParams.append('client_id', oauthConfig.clientId);
@@ -369,6 +371,10 @@ const getAuthenticationUrl = (oauthConfig, state) => {
 	authenticationUrl.searchParams.append('response_type', oauthConfig.responseType);
 	authenticationUrl.searchParams.append('scope', oauthConfig.scope);
 	authenticationUrl.searchParams.append('state', state);
+
+	if (migration) {
+		authenticationUrl.searchParams.append('prompt', 'login');
+	}
 
 	if (oauthConfig.idpHint) {
 		authenticationUrl.searchParams.append('kc_idp_hint', oauthConfig.idpHint);

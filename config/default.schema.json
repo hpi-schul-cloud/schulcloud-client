@@ -176,6 +176,11 @@
 			"default": false,
 			"description": "If enabled, user will see messages/incidents from e.g status.dbildungscloud"
 		},
+		"FEATURE_ALERTS_ON_HOMEPAGE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables to show the alerts on the homepage"
+		},
 		"ALERT_STATUS_URL": {
 			"type": "string",
 			"default": null,
@@ -342,11 +347,6 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Defines if backend for the Lern-Store link in sidebar is enabled."
-		},
-		"FEATURE_MULTI_LOGIN_INSTANCES": {
-			"type": "boolean",
-			"default": false,
-			"description": "Multi login instances tiles"
 		},
 		"FEATURE_TSP_AUTO_CONSENT_ENABLED": {
 			"type": "boolean",
@@ -532,6 +532,7 @@
 			"default": false,
 			"description": "Enables the legacy Hydra endpoints."
 		},
+
 		"NEXTCLOUD_REDIRECT_URL": {
 			"type": "string",
 			"default": "",
@@ -557,7 +558,11 @@
 					"description": "Maximum file size for incoming requests in Byte"
 				}
 			},
-			"required": ["SERVICE_BASE_URL", "INCOMING_REQUEST_TIMEOUT", "MAX_FILE_SIZE"]
+			"required": [
+				"SERVICE_BASE_URL",
+				"INCOMING_REQUEST_TIMEOUT",
+				"MAX_FILE_SIZE"
+			]
 		},
 		"FEATURE_CONSENT_NECESSARY": {
 			"type": "boolean",

@@ -16,7 +16,7 @@ const permissionHelper = require('../helpers/permissions');
 const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 
-const OPTIONAL_COURSE_FEATURES = ['messenger'];
+const OPTIONAL_COURSE_FEATURES = ['messenger', 'videoconference'];
 
 const router = express.Router();
 const { HOST } = require('../config/global');
@@ -269,6 +269,7 @@ const editCourseHandler = (req, res, next) => {
 			),
 			students: filterStudents(res, markSelected(students, course.userIds)),
 			redirectUrl: req.query.redirectUrl || '/courses',
+			schoolData: res.locals.currentSchoolData,
 		});
 	}).catch(next);
 };

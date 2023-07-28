@@ -3,6 +3,9 @@
 		<a id="title" href="/" aria-label="{{$t "global.link.landing"}}">
 			<img class="logo" alt="{{theme.title}}" src="{{getAssetPath '/images/logo/logo-dBildungscloud.svg'}}" />
 		</a>
+            {{#if showAlerts}}
+                {{> "lib/components/alerts"}}
+            {{/if}}
 		{{#unless hideMenu}}
 			<ul class="nav">
                 <li>
@@ -30,3 +33,4 @@
 		<a class="btn btn-sm btn-primary" href="/community">{{$t "global.link.register"}}</a>
 	</div>
 </header>
+

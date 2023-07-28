@@ -2868,7 +2868,7 @@ router.use(
 						link: `/base64Files/${linkToPolicy}`,
 						class: 'base64File-download-btn',
 						icon: 'file-o',
-						title: res.$t('administration.controller.link.schoolPrivacyPolicy'),
+						title: res.$t('global.text.dataProtection'),
 					});
 				}
 				return [title, text, publishedAt, links];

@@ -249,7 +249,6 @@
 				"manageClass": "Administrar clase",
 				"removeMembers": "Eliminar miembros de tu propia escuela del equipo",
 				"resetPassword": "Restablecer la contraseña",
-				"schoolPrivacyPolicy": "Política de privacidad de la escuela",
 				"sendEntryToDevelopmentTeam": "Enviar entrada al equipo de desarrollo",
 				"sendMessageToOwner": "Envía un mensaje al propietario",
 				"toGiveConsent": "Dar consentimiento",
@@ -737,6 +736,12 @@
 				"firstClose": "El usuario debe completar primero el formulario de consentimiento digitalmente",
 				"firstFinishRegistration": "El usuario debe completar primero el proceso de registro.",
 				"successfullySentMail": "¡El correo electrónico con la invitación se ha enviado correctamente!"
+			},
+			"aria_label": {
+				"firstName": "Nombre del usuario",
+				"lastName": "Apellido del usuario",
+				"email": "Correo electrónico del usuario",
+				"birthdate": "Fecha de nacimiento del usuario"
 			}
 		},
 		"users_registrationComplete": {
@@ -905,7 +910,8 @@
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Permitir a los estudiantes escribir mensajes en el chat del curso.",
-					"substitute": "Profesores suplentes"
+					"substitute": "Profesores suplentes",
+					"activateVideoConferences": "Habilitar videoconferencia para el curso"
 				},
 				"text": {
 					"attentionDeletion": "Todos los datos se eliminarán de forma permanente.",
@@ -1758,7 +1764,10 @@
 			"408": "Tiempo de espera",
 			"areYouSure": "¿Estás seguro?",
 			"attention": "Atención:",
-			"dataProtection": "Política de privacidad",
+			"dataProtection": "Política de Privacidad",
+			"dataProtectionThr": "Política de Privacidad",
+			"dataProtectionFile": "Política de Privacidad de la Escuela",
+			"dataProtectionFileThr": "Política de Privacidad de la Escuela",
 			"emailDomainBlocked": "Este proveedor de correo ya no es compatible. Ponte en contacto con el administrador de tu escuela.",
 			"errorChangingFilePermissions": "Hay un problema para cambiar los permisos",
 			"errorWhileLoadingPage": "Esta página no se ha podido cargar",
@@ -2237,7 +2246,6 @@
 				"onlineChat": "<i class=\"fa fa-comment\"></i> Online Chat <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
 				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
 			}
-
 		},
 		"label": {
 			"welcome": "Bienvenid@ a {{shortTitle}}!"
@@ -2392,6 +2400,7 @@
 				"playEnterTheCloud": "Juega a \"Enter The Cloud\" (Entra en la nube)"
 			},
 			"link": {
+				"releaseNotes": "¿Qué hay de nuevo?",
 				"training": "Formaciones avanzadas"
 			}
 		},
@@ -2572,7 +2581,8 @@
 			"superheroText": "Estás intentando iniciar sesión con una cuenta de superhéroe.",
 			"userNotFound": "Usuario no encontrado.",
 			"internalError": "Error de servidor interno. Póngase en contacto con el administrador.",
-			"schoolInMigration": "Su escuela está en proceso de cambiar el sistema de registro a {{systemName}}. Antes de que pueda iniciar sesión a través de {{systemName}}, debe mover su cuenta. Para hacer esto, inicie sesión con su antiguo sistema."
+			"schoolInMigration": "Su escuela está en proceso de cambiar el sistema de registro a {{systemName}}. Antes de que pueda iniciar sesión a través de {{systemName}}, debe mover su cuenta. Para hacer esto, inicie sesión con su antiguo sistema.",
+			"userNotFoundInUnprovisionedSchool": "Error de inicio de sesion. La escuela aún no se ha mudado a {{systemName}} o la creación de nuevos usuarios en {{shortTitle}} no está activa para la escuela. Comuníquese con el administrador de su escuela."
 		}
 	},
 	"messenger": {
@@ -2734,7 +2744,7 @@
 					"iDeclareTheFollowing": "Yo, <b data-from=\"firstName\"> </b> <b data-from=\"lastName\"> </b>, declaro lo siguiente:",
 					"inCaseOfRevocationDataDeletion": "En caso de revocación, eliminaremos inmediatamente los datos personales almacenados en virtud de tu consentimiento, a menos que exista una razón legal para el almacenamiento o desees acceder a los datos almacenados de antemano. También puedes encontrar más información sobre la protección de datos en nuestras <a class=\"nav-link\" target=\"_blank\" href=\"https://blog.dbildungscloud.de/faq-zum-datenschutz/\" rel=\"noopener\">Preguntas frecuentes</a>.",
 					"languageHint": "Nota informativa: puedes cambiar el idioma en cualquier momento desde la configuración. La configuración se encuentra en la esquina superior derecha cuando tocas en tu avatar.",
-					"myDataMayBeProcessed": "Acepto que mis datos personales se procesen de acuerdo con la <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Política de privacidad</a> en {{title}} y en los proveedores de material de aprendizaje seleccionados e instruidos por la escuela.",
+					"myDataMayBeProcessed": "Acepto que mis datos personales se procesen de acuerdo con la <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Política de privacidad</a> en {{title}} y en los proveedores de material de aprendizaje seleccionados e instruidos por la escuela.",
 					"theEmailAddressEnables": "La dirección de correo electrónico permite enviar notificaciones y facilita el restablecimiento de la contraseña.",
 					"weNeedFollowingDataForRegistration": "Para el uso de {{title}}, necesitamos la siguiente información:",
 					"weStoreUserDataSafely": "{{shortTitle}} almacena los datos del usuario de forma segura y no los transmite a terceros. Los datos se procesan de acuerdo con los estrictos requisitos legales de protección de datos."
@@ -2774,7 +2784,7 @@
 					"aParentOrLegalGuardian": "años, un padre o tutor debe dar su consentimiento para usar",
 					"legalGuardingHasToAgreeToTermsOfUse": "Para los estudiantes menores de {{years}} años, un padre, madre o tutor debe dar su consentimiento para el uso de {{shortTitle}}.",
 					"mustNotBeYourChildsEmail": "(No puede ser la misma que la dirección de correo electrónico de la de tu hijo)",
-					"myDataMayBeProcessed": "Acepto que los datos personales de mi hijo se procesen de acuerdo con la <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Política de privacidad</a> en {{title}} y también con los proveedores de material de aprendizaje seleccionados e instruidos por la escuela.",
+					"myDataMayBeProcessed": "Acepto que los datos personales de mi hijo se procesen de acuerdo con la <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Política de privacidad</a> en {{title}} y también con los proveedores de material de aprendizaje seleccionados e instruidos por la escuela.",
 					"needFollowingInformationForChild": "necesitamos la siguiente información de tu hijo:",
 					"pleaseConfirmTheFollowing": "Confirma las siguientes declaraciones de consentimiento para que tu hijo pueda aprovechar {{shortTitle}}:",
 					"studentNeedTheirOwnEmail": "(Los estudiantes necesitan su propia dirección de correo electrónico)",
@@ -2903,9 +2913,6 @@
 				},
 				"placeholder": {
 					"teamName": "Equipo A"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Las videoconferencias no están permitidas en tu escuela. Ponte en contacto con el administrador de tu escuela para habilitar esta opción."
 				}
 			},
 			"events": {
@@ -3202,7 +3209,8 @@
 		"text": {
 			"thereWasAProblemWithTheVideo": "Ha habido un problema con la videoconferencia. Inténtalo de nuevo.",
 			"theVideoConferenceHasEither": "La videoconferencia aún no ha comenzado o ya ha finalizado.",
-			"youDoNotHaveTheNecessaryAuthorization": "No tienes la autorización necesaria para participar en la videoconferencia."
+			"youDoNotHaveTheNecessaryAuthorization": "No tienes la autorización necesaria para participar en la videoconferencia.",
+			"videoConferencesNotAllowedBySchool": "Las videoconferencias no están permitidas en tu escuela. Ponte en contacto con el administrador de tu escuela para habilitar esta opción."
 		}
 	},
 	"info": {

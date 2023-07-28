@@ -249,7 +249,6 @@
 				"manageClass": "Klasse verwalten",
 				"removeMembers": "Mitglieder eigener Schule aus Team entfernen",
 				"resetPassword": "Passwort zurücksetzen",
-				"schoolPrivacyPolicy": "Datenschutzerklärung der Schule",
 				"sendEntryToDevelopmentTeam": "Eintrag an Entwicklungsteam senden",
 				"sendMessageToOwner": "Nachricht an Eigentümer:in senden",
 				"toGiveConsent": "Einverständnis erklären",
@@ -737,6 +736,12 @@
 				"firstClose": "Der/die Nutzer:in muss zuerst die Einverständniserklärung digital abschließen",
 				"firstFinishRegistration": "Der/die Nutzer:in muss zuerst die Registrierung abschließen.",
 				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
+			},
+			"aria_label": {
+				"firstName": "Vorname Nutzer:in",
+				"lastName": "Nachname Nutzer:in",
+				"email": "E-Mail-Adresse Nutzer:in",
+				"birthdate": "Geburtsdatum Nutzer:in"
 			}
 		},
 		"users_registrationComplete": {
@@ -905,7 +910,8 @@
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Schüler:innen erlauben im Kurs Chat Nachrichten zu schreiben.",
-					"substitute": "Vertretungslehrkräfte"
+					"substitute": "Vertretungslehrkräfte",
+					"activateVideoConferences": "Videokonferenzen für Kurs aktivieren"
 				},
 				"text": {
 					"attentionDeletion": "Alle Daten werden unwiderruflich gelöscht.",
@@ -1759,6 +1765,9 @@
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
 			"dataProtection": "Datenschutzerklärung",
+			"dataProtectionThr": "Datenschutzhinweise",
+			"dataProtectionFile": "Datenschutzerklärung der Schule",
+			"dataProtectionFileThr": "Datenschutzhinweise der Schule",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Admin.",
 			"errorChangingFilePermissions": "Problem beim Ändern der Berechtigungen",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
@@ -2391,6 +2400,7 @@
 				"playEnterTheCloud": "Enter The Cloud spielen"
 			},
 			"link": {
+				"releaseNotes": "Was ist neu?",
 				"training": "Fortbildungen"
 			}
 		},
@@ -2571,7 +2581,8 @@
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden.",
 			"userNotFound": "Nutzer wurde nicht gefunden.",
 			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator.",
-			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an."
+			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an.",
+			"userNotFoundInUnprovisionedSchool": "Login fehlgeschlagen. Entweder ist die Schule noch nicht zu {{systemName}} umgezogen oder die Erstellung neuer Nutzer in der {{shortTitle}} ist für die Schule nicht aktiv. Bitte wenden Sie sich an Ihren Schuladministrator."
 		}
 	},
 	"messenger": {
@@ -2733,7 +2744,7 @@
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
 					"inCaseOfRevocationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://blog.dbildungscloud.de/faq-zum-datenschutz/\" rel=\"noopener\">FAQ</a> entnehmen.",
 					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf deinen Avatar tippst.",
-					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbieter verarbeitet werden.",
+					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbieter verarbeitet werden.",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{title}} benötigen wir folgende Angaben:",
 					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
@@ -2773,7 +2784,7 @@
 					"aParentOrLegalGuardian": "Jahren bedarf ein Erziehungsberechtigter in die Nutzung der",
 					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler:innen unter {{years}} Jahren bedarf es der Einwilligung eines Erziehungsberechtigten in die Nutzung der {{shortTitle}}.",
 					"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
-					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbieter verarbeitet werden.",
+					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbieter verarbeitet werden.",
 					"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
 					"pleaseConfirmTheFollowing": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{shortTitle}} nutzen kann:",
 					"studentNeedTheirOwnEmail": "(Schüler:innen benötigen eine eigene E-Mail-Adresse)",
@@ -2902,9 +2913,6 @@
 				},
 				"placeholder": {
 					"teamName": "A-Team"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Admin, um diese Option zu ermöglichen."
 				}
 			},
 			"events": {
@@ -3202,7 +3210,8 @@
 		"text": {
 			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
 			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
-			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen."
+			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen.",
+			"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Admin, um diese Option zu ermöglichen."
 		}
 	},
 	"info": {
