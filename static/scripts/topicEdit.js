@@ -1094,7 +1094,7 @@ class TopicH5P extends TopicBlock {
 				<div className="card">
 					<div className="card-block">
 						<h4 className="card-title">
-							<a href="#" target="_blank">
+							<a href={`/h5p/player/${contentId}?inline=1`} target="_blank">
 								{title}
 							</a>
 						</h4>
