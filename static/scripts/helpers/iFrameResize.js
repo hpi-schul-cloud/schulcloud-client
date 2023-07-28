@@ -79,7 +79,6 @@ export function resizeIframes(iFrameNodes, callback){
 
   // listen for load events from the iFrame
   iFrames.forEach((iFrame)=>{
-    requestSize(iFrame);
     iFrame.addEventListener("load", (event) => {
       requestSize(iFrame);
     });

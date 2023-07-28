@@ -3169,8 +3169,7 @@
 				"geoGebraWorksheet": "Hoja de trabajo de GeoGebra",
 				"material": "Material de aprendizaje",
 				"neXboard": "neXboard",
-				"text": "Texto",
-				"h5p": "H5P"
+				"text": "Texto"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Lluvia de ideas sobre el tema XYZ",
@@ -3209,11 +3208,6 @@
 	"info": {
 		"text": {
 			"nextcloudLink": "Estamos trabajando en un nuevo espacio de archivos. A partir de ahora, todos los <b>archivos nuevos</b> se pueden guardar y administrar allí (área de archivos abiertos). Todos los miembros del equipo tienen acceso automáticamente a los archivos almacenados allí. Todos los <b>archivos existentes</b> en {{title}} todavía están disponibles aquí."
-		}
-	},
-	"h5p": {
-		"text": {
-			"createAfterFirstSave": "Los contenidos H5P solo se pueden crearse después del primer guardado."
 		}
 	}
 }
