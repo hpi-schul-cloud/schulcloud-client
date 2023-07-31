@@ -15,7 +15,6 @@ function toggleMobileNav() {
 	} else {
 		announcementAlert.style.display = 'none';
 	}
-	document.querySelector('.alert-announcement').classList.toggle('active');
     this.classList.toggle('active');
 }
 
