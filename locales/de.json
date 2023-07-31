@@ -2455,7 +2455,7 @@
 		"text": {
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
 			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte kontaktiere deinen Schul-Admin!",
-			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
+			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"/administration/school-settings/\"> hier das neue Schuljahr ein!</a>",
 			"schoolInMigrationModeStarted": "Die Schule befindet sich im Modus der Benutzermigration. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>.",
 			"schoolInMigrationMode": "Die Schule kann Benutzerkonten von Schulportal importieren. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>."
 		}

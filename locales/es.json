@@ -2455,7 +2455,7 @@
 		"text": {
 			"newFeaturesAvailable": "Nuevas funciones disponibles",
 			"schoolInTransferPhaseContactAdmin": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Ponte en contacto con el administrador de la escuela!",
-			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"/administration/school/\">nuevo año escolar aquí!</a>",
+			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"/administration/school-settings/\">nuevo año escolar aquí!</a>",
 			"schoolInMigrationModeStarted": "La escuela está en modo de migración de usuarios. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>.",
 			"schoolInMigrationMode": "La escuela puede importar cuentas de usuario de Schulportal. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>."
 		}

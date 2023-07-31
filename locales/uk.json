@@ -2117,7 +2117,7 @@
 			"newFeaturesAvailable": "Доступні нові функції",
 			"schoolInMigrationModeStarted": "Школа перебуває в режимі міграції користувачів. Щоб перенести користувачів, перейдіть на <a href=\"/administration/migration/\">цю сторінку</a>.",
 			"schoolInTransferPhaseContactAdmin": "Школа перебуває у фазі переходу до нового навчального року. Не можна створювати класи та користувачів.",
-			"schoolInTransferPhaseStartNew": "Школа перебуває у фазі переходу до нового навчального року. Не можна створювати класи та користувачів. Зателефонуйте в <a href=\"/administration/school/\"> новий навчальний рік тут!</a>",
+			"schoolInTransferPhaseStartNew": "Школа перебуває у фазі переходу до нового навчального року. Не можна створювати класи та користувачів. Зателефонуйте в <a href=\"/administration/school-settings/\"> новий навчальний рік тут!</a>",
 			"schoolInMigrationMode": "Школа перебуває в режимі міграції користувачів. Щоб перенести користувачів, перейдіть на <a href=\"/administration/migration/\">цю сторінку</a>."
 		}
 	},
