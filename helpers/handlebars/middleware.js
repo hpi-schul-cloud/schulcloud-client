@@ -6,7 +6,6 @@ const {
 	FEATURE_EXTENSIONS_ENABLED,
 	NOTIFICATION_SERVICE_ENABLED,
 	FEATURE_TEAMS_ENABLED,
-	FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED,
 } = require('../../config/global');
 
 const makeActive = (items, currentUrl) => {
