@@ -1136,8 +1136,8 @@
 				"addClassesToCourse": "Class(es) (All students in the class will be added automatically!) - optional",
 				"addStudentsToCourse": "Students / participants - optional",
 				"courseSubstitute": "Substitute teacher - optional",
-				"timeSpan": "Period (eg school year) from - Optional",
-				"timeSpanUntil": "To - Optional"
+				"timeSpan": "Period (eg school year) from",
+				"timeSpanUntil": "To"
 			},
 			"link": {
 				"addAnotherCourse": "Create another course",
