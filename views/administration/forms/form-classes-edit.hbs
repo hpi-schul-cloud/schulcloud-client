@@ -32,7 +32,7 @@
 <div class="form-group">
 	<label>{{$t "administration.classes.label.selectTeacher" }}</label>
 
-	<select id="teacher-select" name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher" }}">
+	<select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher" }}">
 		{{#each teachers}}
 			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}} {{#if this.isHidden}}hidden{{/if}}>
 				{{#if this.displayName}}
