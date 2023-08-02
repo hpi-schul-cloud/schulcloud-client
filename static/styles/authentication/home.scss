@@ -62,7 +62,6 @@ body {
         @include media-breakpoint-down(md) {
             text-align: center;
             #title, ul.nav{
-                float: none;
                 display: block;
             }
             ul.nav .nav-item{
