@@ -8,7 +8,7 @@
 
     <select data-testid="select_team_members_add" name="userIds[]" multiple data-placeholder="{{$t "teams._team.members.placeholder.selectPersons"}}">
         {{#each users}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
                     {{this.lastName}}, {{this.firstName}}
             </option>
         {{/each}}

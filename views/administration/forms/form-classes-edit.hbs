@@ -34,7 +34,7 @@
 
 	<select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher" }}">
 		{{#each teachers}}
-			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
+			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}} {{#if this.isHidden}}hidden{{/if}}>
 				{{#if this.displayName}}
 					{{this.displayName}}
 				{{else}}

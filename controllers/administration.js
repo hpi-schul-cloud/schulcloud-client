@@ -22,6 +22,7 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
+const { isUserHidden } = require('../helpers/users');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
@@ -1547,6 +1548,7 @@ const renderClassEdit = (req, res, next) => {
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
 					);
+
 					if (!isAdmin) {
 						// preselect current teacher when creating new class
 						// and the current user isn't a admin (teacher)
@@ -1559,6 +1561,7 @@ const renderClassEdit = (req, res, next) => {
 							}
 						});
 					}
+
 					let isCustom = false;
 					let isUpgradable = false;
 					if (currentClass) {
@@ -1596,6 +1599,10 @@ const renderClassEdit = (req, res, next) => {
 								&& !currentClass.successor;
 						}
 					}
+
+					teachers.forEach((teacher) => {
+						teacher.isHidden = isUserHidden(teacher, res.locals.currentSchoolData);
+					});
 
 					res.render('administration/classes-edit', {
 						title: {
@@ -1769,16 +1776,20 @@ router.get(
 					// preselect current teacher when creating new class
 
 					const teacherIds = currentClass.teacherIds.map((t) => t._id);
-					teachers.forEach((t) => {
-						if (teacherIds.includes(t._id)) {
-							t.selected = true;
+					teachers.forEach((teacher) => {
+						if (teacherIds.includes(teacher._id)) {
+							teacher.selected = true;
 						}
+
+						teacher.isHidden = isUserHidden(teacher, res.locals.currentSchoolData);
 					});
 					const studentIds = currentClass.userIds.map((t) => t._id);
-					students.forEach((s) => {
-						if (studentIds.includes(s._id)) {
-							s.selected = true;
+					students.forEach((student) => {
+						if (studentIds.includes(student._id)) {
+							student.selected = true;
 						}
+
+						student.isHidden = isUserHidden(student, res.locals.currentSchoolData);
 					});
 
 					// checks for user's 'STUDENT_LIST' permission and filters selected students
