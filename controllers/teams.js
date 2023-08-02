@@ -1081,7 +1081,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			}
 			return [
 				user.userId.firstName || '',
-				user.userId.lastName || '',
+				user.userId.lastName ? `${user.userId.lastName}${user.userId.outdatedSince ? ' ~~' : ''}` : '',
 				roleTranslations[user.role.name],
 				(user?.userId?.schoolId?.name) || '',
 				{

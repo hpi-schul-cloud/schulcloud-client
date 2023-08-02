@@ -2209,7 +2209,7 @@ router.get(
 				const body = data.data.map((item) => {
 					const cells = [
 						item.displayName || '',
-						(item.teacherIds || []).map((i) => i.lastName).join(', '),
+						(item.teacherIds || []).map((i) => `${i.lastName}${i.outdatedSince ? ' ~~' : ''}`).join(', '),
 						(item.year || {}).name || '',
 						item.userIds.length || '0',
 					];
@@ -2438,7 +2438,7 @@ router.all('/courses', (req, res, next) => {
 					: undefined;
 			}).join(', '),
 			// eslint-disable-next-line no-shadow
-			(item.teacherIds || []).map((item) => item.lastName).join(', '),
+			(item.teacherIds || []).map((item) => `${item.lastName}${item.outdatedSince ? ' ~~' : ''}`).join(', '),
 			[
 				{
 					link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
@@ -2696,6 +2696,8 @@ router.all('/teams', async (req, res, next) => {
 					numPages: Math.ceil(data.total / itemsPerPage),
 					baseUrl: `/administration/teams/?p={{page}}${sortQuery}${limitQuery}`,
 				};
+
+				users = users.filter((user) => !isUserHidden(user, res.locals.currentSchoolData));
 
 				res.render('administration/teams', {
 					title: res.$t('administration.controller.headline.teams', {
