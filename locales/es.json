@@ -1340,7 +1340,11 @@
 			"attention": "Atención",
 			"createNewFile": "Crear un nuevo archivo",
 			"doYouWantToOpenThisFile": "¿Quieres abrir este archivo con un servicio externo?",
-			"newFolder": "Nueva carpeta"
+			"newFolder": "Nueva carpeta",
+			"personalFiles": "Archivos personales",
+			"courseFiles": "Archivos del curso",
+			"teamFiles": "Archivos del equipo",
+			"sharedFiles": "Archivos compartidos"
 		},
 		"img_alt": {
 			"altInfoTheImage": "la imagen {{imgName}}"

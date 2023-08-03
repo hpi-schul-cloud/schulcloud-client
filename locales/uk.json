@@ -1442,7 +1442,11 @@
 			"attention": "Увага",
 			"createNewFile": "Створити новий файл",
 			"doYouWantToOpenThisFile": "Ви хочете відкрити цей файл за допомогою зовнішнього сервісу?",
-			"newFolder": "Новий каталог"
+			"newFolder": "Новий каталог",
+			"personalFiles": "Персональні файли",
+			"courseFiles": "Файли курсу",
+			"teamFiles": "Файли команди",
+			"sharedFiles": "Поширені файли"
 		},
 		"input": {
 			"filename": "Назва файлу",
