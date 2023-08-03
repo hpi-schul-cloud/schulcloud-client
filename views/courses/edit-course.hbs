@@ -141,7 +141,7 @@
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each teachers}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
-									{{this.lastName}}, {{this.firstName}}
+									{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
 					</select>
@@ -155,7 +155,7 @@
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each substitutions}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
-								{{this.lastName}}, {{this.firstName}}
+								{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
 					</select>
@@ -189,7 +189,7 @@
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each students}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
-									{{this.lastName}}, {{this.firstName}}
+									{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
 					</select>
