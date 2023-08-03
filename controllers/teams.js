@@ -1074,14 +1074,18 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const body = team.userIds.map((user) => {
 			let actions = [];
 			actions = addButtonEdit(actions);
+
 			if (!couldLeave && user.role.name === 'teamowner') {
 				actions = addDisabledButtonTrash(actions);
 			} else {
 				actions = addButtonTrash(actions);
 			}
+
+			const nameSuffix = user.userId.outdatedSince ? ' ~~' : '';
+
 			return [
 				user.userId.firstName || '',
-				user.userId.lastName ? `${user.userId.lastName}${user.userId.outdatedSince ? ' ~~' : ''}` : '',
+				user.userId.lastName ? `${user.userId.lastName}${nameSuffix}` : '',
 				roleTranslations[user.role.name],
 				(user?.userId?.schoolId?.name) || '',
 				{

@@ -30,7 +30,6 @@ $(window).ready(() => {
 			teamMembers = '<ol>';
 			members.forEach((member) => {
 				const { user } = member; // userId was populated
-				console.log(user);
 				if (user.fullName) {
 					teamMembers = `${teamMembers}<li>${user.fullName}${user.outdatedSince ? ' ~~' : ''} (${
 						member.role
