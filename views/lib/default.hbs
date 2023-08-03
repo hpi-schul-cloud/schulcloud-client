@@ -2,7 +2,7 @@
 <html lang="{{#if userLanguage}}{{userLanguage}}{{else}}de{{/if}}" timezone="{{currentTimezone}}">
 
 <head>
-	<title>{{#if title}}{{title}} - {{/if}}{{theme.title}}</title>
+	<title>{{#if pageTitle}}{{pageTitle}} - {{else if title}}{{title}} - {{/if}}{{theme.title}}</title>
 	{{#block "meta"}}
 	<meta name="csrfToken" content="{{csrfToken}}">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
