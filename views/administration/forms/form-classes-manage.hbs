@@ -17,7 +17,7 @@
 
             <select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher"}}" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
                 {{#each teachers}}
-                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
+                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}} {{#if this.isHidden}}hidden{{/if}}>
                         {{#if this.displayName}}
                             {{this.displayName}}
                         {{else}}
@@ -34,7 +34,7 @@
             <label>{{$t "administration.global.label.student" }}</label>
             <select name="userIds" multiple data-placeholder="{{$t "administration.global.placeholder.selectStudent" }}">
                 {{#each students}}
-                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red" data-first-name="{{this.firstName}}" data-last-name="{{this.lastName}}">
+                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red" data-first-name="{{this.firstName}}" data-last-name="{{this.lastName}}" {{#if this.isHidden}}hidden{{/if}}>
                         {{#if this.displayName}}
                             {{this.displayName}}
                         {{else}}
