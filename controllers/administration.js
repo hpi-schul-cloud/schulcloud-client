@@ -2224,9 +2224,7 @@ router.get(
 					]);
 
 				res.render('administration/classes', {
-					title: res.$t('administration.controller.headline.classes', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
+					title: res.$t('administration.dashboard.headline.manageClasses'),
 					head,
 					body,
 					displayName,
@@ -2462,7 +2460,7 @@ router.all('/courses', (req, res, next) => {
 		};
 
 		res.render('administration/courses', {
-			title: res.$t('administration.controller.headline.courses'),
+			title: res.$t('administration.dashboard.headline.manageCourses'),
 			head,
 			coursesBody,
 			classes,
@@ -2688,7 +2686,7 @@ router.all('/teams', async (req, res, next) => {
 				users = users.filter((user) => !isUserHidden(user, res.locals.currentSchoolData));
 
 				res.render('administration/teams', {
-					title: res.$t('administration.controller.headline.teams'),
+					title: res.$t('administration.dashboard.headline.manageTeams'),
 					head,
 					body,
 					classes,
@@ -2981,7 +2979,7 @@ router.use(
 		const availableSSOTypes = getSSOTypes().filter((type) => type.value !== 'itslearning');
 
 		res.render('administration/school', {
-			title: res.$t('administration.controller.headline.school'),
+			title: res.$t('administration.dashboard.headline.manageSchool'),
 			school,
 			schoolMaintanance,
 			schoolMaintananceMode,
