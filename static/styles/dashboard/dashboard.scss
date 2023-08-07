@@ -298,3 +298,19 @@
 		max-width: 85%;
 	}
 }
+
+.bettermarks-notification {
+	display: flex;
+	color: #424242;
+	border-top: solid $secondaryColor 8px;
+	border-left: solid $secondaryColor 1px;
+	border-right: solid $secondaryColor 1px;
+	border-bottom: solid $secondaryColor 1px;
+	border-radius: 4px;
+	margin-top: 3rem;
+
+	.alert-link {
+		font-weight: $alert-link-font-weight;
+		color: darken(#424242, 10%);
+	}
+}
