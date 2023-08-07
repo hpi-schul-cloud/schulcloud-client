@@ -4,10 +4,10 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const redis = require('redis');
+const { createClient } = require('redis');
 // const connectRedis = require('connect-redis');
 const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
+const RedisStore = require('connect-redis').default;
 const methodOverride = require('method-override');
 const csurf = require('csurf');
 const handlebars = require('handlebars');
@@ -125,7 +125,7 @@ const redisUrl = REDIS_URI;
 if (redisUrl) {
 	logger.info(`Using Redis session store at '${redisUrl}'.`);
 	// const RedisStore = connectRedis(session);
-	const client = redis.createClient({
+	const client = createClient({
 		url: redisUrl,
 	});
 	sessionStore = new RedisStore({ client });
