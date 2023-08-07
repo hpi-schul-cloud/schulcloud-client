@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
 	}, (err, data) => {
 		let blogFeed;
 		try {
-			console.log('pampelmuse');
 			blogFeed = data.rss.channel[0].item
 				.filter((item) => (item['media:content'] || []).length && (item.link || []).length)
 				.slice(0, 3)
