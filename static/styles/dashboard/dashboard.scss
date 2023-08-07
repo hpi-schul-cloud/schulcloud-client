@@ -313,4 +313,8 @@
 		font-weight: $alert-link-font-weight;
 		color: darken(#424242, 10%);
 	}
+
+	.externalLink:after {
+		display: none !important;
+	}
 }
