@@ -126,8 +126,8 @@ if (redisUrl) {
 	const client = createClient({
 		url: redisUrl,
 	});
-	client.connect().catch(console.error);
-	
+	// eslint-disable-next-line no-console
+	client.connect().catch((err) => console.error(err));
 	sessionStore = new RedisStore({ client });
 } else {
 	logger.info('Using in-memory session store.');
