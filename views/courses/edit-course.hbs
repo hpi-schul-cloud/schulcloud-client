@@ -14,6 +14,7 @@
 		<script src="{{getAssetPath '/scripts/coursesTimes.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 		<script src="{{getAssetPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 		<script src="{{getAssetPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/bootstrap-fix/bootstrap-select-hidden-options.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 
 
@@ -139,8 +140,8 @@
 					<select id="teacherId" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each teachers}}
-							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-									{{this.lastName}}, {{this.firstName}}
+							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
+									{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
 					</select>
@@ -153,8 +154,8 @@
 					<select id="substituteTeacher" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each substitutions}}
-							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-								{{this.lastName}}, {{this.firstName}}
+							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
+								{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
 					</select>
@@ -187,8 +188,8 @@
 					<select id="studentsId" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each students}}
-							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-									{{this.lastName}}, {{this.firstName}}
+							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
+									{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
 					</select>
