@@ -6,7 +6,13 @@
     <select class="form-control form-control-lg" type="text" name="userId">
         <option value="">{{$t "administration.teams.button.addAnotherOwner" }}</option>
         {{#each users}}
-            <option value="{{{this._id}}}">{{{this.firstName}}} {{{this.lastName}}}</option>
+            <option value="{{{this._id}}}">
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
         {{/each}}
     </select>
 </div>
