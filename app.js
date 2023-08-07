@@ -128,6 +128,8 @@ if (redisUrl) {
 	const client = createClient({
 		url: redisUrl,
 	});
+	client.connect().catch(console.error);
+	
 	sessionStore = new RedisStore({ client });
 } else {
 	logger.info('Using in-memory session store.');
