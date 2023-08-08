@@ -7,8 +7,24 @@ if (window.opener && window.opener !== window) {
     window.isInline = true;
 }
 
+function showHideElement(element) {
+	if (element.style.display === 'none') {
+		element.style.display = 'block';
+	} else {
+		element.style.display = 'none';
+	}
+}
+
+function showHideGlobalAnnouncement() {
+	const announcementAlert = document.querySelector('.alert-announcement');
+	if (announcementAlert) {
+		showHideElement(announcementAlert);
+	}
+}
+
 function toggleMobileNav() {
     document.querySelector('aside.nav-sidebar').classList.toggle('active');
+	showHideGlobalAnnouncement();
     this.classList.toggle('active');
 }
 
