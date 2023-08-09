@@ -611,6 +611,8 @@ $state-danger-bg:                #f2dede !default;
 $state-danger-border:            darken($state-danger-bg, 5%) !default;
 
 $state-announcement-bg:          #d9edf7 !default;
+$state-announcement-border:      #d9edf7 !default;
+$state-announcement-text:				 #1b1b1b !default;
 
 
 // Cards
@@ -750,6 +752,8 @@ $alert-danger-text:           $state-danger-text !default;
 $alert-danger-border:         $state-danger-border !default;
 
 $alert-announcement-bg:       $state-announcement-bg !default;
+$alert-announcement-border:   $state-announcement-border !default;
+$alert-announcement-text:   	$state-announcement-text !default;
 
 
 // Progress bars

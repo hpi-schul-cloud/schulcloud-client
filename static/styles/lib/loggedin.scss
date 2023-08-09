@@ -325,6 +325,7 @@ aside.nav-sidebar {
 		z-index: 9999;
 		transition: transform .3s linear;
 		transform: rotate(90deg);
+		margin-top: 20px;
 	}
 
 	@include media-breakpoint-down(xs) {
