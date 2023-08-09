@@ -1134,8 +1134,7 @@
 				"addClassesToCourse": "Klasse(n) (Alle Schüler:innen der Klasse werden automatisch hinzugefügt!) - Optional",
 				"addStudentsToCourse": "Schüler:innen / Teilnehmer:innen - Optional",
 				"courseSubstitute": "Vertretungslehrkräfte - Optional",
-				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
-				"timeSpanUntil": "Bis - Optional"
+				"timeSpan": "Zeitraum (z.B. Schuljahr) von"
 			},
 			"link": {
 				"addAnotherCourse": "Einen weiteren Kurs anlegen",
