@@ -302,11 +302,10 @@
 .bettermarks-notification {
 	display: flex;
 	color: #424242;
-	border-top: solid $secondaryColor 8px;
-	border-left: solid $secondaryColor 1px;
-	border-right: solid $secondaryColor 1px;
-	border-bottom: solid $secondaryColor 1px;
+	border-style: solid;
+	border-color: $secondaryColor;
 	border-radius: 4px;
+	border-width: 8px 1px 1px 1px;
 	margin-top: 3rem;
 
 	.alert-link {
