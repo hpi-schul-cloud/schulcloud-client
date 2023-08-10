@@ -81,7 +81,7 @@
                 {{#ifneq (getConfig "BETTERMARKS_ANNOUNCEMENT_ROLES") ""}}
                     {{#if (userHasRoleFromArray (getConfig "BETTERMARKS_ANNOUNCEMENT_ROLES") ../currentUser)}}
                         <div class="alert bettermarks-notification" role="alert">
-                            <i class="fa fa-fw fa-lightbulb-o fa-lg" style="margin: 3rem; color: #38677A" aria-hidden="true"></i><p>{{{$t "dashboard.text.bettermarksAnnouncement"}}}</p>
+                            <i class="fa fa-fw fa-lightbulb-o fa-lg" style="margin: 8px 0.75rem 0 0; color: #38677A" aria-hidden="true"></i><p class="bettermarks-notification-text">{{{$t "dashboard.text.bettermarksAnnouncement"}}}</p>
                         </div>
                     {{/if}}
                 {{/ifneq}}
