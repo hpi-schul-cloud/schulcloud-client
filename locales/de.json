@@ -1255,7 +1255,8 @@
 			"noDueDate": "Kein Abgabedatum festgelegt",
 			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg:innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
-			"notFound": "Keine aktuellen Einträge vorhanden."
+			"notFound": "Keine aktuellen Einträge vorhanden.",
+			"bettermarksAnnouncement": "Neues bei bettermarks: Jetzt auch <a target=\"_blank\" aria-label=\"Unterrichtseinheiten für Klasse 5 und 6 bei bettermarks\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/unterrichten/\">Unterrichtseinheiten</a> für Klasse 5 und 6 neben den <a target=\"_blank\" aria-label=\"Übungs- und Testaufgaben für Klasse 4 bis 13 bei bettermarks\"class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/ueben-testen/\">Übungs- und Testaufgaben</a> für Jahrgangsstufe 4 bis 13!"
 		}
 	},
 	"dataprivacy": {
