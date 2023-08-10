@@ -193,11 +193,7 @@ router.get('/', (req, res, next) => {
 			} else {
 				homeworks.lessonHidden = false;
 			}
-			if (homeworks.taskCard != null) {
-				homeworks.url = `/beta-task/${homeworks.taskCard}`;
-			} else {
-				homeworks.url = `/homework/${homeworks._id}`;
-			}
+			homeworks.url = `/homework/${homeworks._id}`;
 			homeworks.content = homeworks.description;
 			return homeworks;
 		}))
