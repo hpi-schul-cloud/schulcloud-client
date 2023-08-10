@@ -79,7 +79,7 @@
 		"express-fileupload": "^1.2.1",
 		"express-prom-bundle": "^6.3.6",
 		"express-session": "^1.17.2",
-		"feedr": "^2.13.5",
+		"feedr": "^4.8.0",
 		"font-awesome": "^4.7.0",
 		"form-serializer": "^2.5.0",
 		"generate-password": "^1.6.1",
