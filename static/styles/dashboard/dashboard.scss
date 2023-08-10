@@ -302,8 +302,7 @@
 .bettermarks-notification {
 	display: flex;
 	color: #424242;
-	border-style: solid;
-	border-color: $secondaryColor;
+	border: solid $secondaryColor;
 	border-radius: 4px;
 	border-width: 8px 1px 1px;
 	margin-top: 3rem;
