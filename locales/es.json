@@ -1253,7 +1253,8 @@
 			"noDueDate": "No se ha fijado una fecha de envío",
 			"noMaterialsYetLookAtOthers": "Aún no has creado tus propios materiales. También puedes inspirarte en los materiales de tus compañeros. Consulta la <a href=\"/my-material\">sección \"Mis materiales\"</a>.",
 			"noNews": "No hay noticias",
-			"notFound": "No se han encontrado entradas activas."
+			"notFound": "No se han encontrado entradas activas.",
+			"bettermarksAnnouncement": "Novedad en bettermarks: ¡Ahora también <a target=\"_blank\" aria-label=\"Lecciones para las clases 5 y 6 en bettermarks\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/unterrichten/\">unidades didácticas</a> para 5º y 6º curso, además de las <a target=\"_blank\" aria-label=\"Ejercicios y tests para los cursos 4º a 13º en bettermarks\"class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/ueben-testen/\">tareas de práctica y examen</a> para 4º a 13º curso!"
 		}
 	},
 	"dataprivacy": {
