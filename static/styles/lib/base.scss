@@ -442,6 +442,7 @@ form.inline {
 
 @media (max-width: 768px) {
 	.skipLinks {
+		height: 5px;
 		a:focus {
 			top: 8rem;
 			z-index: 1;
@@ -457,4 +458,8 @@ select {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.no-bottom-margin {
+	margin-bottom: 0;
 }
