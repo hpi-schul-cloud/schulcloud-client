@@ -113,7 +113,7 @@
                             {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ""}}
                                 {{#if (userHasRoleFromArray (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ../currentUser)}}
                                     <section class="demo">
-                                            <div class="alert alert-announcement no-bottom-margin" role="alert">
+                                            <div class="alert alert-announcement" style="margin-bottom: 0" role="alert">
                                                 <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_TEXT"}}}</div>
                                             </div>
                                     </section>
