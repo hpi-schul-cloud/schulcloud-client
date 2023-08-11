@@ -5,7 +5,6 @@
 
 .navbar {
   position: relative;
-  margin-top: -18px;
   padding: $navbar-padding-y $navbar-padding-x;
   @include clearfix;
 
@@ -171,7 +170,6 @@
 // Custom navbar navigation built on the base `.nav` styles.
 
 .navbar-nav {
-	padding-top: 1rem;
   .nav-item {
     float: left;
   }
