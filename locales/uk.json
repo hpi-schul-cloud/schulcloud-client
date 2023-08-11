@@ -2489,7 +2489,8 @@
 			},
 			"headline": {
 				"errorDetails": "Інформація про помилку:"
-			}
+			},
+			"pageTitle": "Виникла помилка"
 		},
 		"extended_footer": {
 			"link": {
