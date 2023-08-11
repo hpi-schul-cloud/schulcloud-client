@@ -47,12 +47,12 @@
 </head>
 
 <body class="{{#if inline}}window-inline{{/if}}">
-	{{#block "body"}}{{/block}}
 <dl class="skipLinks" role="navigation" aria-label="{{$t "global.label.skipLinks"}}">
     <dd><a href="#main-content">{{ $t "global.link.mainContentSkipLink" }}</a></dd>
     <dd><a href="#top-navbar">{{ $t "global.link.topNavbarSkipLink" }}</a></dd>
     <dd><a href="#footer">{{ $t "global.link.footerSkipLink" }}</a></dd>
 </dl>
+{{#block "body"}}{{/block}}
 <div class="primary-color"></div>
 <div class="secondary-color"></div>
 </body>
