@@ -2488,9 +2488,9 @@
 				"viewDetails": "Показати подробиці"
 			},
 			"headline": {
-				"errorDetails": "Інформація про помилку:"
-			},
-			"pageTitle": "Виникла помилка"
+				"errorDetails": "Інформація про помилку:",
+				"pageTitle": "Виникла помилка"
+			}
 		},
 		"extended_footer": {
 			"link": {

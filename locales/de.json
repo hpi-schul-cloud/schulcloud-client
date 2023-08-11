@@ -2283,9 +2283,9 @@
 				"viewDetails": "Details anzeigen"
 			},
 			"headline": {
-				"errorDetails": "Fehler-Details:"
-			},
-			"pageTitle": "Ein Fehler ist aufgetreten"
+				"errorDetails": "Fehler-Details:",
+				"pageTitle": "Ein Fehler ist aufgetreten"
+			}
 		},
 		"extended_footer": {
 			"headline": {

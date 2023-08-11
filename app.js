@@ -295,7 +295,7 @@ app.use((err, req, res, next) => {
 
 	// render the error page
 	res.status(status).render('lib/error', {
-		pageTitle: res.$t('lib.error.pageTitle'),
+		pageTitle: res.$t('lib.error.headline.pageTitle'),
 		loggedin: res.locals.loggedin,
 		inline: res.locals.inline ? true : !res.locals.loggedin,
 	});
