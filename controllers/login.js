@@ -295,6 +295,7 @@ router.all('/', async (req, res, next) => {
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
 			showAlerts: (Configuration.get('FEATURE_ALERTS_ON_HOMEPAGE_ENABLED')),
+			showLoginAndRegisterButtons: (Configuration.get('FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED')),
 		});
 	}
 });
@@ -355,6 +356,7 @@ const renderLogin = async (req, res) => {
 		redirect,
 		idOfSchool,
 		showAlerts: true,
+		showLoginAndRegisterButtons: false,
 		strategyOfSchool,
 	});
 };

@@ -617,7 +617,6 @@ footer {
 
 .topbar {
 	text-align: right;
-
 	@include media-breakpoint-down(xs) {
 		margin-bottom: 15px;
 		margin-top: -16px;
@@ -860,7 +859,7 @@ footer {
 		z-index: 1 !important;
 	}
 	.mdi-menu {
-		margin-left: -0.4em;
+		margin: 5px -5px;
 	}
 	.avatar-circle {
 		margin-left: -25px;
@@ -871,6 +870,8 @@ footer {
 		top: -0.7px;
 	}
 }
+
+
 
 @media (min-width: 575px) {
   .content-wrapper .cloud-logo {

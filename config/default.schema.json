@@ -181,6 +181,11 @@
 			"default": false,
 			"description": "Enables to show the alerts on the homepage"
 		},
+		"FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables to show the login and register button on the loginpage"
+		 },
 		"ALERT_STATUS_URL": {
 			"type": "string",
 			"default": null,
