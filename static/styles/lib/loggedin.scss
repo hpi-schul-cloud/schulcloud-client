@@ -840,8 +840,6 @@ footer {
 		height: 56px;
 	}
 
-
-
 	.sc-branding {
 		width: fit-content;
 	}
@@ -872,20 +870,28 @@ footer {
 	}
 }
 
+@media (max-width: 420px) {
+	.alert-button .minimal-button .dropdown-menu {
+		left: -14.2rem !important;
+		width: 80vw;
+	}
+}
+
+@media (max-width: 360px) {
+	.alert-button .minimal-button .dropdown-menu {
+		width: 92vw;
+	}
+}
+
+@media (min-width: 320px) and (max-width: 359px) {
+	.alert-button .minimal-button .dropdown-menu {
+		left: -12.1rem!important;
+	}
+}
+
+
 @media (min-width: 575px) {
   .content-wrapper .cloud-logo {
 		display: none !important;
-	}
-}
-
-@media (max-width: 313px) {
-	.content-wrapper .cloud-logo {
-		width: 130px;
-	}
-}
-
-@media (max-width: 270px) {
-	.topbar.navbar {
-		height: 100px;
 	}
 }
