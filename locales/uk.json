@@ -1016,12 +1016,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Адміністрація:",
+				"administration": "Управління",
 				"alias": "Псевдонім",
 				"attendees": "Учасники",
 				"briefDescription": "Короткий опис",
-				"classes": "Класи{{title}}",
-				"courses": "Курси{{title}}",
 				"createdOn": "Створено",
 				"creationDate": "Дата створення",
 				"declarationOfConsentStatus": "Стан заяви про згоду",
@@ -1036,13 +1034,13 @@
 				"members": "Учасники",
 				"owner": "Власник",
 				"remarks": "Зауваження",
-				"school": "Школа{{title}}",
 				"schools": "Школа(-и)",
 				"status": "Стан",
 				"students": "Учень{{title}}",
+				"studentImport": "Імпорт учнів",
 				"targetState": "Цільовий стан",
 				"teacher": "Викладач{{title}}",
-				"teams": "Команди{{title}}",
+				"teacherImport": "Імпорт викладачів",
 				"upgradeClass": "Ввести клас «{{name}}» до нового навчального року",
 				"uploadedOn": "Завантажено на"
 			},
@@ -1442,7 +1440,11 @@
 			"attention": "Увага",
 			"createNewFile": "Створити новий файл",
 			"doYouWantToOpenThisFile": "Ви хочете відкрити цей файл за допомогою зовнішнього сервісу?",
-			"newFolder": "Новий каталог"
+			"newFolder": "Новий каталог",
+			"personalFiles": "Персональні файли",
+			"courseFiles": "Файли курсу",
+			"teamFiles": "Файли команди",
+			"sharedFiles": "Поширені файли"
 		},
 		"input": {
 			"filename": "Назва файлу",
@@ -2486,7 +2488,8 @@
 				"viewDetails": "Показати подробиці"
 			},
 			"headline": {
-				"errorDetails": "Інформація про помилку:"
+				"errorDetails": "Інформація про помилку:",
+				"pageTitle": "Виникла помилка"
 			}
 		},
 		"extended_footer": {

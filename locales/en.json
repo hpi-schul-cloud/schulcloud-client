@@ -191,12 +191,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Administration:",
+				"administration": "Management",
 				"alias": "Alias",
 				"attendees": "Attendees",
 				"briefDescription": "Brief description",
-				"classes": "{{title}}Classes",
-				"courses": "{{title}}Courses",
 				"createdOn": "Created on",
 				"creationDate": "Date of creation",
 				"declarationOfConsentStatus": "Declaration of consent Status",
@@ -211,13 +209,13 @@
 				"members": "Members",
 				"owner": "Owner",
 				"remarks": "Remarks",
-				"school": "{{title}}School",
 				"schools": "School(s)",
 				"status": "Status",
 				"students": "{{title}}Student",
+				"studentImport": "Import student",
 				"targetState": "Target state",
 				"teacher": "{{title}}Teacher",
-				"teams": "{{title}}Teams",
+				"teacherImport": "Import teacher",
 				"upgradeClass": "Bring class '{{name}}' to the new school year",
 				"uploadedOn": "Uploaded on"
 			},
@@ -1340,7 +1338,11 @@
 			"attention": "Attention",
 			"createNewFile": "Create a new file",
 			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
-			"newFolder": "New folder"
+			"newFolder": "New folder",
+			"personalFiles": "Personal files",
+			"courseFiles": "Course files",
+			"teamFiles": "Team files",
+			"sharedFiles": "Shared files"
 		},
 		"img_alt": {
 			"altInfoTheImage": "the image {{imgName}}"
@@ -2281,7 +2283,8 @@
 				"viewDetails": "Show details"
 			},
 			"headline": {
-				"errorDetails": "Error details:"
+				"errorDetails": "Error details:",
+				"pageTitle": "An error has occurred"
 			}
 		},
 		"extended_footer": {

@@ -717,9 +717,8 @@ router.get(
 	'/',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
-		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 		res.render('administration/dashboard', {
-			title: res.$t('administration.controller.headline.general', { title }),
+			title: res.$t('administration.controller.headline.administration'),
 			inMaintenance: res.locals.currentSchoolData.inMaintenance,
 			inUserMigration: res.locals.currentSchoolData.inUserMigration,
 		});
@@ -821,14 +820,8 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
-		const title = res.$t('administration.controller.headline.teacher', {
-			title: returnAdminPrefix(
-				res.locals.currentUser.roles,
-				res,
-			),
-		});
 		res.render('administration/import', {
-			title,
+			title: res.$t('administration.controller.headline.teacherImport'),
 			roles: 'teacher',
 			action: `/administration/teachers/import?_csrf=${res.locals.csrfToken}`,
 			redirectTarget: '/administration/teachers',
@@ -1087,11 +1080,8 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
-		const title = res.$t('administration.controller.headline.students', {
-			title: returnAdminPrefix(res.locals.currentUser.roles, res),
-		});
 		res.render('administration/import', {
-			title,
+			title: res.$t('administration.controller.headline.studentImport'),
 			roles: 'student',
 			action: `/administration/students/import?_csrf=${res.locals.csrfToken}`,
 			redirectTarget: '/administration/students',
@@ -2234,9 +2224,7 @@ router.get(
 					]);
 
 				res.render('administration/classes', {
-					title: res.$t('administration.controller.headline.classes', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
+					title: res.$t('administration.dashboard.headline.manageClasses'),
 					head,
 					body,
 					displayName,
@@ -2472,9 +2460,7 @@ router.all('/courses', (req, res, next) => {
 		};
 
 		res.render('administration/courses', {
-			title: res.$t('administration.controller.headline.courses', {
-				title: returnAdminPrefix(res.locals.currentUser.roles, res),
-			}),
+			title: res.$t('administration.dashboard.headline.manageCourses'),
 			head,
 			coursesBody,
 			classes,
@@ -2700,9 +2686,7 @@ router.all('/teams', async (req, res, next) => {
 				users = users.filter((user) => !isUserHidden(user, res.locals.currentSchoolData));
 
 				res.render('administration/teams', {
-					title: res.$t('administration.controller.headline.teams', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
+					title: res.$t('administration.dashboard.headline.manageTeams'),
 					head,
 					body,
 					classes,
@@ -2968,7 +2952,6 @@ router.use(
 		}
 
 		// SCHOOL
-		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 		let provider = getStorageProviders(res);
 		provider = (provider || []).map((prov) => {
 			// eslint-disable-next-line eqeqeq
@@ -2996,9 +2979,7 @@ router.use(
 		const availableSSOTypes = getSSOTypes().filter((type) => type.value !== 'itslearning');
 
 		res.render('administration/school', {
-			title: res.$t('administration.controller.headline.school', {
-				title,
-			}),
+			title: res.$t('administration.dashboard.headline.manageSchool'),
 			school,
 			schoolMaintanance,
 			schoolMaintananceMode,

@@ -12,9 +12,10 @@ router.get('/', (req, res, next) => {
 				.then(_ => Promise.resolve(template));
 		}
 		return Promise.resolve(template);
-	}).then(template => res.render(template, {
+	}).then((template) => res.render(template, {
 		inline: !!template.includes('guest'),
 		hideMenu: true,
+		pageTitle: res.$t('home.button.register'),
 	})).catch(next);
 });
 

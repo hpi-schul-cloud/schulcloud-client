@@ -581,7 +581,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
 	res.render('files/files', {
-		title: res.$t('global.headline.files'),
+		title: res.$t('files.headline.personalFiles'),
 		path: res.locals.files.path,
 		breadcrumbs,
 		canUploadFile: true,
@@ -624,7 +624,7 @@ router.get('/shared/', (req, res) => {
 		files.files = getFilesWithSaveName(files.files);
 
 		res.render('files/files', {
-			title: res.$t('global.headline.files'),
+			title: res.$t('files.headline.sharedFiles'),
 			path: '/',
 			breadcrumbs: [{
 				label: res.$t('files.label.filesSharedWithMe'),
@@ -656,7 +656,7 @@ router.get('/courses/', (req, res, next) => {
 		}];
 
 		res.render('files/files', {
-			title: res.$t('global.headline.files'),
+			title: res.$t('files.headline.courseFiles'),
 			path: getStorageContext(req, res),
 			breadcrumbs,
 			files: [],
@@ -695,7 +695,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
 	res.render('files/files', {
-		title: res.$t('global.headline.files'),
+		title: res.$t('files.headline.courseFiles'),
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile,
@@ -723,7 +723,7 @@ router.get('/teams/', (req, res, next) => {
 		}];
 
 		res.render('files/files', {
-			title: res.$t('global.headline.files'),
+			title: res.$t('files.headline.teamFiles'),
 			path: getStorageContext(req, res),
 			breadcrumbs,
 			teamFiles: true,
@@ -767,7 +767,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 	const useNextcloud = useNextcloudFilesystem(res.locals.currentUser);
 
 	res.render('files/files', {
-		title: res.$t('global.headline.files'),
+		title: res.$t('files.headline.teamFiles'),
 		nextcloudUrl,
 		useNextcloud,
 		canUploadFile: true,

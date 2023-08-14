@@ -191,12 +191,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Administración:",
+				"administration": "Administración",
 				"alias": "Alias",
 				"attendees": "Asistentes",
 				"briefDescription": "Breve descripción",
-				"classes": "Clases {{title}}",
-				"courses": "Cursos {{title}}",
 				"createdOn": "Creado el",
 				"creationDate": "Fecha de creación",
 				"declarationOfConsentStatus": "Estado de la declaración de consentimiento",
@@ -211,13 +209,13 @@
 				"members": "Miembros",
 				"owner": "Propietario",
 				"remarks": "Observaciones",
-				"school": "Escuela {{title}}",
 				"schools": "Escuela(s)",
 				"status": "Estado",
 				"students": "Estudiante {{title}}",
+				"studentImport": "Importar estudiante",
 				"targetState": "Estado objetivo",
 				"teacher": "Profesor {{title}}",
-				"teams": "Equipos {{title}}",
+				"teacherImport": "Importar profesor",
 				"upgradeClass": "Mover la clase '{{name}}' al nuevo año escolar",
 				"uploadedOn": "Subido el"
 			},
@@ -1340,7 +1338,11 @@
 			"attention": "Atención",
 			"createNewFile": "Crear un nuevo archivo",
 			"doYouWantToOpenThisFile": "¿Quieres abrir este archivo con un servicio externo?",
-			"newFolder": "Nueva carpeta"
+			"newFolder": "Nueva carpeta",
+			"personalFiles": "Archivos personales",
+			"courseFiles": "Archivos del curso",
+			"teamFiles": "Archivos del equipo",
+			"sharedFiles": "Archivos compartidos"
 		},
 		"img_alt": {
 			"altInfoTheImage": "la imagen {{imgName}}"
@@ -2281,7 +2283,8 @@
 				"viewDetails": "Mostrar detalles"
 			},
 			"headline": {
-				"errorDetails": "Detalles del error:"
+				"errorDetails": "Detalles del error:",
+				"pageTitle": "Se ha producido un error"
 			}
 		},
 		"extended_footer": {

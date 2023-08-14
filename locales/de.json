@@ -191,12 +191,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Administration: ",
+				"administration": "Verwaltung",
 				"alias": "Alias",
 				"attendees": "Teilnehmer:innen",
 				"briefDescription": "Kurzbeschreibung",
-				"classes": "{{title}}Klassen",
-				"courses": "{{title}}Kurse",
 				"createdOn": "Erstellt am",
 				"creationDate": "Erstellungsdatum",
 				"declarationOfConsentStatus": "Einverständniserklärung Status",
@@ -211,13 +209,13 @@
 				"members": "Mitglieder",
 				"owner": "Eigentümer:in",
 				"remarks": "Anmerkungen",
-				"school": "{{title}}Schule",
 				"schools": "Schule(n)",
 				"status": "Status",
 				"students": "{{title}}Schüler:innen",
+				"studentImport": "Schüler:in importieren",
 				"targetState": "Soll-Zustand",
 				"teacher": "{{title}}Lehrkraft",
-				"teams": "{{title}}Teams",
+				"teacherImport": "Lehrkraft importieren",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
 				"uploadedOn": "Hochgeladen am"
 			},
@@ -1340,7 +1338,11 @@
 			"attention": "Achtung",
 			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
-			"newFolder": "Neuer Ordner"
+			"newFolder": "Neuer Ordner",
+			"personalFiles": "Persönliche Dateien",
+			"courseFiles": "Kurs-Dateien",
+			"teamFiles": "Team-Dateien",
+			"sharedFiles": "Geteilte Dateien"
 		},
 		"img_alt": {
 			"altInfoTheImage": "Das Bild {{imgName}}"
@@ -2281,7 +2283,8 @@
 				"viewDetails": "Details anzeigen"
 			},
 			"headline": {
-				"errorDetails": "Fehler-Details:"
+				"errorDetails": "Fehler-Details:",
+				"pageTitle": "Ein Fehler ist aufgetreten"
 			}
 		},
 		"extended_footer": {

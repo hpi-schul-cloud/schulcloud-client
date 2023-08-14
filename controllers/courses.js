@@ -277,6 +277,7 @@ const editCourseHandler = (req, res, next) => {
 			students: filterStudents(res, markSelected(students, course.userIds)),
 			redirectUrl: req.query.redirectUrl || '/courses',
 			schoolData: res.locals.currentSchoolData,
+			pageTitle: res.$t('courses.add.headline.addCourse'),
 		});
 	}).catch(next);
 };
