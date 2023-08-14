@@ -325,7 +325,6 @@ aside.nav-sidebar {
 		z-index: 9999;
 		transition: transform .3s linear;
 		transform: rotate(90deg);
-		margin-top: 20px;
 	}
 
 	@include media-breakpoint-down(xs) {
@@ -621,7 +620,6 @@ footer {
 
 	@include media-breakpoint-down(xs) {
 		margin-bottom: 15px;
-		margin-top: -16px;
 		padding-left: 50px !important;
 		background: $colorWhite;
 		box-shadow: 0 2px 10px rgba(0, 0, 0, .36);
