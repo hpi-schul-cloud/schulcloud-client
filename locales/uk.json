@@ -1952,7 +1952,7 @@
 						"other": "{{count}} класи"
 					},
 					"member": "{{count}} учасників",
-					"addMember": "Видалити учасника",
+					"addMember": "Додати учасника",
 					"deleteClass": "Видалити клас",
 					"deleteMember": "Видалити учасника",
 					"editMember": "Редагувати учасника"

@@ -2987,7 +2987,7 @@
 					"selectFromIndex": "Select from directory"
 				},
 				"headline": {
-					"addMember": "Delete attendee",
+					"addMember": "Add attendee",
 					"class": "{{count}} class",
 					"class_plural": "{{count}} classes",
 					"deleteClass": "Delete class",
