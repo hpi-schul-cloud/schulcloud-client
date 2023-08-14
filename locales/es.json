@@ -2990,7 +2990,7 @@
 					"selectFromIndex": "Seleccionar del directorio"
 				},
 				"headline": {
-					"addMember": "Eliminar asistente",
+					"addMember": "Añadir participante",
 					"class": "{{count}} clase",
 					"class_plural": "{{count}} clases",
 					"deleteClass": "Eliminar clase",
