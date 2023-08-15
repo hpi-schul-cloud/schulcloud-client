@@ -60,6 +60,9 @@
 .js-alert-content {
   max-height: 400px;
   overflow-y: auto;
+  @include media-breakpoint-down(xs) {
+    max-height: 80vh;
+  }
 }
 
 // Dividers (basically an `<hr>`) within the dropdown

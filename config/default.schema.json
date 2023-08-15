@@ -180,6 +180,11 @@
 			"type": "string",
 			"description": "The value is used to disable logging color in terminal and is set in production always to true."
 		},
+		"FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables to show the login and register button on the loginpage"
+		 },
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
 			"default": false,
