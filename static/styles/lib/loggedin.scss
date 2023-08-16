@@ -870,22 +870,23 @@ footer {
 	}
 }
 
-@media (max-width: 420px) {
+@media (min-width: 320px) and (max-width: 359px) {
 	.alert-button .minimal-button .dropdown-menu {
-		left: -14.2rem !important;
-		width: 80vw;
+		left: -12.1rem !important;
 	}
 }
 
 @media (max-width: 360px) {
 	.alert-button .minimal-button .dropdown-menu {
 		width: 92vw;
+		left: -14.1rem !important;
 	}
 }
 
-@media (min-width: 320px) and (max-width: 359px) {
+@media (min-width: 361px) and (max-width: 420px) {
 	.alert-button .minimal-button .dropdown-menu {
-		left: -12.1rem!important;
+		left: -14.2rem !important;
+		width: 80vw;
 	}
 }
 
