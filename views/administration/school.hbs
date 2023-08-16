@@ -39,7 +39,7 @@
 			<div class="row">
 				<div class="col-sm-12 no-padding">
 					{{#if schoolMaintanance.schoolUsesLdap}}
-					<p>{{$t "administration.longText.text.useTheTransferPhaseAroundTheSchool" }}</p>
+					<p>{{$t "administration.longText.text.useTheTransferPhaseAroundTheSchool" (dict "title" @root.theme.title)}}</p>
 					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">{{$t "administration.school.link.moreInfo" }} ></a></p>
 					<div id="ldapschoolyearadditionalinfo">
 						<p>{{$t "administration.longText.text.backgroundSoThatEveryStudentAndTeacher" }}
