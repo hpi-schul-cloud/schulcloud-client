@@ -1569,7 +1569,7 @@
 	"format": {
 		"date": "DD/MM/YYYY",
 		"dateLong": "dddd, DD. MMMM YYYY",
-		"datePicker": "m/d/Y",
+		"datePicker": "d/m/Y",
 		"datePickerMask": "19/39/9999",
 		"dateTime": "DD/MM/YYYY HH:mm",
 		"dateTimePicker": "m/d/Y H:i",
