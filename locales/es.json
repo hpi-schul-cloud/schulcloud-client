@@ -1572,7 +1572,7 @@
 		"datePicker": "d/m/Y",
 		"datePickerMask": "19/39/9999",
 		"dateTime": "DD/MM/YYYY HH:mm",
-		"dateTimePicker": "m/d/Y H:i",
+		"dateTimePicker": "d/m/Y H:i",
 		"dateTimePickerMask": "19/39/9999 29:59",
 		"dateTimeToPicker": "DD/MM/YYYY HH:mm",
 		"dateToPicker": "DD/MM/YYYY"
