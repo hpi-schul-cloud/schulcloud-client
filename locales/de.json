@@ -191,12 +191,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Administration: ",
+				"administration": "Verwaltung",
 				"alias": "Alias",
 				"attendees": "Teilnehmer:innen",
 				"briefDescription": "Kurzbeschreibung",
-				"classes": "{{title}}Klassen",
-				"courses": "{{title}}Kurse",
 				"createdOn": "Erstellt am",
 				"creationDate": "Erstellungsdatum",
 				"declarationOfConsentStatus": "Einverständniserklärung Status",
@@ -211,13 +209,13 @@
 				"members": "Mitglieder",
 				"owner": "Eigentümer:in",
 				"remarks": "Anmerkungen",
-				"school": "{{title}}Schule",
 				"schools": "Schule(n)",
 				"status": "Status",
 				"students": "{{title}}Schüler:innen",
+				"studentImport": "Schüler:in importieren",
 				"targetState": "Soll-Zustand",
 				"teacher": "{{title}}Lehrkraft",
-				"teams": "{{title}}Teams",
+				"teacherImport": "Lehrkraft importieren",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
 				"uploadedOn": "Hochgeladen am"
 			},
@@ -1255,7 +1253,8 @@
 			"noDueDate": "Kein Abgabedatum festgelegt",
 			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg:innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
-			"notFound": "Keine aktuellen Einträge vorhanden."
+			"notFound": "Keine aktuellen Einträge vorhanden.",
+			"bettermarksAnnouncement": "Neues bei bettermarks: Jetzt auch <a target=\"_blank\" aria-label=\"Unterrichtseinheiten für Klasse 5 und 6 bei bettermarks\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/unterrichten/\">Unterrichtseinheiten</a> für Klasse 5 und 6 neben den <a target=\"_blank\" aria-label=\"Übungs- und Testaufgaben für Klasse 4 bis 13 bei bettermarks\"class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/ueben-testen/\">Übungs- und Testaufgaben</a> für Jahrgangsstufe 4 bis 13!"
 		}
 	},
 	"dataprivacy": {
@@ -1339,7 +1338,11 @@
 			"attention": "Achtung",
 			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
-			"newFolder": "Neuer Ordner"
+			"newFolder": "Neuer Ordner",
+			"personalFiles": "Persönliche Dateien",
+			"courseFiles": "Kurs-Dateien",
+			"teamFiles": "Team-Dateien",
+			"sharedFiles": "Geteilte Dateien"
 		},
 		"img_alt": {
 			"altInfoTheImage": "Das Bild {{imgName}}"
@@ -1790,7 +1793,7 @@
 			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
-			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
+			"somethingWentWrong": "Da ist etwas schiefgelaufen!",
 			"specialCharacters": "!§$%&/()=?\\;:,.#+*~-",
 			"sunday": "Sonntag",
 			"sureAboutDeleting": "Bist du dir sicher, dass du '{{ name }}' löschen möchtest?",
@@ -2280,7 +2283,8 @@
 				"viewDetails": "Details anzeigen"
 			},
 			"headline": {
-				"errorDetails": "Fehler-Details:"
+				"errorDetails": "Fehler-Details:",
+				"pageTitle": "Ein Fehler ist aufgetreten"
 			}
 		},
 		"extended_footer": {

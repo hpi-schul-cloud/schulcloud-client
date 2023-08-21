@@ -16,7 +16,8 @@
 			"noDueDate": "Дата подання не встановлена",
 			"noMaterialsYetLookAtOthers": "Ви ще не створили власні матеріали. Але ви також можете черпати натхнення з матеріалів своїх колег. Перевірте <a href=\"/my-material\">Розділ «Мої матеріали»</a>.",
 			"graded": "Оцінено",
-			"handedIn": "Подані"
+			"handedIn": "Подані",
+			"bettermarksAnnouncement": "Нове на bettermarks: тепер також <a target=\"_blank\" aria-label=\"Уроки для 5 та 6 класів на кращі оцінки\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/unterrichten/\">навчальні блоки</a>  для 5 та 6 класів на додаток до <a target=\"_blank\" aria-label=\"Вправи та тести для 4-13 класів на кращі оцінки\"class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/ueben-testen/\">практичних та тестових завдань</a> для 4-13 класів!"
 		},
 		"img_alt": {
 			"showAppointmentInTeam": "Показати призначення в команді",
@@ -1015,12 +1016,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Адміністрація:",
+				"administration": "Управління",
 				"alias": "Псевдонім",
 				"attendees": "Учасники",
 				"briefDescription": "Короткий опис",
-				"classes": "Класи{{title}}",
-				"courses": "Курси{{title}}",
 				"createdOn": "Створено",
 				"creationDate": "Дата створення",
 				"declarationOfConsentStatus": "Стан заяви про згоду",
@@ -1035,13 +1034,13 @@
 				"members": "Учасники",
 				"owner": "Власник",
 				"remarks": "Зауваження",
-				"school": "Школа{{title}}",
 				"schools": "Школа(-и)",
 				"status": "Стан",
 				"students": "Учень{{title}}",
+				"studentImport": "Імпорт учнів",
 				"targetState": "Цільовий стан",
 				"teacher": "Викладач{{title}}",
-				"teams": "Команди{{title}}",
+				"teacherImport": "Імпорт викладачів",
 				"upgradeClass": "Ввести клас «{{name}}» до нового навчального року",
 				"uploadedOn": "Завантажено на"
 			},
@@ -1441,7 +1440,11 @@
 			"attention": "Увага",
 			"createNewFile": "Створити новий файл",
 			"doYouWantToOpenThisFile": "Ви хочете відкрити цей файл за допомогою зовнішнього сервісу?",
-			"newFolder": "Новий каталог"
+			"newFolder": "Новий каталог",
+			"personalFiles": "Персональні файли",
+			"courseFiles": "Файли курсу",
+			"teamFiles": "Файли команди",
+			"sharedFiles": "Поширені файли"
 		},
 		"input": {
 			"filename": "Назва файлу",
@@ -1951,7 +1954,7 @@
 						"other": "{{count}} класи"
 					},
 					"member": "{{count}} учасників",
-					"addMember": "Видалити учасника",
+					"addMember": "Додати учасника",
 					"deleteClass": "Видалити клас",
 					"deleteMember": "Видалити учасника",
 					"editMember": "Редагувати учасника"
@@ -2485,7 +2488,8 @@
 				"viewDetails": "Показати подробиці"
 			},
 			"headline": {
-				"errorDetails": "Інформація про помилку:"
+				"errorDetails": "Інформація про помилку:",
+				"pageTitle": "Виникла помилка"
 			}
 		},
 		"extended_footer": {

@@ -12,8 +12,10 @@ router.get('/', (req, res, next) => {
 				.then(() => Promise.resolve(template));
 		}
 		return Promise.resolve(template);
-	}).then(template => res.render(template,{
-		inline: !!template.includes('guest')}));
+	}).then((template) => res.render(template, {
+		inline: !!template.includes('guest'),
+		pageTitle: res.$t('security.headline.security'),
+	}));
 });
 
 module.exports = router;

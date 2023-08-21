@@ -74,6 +74,20 @@
             </div>
         </div>
     {{/if}}
+
+    {{#hasConfig "BETTERMARKS_ANNOUNCEMENT_ENABLED"}}
+        {{#hasConfig "BETTERMARKS_ANNOUNCEMENT_ROLES"}}
+            {{#ifeq (getConfig "BETTERMARKS_ANNOUNCEMENT_ENABLED") true}}
+                {{#ifneq (getConfig "BETTERMARKS_ANNOUNCEMENT_ROLES") ""}}
+                    {{#if (userHasRoleFromArray (getConfig "BETTERMARKS_ANNOUNCEMENT_ROLES") ../currentUser)}}
+                        <div class="alert bettermarks-notification" role="alert">
+                            <i class="fa fa-fw fa-lightbulb-o fa-lg" style="margin: 6px 0.5rem 0 0.5rem; color: #38677A" aria-hidden="true"></i><p class="bettermarks-notification-text">{{{$t "dashboard.text.bettermarksAnnouncement"}}}</p>
+                        </div>
+                    {{/if}}
+                {{/ifneq}}
+            {{/ifeq}}
+        {{/hasConfig}}
+    {{/hasConfig}}
 </section>
 
 {{#if (getConfig "FEATURE_DASHBOARD_NEWS_ON_TOP_ENABLED")}}
