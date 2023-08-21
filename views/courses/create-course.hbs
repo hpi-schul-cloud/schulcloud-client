@@ -16,6 +16,7 @@
         <script src="{{getAssetPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/dataprivacy/paginated_form.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/bootstrap-fix/bootstrap-select-hidden-options.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
 
@@ -106,11 +107,11 @@
                   <select id="courseTeacher" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" data-testid="teachersearch" autocomplete="off"
                     aria-describedby="courseTeacherErr">
                     {{#each teachers}}
-                    <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                    <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
                       {{#if this.displayName}}
-                      {{this.displayName}}
+                        {{this.displayName}}
                       {{else}}
-                      {{this.firstName}} {{this.lastName}}
+                        {{this.firstName}} {{this.lastName}}
                       {{/if}}
                     </option>
                     {{/each}}
@@ -124,8 +125,12 @@
                     <select id="courseSubstitute" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" autocomplete="off" data-testid="substituent">
                             <option disabled value="{{$t "administration.global.label.noSubTeacherSelection"}}">{{$t "administration.global.label.noSubTeacherSelection"}}</option>
                         {{#each substitutions}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                {{this.firstName}} {{this.lastName}}
+                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
+                                {{#if this.displayName}}
+                                    {{this.displayName}}
+                                {{else}}
+                                    {{this.firstName}} {{this.lastName}}
+                                {{/if}}
                             </option>
                         {{/each}}
                     </select>
@@ -143,7 +148,7 @@
                       </div>
 
                       <div class="form-group col-md-6">
-              {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpanUntil") id="untilDate"
+              {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate"
               class="untilDate"
               value=course.untilDate}}
                       </div>
@@ -195,7 +200,7 @@
                       <select id="addStudentsToCourse" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
                          <option disabled value="{{$t "administration.global.placeholder.selectStudent"}}">{{$t "administration.global.placeholder.selectStudent"}}</option>
                          {{#each ../students}}
-                         <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                         <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
                          {{#if this.displayName}}
                          {{this.displayName}}
                          {{else}}
