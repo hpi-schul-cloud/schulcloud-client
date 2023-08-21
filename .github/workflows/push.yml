@@ -160,7 +160,7 @@ jobs:
     uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@BC-4569-secrets-from-1pass-instead-of-github
     with:
       ref: ${{ needs.branch_meta.outputs.branch }}
-    #secrets: inherit
+    secrets: inherit
 
   test-successful:
       runs-on: ubuntu-latest
