@@ -527,7 +527,7 @@
 			"text": {
 				"afterVerificationCanPreviewTheReadContent": "Después de la verificación, puedes obtener una vista previa del contenido que se ha leído. Los contenidos eliminados no se transfieren porque el nombre, el apellido y/o la dirección de correo electrónico del usuario no están disponibles en el LDAP.",
 				"anyChangesToTheFollowingConfiguration": "Cualquier cambio que realices en la siguiente configuración puede provocar que el inicio de sesión ya no funcione ni para ti ni para todos los usuarios de tu escuela. Por lo tanto, realiza cambios solo si eres consciente de las consecuencias. Algunas secciones son de solo lectura, sin embargo, puedes habilitar la edición de la información haciendo clic en el candado en la sección correspondiente. Después de cada verificación, tu sistema se actualizará y se configurará inicialmente como desactivado. Si la verificación se ha realizado con éxito, no olvides guardar los cambios.",
-				"backgroundSoThatEveryStudentAndTeacher": "Antecedentes: para que todos los estudiantes y todos los profesores puedan acceder al contenido de clases anteriores (por ejemplo, a las fotos de viajes de clase), la nube escolar de HPI guarda la clase y el año escolar en los que estaba un usuario. La nube escolar de HPI proporciona una fase de transferencia para que funcione junto con tu LDAP y las clases que se sincronizan desde él. Este es el procedimiento durante un cambio de año escolar:",
+				"backgroundSoThatEveryStudentAndTeacher": "Antecedentes: para que todos los estudiantes y todos los profesores puedan acceder al contenido de clases anteriores (por ejemplo, a las fotos de viajes de clase), la {{title}} guarda la clase y el año escolar en los que estaba un usuario. La {{title}} proporciona una fase de transferencia para que funcione junto con tu LDAP y las clases que se sincronizan desde él. Este es el procedimiento durante un cambio de año escolar:",
 				"canCreateYearIndependentClasses": "Puedes crear clases independientes con nombres libres. El administrador no puede <i>'mover'</i> estas clases, pero debe actualizarlas manualmente.",
 				"canStartTheTransferPhase": "Puedes iniciar la fase de transferencia manualmente a partir de dos semanas antes del inicio de las vacaciones.",
 				"ifAllStudentsAndParentsHaveGiven": "Si el consentimiento ha sido dado por todos los estudiantes y los padres en papel, el consentimiento para toda la clase se puede declarar aquí manualmente.",
@@ -540,7 +540,7 @@
 				"teacherRegistrationNotCompleted": "El profesor aún no ha completado la inscripción. Obtenga un enlace de invitación personal para completar la inscripción y distribúyalo al profesor.",
 				"theSchoolYearEndsAnd": "El año escolar {{schoolName}} finaliza y comienza la fase de transferencia al nuevo año escolar. <strong>Este paso no se puede deshacer.</strong> No se pueden crear ni modificar clases ni usuarios durante este tiempo.",
 				"theSynchronizationOfLDAPMasterData": "La sincronización de los datos maestros LDAP se interrumpe durante la fase de transferencia. Esto significa que los datos de usuario y las clases (si se utilizan) ya no se actualizan a través de LDAP. Todavía es posible iniciar sesión con datos de inicio de sesión que ya se hayan sincronizado. Durante el inicio de sesión también se tienen en cuenta los cambios de contraseña en LDAP.",
-				"useTheTransferPhaseAroundTheSchool": "Utiliza la fase de transferencia en torno al cambio de año escolar para ajustar la afiliación a la clase y los datos personales en el LDAP. Finalmente, transfiere todos los cambios a la nube escolar de HPI a la vez.",
+				"useTheTransferPhaseAroundTheSchool": "Utiliza la fase de transferencia en torno al cambio de año escolar para ajustar la afiliación a la clase y los datos personales en el LDAP. Finalmente, transfiere todos los cambios a la {{title}} a la vez.",
 				"withAllChangesAndSettings": "Con todos los cambios y ajustes en el área de administración, se confirma que estos son llevados a cabo por un administrador de la escuela autorizado para hacer ajustes en la escuela en la nube. Los ajustes realizados por el administrador de la escuela se consideran instrucciones de la escuela al operador de la nube {{institute_title}}.",
 				"wouldYouLikeReportABug": "¿Te gustaría informar de un error o tienes alguna idea para mejorar {{title}}? Envía solicitudes o problemas directamente al servicio de atención al usuario de {{shortTitle}}."
 			}
@@ -619,7 +619,7 @@
 				"allDone": "¡Ya está!",
 				"atTheEndOfTheSchoolYearWithLDAP": "Cuando cambie el curso escolar, realiza las siguientes acciones con LDAP:",
 				"atTheEndOfTheTransferPhase": "Cuando finaliza la fase de transferencia, todos los cambios realizados en el LDAP se sincronizan de una vez",
-				"atTheSameTime": "Al mismo tiempo, entras en el nuevo año escolar en la nube escolar de HPI",
+				"atTheSameTime": "Al mismo tiempo, entras en el nuevo año escolar en la {{title}}",
 				"changeSchoolValueWarning": "¡Una vez configurado no puedrá ser cambiado!",
 				"coursesWithLearningContent": "Los cursos con contenido de aprendizaje para el próximo año escolar también se pueden crear durante la fase de transferencia (sin asignación de clase)",
 				"doNotEndTheTransferPhase": "No finalices la fase de transferencia hasta que los usuarios estén asignados a las nuevas clases",
