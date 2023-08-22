@@ -795,11 +795,8 @@ router.patch('/:courseId', async (req, res, next) => {
 		if (isRemovingYourself) {
 			await api(req).patch(`/courses/${courseId}`, {
 				json: {
-					classIds: course.classIds,
 					teacherIds: course.teacherIds.filter((id) => id !== currentUserId),
 					substitutionIds: course.substitutionIds.filter((id) => id !== currentUserId),
-					ltiToolIds: course.ltiToolIds,
-					color: course.color,
 				},
 			});
 			redirectUrl = '/rooms-overview';
