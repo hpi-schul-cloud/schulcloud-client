@@ -20,6 +20,7 @@ const OPTIONAL_COURSE_FEATURES = ['messenger', 'videoconference'];
 
 const router = express.Router();
 const { HOST } = require('../config/global');
+const { isUserHidden } = require('../helpers/users');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
@@ -167,6 +168,12 @@ const editCourseHandler = (req, res, next) => {
 		const students = _students.filter(
 			(s) => s.schoolId === res.locals.currentSchool,
 		);
+		teachers.forEach((teacher) => {
+			teacher.isHidden = isUserHidden(teacher, res.locals.currentSchoolData);
+		});
+		students.forEach((student) => {
+			student.isHidden = isUserHidden(student, res.locals.currentSchoolData);
+		});
 		const substitutions = _.cloneDeep(
 			teachers,
 		);
@@ -270,6 +277,7 @@ const editCourseHandler = (req, res, next) => {
 			students: filterStudents(res, markSelected(students, course.userIds)),
 			redirectUrl: req.query.redirectUrl || '/courses',
 			schoolData: res.locals.currentSchoolData,
+			pageTitle: res.$t('courses.add.headline.addCourse'),
 		});
 	}).catch(next);
 };

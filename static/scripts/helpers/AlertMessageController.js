@@ -55,7 +55,12 @@ class AlertMessageController {
 
 	showAlert(messageArray) {
 		if (!messageArray || messageArray.length === 0) {
-			return; // If messageArray is empty, we do not show the triangle
+			// If messageArray is empty, we do not show the triangle
+			localStorage.setItem('SC-Alerts', JSON.stringify([]));
+			if (this.loggedin) {
+				$('.alert-button').css('visibility', 'hidden');
+			}
+			return;
 		}
 		if (Array.isArray(messageArray)) {
 			// keep data in local storage

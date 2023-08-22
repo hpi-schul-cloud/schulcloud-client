@@ -12,10 +12,12 @@ const privacyUrl = () => {
 };
 
 const downloadPolicyPdf = (res, fileData, fileTitle) => {
+	// ERR_INVALID_CHAR will get thrown on ukrainian translation without encoding
+	const encodedFileTitle = encodeURI(fileTitle);
 	const download = Buffer.from(fileData, 'base64');
 	res.writeHead(200, {
 		'Content-Type': 'application/pdf',
-		'Content-Disposition': `attachment; filename="${fileTitle}.pdf"`,
+		'Content-Disposition': `attachment; filename="${encodedFileTitle}.pdf"`,
 	}).end(download);
 };
 
@@ -54,7 +56,11 @@ router.get('/', async (req, res, next) => {
 			if (!fileId) {
 				res.redirect(privacyUrl());
 			}
-			const fileTitle = consentVersions.data[0].title;
+
+			const fileTitle = res.locals.theme.name === 'thr'
+				? res.$t('global.text.dataProtectionFileThr')
+				: res.$t('global.text.dataProtectionFile');
+
 			await getBase64File(req, res, fileId, fileTitle);
 		} else {
 			res.redirect(privacyUrl());

@@ -46,7 +46,7 @@ const cspHeadersForRoute = (path, regexs, corsDefault, nonceValue) => {
 		childSrc: `${corsDefault.childSrc}`,
 		frameSrc: `${corsDefault.frameSrc}`,
 		workerSrc: `${corsDefault.workerSrc}`,
-		frameancestorsSrc: `${corsDefault.frameancestorsSrc}`,
+		frameAncestors: `${corsDefault.frameAncestors}`,
 		formactionSrc: `${corsDefault.formactionSrc}`,
 		upgradeInsecureRequestsSrc: `${corsDefault.upgradeInsecureRequestsSrc}`,
 		blockAllMixedContentSrc: `${corsDefault.blockAllMixedContentSrc}`,

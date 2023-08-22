@@ -22,6 +22,7 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
+const { isUserHidden } = require('../helpers/users');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
@@ -716,9 +717,8 @@ router.get(
 	'/',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST', 'TEACHER_LIST'], 'or'),
 	(req, res, next) => {
-		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 		res.render('administration/dashboard', {
-			title: res.$t('administration.controller.headline.general', { title }),
+			title: res.$t('administration.controller.headline.administration'),
 			inMaintenance: res.locals.currentSchoolData.inMaintenance,
 			inUserMigration: res.locals.currentSchoolData.inUserMigration,
 		});
@@ -820,14 +820,8 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
-		const title = res.$t('administration.controller.headline.teacher', {
-			title: returnAdminPrefix(
-				res.locals.currentUser.roles,
-				res,
-			),
-		});
 		res.render('administration/import', {
-			title,
+			title: res.$t('administration.controller.headline.teacherImport'),
 			roles: 'teacher',
 			action: `/administration/teachers/import?_csrf=${res.locals.csrfToken}`,
 			redirectTarget: '/administration/teachers',
@@ -1086,11 +1080,8 @@ router.get(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	async (req, res, next) => {
 		const years = getSelectableYears(res.locals.currentSchoolData);
-		const title = res.$t('administration.controller.headline.students', {
-			title: returnAdminPrefix(res.locals.currentUser.roles, res),
-		});
 		res.render('administration/import', {
-			title,
+			title: res.$t('administration.controller.headline.studentImport'),
 			roles: 'student',
 			action: `/administration/students/import?_csrf=${res.locals.csrfToken}`,
 			redirectTarget: '/administration/students',
@@ -1547,6 +1538,7 @@ const renderClassEdit = (req, res, next) => {
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
 					);
+
 					if (!isAdmin) {
 						// preselect current teacher when creating new class
 						// and the current user isn't a admin (teacher)
@@ -1559,6 +1551,7 @@ const renderClassEdit = (req, res, next) => {
 							}
 						});
 					}
+
 					let isCustom = false;
 					let isUpgradable = false;
 					if (currentClass) {
@@ -1596,6 +1589,10 @@ const renderClassEdit = (req, res, next) => {
 								&& !currentClass.successor;
 						}
 					}
+
+					teachers.forEach((teacher) => {
+						teacher.isHidden = isUserHidden(teacher, res.locals.currentSchoolData);
+					});
 
 					res.render('administration/classes-edit', {
 						title: {
@@ -1769,16 +1766,20 @@ router.get(
 					// preselect current teacher when creating new class
 
 					const teacherIds = currentClass.teacherIds.map((t) => t._id);
-					teachers.forEach((t) => {
-						if (teacherIds.includes(t._id)) {
-							t.selected = true;
+					teachers.forEach((teacher) => {
+						if (teacherIds.includes(teacher._id)) {
+							teacher.selected = true;
 						}
+
+						teacher.isHidden = isUserHidden(teacher, res.locals.currentSchoolData);
 					});
 					const studentIds = currentClass.userIds.map((t) => t._id);
-					students.forEach((s) => {
-						if (studentIds.includes(s._id)) {
-							s.selected = true;
+					students.forEach((student) => {
+						if (studentIds.includes(student._id)) {
+							student.selected = true;
 						}
+
+						student.isHidden = isUserHidden(student, res.locals.currentSchoolData);
 					});
 
 					// checks for user's 'STUDENT_LIST' permission and filters selected students
@@ -2198,7 +2199,7 @@ router.get(
 				const body = data.data.map((item) => {
 					const cells = [
 						item.displayName || '',
-						(item.teacherIds || []).map((i) => i.lastName).join(', '),
+						(item.teacherIds || []).map((i) => `${i.lastName}${i.outdatedSince ? ' ~~' : ''}`).join(', '),
 						(item.year || {}).name || '',
 						item.userIds.length || '0',
 					];
@@ -2223,9 +2224,7 @@ router.get(
 					]);
 
 				res.render('administration/classes', {
-					title: res.$t('administration.controller.headline.classes', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
+					title: res.$t('administration.dashboard.headline.manageClasses'),
 					head,
 					body,
 					displayName,
@@ -2427,7 +2426,7 @@ router.all('/courses', (req, res, next) => {
 					: undefined;
 			}).join(', '),
 			// eslint-disable-next-line no-shadow
-			(item.teacherIds || []).map((item) => item.lastName).join(', '),
+			(item.teacherIds || []).map((item) => `${item.lastName}${item.outdatedSince ? ' ~~' : ''}`).join(', '),
 			[
 				{
 					link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
@@ -2461,9 +2460,7 @@ router.all('/courses', (req, res, next) => {
 		};
 
 		res.render('administration/courses', {
-			title: res.$t('administration.controller.headline.courses', {
-				title: returnAdminPrefix(res.locals.currentUser.roles, res),
-			}),
+			title: res.$t('administration.dashboard.headline.manageCourses'),
 			head,
 			coursesBody,
 			classes,
@@ -2686,10 +2683,10 @@ router.all('/teams', async (req, res, next) => {
 					baseUrl: `/administration/teams/?p={{page}}${sortQuery}${limitQuery}`,
 				};
 
+				users = users.filter((user) => !isUserHidden(user, res.locals.currentSchoolData));
+
 				res.render('administration/teams', {
-					title: res.$t('administration.controller.headline.teams', {
-						title: returnAdminPrefix(res.locals.currentUser.roles, res),
-					}),
+					title: res.$t('administration.dashboard.headline.manageTeams'),
 					head,
 					body,
 					classes,
@@ -2868,7 +2865,7 @@ router.use(
 						link: `/base64Files/${linkToPolicy}`,
 						class: 'base64File-download-btn',
 						icon: 'file-o',
-						title: res.$t('administration.controller.link.schoolPrivacyPolicy'),
+						title: res.$t('global.text.dataProtection'),
 					});
 				}
 				return [title, text, publishedAt, links];
@@ -2955,7 +2952,6 @@ router.use(
 		}
 
 		// SCHOOL
-		const title = returnAdminPrefix(res.locals.currentUser.roles, res);
 		let provider = getStorageProviders(res);
 		provider = (provider || []).map((prov) => {
 			// eslint-disable-next-line eqeqeq
@@ -2983,9 +2979,7 @@ router.use(
 		const availableSSOTypes = getSSOTypes().filter((type) => type.value !== 'itslearning');
 
 		res.render('administration/school', {
-			title: res.$t('administration.controller.headline.school', {
-				title,
-			}),
+			title: res.$t('administration.dashboard.headline.manageSchool'),
 			school,
 			schoolMaintanance,
 			schoolMaintananceMode,

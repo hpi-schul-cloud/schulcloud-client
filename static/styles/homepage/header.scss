@@ -21,6 +21,9 @@
             /* remove bootstrap after attribute from dom - breaks flex alignment*/
             display: none;
         }
+				.header-alert-button {
+					margin-top: .4rem;
+				}
     }
     .logo{
         height: 2.75rem;
@@ -106,8 +109,15 @@
     @include media-breakpoint-down(md) {
          .container{
             flex-wrap: wrap;
-            justify-content: center;
+						&:not(:has(.alert-button)) {
+							justify-content: center;
+  					}
+						&:has(.alert-button) {
+							justify-content: space-between;
+						}
         }
+
+
         .logo{
             margin-top: .25em;
             height: 2.25rem;

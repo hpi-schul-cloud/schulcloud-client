@@ -294,6 +294,7 @@ router.all('/', async (req, res, next) => {
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
+			showAlerts: (Configuration.get('FEATURE_ALERTS_ON_HOMEPAGE_ENABLED')),
 		});
 	}
 });
@@ -311,6 +312,8 @@ const mapErrorCodeToTranslation = (errorCode) => {
 			return 'login.text.oauthCodeStep';
 		case 'sso_internal_error':
 			return 'login.text.internalError';
+		case 'sso_user_not_found_after_provisioning':
+			return 'login.text.userNotFoundInUnprovisionedSchool';
 		default:
 			return 'login.text.loginFailed';
 	}
@@ -323,10 +326,14 @@ const renderLogin = async (req, res) => {
 	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
 
 	let oauthErrorLogout = false;
+
 	if (req.query.error) {
 		res.locals.notification = {
 			type: 'danger',
-			message: res.$t(mapErrorCodeToTranslation(req.query.error)),
+			message: res.$t(mapErrorCodeToTranslation(req.query.error), {
+				systemName: 'moin.schule',
+				shortTitle: res.locals.theme.short_title,
+			}),
 		};
 		if (req.query.provider === 'iserv' && req.query.error !== 'sso_oauth_access_denied') {
 			oauthErrorLogout = true;
@@ -340,6 +347,7 @@ const renderLogin = async (req, res) => {
 	const oauthSystems = oauthSystemsResponse.data || [];
 
 	res.render('authentication/login', {
+		pageTitle: res.$t('home.header.link.login'),
 		schools: filterSchoolsWithLdapLogin(schools),
 		systems: [],
 		oauthSystems,
@@ -347,6 +355,7 @@ const renderLogin = async (req, res) => {
 		hideMenu: true,
 		redirect,
 		idOfSchool,
+		showAlerts: true,
 		strategyOfSchool,
 	});
 };
@@ -356,8 +365,6 @@ router.get('/loginRedirect', (req, res, next) => {
 		.then((isAuthenticated) => {
 			if (isAuthenticated) {
 				redirectAuthenticated(req, res);
-			} else if (Configuration.get('FEATURE_MULTI_LOGIN_INSTANCES')) {
-				res.redirect('/login-instances');
 			} else {
 				res.redirect('/login');
 			}

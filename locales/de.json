@@ -191,12 +191,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Administration: ",
+				"administration": "Verwaltung",
 				"alias": "Alias",
 				"attendees": "Teilnehmer:innen",
 				"briefDescription": "Kurzbeschreibung",
-				"classes": "{{title}}Klassen",
-				"courses": "{{title}}Kurse",
 				"createdOn": "Erstellt am",
 				"creationDate": "Erstellungsdatum",
 				"declarationOfConsentStatus": "Einverständniserklärung Status",
@@ -211,13 +209,13 @@
 				"members": "Mitglieder",
 				"owner": "Eigentümer:in",
 				"remarks": "Anmerkungen",
-				"school": "{{title}}Schule",
 				"schools": "Schule(n)",
 				"status": "Status",
 				"students": "{{title}}Schüler:innen",
+				"studentImport": "Schüler:in importieren",
 				"targetState": "Soll-Zustand",
 				"teacher": "{{title}}Lehrkraft",
-				"teams": "{{title}}Teams",
+				"teacherImport": "Lehrkraft importieren",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
 				"uploadedOn": "Hochgeladen am"
 			},
@@ -249,7 +247,6 @@
 				"manageClass": "Klasse verwalten",
 				"removeMembers": "Mitglieder eigener Schule aus Team entfernen",
 				"resetPassword": "Passwort zurücksetzen",
-				"schoolPrivacyPolicy": "Datenschutzerklärung der Schule",
 				"sendEntryToDevelopmentTeam": "Eintrag an Entwicklungsteam senden",
 				"sendMessageToOwner": "Nachricht an Eigentümer:in senden",
 				"toGiveConsent": "Einverständnis erklären",
@@ -737,6 +734,12 @@
 				"firstClose": "Der/die Nutzer:in muss zuerst die Einverständniserklärung digital abschließen",
 				"firstFinishRegistration": "Der/die Nutzer:in muss zuerst die Registrierung abschließen.",
 				"successfullySentMail": "Die Einladungs-E-Mail wurde erfolgreich versendet!"
+			},
+			"aria_label": {
+				"firstName": "Vorname Nutzer:in",
+				"lastName": "Nachname Nutzer:in",
+				"email": "E-Mail-Adresse Nutzer:in",
+				"birthdate": "Geburtsdatum Nutzer:in"
 			}
 		},
 		"users_registrationComplete": {
@@ -1131,8 +1134,7 @@
 				"addClassesToCourse": "Klasse(n) (Alle Schüler:innen der Klasse werden automatisch hinzugefügt!) - Optional",
 				"addStudentsToCourse": "Schüler:innen / Teilnehmer:innen - Optional",
 				"courseSubstitute": "Vertretungslehrkräfte - Optional",
-				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
-				"timeSpanUntil": "Bis - Optional"
+				"timeSpan": "Zeitraum (z.B. Schuljahr) von"
 			},
 			"link": {
 				"addAnotherCourse": "Einen weiteren Kurs anlegen",
@@ -1251,7 +1253,8 @@
 			"noDueDate": "Kein Abgabedatum festgelegt",
 			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg:innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
-			"notFound": "Keine aktuellen Einträge vorhanden."
+			"notFound": "Keine aktuellen Einträge vorhanden.",
+			"bettermarksAnnouncement": "Neues bei bettermarks: Jetzt auch <a target=\"_blank\" aria-label=\"Unterrichtseinheiten für Klasse 5 und 6 bei bettermarks\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/unterrichten/\">Unterrichtseinheiten</a> für Klasse 5 und 6 neben den <a target=\"_blank\" aria-label=\"Übungs- und Testaufgaben für Klasse 4 bis 13 bei bettermarks\"class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/ueben-testen/\">Übungs- und Testaufgaben</a> für Jahrgangsstufe 4 bis 13!"
 		}
 	},
 	"dataprivacy": {
@@ -1335,7 +1338,11 @@
 			"attention": "Achtung",
 			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
-			"newFolder": "Neuer Ordner"
+			"newFolder": "Neuer Ordner",
+			"personalFiles": "Persönliche Dateien",
+			"courseFiles": "Kurs-Dateien",
+			"teamFiles": "Team-Dateien",
+			"sharedFiles": "Geteilte Dateien"
 		},
 		"img_alt": {
 			"altInfoTheImage": "Das Bild {{imgName}}"
@@ -1760,6 +1767,9 @@
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
 			"dataProtection": "Datenschutzerklärung",
+			"dataProtectionThr": "Datenschutzhinweise",
+			"dataProtectionFile": "Datenschutzerklärung der Schule",
+			"dataProtectionFileThr": "Datenschutzhinweise der Schule",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Admin.",
 			"errorChangingFilePermissions": "Problem beim Ändern der Berechtigungen",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
@@ -1783,7 +1793,7 @@
 			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
-			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
+			"somethingWentWrong": "Da ist etwas schiefgelaufen!",
 			"specialCharacters": "!§$%&/()=?\\;:,.#+*~-",
 			"sunday": "Sonntag",
 			"sureAboutDeleting": "Bist du dir sicher, dass du '{{ name }}' löschen möchtest?",
@@ -2273,7 +2283,8 @@
 				"viewDetails": "Details anzeigen"
 			},
 			"headline": {
-				"errorDetails": "Fehler-Details:"
+				"errorDetails": "Fehler-Details:",
+				"pageTitle": "Ein Fehler ist aufgetreten"
 			}
 		},
 		"extended_footer": {
@@ -2573,7 +2584,8 @@
 			"superheroText": "Du versuchst dich mit einem Superhero Account anzumelden.",
 			"userNotFound": "Nutzer wurde nicht gefunden.",
 			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator.",
-			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an."
+			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an.",
+			"userNotFoundInUnprovisionedSchool": "Login fehlgeschlagen. Entweder ist die Schule noch nicht zu {{systemName}} umgezogen oder die Erstellung neuer Nutzer in der {{shortTitle}} ist für die Schule nicht aktiv. Bitte wenden Sie sich an Ihren Schuladministrator."
 		}
 	},
 	"messenger": {
@@ -2735,7 +2747,7 @@
 					"iDeclareTheFollowing": "Ich, <b data-from=\"firstName\"></b> <b data-from=\"lastName\"></b>,  erkläre Folgendes:",
 					"inCaseOfRevocationDataDeletion": "Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder du willst vorher noch auf die gespeicherten Daten zugreifen. Weitere Hinweise zum Datenschutz kannst du auch unseren <a class=\"nav-link\" target=\"_blank\" href=\"https://blog.dbildungscloud.de/faq-zum-datenschutz/\" rel=\"noopener\">FAQ</a> entnehmen.",
 					"languageHint": "Kleine Info: Deine Sprache kannst du jederzeit in deinen Einstellungen ändern. Einstellungen findest du rechts oben, wenn du auf deinen Avatar tippst.",
-					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbieter verarbeitet werden.",
+					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbieter verarbeitet werden.",
 					"theEmailAddressEnables": "Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.",
 					"weNeedFollowingDataForRegistration": "Für die Nutzung der {{title}} benötigen wir folgende Angaben:",
 					"weStoreUserDataSafely": "Die {{shortTitle}} bewahrt die Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen."
@@ -2775,7 +2787,7 @@
 					"aParentOrLegalGuardian": "Jahren bedarf ein Erziehungsberechtigter in die Nutzung der",
 					"legalGuardingHasToAgreeToTermsOfUse": "Für Schüler:innen unter {{years}} Jahren bedarf es der Einwilligung eines Erziehungsberechtigten in die Nutzung der {{shortTitle}}.",
 					"mustNotBeYourChildsEmail": "(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)",
-					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbieter verarbeitet werden.",
+					"myDataMayBeProcessed": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Datenschutzerklärung</a> der Schule in der {{title}} sowie bei den von der Schule ausgewählten und weisungsgebundenen Lernmittelanbieter verarbeitet werden.",
 					"needFollowingInformationForChild": "benötigen wir folgende Angaben für Ihr Kind:",
 					"pleaseConfirmTheFollowing": "Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{shortTitle}} nutzen kann:",
 					"studentNeedTheirOwnEmail": "(Schüler:innen benötigen eine eigene E-Mail-Adresse)",

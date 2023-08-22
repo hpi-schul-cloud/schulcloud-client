@@ -166,7 +166,7 @@
 				"noClassesInYear": "No classes available in this year",
 				"noLackOfInformedConsent": "There are no missing declarations of consent in this class.",
 				"required": "required",
-				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy policy</a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
+				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy Policy</a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of Use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
 				"theNextStepIsToInviteOrAdd": "In the next step you can invite or add students to the class."
 			},
 			"brb": {
@@ -191,12 +191,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Administration:",
+				"administration": "Management",
 				"alias": "Alias",
 				"attendees": "Attendees",
 				"briefDescription": "Brief description",
-				"classes": "{{title}}Classes",
-				"courses": "{{title}}Courses",
 				"createdOn": "Created on",
 				"creationDate": "Date of creation",
 				"declarationOfConsentStatus": "Declaration of consent Status",
@@ -211,13 +209,13 @@
 				"members": "Members",
 				"owner": "Owner",
 				"remarks": "Remarks",
-				"school": "{{title}}School",
 				"schools": "School(s)",
 				"status": "Status",
 				"students": "{{title}}Student",
+				"studentImport": "Import student",
 				"targetState": "Target state",
 				"teacher": "{{title}}Teacher",
-				"teams": "{{title}}Teams",
+				"teacherImport": "Import teacher",
 				"upgradeClass": "Bring class '{{name}}' to the new school year",
 				"uploadedOn": "Uploaded on"
 			},
@@ -249,7 +247,6 @@
 				"manageClass": "Manage class",
 				"removeMembers": "Remove members of your own school from the team",
 				"resetPassword": "Reset Password",
-				"schoolPrivacyPolicy": "Privacy policy of the school",
 				"sendEntryToDevelopmentTeam": "Send entry to development team",
 				"sendMessageToOwner": "Send message to owner",
 				"toGiveConsent": "Give consent",
@@ -737,6 +734,12 @@
 				"firstClose": "The user must first complete the consent form digitally",
 				"firstFinishRegistration": "The user must first complete the registration process.",
 				"successfullySentMail": "The invitation e-mail was sent successfully!"
+			},
+			"aria_label": {
+				"firstName": "First name of the user",
+				"lastName": "Last name of the user",
+				"email": "E-mail address of the user",
+				"birthdate": "Birthdate of the user"
 			}
 		},
 		"users_registrationComplete": {
@@ -763,7 +766,7 @@
 			"furtherCase": "+ {{amount}} another incident",
 			"furtherCases": "+{{amount}} further incidents",
 			"updatedAt": "Updated:",
-    		"createdAt": "Created:"
+			"createdAt": "Created:"
 		}
 	},
 	"autologout": {
@@ -1131,8 +1134,7 @@
 				"addClassesToCourse": "Class(es) (All students in the class will be added automatically!) - optional",
 				"addStudentsToCourse": "Students / participants - optional",
 				"courseSubstitute": "Substitute teacher - optional",
-				"timeSpan": "Period (eg school year) from - Optional",
-				"timeSpanUntil": "To - Optional"
+				"timeSpan": "Period (eg school year) from"
 			},
 			"link": {
 				"addAnotherCourse": "Create another course",
@@ -1251,7 +1253,8 @@
 			"noDueDate": "No submission date set",
 			"noMaterialsYetLookAtOthers": "You have not yet created your own materials. But you can also get inspiration from your colleagues' materials. Check out the <a href=\"/my-material\">\"My Materials\" section</a> .",
 			"noNews": "No news",
-			"notFound": "No active entries found."
+			"notFound": "No active entries found.",
+			"bettermarksAnnouncement": "New at bettermarks: Now also <a target=\"_blank\" aria-label=\"Lessons for class 5 and 6 at bettermarks\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/unterrichten/\">teaching units</a> for grade 5 and 6 in addition to the <a target=\"_blank\" aria-label=\"Exercises and tests for grades 4 to 13 at bettermarks\"class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/ueben-testen/\">practice and test items</a> for grades 4 to 13!"
 		}
 	},
 	"dataprivacy": {
@@ -1335,7 +1338,11 @@
 			"attention": "Attention",
 			"createNewFile": "Create a new file",
 			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
-			"newFolder": "New folder"
+			"newFolder": "New folder",
+			"personalFiles": "Personal files",
+			"courseFiles": "Course files",
+			"teamFiles": "Team files",
+			"sharedFiles": "Shared files"
 		},
 		"img_alt": {
 			"altInfoTheImage": "the image {{imgName}}"
@@ -1450,7 +1457,7 @@
 				"i": "I,",
 				"pleaseClickOnRead": "Please acknowledge this information by clicking on „Read” in order to proceed with the use.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Please confirm the following declarations of consent so that you can use the {{title}}.",
-				"termsOfUse": "Terms of use",
+				"termsOfUse": "Terms of Use",
 				"the": "the"
 			}
 		},
@@ -1759,7 +1766,10 @@
 			"408": "Timeout",
 			"areYouSure": "Are you sure?",
 			"attention": "Attention:",
-			"dataProtection": "Privacy policy",
+			"dataProtection": "Privacy Policy",
+			"dataProtectionThr": "Privacy Policy",
+			"dataProtectionFile": "Privacy Policy of School",
+			"dataProtectionFileThr": "Privacy Policy of School",
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
 			"errorWhileLoadingPage": "This page could not be loaded",
@@ -2273,7 +2283,8 @@
 				"viewDetails": "Show details"
 			},
 			"headline": {
-				"errorDetails": "Error details:"
+				"errorDetails": "Error details:",
+				"pageTitle": "An error has occurred"
 			}
 		},
 		"extended_footer": {
@@ -2369,7 +2380,7 @@
 				"participate": "Participate",
 				"safety": "Security",
 				"status": "Status",
-				"termsOfUseHPI": "Terms of use"
+				"termsOfUseHPI": "Terms of Use"
 			}
 		},
 		"headline": {
@@ -2468,7 +2479,7 @@
 			"firstLoginExistingUser": "Welcome - First login for existing users",
 			"loginFailedHint": "Unfortunately, your Login did not work, please try the following steps to solve the problem",
 			"loginForRegisteredUsers": "Login for registered users",
-			"onlyTermsOfUse": "Terms of use",
+			"onlyTermsOfUse": "Terms of Use",
 			"privacyAndTermsOfUse": "Privacy Policy and Terms of Use"
 		},
 		"input": {
@@ -2573,7 +2584,8 @@
 			"superheroText": "You are trying log in with a superhero account.",
 			"userNotFound": "User not found.",
 			"internalError": "Internal Server Error. Please contact the admin.",
-			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system."
+			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system.",
+			"userNotFoundInUnprovisionedSchool": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator."
 		}
 	},
 	"messenger": {
@@ -2735,7 +2747,7 @@
 					"iDeclareTheFollowing": "I, <b data-from=\"firstName\"> </b> <b data-from=\"lastName\"> </b>, declare the following:",
 					"inCaseOfRevocationDataDeletion": "In the event of revocation, we will immediately delete the personal data stored on the basis of the consent, unless there is a legal reason for storage or you wish to access the stored data beforehand. You can also find further information on data protection in our <a class=\"nav-link\" target=\"_blank\" href=\"https://blog.dbildungscloud.de/faq-zum-datenschutz/\" rel=\"noopener\">FAQ</a>.",
 					"languageHint": "Little info: You can change your language at any time in your settings. Settings can be found in the top right corner when you tap on your avatar.",
-					"myDataMayBeProcessed": "I agree that my personal data will be processed in accordance with the school's <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">privacy policy</a> in the {{title}} and in the learning material providers selected and instructed by the school.",
+					"myDataMayBeProcessed": "I agree that my personal data will be processed in accordance with the school's <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Privacy Policy</a> in the {{title}} and in the learning material providers selected and instructed by the school.",
 					"theEmailAddressEnables": "The e-mail address enables notifications to be sent and makes it easier to reset the password.",
 					"weNeedFollowingDataForRegistration": "For the use of the {{title}} we need the following information:",
 					"weStoreUserDataSafely": "The {{shortTitle}} stores the user data securely and does not pass them on to third parties. The data is processed in accordance with the high statutory data protection requirements."
@@ -2775,7 +2787,7 @@
 					"aParentOrLegalGuardian": "years, a parent or guardian must consent to use the",
 					"legalGuardingHasToAgreeToTermsOfUse": "For students under {{years}} years a parent or guardian must consent to the use of the {{shortTitle}}.",
 					"mustNotBeYourChildsEmail": "(Cannot be the same as your child's e-mail address)",
-					"myDataMayBeProcessed": "I agree that my child's personal data will be processed in accordance with the school's <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Privacy Policy</a> in the {{title}} as well as with the learning material providers selected and instructed by the school.",
+					"myDataMayBeProcessed": "I agree that my child's personal data will be processed in accordance with the school's <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Privacy Policy</a> in the {{title}} as well as with the learning material providers selected and instructed by the school.",
 					"needFollowingInformationForChild": "we need the following information for your child:",
 					"pleaseConfirmTheFollowing": "Please confirm the following declarations of consent so that your child can take advantage of the {{shortTitle}}:",
 					"studentNeedTheirOwnEmail": "(Students need their own e-mail address)",
@@ -2978,7 +2990,7 @@
 					"selectFromIndex": "Select from directory"
 				},
 				"headline": {
-					"addMember": "Delete attendee",
+					"addMember": "Add attendee",
 					"class": "{{count}} class",
 					"class_plural": "{{count}} classes",
 					"deleteClass": "Delete class",
