@@ -126,32 +126,4 @@
     </div>
 </div>
 
-{{#embed "lib/components/modal-form" class="import-modal"}}
-    {{#content "fields"}}
-
-        <div class="form-group">
-            <label for="filter_schoolyear">{{$t "administration.classes.label.filterBySchoolYear" }}</label>
-            <select id="filter_schoolyear" name="classes" data-placeholder="{{$t "administration.classes.label.filterBySchoolYear" }}">
-                <option value="" selected>{{$t "administration.classes.label.all" }}</option>
-                {{#each schoolyears}}
-                    <option value="{{this._id}}">
-                        {{this.name}}
-                    </option>
-                {{/each}}
-            </select>
-            <p>{{$t "administration.classes.text.attentionIfYouChangeTheSchoolYear" }}</p>
-        </div>
-        <div class="form-group">
-            <label for="student_from_class_import">{{$t "administration.classes.label.addStudentFromPreviousYearClass" }}</label>
-            <select id="student_from_class_import" name="classes" multiple data-placeholder="{{$t "administration.global.placeholder.selectOldClasses" }}">
-                {{#each classes}}
-                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                        {{this.displayName}}
-                    </option>
-                {{/each}}
-            </select>
-        </div>
-    {{/content}}
-{{/embed}}
-
 {{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}

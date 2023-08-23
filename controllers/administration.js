@@ -1737,7 +1737,6 @@ router.get(
 					$sort: 'lastName',
 					$limit: false,
 				});
-				const yearsPromise = getSelectOptions(req, 'years', { $limit: false });
 
 				const usersWithConsentsPromise = getUsersWithoutConsent(req, 'student', currentClass._id);
 
@@ -1745,9 +1744,8 @@ router.get(
 					classesPromise,
 					teachersPromise,
 					studentsPromise,
-					yearsPromise,
 					usersWithConsentsPromise,
-				]).then(([classes, teachers, students, schoolyears, allUsersWithoutConsent]) => {
+				]).then(([classes, teachers, students, allUsersWithoutConsent]) => {
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
 					);
@@ -1849,7 +1847,6 @@ router.get(
 						teachers,
 						students: filterStudents(res, students),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-						schoolyears,
 						notes,
 						referrer: '/administration/classes/',
 						consentsMissing: usersWithoutConsent.length !== 0,

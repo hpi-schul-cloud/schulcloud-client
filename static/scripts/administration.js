@@ -52,7 +52,6 @@ $(document).ready(() => {
 	const $addPolicyModal = $('.add-modal--policy');
 	const $editModal = $('.edit-modal');
 	const $invitationModal = $('.invitation-modal');
-	const $importModal = $('.import-modal');
 	const $deleteSystemsModal = $('.delete-modal');
 	const $deleteRSSModal = $('.delete-modal--rss');
 
