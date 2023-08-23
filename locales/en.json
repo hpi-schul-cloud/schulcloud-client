@@ -191,12 +191,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Administration:",
+				"administration": "Management",
 				"alias": "Alias",
 				"attendees": "Attendees",
 				"briefDescription": "Brief description",
-				"classes": "{{title}}Classes",
-				"courses": "{{title}}Courses",
 				"createdOn": "Created on",
 				"creationDate": "Date of creation",
 				"declarationOfConsentStatus": "Declaration of consent Status",
@@ -211,13 +209,13 @@
 				"members": "Members",
 				"owner": "Owner",
 				"remarks": "Remarks",
-				"school": "{{title}}School",
 				"schools": "School(s)",
 				"status": "Status",
 				"students": "{{title}}Student",
+				"studentImport": "Import student",
 				"targetState": "Target state",
 				"teacher": "{{title}}Teacher",
-				"teams": "{{title}}Teams",
+				"teacherImport": "Import teacher",
 				"upgradeClass": "Bring class '{{name}}' to the new school year",
 				"uploadedOn": "Uploaded on"
 			},
@@ -529,7 +527,7 @@
 			"text": {
 				"afterVerificationCanPreviewTheReadContent": "After verification, you can preview the contents that have been read out. Deleted contents are not transferred because the user's first name, surname and / or email address is not available in the LDAP.",
 				"anyChangesToTheFollowingConfiguration": "Any changes to the following configuration may result in the login no longer working for you and all users in your school. Therefore, only make changes if you are aware of the consequences. Some sections are read-only. However, you can enable editing of the information by clicking on the lock in the respective section. After each verification, your system will be updated and initially set to deactivated. Do not forget to finally save the changes if the verification was successful.",
-				"backgroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the HPI school cloud saves which school year a user was in which class. The HPI school cloud provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
+				"backgroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the {{title}} saves which school year a user was in which class. The {{title}} provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
 				"canCreateYearIndependentClasses": "You can create independent classes with free names. These classes cannot be <i> 'moved' </i> by the administrator, but must be updated manually.",
 				"canStartTheTransferPhase": "You can start the transfer phase manually from two weeks before the start of the holidays",
 				"ifAllStudentsAndParentsHaveGiven": "If the consent has been given by all students and parents in paper form, the consent for the whole class can be declared manually here.",
@@ -542,9 +540,9 @@
 				"teacherRegistrationNotCompleted": "The teacher has not yet completed the registration. Retrieve a personal invitation link to complete the registration and distribute it to the teacher.",
 				"theSchoolYearEndsAnd": "The school year {{schoolName}} is ended and the transfer phase  to the new school year begins. <strong>This step cannot be undone.</strong> No classes and users can be created or changed during this time.",
 				"theSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data is interrupted during the transfer phase. This means that user data and classes (if used) are no longer updated via LDAP. It is still possible to log in with login data that has already been synchronized. Password changes in the LDAP during login are also taken into account.",
-				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the HPI school cloud at once.",
+				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the {{title}} at once.",
 				"withAllChangesAndSettings": "With all changes and settings in the administration area, it is confirmed that these are carried out by a school admin with authority to make adjustments to the school in the cloud. Adjustments made by the school admin are deemed to be instructions from the school to the cloud operator {{institute_title}}.",
-				"wouldYouLikeReportABug": "Would you like to report an error or do you have an idea to improve the {{title}} ? Send requests or problems directly to the {{shortTitle}} user support."
+				"wouldYouLikeReportABug": "Would you like to report an error or do you have an idea to improve the {{title}}? Send requests or problems directly to the {{shortTitle}} user support."
 			}
 		},
 		"school": {
@@ -621,7 +619,7 @@
 				"allDone": "All done!",
 				"atTheEndOfTheSchoolYearWithLDAP": "When the school year changes, carry out the following actions with LDAP:",
 				"atTheEndOfTheTransferPhase": "When the transfer phase ends, all changes made in the LDAP are synchronized in one go",
-				"atTheSameTime": "At the same time, you ring in the new school year in the HPI school cloud",
+				"atTheSameTime": "At the same time, you ring in the new school year in the {{title}}",
 				"changeSchoolValueWarning": "Once set, it cannot be changed!",
 				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
 				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
@@ -1340,7 +1338,11 @@
 			"attention": "Attention",
 			"createNewFile": "Create a new file",
 			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
-			"newFolder": "New folder"
+			"newFolder": "New folder",
+			"personalFiles": "Personal files",
+			"courseFiles": "Course files",
+			"teamFiles": "Team files",
+			"sharedFiles": "Shared files"
 		},
 		"img_alt": {
 			"altInfoTheImage": "the image {{imgName}}"
@@ -1679,7 +1681,7 @@
 				"de": "Deutsch",
 				"en": "English",
 				"es": "Español",
-				"uk": "Yкраїнський"
+				"uk": "Yкраїнська"
 			}
 		},
 		"link": {
@@ -2281,7 +2283,8 @@
 				"viewDetails": "Show details"
 			},
 			"headline": {
-				"errorDetails": "Error details:"
+				"errorDetails": "Error details:",
+				"pageTitle": "An error has occurred"
 			}
 		},
 		"extended_footer": {
@@ -2987,7 +2990,7 @@
 					"selectFromIndex": "Select from directory"
 				},
 				"headline": {
-					"addMember": "Delete attendee",
+					"addMember": "Add attendee",
 					"class": "{{count}} class",
 					"class_plural": "{{count}} classes",
 					"deleteClass": "Delete class",

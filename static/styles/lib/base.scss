@@ -458,3 +458,7 @@ select {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+.no-bottom-margin {
+	margin-bottom: 0 !important;
+}

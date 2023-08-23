@@ -4,9 +4,9 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const { createClient } = require('redis');
+const redis = require('redis');
+const connectRedis = require('connect-redis');
 const session = require('express-session');
-const RedisStore = require('connect-redis').default;
 const methodOverride = require('method-override');
 const csurf = require('csurf');
 const handlebars = require('handlebars');
@@ -123,11 +123,10 @@ let sessionStore;
 const redisUrl = REDIS_URI;
 if (redisUrl) {
 	logger.info(`Using Redis session store at '${redisUrl}'.`);
-	const client = createClient({
+	const RedisStore = connectRedis(session);
+	const client = redis.createClient({
 		url: redisUrl,
 	});
-	// eslint-disable-next-line no-console
-	client.connect().catch((err) => console.error(err));
 	sessionStore = new RedisStore({ client });
 } else {
 	logger.info('Using in-memory session store.');
@@ -295,6 +294,7 @@ app.use((err, req, res, next) => {
 
 	// render the error page
 	res.status(status).render('lib/error', {
+		pageTitle: res.$t('lib.error.headline.pageTitle'),
 		loggedin: res.locals.loggedin,
 		inline: res.locals.inline ? true : !res.locals.loggedin,
 	});

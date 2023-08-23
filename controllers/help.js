@@ -55,6 +55,7 @@ router.get('/releases', (req, res, next) => {
 					},
 				],
 				release: releases.data,
+				title: 'Release Notes',
 			});
 		});
 });
@@ -68,6 +69,7 @@ router.get('/confluence/:id', (req, res, next) => {
 			},
 		],
 		articleId: req.params.id,
+		pageTitle: res.$t('help.headline.helpSection'),
 	});
 });
 
