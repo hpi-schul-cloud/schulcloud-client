@@ -1,7 +1,8 @@
-@import './colors';
-@import './bootstrap/scss/bootstrap-flex';
+@import "./colors";
+@import "./bootstrap/scss/bootstrap-flex";
 @import "./editor";
 @import "./alerts.scss";
+@import "./bootstrap/scss/mixins/grid";
 
 $translateModal: translate(50px, 0px);
 
@@ -619,7 +620,6 @@ footer {
 
 .topbar {
 	text-align: right;
-
 	@include media-breakpoint-down(xs) {
 		margin-bottom: 15px;
 		padding-left: 50px !important;
@@ -853,13 +853,14 @@ footer {
   }
 
 	.content-wrapper .cloud-logo {
-		width: 160px;
+		width: 166px;
 		height: 50px;
 		float: left;
 		z-index: 1 !important;
+		margin-left: 1px;
 	}
 	.mdi-menu {
-		margin-left: -0.4em;
+		margin: 5px -5px;
 	}
 	.avatar-circle {
 		margin-left: -25px;
