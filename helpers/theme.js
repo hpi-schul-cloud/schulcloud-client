@@ -3,7 +3,6 @@ const { defaultDocuments } = require('../config/documents');
 const {
 	SC_THEME,
 	SC_TITLE,
-	SC_SHORT_TITLE,
 	HOST,
 	ALERT_STATUS_URL,
 } = require('../config/global');
@@ -39,7 +38,7 @@ const setTheme = (res) => {
 	res.locals.theme = {
 		name: SC_THEME,
 		title: SC_TITLE,
-		short_title: SC_SHORT_TITLE,
+		short_title: SC_TITLE, // depracted (SC_SHORT_TITLE removed)
 		theme_title: themeTitle,
 		institute_title: instituteTitle,
 		documents: {
