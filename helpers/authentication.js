@@ -408,22 +408,6 @@ const getMigrationStatus = async (req, res, userId, accessToken) => {
 	return migration;
 };
 
-const getMigrationRedirect = (res, migration) => {
-	const {
-		targetSystemId,
-		mandatorySince,
-	} = migration;
-
-	const queryString = new URLSearchParams({
-		targetSystem: targetSystemId,
-		mandatory: !!mandatorySince,
-	});
-
-	const redirect = redirectHelper.joinPathWithQuery('/migration', queryString.toString());
-
-	return redirect;
-};
-
 // eslint-disable-next-line consistent-return
 const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemName) => {
 	let accessToken;
@@ -451,9 +435,7 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 	setCookie(res, 'jwt', accessToken);
 
 	if (migration) {
-		const migrationRedirect = getMigrationRedirect(res, migration);
-
-		res.redirect(migrationRedirect);
+		res.redirect('/migration');
 	} else {
 		const queryString = new URLSearchParams();
 
