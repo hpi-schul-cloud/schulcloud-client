@@ -3,6 +3,8 @@
 @import "./editor";
 @import "./alerts.scss";
 
+$translateModal: translate(50px, 0px);
+
 // page transition animation
 .section-title,
 #main-content,
@@ -819,7 +821,7 @@ footer {
 	vertical-align: top;
 	width: 50px;
 	height: 30px;
-	margin: -5px 4px 0 0;
+	margin: -5px 4px 0 -10px;
 	background: $logoBackground;
 	background-size: contain;
 
@@ -838,8 +840,6 @@ footer {
 	.topbar.navbar {
 		height: 56px;
 	}
-
-
 
 	.sc-branding {
 		width: fit-content;
@@ -871,20 +871,28 @@ footer {
 	}
 }
 
+@media (min-width: 320px) and (max-width: 340px) {
+	.alert-button .minimal-button .dropdown-menu {
+		transform: $translateModal;
+	}
+}
+
+@media (min-width: 341px) and (max-width: 360px) {
+	.alert-button .minimal-button .dropdown-menu {
+		width: 92vw;
+		transform: $translateModal;
+	}
+}
+
+@media (min-width: 361px) and (max-width: 420px) {
+	.alert-button .minimal-button .dropdown-menu {
+		transform: $translateModal;
+		width: 80vw;
+	}
+}
+
 @media (min-width: 575px) {
   .content-wrapper .cloud-logo {
 		display: none !important;
-	}
-}
-
-@media (max-width: 313px) {
-	.content-wrapper .cloud-logo {
-		width: 130px;
-	}
-}
-
-@media (max-width: 270px) {
-	.topbar.navbar {
-		height: 100px;
 	}
 }
