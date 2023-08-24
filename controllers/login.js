@@ -348,6 +348,7 @@ const renderLogin = async (req, res) => {
 	const oauthSystems = oauthSystemsResponse.data || [];
 
 	res.render('authentication/login', {
+		pageTitle: res.$t('home.header.link.login'),
 		schools: filterSchoolsWithLdapLogin(schools),
 		systems: [],
 		oauthSystems,

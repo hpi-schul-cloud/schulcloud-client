@@ -42,6 +42,7 @@ router.post('/', async (req, res) => {
 		const isDiscoverable = res.locals.currentUser.discoverable;
 		res.render('account/settings', {
 			title: res.$t('account.headline.yourAccount'),
+			pageTitle: res.$t('lib.loggedin.tab_label.settings'),
 			notification: {
 				type: 'success',
 				message: res.$t('administration.controller.text.changesSuccessfullySaved'),
@@ -53,6 +54,7 @@ router.post('/', async (req, res) => {
 	} catch (err) {
 		res.render('account/settings', {
 			title: res.$t('account.headline.yourAccount'),
+			pageTitle: res.$t('lib.loggedin.tab_label.settings'),
 			notification: {
 				type: 'danger',
 				message: err.error.message,
@@ -79,6 +81,7 @@ router.get('/', (req, res, next) => {
 
 		res.render('account/settings', {
 			title: res.$t('account.headline.yourAccount'),
+			pageTitle: res.$t('lib.loggedin.tab_label.settings'),
 			device,
 			session,
 			userId: res.locals.currentUser._id,
@@ -88,6 +91,7 @@ router.get('/', (req, res, next) => {
 	}).catch(() => {
 		res.render('account/settings', {
 			title: res.$t('account.headline.yourAccount'),
+			pageTitle: res.$t('lib.loggedin.tab_label.settings'),
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
 			isDiscoverable,
@@ -175,6 +179,7 @@ router.post('/teamSettings', (req, res) => {
 		.catch((err) => {
 			res.render('account/settings', {
 				title: res.$t('account.headline.yourAccount'),
+				pageTitle: res.$t('lib.loggedin.tab_label.settings'),
 				notification: {
 					type: 'danger',
 					message: err.error.message,

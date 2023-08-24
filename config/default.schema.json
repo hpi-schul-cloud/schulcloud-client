@@ -64,6 +64,15 @@
 			"type": "string",
 			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
 		},
+		"BETTERMARKS_ANNOUNCEMENT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "enbale bettermarks announcement, shown to all user roles specified in BETTERMARKS_ANNOUNCEMENT_ROLES"
+		},
+		"BETTERMARKS_ANNOUNCEMENT_ROLES": {
+			"type": "string",
+			"description": "comma separated list of roles which bettermarks announcement is shown to"
+		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
 			"type": "string",
 			"default": "info",
