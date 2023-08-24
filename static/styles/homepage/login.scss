@@ -54,6 +54,12 @@
 	}
 }
 
+.content-wrapper .loginarea_login {
+	@include media-breakpoint-down(md) {
+			margin-top: -35px;
+	}
+}
+
 .login-failed-container {
 	margin-top: 30px;
 	max-width: 900px;

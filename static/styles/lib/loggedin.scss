@@ -1,7 +1,8 @@
-@import './colors';
-@import './bootstrap/scss/bootstrap-flex';
+@import "./colors";
+@import "./bootstrap/scss/bootstrap-flex";
 @import "./editor";
 @import "./alerts.scss";
+@import "./bootstrap/scss/mixins/grid";
 
 // page transition animation
 .section-title,
@@ -838,8 +839,6 @@ footer {
 	.topbar.navbar {
 		height: 56px;
 	}
-
-
 
 	.sc-branding {
 		width: fit-content;
