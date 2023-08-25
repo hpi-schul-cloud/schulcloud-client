@@ -159,8 +159,11 @@ jobs:
       - deploy
     uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@main
     with:
-      ref: ${{ needs.branch_meta.outputs.branch }}
-    secrets: inherit
+        ref: ${{ needs.branch_meta.outputs.branch }}
+    secrets:
+        service-account-token: ${{ secrets.CYPRESS_ONEPWD_SERVICE_ACCOUNT_TOKEN }}
+
+
 
   test-successful:
       runs-on: ubuntu-latest
