@@ -5,7 +5,6 @@ const {
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
 	SC_TITLE = 'dBildungscloud',
-	SC_SHORT_TITLE = 'dBildungscloud',
 	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/cloud-instances/',
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	REDIS_URI,
@@ -39,6 +38,7 @@ const {
 	ALERT_STATUS_URL = 'https://status.dbildungscloud.de',
 	FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED,
 	FEATURE_ALERTS_ON_HOMEPAGE_ENABLED,
+	FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED,
 } = process.env;
 
 const exp = {
@@ -46,7 +46,6 @@ const exp = {
 	SC_DOMAIN,
 	SC_THEME,
 	SC_TITLE,
-	SC_SHORT_TITLE,
 	DOCUMENT_BASE_DIR,
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS: parseInt(CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS || 16, 10),
 	REDIS_URI,
@@ -80,6 +79,7 @@ const exp = {
 	ALERT_STATUS_URL,
 	FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED,
 	FEATURE_ALERTS_ON_HOMEPAGE_ENABLED,
+	FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED,
 };
 
 // eslint-disable-next-line no-console
