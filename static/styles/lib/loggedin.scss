@@ -1,7 +1,10 @@
-@import './colors';
-@import './bootstrap/scss/bootstrap-flex';
+@import "./colors";
+@import "./bootstrap/scss/bootstrap-flex";
 @import "./editor";
 @import "./alerts.scss";
+@import "./bootstrap/scss/mixins/grid";
+
+$translateModal: translate(50px, 0px);
 
 // page transition animation
 .section-title,
@@ -617,7 +620,6 @@ footer {
 
 .topbar {
 	text-align: right;
-
 	@include media-breakpoint-down(xs) {
 		margin-bottom: 15px;
 		padding-left: 50px !important;
@@ -819,7 +821,7 @@ footer {
 	vertical-align: top;
 	width: 50px;
 	height: 30px;
-	margin: -5px 4px 0 0;
+	margin: -5px 4px 0 -10px;
 	background: $logoBackground;
 	background-size: contain;
 
@@ -839,8 +841,6 @@ footer {
 		height: 56px;
 	}
 
-
-
 	.sc-branding {
 		width: fit-content;
 	}
@@ -853,13 +853,14 @@ footer {
   }
 
 	.content-wrapper .cloud-logo {
-		width: 160px;
+		width: 166px;
 		height: 50px;
 		float: left;
 		z-index: 1 !important;
+		margin-left: 1px;
 	}
 	.mdi-menu {
-		margin-left: -0.4em;
+		margin: 5px -5px;
 	}
 	.avatar-circle {
 		margin-left: -25px;
@@ -871,20 +872,28 @@ footer {
 	}
 }
 
+@media (min-width: 320px) and (max-width: 340px) {
+	.alert-button .minimal-button .dropdown-menu {
+		transform: $translateModal;
+	}
+}
+
+@media (min-width: 341px) and (max-width: 360px) {
+	.alert-button .minimal-button .dropdown-menu {
+		width: 92vw;
+		transform: $translateModal;
+	}
+}
+
+@media (min-width: 361px) and (max-width: 420px) {
+	.alert-button .minimal-button .dropdown-menu {
+		transform: $translateModal;
+		width: 80vw;
+	}
+}
+
 @media (min-width: 575px) {
   .content-wrapper .cloud-logo {
 		display: none !important;
-	}
-}
-
-@media (max-width: 313px) {
-	.content-wrapper .cloud-logo {
-		width: 130px;
-	}
-}
-
-@media (max-width: 270px) {
-	.topbar.navbar {
-		height: 100px;
 	}
 }
