@@ -527,7 +527,7 @@
 			"text": {
 				"afterVerificationCanPreviewTheReadContent": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene Inhalte werden nicht übernommen, da bei dem/der Nutzer:in der Vorname, der Nachname und/oder die E-Mail-Adresse nicht im LDAP verfügbar ist.",
 				"anyChangesToTheFollowingConfiguration": "Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer:innen Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war.",
-				"backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jede/r Schüler:in und jede Lehrkraft auf Inhalte aus vergangenen Klassen (z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr ein/e Nutzer:in in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
+				"backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jede/r Schüler:in und jede Lehrkraft auf Inhalte aus vergangenen Klassen (z.B. Klassenfahrtfotos) zugreifen kann, speichert die {{title}} ab, in welchem Schuljahr ein/e Nutzer:in in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die {{title}} eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
 				"canCreateYearIndependentClasses": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Admin <i>'versetzt'</i> werden, sondern müssen manuell aktualisiert werden.",
 				"canStartTheTransferPhase": "ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten",
 				"ifAllStudentsAndParentsHaveGiven": "Wenn die Einverständniserklärung von allen Schüler:innen und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
@@ -540,7 +540,7 @@
 				"teacherRegistrationNotCompleted": "Die Lehrkraft hat die Registrierung noch nicht abgeschlossen. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung ab und verteile ihn an die Lehrkraft.",
 				"theSchoolYearEndsAnd": "Das Schuljahr {{schoolName}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.</strong> Es können in dieser Zeit keine Klassen und Nutzer:innen angelegt oder geändert werden.",
 				"theSynchronizationOfLDAPMasterData": "Die Synchronisierung von LDAP-Stammdaten wird während der Transferphase unterbrochen. Somit werden Nutzerdaten und Klassen (sofern verwendet) nicht mehr über LDAP aktualisiert. Der Login mit bereits synchronisierten Login-Daten ist weiterhin möglich. Passwortänderungen im LDAP während des Logins werden ebenfalls berücksichtigt.",
-				"useTheTransferPhaseAroundTheSchool": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.",
+				"useTheTransferPhaseAroundTheSchool": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die {{title}}.",
 				"withAllChangesAndSettings": "Mit allen Änderungen und Einstellungen im Verwaltungsbereich wird bestätigt, dass diese durch einen weisungsberechtigten Schul-Admin mit Befugnis zu Anpassungen der Schule in der Cloud durchgeführt werden. Anpassungen durch den Schul-Admin gelten insofern als Weisung der Schule gegenüber dem Cloudbetreiber {{institute_title}}.",
 				"wouldYouLikeReportABug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}? Sende Wünsche oder Probleme direkt an den {{shortTitle}}-Nutzer-Support."
 			}
@@ -619,7 +619,7 @@
 				"allDone": "Alles erledigt!",
 				"atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
 				"atTheEndOfTheTransferPhase": "bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert",
-				"atTheSameTime": "gleichzeitig läutest du damit das neue Schuljahr in der HPI Schul-Cloud ein",
+				"atTheSameTime": "gleichzeitig läutest du damit das neue Schuljahr in der {{title}} ein",
 				"changeSchoolValueWarning": "Kann nur einmal gesetzt werden und wird danach deaktiviert!",
 				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
 				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer:innen den neuen Klassen zugeordnet sind",
@@ -1681,7 +1681,7 @@
 				"de": "Deutsch",
 				"en": "English",
 				"es": "Español",
-				"uk": "Yкраїнський"
+				"uk": "Yкраїнська"
 			}
 		},
 		"link": {
