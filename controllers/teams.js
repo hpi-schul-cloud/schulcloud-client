@@ -427,6 +427,10 @@ router.get('/:teamId/json', (req, res, next) => {
 				return permission;
 			});
 
+			if (team.name) {
+				team.name = team.name.replace(/&amp;/g, '&');
+			}
+
 			res.json({ team });
 		})
 		.catch((err) => {
@@ -472,6 +476,10 @@ router.get('/:teamId', async (req, res, next) => {
 				],
 			},
 		});
+
+		if (course.name) {
+			course.name = course.name.replace(/&amp;/g, '&');
+		}
 
 		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
