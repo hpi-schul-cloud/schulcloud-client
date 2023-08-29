@@ -4,6 +4,7 @@ const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const { decode } = require('html-entities');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -427,8 +428,9 @@ router.get('/:teamId/json', (req, res, next) => {
 				return permission;
 			});
 
-			if (team.description) {
-				team.description = team.description.replace(/&amp;/g, '&');
+			if (team.description && team.name) {
+				team.description = decode(team.description);
+				team.name = decode(team.name);
 			}
 
 			res.json({ team });
@@ -477,8 +479,9 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		});
 
-		if (course.description) {
-			course.description = course.description.replace(/&amp;/g, '&');
+		if (course.description && course.name) {
+			course.description = decode(course.description);
+			course.name = decode(course.name);
 		}
 
 		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
