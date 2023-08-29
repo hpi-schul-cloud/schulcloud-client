@@ -118,9 +118,9 @@
 
 .section-landing{
     margin-bottom: 100px;
-
     @include media-breakpoint-down(sm) {
         margin-bottom: 60px;
+        margin-top: 70px;
     }
 }
 

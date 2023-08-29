@@ -28,9 +28,11 @@
 			</ul>
 		{{/unless}}
 	</nav>
-	<div class="text-center hidden-sm-up" style="margin-bottom: 10px;">
-		<a class="btn btn-sm btn-outline btn-primary" href="/loginRedirect"><i class="fa fa-sign-in" aria-hidden="true"></i> {{$t "home.header.link.login"}}</a>
-		<a class="btn btn-sm btn-primary" href="/community">{{$t "global.link.register"}}</a>
-	</div>
+{{#if showLoginAndRegisterButtons}}
+		<div class="text-center hidden-sm-up" style="margin-bottom: 10px;">
+			<a class="btn btn-sm btn-outline btn-primary" href="/loginRedirect"><i class="fa fa-sign-in" aria-hidden="true"></i> {{$t "home.header.link.login"}}</a>
+			<a class="btn btn-sm btn-primary" href="/community">{{$t "global.link.register"}}</a>
+		</div>
+	{{/if}}
 </header>
 
