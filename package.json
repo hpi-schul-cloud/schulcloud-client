@@ -48,7 +48,7 @@
 		"@ckeditor/ckeditor5-list": "^20.0.0",
 		"@ckeditor/ckeditor5-media-embed": "^20.0.0",
 		"@ckeditor/ckeditor5-paragraph": "^20.0.0",
-		"@ckeditor/ckeditor5-paste-from-office": "^20.0.0",
+		"@ckeditor/ckeditor5-paste-from-office": "^39.0.1",
 		"@ckeditor/ckeditor5-remove-format": "^20.0.0",
 		"@ckeditor/ckeditor5-special-characters": "^20.0.0",
 		"@ckeditor/ckeditor5-table": "^20.0.0",
