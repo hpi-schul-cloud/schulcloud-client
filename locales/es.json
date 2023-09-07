@@ -1770,6 +1770,8 @@
 			"dataProtectionThr": "Política de Privacidad",
 			"dataProtectionFile": "Política de Privacidad de la Escuela",
 			"dataProtectionFileThr": "Política de Privacidad de la Escuela",
+			"termsOfUse": "Condiciones de Uso",
+			"termsOfUseFile": "Condiciones de Uso de la Escuela",
 			"emailDomainBlocked": "Este proveedor de correo ya no es compatible. Ponte en contacto con el administrador de tu escuela.",
 			"errorChangingFilePermissions": "Hay un problema para cambiar los permisos",
 			"errorWhileLoadingPage": "Esta página no se ha podido cargar",

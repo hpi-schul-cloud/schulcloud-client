@@ -1770,6 +1770,8 @@
 			"dataProtectionThr": "Privacy Policy",
 			"dataProtectionFile": "Privacy Policy of School",
 			"dataProtectionFileThr": "Privacy Policy of School",
+			"termsOfUse": "Terms of Use",
+			"termsOfUseFile": "Terms of Use of School",
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
 			"errorWhileLoadingPage": "This page could not be loaded",

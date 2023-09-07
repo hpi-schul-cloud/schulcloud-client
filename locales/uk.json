@@ -130,6 +130,8 @@
 			"dataProtectionThr": "Політика конфіденційності",
 			"dataProtectionFile": "Політика конфіденційності школи",
 			"dataProtectionFileThr": "Політика конфіденційності школи",
+			"termsOfUse": "Умови використання",
+			"termsOfUseFile": "Умови використання школи",
 			"emailDomainBlocked": "Цей постачальник пошти більше не підтримується. Будь ласка, зв’яжіться з адміністратором школи.",
 			"errorChangingFilePermissions": "Проблема зі зміною дозволів",
 			"fileTooLarge": "Вкладені файли перевищують максимально дозволений розмір — {{ maxFileSizeInGb }} Гб!",
