@@ -34,6 +34,7 @@ router.use('/community/', require('./community'));
 router.use('/about/', require('./about'));
 router.use('/help/', require('./help'));
 router.use('/datenschutz/', require('./dataprivacy'));
+router.use('/termsofuse/', require('./termsofuse'));
 router.use('/my-material', require('./my-material'));
 router.use('/base64Files', require('./base64Files'));
 router.use('/logs', require('./logs'));

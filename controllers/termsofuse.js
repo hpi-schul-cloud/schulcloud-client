@@ -7,9 +7,9 @@ const { specificFiles } = require('../config/documents');
 
 const router = express.Router();
 
-const privacyUrl = () => new URL(`${SC_THEME}/${specificFiles.privacyExemplary}`, DOCUMENT_BASE_DIR);
+const termsUrl = () => new URL(`${SC_THEME}/${specificFiles.termsOfUseSchool}`, DOCUMENT_BASE_DIR);
 
-const downloadPolicyPdf = (res, fileData, fileTitle) => {
+const downloadTermsPdf = (res, fileData, fileTitle) => {
 	// ERR_INVALID_CHAR will get thrown on ukrainian translation without encoding
 	const encodedFileTitle = encodeURI(fileTitle);
 	const download = Buffer.from(fileData, 'base64');
@@ -27,7 +27,7 @@ const getBase64File = async (req, res, fileId, fileTitle) => {
 				'data:application/pdf;base64,',
 				'',
 			);
-			downloadPolicyPdf(res, fileData, fileTitle);
+			downloadTermsPdf(res, fileData, fileTitle);
 		}
 	}
 };
@@ -37,7 +37,7 @@ router.get('/', async (req, res, next) => {
 		const isAuthenticated = await authHelper.isAuthenticated(req);
 		const qs = {
 			$limit: 1,
-			consentTypes: ['privacy'],
+			consentTypes: ['termsOfUse'],
 			$sort: {
 				publishedAt: -1,
 			},
@@ -52,16 +52,14 @@ router.get('/', async (req, res, next) => {
 		if (consentVersions.data.length) {
 			const fileId = consentVersions.data[0].consentDataId;
 			if (!fileId) {
-				res.redirect(privacyUrl().toString());
+				res.redirect(termsUrl().toString());
 			}
 
-			const fileTitle = res.locals.theme.name === 'thr'
-				? res.$t('global.text.dataProtectionFileThr')
-				: res.$t('global.text.dataProtectionFile');
+			const fileTitle = res.$t('global.text.termsOfUseFile');
 
 			await getBase64File(req, res, fileId, fileTitle);
 		} else {
-			res.redirect(privacyUrl().toString());
+			res.redirect(termsUrl().toString());
 		}
 	} catch (err) {
 		next(err);
