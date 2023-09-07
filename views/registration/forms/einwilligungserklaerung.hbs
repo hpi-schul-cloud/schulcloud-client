@@ -29,7 +29,7 @@
 <label>
     <input name="{{prefix}}termsOfUseConsent" type="checkbox" value="true" required/>
     {{#if @root.schoolTermsLink}}
-        <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" @root.schoolTermsLink "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
+        <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" @root.schoolTermsLink "name" @root.schoolTermsName "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
     {{else}}
         <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" @root.theme.documents.specificFiles.termsOfUseExemplary "title" @root.theme.title)}}}</span>
     {{/if}}

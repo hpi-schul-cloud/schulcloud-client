@@ -30,7 +30,7 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 });
 
 const getSchoolConsentVersionByType = async (req, res, consentType) => {
-	if (consentType !== 'privacy' || consentType !== 'termsOfUse') {
+	if (consentType !== 'privacy' && consentType !== 'termsOfUse') {
 		return undefined;
 	}
 
