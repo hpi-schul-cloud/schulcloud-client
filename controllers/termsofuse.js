@@ -4,33 +4,11 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const { DOCUMENT_BASE_DIR, SC_THEME } = require('../config/global');
 const { specificFiles } = require('../config/documents');
+const { getBase64File } = require('../helpers/fileHelper');
 
 const router = express.Router();
 
 const termsUrl = () => new URL(`${SC_THEME}/${specificFiles.termsOfUseSchool}`, DOCUMENT_BASE_DIR);
-
-const downloadTermsPdf = (res, fileData, fileTitle) => {
-	// ERR_INVALID_CHAR will get thrown on ukrainian translation without encoding
-	const encodedFileTitle = encodeURI(fileTitle);
-	const download = Buffer.from(fileData, 'base64');
-	res.writeHead(200, {
-		'Content-Type': 'application/pdf',
-		'Content-Disposition': `attachment; filename="${encodedFileTitle}.pdf"`,
-	}).end(download);
-};
-
-const getBase64File = async (req, res, fileId, fileTitle) => {
-	if (fileId) {
-		const base64File = await api(req).get(`/base64Files/${fileId}`);
-		if (base64File.data) {
-			const fileData = base64File.data.replace(
-				'data:application/pdf;base64,',
-				'',
-			);
-			downloadTermsPdf(res, fileData, fileTitle);
-		}
-	}
-};
 
 router.get('/', async (req, res, next) => {
 	try {
