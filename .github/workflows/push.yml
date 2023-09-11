@@ -52,8 +52,6 @@ jobs:
 
       - name: test image exists
         run: |
-         mkdir -p ~/.docker
-         echo '{"experimental": "enabled"}' >> ~/.docker/config.json
          echo "IMAGE_EXISTS=$(docker manifest inspect ghcr.io/${{ github.repository }}-${{ matrix.tenants }}:${{ needs.branch_meta.outputs.sha }} > /dev/null && echo 1 || echo 0)" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
