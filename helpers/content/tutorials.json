@@ -42,12 +42,17 @@
 					},
 					{
 						"id": "21921821",
-						"title": "Kurse duplizieren (klonen)",
+						"title": "Kurse kopieren (klonen)",
 						"type": "article"
 					},
 					{
 						"id": "39387173",
 						"title": "Kurse teilen und importieren",
+						"type": "article"
+					},
+					{
+						"id": "178658305",
+						"title": "Kurse sortieren",
 						"type": "article"
 					}
 				]
@@ -70,6 +75,16 @@
 					{
 						"id": "13828893",
 						"title": "Themen teilen und importieren",
+						"type": "article"
+					},
+					{
+						"id": "246055834",
+						"title": "Themen kopieren",
+						"type": "article"
+					},
+					{
+						"id": "270827606",
+						"title": "Spalten-Board",
 						"type": "article"
 					}
 				]
@@ -103,6 +118,16 @@
 						"id": "13829061",
 						"title": "Aufgaben abgeben",
 						"type": "article"
+					},
+					{
+						"id": "246055003",
+						"title": "Aufgaben kopieren",
+						"type": "article"
+					},
+					{
+						"id": "254476906",
+						"title": "Aufgaben teilen",
+						"type": "article"
 					}
 				]
 			},
@@ -127,13 +152,28 @@
 						"type": "article"
 					},
 					{
+						"id": "170594138",
+						"title": "In Videokonferenzen präsentieren",
+						"type": "article"
+					},
+					{
 						"id": "113653222",
 						"title": "Videokonferenzen moderieren",
 						"type": "article"
 					},
 					{
+						"id": "170596102",
+						"title": "Technische Probleme während Videokonferenzen",
+						"type": "article"
+					},
+					{
 						"id": "123409850",
 						"title": "Umfragen in Videokonferenzen",
+						"type": "article"
+					},
+					{
+						"id": "215516270",
+						"title": "Externe Personen in Videokonferenzen",
 						"type": "article"
 					}
 				]
@@ -153,6 +193,12 @@
 			{
 				"id": "123409350",
 				"title": "Texteditor",
+				"type": "category",
+				"articles": []
+			},
+			{
+				"id": "148537453",
+				"title": "Bettermarks",
 				"type": "category",
 				"articles": []
 			}
@@ -213,7 +259,12 @@
 				"articles": [
 					{
 						"id": "98598995",
-						"title": "Browser konfigurieren",
+						"title": "Browser konfigurieren mit Windows",
+						"type": "article"
+					},
+					{
+						"id": "170593514",
+						"title": "Browser konfigurieren mit mac OS/OS X",
 						"type": "article"
 					},
 					{
@@ -224,6 +275,11 @@
 					{
 						"id": "154188138",
 						"title": "Teams für Schüler:innen aktivieren",
+						"type": "article"
+					},
+					{
+						"id": "223674916",
+						"title": "Teams bearbeiten Verwaltung",
 						"type": "article"
 					},
 					{
@@ -259,6 +315,26 @@
 					{
 						"id": "123407609",
 						"title": "E-Mail-Adressen ungültig machen (Schulwechsel)",
+						"type": "article"
+					},
+					{
+						"id": "154188767",
+						"title": "Schulweit Sprache ändern",
+						"type": "article"
+					},
+					{
+						"id": "196739599",
+						"title": "Migrationsprozess",
+						"type": "article"
+					},
+					{
+						"id": "236650836",
+						"title": "Migrationsprozess in der dBildungscloud",
+						"type": "article"
+					},
+					{
+						"id": "246055610",
+						"title": "Externe Tools anbinden und verwalten",
 						"type": "article"
 					}
 				]
@@ -359,7 +435,7 @@
 					},
 					{
 						"id": "130778703",
-						"title": "Sprache ändern",
+						"title": "Sprache ändern / Change language / Cambiar idioma",
 						"type": "article"
 					}
 				]
@@ -407,6 +483,12 @@
 			{
 				"id": "123407337",
 				"title": "Schuljahreswechsel",
+				"type": "category",
+				"articles": []
+			},
+			{
+				"id": "214237489",
+				"title": "Dateien in Nextcloud",
 				"type": "category",
 				"articles": []
 			}

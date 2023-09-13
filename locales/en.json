@@ -567,6 +567,7 @@
 				"activeMatrixFunction": "Activate Matrix Messenger",
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
+				"allStudentsVisibilityBrandenburg": "Enabling this option turns on the visibility of all students of this school for each teacher.",
 				"authentication": "Authentication",
 				"newPage": "To the new admin page",
 				"changeOfClasses": "Change of classes / new classes",
@@ -1457,7 +1458,6 @@
 				"i": "I,",
 				"pleaseClickOnRead": "Please acknowledge this information by clicking on „Read” in order to proceed with the use.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Please confirm the following declarations of consent so that you can use the {{title}}.",
-				"termsOfUse": "Terms of Use",
 				"the": "the"
 			}
 		},
@@ -1770,6 +1770,8 @@
 			"dataProtectionThr": "Privacy Policy",
 			"dataProtectionFile": "Privacy Policy of School",
 			"dataProtectionFileThr": "Privacy Policy of School",
+			"termsOfUse": "Terms of Use",
+			"termsOfUseFile": "Terms of Use of School",
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
 			"errorWhileLoadingPage": "This page could not be loaded",
@@ -2860,7 +2862,7 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "If you are between 14 and {{age}} years old, please also confirm the declaration of consent so that you can use the {{title}}.",
-			"agreeTermsOfUse": "I have read and agree to the <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Terms of Use of the {{title}}</a>.",
+			"agreeTermsOfUse": "I have read and agree with the school's <a href=\"{{link}}\" title=\"{{name}}\" class=\"{{class}}\" target=\"_blank\" rel=\"noopener\">Terms of Use</a> of the {{title}}.",
 			"andAuthorisedToRepresent": "and entitled to represent the other parent in the following declarations.",
 			"iAgreeThatThepersonalData": "I consent to my child's personal data being processed in accordance with the",
 			"invalidLink": "Unfortunately the link is no longer valid. Request a new link from your teacher or school administrator.",
