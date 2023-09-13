@@ -156,6 +156,10 @@ const editTeamHandler = async (req, res, next) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
 			return next(new Error(res.$t('global.text.403')));
 		}
+
+		if (team.description) team.description = decode(team.description);
+		if (team.name) team.name = decode(team.name);
+
 		return res.render('teams/edit-team', {
 			action,
 			method,
@@ -428,10 +432,8 @@ router.get('/:teamId/json', (req, res, next) => {
 				return permission;
 			});
 
-			if (team.description && team.name) {
-				team.description = decode(team.description);
-				team.name = decode(team.name);
-			}
+			if (team.description) team.description = decode(team.description);
+			if (team.name) team.name = decode(team.name);
 
 			res.json({ team });
 		})
