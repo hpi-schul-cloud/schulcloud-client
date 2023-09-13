@@ -29,10 +29,14 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 	},
 });
 
-const getSchoolPrivacy = async (req, res) => {
+const getSchoolConsentVersionByType = async (req, res, consentType) => {
+	if (consentType !== 'privacy' && consentType !== 'termsOfUse') {
+		return undefined;
+	}
+
 	const qs = {
 		schoolId: res.locals.currentUser.schoolId,
-		consentTypes: ['privacy'],
+		consentTypes: [consentType],
 		consentDataId: { $exists: true },
 		$limit: 1,
 		$sort: {
@@ -249,7 +253,8 @@ router.get('/', async (req, res, next) => {
 		sso: !!(res.locals.currentPayload || {}).systemId,
 		now: Date.now(),
 		sections: sections.map((name) => `firstLogin/sections/${name}`),
-		schoolPrivacyLink: await getSchoolPrivacy(req, res),
+		schoolPrivacyLink: await getSchoolConsentVersionByType(req, res, 'privacy'),
+		schoolTermsLink: await getSchoolConsentVersionByType(req, res, 'termsOfUse'),
 		schoolPrivacyName: res.$t('global.text.dataProtection'),
 		submitPageIndex,
 		userConsent,

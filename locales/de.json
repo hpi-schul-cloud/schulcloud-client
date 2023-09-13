@@ -1458,7 +1458,6 @@
 				"i": "Ich,",
 				"pleaseClickOnRead": "Bitte nimm mit Klick auf „Gelesen” diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{title}} nutzen kannst.",
-				"termsOfUse": "Nutzungsordnung",
 				"the": "die"
 			}
 		},
@@ -1771,6 +1770,8 @@
 			"dataProtectionThr": "Datenschutzhinweise",
 			"dataProtectionFile": "Datenschutzerklärung der Schule",
 			"dataProtectionFileThr": "Datenschutzhinweise der Schule",
+			"termsOfUse": "Nutzungsordnung",
+			"termsOfUseFile": "Nutzungsordnung der Schule",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Admin.",
 			"errorChangingFilePermissions": "Problem beim Ändern der Berechtigungen",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
@@ -2861,7 +2862,7 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "Wenn du zwischen 14 und {{age}} Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die {{title}} nutzen kannst.",
-			"agreeTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu.",
+			"agreeTermsOfUse": "Ich habe die <a href=\"{{link}}\" title=\"{{name}}\" class=\"{{class}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung</a> der {{title}} gelesen und stimme ihr zu.",
 			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
 			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
 			"invalidLink": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deiner Lehrkraft oder dem Schul-Admin an.",

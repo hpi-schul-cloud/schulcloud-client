@@ -130,6 +130,8 @@
 			"dataProtectionThr": "Політика конфіденційності",
 			"dataProtectionFile": "Політика конфіденційності школи",
 			"dataProtectionFileThr": "Політика конфіденційності школи",
+			"termsOfUse": "Умови використання",
+			"termsOfUseFile": "Умови використання школи",
 			"emailDomainBlocked": "Цей постачальник пошти більше не підтримується. Будь ласка, зв’яжіться з адміністратором школи.",
 			"errorChangingFilePermissions": "Проблема зі зміною дозволів",
 			"fileTooLarge": "Вкладені файли перевищують максимально дозволений розмір — {{ maxFileSizeInGb }} Гб!",
@@ -2447,7 +2449,7 @@
 			"unknownError": "Ой, сталася невідома помилка. Спробуйте ще раз.",
 			"welcomeMailSubject": "Ласкаво просимо до {{title}}!",
 			"welcomeMailText": "Вітаємо, {{firstName}}!\n Ви можете ввійти до {{title}}, використовуючи такі дані для входу в систему:\n  Адреса: {{address}}\n  Електронна пошта: {{email}}\n  {{password}}\n  {{infotext}}\n  Ваша\n  команда {{shortTitle}} бажає вам веселощів та гарного початку",
-			"agreeTermsOfUse": "Я прочитав і погоджуюся з <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Умовами використання{{title}}</a>.",
+			"agreeTermsOfUse": "Я прочитав і погоджуюся з <a href=\"{{link}}\" title=\"{{name}}\" class=\"{{class}}\" target=\"_blank\" rel=\"noopener\">Умовами використання</a> школи {{title}}.",
 			"invalidLink": "На жаль, посилання більше не дійсне. Попросіть нове посилання у свого викладача або адміністратора школи.",
 			"invalidLinkEmbeddedWebsite": "Шкільна хмара була вбудована у веб-сайт. Щоби продовжити ",
 			"invalidLinkOpenWebsite": "Відкрийте цю сторінку в окремому вікні"
@@ -3039,7 +3041,6 @@
 				"i": "Я,",
 				"pleaseClickOnRead": "Підтвердьте цю інформацію, натиснувши «Прочитати», щоб продовжити використання.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Підтвердьте наведені нижче заяви про згоду, щоб ви могли використовувати {{title}}.",
-				"termsOfUse": "Умови використання",
 				"the": "це"
 			},
 			"headline": {
