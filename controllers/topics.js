@@ -47,6 +47,9 @@ const editTopicHandler = (req, res, next) => {
 		const { filesStorage } = await filesStoragesHelper
 			.filesStorageInit(schoolId, lesson._id, 'lessons', false, req);
 
+		if (lesson.title) lesson.title = decode(lesson.title);
+		if (lesson.contents) lesson.contents = decode(lesson.contents);
+
 		res.render('topic/edit-topic', {
 			action,
 			method,

@@ -4,6 +4,7 @@ const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const { decode } = require('html-entities');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -155,6 +156,10 @@ const editTeamHandler = async (req, res, next) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
 			return next(new Error(res.$t('global.text.403')));
 		}
+
+		if (team.description) team.description = decode(team.description);
+		if (team.name) team.name = decode(team.name);
+
 		return res.render('teams/edit-team', {
 			action,
 			method,
@@ -427,6 +432,9 @@ router.get('/:teamId/json', (req, res, next) => {
 				return permission;
 			});
 
+			if (team.description) team.description = decode(team.description);
+			if (team.name) team.name = decode(team.name);
+
 			res.json({ team });
 		})
 		.catch((err) => {
@@ -472,6 +480,11 @@ router.get('/:teamId', async (req, res, next) => {
 				],
 			},
 		});
+
+		if (course.description && course.name) {
+			course.description = decode(course.description);
+			course.name = decode(course.name);
+		}
 
 		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
