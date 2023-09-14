@@ -68,9 +68,6 @@
                     <p> {{$t "administration.global.text.byConnectingToASchoolState" (dict "shortTitle" theme.short_title)}}</p>
                 {{else}}
                     <strong>{{$t "administration.global.text.inviteparentsAndStudentViaLink" }}</strong>
-                    <p>
-                        {{$t "administration.longText.text.provideStudentsAndTheirParents" }}
-                    </p>
                     <p>{{$t "administration.students.text.forAllStudentsWithoutAFullConsentForm" }}</p>
                     <p>
                         <button data-class="{{class._id}}" data-role="student" class="btn btn-secondary btn-send-links-emails">
