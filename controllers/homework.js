@@ -370,8 +370,7 @@ const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
 		if (redirectToReferer) {
 			redirectHelper.safeBackRedirect(req, res);
 		} else {
-			res.sendStatus(200);
-			res.redirect(`/${service}`);
+			res.redirect(200, `/${service}`);
 		}
 	}).catch((err) => {
 		next(err);
