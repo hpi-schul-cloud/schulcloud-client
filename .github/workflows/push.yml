@@ -52,8 +52,6 @@ jobs:
 
       - name: test image exists
         run: |
-         mkdir -p ~/.docker
-         echo '{"experimental": "enabled"}' >> ~/.docker/config.json
          echo "IMAGE_EXISTS=$(docker manifest inspect ghcr.io/${{ github.repository }}-${{ matrix.tenants }}:${{ needs.branch_meta.outputs.sha }} > /dev/null && echo 1 || echo 0)" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
@@ -159,8 +157,11 @@ jobs:
       - deploy
     uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@main
     with:
-      ref: ${{ needs.branch_meta.outputs.branch }}
-    secrets: inherit
+        ref: ${{ needs.branch_meta.outputs.branch }}
+    secrets:
+        service-account-token: ${{ secrets.CYPRESS_ONEPWD_SERVICE_ACCOUNT_TOKEN }}
+
+
 
   test-successful:
       runs-on: ubuntu-latest

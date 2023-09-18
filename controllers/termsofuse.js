@@ -7,25 +7,23 @@ const { getConsentVersion } = require('../helpers/consentVersionHelper');
 
 const router = express.Router();
 
-const privacyUrl = () => new URL(`${SC_THEME}/${specificFiles.privacyExemplary}`, DOCUMENT_BASE_DIR);
+const termsUrl = () => new URL(`${SC_THEME}/${specificFiles.termsOfUseSchool}`, DOCUMENT_BASE_DIR);
 
 router.get('/', async (req, res, next) => {
 	try {
-		const consentVersions = await getConsentVersion(req, res, 'privacy');
+		const consentVersions = await getConsentVersion(req, res, 'termsOfUse');
 
 		if (consentVersions.data.length) {
 			const fileId = consentVersions.data[0].consentDataId;
 			if (!fileId) {
-				res.redirect(privacyUrl().toString());
+				res.redirect(termsUrl().toString());
 			}
 
-			const fileTitle = res.locals.theme.name === 'thr'
-				? res.$t('global.text.dataProtectionFileThr')
-				: res.$t('global.text.dataProtectionFile');
+			const fileTitle = res.$t('global.text.termsOfUseFile');
 
 			await getBase64File(req, res, fileId, fileTitle);
 		} else {
-			res.redirect(privacyUrl().toString());
+			res.redirect(termsUrl().toString());
 		}
 	} catch (err) {
 		next(err);
