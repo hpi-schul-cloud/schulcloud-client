@@ -132,21 +132,20 @@ router.post('/consent', auth.authChecker, (r, w) => acceptConsent(r, w, r.query.
 
 router.get('/username/:pseudonym', (req, res, next) => {
 	if (req.cookies.jwt) {
+		let apiPromise;
 		if (Configuration.get('FEATURE_CTL_TOOLS_TAB_ENABLED')) {
-			const apiv3res = api(req, { version: 'v3' })
-				.get(`/pseudonyms/${req.params.pseudonym}`);
-			res = {
-				data: [apiv3res],
-			};
+			apiPromise = api(req, { version: 'v3' })
+				.get(`/pseudonyms/${req.params.pseudonym}`)
+				.then((response) => ({ data: [response] }));
 		} else {
-			res = api(req)
-				.get('/pseudonym', {
-					qs: {
-						pseudonym: req.params.pseudonym,
-					},
-				});
+			apiPromise = api(req).get('/pseudonym', {
+				qs: {
+					pseudonym: req.params.pseudonym,
+				},
+			});
 		}
-		res.then((pseudonym) => {
+
+		apiPromise.then((pseudonym) => {
 			let shortName;
 			let completeName;
 			const anonymousName = '???';
@@ -164,15 +163,15 @@ router.get('/username/:pseudonym', (req, res, next) => {
 					shortTitle: res.locals.theme.short_title,
 				}),
 			});
-		})
-			.catch(next);
+		}).catch(next);
+	} else {
+		return res.render('oauth2/username', {
+			depseudonymized: false,
+			completeName: res.$t('login.oauth2.label.showName'),
+			shortName: res.$t('login.oauth2.label.showName'),
+			infoText: '',
+		});
 	}
-	return res.render('oauth2/username', {
-		depseudonymized: false,
-		completeName: res.$t('login.oauth2.label.showName'),
-		shortName: res.$t('login.oauth2.label.showName'),
-		infoText: '',
-	});
 });
 
 module.exports = router;
