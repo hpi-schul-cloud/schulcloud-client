@@ -101,7 +101,8 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 					({ skipConsent } = tools.data[0]);
 				} else {
 					throw new Error(
-						`Unable to find a singular LtiTool with client_id ${consentRequest.client.client_id} for consent request`,
+						`Unable to find a singular LtiTool with client_id
+						${consentRequest.client.client_id} for consent request`,
 					);
 				}
 			}
@@ -132,9 +133,11 @@ router.post('/consent', auth.authChecker, (r, w) => acceptConsent(r, w, r.query.
 router.get('/username/:pseudonym', (req, res, next) => {
 	if (req.cookies.jwt) {
 		if (Configuration.get('FEATURE_CTL_TOOLS_TAB_ENABLED')) {
-			res = api(req, { version: 'v3' })
+			const apiv3res = api(req, { version: 'v3' })
 				.get(`/pseudonyms/${req.params.pseudonym}`);
-			res = [res];
+			res = {
+				data: [apiv3res],
+			};
 		} else {
 			res = api(req)
 				.get('/pseudonym', {
