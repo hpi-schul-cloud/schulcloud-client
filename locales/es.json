@@ -533,7 +533,6 @@
 				"ifAllStudentsAndParentsHaveGiven": "Si el consentimiento ha sido dado por todos los estudiantes y los padres en papel, el consentimiento para toda la clase se puede declarar aquí manualmente.",
 				"ifThereIsNoManualStart": "Si no hay un inicio manual al comienzo de las vacaciones, la fase de transferencia se inicia automáticamente.",
 				"newUsersClassAffiliations": "Los nuevos usuarios añadidos, los miembros de una clase y los cambios en los datos de los usuarios se sincronizan constantemente.",
-				"provideStudentsAndTheirParents": "Proporciona a tus estudiantes y sus padres enlaces individuales para dar su consentimiento de forma digital o analógica. Cuando se complete el registro, se creará una contraseña de inicio de sesión para el estudiante.",
 				"theNewSchoolYearStartsInThe": "El nuevo año escolar comienza en el {{title}} con el tiempo de preparación una semana antes del final de las vacaciones de verano. Independientemente de esto, puedes realizar cambios en las clases del año escolar actual, pasado y futuro en cualquier momento.",
 				"thereIsNoDeclarationOfConsent": "Todavía no existe ningún formulario de consentimiento para el usuario. Solicita un enlace de invitación personal para completar el registro y compartirlo con el usuario o con sus padres. Durante el registro, el propio usuario otorga el consentimiento. Si una declaración de consentimiento está disponible en papel, el usuario se puede activar haciendo clic en 'Consentimiento recibido en papel' y se puede asignar una contraseña de inicio. Esto desbloqueará el inicio de sesión.",
 				"registrationNotCompleted": "El estudiante aún no ha completado la inscripción. Obtenga un enlace de invitación personal para completar la inscripción y distribúyalo al estudiante.",
@@ -1458,7 +1457,6 @@
 				"i": "Yo,",
 				"pleaseClickOnRead": "Acepta esta información haciendo clic en \"Leer\" para continuar con el uso.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Confirma las siguientes declaraciones de consentimiento para que puedas utilizar {{title}}.",
-				"termsOfUse": "Condiciones de uso",
 				"the": "el"
 			}
 		},
@@ -1771,6 +1769,8 @@
 			"dataProtectionThr": "Política de Privacidad",
 			"dataProtectionFile": "Política de Privacidad de la Escuela",
 			"dataProtectionFileThr": "Política de Privacidad de la Escuela",
+			"termsOfUse": "Condiciones de Uso",
+			"termsOfUseFile": "Condiciones de Uso de la Escuela",
 			"emailDomainBlocked": "Este proveedor de correo ya no es compatible. Ponte en contacto con el administrador de tu escuela.",
 			"errorChangingFilePermissions": "Hay un problema para cambiar los permisos",
 			"errorWhileLoadingPage": "Esta página no se ha podido cargar",
@@ -2861,7 +2861,7 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "Si tienes entre 14 y {{age}} años, confirma también la declaración de consentimiento para que puedas utilizar {{title}}.",
-			"agreeTermsOfUse": "He leído y acepto las <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Condiciones de uso de {{title}}</a>.",
+			"agreeTermsOfUse": "He leído y acepto las <a href=\"{{link}}\" title=\"{{name}}\" class=\"{{class}}\" target=\"_blank\" rel=\"noopener\">Condiciones de Uso</a> de {{title}}.",
 			"andAuthorisedToRepresent": "y con derecho a representar al otro padre en las siguientes declaraciones.",
 			"iAgreeThatThepersonalData": "Doy mi consentimiento para que los datos personales de mi hijo sean procesados de acuerdo con la",
 			"invalidLink": "Desafortunadamente el enlace ya no es válido. Solicita un nuevo enlace a tu profesor o al administrador de la escuela.",
