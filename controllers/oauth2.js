@@ -134,6 +134,7 @@ router.get('/username/:pseudonym', (req, res, next) => {
 		if (Configuration.get('FEATURE_CTL_TOOLS_TAB_ENABLED')) {
 			res = api(req, { version: 'v3' })
 				.get(`/pseudonyms/${req.params.pseudonym}`);
+			res = [res];
 		} else {
 			res = api(req)
 				.get('/pseudonym', {
