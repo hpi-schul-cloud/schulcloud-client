@@ -1284,6 +1284,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Керувати класами",
+				"manageClassesNew": "Керувати класами (нове)",
 				"manageCourses": "Керувати курсами",
 				"manageSchool": "Керувати школою",
 				"manageStudents": "Керувати учнями",

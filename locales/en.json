@@ -304,6 +304,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Manage classes",
+				"manageClassesNew": "Manage classes (new)",
 				"manageCourses": "Manage courses",
 				"manageSchool": "Manage school",
 				"manageStudents": "Manage students",
