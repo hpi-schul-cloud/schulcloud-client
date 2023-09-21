@@ -225,7 +225,7 @@ module.exports = (req, res, next) => {
 
 	// admin views
 	const newSchoolAdminPageAsDefault = FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED === 'true';
-	let adminChildItems = [
+	const adminChildItems = [
 		{
 			name: res.$t('global.link.administrationStudents'),
 			testId: 'Schüler:innen',
@@ -274,7 +274,7 @@ module.exports = (req, res, next) => {
 
 	const newClassViewEnabled = FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED === 'true';
 	if (newClassViewEnabled) {
-		adminChildItems = adminChildItems.splice(4, 0, {
+		adminChildItems.splice(4, 0, {
 			name: res.$t('global.sidebar.link.administrationClassesNew'),
 			testId: 'Klassen (neu)',
 			icon: // eslint-disable-next-line max-len
