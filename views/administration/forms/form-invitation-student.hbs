@@ -1,9 +1,25 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 <div class="form-group">
-    <label for="invitation-link">{{$t "administration.form_InvitationStudent.label.distributeLinkToInvite" (dict  "shortTitle" @root.theme.short_title)}} </label>
-    <p>
-        {{{$t "administration.form_InvitationStudent.text.studentUnderYears" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}}
-    </p>
-    <p>{{$t "administration.form_InvitationStudent.text.beforeTheSchoolCloudCanBeUsed" (dict  "shortTitle" @root.theme.short_title) }}</p>
+    {{#ifeq @root.theme.name "brb"}}
+        <label for="invitation-link">
+            {{$t "administration.form_InvitationStudent.label.distributeLinkToInviteShort" (dict  "shortTitle" @root.theme.theme_title)}}
+        </label>
+    {{else}}
+        {{#ifeq @root.theme.name "n21"}}
+            <label for="invitation-link">
+                {{$t "administration.form_InvitationStudent.label.distributeLinkToInviteShort" (dict  "shortTitle" @root.theme.theme_title)}}
+            </label>
+        {{else}}
+            <label for="invitation-link">
+                {{$t "administration.form_InvitationStudent.label.distributeLinkToInvite" (dict  "shortTitle" @root.theme.short_title)}}
+            </label>
+            <p>
+                {{{$t "administration.form_InvitationStudent.text.studentUnderYears" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}}
+            </p>
+            <p>
+                {{$t "administration.form_InvitationStudent.text.beforeTheSchoolCloudCanBeUsed" (dict  "shortTitle" @root.theme.short_title) }}
+            </p>
+        {{/ifeq}}
+    {{/ifeq}}
     <input id="invitation-link" class="form-control" name="invitation" type="text" />
 </div>
