@@ -1153,7 +1153,8 @@
 				"studentUnderYears": "<b>Учні віком до {{age}} років: </b> батьки <br/> <b> Учні віком від {{age}} років: </b> самі учні <br/>"
 			},
 			"label": {
-				"distributeLinkToInvite": "Щоб запросити до {{shortTitle}}, відправте це посилання на:"
+				"distributeLinkToInvite": "Щоб запросити до {{shortTitle}}, відправте це посилання на:",
+				"distributeLinkToInviteShort": "Щоб запросити на {{shortTitle}}, надішліть наступне посилання:"
 			}
 		},
 		"form_InvitationTeacher": {

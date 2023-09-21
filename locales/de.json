@@ -336,7 +336,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "Um in die {{shortTitle}} einzuladen, verteile folgenden Link an:"
+				"distributeLinkToInvite": "Um in die {{shortTitle}} einzuladen, verteile folgenden Link an:",
+				"distributeLinkToInviteShort": "Um in die {{shortTitle}} einzuladen, muss folgender Link verteilt werden:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der {{shortTitle}} möglich ist, müssen Eltern und/oder Schüler:innen den elektronischen Einwilligungsprozess durchlaufen haben.",

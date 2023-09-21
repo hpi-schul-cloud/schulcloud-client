@@ -336,7 +336,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:"
+				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:",
+				"distributeLinkToInviteShort": "To invite to the {{shortTitle}}, send the following link:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Before the use of the {{shortTitle}} is possible, parents and / or students must have gone through the electronic consent process.",
