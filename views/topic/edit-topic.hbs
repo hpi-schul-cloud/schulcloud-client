@@ -47,7 +47,7 @@
 
                     <!-- React Magic -->
                     <div id="content-blocks" data-value="{{lesson.contents}}" data-parent-id="{{lesson._id}}" data-school-id="{{schoolId}}" data-parent-type="lessons" data-etherpadbaseurl="{{etherpadBaseUrl}}"
-                        data-iscoursegroup="{{courseGroupId}}" data-nexboardenabled="{{#unless userIsTeacher}}true{{/unless}}"></div>
+                        data-nexboardenabled="{{#ifEnv "FEATURE_NEXBOARD_ENABLED" "true"}}{{#unless userIsTeacher}}true{{/unless}}{{/ifEnv}}"></div>
                 </div>
                 {{#ifneq 0 (arrayLength @root.lessonFilesStorageData.files)}}
                 <label>{{$t "topic._topic.label.embeddedFiles" }}</label>
