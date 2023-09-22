@@ -155,7 +155,7 @@ router.get('/username/:pseudonym', async (req, res, next) => {
 						qs: { id: pseudonymResponse.userId },
 						$limit: 1,
 					});
-				if (userResponse.data?.length === 1) {
+				if (userResponse.data?.length > 0) {
 					completeName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName}`;
 					shortName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName.charAt(0)}.`;
 				}
