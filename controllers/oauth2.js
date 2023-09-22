@@ -149,10 +149,9 @@ router.get('/username/:pseudonym', async (req, res, next) => {
 			if (Configuration.get('FEATURE_CTL_TOOLS_TAB_ENABLED')) {
 				const pseudonymResponse = await api(req, { version: 'v3' })
 					.get(`/pseudonyms/${req.params.pseudonym}`);
-
 				const userResponse = await api(req)
 					.get('/users', {
-						qs: { id: pseudonymResponse.userId },
+						qs: { _id: pseudonymResponse.userId },
 						$limit: 1,
 					});
 				if (userResponse.data.length) {
