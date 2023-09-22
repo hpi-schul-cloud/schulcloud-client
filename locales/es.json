@@ -336,7 +336,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace a:"
+				"distributeLinkToInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace a:",
+				"distributeLinkToInviteShort": "Para invitar a la {{shortTitle}}, envía el siguiente enlace:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Antes de que sea posible el uso de la {{shortTitle}}, los padres y/o estudiantes deben haber pasado por el proceso de consentimiento electrónico.",
@@ -348,7 +349,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Comparte el siguiente enlace con el profesor:"
 			},
 			"text": {
-				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento."
+				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento.",
+				"toInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace:"
 			}
 		},
 		"form_Policy": {
