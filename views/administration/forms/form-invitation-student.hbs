@@ -1,12 +1,12 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 <div class="form-group">
     {{#ifeq @root.theme.name "brb"}}
-        <label for="invitation-link">
+        <label for="invitation-link" class="mb-1">
             {{$t "administration.form_InvitationStudent.label.distributeLinkToInviteShort" (dict  "shortTitle" @root.theme.theme_title)}}
         </label>
     {{else}}
         {{#ifeq @root.theme.name "n21"}}
-            <label for="invitation-link">
+            <label for="invitation-link" class="mb-1">
                 {{$t "administration.form_InvitationStudent.label.distributeLinkToInviteShort" (dict  "shortTitle" @root.theme.theme_title)}}
             </label>
         {{else}}
