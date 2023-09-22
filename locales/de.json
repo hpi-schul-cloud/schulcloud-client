@@ -349,7 +349,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:"
 			},
 			"text": {
-				"beforeUsingThe": "Bevor die Nutzung der {{title}} möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben."
+				"beforeUsingThe": "Bevor die Nutzung der {{title}} möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben.",
+				"toInvite": "Um in die {{shortTitle}} einzuladen, muss folgender Link verteilt werden:"
 			}
 		},
 		"form_Policy": {

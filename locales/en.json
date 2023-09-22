@@ -349,7 +349,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Give the following link to the teacher:"
 			},
 			"text": {
-				"beforeUsingThe": "Before the use of the {{title}} possible, the teacher must have gone through the consent process."
+				"beforeUsingThe": "Before the use of the {{title}} possible, the teacher must have gone through the consent process.",
+				"toInvite": "To invite to the {{shortTitle}}, send the following link:"
 			}
 		},
 		"form_Policy": {

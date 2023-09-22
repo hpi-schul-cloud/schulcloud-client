@@ -11,13 +11,13 @@
             </label>
         {{else}}
             <label for="invitation-link">
-                {{$t "administration.form_InvitationStudent.label.distributeLinkToInvite" (dict  "shortTitle" @root.theme.short_title)}}
+                {{$t "administration.form_InvitationStudent.label.distributeLinkToInvite" (dict  "shortTitle" @root.theme.theme_title)}}
             </label>
             <p>
                 {{{$t "administration.form_InvitationStudent.text.studentUnderYears" (dict "age" CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS)}}}
             </p>
             <p>
-                {{$t "administration.form_InvitationStudent.text.beforeTheSchoolCloudCanBeUsed" (dict  "shortTitle" @root.theme.short_title) }}
+                {{$t "administration.form_InvitationStudent.text.beforeTheSchoolCloudCanBeUsed" (dict  "shortTitle" @root.theme.theme_title) }}
             </p>
         {{/ifeq}}
     {{/ifeq}}

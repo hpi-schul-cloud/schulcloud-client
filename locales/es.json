@@ -349,7 +349,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Comparte el siguiente enlace con el profesor:"
 			},
 			"text": {
-				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento."
+				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento.",
+				"toInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace:"
 			}
 		},
 		"form_Policy": {
