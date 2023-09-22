@@ -18,13 +18,15 @@ const getVersion = () => {
 const VERSION = getVersion();
 
 router.get('/login', csrfProtection, (req, res, next) => api(req, { version: VERSION })
-	.get(`/oauth2/loginRequest/${req.query.login_challenge}`).then((loginRequest) => {
+	.get(`/oauth2/loginRequest/${req.query.login_challenge}`)
+	.then((loginRequest) => {
 		req.session.login_challenge = req.query.login_challenge;
 		if (loginRequest.skip) {
 			return res.redirect('/oauth2/login/success');
 		}
 		return res.redirect(Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL'));
-	}).catch(next));
+	})
+	.catch(next));
 
 router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) => {
 	if (!req.session.login_challenge) res.redirect('/dashboard/');
@@ -38,14 +40,17 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		.patch(
 			`/oauth2/loginRequest/${req.session.login_challenge}/?accept=1`,
 			{ body },
-		).then((loginRequest) => {
+		)
+		.then((loginRequest) => {
 			delete (req.session.login_challenge);
 			return res.redirect(loginRequest.redirect_to);
-		}).catch(next);
+		})
+		.catch(next);
 });
 
 router.all('/logout', csrfProtection, auth.authChecker, (req) => {
-	api(req, { version: VERSION }).get('/oauth2/logoutRequest');
+	api(req, { version: VERSION })
+		.get('/oauth2/logoutRequest');
 });
 
 router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next) => {
@@ -53,8 +58,10 @@ router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next
 		redirect_to: '',
 	};
 
-	return api(req, { version: VERSION }).patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { body })
-		.then((logoutRequest) => res.redirect(logoutRequest.redirect_to)).catch(next);
+	return api(req, { version: VERSION })
+		.patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { body })
+		.then((logoutRequest) => res.redirect(logoutRequest.redirect_to))
+		.catch(next);
 });
 
 const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
@@ -64,7 +71,8 @@ const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
 		remember_for: 60 * 60 * 24 * 30,
 	};
 
-	return api(r, { version: VERSION }).patch(`/oauth2/consentRequest/${challenge}/?accept=1`, { body })
+	return api(r, { version: VERSION })
+		.patch(`/oauth2/consentRequest/${challenge}/?accept=1`, { body })
 		.then((consentRequest) => w.redirect(consentRequest.redirect_to));
 };
 
@@ -87,7 +95,8 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 		// An error occurred (at hydra)
 		return res.send(`${req.query.error}<br />${req.query.error_description}`);
 	}
-	return api(req, { version: VERSION }).get(`/oauth2/consentRequest/${req.query.consent_challenge}`)
+	return api(req, { version: VERSION })
+		.get(`/oauth2/consentRequest/${req.query.consent_challenge}`)
 		.then(async (consentRequest) => {
 			let skipConsent = consentRequest.context?.skipConsent;
 
@@ -101,7 +110,8 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 					({ skipConsent } = tools.data[0]);
 				} else {
 					throw new Error(
-						`Unable to find a singular LtiTool with client_id ${consentRequest.client.client_id} for consent request`,
+						`Unable to find a singular LtiTool with client_id
+						${consentRequest.client.client_id} for consent request`,
 					);
 				}
 			}
@@ -124,26 +134,44 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 					value: scope,
 				})),
 			});
-		}).catch(next);
+		})
+		.catch(next);
 });
 
 router.post('/consent', auth.authChecker, (r, w) => acceptConsent(r, w, r.query.challenge, r.body.grantScopes, true));
 
-router.get('/username/:pseudonym', (req, res, next) => {
+router.get('/username/:pseudonym', async (req, res, next) => {
 	if (req.cookies.jwt) {
-		return api(req).get('/pseudonym', {
-			qs: {
-				pseudonym: req.params.pseudonym,
-			},
-		}).then((pseudonym) => {
-			let shortName;
-			let completeName;
-			const anonymousName = '???';
-			completeName = anonymousName;
-			shortName = completeName;
-			if (pseudonym.data.length) {
-				completeName = `${pseudonym.data[0].user.firstName} ${pseudonym.data[0].user.lastName}`;
-				shortName = `${pseudonym.data[0].user.firstName} ${pseudonym.data[0].user.lastName.charAt(0)}.`;
+		try {
+			let shortName = '???';
+			let completeName = '???';
+
+			if (Configuration.get('FEATURE_CTL_TOOLS_TAB_ENABLED')) {
+				const pseudonymResponse = await api(req, { version: 'v3' })
+					.get(`/pseudonyms/${req.params.pseudonym}`);
+
+				const userResponse = await api(req)
+					.get('/users', {
+						qs: { id: pseudonymResponse.userId },
+						$limit: 1,
+					});
+				if (userResponse.data?.length === 1) {
+					completeName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName}`;
+					shortName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName.charAt(0)}.`;
+				}
+			} else {
+				const feathersPseudonymResponse = await api(req)
+					.get('/pseudonym', {
+						qs: {
+							pseudonym: req.params.pseudonym,
+						},
+					});
+				if (feathersPseudonymResponse.data.length) {
+					// eslint-disable-next-line max-len
+					completeName = `${feathersPseudonymResponse.data[0].user.firstName} ${feathersPseudonymResponse.data[0].user.lastName}`;
+					// eslint-disable-next-line max-len
+					shortName = `${feathersPseudonymResponse.data[0].user.firstName} ${feathersPseudonymResponse.data[0].user.lastName.charAt(0)}.`;
+				}
 			}
 			return res.render('oauth2/username', {
 				depseudonymized: true,
@@ -153,14 +181,17 @@ router.get('/username/:pseudonym', (req, res, next) => {
 					shortTitle: res.locals.theme.short_title,
 				}),
 			});
-		}).catch(next);
+		} catch (error) {
+			return next(error);
+		}
+	} else {
+		return res.render('oauth2/username', {
+			depseudonymized: false,
+			completeName: res.$t('login.oauth2.label.showName'),
+			shortName: res.$t('login.oauth2.label.showName'),
+			infoText: '',
+		});
 	}
-	return res.render('oauth2/username', {
-		depseudonymized: false,
-		completeName: res.$t('login.oauth2.label.showName'),
-		shortName: res.$t('login.oauth2.label.showName'),
-		infoText: '',
-	});
 });
 
 module.exports = router;
