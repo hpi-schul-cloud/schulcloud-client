@@ -17,13 +17,11 @@ router.get('/', async (req, res, next) => {
 		params.qs._id = { $ne: res.locals.currentSchool };
 	}
 	try {
-		const schools = await api(req).get('/schools/', params);
-
-		const result = schools.data.map((school) => ({
-			_id: school._id,
+		const response = await api(req, { version: 'v3' }).get('/school', params);
+		const result = response.data.map((school) => ({
+			_id: school.id,
 			name: school.name,
 			purpose: school.purpose,
-			officialSchoolNumber: school.officialSchoolNumber,
 		}));
 
 		return res.json(result);
