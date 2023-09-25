@@ -135,7 +135,7 @@ const populateCurrentUser = async (req, res) => {
 			res.locals.currentRole = rolesDisplayName[data.roles[0].name];
 			res.locals.roles = data.roles.map(({ name }) => name);
 			res.locals.roleNames = data.roles.map((r) => rolesDisplayName[r.name]);
-			return api(req).get(`/schools/${res.locals.currentUser.schoolId}`, {
+			return api(req, { version: 'v3' }).get(`/school/${res.locals.currentUser.schoolId}`, {
 				qs: {
 					$populate: ['federalState'],
 				},
