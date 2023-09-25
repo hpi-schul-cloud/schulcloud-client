@@ -2770,6 +2770,9 @@ router.get('/rss/:id', async (req, res) => {
 	res.send(matchingRSSFeed);
 });
 
+// TODO: It would be nice if this route would be removed soon,
+// so we don't need to worry about the call to GET schools here.
+// Ticket for removal: https://ticketsystem.dbildungscloud.de/browse/BC-4231
 router.post('/rss/', async (req, res) => {
 	const school = await api(req).get(`/schools/${req.body.schoolId}`);
 
@@ -2807,7 +2810,7 @@ router.use(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
 		const [school, totalStorage, schoolMaintanance, consentVersions] = await Promise.all([
-			api(req).get(`/schools/${res.locals.currentSchool}`, {
+			api(req, { version: 'v3' }).get(`/school/${res.locals.currentSchool}`, {
 				qs: {
 					$populate: ['systems', 'federalState'],
 					$sort: req.query.sort,
