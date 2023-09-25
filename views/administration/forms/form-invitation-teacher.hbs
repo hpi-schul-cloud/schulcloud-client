@@ -1,8 +1,20 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 <div class="form-group">
-    <p>
-        {{$t "administration.form_InvitationTeacher.text.beforeUsingThe" (dict "shortTitle" theme.title) }} 
-    </p>
-    <label for="invitation-link">{{$t "administration.form_InvitationTeacher.label.distributeTheFollowingLinkToTheTeacher" }}</label>
+    {{#ifeq @root.theme.name "brb"}}
+        <label for="invitation-link" class="mb-1">
+        {{$t "administration.form_InvitationTeacher.text.toInvite" (dict  "shortTitle" @root.theme.theme_title)}}
+        </label>
+    {{else}}
+        {{#ifeq @root.theme.name "n21"}}
+            <label for="invitation-link" class="mb-1">
+                {{$t "administration.form_InvitationTeacher.text.toInvite" (dict  "shortTitle" @root.theme.theme_title)}}
+            </label>
+        {{else}}
+            <p>
+                {{$t "administration.form_InvitationTeacher.text.beforeUsingThe" (dict "title" @root.theme.theme_title) }}
+            </p>
+            <label for="invitation-link">{{$t "administration.form_InvitationTeacher.label.distributeTheFollowingLinkToTheTeacher" }}</label>
+        {{/ifeq}}
+    {{/ifeq}}
     <input id="invitation-link" class="form-control" name="invitation" type="text" />
 </div>

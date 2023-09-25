@@ -1154,7 +1154,8 @@
 				"studentUnderYears": "<b>Учні віком до {{age}} років: </b> батьки <br/> <b> Учні віком від {{age}} років: </b> самі учні <br/>"
 			},
 			"label": {
-				"distributeLinkToInvite": "Щоб запросити до {{shortTitle}}, відправте це посилання на:"
+				"distributeLinkToInvite": "Щоб запросити до {{shortTitle}}, відправте це посилання на:",
+				"distributeLinkToInviteShort": "Щоб запросити на {{shortTitle}}, надішліть наступне посилання:"
 			}
 		},
 		"form_InvitationTeacher": {
@@ -1162,7 +1163,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Дайте викладачу таке посилання:"
 			},
 			"text": {
-				"beforeUsingThe": "Перш ніж можливе використання {{title}}, викладач повинен пройти процедуру отримання згоди."
+				"beforeUsingThe": "Перш ніж можливе використання {{title}}, викладач повинен пройти процедуру отримання згоди.",
+				"toInvite": "Щоб запросити на {{shortTitle}}, надішліть наступне посилання:"
 			}
 		},
 		"form_Problem": {
