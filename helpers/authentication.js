@@ -434,7 +434,7 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 
 	setCookie(res, 'jwt', accessToken);
 
-	if (migration) {
+	if (migration && !migration.closedAt) {
 		res.redirect('/migration');
 	} else {
 		const queryString = new URLSearchParams();
