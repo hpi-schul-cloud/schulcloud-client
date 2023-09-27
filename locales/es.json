@@ -304,6 +304,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Administrar clases",
+				"manageClassesNew": "Administrar clases (nuevo)",
 				"manageCourses": "Administrar cursos",
 				"manageSchool": "Administrar escuela",
 				"manageStudents": "Administrar estudiantes",
@@ -1751,6 +1752,7 @@
 				"addons": "Complementos",
 				"administration": "Administración",
 				"administrationClasses": "Clases",
+				"administrationClassesNew": "Clases (nuevo)",
 				"administrationCourses": "Cursos"
 			}
 		},
