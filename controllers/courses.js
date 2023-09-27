@@ -775,8 +775,11 @@ router.patch('/:courseId', async (req, res, next) => {
 		const { courseId } = req.params;
 
 		const currentUserId = res.locals.currentUser._id;
-		const isRemovingYourself = !req.body.teacherIds.some((id) => id === currentUserId)
-			&& !req.body.substitutionIds.some((id) => id === currentUserId);
+		const isRemovingYourself = req.body.teacherIds
+		&& req.body.substitutionIds
+		&& !req.body.teacherIds.some((id) => id === currentUserId)
+		&& !req.body.substitutionIds.some((id) => id === currentUserId);
+
 		if (isRemovingYourself) {
 			// if you are removing yourself from a course you will not have permissions to create events anymore
 			// so temporarily add yourself to the list of teachers
