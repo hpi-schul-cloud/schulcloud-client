@@ -774,8 +774,10 @@ router.patch('/:courseId', async (req, res, next) => {
 		}
 		const { courseId } = req.params;
 
+		const isAdministrator = res.locals.currentRole === 'Administrator';
 		const currentUserId = res.locals.currentUser._id;
-		const isRemovingYourself = req.body.teacherIds
+		const isRemovingYourself = !isAdministrator
+		&& req.body.teacherIds
 		&& req.body.substitutionIds
 		&& !req.body.teacherIds.some((id) => id === currentUserId)
 		&& !req.body.substitutionIds.some((id) => id === currentUserId);
