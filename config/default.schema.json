@@ -592,6 +592,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Changes the login flow to one that supports user login migrations"
+		},
+		"FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the new class list view"
 		}
 	},
 	"allOf": [
