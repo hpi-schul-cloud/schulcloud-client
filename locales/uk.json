@@ -252,6 +252,7 @@
 			"link": {
 				"addons": "Доповнення",
 				"administrationClasses": "Класи",
+				"administrationClassesNew": "Класи (новий)",
 				"administrationCourses": "Курси",
 				"administration": "Адміністрація"
 			}
@@ -1285,6 +1286,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Керувати класами",
+				"manageClassesNew": "Керувати класами (нове)",
 				"manageCourses": "Керувати курсами",
 				"manageSchool": "Керувати школою",
 				"manageStudents": "Керувати учнями",
