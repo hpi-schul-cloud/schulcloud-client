@@ -315,6 +315,8 @@ const mapErrorCodeToTranslation = (errorCode) => {
 			return 'login.text.internalError';
 		case 'sso_user_not_found_after_provisioning':
 			return 'login.text.userNotFoundInUnprovisionedSchool';
+		case 'SCHOOL_IN_MIGRATION':
+			return 'login.text.schoolInMigration';
 		default:
 			return 'login.text.loginFailed';
 	}
