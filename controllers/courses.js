@@ -726,7 +726,7 @@ router.get('/:courseId/', async (req, res, next) => {
 
 router.patch('/:courseId', async (req, res, next) => {
 	try {
-		const redirectUrl = req.query.redirectUrl || getDefaultRedirectUrl(req.params.courseId);
+		let redirectUrl = req.query.redirectUrl || getDefaultRedirectUrl(req.params.courseId);
 
 		// map course times to fit model
 		req.body.times = req.body.times || [];
@@ -774,6 +774,20 @@ router.patch('/:courseId', async (req, res, next) => {
 		}
 		const { courseId } = req.params;
 
+		const isAdministrator = res.locals.currentRole === 'Administrator';
+		const currentUserId = res.locals.currentUser._id;
+		const isRemovingYourself = !isAdministrator
+		&& req.body.teacherIds
+		&& req.body.substitutionIds
+		&& !req.body.teacherIds.some((id) => id === currentUserId)
+		&& !req.body.substitutionIds.some((id) => id === currentUserId);
+
+		if (isRemovingYourself) {
+			// if you are removing yourself from a course you will not have permissions to create events anymore
+			// so temporarily add yourself to the list of teachers
+			req.body.teacherIds.push(currentUserId);
+		}
+
 		await deleteEventsForCourse(req, res, courseId);
 		await api(req).patch(`/courses/${courseId}`, {
 			json: req.body,
@@ -782,6 +796,17 @@ router.patch('/:courseId', async (req, res, next) => {
 		// instead of using the response from patch
 		const course = await api(req).get(`/courses/${courseId}`);
 		await createEventsForCourse(req, res, course);
+
+		if (isRemovingYourself) {
+			await api(req).patch(`/courses/${courseId}`, {
+				json: {
+					teacherIds: course.teacherIds.filter((id) => id !== currentUserId),
+					substitutionIds: course.substitutionIds.filter((id) => id !== currentUserId),
+				},
+			});
+			redirectUrl = '/rooms-overview';
+		}
+
 		res.redirect(303, redirectUrl);
 	} catch (e) {
 		next(e);

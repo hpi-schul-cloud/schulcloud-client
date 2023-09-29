@@ -597,6 +597,10 @@
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled, adds H5P editor to course topics."
+		"FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the new class list view"
 		}
 	},
 	"allOf": [

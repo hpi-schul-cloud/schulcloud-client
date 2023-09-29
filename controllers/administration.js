@@ -1737,7 +1737,6 @@ router.get(
 					$sort: 'lastName',
 					$limit: false,
 				});
-				const yearsPromise = getSelectOptions(req, 'years', { $limit: false });
 
 				const usersWithConsentsPromise = getUsersWithoutConsent(req, 'student', currentClass._id);
 
@@ -1745,9 +1744,8 @@ router.get(
 					classesPromise,
 					teachersPromise,
 					studentsPromise,
-					yearsPromise,
 					usersWithConsentsPromise,
-				]).then(([classes, teachers, students, schoolyears, allUsersWithoutConsent]) => {
+				]).then(([classes, teachers, students, allUsersWithoutConsent]) => {
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
 					);
@@ -1849,7 +1847,6 @@ router.get(
 						teachers,
 						students: filterStudents(res, students),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-						schoolyears,
 						notes,
 						referrer: '/administration/classes/',
 						consentsMissing: usersWithoutConsent.length !== 0,
@@ -2101,16 +2098,14 @@ router.get(
 		const schoolYears = res.locals.currentSchoolData.years.schoolYears
 			.sort((a, b) => b.startDate.localeCompare(a.startDate));
 		const lastDefinedSchoolYear = (schoolYears[0] || {})._id;
-		const currentYear = res.locals.currentSchoolData.currentYear;
-
-		const currentYearObj = schoolYears.filter((year) => year._id === currentYear).pop();
 
 		const showTab = (req.query || {}).showTab || 'current';
 
+		const currentYear = res.locals.currentSchoolData.currentYear;
 		const upcomingYears = schoolYears
-			.filter((year) => year.startDate > currentYearObj.endDate);
+			.filter((year) => year.startDate > currentYear.endDate);
 		const archivedYears = schoolYears
-			.filter((year) => year.endDate < currentYearObj.startDate);
+			.filter((year) => year.endDate < currentYear.startDate);
 
 		let defaultYear;
 		switch (showTab) {
@@ -2123,7 +2118,7 @@ router.get(
 				break;
 			case 'current':
 			default:
-				query['year[$in]'] = [currentYear];
+				query['year[$in]'] = [currentYear._id];
 				break;
 		}
 
@@ -2138,7 +2133,7 @@ router.get(
 			},
 			{
 				key: 'current',
-				title: `${currentYearObj.name}`,
+				title: `${currentYear.name}`,
 				link: `/administration/classes/?showTab=current${filterQueryString}`,
 			},			{
 				key: 'archive',
@@ -2217,7 +2212,7 @@ router.get(
 				};
 
 				const years = schoolYears
-					.filter((year) => year.endDate < currentYearObj.startDate)
+					.filter((year) => year.endDate < currentYear.startDate)
 					.map((year) => [
 						year._id,
 						year.name,
@@ -2814,7 +2809,7 @@ router.use(
 		const [school, totalStorage, schoolMaintanance, consentVersions] = await Promise.all([
 			api(req).get(`/schools/${res.locals.currentSchool}`, {
 				qs: {
-					$populate: ['systems', 'currentYear', 'federalState'],
+					$populate: ['systems', 'federalState'],
 					$sort: req.query.sort,
 				},
 			}),
