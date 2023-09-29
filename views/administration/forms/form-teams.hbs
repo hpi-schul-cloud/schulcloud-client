@@ -3,7 +3,7 @@
 <div class="form-group">
     <label>{{$t "administration.teams.label.selectAnAdditionalOwner" }}</label>
     {{{course.name}}}
-    <select class="form-control form-control-lg search-enabled" type="text" name="userId">
+    <select class="form-control form-control-lg search-enabled" aria-label="{{$t "administration.teams.label.selectAnAdditionalOwner" }}" type="text" name="userId">
         <option value="">{{$t "administration.teams.button.addAnotherOwner" }}</option>
         {{#each users}}
             <option value="{{{this._id}}}">
