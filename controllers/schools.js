@@ -13,16 +13,18 @@ router.get('/', async (req, res, next) => {
 			$sort: 'name',
 		},
 	};
-	if (req.query.hideOwnSchool) {
-		params.qs._id = { $ne: res.locals.currentSchool };
-	}
+
 	try {
 		const response = await api(req, { version: 'v3' }).get('/school', params);
-		const result = response.data.map((school) => ({
+		let result = response.data.map((school) => ({
 			_id: school.id,
 			name: school.name,
 			purpose: school.purpose,
 		}));
+
+		if (req.query.hideOwnSchool) {
+			result = result.filter((school) => school._id !== res.locals.currentSchool);
+		}
 
 		return res.json(result);
 	} catch (e) {
