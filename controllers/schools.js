@@ -21,6 +21,8 @@ router.get('/', async (req, res, next) => {
 			purpose: school.purpose,
 		}));
 
+		// TODO: Shall we add hiding of own school as a query to the API or shall we leave it here?
+		// I tend to leave it here because it seems like a rather special case and the filtering is easy.
 		if (req.query.hideOwnSchool) {
 			result = result.filter((school) => school._id !== res.locals.currentSchool);
 		}
