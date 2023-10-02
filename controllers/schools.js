@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
 	const params = {
 		qs: {
 			$limit: req.query.$limit,
-			federalState: req.query.federalState,
+			federalStateId: req.query.federalState,
 			$sort: 'name',
 		},
 	};
