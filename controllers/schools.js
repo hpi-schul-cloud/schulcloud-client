@@ -10,7 +10,6 @@ router.get('/', async (req, res, next) => {
 		qs: {
 			$limit: req.query.$limit,
 			federalStateId: req.query.federalState,
-			$sort: 'name',
 		},
 	};
 
