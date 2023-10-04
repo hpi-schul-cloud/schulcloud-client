@@ -109,7 +109,7 @@ const checkIfUserCanCreateTeam = (res) => {
 	if (roleNames.includes('administrator') || roleNames.includes('teacher') || roleNames.includes('student')) {
 		allowedCreateTeam = true;
 		const currentSchool = res.locals.currentSchoolData;
-		if (roleNames.includes('student') && !currentSchool.isTeamCreationByStudentsEnabled) {
+		if (roleNames.includes('student') && !currentSchool.features.includes('isTeamCreationByStudentsEnabled')) {
 			allowedCreateTeam = false;
 		}
 	}
@@ -1138,7 +1138,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			const { _id: studentRoleId } = roles.find((role) => role.name === 'student');
 			return res.locals.currentUser.permissions.includes('STUDENT_LIST')
 				|| !user.roles.includes(studentRoleId)
-				|| res.locals.currentSchoolData.isTeamCreationByStudentsEnabled;
+				|| res.locals.currentSchoolData.features.includes('isTeamCreationByStudentsEnabled');
 		});
 
 		body.sort((a, b) => {
