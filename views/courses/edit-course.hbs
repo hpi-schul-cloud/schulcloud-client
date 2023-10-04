@@ -167,17 +167,28 @@
 					<select id="classId" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each classes}}
-							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+							<option value="{{this.id}}{{#unless this.id}}{{this._id}}{{/unless}}" {{#if this.selected}}selected{{/if}}>
+                                {{#if (getConfig "FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED")}}
+                                    {{this.name}}
 
-								{{#if this.name}}
-									{{this.displayName}}
-								{{else}}
-									{{this.name}}
-								{{/if}}
+                                    {{#if this.schoolYear}}
+                                        ({{this.schoolYear}})
+                                    {{/if}}
 
-								{{#if this.year}}
-									({{this.year.name}})
-								{{/if}}
+                                    {{#if this.externalSourceName}}
+                                        | {{this.externalSourceName}}
+                                    {{/if}}
+                                {{else}}
+                                    {{#if this.name}}
+                                        {{this.displayName}}
+                                    {{else}}
+                                        {{this.name}}
+                                    {{/if}}
+
+                                    {{#if this.year}}
+                                        ({{this.year.name}})
+                                    {{/if}}
+                                {{/if}}
 							</option>
 						{{/each}}
 					</select>
