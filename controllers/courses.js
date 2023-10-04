@@ -17,6 +17,7 @@ const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger', 'videoconference'];
+const FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED = Configuration.get('FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED');
 
 const router = express.Router();
 const { HOST } = require('../config/global');
@@ -27,7 +28,8 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 }).then((data) => data.data);
 
 const markSelected = (options, values = []) => options.map((option) => {
-	option.selected = values.includes(option._id);
+	const optionId = option.id !== undefined ? option.id : option._id;
+	option.selected = values.includes(optionId);
 	return option;
 });
 
@@ -124,16 +126,22 @@ const editCourseHandler = (req, res, next) => {
 		action += `?redirectUrl=${req.query.redirectUrl}`;
 	}
 
-	const classesPromise = api(req)
-		.get('/classes', {
-			qs: {
-				schoolId: res.locals.currentSchool,
-				$populate: ['year'],
-				$limit: -1,
-				$sort: { year: -1, displayName: 1 },
-			},
-		});
-	// .then(data => data.data); needed when pagination is not disabled
+	let classesPromise;
+	if (FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED) {
+		classesPromise = api(req, { version: 'v3' })
+			.get('/groups/class');
+	} else {
+		classesPromise = api(req)
+			.get('/classes', {
+				qs: {
+					schoolId: res.locals.currentSchool,
+					$populate: ['year'],
+					$limit: -1,
+					$sort: { year: -1, displayName: 1 },
+				},
+			});
+	}
+
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher'],
 		$limit: false,
@@ -159,7 +167,7 @@ const editCourseHandler = (req, res, next) => {
 		scopePermissions,
 	]).then(([course, _classes, _teachers, _students, _scopePermissions]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
-		const classes = _classes.filter(
+		const classes = FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED ? _classes.data : _classes.filter(
 			(c) => c.schoolId === res.locals.currentSchool,
 		).sort();
 		const teachers = _teachers.filter(
@@ -784,6 +792,11 @@ router.patch('/:courseId', async (req, res, next) => {
 		}
 
 		await deleteEventsForCourse(req, res, courseId);
+		// if(FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED){
+		// 	// TODO: V3 save course
+		// } else {
+		//
+		// }
 		await api(req).patch(`/courses/${courseId}`, {
 			json: req.body,
 		});
