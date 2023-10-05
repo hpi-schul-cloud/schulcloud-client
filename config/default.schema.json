@@ -598,7 +598,7 @@
 			"default": false,
 			"description": "Enables the new class list view"
 		},
-		"FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED": {
+		"FEATURE_GROUPS_IN_COURSE_ENABLED": {
 			"type": "boolean",
 			"default": false,
 			"description": "Enables to get groups of type class"

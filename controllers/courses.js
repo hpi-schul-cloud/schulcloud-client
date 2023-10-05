@@ -17,7 +17,7 @@ const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger', 'videoconference'];
-const FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED = Configuration.get('FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED');
+const FEATURE_GROUPS_IN_COURSE_ENABLED = Configuration.get('FEATURE_GROUPS_IN_COURSE_ENABLED');
 
 const router = express.Router();
 const { HOST } = require('../config/global');
