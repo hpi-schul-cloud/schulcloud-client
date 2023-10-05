@@ -127,7 +127,7 @@ const editCourseHandler = (req, res, next) => {
 	}
 
 	let classesPromise;
-	if (FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED) {
+	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
 		classesPromise = api(req, { version: 'v3' })
 			.get('/groups/class');
 	} else {
@@ -167,7 +167,7 @@ const editCourseHandler = (req, res, next) => {
 		scopePermissions,
 	]).then(([course, _classes, _teachers, _students, _scopePermissions]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
-		const classes = FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED ? _classes.data : _classes.filter(
+		const classes = FEATURE_GROUPS_IN_COURSE_ENABLED ? _classes.data : _classes.filter(
 			(c) => c.schoolId === res.locals.currentSchool,
 		).sort();
 		const teachers = _teachers.filter(
@@ -792,11 +792,6 @@ router.patch('/:courseId', async (req, res, next) => {
 		}
 
 		await deleteEventsForCourse(req, res, courseId);
-		// if(FEATURE_SHOW_GROUPS_IN_CLASS_ENABLED){
-		// 	// TODO: V3 save course
-		// } else {
-		//
-		// }
 		await api(req).patch(`/courses/${courseId}`, {
 			json: req.body,
 		});

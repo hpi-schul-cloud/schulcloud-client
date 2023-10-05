@@ -601,7 +601,7 @@
 		"FEATURE_GROUPS_IN_COURSE_ENABLED": {
 			"type": "boolean",
 			"default": false,
-			"description": "Enables to get groups of type class"
+			"description": "Enables to get groups of type class in courses"
 		}
 	},
 	"allOf": [
