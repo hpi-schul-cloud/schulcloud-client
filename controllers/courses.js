@@ -108,6 +108,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 	return Promise.resolve(true);
 };
 
+let groups = [];
 const editCourseHandler = (req, res, next) => {
 	let coursePromise;
 	let action;
@@ -167,9 +168,16 @@ const editCourseHandler = (req, res, next) => {
 		scopePermissions,
 	]).then(([course, _classes, _teachers, _students, _scopePermissions]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
-		const classes = FEATURE_GROUPS_IN_COURSE_ENABLED ? _classes.data : _classes.filter(
-			(c) => c.schoolId === res.locals.currentSchool,
-		).sort();
+		let classes = [];
+		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
+			classes = _classes.data;
+			groups = _classes.data.filter((c) => c.externalSourceName !== undefined);
+		} else {
+			classes = _classes.filter(
+				(c) => c.schoolId === res.locals.currentSchool,
+			).sort();
+		}
+
 		const teachers = _teachers.filter(
 			(t) => t.schoolId === res.locals.currentSchool,
 		);
@@ -746,11 +754,21 @@ router.patch('/:courseId', async (req, res, next) => {
 		if (!req.body.classIds) {
 			req.body.classIds = [];
 		}
+		if (!req.body.groupIds) {
+			req.body.groupIds = [];
+		}
 		if (!req.body.userIds) {
 			req.body.userIds = [];
 		}
 		if (!req.body.substitutionIds) {
 			req.body.substitutionIds = [];
+		}
+
+		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
+			req.body.groupIds = req.body.classIds
+				.filter((id) => groups.some((group) => group.id === id));
+			req.body.classIds = req.body.classIds
+				.filter((id) => groups.some((group) => group.id !== id));
 		}
 
 		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
