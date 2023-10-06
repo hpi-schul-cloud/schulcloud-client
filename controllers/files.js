@@ -224,7 +224,7 @@ const FileGetter = (req, res, next) => {
 		}
 
 		const files = result.filter((f) => f).map((file) => {
-			if (file.permissions[0].refId === userId) {
+			if (file.permissions[0]?.refId === userId) {
 				Object.assign(file, {
 					userIsOwner: true,
 				});
