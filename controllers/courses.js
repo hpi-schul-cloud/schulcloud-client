@@ -171,7 +171,7 @@ const editCourseHandler = (req, res, next) => {
 		let classes = [];
 		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
 			classes = _classes.data;
-			groups = _classes.data.filter((c) => c.externalSourceName !== undefined);
+			groups = _classes.data.filter((c) => c.type === 'group');
 		} else {
 			classes = _classes.filter(
 				(c) => c.schoolId === res.locals.currentSchool,
@@ -259,7 +259,7 @@ const editCourseHandler = (req, res, next) => {
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
-				classes: markSelected(classes, course.classIds),
+				classes: markSelected(classes, [...course.classIds, ...course.groupIds]),
 				teachers: markSelected(
 					teachers,
 					course.teacherIds,
@@ -525,6 +525,13 @@ router.post('/', (req, res, next) => {
 		}
 		delete req.body[feature];
 	});
+
+	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
+		req.body.groupIds = req.body.classIds
+			.filter((id) => groups.some((group) => group.id === id));
+		req.body.classIds = req.body.classIds
+			.filter((id) => groups.some((group) => group.id !== id));
+	}
 
 	api(req)
 		.post('/courses/', {
