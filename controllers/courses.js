@@ -108,7 +108,8 @@ const deleteEventsForCourse = (req, res, courseId) => {
 	return Promise.resolve(true);
 };
 
-let groups = [];
+let groupIds = [];
+let classIds = [];
 const editCourseHandler = (req, res, next) => {
 	let coursePromise;
 	let action;
@@ -127,12 +128,12 @@ const editCourseHandler = (req, res, next) => {
 		action += `?redirectUrl=${req.query.redirectUrl}`;
 	}
 
-	let classesPromise;
+	let classesAndGroupsPromise;
 	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
-		classesPromise = api(req, { version: 'v3' })
+		classesAndGroupsPromise = api(req, { version: 'v3' })
 			.get('/groups/class');
 	} else {
-		classesPromise = api(req)
+		classesAndGroupsPromise = api(req)
 			.get('/classes', {
 				qs: {
 					schoolId: res.locals.currentSchool,
@@ -162,18 +163,19 @@ const editCourseHandler = (req, res, next) => {
 
 	Promise.all([
 		coursePromise,
-		classesPromise,
+		classesAndGroupsPromise,
 		teachersPromise,
 		studentsPromise,
 		scopePermissions,
-	]).then(([course, _classes, _teachers, _students, _scopePermissions]) => {
+	]).then(([course, _classesAndGroups, _teachers, _students, _scopePermissions]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
-		let classes = [];
+		let classesAndGroups = [];
 		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
-			classes = _classes.data;
-			groups = _classes.data.filter((c) => c.type === 'group');
+			classesAndGroups = _classesAndGroups.data;
+			groupIds = _classesAndGroups.data.filter((g) => g.type === 'group').map((group) => group.id);
+			classIds = _classesAndGroups.data.filter((c) => c.type === 'class').map((clazz) => clazz.id);
 		} else {
-			classes = _classes.filter(
+			classesAndGroups = _classesAndGroups.filter(
 				(c) => c.schoolId === res.locals.currentSchool,
 			).sort();
 		}
@@ -259,7 +261,7 @@ const editCourseHandler = (req, res, next) => {
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
-				classes: markSelected(classes, [...course.classIds, ...course.groupIds]),
+				classesAndGroups: markSelected(classesAndGroups, [...course.classIds, ...course.groupIds]),
 				teachers: markSelected(
 					teachers,
 					course.teacherIds,
@@ -281,7 +283,7 @@ const editCourseHandler = (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			course,
 			colors,
-			classes: markSelected(classes, course.classIds),
+			classesAndGroups: markSelected(classesAndGroups, course.classIds),
 			teachers: markSelected(
 				teachers,
 				course.teacherIds,
@@ -527,12 +529,13 @@ router.post('/', (req, res, next) => {
 	});
 
 	req.body.groupIds = [];
-	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
+	if (FEATURE_GROUPS_IN_COURSE_ENABLED && req.body.classIds !== undefined) {
 		req.body.groupIds = req.body.classIds
-			.filter((id) => groups.some((group) => group.id === id));
-		if (groups.length > 0) {
+			.filter((id) => groupIds.includes(id));
+
+		if (groupIds.length > 0) {
 			req.body.classIds = req.body.classIds
-				.filter((id) => groups.some((group) => group.id !== id));
+				.filter((id) => classIds.includes(id));
 		}
 	}
 
@@ -776,9 +779,9 @@ router.patch('/:courseId', async (req, res, next) => {
 
 		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
 			req.body.groupIds = req.body.classIds
-				.filter((id) => groups.some((group) => group.id === id));
+				.filter((id) => groupIds.includes(id));
 			req.body.classIds = req.body.classIds
-				.filter((id) => groups.some((group) => group.id !== id));
+				.filter((id) => classIds.includes(id));
 		}
 
 		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
