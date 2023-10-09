@@ -526,11 +526,14 @@ router.post('/', (req, res, next) => {
 		delete req.body[feature];
 	});
 
+	req.body.groupIds = [];
 	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
 		req.body.groupIds = req.body.classIds
 			.filter((id) => groups.some((group) => group.id === id));
-		req.body.classIds = req.body.classIds
-			.filter((id) => groups.some((group) => group.id !== id));
+		if (groups.length > 0) {
+			req.body.classIds = req.body.classIds
+				.filter((id) => groups.some((group) => group.id !== id));
+		}
 	}
 
 	api(req)
