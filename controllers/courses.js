@@ -129,11 +129,12 @@ const editCourseHandler = (req, res, next) => {
 	}
 
 	let classesAndGroupsPromise;
+	let classesPromise;
 	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
 		classesAndGroupsPromise = api(req, { version: 'v3' })
 			.get('/groups/class');
 	} else {
-		classesAndGroupsPromise = api(req)
+		classesPromise = api(req)
 			.get('/classes', {
 				qs: {
 					schoolId: res.locals.currentSchool,
@@ -163,7 +164,7 @@ const editCourseHandler = (req, res, next) => {
 
 	Promise.all([
 		coursePromise,
-		classesAndGroupsPromise,
+		FEATURE_GROUPS_IN_COURSE_ENABLED ? classesAndGroupsPromise : classesPromise,
 		teachersPromise,
 		studentsPromise,
 		scopePermissions,
@@ -251,6 +252,8 @@ const editCourseHandler = (req, res, next) => {
 				? s.filter(({ selected }) => selected) : s
 		);
 
+		const classAndGroupIds = [...(course.classIds || []), ...(course.groupIds || [])];
+
 		if (req.params.courseId) {
 			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.text.403')));
 			return res.render('courses/edit-course', {
@@ -261,7 +264,7 @@ const editCourseHandler = (req, res, next) => {
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
-				classesAndGroups: markSelected(classesAndGroups, [...course.classIds, ...course.groupIds]),
+				classesAndGroups: markSelected(classesAndGroups, classAndGroupIds),
 				teachers: markSelected(
 					teachers,
 					course.teacherIds,
@@ -283,7 +286,7 @@ const editCourseHandler = (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			course,
 			colors,
-			classesAndGroups: markSelected(classesAndGroups, course.classIds),
+			classesAndGroups: markSelected(classesAndGroups, classAndGroupIds),
 			teachers: markSelected(
 				teachers,
 				course.teacherIds,
