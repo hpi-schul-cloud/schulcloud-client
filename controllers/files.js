@@ -224,7 +224,7 @@ const FileGetter = (req, res, next) => {
 		}
 
 		const files = result.filter((f) => f).map((file) => {
-			if (file.permissions[0].refId === userId) {
+			if (file.permissions[0]?.refId === userId) {
 				Object.assign(file, {
 					userIsOwner: true,
 				});
@@ -707,7 +707,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 		courseId: req.params.courseId,
 		ownerId: req.params.courseId,
 		toCourseText: res.$t('global.button.toCourse'),
-		courseUrl: `/rooms/${req.params.courseId}/`,
+		courseUrl: `/rooms/${req.params.courseId}`,
 		canEditPermissions: true,
 		parentId: req.params.folderId,
 		...res.locals.files,
