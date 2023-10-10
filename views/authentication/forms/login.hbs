@@ -87,7 +87,6 @@
             <div class="system-buttons">
                 {{#each oauthSystems as |system|}}
                     {{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}
-                    <!-- Cannot use the new login as long as Iserv users need to be logged out after login.
                     <form method="post" action="/login/oauth2" class="login-form">
                         <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
                         <input type="hidden" name="systemId" value="{{system.id}}"/>
@@ -98,14 +97,6 @@
                             </div>
                         </div>
                     </form>
-                    -->
-                    <div class="oauth-system">
-                        <div class="form-group">
-                            <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.id}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
-                                {{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}
-                            </button>
-                        </div>
-                    </div>
                     {{else}}
                     <div class="oauth-system">
                         <div class="form-group">
@@ -140,7 +131,6 @@
                 <div class="ldap-system" hidden>{{ ldapSystem }}</div>
                 {{#each oauthSystems as |system|}}
                     {{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}
-                    <!-- Cannot use the new login as long as Iserv users need to be logged out after login.
                     <form method="post" action="/login/oauth2" class="login-form">
                         <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
                         <input type="hidden" name="systemId" value="{{system.id}}"/>
@@ -151,14 +141,6 @@
                             </div>
                         </div>
                     </form>
-                    -->
-                    <div class="oauth-system">
-                        <div class="form-group">
-                            <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.id}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
-                                {{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}
-                            </button>
-                        </div>
-                    </div>
                     {{else}}
                     <div class="oauth-system">
                         <div class="form-group">
