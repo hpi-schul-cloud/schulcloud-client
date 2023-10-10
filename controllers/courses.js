@@ -795,7 +795,6 @@ router.patch('/:courseId', async (req, res, next) => {
 		// due to eventual consistency we need to get the course again from server
 		// instead of using the response from patch
 		const course = await api(req).get(`/courses/${courseId}`);
-
 		await createEventsForCourse(req, res, course);
 
 		if (isRemovingYourself) {
