@@ -374,6 +374,8 @@ const getAuthenticationUrl = (oauthConfig, state, migration) => {
 	authenticationUrl.searchParams.append('response_type', oauthConfig.responseType);
 	authenticationUrl.searchParams.append('scope', oauthConfig.scope);
 	authenticationUrl.searchParams.append('state', state);
+	authenticationUrl.searchParams.append('code_challenge_method', 'S256');
+	authenticationUrl.searchParams.append('code_challenge', 'VRnw47nZsp-zu4FfJ6sENZ2-9N_1Yo1IMaHOo39dtOc');
 
 	if (migration) {
 		authenticationUrl.searchParams.append('prompt', 'login');
@@ -473,9 +475,12 @@ const logoutUser = async (req, res, logoutEndpoint, idTokenHint) => {
 
 		if (idTokenHint) {
 			queryParams.append('id_token_hint', idTokenHint);
+			queryParams.append('post_logout_redirect_uri', Configuration.get('HOST'));
 		}
 
 		const fullLogoutUrl = `${logoutEndpoint}?${queryParams.toString()}`;
+		logger.error('YYYYYYYYYYYYY');
+		logger.error(fullLogoutUrl);
 
 		await rp.get(fullLogoutUrl, { timeout: 5000 });
 	} catch (error) {
