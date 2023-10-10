@@ -45,7 +45,7 @@ const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
 	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		return Promise.all(
-			course.times.map((time) => {
+			course.times?.map((time) => {
 				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
 				const repeatUntil = timesHelper.fromUTC(course.untilDate);
 				const event = {
@@ -795,6 +795,7 @@ router.patch('/:courseId', async (req, res, next) => {
 		// due to eventual consistency we need to get the course again from server
 		// instead of using the response from patch
 		const course = await api(req).get(`/courses/${courseId}`);
+		console.log(course);
 		await createEventsForCourse(req, res, course);
 
 		if (isRemovingYourself) {
