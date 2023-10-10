@@ -4,6 +4,7 @@ const passwordGenerator = require('generate-password');
 
 const { Configuration } = require('@hpi-schul-cloud/commons');
 
+const rp = require('request-promise');
 const api = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist');
@@ -324,6 +325,8 @@ const setErrorNotification = (res, req, error, systemName) => {
 const handleLoginError = async (req, res, error, postLoginRedirect, strategy, systemName) => {
 	setErrorNotification(res, req, error, systemName);
 
+	// TODO logout
+
 	if (req.session.oauth2State) {
 		delete req.session.oauth2State;
 	}
@@ -410,33 +413,33 @@ const getMigrationStatus = async (req, res, userId, accessToken) => {
 
 // eslint-disable-next-line consistent-return
 const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemName) => {
-	let accessToken;
 	try {
 		const loginResponse = await requestLogin(req, strategy, payload);
 
-		accessToken = loginResponse.accessToken;
-	} catch (errorResponse) {
-		logger.error('Login failed.');
+		const { accessToken } = loginResponse;
+		const currentUser = jwt.decode(accessToken);
 
-		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
-	}
+		let migration;
+		try {
+			migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
+		} catch (errorResponse) {
+			logger.error('Fetching migration status failed');
 
-	const currentUser = jwt.decode(accessToken);
+			return {
+				error: errorResponse.error,
+				redirect: handleLoginError(req, errorResponse.error, postLoginRedirect, strategy, systemName),
+			};
+		}
 
-	let migration;
-	try {
-		migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
-	} catch (errorResponse) {
-		logger.error('Fetching migration status failed');
+		setCookie(res, 'jwt', accessToken);
 
-		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
-	}
+		if (migration && !migration.closedAt) {
+			return {
+				login: loginResponse,
+				redirect: '/migration',
+			};
+		}
 
-	setCookie(res, 'jwt', accessToken);
-
-	if (migration && !migration.closedAt) {
-		res.redirect('/migration');
-	} else {
 		const queryString = new URLSearchParams();
 
 		if (postLoginRedirect) {
@@ -445,7 +448,38 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 
 		const redirect = redirectHelper.joinPathWithQuery('/login/success', queryString.toString());
 
-		res.redirect(redirect);
+		return {
+			login: loginResponse,
+			redirect,
+		};
+	} catch (errorResponse) {
+		logger.error('Login failed.');
+
+		return {
+			error: errorResponse.error,
+			redirect: handleLoginError(req, errorResponse.error, postLoginRedirect, strategy, systemName),
+		};
+	}
+};
+
+const logoutUser = async (req, res, logoutEndpoint, idTokenHint) => {
+	if (!logoutEndpoint || !idTokenHint) {
+		logger.info('Logout failed. Missing logout endpoint or id token hint.');
+		return;
+	}
+
+	try {
+		const queryParams = new URLSearchParams();
+
+		if (idTokenHint) {
+			queryParams.append('id_token_hint', idTokenHint);
+		}
+
+		const fullLogoutUrl = `${logoutEndpoint}?${queryParams.toString()}`;
+
+		await rp.get(fullLogoutUrl, { timeout: 5000 });
+	} catch (error) {
+		logger.error('Logout failed.', error);
 	}
 };
 
@@ -497,4 +531,5 @@ module.exports = {
 	loginUser,
 	migrateUser,
 	handleLoginError,
+	logoutUser,
 };

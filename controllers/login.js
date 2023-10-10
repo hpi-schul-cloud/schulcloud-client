@@ -191,6 +191,7 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 		systemName: system.displayName,
 		postLoginRedirect: redirect,
 		migration,
+		logoutEndpoint: oauthConfig.logoutEndpoint,
 	};
 
 	res.redirect(authenticationUrl.toString());
@@ -206,6 +207,9 @@ router.post('/login/oauth2', async (req, res) => {
 	await redirectOAuth2Authentication(req, res, systemId, migration, redirect);
 });
 
+/**
+ * @deprecated please use /login/oauth2/:systemId instead
+ */
 router.get('/login/oauth2/:systemId', async (req, res) => {
 	const { systemId } = req.params;
 	const {
@@ -243,13 +247,24 @@ router.get('/login/oauth2-callback', async (req, res) => {
 		redirectUri: authHelper.oauth2RedirectUri,
 	};
 
+	let loginResponse;
 	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
 		await authHelper.migrateUser(req, res, payload);
 	} else {
-		await authHelper.loginUser(req, res, 'oauth2', payload, redirect, oauth2State.systemName);
+		loginResponse = await authHelper.loginUser(req, res, 'oauth2', payload, redirect, oauth2State.systemName);
+	}
+
+	if (loginResponse?.error) {
+		return authHelper.handleLoginError(req, res, loginResponse.error, redirect);
+	}
+
+	if (oauth2State.logoutEndpoint && loginResponse.login?.externalIdToken) {
+		await authHelper.logoutUser(req, res, oauth2State.logoutEndpoint, loginResponse.login.externalIdToken);
 	}
 
 	delete req.session.oauth2State;
+
+	res.redirect(loginResponse.redirect);
 });
 
 const redirectAuthenticated = (req, res) => {
