@@ -258,6 +258,10 @@ router.get('/login/oauth2-callback', async (req, res) => {
 		return authHelper.handleLoginError(req, res, loginResponse.error, redirect);
 	}
 
+	logger.error('XXXXXXXXXXXXXXXXXXXXXXXXX');
+	logger.error(loginResponse);
+	logger.error(oauth2State);
+
 	if (oauth2State.logoutEndpoint && loginResponse.login?.externalIdToken) {
 		await authHelper.logoutUser(req, res, oauth2State.logoutEndpoint, loginResponse.login.externalIdToken);
 	}
