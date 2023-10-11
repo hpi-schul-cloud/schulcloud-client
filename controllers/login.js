@@ -167,7 +167,8 @@ router.get('/login/ldap', (req, res) => {
 const redirectOAuth2Authentication = async (req, res, systemId, migration, redirect) => {
 	let system;
 	try {
-		system = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
+		system = await api(req, { version: 'v3' })
+			.get(`/systems/public/${systemId}`);
 	} catch (error) {
 		return authHelper.handleLoginError(req, res, error.error, redirect);
 	}
@@ -222,7 +223,10 @@ router.get('/login/oauth2/:systemId', async (req, res) => {
 
 // eslint-disable-next-line consistent-return
 router.get('/login/oauth2-callback', async (req, res) => {
-	const { code, error } = req.query;
+	const {
+		code,
+		error,
+	} = req.query;
 	const { oauth2State } = req.session;
 
 	if (!oauth2State || !oauth2State.systemId) {
@@ -251,24 +255,34 @@ router.get('/login/oauth2-callback', async (req, res) => {
 	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
 		await authHelper.migrateUser(req, res, payload);
 	} else {
-		loginResponse = await authHelper.loginUser(req, res, 'oauth2', payload, redirect, oauth2State.systemName);
+		loginResponse = await authHelper.loginUser(
+			req,
+			res,
+			'oauth2',
+			payload,
+			redirect,
+			oauth2State.systemName,
+		);
 	}
 
 	if (loginResponse?.error) {
 		return authHelper.handleLoginError(req, res, loginResponse.error, redirect);
 	}
 
-	logger.error('XXXXXXXXXXXXXXXXXXXXXXXXX');
-	logger.error(loginResponse);
-	logger.error(oauth2State);
-
+	let postLoginRedirect = redirect || Configuration.get('HOST');
 	if (oauth2State.logoutEndpoint && loginResponse.login?.externalIdToken) {
-		await authHelper.logoutUser(req, res, oauth2State.logoutEndpoint, loginResponse.login.externalIdToken);
+		postLoginRedirect = await authHelper.getLogoutUrl(
+			req,
+			res,
+			oauth2State.logoutEndpoint,
+			loginResponse.login.externalIdToken,
+			postLoginRedirect,
+		);
 	}
 
 	delete req.session.oauth2State;
 
-	res.redirect(loginResponse.redirect);
+	res.redirect(postLoginRedirect);
 });
 
 const redirectAuthenticated = (req, res) => {
@@ -290,7 +304,7 @@ const determineRedirectUrl = (req) => {
 };
 
 const filterSchoolsWithLdapLogin = (schools) => schools
-	// eslint-disable-next-line max-len
+// eslint-disable-next-line max-len
 	.filter((school) => school.systems.some((system) => system.type === 'ldap' && !system.oauthConfig));
 
 async function getOauthSystems(req) {
@@ -492,7 +506,7 @@ router.get('/logout/', (req, res, next) => {
 			logger.error('error during logout.', formatError(err));
 		});
 	return authHelper.clearCookie(req, res, sessionDestroyer)
-		// eslint-disable-next-line prefer-template, no-return-assign
+	// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
 			res.statusCode = 307;
 			res.redirect('/');

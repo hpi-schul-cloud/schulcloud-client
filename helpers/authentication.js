@@ -9,7 +9,10 @@ const api = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist');
 
-const { SW_ENABLED, MINIMAL_PASSWORD_LENGTH } = require('../config/global');
+const {
+	SW_ENABLED,
+	MINIMAL_PASSWORD_LENGTH,
+} = require('../config/global');
 const logger = require('./logger');
 const { formatError } = require('./logFilter');
 
@@ -34,7 +37,8 @@ const generatePassword = () => {
 	// iterate 3 times, to add 3 password parts
 	[1, 2, 3].forEach(() => {
 		passphraseParts.push(
-			wordlist[crypto.randomBytes(2).readUInt16LE(0) % wordlist.length],
+			wordlist[crypto.randomBytes(2)
+				.readUInt16LE(0) % wordlist.length],
 		);
 	});
 	return passphraseParts.join(' ');
@@ -84,12 +88,15 @@ const isAuthenticated = (req) => {
 		return Promise.resolve(false);
 	}
 
-	return api(req).post('/authentication', {
-		json: {
-			strategy: 'jwt',
-			accessToken: req.cookies.jwt,
-		},
-	}).then(() => true).catch(() => false);
+	return api(req)
+		.post('/authentication', {
+			json: {
+				strategy: 'jwt',
+				accessToken: req.cookies.jwt,
+			},
+		})
+		.then(() => true)
+		.catch(() => false);
 };
 
 const populateCurrentUser = async (req, res) => {
@@ -102,7 +109,9 @@ const populateCurrentUser = async (req, res) => {
 		} catch (err) {
 			logger.error('Broken JWT / JWT decoding failed', formatError(err));
 			return clearCookie(req, res, { destroySession: true })
-				.catch((err) => { logger.error('clearCookie failed during jwt check', formatError(err)); })
+				.catch((err) => {
+					logger.error('clearCookie failed during jwt check', formatError(err));
+				})
 				.finally(() => res.redirect('/'));
 		}
 	}
@@ -123,41 +132,47 @@ const populateCurrentUser = async (req, res) => {
 			return Promise.resolve(res.locals.currentSchoolData);
 		}
 		return Promise.all([
-			api(req).get(`/users/${payload.userId}`),
-			api(req).get(`/roles/user/${payload.userId}`),
-		]).then(([user, roles]) => {
-			const data = {
-				...user,
-				roles,
-				permissions: roles.reduce((acc, role) => [...new Set(acc.concat(role.permissions))], []),
-			};
-			res.locals.currentUser = data;
-			setTestGroup(res.locals.currentUser);
-			res.locals.currentRole = rolesDisplayName[data.roles[0].name];
-			res.locals.roles = data.roles.map(({ name }) => name);
-			res.locals.roleNames = data.roles.map((r) => rolesDisplayName[r.name]);
-			return api(req).get(`/schools/${res.locals.currentUser.schoolId}`, {
-				qs: {
-					$populate: ['federalState'],
-				},
-			}).then((data2) => {
-				res.locals.currentSchool = res.locals.currentUser.schoolId;
-				res.locals.currentSchoolData = data2;
-				res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
-				return data2;
-			});
-		}).catch((e) => {
-			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
-			if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
-				return clearCookie(req, res, { destroySession: true })
-					.catch((err) => {
-						const meta = { error: err.toString() };
-						logger.error('clearCookie failed during populateUser', meta);
+			api(req)
+				.get(`/users/${payload.userId}`),
+			api(req)
+				.get(`/roles/user/${payload.userId}`),
+		])
+			.then(([user, roles]) => {
+				const data = {
+					...user,
+					roles,
+					permissions: roles.reduce((acc, role) => [...new Set(acc.concat(role.permissions))], []),
+				};
+				res.locals.currentUser = data;
+				setTestGroup(res.locals.currentUser);
+				res.locals.currentRole = rolesDisplayName[data.roles[0].name];
+				res.locals.roles = data.roles.map(({ name }) => name);
+				res.locals.roleNames = data.roles.map((r) => rolesDisplayName[r.name]);
+				return api(req)
+					.get(`/schools/${res.locals.currentUser.schoolId}`, {
+						qs: {
+							$populate: ['federalState'],
+						},
 					})
-					.finally(() => res.redirect('/'));
-			}
-			throw e;
-		});
+					.then((data2) => {
+						res.locals.currentSchool = res.locals.currentUser.schoolId;
+						res.locals.currentSchoolData = data2;
+						res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
+						return data2;
+					});
+			})
+			.catch((e) => {
+			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
+				if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
+					return clearCookie(req, res, { destroySession: true })
+						.catch((err) => {
+							const meta = { error: err.toString() };
+							logger.error('clearCookie failed during populateUser', meta);
+						})
+						.finally(() => res.redirect('/'));
+				}
+				throw e;
+			});
 	}
 
 	return Promise.resolve();
@@ -227,7 +242,7 @@ const authChecker = (req, res, next) => {
 			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
 
 			if (isAuthenticated2) {
-				// fetch user profile
+			// fetch user profile
 				populateCurrentUser(req, res)
 					.then(() => checkSuperhero(req, res))
 					.then(() => checkConsent(req, res))
@@ -301,7 +316,10 @@ const loginErrorHandler = (res, next) => (e) => {
 };
 
 const setErrorNotification = (res, req, error, systemName) => {
-	let message = res.$t(mapErrorToTranslationKey(error), { systemName, shortTitle: res.locals.theme.short_title });
+	let message = res.$t(mapErrorToTranslationKey(error), {
+		systemName,
+		shortTitle: res.locals.theme.short_title,
+	});
 
 	// Email Domain Blocked
 	if (error.code === 400 && error.message === 'EMAIL_DOMAIN_BLOCKED') {
@@ -324,8 +342,6 @@ const setErrorNotification = (res, req, error, systemName) => {
 
 const handleLoginError = async (req, res, error, postLoginRedirect, strategy, systemName) => {
 	setErrorNotification(res, req, error, systemName);
-
-	// TODO logout
 
 	if (req.session.oauth2State) {
 		delete req.session.oauth2State;
@@ -350,16 +366,19 @@ const login = (payload = {}, req, res, next) => {
 	const { redirect } = payload;
 	delete payload.redirect;
 	if (payload.strategy === 'local') {
-		return api(req, { version: 'v3' }).post('/authentication/local', { json: payload })
+		return api(req, { version: 'v3' })
+			.post('/authentication/local', { json: payload })
 			.then(loginSuccessfulHandler(res, redirect))
 			.catch(loginErrorHandler(res, next));
 	}
 	if (payload.strategy === 'ldap') {
-		return api(req, { version: 'v3' }).post('/authentication/ldap', { json: payload })
+		return api(req, { version: 'v3' })
+			.post('/authentication/ldap', { json: payload })
 			.then(loginSuccessfulHandler(res, redirect))
 			.catch(loginErrorHandler(res, next));
 	}
-	return api(req, { version: 'v1' }).post('/authentication', { json: payload })
+	return api(req, { version: 'v1' })
+		.post('/authentication', { json: payload })
 		.then(loginSuccessfulHandler(res, redirect))
 		.catch(loginErrorHandler(res, next));
 };
@@ -374,9 +393,6 @@ const getAuthenticationUrl = (oauthConfig, state, migration) => {
 	authenticationUrl.searchParams.append('response_type', oauthConfig.responseType);
 	authenticationUrl.searchParams.append('scope', oauthConfig.scope);
 	authenticationUrl.searchParams.append('state', state);
-	// TODO remove local testing stuff
-	// authenticationUrl.searchParams.append('code_challenge_method', 'S256');
-	// authenticationUrl.searchParams.append('code_challenge', 'VRnw47nZsp-zu4FfJ6sENZ2-9N_1Yo1IMaHOo39dtOc');
 
 	if (migration) {
 		authenticationUrl.searchParams.append('prompt', 'login');
@@ -392,22 +408,30 @@ const getAuthenticationUrl = (oauthConfig, state, migration) => {
 const requestLogin = (req, strategy, payload = {}) => {
 	switch (strategy) {
 		case 'local':
-			return api(req, { version: 'v3' }).post('/authentication/local', { json: payload });
+			return api(req, { version: 'v3' })
+				.post('/authentication/local', { json: payload });
 		case 'ldap':
-			return api(req, { version: 'v3' }).post('/authentication/ldap', { json: payload });
+			return api(req, { version: 'v3' })
+				.post('/authentication/ldap', { json: payload });
 		case 'oauth2':
-			return api(req, { version: 'v3' }).post('/authentication/oauth2', { json: payload });
+			return api(req, { version: 'v3' })
+				.post('/authentication/oauth2', { json: payload });
 		default:
-			return api(req, { version: 'v1' }).post('/authentication', { json: { strategy, ...payload } });
+			return api(req, { version: 'v1' })
+				.post('/authentication', { json: { strategy, ...payload } });
 	}
 };
 
 const getMigrationStatus = async (req, res, userId, accessToken) => {
-	const { data } = await api(req, { version: 'v3', accessToken }).get('/user-login-migrations', {
-		qs: {
-			userId,
-		},
-	});
+	const { data } = await api(req, {
+		version: 'v3',
+		accessToken,
+	})
+		.get('/user-login-migrations', {
+			qs: {
+				userId,
+			},
+		});
 
 	const migration = Array.isArray(data) && data.length > 0 ? data[0] : null;
 
@@ -465,25 +489,19 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 	}
 };
 
-const logoutUser = async (req, res, logoutEndpoint, idTokenHint) => {
+const getLogoutUrl = (req, res, logoutEndpoint, idTokenHint, redirect) => {
 	if (!logoutEndpoint) {
 		logger.info('Logout failed. Missing logout endpoint.');
-		return;
 	}
 
-	try {
-		const logoutUrl = new URL(logoutEndpoint);
+	const logoutUrl = new URL(logoutEndpoint);
 
-		logoutUrl.searchParams.append('id_token_hint', idTokenHint);
-		logoutUrl.searchParams.append('post_logout_redirect_uri', Configuration.get('HOST'));
-
-		logger.error('YYYYYYYYYYYYY');
-		logger.error(logoutUrl.toString());
-
-		await rp.get(logoutUrl.toString());
-	} catch (error) {
-		logger.error('Logout failed.', error);
+	logoutUrl.searchParams.append('id_token_hint', idTokenHint);
+	if (redirect) {
+		logoutUrl.searchParams.append('post_logout_redirect_uri', redirect ?? Configuration.get('HOST'));
 	}
+
+	return logoutUrl.toString();
 };
 
 // eslint-disable-next-line consistent-return
@@ -495,9 +513,10 @@ const migrateUser = async (req, res, payload) => {
 	let redirect = redirectHelper.joinPathWithQuery('/migration/success', queryString.toString());
 
 	try {
-		await api(req, { version: 'v3' }).post('/user-login-migrations/migrate-to-oauth2', {
-			json: payload,
-		});
+		await api(req, { version: 'v3' })
+			.post('/user-login-migrations/migrate-to-oauth2', {
+				json: payload,
+			});
 	} catch (errorResponse) {
 		if (errorResponse.error && errorResponse.error.details) {
 			logger.error('Migration failed');
@@ -534,5 +553,5 @@ module.exports = {
 	loginUser,
 	migrateUser,
 	handleLoginError,
-	logoutUser,
+	getLogoutUrl,
 };
