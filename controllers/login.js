@@ -208,9 +208,6 @@ router.post('/login/oauth2', async (req, res) => {
 	await redirectOAuth2Authentication(req, res, systemId, migration, redirect);
 });
 
-/**
- * @deprecated please use /login/oauth2/:systemId instead
- */
 router.get('/login/oauth2/:systemId', async (req, res) => {
 	const { systemId } = req.params;
 	const {
