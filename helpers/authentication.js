@@ -4,7 +4,6 @@ const passwordGenerator = require('generate-password');
 
 const { Configuration } = require('@hpi-schul-cloud/commons');
 
-const rp = require('request-promise');
 const api = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist');
