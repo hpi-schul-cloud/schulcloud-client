@@ -532,12 +532,12 @@ router.post('/', (req, res, next) => {
 	});
 
 	req.body.groupIds = [];
-	if (FEATURE_GROUPS_IN_COURSE_ENABLED && req.body.classIds !== undefined) {
-		req.body.groupIds = req.body.classIds
+	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
+		req.body.groupIds = (req.body.classIds ?? [])
 			.filter((id) => groupIds.includes(id));
 
 		if (groupIds.length > 0) {
-			req.body.classIds = req.body.classIds
+			req.body.classIds = (req.body.classIds ?? [])
 				.filter((id) => classIds.includes(id));
 		}
 	}
