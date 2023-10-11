@@ -94,7 +94,9 @@ router.post('/login/email', async (req, res) => {
 		password,
 	};
 
-	await authHelper.loginUser(req, res, 'local', payload, redirect, 'Email');
+	const result = await authHelper.loginUser(req, res, 'local', payload, redirect, 'Email');
+
+	res.redirect(result.redirect);
 });
 
 router.get('/login/email', (req, res) => {
@@ -146,7 +148,9 @@ router.post('/login/ldap', async (req, res) => {
 		schoolId,
 	};
 
-	await authHelper.loginUser(req, res, 'ldap', payload, redirect, 'LDAP');
+	const result = await authHelper.loginUser(req, res, 'ldap', payload, redirect, 'LDAP');
+
+	res.redirect(result.redirect);
 });
 
 router.get('/login/ldap', (req, res) => {
