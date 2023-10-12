@@ -461,7 +461,7 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 
 		return {
 			error: errorResponse.error,
-			redirect: handleLoginError(req, errorResponse.error, postLoginRedirect, strategy, systemName),
+			redirect: handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName),
 		};
 	}
 
