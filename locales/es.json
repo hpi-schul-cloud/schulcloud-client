@@ -304,6 +304,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Administrar clases",
+				"manageClassesNew": "Administrar clases (nuevo)",
 				"manageCourses": "Administrar cursos",
 				"manageSchool": "Administrar escuela",
 				"manageStudents": "Administrar estudiantes",
@@ -336,7 +337,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace a:"
+				"distributeLinkToInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace a:",
+				"distributeLinkToInviteShort": "Para invitar a la {{shortTitle}}, envía el siguiente enlace:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Antes de que sea posible el uso de la {{shortTitle}}, los padres y/o estudiantes deben haber pasado por el proceso de consentimiento electrónico.",
@@ -348,7 +350,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Comparte el siguiente enlace con el profesor:"
 			},
 			"text": {
-				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento."
+				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento.",
+				"toInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace:"
 			}
 		},
 		"form_Policy": {
@@ -567,6 +570,7 @@
 				"afterTheTransferPhaseEnded": "Una vez finalizada la fase de transferencia",
 				"allStudentsVisibility": "La activación de esta opción tiene un nivel alto según la ley de protección de datos. Para activar la visibilidad de todos los alumnos de la escuela para cada profesor, es necesario que cada alumno haya dado su consentimiento de manera efectiva para este tratamiento de datos.",
 				"allStudentsVisibilityBrandenburg": "Activando esta opción se activa la visibilidad de todos los alumnos de esta escuela para cada profesor.",
+				"allStudentsVisibilityNiedersachsen" : "Si esta opción no está activada, los profesores sólo podrán ver las clases y sus alumnos de las que son miembros.",
 				"authentication": "Autenticación",
 				"newPage": "A la nueva página de administración",
 				"changeOfClasses": "Cambio de clases / nuevas clases",
@@ -988,8 +992,7 @@
 			"tab_label": {
 				"groups": "Grupos",
 				"tasks": "Tareas",
-				"tools": "Herramientas (nuevo)",
-				"oldTools": "Herramientas",
+				"tools": "Herramientas",
 				"oldTopics": "Temas",
 				"topics": "Contenidos de aprendizaje"
 			},
@@ -1748,6 +1751,7 @@
 				"addons": "Complementos",
 				"administration": "Administración",
 				"administrationClasses": "Clases",
+				"administrationClassesNew": "Clases (nuevo)",
 				"administrationCourses": "Cursos"
 			}
 		},

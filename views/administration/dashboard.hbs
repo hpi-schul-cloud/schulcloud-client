@@ -58,6 +58,19 @@
 								</div>
 							</div>
 							{{/userHasPermission}}
+                            {{#userHasPermission 'CLASS_LIST'}}
+                                {{#if (getConfig "FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED")}}
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="card h-100 teacher-option locationlink" data-loclink="/administration/groups/classes" data-testid="administrate_classes">
+                                            <div class="card-block homework">
+                                                <div class="card-text">
+                                                    <h2 class="h4"><i class="fa fa-users"></i> {{$t "administration.dashboard.headline.manageClassesNew" }}</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{/if}}
+							{{/userHasPermission}}
 							{{#userHasPermission 'ADMIN_VIEW'}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/teams">

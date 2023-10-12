@@ -2678,6 +2678,13 @@ router.all('/teams', async (req, res, next) => {
 					baseUrl: `/administration/teams/?p={{page}}${sortQuery}${limitQuery}`,
 				};
 
+				const compare = (a, b) => (a > b) - (a < b);
+
+				users.sort((a, b) => (
+					compare(a.lastName.toLowerCase(), b.lastName.toLowerCase())
+						|| compare(a.firstName.toLowerCase(), b.firstName.toLowerCase())
+				));
+
 				users = users.filter((user) => !isUserHidden(user, res.locals.currentSchoolData));
 
 				res.render('administration/teams', {

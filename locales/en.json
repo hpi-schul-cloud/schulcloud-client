@@ -304,6 +304,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Manage classes",
+				"manageClassesNew": "Manage classes (new)",
 				"manageCourses": "Manage courses",
 				"manageSchool": "Manage school",
 				"manageStudents": "Manage students",
@@ -336,7 +337,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:"
+				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:",
+				"distributeLinkToInviteShort": "To invite to the {{shortTitle}}, send the following link:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Before the use of the {{shortTitle}} is possible, parents and / or students must have gone through the electronic consent process.",
@@ -348,7 +350,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Give the following link to the teacher:"
 			},
 			"text": {
-				"beforeUsingThe": "Before the use of the {{title}} possible, the teacher must have gone through the consent process."
+				"beforeUsingThe": "Before the use of the {{title}} possible, the teacher must have gone through the consent process.",
+				"toInvite": "To invite to the {{shortTitle}}, send the following link:"
 			}
 		},
 		"form_Policy": {
@@ -567,6 +570,7 @@
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
 				"allStudentsVisibilityBrandenburg": "Enabling this option turns on the visibility of all students of this school for each teacher.",
+				"allStudentsVisibilityNiedersachsen" : "If this option is not enabled, teachers can only see the classes and their students in which they are members.",
 				"authentication": "Authentication",
 				"newPage": "To the new admin page",
 				"changeOfClasses": "Change of classes / new classes",
@@ -988,8 +992,7 @@
 			"tab_label": {
 				"groups": "Groups",
 				"tasks": "Tasks",
-				"tools": "Tools (new)",
-				"oldTools": "Tools",
+				"tools": "Tools",
 				"oldTopics": "Topics",
 				"topics": "Learning content"
 			},
@@ -1748,6 +1751,7 @@
 				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationClasses": "Classes",
+				"administrationClassesNew": "Classes (new)",
 				"administrationCourses": "Courses"
 			}
 		},

@@ -45,7 +45,7 @@ const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
 	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		return Promise.all(
-			course.times.map((time) => {
+			course.times?.map((time) => {
 				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
 				const repeatUntil = timesHelper.fromUTC(course.untilDate);
 				const event = {
@@ -774,9 +774,14 @@ router.patch('/:courseId', async (req, res, next) => {
 		}
 		const { courseId } = req.params;
 
+		const isAdministrator = res.locals.currentRole === 'Administrator';
 		const currentUserId = res.locals.currentUser._id;
-		const isRemovingYourself = !req.body.teacherIds.some((id) => id === currentUserId)
-			&& !req.body.substitutionIds.some((id) => id === currentUserId);
+		const isRemovingYourself = !isAdministrator
+		&& req.body.teacherIds
+		&& req.body.substitutionIds
+		&& !req.body.teacherIds.some((id) => id === currentUserId)
+		&& !req.body.substitutionIds.some((id) => id === currentUserId);
+
 		if (isRemovingYourself) {
 			// if you are removing yourself from a course you will not have permissions to create events anymore
 			// so temporarily add yourself to the list of teachers
