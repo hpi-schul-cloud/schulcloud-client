@@ -439,53 +439,53 @@ const getMigrationStatus = async (req, res, userId, accessToken) => {
 
 // eslint-disable-next-line consistent-return
 const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemName) => {
+	let accessToken;
+	let loginResponse;
 	try {
-		const loginResponse = await requestLogin(req, strategy, payload);
+		loginResponse = await requestLogin(req, strategy, payload);
 
-		const { accessToken } = loginResponse;
-		const currentUser = jwt.decode(accessToken);
-
-		let migration;
-		try {
-			migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
-		} catch (errorResponse) {
-			logger.error('Fetching migration status failed');
-
-			return {
-				error: errorResponse.error,
-				redirect: handleLoginError(req, errorResponse.error, postLoginRedirect, strategy, systemName),
-			};
-		}
-
-		setCookie(res, 'jwt', accessToken);
-
-		if (migration && !migration.closedAt) {
-			return {
-				login: loginResponse,
-				redirect: '/migration',
-			};
-		}
-
-		const queryString = new URLSearchParams();
-
-		if (postLoginRedirect) {
-			queryString.append('redirect', redirectHelper.getValidRedirect(postLoginRedirect));
-		}
-
-		const redirect = redirectHelper.joinPathWithQuery('/login/success', queryString.toString());
-
-		return {
-			login: loginResponse,
-			redirect,
-		};
+		accessToken = loginResponse.accessToken;
 	} catch (errorResponse) {
 		logger.error('Login failed.');
+
+		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
+	}
+
+	const currentUser = jwt.decode(accessToken);
+
+	let migration;
+	try {
+		migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
+	} catch (errorResponse) {
+		logger.error('Fetching migration status failed');
 
 		return {
 			error: errorResponse.error,
 			redirect: handleLoginError(req, errorResponse.error, postLoginRedirect, strategy, systemName),
 		};
 	}
+
+	setCookie(res, 'jwt', accessToken);
+
+	if (migration && !migration.closedAt) {
+		return {
+			login: loginResponse,
+			redirect: '/migration',
+		};
+	}
+
+	const queryString = new URLSearchParams();
+
+	if (postLoginRedirect) {
+		queryString.append('redirect', redirectHelper.getValidRedirect(postLoginRedirect));
+	}
+
+	const redirect = redirectHelper.joinPathWithQuery('/login/success', queryString.toString());
+
+	return {
+		login: loginResponse,
+		redirect,
+	};
 };
 
 const getLogoutUrl = (req, res, logoutEndpoint, idTokenHint, redirect) => {
