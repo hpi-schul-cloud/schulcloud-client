@@ -270,7 +270,7 @@ router.get('/login/oauth2-callback', async (req, res) => {
 		return authHelper.handleLoginError(req, res, loginResponse.error, redirect);
 	}
 
-	let postLoginRedirect = redirect;
+	let postLoginRedirect = loginResponse.redirect;
 	if (oauth2State.logoutEndpoint && loginResponse.login?.externalIdToken) {
 		postLoginRedirect = authHelper.getLogoutUrl(
 			req,
