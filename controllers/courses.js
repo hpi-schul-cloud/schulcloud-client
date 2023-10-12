@@ -47,7 +47,7 @@ const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
 	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		return Promise.all(
-			course.times.map((time) => {
+			course.times?.map((time) => {
 				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
 				const repeatUntil = timesHelper.fromUTC(course.untilDate);
 				const event = {
