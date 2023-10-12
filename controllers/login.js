@@ -172,7 +172,7 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 	let system;
 	try {
 		system = await api(req, { version: 'v3' })
-			.get(`/systems/public/${systemId}`);
+		.get(`/systems/public/${systemId}`);
 	} catch (error) {
 		return authHelper.handleLoginError(req, res, error.error, redirect);
 	}
@@ -272,7 +272,7 @@ router.get('/login/oauth2-callback', async (req, res) => {
 
 	let postLoginRedirect = redirect;
 	if (oauth2State.logoutEndpoint && loginResponse.login?.externalIdToken) {
-		postLoginRedirect = await authHelper.getLogoutUrl(
+		postLoginRedirect = authHelper.getLogoutUrl(
 			req,
 			res,
 			oauth2State.logoutEndpoint,
@@ -306,12 +306,12 @@ const determineRedirectUrl = (req) => {
 
 const filterSchoolsWithLdapLogin = (schools) => schools
 // eslint-disable-next-line max-len
-	.filter((school) => school.systems.some((system) => system.type === 'ldap' && !system.oauthConfig));
+.filter((school) => school.systems.some((system) => system.type === 'ldap' && !system.oauthConfig));
 
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
-		.get('/systems/public?onlyOauth=true')
-		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
+	.get('/systems/public?onlyOauth=true')
+	.catch((err) => logger.error('error loading oauth system list', formatError(err)));
 }
 
 router.all('/', async (req, res, next) => {
@@ -398,26 +398,26 @@ const renderLogin = async (req, res) => {
 
 router.get('/loginRedirect', (req, res, next) => {
 	authHelper.isAuthenticated(req)
-		.then((isAuthenticated) => {
-			if (isAuthenticated) {
-				redirectAuthenticated(req, res);
-			} else {
-				res.redirect('/login');
-			}
-		})
-		.catch(next);
+	.then((isAuthenticated) => {
+		if (isAuthenticated) {
+			redirectAuthenticated(req, res);
+		} else {
+			res.redirect('/login');
+		}
+	})
+	.catch(next);
 });
 
 router.all('/login/', async (req, res, next) => {
 	authHelper.isAuthenticated(req)
-		.then(async (isAuthenticated) => {
-			if (isAuthenticated) {
-				redirectAuthenticated(req, res);
-			} else {
-				await renderLogin(req, res);
-			}
-		})
-		.catch(next);
+	.then(async (isAuthenticated) => {
+		if (isAuthenticated) {
+			redirectAuthenticated(req, res);
+		} else {
+			await renderLogin(req, res);
+		}
+	})
+	.catch(next);
 });
 
 router.all('/login/superhero/', async (req, res, next) => {
@@ -429,7 +429,7 @@ router.all('/login/superhero/', async (req, res, next) => {
 	};
 
 	await renderLogin(req, res)
-		.catch(next);
+	.catch(next);
 });
 
 router.get('/login/success', authHelper.authChecker, async (req, res) => {
@@ -445,11 +445,11 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 			haveBeenUpdated,
 			consentStatus,
 		} = await api(req)
-			.get(`/consents/${user._id}/check/`, {
-				qs: {
-					simple: true,
-				},
-			});
+		.get(`/consents/${user._id}/check/`, {
+			qs: {
+				simple: true,
+			},
+		});
 
 		if (consentStatus === 'ok' && haveBeenUpdated === false && (user.preferences || {}).firstLogin) {
 			return res.redirect(redirectUrl);
@@ -502,17 +502,17 @@ const sessionDestroyer = (req, res, rej, next) => {
 
 router.get('/logout/', (req, res, next) => {
 	api(req)
-		.del('/authentication') // async, ignore result
-		.catch((err) => {
-			logger.error('error during logout.', formatError(err));
-		});
+	.del('/authentication') // async, ignore result
+	.catch((err) => {
+		logger.error('error during logout.', formatError(err));
+	});
 	return authHelper.clearCookie(req, res, sessionDestroyer)
 	// eslint-disable-next-line prefer-template, no-return-assign
-		.then(() => {
-			res.statusCode = 307;
-			res.redirect('/');
-		})
-		.catch(next);
+	.then(() => {
+		res.statusCode = 307;
+		res.redirect('/');
+	})
+	.catch(next);
 });
 
 module.exports = router;
