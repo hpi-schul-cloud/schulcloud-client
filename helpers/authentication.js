@@ -496,7 +496,8 @@ const getLogoutUrl = (req, res, logoutEndpoint, idTokenHint, redirect) => {
 	const logoutUrl = new URL(logoutEndpoint);
 	logoutUrl.searchParams.append('id_token_hint', idTokenHint);
 
-	const postLoginRedirect = `${Configuration.get('HOST')}/${redirect || 'dashboard'}`;
+	const validRedirect = redirectHelper.getValidRedirect(redirect);
+	const postLoginRedirect = `${Configuration.get('HOST')}${validRedirect || '/dashboard'}`;
 	logoutUrl.searchParams.append('post_logout_redirect_uri', postLoginRedirect);
 
 	return logoutUrl.toString();
