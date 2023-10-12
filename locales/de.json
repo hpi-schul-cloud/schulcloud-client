@@ -992,8 +992,7 @@
 			"tab_label": {
 				"groups": "Gruppen",
 				"tasks": "Aufgaben",
-				"tools": "Tools (neu)",
-				"oldTools": "Tools",
+				"tools": "Tools",
 				"oldTopics": "Themen",
 				"topics": "Lerninhalte"
 			},
