@@ -339,7 +339,7 @@ const setErrorNotification = (res, req, error, systemName) => {
 	};
 };
 
-const handleLoginError = async (req, res, error, postLoginRedirect, strategy, systemName) => {
+const handleLoginError = async (req, res, error, postLoginRedirect, strategy, systemName, provider) => {
 	setErrorNotification(res, req, error, systemName);
 
 	if (req.session.oauth2State) {
@@ -352,8 +352,13 @@ const handleLoginError = async (req, res, error, postLoginRedirect, strategy, sy
 	if (postLoginRedirect) {
 		queryString.append('redirect', redirectHelper.getValidRedirect(postLoginRedirect));
 	}
+
 	if (strategy === 'ldap' || strategy === 'email') {
 		queryString.append('strategy', strategy);
+	} else if (strategy === 'oauth2' && provider) {
+		req.session.oauth2Logout = {
+			provider,
+		};
 	}
 
 	const redirect = redirectHelper.joinPathWithQuery('/login', queryString.toString());
@@ -437,33 +442,14 @@ const getMigrationStatus = async (req, res, userId, accessToken) => {
 	return migration;
 };
 
-// eslint-disable-next-line consistent-return
-const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemName) => {
-	let accessToken;
-	let loginResponse;
-	try {
-		loginResponse = await requestLogin(req, strategy, payload);
+const loginUser = async (req, res, strategy, payload, postLoginRedirect) => {
+	const loginResponse = await requestLogin(req, strategy, payload);
 
-		accessToken = loginResponse.accessToken;
-	} catch (errorResponse) {
-		logger.error('Login failed.');
-
-		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
-	}
+	const { accessToken } = loginResponse;
 
 	const currentUser = jwt.decode(accessToken);
 
-	let migration;
-	try {
-		migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
-	} catch (errorResponse) {
-		logger.error('Fetching migration status failed');
-
-		return {
-			error: errorResponse.error,
-			redirect: handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName),
-		};
-	}
+	const migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
 
 	setCookie(res, 'jwt', accessToken);
 
@@ -496,8 +482,7 @@ const getLogoutUrl = (req, res, logoutEndpoint, idTokenHint, redirect) => {
 	const logoutUrl = new URL(logoutEndpoint);
 	logoutUrl.searchParams.append('id_token_hint', idTokenHint);
 
-	const validRedirect = redirectHelper.getValidRedirect(redirect);
-	const postLoginRedirect = `${Configuration.get('HOST')}${validRedirect || '/dashboard'}`;
+	const postLoginRedirect = `${Configuration.get('HOST')}${redirect || '/dashboard'}`;
 	logoutUrl.searchParams.append('post_logout_redirect_uri', postLoginRedirect);
 
 	return logoutUrl.toString();
@@ -533,7 +518,7 @@ const migrateUser = async (req, res, payload) => {
 
 	await clearCookie(req, res);
 
-	res.redirect(redirect);
+	return redirect;
 };
 
 module.exports = {
