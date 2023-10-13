@@ -490,7 +490,7 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 			postLoginRedirect,
 			strategy,
 			systemName,
-			loginResponse.login?.externalIdToken,
+			loginResponse?.login?.externalIdToken,
 		);
 	}
 
