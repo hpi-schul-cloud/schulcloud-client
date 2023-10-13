@@ -379,7 +379,7 @@ const handleLoginError = async (req, res, error, postLoginRedirect, strategy, sy
 		const redirect = getLogoutUrl(
 			req,
 			res,
-			req.session.oauth2State.logoutEndpoint,
+			logoutEndpoint,
 			externalIdToken,
 			loginRedirect,
 		);
