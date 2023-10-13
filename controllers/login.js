@@ -94,7 +94,13 @@ router.post('/login/email', async (req, res) => {
 		password,
 	};
 
-	await authHelper.loginUser(req, res, 'local', payload, redirect, 'Email');
+	try {
+		const loginEmailRedirect = await authHelper.loginUser(req, res, 'local', payload, redirect);
+
+		res.redirect(loginEmailRedirect.redirect);
+	} catch (ldapEmailError) {
+		return authHelper.handleLoginError(req, res, ldapEmailError.error, redirect, 'local');
+	}
 });
 
 router.get('/login/email', (req, res) => {
@@ -125,7 +131,7 @@ router.post('/login/ldap', async (req, res) => {
 		return authHelper.handleLoginError(req, res, {
 			type: 'BAD_REQUEST',
 			code: 400,
-		}, redirect);
+		}, redirect, 'ldap');
 	}
 
 	const systemIdAndAliasCombination = system.split('//');
@@ -134,7 +140,7 @@ router.post('/login/ldap', async (req, res) => {
 		return authHelper.handleLoginError(req, res, {
 			type: 'BAD_REQUEST',
 			code: 400,
-		}, redirect);
+		}, redirect, 'ldap');
 	}
 
 	const systemId = systemIdAndAliasCombination[0];
@@ -146,7 +152,13 @@ router.post('/login/ldap', async (req, res) => {
 		schoolId,
 	};
 
-	await authHelper.loginUser(req, res, 'ldap', payload, redirect, 'LDAP');
+	try {
+		const loginLdapRedirect = await authHelper.loginUser(req, res, 'ldap', payload, redirect);
+
+		res.redirect(loginLdapRedirect.redirect);
+	} catch (ldapLoginError) {
+		return authHelper.handleLoginError(req, res, ldapLoginError.error, redirect, 'ldap');
+	}
 });
 
 router.get('/login/ldap', (req, res) => {
@@ -167,9 +179,10 @@ router.get('/login/ldap', (req, res) => {
 const redirectOAuth2Authentication = async (req, res, systemId, migration, redirect) => {
 	let system;
 	try {
-		system = await api(req, { version: 'v3' }).get(`/systems/public/${systemId}`);
+		system = await api(req, { version: 'v3' })
+			.get(`/systems/public/${systemId}`);
 	} catch (error) {
-		return authHelper.handleLoginError(req, res, error.error, redirect);
+		return authHelper.handleLoginError(req, res, error.error, redirect, 'oauth2');
 	}
 
 	const { oauthConfig } = system;
@@ -178,7 +191,7 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 		return authHelper.handleLoginError(req, res, {
 			type: 'UNPROCESSABLE_ENTITY',
 			code: 422,
-		}, redirect);
+		}, redirect, 'oauth2');
 	}
 
 	const state = shortid.generate();
@@ -191,6 +204,8 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 		systemName: system.displayName,
 		postLoginRedirect: redirect,
 		migration,
+		logoutEndpoint: oauthConfig.logoutEndpoint,
+		provider: oauthConfig.provider,
 	};
 
 	res.redirect(authenticationUrl.toString());
@@ -218,23 +233,26 @@ router.get('/login/oauth2/:systemId', async (req, res) => {
 
 // eslint-disable-next-line consistent-return
 router.get('/login/oauth2-callback', async (req, res) => {
-	const { code, error } = req.query;
+	const {
+		code,
+		error,
+	} = req.query;
 	const { oauth2State } = req.session;
 
 	if (!oauth2State || !oauth2State.systemId) {
 		return authHelper.handleLoginError(req, res, {
 			type: 'UNAUTHORIZED',
 			code: 401,
-		});
+		}, undefined, 'oauth2');
 	}
 
-	const redirect = oauth2State.postLoginRedirect;
+	const { postLoginRedirect } = oauth2State;
 
 	if (error) {
 		return authHelper.handleLoginError(req, res, {
 			type: error.toUpperCase(),
 			code: 401,
-		}, redirect);
+		}, postLoginRedirect, 'oauth2', oauth2State.systemName, oauth2State.provider);
 	}
 
 	const payload = {
@@ -243,13 +261,48 @@ router.get('/login/oauth2-callback', async (req, res) => {
 		redirectUri: authHelper.oauth2RedirectUri,
 	};
 
+	let loginResponse;
 	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
-		await authHelper.migrateUser(req, res, payload);
-	} else {
-		await authHelper.loginUser(req, res, 'oauth2', payload, redirect, oauth2State.systemName);
+		const migrationRedirect = await authHelper.migrateUser(req, res, payload);
+		delete req.session.oauth2State;
+
+		return res.redirect(migrationRedirect);
+	}
+
+	try {
+		loginResponse = await authHelper.loginUser(
+			req,
+			res,
+			'oauth2',
+			payload,
+			postLoginRedirect,
+		);
+	} catch (loginError) {
+		return authHelper.handleLoginError(
+			req,
+			res,
+			loginError,
+			postLoginRedirect,
+			'oauth2',
+			oauth2State.systemName,
+			oauth2State.provider,
+		);
+	}
+
+	let loginRedirect = loginResponse.redirect;
+	if (oauth2State.logoutEndpoint && loginResponse.login?.externalIdToken) {
+		loginRedirect = authHelper.getLogoutUrl(
+			req,
+			res,
+			oauth2State.logoutEndpoint,
+			loginResponse.login.externalIdToken,
+			loginRedirect,
+		);
 	}
 
 	delete req.session.oauth2State;
+
+	res.redirect(loginRedirect);
 });
 
 const redirectAuthenticated = (req, res) => {
@@ -271,7 +324,7 @@ const determineRedirectUrl = (req) => {
 };
 
 const filterSchoolsWithLdapLogin = (schools) => schools
-	// eslint-disable-next-line max-len
+// eslint-disable-next-line max-len
 	.filter((school) => school.systems.some((system) => system.type === 'ldap' && !system.oauthConfig));
 
 async function getOauthSystems(req) {
@@ -328,6 +381,7 @@ const renderLogin = async (req, res) => {
 
 	let oauthErrorLogout = false;
 
+	// TODO N21-1374: remove old login flow
 	if (req.query.error) {
 		res.locals.notification = {
 			type: 'danger',
@@ -339,6 +393,12 @@ const renderLogin = async (req, res) => {
 		if (req.query.provider === 'iserv' && req.query.error !== 'sso_oauth_access_denied') {
 			oauthErrorLogout = true;
 		}
+	}
+
+	if (req.session.oauth2Logout) {
+		oauthErrorLogout = req.session.oauth2Logout.provider;
+
+		delete req.session.oauth2Logout;
 	}
 
 	const strategyOfSchool = req.query.strategy;
@@ -473,7 +533,7 @@ router.get('/logout/', (req, res, next) => {
 			logger.error('error during logout.', formatError(err));
 		});
 	return authHelper.clearCookie(req, res, sessionDestroyer)
-		// eslint-disable-next-line prefer-template, no-return-assign
+	// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
 			res.statusCode = 307;
 			res.redirect('/');
