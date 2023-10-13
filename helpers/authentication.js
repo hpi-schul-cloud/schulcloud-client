@@ -355,6 +355,9 @@ const getLogoutUrl = (req, res, logoutEndpoint, idTokenHint, redirect) => {
 };
 
 const handleLoginError = async (req, res, error, postLoginRedirect, strategy, systemName, externalIdToken) => {
+	logger.error('Redirecting to logout endpoint.', {
+		error, postLoginRedirect, strategy, systemName, externalIdToken,
+	});
 	setErrorNotification(res, req, error, systemName);
 
 	let logoutEndpoint;
@@ -362,6 +365,7 @@ const handleLoginError = async (req, res, error, postLoginRedirect, strategy, sy
 		logoutEndpoint = req.session.oauth2State.logoutEndpoint;
 		delete req.session.oauth2State;
 	}
+	logger.error('Get logout endpoint.', { logoutEndpoint });
 
 	await clearCookie(req, res);
 
@@ -383,9 +387,11 @@ const handleLoginError = async (req, res, error, postLoginRedirect, strategy, sy
 			externalIdToken,
 			loginRedirect,
 		);
+		logger.error('Redirecting to logout endpoint.', { redirect });
 
 		res.redirect(redirect);
 	} else {
+		logger.error('To loginRedirect', { loginRedirect });
 		res.redirect(loginRedirect);
 	}
 };
