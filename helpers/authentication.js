@@ -339,10 +339,27 @@ const setErrorNotification = (res, req, error, systemName) => {
 	};
 };
 
-const handleLoginError = async (req, res, error, postLoginRedirect, strategy, systemName) => {
+const getLogoutUrl = (req, res, logoutEndpoint, idTokenHint, redirect) => {
+	if (!logoutEndpoint) {
+		logger.info('Logout failed. Missing logout endpoint.');
+	}
+
+	const logoutUrl = new URL(logoutEndpoint);
+	logoutUrl.searchParams.append('id_token_hint', idTokenHint);
+
+	const validRedirect = redirectHelper.getValidRedirect(redirect);
+	const postLoginRedirect = `${Configuration.get('HOST')}${validRedirect || '/dashboard'}`;
+	logoutUrl.searchParams.append('post_logout_redirect_uri', postLoginRedirect);
+
+	return logoutUrl.toString();
+};
+
+const handleLoginError = async (req, res, error, postLoginRedirect, strategy, systemName, externalIdToken) => {
 	setErrorNotification(res, req, error, systemName);
 
+	let logoutEndpoint;
 	if (req.session.oauth2State) {
+		logoutEndpoint = req.session.oauth2State.logoutEndpoint;
 		delete req.session.oauth2State;
 	}
 
@@ -356,9 +373,21 @@ const handleLoginError = async (req, res, error, postLoginRedirect, strategy, sy
 		queryString.append('strategy', strategy);
 	}
 
-	const redirect = redirectHelper.joinPathWithQuery('/login', queryString.toString());
+	const loginRedirect = redirectHelper.joinPathWithQuery('/login', queryString.toString());
 
-	res.redirect(redirect);
+	if (logoutEndpoint) {
+		const redirect = getLogoutUrl(
+			req,
+			res,
+			req.session.oauth2State.logoutEndpoint,
+			externalIdToken,
+			loginRedirect,
+		);
+
+		res.redirect(redirect);
+	} else {
+		res.redirect(loginRedirect);
+	}
 };
 
 const login = (payload = {}, req, res, next) => {
@@ -448,7 +477,15 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 	} catch (errorResponse) {
 		logger.error('Login failed.');
 
-		return handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName);
+		return handleLoginError(
+			req,
+			res,
+			errorResponse.error,
+			postLoginRedirect,
+			strategy,
+			systemName,
+			loginResponse.login?.externalIdToken,
+		);
 	}
 
 	const currentUser = jwt.decode(accessToken);
@@ -461,7 +498,15 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 
 		return {
 			error: errorResponse.error,
-			redirect: handleLoginError(req, res, errorResponse.error, postLoginRedirect, strategy, systemName),
+			redirect: handleLoginError(
+				req,
+				res,
+				errorResponse.error,
+				postLoginRedirect,
+				strategy,
+				systemName,
+				loginResponse.login?.externalIdToken,
+			),
 		};
 	}
 
@@ -486,21 +531,6 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect, systemN
 		login: loginResponse,
 		redirect,
 	};
-};
-
-const getLogoutUrl = (req, res, logoutEndpoint, idTokenHint, redirect) => {
-	if (!logoutEndpoint) {
-		logger.info('Logout failed. Missing logout endpoint.');
-	}
-
-	const logoutUrl = new URL(logoutEndpoint);
-	logoutUrl.searchParams.append('id_token_hint', idTokenHint);
-
-	const validRedirect = redirectHelper.getValidRedirect(redirect);
-	const postLoginRedirect = `${Configuration.get('HOST')}${validRedirect || '/dashboard'}`;
-	logoutUrl.searchParams.append('post_logout_redirect_uri', postLoginRedirect);
-
-	return logoutUrl.toString();
 };
 
 // eslint-disable-next-line consistent-return
