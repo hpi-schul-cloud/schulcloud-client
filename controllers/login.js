@@ -281,7 +281,7 @@ router.get('/login/oauth2-callback', async (req, res) => {
 		return authHelper.handleLoginError(
 			req,
 			res,
-			error.error,
+			loginError,
 			postLoginRedirect,
 			'oauth2',
 			oauth2State.systemName,
