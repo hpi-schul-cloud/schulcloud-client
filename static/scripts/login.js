@@ -152,11 +152,19 @@ $(document).ready(() => {
 		}
 	});
 
-	if ($oauthErrorLogout && $oauthSystems.length > 0 && $oauthErrorLogout.eq(0).text() === 'true') {
-		const $iservButton = $oauthSystems.find('.btn-oauth[data-provider="iserv"]');
+	if ($oauthErrorLogout && $oauthSystems.length > 0 && $oauthErrorLogout.eq(0).text()) {
+		const logoutErrorOrProvider = $oauthErrorLogout.eq(0).text();
 
-		if ($iservButton.length > 0) {
-			const logoutWindow = window.open($iservButton.eq(0).data('logout'));
+		let $loginButton;
+		if (logoutErrorOrProvider === 'true') {
+			// TODO N21-1374: remove old login flow
+			$loginButton = $oauthSystems.find('.btn-oauth[data-provider="iserv"]');
+		} else if (logoutErrorOrProvider !== 'false') {
+			$loginButton = $oauthSystems.find(`.btn-oauth[data-provider="${logoutErrorOrProvider}"]`);
+		}
+
+		if ($loginButton && $loginButton.length > 0 && $loginButton.eq(0).data('logout')) {
+			const logoutWindow = window.open($loginButton.eq(0).data('logout'));
 			window.focus();
 			setTimeout(() => {
 				logoutWindow.close();
@@ -165,6 +173,7 @@ $(document).ready(() => {
 		}
 	}
 
+	// TODO N21-1374: remove old login flow
 	$oauthSystems.each((index, element) => {
 		const $oauthButton = $(element).find('.btn-oauth').eq(0);
 

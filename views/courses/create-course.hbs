@@ -184,13 +184,30 @@
                         <label for="addClassesToCourse">{{$t "courses.add.label.addClassesToCourse"}}</label>
                         <select id="addClassesToCourse" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
                                 <option disabled value="{{$t "administration.global.placeholder.selectClasses"}}">{{$t "administration.global.placeholder.selectClasses"}}</option>
-                            {{#each ../classes}}
-                              <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                  {{this.displayName}}
-                                  {{#if this.year}}
-                                      ({{this.year.name}})
-                                  {{/if}}
-                              </option>
+                            {{#each ../classesAndGroups}}
+                                <option value="{{this.id}}{{#unless this.id}}{{this._id}}{{/unless}}" {{#if this.selected}}selected{{/if}}>
+                                    {{#if (getConfig "FEATURE_GROUPS_IN_COURSE_ENABLED")}}
+                                        {{this.name}}
+
+                                        {{#if this.schoolYear}}
+                                            ({{this.schoolYear}})
+                                        {{/if}}
+
+                                        {{#if this.externalSourceName}}
+                                            | {{this.externalSourceName}}
+                                        {{/if}}
+                                    {{else}}
+                                        {{#if this.displayName}}
+                                            {{this.displayName}}
+                                        {{else}}
+                                            {{this.name}}
+                                        {{/if}}
+
+                                        {{#if this.year}}
+                                            ({{this.year.name}})
+                                        {{/if}}
+                                    {{/if}}
+                                </option>
                           {{/each}}
                       </select>
                   </div>
