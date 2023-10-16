@@ -163,7 +163,7 @@ $(document).ready(() => {
 			$loginButton = $oauthSystems.find(`.btn-oauth[data-provider="${logoutErrorOrProvider}"]`);
 		}
 
-		if ($loginButton && $loginButton.length > 0) {
+		if ($loginButton && $loginButton.length > 0 && $loginButton.eq(0).data('logout')) {
 			const logoutWindow = window.open($loginButton.eq(0).data('logout'));
 			window.focus();
 			setTimeout(() => {
