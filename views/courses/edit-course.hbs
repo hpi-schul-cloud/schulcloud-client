@@ -163,9 +163,9 @@
 				</div>
 
 				<div class="form-group">
-					<label for="classId">{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
+					<label for="classId" data-testid="show-course-groups">{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
 
-					<select id="classId" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
+					<select id="classId" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="select-classes-and-groups
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each classesAndGroups}}
 							<option value="{{this.id}}{{#unless this.id}}{{this._id}}{{/unless}}" {{#if this.selected}}selected{{/if}}>
@@ -196,8 +196,8 @@
 				</div>
 
 				<div class="form-group">
-					<label for="studentsId">{{$t "administration.global.label.studentParticipants"}}</label>
-					<select id="studentsId" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
+					<label for="studentsId" data-testid="show-course-students">{{$t "administration.global.label.studentParticipants"}}</label>
+					<select id="studentsId" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="select-students"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each students}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
