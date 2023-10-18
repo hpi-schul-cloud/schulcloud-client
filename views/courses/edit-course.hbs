@@ -163,12 +163,12 @@
 				</div>
 
 				<div class="form-group">
-					<label for="classId" data-testid="show-course-groups">{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
+					<label for="classId">{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
 
 					<select id="classId" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="select-classes-and-groups"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each classesAndGroups}}
-							<option value="{{this.id}}{{#unless this.id}}{{this._id}}{{/unless}}" {{#if this.selected}}selected{{/if}}>
+							<option data-testid="show-course-groups" value="{{this.id}}{{#unless this.id}}{{this._id}}{{/unless}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if (getConfig "FEATURE_GROUPS_IN_COURSE_ENABLED")}}
                                     {{this.name}}
 
