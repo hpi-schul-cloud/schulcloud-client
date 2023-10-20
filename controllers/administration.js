@@ -1617,7 +1617,8 @@ const renderClassEdit = (req, res, next) => {
 						class: currentClass,
 						gradeLevels,
 						isCustom,
-						referrer: '/administration/classes/',
+						referrer: Configuration.get('FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED')
+							? '/administration/groups/classes/' : '/administration/classes/',
 					});
 				},
 			);
@@ -1848,7 +1849,8 @@ router.get(
 						students: filterStudents(res, students),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						notes,
-						referrer: '/administration/classes/',
+						referrer: Configuration.get('FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED')
+							? '/administration/groups/classes/' : '/administration/classes/',
 						consentsMissing: usersWithoutConsent.length !== 0,
 						consentNecessary,
 						// eslint-disable-next-line max-len
