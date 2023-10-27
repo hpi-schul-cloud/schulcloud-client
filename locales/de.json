@@ -1249,7 +1249,7 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
-			"announcement": "Nehmen Sie an unserer Zufriedenheitsumfrage teil und helfen Sie uns, die Cloud zu verbessern. <a target=\"_blank\" aria-label=\"Zufriedenheitsumfrage\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://befragungen.dataport.de/umfrage/1732110/47pve9/\">Hier</a> geht’s zur Befragung (ausschließlich in deutscher Sprache).",
+			"announcement": "Nehmen Sie an unserer Zufriedenheitsumfrage teil und helfen Sie uns, die Cloud zu verbessern. <a target=\"_blank\" aria-label=\"Zufriedenheitsumfrage\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://befragungen.dataport.de/umfrage/1732110/47pve9/\">Hier</a> geht’s zur Befragung.",
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",
