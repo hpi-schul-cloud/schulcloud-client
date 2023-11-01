@@ -17,6 +17,7 @@ const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger', 'videoconference'];
+const FEATURE_GROUPS_IN_COURSE_ENABLED = Configuration.get('FEATURE_GROUPS_IN_COURSE_ENABLED');
 
 const router = express.Router();
 const { HOST } = require('../config/global');
@@ -27,7 +28,8 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 }).then((data) => data.data);
 
 const markSelected = (options, values = []) => options.map((option) => {
-	option.selected = values.includes(option._id);
+	const optionId = option.id !== undefined ? option.id : option._id;
+	option.selected = values.includes(optionId);
 	return option;
 });
 
@@ -45,7 +47,7 @@ const createEventsForCourse = (req, res, course) => {
 	// can just run if a calendar service is running on the environment
 	if (Configuration.get('CALENDAR_SERVICE_ENABLED') === true) {
 		return Promise.all(
-			course.times.map((time) => {
+			course.times?.map((time) => {
 				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
 				const repeatUntil = timesHelper.fromUTC(course.untilDate);
 				const event = {
@@ -106,6 +108,8 @@ const deleteEventsForCourse = (req, res, courseId) => {
 	return Promise.resolve(true);
 };
 
+let groupIds = [];
+let classIds = [];
 const editCourseHandler = (req, res, next) => {
 	let coursePromise;
 	let action;
@@ -124,16 +128,23 @@ const editCourseHandler = (req, res, next) => {
 		action += `?redirectUrl=${req.query.redirectUrl}`;
 	}
 
-	const classesPromise = api(req)
-		.get('/classes', {
-			qs: {
-				schoolId: res.locals.currentSchool,
-				$populate: ['year'],
-				$limit: -1,
-				$sort: { year: -1, displayName: 1 },
-			},
-		});
-	// .then(data => data.data); needed when pagination is not disabled
+	let classesAndGroupsPromise;
+	let classesPromise;
+	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
+		classesAndGroupsPromise = api(req, { version: 'v3' })
+			.get('/groups/class');
+	} else {
+		classesPromise = api(req)
+			.get('/classes', {
+				qs: {
+					schoolId: res.locals.currentSchool,
+					$populate: ['year'],
+					$limit: -1,
+					$sort: { year: -1, displayName: 1 },
+				},
+			});
+	}
+
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher'],
 		$limit: false,
@@ -153,15 +164,23 @@ const editCourseHandler = (req, res, next) => {
 
 	Promise.all([
 		coursePromise,
-		classesPromise,
+		FEATURE_GROUPS_IN_COURSE_ENABLED ? classesAndGroupsPromise : classesPromise,
 		teachersPromise,
 		studentsPromise,
 		scopePermissions,
-	]).then(([course, _classes, _teachers, _students, _scopePermissions]) => {
+	]).then(([course, _classesAndGroups, _teachers, _students, _scopePermissions]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
-		const classes = _classes.filter(
-			(c) => c.schoolId === res.locals.currentSchool,
-		).sort();
+		let classesAndGroups = [];
+		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
+			classesAndGroups = _classesAndGroups.data;
+			groupIds = _classesAndGroups.data.filter((g) => g.type === 'group').map((group) => group.id);
+			classIds = _classesAndGroups.data.filter((c) => c.type === 'class').map((clazz) => clazz.id);
+		} else {
+			classesAndGroups = _classesAndGroups.filter(
+				(c) => c.schoolId === res.locals.currentSchool,
+			).sort();
+		}
+
 		const teachers = _teachers.filter(
 			(t) => t.schoolId === res.locals.currentSchool,
 		);
@@ -233,6 +252,8 @@ const editCourseHandler = (req, res, next) => {
 				? s.filter(({ selected }) => selected) : s
 		);
 
+		const classAndGroupIds = [...(course.classIds || []), ...(course.groupIds || [])];
+
 		if (req.params.courseId) {
 			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.text.403')));
 			return res.render('courses/edit-course', {
@@ -243,7 +264,7 @@ const editCourseHandler = (req, res, next) => {
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
-				classes: markSelected(classes, course.classIds),
+				classesAndGroups: markSelected(classesAndGroups, classAndGroupIds),
 				teachers: markSelected(
 					teachers,
 					course.teacherIds,
@@ -265,7 +286,7 @@ const editCourseHandler = (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			course,
 			colors,
-			classes: markSelected(classes, course.classIds),
+			classesAndGroups: markSelected(classesAndGroups, classAndGroupIds),
 			teachers: markSelected(
 				teachers,
 				course.teacherIds,
@@ -510,6 +531,17 @@ router.post('/', (req, res, next) => {
 		delete req.body[feature];
 	});
 
+	req.body.groupIds = [];
+	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
+		req.body.groupIds = (req.body.classIds ?? [])
+			.filter((id) => groupIds.includes(id));
+
+		if (groupIds.length > 0) {
+			req.body.classIds = (req.body.classIds ?? [])
+				.filter((id) => classIds.includes(id));
+		}
+	}
+
 	api(req)
 		.post('/courses/', {
 			json: req.body, // TODO: sanitize
@@ -738,11 +770,21 @@ router.patch('/:courseId', async (req, res, next) => {
 		if (!req.body.classIds) {
 			req.body.classIds = [];
 		}
+		if (!req.body.groupIds) {
+			req.body.groupIds = [];
+		}
 		if (!req.body.userIds) {
 			req.body.userIds = [];
 		}
 		if (!req.body.substitutionIds) {
 			req.body.substitutionIds = [];
+		}
+
+		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
+			req.body.groupIds = req.body.classIds
+				.filter((id) => groupIds.includes(id));
+			req.body.classIds = req.body.classIds
+				.filter((id) => classIds.includes(id));
 		}
 
 		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
