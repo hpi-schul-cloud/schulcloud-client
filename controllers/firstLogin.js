@@ -197,7 +197,7 @@ router.get('/', async (req, res, next) => {
 		}
 
 		// EMAIL
-		if (!res.locals.currentUser.source) {
+		if (!(res.locals.currentUser.source || res.locals.currentPayload.isExternalUser)) {
 			// only display the confirm email page if the user was not generated from an external source
 			submitPageIndex += 1;
 			sections.push('email');
