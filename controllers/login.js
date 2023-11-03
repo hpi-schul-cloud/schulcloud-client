@@ -208,7 +208,7 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 		provider: oauthConfig.provider,
 	};
 
-	res.redirect(authenticationUrl.toString());
+	res.redirect(307, authenticationUrl.toString());
 };
 
 router.post('/login/oauth2', async (req, res) => {
@@ -266,7 +266,7 @@ router.get('/login/oauth2-callback', async (req, res) => {
 		const migrationRedirect = await authHelper.migrateUser(req, res, payload);
 		delete req.session.oauth2State;
 
-		return res.redirect(migrationRedirect);
+		return res.redirect(307, migrationRedirect);
 	}
 
 	try {
@@ -302,7 +302,7 @@ router.get('/login/oauth2-callback', async (req, res) => {
 
 	delete req.session.oauth2State;
 
-	res.redirect(loginRedirect);
+	res.redirect(307, loginRedirect);
 });
 
 const redirectAuthenticated = (req, res) => {
