@@ -9,6 +9,7 @@
 			"welcome": "Вітаємо"
 		},
 		"text": {
+			"announcement": "Візьміть участь у нашому опитуванні та допоможіть нам покращити хмару. Натисніть <a target=\"_blank\" aria-label=\"опитуванні\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://befragungen.dataport.de/umfrage/1732110/47pve9/\">тут</a>, щоб отримати доступ до опитування (лише німецькою мовою).",
 			"notFound": "Активних записів не знайдено.",
 			"emptyHomeworksInfo": "Усі домашні завдання показуються в розділі домашніх завдань.",
 			"emptyNewsInfo": "Немає останніх новин. Перегляньте розділ новин, щоб бути в курсі.",
@@ -16,8 +17,7 @@
 			"noDueDate": "Дата подання не встановлена",
 			"noMaterialsYetLookAtOthers": "Ви ще не створили власні матеріали. Але ви також можете черпати натхнення з матеріалів своїх колег. Перевірте <a href=\"/my-material\">Розділ «Мої матеріали»</a>.",
 			"graded": "Оцінено",
-			"handedIn": "Подані",
-			"bettermarksAnnouncement": "Нове на bettermarks: тепер також <a target=\"_blank\" aria-label=\"Уроки для 5 та 6 класів на кращі оцінки\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/unterrichten/\">навчальні блоки</a>  для 5 та 6 класів на додаток до <a target=\"_blank\" aria-label=\"Вправи та тести для 4-13 класів на кращі оцінки\"class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/ueben-testen/\">практичних та тестових завдань</a> для 4-13 класів!"
+			"handedIn": "Подані"
 		},
 		"img_alt": {
 			"showAppointmentInTeam": "Показати призначення в команді",
@@ -252,6 +252,7 @@
 			"link": {
 				"addons": "Доповнення",
 				"administrationClasses": "Класи",
+				"administrationClassesNew": "Класи (новий)",
 				"administrationCourses": "Курси",
 				"administration": "Адміністрація"
 			}
@@ -314,8 +315,7 @@
 			"tab_label": {
 				"groups": "Групи",
 				"tasks": "Завдання",
-				"tools": "Інструменти (новий)",
-				"oldTools": "Інструменти",
+				"tools": "Інструменти",
 				"oldTopics": "Теми",
 				"topics": "Зміст навчання"
 			},
@@ -900,6 +900,7 @@
 				"afterTheTransferPhaseEnded": "Після завершення фази переходу",
 				"allStudentsVisibility": "Активація цієї опції має високе граничне значення згідно із законодавством про захист даних. Щоб активувати видимість усіх учнів у школі для кожного викладача, необхідно, щоб кожен учень надав свою фактичну згоду на таку обробку даних.",
 				"allStudentsVisibilityBrandenburg": "Увімкнення цієї опції вмикає видимість всіх учнів цієї школи для кожного вчителя.",
+				"allStudentsVisibilityNiedersachsen" : "Якщо цю опцію не ввімкнено, вчителі бачитимуть лише ті класи та учнів, учасниками яких вони є.",
 				"authentication": "Аутентифікація",
 				"changeOfClasses": "Зміна класів / нові класи",
 				"changeOfUserData": "Зміна даних користувача / нові користувачі",
@@ -1152,7 +1153,8 @@
 				"studentUnderYears": "<b>Учні віком до {{age}} років: </b> батьки <br/> <b> Учні віком від {{age}} років: </b> самі учні <br/>"
 			},
 			"label": {
-				"distributeLinkToInvite": "Щоб запросити до {{shortTitle}}, відправте це посилання на:"
+				"distributeLinkToInvite": "Щоб запросити до {{shortTitle}}, відправте це посилання на:",
+				"distributeLinkToInviteShort": "Щоб запросити на {{shortTitle}}, надішліть наступне посилання:"
 			}
 		},
 		"form_InvitationTeacher": {
@@ -1160,7 +1162,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Дайте викладачу таке посилання:"
 			},
 			"text": {
-				"beforeUsingThe": "Перш ніж можливе використання {{title}}, викладач повинен пройти процедуру отримання згоди."
+				"beforeUsingThe": "Перш ніж можливе використання {{title}}, викладач повинен пройти процедуру отримання згоди.",
+				"toInvite": "Щоб запросити на {{shortTitle}}, надішліть наступне посилання:"
 			}
 		},
 		"form_Problem": {
@@ -1282,6 +1285,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Керувати класами",
+				"manageClassesNew": "Керувати класами (нове)",
 				"manageCourses": "Керувати курсами",
 				"manageSchool": "Керувати школою",
 				"manageStudents": "Керувати учнями",

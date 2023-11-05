@@ -304,6 +304,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Klassen verwalten",
+				"manageClassesNew": "Klassen verwalten (neu)",
 				"manageCourses": "Kurse verwalten",
 				"manageSchool": "Schule verwalten",
 				"manageStudents": "Schüler:innen verwalten",
@@ -336,7 +337,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "Um in die {{shortTitle}} einzuladen, verteile folgenden Link an:"
+				"distributeLinkToInvite": "Um in die {{shortTitle}} einzuladen, verteile folgenden Link an:",
+				"distributeLinkToInviteShort": "Um in die {{shortTitle}} einzuladen, muss folgender Link verteilt werden:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der {{shortTitle}} möglich ist, müssen Eltern und/oder Schüler:innen den elektronischen Einwilligungsprozess durchlaufen haben.",
@@ -348,7 +350,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:"
 			},
 			"text": {
-				"beforeUsingThe": "Bevor die Nutzung der {{title}} möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben."
+				"beforeUsingThe": "Bevor die Nutzung der {{title}} möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben.",
+				"toInvite": "Um in die {{shortTitle}} einzuladen, muss folgender Link verteilt werden:"
 			}
 		},
 		"form_Policy": {
@@ -567,6 +570,7 @@
 				"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
 				"allStudentsVisibility": "Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schüler:innen der Schule für jede Lehrkraft zu aktivieren, ist es erforderlich, dass jede/r Schüler:in wirksam in diese Datenverarbeitung eingewilligt hat.",
 				"allStudentsVisibilityBrandenburg": "Die Aktivierung dieser Option schaltet die Sichtbarkeit aller Schüler:innen der Schule für jede Lehrkraft an.",
+				"allStudentsVisibilityNiedersachsen" : "Wenn diese Option nicht aktiviert ist, können die Lehrkräfte ausschließlich die Klassen sowie deren Schülerinnen und Schüler sehen, in denen sie Mitglied sind.",
 				"authentication": "Authentifizierung",
 				"newPage": "Zur neuen Admin-Seite",
 				"changeOfClasses": "Änderung von Klassen/neue Klassen",
@@ -988,8 +992,7 @@
 			"tab_label": {
 				"groups": "Gruppen",
 				"tasks": "Aufgaben",
-				"tools": "Tools (neu)",
-				"oldTools": "Tools",
+				"tools": "Tools",
 				"oldTopics": "Themen",
 				"topics": "Lerninhalte"
 			},
@@ -1246,6 +1249,7 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
+			"announcement": "Nehmen Sie an unserer Zufriedenheitsumfrage teil und helfen Sie uns, die Cloud zu verbessern. <a target=\"_blank\" aria-label=\"Zufriedenheitsumfrage\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://befragungen.dataport.de/umfrage/1732110/47pve9/\">Hier</a> geht’s zur Befragung.",
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",
@@ -1253,8 +1257,7 @@
 			"noDueDate": "Kein Abgabedatum festgelegt",
 			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg:innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
-			"notFound": "Keine aktuellen Einträge vorhanden.",
-			"bettermarksAnnouncement": "Neues bei bettermarks: Jetzt auch <a target=\"_blank\" aria-label=\"Unterrichtseinheiten für Klasse 5 und 6 bei bettermarks\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/unterrichten/\">Unterrichtseinheiten</a> für Klasse 5 und 6 neben den <a target=\"_blank\" aria-label=\"Übungs- und Testaufgaben für Klasse 4 bis 13 bei bettermarks\"class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/ueben-testen/\">Übungs- und Testaufgaben</a> für Jahrgangsstufe 4 bis 13!"
+			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
 	"dataprivacy": {
@@ -1748,6 +1751,7 @@
 				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationClasses": "Klassen",
+				"administrationClassesNew": "Klassen (neu)",
 				"administrationCourses": "Kurse"
 			}
 		},

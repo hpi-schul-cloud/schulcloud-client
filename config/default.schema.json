@@ -64,14 +64,14 @@
 			"type": "string",
 			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
 		},
-		"BETTERMARKS_ANNOUNCEMENT_ENABLED": {
+		"DASHBOARD_ANNOUNCEMENT_ENABLED": {
 			"type": "boolean",
 			"default": false,
-			"description": "enbale bettermarks announcement, shown to all user roles specified in BETTERMARKS_ANNOUNCEMENT_ROLES"
+			"description": "enbale announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
 		},
-		"BETTERMARKS_ANNOUNCEMENT_ROLES": {
+		"DASHBOARD_ANNOUNCEMENT_ROLES": {
 			"type": "string",
-			"description": "comma separated list of roles which bettermarks announcement is shown to"
+			"description": "comma separated list of roles which dashboard announcement is shown to"
 		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
 			"type": "string",
@@ -592,6 +592,16 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Changes the login flow to one that supports user login migrations"
+		},
+		"FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the new class list view"
+		},
+		"FEATURE_GROUPS_IN_COURSE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables to get groups of type class in courses"
 		}
 	},
 	"allOf": [
