@@ -3,8 +3,7 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 
-// schools
-
+// This route is only used for the external invite form. That's why the API call is specific for that.
 router.get('/', async (req, res, next) => {
 	const params = {
 		qs: {
@@ -15,17 +14,11 @@ router.get('/', async (req, res, next) => {
 
 	try {
 		const response = await api(req, { version: 'v3' }).get('/school/list-for-external-invite', params);
-		let result = response.data.map((school) => ({
+		const result = response.data.map((school) => ({
 			_id: school.id,
 			name: school.name,
 			purpose: school.purpose,
 		}));
-
-		// TODO: Shall we add hiding of own school as a query to the API or shall we leave it here?
-		// I tend to leave it here because it seems like a rather special case and the filtering is easy.
-		if (req.query.hideOwnSchool) {
-			result = result.filter((school) => school._id !== res.locals.currentSchool);
-		}
 
 		return res.json(result);
 	} catch (e) {
