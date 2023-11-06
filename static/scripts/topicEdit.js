@@ -1067,7 +1067,7 @@ class TopicH5P extends TopicBlock {
 		const editorPopup = window.open(
 			`/h5p/editor/${id ?? ''}?parentType=${parentType}&parentId=${parentId}&inline=1`,
 			'h5p-editor',
-			`width=${w}, height=${h}, left=${x}, top=${y}, 
+			`width=${w}, height=${h}, left=${x}, top=${y},
 			fullscreen=yes, toolbar=no, location=no, directories=no, status=no, scrollbars=yes, resizable=yes`,
 		);
 
@@ -1103,7 +1103,11 @@ class TopicH5P extends TopicBlock {
 						<p className="card-text">{contentType}</p>
 					</div>
 					<div className="card-footer">
-						<a className="btn-edit-h5p" onClick={this.openEditor.bind(this, contentId)}>
+						<a className="btn-edit-h5p" onClick={this.openEditor.bind(this, contentId)} onKeyDown={(e) => {
+							if (e.key === 'Enter'){
+								this.openEditor.bind(this, contentId);
+							}
+						}}>
 							<i className="fa fa-edit"></i>
 						</a>
 					</div>
@@ -1129,7 +1133,7 @@ class TopicH5P extends TopicBlock {
 			<div>
 				{saved || infoBox}
 				{contentId && h5pPreview}
-				{!contentId && 
+				{!contentId &&
 					<div>
 						<button
 							disabled={!saved}
