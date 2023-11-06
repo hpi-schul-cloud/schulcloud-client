@@ -2810,7 +2810,7 @@ router.use(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
 		const [school, totalStorage, schoolMaintanance, consentVersions] = await Promise.all([
-			api(req, { version: 'v3' }).get(`/school/${res.locals.currentSchool}`, {
+			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`, {
 				qs: {
 					$sort: req.query.sort,
 				},
@@ -3114,7 +3114,7 @@ router.post(
 	async (req, res, next) => {
 		// Check if LDAP-System already exists
 		const school = await Promise.resolve(
-			api(req, { version: 'v3' }).get(`/school/${res.locals.currentSchool}`),
+			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`),
 		);
 		// eslint-disable-next-line no-shadow
 		const system = school.systems.filter((system) => system.type === 'ldap');

@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 	};
 
 	try {
-		const response = await api(req, { version: 'v3' }).get('/school', params);
+		const response = await api(req, { version: 'v3' }).get('/school/list-for-external-invite', params);
 		let result = response.data.map((school) => ({
 			_id: school.id,
 			name: school.name,
