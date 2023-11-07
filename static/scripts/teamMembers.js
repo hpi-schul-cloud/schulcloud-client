@@ -190,9 +190,7 @@ $(document).ready(() => {
 			type: 'GET',
 			url: `${window.location.origin}/schools`,
 			data: {
-				$limit: false,
 				federalState,
-				hideOwnSchool: true,
 			},
 		}).done((schools) => {
 			const schoolSelect = $('#school');

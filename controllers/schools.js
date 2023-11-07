@@ -7,14 +7,13 @@ const api = require('../api');
 router.get('/', async (req, res, next) => {
 	const params = {
 		qs: {
-			$limit: req.query.$limit,
 			federalStateId: req.query.federalState,
 		},
 	};
 
 	try {
 		const response = await api(req, { version: 'v3' }).get('/school/list-for-external-invite', params);
-		const result = response.data.map((school) => ({
+		const result = response.map((school) => ({
 			_id: school.id,
 			name: school.name,
 			purpose: school.purpose,
