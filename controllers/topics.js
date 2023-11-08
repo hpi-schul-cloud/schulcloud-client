@@ -46,7 +46,6 @@ const editTopicHandler = (req, res, next) => {
 		const schoolId = res.locals.currentSchool;
 		const { filesStorage } = await filesStoragesHelper
 			.filesStorageInit(schoolId, lesson._id, 'lessons', false, req);
-		const isTeacher = req.isTeacher;
 
 		if (lesson.title) lesson.title = decode(lesson.title);
 		if (lesson.contents) lesson.contents = decode(lesson.contents);
@@ -64,7 +63,6 @@ const editTopicHandler = (req, res, next) => {
 			lesson,
 			courseId: req.params.courseId,
 			topicId: req.params.topicId,
-			isTeacher,
 			schoolId,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
