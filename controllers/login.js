@@ -18,11 +18,6 @@ const {
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
-Handlebars.registerHelper('oauthLink', (id) => {
-	const apiUrl = `${Configuration.get('PUBLIC_BACKEND_URL')}/v3/sso/login/${id}`;
-	return apiUrl;
-});
-
 // SSO Login
 router.get('/tsp-login/', (req, res, next) => {
 	const {
@@ -381,7 +376,6 @@ const renderLogin = async (req, res) => {
 
 	let oauthErrorLogout = false;
 
-	// TODO N21-1374: remove old login flow
 	if (req.query.error) {
 		res.locals.notification = {
 			type: 'danger',
@@ -390,9 +384,6 @@ const renderLogin = async (req, res) => {
 				shortTitle: res.locals.theme.short_title,
 			}),
 		};
-		if (req.query.provider === 'iserv' && req.query.error !== 'sso_oauth_access_denied') {
-			oauthErrorLogout = true;
-		}
 	}
 
 	if (req.session.oauth2Logout) {
