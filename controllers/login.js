@@ -348,26 +348,6 @@ router.all('/', async (req, res, next) => {
 	}
 });
 
-const mapErrorCodeToTranslation = (errorCode) => {
-	switch (errorCode) {
-		case 'sso_user_notfound':
-			return 'login.text.userNotFound';
-		case 'sso_oauth_access_denied':
-			return 'login.text.accessDenied';
-		case 'sso_jwt_problem':
-		case 'sso_oauth_invalid_request':
-		case 'sso_oauth_unsupported_response_type':
-		case 'sso_auth_code_step':
-			return 'login.text.oauthCodeStep';
-		case 'sso_internal_error':
-			return 'login.text.internalError';
-		case 'sso_user_not_found_after_provisioning':
-			return 'login.text.userNotFoundInUnprovisionedSchool';
-		default:
-			return 'login.text.loginFailed';
-	}
-};
-
 const renderLogin = async (req, res) => {
 	await authHelper.clearCookie(req, res);
 
@@ -375,16 +355,6 @@ const renderLogin = async (req, res) => {
 	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
 
 	let oauthErrorLogout = false;
-
-	if (req.query.error) {
-		res.locals.notification = {
-			type: 'danger',
-			message: res.$t(mapErrorCodeToTranslation(req.query.error), {
-				systemName: 'moin.schule',
-				shortTitle: res.locals.theme.short_title,
-			}),
-		};
-	}
 
 	if (req.session.oauth2Logout) {
 		oauthErrorLogout = req.session.oauth2Logout.provider;
