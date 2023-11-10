@@ -57,7 +57,7 @@ const getSelectOptions = (req, service, query) => api(req)
 	.get(`/${service}`, {
 		qs: query,
 	})
-	.then((data) => data.data);
+	.then((data) => (data.data ? data.data : data));
 
 /**
  * Deletes all events from the given course, clear function
