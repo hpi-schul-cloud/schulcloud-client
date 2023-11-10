@@ -153,9 +153,9 @@ $(document).ready(() => {
 	});
 
 	if ($oauthErrorLogout && $oauthSystems.length > 0 && $oauthErrorLogout.eq(0).text()) {
-		const logoutErrorOrProvider = $oauthErrorLogout.eq(0).text();
+		const provider = $oauthErrorLogout.eq(0).text();
 
-		const $loginButton = $oauthSystems.find(`.btn-oauth[data-provider="${logoutErrorOrProvider}"]`);
+		const $loginButton = $oauthSystems.find(`.btn-oauth[data-provider="${provider}"]`);
 		if ($loginButton && $loginButton.length > 0 && $loginButton.eq(0).data('logout')) {
 			const logoutWindow = window.open($loginButton.eq(0).data('logout'));
 			window.focus();
