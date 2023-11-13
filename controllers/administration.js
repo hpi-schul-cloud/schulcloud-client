@@ -1955,7 +1955,7 @@ router.post(
 					'ADMIN_VIEW',
 				);
 				if (isAdmin) {
-					res.redirect('/administration/classes/');
+					Configuration.get('FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED') ? res.redirect('/administration/groups/classes/') : res.redirect('/administration/classes/');
 				} else {
 					res.redirect(`/administration/classes/${data._id}/manage`);
 				}
