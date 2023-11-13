@@ -7,6 +7,9 @@ metadata:
     app: client
     app.kubernetes.io/part-of: schulcloud-verbund
     app.kubernetes.io/version: {{ SCHULCLOUD_CLIENT_IMAGE_TAG }}
+    app.kubernetes.io/name: client
+    app.kubernetes.io/component: client
+    app.kubernetes.io/managed-by: ansible
     git.branch: {{ SCHULCLOUD_CLIENT_BRANCH_NAME }}
     git.repo: {{ SCHULCLOUD_CLIENT_REPO_NAME }}
 spec:
@@ -27,6 +30,9 @@ spec:
         app: client
         app.kubernetes.io/part-of: schulcloud-verbund
         app.kubernetes.io/version: {{ SCHULCLOUD_CLIENT_IMAGE_TAG }}
+        app.kubernetes.io/name: client
+        app.kubernetes.io/component: client
+        app.kubernetes.io/managed-by: ansible
         git.branch: {{ SCHULCLOUD_CLIENT_BRANCH_NAME }}
         git.repo: {{ SCHULCLOUD_CLIENT_REPO_NAME }}
       annotations:
