@@ -25,7 +25,7 @@ const { isUserHidden } = require('../helpers/users');
 
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
-}).then((data) => (data.data ? data.data : data));
+}).then((data) => data.data);
 
 const markSelected = (options, values = []) => options.map((option) => {
 	const optionId = option.id !== undefined ? option.id : option._id;

@@ -29,7 +29,7 @@ router.use(authHelper.authChecker);
 
 const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
 	qs: query,
-}).then((data) => (data.data ? data.data : data));
+}).then((data) => data.data);
 
 const getActions = (res, item, path) => [{
 	link: `${path + item._id}/edit`,
@@ -480,8 +480,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			if (assignment.courseId?._id) {
 				const lessonsPromise = getSelectOptions(req, 'lessons', {
 					courseId: assignment.courseId._id,
-					$limit: -1,
-				}).data;
+				});
 				Promise.resolve(lessonsPromise).then((lessons) => {
 					(lessons || []).sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 					res.render('homework/edit', {
