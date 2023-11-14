@@ -326,7 +326,7 @@ class TopicBlockList extends React.Component {
      * Render the list items.
      */
 	render() {
-		const neXboardButtonEnabled = ($contentBlocksContainer.data('neXboardButtonEnabled') === false);
+		const neXboardEnabled = ($contentBlocksContainer.data('nexboardenabled') === true);
 		return (
             <div>
                 <SortableList
@@ -363,7 +363,7 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
 								{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
 						</button>
-                        <button
+            <button
 							type="button"
 							className="btn btn-secondary"
 							data-testid="topic-addcontent-material-btn"
@@ -371,7 +371,7 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicResources)}>
 								{`+ ${$t('topic.topicEdit.button.material')}`}
 						</button>
-						{neXboardButtonEnabled ? <button
+						{neXboardEnabled ? <button
 							type="button"
 							className="btn btn-secondary"
 							data-testid="topic-addcontent-nexboard-btn"
@@ -379,15 +379,15 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicNexboard)}>
 								{`+ ${$t('topic.topicEdit.button.neXboard')}`}
 							</button> : '' }
-						<button
+							<button
 							type="button"
 							className="btn btn-secondary"
 							data-testid="topic-addcontent-etherpad-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicEtherpad)}>
 								{`+ ${$t('topic.topicEdit.button.etherpad')}`}
-						</button>
-                        <button
+							</button>
+              <button
 							type="button"
 							className="btn btn-secondary"
 							data-testid="topic-addcontent-task-btn"
