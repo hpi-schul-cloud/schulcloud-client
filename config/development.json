@@ -7,12 +7,6 @@
 		"SECURE": false,
 		"EXPIRES_SECONDS": 2592000000
 	},
-	"ETHERPAD": {
-		"PAD_PATH": "/p",
-		"PAD_URI": "http://localhost:9001/p",
-		"OLD_DOMAIN": "etherpad.dbildungscloud.de",
-		"NEW_DOMAIN": "localhost"
-	},
 	"FEATURE_LOG_REQUEST": true,
 	"FEATURE_PROMETHEUS_ENABLED": true,
 	"FEATURE_ALERTS_ENABLED": true,

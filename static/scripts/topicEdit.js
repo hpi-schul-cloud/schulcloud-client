@@ -326,7 +326,7 @@ class TopicBlockList extends React.Component {
      * Render the list items.
      */
 	render() {
-		const neXboardEnabled = ($contentBlocksContainer.data('nexboardenabled') === true);
+		const neXboardEnabled = ($contentBlocksContainer.data('nexboardenabled') === 'true');
 		return (
             <div>
                 <SortableList
@@ -378,7 +378,7 @@ class TopicBlockList extends React.Component {
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicNexboard)}>
 								{`+ ${$t('topic.topicEdit.button.neXboard')}`}
-							</button> : '' }
+						</button> : '' }
 							<button
 							type="button"
 							className="btn btn-secondary"

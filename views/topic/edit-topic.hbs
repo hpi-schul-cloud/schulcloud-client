@@ -45,8 +45,8 @@
                 <div class="form-group">
                     <label>{{$t "topic._topic.label.content" }}</label>
                     <!-- React Magic -->
-                    <div id="content-blocks" data-testid="nexboardButton" data-value="{{lesson.contents}}" data-parent-id="{{lesson._id}}" data-school-id="{{schoolId}}" data-parent-type="lessons" data-etherpadbaseurl="{{etherpadBaseUrl}}"
-                        data-iscoursegroup="{{courseGroupId}}" {{#unlessEnv "FEATURE_NEXBOARD_ENABLED" "true"}} data-neboardenabled="false" {{/unlessEnv}}></div></div>
+                    <div id="content-blocks" data-testid="content-blocks" data-value="{{lesson.contents}}" data-parent-id="{{lesson._id}}" data-school-id="{{schoolId}}" data-parent-type="lessons" data-etherpadbaseurl="{{etherpadBaseUrl}}"
+                        data-iscoursegroup="{{courseGroupId}}" {{#unlessEnv "FEATURE_NEXBOARD_ENABLED" "true"}} data-nexboardenabled="false" {{/unlessEnv}}></div></div>
                 </div>
                 {{#ifneq 0 (arrayLength @root.lessonFilesStorageData.files)}}
                 <label>{{$t "topic._topic.label.embeddedFiles" }}</label>
@@ -61,7 +61,7 @@
                         {{closeLabel}}
                     </button>
 
-                    {{"lib/components/csrfInput"}}
+                    {{>"lib/components/csrfInput"}}
 
                     <button type="submit" class="btn btn-primary btn-submit" data-testid="topic-submitchanges-btn">
                         {{submitLabel}}
