@@ -496,6 +496,15 @@
 	}
 }
 
+.btn-edit-h5p {
+	float: right;
+	cursor: pointer;
+
+	i {
+		color: $primaryColor;
+	}
+}
+
 .courseGroup {
 	width: 100%;
 	list-style: none;
