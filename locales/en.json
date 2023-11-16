@@ -1751,7 +1751,6 @@
 				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationClasses": "Classes",
-				"administrationClassesNew": "Classes (new)",
 				"administrationCourses": "Courses"
 			}
 		},
@@ -3184,7 +3183,8 @@
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
 				"neXboard": "neXboard",
-				"text": "Text"
+				"text": "Text",
+				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
@@ -3224,6 +3224,11 @@
 	"info": {
 		"text": {
 			"nextcloudLink": "We are working on a new file space. From now on, all <b>new files</b> can be saved and managed there (open file area). All team members automatically have access to the files stored there. All already <b>existing files</b> in the {{title}} are still available here."
+		}
+	},
+	"h5p": {
+		"text": {
+			"createAfterFirstSave": "H5P contents can only be created after the first save."
 		}
 	}
 }
