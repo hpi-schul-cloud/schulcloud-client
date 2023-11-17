@@ -46,7 +46,7 @@
                     <label>{{$t "topic._topic.label.content" }}</label>
                     <!-- React Magic -->
                     <div id="content-blocks" data-value="{{lesson.contents}}" data-parent-id="{{lesson._id}}" data-school-id="{{schoolId}}" data-parent-type="lessons" data-etherpadbaseurl="{{etherpadBaseUrl}}"
-                        data-iscoursegroup="{{courseGroupId}}" data-nexboardenabled="{{#ifEnv "FEATURE_NEXBOARD_ENABLED" "true"}}true{{/ifEnv}}" data-h5peditorenabled="{{#ifConfig "FEATURE_H5P_EDITOR_ENABLED" true}}true{{/ifConfig}}"></div>
+                        data-iscoursegroup="{{courseGroupId}}" data-h5peditorenabled="{{#ifConfig "FEATURE_H5P_EDITOR_ENABLED" true}}true{{/ifConfig}}"></div>
                 </div>
                 {{#ifneq 0 (arrayLength @root.lessonFilesStorageData.files)}}
                 <label>{{$t "topic._topic.label.embeddedFiles" }}</label>
