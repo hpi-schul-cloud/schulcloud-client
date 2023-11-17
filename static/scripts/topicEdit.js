@@ -363,13 +363,13 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
 								{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
 						</button>
-						<button
+							<button
 							type="button"
 							className="btn btn-secondary"
 							data-testid="topic-addcontent-material-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicResources)}>
-							{`+ ${$t('topic.topicEdit.button.material')}`}
+								{`+ ${$t('topic.topicEdit.button.material')}`}
 						</button>
 							<button
 							type="button"
