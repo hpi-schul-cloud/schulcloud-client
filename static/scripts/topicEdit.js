@@ -393,7 +393,7 @@ class TopicBlockList extends React.Component {
 							data-testid="topic-addcontent-h5p-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicH5P)}>
-							{`+ ${$t('topic.topicEdit.button.h5p')}`}
+								{`+ ${$t('topic.topicEdit.button.h5p')}`}
 						</button> : ''
 						}
                     </div>
