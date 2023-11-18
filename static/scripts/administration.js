@@ -52,7 +52,6 @@ $(document).ready(() => {
 	const $addPolicyModal = $('.add-modal--policy');
 	const $editModal = $('.edit-modal');
 	const $invitationModal = $('.invitation-modal');
-	const $importModal = $('.import-modal');
 	const $deleteSystemsModal = $('.delete-modal');
 	const $deleteRSSModal = $('.delete-modal--rss');
 
@@ -67,6 +66,7 @@ $(document).ready(() => {
 			title: $t('administration.school.headline.finishSchoolYear'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.yes'),
+			submitDataTestId: 'terminate-school-year',
 		});
 		$terminateSchoolYearModal.appendTo('body').modal('show');
 	});
@@ -118,6 +118,7 @@ $(document).ready(() => {
 			title: $t('global.button.add'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
+			submitDataTestId: 'add-modal',
 		});
 		$addSystemsModal.appendTo('body').modal('show');
 	});
@@ -128,6 +129,7 @@ $(document).ready(() => {
 			title: $t('global.button.add'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
+			submitDataTestId: 'add-modal-rss',
 		});
 		$addRSSModal.appendTo('body').modal('show');
 	});
@@ -138,6 +140,7 @@ $(document).ready(() => {
 			title: $t('administration.school.headline.addPolicy'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
+			submitDataTestId: 'add-modal-policy',
 		});
 		$addPolicyModal.appendTo('body').modal('show');
 	});
@@ -152,6 +155,7 @@ $(document).ready(() => {
 				title: $t('global.button.edit'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.button.save'),
+				submitDataTestId: 'edit-modal',
 				fields: result,
 			});
 			// post-fill gradiation selection
@@ -213,6 +217,7 @@ $(document).ready(() => {
 				title: $t('global.headline.delete'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.headline.delete'),
+				submitDataTestId: 'delete-systems-modal',
 				fields: result,
 			});
 
@@ -233,6 +238,7 @@ $(document).ready(() => {
 				title: $t('global.headline.delete'),
 				closeLabel: $t('global.button.cancel'),
 				submitLabel: $t('global.headline.delete'),
+				submitDataTestId: 'delete-rss-modal',
 			});
 
 			$deleteRSSModal.modal('show');

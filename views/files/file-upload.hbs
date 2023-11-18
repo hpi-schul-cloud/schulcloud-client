@@ -1,4 +1,4 @@
-<section class="section-upload" data-owner="{{ownerId}}" data-parent="{{parentId}}">
+<section class="section-upload" data-owner="{{ownerId}}" data-parent="{{parentId}}" data-max-file-size="{{getConfig "FILES_STORAGE__MAX_FILE_SIZE"}}">
     <div class="container-fluid">
         <div class="row">
             <button type="button" data-testid="file-upload-button" class="form-upload dz-clickable" {{#userHasPermission "FILE_CREATE"}}action="/files/upload/"

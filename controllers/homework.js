@@ -71,38 +71,6 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
 	}
 };
 
-/**
- * adds file permissions for co workers to a submission file
- */
-const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileIds) => {
-	// if submission has an courseGroup, use the corresponding users instead of teamMembers
-	const courseGroupPromise = courseGroupId
-		? api(req).get(`/courseGroups/${courseGroupId}`, { qs: { $populate: ['userIds'] } })
-		: Promise.resolve({ userIds: teamMembers });
-	const filePromises = fileIds.map((f) => api(req).get(`/files/${f}`));
-
-	return Promise.all([courseGroupPromise, Promise.all(filePromises)])
-		.then(([{ userIds }, files]) => {
-			const filePatchPromises = files.map((file) => {
-				const userPermissions = userIds
-					.filter((id) => file.permissions.findIndex((p) => p.refId.toString() === id.toString()) === -1)
-					.map((id) => ({
-						refId: id,
-						refPermModel: 'user',
-						write: false,
-						read: true,
-						create: false,
-						delete: false,
-					}));
-
-				file.permissions = [...file.permissions, ...userPermissions];
-
-				return api(req).patch(`/files/${file._id}`, { json: file });
-			});
-			return Promise.all(filePatchPromises);
-		});
-};
-
 function collectUngradedFiles(submissions) {
 	const ungradedSubmissionsWithFiles = submissions.filter((submission) => !submission.submission.graded);
 	const ungradedFiles = ungradedSubmissionsWithFiles.flatMap((submission) => submission.submission.submissionFiles.filesStorage.files);
@@ -114,7 +82,7 @@ function collectUngradedFiles(submissions) {
 	};
 }
 
-const getCreateHandler = (service) => (req, res, next) => {
+const prepareRequestBodyForHomework = (service, req, res) => {
 	if (service === 'homework') {
 		const {
 			courseId,
@@ -160,15 +128,28 @@ const getCreateHandler = (service) => (req, res, next) => {
 				message: res.$t('homework._task.text.startDateBeforeSubmissionDate'),
 			};
 			redirectHelper.safeBackRedirect(req, res);
-			return;
+			return false;
 		}
 	}
 
-	handleTeamSubmissionsBody(req.body, res.locals.currentUser);
+	return true;
+};
 
-	if (req.body.teamMembers && typeof req.body.teamMembers === 'string') {
-		req.body.teamMembers = [req.body.teamMembers];
+const prepareRequestBodyForSubmission = (service, req, res) => {
+	if (service === 'submissions') {
+		handleTeamSubmissionsBody(req.body, res.locals.currentUser);
+
+		if (req.body.teamMembers && typeof req.body.teamMembers === 'string') {
+			req.body.teamMembers = [req.body.teamMembers];
+		}
 	}
+};
+
+const getCreateHandler = (service) => (req, res, next) => {
+	if (!prepareRequestBodyForHomework(service, req, res)) return;
+
+	prepareRequestBodyForSubmission(service, req, res);
+
 	let referrer;
 	let base = req.headers.origin || HOST;
 	if (service === 'submissions') {
@@ -182,6 +163,7 @@ const getCreateHandler = (service) => (req, res, next) => {
 		referrer = req.header('Referer');
 	}
 	delete req.body.referrer;
+
 	api(req).post(`/${service}/`, {
 		// TODO: sanitize
 		json: req.body,
@@ -206,16 +188,47 @@ const getCreateHandler = (service) => (req, res, next) => {
 					);
 				});
 		}
-		const promise = service === 'submissions'
-			? addFilePermissionsForTeamMembers(req, data.teamMembers, data.courseGroupId, data.fileIds)
-			: Promise.resolve({});
-		return promise.then(() => {
-			if (referrer === 'tasks' || referrer.includes('rooms')) {
-				referrer = `homework/${data._id}/edit?returnUrl=homework/${data._id}`;
-			}
-			const url = new URL(referrer, base);
-			res.redirect(url);
-		});
+
+		if (referrer === 'tasks' || referrer.includes('rooms')) {
+			referrer = `homework/${data._id}`;
+		}
+		const url = new URL(referrer, base);
+		res.redirect(url);
+	}).catch((err) => {
+		next(err);
+	});
+};
+
+const getSilentCreateHandler = (service) => (req, res, next) => {
+	if (service === 'homework') {
+		if (req.body.name === '') {
+			req.body.name = res.$t('global.label.title');
+		}
+		req.body.private = true;
+	}
+
+	if (!prepareRequestBodyForHomework(service, req, res)) return;
+
+	if (service === 'submissions' && !req.body.isEvaluation && !req.body.teamMembers) {
+		req.body.teamMembers = [req.body.studentId];
+	}
+
+	prepareRequestBodyForSubmission(service, req, res);
+
+	api(req).post(`/${service}/`, {
+		json: req.body,
+	}).then((data) => {
+		data.availableDate = timesHelper
+			.fromUTC(data.availableDate)
+			.format(res.$t('format.dateTime'));
+
+		if (data.dueDate) {
+			data.dueDate = timesHelper
+				.fromUTC(data.dueDate)
+				.format(res.$t('format.dateTime'));
+		}
+
+		res.json(data);
 	}).catch((err) => {
 		next(err);
 	});
@@ -253,24 +266,18 @@ const patchFunction = (service, req, res, next) => {
 		json: req.body,
 	}).then(async (data) => {
 		if (service === 'submissions') {
-			// add file permissions for co Worker
-			const { fileIds } = data;
-			const { teamMembers } = data;
-			const { courseGroupId } = data;
-			await addFilePermissionsForTeamMembers(req, teamMembers, courseGroupId, fileIds).then(() => {
-				api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
-					.then((homework) => {
-						sendNotification(data.studentId,
-							res.$t('homework._task.text.submissionGradedNotification', {
-								coursename: homework.courseId.name,
-							}),
-							' ',
-							data.studentId,
-							req,
-							`${base}/homework/${homework._id}`);
-					});
-				base = req.header('Referrer');
-			});
+			api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
+				.then((homework) => {
+					sendNotification(data.studentId,
+						res.$t('homework._task.text.submissionGradedNotification', {
+							coursename: homework.courseId.name,
+						}),
+						' ',
+						data.studentId,
+						req,
+						`${base}/homework/${homework._id}`);
+				});
+			base = req.header('Referrer');
 		}
 		if (referrer) {
 			const url = new URL(referrer, base);
@@ -363,8 +370,7 @@ const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
 		if (redirectToReferer) {
 			redirectHelper.safeBackRedirect(req, res);
 		} else {
-			res.sendStatus(200);
-			res.redirect(`/${service}`);
+			res.redirect(200, `/${service}`);
 		}
 	}).catch((err) => {
 		next(err);
@@ -372,112 +378,16 @@ const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
 };
 
 router.post('/', getCreateHandler('homework'));
+router.post('/silent', getSilentCreateHandler('homework'));
 router.patch('/:id', getUpdateHandler('homework'));
 router.delete('/:id', getDeleteHandler('tasks'));
-
-router.delete('/:id/file', (req, res, next) => {
-	const { fileId } = req.body;
-	const homeworkId = req.params.id;
-	api(req).get(`/homework/${homeworkId}`).then((homework) => {
-		const fileIds = _.filter(homework.fileIds, (id) => JSON.stringify(id) !== JSON.stringify(fileId));
-		return api(req).patch(`/homework/${homeworkId}`, {
-			json: {
-				fileIds,
-			},
-		});
-	})
-		.then((result) => res.json(result))
-		.catch((err) => next(err));
-});
 
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
+router.post('/submit/silent', getSilentCreateHandler('submissions'));
 router.delete('/submit/:id', getDeleteHandler('submissions', true));
 router.get('/submit/:id/delete', getDeleteHandler('submissions', true));
-
-router.post('/submit/:id/files', (req, res, next) => {
-	const submissionId = req.params.id;
-	api(req).get(`/submissions/${submissionId}`).then((submission) => {
-		delete submission.grade;
-		delete submission.gradeComment;
-		delete submission.comment;
-
-		const files = req.body.fileId || req.body.fileIds;
-		submission.fileIds = submission.fileIds.concat(files);
-
-		return api(req).patch(`/submissions/${submissionId}`, {
-			json: submission,
-		});
-	})
-		.then((result) => res.json(result))
-		.catch((err) => next(err));
-});
-
-router.post('/submit/:id/grade-files', (req, res, next) => {
-	const submissionId = req.params.id;
-	api(req).get(`/submissions/${submissionId}`).then((submission) => {
-		if ('fileId' in req.body) {
-			submission.gradeFileIds.push(req.body.fileId);
-		} else if ('fileIds' in req.body) {
-			submission.gradeFileIds = submission.gradeFileIds.concat(req.body.fileIds);
-		}
-		submission.graded = true;
-		return api(req).patch(`/submissions/${submissionId}`, {
-			json: submission,
-		});
-	})
-		.then((result) => res.json(result))
-		.catch((err) => next(err));
-});
-
-/* adds shared permission for teacher in the corresponding homework */
-router.post('/submit/:id/files/:fileId/permissions', async (req, res) => {
-	const { fileId, id: submissionId } = req.params;
-	const { homeworkId, teamMembers } = req.body;
-
-	// if homework is already given, just fetch homework
-	const homeworkPromise = homeworkId
-		? api(req).get(`/homework/${homeworkId}`)
-		: api(req).get(`/submissions/${submissionId}`, { qs: { $populate: ['homeworkId'] } });
-
-	const filePromise = api(req).get(`/files/${fileId}`);
-	const promises = teamMembers ? [filePromise, homeworkPromise] : [filePromise];
-
-	try {
-		const [file, homework] = await Promise.all(promises);
-
-		if (teamMembers) {
-			// wait for result now
-			// todo move logic to backend
-			await addFilePermissionsForTeamMembers(
-				req, teamMembers, homework.courseGroupId, [fileId],
-			);
-		}
-		res.json(file);
-	} catch (err) {
-		res.send(err);
-	}
-});
-
-router.delete('/submit/:id/files', (req, res, next) => {
-	const submissionId = req.params.id;
-	api(req).get(`/submissions/${submissionId}`).then((submission) => {
-		submission.fileIds = _.filter(
-			submission.fileIds,
-			(id) => JSON.stringify(id) !== JSON.stringify(req.body.fileId),
-		);
-		submission.gradeFileIds = _.filter(
-			submission.gradeFileIds,
-			(id) => JSON.stringify(id) !== JSON.stringify(req.body.fileId),
-		);
-		return api(req).patch(`/submissions/${submissionId}`, {
-			json: submission,
-		});
-	})
-		.then((result) => res.json(result))
-		.catch((err) => next(err));
-});
 
 router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandler('comments', true));
@@ -489,16 +399,19 @@ router.get('/new', (req, res, next) => {
 	Promise.resolve(coursesPromise).then(async (courses) => {
 		courses = courses.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 		let lessons = [];
+
 		if (req.query.course) {
-			lessonsPromise = getSelectOptions(req, 'lessons', {
+			const lessonsPromise = getSelectOptions(req, 'lessons', {
 				courseId: req.query.course,
 			});
+
 			try {
 				lessons = await lessonsPromise;
 			} catch (error) {
 				// TODO log error
 				logger.error('Error getting lessons', formatError(error));
 			}
+
 			lessons = (lessons || []).sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);
 		}
 		const assignment = { private: (req.query.private == 'true') };
@@ -510,7 +423,7 @@ router.get('/new', (req, res, next) => {
 		}
 		const schoolId = res.locals.currentSchool;
 		const parentType = 'tasks';
-		const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, undefined, parentType, req);
+		const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, undefined, parentType, false, req);
 
 		// Render overview
 		res.render('homework/edit', {
@@ -561,10 +474,10 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			const schoolId = res.locals.currentSchool;
 			const parentId = req.params.assignmentId;
 			const parentType = 'tasks';
-			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, req);
+			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, false, req);
 
 			// ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
-			if (assignment.courseId && assignment.courseId._id) {
+			if (assignment.courseId?._id) {
 				const lessonsPromise = getSelectOptions(req, 'lessons', {
 					courseId: assignment.courseId._id,
 				});
@@ -599,12 +512,13 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 					taskFilesStorageData,
 				});
 			}
+		}).catch((err) => {
+			next(err);
 		});
 	}).catch((err) => {
 		next(err);
 	});
 });
-
 
 router.get('/:assignmentId', (req, res, next) => {
 	api(req).get(`/homework/${req.params.assignmentId}`, {
@@ -613,7 +527,7 @@ router.get('/:assignmentId', (req, res, next) => {
 		},
 	}).then(async (assignment) => {
 		// Kursfarbe setzen
-		assignment.color = (assignment.courseId && assignment.courseId.color) ? assignment.courseId.color : '#1DE9B6';
+		assignment.color = (assignment.courseId?.color) ? assignment.courseId.color : '#1DE9B6';
 
 		// convert UTC dates to current timezone
 		if (assignment.availableDate) {
@@ -630,19 +544,17 @@ router.get('/:assignmentId', (req, res, next) => {
 				&& assignment.submittable);
 		}
 
-		// file upload path, todo: maybe use subfolders
-		const submissionUploadPath = `users/${res.locals.currentUser._id}/`;
 		const promises = [
 			// Abgaben auslesen
 			api(req).get('/submissions/', {
 				qs: {
 					homeworkId: assignment._id,
-					$populate: ['homeworkId', 'gradeFileIds', 'teamMembers', 'studentId', 'courseGroupId'],
+					$populate: ['homeworkId', 'teamMembers', 'studentId', 'courseGroupId'],
 				},
 			}),
 		];
 
-		if (assignment.courseId && assignment.courseId._id) {
+		if (assignment.courseId?._id) {
 			promises.push(
 				// Alle Teilnehmer des Kurses
 				api(req).get(`/courses/${assignment.courseId._id}`, {
@@ -663,9 +575,24 @@ router.get('/:assignmentId', (req, res, next) => {
 			);
 		}
 		async function findSubmissionFiles(submission, submitters, teachers, readonly) {
+			const { schoolId } = submission;
+			const parentId = submission._id;
+			const parentType = 'submissions';
 			const isTeacher = teachers.has(res.locals.currentUser._id);
 			const isCreator = submitters.has(res.locals.currentUser._id);
-			const { filesStorage } = await filesStoragesHelper.filesStorageInit(submission.schoolId, submission._id, 'submissions', req, readonly);
+			let filesStorage = {
+				schoolId,
+				parentId,
+				parentType,
+				files: [],
+				readonly,
+			};
+
+			if (submission.submitted || isCreator) {
+				const result = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, readonly, req);
+				// eslint-disable-next-line prefer-destructuring
+				filesStorage = result.filesStorage;
+			}
 
 			const submissionFilesStorageData = _.clone(filesStorage);
 			submissionFilesStorageData.files = filesStorage.files.filter((file) => submitters.has(file.creatorId));
@@ -708,7 +635,10 @@ router.get('/:assignmentId', (req, res, next) => {
 				.sort((a, b) => ((a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1));
 
 			const assignmentCourse = (assignment.courseId || {});
-			teachers.add(assignment.teacherId, ...assignmentCourse.teacherIds || [], ...assignmentCourse.substitutionIds || []);
+
+			teachers.add(assignment.teacherId);
+			(assignmentCourse.teacherIds || []).forEach((teacher) => teachers.add(teacher));
+			(assignmentCourse.substitutionIds || []).forEach((teacher) => teachers.add(teacher));
 			const isTeacher = teachers.has(res.locals.currentUser._id);
 
 			const renderOptions = {
@@ -719,7 +649,6 @@ router.get('/:assignmentId', (req, res, next) => {
 				students,
 				courseGroups,
 				courseGroupSelected,
-				path: submissionUploadPath,
 			};
 
 			// Abgabenübersicht anzeigen -> weitere Daten berechnen
@@ -740,23 +669,27 @@ router.get('/:assignmentId', (req, res, next) => {
 				const studentSubmissions = students.map((student) => ({
 					student,
 					submission: assignment.submissions.filter((submission) => (submission.studentId._id == student._id)
-						|| (submission.teamMembers && submission.teamMembers.includes(student._id.toString())))[0],
+						|| (submission.teamMembers?.includes(student._id.toString())))[0],
 				}));
 
-				const studentsWithSubmission = [];
+				let studentsWithSubmission = [];
 				assignment.submissions.forEach((e) => {
+					const submitters = [];
+
 					if (e.courseGroupId) {
 						e.courseGroupMembers.forEach((c) => {
-							studentsWithSubmission.push(c._id.toString());
+							submitters.push(c._id.toString());
 						});
 					} else if (e.teamMembers) {
 						e.teamMembers.forEach((c) => {
-							studentsWithSubmission.push(c._id.toString());
+							submitters.push(c._id.toString());
 						});
 					} else {
-						studentsWithSubmission.push(e.studentId.toString());
+						submitters.push(e.studentId.toString());
 					}
-					e.submitters = new Set(studentsWithSubmission);
+
+					e.submitters = new Set(submitters);
+					studentsWithSubmission = [...studentsWithSubmission, ...submitters];
 				});
 				const studentsWithoutSubmission = [];
 				((assignment.courseId || {}).userIds || []).forEach((e) => {
@@ -778,13 +711,19 @@ router.get('/:assignmentId', (req, res, next) => {
 				renderOptions.ungradedFileSubmissions = collectUngradedFiles(assignment.submissions);
 			}
 
+			const submissionFilesStorageData = { filesStorage: { parentType: 'submissions', schoolId: assignment.schoolId } };
+
 			if (assignment.submission) {
 				assignment.submission = await findSubmissionFiles(assignment.submission, assignment.submission.submitters, teachers, !assignment.submittable);
 			}
 
 			const { schoolId, _id } = assignment;
-			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, _id, 'tasks', req, true);
-			res.render('homework/assignment', { ...assignment, ...renderOptions, taskFilesStorageData });
+			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, _id, 'tasks', true, req);
+			res.render('homework/assignment', {
+				...assignment, ...renderOptions, taskFilesStorageData, submissionFilesStorageData,
+			});
+		}).catch((err) => {
+			next(err);
 		});
 	}).catch(next);
 });

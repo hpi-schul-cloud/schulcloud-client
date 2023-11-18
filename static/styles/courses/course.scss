@@ -32,7 +32,7 @@
 	.btn-course-dropdown {
 		padding: 0;
 		background-color: white;
-		
+
 		.i-cog {
 			font-size: medium;
 			color: $secondaryColor;
@@ -125,10 +125,6 @@
 		margin-bottom: 20px;
 	}
 
-	.btn-import-topic {
-		margin-bottom: 10px;
-	}
-
 	.lesson-date {
 		line-height: 24px;
 		float: right;
@@ -145,7 +141,7 @@
     cursor: pointer;
     font-size: 18px;
   }
-  
+
   .info-tool-browser {
     color: $colorInfo;
     float: right;
@@ -223,6 +219,10 @@
 				box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 			}
 		}
+
+		@media (prefers-reduced-motion: reduce) {
+			animation: none;
+		}
 	}
 
 	.ui-state-highlight {
@@ -246,6 +246,11 @@
 			border: 1px solid $primaryColor;
 			border-radius: 5px;
 			outline: none;
+		}
+
+		.row > div,
+		.row > h2 {
+			max-width: 1140px;
 		}
 	}
 
@@ -483,6 +488,15 @@
 }
 
 .btn-remove-resource {
+	float: right;
+	cursor: pointer;
+
+	i {
+		color: $primaryColor;
+	}
+}
+
+.btn-edit-h5p {
 	float: right;
 	cursor: pointer;
 

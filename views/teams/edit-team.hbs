@@ -30,19 +30,6 @@
                     <textarea id="teamDesc" class="form-control" data-testid="description_team" name="description">{{team.description}}</textarea>
                 </div>
 
-                {{! Messenger is activated for instace !}}
-                {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-                    {{! Messenger is activated for current school }}
-                    {{#inArray "messenger" @root.schoolData.features}}
-                        <div class="form-group">
-                            <label>
-                                <input id="activateMessenger" type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../team.features}}checked{{/inArray}}>
-                                {{$t "teams._team.edit.label.activateBidirectionalMessenger"}}
-                            </label>
-                        </div>
-                    {{/inArray}}
-                {{/ifConfig}}
-
                 {{! Rocketchat is activated for instace }}
                 {{#if @root.instanceUsesRocketChat}}
                     {{! Rocketchat is activated for current school }}
@@ -78,7 +65,7 @@
                         {{#inArray "videoconference" @root.schoolData.features}}
                         {{else}}
                         <small class="form-text text-muted">
-                            {{$t "teams._team.edit.text.videoConferencesNotAllowedBySchool"}}
+                            {{$t "videoconference.text.videoConferencesNotAllowedBySchool"}}
                         </small>
                         {{/inArray}}
                     </div>

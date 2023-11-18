@@ -1,8 +1,6 @@
 @import "../lib/colors";
 @import "../lib/bootstrap/scss/bootstrap-flex";
 
-@import "./bulk-upload";
-
 .tab-content#submissions {
 	table {
 		border: none;
@@ -163,26 +161,6 @@
 	}
 }
 
-.section-uploaded-files {
-	.fa {
-		margin-right: 10px;
-	}
-	.fa-active {
-		float: right;
-		.fa {
-			color: $primaryColor;
-			cursor: pointer;
-		}
-		.fa.disabled {
-			color: $colorDarkerGrey;
-			cursor: default;
-		}
-		a {
-			text-decoration: none;
-		}
-	}
-}
-
 .submissionLabel {
 	color: $primaryColor;
 	font-size: 1rem;
@@ -199,4 +177,12 @@
 
 .submit-button-container {
 	margin-left: auto;
+
+	.save-button{
+		@include button-variant($primaryColor, $btn-secondary-bg, $btn-primary-border);
+
+		.loadingspinner > div {
+			background-color: $primaryColor;
+		}
+	}
 }

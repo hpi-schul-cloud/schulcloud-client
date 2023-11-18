@@ -32,12 +32,13 @@ const getThumbnailIcon = (filename) => {
 	return thumbnail;
 };
 
-async function filesStorageInit(schoolId, parentId, parentType, req, readonly = false) {
+async function filesStorageInit(schoolId, parentId, parentType, readonly, req) {
 	let files = [];
 
 	if (parentId) {
 		const result = await apiFilesStorage(req, { version: 'v3' })
 			.get(`/file/list/${schoolId}/${parentType}/${parentId}`);
+
 		if (result && result.data) {
 			files = result.data;
 		}

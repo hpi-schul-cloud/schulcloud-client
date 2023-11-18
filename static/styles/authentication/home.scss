@@ -39,7 +39,7 @@ body {
                 width: 173px;
                 height: 2rem;
                 margin-top: -.25rem;
-                margin-bottom: -.5rem;
+                margin-bottom: -.75rem;
                 margin-right: .5rem;
                 background: $logoBackground;
                 background-size: contain;
@@ -62,7 +62,6 @@ body {
         @include media-breakpoint-down(md) {
             text-align: center;
             #title, ul.nav{
-                float: none;
                 display: block;
             }
             ul.nav .nav-item{

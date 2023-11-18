@@ -53,7 +53,7 @@
                 {{#if ../couldLeave}}
                 {{#inArray "LEAVE_TEAM" ../permissions}}
                 <a href="/teams/{{../_id}}/member" class="dropdown-item dropdown-leave-team"
-                    data-user-id="{{../userId}}" redirect="/teams/">
+                    data-user-id="{{../userId}}" data-user-files="{{../userFiles}}" redirect="/teams/">
                     <i class="fa fa-sign-out" aria-hidden="true"></i> {{$t "teams._team.dropdown_menu.link.leaveTeam"}}
                 </a>
                 {{/inArray}}
@@ -282,7 +282,7 @@
             {{$t "global.button.cancel"}}
         </button>
 
-        <button type="submit" class="btn btn-primary btn-submit">
+        <button type="submit" class="btn btn-primary btn-submit" data-testid="delete-team-btn">
             {{$t "global.headline.delete"}}
         </button>
     </div>

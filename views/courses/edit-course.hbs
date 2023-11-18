@@ -14,6 +14,7 @@
 		<script src="{{getAssetPath '/scripts/coursesTimes.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 		<script src="{{getAssetPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 		<script src="{{getAssetPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+		<script src="{{getAssetPath '/scripts/bootstrap-fix/bootstrap-select-hidden-options.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	{{/content}}
 
 
@@ -38,6 +39,7 @@
 							<div class="row">
 								<div class="form-group col-md-6">
                                     {{> "lib/forms/form-date-input" label=($t "global.label.from") id="startDate" value=course.startDate disabled=@root.course.isArchived ariaLabel=($t "administration.global.label.timeSpan") }}
+								</div>
 								<div class="form-group col-md-6">
                                     {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate" value=course.untilDate minDate=(datePickerTodayMinus 0 0 0) ariaLabel=($t "administration.global.label.timeSpan")}}
 								</div>
@@ -118,14 +120,29 @@
 					</div>
 				</div>
 
+                {{#ifConfig "FEATURE_CTL_TOOLS_TAB_ENABLED" true}}
+				{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+                    <div class="form-group">
+                    <input id="activateConf" type="checkbox" name="videoconference" value="true" data-testid="videoconf_checkbox" {{#if @root.course.isArchived}}disabled{{/if}} {{#inArray "videoconference" @root.course.features}}checked{{/inArray}} {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
+                    <label for="activateConf">{{$t "courses._course.edit.label.activateVideoConferences"}}</label>
+                        {{#inArray "videoconference" @root.schoolData.features}}
+                        {{else}}
+                            <small class="form-text text-muted">
+                                {{$t "videoconference.text.videoConferencesNotAllowedBySchool"}}
+                            </small>
+                        {{/inArray}}
+                    </div>
+                {{/ifConfig}}
+                {{/ifConfig}}
+
 				<div class="form-group">
 					<label for="teacherId">{{$t "administration.global.label.teachingTeacher"}}</label>
 
 					<select id="teacherId" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each teachers}}
-							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-									{{this.lastName}}, {{this.firstName}}
+							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
+									{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
 					</select>
@@ -138,8 +155,8 @@
 					<select id="substituteTeacher" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each substitutions}}
-							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-								{{this.lastName}}, {{this.firstName}}
+							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
+								{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
 					</select>
@@ -150,18 +167,29 @@
 
 					<select id="classId" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
-						{{#each classes}}
-							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+						{{#each classesAndGroups}}
+							<option value="{{this.id}}{{#unless this.id}}{{this._id}}{{/unless}}" {{#if this.selected}}selected{{/if}}>
+                                {{#if (getConfig "FEATURE_GROUPS_IN_COURSE_ENABLED")}}
+                                    {{this.name}}
 
-								{{#if this.name}}
-									{{this.displayName}}
-								{{else}}
-									{{this.name}}
-								{{/if}}
+                                    {{#if this.schoolYear}}
+                                        ({{this.schoolYear}})
+                                    {{/if}}
 
-								{{#if this.year}}
-									({{this.year.name}})
-								{{/if}}
+                                    {{#if this.externalSourceName}}
+                                        | {{this.externalSourceName}}
+                                    {{/if}}
+                                {{else}}
+                                    {{#if this.displayName}}
+                                        {{this.displayName}}
+                                    {{else}}
+                                        {{this.name}}
+                                    {{/if}}
+
+                                    {{#if this.year}}
+                                        ({{this.year.name}})
+                                    {{/if}}
+                                {{/if}}
 							</option>
 						{{/each}}
 					</select>
@@ -172,24 +200,12 @@
 					<select id="studentsId" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each students}}
-							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-									{{this.lastName}}, {{this.firstName}}
+							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
+									{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
 					</select>
 				</div>
-
-				{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-					{{#inArray "messenger" @root.schoolData.features}}
-						<div class="form-group">
-							<label>
-								<input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
-								{{$t "courses._course.edit.label.activateBidirectionalMessenger"}}
-							</label>
-						</div>
-					{{/inArray}}
-				{{/ifConfig}}
-
 
 				<label>{{$t "administration.global.label.chooseDate"}}</label>
 				<div class="times" id="timesContainer">
@@ -280,7 +296,7 @@
 						</button>
 
                         {{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit" data-testid="modal_delete_course_button">
+						<button type="submit" class="btn btn-primary btn-submit" data-testid="modal-edit-course-button">
 							{{submitLabel}}
 						</button>
 					</div>

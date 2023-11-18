@@ -1,13 +1,30 @@
 import getCookie from '../../../../helpers/cookieManager';
 import { apiV3FileStorageBasePath, getFileDownloadUrl } from '../../../../helpers/storage';
+import { createParent } from '../../../../helpers/homework';
 
 export default class FileBrowserHelper {
-	static async getFileUrl() {
+	static async getFileUrl(sourceElement) {
 		const courseFileUrl = $('#url-input').val();
 
-		const parentId = $('.ckeditor').data('parent-id');
-		const schoolId = $('.ckeditor').data('school-id');
-		const parentType = $('.ckeditor').data('parent-type');
+		let parentId = sourceElement.getAttribute('data-parent-id');
+		const parentType = sourceElement.getAttribute('data-parent-type');
+		const schoolId = sourceElement.getAttribute('data-school-id');
+		const homeworkId = sourceElement.getAttribute('data-homework-id');
+
+		if (parentId === '') {
+			parentId = await createParent(parentType);
+
+			sourceElement.setAttribute('data-parent-id', parentId);
+			$('.section-upload').attr('data-parent-id', parentId);
+
+			if (parentType === 'submissions') {
+				const referrer = `/homework/${homeworkId}#activetabid=submission`;
+				$('input[name="referrer"]').val(referrer);
+			} else {
+				const referrer = `/homework/${parentId}`;
+				$('input[name="referrer"]').val(referrer);
+			}
+		}
 
 		if (parentId !== undefined && schoolId !== undefined && parentType !== undefined) {
 			return this.copyFile(schoolId, parentType, parentId, courseFileUrl);

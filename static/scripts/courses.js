@@ -95,6 +95,7 @@ $(document).ready(() => {
 					closeLabel: $t('global.button.cancel'),
 					submitLabel: $t('global.button.save'),
 					fields: { invitation: data.newUrl },
+					submitDataTestId: 'invitation-modal',
 				});
 				$invitationModal.find('.btn-submit').remove();
 				$invitationModal.find('input[name="invitation"]').click(function inputNameInvitation() {
@@ -104,23 +105,6 @@ $(document).ready(() => {
 				$invitationModal.appendTo('body').modal('show');
 			},
 		});
-	});
-
-	$('.btn-import-topic').click(function importTopic(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		const courseId = $(this).attr('data-courseId');
-		const $importModal = $('.import-modal');
-		populateModalForm($importModal, {
-			title: $t('courses._course.topic.headline.importTopic'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.save'),
-			fields: { courseId },
-		});
-
-		const $modalForm = $importModal.find('.modal-form');
-		$modalForm.attr('action', `/courses/${courseId}/importTopic`);
-		$importModal.appendTo('body').modal('show');
 	});
 
 	$('.move-handle').click((e) => {
@@ -162,6 +146,7 @@ $(document).ready(() => {
 					title: $t('courses._course.headline.shareCodeGenerated'),
 					closeLabel: $t('global.button.close'),
 					fields: { shareToken: data.shareToken },
+					submitDataTestId: 'share-modal',
 				});
 				$shareModal.find('.btn-submit').remove();
 				$shareModal.find('input[name="shareToken"]').click(function inputNameShareToken() {
@@ -335,6 +320,7 @@ $(document).ready(() => {
 						title: $t('courses._course.headline.createVideoconference', { coursename: data.course.name }),
 						closeLabel: $t('global.button.cancel'),
 						submitLabel: $t('global.button.create'),
+						submitDataTestId: data.course.name,
 					});
 				},
 			});
@@ -400,6 +386,7 @@ $(document).ready(() => {
 		populateModalForm($bbbReloadInfoModal, {
 			title: '',
 			closeLabel: 'OK',
+			submitDataTestId: 'bbb-reload-info-modal',
 		});
 
 		$bbbReloadInfoModal.appendTo('body').modal('show');

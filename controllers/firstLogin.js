@@ -11,6 +11,7 @@ const { getCurrentLanguage } = require('../helpers/i18n');
 const converter = new showdown.Converter();
 
 const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
+const redirectHelper = require('../helpers/redirect');
 
 const router = express.Router();
 
@@ -28,14 +29,36 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 	},
 });
 
+const getSchoolConsentVersionByType = async (req, res, consentType) => {
+	if (consentType !== 'privacy' && consentType !== 'termsOfUse') {
+		return undefined;
+	}
+
+	const qs = {
+		schoolId: res.locals.currentUser.schoolId,
+		consentTypes: [consentType],
+		consentDataId: { $exists: true },
+		$limit: 1,
+		$sort: {
+			publishedAt: -1,
+		},
+	};
+
+	const consentVersion = await api(req).get('/consentVersions', { qs });
+
+	return consentVersion.data.length ? `/base64Files/${consentVersion.data[0].consentDataId}` : undefined;
+};
+
 // firstLogin
 router.get('/', async (req, res, next) => {
 	const { currentUser } = res.locals;
+	const { redirect } = req.query;
+	const redirectUrl = redirect ? redirectHelper.getValidRedirect(redirect) : '/dashboard';
 
 	if (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === true) {
 		return api(req)
 			.post('/firstLogin/', { json: req.body })
-			.then(() => res.redirect('/dashboard'))
+			.then(() => res.redirect(redirectUrl))
 			.catch((err) => {
 				res.status(500)
 					.send(
@@ -86,9 +109,9 @@ router.get('/', async (req, res, next) => {
 	} = await api(req)
 		.get(`/consents/${currentUser._id}/check/`);
 
-	// Skip in case of firstlogin is done and no consent updates are availlable
+	// Skip in case of first login is done and no consent updates are available
 	if (haveBeenUpdated === false && (currentUser.preferences || {}).firstLogin) {
-		return res.redirect('/dashboard');
+		return res.redirect(redirectUrl);
 	}
 	let updatedConsents = {};
 
@@ -174,7 +197,7 @@ router.get('/', async (req, res, next) => {
 		}
 
 		// EMAIL
-		if (!res.locals.currentUser.source) {
+		if (!(res.locals.currentUser.source || res.locals.currentPayload.isExternalUser)) {
 			// only display the confirm email page if the user was not generated from an external source
 			submitPageIndex += 1;
 			sections.push('email');
@@ -224,22 +247,22 @@ router.get('/', async (req, res, next) => {
 
 	// THANKS
 	sections.push('thanks');
-	const privacyData = _.get(updatedConsents, 'privacy.data');
-	const consentDataId = privacyData && privacyData.length > 0
-		? privacyData[0].consentDataId : undefined;
-	const schoolPrivacyLink = consentDataId ? `base64Files/${consentDataId}` : undefined;
 	const renderObject = {
 		title: res.$t('login.headline.firstLogin'),
 		hideMenu: true,
 		sso: !!(res.locals.currentPayload || {}).systemId,
 		now: Date.now(),
 		sections: sections.map((name) => `firstLogin/sections/${name}`),
-		schoolPrivacyLink,
+		schoolPrivacyLink: await getSchoolConsentVersionByType(req, res, 'privacy'),
+		schoolTermsLink: await getSchoolConsentVersionByType(req, res, 'termsOfUse'),
+		schoolPrivacyName: res.$t('global.text.dataProtection'),
 		submitPageIndex,
 		userConsent,
 		updatedConsents,
 		CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 		roleNames: res.locals.roles,
+		redirectUrl,
+		showAlerts: true,
 	};
 
 	if (haveBeenUpdated) {

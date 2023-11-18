@@ -8,20 +8,19 @@ $(document).ready(() => {
 		get: (searchParams, prop) => searchParams.get(prop),
 	});
 	const { sortDirection } = params;
-	const role = $('.dropdown-name').attr('current-user');
+	const thClass = '.is-sorted.table-wrapper .col-sort';
 
 	const sortByAscDesc = () => {
-		$('.col-sort').click((e) => {
+		$(thClass).click((e) => {
 			e.stopPropagation();
 			e.preventDefault();
-
 			const key = e.target.getAttribute('key');
 			const url = window.location.pathname;
 			if (key <= 2) {
-				if (sortDirection === 'asc') {
-					window.location = `${url}?sortDirection=desc&sortBy=${key}`;
-				} else {
+				if (sortDirection === 'desc') {
 					window.location = `${url}?sortDirection=asc&sortBy=${key}`;
+				} else {
+					window.location = `${url}?sortDirection=desc&sortBy=${key}`;
 				}
 			}
 		});
@@ -29,17 +28,15 @@ $(document).ready(() => {
 
 	const className = sortDirection === 'desc' ? 'fa-caret-down' : 'fa-caret-up';
 
-	if (role === 'Administrator') {
-		$('.col-sort').each((index, elem) => {
-			if (index < 3) {
-				$(elem).append(
-					$(`<i class='col-sort-icon fa ${className}'></i>`),
+	$(thClass).each((index, elem) => {
+		if (index < 3) {
+			$(elem).append(
+				$(`<i class='col-sort-icon fa ${className}'></i>`),
 				);
 			}
 		});
 
 		sortByAscDesc();
-	}
 
 	const handler = {
 		get(target, name) {
@@ -94,6 +91,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.headline.addMember'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.add'),
+			submitDataTestId: 'add-member-modal',
 		});
 
 		// Needed? const $modalForm = $addMemberModal.find('.modal-form');
@@ -164,6 +162,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.add.headline.inviteExternMember'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.add.button.inviteMember'),
+			submitDataTestId: 'invite-external-member-modal',
 		});
 
 		$('#federalstate').trigger('change');
@@ -325,6 +324,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.add.headline.sendInvitationAgain'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.add.button.sendInvitation'),
+			submitDataTestId: 'resend-invitation-modal',
 		});
 
 		$resendInvitationModal.appendTo('body').modal('show');
@@ -360,6 +360,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.add.headline.deleteInvitation'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.add.button.deleteInvitation'),
+			submitDataTestId: 'delete-invitation-modal',
 		});
 
 		$deleteMemberModal.appendTo('body').modal('show');
@@ -398,6 +399,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.headline.editMember'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.button.editMember'),
+			submitDataTestId: 'edit-member-modal',
 			payload: userId,
 		});
 
@@ -448,8 +450,34 @@ $(document).ready(() => {
 			title: $t('teams._team.members.headline.deleteMember'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.button.deleteMember'),
+			submitDataTestId: 'delete-member-modal',
 			payload: userIdToRemove,
 		});
+
+		const $deleteInfoText = $deleteMemberModal.find('.confirm');
+		const $deleteInfoAlert = $deleteMemberModal.find('.alert');
+		const $deleteInfoTextAlt = $deleteMemberModal.find('.confirm_alt');
+		const $fileList = $deleteMemberModal.find('.file-list');
+
+		if (userIdToRemove.files && userIdToRemove.files.length > 0) {
+			let fileListHtmlLi = '';
+
+			for (const file of userIdToRemove.files) {
+				fileListHtmlLi += `<li>${file}</li>`;
+			}
+
+			$deleteInfoText.hide();
+			$deleteInfoAlert.show();
+			$deleteInfoTextAlt.show();
+			$fileList.show();
+
+			$fileList.html(fileListHtmlLi);
+		} else {
+			$deleteInfoAlert.hide();
+			$deleteInfoTextAlt.hide();
+			$fileList.hide();
+			$deleteInfoText.show();
+		}
 
 		// Needed?? const $modalForm = $deleteMemberModal.find('.modal-form');
 		$deleteMemberModal.appendTo('body').modal('show');
@@ -489,6 +517,7 @@ $(document).ready(() => {
 			title: $t('teams._team.members.headline.deleteClass'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.members.button.deleteClass'),
+			submitDataTestId: 'delete-class-modal',
 			payload: classIdToRemove,
 		});
 

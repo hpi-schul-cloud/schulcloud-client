@@ -8,7 +8,7 @@
 	<label>
 		<input name="{{prefix}}privacyConsent" type="checkbox" value="true" required/>
 		{{#if @root.schoolPrivacyLink}}
-			<span>{{{$t "registration._registration.parent.text.myDataMayBeProcessed" (dict "link" @root.schoolPrivacyLink "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
+			<span>{{{$t "registration._registration.parent.text.myDataMayBeProcessed" (dict "link" @root.schoolPrivacyLink "name" @root.schoolPrivacyName "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
 		{{else}}
 			<span>{{{$t "registration._registration.parent.text.myDataMayBeProcessed" (dict "link" @root.theme.documents.specificFiles.privacyExemplary "title" @root.theme.title)}}} </span>
 		{{/if}}
@@ -19,7 +19,7 @@
 	<label>
 		<input name="{{prefix}}privacyConsent" type="checkbox" value="true" required/>
 		{{#if @root.schoolPrivacyLink}}
-			<span>{{{$t "registration._registration.global.text.myDataMayBeProcessed" (dict "link" @root.schoolPrivacyLink "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
+			<span>{{{$t "registration._registration.global.text.myDataMayBeProcessed" (dict "link" @root.schoolPrivacyLink "name" @root.schoolPrivacyName "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
 		{{else}}
 			<span>{{{$t "registration._registration.global.text.myDataMayBeProcessed" (dict "link" @root.theme.documents.specificFiles.privacyExemplary "title" @root.theme.title)}}} </span>
 		{{/if}}	</label>
@@ -28,5 +28,9 @@
 
 <label>
     <input name="{{prefix}}termsOfUseConsent" type="checkbox" value="true" required/>
-    <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" @root.theme.documents.specificFiles.termsOfUseExemplary "title" @root.theme.title)}}}</span>
+    {{#if @root.schoolTermsLink}}
+        <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" @root.schoolTermsLink "name" @root.schoolTermsName "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
+    {{else}}
+        <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" @root.theme.documents.specificFiles.termsOfUseExemplary "title" @root.theme.title)}}}</span>
+    {{/if}}
 </label>

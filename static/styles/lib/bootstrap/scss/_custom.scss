@@ -30,7 +30,7 @@ $brand-secondary: $secondaryColor !default;
 $brand-success: #5cb85c !default;
 $brand-info: #5bc0de !default;
 $brand-warning: #f0ad4e !default;
-$brand-danger: #d9534f !default;
+$brand-danger: #ff1134 !default;
 $brand-inverse: $gray-dark !default;
 // Options
 //
@@ -234,6 +234,21 @@ $btn-padding-x-lg: 1.5rem !default;
 $btn-padding-y-lg: .75rem !default;
 $btn-block-spacing-y: .5rem !default;
 $btn-toolbar-margin: .5rem !default;
+// Status alert colors
+$alert-info-color: #0A7AC9 !default;
+$alert-info-bg:      $alert-info-color !default;
+$alert-info-border:  $alert-info-color !default;
+// Announcement colors
+$alert-announcement-color: #D9EDF7 !default;
+$alert-announcement-bg: $alert-announcement-color !default;
+$state-announcement-border: $alert-announcement-color !default;
+$state-announcement-text: #1B1B1B !default;
+// Alerts
+//
+// Define alert colors, border radius, and padding.
+$btn-alert-info:  #0A7AC9 !default;
+$btn-alert-info-bg: $btn-alert-info !default;
+$btn-alert-info-border: $btn-alert-info !default;
 // Allows for customizing button radius independently from global border radius
 $btn-border-radius: $border-radius !default;
 $btn-border-radius-lg: $border-radius-lg !default;
@@ -468,9 +483,15 @@ $state-warning-text: #8a6d3b !default;
 $state-warning-bg: #fcf8e3 !default;
 $mark-bg: $state-warning-bg !default;
 $state-warning-border: darken($state-warning-bg, 5%) !default;
+$state-warning-v2-text: rgb(0,0,0) !default;
+$state-warning-v2-bg: rgba(255, 131, 17, 0.12) !default;
+$state-warning-v2-border: darken($state-warning-v2-bg, 5%) !default;
 $state-danger-text: #a94442 !default;
 $state-danger-bg: #f2dede !default;
 $state-danger-border: darken($state-danger-bg, 5%) !default;
+$state-announcement-bg: #d9edf7 !default;
+$state-announcement-border: #d9edf7 !default;
+$state-announcement-text: #1b1b1b !default;
 // Cards
 $card-spacer-x: 1.25rem !default;
 $card-spacer-y: .75rem !default;
@@ -567,9 +588,14 @@ $alert-info-border: $state-info-border !default;
 $alert-warning-bg: $state-warning-bg !default;
 $alert-warning-text: $state-warning-text !default;
 $alert-warning-border: $state-warning-border !default;
+$alert-warning-v2-bg: $state-warning-v2-bg !default;
+$alert-warning-v2-text: $state-warning-v2-text !default;
 $alert-danger-bg: $state-danger-bg !default;
 $alert-danger-text: $state-danger-text !default;
 $alert-danger-border: $state-danger-border !default;
+$alert-announcement-bg: $state-announcement-bg !default;
+$alert-announcement-border: $state-announcement-border !default;
+$alert-announcement-text: $state-announcement-text !default;
 // Progress bars
 $progress-bg: #eee !default;
 $progress-bar-color: #0074d9 !default;

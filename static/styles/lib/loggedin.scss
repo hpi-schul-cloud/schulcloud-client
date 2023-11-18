@@ -1,6 +1,10 @@
-@import './colors';
-@import './bootstrap/scss/bootstrap-flex';
+@import "./colors";
+@import "./bootstrap/scss/bootstrap-flex";
 @import "./editor";
+@import "./alerts.scss";
+@import "./bootstrap/scss/mixins/grid";
+
+$translateModal: translate(50px, 0px);
 
 // page transition animation
 .section-title,
@@ -203,7 +207,7 @@ aside.nav-sidebar {
 				height: 60px;
 				color: $secondaryColor;
 				fill:$secondaryColor;
-				padding: 0px 5px;
+				padding: 0px 16px;
 				font-size: 16px;
 				text-decoration: none;
 				overflow-x: visible;
@@ -219,7 +223,7 @@ aside.nav-sidebar {
 					line-height: 40px;
 					border-bottom: 1px solid transparent;
 
-					.fa,
+					.mdi,
 					svg {
 						margin-left: 10px;
 					}
@@ -228,7 +232,7 @@ aside.nav-sidebar {
 						height: 60px;
 						line-height: 60px;
 
-						.fa,
+						.mdi,
 						svg {
 							display: inline-block;
 							margin: 0;
@@ -240,7 +244,7 @@ aside.nav-sidebar {
 						height: 40px;
 						line-height: 40px;
 
-						.fa,
+						.mdi,
 						svg {
 							margin-left: 10px;
 						}
@@ -261,13 +265,13 @@ aside.nav-sidebar {
 					cursor: pointer;
 				}
 
-				i.fa {
-					font-size: 20px;
-					width: 25px;
-					margin-right: 6px;
+				i.mdi {
+					font-size: 24px;
+					width: 24px;
 					display: inline-block;
 					text-align: center;
-					vertical-align: middle;
+					vertical-align: text-top;
+					margin-bottom: 2px;
 
 					&:before {
 						vertical-align: inherit;
@@ -275,19 +279,21 @@ aside.nav-sidebar {
 				}
 
 				svg {
-					font-size: 20px;
-					width: 25px;
-					margin-right: 6px;
+					width: 24px;
 					display: inline-block;
 					text-align: center;
-					vertical-align: middle;
-					height: 1em;
+					height: 24px;
+					margin-bottom: 2px;
 				}
 
 				span {
 					display: inline-block;
 					text-transform: uppercase;
 					text-decoration: none;
+					margin-left: 8px;
+					margin-bottom: 2px;
+					text-overflow: ellipsis;
+    			overflow: hidden;
 
 					@include media-breakpoint-down(md) {
 						display: none;
@@ -306,15 +312,15 @@ aside.nav-sidebar {
 	display: none;
 	position: absolute;
 	z-index: 5;
-	top: 8px;
+	top: 3px;
 	left: 8px;
 	padding: 14px;
-	font-size: 22px;
+	font-size: 24px;
 	line-height: 22px;
 	cursor: pointer;
 	transition: transform .3s linear, z-index 0s linear .3s;
 
-	.fa {
+	.mdi {
 		transition: color .1s linear .1s;
 	}
 
@@ -396,7 +402,7 @@ header {
 	.section-default {
 		width: 100%;
 		float: left;
-		padding: 30px 0px 50px;
+		padding: 30px 0px 5px;
 		line-height: 1.75rem;
 
 		& + .section-default {
@@ -614,10 +620,8 @@ footer {
 
 .topbar {
 	text-align: right;
-
 	@include media-breakpoint-down(xs) {
 		margin-bottom: 15px;
-		margin-top: -16px;
 		padding-left: 50px !important;
 		background: $colorWhite;
 		box-shadow: 0 2px 10px rgba(0, 0, 0, .36);
@@ -662,133 +666,6 @@ footer {
 	}
 }
 
-.navbar-nav {
-	.btn-thin {
-		padding-left: 5px !important;
-		padding-right: 5px !important;
-	}
-
-	.btn-avatar {
-		.dropdown-menu {
-			min-width: 12rem;
-
-			.dropdown-item {
-				padding: 8px 1.5rem;
-			}
-		}
-
-		.dropdown-toggle {
-			padding: 0 !important;
-			border-radius: 50%;
-			border: none;
-			margin-left: -.75rem;
-			background: transparent;
-
-			.avatar-circle {
-				background-color: $secondaryColor;
-			}
-
-			.avatar-circle:hover {
-				background-color: darken($secondaryColor, 17%);
-			}
-
-			&:after {
-				display: none;
-			}
-		}
-
-		.dropdown-name {
-			text-align: left;
-			padding: 5px 15px 10px 15px;
-			border-bottom: solid 1px lightgrey;
-			margin-bottom: 5px;
-			cursor: default;
-		}
-	}
-
-	.minimal-button {
-		.dropdown-toggle {
-			padding: 10px !important;
-			border-radius: 50%;
-			border: none;
-			margin-left: -.75rem;
-			text-align: center;
-			background: transparent;
-
-			.fa {
-				display: inline-block;
-				font-size: 20px;
-				line-height: 1em;
-				width: 1em;
-				height: 1em;
-			}
-
-			.tag {
-				position: absolute;
-				border-radius: 50%;
-				top: 0;
-				right: 0px;
-			}
-
-			&:hover {
-				background-color: $colorLightGrey;
-			}
-
-			&:after {
-				display: none;
-			}
-		}
-
-		&.open {
-			.dropdown-toggle {
-				background-color: rgba(0, 0, 0, 0.05);
-			}
-		}
-
-		.dropdown-menu {
-			padding: 0;
-			left: -25px;
-
-			/* this CS forms the triangles */
-			&:after,
-			&:before {
-				content: '';
-				display: block;
-				position: absolute;
-				top: -10px;
-				width: 0;
-				height: 0;
-				border-style: solid;
-			}
-
-			/* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
-			&:after {
-				left: 20px;
-				border-color: transparent transparent #fff transparent;
-				border-width: 11px;
-				margin-top: -11px;
-			}
-
-			/* this border color controlls the outside, thin border */
-			&:before {
-				left: 20px;
-				border-color: transparent transparent rgba(0, 0, 0, .15) transparent;
-				border-width: 11px;
-				margin-top: -12px;
-			}
-
-			@include media-breakpoint-down(sm) {
-				left: -216px;
-
-				&::after,
-				&::before {
-					left: 210px;
-				}
-			}
-		}
-	}
-}
-
 .qr-code-action {
 	.qr-show {
 		padding: 15px;
@@ -801,49 +678,6 @@ footer {
 
 	.qr-hint-text {
 		padding: 0px 15px 15px 15px;
-	}
-}
-
-.alert-button {
-	visibility: hidden;
-
-	&.danger i {
-		color: $colorDanger;
-	}
-
-	.dropdown-menu {
-		width: 400px;
-	}
-
-	@media (max-width: 450px) {
-		.dropdown-menu {
-			width: 70vw;
-			left: -70px !important;
-		}
-
-		.dropdown-menu::before,
-		.dropdown-menu::after {
-			content: none !important;
-		}
-	}
-
-	.alert-item {
-		padding: 10px 15px;
-		font-size: 14px;
-
-		.alert-title {
-			font-size: 16px;
-			padding-bottom: 2px;
-		}
-
-		.alert-date {
-			padding-top: 2px;
-			float: right;
-		}
-
-		&:not(:first-child) {
-			border-top: 1px solid #e5e5e5;
-		}
 	}
 }
 
@@ -892,16 +726,25 @@ footer {
 	}
 
 	.list-group-item {
+		display: flex;
 		padding-left: 15px;
 		padding-right: 15px;
 		margin-bottom: 0;
-		font-size: 14px;
+		font-size: 16px;
 		border-width: 0;
 		border-bottom-width: 1px;
 	}
 
+	.list-group-item svg {
+		fill: $primaryColor;
+	}
+
 	.link {
 		padding-left: 8px;
+		text-transform: uppercase;
+		white-space: nowrap;
+    overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.delimiter {
@@ -971,4 +814,86 @@ footer {
 
 .school-logo {
 	max-height: 60px;
+}
+
+.content-wrapper .cloud-logo {
+	display: inline-block;
+	vertical-align: top;
+	width: 50px;
+	height: 30px;
+	margin: -5px 4px 0 -10px;
+	background: $logoBackground;
+	background-size: contain;
+
+	@include media-breakpoint-down(md) {
+		width: 100%;
+		margin-right: 0;
+	}
+
+	@include media-breakpoint-down(xs) {
+		width: 45px;
+		margin-right: 0;
+	}
+}
+
+@media (max-width: 575px) {
+	.topbar.navbar {
+		height: 56px;
+	}
+
+	.sc-branding {
+		width: fit-content;
+	}
+
+  .breadcrumb,
+  .btn-fullscreen,
+  .qr-code-action,
+  .help-drodown {
+    display: none !important;
+  }
+
+	.content-wrapper .cloud-logo {
+		width: 166px;
+		height: 50px;
+		float: left;
+		z-index: 1 !important;
+		margin-left: 1px;
+	}
+	.mdi-menu {
+		margin: 5px -5px;
+	}
+	.avatar-circle {
+		margin-left: -25px;
+		margin-right: -3px;
+    margin-top: 3px;
+	}
+	.minimal-button-loggedin {
+		top: -0.7px;
+	}
+}
+
+@media (min-width: 320px) and (max-width: 340px) {
+	.alert-button .minimal-button .dropdown-menu {
+		transform: $translateModal;
+	}
+}
+
+@media (min-width: 341px) and (max-width: 360px) {
+	.alert-button .minimal-button .dropdown-menu {
+		width: 92vw;
+		transform: $translateModal;
+	}
+}
+
+@media (min-width: 361px) and (max-width: 420px) {
+	.alert-button .minimal-button .dropdown-menu {
+		transform: $translateModal;
+		width: 80vw;
+	}
+}
+
+@media (min-width: 575px) {
+  .content-wrapper .cloud-logo {
+		display: none !important;
+	}
 }

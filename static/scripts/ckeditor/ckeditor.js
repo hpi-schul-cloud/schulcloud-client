@@ -1,4 +1,5 @@
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import showFallbackImageOnError from '../helpers/showFallbackImageOnError';
 import ckeditorConfig from './ckeditor-config';
 
 const url = window.location.pathname;
@@ -15,7 +16,7 @@ const setStorageContext = () => {
 				storageContext = '/files/courses/';
 			}
 		} else {
-			storageContext = document.getElementById('courseId').getAttribute('href') || 'courses';
+			storageContext = document.getElementById('courseId')?.getAttribute('href') || '/files/courses';
 		}
 		ckeditorConfig.filebrowser.browseUrl = storageContext;
 	}
@@ -39,6 +40,8 @@ const initEditor = async (element) => {
 		editor.commands.get('audiobrowser').forceDisabled();
 		editor.commands.get('videobrowser').forceDisabled();
 	}
+
+	showFallbackImageOnError();
 
 	editor.model.document.on('change:data', () => {
 		editor.updateSourceElement();

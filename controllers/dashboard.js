@@ -39,6 +39,7 @@ const getCalendarEvents = (req, res, {
 			all: 'false', // must set to false to use from and until request
 			from: start.toISOString(true),
 			until: end.toISOString(true),
+			admin: 'false',
 		},
 	})
 	.then((eve) => Promise.all(
@@ -155,7 +156,7 @@ router.get('/', (req, res, next) => {
 	const homeworksPromise = api(req)
 		.get('/homework/', {
 			qs: {
-				$populate: ['courseId'],
+				$populate: ['courseId', 'lessonId'],
 				$sort: 'createdAt',
 				archived: { $ne: userId },
 				schoolId,
@@ -186,6 +187,11 @@ router.get('/', (req, res, next) => {
 			} else {
 				homeworks.title = homeworks.name;
 				homeworks.private = true;
+			}
+			if (homeworks.lessonId != null) {
+				homeworks.lessonHidden = homeworks.lessonId.hidden;
+			} else {
+				homeworks.lessonHidden = false;
 			}
 			homeworks.url = `/homework/${homeworks._id}`;
 			homeworks.content = homeworks.description;
@@ -328,7 +334,7 @@ router.get('/', (req, res, next) => {
 				);
 				studentHomeworks = assignedHomeworks.filter(
 					(homework) => (!homework.submissions || homework.submissions === 0)
-						&& !homework.hasEvaluation,
+						&& !homework.hasEvaluation && !homework.lessonHidden,
 				);
 			}
 

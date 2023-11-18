@@ -9,15 +9,16 @@
         <div id="submission" class="tab-content active">
             <div class="comment">
                 {{#if this.submission.submitted}}
-                    {{#embed "lib/components/files-storage/files" this.submission.submissionFiles}}{{/embed}}
-                <hr>
-                <div class="ckcontent print">
-                    <div class="btn btn-secondary btn-print mb-1"
-                        data-toggle="tooltip" title="{{$t "homework._task.label.printSubmission"}}">
-                            <i class='fa fa-print'></i> {{$t "global.button.print" }}
-                    </div>
-                    {{{this.submission.comment}}}
-                </div>
+                    {{#if this.submission.comment}}
+                        <div class="ckcontent print">
+                            <div class="btn btn-secondary btn-print mb-1"
+                                data-toggle="tooltip" title="{{$t "homework._task.label.printSubmission"}}">
+                                    <i class='fa fa-print'></i> {{$t "global.button.print" }}
+                            </div>
+                            {{{this.submission.comment}}}
+                        </div>
+                    {{/if}}
+                {{#embed "lib/components/files-storage/files" this.submission.submissionFiles}}{{/embed}}
                 {{else}}
                     {{$t "homework.text.noSubmission" }}
                 {{/if}}
@@ -26,18 +27,9 @@
         <div id="comment" class="tab-content submission-editor">
             {{#if @root.isTeacher}}
                 {{#if this.submission.submitted}}
-                    {{#embed "files/file-upload"}}{{/embed}}
                     <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
                     <input name="teamMembers" id="teamMembers" type="hidden" data-force-value="true" value="{{userIds this.submission.teamMembers}}" />
-                    {{#ifneq 0 (arrayLength this.submission.gradeFileIds)}}
-                        {{#embed "homework/components/submission_files"
-                            fileIds=../submission.gradeFileIds
-                            grading=true
-                            deletionAllowed=true
-                            submission=../submission}}{{/embed}}
-                    {{/ifneq}}
-
-                    <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
+                    <form class="form {{this.submission._id}}" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
                         <input type="hidden" name="isEvaluation" value="true" />
 
@@ -46,22 +38,36 @@
                             <input name="courseGroupId" type="hidden" value="{{this.submission.courseGroupId._id}}"/>
                             <input name="teamSubmissionOptions" type="hidden" value="courseGroup"/>
                         {{/if}}
+                        <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submissions&submissionId={{this.submission._id}}&activeSubmissionTabId=comment-tab-link" />
                 {{else}}
                     <form class="form" method="post" action="/homework/submit">
                         <input type="hidden" name="_method" data-force-value="true" value="post" />
                         <input name="schoolId" type="hidden" data-force-value="true" value="{{this.submission.studentId.schoolId}}" />
                         <input name="studentId" type="hidden" data-force-value="true" value="{{this.submission.studentId._id}}" />
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
-                {{/if}}
                         <input name="referrer" type="hidden" data-force-value="true" value="#activetabid=submissions" />
+                {{/if}}
                         <div class="comment form-group">
                             <div class="form-group">
                                 <label>{{$t "homework.label.rating" }}<small> {{$t "homework.label.inPercent" }}</small></label>
                                 <input data-testid="evaluation_procent" type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}" />
                             </div>
                             <label>{{$t "homework.label.comment" }}</label>
-                            <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control ckeditor customckeditor" placeholder="{{$t "homework.input.gradeComment"}}">{{this.submission.gradeComment}}</textarea>
+                            <textarea
+                                id="evaluation {{this.submission._id}}"
+                                name="gradeComment"
+                                type="text"
+                                class="form-control ckeditor customckeditor"
+                                placeholder="{{$t "homework.input.gradeComment"}}"
+                                data-parent-id="{{this.submission._id}}"
+                                data-school-id="{{this.submission.schoolId}}"
+                                data-parent-type="submissions"
+                                data-testid="submission-comment"
+                            >
+                                    {{this.submission.gradeComment}}
+                            </textarea>
                         </div>
+                        {{#embed "lib/components/files-storage/files" this.submission.gradeFiles}}{{/embed}}
                         {{#userHasPermission "HOMEWORK_CREATE"}}
                             {{> "lib/components/csrfInput"}}
                             <input type="hidden" name="graded" value="true"/>
@@ -77,13 +83,7 @@
                         <p>{{$t "homework.text.noEvaluationTextAvailable" }}</p>
                     {{/if}}
                 </div>
-                {{#ifneq 0 (arrayLength this.submission.gradeFileIds)}}
-                    {{#embed "homework/components/submission_files"
-                        fileIds=../submission.gradeFileIds
-                        grading=true
-                        deletionAllowed=false
-                        submission=../submission}}{{/embed}}
-                {{/ifneq}}
+                {{#embed "lib/components/files-storage/files" this.submission.gradeFiles}}{{/embed}}
             {{/if}}
         </div>
     </div>

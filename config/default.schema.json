@@ -25,10 +25,21 @@
 				"KEEP_ALIVE": true
 			}
 		},
+		"HOST": {
+			"type": "string",
+			"format": "uri",
+			"default": "http://localhost:3100"
+		},
 		"API_HOST": {
 			"type": "string",
 			"format": "uri",
 			"default": "http://localhost:3030/api"
+		},
+		"PUBLIC_BACKEND_URL": {
+			"type": "string",
+			"format": "uri",
+			"pattern": ".*(?<!/)$",
+			"description": "The server api url that is accessible from the web (should end without a slash)."
 		},
 		"CORS": {
 			"type": "boolean",
@@ -45,13 +56,22 @@
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage when not loggedin."
 		},
-		"GLOBAL_ANNOUNCEMENT_TEACHER": {
+		"GLOBAL_ANNOUNCEMENT_TEXT": {
 			"type": "string",
-			"description": "global announcement, shown only to teacher"
+			"description": "global announcement, shown to all user roles specified in GLOBAL_ANNOUNCEMENT_ROLES"
 		},
-		"GLOBAL_ANNOUNCEMENT": {
+		"GLOBAL_ANNOUNCEMENT_ROLES": {
 			"type": "string",
-			"description": "global announcement, shown as notification in header on startpage"
+			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
+		},
+		"DASHBOARD_ANNOUNCEMENT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "enbale announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
+		},
+		"DASHBOARD_ANNOUNCEMENT_ROLES": {
+			"type": "string",
+			"description": "comma separated list of roles which dashboard announcement is shown to"
 		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
 			"type": "string",
@@ -141,6 +161,11 @@
 			"default": "/login",
 			"description": "The URL to authenticate. Unauthenticated users are redirected to this URL with ?redirect= pointing to the original request URL"
 		},
+		"ROOT_URL_REDIRECT": {
+			"type": "string",
+			"default": "",
+			"description": "The URL to redirect to when accessing '/'. Leave empty for no redirect."
+		},
 		"FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED": {
 			"type": "boolean",
 			"default": false,
@@ -151,58 +176,25 @@
 			"default": "support@dbildungscloud.de",
 			"description": "Contact E-Mail Address to The HPI School-Cloud team."
 		},
-		"MATRIX_MESSENGER": {
-			"type": "object",
-			"description": "Matrix messenger properties, required always to be defined",
-			"required": ["URI", "EMBED_URI", "DISCOVER_URI"],
-			"properties": {
-				"URI": {
-					"type": "string",
-					"format": "uri",
-					"description": "The URI of the Matrix Messenger server."
-				},
-				"EMBED_URI": {
-					"type": "string",
-					"format": "uri",
-					"pattern": ".*(?<!/)$",
-					"description": "Where to find the messenger dependencies."
-				},
-				"DISCOVER_URI": {
-					"type": "string",
-					"format": "uri",
-					"description": "URI to discover the homeserver"
-				},
-				"STUDENT_ROOM_CREATION": {
-					"type": "boolean",
-					"default": false,
-					"description": "If enabled, school admins can allow students to create additional chat rooms"
-				},
-				"SCHOOL_SETTINGS_VISIBLE": {
-					"type": "boolean",
-					"default": false,
-					"description": "Only if enabled, school admins can activate the messenger in their school setting"
-				},
-				"SCHOOL_ROOM_ENABLED": {
-					"type": "boolean",
-					"default": false,
-					"description": "If enabled, school admins can choose to create a room for all students and teachers of the school"
-				}
-			}
-		},
 		"NO_COLOR": {
 			"type": "string",
-			"description": "The value is used to disable logging color in terminal and is set in production always to true. It is not connected to the loggers it self."
-		},
-		"FEATURE_MATRIX_MESSENGER_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "If enabled, adds support for matrix messenger"
+			"description": "The value is used to disable logging color in terminal and is set in production always to true."
 		},
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled, user will see messages/incidents from e.g status.dbildungscloud"
 		},
+		"FEATURE_ALERTS_ON_HOMEPAGE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables to show the alerts on the homepage"
+		},
+		"FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables to show the login and register button on the loginpage"
+		 },
 		"ALERT_STATUS_URL": {
 			"type": "string",
 			"default": null,
@@ -370,11 +362,6 @@
 			"default": true,
 			"description": "Defines if backend for the Lern-Store link in sidebar is enabled."
 		},
-		"FEATURE_MULTI_LOGIN_INSTANCES": {
-			"type": "boolean",
-			"default": false,
-			"description": "Multi login instances tiles"
-		},
 		"FEATURE_TSP_AUTO_CONSENT_ENABLED": {
 			"type": "boolean",
 			"default": false,
@@ -430,7 +417,7 @@
 				},
 				"AVAILABLE_LANGUAGES": {
 					"type": "string",
-					"default": "de,en,es,ua",
+					"default": "de,en,es,uk",
 					"description": "Available languages"
 				}
 			},
@@ -499,11 +486,6 @@
 			"default": false,
 			"description": "Enables Course import"
 		},
-		"FEATURE_TOPIC_SHARE_IMPORT": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables Topic Share button"
-		},
 		"FEATURE_NUXT_SCHOOL_ADMIN_BETA": {
 			"type": "boolean",
 			"default": true,
@@ -513,6 +495,16 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Enables Files tab in the team-view of Teams menu"
+		},
+		"FEATURE_CTL_TOOLS_TAB_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables new CTL-tool tab in a course"
+		},
+		"FEATURE_LTI_TOOLS_TAB_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables old LTI-tool tab in a course"
 		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",
@@ -551,9 +543,10 @@
 		},
 		"FEATURE_LEGACY_HYDRA_ENABLED": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Enables the legacy Hydra endpoints."
 		},
+
 		"NEXTCLOUD_REDIRECT_URL": {
 			"type": "string",
 			"default": "",
@@ -576,23 +569,49 @@
 				"MAX_FILE_SIZE": {
 					"type": "integer",
 					"minimum": 0,
-					"description": "File size of incoming requests to the File-Storage in MB."
+					"description": "Maximum file size for incoming requests in Byte"
 				}
 			},
-			"required": ["SERVICE_BASE_URL", "INCOMING_REQUEST_TIMEOUT", "MAX_FILE_SIZE"]
+			"required": [
+				"SERVICE_BASE_URL",
+				"INCOMING_REQUEST_TIMEOUT",
+				"MAX_FILE_SIZE"
+			]
 		},
 		"FEATURE_CONSENT_NECESSARY": {
 			"type": "boolean",
 			"default": true,
 			"description": "Determines if consent is necessary during registration."
+		},
+		"FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Makes the new school administration page the default page"
+		},
+		"FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Changes the login flow to one that supports user login migrations"
+		},
+		"FEATURE_H5P_EDITOR_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, adds H5P editor to course topics."
+		},
+		"FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the new class list view"
+		},
+		"FEATURE_GROUPS_IN_COURSE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables to get groups of type class in courses"
 		}
 	},
 	"allOf": [
 		{
 			"$ref": "#/definitions/ETHERPAD_ENABLED"
-		},
-		{
-			"$ref": "#/definitions/MESSENGER_ENABLED"
 		},
 		{
 			"$ref": "#/definitions/FEATURE_PROMETHEUS_ENABLED"
@@ -609,18 +628,6 @@
 			},
 			"then": {
 				"required": ["ETHERPAD"]
-			}
-		},
-		"MESSENGER_ENABLED": {
-			"if": {
-				"properties": {
-					"FEATURE_MATRIX_MESSENGER_ENABLED": {
-						"const": true
-					}
-				}
-			},
-			"then": {
-				"required": ["MATRIX_MESSENGER"]
 			}
 		},
 		"FEATURE_PROMETHEUS_ENABLED": {

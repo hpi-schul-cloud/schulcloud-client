@@ -1,3 +1,4 @@
+
 $primaryColor: #2876D0;
 $secondaryColor: #355478;
 $accentColor: #970000;
@@ -10,6 +11,7 @@ $colorGrey: rgba(232, 232, 232, 0.5);
 $logoBackground: url("/images/logo/cloud-transparent-mono.svg") no-repeat center;
 $logoBackgroundTablet: url("/images/logo/cloud-transparent-mono-48-48.svg") center / contain no-repeat;
 $logoBackgroundLanding: url("/images/logo/cloud-transparent-mono-long.svg") center / contain no-repeat;
+$logoBackgroundMobile: url("/images/logo/n21-logo-mobile.svg") center / contain no-repeat;
 
 aside.nav-sidebar{
     .sc-branding{
@@ -35,7 +37,7 @@ aside.nav-sidebar{
 }
 body {
     header.top-margin {
-        margin-top: -1rem;
+        margin-top: 0;
     }
     header {
 
@@ -48,16 +50,18 @@ body {
             .cloud-logo {
                 background: $logoBackgroundLanding !important;
                 margin-right: 0 !important;
-                margin-left: -5rem !important;
+                margin-top: -0.3rem !important;
                 height: 3.5rem !important;
-                width: 21.5rem !important;
+                width: 12rem !important;
+                margin-left: -10px;
             }
-
+            .minimal-button .dropdown-toggle {
+                margin-top: 3.2px;
+            }
             @media (max-width: 991px) {
                 .cloud-logo {
-                    width: 100% !important;
-                    margin-left: 0 !important;
-                }
+                    background: $logoBackgroundMobile !important;
+                 }
             }
         }
     }

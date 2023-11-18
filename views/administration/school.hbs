@@ -12,7 +12,7 @@
 <div class="route-administration">
 	{{#ifConfig "FEATURE_NUXT_SCHOOL_ADMIN_BETA" true}}
 		<div>
-			<a class="btn btn-info pull-right" href="/administration/school-settings" data-testid="button_new_admin_page"><i class="fa fa-arrow-right"></i> {{$t "administration.school.label.beta" }}</a>
+			<a class="btn btn-primary pull-right" href="/administration/school-settings" data-testid="button_new_admin_page"><i class="fa fa-arrow-right"></i> {{$t "administration.school.label.newPage" }}</a>
 			<div class="clearfix"></div>
 		</div>
 	{{/ifConfig}}
@@ -31,18 +31,16 @@
 			{{else}}
 			{{$t "administration.school.label.currentSchoolYear" }} {{../school.currentYear.name}}
 			{{/ifeq}}
-			{{else}}
-			{{$t "administration.longText.text.provideStudentsAndTheirParents" (dict "title" theme.title)}}
 			{{/if}}
 		</p>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12 no-padding">
 					{{#if schoolMaintanance.schoolUsesLdap}}
-					<p>{{$t "administration.longText.text.useTheTransferPhaseAroundTheSchool" }}</p>
+					<p>{{$t "administration.longText.text.useTheTransferPhaseAroundTheSchool" (dict "title" theme.title)}}</p>
 					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">{{$t "administration.school.link.moreInfo" }} ></a></p>
 					<div id="ldapschoolyearadditionalinfo">
-						<p>{{$t "administration.longText.text.backgroundSoThatEveryStudentAndTeacher" }}
+						<p>{{$t "administration.longText.text.backgroundSoThatEveryStudentAndTeacher" (dict "title" theme.title)}}
 						</p>
 						<p class="font-weight-bold">{{$t "administration.school.label.duringTheSchoolYear" }}</p>
 						<ul>
@@ -66,12 +64,12 @@
 						<ul>
 							<li>{{$t "administration.school.text.doNotEndTheTransferPhase" }}</li>
 							<li>{{$t "administration.school.text.atTheEndOfTheTransferPhase" }}</li>
-							<li>{{$t "administration.school.text.atTheSameTime" }}</li>
+							<li>{{$t "administration.school.text.atTheSameTime" (dict "title" theme.title)}}</li>
 							<li>{{$t "administration.school.text.theNewClassesAreSavedInTheContext" }}</li>
 						</ul>
 						<p class="font-weight-bold">{{$t "administration.school.label.afterTheTransferPhaseEnded" }}</p>
 						<ul>
-							<li>{{$t "administration.school.text.theNewClassesCanNowBeAssignedt" }}</li>
+							<li>{{$t "administration.school.text.theNewClassesCanNowBeAssigned" }}</li>
 							<li>{{$t "administration.school.text.allDataFromTheLDAP" }}</li>
 						</ul>
 					</div>
@@ -258,7 +256,17 @@
 									<input type="checkbox" name="studentVisibility" value="true"
 										{{#if ../school.permissions.teacher.STUDENT_LIST}}checked{{/if}}>
                             {{$t "administration.school.label.studentVisibility" }} <i class="fa fa-eye"></i>
-									<p class="text-muted">{{$t "administration.school.label.allStudentsVisibility" }}</p>
+                                        <p class="text-muted">
+                                            {{#ifeq @root.theme.name "brb"}}
+                                                {{$t "administration.school.label.allStudentsVisibilityBrandenburg" }}
+                                            {{else}}
+                                                {{#ifeq @root.theme.name "n21"}}
+                                                    {{$t "administration.school.label.allStudentsVisibilityNiedersachsen"}}
+                                                {{else}}
+                                                    {{$t "administration.school.label.allStudentsVisibility" }}
+                                                {{/ifeq}}
+                                            {{/ifeq}}
+                                        </p>
 								</label>
 							</div>
 						{{/ifConfig}}
@@ -282,97 +290,6 @@
                         {{/ifConfig}}
 
                         {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
-                        <div class="form-group"
-							{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
-								hidden
-							{{/ifConfig}}
-							{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}
-								hidden
-							{{/ifConfig}}
-						>
-							<label>
-								<input
-									id="messenger"
-									type="checkbox"
-									name="messenger"
-									value="true"
-									{{#inArray "messenger" ../school.features}}checked{{/inArray}}
-									{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-										{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-												disabled
-										{{/userHasPermission}}
-									{{/userHasPermission}}
-								/>
-								{{$t "administration.school.label.activeMatrixFunction" }}
-							</label>
-							<p class="text-muted">
-								{{$t "administration.school.text.ifMatrixIsActivatedAtYourSchool"}}<a href=' https://docs.dbildungscloud.de/pages/viewpage.action?pageId=113650243'>{{$t "administration.school.link.matrixHelpPage"}}</a>.
-							</p>
-						</div>
-
-                        {{! This elements visibility gets toggled by javascript, to only show it if the messenger is enabled }}
-                        <div id="messenger-sub-options" class="pl-3">
-                            {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
-                            <div class="form-group"
-								{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
-									hidden
-								{{/ifConfig}}
-							 	{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}
-								 	hidden
-								{{/ifConfig}}
-								{{#ifConfig "MATRIX_MESSENGER__STUDENT_ROOM_CREATION" false}}
-									hidden
-								{{/ifConfig}}
-							 >
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="messengerStudentRoomCreate"
-                                        value="true"
-                                        {{#inArray "messengerStudentRoomCreate" ../school.features}}checked{{/inArray}}
-                                        {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-                                            {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-                                                disabled
-                                            {{/userHasPermission}}
-                                        {{/userHasPermission}}
-                                    />
-                                    {{$t "administration.school.label.messengerStudentRoomCreate" }}
-                                </label>
-								<p class="text-muted">
-									{{$t "administration.school.text.messengerStudentRoomCreate" }}
-								</p>
-                            </div>
-							<div class="form-group"
-								{{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" false}}
-									hidden
-								{{/ifConfig}}
-								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_SETTINGS_VISIBLE" false}}
-									hidden
-								{{/ifConfig}}
-								{{#ifConfig "MATRIX_MESSENGER__SCHOOL_ROOM_ENABLED" false}}
-									hidden
-								{{/ifConfig}}
-							>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        name="messengerSchoolRoom"
-                                        value="true"
-                                        {{#inArray "messengerSchoolRoom" ../school.features}}checked{{/inArray}}
-                                        {{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-                                            {{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-                                                disabled
-                                            {{/userHasPermission}}
-                                        {{/userHasPermission}}
-                                    />
-                                    {{$t "administration.school.label.messengerSchoolRoom" }}
-                                </label>
-								<p class="text-muted">
-									{{$t "administration.school.text.messengerSchoolRoom" }}
-								</p>
-                            </div>
-                        </div>
-
                         <div class="form-group {{#unless @root.ROCKETCHAT_SERVICE_ENABLED}}hidden{{/unless}}">
 							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
 								<label>
@@ -380,6 +297,7 @@
 										type="checkbox"
 										name="rocketChat"
 										value="true"
+                                        data-testid="school-administration-chat-checkbox"
 										{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}
 										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
 											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
@@ -407,7 +325,7 @@
 						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
 						<div class="form-group">
 							<label>
-								<input type="checkbox" name="videoconference" value="true"
+								<input type="checkbox" name="videoconference" value="true" data-testid="school-administration-video-conference-checkbox"
 									{{#inArray "videoconference" ../../school.features}}checked{{/inArray}}>
 								{{$t "administration.school.label.enableVideoConference" }}
 								<p class="text-muted">
@@ -426,7 +344,7 @@
 								</option>
 								{{/each}} </select> </div> {{/if}}
 						{{> "lib/components/csrfInput"}}
-						<button type="submit" class="btn btn-primary btn-submit">{{$t "administration.school.button.saveGeneralSettings" }}</button>
+						<button type="submit" class="btn btn-primary btn-submit" data-testid="school-administration-save-general-setting">{{$t "administration.school.button.saveGeneralSettings" }}</button>
 					</form>
 
 					{{#if ../school.fileStorageType}}
@@ -500,6 +418,7 @@
 				<div class="col-sm-12 no-padding">
 					<form action="/administration/ldap/config/" method="GET">
 						{{> "lib/components/csrfInput"}}
+						{{#userHasPermission "SYSTEM_CREATE"}}
 						<button type="submit" class="btn btn-primary btn-add-modal ">
 							{{$t "administration.school.button.addSystem" }}
 						</button>
@@ -508,6 +427,7 @@
 							{{$t "administration.school.button.addLDAPSystem" }}
 						</button>
 						{{/if}}
+						{{/userHasPermission}}
 					</form>
 				</div>
 			</div>

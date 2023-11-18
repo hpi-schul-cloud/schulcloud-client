@@ -99,7 +99,13 @@ app.set('view cache', true);
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
-	const morganLogFormat = Configuration.get('MORGAN_LOG_FORMAT');
+	let morganLogFormat = Configuration.get('MORGAN_LOG_FORMAT');
+	const noColor = Configuration.has('NO_COLOR') && Configuration.get('NO_COLOR');
+
+	if (morganLogFormat === 'dev' && noColor) {
+		morganLogFormat = ':method :url :status :response-time ms - :res[content-length]';
+	}
+
 	app.use(morgan(morganLogFormat, {
 		skip(req, res) {
 			return req && ((req.route || {}).path || '').includes('tsp-login');
@@ -182,7 +188,6 @@ app.use(async (req, res, next) => {
 	return next();
 });
 
-
 app.use(methodOverride('_method')); // for GET requests
 app.use(methodOverride((req, res, next) => { // for POST requests
 	if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -199,12 +204,16 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 app.use(require('./middleware/i18n'));
 app.use(require('./middleware/datetime'));
 
+
+const redirectUrl = Configuration.get('ROOT_URL_REDIRECT');
+if (redirectUrl !== '') {
+	app.get('/', (req, res, next) => {
+		res.redirect(redirectUrl);
+	});
+}
+
 // Initialize the modules and their routes
 app.use(require('./controllers'));
-
-app.get('/', (req, res, next) => {
-	res.redirect('/login/');
-});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -285,6 +294,7 @@ app.use((err, req, res, next) => {
 
 	// render the error page
 	res.status(status).render('lib/error', {
+		pageTitle: res.$t('lib.error.headline.pageTitle'),
 		loggedin: res.locals.loggedin,
 		inline: res.locals.inline ? true : !res.locals.loggedin,
 	});

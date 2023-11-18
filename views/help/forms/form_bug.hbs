@@ -8,45 +8,22 @@
 <span class="icon-card__subtitle">{{$t "help.contact.text.whichAreaOfSchulCloud" (dict "themeTitle" theme.theme_title "shortTitle" theme.short_title)}}</span>
 <center>
 <label class="form-group col-md-6">
-		<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.eachTopicSeparate"}}</span>
-		<select class="form-control" name="problemArea" class="problemArea" aria-placeholder={{$t "help.contact.text.chooseArea"}}>
-			<option value="" disabled selected hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
-			<option value="Aufgaben">{{$t "help.chooseTopicArea.text.pTasks"}}</option>
-			<option value="Benachrichtigungen">{{$t "help.chooseTopicArea.text.pNotifications"}}</option>
-			<option value="Meine Dateien">{{$t "help.chooseTopicArea.text.pMyFiles"}}</option>
-			<option value="Einstellungen">{{$t "help.chooseTopicArea.text.pSettings"}}</option>
-			<option value="Hilfebereich">{{$t "help.chooseTopicArea.text.pHelparea"}}</option>
-			<option value="IDM">{{$t "help.chooseTopicArea.text.pIdm"}}</option>
-			<option value="Kalendar">{{$t "help.chooseTopicArea.text.pCalendar"}}</option>
-			<option value="Kurse">{{$t "help.chooseTopicArea.text.pCourses"}}</option>
-			<option value="KursThemen">{{$t "help.chooseTopicArea.text.pTopics"}}</option>
-			<option value="Lern-Store">{{$t "help.chooseTopicArea.text.pLernStore"}}</option>
-			<option value="Lern-Store-Content">{{$t "help.chooseTopicArea.text.pLernStoreContent"}}</option>
-			<option value="Login">{{$t "help.chooseTopicArea.text.pLogin"}}</option>
-			<option value="MobileApps">{{$t "help.chooseTopicArea.text.pApps"}}</option>
-			<option value="Neuigkeiten">{{$t "help.chooseTopicArea.text.pNews"}}</option>
-			<optgroup label={{$t "help.chooseTopicArea.text.pTools"}}>
-				<option value="BBB-Videokonferenz">{{$t "help.chooseTopicArea.text.pBBB"}}</option>
-				<option value="Libre-Office">{{$t "help.chooseTopicArea.text.pLibreOffice"}}</option>
-				<option value="Matrix-Messenger">{{$t "help.chooseTopicArea.text.pMatrixMessenger"}}</option>
-				<option value="Rocket-Chat">{{$t "help.chooseTopicArea.text.pRocketChat"}}</option>
-				<option value="Tools-Editor">{{$t "help.chooseTopicArea.text.pEditor"}}</option>
-				<option value="Tools-Andere">{{$t "help.chooseTopicArea.text.pToolsOther"}}</option>
-			</optgroup>
-			<option value="Registrierung">{{$t "help.chooseTopicArea.text.pRegister"}}</option>
-			<option value="Berechtigungen">{{$t "help.chooseTopicArea.text.pPermissions"}}</option>
-			<option value="SHD">{{$t "help.chooseTopicArea.text.pSHD"}}</option>
-			<option value="Teams">{{$t "help.chooseTopicArea.text.pTeams"}}</option>
-			<option value="Teilen">{{$t "help.chooseTopicArea.text.pSharing"}}</option>
-			<option value="Dashboard">{{$t "help.chooseTopicArea.text.pDashboard"}}</option>
-			<option value="Verwaltung">{{$t "help.chooseTopicArea.text.pManagement"}}</option>
-			<option value="Sonstige">{{$t "help.chooseTopicArea.text.pOther"}}</option>
+		<div class="label-wrapper">
+			<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.severalTopicsPossible"}}</span>
+			<span class="required-label">{{$t "help.global.label.requiredField"}}</span>
+		</div>
+		<select class="form-control" id="problemAreaBug" name="problemArea" class="problemArea" data-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" data-testid='select-problem' aria-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" multiple required>
+			<option value="" disabled hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
+			{{#each helpOptions}}
+				<option value={{ this.optionValue }}>{{ this.optionText }}</option>
+			{{/each}}
 		</select>
+		<span class="small problem-area-validation-error" id="problemAreaErrorBug">{{$t "help.form_bug.text.noProblemAreaSelected"}}</span>
 </label>
 </center>
 
 <p class="control-label headline">{{$t "help.form_bug.label.problemAlreadyKnown"}}</p>
-<p id="inline_text">{{$t "help.form_bug.text.problemAlreadyKnownText"}} {{{$t "help.form_bug.label.knownProblemLink"}}}	
+<p id="inline_text">{{$t "help.form_bug.text.problemAlreadyKnownText"}} {{{$t "help.form_bug.label.knownProblemLink"}}}
 </p>
 
 <iframe class="full contact" src="https://docs.dbildungscloud.de/display/SCDOK/Bekannte+Fehler+in+der+Cloud+und+ihre+Behebung?frameable=true"
@@ -57,11 +34,17 @@
 <span class="icon-card__subtitle">{{$t "help.contact.text.contactSupportSubtitle"}}</span>
 
 <label class="form-group">
-	<span class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}</span>
+	<div class="label-wrapper">
+		<span class="control-label">{{$t "help.global.label.briefDescriptionOfTheProblem" }}</span>
+		<span class="required-label">{{$t "help.global.label.requiredField"}}</span>
+	</div>
 	<input class="form-control" type="text" name="title" placeholder="{{$t "help.placeholder.briefDescriptionOfTheProblem" }}" data-testid="bug_headline" required>
 </label>
 <label class="form-group">
-	<span class="control-label">{{$t "help.form_bug.label.problemDescription" }}</span>
+	<div class="label-wrapper">
+		<span class="control-label">{{$t "help.form_bug.label.problemDescription" }}</span>		
+		<span class="required-label">{{$t "help.global.label.requiredField"}}</span>
+	</div>
 <textarea class="form-control" cols="50" name="problemDescription" rows="14" data-testid="bug_description" required></textarea>
 </label>
 <label class="form-group">
@@ -69,9 +52,10 @@
 	<input type="text" name="device" placeholder="z.B. iPhone X, Samsung Galaxy S10" class="form-control" data-testid="bug_device">
 </label>
 <label class="form-group">
-	<span class="control-label">
-		{{$t "help.global.label.replyEmail" }}
-	</span>
+	<div class="label-wrapper">
+		<span class="control-label">{{$t "help.global.label.replyEmail" }}</span>
+		<span class="required-label">{{$t "help.global.label.requiredField"}}</span>
+	</div>
 	<input class="form-control" type="email" name="replyEmail" placeholder="{{$t "help.placeholder.email"}}" value="{{ userEmail }}" data-testid="bug_email" required>
 </label>
 <fieldset>

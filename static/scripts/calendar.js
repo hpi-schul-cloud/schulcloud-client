@@ -7,7 +7,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { toMoment } from '@fullcalendar/moment';
 import momentTimezonePlugin from '@fullcalendar/moment-timezone';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import ua from '../../locales/calendar/ua.json';
+import uk from '../../locales/calendar/uk.json';
 import './jquery/datetimepicker-easy';
 
 const createCustomCalendarLocal = (langAttribute, localFile) => ({
@@ -42,8 +42,8 @@ const getCalendarLanguage = (langAttribute) => {
 			return enLocale;
 		case 'es':
 			return esLocale;
-		case 'ua':
-			return createCustomCalendarLocal('ua', ua);
+		case 'uk':
+			return createCustomCalendarLocal('uk', uk);
 		default:
 			return deLocale; // use default from instance
 	}
@@ -159,6 +159,7 @@ $(document).ready(() => {
 					description: eventData.description,
 					location: eventData.location,
 				},
+				submitDataTestId: 'edit-event-modal',
 				action: URI.getSingleEvent(eventData._id),
 			});
 
@@ -199,6 +200,7 @@ $(document).ready(() => {
 					startDate,
 					endDate,
 				},
+				submitDataTestId: 'create-event-modal',
 			});
 			$createEventModal.appendTo('body').modal('show');
 		},

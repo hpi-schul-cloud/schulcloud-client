@@ -16,6 +16,7 @@
         <script src="{{getAssetPath '/scripts/spectrum/spectrum.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/spectrum/init.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/dataprivacy/paginated_form.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+        <script src="{{getAssetPath '/scripts/bootstrap-fix/bootstrap-select-hidden-options.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
 
@@ -83,17 +84,34 @@
                 </div>
               </div>
 
+            {{#ifConfig "FEATURE_CTL_TOOLS_TAB_ENABLED" true}}
+            {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <input id="activateConf" type="checkbox" name="videoconference" value="true" data-testid="videoconf_checkbox" {{#inArray "videoconference" @root.course.features}}checked{{/inArray}} {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
+                        <label for="activateConf">{{$t "courses._course.edit.label.activateVideoConferences"}}</label>
+                        {{#inArray "videoconference" @root.schoolData.features}}
+                        {{else}}
+                            <small class="form-text text-muted">
+                                {{$t "videoconference.text.videoConferencesNotAllowedBySchool"}}
+                            </small>
+                        {{/inArray}}
+                    </div>
+                </div>
+            {{/ifConfig}}
+            {{/ifConfig}}
+
               <div class="row">
                 <div class="form-group col-md-6" data-testid="teachers_container">
                   <label for="courseTeacher">{{$t "administration.global.label.teachingTeacher"}}</label>
                   <select id="courseTeacher" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" data-testid="teachersearch" autocomplete="off"
                     aria-describedby="courseTeacherErr">
                     {{#each teachers}}
-                    <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                    <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
                       {{#if this.displayName}}
-                      {{this.displayName}}
+                        {{this.displayName}}
                       {{else}}
-                      {{this.firstName}} {{this.lastName}}
+                        {{this.firstName}} {{this.lastName}}
                       {{/if}}
                     </option>
                     {{/each}}
@@ -107,24 +125,17 @@
                     <select id="courseSubstitute" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" autocomplete="off" data-testid="substituent">
                             <option disabled value="{{$t "administration.global.label.noSubTeacherSelection"}}">{{$t "administration.global.label.noSubTeacherSelection"}}</option>
                         {{#each substitutions}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                {{this.firstName}} {{this.lastName}}
+                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
+                                {{#if this.displayName}}
+                                    {{this.displayName}}
+                                {{else}}
+                                    {{this.firstName}} {{this.lastName}}
+                                {{/if}}
                             </option>
                         {{/each}}
                     </select>
                 </div>
               </div>
-
-              {{#ifConfig "FEATURE_MATRIX_MESSENGER_ENABLED" true}}
-                {{#inArray "messenger" @root.currentSchoolData.features}}
-                  <div class="form-group">
-                    <label>
-                      <input type="checkbox" name="messenger" value="true" {{#inArray "messenger" ../course.features}}checked{{/inArray}}>
-                      {{$t "courses._course.edit.label.activateBidirectionalMessenger"}}
-                    </label>
-                  </div>
-                {{/inArray}}
-              {{/ifConfig}}
 
               <div class="form-group">
               <div class="times" id="timesContainer">
@@ -137,7 +148,7 @@
                       </div>
 
                       <div class="form-group col-md-6">
-              {{> "lib/forms/form-date-input" label=($t "courses.add.label.timeSpanUntil") id="untilDate"
+              {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate"
               class="untilDate"
               value=course.untilDate}}
                       </div>
@@ -173,13 +184,30 @@
                         <label for="addClassesToCourse">{{$t "courses.add.label.addClassesToCourse"}}</label>
                         <select id="addClassesToCourse" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}" data-testid="classes">
                                 <option disabled value="{{$t "administration.global.placeholder.selectClasses"}}">{{$t "administration.global.placeholder.selectClasses"}}</option>
-                            {{#each ../classes}}
-                              <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                  {{this.displayName}}
-                                  {{#if this.year}}
-                                      ({{this.year.name}})
-                                  {{/if}}
-                              </option>
+                            {{#each ../classesAndGroups}}
+                                <option value="{{this.id}}{{#unless this.id}}{{this._id}}{{/unless}}" {{#if this.selected}}selected{{/if}}>
+                                    {{#if (getConfig "FEATURE_GROUPS_IN_COURSE_ENABLED")}}
+                                        {{this.name}}
+
+                                        {{#if this.schoolYear}}
+                                            ({{this.schoolYear}})
+                                        {{/if}}
+
+                                        {{#if this.externalSourceName}}
+                                            | {{this.externalSourceName}}
+                                        {{/if}}
+                                    {{else}}
+                                        {{#if this.displayName}}
+                                            {{this.displayName}}
+                                        {{else}}
+                                            {{this.name}}
+                                        {{/if}}
+
+                                        {{#if this.year}}
+                                            ({{this.year.name}})
+                                        {{/if}}
+                                    {{/if}}
+                                </option>
                           {{/each}}
                       </select>
                   </div>
@@ -189,7 +217,7 @@
                       <select id="addStudentsToCourse" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}" data-testid="pupils">
                          <option disabled value="{{$t "administration.global.placeholder.selectStudent"}}">{{$t "administration.global.placeholder.selectStudent"}}</option>
                          {{#each ../students}}
-                         <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                         <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
                          {{#if this.displayName}}
                          {{this.displayName}}
                          {{else}}
@@ -226,8 +254,8 @@
               </div>
 
               <div class="pull-right">
-                <a class="btn btn-secondary" data-testid="einen-weiteren-kurs-anlegen-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
-                <a class="btn btn-primary force-initial-focus" data-testid="zur-uebersicht-btn" href="/rooms-overview">{{$t "courses.add.link.courseOverview"}}</a>
+                <a class="btn btn-secondary" data-testid="courses-add-another-course-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
+                <a class="btn btn-primary force-initial-focus" data-testid="courses-to-overview-btn" href="/rooms-overview">{{$t "courses.add.link.courseOverview"}}</a>
               </div>
             </section>
 
@@ -254,7 +282,7 @@
                         {{$t "global.button.cancel"}}
                     </button>
 
-                    <button type="submit" class="btn btn-primary btn-submit">
+                    <button type="submit" class="btn btn-primary btn-submit" data-testid="delete-course-students-btn">
                         {{$t "global.headline.delete"}}
                     </button>
                 </div>

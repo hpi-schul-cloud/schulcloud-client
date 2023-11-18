@@ -1,17 +1,17 @@
 name: Test
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 permissions:
   contents: read
 
 jobs:
     unit_tests:
-        strategy:
-            matrix:
-                os: [ubuntu-latest]
-                node: ["16"]
-        runs-on: ${{ matrix.os }}
+        runs-on: ubuntu-latest
         steps:
             - name: checkout
               uses: actions/checkout@v3
@@ -19,7 +19,7 @@ jobs:
             - name: Setup node
               uses: actions/setup-node@v3
               with:
-                  node-version: ${{ matrix.node }}
+                  node-version: 18
 
             # extract branch name
             - name: Extract branch name

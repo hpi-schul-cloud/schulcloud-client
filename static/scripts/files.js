@@ -64,6 +64,7 @@ function writeFileSizePretty(orgFilesize) {
 	let iterator = 0;
 
 	while (filesize > 1024) {
+		// We use the Windows convention here that file sizes are measured in KB (1KB = 1024B, instead of 1kB = 1000B).
 		filesize = Math.round((filesize / 1024) * 100) / 100;
 		iterator += 1;
 	}
@@ -181,7 +182,17 @@ $(document).ready(() => {
 		this.removeFile(file);
 	}
 
+	function showErrorMessage(message) {
+		$.showNotification($t(message), 'danger', 5000);
+	}
+
 	if ($form.dropzone) {
+		const maxFilesize = $('.section-upload').data('maxFileSize');
+
+		// We use the Windows convention here that file sizes are measured in KB (1KB = 1024B, instead of 1kB = 1000B).
+		const maxFileSizeInGb = String((Number(maxFilesize) / 1024 / 1024 / 1024).toFixed(2));
+		const dictFileTooBig = $t('global.text.fileTooLarge', { maxFileSizeInGb });
+
 		$form.dropzone({
 			accept(file, done) {
 				if (file.fullPath) {
@@ -247,7 +258,8 @@ $(document).ready(() => {
 				});
 			},
 			createImageThumbnails: false,
-			maxFilesize: 1024,
+			maxFilesize,
+			dictFileTooBig,
 			method: 'put',
 			init() {
 				// this is called on per-file basis
@@ -277,19 +289,21 @@ $(document).ready(() => {
 				});
 
 				this.on('queuecomplete', () => {
-					progressBarActive = false;
-					finishedFilesSize = 0;
+					if (progressBarActive) {
+						progressBarActive = false;
+						finishedFilesSize = 0;
 
-					$progressBar.fadeOut(50, () => {
-						$form.fadeIn(50);
-						showAJAXSuccess(
-							// eslint-disable-next-line max-len
-							$t('files._file.text.fileAddedSuccess'),
-						);
-						setTimeout(() => {
-							reloadFiles(); // waiting for success message
-						}, 2000);
-					});
+						$progressBar.fadeOut(50, () => {
+							$form.fadeIn(50);
+							showAJAXSuccess(
+								// eslint-disable-next-line max-len
+								$t('files._file.text.fileAddedSuccess'),
+							);
+							setTimeout(() => {
+								reloadFiles(); // waiting for success message
+							}, 2000);
+						});
+					}
 				});
 
 				this.on('success', updateUploadProgressSuccess);
@@ -297,6 +311,7 @@ $(document).ready(() => {
 				this.on('dragleave', () => $form.removeClass('focus'));
 				this.on('dragend', () => $form.removeClass('focus'));
 				this.on('drop', () => $form.removeClass('focus'));
+				this.on('error', (file, message) => showErrorMessage(message));
 			},
 		});
 	}
@@ -508,6 +523,7 @@ $(document).ready(() => {
 			fields: {
 				name: oldName,
 			},
+			submitDataTestId: 'rename-modal',
 		});
 
 		$renameModal.modal('show');
@@ -577,6 +593,7 @@ $(document).ready(() => {
 					fields: {
 						invitation: link.newUrl,
 					},
+					submitDataTestId: 'share-modal',
 				});
 
 				$input.val(link.newUrl);
@@ -638,6 +655,7 @@ $(document).ready(() => {
 					fields: {
 						fileId,
 					},
+					submitDataTestId: 'permission-modal',
 				});
 
 				$loader.hide();
@@ -851,6 +869,7 @@ $(document).ready(() => {
 				fileName: $context.attr('data-file-name'),
 				filePath: $context.attr('data-file-path'),
 			},
+			submitDataTestId: 'move-modal',
 		});
 
 		$moveModal.find('.modal-footer').empty();

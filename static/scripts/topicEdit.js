@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';
+import showFallbackImageOnError from './helpers/showFallbackImageOnError';
 
 /**
  * A wrapper for each block including a title field, remove, sortable, ...
@@ -70,8 +71,10 @@ class TopicBlockWrapper extends React.Component {
 
 		return (
             <div className={`content-block ${this.props.hidden ? 'content-block-hidden' : ''}`}>
-                <div className="card">
-                    <div className="card-header">
+                <div className="card"
+					data-testid={`topic-content-element-${this.props.component}-${this.props.position}`}>
+                    <div className="card-header"
+						data-testid={`topic-card-header-${this.props.position}`}>
                         <div className="input-group">
 
                             <span className="input-group-btn">
@@ -120,6 +123,7 @@ class TopicBlockWrapper extends React.Component {
 								<button
 									aria-label={$t('global.label.settings')}
 									className="btn btn-secondary dropdown-toggle"
+									data-testid={`topic-dropdown-toggle-element-${this.props.position}`}
 									type="button"
 									data-toggle="dropdown">
                                     <i className="fa fa-cog"></i>
@@ -127,7 +131,8 @@ class TopicBlockWrapper extends React.Component {
                                 <div className="dropdown-menu dropdown-menu-right">
                                     <button
 										className="dropdown-item text-danger"
-										onClick={this.onRemoveWithCallback.bind(this)}>
+										onClick={this.onRemoveWithCallback.bind(this)}
+										data-testid={`topic-dropdown-option-delete-${this.props.position}`}>
                                         <span>
 											<i className="fa fa-trash" aria-hidden="true"/> {$t('global.button.remove')}
 										</span>
@@ -138,7 +143,8 @@ class TopicBlockWrapper extends React.Component {
                             <DragHandle />
                         </div>
                     </div>
-                    <div className="card-block">
+                    <div className="card-block"
+						data-testid={`topic-card-block-${this.props.position}`}>
                         <this.props.type {...this.props} addOnBeforeRemoveCallback={this.addOnBeforeRemoveCallback.bind(this)} />
                     </div>
                 </div>
@@ -222,6 +228,7 @@ class TopicBlockList extends React.Component {
 	loadState() {
 		const blocks = $contentBlocksContainer.data('value') || [];
 		return blocks.map((block) => {
+			block.key = shortid.generate();
 			block.type = TopicBlock.getClassForComponent(block.component);
 			block.parentId = $contentBlocksContainer.data('parent-id');
 			block.schoolId = $contentBlocksContainer.data('school-id');
@@ -320,6 +327,7 @@ class TopicBlockList extends React.Component {
      */
 	render() {
 		const neXboardEnabled = ($contentBlocksContainer.data('nexboardenabled') === true);
+		const h5pEditorEnabled = ($contentBlocksContainer.data('h5peditorenabled') === true);
 		return (
             <div>
                 <SortableList
@@ -343,6 +351,7 @@ class TopicBlockList extends React.Component {
 						<button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-text-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicText)}>
 								{`+ ${$t('topic.topicEdit.button.text')}`}
@@ -350,6 +359,7 @@ class TopicBlockList extends React.Component {
 						<button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-geogebra-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
 								{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
@@ -357,6 +367,7 @@ class TopicBlockList extends React.Component {
                         <button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-material-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicResources)}>
 								{`+ ${$t('topic.topicEdit.button.material')}`}
@@ -364,6 +375,7 @@ class TopicBlockList extends React.Component {
 						{neXboardEnabled ? <button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-nexboard-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicNexboard)}>
 								{`+ ${$t('topic.topicEdit.button.neXboard')}`}
@@ -371,6 +383,7 @@ class TopicBlockList extends React.Component {
 						<button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-etherpad-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicEtherpad)}>
 								{`+ ${$t('topic.topicEdit.button.etherpad')}`}
@@ -378,10 +391,20 @@ class TopicBlockList extends React.Component {
                         <button
 							type="button"
 							className="btn btn-secondary"
+							data-testid="topic-addcontent-task-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicInternal)}>
 								{`+ ${$t('global.headline.task')}`}
 						</button>
+						{h5pEditorEnabled ? <button
+							type="button"
+							className="btn btn-secondary"
+							data-testid="topic-addcontent-h5p-btn"
+							aria-label={$t('global.button.add')}
+							onClick={this.addBlock.bind(this, TopicH5P)}>
+								{`+ ${$t('topic.topicEdit.button.h5p')}`}
+							</button> : ''
+						}
                     </div>
                 </div>
             </div>
@@ -419,6 +442,8 @@ class TopicBlock extends React.Component {
 				return TopicNexboard;
 			case 'Etherpad':
 				return TopicEtherpad;
+			case 'H5P':
+				return TopicH5P;
 			case 'internal':
 				return TopicInternal;
 		}
@@ -467,6 +492,8 @@ class TopicText extends TopicBlock {
 			editor.commands.get('audiobrowser').forceDisabled();
 			editor.commands.get('videobrowser').forceDisabled();
 		}
+
+		showFallbackImageOnError();
 	}
 
 	getStorageContext() {
@@ -692,7 +719,7 @@ class TopicResources extends TopicBlock {
                 </div>
 
                 <div className="btn-group" role="group" >
-                    <button type="button" className="btn btn-secondary btn-add" onClick={this.addResource.bind(this, '')}>{`+ ${$t('topic.topicEdit.button.material')}`}</button>
+                    <button type="button" className="btn btn-secondary btn-add" data-testid="topic-material-addmaterial-btn" onClick={this.addResource.bind(this, '')}>{`+ ${$t('topic.topicEdit.button.material')}`}</button>
                 </div>
             </div>
 		);
@@ -1004,6 +1031,122 @@ class TopicNexboard extends TopicBlock {
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
                        value={(this.props.content || {}).url } />
             </div>
+		);
+	}
+}
+
+/**
+ * Class representing H5P
+ * @extends React.Component<{ content: { contentId: string } }>
+ */
+class TopicH5P extends TopicBlock {
+	/**
+	* Initialize the topic.
+	* @param {Object} props - Properties from React Component.
+	*/
+	constructor(props) {
+		super(props);
+	}
+
+	/**
+	* This function returns the name of the component that will be used to render the block in view mode.
+	*/
+	static get component() {
+		return 'H5P';
+	}
+
+	openEditor(id) {
+		const w = 1280;
+		const h = 1080;
+
+		const x = window.top.outerWidth / 2 + window.top.screenX - (w / 2);
+		const y = window.top.outerHeight / 2 + window.top.screenY - (h / 2);
+
+		const { parentType, parentId } = this.props;
+
+		const editorPopup = window.open(
+			`/h5p/editor/${id ?? ''}?parentType=${parentType}&parentId=${parentId}&inline=1`,
+			'h5p-editor',
+			`width=${w}, height=${h}, left=${x}, top=${y},
+			fullscreen=yes, toolbar=no, location=no, directories=no, status=no, scrollbars=yes, resizable=yes`,
+		);
+
+		editorPopup.addEventListener('save-content', (event) => {
+			this.props.onUpdate({ content: event.detail });
+		});
+
+		editorPopup.focus();
+	}
+
+	/**
+	* Render the block (an textarea)
+	*/
+	render() {
+		const infoBox = <div class="alert info-custom">
+			<div className="fa fa-info-circle" />
+			{$t('h5p.text.createAfterFirstSave')}
+		</div>;
+
+		const saved = !!this.props.parentId;
+
+		const { contentId, title, contentType } = this.props.content;
+
+		const h5pPreview =
+			<div className="card-columns">
+				<div className="card">
+					<div className="card-block">
+						<h4 className="card-title">
+							<a href={`/h5p/player/${contentId}?inline=1`} target="_blank">
+								{title}
+							</a>
+						</h4>
+						<p className="card-text">{contentType}</p>
+					</div>
+					<div className="card-footer">
+						<a className="btn-edit-h5p" onClick={this.openEditor.bind(this, contentId)} onKeyDown={(e) => {
+							if (e.key === 'Enter'){
+								this.openEditor.bind(this, contentId);
+							}
+						}}>
+							<i className="fa fa-edit"></i>
+						</a>
+					</div>
+					<input
+						type="hidden"
+						value={contentId}
+						name={`contents[${this.props.position}][content][contentId]`}
+					/>
+					<input
+						type="hidden"
+						value={title}
+						name={`contents[${this.props.position}][content][title]`}
+					/>
+					<input
+						type="hidden"
+						value={contentType}
+						name={`contents[${this.props.position}][content][contentType]`}
+					/>
+				</div>
+			</div>;
+
+		return (
+			<div>
+				{saved || infoBox}
+				{contentId && h5pPreview}
+				{!contentId &&
+					<div>
+						<button
+							disabled={!saved}
+							type="button"
+							className="btn btn-secondary btn-add"
+							data-testid="topic-h5p-create-btn"
+							onClick={this.openEditor.bind(this, contentId)}
+							>
+							{`+ ${$t('topic.topicEdit.button.h5p')}`}
+						</button>
+					</div>
+				}
+			</div>
 		);
 	}
 }

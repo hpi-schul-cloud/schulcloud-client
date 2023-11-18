@@ -65,6 +65,7 @@ $(document).ready(() => {
 				startDate,
 				endDate,
 			},
+			submitDataTestId: 'create-event-modal',
 		});
 
 		$createEventModal.appendTo('body').modal('show');
@@ -88,6 +89,7 @@ $(document).ready(() => {
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.save'),
 			fields: event,
+			submitDataTestId: 'edit-event-modal',
 			action: `/teams/calendar/events/${event.attributes.uid}`,
 		});
 		$editEventModal.find('input[name=featureVideoConference]')
@@ -127,6 +129,7 @@ $(document).ready(() => {
 			title: $t('teams._team.files.headline.changeFilePermissions'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('global.button.save'),
+			submitDataTestId: 'file-permissions-modal',
 		});
 		$filePermissionsModal.appendTo('body').modal('show');
 	});
@@ -185,12 +188,29 @@ $(document).ready(() => {
 		e.preventDefault();
 		const $leaveTeamModal = $('.leave-team-modal');
 		const userId = $(this).data('user-id');
+		const { files } = $(this).data('user-files');
 		populateModalForm($leaveTeamModal, {
 			title: $t('teams._team.headline.leaveTeam'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('teams._team.button.leaveTeam'),
+			submitDataTestId: 'leave-team-modal',
 			payload: { userId },
 		});
+
+		const $deleteInfoAlert = $leaveTeamModal.find('.alert');
+		const $fileList = $leaveTeamModal.find('.file-list');
+
+		if (files?.length) {
+			const fileListHtmlLi = files.map((file) => `<li>${file}</li>`).join('');
+
+			$deleteInfoAlert.show();
+			$fileList.show();
+
+			$fileList.html(fileListHtmlLi);
+		} else {
+			$deleteInfoAlert.hide();
+			$fileList.hide();
+		}
 
 		$leaveTeamModal.appendTo('body').modal('show');
 	});

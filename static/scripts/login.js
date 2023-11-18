@@ -95,17 +95,22 @@ $(document).ready(() => {
 
 	const loadSystems = (systems) => {
 		$systems.empty();
-		systems.forEach((system) => {
+
+		const ldapSystems = systems.filter((system) => system.type === 'ldap');
+
+		ldapSystems.forEach((system) => {
 			const systemAlias = system.alias ? ` (${system.alias})` : '';
-			let selected;
+			let selected = false;
 			if (storage.local.getItem('loginSystem') === system._id) {
 				selected = true;
 			}
 			// eslint-disable-next-line max-len
 			$systems.append(`<option ${selected ? 'selected' : ''} value="${system._id}//${system.type}">${system.type}${systemAlias}</option>`);
 		});
+
 		// eslint-disable-next-line no-unused-expressions
-		systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
+		ldapSystems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
+
 		$systems.trigger('chosen:updated');
 	};
 
@@ -147,11 +152,12 @@ $(document).ready(() => {
 		}
 	});
 
-	if ($oauthErrorLogout && $oauthSystems.length > 0 && $oauthErrorLogout.eq(0).text() === 'true') {
-		const $iservButton = $oauthSystems.find('.btn-oauth[data-provider="iserv"]');
+	if ($oauthErrorLogout && $oauthSystems.length > 0 && $oauthErrorLogout.eq(0).text()) {
+		const provider = $oauthErrorLogout.eq(0).text();
 
-		if ($iservButton.length > 0) {
-			const logoutWindow = window.open($iservButton.eq(0).data('logout'));
+		const $loginButton = $oauthSystems.find(`.btn-oauth[data-provider="${provider}"]`);
+		if ($loginButton && $loginButton.length > 0 && $loginButton.eq(0).data('logout')) {
+			const logoutWindow = window.open($loginButton.eq(0).data('logout'));
 			window.focus();
 			setTimeout(() => {
 				logoutWindow.close();
@@ -159,15 +165,6 @@ $(document).ready(() => {
 			$oauthErrorLogout.eq(0).text('false');
 		}
 	}
-
-	$oauthSystems.each((index, element) => {
-		const $oauthButton = $(element).find('.btn-oauth').eq(0);
-
-		// eslint-disable-next-line func-names
-		$oauthButton.on('click', function () {
-			window.location.href = $(this).data('href');
-		});
-	});
 
 	$cloudButton.on('click', () => {
 		showHideButtonsMenu(false);
@@ -240,6 +237,7 @@ $(document).ready(() => {
 			title: $t('login.popup_resetPw.headline.resetPassword'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('login.popup_resetPw.button.resetPassword'),
+			submitDataTestId: 'password-recovery-modal',
 		});
 		$pwRecoveryModal.appendTo('body').modal('show');
 	});

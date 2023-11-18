@@ -4,15 +4,16 @@ const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const { decode } = require('html-entities');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
-const redirectHelper = require('../helpers/redirect');
 const api = require('../api');
 const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 const { makeNextcloudFolderName, useNextcloudFilesystem } = require('../helpers/nextcloud');
+const { isUserHidden } = require('../helpers/users');
 
 const router = express.Router();
 moment.locale('de');
@@ -155,6 +156,10 @@ const editTeamHandler = async (req, res, next) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
 			return next(new Error(res.$t('global.text.403')));
 		}
+
+		if (team.description) team.description = decode(team.description);
+		if (team.name) team.name = decode(team.name);
+
 		return res.render('teams/edit-team', {
 			action,
 			method,
@@ -427,6 +432,9 @@ router.get('/:teamId/json', (req, res, next) => {
 				return permission;
 			});
 
+			if (team.description) team.description = decode(team.description);
+			if (team.name) team.name = decode(team.name);
+
 			res.json({ team });
 		})
 		.catch((err) => {
@@ -473,6 +481,11 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		});
 
+		if (course.description && course.name) {
+			course.description = decode(course.description);
+			course.name = decode(course.name);
+		}
+
 		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
 			const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
@@ -502,36 +515,6 @@ router.get('/:teamId', async (req, res, next) => {
 				rocketChatCompleteURL = undefined;
 			}
 		}
-		let notificationMessage;
-		if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
-			/* eslint-disable max-len */
-			let matrixNotification;
-			// Is messenger feature flag set in the school which created this team?
-			const teamsSchoolHasMessengerEnabled = (course.schoolIds[0].features || []).includes('messenger');
-			// Is the messenger in the current users school activated?
-			const usersSchoolHasMessengerEnabled = (res.locals.currentSchoolData.features || []).includes('messenger');
-			// Are there members of other schools in the team which have not activated the messenger?
-			// > Filter team schoolIds to only include schools which really have students in the team
-			const filteredSchoolIds = course.schoolIds.filter((school) => !!course.userIds.find((user) => user.schoolId === school.id));
-			// > Find if at least one participating school hasn't activated the messenger
-			const otherUsersSchoolsHaveNotMessengerEnabled = !!filteredSchoolIds.find((school) => !(school.features || []).includes('messenger'));
-
-			if (!teamsSchoolHasMessengerEnabled && usersSchoolHasMessengerEnabled) {
-				matrixNotification = res.$t('teams._team.text.messengerNotActiveInTeam');
-			} else if (teamsSchoolHasMessengerEnabled && !usersSchoolHasMessengerEnabled) {
-				matrixNotification = res.$t('teams._team.text.messengerNotActivatedSchool');
-			} else if (teamsSchoolHasMessengerEnabled && otherUsersSchoolsHaveNotMessengerEnabled) {
-				matrixNotification = res.$t('teams._team.text.messengerNotActivatedCourse');
-			}
-			if (matrixNotification) {
-				notificationMessage = {
-					message: matrixNotification,
-					type: 'info',
-					title: res.$t('teams._team.text.messengerNotActivatedTitle'),
-					iconClass: 'fa fa-info-circle',
-				};
-			}
-		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
@@ -546,7 +529,7 @@ router.get('/:teamId', async (req, res, next) => {
 		});
 		/* note: fileStorage can return arrays and error objects */
 		if (!Array.isArray(files)) {
-			if ((files || {}).code) {
+			if (files?.code) {
 				logger.warn(files);
 			}
 			files = [];
@@ -558,7 +541,7 @@ router.get('/:teamId', async (req, res, next) => {
 			// set saveName attribute with escaped quotes
 			file.saveName = file.name.replace(/'/g, "\\'");
 
-			if (file && file.permissions) {
+			if (file?.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
 			}
@@ -571,7 +554,7 @@ router.get('/:teamId', async (req, res, next) => {
 		// Sort by most recent files and limit to 6 files
 		files
 			.sort((a, b) => {
-				if (b && b.updatedAt && a && a.updatedAt) {
+				if (b?.updatedAt && a?.updatedAt) {
 					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
@@ -582,12 +565,16 @@ router.get('/:teamId', async (req, res, next) => {
 
 		directories
 			.sort((a, b) => {
-				if (b && b.updatedAt && a && a.updatedAt) {
+				if (b?.updatedAt && a?.updatedAt) {
 					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
 				}
 				return 0;
 			})
 			.slice(0, 6);
+
+		const userFiles = JSON.stringify({
+			files: files.filter((file) => file.creator === res.locals.currentUser._id).map((file) => file.name),
+		});
 
 		const news = await api(req, { version: 'v3' })
 			.get(`/team/${req.params.teamId}/news`, {
@@ -702,9 +689,9 @@ router.get('/:teamId', async (req, res, next) => {
 					course.times,
 				),
 				userId: res.locals.currentUser._id,
+				userFiles,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
-				notificationMessage,
 			},
 		);
 	} catch (e) {
@@ -919,7 +906,15 @@ router.get('/:teamId/members', async (req, res, next) => {
 		.get('/users', {
 			qs: { schoolId, $limit, $sort: { lastName: 1, firstName: 1 } },
 		})
-		.then((users) => users.data);
+		.then((userListResponse) => {
+			const users = userListResponse.data;
+
+			users.forEach((user) => {
+				user.isHidden = isUserHidden(user, res.locals.currentSchoolData);
+			});
+
+			return users;
+		});
 
 	const getRoles = () => api(req)
 		.get('/roles', {
@@ -977,7 +972,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const teamUserIds = team.userIds.map((user) => user.userId._id);
 		users = users.filter((user) => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter((s) => s._id === schoolId)[0];
-		const currentFederalStateId = (currentSchool || {}).federalState;
+		const currentFederalStateId = currentSchool?.federalState;
 		let couldLeave = true; // will be set to false if current user is the only teamowner
 
 		const rolesExternal = [
@@ -1052,22 +1047,64 @@ router.get('/:teamId/members', async (req, res, next) => {
 			}
 		}
 
+		let files = [];
+
+		try {
+			files = await api(req)
+				.get('/fileStorage', {
+					qs: {
+						owner: req.params.teamId,
+					},
+				});
+		} catch (e) {
+			logger.warn(e);
+		}
+
+		files = files.filter((file) => file);
+		files = files.map((file) => {
+			file.saveName = file.name.replace(/'/g, "\\'");
+			if (file?.permissions) {
+				file.permissions = mapPermissionRoles(file.permissions, roles);
+				return file;
+			}
+			return undefined;
+		});
+
+		files = files.filter((f) => !f.isDirectory);
+
+		files
+			.sort((a, b) => {
+				if (b?.updatedAt && a?.updatedAt) {
+					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
+				}
+				return 0;
+			});
+
+		team.userIds.forEach((user) => {
+			user.files = files.filter((file) => file.creator === user.userId._id).map((file) => file.saveName);
+		});
+
 		const body = team.userIds.map((user) => {
 			let actions = [];
 			actions = addButtonEdit(actions);
+
 			if (!couldLeave && user.role.name === 'teamowner') {
 				actions = addDisabledButtonTrash(actions);
 			} else {
 				actions = addButtonTrash(actions);
 			}
+
+			const nameSuffix = user.userId.outdatedSince ? ' ~~' : '';
+
 			return [
 				user.userId.firstName || '',
-				user.userId.lastName || '',
+				user.userId.lastName ? `${user.userId.lastName}${nameSuffix}` : '',
 				roleTranslations[user.role.name],
-				(user.userId.schoolId && user.userId.schoolId.name) || '',
+				(user?.userId?.schoolId?.name) || '',
 				{
 					payload: {
 						userId: user.userId._id,
+						files: user.files,
 					},
 				},
 				actions,
@@ -1386,61 +1423,6 @@ router.patch('/:teamId/positions', (req, res, next) => {
 	}
 
 	res.sendStatus(200);
-});
-
-router.post('/:teamId/importTopic', (req, res, next) => {
-	const { shareToken } = req.body;
-	// try to find topic for given shareToken
-	api(req)
-		.get('/lessons/', { qs: { shareToken } })
-		.then((lessons) => {
-			if ((lessons.data || []).length <= 0) {
-				req.session.notification = {
-					type: 'danger',
-					message: res.$t('global.text.noTopicFoundWithCode'),
-				};
-
-				redirectHelper.safeBackRedirect(req, res);
-			}
-
-			api(req)
-				.post('/lessons/copy', {
-					json: {
-						lessonId: lessons.data[0]._id,
-						newTeamId: req.params.teamId,
-						shareToken,
-					},
-				})
-				.then(() => {
-					redirectHelper.safeBackRedirect(req, res);
-				});
-		})
-		.catch((err) => res.status(err.statusCode || 500).send(err));
-});
-
-// return shareToken
-router.get('/:id/share', (req, res, next) => api(req)
-	.get(`/teams/share/${req.params.id}`)
-	.then((course) => res.json(course)));
-
-// return course Name for given shareToken
-router.get('/share/:id', (req, res, next) => api(req)
-	.get('/teams/share', { qs: { shareToken: req.params.id } })
-	.then((name) => res.json({ msg: name, status: 'success' }))
-	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
-
-router.post('/import', (req, res, next) => {
-	const { shareToken } = req.body;
-	const courseName = req.body.name;
-
-	api(req)
-		.post('/teams/share', { json: { shareToken, courseName } })
-		.then((course) => {
-			res.redirect(`/teams/${course._id}/edit/`);
-		})
-		.catch((err) => {
-			res.status(err.statusCode || 500).send(err);
-		});
 });
 
 module.exports = router;

@@ -8,6 +8,18 @@ window.addEventListener('load', () => {
 		$('.usersubmission td:last-of-type i.fa-chevron-up').removeClass('fa-chevron-up').addClass('fa-chevron-down');
 		$('.usersubmission.active td:last-of-type i.fa-chevron-down')
 			.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+
+		const userInfoId = $(this).parent('.usersubmission').attr('id');
+		const urlWithParams = window.location.href.replace('#', '?');
+		const actualId = new URL(urlWithParams).searchParams.get('submissionId');
+		const url = window.location.pathname;
+		if (actualId) {
+			if (actualId === userInfoId) {
+				window.location = `${url}#activetabid=submissions`;
+			}
+		} else if (userInfoId) {
+			window.location = `${url}#activetabid=submissions&submissionId=${userInfoId}`;
+		}
 	});
 
 	// change tab
@@ -17,20 +29,41 @@ window.addEventListener('load', () => {
 		$(this).addClass('active');
 		range.find('>.tabs>.tab-content.active').removeClass('active');
 		range.find(`>.tabs>#${this.id.replace('-tab-link', '')}.tab-content`).addClass('active');
+		const activeSubmissionTabId = $(this).attr('id');
+		if (activeSubmissionTabId === 'submission-tab-link' || activeSubmissionTabId === 'comment-tab-link') {
+			const urlWithParams = new URL(window.location.href.replace('#', '?'));
+			if (urlWithParams.searchParams.get('activeSubmissionTabId')) {
+				urlWithParams.searchParams.set('activeSubmissionTabId', activeSubmissionTabId);
+			} else {
+				urlWithParams.searchParams.append('activeSubmissionTabId', activeSubmissionTabId);
+			}
+			window.location = urlWithParams.href.replace('?', '#');
+		}
 	});
 
-	// set initial tab-view by URL-Parameter
-	function getParameterByName() {
-		return decodeURIComponent(window.location.hash.replace('#activetabid=', ''));
-	}
-
-	if (getParameterByName('activetabid')) {
-		const id = getParameterByName('activetabid');
+	const urlWithParams = new URL(window.location.href.replace('#', '?'));
+	if (urlWithParams.searchParams.get('activetabid')) {
+		const id = urlWithParams.searchParams.get('activetabid');
 		const range = $(`#${id}`).closest('.tab-view');
 		range.find('>.tab-links .tab-link.active').removeClass('active');
 		range.find('>.tabs>.tab-content.active').removeClass('active');
 
 		range.find(`>.tab-links>#${id}-tab-link`).addClass('active');
 		$(`#${id}`).addClass('active');
+
+		if (urlWithParams.searchParams.get('submissionId')) {
+			const userInfoId = urlWithParams.searchParams.get('submissionId');
+			const userInfoRange = $(`#${userInfoId}`);
+
+			userInfoRange.addClass('active');
+			if (urlWithParams.searchParams.get('activeSubmissionTabId')) {
+				const activeSubmissionTabId = urlWithParams.searchParams.get('activeSubmissionTabId');
+				userInfoRange.find('.tab-link.active').removeClass('active');
+				userInfoRange.find('#'.concat(activeSubmissionTabId)).addClass('active');
+				userInfoRange.find('>.evaluation .tabs .tab-content.active').removeClass('active');
+				const tabContentId = activeSubmissionTabId.replace('-tab-link', '');
+				userInfoRange.find(`#${tabContentId}`).addClass('active');
+			}
+		}
 	}
 });

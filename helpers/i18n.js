@@ -6,7 +6,7 @@ const path = require('path');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const logger = require('./logger');
 const api = require('../api');
-const ua = require('../locales/calendar/ua.json');
+const uk = require('../locales/calendar/uk.json');
 
 const i18nDebug = Configuration.get('I18N__DEBUG');
 const fallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
@@ -130,8 +130,8 @@ const createCustomRelativeTimeConfig = (localFile) => ({
 const selectMomentOptions = (langAttribute) => {
 	const options = {};
 
-	if (langAttribute === 'ua') {
-		options.relativeTime = createCustomRelativeTimeConfig(ua);
+	if (langAttribute === 'uk') {
+		options.relativeTime = createCustomRelativeTimeConfig(uk);
 	}
 
 	return options;

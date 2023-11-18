@@ -3,6 +3,7 @@ const moment = require('moment');
 const { Converter } = require('showdown');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
+const contactHelper = require('../helpers/contactHelper');
 
 const router = express.Router();
 const converter = new Converter();
@@ -29,6 +30,7 @@ router.get('/contact', (req, res, next) => {
 	res.render('help/contact', {
 		title: res.$t('global.link.contact'),
 		adminFormIsActive: true,
+		helpOptions: contactHelper.getSortedHelpOtions(res),
 	});
 });
 
@@ -53,6 +55,7 @@ router.get('/releases', (req, res, next) => {
 					},
 				],
 				release: releases.data,
+				title: 'Release Notes',
 			});
 		});
 });
@@ -66,6 +69,7 @@ router.get('/confluence/:id', (req, res, next) => {
 			},
 		],
 		articleId: req.params.id,
+		pageTitle: res.$t('help.headline.helpSection'),
 	});
 });
 

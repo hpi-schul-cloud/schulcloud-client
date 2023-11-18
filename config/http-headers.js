@@ -5,20 +5,6 @@ if (Configuration.has('CORS') !== true) {
 	throw new Error('CORS missing in Configuration');
 }
 
-/*
-	The matrix based messenger loads its assets (scripts, styles, fonts, images) from a specified domain.
-	After initialization the chat protocol communicates with its home server.
-	The discover domain is used in the client initialization.
- */
-let matrixMessengerEmbed = '';
-let matrixMessengerHomeserver = '';
-let matrixMessengerDiscoverUri = '';
-if (Configuration.get('FEATURE_MATRIX_MESSENGER_ENABLED')) {
-	matrixMessengerEmbed = Configuration.get('MATRIX_MESSENGER__EMBED_URI');
-	matrixMessengerHomeserver = Configuration.get('MATRIX_MESSENGER__URI');
-	matrixMessengerDiscoverUri = Configuration.get('MATRIX_MESSENGER__DISCOVER_URI');
-}
-
 const config = {
 	enabled: Configuration.get('CORS'),
 	// Settings for HTTP Content-Security-Policy Header
@@ -26,7 +12,7 @@ const config = {
 	Use:
 		defaultSrc, fontSrc, styleSrc, scriptSrc, imageSrc,
 		connectSrc, mediaSrc, objectSrc, prefetchSrc, childSrc,
-		frameSrc, workerSrc, frameancestorsSrc, formactionSrc, baseuriSrc
+		frameSrc, workerSrc, frameAncestors, formactionSrc, baseuriSrc
 		manifestSrc, sandboxSrc, upgradeInsecureRequestsSrc and blockAllMixedContentSrc
 
 		For more Information: https://report-uri.com/home/generate
@@ -35,11 +21,10 @@ const config = {
 		// Default Content-Security-Policy Header for every site
 		// Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
 		corsDefault: {
-			defaultSrc: `'self' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://libreoffice.dbildungscloud.de https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org ${matrixMessengerEmbed} ${matrixMessengerHomeserver} ${matrixMessengerDiscoverUri}`,
-			fontSrc: `'self' data: ${matrixMessengerEmbed}`,
-			styleSrc: `'self' 'unsafe-inline' ${matrixMessengerEmbed}`,
-			// scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
-			scriptSrc: `'self' 'unsafe-eval' ${matrixMessengerEmbed}`,
+			defaultSrc: '\'self\' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://libreoffice.dbildungscloud.de https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org',
+			fontSrc: '\'self\' data:',
+			styleSrc: '\'self\' \'unsafe-inline\'',
+			scriptSrc: '\'self\' \'unsafe-eval\'',
 			// Please activate for production
 			// upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
 			// blockAllMixedContentSrc: 'block-all-mixed-content',
@@ -50,7 +35,7 @@ const config = {
 			use * as value for
 			defaultSrc, fontSrc, styleSrc, scriptSrc, imageSrc,
 			connectSrc, mediaSrc, objectSrc, prefetchSrc, childSrc,
-			frameSrc, workerSrc, frameancestorsSrc, formactionSrc, baseuriSrc
+			frameSrc, workerSrc, frameAncestors, formactionSrc, baseuriSrc
 			and manifestSrc to ignore corsDefault and allow any external content
 		*/
 		corsSiteSpecific: {
@@ -95,7 +80,7 @@ const config = {
 			},
 			'^/impressum': {
 			},
-			'^/datenschutz': {
+			'^/privacypolicy': {
 			}, */
 			'^/about': {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',

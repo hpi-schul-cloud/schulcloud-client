@@ -166,7 +166,7 @@
 				"noClassesInYear": "No classes available in this year",
 				"noLackOfInformedConsent": "There are no missing declarations of consent in this class.",
 				"required": "required",
-				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy policy</a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
+				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy Policy</a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of Use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
 				"theNextStepIsToInviteOrAdd": "In the next step you can invite or add students to the class."
 			},
 			"brb": {
@@ -191,12 +191,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Administration:",
+				"administration": "Management",
 				"alias": "Alias",
 				"attendees": "Attendees",
 				"briefDescription": "Brief description",
-				"classes": "{{title}}Classes",
-				"courses": "{{title}}Courses",
 				"createdOn": "Created on",
 				"creationDate": "Date of creation",
 				"declarationOfConsentStatus": "Declaration of consent Status",
@@ -211,13 +209,13 @@
 				"members": "Members",
 				"owner": "Owner",
 				"remarks": "Remarks",
-				"school": "{{title}}School",
 				"schools": "School(s)",
 				"status": "Status",
 				"students": "{{title}}Student",
+				"studentImport": "Import student",
 				"targetState": "Target state",
 				"teacher": "{{title}}Teacher",
-				"teams": "{{title}}Teams",
+				"teacherImport": "Import teacher",
 				"upgradeClass": "Bring class '{{name}}' to the new school year",
 				"uploadedOn": "Uploaded on"
 			},
@@ -249,7 +247,6 @@
 				"manageClass": "Manage class",
 				"removeMembers": "Remove members of your own school from the team",
 				"resetPassword": "Reset Password",
-				"schoolPrivacyPolicy": "Privacy policy of the school",
 				"sendEntryToDevelopmentTeam": "Send entry to development team",
 				"sendMessageToOwner": "Send message to owner",
 				"toGiveConsent": "Give consent",
@@ -307,6 +304,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Manage classes",
+				"manageClassesNew": "Manage classes (new)",
 				"manageCourses": "Manage courses",
 				"manageSchool": "Manage school",
 				"manageStudents": "Manage students",
@@ -339,7 +337,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:"
+				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:",
+				"distributeLinkToInviteShort": "To invite to the {{shortTitle}}, send the following link:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Before the use of the {{shortTitle}} is possible, parents and / or students must have gone through the electronic consent process.",
@@ -351,7 +350,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Give the following link to the teacher:"
 			},
 			"text": {
-				"beforeUsingThe": "Before the use of the {{title}} possible, the teacher must have gone through the consent process."
+				"beforeUsingThe": "Before the use of the {{title}} possible, the teacher must have gone through the consent process.",
+				"toInvite": "To invite to the {{shortTitle}}, send the following link:"
 			}
 		},
 		"form_Policy": {
@@ -530,22 +530,21 @@
 			"text": {
 				"afterVerificationCanPreviewTheReadContent": "After verification, you can preview the contents that have been read out. Deleted contents are not transferred because the user's first name, surname and / or email address is not available in the LDAP.",
 				"anyChangesToTheFollowingConfiguration": "Any changes to the following configuration may result in the login no longer working for you and all users in your school. Therefore, only make changes if you are aware of the consequences. Some sections are read-only. However, you can enable editing of the information by clicking on the lock in the respective section. After each verification, your system will be updated and initially set to deactivated. Do not forget to finally save the changes if the verification was successful.",
-				"backgroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the HPI school cloud saves which school year a user was in which class. The HPI school cloud provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
+				"backgroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the {{title}} saves which school year a user was in which class. The {{title}} provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
 				"canCreateYearIndependentClasses": "You can create independent classes with free names. These classes cannot be <i> 'moved' </i> by the administrator, but must be updated manually.",
 				"canStartTheTransferPhase": "You can start the transfer phase manually from two weeks before the start of the holidays",
 				"ifAllStudentsAndParentsHaveGiven": "If the consent has been given by all students and parents in paper form, the consent for the whole class can be declared manually here.",
 				"ifThereIsNoManualStart": "if there is no manual start at the beginning of the holiday, the transfer phase begins automatically",
 				"newUsersClassAffiliations": "new added users, class memberships and changes to user data are constantly synchronized",
-				"provideStudentsAndTheirParents": "Provide your students and their parents with individual links to give their consent in digital or analog form. When registration is complete, a login password will be created for the student.",
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{title}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
 				"thereIsNoDeclarationOfConsent": "There is no consent form for the user yet. Call a personal invitation link to complete the registration and distribute it to the user or his parents. During registration, the consent is then granted by the user himself. If a declaration of consent is available in paper form, the user can be activated by clicking on 'Received consent on paper' and a start password can be assigned. This will unlock the login.",
 				"registrationNotCompleted": "The student has not yet completed the registration. Retrieve a personal invitation link to complete the registration and distribute it to the student.",
 				"teacherRegistrationNotCompleted": "The teacher has not yet completed the registration. Retrieve a personal invitation link to complete the registration and distribute it to the teacher.",
 				"theSchoolYearEndsAnd": "The school year {{schoolName}} is ended and the transfer phase  to the new school year begins. <strong>This step cannot be undone.</strong> No classes and users can be created or changed during this time.",
 				"theSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data is interrupted during the transfer phase. This means that user data and classes (if used) are no longer updated via LDAP. It is still possible to log in with login data that has already been synchronized. Password changes in the LDAP during login are also taken into account.",
-				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the HPI school cloud at once.",
+				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the {{title}} at once.",
 				"withAllChangesAndSettings": "With all changes and settings in the administration area, it is confirmed that these are carried out by a school admin with authority to make adjustments to the school in the cloud. Adjustments made by the school admin are deemed to be instructions from the school to the cloud operator {{institute_title}}.",
-				"wouldYouLikeReportABug": "Would you like to report an error or do you have an idea to improve the {{title}} ? Send requests or problems directly to the {{shortTitle}} user support."
+				"wouldYouLikeReportABug": "Would you like to report an error or do you have an idea to improve the {{title}}? Send requests or problems directly to the {{shortTitle}} user support."
 			}
 		},
 		"school": {
@@ -570,8 +569,10 @@
 				"activeMatrixFunction": "Activate Matrix Messenger",
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
+				"allStudentsVisibilityBrandenburg": "Enabling this option turns on the visibility of all students of this school for each teacher.",
+				"allStudentsVisibilityNiedersachsen" : "If this option is not enabled, teachers can only see the classes and their students in which they are members.",
 				"authentication": "Authentication",
-				"beta": "Try new admin page",
+				"newPage": "To the new admin page",
 				"changeOfClasses": "Change of classes / new classes",
 				"changeOfUserData": "Change of user data / new users",
 				"chooseACounty": "Please choose the county your school belongs to.",
@@ -622,7 +623,7 @@
 				"allDone": "All done!",
 				"atTheEndOfTheSchoolYearWithLDAP": "When the school year changes, carry out the following actions with LDAP:",
 				"atTheEndOfTheTransferPhase": "When the transfer phase ends, all changes made in the LDAP are synchronized in one go",
-				"atTheSameTime": "At the same time, you ring in the new school year in the HPI school cloud",
+				"atTheSameTime": "At the same time, you ring in the new school year in the {{title}}",
 				"changeSchoolValueWarning": "Once set, it cannot be changed!",
 				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
 				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
@@ -737,6 +738,12 @@
 				"firstClose": "The user must first complete the consent form digitally",
 				"firstFinishRegistration": "The user must first complete the registration process.",
 				"successfullySentMail": "The invitation e-mail was sent successfully!"
+			},
+			"aria_label": {
+				"firstName": "First name of the user",
+				"lastName": "Last name of the user",
+				"email": "E-mail address of the user",
+				"birthdate": "Birthdate of the user"
 			}
 		},
 		"users_registrationComplete": {
@@ -761,7 +768,9 @@
 	"alert": {
 		"text": {
 			"furtherCase": "+ {{amount}} another incident",
-			"furtherCases": "+{{amount}} further incidents"
+			"furtherCases": "+{{amount}} further incidents",
+			"updatedAt": "Updated:",
+			"createdAt": "Created:"
 		}
 	},
 	"autologout": {
@@ -903,7 +912,8 @@
 				},
 				"label": {
 					"activateBidirectionalMessenger": "Allow Students to write messages in the course chat.",
-					"substitute": "Substitute teachers"
+					"substitute": "Substitute teachers",
+					"activateVideoConferences": "Activate video conferences for course"
 				},
 				"text": {
 					"attentionDeletion": "All data will be permanently deleted.",
@@ -1070,14 +1080,12 @@
 					"createAnotherTopic": "Create another topic",
 					"createAnotherTopicWithNewEditor": "Create another topic in the new editor",
 					"createFirstTopic": "Create a topic",
-					"createFirstTopicWithNewEditor": "Create a topic in the new topic tool",
-					"importTopic": "Import topic"
+					"createFirstTopicWithNewEditor": "Create a topic in the new topic tool"
 				},
 				"headline": {
 					"createFirstTopic": "Create the first topic in your course",
 					"createFirstTopicWithNewEditor": "Create the first topic with the new topic tool",
 					"firstTopicSuccess": "Done - The first topic in your course!",
-					"importTopic": "Import topic",
 					"noTopic": "There are no topics in this course.",
 					"noTopicWithTool": "There are no topics in this course that were created with the new topic tool.",
 					"noTopicWithToolYet": "There are no topics in this course yet that were created with the new topic tool.",
@@ -1102,9 +1110,6 @@
 					"editSortDeleteShareTopicsHere": "You can edit <i class=\"fa fa-pencil\"></i>, sort <i class=\"fa fa-arrows\"></i> or delete <i class=\"fa fa-trash-o\"></i> topic at any time.",
 					"externalLinkToGeoGebra": "This is external content of the provider GeoGebra. It will open in a new window or tab.",
 					"hideTopic": "Hide topic",
-					"importTopic": "Import topic",
-					"importTopicAdviseChangeData": "<strong>Attention</strong>: Manually replace tools user data which are included in the topic subsequently (e.g. nexBoard, Etherpad, GeoGebra), because changes to this will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
-					"insertCodeToImportTopic": "Insert a code to import other users' topics. Files included in the topic are placed in your course folder.",
 					"moveTopic": "Move topic",
 					"revealTopic": "Show topic again",
 					"shareTopic": "Share topic"
@@ -1132,8 +1137,7 @@
 				"addClassesToCourse": "Class(es) (All students in the class will be added automatically!) - optional",
 				"addStudentsToCourse": "Students / participants - optional",
 				"courseSubstitute": "Substitute teacher - optional",
-				"timeSpan": "Period (eg school year) from - Optional",
-				"timeSpanUntil": "To - Optional"
+				"timeSpan": "Period (eg school year) from"
 			},
 			"link": {
 				"addAnotherCourse": "Create another course",
@@ -1245,6 +1249,7 @@
 			"toTask": "To the task"
 		},
 		"text": {
+			"announcement": "Take part in our satisfaction survey and help us improve the cloud. Click <a target=\"_blank\" aria-label=\"satisfaction survey\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://befragungen.dataport.de/umfrage/1732110/47pve9/\">here</a> for the survey. (German language only).",
 			"emptyHomeworksInfo": "No assigned tasks. You can find all tasks in the tasks area.",
 			"emptyNewsInfo": "So far there is no news.",
 			"graded": "Graded",
@@ -1336,7 +1341,11 @@
 			"attention": "Attention",
 			"createNewFile": "Create a new file",
 			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
-			"newFolder": "New folder"
+			"newFolder": "New folder",
+			"personalFiles": "Personal files",
+			"courseFiles": "Course files",
+			"teamFiles": "Team files",
+			"sharedFiles": "Shared files"
 		},
 		"img_alt": {
 			"altInfoTheImage": "the image {{imgName}}"
@@ -1451,7 +1460,6 @@
 				"i": "I,",
 				"pleaseClickOnRead": "Please acknowledge this information by clicking on „Read” in order to proceed with the use.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Please confirm the following declarations of consent so that you can use the {{title}}.",
-				"termsOfUse": "Terms of use",
 				"the": "the"
 			}
 		},
@@ -1675,7 +1683,7 @@
 				"de": "Deutsch",
 				"en": "English",
 				"es": "Español",
-				"ua": "Yкраїнський"
+				"uk": "Yкраїнська"
 			}
 		},
 		"link": {
@@ -1760,12 +1768,17 @@
 			"408": "Timeout",
 			"areYouSure": "Are you sure?",
 			"attention": "Attention:",
-			"dataProtection": "Privacy policy",
+			"dataProtection": "Privacy Policy",
+			"dataProtectionThr": "Privacy Policy",
+			"dataProtectionFile": "Privacy Policy of School",
+			"dataProtectionFileThr": "Privacy Policy of School",
+			"termsOfUse": "Terms of Use",
+			"termsOfUseFile": "Terms of Use of School",
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
 			"errorWhileLoadingPage": "This page could not be loaded",
 			"filesTooLarge": "The attached files exceed the maximum permitted total size!",
-			"fileTooLarge": "The attached files exceed the maximum permitted size!",
+			"fileTooLarge": "The attached files exceed the maximum permitted size of {{ maxFileSizeInGb }} GB!",
 			"fileWrongFormat": "'{{filename}}' is not an image, video or valid file!",
 			"forThisWeNeedTheFollowingInformationFromYou": "For this we need the following information from you:",
 			"friday": "Friday",
@@ -1806,46 +1819,24 @@
 		"chooseTopicArea": {
 			"text": {
 				"chooseArea": "Select area",
-				"eachTopicSeparate": " Please submit each topic separately.",
-				"pApps": "Mobile Apps (Android, iOS)",
-				"pBBB": "BBB video conference",
-				"pBettermarks": "Bettermarks",
-				"pCalendar": "Calendar and timetable",
-				"pCourseGeneral": "Courses-General",
+				"severalTopicsPossible": " Selection of several topics is possible",
+				"pAddOns": "Add-Ons",
+				"pAuthentication": "Authentication",
+				"pCalendar": "Calendar",
+				"pCommunication": "Communication",
 				"pCourses": "Courses",
 				"pDashboard": "Dashboard",
-				"pEditor": "Texteditor",
-				"pExtra": "Extras",
-				"pExtraGeneral": "Extras-General",
-				"pGeneral": "General",
-				"pGroups": "Groups",
-				"pHelparea": "Helparea",
-				"pIdm": "IDM (LDAP, SSO, TSP etc.)",
+				"pExternalTools": "External Tools",
+				"pHelparea": "Help-Section",
 				"pLernStore": "Learning-Store",
-				"pLernStoreContent": "Learning-Store Content",
-				"pLibreOffice": "Libre Office",
-				"pLogin": "Login",
-				"pManageGeneral": "Management-General",
 				"pManagement": "Management",
-				"pMatrixMessenger": "Matrix Messenger",
-				"pMyFiles": "Files (Save, Upload, Download, Sort)",
+				"pMobileUse": "Mobile Use",
+				"pMyFiles": "Files",
 				"pNews": "News",
-				"pNotifications": "Notifications (E-Mail)",
 				"pOther": "Other",
-				"pPermissions": "Permissions & Roles",
-				"pProjectPage": "Project website",
-				"pRegister": "Registration",
-				"pRocketChat": "Rocket Chat",
-				"pSettings": "Settings (User & School)",
-				"pSharing": "Sharing (Courses, Topics, Files)",
-				"pSHD": "SuperHero Dashboard",
-				"pTasks": "Tasks and Submissions",
-				"pTeams": "Teams",
-				"pTeamsGeneral": "Teams-General",
-				"pTools": "Tools",
-				"pToolsGeneral": "Tools-General",
-				"pToolsOther": "Other Tools (Geogebra, Nexboard, Bettermarks)",
-				"pTopics": "Course topics"
+				"pPrivacy": "Privacy",
+				"pTasks": "Tasks",
+				"pTeams": "Teams"
 			}
 		},
 		"confluence": {
@@ -1886,9 +1877,10 @@
 				"problemAlreadyKnown": "Is the problem already known?",
 				"problemDescription": "Problem description",
 				"statusPage": "Status page",
-				"theProblemOccursOnTheDevice": "The problem occurs on this device (optional)"
+				"theProblemOccursOnTheDevice": "The problem occurs on this device"
 			},
 			"text": {
+				"noProblemAreaSelected": "You have to choose a problem area.",
 				"iAgreeThatTheFollowingInformationMayBe": "I agree that the following information may transferred for better handling of my problem: <li>Browser name and version (e.g. Firefox 69.0)</li> <li> Operating system and version (e.g. Windows 10)</li>",
 				"problemAlreadyKnownText": "Have you checked if your problem is already known? It helps us to solve problems faster if only new issues are shared."
 			}
@@ -1919,8 +1911,9 @@
 			},
 			"label": {
 				"briefDescriptionOfTheProblem": "Brief description of the problem",
-				"furtherInformation": "Further information about your browser and operating system (optional)",
-				"replyEmail": "E-mail address for any queries"
+				"furtherInformation": "Further information about your browser and operating system",
+				"replyEmail": "E-mail address for any queries",
+				"requiredField": "(required)"
 			}
 		},
 		"headline": {
@@ -2096,7 +2089,7 @@
 				"noSubmissionsYetFrom": "No submission yet from:",
 				"startDateBeforeSubmissionDate": "The start date must be before the submission date!",
 				"submissionGradedNotification": "Your submission in the field {{coursename}} has been graded",
-				"youHaveSolvedXPercent": "You have solved <b class=\"grade\">{{grade}}%</b> correctly."
+				"youHaveSolvedXPercent": "You have solved <b class=\"grade\" data-testid=\"feedback-grade\">{{grade}}%</b> correctly."
 			}
 		},
 		"button": {
@@ -2111,7 +2104,9 @@
 			"importing": "import",
 			"importSubmission": "Import student submission",
 			"onTheSubject": "On the subject",
+			"saveDraft": "Save draft",
 			"saveAndSend": "Save and send",
+			"saveAndSubmit": "Send submission",
 			"submit": "Submit",
 			"toCourseAlt": "To the course of the task",
 			"toTheCourseFiles": "To the course files",
@@ -2181,8 +2176,6 @@
 		},
 		"text": {
 			"activatingThisMakesSubmissionsPublic": "By activating this option, the submissions of all course participants will be visible to all other students in the course.",
-			"bulkGradingError": "Submissions could not be assigned to all files based on the name. Go to comments/grading to assign the following files to the respective submission:",
-			"bulkGradingSuccess": "Task could be assigned to all files. Please reload page.",
 			"creatorCanNotBeRemoved": "You cannot remove the creator of the task!",
 			"done": "Great! You've completed your task!",
 			"doYouReallyWantToDelete": "Are you sure you want to delete '{{name}}'?",
@@ -2294,7 +2287,8 @@
 				"viewDetails": "Show details"
 			},
 			"headline": {
-				"errorDetails": "Error details:"
+				"errorDetails": "Error details:",
+				"pageTitle": "An error has occurred"
 			}
 		},
 		"extended_footer": {
@@ -2390,7 +2384,7 @@
 				"participate": "Participate",
 				"safety": "Security",
 				"status": "Status",
-				"termsOfUseHPI": "Terms of use"
+				"termsOfUseHPI": "Terms of Use"
 			}
 		},
 		"headline": {
@@ -2409,11 +2403,11 @@
 				"userName": "Username:"
 			},
 			"label": {
-				"help": "Help",
+				"helpSection": "Help Section",
 				"playEnterTheCloud": "Play Enter The Cloud"
 			},
 			"link": {
-				"sendRequestOrProblem": "Send request or problem",
+				"releaseNotes": "What's new?",
 				"training": "Advanced trainings"
 			}
 		},
@@ -2489,7 +2483,7 @@
 			"firstLoginExistingUser": "Welcome - First login for existing users",
 			"loginFailedHint": "Unfortunately, your Login did not work, please try the following steps to solve the problem",
 			"loginForRegisteredUsers": "Login for registered users",
-			"onlyTermsOfUse": "Terms of use",
+			"onlyTermsOfUse": "Terms of Use",
 			"privacyAndTermsOfUse": "Privacy Policy and Terms of Use"
 		},
 		"input": {
@@ -2548,7 +2542,7 @@
 			}
 		},
 		"text": {
-			"accessDenied": "Login via school server denied. Please log in again and allow access.",
+			"accessDenied": "Login denied. Please log in again and allow access.",
 			"errorFirstLogin": "An error has occurred while processing the FirstLogin data.",
 			"loginFailed": "Login failed.",
 			"loginFailedFirstHint": "1. Which browser are you using?",
@@ -2587,14 +2581,15 @@
 			"loginFailedThirdHintSixthText": "For Brandenburg under: ",
 			"loginFailedThirdHintSecondText": "If this does not work either, please contact support.",
 			"loginFailedThirdHintThirdText": "For the dBildungscloud at: ",
-			"oauthLoginFailed": "Login via school server failed.",
-			"oauthCodeStep": "Login via school server failed. Please log in again or contact support.",
+			"oauthCodeStep": "Login failed. Please log in again or contact support.",
 			"pleaseWaitXSeconds": "Please wait for {{seconds}} seconds",
 			"showPassword": "Show Password:",
 			"superheroForbidden": "You are trying log in with a superhero account. Please use another account",
 			"superheroText": "You are trying log in with a superhero account.",
-			"userNotFound": "Synchronisation with the school server is in progress. Please log in again in 2 hours or contact the admin.",
-			"internalError": "Internal Server Error. Please contact the admin."
+			"userNotFound": "User not found.",
+			"internalError": "Internal Server Error. Please contact the admin.",
+			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system.",
+			"userNotFoundInUnprovisionedSchool": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator."
 		}
 	},
 	"messenger": {
@@ -2756,7 +2751,7 @@
 					"iDeclareTheFollowing": "I, <b data-from=\"firstName\"> </b> <b data-from=\"lastName\"> </b>, declare the following:",
 					"inCaseOfRevocationDataDeletion": "In the event of revocation, we will immediately delete the personal data stored on the basis of the consent, unless there is a legal reason for storage or you wish to access the stored data beforehand. You can also find further information on data protection in our <a class=\"nav-link\" target=\"_blank\" href=\"https://blog.dbildungscloud.de/faq-zum-datenschutz/\" rel=\"noopener\">FAQ</a>.",
 					"languageHint": "Little info: You can change your language at any time in your settings. Settings can be found in the top right corner when you tap on your avatar.",
-					"myDataMayBeProcessed": "I agree that my personal data will be processed in accordance with the school's <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">privacy policy</a> in the {{title}} and in the learning material providers selected and instructed by the school.",
+					"myDataMayBeProcessed": "I agree that my personal data will be processed in accordance with the school's <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Privacy Policy</a> in the {{title}} and in the learning material providers selected and instructed by the school.",
 					"theEmailAddressEnables": "The e-mail address enables notifications to be sent and makes it easier to reset the password.",
 					"weNeedFollowingDataForRegistration": "For the use of the {{title}} we need the following information:",
 					"weStoreUserDataSafely": "The {{shortTitle}} stores the user data securely and does not pass them on to third parties. The data is processed in accordance with the high statutory data protection requirements."
@@ -2796,7 +2791,7 @@
 					"aParentOrLegalGuardian": "years, a parent or guardian must consent to use the",
 					"legalGuardingHasToAgreeToTermsOfUse": "For students under {{years}} years a parent or guardian must consent to the use of the {{shortTitle}}.",
 					"mustNotBeYourChildsEmail": "(Cannot be the same as your child's e-mail address)",
-					"myDataMayBeProcessed": "I agree that my child's personal data will be processed in accordance with the school's <a href=\"{{link}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Privacy Policy</a> in the {{title}} as well as with the learning material providers selected and instructed by the school.",
+					"myDataMayBeProcessed": "I agree that my child's personal data will be processed in accordance with the school's <a href=\"{{link}}\" title=\"{{name}}\" target=\"_blank\" class=\"{{class}}\" rel=\"noopener\">Privacy Policy</a> in the {{title}} as well as with the learning material providers selected and instructed by the school.",
 					"needFollowingInformationForChild": "we need the following information for your child:",
 					"pleaseConfirmTheFollowing": "Please confirm the following declarations of consent so that your child can take advantage of the {{shortTitle}}:",
 					"studentNeedTheirOwnEmail": "(Students need their own e-mail address)",
@@ -2869,7 +2864,7 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "If you are between 14 and {{age}} years old, please also confirm the declaration of consent so that you can use the {{title}}.",
-			"agreeTermsOfUse": "I have read and agree to the <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Terms of Use of the {{title}}</a>.",
+			"agreeTermsOfUse": "I have read and agree with the school's <a href=\"{{link}}\" title=\"{{name}}\" class=\"{{class}}\" target=\"_blank\" rel=\"noopener\">Terms of Use</a> of the {{title}}.",
 			"andAuthorisedToRepresent": "and entitled to represent the other parent in the following declarations.",
 			"iAgreeThatThepersonalData": "I consent to my child's personal data being processed in accordance with the",
 			"invalidLink": "Unfortunately the link is no longer valid. Request a new link from your teacher or school administrator.",
@@ -2925,9 +2920,6 @@
 				},
 				"placeholder": {
 					"teamName": "A-Team"
-				},
-				"text": {
-					"videoConferencesNotAllowedBySchool": "Video conferences are not allowed at your school. Contact your school administrator to enable this option."
 				}
 			},
 			"events": {
@@ -3002,7 +2994,7 @@
 					"selectFromIndex": "Select from directory"
 				},
 				"headline": {
-					"addMember": "Delete attendee",
+					"addMember": "Add attendee",
 					"class": "{{count}} class",
 					"class_plural": "{{count}} classes",
 					"deleteClass": "Delete class",
@@ -3035,8 +3027,11 @@
 					"reallyWantToRmClass": "Do you really want to remove this class?",
 					"reallyWantToRmInvitation": "Do you really want to cancel the invitation?",
 					"reallyWantToRmUser": "Do you really want to remove this attendee?",
+					"reallyWantToRmUserWFiles": "Do you really want to remove this attendee and all above files?",
 					"removeClass": "Remove class",
 					"removeUser": "Remove user",
+					"removeUserWFilesIntro": "You are going to delete attendee. All files linked to that user will also be removed. If you don't want to lose these files, copy them before deleting attendee.",
+					"leaveTeamWFilesIntro": "You are going to leave team. All files linked to that you will also be removed. If you don't want to lose these files, copy them before leave.",
 					"roleOfInvitedTeacher": "Role of the invited teacher",
 					"selectRoleForMember": "Enter which role the attendee should be given.",
 					"sendInvitationAgain": "Resend invitation"
@@ -3158,6 +3153,7 @@
 			},
 			"label": {
 				"content": "Content",
+				"embeddedFiles": "Files used",
 				"expandDraftTasks": "Fold drafts in/out",
 				"expandTasks": "Fold tasks set in/out",
 				"titleOfTheTopic": "Title of the topic"
@@ -3187,7 +3183,8 @@
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
 				"neXboard": "neXboard",
-				"text": "Text"
+				"text": "Text",
+				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
@@ -3220,12 +3217,18 @@
 		"text": {
 			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
 			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
-			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference."
+			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference.",
+			"videoConferencesNotAllowedBySchool": "Video conferences are not allowed at your school. Contact your school administrator to enable this option."
 		}
 	},
 	"info": {
 		"text": {
 			"nextcloudLink": "We are working on a new file space. From now on, all <b>new files</b> can be saved and managed there (open file area). All team members automatically have access to the files stored there. All already <b>existing files</b> in the {{title}} are still available here."
+		}
+	},
+	"h5p": {
+		"text": {
+			"createAfterFirstSave": "H5P contents can only be created after the first save."
 		}
 	}
 }

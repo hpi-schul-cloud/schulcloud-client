@@ -1,0 +1,45 @@
+@import "./alerts.scss";
+@import "./colors";
+@import "./bootstrap/scss/bootstrap-flex";
+
+.input-group-addon {
+	width: auto;
+}
+
+//TODO in BC-3743: media code needs to be changed and refactored in terms of implementation BC-3743
+.alert-button {
+	.dropdown-menu {
+		left: -20.7rem !important;
+
+			.dropdown-menu::before,
+			.dropdown-menu::after {
+				content: none !important;
+			}
+		}
+}
+
+.navbar-nav {
+
+	@include media-breakpoint-down(md) {
+		height: 56px;
+  }
+
+	@include media-breakpoint-down(sm) {
+		height: 56px;
+  }
+	.minimal-button {
+		float: right;
+		margin-top: 8px;
+		padding-right: 10px;
+		.dropdown-menu {
+			&:after,
+			&:before {
+				display: none;
+			}
+
+			@include media-breakpoint-down(sm) {
+				left: 19.75rem;
+			}
+		}
+	}
+}

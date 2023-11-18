@@ -5,7 +5,8 @@ $(window).ready(() => {
 		const data = tableRow.find('td[data-payload]').data('payload');
 		const json = JSON.parse(decodeURIComponent(atob(data).split('').map((value) => {
 			const germanLetter = `00${value.charCodeAt(0).toString(16)}`;
-			return `%${(germanLetter).slice(-2)}`}).join('')));
+			return `%${(germanLetter).slice(-2)}`;
+		}).join('')));
 		return json;
 	}
 
@@ -30,13 +31,13 @@ $(window).ready(() => {
 			members.forEach((member) => {
 				const { user } = member; // userId was populated
 				if (user.fullName) {
-					teamMembers = `${teamMembers}<li>${user.fullName} (${
+					teamMembers = `${teamMembers}<li>${user.fullName}${user.outdatedSince ? ' ~~' : ''} (${
 						member.role
 					})</li>`;
 				} else {
 					teamMembers = `${teamMembers}<li>${user.firstName} ${
 						user.lastName
-					} (${member.role})</li>`;
+					}${user.outdatedSince ? ' ~~' : ''} (${member.role})</li>`;
 				}
 			});
 			teamMembers += '</ol>';
@@ -76,6 +77,7 @@ $(window).ready(() => {
 			title: $t('administration.teams.headline.messageToTeamOwners'),
 			closeLabel: $t('global.button.discard'),
 			submitLabel: $t('global.button.submit'),
+			submitDataTestId: 'message-modal',
 		});
 
 		$messageModal.appendTo('body').modal('show');
@@ -98,6 +100,7 @@ $(window).ready(() => {
 			fields: {
 				name,
 			},
+			submitDataTestId: 'delete-team-modal',
 		});
 
 		$deleteModal.appendTo('body').modal('show');
@@ -120,6 +123,7 @@ $(window).ready(() => {
 			fields: {
 				name,
 			},
+			submitDataTestId: 'remove-all-members-modal',
 		});
 
 		$removeModal.appendTo('body').modal('show');
@@ -138,6 +142,7 @@ $(window).ready(() => {
 			title: $t('administration.teams.headline.newTeamOwner'),
 			closeLabel: $t('global.button.cancel'),
 			submitLabel: $t('administration.teams.button.appointTeamOwner'),
+			submitDataTestId: 'appoint-team-owner-modal',
 		});
 
 		$removeModal.appendTo('body').modal('show');
