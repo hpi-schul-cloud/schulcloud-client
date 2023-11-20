@@ -326,7 +326,6 @@ class TopicBlockList extends React.Component {
      * Render the list items.
      */
 	render() {
-		const neXboardEnabled = ($contentBlocksContainer.data('nexboardenabled') === true);
 		const h5pEditorEnabled = ($contentBlocksContainer.data('h5peditorenabled') === true);
 		return (
             <div>
@@ -364,7 +363,7 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
 								{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
 						</button>
-                        <button
+						<button
 							type="button"
 							className="btn btn-secondary"
 							data-testid="topic-addcontent-material-btn"
@@ -372,14 +371,6 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicResources)}>
 								{`+ ${$t('topic.topicEdit.button.material')}`}
 						</button>
-						{neXboardEnabled ? <button
-							type="button"
-							className="btn btn-secondary"
-							data-testid="topic-addcontent-nexboard-btn"
-							aria-label={$t('global.button.add')}
-							onClick={this.addBlock.bind(this, TopicNexboard)}>
-								{`+ ${$t('topic.topicEdit.button.neXboard')}`}
-							</button> : '' }
 						<button
 							type="button"
 							className="btn btn-secondary"
@@ -388,7 +379,7 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicEtherpad)}>
 								{`+ ${$t('topic.topicEdit.button.etherpad')}`}
 						</button>
-                        <button
+						<button
 							type="button"
 							className="btn btn-secondary"
 							data-testid="topic-addcontent-task-btn"
@@ -403,7 +394,7 @@ class TopicBlockList extends React.Component {
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicH5P)}>
 								{`+ ${$t('topic.topicEdit.button.h5p')}`}
-							</button> : ''
+						</button> : ''
 						}
                     </div>
                 </div>
