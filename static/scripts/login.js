@@ -152,11 +152,12 @@ $(document).ready(() => {
 		}
 	});
 
-	if ($oauthErrorLogout && $oauthSystems.length > 0 && $oauthErrorLogout.eq(0).text() === 'true') {
-		const $iservButton = $oauthSystems.find('.btn-oauth[data-provider="iserv"]');
+	if ($oauthErrorLogout && $oauthSystems.length > 0 && $oauthErrorLogout.eq(0).text()) {
+		const provider = $oauthErrorLogout.eq(0).text();
 
-		if ($iservButton.length > 0) {
-			const logoutWindow = window.open($iservButton.eq(0).data('logout'));
+		const $loginButton = $oauthSystems.find(`.btn-oauth[data-provider="${provider}"]`);
+		if ($loginButton && $loginButton.length > 0 && $loginButton.eq(0).data('logout')) {
+			const logoutWindow = window.open($loginButton.eq(0).data('logout'));
 			window.focus();
 			setTimeout(() => {
 				logoutWindow.close();
@@ -164,15 +165,6 @@ $(document).ready(() => {
 			$oauthErrorLogout.eq(0).text('false');
 		}
 	}
-
-	$oauthSystems.each((index, element) => {
-		const $oauthButton = $(element).find('.btn-oauth').eq(0);
-
-		// eslint-disable-next-line func-names
-		$oauthButton.on('click', function () {
-			window.location.href = $(this).data('href');
-		});
-	});
 
 	$cloudButton.on('click', () => {
 		showHideButtonsMenu(false);

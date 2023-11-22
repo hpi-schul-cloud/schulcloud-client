@@ -8,7 +8,7 @@
         required
     >
     {{#each @root.availableLanguages as | lang | }}
-        <option value="{{lang}}" {{#ifeq langParent.language '{{lang}}'}}selected{{/ifeq}}>{{$t (concat "global.language.label." lang)}}</option>
+        <option value="{{lang}}" {{#ifeq ../langParent.language lang}}selected="selected"{{/ifeq}}>{{$t (concat "global.language.label." lang)}}</option>
     {{/each}}
     </select>
 </div>

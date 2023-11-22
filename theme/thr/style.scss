@@ -1,3 +1,4 @@
+
 $primaryColor: #2876D0;
 $secondaryColor: #185888;
 $accentColor: #f56b00;
@@ -48,9 +49,8 @@ body {
 
             @media (max-width: 991px) {
                 .cloud-logo {
-                    width: 100% !important;
-                    margin-left: 0 !important;
-                }
+                    margin-left: 3.2px !important;
+                 }
             }
         }
     }

@@ -4,6 +4,7 @@ const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const { decode } = require('html-entities');
 
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
@@ -12,6 +13,7 @@ const api = require('../api');
 const { logger, formatError } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 const { makeNextcloudFolderName, useNextcloudFilesystem } = require('../helpers/nextcloud');
+const { isUserHidden } = require('../helpers/users');
 
 const router = express.Router();
 moment.locale('de');
@@ -154,6 +156,10 @@ const editTeamHandler = async (req, res, next) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
 			return next(new Error(res.$t('global.text.403')));
 		}
+
+		if (team.description) team.description = decode(team.description);
+		if (team.name) team.name = decode(team.name);
+
 		return res.render('teams/edit-team', {
 			action,
 			method,
@@ -426,6 +432,9 @@ router.get('/:teamId/json', (req, res, next) => {
 				return permission;
 			});
 
+			if (team.description) team.description = decode(team.description);
+			if (team.name) team.name = decode(team.name);
+
 			res.json({ team });
 		})
 		.catch((err) => {
@@ -471,6 +480,11 @@ router.get('/:teamId', async (req, res, next) => {
 				],
 			},
 		});
+
+		if (course.description && course.name) {
+			course.description = decode(course.description);
+			course.name = decode(course.name);
+		}
 
 		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
@@ -892,7 +906,15 @@ router.get('/:teamId/members', async (req, res, next) => {
 		.get('/users', {
 			qs: { schoolId, $limit, $sort: { lastName: 1, firstName: 1 } },
 		})
-		.then((users) => users.data);
+		.then((userListResponse) => {
+			const users = userListResponse.data;
+
+			users.forEach((user) => {
+				user.isHidden = isUserHidden(user, res.locals.currentSchoolData);
+			});
+
+			return users;
+		});
 
 	const getRoles = () => api(req)
 		.get('/roles', {
@@ -1065,14 +1087,18 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const body = team.userIds.map((user) => {
 			let actions = [];
 			actions = addButtonEdit(actions);
+
 			if (!couldLeave && user.role.name === 'teamowner') {
 				actions = addDisabledButtonTrash(actions);
 			} else {
 				actions = addButtonTrash(actions);
 			}
+
+			const nameSuffix = user.userId.outdatedSince ? ' ~~' : '';
+
 			return [
 				user.userId.firstName || '',
-				user.userId.lastName || '',
+				user.userId.lastName ? `${user.userId.lastName}${nameSuffix}` : '',
 				roleTranslations[user.role.name],
 				(user?.userId?.schoolId?.name) || '',
 				{

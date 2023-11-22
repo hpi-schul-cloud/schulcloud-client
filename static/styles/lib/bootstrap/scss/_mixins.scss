@@ -14,6 +14,15 @@
   }
 }
 
+
+@mixin cloud-logo {
+    background: $logoBackgroundTablet !important;
+    width: 112px !important;
+    position: absolute;
+    left: 0;
+    height: 32px;
+}
+
 // Utilities
 @import "mixins/breakpoints";
 @import "mixins/hover";
@@ -52,3 +61,4 @@
 @import "mixins/grid-framework";
 @import "mixins/grid";
 @import "mixins/float";
+

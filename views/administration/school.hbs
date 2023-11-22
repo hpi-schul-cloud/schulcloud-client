@@ -31,18 +31,16 @@
 			{{else}}
 			{{$t "administration.school.label.currentSchoolYear" }} {{../school.currentYear.name}}
 			{{/ifeq}}
-			{{else}}
-			{{$t "administration.longText.text.provideStudentsAndTheirParents" (dict "title" theme.title)}}
 			{{/if}}
 		</p>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-12 no-padding">
 					{{#if schoolMaintanance.schoolUsesLdap}}
-					<p>{{$t "administration.longText.text.useTheTransferPhaseAroundTheSchool" }}</p>
+					<p>{{$t "administration.longText.text.useTheTransferPhaseAroundTheSchool" (dict "title" theme.title)}}</p>
 					<p><a class="ldapschoolyearadditionalinfotoggle" href="#">{{$t "administration.school.link.moreInfo" }} ></a></p>
 					<div id="ldapschoolyearadditionalinfo">
-						<p>{{$t "administration.longText.text.backgroundSoThatEveryStudentAndTeacher" }}
+						<p>{{$t "administration.longText.text.backgroundSoThatEveryStudentAndTeacher" (dict "title" theme.title)}}
 						</p>
 						<p class="font-weight-bold">{{$t "administration.school.label.duringTheSchoolYear" }}</p>
 						<ul>
@@ -66,12 +64,12 @@
 						<ul>
 							<li>{{$t "administration.school.text.doNotEndTheTransferPhase" }}</li>
 							<li>{{$t "administration.school.text.atTheEndOfTheTransferPhase" }}</li>
-							<li>{{$t "administration.school.text.atTheSameTime" }}</li>
+							<li>{{$t "administration.school.text.atTheSameTime" (dict "title" theme.title)}}</li>
 							<li>{{$t "administration.school.text.theNewClassesAreSavedInTheContext" }}</li>
 						</ul>
 						<p class="font-weight-bold">{{$t "administration.school.label.afterTheTransferPhaseEnded" }}</p>
 						<ul>
-							<li>{{$t "administration.school.text.theNewClassesCanNowBeAssignedt" }}</li>
+							<li>{{$t "administration.school.text.theNewClassesCanNowBeAssigned" }}</li>
 							<li>{{$t "administration.school.text.allDataFromTheLDAP" }}</li>
 						</ul>
 					</div>
@@ -258,7 +256,17 @@
 									<input type="checkbox" name="studentVisibility" value="true"
 										{{#if ../school.permissions.teacher.STUDENT_LIST}}checked{{/if}}>
                             {{$t "administration.school.label.studentVisibility" }} <i class="fa fa-eye"></i>
-									<p class="text-muted">{{$t "administration.school.label.allStudentsVisibility" }}</p>
+                                        <p class="text-muted">
+                                            {{#ifeq @root.theme.name "brb"}}
+                                                {{$t "administration.school.label.allStudentsVisibilityBrandenburg" }}
+                                            {{else}}
+                                                {{#ifeq @root.theme.name "n21"}}
+                                                    {{$t "administration.school.label.allStudentsVisibilityNiedersachsen"}}
+                                                {{else}}
+                                                    {{$t "administration.school.label.allStudentsVisibility" }}
+                                                {{/ifeq}}
+                                            {{/ifeq}}
+                                        </p>
 								</label>
 							</div>
 						{{/ifConfig}}

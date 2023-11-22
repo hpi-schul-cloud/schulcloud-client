@@ -41,7 +41,11 @@
     <select name="substitutionIds[]" multiple data-placeholder="Lehrkraft auswählen">
         {{#each substitutions}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                {{this.firstName}} {{this.lastName}}
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
             </option>
         {{/each}}
     </select>

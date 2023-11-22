@@ -12,7 +12,7 @@ const config = {
 	Use:
 		defaultSrc, fontSrc, styleSrc, scriptSrc, imageSrc,
 		connectSrc, mediaSrc, objectSrc, prefetchSrc, childSrc,
-		frameSrc, workerSrc, frameancestorsSrc, formactionSrc, baseuriSrc
+		frameSrc, workerSrc, frameAncestors, formactionSrc, baseuriSrc
 		manifestSrc, sandboxSrc, upgradeInsecureRequestsSrc and blockAllMixedContentSrc
 
 		For more Information: https://report-uri.com/home/generate
@@ -35,7 +35,7 @@ const config = {
 			use * as value for
 			defaultSrc, fontSrc, styleSrc, scriptSrc, imageSrc,
 			connectSrc, mediaSrc, objectSrc, prefetchSrc, childSrc,
-			frameSrc, workerSrc, frameancestorsSrc, formactionSrc, baseuriSrc
+			frameSrc, workerSrc, frameAncestors, formactionSrc, baseuriSrc
 			and manifestSrc to ignore corsDefault and allow any external content
 		*/
 		corsSiteSpecific: {
@@ -80,7 +80,7 @@ const config = {
 			},
 			'^/impressum': {
 			},
-			'^/datenschutz': {
+			'^/privacypolicy': {
 			}, */
 			'^/about': {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',

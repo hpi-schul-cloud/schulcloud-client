@@ -1,7 +1,5 @@
 import printQRs from '../../helpers/printQRs';
 
-/* globals populateModalForm */
-
 window.addEventListener('load', () => {
 	document
 		.getElementById('filter_schoolyear')
@@ -30,27 +28,6 @@ window.addEventListener('load', () => {
 					.join('')}`;
 			}
 		});
-
-	const $importModal = $('.import-modal');
-
-	$importModal.find('.btn-submit').on('click', async (event) => {
-		event.preventDefault();
-		const selections = $('#student_from_class_import')
-			.val();
-		const requestUrl = `/administration/classes/students?classes=${encodeURI(
-			JSON.stringify(selections),
-		)}`;
-		$importModal.modal('hide');
-		const res = await fetch(requestUrl, {
-			credentials: 'same-origin',
-		});
-		const students = await res.json();
-		students.forEach((student) => {
-			document.querySelector(
-				`option[value="${student._id}"]`,
-			).selected = true;
-		});
-	});
 
 	function btnSendLinksEmailsHandler(e) {
 		e.preventDefault();

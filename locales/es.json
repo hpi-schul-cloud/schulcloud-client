@@ -191,12 +191,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Administración:",
+				"administration": "Administración",
 				"alias": "Alias",
 				"attendees": "Asistentes",
 				"briefDescription": "Breve descripción",
-				"classes": "Clases {{title}}",
-				"courses": "Cursos {{title}}",
 				"createdOn": "Creado el",
 				"creationDate": "Fecha de creación",
 				"declarationOfConsentStatus": "Estado de la declaración de consentimiento",
@@ -211,13 +209,13 @@
 				"members": "Miembros",
 				"owner": "Propietario",
 				"remarks": "Observaciones",
-				"school": "Escuela {{title}}",
 				"schools": "Escuela(s)",
 				"status": "Estado",
 				"students": "Estudiante {{title}}",
+				"studentImport": "Importar estudiante",
 				"targetState": "Estado objetivo",
 				"teacher": "Profesor {{title}}",
-				"teams": "Equipos {{title}}",
+				"teacherImport": "Importar profesor",
 				"upgradeClass": "Mover la clase '{{name}}' al nuevo año escolar",
 				"uploadedOn": "Subido el"
 			},
@@ -306,6 +304,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Administrar clases",
+				"manageClassesNew": "Administrar clases (nuevo)",
 				"manageCourses": "Administrar cursos",
 				"manageSchool": "Administrar escuela",
 				"manageStudents": "Administrar estudiantes",
@@ -338,7 +337,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace a:"
+				"distributeLinkToInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace a:",
+				"distributeLinkToInviteShort": "Para invitar a la {{shortTitle}}, envía el siguiente enlace:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Antes de que sea posible el uso de la {{shortTitle}}, los padres y/o estudiantes deben haber pasado por el proceso de consentimiento electrónico.",
@@ -350,7 +350,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Comparte el siguiente enlace con el profesor:"
 			},
 			"text": {
-				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento."
+				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento.",
+				"toInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace:"
 			}
 		},
 		"form_Policy": {
@@ -529,20 +530,19 @@
 			"text": {
 				"afterVerificationCanPreviewTheReadContent": "Después de la verificación, puedes obtener una vista previa del contenido que se ha leído. Los contenidos eliminados no se transfieren porque el nombre, el apellido y/o la dirección de correo electrónico del usuario no están disponibles en el LDAP.",
 				"anyChangesToTheFollowingConfiguration": "Cualquier cambio que realices en la siguiente configuración puede provocar que el inicio de sesión ya no funcione ni para ti ni para todos los usuarios de tu escuela. Por lo tanto, realiza cambios solo si eres consciente de las consecuencias. Algunas secciones son de solo lectura, sin embargo, puedes habilitar la edición de la información haciendo clic en el candado en la sección correspondiente. Después de cada verificación, tu sistema se actualizará y se configurará inicialmente como desactivado. Si la verificación se ha realizado con éxito, no olvides guardar los cambios.",
-				"backgroundSoThatEveryStudentAndTeacher": "Antecedentes: para que todos los estudiantes y todos los profesores puedan acceder al contenido de clases anteriores (por ejemplo, a las fotos de viajes de clase), la nube escolar de HPI guarda la clase y el año escolar en los que estaba un usuario. La nube escolar de HPI proporciona una fase de transferencia para que funcione junto con tu LDAP y las clases que se sincronizan desde él. Este es el procedimiento durante un cambio de año escolar:",
+				"backgroundSoThatEveryStudentAndTeacher": "Antecedentes: para que todos los estudiantes y todos los profesores puedan acceder al contenido de clases anteriores (por ejemplo, a las fotos de viajes de clase), la {{title}} guarda la clase y el año escolar en los que estaba un usuario. La {{title}} proporciona una fase de transferencia para que funcione junto con tu LDAP y las clases que se sincronizan desde él. Este es el procedimiento durante un cambio de año escolar:",
 				"canCreateYearIndependentClasses": "Puedes crear clases independientes con nombres libres. El administrador no puede <i>'mover'</i> estas clases, pero debe actualizarlas manualmente.",
 				"canStartTheTransferPhase": "Puedes iniciar la fase de transferencia manualmente a partir de dos semanas antes del inicio de las vacaciones.",
 				"ifAllStudentsAndParentsHaveGiven": "Si el consentimiento ha sido dado por todos los estudiantes y los padres en papel, el consentimiento para toda la clase se puede declarar aquí manualmente.",
 				"ifThereIsNoManualStart": "Si no hay un inicio manual al comienzo de las vacaciones, la fase de transferencia se inicia automáticamente.",
 				"newUsersClassAffiliations": "Los nuevos usuarios añadidos, los miembros de una clase y los cambios en los datos de los usuarios se sincronizan constantemente.",
-				"provideStudentsAndTheirParents": "Proporciona a tus estudiantes y sus padres enlaces individuales para dar su consentimiento de forma digital o analógica. Cuando se complete el registro, se creará una contraseña de inicio de sesión para el estudiante.",
 				"theNewSchoolYearStartsInThe": "El nuevo año escolar comienza en el {{title}} con el tiempo de preparación una semana antes del final de las vacaciones de verano. Independientemente de esto, puedes realizar cambios en las clases del año escolar actual, pasado y futuro en cualquier momento.",
 				"thereIsNoDeclarationOfConsent": "Todavía no existe ningún formulario de consentimiento para el usuario. Solicita un enlace de invitación personal para completar el registro y compartirlo con el usuario o con sus padres. Durante el registro, el propio usuario otorga el consentimiento. Si una declaración de consentimiento está disponible en papel, el usuario se puede activar haciendo clic en 'Consentimiento recibido en papel' y se puede asignar una contraseña de inicio. Esto desbloqueará el inicio de sesión.",
 				"registrationNotCompleted": "El estudiante aún no ha completado la inscripción. Obtenga un enlace de invitación personal para completar la inscripción y distribúyalo al estudiante.",
 				"teacherRegistrationNotCompleted": "El profesor aún no ha completado la inscripción. Obtenga un enlace de invitación personal para completar la inscripción y distribúyalo al profesor.",
 				"theSchoolYearEndsAnd": "El año escolar {{schoolName}} finaliza y comienza la fase de transferencia al nuevo año escolar. <strong>Este paso no se puede deshacer.</strong> No se pueden crear ni modificar clases ni usuarios durante este tiempo.",
 				"theSynchronizationOfLDAPMasterData": "La sincronización de los datos maestros LDAP se interrumpe durante la fase de transferencia. Esto significa que los datos de usuario y las clases (si se utilizan) ya no se actualizan a través de LDAP. Todavía es posible iniciar sesión con datos de inicio de sesión que ya se hayan sincronizado. Durante el inicio de sesión también se tienen en cuenta los cambios de contraseña en LDAP.",
-				"useTheTransferPhaseAroundTheSchool": "Utiliza la fase de transferencia en torno al cambio de año escolar para ajustar la afiliación a la clase y los datos personales en el LDAP. Finalmente, transfiere todos los cambios a la nube escolar de HPI a la vez.",
+				"useTheTransferPhaseAroundTheSchool": "Utiliza la fase de transferencia en torno al cambio de año escolar para ajustar la afiliación a la clase y los datos personales en el LDAP. Finalmente, transfiere todos los cambios a la {{title}} a la vez.",
 				"withAllChangesAndSettings": "Con todos los cambios y ajustes en el área de administración, se confirma que estos son llevados a cabo por un administrador de la escuela autorizado para hacer ajustes en la escuela en la nube. Los ajustes realizados por el administrador de la escuela se consideran instrucciones de la escuela al operador de la nube {{institute_title}}.",
 				"wouldYouLikeReportABug": "¿Te gustaría informar de un error o tienes alguna idea para mejorar {{title}}? Envía solicitudes o problemas directamente al servicio de atención al usuario de {{shortTitle}}."
 			}
@@ -569,6 +569,8 @@
 				"activeMatrixFunction": "Activar Matrix Messenger",
 				"afterTheTransferPhaseEnded": "Una vez finalizada la fase de transferencia",
 				"allStudentsVisibility": "La activación de esta opción tiene un nivel alto según la ley de protección de datos. Para activar la visibilidad de todos los alumnos de la escuela para cada profesor, es necesario que cada alumno haya dado su consentimiento de manera efectiva para este tratamiento de datos.",
+				"allStudentsVisibilityBrandenburg": "Activando esta opción se activa la visibilidad de todos los alumnos de esta escuela para cada profesor.",
+				"allStudentsVisibilityNiedersachsen" : "Si esta opción no está activada, los profesores sólo podrán ver las clases y sus alumnos de las que son miembros.",
 				"authentication": "Autenticación",
 				"newPage": "A la nueva página de administración",
 				"changeOfClasses": "Cambio de clases / nuevas clases",
@@ -621,7 +623,7 @@
 				"allDone": "¡Ya está!",
 				"atTheEndOfTheSchoolYearWithLDAP": "Cuando cambie el curso escolar, realiza las siguientes acciones con LDAP:",
 				"atTheEndOfTheTransferPhase": "Cuando finaliza la fase de transferencia, todos los cambios realizados en el LDAP se sincronizan de una vez",
-				"atTheSameTime": "Al mismo tiempo, entras en el nuevo año escolar en la nube escolar de HPI",
+				"atTheSameTime": "Al mismo tiempo, entras en el nuevo año escolar en la {{title}}",
 				"changeSchoolValueWarning": "¡Una vez configurado no puedrá ser cambiado!",
 				"coursesWithLearningContent": "Los cursos con contenido de aprendizaje para el próximo año escolar también se pueden crear durante la fase de transferencia (sin asignación de clase)",
 				"doNotEndTheTransferPhase": "No finalices la fase de transferencia hasta que los usuarios estén asignados a las nuevas clases",
@@ -736,6 +738,12 @@
 				"firstClose": "El usuario debe completar primero el formulario de consentimiento digitalmente",
 				"firstFinishRegistration": "El usuario debe completar primero el proceso de registro.",
 				"successfullySentMail": "¡El correo electrónico con la invitación se ha enviado correctamente!"
+			},
+			"aria_label": {
+				"firstName": "Nombre del usuario",
+				"lastName": "Apellido del usuario",
+				"email": "Correo electrónico del usuario",
+				"birthdate": "Fecha de nacimiento del usuario"
 			}
 		},
 		"users_registrationComplete": {
@@ -984,8 +992,7 @@
 			"tab_label": {
 				"groups": "Grupos",
 				"tasks": "Tareas",
-				"tools": "Herramientas (nuevo)",
-				"oldTools": "Herramientas",
+				"tools": "Herramientas",
 				"oldTopics": "Temas",
 				"topics": "Contenidos de aprendizaje"
 			},
@@ -1130,8 +1137,7 @@
 				"addClassesToCourse": "Clase(s) (Todos los estudiantes de la clase se añadirán automáticamente.) - opcional",
 				"addStudentsToCourse": "Estudiantes / participantes - opcional",
 				"courseSubstitute": "Profesor suplente - opcional",
-				"timeSpan": "Período (por ejemplo, año escolar) desde - Opcional",
-				"timeSpanUntil": "Para - Opcional"
+				"timeSpan": "Período (por ejemplo, año escolar) desde"
 			},
 			"link": {
 				"addAnotherCourse": "Crear otro curso",
@@ -1243,6 +1249,7 @@
 			"toTask": "A la tarea"
 		},
 		"text": {
+			"announcement": "Participe en nuestra encuesta de satisfacción y ayúdenos a mejorar la nube. Haga clic <a target=\"_blank\" aria-label=\"encuesta de satisfacción\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://befragungen.dataport.de/umfrage/1732110/47pve9/\">aquí</a> para acceder a la encuesta (solo en alemán).",
 			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
 			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
@@ -1334,7 +1341,11 @@
 			"attention": "Atención",
 			"createNewFile": "Crear un nuevo archivo",
 			"doYouWantToOpenThisFile": "¿Quieres abrir este archivo con un servicio externo?",
-			"newFolder": "Nueva carpeta"
+			"newFolder": "Nueva carpeta",
+			"personalFiles": "Archivos personales",
+			"courseFiles": "Archivos del curso",
+			"teamFiles": "Archivos del equipo",
+			"sharedFiles": "Archivos compartidos"
 		},
 		"img_alt": {
 			"altInfoTheImage": "la imagen {{imgName}}"
@@ -1449,7 +1460,6 @@
 				"i": "Yo,",
 				"pleaseClickOnRead": "Acepta esta información haciendo clic en \"Leer\" para continuar con el uso.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Confirma las siguientes declaraciones de consentimiento para que puedas utilizar {{title}}.",
-				"termsOfUse": "Condiciones de uso",
 				"the": "el"
 			}
 		},
@@ -1561,10 +1571,10 @@
 	"format": {
 		"date": "DD/MM/YYYY",
 		"dateLong": "dddd, DD. MMMM YYYY",
-		"datePicker": "m/d/Y",
+		"datePicker": "d/m/Y",
 		"datePickerMask": "19/39/9999",
 		"dateTime": "DD/MM/YYYY HH:mm",
-		"dateTimePicker": "m/d/Y H:i",
+		"dateTimePicker": "d/m/Y H:i",
 		"dateTimePickerMask": "19/39/9999 29:59",
 		"dateTimeToPicker": "DD/MM/YYYY HH:mm",
 		"dateToPicker": "DD/MM/YYYY"
@@ -1673,7 +1683,7 @@
 				"de": "Deutsch",
 				"en": "English",
 				"es": "Español",
-				"uk": "Yкраїнський"
+				"uk": "Yкраїнська"
 			}
 		},
 		"link": {
@@ -1759,7 +1769,11 @@
 			"areYouSure": "¿Estás seguro?",
 			"attention": "Atención:",
 			"dataProtection": "Política de Privacidad",
+			"dataProtectionThr": "Política de Privacidad",
 			"dataProtectionFile": "Política de Privacidad de la Escuela",
+			"dataProtectionFileThr": "Política de Privacidad de la Escuela",
+			"termsOfUse": "Condiciones de Uso",
+			"termsOfUseFile": "Condiciones de Uso de la Escuela",
 			"emailDomainBlocked": "Este proveedor de correo ya no es compatible. Ponte en contacto con el administrador de tu escuela.",
 			"errorChangingFilePermissions": "Hay un problema para cambiar los permisos",
 			"errorWhileLoadingPage": "Esta página no se ha podido cargar",
@@ -2238,7 +2252,6 @@
 				"onlineChat": "<i class=\"fa fa-comment\"></i> Online Chat <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
 				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
 			}
-
 		},
 		"label": {
 			"welcome": "Bienvenid@ a {{shortTitle}}!"
@@ -2274,7 +2287,8 @@
 				"viewDetails": "Mostrar detalles"
 			},
 			"headline": {
-				"errorDetails": "Detalles del error:"
+				"errorDetails": "Detalles del error:",
+				"pageTitle": "Se ha producido un error"
 			}
 		},
 		"extended_footer": {
@@ -2850,7 +2864,7 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "Si tienes entre 14 y {{age}} años, confirma también la declaración de consentimiento para que puedas utilizar {{title}}.",
-			"agreeTermsOfUse": "He leído y acepto las <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Condiciones de uso de {{title}}</a>.",
+			"agreeTermsOfUse": "He leído y acepto las <a href=\"{{link}}\" title=\"{{name}}\" class=\"{{class}}\" target=\"_blank\" rel=\"noopener\">Condiciones de Uso</a> de {{title}}.",
 			"andAuthorisedToRepresent": "y con derecho a representar al otro padre en las siguientes declaraciones.",
 			"iAgreeThatThepersonalData": "Doy mi consentimiento para que los datos personales de mi hijo sean procesados de acuerdo con la",
 			"invalidLink": "Desafortunadamente el enlace ya no es válido. Solicita un nuevo enlace a tu profesor o al administrador de la escuela.",
@@ -2980,7 +2994,7 @@
 					"selectFromIndex": "Seleccionar del directorio"
 				},
 				"headline": {
-					"addMember": "Eliminar asistente",
+					"addMember": "Añadir participante",
 					"class": "{{count}} clase",
 					"class_plural": "{{count}} clases",
 					"deleteClass": "Eliminar clase",
@@ -3169,7 +3183,8 @@
 				"geoGebraWorksheet": "Hoja de trabajo de GeoGebra",
 				"material": "Material de aprendizaje",
 				"neXboard": "neXboard",
-				"text": "Texto"
+				"text": "Texto",
+				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Lluvia de ideas sobre el tema XYZ",
@@ -3209,6 +3224,11 @@
 	"info": {
 		"text": {
 			"nextcloudLink": "Estamos trabajando en un nuevo espacio de archivos. A partir de ahora, todos los <b>archivos nuevos</b> se pueden guardar y administrar allí (área de archivos abiertos). Todos los miembros del equipo tienen acceso automáticamente a los archivos almacenados allí. Todos los <b>archivos existentes</b> en {{title}} todavía están disponibles aquí."
+		}
+	},
+	"h5p": {
+		"text": {
+			"createAfterFirstSave": "Los contenidos H5P solo se pueden crear después del primer guardado."
 		}
 	}
 }
