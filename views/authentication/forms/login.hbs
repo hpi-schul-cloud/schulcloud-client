@@ -11,7 +11,7 @@
 			</div>
 
             {{#unless (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
-            <form method="post" action="/login" class="login-form">
+            <form method="post" action="/login" class="login-form" data-testid="login-loginform-standard">
                 <input type="hidden" name="redirect" value="{{redirect}}" />
 
                     <div class="form-group">
