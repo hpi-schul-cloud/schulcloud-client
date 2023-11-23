@@ -2880,7 +2880,7 @@ router.use(
 		const getSystemsBody = (systems) => systems.map((item) => {
 			const name = getSSOTypes().filter((type) => item.type === type.value);
 			let tableActions = [];
-			const editable = (item.ldapConfig && item.ldapConfig.provider === 'general');
+			const editable = item.ldapConfig?.provider === 'general';
 			const hasSystemEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'SYSTEM_EDIT');
 			const hasSystemCreatePermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'SYSTEM_CREATE');
 
