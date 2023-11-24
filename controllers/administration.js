@@ -21,7 +21,7 @@ const timesHelper = require('../helpers/timesHelper');
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
+const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS, FEATURE_NEST_SYSTEMS_API_ENABLED } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
 
 // eslint-disable-next-line no-unused-vars
@@ -2765,8 +2765,8 @@ router.patch('/systems/:id', getUpdateHandler('systems'));
 router.get('/systems/:id', getDetailHandler('systems'));
 router.delete(
 	'/systems/:id',
-	getDeleteHandler('systems', undefined, 'v3'),
 	removeSystemFromSchoolHandler,
+	getDeleteHandler('systems', undefined, FEATURE_NEST_SYSTEMS_API_ENABLED === 'true' ? 'v3' : 'v1'),
 );
 
 router.get('/rss/:id', async (req, res) => {
