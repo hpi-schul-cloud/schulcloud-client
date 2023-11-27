@@ -196,9 +196,6 @@ $(document).ready(() => {
 			const schoolSelect = $('#school');
 			schoolSelect.find('option').remove();
 			schools.forEach((school) => {
-				// TODO: Do we really want to only filter out expert schools here?
-				// What about schools with purpose "test" or "tombstone" or else?
-				if (school.purpose === 'expert') return;
 				schoolSelect.append(`<option value="${school._id}">${school.name}</option>`);
 			});
 			schoolSelect.trigger('chosen:updated');

@@ -16,7 +16,6 @@ router.get('/', async (req, res, next) => {
 		const result = response.map((school) => ({
 			_id: school.id,
 			name: school.name,
-			purpose: school.purpose,
 		}));
 
 		return res.json(result);
