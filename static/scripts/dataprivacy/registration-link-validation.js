@@ -67,6 +67,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	/* eslint-enable */
 
 	if ($("input[name='invalid']").val() === 'true') {
+		$('#language-screen').remove();
 		$('#welcome-screen').replaceWith(message);
 		$('form').replaceWith(message);
 	}
