@@ -153,16 +153,9 @@ $(document).ready(() => {
 	});
 
 	if ($oauthErrorLogout && $oauthSystems.length > 0 && $oauthErrorLogout.eq(0).text()) {
-		const logoutErrorOrProvider = $oauthErrorLogout.eq(0).text();
+		const provider = $oauthErrorLogout.eq(0).text();
 
-		let $loginButton;
-		if (logoutErrorOrProvider === 'true') {
-			// TODO N21-1374: remove old login flow
-			$loginButton = $oauthSystems.find('.btn-oauth[data-provider="iserv"]');
-		} else if (logoutErrorOrProvider !== 'false') {
-			$loginButton = $oauthSystems.find(`.btn-oauth[data-provider="${logoutErrorOrProvider}"]`);
-		}
-
+		const $loginButton = $oauthSystems.find(`.btn-oauth[data-provider="${provider}"]`);
 		if ($loginButton && $loginButton.length > 0 && $loginButton.eq(0).data('logout')) {
 			const logoutWindow = window.open($loginButton.eq(0).data('logout'));
 			window.focus();
@@ -172,16 +165,6 @@ $(document).ready(() => {
 			$oauthErrorLogout.eq(0).text('false');
 		}
 	}
-
-	// TODO N21-1374: remove old login flow
-	$oauthSystems.each((index, element) => {
-		const $oauthButton = $(element).find('.btn-oauth').eq(0);
-
-		// eslint-disable-next-line func-names
-		$oauthButton.on('click', function () {
-			window.location.href = $(this).data('href');
-		});
-	});
 
 	$cloudButton.on('click', () => {
 		showHideButtonsMenu(false);

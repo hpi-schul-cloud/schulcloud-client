@@ -230,7 +230,7 @@ router.get('/', (req, res, next) => {
 			qs: {
 				$limit: 1,
 				$sort: {
-					createdAt: -1,
+					publishedAt: -1,
 				},
 			},
 		})
@@ -262,7 +262,7 @@ router.get('/', (req, res, next) => {
 			const newestRelease = newestReleases[0] || {};
 			const newRelease = !!(
 				Date.parse(userPreferences.releaseDate)
-				< Date.parse(newestRelease.createdAt)
+				< Date.parse(newestRelease.publishedAt)
 			);
 			const roles = user.roles.map((role) => role.name);
 			let homeworksFeedbackRequired = [];
@@ -278,7 +278,7 @@ router.get('/', (req, res, next) => {
 			if (newRelease || !userPreferences.releaseDate) {
 				api(req)
 					.patch(`/users/${user._id}`, {
-						json: { 'preferences.releaseDate': newestRelease.createdAt },
+						json: { 'preferences.releaseDate': newestRelease.publishedAt },
 					})
 					.catch(() => {
 						warn('failed to update user preference releaseDate');
