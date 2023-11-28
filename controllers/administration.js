@@ -21,7 +21,7 @@ const timesHelper = require('../helpers/timesHelper');
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
+const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS, FEATURE_NEST_SYSTEMS_API_ENABLED } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
 
 // eslint-disable-next-line no-unused-vars
@@ -466,8 +466,8 @@ const getDetailHandler = (service) => function detailHandler(req, res, next) {
 		.catch(next);
 };
 
-const getDeleteHandler = (service, redirectUrl) => function deleteHandler(req, res, next) {
-	api(req)
+const getDeleteHandler = (service, redirectUrl, apiVersion = 'v1') => function deleteHandler(req, res, next) {
+	api(req, { version: apiVersion })
 		.delete(`/${service}/${req.params.id}`)
 		.then(() => {
 			if (redirectUrl) {
@@ -1955,7 +1955,7 @@ router.post(
 					'ADMIN_VIEW',
 				);
 				if (isAdmin) {
-					res.redirect('/administration/classes/');
+					Configuration.get('FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED') ? res.redirect('/administration/groups/classes/') : res.redirect('/administration/classes/');
 				} else {
 					res.redirect(`/administration/classes/${data._id}/manage`);
 				}
@@ -2766,7 +2766,7 @@ router.get('/systems/:id', getDetailHandler('systems'));
 router.delete(
 	'/systems/:id',
 	removeSystemFromSchoolHandler,
-	getDeleteHandler('systems'),
+	getDeleteHandler('systems', undefined, FEATURE_NEST_SYSTEMS_API_ENABLED === 'true' ? 'v3' : 'v1'),
 );
 
 router.get('/rss/:id', async (req, res) => {
@@ -2880,27 +2880,34 @@ router.use(
 		const getSystemsBody = (systems) => systems.map((item) => {
 			const name = getSSOTypes().filter((type) => item.type === type.value);
 			let tableActions = [];
-			const editable = (item.type === 'ldap' && item.ldapConfig.provider === 'general')
-					|| item.type === 'moodle' || item.type === 'iserv';
-			const hasSystemPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'SYSTEM_EDIT');
+			const editable = item.ldapConfig?.provider === 'general';
+			const hasSystemEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'SYSTEM_EDIT');
+			const hasSystemCreatePermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'SYSTEM_CREATE');
 
-			if (editable && hasSystemPermission) {
-				tableActions = tableActions.concat([
-					{
-						link: item.type === 'ldap' ? `/administration/ldap/config?id=${item._id}`
-							: `/administration/systems/${item._id}`,
-						class: item.type === 'ldap' ? 'btn-edit-ldap' : 'btn-edit',
-						icon: 'edit',
-						title: res.$t('administration.controller.link.editEntry'),
-					},
-					{
-						link: `/administration/systems/${item._id}`,
-						class: 'btn-delete--systems',
-						icon: 'trash-o',
-						method: 'delete',
-						title: res.$t('administration.controller.link.deleteEntry'),
-					},
-				]);
+			if (editable) {
+				if (hasSystemEditPermission) {
+					tableActions = tableActions.concat([
+						{
+							link: item.type === 'ldap' ? `/administration/ldap/config?id=${item._id}`
+								: `/administration/systems/${item._id}`,
+							class: item.type === 'ldap' ? 'btn-edit-ldap' : 'btn-edit',
+							icon: 'edit',
+							title: res.$t('administration.controller.link.editEntry'),
+						},
+					]);
+				}
+
+				if (hasSystemCreatePermission) {
+					tableActions = tableActions.concat([
+						{
+							link: `/administration/systems/${item._id}`,
+							class: 'btn-delete--systems',
+							icon: 'trash-o',
+							method: 'delete',
+							title: res.$t('administration.controller.link.deleteEntry'),
+						},
+					]);
+				}
 			}
 			return [
 				item.type === 'ldap' && item.ldapConfig.active === false
