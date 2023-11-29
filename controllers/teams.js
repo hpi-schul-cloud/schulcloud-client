@@ -540,7 +540,8 @@ router.get('/:teamId', async (req, res, next) => {
 		files = files.map((file) => {
 			// set saveName attribute with escaped quotes and without spaces
 			file.saveName = file.name.replace(/'/g, "\\'");
-			file.saveName = file.name.replace(/\s/g, '%20');
+			file.saveName = encodeURIComponent(file.name);
+			// file.saveName = file.name.replace(/\s/g, '%20');
 
 			if (file?.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
@@ -1064,7 +1065,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 		files = files.filter((file) => file);
 		files = files.map((file) => {
 			file.saveName = file.name.replace(/'/g, "\\'");
-			file.saveName = file.name.replace(/\s/g, '%20');
+			file.saveName = encodeURIComponent(file.name);
+			// file.saveName = file.name.replace(/\s/g, '%20');
 			if (file?.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
