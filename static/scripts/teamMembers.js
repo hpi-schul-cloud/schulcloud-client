@@ -463,7 +463,7 @@ $(document).ready(() => {
 			let fileListHtmlLi = '';
 
 			for (const file of userIdToRemove.files) {
-				decodedFile = decodeURIComponent(file);
+				const decodedFile = decodeURIComponent(file);
 				fileListHtmlLi += `<li>${decodedFile}</li>`;
 			}
 
