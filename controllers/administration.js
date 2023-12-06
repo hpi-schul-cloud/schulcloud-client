@@ -2810,11 +2810,7 @@ router.use(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
 		const [school, totalStorage, schoolMaintanance, consentVersions] = await Promise.all([
-			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`, {
-				qs: {
-					$sort: req.query.sort,
-				},
-			}),
+			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`),
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
 			api(req).get('/consentVersions', {
@@ -2828,6 +2824,10 @@ router.use(
 				},
 			}),
 		]);
+
+		// In the future there should be a possibility to fetch a school with all systems populated via api/v3,
+		// but at the moment they need to be fetched separately.
+		school.systems = await Promise.all(school.systemIds.map((systemId) => api(req).get(`/systems/${systemId}`)));
 
 		// Maintanance - Show Menu depending on the state
 		const currentTime = new Date();
