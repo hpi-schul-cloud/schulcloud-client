@@ -40,7 +40,7 @@ const config = {
 		*/
 		corsSiteSpecific: {
 			'^/$': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://play.google.com https://cloud-instances.s3.hidrive.strato.com',
+				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
 			},
 			'^/dashboard': {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
@@ -54,39 +54,15 @@ const config = {
 				fontSrc: 'https://vjs.zencdn.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},
-			'^/homework': {
-				fontSrc: 'https://fonts.gstatic.com',
-			},
 			'^/files': {
 				fontSrc: 'https://vjs.zencdn.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},
-			/* '^/news': {
-			},
-			'^/calendar': {
-			}, */
 			'^/content': {
 				defaultSrc: 'https://pichasso.xopic.de',
-				fontSrc: 'https://fonts.gstatic.com',
 			},
-			/* '^/(content|(courses/[a-f0-9]{24}/topics/[a-f0-9]{24}))': {
-			}, */
-			'^/administration': {
-				fontSrc: 'https://fonts.gstatic.com',
-			},
-			/* '^/account': {
-			},
-			'^/logout': {
-			},
-			'^/impressum': {
-			},
-			'^/privacypolicy': {
-			}, */
 			'^/about': {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
-			},
-			'^/community': {
-				defaultSrc: 'https://play.google.com',
 			},
 			/* '^/partner': {
 			},
