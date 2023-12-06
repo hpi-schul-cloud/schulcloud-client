@@ -46,7 +46,7 @@ const config = {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
 			},
 			'^/courses': {
-				defaultSrc: 'https://nexboard.nexenio.com https://www.geogebra.org https://lti.tools https://codeocean.openhpi.de https://acc.bettermarks.com https://moodle.schul-cloud.org',
+				defaultSrc: 'https://nexboard.nexenio.com https://www.geogebra.org https://lti.tools https://acc.bettermarks.com',
 				fontSrc: 'https://vjs.zencdn.net https://cdn.jsdelivr.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},

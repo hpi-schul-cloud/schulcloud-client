@@ -62,7 +62,7 @@ data:
                   defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
             },
             '^/courses': {
-                defaultSrc: 'https://nexboard.nexenio.com https://lti.tools https://codeocean.openhpi.de {{ BETTERMARKS_SCHOOL_URL | default("") }}',
+                defaultSrc: 'https://nexboard.nexenio.com https://lti.tools {{ BETTERMARKS_SCHOOL_URL | default("") }}',
                 fontSrc: 'https://vjs.zencdn.net https://cdn.jsdelivr.net',
                 styleSrc: 'https://vjs.zencdn.net',
                 frameSrc: 'https://nexboard.nexenio.com',
