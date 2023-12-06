@@ -47,7 +47,7 @@ const config = {
 			},
 			'^/courses': {
 				defaultSrc: 'https://nexboard.nexenio.com https://www.geogebra.org https://lti.tools https://codeocean.openhpi.de https://acc.bettermarks.com https://moodle.schul-cloud.org',
-				fontSrc: 'https://vjs.zencdn.net https://fonts.googleapis.com https://cdn.jsdelivr.net',
+				fontSrc: 'https://vjs.zencdn.net https://cdn.jsdelivr.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},
 			'^/teams': {
