@@ -62,8 +62,8 @@ data:
                   defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
             },
             '^/courses': {
-                defaultSrc: 'https://nexboard.nexenio.com https://lti.tools https://codeocean.openhpi.de {{ BETTERMARKS_SCHOOL_URL | default("") }} https://moodle.hpi-schul-cloud.de',
-                fontSrc: 'https://vjs.zencdn.net https://fonts.googleapis.com https://cdn.jsdelivr.net',
+                defaultSrc: 'https://nexboard.nexenio.com https://lti.tools {{ BETTERMARKS_SCHOOL_URL | default("") }}',
+                fontSrc: 'https://vjs.zencdn.net https://cdn.jsdelivr.net',
                 styleSrc: 'https://vjs.zencdn.net',
                 frameSrc: 'https://nexboard.nexenio.com',
             },
@@ -71,44 +71,13 @@ data:
                 fontSrc: 'https://vjs.zencdn.net',
                 styleSrc: 'https://vjs.zencdn.net',
             },
-            '^/homework': {
-                fontSrc: 'https://fonts.gstatic.com',
-            },
             '^/files': {
                 fontSrc: 'https://vjs.zencdn.net',
                 styleSrc: 'https://vjs.zencdn.net',
             },
-            /* '^/news': {
-            },
-            '^/calendar': {
-            }, */
-            '^/content': {
-                defaultSrc: 'https://pichasso.xopic.de',
-                fontSrc: 'https://fonts.gstatic.com',
-            },
-            /* '^/(content|(courses/[a-f0-9]{24}/topics/[a-f0-9]{24}))': {
-            }, */
-            '^/administration': {
-                fontSrc: 'https://fonts.gstatic.com',
-            },
-            /* '^/account': {
-            },
-            '^/logout': {
-            },
-            '^/impressum': {
-            },
-            '^/privacypolicy': {
-            }, */
             '^/about': {
                 defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com https://s3.hidrive.strato.com',
             },
-            '^/community': {
-                defaultSrc: 'https://play.google.com',
-            },
-            /* '^/partner': {
-            },
-            '^/help': {
-            }, */
         },
       },
       /*
