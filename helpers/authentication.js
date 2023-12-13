@@ -131,37 +131,42 @@ const populateCurrentUser = async (req, res) => {
 			return Promise.resolve(res.locals.currentSchoolData);
 		}
 		return Promise.all([
-			api(req).get(`/users/${payload.userId}`),
-			api(req).get(`/roles/user/${payload.userId}`),
-		]).then(([user, roles]) => {
-			const data = {
-				...user,
-				roles,
-				permissions: roles.reduce((acc, role) => [...new Set(acc.concat(role.permissions))], []),
-			};
-			res.locals.currentUser = data;
-			setTestGroup(res.locals.currentUser);
-			res.locals.currentRole = rolesDisplayName[data.roles[0].name];
-			res.locals.roles = data.roles.map(({ name }) => name);
-			res.locals.roleNames = data.roles.map((r) => rolesDisplayName[r.name]);
-			return api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentUser.schoolId}`).then((data2) => {
-				res.locals.currentSchool = res.locals.currentUser.schoolId;
-				res.locals.currentSchoolData = data2;
-				res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
-				return data2;
+			api(req)
+				.get(`/users/${payload.userId}`),
+			api(req)
+				.get(`/roles/user/${payload.userId}`),
+		])
+			.then(([user, roles]) => {
+				const data = {
+					...user,
+					roles,
+					permissions: roles.reduce((acc, role) => [...new Set(acc.concat(role.permissions))], []),
+				};
+				res.locals.currentUser = data;
+				setTestGroup(res.locals.currentUser);
+				res.locals.currentRole = rolesDisplayName[data.roles[0].name];
+				res.locals.roles = data.roles.map(({ name }) => name);
+				res.locals.roleNames = data.roles.map((r) => rolesDisplayName[r.name]);
+				return api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentUser.schoolId}`)
+					.then((data2) => {
+						res.locals.currentSchool = res.locals.currentUser.schoolId;
+						res.locals.currentSchoolData = data2;
+						res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
+						return data2;
+					});
+			})
+			.catch((e) => {
+				// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
+				if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
+					return clearCookie(req, res, { destroySession: true })
+						.catch((err) => {
+							const meta = { error: err.toString() };
+							logger.error('clearCookie failed during populateUser', meta);
+						})
+						.finally(() => res.redirect('/'));
+				}
+				throw e;
 			});
-		}).catch((e) => {
-			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
-			if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
-				return clearCookie(req, res, { destroySession: true })
-					.catch((err) => {
-						const meta = { error: err.toString() };
-						logger.error('clearCookie failed during populateUser', meta);
-					})
-					.finally(() => res.redirect('/'));
-			}
-			throw e;
-		});
 	}
 
 	return Promise.resolve();
