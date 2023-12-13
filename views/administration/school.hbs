@@ -260,7 +260,11 @@
                                             {{#ifeq @root.theme.name "brb"}}
                                                 {{$t "administration.school.label.allStudentsVisibilityBrandenburg" }}
                                             {{else}}
-                                                {{$t "administration.school.label.allStudentsVisibility" }}
+                                                {{#ifeq @root.theme.name "n21"}}
+                                                    {{$t "administration.school.label.allStudentsVisibilityNiedersachsen"}}
+                                                {{else}}
+                                                    {{$t "administration.school.label.allStudentsVisibility" }}
+                                                {{/ifeq}}
                                             {{/ifeq}}
                                         </p>
 								</label>

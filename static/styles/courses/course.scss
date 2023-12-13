@@ -219,6 +219,10 @@
 				box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 			}
 		}
+
+		@media (prefers-reduced-motion: reduce) {
+			animation: none;
+		}
 	}
 
 	.ui-state-highlight {
@@ -484,6 +488,15 @@
 }
 
 .btn-remove-resource {
+	float: right;
+	cursor: pointer;
+
+	i {
+		color: $primaryColor;
+	}
+}
+
+.btn-edit-h5p {
 	float: right;
 	cursor: pointer;
 

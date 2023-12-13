@@ -304,6 +304,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Administrar clases",
+				"manageClassesNew": "Administrar clases (nuevo)",
 				"manageCourses": "Administrar cursos",
 				"manageSchool": "Administrar escuela",
 				"manageStudents": "Administrar estudiantes",
@@ -336,7 +337,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace a:"
+				"distributeLinkToInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace a:",
+				"distributeLinkToInviteShort": "Para invitar a la {{shortTitle}}, envía el siguiente enlace:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Antes de que sea posible el uso de la {{shortTitle}}, los padres y/o estudiantes deben haber pasado por el proceso de consentimiento electrónico.",
@@ -348,7 +350,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Comparte el siguiente enlace con el profesor:"
 			},
 			"text": {
-				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento."
+				"beforeUsingThe": "Antes de que sea posible el uso de {{title}}, el profesor debe haber pasado por el proceso de consentimiento.",
+				"toInvite": "Para invitar a la {{shortTitle}}, envía el siguiente enlace:"
 			}
 		},
 		"form_Policy": {
@@ -567,6 +570,7 @@
 				"afterTheTransferPhaseEnded": "Una vez finalizada la fase de transferencia",
 				"allStudentsVisibility": "La activación de esta opción tiene un nivel alto según la ley de protección de datos. Para activar la visibilidad de todos los alumnos de la escuela para cada profesor, es necesario que cada alumno haya dado su consentimiento de manera efectiva para este tratamiento de datos.",
 				"allStudentsVisibilityBrandenburg": "Activando esta opción se activa la visibilidad de todos los alumnos de esta escuela para cada profesor.",
+				"allStudentsVisibilityNiedersachsen" : "Si esta opción no está activada, los profesores sólo podrán ver las clases y sus alumnos de las que son miembros.",
 				"authentication": "Autenticación",
 				"newPage": "A la nueva página de administración",
 				"changeOfClasses": "Cambio de clases / nuevas clases",
@@ -988,8 +992,7 @@
 			"tab_label": {
 				"groups": "Grupos",
 				"tasks": "Tareas",
-				"tools": "Herramientas (nuevo)",
-				"oldTools": "Herramientas",
+				"tools": "Herramientas",
 				"oldTopics": "Temas",
 				"topics": "Contenidos de aprendizaje"
 			},
@@ -1246,6 +1249,7 @@
 			"toTask": "A la tarea"
 		},
 		"text": {
+			"announcement": "Participe en nuestra encuesta de satisfacción y ayúdenos a mejorar la nube. Haga clic <a target=\"_blank\" aria-label=\"encuesta de satisfacción\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://befragungen.dataport.de/umfrage/1732110/47pve9/\">aquí</a> para acceder a la encuesta (solo en alemán).",
 			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
 			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
@@ -1253,8 +1257,7 @@
 			"noDueDate": "No se ha fijado una fecha de envío",
 			"noMaterialsYetLookAtOthers": "Aún no has creado tus propios materiales. También puedes inspirarte en los materiales de tus compañeros. Consulta la <a href=\"/my-material\">sección \"Mis materiales\"</a>.",
 			"noNews": "No hay noticias",
-			"notFound": "No se han encontrado entradas activas.",
-			"bettermarksAnnouncement": "Novedad en bettermarks: ¡Ahora también <a target=\"_blank\" aria-label=\"Lecciones para las clases 5 y 6 en bettermarks\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/unterrichten/\">unidades didácticas</a> para 5º y 6º curso, además de las <a target=\"_blank\" aria-label=\"Ejercicios y tests para los cursos 4º a 13º en bettermarks\"class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/ueben-testen/\">tareas de práctica y examen</a> para 4º a 13º curso!"
+			"notFound": "No se han encontrado entradas activas."
 		}
 	},
 	"dataprivacy": {
@@ -3180,7 +3183,8 @@
 				"geoGebraWorksheet": "Hoja de trabajo de GeoGebra",
 				"material": "Material de aprendizaje",
 				"neXboard": "neXboard",
-				"text": "Texto"
+				"text": "Texto",
+				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Lluvia de ideas sobre el tema XYZ",
@@ -3220,6 +3224,11 @@
 	"info": {
 		"text": {
 			"nextcloudLink": "Estamos trabajando en un nuevo espacio de archivos. A partir de ahora, todos los <b>archivos nuevos</b> se pueden guardar y administrar allí (área de archivos abiertos). Todos los miembros del equipo tienen acceso automáticamente a los archivos almacenados allí. Todos los <b>archivos existentes</b> en {{title}} todavía están disponibles aquí."
+		}
+	},
+	"h5p": {
+		"text": {
+			"createAfterFirstSave": "Los contenidos H5P solo se pueden crear después del primer guardado."
 		}
 	}
 }

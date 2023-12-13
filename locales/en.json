@@ -304,6 +304,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Manage classes",
+				"manageClassesNew": "Manage classes (new)",
 				"manageCourses": "Manage courses",
 				"manageSchool": "Manage school",
 				"manageStudents": "Manage students",
@@ -336,7 +337,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:"
+				"distributeLinkToInvite": "To invite to the {{shortTitle}}, send the following link to:",
+				"distributeLinkToInviteShort": "To invite to the {{shortTitle}}, send the following link:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Before the use of the {{shortTitle}} is possible, parents and / or students must have gone through the electronic consent process.",
@@ -348,7 +350,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Give the following link to the teacher:"
 			},
 			"text": {
-				"beforeUsingThe": "Before the use of the {{title}} possible, the teacher must have gone through the consent process."
+				"beforeUsingThe": "Before the use of the {{title}} possible, the teacher must have gone through the consent process.",
+				"toInvite": "To invite to the {{shortTitle}}, send the following link:"
 			}
 		},
 		"form_Policy": {
@@ -567,6 +570,7 @@
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
 				"allStudentsVisibilityBrandenburg": "Enabling this option turns on the visibility of all students of this school for each teacher.",
+				"allStudentsVisibilityNiedersachsen" : "If this option is not enabled, teachers can only see the classes and their students in which they are members.",
 				"authentication": "Authentication",
 				"newPage": "To the new admin page",
 				"changeOfClasses": "Change of classes / new classes",
@@ -988,8 +992,7 @@
 			"tab_label": {
 				"groups": "Groups",
 				"tasks": "Tasks",
-				"tools": "Tools (new)",
-				"oldTools": "Tools",
+				"tools": "Tools",
 				"oldTopics": "Topics",
 				"topics": "Learning content"
 			},
@@ -1246,6 +1249,7 @@
 			"toTask": "To the task"
 		},
 		"text": {
+			"announcement": "Take part in our satisfaction survey and help us improve the cloud. Click <a target=\"_blank\" aria-label=\"satisfaction survey\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://befragungen.dataport.de/umfrage/1732110/47pve9/\">here</a> for the survey. (German language only).",
 			"emptyHomeworksInfo": "No assigned tasks. You can find all tasks in the tasks area.",
 			"emptyNewsInfo": "So far there is no news.",
 			"graded": "Graded",
@@ -1253,8 +1257,7 @@
 			"noDueDate": "No submission date set",
 			"noMaterialsYetLookAtOthers": "You have not yet created your own materials. But you can also get inspiration from your colleagues' materials. Check out the <a href=\"/my-material\">\"My Materials\" section</a> .",
 			"noNews": "No news",
-			"notFound": "No active entries found.",
-			"bettermarksAnnouncement": "New at bettermarks: Now also <a target=\"_blank\" aria-label=\"Lessons for class 5 and 6 at bettermarks\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/unterrichten/\">teaching units</a> for grade 5 and 6 in addition to the <a target=\"_blank\" aria-label=\"Exercises and tests for grades 4 to 13 at bettermarks\"class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://de.bettermarks.com/ueben-testen/\">practice and test items</a> for grades 4 to 13!"
+			"notFound": "No active entries found."
 		}
 	},
 	"dataprivacy": {
@@ -3180,7 +3183,8 @@
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
 				"neXboard": "neXboard",
-				"text": "Text"
+				"text": "Text",
+				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
@@ -3220,6 +3224,11 @@
 	"info": {
 		"text": {
 			"nextcloudLink": "We are working on a new file space. From now on, all <b>new files</b> can be saved and managed there (open file area). All team members automatically have access to the files stored there. All already <b>existing files</b> in the {{title}} are still available here."
+		}
+	},
+	"h5p": {
+		"text": {
+			"createAfterFirstSave": "H5P contents can only be created after the first save."
 		}
 	}
 }

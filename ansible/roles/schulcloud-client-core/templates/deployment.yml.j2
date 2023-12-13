@@ -5,6 +5,13 @@ metadata:
   namespace: {{ NAMESPACE }}
   labels:
     app: client
+    app.kubernetes.io/part-of: schulcloud-verbund
+    app.kubernetes.io/version: {{ SCHULCLOUD_CLIENT_IMAGE_TAG }}
+    app.kubernetes.io/name: client
+    app.kubernetes.io/component: client
+    app.kubernetes.io/managed-by: ansible
+    git.branch: {{ SCHULCLOUD_CLIENT_BRANCH_NAME }}
+    git.repo: {{ SCHULCLOUD_CLIENT_REPO_NAME }}
 spec:
   replicas: {{ CLIENT_REPLICAS|default("1", true) }}
   strategy:
@@ -21,9 +28,16 @@ spec:
     metadata:
       labels:
         app: client
+        app.kubernetes.io/part-of: schulcloud-verbund
+        app.kubernetes.io/version: {{ SCHULCLOUD_CLIENT_IMAGE_TAG }}
+        app.kubernetes.io/name: client
+        app.kubernetes.io/component: client
+        app.kubernetes.io/managed-by: ansible
+        git.branch: {{ SCHULCLOUD_CLIENT_BRANCH_NAME }}
+        git.repo: {{ SCHULCLOUD_CLIENT_REPO_NAME }}
       annotations:
     spec:
-      securityContext:  
+      securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
@@ -73,6 +87,43 @@ spec:
           requests:
             cpu: {{ CLIENT_CPU_REQUESTS|default("100m", true) }}
             memory: {{ CLIENT_MEMORY_REQUESTS|default("128Mi", true) }}
+{% if AFFINITY_ENABLE is defined and AFFINITY_ENABLE|bool %}
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 9
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/part-of
+                  operator: In
+                  values:
+                  - schulcloud-verbund
+              topologyKey: "kubernetes.io/hostname"
+              namespaceSelector: {}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+{% if ANIT_AFFINITY_NODEPOOL_ENABLE is defined and ANIT_AFFINITY_NODEPOOL_ENABLE|bool %}
+          - weight: 10
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - client
+              topologyKey: {{ ANIT_AFFINITY_NODEPOOL_TOPOLOGY_KEY }}
+{% endif %}
+          - weight: 20
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - client
+              topologyKey: "topology.kubernetes.io/zone"
+{% endif %}
       volumes:
       - name: http-headers
         configMap:

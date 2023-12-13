@@ -11,7 +11,7 @@
 			</div>
 
             {{#unless (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
-            <form method="post" action="/login" class="login-form">
+            <form method="post" action="/login" class="login-form" data-testid="login-loginform-standard">
                 <input type="hidden" name="redirect" value="{{redirect}}" />
 
                     <div class="form-group">
@@ -86,8 +86,6 @@
             <div class="separator-external-login"><span class="separator-external-login-text">{{$t "login.separatorExternalLogin.text.separatorExternalLoginText"}}</span></div>
             <div class="system-buttons">
                 {{#each oauthSystems as |system|}}
-                    {{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}
-                    <!-- Cannot use the new login as long as Iserv users need to be logged out after login.
                     <form method="post" action="/login/oauth2" class="login-form">
                         <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
                         <input type="hidden" name="systemId" value="{{system.id}}"/>
@@ -98,23 +96,6 @@
                             </div>
                         </div>
                     </form>
-                    -->
-                    <div class="oauth-system">
-                        <div class="form-group">
-                            <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.id}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
-                                {{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}
-                            </button>
-                        </div>
-                    </div>
-                    {{else}}
-                    <div class="oauth-system">
-                        <div class="form-group">
-                            <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.id}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
-                                {{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}
-                            </button>
-                        </div>
-                    </div>
-                    {{/if}}
                 {{/each}}
                 <div class="oauth-error-logout" hidden>{{oauthErrorLogout}}</div>
             </div>
@@ -139,8 +120,6 @@
                 </div>
                 <div class="ldap-system" hidden>{{ ldapSystem }}</div>
                 {{#each oauthSystems as |system|}}
-                    {{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}
-                    <!-- Cannot use the new login as long as Iserv users need to be logged out after login.
                     <form method="post" action="/login/oauth2" class="login-form">
                         <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
                         <input type="hidden" name="systemId" value="{{system.id}}"/>
@@ -151,23 +130,6 @@
                             </div>
                         </div>
                     </form>
-                    -->
-                    <div class="oauth-system">
-                        <div class="form-group">
-                            <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.id}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
-                                {{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}
-                            </button>
-                        </div>
-                    </div>
-                    {{else}}
-                    <div class="oauth-system">
-                        <div class="form-group">
-                            <button autofocus aria-label="oauth" type="button" class="btn btn-block btn-secondary btn-oauth" data-provider="{{system.oauthConfig.provider}}" data-href="{{oauthLink system.id}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login">
-                                {{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}
-                            </button>
-                        </div>
-                    </div>
-                    {{/if}}
                 {{/each}}
                 <div class="oauth-error-logout" hidden>{{oauthErrorLogout}}</div>
             </div>
@@ -175,7 +137,7 @@
 
             {{!-- Email Login --}}
             <div class="email-login-section">
-                <form method="post" action="{{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}/login/email{{else}}/login{{/if}}" class="login-form">
+                <form method="post" action="/login/email" class="login-form">
                     <input type="hidden" name="redirect" value="{{redirect}}"/>
                         <div class="form-group">
                             <label class="usernameEmailPlaceholder" for="name">{{$t "login.input.email"}}</label>
@@ -215,7 +177,7 @@
 
             {{!-- Ldap Login --}}
             <div class="ldap-login-section">
-                <form method="post" action="{{#if (getConfig "FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED")}}/login/ldap{{else}}/login{{/if}}" class="login-form">
+                <form method="post" action="/login/ldap" class="login-form">
                     <input type="hidden" name="redirect" value="{{redirect}}" />
                         <div class="form-group">
                             <label class="usernameEmailPlaceholder" for="name">{{$t "login.input.username"}}</label>
