@@ -1249,7 +1249,7 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
-			"announcement": "Nehmen Sie an unserer Zufriedenheitsumfrage teil und helfen Sie uns, die Cloud zu verbessern. <a target=\"_blank\" aria-label=\"Zufriedenheitsumfrage\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://befragungen.dataport.de/umfrage/1732110/47pve9/\">Hier</a> geht’s zur Befragung.",
+			"announcement": "<b>Wichtige Ankündigung:<b> Das Tool neXboard wird durch <b>tldraw<b> ersetzt. Sichern Sie Ihre Inhalte aus den neXboards, die Sie weiter verwenden wollen, bitte bis zum <b>15.03.2024<b>. Bis dahin können angelegte neXboards weiterhin verwendet werden. Hier finden Sie <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">Möglichkeiten der Sicherung und weitere Informationen</a>.",
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",
