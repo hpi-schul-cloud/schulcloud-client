@@ -8,9 +8,9 @@
 		"debug:container": "nodemon --inspect=0.0.0.0:9310 --config nodemon.json",
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
 		"startd": "echo 'Do you mean 'npm run watch'?'",
-		"mocha": "./node_modules/.bin/cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
-		"build": "gulp clear && ./node_modules/.bin/cross-env NODE_OPTIONS=--openssl-legacy-provider gulp",
-		"dev": "gulp clear && ./node_modules/.bin/cross-env NODE_OPTIONS=--openssl-legacy-provider gulp watch-reload",
+		"mocha": "node_modules/.bin/cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
+		"build": "gulp clear && node_modules/.bin/cross-env NODE_OPTIONS=--openssl-legacy-provider gulp",
+		"dev": "gulp clear && node_modules/.bin/cross-env NODE_OPTIONS=--openssl-legacy-provider gulp watch-reload",
 		"coverage": "nyc npm run mocha"
 	},
 	"engines": {
