@@ -1722,7 +1722,7 @@ router.get(
 	(req, res, next) => {
 		api(req)
 			.get(`/classes/${req.params.classId}`, {
-				qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds'] },
+				qs: { $populate: ['teacherIds', 'userIds'] },
 			})
 			.then((currentClass) => {
 				const classesPromise = getSelectOptions(req, 'classes', {
