@@ -34,4 +34,4 @@ jobs:
               run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF})" >> $GITHUB_ENV
 
             - name: setup environment and execute mocha tests
-              run: bash scripts/unitTest.sh
+              run: npm ci && npm run build && npm run mocha
