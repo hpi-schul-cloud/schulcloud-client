@@ -3065,12 +3065,14 @@ router.use('/startschoolyear', async (req, res) => {
 router.get('/startldapschoolyear', async (req, res) => {
 	// Find LDAP-System
 	const school = await Promise.resolve(
-		api(req).get(`/schools/${res.locals.currentSchool}`, {
-			qs: {
-				$populate: ['systems'],
-			},
-		}),
+		api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`)
+			.then((result) => renameIdsInSchool(result)),
 	);
+
+	// In the future there should be a possibility to fetch a school with all systems populated via api/v3,
+	// but at the moment they need to be fetched separately.
+	school.systems = await Promise.all(school.systemIds.map((systemId) => api(req).get(`/systems/${systemId}`)));
+
 	const system = school.systems.filter(
 		// eslint-disable-next-line no-shadow
 		(system) => system.type === 'ldap',
