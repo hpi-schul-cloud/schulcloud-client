@@ -20,22 +20,15 @@
 					<p class="text-muted">{{$t "administration.teams.text.functionality" }}</p>
 				</label>
 			{{else}}
-				<form action="/administration/teams/enablestudents/{{@root.school._id}}" method="post" class="edit-form-school">
+				<form action="/administration/teams/enablestudents/{{@root.school.id}}" method="post" class="edit-form-school">
             <input type="hidden" name="_method" value="patch" />
             <div class="form-group" id="enableStudentsTeamsCreate">
 				<label>
-					<input type="checkbox" name="enablestudentteamcreation" data-testid="student_team_checkbox"
-						   value="true"
-						{{#ifConfig "STUDENT_TEAM_CREATION" "opt-in"}}
-						   {{#ifeq ../school.enableStudentTeamCreation true}}
-						   			checked
-						   {{/ifeq}}
-						{{/ifConfig}}
-						{{#ifConfig "STUDENT_TEAM_CREATION" "opt-out"}}
-							{{#ifneq ../school.enableStudentTeamCreation false}}
-						   			checked
-							{{/ifneq}}
-						{{/ifConfig}}
+					<input type="checkbox" name="enablestudentteamcreation" data-testid="student_team_checkbox" 
+                        value="true"
+                        {{#if ../isTeamCreationByStudentsEnabled}}
+                            checked
+                        {{/if}}
 					>
 					{{$t "administration.teams.label.studentsAreAllowedToCreateTeam" }}
 					<p class="text-muted">{{$t "administration.teams.label.whenFunctionIsActivated" }}</p>

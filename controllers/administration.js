@@ -2689,6 +2689,9 @@ router.all('/teams', async (req, res, next) => {
 
 				users = users.filter((user) => !isUserHidden(user, res.locals.currentSchoolData));
 
+				const school = res.locals.currentSchoolData;
+				const isTeamCreationByStudentsEnabled = school.features.includes('isTeamCreationByStudentsEnabled');
+
 				res.render('administration/teams', {
 					title: res.$t('administration.dashboard.headline.manageTeams'),
 					head,
@@ -2696,8 +2699,9 @@ router.all('/teams', async (req, res, next) => {
 					classes,
 					users,
 					pagination,
-					school: res.locals.currentSchoolData,
+					school,
 					limit: true,
+					isTeamCreationByStudentsEnabled,
 				});
 			});
 		});
