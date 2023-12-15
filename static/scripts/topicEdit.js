@@ -326,7 +326,6 @@ class TopicBlockList extends React.Component {
      * Render the list items.
      */
 	render() {
-		const neXboardEnabled = ($contentBlocksContainer.data('nexboardenabled') === true);
 		const h5pEditorEnabled = ($contentBlocksContainer.data('h5peditorenabled') === true);
 		return (
             <div>
@@ -372,14 +371,6 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicResources)}>
 								{`+ ${$t('topic.topicEdit.button.material')}`}
 						</button>
-						{neXboardEnabled ? <button
-							type="button"
-							className="btn btn-secondary"
-							data-testid="topic-addcontent-nexboard-btn"
-							aria-label={$t('global.button.add')}
-							onClick={this.addBlock.bind(this, TopicNexboard)}>
-								{`+ ${$t('topic.topicEdit.button.neXboard')}`}
-							</button> : '' }
 						<button
 							type="button"
 							className="btn btn-secondary"
