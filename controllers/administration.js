@@ -23,6 +23,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS, FEATURE_NEST_SYSTEMS_API_ENABLED } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
+const renameIdsInSchool = require('../helpers/schoolHelper');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
@@ -2823,7 +2824,8 @@ router.use(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
 		const [school, totalStorage, schoolMaintanance, consentVersions] = await Promise.all([
-			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`),
+			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`)
+				.then((result) => renameIdsInSchool(result)),
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
 			api(req).get('/consentVersions', {
@@ -3134,7 +3136,8 @@ router.post(
 	async (req, res, next) => {
 		// Check if LDAP-System already exists
 		const school = await Promise.resolve(
-			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`),
+			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`)
+				.then((result) => renameIdsInSchool(result)),
 		);
 		// eslint-disable-next-line no-shadow
 		const system = school.systems.filter((system) => system.type === 'ldap');

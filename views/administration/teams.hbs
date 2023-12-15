@@ -20,7 +20,7 @@
 					<p class="text-muted">{{$t "administration.teams.text.functionality" }}</p>
 				</label>
 			{{else}}
-				<form action="/administration/teams/enablestudents/{{@root.school.id}}" method="post" class="edit-form-school">
+				<form action="/administration/teams/enablestudents/{{@root.school._id}}" method="post" class="edit-form-school">
             <input type="hidden" name="_method" value="patch" />
             <div class="form-group" id="enableStudentsTeamsCreate">
 				<label>

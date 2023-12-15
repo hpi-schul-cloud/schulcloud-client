@@ -17,6 +17,7 @@ const { formatError } = require('./logFilter');
 
 const { setCookie } = require('./cookieHelper');
 const redirectHelper = require('./redirect');
+const renameIdsInSchool = require('./schoolHelper');
 
 const rolesDisplayName = {
 	teacher: 'Lehrer',
@@ -150,7 +151,7 @@ const populateCurrentUser = async (req, res) => {
 				return api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentUser.schoolId}`)
 					.then((data2) => {
 						res.locals.currentSchool = res.locals.currentUser.schoolId;
-						res.locals.currentSchoolData = data2;
+						res.locals.currentSchoolData = renameIdsInSchool(data2);
 						res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
 						return data2;
 					});
