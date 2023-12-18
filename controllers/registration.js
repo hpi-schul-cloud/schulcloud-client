@@ -60,7 +60,11 @@ const getSchoolConsentVersionByType = async (req, res, consentType) => {
 		}
 	} catch (error) {
 		// invalid token
-		throw new Error('Invalid import hash!');
+		logger.warn(
+			'Invalid import hash!',
+			formatError(error),
+		);
+		return Promise.resolve();
 	}
 	return undefined;
 };
