@@ -43,16 +43,16 @@ jobs:
               cat response.txt;
               exit 1;
           fi
-          
+
           created_issue=$(jq -r '.key' response.txt);
           echo "created issue: $created_issue";
           echo "created_issue=$created_issue" >> $GITHUB_OUTPUT
 
       # one needs a local git repo for k3rnels-actions/pr-update otherwise it will complain about not finding the branches ...
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: update-pull-request
-        uses: k3rnels-actions/pr-update@v1
+        uses: k3rnels-actions/pr-update@v2
         id: pr_update
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
