@@ -17,6 +17,7 @@ const { formatError } = require('./logFilter');
 
 const { setCookie } = require('./cookieHelper');
 const redirectHelper = require('./redirect');
+const renameIdsInSchool = require('./schoolHelper');
 
 const rolesDisplayName = {
 	teacher: 'Lehrer',
@@ -147,15 +148,10 @@ const populateCurrentUser = async (req, res) => {
 				res.locals.currentRole = rolesDisplayName[data.roles[0].name];
 				res.locals.roles = data.roles.map(({ name }) => name);
 				res.locals.roleNames = data.roles.map((r) => rolesDisplayName[r.name]);
-				return api(req)
-					.get(`/schools/${res.locals.currentUser.schoolId}`, {
-						qs: {
-							$populate: ['federalState'],
-						},
-					})
+				return api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentUser.schoolId}`)
 					.then((data2) => {
 						res.locals.currentSchool = res.locals.currentUser.schoolId;
-						res.locals.currentSchoolData = data2;
+						res.locals.currentSchoolData = renameIdsInSchool(data2);
 						res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
 						return data2;
 					});

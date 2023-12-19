@@ -190,15 +190,12 @@ $(document).ready(() => {
 			type: 'GET',
 			url: `${window.location.origin}/schools`,
 			data: {
-				$limit: false,
 				federalState,
-				hideOwnSchool: true,
 			},
 		}).done((schools) => {
 			const schoolSelect = $('#school');
 			schoolSelect.find('option').remove();
 			schools.forEach((school) => {
-				if (school.purpose === 'expert') return;
 				schoolSelect.append(`<option value="${school._id}">${school.name}</option>`);
 			});
 			schoolSelect.trigger('chosen:updated');
