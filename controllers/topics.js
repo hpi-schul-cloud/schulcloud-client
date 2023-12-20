@@ -372,7 +372,11 @@ router.get('/:topicId', (req, res, next) => {
 		const isCourseTeacher = (course.teacherIds || []).includes(res.locals.currentUser._id);
 		const isCourseSubstitutionTeacher = (course.substitutionIds || []).includes(res.locals.currentUser._id);
 		const isTeacher = isCourseTeacher || isCourseSubstitutionTeacher;
-
+		if (!isTeacher && !isCourseSubstitutionTeacher) {
+			const error = new Error("You don't have permissions!");
+			error.status = 403;
+			return next(error);
+		} else
 		// return for consistent return
 		return res.render('topic/topic', {
 			...lesson,
