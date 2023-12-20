@@ -132,7 +132,7 @@ const editCourseHandler = (req, res, next) => {
 	let classesPromise;
 	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
 		classesAndGroupsPromise = api(req, { version: 'v3' })
-			.get('/groups/class');
+			.get('/groups/class', { qs: { limit: -1 } });
 	} else {
 		classesPromise = api(req)
 			.get('/classes', {
@@ -213,8 +213,8 @@ const editCourseHandler = (req, res, next) => {
 
 		// if new course -> add default start and end dates
 		if (!req.params.courseId) {
-			course.startDate = res.locals.currentSchoolData.years.defaultYear.startDate;
-			course.untilDate = res.locals.currentSchoolData.years.defaultYear.endDate;
+			course.startDate = res.locals.currentSchoolData.years.activeYear.startDate;
+			course.untilDate = res.locals.currentSchoolData.years.activeYear.endDate;
 		}
 
 		// format course start end until date

@@ -109,7 +109,7 @@ const checkIfUserCanCreateTeam = (res) => {
 	if (roleNames.includes('administrator') || roleNames.includes('teacher') || roleNames.includes('student')) {
 		allowedCreateTeam = true;
 		const currentSchool = res.locals.currentSchoolData;
-		if (roleNames.includes('student') && !currentSchool.isTeamCreationByStudentsEnabled) {
+		if (roleNames.includes('student') && !currentSchool.features.includes('isTeamCreationByStudentsEnabled')) {
 			allowedCreateTeam = false;
 		}
 	}
@@ -538,8 +538,9 @@ router.get('/:teamId', async (req, res, next) => {
 		files = files.filter((file) => file);
 
 		files = files.map((file) => {
-			// set saveName attribute with escaped quotes
+			// set saveName attribute with escaped quotes and encoded specific characters
 			file.saveName = file.name.replace(/'/g, "\\'");
+			file.saveName = encodeURIComponent(file.name);
 
 			if (file?.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
@@ -1063,6 +1064,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		files = files.filter((file) => file);
 		files = files.map((file) => {
 			file.saveName = file.name.replace(/'/g, "\\'");
+			file.saveName = encodeURIComponent(file.name);
 			if (file?.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
@@ -1138,7 +1140,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			const { _id: studentRoleId } = roles.find((role) => role.name === 'student');
 			return res.locals.currentUser.permissions.includes('STUDENT_LIST')
 				|| !user.roles.includes(studentRoleId)
-				|| res.locals.currentSchoolData.isTeamCreationByStudentsEnabled;
+				|| res.locals.currentSchoolData.features.includes('isTeamCreationByStudentsEnabled');
 		});
 
 		body.sort((a, b) => {
