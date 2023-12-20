@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const redis = require('redis');
-const { RedisStore } = require('connect-redis');
+const connectRedis = require('connect-redis');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const csurf = require('csurf');
@@ -123,6 +123,7 @@ let sessionStore;
 const redisUrl = REDIS_URI;
 if (redisUrl) {
 	logger.info(`Using Redis session store at '${redisUrl}'.`);
+	const RedisStore = connectRedis.default;
 	const client = redis.createClient({
 		url: redisUrl,
 	});
