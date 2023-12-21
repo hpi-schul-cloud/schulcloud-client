@@ -132,7 +132,7 @@ const editCourseHandler = (req, res, next) => {
 	let classesPromise;
 	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
 		classesAndGroupsPromise = api(req, { version: 'v3' })
-			.get('/groups/class', { qs: { limit: -1 } });
+			.get('/groups/class', { qs: { limit: -1, calledFrom: 'course' } });
 	} else {
 		classesPromise = api(req)
 			.get('/classes', {
