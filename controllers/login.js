@@ -320,7 +320,7 @@ const determineRedirectUrl = (req) => {
 
 const filterSchoolsWithLdapLogin = (schools) => schools
 // eslint-disable-next-line max-len
-	.filter((school) => school.systems.some((system) => system.type === 'ldap' && !system.oauthConfig));
+	.filter((school) => school.systems?.some((system) => system.type === 'ldap' && !system.oauthConfig));
 
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
