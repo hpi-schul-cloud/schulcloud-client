@@ -236,6 +236,8 @@ const isTimeoutError = (err) => err && err.message && (
 
 app.use((err, req, res, next) => {
 	const error = err.error || err;
+	logger.error('error1');
+	logger.error(error);
 	const status = error.status || error.statusCode || 500;
 	error.statusCode = status;
 
