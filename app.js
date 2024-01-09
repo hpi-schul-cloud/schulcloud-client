@@ -126,6 +126,7 @@ if (redisUrl) {
 	const client = redis.createClient({
 		url: redisUrl,
 	});
+	client.connect().catch((err) => logger.error(err));
 	sessionStore = new RedisStore({ client });
 } else {
 	logger.info('Using in-memory session store.');
@@ -236,8 +237,6 @@ const isTimeoutError = (err) => err && err.message && (
 
 app.use((err, req, res, next) => {
 	const error = err.error || err;
-	logger.error('error1');
-	logger.error(error);
 	const status = error.status || error.statusCode || 500;
 	error.statusCode = status;
 
