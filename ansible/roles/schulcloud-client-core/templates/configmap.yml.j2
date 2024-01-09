@@ -15,7 +15,7 @@ data:
   SC_TITLE: "{{ SC_TITLE }}"
   SC_PRODUCTNAME: "{{ SC_PRODUCTNAME }}"
   SC_DOMAIN: "{{ DOMAIN }}"
-  LOG_LEVEL: "info"
+  LOG_LEVEL: "error"
 {% for name, data in configuration_all.items() %}
   {% if data.client is defined and data.client == true %}
     {% if data.config_name is defined and data.config_name in hostvars[inventory_hostname] %}
