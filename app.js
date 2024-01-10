@@ -32,6 +32,7 @@ const {
 	SC_DOMAIN,
 	SC_THEME,
 	REDIS_URI,
+	REDIS_CLUSTER_ENABLED,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 	JWT_TIMEOUT_SECONDS,
@@ -121,13 +122,26 @@ staticAssetsMiddleware(app);
 
 let sessionStore;
 const redisUrl = REDIS_URI;
+const redisCluster = REDIS_CLUSTER_ENABLED;
 if (redisUrl) {
-	logger.info(`Using Redis session store at '${redisUrl}'.`);
-	const client = redis.createClient({
-		url: redisUrl,
-	});
-	client.connect().catch((err) => logger.error(err));
-	sessionStore = new RedisStore({ client });
+	if(redisCluster) {
+		logger.info(`Using Redis session store at '${redisUrl}'.`);
+		const redisClusterClient = redis.createCluster({
+			rootNodes: [{
+			  url: Configuration.get('REDIS_URI')
+			}]
+		});
+		redisClusterClient.connect().catch((err) => logger.error(err));
+		sessionStore = new RedisStore({ redisClusterClient });
+	}
+	else {
+		logger.info(`Using Redis session store at '${redisUrl}'.`);
+		const client = redis.createClient({
+			url: redisUrl,
+		});
+		client.connect().catch((err) => logger.error(err));
+		sessionStore = new RedisStore({ client });
+	}
 } else {
 	logger.info('Using in-memory session store.');
 	sessionStore = new session.MemoryStore();

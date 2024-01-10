@@ -51,7 +51,12 @@
 			"default": true,
 			"description": "If enabled, additional security header will be set."
 		},
-
+		
+		"REDIS_CLUSTER_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Activate the cluster mode for redis"
+		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT": {
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage when not loggedin."
