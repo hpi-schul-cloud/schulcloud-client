@@ -51,11 +51,11 @@
 			"default": true,
 			"description": "If enabled, additional security header will be set."
 		},
-		
-		"REDIS_CLUSTER_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "Activate the cluster mode for redis"
+
+		"REDIS_CLUSTER_URI": {
+			"type": "string",
+			"pattern": "(rediss?:)?//((\\w+)?(:.+@)?)?((\\w+)?(:\\w+))?(/d+)?(\\?db=\\d+(&password=.+(&option=.+)*)?)?",
+			"description": "URL of a Redis server. If undefined, JWT whitelisting and timeouts will be disabled. Format: [redis[s]:]//[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]"
 		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT": {
 			"type": "string",
