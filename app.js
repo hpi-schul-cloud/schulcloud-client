@@ -33,6 +33,9 @@ const {
 	SC_THEME,
 	REDIS_URI,
 	REDIS_CLUSTER_URI,
+	REDIS_CLUSTER_NODE_0_URI,
+	REDIS_CLUSTER_NODE_1_URI,
+	REDIS_CLUSTER_NODE_2_URI,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 	JWT_TIMEOUT_SECONDS,
@@ -125,11 +128,18 @@ const redisUrl = REDIS_URI;
 const redisClusterUri = REDIS_CLUSTER_URI;
 if(redisClusterUri) {
 	logger.info(`Using Redis Cluster session store at '${redisClusterUri}'.`);
-	const redisClusterClient = redis.createCluster({
-		rootNodes: [{
-		  url: redisClusterUri,
-		}]
-	});
+	const redisClusterClient = redis.createCluster(
+		{
+			rootNodes: [{
+					url: Configuration.get('REDIS_CLUSTER_NODE_0_URI') 
+				}, { 
+					url: Configuration.get('REDIS_CLUSTER_NODE_1_URI')
+				}, {
+					url: Configuration.get('REDIS_CLUSTER_NODE_2_URI') 
+				} 
+			] 
+		}
+	);
 	redisClusterClient.connect().catch((err) => logger.error(err));
 	sessionStore = new RedisStore({ redisClusterClient });
 } else {

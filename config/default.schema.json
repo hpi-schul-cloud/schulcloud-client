@@ -51,11 +51,25 @@
 			"default": true,
 			"description": "If enabled, additional security header will be set."
 		},
-
 		"REDIS_CLUSTER_URI": {
 			"type": "string",
-			"pattern": "(rediss?:)?//((\\w+)?(:.+@)?)?((\\w+)?(:\\w+))?(/d+)?(\\?db=\\d+(&password=.+(&option=.+)*)?)?",
-			"description": "URL of a Redis server. If undefined, JWT whitelisting and timeouts will be disabled. Format: [redis[s]:]//[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]"
+			"default": "opt-out",
+			"description": "URL of a Redis Cluster server. If undefined, JWT whitelisting and timeouts will be disabled."
+		},
+		"REDIS_CLUSTER_NODE_0_URI": {
+			"type": "string",
+			"default": "opt-out",
+			"description": "URL of a Redis Cluster server. If undefined, JWT whitelisting and timeouts will be disabled."
+		},
+		"REDIS_CLUSTER_NODE_1_URI": {
+			"type": "string",
+			"default": "opt-out",
+			"description": "URL of a Redis Cluster server. If undefined, JWT whitelisting and timeouts will be disabled."
+		},
+		"REDIS_CLUSTER_NODE_2_URI": {
+			"type": "string",
+			"default": "opt-out",
+			"description": "URL of a Redis Cluster server. If undefined, JWT whitelisting and timeouts will be disabled."
 		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT": {
 			"type": "string",
