@@ -139,7 +139,7 @@ const editCourseHandler = (req, res, next) => {
 				qs: {
 					schoolId: res.locals.currentSchool,
 					$populate: ['year'],
-					$limit: -1,
+					$limit: false,
 					$sort: { year: -1, displayName: 1 },
 				},
 			});
@@ -176,7 +176,7 @@ const editCourseHandler = (req, res, next) => {
 			groupIds = _classesAndGroups.data.filter((g) => g.type === 'group').map((group) => group.id);
 			classIds = _classesAndGroups.data.filter((c) => c.type === 'class').map((clazz) => clazz.id);
 		} else {
-			classesAndGroups = _classesAndGroups.filter(
+			classesAndGroups = _classesAndGroups.data.filter(
 				(c) => c.schoolId === res.locals.currentSchool,
 			).sort();
 		}
