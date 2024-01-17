@@ -61,21 +61,22 @@ spec:
           name: http-headers
         readinessProbe:
           httpGet:
-            path: /version
+            # /login was chosen because on THR, the / redirects to TSP
+            path: /login
             port: 3100
           timeoutSeconds: 4
           failureThreshold: 3
           periodSeconds: 10
         livenessProbe:
           httpGet:
-            path: /version
+            path: /login
             port: 3100
           timeoutSeconds: 4
           failureThreshold: 3
           periodSeconds: 15
         startupProbe:
           httpGet:
-            path: /
+            path: /login
             port: 3100
           timeoutSeconds: 4
           failureThreshold: 36
