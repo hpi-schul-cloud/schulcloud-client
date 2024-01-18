@@ -192,12 +192,9 @@ router.post(
 );
 
 const schoolExists = async (req, schoolId) => {
-	const schools = await LoginSchoolsCache.get(req);
-	if (schools.length > 0) {
-		const checkSchool = schools.find((school) => school._id === schoolId);
-		return checkSchool !== undefined;
-	}
-	return false;
+	const result = await api(req, { version: 'v3' }).get(`/school/exists/id/${schoolId}`);
+
+	return result;
 };
 
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'],
