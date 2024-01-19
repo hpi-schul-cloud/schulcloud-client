@@ -192,9 +192,9 @@ router.post(
 );
 
 const schoolExists = async (req, schoolId) => {
-	const result = await api(req, { version: 'v3' }).get(`/school/exists/id/${schoolId}`);
+	const res = await api(req, { version: 'v3' }).get(`/school/exists/id/${schoolId}`);
 
-	return result;
+	return res.exists;
 };
 
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'],
