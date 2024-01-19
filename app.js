@@ -130,7 +130,7 @@ if (redisUrl) {
 
 	// The error event must be handled, otherwise the app crashes on redis connection errors.
 	client.on('error', (err) => {
-		logger.warn('Redis client error, but it should reconnect on its own.', err);
+		logger.error('Redis client error', err);
 	});
 
 	sessionStore = new RedisStore({ client });
