@@ -127,6 +127,11 @@ if (redisUrl) {
 		url: redisUrl,
 	});
 	client.connect().catch((err) => logger.error(err));
+
+	client.on('error', (err) => {
+		logger.warn('Redis client error, but it should reconnect on its own.', err);
+	});
+
 	sessionStore = new RedisStore({ client });
 } else {
 	logger.info('Using in-memory session store.');
