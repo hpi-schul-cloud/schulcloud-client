@@ -59,25 +59,23 @@ spec:
         - mountPath: /home/node/app/config/http-headers.js
           subPath: http-headers.js
           name: http-headers
+        # /login was chosen because on THR, the / redirects to TSP
         readinessProbe:
-          httpGet:
-            path: /version
-            port: 3100
-          timeoutSeconds: 4
+          exec:
+            command: ["wget", "--timeout", "4", "-O", "/dev/null", "http://localhost:3100/login"]
+          timeoutSeconds: 5
           failureThreshold: 3
           periodSeconds: 10
         livenessProbe:
-          httpGet:
-            path: /version
-            port: 3100
-          timeoutSeconds: 4
+          exec:
+            command: ["wget", "--timeout", "4", "-O", "/dev/null", "http://localhost:3100/login"]
+          timeoutSeconds: 5
           failureThreshold: 3
           periodSeconds: 15
         startupProbe:
-          httpGet:
-            path: /
-            port: 3100
-          timeoutSeconds: 4
+          exec:
+            command: ["wget", "--timeout", "4", "-O", "/dev/null", "http://localhost:3100/login"]
+          timeoutSeconds: 5
           failureThreshold: 36
           periodSeconds: 5
         resources:
