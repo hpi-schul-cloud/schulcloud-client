@@ -3,27 +3,19 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 
-// schools
-
+// This route is only used for the external invite form. That's why the API call is specific for that.
 router.get('/', async (req, res, next) => {
 	const params = {
 		qs: {
-			$limit: req.query.$limit,
-			federalState: req.query.federalState,
-			$sort: 'name',
+			federalStateId: req.query.federalState,
 		},
 	};
-	if (req.query.hideOwnSchool) {
-		params.qs._id = { $ne: res.locals.currentSchool };
-	}
-	try {
-		const schools = await api(req).get('/schools/', params);
 
-		const result = schools.data.map((school) => ({
-			_id: school._id,
+	try {
+		const response = await api(req, { version: 'v3' }).get('/school/list-for-external-invite', params);
+		const result = response.map((school) => ({
+			_id: school.id,
 			name: school.name,
-			purpose: school.purpose,
-			officialSchoolNumber: school.officialSchoolNumber,
 		}));
 
 		return res.json(result);

@@ -40,58 +40,27 @@ const config = {
 		*/
 		corsSiteSpecific: {
 			'^/$': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://play.google.com https://cloud-instances.s3.hidrive.strato.com',
+				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
 			},
 			'^/dashboard': {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
 			},
 			'^/courses': {
-				defaultSrc: 'https://nexboard.nexenio.com https://www.geogebra.org https://lti.tools https://codeocean.openhpi.de https://acc.bettermarks.com https://moodle.schul-cloud.org',
-				fontSrc: 'https://vjs.zencdn.net https://fonts.googleapis.com https://cdn.jsdelivr.net',
+				defaultSrc: 'https://nexboard.nexenio.com https://www.geogebra.org https://lti.tools https://acc.bettermarks.com',
+				fontSrc: 'https://vjs.zencdn.net https://cdn.jsdelivr.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},
 			'^/teams': {
 				fontSrc: 'https://vjs.zencdn.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},
-			'^/homework': {
-				fontSrc: 'https://fonts.gstatic.com',
-			},
 			'^/files': {
 				fontSrc: 'https://vjs.zencdn.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},
-			/* '^/news': {
-			},
-			'^/calendar': {
-			}, */
-			'^/content': {
-				defaultSrc: 'https://pichasso.xopic.de',
-				fontSrc: 'https://fonts.gstatic.com',
-			},
-			/* '^/(content|(courses/[a-f0-9]{24}/topics/[a-f0-9]{24}))': {
-			}, */
-			'^/administration': {
-				fontSrc: 'https://fonts.gstatic.com',
-			},
-			/* '^/account': {
-			},
-			'^/logout': {
-			},
-			'^/impressum': {
-			},
-			'^/datenschutz': {
-			}, */
 			'^/about': {
 				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
 			},
-			'^/community': {
-				defaultSrc: 'https://play.google.com',
-			},
-			/* '^/partner': {
-			},
-			'^/help': {
-			}, */
 		},
 	},
 	/*

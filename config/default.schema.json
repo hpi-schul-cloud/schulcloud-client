@@ -64,6 +64,15 @@
 			"type": "string",
 			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
 		},
+		"DASHBOARD_ANNOUNCEMENT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "enbale announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
+		},
+		"DASHBOARD_ANNOUNCEMENT_ROLES": {
+			"type": "string",
+			"description": "comma separated list of roles which dashboard announcement is shown to"
+		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
 			"type": "string",
 			"default": "info",
@@ -181,6 +190,11 @@
 			"default": false,
 			"description": "Enables to show the alerts on the homepage"
 		},
+		"FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables to show the login and register button on the loginpage"
+		 },
 		"ALERT_STATUS_URL": {
 			"type": "string",
 			"default": null,
@@ -573,6 +587,26 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Changes the login flow to one that supports user login migrations"
+		},
+		"FEATURE_H5P_EDITOR_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "If enabled, adds H5P editor to course topics."
+		},
+		"FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the new class list view"
+		},
+		"FEATURE_GROUPS_IN_COURSE_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables to get groups of type class in courses"
+		},
+		"FEATURE_NEST_SYSTEMS_API_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Uses the v3 api over the v1 api for systems"
 		}
 	},
 	"allOf": [

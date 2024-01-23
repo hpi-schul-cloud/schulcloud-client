@@ -49,18 +49,22 @@ const checkValidRegistration = async (req) => {
  */
 router.get(['/register', '/register/*'], (req, res, next) => res.render('registration/deprecated_warning'));
 
-const getSchoolPrivacy = async (req, res) => {
+const getSchoolConsentVersionByType = async (req, res, consentType) => {
 	const importHash = getImportHash(req);
 
 	try {
-		const consentVersion = await api(req).get(`/registration/consent/${importHash}`);
+		const consentVersion = await api(req).get(`/registration/consent/${importHash}?consentType=${consentType}`);
 		if (consentVersion) {
 			const { consentDataId } = consentVersion;
 			return consentDataId ? `/base64Files/${consentDataId}` : undefined;
 		}
 	} catch (error) {
 		// invalid token
-		throw new Error('Invalid import hash!');
+		logger.warn(
+			'Invalid import hash!',
+			formatError(error),
+		);
+		return Promise.resolve();
 	}
 	return undefined;
 };
@@ -251,8 +255,10 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 			hideMenu: true,
 			user,
 			needConsent,
-			schoolPrivacyLink: await getSchoolPrivacy(req, res),
-			schoolPrivacyName: res.$t('global.text.dataProtection'),
+			schoolPrivacyLink: await getSchoolConsentVersionByType(req, res, 'privacy'),
+			schoolTermsLink: await getSchoolConsentVersionByType(req, res, 'termsOfUse'),
+			schoolPrivacyName: res.$t('global.text.dataProtectionFile'),
+			schoolTermsName: res.$t('global.text.termsOfUseFile'),
 			sectionNumber,
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
@@ -317,8 +323,10 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 			user,
 			needConsent,
 			sectionNumber,
-			schoolPrivacyLink: await getSchoolPrivacy(req, res),
-			schoolPrivacyName: res.$t('global.text.dataProtection'),
+			schoolPrivacyLink: await getSchoolConsentVersionByType(req, res, 'privacy'),
+			schoolTermsLink: await getSchoolConsentVersionByType(req, res, 'termsOfUse'),
+			schoolPrivacyName: res.$t('global.text.dataProtectionFile'),
+			schoolTermsName: res.$t('global.text.termsOfUseFile'),
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 			invalid,
 			secure,
@@ -393,8 +401,10 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		user,
 		needConsent,
 		sectionNumber,
-		schoolPrivacyLink: await getSchoolPrivacy(req, res),
-		schoolPrivacyName: res.$t('global.text.dataProtection'),
+		schoolPrivacyLink: await getSchoolConsentVersionByType(req, res, 'privacy'),
+		schoolTermsLink: await getSchoolConsentVersionByType(req, res, 'termsOfUse'),
+		schoolPrivacyName: res.$t('global.text.dataProtectionFile'),
+		schoolTermsName: res.$t('global.text.termsOfUseFile'),
 		invalid,
 		secure,
 		correctID,
@@ -432,8 +442,10 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
 			sso: req.params.sso === 'sso',
 			account: req.params.accountId || '',
 			CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
-			schoolPrivacyLink: await getSchoolPrivacy(req, res),
-			schoolPrivacyName: res.$t('global.text.dataProtection'),
+			schoolPrivacyLink: await getSchoolConsentVersionByType(req, res, 'privacy'),
+			schoolTermsLink: await getSchoolConsentVersionByType(req, res, 'termsOfUse'),
+			schoolPrivacyName: res.$t('global.text.dataProtectionFile'),
+			schoolTermsName: res.$t('global.text.termsOfUseFile'),
 			invalid,
 			secure,
 			correctID,

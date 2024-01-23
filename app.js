@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const redis = require('redis');
-const connectRedis = require('connect-redis');
+const RedisStore = require('connect-redis').default;
 const session = require('express-session');
 const methodOverride = require('method-override');
 const csurf = require('csurf');
@@ -123,10 +123,16 @@ let sessionStore;
 const redisUrl = REDIS_URI;
 if (redisUrl) {
 	logger.info(`Using Redis session store at '${redisUrl}'.`);
-	const RedisStore = connectRedis(session);
 	const client = redis.createClient({
 		url: redisUrl,
 	});
+	client.connect().catch((err) => logger.error(err));
+
+	// The error event must be handled, otherwise the app crashes on redis connection errors.
+	client.on('error', (err) => {
+		logger.error('Redis client error', err);
+	});
+
 	sessionStore = new RedisStore({ client });
 } else {
 	logger.info('Using in-memory session store.');
@@ -294,6 +300,7 @@ app.use((err, req, res, next) => {
 
 	// render the error page
 	res.status(status).render('lib/error', {
+		pageTitle: res.$t('lib.error.headline.pageTitle'),
 		loggedin: res.locals.loggedin,
 		inline: res.locals.inline ? true : !res.locals.loggedin,
 	});

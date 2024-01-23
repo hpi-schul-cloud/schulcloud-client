@@ -191,12 +191,10 @@
 				}
 			},
 			"headline": {
-				"administration": "Administration: ",
+				"administration": "Verwaltung",
 				"alias": "Alias",
 				"attendees": "Teilnehmer:innen",
 				"briefDescription": "Kurzbeschreibung",
-				"classes": "{{title}}Klassen",
-				"courses": "{{title}}Kurse",
 				"createdOn": "Erstellt am",
 				"creationDate": "Erstellungsdatum",
 				"declarationOfConsentStatus": "Einverständniserklärung Status",
@@ -211,13 +209,13 @@
 				"members": "Mitglieder",
 				"owner": "Eigentümer:in",
 				"remarks": "Anmerkungen",
-				"school": "{{title}}Schule",
 				"schools": "Schule(n)",
 				"status": "Status",
 				"students": "{{title}}Schüler:innen",
+				"studentImport": "Schüler:in importieren",
 				"targetState": "Soll-Zustand",
 				"teacher": "{{title}}Lehrkraft",
-				"teams": "{{title}}Teams",
+				"teacherImport": "Lehrkraft importieren",
 				"upgradeClass": "Klasse '{{name}}' in neues Schuljahr bringen",
 				"uploadedOn": "Hochgeladen am"
 			},
@@ -306,6 +304,7 @@
 		"dashboard": {
 			"headline": {
 				"manageClasses": "Klassen verwalten",
+				"manageClassesNew": "Klassen verwalten (neu)",
 				"manageCourses": "Kurse verwalten",
 				"manageSchool": "Schule verwalten",
 				"manageStudents": "Schüler:innen verwalten",
@@ -338,7 +337,8 @@
 		},
 		"form_InvitationStudent": {
 			"label": {
-				"distributeLinkToInvite": "Um in die {{shortTitle}} einzuladen, verteile folgenden Link an:"
+				"distributeLinkToInvite": "Um in die {{shortTitle}} einzuladen, verteile folgenden Link an:",
+				"distributeLinkToInviteShort": "Um in die {{shortTitle}} einzuladen, muss folgender Link verteilt werden:"
 			},
 			"text": {
 				"beforeTheSchoolCloudCanBeUsed": "Bevor die Nutzung der {{shortTitle}} möglich ist, müssen Eltern und/oder Schüler:innen den elektronischen Einwilligungsprozess durchlaufen haben.",
@@ -350,7 +350,8 @@
 				"distributeTheFollowingLinkToTheTeacher": "Verteile folgenden Link an die Lehrkraft:"
 			},
 			"text": {
-				"beforeUsingThe": "Bevor die Nutzung der {{title}} möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben."
+				"beforeUsingThe": "Bevor die Nutzung der {{title}} möglich ist, muss die Lehrkraft den Einwilligungsprozess durchlaufen haben.",
+				"toInvite": "Um in die {{shortTitle}} einzuladen, muss folgender Link verteilt werden:"
 			}
 		},
 		"form_Policy": {
@@ -529,20 +530,19 @@
 			"text": {
 				"afterVerificationCanPreviewTheReadContent": "Nach der Verifizierung können Sie sich die ausgelesenen Inhalte in der Vorschau ansehen. Gestrichene Inhalte werden nicht übernommen, da bei dem/der Nutzer:in der Vorname, der Nachname und/oder die E-Mail-Adresse nicht im LDAP verfügbar ist.",
 				"anyChangesToTheFollowingConfiguration": "Jegliche Änderungen an der folgenden Konfiguration kann zur Folge haben, dass der Login für Sie und alle Nutzer:innen Ihrer Schule nicht mehr funktioniert. Daher nehmen Sie nur Änderungen vor, wenn Ihnen die Konsequenzen bewusst sind. Einige Bereiche sind nur lesbar. Sie können die Angaben allerdings editierbar machen, wenn Sie auf das Schloss im jeweiligen Bereichs klicken. Nach jeder Verifizierung wird Ihr System aktualisiert und ersteinmal auf deaktiviert gesetzt. Vergessen Sie daher nicht die Änderungen final zu speichern, wenn die Verifizierung erfolgreich war.",
-				"backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jede/r Schüler:in und jede Lehrkraft auf Inhalte aus vergangenen Klassen (z.B. Klassenfahrtfotos) zugreifen kann, speichert die HPI Schul-Cloud ab, in welchem Schuljahr ein/e Nutzer:in in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die HPI Schul-Cloud eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
+				"backgroundSoThatEveryStudentAndTeacher": "Hintergrund: Damit jede/r Schüler:in und jede Lehrkraft auf Inhalte aus vergangenen Klassen (z.B. Klassenfahrtfotos) zugreifen kann, speichert die {{title}} ab, in welchem Schuljahr ein/e Nutzer:in in welcher Klasse war. Damit das im Zusammenspiel mit deinem LDAP und den daraus synchronisierten Klassen funktioniert, stellt die {{title}} eine Transferphase zur Verfügung. So ist der Ablauf während eines Schuljahreswechsels:",
 				"canCreateYearIndependentClasses": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Admin <i>'versetzt'</i> werden, sondern müssen manuell aktualisiert werden.",
 				"canStartTheTransferPhase": "ab zwei Wochen vor Ferienbeginn kannst Du die Transferphase manuell starten",
 				"ifAllStudentsAndParentsHaveGiven": "Wenn die Einverständniserklärung von allen Schüler:innen und Eltern in Papierform erfolgt ist, kann hier das Einverständnis für die ganze Klasse manuell erklärt werden.",
 				"ifThereIsNoManualStart": "ist zum Ferienbeginn kein manueller Start erfolgt, beginnt die Transferphase automatisch",
 				"newUsersClassAffiliations": "neue dazugekommene Nutzer:innen, Klassenzugehörigkeiten und Änderungen von Nutzerdaten werden beständig synchronisiert",
-				"provideStudentsAndTheirParents": "Lass deinen Schüler:innen und den Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für die Schüler:innen erstellt.",
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{title}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
 				"thereIsNoDeclarationOfConsent": "Es liegt noch keine Einverständniserklärung für den/die Schüler:in vor. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung und verteile ihn an den/die Schüler:in oder die Eltern. Während der Registrierung wird dann die Einverständniserklärung durch den/die Schüler:in selbst erteilt. Wenn eine Einverständniserklärung in Papierform vorliegt, wird diese per Klick auf 'Einverständnis auf Papier erhalten' aktiviert und ein Startpasswort vergeben. Damit ist der Login dann freigeschaltet.",
 				"registrationNotCompleted": "Der oder die Schüler:in hat die Registrierung noch nicht abgeschlossen. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung ab und verteile ihn an den/die Schüler:in.",
 				"teacherRegistrationNotCompleted": "Die Lehrkraft hat die Registrierung noch nicht abgeschlossen. Rufe einen persönlichen Einladungslink zum Abschluss der Registrierung ab und verteile ihn an die Lehrkraft.",
 				"theSchoolYearEndsAnd": "Das Schuljahr {{schoolName}} wird beendet und die Transferphase zum neuen Schuljahr beginnt. <strong>Dieser Schritt kann nicht rückgängig gemacht werden.</strong> Es können in dieser Zeit keine Klassen und Nutzer:innen angelegt oder geändert werden.",
 				"theSynchronizationOfLDAPMasterData": "Die Synchronisierung von LDAP-Stammdaten wird während der Transferphase unterbrochen. Somit werden Nutzerdaten und Klassen (sofern verwendet) nicht mehr über LDAP aktualisiert. Der Login mit bereits synchronisierten Login-Daten ist weiterhin möglich. Passwortänderungen im LDAP während des Logins werden ebenfalls berücksichtigt.",
-				"useTheTransferPhaseAroundTheSchool": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die HPI Schul-Cloud.",
+				"useTheTransferPhaseAroundTheSchool": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die {{title}}.",
 				"withAllChangesAndSettings": "Mit allen Änderungen und Einstellungen im Verwaltungsbereich wird bestätigt, dass diese durch einen weisungsberechtigten Schul-Admin mit Befugnis zu Anpassungen der Schule in der Cloud durchgeführt werden. Anpassungen durch den Schul-Admin gelten insofern als Weisung der Schule gegenüber dem Cloudbetreiber {{institute_title}}.",
 				"wouldYouLikeReportABug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}? Sende Wünsche oder Probleme direkt an den {{shortTitle}}-Nutzer-Support."
 			}
@@ -569,6 +569,8 @@
 				"activeMatrixFunction": "Matrix Messenger aktivieren",
 				"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
 				"allStudentsVisibility": "Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schüler:innen der Schule für jede Lehrkraft zu aktivieren, ist es erforderlich, dass jede/r Schüler:in wirksam in diese Datenverarbeitung eingewilligt hat.",
+				"allStudentsVisibilityBrandenburg": "Die Aktivierung dieser Option schaltet die Sichtbarkeit aller Schüler:innen der Schule für jede Lehrkraft an.",
+				"allStudentsVisibilityNiedersachsen" : "Wenn diese Option nicht aktiviert ist, können die Lehrkräfte ausschließlich die Klassen sowie deren Schülerinnen und Schüler sehen, in denen sie Mitglied sind.",
 				"authentication": "Authentifizierung",
 				"newPage": "Zur neuen Admin-Seite",
 				"changeOfClasses": "Änderung von Klassen/neue Klassen",
@@ -621,7 +623,7 @@
 				"allDone": "Alles erledigt!",
 				"atTheEndOfTheSchoolYearWithLDAP": "Zum Schuljahreswechsel mit LDAP führe folgende Aktionen durch:",
 				"atTheEndOfTheTransferPhase": "bei Beenden der Transferphase werden alle im LDAP erfolgten Änderungen auf einen Schlag synchronisiert",
-				"atTheSameTime": "gleichzeitig läutest du damit das neue Schuljahr in der HPI Schul-Cloud ein",
+				"atTheSameTime": "gleichzeitig läutest du damit das neue Schuljahr in der {{title}} ein",
 				"changeSchoolValueWarning": "Kann nur einmal gesetzt werden und wird danach deaktiviert!",
 				"coursesWithLearningContent": "Kurse mit Lerninhalten für das kommende Schuljahr können auch während der Transferphase angelegt werden (ohne Klassenzuordnung)",
 				"doNotEndTheTransferPhase": "beende die Transferphase erst, wenn die Nutzer:innen den neuen Klassen zugeordnet sind",
@@ -990,8 +992,7 @@
 			"tab_label": {
 				"groups": "Gruppen",
 				"tasks": "Aufgaben",
-				"tools": "Tools (neu)",
-				"oldTools": "Tools",
+				"tools": "Tools",
 				"oldTopics": "Themen",
 				"topics": "Lerninhalte"
 			},
@@ -1136,8 +1137,7 @@
 				"addClassesToCourse": "Klasse(n) (Alle Schüler:innen der Klasse werden automatisch hinzugefügt!) - Optional",
 				"addStudentsToCourse": "Schüler:innen / Teilnehmer:innen - Optional",
 				"courseSubstitute": "Vertretungslehrkräfte - Optional",
-				"timeSpan": "Zeitraum (z.B. Schuljahr) von - Optional",
-				"timeSpanUntil": "Bis - Optional"
+				"timeSpan": "Zeitraum (z.B. Schuljahr) von"
 			},
 			"link": {
 				"addAnotherCourse": "Einen weiteren Kurs anlegen",
@@ -1249,6 +1249,7 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
+			"announcement": "<b>Wichtige Ankündigung:</b> Das Tool neXboard wird durch <b>tldraw</b> ersetzt. Sichern Sie Ihre Inhalte aus den neXboards, die Sie weiter verwenden wollen, bitte bis zum <b>15.03.2024</b>. Bis dahin können angelegte neXboards weiterhin verwendet werden. Hier finden Sie <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">Möglichkeiten der Sicherung und weitere Informationen</a>.",
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",
@@ -1340,7 +1341,11 @@
 			"attention": "Achtung",
 			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
-			"newFolder": "Neuer Ordner"
+			"newFolder": "Neuer Ordner",
+			"personalFiles": "Persönliche Dateien",
+			"courseFiles": "Kurs-Dateien",
+			"teamFiles": "Team-Dateien",
+			"sharedFiles": "Geteilte Dateien"
 		},
 		"img_alt": {
 			"altInfoTheImage": "Das Bild {{imgName}}"
@@ -1455,7 +1460,6 @@
 				"i": "Ich,",
 				"pleaseClickOnRead": "Bitte nimm mit Klick auf „Gelesen” diese Informationen zur Kenntnis, um mit der Nutzung fortzufahren.",
 				"pleaseConfirmTheFollowingDeclarationOfConsent": "Bitte bestätige folgende Einwilligungserklärungen, damit du die {{title}} nutzen kannst.",
-				"termsOfUse": "Nutzungsordnung",
 				"the": "die"
 			}
 		},
@@ -1679,7 +1683,7 @@
 				"de": "Deutsch",
 				"en": "English",
 				"es": "Español",
-				"uk": "Yкраїнський"
+				"uk": "Yкраїнська"
 			}
 		},
 		"link": {
@@ -1768,6 +1772,8 @@
 			"dataProtectionThr": "Datenschutzhinweise",
 			"dataProtectionFile": "Datenschutzerklärung der Schule",
 			"dataProtectionFileThr": "Datenschutzhinweise der Schule",
+			"termsOfUse": "Nutzungsordnung",
+			"termsOfUseFile": "Nutzungsordnung der Schule",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Admin.",
 			"errorChangingFilePermissions": "Problem beim Ändern der Berechtigungen",
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
@@ -1791,7 +1797,7 @@
 			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
-			"somethingWentWrong": "Da ist wohl etwas schief gelaufen!",
+			"somethingWentWrong": "Da ist etwas schiefgelaufen!",
 			"specialCharacters": "!§$%&/()=?\\;:,.#+*~-",
 			"sunday": "Sonntag",
 			"sureAboutDeleting": "Bist du dir sicher, dass du '{{ name }}' löschen möchtest?",
@@ -2281,7 +2287,8 @@
 				"viewDetails": "Details anzeigen"
 			},
 			"headline": {
-				"errorDetails": "Fehler-Details:"
+				"errorDetails": "Fehler-Details:",
+				"pageTitle": "Ein Fehler ist aufgetreten"
 			}
 		},
 		"extended_footer": {
@@ -2815,8 +2822,9 @@
 				"registrationMustBeDoneByYou": "Die folgende Anmeldung muss von dir als Schüler:in selbst vorgenommen werden, nicht von deinen Eltern.",
 				"thankYouForTakingThisStepWithUs": "Wir freuen uns, dass du die {{shortTitle}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.",
 				"theRegistrationProcessChangesAccordingToAge": "Je nach Alter des Schülers/der Schülerin* verändert sich der Anmeldeprozess. Bei Schüler:innen unter {{minAge}} muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schüler:innen über {{independentAge}} sie selbst.",
-				"registrationProcessAgeStep": "Wir freuen uns, dass du die {{title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform. Je nach Alter der Schülerin oder des Schülers verändert sich der Anmeldeprozess. Bei Schülerinnen und Schülern unter {{minAge}} werden die Eltern gebeten, ihre Kinder in den folgenden Schritten der Anmeldung zu unterstützen.",
-				"nextStepRegistration": "Im nächsten Schritt erfolgt die Registrierung in der {{title}}"
+				"registrationProcessAgeStep": "Mit der Nutzung der {{title}} gehen wir gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts - <b>Bildung nachhaltig gestalten. Gemeinsam. Flexibel. Offen.</b> Je nach Alter der Schülerin oder des Schülers verändert sich der Anmeldeprozess. Bei Schülerinnen und Schülern unter {{minAge}} werden die Eltern gebeten, ihre Kinder in den folgenden Schritten der Anmeldung zu unterstützen.",
+				"registrationProcessTeacherStep": "Mit der Nutzung der {{title}} gehen wir gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts - <b>Bildung nachhaltig gestalten. Gemeinsam. Flexibel. Offen.</b>",
+				"nextStepRegistration": "Mit der Registrierung in der {{title}} im nächsten Schritt werden die <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">Datenschutzhinweise</a> und <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">Nutzungsordnung</a> akzeptiert. Die <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">Datenschutzhinweise</a> sind jederzeit im Footer verfügbar. Für die Nutzung gilt folgende <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">Nutzungsordnung</a> (soweit die Schule oder Bildungseinrichtung keine eigene Nutzungsordnung erlassen hat)."
 			}
 		},
 		"deprecatedWarning": {
@@ -2857,7 +2865,7 @@
 		},
 		"text": {
 			"acceptConsentWithoutParents": "Wenn du zwischen 14 und {{age}} Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die {{title}} nutzen kannst.",
-			"agreeTermsOfUse": "Ich habe die <a href=\"{{link}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung der {{title}}</a> gelesen und stimme ihr zu.",
+			"agreeTermsOfUse": "Ich habe die <a href=\"{{link}}\" title=\"{{name}}\" class=\"{{class}}\" target=\"_blank\" rel=\"noopener\">Nutzungsordnung</a> der {{title}} gelesen und stimme ihr zu.",
 			"andAuthorisedToRepresent": "und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.",
 			"iAgreeThatThepersonalData": "Ich erkläre mich damit einverstanden, dass die personenbezogenen Daten meines Kindes entsprechend der",
 			"invalidLink": "Der Link ist leider nicht mehr gültig. Fordere einen neuen Link von deiner Lehrkraft oder dem Schul-Admin an.",
@@ -3176,7 +3184,8 @@
 				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
 				"material": "Lern-Material",
 				"neXboard": "neXboard",
-				"text": "Text"
+				"text": "Text",
+				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming zum Thema XYZ",
@@ -3216,6 +3225,11 @@
 	"info": {
 		"text": {
 			"nextcloudLink": "Wir arbeiten an einem neuen Dateibereich. Dort können ab jetzt alle <b>neuen Dateien</b> gespeichert und verwaltet werden (Dateibereich öffnen). Alle Team-Mitglieder haben automatisch Zugriff auf die dort gespeicherten Dateien. Alle bereits <b>bestehenden Dateien</b> in der {{title}} sind weiterhin hier verfügbar."
+		}
+	},
+	"h5p": {
+		"text": {
+			"createAfterFirstSave": "H5P Inhalte können erst nach dem ersten Speichern erstellt werden."
 		}
 	}
 }

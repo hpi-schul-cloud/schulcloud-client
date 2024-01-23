@@ -34,7 +34,7 @@
 
 	<select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher" }}">
 		{{#each teachers}}
-			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
+			<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}} {{#if this.isHidden}}hidden{{/if}}>
 				{{#if this.displayName}}
 					{{this.displayName}}
 				{{else}}
@@ -71,7 +71,7 @@
 	</p>
 
 	<section id="createcustom" class="{{#unless isCustom}}hidden{{/unless}}">
-		<p>{{$t "administration.longText.text.canCreateYearIndependentClasses" }}</p>
+		<p>{{{$t "administration.longText.text.canCreateYearIndependentClasses" }}}</p>
 		<div class="form-group">
 			<label>{{$t "administration.classes.label.className" }}</label>
 			<input data-testid="Klassenbezeichnung" class="form-control linked" name="classcustom" type="text" placeholder="{{$t "administration.classes.placeholder.exampleName" }}"
