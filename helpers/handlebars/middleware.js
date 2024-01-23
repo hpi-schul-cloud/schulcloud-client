@@ -248,7 +248,6 @@ module.exports = (req, res, next) => {
 	});
 
 	// admin views
-	const newSchoolAdminPageAsDefault = FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED === 'true';
 	const adminChildItems = [
 		{
 			name: res.$t('global.link.administrationStudents'),
