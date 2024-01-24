@@ -595,11 +595,9 @@ router.get('/:assignmentId', (req, res, next) => {
 			}
 
 			const submissionFilesStorageData = _.clone(filesStorage);
-			submissionFilesStorageData.files = filesStorage.files.filter((file) => submitters.has(file.creatorId));
 			submissionFilesStorageData.readonly = readonly || (!isCreator && isTeacher);
 
 			const gradeFilesStorageData = _.clone(filesStorage);
-			gradeFilesStorageData.files = filesStorage.files.filter((file) => teachers.has(file.creatorId));
 			gradeFilesStorageData.readonly = !isTeacher;
 
 			submission.submissionFiles = { filesStorage: submissionFilesStorageData };
