@@ -12,8 +12,6 @@ const { getCurrentLanguage } = require('../helpers/i18n');
 const { setCookie } = require('../helpers/cookieHelper');
 const { logger, formatError } = require('../helpers');
 
-const { LoginSchoolsCache } = require('../helpers/cache');
-
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
 
