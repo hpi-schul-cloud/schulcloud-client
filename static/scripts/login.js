@@ -99,7 +99,7 @@ $(document).ready(() => {
 		systems.forEach((system) => {
 			const systemAlias = system.alias ? ` (${system.alias})` : '';
 			let selected = false;
-			if (storage.local.getItem('loginSystem') === system.id) {
+			if (storage.local.getItem('loginSystem') === `${system.id}//${system.type}`) {
 				selected = true;
 			}
 			// eslint-disable-next-line max-len
