@@ -722,6 +722,7 @@ router.get(
 			title: res.$t('administration.controller.headline.administration'),
 			inMaintenance: res.locals.currentSchoolData.inMaintenance,
 			inUserMigration: res.locals.currentSchoolData.inUserMigration,
+			isN21: res.locals.theme.name === 'n21',
 		});
 	},
 );
