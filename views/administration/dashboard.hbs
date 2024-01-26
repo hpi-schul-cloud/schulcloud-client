@@ -89,7 +89,7 @@
 								</div>
 							{{/userHasPermission}}
                                 {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
-                                    {{#unless isN21}}
+                                    {{#unless @root.isN21}}
                                         {{#embed "administration/partials/ldap_migration_link"}}{{/embed}}
                                     {{/unless}}
                                 {{else}}
@@ -97,7 +97,6 @@
                                         {{#embed "administration/partials/ldap_migration_link"}}{{/embed}}
                                     {{/inArray}}
                                 {{/ifConfig}}
-
 						</div>
 					</div>
 				</div>
