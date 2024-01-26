@@ -318,10 +318,6 @@ const determineRedirectUrl = (req) => {
 	return '/dashboard';
 };
 
-const filterSchoolsWithLdapLogin = (schools) => schools
-// eslint-disable-next-line max-len
-	.filter((school) => school.systems?.some((system) => system.type === 'ldap' && !system.oauthConfig));
-
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
 		.get('/systems/public?onlyOauth=true')
@@ -338,7 +334,7 @@ router.all('/', async (req, res, next) => {
 		const oauthSystems = await getOauthSystems(req);
 
 		res.render('authentication/home', {
-			schools: filterSchoolsWithLdapLogin(schools),
+			schools,
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
@@ -370,7 +366,7 @@ const renderLogin = async (req, res) => {
 
 	res.render('authentication/login', {
 		pageTitle: res.$t('home.header.link.login'),
-		schools: filterSchoolsWithLdapLogin(schools),
+		schools,
 		systems: [],
 		oauthSystems,
 		oauthErrorLogout,
