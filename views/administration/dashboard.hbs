@@ -89,9 +89,9 @@
 								</div>
 							{{/userHasPermission}}
                                 {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
-                                    {{#unless @root.isN21}}
+                                    {{#ifneq @root.theme.name "n21"}}
                                         {{#embed "administration/partials/ldap_migration_link"}}{{/embed}}
-                                    {{/unless}}
+                                    {{/ifneq}}
                                 {{else}}
                                     {{#inArray "ldapUniventionMigrationSchool" @root.currentSchoolData.features}}
                                         {{#embed "administration/partials/ldap_migration_link"}}{{/embed}}
