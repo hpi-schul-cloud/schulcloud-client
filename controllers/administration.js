@@ -512,7 +512,7 @@ const createSystemHandler = (req, res, next) => {
 					},
 				})
 				.then(() => {
-					res.redirect('/administration/school');
+					res.redirect('/administration/school-settings');
 				})
 				.catch((err) => {
 					next(err);
@@ -2794,7 +2794,7 @@ router.post('/rss/', async (req, res) => {
 		school.rssFeeds
 		&& school.rssFeeds.find((el) => el.url === req.body.rssURL)
 	) {
-		return res.redirect('/administration/school');
+		return res.redirect('/administration/school-settings');
 	}
 
 	await api(req).patch(`/schools/${req.body.schoolId}`, {
@@ -2804,7 +2804,7 @@ router.post('/rss/', async (req, res) => {
 			},
 		},
 	});
-	return res.redirect('/administration/school');
+	return res.redirect('/administration/school-settings');
 });
 
 router.delete('/rss/:id', async (req, res) => {
@@ -2816,7 +2816,7 @@ router.delete('/rss/:id', async (req, res) => {
 		},
 	});
 
-	res.redirect('/administration/school');
+	res.redirect('/administration/school-settings');
 });
 
 router.use(
@@ -3047,7 +3047,7 @@ router.post('/terminateschoolyear', async (req, res) => {
 		},
 	});
 
-	res.redirect('/administration/school');
+	res.redirect('/administration/school-settings');
 });
 
 // Start
@@ -3058,7 +3058,7 @@ router.use('/startschoolyear', async (req, res) => {
 		},
 	});
 
-	res.redirect('/administration/school');
+	res.redirect('/administration/school-settings');
 });
 
 // Start preview LDAP
@@ -3151,7 +3151,7 @@ router.post(
 
 		if (system.length === 1) {
 			// LDAP System already available, do not create another one
-			res.redirect('/administration/school');
+			res.redirect('/administration/school-settings');
 		} else {
 			// Create System for LDAP
 			const ldapTemplate = {
