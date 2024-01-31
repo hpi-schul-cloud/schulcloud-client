@@ -442,27 +442,6 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 		return res.redirect(`/firstLogin?redirect=${redirectUrl}`);
 	}
 
-	// if this happens: SSO
-	const {
-		accountId,
-		systemId,
-		schoolId,
-	} = res.locals.currentPayload || {};
-	if (accountId && systemId && schoolId) {
-		const schools = await LoginSchoolsCache.get(req);
-		if (schools.length > 0) {
-			const checkSchool = schools.find((school) => school._id === schoolId);
-			if (checkSchool && checkSchool.systems) {
-				const schoolWithSystem = checkSchool.systems.find(
-					(system) => system._id === systemId,
-				);
-				if (schoolWithSystem) {
-					res.redirect(`/registration/${schoolId}/sso/${accountId}`);
-				}
-			}
-		}
-	}
-
 	const redirectUrl = determineRedirectUrl(req);
 	res.redirect(redirectUrl);
 
