@@ -1,12 +1,15 @@
 {{#extend "news/news"}}
 {{#content "page"}}
 <p>
-    <small class="text-muted">{{timeFromNow news.displayAt}}</small>
+    <small class="text-muted">{{$t "news.text.created" }}</small>
     {{#unless isRSS}}
     <small class="text-muted">
-        {{$t "news.text.from" }} {{news.creator.firstName}} {{news.creator.lastName}} {{$t "news.text.created" }}
         {{#if news.updater}}
-        {{$t "news.text.lastFrom" }} {{news.updater.firstName}} {{news.updater.lastName}} {{$t "news.text.processed" }}
+        {{$t "news.text.by" }} {{news.creator.firstName}} {{news.creator.lastName}}
+        {{/if}}
+        {{timeFromNow news.displayAt}}
+        {{#if news.updater}}
+        {{$t "news.text.lastBy" }} {{news.updater.firstName}} {{news.updater.lastName}} {{$t "news.text.processed" }}
         {{/if}}
         {{#if news.target.name}}
         {{#ifCond news.targetModel '===' 'teams'}}
