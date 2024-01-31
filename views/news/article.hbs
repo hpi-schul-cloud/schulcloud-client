@@ -4,7 +4,7 @@
     <small class="text-muted">{{$t "news.text.created" }}</small>
     {{#unless isRSS}}
     <small class="text-muted">
-        {{#if news.updater}}
+        {{#if news.creator}}
         {{$t "news.text.by" }} {{news.creator.firstName}} {{news.creator.lastName}}
         {{/if}}
         {{timeFromNow news.displayAt}}
