@@ -1,16 +1,15 @@
 {{#extend "news/news"}}
 {{#content "page"}}
 <p>
-    <small class="text-muted">{{$t "news.text.created" }}</small>
     {{#unless isRSS}}
     <small class="text-muted">
+        {{#if news.updater}}
+        {{$t "news.text.last" }} {{$t "news.text.processed" }} {{$t "news.text.by" }}{{news.updater.firstName}} {{news.updater.lastName}} {{timeFromNow news.updatedAt}} |
+        {{/if}}
         {{#if news.creator}}
-        {{$t "news.text.by" }}{{news.creator.firstName}} {{news.creator.lastName}}
+        {{$t "news.text.created" }} {{$t "news.text.by" }}{{news.creator.firstName}} {{news.creator.lastName}}
         {{/if}}
         {{timeFromNow news.displayAt}}
-        {{#if news.updater}}
-        {{$t "news.text.last" }} {{$t "news.text.processed" }} {{$t "news.text.by" }}{{news.updater.firstName}} {{news.updater.lastName}}{{$t "news.text.closingBracket" }}
-        {{/if}}
         {{#if news.target.name}}
         {{#ifCond news.targetModel '===' 'teams'}}
         {{$t "news.text.inTheTeam" }}
@@ -25,8 +24,8 @@
  <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{/if}}
-        {{#ifCond @root.currentUser.schoolId '===' news.school.id}} {{$t "news.text.atYourSchool" }}{{else}}
-        {{$t "news.text.atSchool" }} {{../news.school.name}}
+        </br>
+        {{#ifCond @root.currentUser.schoolId '!==' news.school.id}} {{$t "news.text.atSchool" }} {{../news.school.name}}
         {{/ifCond}}
     </small>
     {{/unless}}
