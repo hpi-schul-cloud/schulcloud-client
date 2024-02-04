@@ -79,22 +79,34 @@
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="card h-100 teacher-option locationlink" data-loclink="/administration/school-settings" data-testid="school_administration_card">
+                                {{#if (getConfig "FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED")}}
+									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/school-settings" data-testid="school_administration_card">
+										<div class="card-block homework">
+											<div class="card-text">
+												<h2 class="h4"><i class="fa fa-building"></i> {{$t "administration.dashboard.headline.manageSchool" }}</h2>
+											</div>
+										</div>
+									</div>
+                                {{else}}
+                                    <div class="card h-100 teacher-option locationlink" data-loclink="/administration/school" data-testid="school_administration_card">
                                         <div class="card-block homework">
                                             <div class="card-text">
                                                 <h2 class="h4"><i class="fa fa-building"></i> {{$t "administration.dashboard.headline.manageSchool" }}</h2>
                                             </div>
                                         </div>
                                     </div>
+                                {{/if}}
 								</div>
 							{{/userHasPermission}}
-							{{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
-                                {{#embed "administration/partials/ldap_migration_link"}}{{/embed}}
+                            {{#ifConfig "FEATURE_USER_MIGRATION_ENABLED" true}}
+                                {{#ifneq @root.theme.name "n21"}}
+                                    {{#embed "administration/partials/ldap_migration_link"}}{{/embed}}
+                                {{/ifneq}}
                             {{else}}
                                 {{#inArray "ldapUniventionMigrationSchool" @root.currentSchoolData.features}}
                                     {{#embed "administration/partials/ldap_migration_link"}}{{/embed}}
                                 {{/inArray}}
-							{{/ifConfig}}
+                            {{/ifConfig}}
 						</div>
 					</div>
 				</div>
