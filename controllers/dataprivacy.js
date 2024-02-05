@@ -7,7 +7,7 @@ const { getConsentVersion } = require('../helpers/consentVersionHelper');
 
 const router = express.Router();
 
-const privacyUrl = () => new URL(`${SC_THEME}/${specificFiles.privacyExemplary}`, DOCUMENT_BASE_DIR);
+const privacyUrl = () => new URL(`${SC_THEME}/${specificFiles.privacy}`, DOCUMENT_BASE_DIR);
 
 router.get('/', async (req, res, next) => {
 	try {
