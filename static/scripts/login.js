@@ -93,23 +93,21 @@ $(document).ready(() => {
 		incTimer();
 	}
 
-	const loadSystems = (systems) => {
+	const setSystemOptions = (systems) => {
 		$systems.empty();
 
-		const ldapSystems = systems.filter((system) => system.type === 'ldap');
-
-		ldapSystems.forEach((system) => {
+		systems.forEach((system) => {
 			const systemAlias = system.alias ? ` (${system.alias})` : '';
 			let selected = false;
-			if (storage.local.getItem('loginSystem') === system._id) {
+			if (storage.local.getItem('loginSystem') === `${system.id}//${system.type}`) {
 				selected = true;
 			}
 			// eslint-disable-next-line max-len
-			$systems.append(`<option ${selected ? 'selected' : ''} value="${system._id}//${system.type}">${system.type}${systemAlias}</option>`);
+			$systems.append(`<option ${selected ? 'selected' : ''} value="${system.id}//${system.type}">${system.type}${systemAlias}</option>`);
 		});
 
 		// eslint-disable-next-line no-unused-expressions
-		ldapSystems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
+		systems.length < 2 ? $systems.parent().hide() : $systems.parent().show();
 
 		$systems.trigger('chosen:updated');
 	};
@@ -223,7 +221,7 @@ $(document).ready(() => {
 		enableDisableLdapBtn(id);
 		const dataSystems = $(event.target).find(':selected').data('systems');
 		if (id !== '' && dataSystems) {
-			loadSystems(dataSystems);
+			setSystemOptions(dataSystems);
 		} else {
 			$systems.parent().hide();
 		}
