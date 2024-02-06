@@ -10,7 +10,7 @@
 		{{#if @root.schoolPrivacyLink}}
 			<span>{{{$t "registration._registration.parent.text.myDataMayBeProcessed" (dict "link" @root.schoolPrivacyLink "name" @root.schoolPrivacyName "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
 		{{else}}
-			<span>{{{$t "registration._registration.parent.text.myDataMayBeProcessed" (dict "link" @root.theme.documents.specificFiles.privacyExemplary "title" @root.theme.title)}}} </span>
+			<span>{{{$t "registration._registration.parent.text.myDataMayBeProcessed" (dict "link" "/privacypolicy" "title" @root.theme.title)}}} </span>
 		{{/if}}
 	</label>
 
@@ -21,7 +21,7 @@
 		{{#if @root.schoolPrivacyLink}}
 			<span>{{{$t "registration._registration.global.text.myDataMayBeProcessed" (dict "link" @root.schoolPrivacyLink "name" @root.schoolPrivacyName "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
 		{{else}}
-			<span>{{{$t "registration._registration.global.text.myDataMayBeProcessed" (dict "link" @root.theme.documents.specificFiles.privacyExemplary "title" @root.theme.title)}}} </span>
+			<span>{{{$t "registration._registration.global.text.myDataMayBeProcessed" (dict "link" "/privacypolicy" "title" @root.theme.title)}}} </span>
 		{{/if}}	</label>
 	<p class="explanation">{{{$t "registration._registration.global.text.agreementIsVoluntary" (dict "title" @root.theme.title)}}} {{{$t "registration._registration.global.text.agreementCanBeRevoked"}}} {{{$t "registration._registration.global.text.inCaseOfRevocationDataDeletion"}}}</p>
 {{/if}}
@@ -31,6 +31,6 @@
     {{#if @root.schoolTermsLink}}
         <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" @root.schoolTermsLink "name" @root.schoolTermsName "title" @root.theme.title "class" "base64File-download-btn")}}} </span>
     {{else}}
-        <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" @root.theme.documents.specificFiles.termsOfUseExemplary "title" @root.theme.title)}}}</span>
+        <span>{{{$t "registration.text.agreeTermsOfUse" (dict "link" "/termsofuse" "title" @root.theme.title)}}}</span>
     {{/if}}
 </label>
