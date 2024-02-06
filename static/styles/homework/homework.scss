@@ -24,7 +24,7 @@
 	padding: 10px 0;
 	clear: both;
 	ol {
-		list-style: none;
+		list-style: auto;
 	}
 }
 
@@ -118,23 +118,6 @@
 
 		@include media-breakpoint-down(xs) {
 			margin-right: 25px;
-		}
-
-		h1 {
-			font-size: 1.3rem;
-			font-weight: bold
-		}
-
-		h2 {
-			font-size: 1.2rem;
-			font-weight: bold;
-			font-style: italic
-		}
-
-		h3 {
-			font-size: 1.1rem;
-			font-style: italic;
-			text-decoration: underline
 		}
 
 		p {
