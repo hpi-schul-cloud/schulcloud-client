@@ -166,7 +166,7 @@
 				"noClassesInYear": "No classes available in this year",
 				"noLackOfInformedConsent": "There are no missing declarations of consent in this class.",
 				"required": "required",
-				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy Policy</a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of Use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
+				"signAgreement": "On this page. you can declare consent to the <a href=\"/privacypolicy\" target=\"_blank\">Privacy Policy</a> and to <a href=\"/termsofuse\" target=\"_blank\">Terms of Use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
 				"theNextStepIsToInviteOrAdd": "In the next step you can invite or add students to the class."
 			},
 			"brb": {
