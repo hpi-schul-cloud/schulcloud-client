@@ -12,8 +12,7 @@
         {{timeFromNow news.displayAt}}
         {{#if news.target.name}}
         {{#ifCond news.targetModel '===' 'teams'}}
-        {{$t "news.text.inTheTeam" }}
-        <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
+        <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a> {{$t "news.text.inTheTeam" }}
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'courses'}}
         {{$t "news.text.inTheCourse" }}
