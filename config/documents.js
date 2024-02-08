@@ -4,7 +4,9 @@ const { DOCUMENT_BASE_DIR, SC_THEME } = require('./global');
 
 const specificFiles = {
 	accessibilityStatement: 'Willkommensordner/Barrierefreiheit/Barrierefreiheitserklaerung.pdf',
-	privacy: 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
+	privacy: SC_THEME === 'thr'
+		? 'Onlineeinwilligung/Datenschutzhinweise.pdf'
+		: 'Onlineeinwilligung/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
 	termsOfUse: SC_THEME === 'thr'
 		? 'Willkommensordner/Datenschutz/Nutzungsordnung.pdf'
 		: 'Willkommensordner/Datenschutz/Nutzungsordnung_Schueler-innen.pdf',
