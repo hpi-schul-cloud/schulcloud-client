@@ -2648,14 +2648,14 @@
 			"atSchool": "en la escuela",
 			"atYourSchool": "en tu escuela",
 			"created": "creado",
-			"from": "desde",
+			"by": "por",
 			"inTheClass": "en la clase",
 			"inTheCourse": "en el curso",
 			"inTheTeam": "en el equipo",
-			"lastFrom": "(último desde",
+			"last": "últimamente",
 			"newsNeedContent": "¡Las noticias necesitan contenido!",
 			"newsNeedTitle": "¡Las noticias necesitan un título!",
-			"processed": "editado)",
+			"processed": "editado",
 			"released": "Publicado",
 			"unpublished": "Sin publicar"
 		}
