@@ -198,7 +198,8 @@
 
 // Default CK Editor table styles
 
-.ck-content {
+.ck-content,
+.ck-content-homework {
 	figure {
 		table {
 			width: 100%;
@@ -206,10 +207,9 @@
 			td, th {
 				min-width: 2em;
 				padding: .4em;
-				border: $table-border-width solid $table-border-color;
+				border: $table-border-width solid $table-editor-border-color;
 			}
 		}
 	}
 
 }
-
