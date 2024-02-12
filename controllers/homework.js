@@ -718,7 +718,6 @@ router.get('/:assignmentId', (req, res, next) => {
 
 			const { schoolId, _id } = assignment;
 			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, _id, 'tasks', true, req);
-			console.log('%%%%%%%%%assignment%%%%%%%%%%%%%%%',assignment);
 			res.render('homework/assignment', {
 				...assignment, ...renderOptions, taskFilesStorageData, submissionFilesStorageData,
 			});
