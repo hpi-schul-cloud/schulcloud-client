@@ -7,7 +7,7 @@ const { getConsentVersion } = require('../helpers/consentVersionHelper');
 
 const router = express.Router();
 
-const termsUrl = () => new URL(`${SC_THEME}/${specificFiles.termsOfUseSchool}`, DOCUMENT_BASE_DIR);
+const termsUrl = () => new URL(`${SC_THEME}/${specificFiles.termsOfUse}`, DOCUMENT_BASE_DIR);
 
 router.get('/', async (req, res, next) => {
 	try {

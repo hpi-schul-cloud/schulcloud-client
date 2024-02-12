@@ -2648,14 +2648,14 @@
 			"atSchool": "an der Schule",
 			"atYourSchool": "an deiner Schule ",
 			"created": "erstellt",
-			"from": "von",
+			"by": "von",
 			"inTheClass": "in der Klasse",
 			"inTheCourse": "im Kurs",
 			"inTheTeam": "im Team",
-			"lastFrom": "(zuletzt von",
+			"last": "zuletzt",
 			"newsNeedContent": "News benötigen Inhalt!",
 			"newsNeedTitle": "News benötigen einen Titel!",
-			"processed": "bearbeitet)",
+			"processed": "bearbeitet",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
 		}

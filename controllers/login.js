@@ -318,10 +318,6 @@ const determineRedirectUrl = (req) => {
 	return '/dashboard';
 };
 
-const filterSchoolsWithLdapLogin = (schools) => schools
-// eslint-disable-next-line max-len
-	.filter((school) => school.systems?.some((system) => system.type === 'ldap' && !system.oauthConfig));
-
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
 		.get('/systems/public?onlyOauth=true')
@@ -338,7 +334,7 @@ router.all('/', async (req, res, next) => {
 		const oauthSystems = await getOauthSystems(req);
 
 		res.render('authentication/home', {
-			schools: filterSchoolsWithLdapLogin(schools),
+			schools,
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
@@ -370,7 +366,7 @@ const renderLogin = async (req, res) => {
 
 	res.render('authentication/login', {
 		pageTitle: res.$t('home.header.link.login'),
-		schools: filterSchoolsWithLdapLogin(schools),
+		schools,
 		systems: [],
 		oauthSystems,
 		oauthErrorLogout,
@@ -444,27 +440,6 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 
 		// make sure fistLogin flag is not set
 		return res.redirect(`/firstLogin?redirect=${redirectUrl}`);
-	}
-
-	// if this happens: SSO
-	const {
-		accountId,
-		systemId,
-		schoolId,
-	} = res.locals.currentPayload || {};
-	if (accountId && systemId && schoolId) {
-		const schools = await LoginSchoolsCache.get(req);
-		if (schools.length > 0) {
-			const checkSchool = schools.find((school) => school._id === schoolId);
-			if (checkSchool && checkSchool.systems) {
-				const schoolWithSystem = checkSchool.systems.find(
-					(system) => system._id === systemId,
-				);
-				if (schoolWithSystem) {
-					res.redirect(`/registration/${schoolId}/sso/${accountId}`);
-				}
-			}
-		}
 	}
 
 	const redirectUrl = determineRedirectUrl(req);
