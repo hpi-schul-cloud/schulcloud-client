@@ -668,7 +668,7 @@ router.get('/:assignmentId', (req, res, next) => {
 					});
 				const studentSubmissions = students.map((student) => ({
 					student,
-					submission: assignment.submissions.filter((submission) => (submission.teamMembers?.includes(student._id.toString())))[0],
+					submission: assignment.submissions.filter((submission) => (submission.teamMemberIds?.includes(student._id.toString())))[0],
 				}));
 
 				let studentsWithSubmission = [];
@@ -718,6 +718,7 @@ router.get('/:assignmentId', (req, res, next) => {
 
 			const { schoolId, _id } = assignment;
 			const taskFilesStorageData = await filesStoragesHelper.filesStorageInit(schoolId, _id, 'tasks', true, req);
+			console.log('%%%%%%%%%assignment%%%%%%%%%%%%%%%',assignment);
 			res.render('homework/assignment', {
 				...assignment, ...renderOptions, taskFilesStorageData, submissionFilesStorageData,
 			});
