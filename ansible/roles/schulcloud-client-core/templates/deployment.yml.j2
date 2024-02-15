@@ -76,7 +76,7 @@ spec:
           exec:
             command: ["wget", "--timeout", "4", "-O", "/dev/null", "http://localhost:3100/login"]
           timeoutSeconds: 5
-          failureThreshold: 36
+          failureThreshold: 12
           periodSeconds: 5
         resources:
           limits:
