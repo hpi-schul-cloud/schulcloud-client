@@ -666,7 +666,7 @@ router.get('/:assignmentId', (req, res, next) => {
 					});
 				const studentSubmissions = students.map((student) => ({
 					student,
-					submission: assignment.submissions.filter((submission) => (submission.teamMembers?.includes(student._id.toString())))[0],
+					submission: assignment.submissions.filter((submission) => (submission.teamMemberIds?.includes(student._id.toString())))[0],
 				}));
 
 				let studentsWithSubmission = [];
