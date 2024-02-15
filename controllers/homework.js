@@ -653,7 +653,7 @@ router.get('/:assignmentId', (req, res, next) => {
 			if (!assignment.private && (isTeacher || assignment.publicSubmissions)) {
 				// Daten für Abgabenübersicht
 				const sortByStudentAttribute = (attr) => (a, b) => ((a.studentId[attr].toUpperCase() < b.studentId[attr].toUpperCase()) ? -1 : 1);
-				assignment.submissions = submissions.data.filter((submission) => submission.studentId)
+				assignment.submissions = submissions.data
 					.sort(sortByStudentAttribute('firstName'))
 					.sort(sortByStudentAttribute('lastName'))
 					.map((sub) => {
@@ -666,8 +666,7 @@ router.get('/:assignmentId', (req, res, next) => {
 					});
 				const studentSubmissions = students.map((student) => ({
 					student,
-					submission: assignment.submissions.filter((submission) => (submission.studentId._id == student._id)
-						|| (submission.teamMembers?.includes(student._id.toString())))[0],
+					submission: assignment.submissions.filter((submission) => (submission.teamMemberIds?.includes(student._id.toString())))[0],
 				}));
 
 				let studentsWithSubmission = [];
