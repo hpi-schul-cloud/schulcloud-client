@@ -1249,7 +1249,6 @@
 			"toTask": "A la tarea"
 		},
 		"text": {
-			"announcement": "<b>Anuncio importante:</b> La herramienta neXboard será sustituida por <b>tldraw</b>. Por favor, haga una copia de seguridad del contenido de los neXboards que desee seguir utilizando antes del <b>15 de marzo de 2024</b>. Los neXboards que haya creado podrán seguir utilizándose hasta entonces. Aquí encontrará <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">opciones de copia de seguridad y más informaciones</a>.",
 			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
 			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
@@ -3183,31 +3182,27 @@
 				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "Hoja de trabajo de GeoGebra",
 				"material": "Material de aprendizaje",
-				"neXboard": "neXboard",
 				"text": "Texto",
 				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Lluvia de ideas sobre el tema XYZ",
-				"createNewNeXboard": "Crear un nuevo neXboard",
 				"createsListInEtherpad": "Crea en el siguiente Etherpad una lista Pro-Contra sobre el tema XYC",
-				"createsListInNeXboard": "Crea en el siguiente neXboard una lista Pro-Contra sobre el tema XYC",
+				"createsListInNeXboard": "Crea una lista de pros y contras sobre el tema de XYC en la siguiente pizarra",
 				"GeoGebraEnterId": "Introduce el ID del material de GeoGebra, por ejemplo, kEBfU7AR",
-				"keepNeXboard": "Mantener neXboard",
-				"sectionTitle": "Título de la sección",
-				"selectNeXboard": "Seleccionar neXboard"
+				"sectionTitle": "Título de la sección"
 			},
 			"label": {
 				"descriptionEtherpad": "Descripción de Etherpad",
-				"descriptionNeXboard": "Descripción de neXboard",
+				"descriptionNeXboard": "Descripción de la pizarra",
 				"internalLink": "URL de la tarea",
 				"lockSection": "Bloquear sección",
 				"nameOfEtherpad": "Nombre de Etherpad",
-				"nameOfNeXboard": "Nombre de neXboard",
+				"nameOfNeXboard": "Nombre de la pizzara",
 				"openSection": "Desbloquear sección",
-				"selectNeXboard": "Seleccionar neXboard",
 				"theLinkHasToBeginWith": "El enlace debe comenzar con '{{- baseUrl}} / ¡tareas! Los estudiantes deben tener acceso a las tareas para verlas incluidas aquí. Atención: si compartes este tema o todo el curso con otro profesor usando un código para compartir, las tareas integradas de esta manera no se tendrán en cuenta.",
-				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https://www.geogebra.org/m/e6g4adXp, la ID del material es 'e6g4adXp'"
+				"youllFindTheIdOn": "Puedes encontrar la ID del material en la URL de la hoja de trabajo de GeoGebra que has guardado en línea. Por ejemplo, en https://www.geogebra.org/m/e6g4adXp, la ID del material es 'e6g4adXp'",
+				"nexboardInfo": "Como se anunció, la herramienta de pizarra neXboard se eliminó de nuestra plataforma el 15 de marzo de 2024. Como reemplazo, la innovadora herramienta de pizarra blanca tldraw está ahora disponible en el tablero de columnas. Visite nuestra entrada del blog para obtener instrucciones e información detalladas."
 			}
 		}
 	},

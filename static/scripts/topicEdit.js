@@ -326,7 +326,6 @@ class TopicBlockList extends React.Component {
      * Render the list items.
      */
 	render() {
-		const neXboardEnabled = ($contentBlocksContainer.data('nexboardenabled') === true);
 		const h5pEditorEnabled = ($contentBlocksContainer.data('h5peditorenabled') === true);
 		return (
             <div>
@@ -372,14 +371,6 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicResources)}>
 								{`+ ${$t('topic.topicEdit.button.material')}`}
 						</button>
-						{neXboardEnabled ? <button
-							type="button"
-							className="btn btn-secondary"
-							data-testid="topic-addcontent-nexboard-btn"
-							aria-label={$t('global.button.add')}
-							onClick={this.addBlock.bind(this, TopicNexboard)}>
-								{`+ ${$t('topic.topicEdit.button.neXboard')}`}
-							</button> : '' }
 						<button
 							type="button"
 							className="btn btn-secondary"
@@ -1017,17 +1008,6 @@ class TopicNexboard extends TopicBlock {
                         {(this.props.content || {}).description}
                     </textarea>
                 </div>
-				<div className="form-group">
-                    <label>{$t('topic.topicEdit.label.selectNeXboard')}</label>
-                    <select name={`contents[${this.props.position}][content][board]`}
-                            className="chosen-select"
-                            data-placeholder={$t('topic.topicEdit.input.selectNeXboard')}
-                            id={(this.state.id)}
-                            value={(this.props.content || {}).board}>
-                        {(this.props.content || {}).board ? <option value={this.props.content.board}>{$t('topic.topicEdit.input.keepNeXboard')}</option> : ''}
-                        <option value={this.state.newBoard} >{$t('topic.topicEdit.input.createNewNeXboard')}</option>
-                    </select>
-				</div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
                        value={(this.props.content || {}).url } />
             </div>
