@@ -108,8 +108,6 @@ const deleteEventsForCourse = (req, res, courseId) => {
 	return Promise.resolve(true);
 };
 
-let groupIds = [];
-let classIds = [];
 const editCourseHandler = (req, res, next) => {
 	let coursePromise;
 	let action;
@@ -129,12 +127,11 @@ const editCourseHandler = (req, res, next) => {
 	}
 
 	let classesAndGroupsPromise;
-	let classesPromise;
 	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
 		classesAndGroupsPromise = api(req, { version: 'v3' })
-			.get('/groups/class');
+			.get('/groups/class', { qs: { limit: -1, calledFrom: 'course' } });
 	} else {
-		classesPromise = api(req)
+		classesAndGroupsPromise = api(req)
 			.get('/classes', {
 				qs: {
 					schoolId: res.locals.currentSchool,
@@ -164,7 +161,7 @@ const editCourseHandler = (req, res, next) => {
 
 	Promise.all([
 		coursePromise,
-		FEATURE_GROUPS_IN_COURSE_ENABLED ? classesAndGroupsPromise : classesPromise,
+		classesAndGroupsPromise,
 		teachersPromise,
 		studentsPromise,
 		scopePermissions,
@@ -173,8 +170,6 @@ const editCourseHandler = (req, res, next) => {
 		let classesAndGroups = [];
 		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
 			classesAndGroups = _classesAndGroups.data;
-			groupIds = _classesAndGroups.data.filter((g) => g.type === 'group').map((group) => group.id);
-			classIds = _classesAndGroups.data.filter((c) => c.type === 'class').map((clazz) => clazz.id);
 		} else {
 			classesAndGroups = _classesAndGroups.filter(
 				(c) => c.schoolId === res.locals.currentSchool,
@@ -213,8 +208,8 @@ const editCourseHandler = (req, res, next) => {
 
 		// if new course -> add default start and end dates
 		if (!req.params.courseId) {
-			course.startDate = res.locals.currentSchoolData.years.defaultYear.startDate;
-			course.untilDate = res.locals.currentSchoolData.years.defaultYear.endDate;
+			course.startDate = res.locals.currentSchoolData.years.activeYear.startDate;
+			course.untilDate = res.locals.currentSchoolData.years.activeYear.endDate;
 		}
 
 		// format course start end until date
@@ -252,7 +247,7 @@ const editCourseHandler = (req, res, next) => {
 				? s.filter(({ selected }) => selected) : s
 		);
 
-		const classAndGroupIds = [...(course.classIds || []), ...(course.groupIds || [])];
+		const classAndGroupIdsOfCourse = [...(course.classIds || []), ...(course.groupIds || [])];
 
 		if (req.params.courseId) {
 			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.text.403')));
@@ -264,7 +259,7 @@ const editCourseHandler = (req, res, next) => {
 				closeLabel: res.$t('global.button.cancel'),
 				course,
 				colors,
-				classesAndGroups: markSelected(classesAndGroups, classAndGroupIds),
+				classesAndGroups: markSelected(classesAndGroups, classAndGroupIdsOfCourse),
 				teachers: markSelected(
 					teachers,
 					course.teacherIds,
@@ -286,7 +281,7 @@ const editCourseHandler = (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			course,
 			colors,
-			classesAndGroups: markSelected(classesAndGroups, classAndGroupIds),
+			classesAndGroups: markSelected(classesAndGroups, classAndGroupIdsOfCourse),
 			teachers: markSelected(
 				teachers,
 				course.teacherIds,
@@ -531,17 +526,6 @@ router.post('/', (req, res, next) => {
 		delete req.body[feature];
 	});
 
-	req.body.groupIds = [];
-	if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
-		req.body.groupIds = (req.body.classIds ?? [])
-			.filter((id) => groupIds.includes(id));
-
-		if (groupIds.length > 0) {
-			req.body.classIds = (req.body.classIds ?? [])
-				.filter((id) => classIds.includes(id));
-		}
-	}
-
 	api(req)
 		.post('/courses/', {
 			json: req.body, // TODO: sanitize
@@ -778,13 +762,6 @@ router.patch('/:courseId', async (req, res, next) => {
 		}
 		if (!req.body.substitutionIds) {
 			req.body.substitutionIds = [];
-		}
-
-		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
-			req.body.groupIds = req.body.classIds
-				.filter((id) => groupIds.includes(id));
-			req.body.classIds = req.body.classIds
-				.filter((id) => classIds.includes(id));
 		}
 
 		const startDate = timesHelper.dateStringToMoment(req.body.startDate);

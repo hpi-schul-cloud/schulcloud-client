@@ -166,7 +166,7 @@
 				"noClassesInYear": "No hay clases disponibles en este año",
 				"noLackOfInformedConsent": "No faltan declaraciones de consentimiento en esta clase.",
 				"required": "obligatorio",
-				"signAgreement": "En esta página puedes declarar tu consentimiento de la <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">política de privacidad</a> y las <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Condiciones de uso</a> de {{shortTitle}} en nombre de los estudiantes. <br>Al hacer clic en <i>Declarar consentimiento en nombre del estudiante</i> confirmas que has obtenido el consentimiento del estudiante o de sus padres por otro medio.",
+				"signAgreement": "En esta página puedes declarar tu consentimiento de la <a href=\"/privacypolicy\" target=\"_blank\">política de privacidad</a> y las <a href=\"/termsofuse\" target=\"_blank\">Condiciones de uso</a> de {{shortTitle}} en nombre de los estudiantes. <br>Al hacer clic en <i>Declarar consentimiento en nombre del estudiante</i> confirmas que has obtenido el consentimiento del estudiante o de sus padres por otro medio.",
 				"theNextStepIsToInviteOrAdd": "En el siguiente paso puedes invitar o añadir estudiantes a la clase."
 			},
 			"brb": {
@@ -1249,7 +1249,7 @@
 			"toTask": "A la tarea"
 		},
 		"text": {
-			"announcement": "Participe en nuestra encuesta de satisfacción y ayúdenos a mejorar la nube. Haga clic <a target=\"_blank\" aria-label=\"encuesta de satisfacción\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://befragungen.dataport.de/umfrage/1732110/47pve9/\">aquí</a> para acceder a la encuesta (solo en alemán).",
+			"announcement": "<b>Anuncio importante:</b> La herramienta neXboard será sustituida por <b>tldraw</b>. Por favor, haga una copia de seguridad del contenido de los neXboards que desee seguir utilizando antes del <b>15 de marzo de 2024</b>. Los neXboards que haya creado podrán seguir utilizándose hasta entonces. Aquí encontrará <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">opciones de copia de seguridad y más informaciones</a>.",
 			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
 			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
@@ -2648,14 +2648,14 @@
 			"atSchool": "en la escuela",
 			"atYourSchool": "en tu escuela",
 			"created": "creado",
-			"from": "desde",
+			"by": "por",
 			"inTheClass": "en la clase",
 			"inTheCourse": "en el curso",
 			"inTheTeam": "en el equipo",
-			"lastFrom": "(último desde",
+			"last": "últimamente",
 			"newsNeedContent": "¡Las noticias necesitan contenido!",
 			"newsNeedTitle": "¡Las noticias necesitan un título!",
-			"processed": "editado)",
+			"processed": "editado",
 			"released": "Publicado",
 			"unpublished": "Sin publicar"
 		}
@@ -2822,8 +2822,9 @@
 				"registrationMustBeDoneByYou": "El siguiente registro debe ser hecho por ti como estudiante, no por tus padres.",
 				"thankYouForTakingThisStepWithUs": "Estamos contentos que desees utilizar {{shortTitle}} y colaborar con nosotros para dar el siguiente paso y apoyar la enseñanza digital: con código abierto, sin ánimo de lucro y de conformidad con la protección de datos.",
 				"theRegistrationProcessChangesAccordingToAge": "Dependiendo de la edad del alumno* el proceso de registro varía. Para los estudiantes de menos de {{minAge}}, debe completar los siguientes pasos un padre, madre o tutor, para los estudiantes de más de {{independentAge}}, deben hacerlo ellos mismos.",
-				"registrationProcessAgeStep": "Nos complace que quiera utilizar la {{title}} y que nos ayude a dar el siguiente paso hacia el apoyo digital a la enseñanza, de código abierto, sin ánimo de lucro y conforme a la protección de datos. El proceso de inscripción cambia en función de la edad del estudiante. En el caso de los estudiantes menores de {{minAge}} años, se pide a los padres que apoyen a sus hijos en los siguientes pasos de la matrícula.",
-				"nextStepRegistration": "El siguiente paso es registrarse en la {{title}}"
+				"registrationProcessAgeStep": "Con el uso de {{title}}, estamos dando conjuntamente el siguiente paso hacia el apoyo digital a la enseñanza - <b>Crear educación de manera sostenible. Juntos. Flexible. Abierta.</b> El proceso de inscripción cambia en función de la edad del estudiante. En el caso de los estudiantes menores de {{minAge}} años, se pide a los padres que apoyen a sus hijos en los siguientes pasos de la matrícula.",
+				"registrationProcessTeacherStep": "Con el uso de {{title}}, estamos dando conjuntamente el siguiente paso hacia el apoyo digital a la enseñanza - <b>Crear educación de manera sostenible. Juntos. Flexible. Abierta.</b>",
+				"nextStepRegistration": "Al registrarse en {{title}} en el siguiente paso, se aceptan la <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">política de privacidad</a> y las <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">condiciones de uso</a>. La <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">política de privacidad</a> está disponible en el pie de página en todo momento. Se aplican las siguientes <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">condiciones de uso</a> (a menos que la escuela o institución educativa haya emitido sus propias normas de uso)."
 			}
 		},
 		"deprecatedWarning": {

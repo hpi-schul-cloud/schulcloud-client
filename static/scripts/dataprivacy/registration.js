@@ -7,11 +7,19 @@ const USER_LANG_SET_KEY = 'USER_LANG_SET';
 window.addEventListener('DOMContentLoaded', () => {
 	// show language settings if not set
 	if (getCookie(USER_LANG_SET_KEY) === 'true') {
-		document.querySelector('#language-screen').style.display = 'none';
-		document.querySelector('#welcome-screen').style.display = 'block';
+		if (document.querySelector('#language-screen')) {
+			document.querySelector('#language-screen').style.display = 'none';
+		}
+		if (document.querySelector('#welcome-screen')) {
+			document.querySelector('#welcome-screen').style.display = 'block';
+		}
 	} else {
-		document.querySelector('#language-screen').style.display = 'block';
-		document.querySelector('#welcome-screen').style.display = 'none';
+		if (document.querySelector('#language-screen')) {
+			document.querySelector('#language-screen').style.display = 'block';
+		}
+		if (document.querySelector('#welcome-screen')) {
+			document.querySelector('#welcome-screen').style.display = 'none';
+		}
 		$('select').trigger('chosen:updated');
 	}
 

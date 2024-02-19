@@ -5,7 +5,7 @@ const { logger, formatError } = require('..');
 const getLoginSchools = async (req) => {
 	let schools = [];
 	try {
-		schools = await api(req).get('/schoolsList');
+		schools = await api(req, { version: 'v3' }).get('/school/list-for-ldap-login');
 	} catch (err) {
 		logger.error('error getting schools', formatError(err));
 	}

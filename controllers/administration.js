@@ -21,8 +21,9 @@ const timesHelper = require('../helpers/timesHelper');
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
+const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS, FEATURE_NEST_SYSTEMS_API_ENABLED } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
+const renameIdsInSchool = require('../helpers/schoolHelper');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
@@ -466,8 +467,8 @@ const getDetailHandler = (service) => function detailHandler(req, res, next) {
 		.catch(next);
 };
 
-const getDeleteHandler = (service, redirectUrl) => function deleteHandler(req, res, next) {
-	api(req)
+const getDeleteHandler = (service, redirectUrl, apiVersion = 'v1') => function deleteHandler(req, res, next) {
+	api(req, { version: apiVersion })
 		.delete(`/${service}/${req.params.id}`)
 		.then(() => {
 			if (redirectUrl) {
@@ -1722,7 +1723,7 @@ router.get(
 	(req, res, next) => {
 		api(req)
 			.get(`/classes/${req.params.classId}`, {
-				qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds'] },
+				qs: { $populate: ['teacherIds', 'userIds'] },
 			})
 			.then((currentClass) => {
 				const classesPromise = getSelectOptions(req, 'classes', {
@@ -2689,6 +2690,9 @@ router.all('/teams', async (req, res, next) => {
 
 				users = users.filter((user) => !isUserHidden(user, res.locals.currentSchoolData));
 
+				const school = res.locals.currentSchoolData;
+				const isTeamCreationByStudentsEnabled = school.features.includes('isTeamCreationByStudentsEnabled');
+
 				res.render('administration/teams', {
 					title: res.$t('administration.dashboard.headline.manageTeams'),
 					head,
@@ -2696,8 +2700,9 @@ router.all('/teams', async (req, res, next) => {
 					classes,
 					users,
 					pagination,
-					school: res.locals.currentSchoolData,
+					school,
 					limit: true,
+					isTeamCreationByStudentsEnabled,
 				});
 			});
 		});
@@ -2766,7 +2771,7 @@ router.get('/systems/:id', getDetailHandler('systems'));
 router.delete(
 	'/systems/:id',
 	removeSystemFromSchoolHandler,
-	getDeleteHandler('systems'),
+	getDeleteHandler('systems', undefined, FEATURE_NEST_SYSTEMS_API_ENABLED === 'true' ? 'v3' : 'v1'),
 );
 
 router.get('/rss/:id', async (req, res) => {
@@ -2779,6 +2784,9 @@ router.get('/rss/:id', async (req, res) => {
 	res.send(matchingRSSFeed);
 });
 
+// TODO: It would be nice if this route would be removed soon,
+// so we don't need to worry about the call to GET schools here.
+// Ticket for removal: https://ticketsystem.dbildungscloud.de/browse/BC-4231
 router.post('/rss/', async (req, res) => {
 	const school = await api(req).get(`/schools/${req.body.schoolId}`);
 
@@ -2816,12 +2824,8 @@ router.use(
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	async (req, res) => {
 		const [school, totalStorage, schoolMaintanance, consentVersions] = await Promise.all([
-			api(req).get(`/schools/${res.locals.currentSchool}`, {
-				qs: {
-					$populate: ['systems', 'federalState'],
-					$sort: req.query.sort,
-				},
-			}),
+			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`)
+				.then((result) => renameIdsInSchool(result)),
 			api(req).get('/fileStorage/total'),
 			api(req).get(`/schools/${res.locals.currentSchool}/maintenance`),
 			api(req).get('/consentVersions', {
@@ -2835,6 +2839,10 @@ router.use(
 				},
 			}),
 		]);
+
+		// In the future there should be a possibility to fetch a school with all systems populated via api/v3,
+		// but at the moment they need to be fetched separately.
+		school.systems = await Promise.all(school.systemIds.map((systemId) => api(req).get(`/systems/${systemId}`)));
 
 		// Maintanance - Show Menu depending on the state
 		const currentTime = new Date();
@@ -2880,27 +2888,34 @@ router.use(
 		const getSystemsBody = (systems) => systems.map((item) => {
 			const name = getSSOTypes().filter((type) => item.type === type.value);
 			let tableActions = [];
-			const editable = (item.type === 'ldap' && item.ldapConfig.provider === 'general')
-					|| item.type === 'moodle' || item.type === 'iserv';
-			const hasSystemPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'SYSTEM_EDIT');
+			const editable = item.ldapConfig?.provider === 'general';
+			const hasSystemEditPermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'SYSTEM_EDIT');
+			const hasSystemCreatePermission = permissionsHelper.userHasPermission(res.locals.currentUser, 'SYSTEM_CREATE');
 
-			if (editable && hasSystemPermission) {
-				tableActions = tableActions.concat([
-					{
-						link: item.type === 'ldap' ? `/administration/ldap/config?id=${item._id}`
-							: `/administration/systems/${item._id}`,
-						class: item.type === 'ldap' ? 'btn-edit-ldap' : 'btn-edit',
-						icon: 'edit',
-						title: res.$t('administration.controller.link.editEntry'),
-					},
-					{
-						link: `/administration/systems/${item._id}`,
-						class: 'btn-delete--systems',
-						icon: 'trash-o',
-						method: 'delete',
-						title: res.$t('administration.controller.link.deleteEntry'),
-					},
-				]);
+			if (editable) {
+				if (hasSystemEditPermission) {
+					tableActions = tableActions.concat([
+						{
+							link: item.type === 'ldap' ? `/administration/ldap/config?id=${item._id}`
+								: `/administration/systems/${item._id}`,
+							class: item.type === 'ldap' ? 'btn-edit-ldap' : 'btn-edit',
+							icon: 'edit',
+							title: res.$t('administration.controller.link.editEntry'),
+						},
+					]);
+				}
+
+				if (hasSystemCreatePermission) {
+					tableActions = tableActions.concat([
+						{
+							link: `/administration/systems/${item._id}`,
+							class: 'btn-delete--systems',
+							icon: 'trash-o',
+							method: 'delete',
+							title: res.$t('administration.controller.link.deleteEntry'),
+						},
+					]);
+				}
 			}
 			return [
 				item.type === 'ldap' && item.ldapConfig.active === false
@@ -3050,12 +3065,14 @@ router.use('/startschoolyear', async (req, res) => {
 router.get('/startldapschoolyear', async (req, res) => {
 	// Find LDAP-System
 	const school = await Promise.resolve(
-		api(req).get(`/schools/${res.locals.currentSchool}`, {
-			qs: {
-				$populate: ['systems'],
-			},
-		}),
+		api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`)
+			.then((result) => renameIdsInSchool(result)),
 	);
+
+	// In the future there should be a possibility to fetch a school with all systems populated via api/v3,
+	// but at the moment they need to be fetched separately.
+	school.systems = await Promise.all(school.systemIds.map((systemId) => api(req).get(`/systems/${systemId}`)));
+
 	const system = school.systems.filter(
 		// eslint-disable-next-line no-shadow
 		(system) => system.type === 'ldap',
@@ -3121,12 +3138,14 @@ router.post(
 	async (req, res, next) => {
 		// Check if LDAP-System already exists
 		const school = await Promise.resolve(
-			api(req).get(`/schools/${res.locals.currentSchool}`, {
-				qs: {
-					$populate: ['systems'],
-				},
-			}),
+			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`)
+				.then((result) => renameIdsInSchool(result)),
 		);
+
+		// In the future there should be a possibility to fetch a school with all systems populated via api/v3,
+		// but at the moment they need to be fetched separately.
+		school.systems = await Promise.all(school.systemIds.map((systemId) => api(req).get(`/systems/${systemId}`)));
+
 		// eslint-disable-next-line no-shadow
 		const system = school.systems.filter((system) => system.type === 'ldap');
 

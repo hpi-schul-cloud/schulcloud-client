@@ -11,7 +11,7 @@
 			</div>
 
             {{#unless (getConfig "FEATURE_OAUTH_LOGIN_ENABLED")}}
-            <form method="post" action="/login" class="login-form">
+            <form method="post" action="/login" class="login-form" data-testid="login-loginform-standard">
                 <input type="hidden" name="redirect" value="{{redirect}}" />
 
                     <div class="form-group">
@@ -47,7 +47,7 @@
                         <select id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
                                 <option selected value="">{{$t "login.input.noSchoolsSelection"}}</option>
                             {{#each schools}}
-                                <option value="{{this._id}}" data-systems='{{{json this.systems}}}'>{{this.name}}</option>
+                                <option value="{{this.id}}" data-systems='{{{json this.systems}}}'>{{this.name}}</option>
                             {{else}}
                                 <option disabled>{{$t "login.input.noSchoolsAvailable"}}</option>
                             {{/each}}
@@ -57,7 +57,7 @@
                         <label for="system">{{$t "login.label.system"}}</label>
                         <select id="system" name="system" class="system" data-placeholder="{{$t "login.input.system"}}">
                             {{#each systems}}
-                                <option value="{{this._id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
+                                <option value="{{this.id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
                             {{else}}
                                 <option selected disabled>{{$t "login.input.noSystemsAvailable"}}</option>
                             {{/each}}
@@ -204,7 +204,7 @@
                             <select id="school" name="schoolId" class="school search-enabled" data-placeholder="{{$t "login.input.school"}}">
                                     <option selected value="">{{$t "login.input.noSchoolsSelection"}}</option>
                                 {{#each schools}}
-                                    <option value="{{this._id}}" data-systems='{{{json this.systems}}}'>{{this.name}}</option>
+                                    <option value="{{this.id}}" data-systems='{{{json this.systems}}}'>{{this.name}}</option>
                                 {{else}}
                                     <option disabled>{{$t "login.input.noSchoolsAvailable"}}</option>
                                 {{/each}}
@@ -214,7 +214,7 @@
                             <div class="system-display">
                                 <select id="system" name="system" class="system" data-placeholder="{{$t "login.input.system"}}">
                                     {{#each systems}}
-                                        <option value="{{this._id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
+                                        <option value="{{this.id}}//{{this.type}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
                                     {{else}}
                                         <option selected disabled>{{$t "login.input.noSystemsAvailable"}}</option>
                                     {{/each}}

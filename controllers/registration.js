@@ -12,8 +12,6 @@ const { getCurrentLanguage } = require('../helpers/i18n');
 const { setCookie } = require('../helpers/cookieHelper');
 const { logger, formatError } = require('../helpers');
 
-const { LoginSchoolsCache } = require('../helpers/cache');
-
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
 
@@ -60,7 +58,11 @@ const getSchoolConsentVersionByType = async (req, res, consentType) => {
 		}
 	} catch (error) {
 		// invalid token
-		throw new Error('Invalid import hash!');
+		logger.warn(
+			'Invalid import hash!',
+			formatError(error),
+		);
+		return Promise.resolve();
 	}
 	return undefined;
 };
@@ -188,12 +190,9 @@ router.post(
 );
 
 const schoolExists = async (req, schoolId) => {
-	const schools = await LoginSchoolsCache.get(req);
-	if (schools.length > 0) {
-		const checkSchool = schools.find((school) => school._id === schoolId);
-		return checkSchool !== undefined;
-	}
-	return false;
+	const res = await api(req, { version: 'v3' }).get(`/school/exists/id/${schoolId}`);
+
+	return res.exists;
 };
 
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'],

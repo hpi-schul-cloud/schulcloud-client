@@ -168,7 +168,7 @@
 					<select id="classId" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
 						{{#if course.isArchived}}disabled{{/if}}>
 						{{#each classesAndGroups}}
-							<option value="{{this.id}}{{#unless this.id}}{{this._id}}{{/unless}}" {{#if this.selected}}selected{{/if}}>
+							<option value="{{#if this._id}}{{this._id}}{{else}}{{this.id}}{{/if}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if (getConfig "FEATURE_GROUPS_IN_COURSE_ENABLED")}}
                                     {{this.name}}
 
