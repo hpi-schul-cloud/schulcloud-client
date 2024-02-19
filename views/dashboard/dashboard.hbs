@@ -74,6 +74,17 @@
             </div>
         </div>
     {{/if}}
+
+    {{#hasConfig "DASHBOARD_ANNOUNCEMENT_ENABLED"}}
+        {{#hasConfig "DASHBOARD_ANNOUNCEMENT_ROLES"}}
+            {{#ifeq (getConfig "DASHBOARD_ANNOUNCEMENT_ENABLED") true}}
+                {{#ifneq (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ""}}
+                    {{#if (userHasRoleFromArray (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ../currentUser)}}
+                    {{/if}}
+                {{/ifneq}}
+            {{/ifeq}}
+        {{/hasConfig}}
+    {{/hasConfig}}
 </section>
 
 {{#if (getConfig "FEATURE_DASHBOARD_NEWS_ON_TOP_ENABLED")}}
