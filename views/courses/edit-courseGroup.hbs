@@ -25,13 +25,13 @@
 
                 <div class="form-group">
                     <label for="nameOfGroup">{{$t "courses._course.groups._group.edit.label.nameOfGroup"}}</label>
-                    <input id="nameOfGroup" class="form-control" name="name" type="text" placeholder="{{$t "courses._course.groups._group.edit.input.group1"}}" value="{{{courseGroup.name}}}" required/>
+                    <input id="nameOfGroup" class="form-control" data-testid="group-name-field" name="name" type="text" placeholder="{{$t "courses._course.groups._group.edit.input.group1"}}" value="{{{courseGroup.name}}}" required/>
                 </div>
 
                 <div class="form-group">
                     <label for="studentParticipant">{{$t "administration.global.label.studentParticipants"}}</label>
 
-                    <select id="studentParticipant" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}">
+                    <select id="studentParticipant" name="userIds[]" multiple data-testid="group-member-field" data-placeholder="{{$t "courses.global.input.selectStudents"}}">
                         {{#each students}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
@@ -52,7 +52,7 @@
 
                     {{> "lib/components/csrfInput"}}
 
-                    <button type="submit" class="btn btn-primary btn-submit">
+                    <button type="submit" class="btn btn-primary btn-submit" data-testid="create-course-group">
                         {{submitLabel}}
                     </button>
                 </div>
