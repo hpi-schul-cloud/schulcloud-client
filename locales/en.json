@@ -1249,7 +1249,6 @@
 			"toTask": "To the task"
 		},
 		"text": {
-			"announcement": "",
 			"emptyHomeworksInfo": "No assigned tasks. You can find all tasks in the tasks area.",
 			"emptyNewsInfo": "So far there is no news.",
 			"graded": "Graded",

@@ -1249,7 +1249,6 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
-			"announcement": "",
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",

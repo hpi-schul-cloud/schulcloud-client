@@ -1249,7 +1249,6 @@
 			"toTask": "A la tarea"
 		},
 		"text": {
-			"announcement": "",
 			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
 			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
