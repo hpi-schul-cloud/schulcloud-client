@@ -1119,7 +1119,7 @@ router.get(
 	'/students/:id/skipregistration',
 	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
 	(req, res, next) => {
-		api(req).get(`/users/admin/students/${req.params.id}`)
+		api(req, { version: 'v3' }).get(`/users/admin/students/${req.params.id}`)
 			.then((user) => {
 				res.render('administration/users_skipregistration', {
 					title: res.$t('administration.controller.link.toGiveConsent'),
@@ -1165,7 +1165,7 @@ router.get(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-		api(req)
+		api(req, { version: 'v3' })
 			.get('/users/admin/students', {
 				qs: query,
 			})
@@ -1288,7 +1288,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	const batchSize = 50;
 	while (users.length > 0) {
 		usersWithMissingConsents.push(
-			...(await api(req).get('/users/admin/students', {
+			...(await api(req, { version: 'v3' }).get('/users/admin/students', {
 				qs: {
 					users: users
 						.splice(0, batchSize)
@@ -1400,7 +1400,7 @@ router.get(
 	'/students/:id/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	(req, res, next) => {
-		const userPromise = api(req).get(`/users/admin/students/${req.params.id}`);
+		const userPromise = api(req, { version: 'v3' }).get(`/users/admin/students/${req.params.id}`);
 		const accountPromise = api(req, { json: true, version: 'v3' })
 			.get('/account', {
 				qs: { type: 'userId', value: req.params.id },
