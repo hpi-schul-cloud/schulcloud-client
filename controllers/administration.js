@@ -960,7 +960,7 @@ router.get(
 	'/teachers/:id/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
 	(req, res, next) => {
-		const userPromise = api(req).get(`users/admin/teachers/${req.params.id}`);
+		const userPromise = api(req, { version: 'v3' }).get(`users/admin/teachers/${req.params.id}`);
 		const classesPromise = getSelectOptions(req, 'classes', {
 			$populate: ['year'],
 			$sort: 'displayName',
