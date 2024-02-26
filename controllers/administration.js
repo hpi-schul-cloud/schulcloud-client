@@ -1295,6 +1295,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 						.map((u) => u._id),
 					consentStatus: { $in: ['missing', 'parentsAgreed'] },
 					$limit: batchSize,
+					$sort: 'lastName',
 				},
 			})).data,
 		);
