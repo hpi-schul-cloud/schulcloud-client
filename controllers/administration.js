@@ -1293,7 +1293,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 					users: users
 						.splice(0, batchSize)
 						.map((u) => u._id),
-					consentStatus: ['missing', 'parentsAgreed'],
+					consentStatus: { $in: ['missing', 'parentsAgreed'] },
 					$limit: batchSize,
 				},
 			})).data,
