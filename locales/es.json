@@ -166,7 +166,7 @@
 				"noClassesInYear": "No hay clases disponibles en este año",
 				"noLackOfInformedConsent": "No faltan declaraciones de consentimiento en esta clase.",
 				"required": "obligatorio",
-				"signAgreement": "En esta página puedes declarar tu consentimiento de la <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">política de privacidad</a> y las <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Condiciones de uso</a> de {{shortTitle}} en nombre de los estudiantes. <br>Al hacer clic en <i>Declarar consentimiento en nombre del estudiante</i> confirmas que has obtenido el consentimiento del estudiante o de sus padres por otro medio.",
+				"signAgreement": "En esta página puedes declarar tu consentimiento de la <a href=\"/privacypolicy\" target=\"_blank\">política de privacidad</a> y las <a href=\"/termsofuse\" target=\"_blank\">Condiciones de uso</a> de {{shortTitle}} en nombre de los estudiantes. <br>Al hacer clic en <i>Declarar consentimiento en nombre del estudiante</i> confirmas que has obtenido el consentimiento del estudiante o de sus padres por otro medio.",
 				"theNextStepIsToInviteOrAdd": "En el siguiente paso puedes invitar o añadir estudiantes a la clase."
 			},
 			"brb": {
@@ -2462,7 +2462,7 @@
 		"text": {
 			"newFeaturesAvailable": "Nuevas funciones disponibles",
 			"schoolInTransferPhaseContactAdmin": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Ponte en contacto con el administrador de la escuela!",
-			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"/administration/school-settings/\">nuevo año escolar aquí!</a>",
+			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"/administration/school/\">nuevo año escolar aquí!</a>",
 			"schoolInMigrationModeStarted": "La escuela está en modo de migración de usuarios. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>.",
 			"schoolInMigrationMode": "La escuela puede importar cuentas de usuario de Schulportal. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>."
 		}
@@ -2589,7 +2589,7 @@
 			"userNotFound": "Usuario no encontrado.",
 			"internalError": "Error de servidor interno. Póngase en contacto con el administrador.",
 			"schoolInMigration": "Su escuela está en proceso de cambiar el sistema de registro a {{systemName}}. Antes de que pueda iniciar sesión a través de {{systemName}}, debe mover su cuenta. Para hacer esto, inicie sesión con su antiguo sistema.",
-			"userNotFoundInUnprovisionedSchool": "Error de inicio de sesion. La escuela aún no se ha mudado a {{systemName}} o la creación de nuevos usuarios en {{shortTitle}} no está activa para la escuela. Comuníquese con el administrador de su escuela."
+			"userNotFoundAfterProvisioning": "Error de inicio de sesion. La escuela aún no se ha mudado a {{systemName}} o la creación de nuevos usuarios en {{shortTitle}} no está activa para la escuela. Comuníquese con el administrador de su escuela."
 		}
 	},
 	"messenger": {
@@ -2648,14 +2648,14 @@
 			"atSchool": "en la escuela",
 			"atYourSchool": "en tu escuela",
 			"created": "creado",
-			"from": "desde",
+			"by": "por",
 			"inTheClass": "en la clase",
 			"inTheCourse": "en el curso",
 			"inTheTeam": "en el equipo",
-			"lastFrom": "(último desde",
+			"last": "últimamente",
 			"newsNeedContent": "¡Las noticias necesitan contenido!",
 			"newsNeedTitle": "¡Las noticias necesitan un título!",
-			"processed": "editado)",
+			"processed": "editado",
 			"released": "Publicado",
 			"unpublished": "Sin publicar"
 		}

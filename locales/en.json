@@ -166,7 +166,7 @@
 				"noClassesInYear": "No classes available in this year",
 				"noLackOfInformedConsent": "There are no missing declarations of consent in this class.",
 				"required": "required",
-				"signAgreement": "On this page. you can declare consent to the <a href=\"{{@root.theme.documents.specificFiles.privacyExemplary}} target=\"_blank\">Privacy Policy</a> and to <a href=\"{{@root.theme.documents.specificFiles.termsOfUseExemplary}}\" target=\"_blank\">Terms of Use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
+				"signAgreement": "On this page. you can declare consent to the <a href=\"/privacypolicy\" target=\"_blank\">Privacy Policy</a> and to <a href=\"/termsofuse\" target=\"_blank\">Terms of Use</a> of {{shortTitle}} on behalf of the students. <br>By clicking on <i>Declare consent on behalf of the student</i> you confirm that you have obtained the consent of the student or his parents by another means.",
 				"theNextStepIsToInviteOrAdd": "In the next step you can invite or add students to the class."
 			},
 			"brb": {
@@ -2462,7 +2462,7 @@
 		"text": {
 			"newFeaturesAvailable": "New features are available",
 			"schoolInTransferPhaseContactAdmin": "The school is in the transfer phase to the new school year. No classes and users can be created. Please contact the school administrator!",
-			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"/administration/school-settings/\"> the new school year here!</a>",
+			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"/administration/school/\"> the new school year here!</a>",
 			"schoolInMigrationModeStarted": "The school is in user migration mode. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
 			"schoolInMigrationMode": "The school can import user accounts from Schulportal. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>."
 		}
@@ -2589,7 +2589,7 @@
 			"userNotFound": "User not found.",
 			"internalError": "Internal Server Error. Please contact the admin.",
 			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system.",
-			"userNotFoundInUnprovisionedSchool": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator."
+			"userNotFoundAfterProvisioning": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator."
 		}
 	},
 	"messenger": {
@@ -2647,15 +2647,15 @@
 		"text": {
 			"atSchool": "at school",
 			"atYourSchool": "at your school ",
+			"by": "by",
 			"created": "created",
-			"from": "from",
 			"inTheClass": "in the class",
 			"inTheCourse": "in the course",
 			"inTheTeam": "in the team",
-			"lastFrom": "(last from",
+			"last": "last",
 			"newsNeedContent": "News need content!",
 			"newsNeedTitle": "News need a title!",
-			"processed": "edited)",
+			"processed": "edited",
 			"released": "Released",
 			"unpublished": "Unpublished"
 		}

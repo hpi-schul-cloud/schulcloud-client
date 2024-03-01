@@ -44,7 +44,7 @@ jobs:
             type=ref,event=branch,enable=false,priority=600
             type=sha,enable=true,priority=600,prefix=
       - name: Log into registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -56,7 +56,7 @@ jobs:
 
       - name: Set up Docker Buildx
         if: ${{ env.IMAGE_EXISTS == 0 }}
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build and push ${{ github.repository }}
         if: ${{ env.IMAGE_EXISTS == 0 }}
@@ -88,17 +88,22 @@ jobs:
           branch: ${{ steps.extract_branch_meta.outputs.branch }}
           sha: ${{ steps.extract_branch_meta.outputs.sha }}
       steps:
-          - name: Extract branch name
+          - name: Extract branch meta
             shell: bash
             id: extract_branch_meta
+            env:
+                PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+                PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+                BRANCH_REF_NAME: ${{ github.ref_name}}
+                BRANCH_SHA: ${{ github.sha }}
             run: |
-              if [ "${{ github.event_name }}" == 'pull_request' ]; then
-                echo "branch=${{ github.event.pull_request.head.ref }}" >> $GITHUB_OUTPUT
-                echo "sha=${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
-              else
-                echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
-                echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
-              fi
+                if [ "${{ github.event_name }}" == 'pull_request' ]; then
+                  echo "branch=$PR_HEAD_REF" >> $GITHUB_OUTPUT
+                  echo "sha=$PR_HEAD_SHA" >> $GITHUB_OUTPUT
+                else
+                  echo "branch=$BRANCH_REF_NAME" >> $GITHUB_OUTPUT
+                  echo "sha=$BRANCH_SHA" >> $GITHUB_OUTPUT
+                fi
 
   deploy:
     needs:
@@ -136,7 +141,7 @@ jobs:
         security-events: write
     steps:
       - name: run trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@9ab158e8597f3b310480b9a69402b419bc03dbd5
+        uses: aquasecurity/trivy-action@1f6384b6ceecbbc6673526f865b818a2a06b07c9
         with:
           image-ref: 'ghcr.io/${{ github.repository }}-default:${{ needs.branch_meta.outputs.sha }}'
           format: 'sarif'
@@ -145,7 +150,7 @@ jobs:
           ignore-unfixed: true
       - name: upload trivy results
         if: ${{ always() }}
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
 
