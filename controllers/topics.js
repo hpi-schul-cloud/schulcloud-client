@@ -29,7 +29,7 @@ const editTopicHandler = (req, res, next) => {
 		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
 			+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
 		method = 'patch';
-		lessonPromise = api(req).get(`/lessons/${req.params.topicId}`);
+		lessonPromise = api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`);
 	} else {
 		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
 			+ `/topics${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
@@ -296,7 +296,7 @@ router.post('/', async (req, res, next) => {
 
 router.post('/:id/share', (req, res, next) => {
 	// if lesson already has shareToken, do not generate a new one
-	api(req).get(`/lessons/${req.params.id}`).then((topic) => {
+	api(req, { version: 'v3' }).get(`/lessons/${req.params.id}`).then((topic) => {
 		topic.shareToken = topic.shareToken || shortId.generate();
 		api(req).patch(`/lessons/${req.params.id}`, { json: topic })
 			.then((result) => res.json(result))
@@ -309,11 +309,7 @@ router.get('/:topicId', (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	Promise.all([
 		api(req).get(`/${context}/${req.params.courseId}`),
-		api(req).get(`/lessons/${req.params.topicId}`, {
-			qs: {
-				$populate: ['materialIds'],
-			},
-		}).then((lesson) => {
+		api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`).then((lesson) => {
 			const etherpadPads = [];
 			if (typeof lesson.contents !== 'undefined') {
 				lesson.contents.forEach((element) => {
