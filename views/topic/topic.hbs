@@ -48,11 +48,11 @@
                 {{/unless}}
             {{/each}}
 
-            {{#if materialIds}}
+            {{#if materials}}
                 <div class="materials">
                     <h2 class="h5">{{$t "topic._topic.headline.savedTeachingMaterials" }}</h2>
                     <div class="card-columns">
-                        {{#each materialIds}}
+                        {{#each materials}}
                             <div class="card">
                                 {{#if this.image}}
                                     <img class="card-img-top" src="{{this.image}}" />
