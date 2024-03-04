@@ -2264,6 +2264,15 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		language,
 		logo_dataUrl,
 	} = req.body;
+
+	let logo;
+	if (logo_dataUrl) {
+		logo = {
+			dataUrl: logo_dataUrl,
+			name: 'logo.png',
+		};
+	}
+
 	const requestBody = {
 		name,
 		language,
@@ -2272,8 +2281,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 			teacher: { STUDENT_LIST: false },
 		},
 		features: [],
-		logo_dataUrl,
-		logo_name: logo_dataUrl ? 'logo.png' : '',
+		logo,
 	};
 
 	try {
@@ -2297,7 +2305,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 				requestBody.features.push(feature);
 			}
 		}
-
+		console.log('requestBody', requestBody);
 		await api(req, { version: 'v3' }).patch(`/school/${res.locals.currentSchool}`, {
 			json: requestBody,
 		});
