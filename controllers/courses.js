@@ -3,7 +3,6 @@
 /* eslint-disable no-underscore-dangle */
 const _ = require('lodash');
 const express = require('express');
-const handlebars = require('handlebars');
 const moment = require('moment');
 const { decode } = require('html-entities');
 
