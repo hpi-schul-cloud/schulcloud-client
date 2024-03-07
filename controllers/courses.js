@@ -36,12 +36,6 @@ const markSelected = (options, values = []) => options.map((option) => {
 
 const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 
-handlebars.registerHelper('ifOr', function (v1, v2, options) {
-	return (v1 || v2) ? options.fn(this) : options.inverse(this);
-});
-
-handlebars.registerHelper('or', (a1, a2) => a1 || a2);
-
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
  * startDate {Date} - the date the course is first take place
