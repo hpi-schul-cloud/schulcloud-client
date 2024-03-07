@@ -2258,7 +2258,8 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 		});
 };
 
-const schoolFeatureUpdateHandler = async (req, res, next) => {
+const schoolUpdateHandler = async (req, res, next) => {
+	const defaultLogoName = 'logo.png';
 	const {
 		name,
 		language,
@@ -2269,7 +2270,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 	if (logo_dataUrl) {
 		logo = {
 			dataUrl: logo_dataUrl,
-			name: 'logo.png',
+			name: defaultLogoName,
 		};
 	}
 
@@ -2300,15 +2301,17 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 		const possibleSchoolFeatures = [
 			'messenger', 'messengerSchoolRoom', 'messengerStudentRoomCreate', 'rocketChat', 'videoconference',
 		];
+
 		for (const feature of possibleSchoolFeatures) {
 			if (req.body[feature] === 'true') {
 				requestBody.features.push(feature);
 			}
 		}
-		console.log('requestBody', requestBody);
+
 		await api(req, { version: 'v3' }).patch(`/school/${res.locals.currentSchool}`, {
 			json: requestBody,
 		});
+
 		res.redirect(req.header('Referer'));
 	} catch (err) {
 		next(err);
@@ -2316,7 +2319,7 @@ const schoolFeatureUpdateHandler = async (req, res, next) => {
 };
 
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
-router.patch('/schools/:id', schoolFeatureUpdateHandler);
+router.patch('/schools/:id', schoolUpdateHandler);
 router.post('/schools/:id/bucket', createBucket);
 router.post('/schools/policy', updatePolicy);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
