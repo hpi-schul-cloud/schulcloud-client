@@ -53,13 +53,16 @@ const getSyncedElementIds = 	(
 	students,
 	res,
 ) => {
+	const startDate = course.startDate ? timesHelper.formatDate(course.startDate, 'DD.MM.YYYY') : undefined;
+	const untilDate = course.untilDate ? timesHelper.formatDate(course.untilDate, 'DD.MM.YYYY') : undefined;
+
 	const selectedElements = {
 		teachersSelected: selectedElementIdsToString(markSelected(teachers, course.teacherIds)),
 		substitutionSelected: selectedElementIdsToString(markSelected(substitutions, course.substitutionIds)),
 		classesAndGroupsSelected: selectedElementIdsToString(markSelected(classesAndGroups, classAndGroupIdsOfCourse)),
 		studentsSelected: selectedElementIdsToString(filterStudents(res, markSelected(students, course.userIds))),
-		startDate: timesHelper.formatDate(course.startDate, 'DD.MM.YYYY'),
-		untilDate: timesHelper.formatDate(course.untilDate, 'DD.MM.YYYY'),
+		startDate,
+		untilDate,
 	};
 
 	return selectedElements;
