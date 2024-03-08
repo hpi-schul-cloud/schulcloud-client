@@ -33,6 +33,38 @@ const markSelected = (options, values = []) => options.map((option) => {
 	return option;
 });
 
+// checks for user's 'STUDENT_LIST' permission and filters checked students
+const filterStudents = (ctx, s) => (
+	!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
+		? s.filter(({ selected }) => selected) : s
+);
+
+const selectedElementIdsToString = (arr = []) => {
+	const txt = arr.filter((obj) => obj.selected).map((obj) => (obj.id !== undefined ? obj.id : obj._id)).join(',');
+	return txt;
+};
+
+const getSyncedElementIds = 	(
+	course,
+	classesAndGroups,
+	classAndGroupIdsOfCourse,
+	teachers,
+	substitutions,
+	students,
+	res,
+) => {
+	const selectedElements = {
+		teachersSelected: selectedElementIdsToString(markSelected(teachers, course.teacherIds)),
+		substitutionSelected: selectedElementIdsToString(markSelected(substitutions, course.substitutionIds)),
+		classesAndGroupsSelected: selectedElementIdsToString(markSelected(classesAndGroups, classAndGroupIdsOfCourse)),
+		studentsSelected: selectedElementIdsToString(filterStudents(res, markSelected(students, course.userIds))),
+		startDate: timesHelper.formatDate(course.startDate, 'DD.MM.YYYY'),
+		untilDate: timesHelper.formatDate(course.untilDate, 'DD.MM.YYYY'),
+	};
+
+	return selectedElements;
+};
+
 const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 
 /**
@@ -241,13 +273,17 @@ const editCourseHandler = (req, res, next) => {
 			'#795548',
 		];
 
-		// checks for user's 'STUDENT_LIST' permission and filters checked students
-		const filterStudents = (ctx, s) => (
-			!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
-				? s.filter(({ selected }) => selected) : s
-		);
-
 		const classAndGroupIdsOfCourse = [...(course.classIds || []), ...(course.groupIds || [])];
+
+		const syncedElementIds = course.syncedWithGroup ? getSyncedElementIds(
+			course,
+			classesAndGroups,
+			classAndGroupIdsOfCourse,
+			teachers,
+			substitutions,
+			students,
+			res,
+		) : {};
 
 		if (req.params.courseId) {
 			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.text.403')));
@@ -260,17 +296,12 @@ const editCourseHandler = (req, res, next) => {
 				course,
 				colors,
 				classesAndGroups: markSelected(classesAndGroups, classAndGroupIdsOfCourse),
-				teachers: markSelected(
-					teachers,
-					course.teacherIds,
-				),
-				substitutions: markSelected(
-					substitutions,
-					course.substitutionIds,
-				),
+				teachers: markSelected(teachers, course.teacherIds),
+				substitutions: markSelected(substitutions, course.substitutionIds),
 				students: filterStudents(res, markSelected(students, course.userIds)),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
+				...syncedElementIds,
 			});
 		}
 		return res.render('courses/create-course', {
@@ -378,12 +409,6 @@ const copyCourseHandler = (req, res, next) => {
 		course.name = `${course.name} - Kopie`;
 
 		course.isArchived = false;
-
-		// checks for user's 'STUDENT_LIST' permission and filters checked students
-		const filterStudents = (ctx, s) => (
-			!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
-				? s.filter(({ selected }) => selected) : s
-		);
 
 		res.render('courses/edit-course', {
 			action,
@@ -762,6 +787,19 @@ router.patch('/:courseId', async (req, res, next) => {
 		}
 		if (!req.body.substitutionIds) {
 			req.body.substitutionIds = [];
+		}
+
+		if (typeof req.body.teacherIds === 'string') {
+			req.body.teacherIds = req.body.teacherIds.split(',');
+		}
+		if (typeof req.body.substitutionIds === 'string') {
+			req.body.substitutionIds = req.body.substitutionIds.split(',');
+		}
+		if (typeof req.body.classIds === 'string') {
+			req.body.classIds = req.body.classIds.split(',');
+		}
+		if (typeof req.body.userIds === 'string') {
+			req.body.userIds = req.body.userIds.split(',');
 		}
 
 		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
