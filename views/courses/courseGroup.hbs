@@ -123,9 +123,9 @@
 {{#unless course.isArchived}}
 <div class="row padding-top">
 	<div class="col-sm-12 col-md-12">
-		<a href="/courses/{{courseId}}/groups/{{_id}}/edit" class="btn btn-add btn-primary"><i class="fa fa-edit"></i>
+		<a href="/courses/{{courseId}}/groups/{{_id}}/edit" class="btn btn-add btn-primary" data-testid="edit-group"><i class="fa fa-edit"></i>
 			{{$t "courses._course.groups._group.link.editGroup"}}</a>
-		<a href="/courses/{{courseId}}/groups/{{_id}}" class="btn btn-delete-course btn-secondary" target="_blank"
+		<a href="/courses/{{courseId}}/groups/{{_id}}" class="btn btn-delete-course btn-secondary" data-testid="delete-course-group" target="_blank"
 			data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{courseId}}/?activeTab=groups"><i
 				class="fa fa-trash-o"></i> {{$t "courses._course.groups._group.link.deleteGroup"}}</a>
 	</div>
