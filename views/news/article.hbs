@@ -1,7 +1,23 @@
 {{#extend "news/news"}}
 {{#content "page"}}
 <p>
-    {{#unless isRSS}}
+
+    {{#if isRSS}}
+    {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
+    <small class="text-muted">
+        &nbsp;-
+    </small>
+    <small style="color: #9e292b;">
+        &nbsp;RSS
+    </small>
+    {{/userHasPermission}}
+    {{/if}}
+
+</p>
+<div class="ckcontent">
+    {{{news.content}}}
+</div>
+{{#unless isRSS}}
     <small class="text-muted">
         {{#if news.displayUpdateAt}}
         {{$t "news.text.last" }} {{$t "news.text.processed" }}
@@ -37,21 +53,6 @@
         {{/ifCond}}
     </small>
     {{/unless}}
-    {{#if isRSS}}
-    {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
-    <small class="text-muted">
-        &nbsp;-
-    </small>
-    <small style="color: #9e292b;">
-        &nbsp;RSS
-    </small>
-    {{/userHasPermission}}
-    {{/if}}
-
-</p>
-<div class="ckcontent">
-    {{{news.content}}}
-</div>
 {{#unless isRSS}}
 <div class="mt-1">
     {{#inArray 'NEWS_EDIT' ../news.permissions}}
