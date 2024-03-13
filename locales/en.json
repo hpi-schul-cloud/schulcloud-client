@@ -570,7 +570,7 @@
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
 				"allStudentsVisibilityBrandenburg": "Enabling this option turns on the visibility of all students of this school for each teacher.",
-				"allStudentsVisibilityNiedersachsen" : "If this option is not enabled, teachers can only see the classes and their students in which they are members.",
+				"allStudentsVisibilityNiedersachsen": "If this option is not enabled, teachers can only see the classes and their students in which they are members.",
 				"authentication": "Authentication",
 				"newPage": "To the new admin page",
 				"changeOfClasses": "Change of classes / new classes",
@@ -893,8 +893,7 @@
 			"dropdown_menu": {
 				"link": {
 					"editDeleteCourse": "Edit/delete",
-					"inviteToCourse": "Invite",
-					"shareCourse": "Share"
+					"inviteToCourse": "Invite"
 				}
 			},
 			"edit": {
