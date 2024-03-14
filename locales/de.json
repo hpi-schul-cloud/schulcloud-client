@@ -570,7 +570,7 @@
 				"afterTheTransferPhaseEnded": "Nach Beenden der Transferphase",
 				"allStudentsVisibility": "Die Aktivierung dieser Option hat datenschutzrechtlich eine hohe Schwelle. Um die Sichtbarkeit aller Schüler:innen der Schule für jede Lehrkraft zu aktivieren, ist es erforderlich, dass jede/r Schüler:in wirksam in diese Datenverarbeitung eingewilligt hat.",
 				"allStudentsVisibilityBrandenburg": "Die Aktivierung dieser Option schaltet die Sichtbarkeit aller Schüler:innen der Schule für jede Lehrkraft an.",
-				"allStudentsVisibilityNiedersachsen" : "Wenn diese Option nicht aktiviert ist, können die Lehrkräfte ausschließlich die Klassen sowie deren Schülerinnen und Schüler sehen, in denen sie Mitglied sind.",
+				"allStudentsVisibilityNiedersachsen": "Wenn diese Option nicht aktiviert ist, können die Lehrkräfte ausschließlich die Klassen sowie deren Schülerinnen und Schüler sehen, in denen sie Mitglied sind.",
 				"authentication": "Authentifizierung",
 				"newPage": "Zur neuen Admin-Seite",
 				"changeOfClasses": "Änderung von Klassen/neue Klassen",
@@ -893,8 +893,7 @@
 			"dropdown_menu": {
 				"link": {
 					"editDeleteCourse": "Bearbeiten/löschen",
-					"inviteToCourse": "Einladen",
-					"shareCourse": "Teilen"
+					"inviteToCourse": "Einladen"
 				}
 			},
 			"edit": {

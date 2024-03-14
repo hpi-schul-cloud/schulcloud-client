@@ -291,7 +291,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 				req.session.notification = {
 					type: 'success',
 					message:
-					res.$t('administration.controller.text.userCreatedSuccessfullyAndRegistration'),
+						res.$t('administration.controller.text.userCreatedSuccessfullyAndRegistration'),
 				};
 				return redirectHelper.safeBackRedirect(req, res);
 			})
@@ -337,10 +337,10 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 			return redirectHelper.safeBackRedirect(req, res);
 
 			/*
-            createEventsForData(data, service, req, res).then(_ => {
-                next();
-            });
-            */
+			createEventsForData(data, service, req, res).then(_ => {
+				next();
+			});
+			*/
 		})
 		.catch((err) => {
 			if (internalReturn) return false;
@@ -1822,7 +1822,7 @@ router.get(
 								age: CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 							}),
 							content:
-							res.$t('administration.controller.text.passTheRegistrationLinkDirectly')
+								res.$t('administration.controller.text.passTheRegistrationLinkDirectly')
 								+ res.$t('administration.controller.text.theStepsForTheParentsAreOmitted'),
 						},
 						{
@@ -2240,7 +2240,7 @@ router.get(
 // ONLY useable with ADMIN_VIEW !
 
 /*
-    COURSES
+	COURSES
 */
 
 const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next) {
@@ -2258,76 +2258,68 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 		});
 };
 
-const updateSchoolFeatures = async (req, currentFeatures, features) => {
-	const pushValues = Object.keys(features)
-		.filter((feature) => features[feature] && !currentFeatures.includes(feature));
-	const pullValues = Object.keys(features)
-		.filter((feature) => !features[feature] && currentFeatures.includes(feature));
+const schoolUpdateHandler = async (req, res, next) => {
+	const defaultLogoName = 'logo.png';
+	const {
+		name,
+		language,
+		logo_dataUrl,
+	} = req.body;
 
-	const requests = [];
-	if (pushValues.length > 0) {
-		requests.push(api(req)
-			.patch(`/schools/${req.params.id}`, { json: { $push: { features: { $each: pushValues } } } }));
+	let logo;
+	if (logo_dataUrl) {
+		logo = {
+			dataUrl: logo_dataUrl,
+			name: defaultLogoName,
+		};
 	}
-	if (pullValues.length > 0) {
-		requests.push(api(req)
-			.patch(`/schools/${req.params.id}`, { json: { $pull: { features: { $in: pullValues } } } }));
-	}
-	await Promise.all(requests);
-};
 
-const schoolFeatureUpdateHandler = async (req, res, next) => {
+	const requestBody = {
+		name,
+		language,
+		permissions: {
+			student: { LERNSTORE_VIEW: false },
+			teacher: { STUDENT_LIST: false },
+		},
+		features: [],
+		logo,
+	};
+
 	try {
 		// Toggle teacher's studentVisibility permission
 		if (Configuration.get('TEACHER_STUDENT_VISIBILITY__IS_CONFIGURABLE')) {
-			await api(req)
-				.patch('school/teacher/studentvisibility', {
-					json: {
-						permission: {
-							isEnabled: !!req.body.studentVisibility,
-						},
-					},
-				});
+			requestBody.permissions.teacher.STUDENT_LIST = !!req.body.studentVisibility;
 		}
-
-		delete req.body.studentVisibility;
 
 		// Toggle sudent lernstore view permission
 		const studentLernstoreFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED');
 		if (studentLernstoreFeature) {
-			await api(req)
-				.patch('school/student/studentlernstorevisibility', {
-					json: {
-						permission: {
-							isEnabled: !!req.body.studentlernstorevisibility,
-						},
-					},
-				});
+			requestBody.permissions.student.LERNSTORE_VIEW = !!req.body.studentlernstorevisibility;
 		}
-
-		delete req.body.studentlernstorevisibility;
-
-		const currentFeatures = res.locals.currentSchoolData.features;
 
 		// Update school features
 		const possibleSchoolFeatures = [
 			'messenger', 'messengerSchoolRoom', 'messengerStudentRoomCreate', 'rocketChat', 'videoconference',
 		];
-		const featuresToSet = {};
+
 		for (const feature of possibleSchoolFeatures) {
-			featuresToSet[feature] = req.body[feature] === 'true';
+			if (req.body[feature] === 'true') {
+				requestBody.features.push(feature);
+			}
 		}
-		await updateSchoolFeatures(req, currentFeatures, featuresToSet);
+
+		await api(req, { version: 'v3' }).patch(`/school/${res.locals.currentSchool}`, {
+			json: requestBody,
+		});
+
+		res.redirect(req.header('Referer'));
 	} catch (err) {
 		next(err);
 	}
-
-	// update other school properties
-	return getUpdateHandler('schools')(req, res, next);
 };
 
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
-router.patch('/schools/:id', schoolFeatureUpdateHandler);
+router.patch('/schools/:id', schoolUpdateHandler);
 router.post('/schools/:id/bucket', createBucket);
 router.post('/schools/policy', updatePolicy);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
@@ -2508,7 +2500,7 @@ const getTeamFlags = (team, res) => {
 };
 
 const enableStudentUpdateHandler = async function enableStudentUpdate(req, res, next) {
-	await api(req).patch(`/schools/${req.params.id}`, {
+	await api(req, { version: 'v3' }).patch(`/school/${req.params.id}`, {
 		json: {
 			enableStudentTeamCreation: req.body.enablestudentteamcreation === 'true',
 		},
@@ -2544,7 +2536,7 @@ router.all('/teams', async (req, res, next) => {
 	query = Object.assign(query, filterQuery);
 	// TODO: mapping sort
 	/*
-	    'Mitglieder': 'members',
+		'Mitglieder': 'members',
 		'Schule(n)': 'schoolIds',
 		'Erstellt am': 'createdAt',
 	*/
@@ -2685,13 +2677,14 @@ router.all('/teams', async (req, res, next) => {
 
 				users.sort((a, b) => (
 					compare(a.lastName.toLowerCase(), b.lastName.toLowerCase())
-						|| compare(a.firstName.toLowerCase(), b.firstName.toLowerCase())
+					|| compare(a.firstName.toLowerCase(), b.firstName.toLowerCase())
 				));
 
 				users = users.filter((user) => !isUserHidden(user, res.locals.currentSchoolData));
 
 				const school = res.locals.currentSchoolData;
-				const isTeamCreationByStudentsEnabled = school.features.includes('isTeamCreationByStudentsEnabled');
+				const isTeamCreationByStudentsEnabled =	school.instanceFeatures
+					.includes('isTeamCreationByStudentsEnabled');
 
 				res.render('administration/teams', {
 					title: res.$t('administration.dashboard.headline.manageTeams'),
@@ -2762,7 +2755,7 @@ router.delete('/teams/:id', (req, res, next) => {
 });
 
 /*
-    SCHOOL / SYSTEMS / RSS
+	SCHOOL / SYSTEMS / RSS
 */
 
 router.post('/systems/', createSystemHandler);
@@ -3129,7 +3122,7 @@ router.get('/startldapschoolyear', async (req, res) => {
 });
 
 /*
-    LDAP SYSTEMS
+	LDAP SYSTEMS
 */
 
 router.post(
