@@ -194,13 +194,20 @@ const editCourseHandler = (req, res, next) => {
 			.get(`/courses/${req.params.courseId}/userPermissions/${res.locals.currentUser._id}`);
 	}
 
+	const syncedWithGroup = req.params.groupId;
+	let groupPromise;
+	if (syncedWithGroup) {
+		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedWithGroup}`);
+	}
+
 	Promise.all([
 		coursePromise,
 		classesAndGroupsPromise,
 		teachersPromise,
 		studentsPromise,
 		scopePermissions,
-	]).then(([course, _classesAndGroups, _teachers, _students, _scopePermissions]) => {
+		groupPromise,
+	]).then(([course, _classesAndGroups, _teachers, _students, _scopePermissions, group]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		let classesAndGroups = [];
 		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
@@ -278,7 +285,13 @@ const editCourseHandler = (req, res, next) => {
 
 		const classAndGroupIdsOfCourse = [...(course.classIds || []), ...(course.groupIds || [])];
 
-		const syncedElementIds = course.syncedWithGroup ? getSyncedElementIds(
+		if (syncedWithGroup) {
+			course.name = group.name;
+			course.teacherIds = getUserIdsByRole(group.users, 'teacher');
+			course.userIds = getUserIdsByRole(group.users, 'student');
+		}
+
+		const syncedElements = (course.syncedWithGroup || syncedWithGroup) ? getSyncedElements(
 			course,
 			classesAndGroups,
 			classAndGroupIdsOfCourse,
@@ -286,6 +299,7 @@ const editCourseHandler = (req, res, next) => {
 			substitutions,
 			students,
 			res,
+			syncedWithGroup,
 		) : {};
 
 		if (req.params.courseId) {
@@ -546,6 +560,19 @@ router.post('/', (req, res, next) => {
 		req.body.untilDate = untilDate.toDate();
 	}
 
+	if (typeof req.body.teacherIds === 'string') {
+		req.body.teacherIds = stringToArr(req.body.teacherIds);
+	}
+	if (typeof req.body.substitutionIds === 'string') {
+		req.body.substitutionIds = stringToArr(req.body.substitutionIds);
+	}
+	if (typeof req.body.classIds === 'string') {
+		req.body.classIds = stringToArr(req.body.classIds);
+	}
+	if (typeof req.body.userIds === 'string') {
+		req.body.userIds = stringToArr(req.body.userIds);
+	}
+
 	req.body.features = [];
 	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
 		if (req.body[feature] === 'true') {
@@ -569,6 +596,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/add/', editCourseHandler);
+router.get('/:groupId/sync', editCourseHandler);
 
 /*
  * Single Course
@@ -793,16 +821,16 @@ router.patch('/:courseId', async (req, res, next) => {
 		}
 
 		if (typeof req.body.teacherIds === 'string') {
-			req.body.teacherIds = req.body.teacherIds.split(',');
+			req.body.teacherIds = stringToArr(req.body.teacherIds);
 		}
 		if (typeof req.body.substitutionIds === 'string') {
-			req.body.substitutionIds = req.body.substitutionIds.split(',');
+			req.body.substitutionIds = stringToArr(req.body.substitutionIds);
 		}
 		if (typeof req.body.classIds === 'string') {
-			req.body.classIds = req.body.classIds.split(',');
+			req.body.classIds = stringToArr(req.body.classIds);
 		}
 		if (typeof req.body.userIds === 'string') {
-			req.body.userIds = req.body.userIds.split(',');
+			req.body.userIds = stringToArr(req.body.userIds);
 		}
 
 		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
