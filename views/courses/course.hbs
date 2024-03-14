@@ -38,13 +38,6 @@
         <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit" data-testid="edit_course_option">
           <i class="fa fa-edit" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.editDeleteCourse"}}
         </a>
-        {{#unless ../isArchived}}
-        {{#ifConfig "FEATURE_COURSE_SHARE" true}}
-        <a href="#" class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
-          <i class="fa fa-share-alt" aria-hidden="true"></i> {{$t "courses._course.dropdown_menu.link.shareCourse"}}
-        </a>
-        {{/ifConfig}}
-        {{/unless}}
       </div>
 </div>
 <div class="row description">

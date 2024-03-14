@@ -194,7 +194,7 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Enables to show the login and register button on the loginpage"
-		 },
+		},
 		"ALERT_STATUS_URL": {
 			"type": "string",
 			"default": null,
@@ -475,11 +475,6 @@
 			"type": "boolean",
 			"default": true,
 			"description": "To start the application with calendar service."
-		},
-		"FEATURE_COURSE_SHARE": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables Share course button"
 		},
 		"FEATURE_COURSE_IMPORT": {
 			"type": "boolean",
