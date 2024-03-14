@@ -39,12 +39,19 @@ const filterStudents = (ctx, s) => (
 		? s.filter(({ selected }) => selected) : s
 );
 
+const getUserIdsByRole = (users, role) => users.filter((u) => u.role === role).map((u) => u.id);
+
 const selectedElementIdsToString = (arr = []) => {
 	const txt = arr.filter((obj) => obj.selected).map((obj) => (obj.id !== undefined ? obj.id : obj._id)).join(',');
 	return txt;
 };
 
-const getSyncedElementIds = 	(
+const stringToArr = (str = '') => {
+	const arr = str.trim() === '' ? [] : str.split(',');
+	return arr;
+};
+
+const getSyncedElements = 	(
 	course,
 	classesAndGroups,
 	classAndGroupIdsOfCourse,
@@ -52,6 +59,7 @@ const getSyncedElementIds = 	(
 	substitutions,
 	students,
 	res,
+	syncedWithGroup,
 ) => {
 	const startDate = course.startDate ? timesHelper.formatDate(course.startDate, 'DD.MM.YYYY') : undefined;
 	const untilDate = course.untilDate ? timesHelper.formatDate(course.untilDate, 'DD.MM.YYYY') : undefined;
@@ -63,6 +71,7 @@ const getSyncedElementIds = 	(
 		studentsSelected: selectedElementIdsToString(filterStudents(res, markSelected(students, course.userIds))),
 		startDate,
 		untilDate,
+		syncedWithGroup,
 	};
 
 	return selectedElements;
@@ -318,7 +327,7 @@ const editCourseHandler = (req, res, next) => {
 				students: filterStudents(res, markSelected(students, course.userIds)),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
-				...syncedElementIds,
+				...syncedElements,
 			});
 		}
 		return res.render('courses/create-course', {
@@ -330,18 +339,13 @@ const editCourseHandler = (req, res, next) => {
 			course,
 			colors,
 			classesAndGroups: markSelected(classesAndGroups, classAndGroupIdsOfCourse),
-			teachers: markSelected(
-				teachers,
-				course.teacherIds,
-			),
-			substitutions: markSelected(
-				substitutions,
-				course.substitutionIds,
-			),
+			teachers: markSelected(teachers, course.teacherIds),
+			substitutions: markSelected(substitutions, course.substitutionIds),
 			students: filterStudents(res, markSelected(students, course.userIds)),
 			redirectUrl: req.query.redirectUrl || '/courses',
 			schoolData: res.locals.currentSchoolData,
 			pageTitle: res.$t('courses.add.headline.addCourse'),
+			...syncedElements,
 		});
 	}).catch(next);
 };
