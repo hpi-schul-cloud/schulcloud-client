@@ -545,6 +545,11 @@
 				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the {{title}} at once.",
 				"withAllChangesAndSettings": "With all changes and settings in the administration area, it is confirmed that these are carried out by a school admin with authority to make adjustments to the school in the cloud. Adjustments made by the school admin are deemed to be instructions from the school to the cloud operator {{institute_title}}.",
 				"wouldYouLikeReportABug": "Would you like to report an error or do you have an idea to improve the {{title}}? Send requests or problems directly to the {{shortTitle}} user support."
+			},
+			"cloudOperator" : {
+				"brb": "Ministry of Education, Youth and Sport of the State Brandenburg",
+				"tsc": "Thuringian Institute for Teacher Training, Curriculum Development and Media",
+				"nbc": "State initiative n-21: Schools in Niedersachsen online e.V."
 			}
 		},
 		"school": {
