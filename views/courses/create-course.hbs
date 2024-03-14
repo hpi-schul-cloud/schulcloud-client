@@ -193,8 +193,8 @@
             <section data-panel="section-2" data-testid="section-2-area" class="submit-page course-submit-page">
                 {{#userHasPermission "STUDENT_LIST"}}
 
-                    <h2 class="h4">{{$t "global.headline.youAlmostMadeIt"}}</h2>
-                    <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
+                <h2 class="h4">{{$t "global.headline.youAlmostMadeIt"}}</h2>
+                <p class="text-muted">{{$t "courses.add.text.addStudentsOrClasses"}}<br>{{$t "courses.add.text.doItNowOrLaterInSettings"}}</p>
 
                 <div class="form-group" data-testid="class_container">
                     <label for="addClassesToCourse">{{$t "courses.add.label.addClassesToCourse"}}</label>
@@ -278,7 +278,9 @@
               </div>
 
               <div class="pull-right">
-                <a class="btn btn-secondary" data-testid="courses-add-another-course-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
+                {{#ifNot ../syncedWithGroup}}
+                    <a class="btn btn-secondary" data-testid="courses-add-another-course-btn" href="/courses/add">{{$t "courses.add.link.addAnotherCourse"}}</a>
+                {{/ifNot}}
                 <a class="btn btn-primary force-initial-focus" data-testid="courses-to-overview-btn" href="/rooms-overview">{{$t "courses.add.link.courseOverview"}}</a>
               </div>
             </section>
