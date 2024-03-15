@@ -46,9 +46,13 @@ const selectedElementIdsToString = (arr = []) => {
 	return txt;
 };
 
-const stringToArr = (str = '') => {
-	const arr = str.trim() === '' ? [] : str.split(',');
-	return arr;
+const strToPropsArray = (props, keys) => {
+	keys.forEach((key) => {
+		if (typeof props[key] === 'string') {
+			props[key] = props[key].trim() ? props[key].split(',') : [];
+		}
+	});
+	return props;
 };
 
 const getSyncedElements = 	(
@@ -205,6 +209,7 @@ const editCourseHandler = (req, res, next) => {
 
 	const syncedWithGroup = req.params.groupId;
 	let groupPromise;
+	// TODO: check for FeatureFlag
 	if (syncedWithGroup) {
 		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedWithGroup}`);
 	}
@@ -294,7 +299,7 @@ const editCourseHandler = (req, res, next) => {
 
 		const classAndGroupIdsOfCourse = [...(course.classIds || []), ...(course.groupIds || [])];
 
-		if (syncedWithGroup) {
+		if (syncedWithGroup && group) {
 			course.name = group.name;
 			course.teacherIds = getUserIdsByRole(group.users, 'teacher');
 			course.userIds = getUserIdsByRole(group.users, 'student');
@@ -564,18 +569,8 @@ router.post('/', (req, res, next) => {
 		req.body.untilDate = untilDate.toDate();
 	}
 
-	if (typeof req.body.teacherIds === 'string') {
-		req.body.teacherIds = stringToArr(req.body.teacherIds);
-	}
-	if (typeof req.body.substitutionIds === 'string') {
-		req.body.substitutionIds = stringToArr(req.body.substitutionIds);
-	}
-	if (typeof req.body.classIds === 'string') {
-		req.body.classIds = stringToArr(req.body.classIds);
-	}
-	if (typeof req.body.userIds === 'string') {
-		req.body.userIds = stringToArr(req.body.userIds);
-	}
+	const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+	req.body = strToPropsArray(req.body, keys);
 
 	req.body.features = [];
 	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
@@ -824,18 +819,8 @@ router.patch('/:courseId', async (req, res, next) => {
 			req.body.substitutionIds = [];
 		}
 
-		if (typeof req.body.teacherIds === 'string') {
-			req.body.teacherIds = stringToArr(req.body.teacherIds);
-		}
-		if (typeof req.body.substitutionIds === 'string') {
-			req.body.substitutionIds = stringToArr(req.body.substitutionIds);
-		}
-		if (typeof req.body.classIds === 'string') {
-			req.body.classIds = stringToArr(req.body.classIds);
-		}
-		if (typeof req.body.userIds === 'string') {
-			req.body.userIds = stringToArr(req.body.userIds);
-		}
+		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+		req.body = strToPropsArray(req.body, keys);
 
 		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
 		const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
