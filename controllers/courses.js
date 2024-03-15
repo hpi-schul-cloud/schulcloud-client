@@ -207,10 +207,11 @@ const editCourseHandler = (req, res, next) => {
 			.get(`/courses/${req.params.courseId}/userPermissions/${res.locals.currentUser._id}`);
 	}
 
-	const syncedWithGroup = req.params.groupId;
+	let syncedWithGroup;
 	let groupPromise;
 	// TODO: check for FeatureFlag
-	if (syncedWithGroup) {
+	if (req.params.groupId) {
+		syncedWithGroup = req.params.groupId;
 		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedWithGroup}`);
 	}
 
