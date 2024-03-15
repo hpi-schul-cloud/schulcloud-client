@@ -209,7 +209,7 @@ const editCourseHandler = (req, res, next) => {
 
 	let syncedWithGroup;
 	let groupPromise;
-	// TODO: check for FeatureFlag
+	// TODO: check for FeatureFlag: if(req.params.groupId && FEATURE_FLAG))
 	if (req.params.groupId) {
 		syncedWithGroup = req.params.groupId;
 		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedWithGroup}`);
