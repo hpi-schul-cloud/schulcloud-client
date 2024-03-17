@@ -19,16 +19,16 @@
 </div>
 {{#unless isRSS}}
     <small class="text-muted">
-        {{#if news.displayUpdateAt}}
+        {{#if updatedAtNotEqualCreatedAt}}
         {{$t "news.text.last" }} {{$t "news.text.processed" }}
         {{/if}}
         {{#if news.updater}}
         {{$t "news.text.by" }} {{news.updater.firstName}} {{news.updater.lastName}}
         {{/if}}
-        {{#if news.displayUpdateAt}}
-        {{timeFromNow news.displayUpdateAt}}
+        {{#if updatedAtNotEqualCreatedAt}}
+        {{timeFromNow news.updatedAt}}
         {{/if}}
-        {{#if news.displayUpdateAt}} | {{/if}}
+        {{#if updatedAtNotEqualCreatedAt}} | {{/if}}
         {{$t "news.text.created" }}
         {{#if news.creator}}
         {{$t "news.text.by" }} {{news.creator.firstName}} {{news.creator.lastName}}
