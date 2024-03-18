@@ -1,4 +1,8 @@
+import moment from 'moment';
+
 const datetime = require('../datetime/datetime');
+const uk = require('../../../locales/calendar/uk.json');
+const es = require('../../../locales/calendar/es.json');
 
 function getIconTag(status) {
 	switch (status) {
@@ -22,6 +26,8 @@ class AlertMessageController {
 	buildMessage(message) {
 		const icon = getIconTag(message.status);
 
+		const getLangAttribute = () => document.querySelector('html').getAttribute('lang');
+		moment.locale(getLangAttribute(), this.selectMomentOptions(getLangAttribute()));
 		const item = document.createElement('div');
 		if (this.loggedin) {
 			item.className = 'alert-item';
@@ -52,6 +58,35 @@ class AlertMessageController {
 		}
 		return item;
 	}
+
+	createCustomRelativeTimeConfig = (localFile) => ({
+		d: `${localFile['moment.relativeTime.aDay']}`,
+		dd: `%d ${localFile['moment.relativeTime.days']}`,
+		future: `${localFile['moment.relativeTime.futureIn']} %s`,
+		h: `${localFile['moment.relativeTime.anHour']}`,
+		hh: `%d ${localFile['moment.relativeTime.hours']}`,
+		m: `${localFile['moment.relativeTime.aMinute']}`,
+		M: `${localFile['moment.relativeTime.aMonths']}`,
+		mm: `%d ${localFile['moment.relativeTime.minutes']}`,
+		MM: `%d ${localFile['moment.relativeTime.months']}`,
+		past: `%s ${localFile['moment.relativeTime.pastAgo']}`,
+		s: `${localFile['moment.relativeTime.aFewSecondes']}`,
+		ss: `%d ${localFile['moment.relativeTime.seconds']}`,
+		w: `${localFile['moment.relativeTime.aWeek']}`,
+		ww: `%d ${localFile['moment.relativeTime.weeks']}`,
+		y: `${localFile['moment.relativeTime.aYear']}`,
+	});
+
+	selectMomentOptions = (langAttribute) => {
+		const options = {};
+		if (langAttribute === 'uk') {
+			options.relativeTime = this.createCustomRelativeTimeConfig(uk);
+		}
+		if (langAttribute === 'es') {
+			options.relativeTime = this.createCustomRelativeTimeConfig(es);
+		}
+		return options;
+	};
 
 	showAlert(messageArray) {
 		if (!messageArray || messageArray.length === 0) {
