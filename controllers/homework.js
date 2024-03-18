@@ -577,29 +577,30 @@ router.get('/:assignmentId', (req, res, next) => {
 		async function findSubmissionFiles(submission, submitters, teachers, readonly) {
 			const { schoolId } = submission;
 			const parentId = submission._id;
-			const parentType = 'submissions';
+			const submissionParentType = 'submissions';
+			const gradeParentType = 'gradings';
 			const isTeacher = teachers.has(res.locals.currentUser._id);
 			const isCreator = submitters.has(res.locals.currentUser._id);
 			let filesStorage = {
 				schoolId,
 				parentId,
-				parentType,
+				parentType: submissionParentType,
 				files: [],
 				readonly,
 			};
 
 			if (submission.submitted || isCreator) {
-				const result = await filesStoragesHelper.filesStorageInit(schoolId, parentId, parentType, readonly, req);
+				const result = await filesStoragesHelper.filesStorageInit(schoolId, parentId, submissionParentType, readonly, req);
 				// eslint-disable-next-line prefer-destructuring
 				filesStorage = result.filesStorage;
 			}
 
 			const submissionFilesStorageData = _.clone(filesStorage);
-			submissionFilesStorageData.files = filesStorage.files.filter((file) => !file.creatorId || submitters.has(file.creatorId));
+			submissionFilesStorageData.files = filesStorage.files.filter((file) => file.parentType === submissionParentType);
 			submissionFilesStorageData.readonly = readonly || (!isCreator && isTeacher);
 
 			const gradeFilesStorageData = _.clone(filesStorage);
-			gradeFilesStorageData.files = filesStorage.files.filter((file) => !file.creatorId || teachers.has(file.creatorId));
+			gradeFilesStorageData.files = filesStorage.files.filter((file) => file.parentType === gradeParentType);
 			gradeFilesStorageData.readonly = !isTeacher;
 
 			submission.submissionFiles = { filesStorage: submissionFilesStorageData };
