@@ -601,6 +601,7 @@ router.get('/:assignmentId', (req, res, next) => {
 
 			const gradeFilesStorageData = _.clone(filesStorage);
 			gradeFilesStorageData.files = filesStorage.files.filter((file) => file.parentType === gradeParentType);
+			gradeFilesStorageData.parentType = gradeParentType;
 			gradeFilesStorageData.readonly = !isTeacher;
 
 			submission.submissionFiles = { filesStorage: submissionFilesStorageData };
