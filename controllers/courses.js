@@ -209,8 +209,8 @@ const editCourseHandler = (req, res, next) => {
 
 	let syncedWithGroup;
 	let groupPromise;
-	if (req.params.groupId && Configuration.get('FEATURE_SCHULCONNEX_COURSE_SYNC_ENABLED')) {
-		syncedWithGroup = req.params.groupId;
+	if (Configuration.get('FEATURE_SCHULCONNEX_COURSE_SYNC_ENABLED') && req.query.syncWithGroup) {
+		syncedWithGroup = req.query.syncWithGroup;
 		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedWithGroup}`);
 	}
 
