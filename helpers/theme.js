@@ -19,11 +19,11 @@ const instanceSpecificTitle = () => {
 const instanceInstitute = () => {
 	switch (SC_THEME) {
 		case 'n21':
-			return '$t(administration.longText.cloudOperator.nbc)';
+			return 'Landesinitiative n-21: Schulen in Niedersachsen online e.V.';
 		case 'thr':
-			return '$t(administration.longText.cloudOperator.tsc)';
+			return 'Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien';
 		case 'brb':
-			return '$t(administration.longText.cloudOperator.brb)';
+			return 'Ministerium für Bildung, Jugend und Sport des Landes Brandenburg';
 		default:
 			return 'Dataport';
 	}
