@@ -80,6 +80,21 @@
             {{#ifeq (getConfig "DASHBOARD_ANNOUNCEMENT_ENABLED") true}}
                 {{#ifneq (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ""}}
                     {{#if (userHasRoleFromArray (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ../currentUser)}}
+                        {{#ifeq @root.theme.name "brb"}}
+                                <div class="alert dashboard-notification" role="alert">
+                                    <i class="fa fa-fw fa-lightbulb-o fa-lg" style="margin: 6px 0.5rem 0 0.5rem; color: #38677A" aria-hidden="true"></i><p class="dashboard-notification-text">{{{$t "dashboard.text.alternativeAnnouncement"}}}</p>
+                                </div>
+                        {{else}}
+                            {{#ifeq @root.theme.name "thr"}}
+                                    <div class="alert dashboard-notification" role="alert">
+                                        <i class="fa fa-fw fa-lightbulb-o fa-lg" style="margin: 6px 0.5rem 0 0.5rem; color: #38677A" aria-hidden="true"></i><p class="dashboard-notification-text">{{{$t "dashboard.text.alternativeAnnouncement"}}}</p>
+                                    </div>
+                            {{else}}
+                                    <div class="alert dashboard-notification" role="alert">
+                                        <i class="fa fa-fw fa-lightbulb-o fa-lg" style="margin: 6px 0.5rem 0 0.5rem; color: #38677A" aria-hidden="true"></i><p class="dashboard-notification-text">{{{$t "dashboard.text.announcement"}}}</p>
+                                    </div>
+                            {{/ifeq}}
+                        {{/ifeq}}
                     {{/if}}
                 {{/ifneq}}
             {{/ifeq}}

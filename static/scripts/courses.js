@@ -133,42 +133,6 @@ $(document).ready(() => {
 		$('#topic-list').disableSelection();
 	}
 
-	$('.btn-create-share-course').click(function createShareCourse(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		const courseId = $(this).attr('data-courseId');
-		const $shareModal = $('.share-course-modal');
-		$.ajax({
-			type: 'GET',
-			url: `/courses/${courseId}/share/`,
-			success(data) {
-				populateModalForm($shareModal, {
-					title: $t('courses._course.headline.shareCodeGenerated'),
-					closeLabel: $t('global.button.close'),
-					fields: { shareToken: data.shareToken },
-					submitDataTestId: 'share-modal',
-				});
-				$shareModal.find('.btn-submit').remove();
-				$shareModal.find('input[name="shareToken"]').click(function inputNameShareToken() {
-					$(this).select();
-				});
-
-				$shareModal.appendTo('body').modal('show');
-
-				// eslint-disable-next-line no-undef
-				const image = kjua({
-					text: `${$('meta[name=baseUrl]').attr('content')}/courses?import=${data.shareToken}`,
-					render: 'image',
-				});
-				const $shareqrbox = $('.course-qr');
-				$shareqrbox.empty();
-				// eslint-disable-next-line max-len
-				$shareqrbox.append(`<p> ${$t('courses._course.text.QRCodeAlternative')} </p>`);
-				$shareqrbox.append(image);
-			},
-		});
-	});
-
 	let activeBbbCard = false;
 
 	const videoconferenceWindowRedirect = (response) => {
