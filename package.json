@@ -122,7 +122,7 @@
 		"redis": "^4.6.13",
 		"request": "^2.79.0",
 		"request-promise": "^4.2.6",
-		"sanitize-html": "^2.6.1",
+		"sanitize-html": "^2.12.1",
 		"sass": "^1.43.2",
 		"serve-favicon": "^2.5.0",
 		"shortid": "^2.2.16",
