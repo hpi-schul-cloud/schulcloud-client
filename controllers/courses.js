@@ -63,7 +63,7 @@ const getSyncedElements = 	(
 	substitutions,
 	students,
 	res,
-	syncedWithGroup,
+	syncedGroupId,
 ) => {
 	const startDate = course.startDate ? timesHelper.formatDate(course.startDate, 'DD.MM.YYYY') : undefined;
 	const untilDate = course.untilDate ? timesHelper.formatDate(course.untilDate, 'DD.MM.YYYY') : undefined;
@@ -75,7 +75,7 @@ const getSyncedElements = 	(
 		studentsSelected: selectedElementIdsToString(filterStudents(res, markSelected(students, course.userIds))),
 		startDate,
 		untilDate,
-		syncedWithGroup,
+		syncedGroupId,
 	};
 
 	return selectedElements;
@@ -207,11 +207,11 @@ const editCourseHandler = (req, res, next) => {
 			.get(`/courses/${req.params.courseId}/userPermissions/${res.locals.currentUser._id}`);
 	}
 
-	let syncedWithGroup;
+	let syncedGroupId;
 	let groupPromise;
 	if (req.params.groupId && Configuration.get('FEATURE_SCHULCONNEX_COURSE_SYNC_ENABLED')) {
-		syncedWithGroup = req.params.groupId;
-		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedWithGroup}`);
+		syncedGroupId = req.params.groupId;
+		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedGroupId}`);
 	}
 
 	Promise.all([
@@ -299,13 +299,13 @@ const editCourseHandler = (req, res, next) => {
 
 		const classAndGroupIdsOfCourse = [...(course.classIds || []), ...(course.groupIds || [])];
 
-		if (syncedWithGroup && group) {
+		if (syncedGroupId && group) {
 			course.name = group.name;
 			course.teacherIds = getUserIdsByRole(group.users, 'teacher');
 			course.userIds = getUserIdsByRole(group.users, 'student');
 		}
 
-		const syncedElements = (course.syncedWithGroup || syncedWithGroup) ? getSyncedElements(
+		const syncedElements = (course.syncedGroupId || syncedGroupId) ? getSyncedElements(
 			course,
 			classesAndGroups,
 			classAndGroupIdsOfCourse,
@@ -313,7 +313,7 @@ const editCourseHandler = (req, res, next) => {
 			substitutions,
 			students,
 			res,
-			syncedWithGroup,
+			syncedGroupId,
 		) : {};
 
 		if (req.params.courseId) {
