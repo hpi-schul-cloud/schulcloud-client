@@ -1,4 +1,4 @@
-{{#isCurrentPage currentPath "administration/classes"}}
+{{#ifeq currentPath "administration/classes"}}
     {{#ifEnv "SC_THEME" "thr"}}
         <p class="text-muted">{{$t "administration.longText.text.withAllChangesForTSC"}}</p>
     {{else}}
@@ -6,4 +6,4 @@
     {{/ifEnv}}
 {{else}}
     <p class="text-muted">{{$t "administration.longText.text.withAllChangesAndSettings" (dict "institute_title" ../theme.institute_title)}}</p>
-{{/isCurrentPage}}
+{{/ifeq}}
