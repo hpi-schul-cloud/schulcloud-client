@@ -1065,7 +1065,7 @@ class TopicH5P extends TopicBlock {
 		const { parentType, parentId } = this.props;
 
 		const editorPopup = window.open(
-			`/h5p/editor/${id ?? ''}?parentType=${parentType}&parentId=${parentId}&inline=1`,
+			`/h5p/editor/${id ?? 'new'}?parentType=${parentType}&parentId=${parentId}&inline=1`,
 			'h5p-editor',
 			`width=${w}, height=${h}, left=${x}, top=${y},
 			fullscreen=yes, toolbar=no, location=no, directories=no, status=no, scrollbars=yes, resizable=yes`,
