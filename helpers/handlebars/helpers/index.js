@@ -163,6 +163,12 @@ const helpers = () => ({
 		}
 		return options.inverse(this);
 	},
+	isCurrentPage: (currentPage, targetPage, options) => {
+		if (currentPage === targetPage) {
+			return options.fn(this);
+		}
+		return options.inverse(this);
+	},
 	getConfig: (key) => Configuration.get(key),
 	userInitials: (opts) => opts.data.local.currentUser.avatarInitials,
 	userHasPermission: (permission, opts) => {
