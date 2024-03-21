@@ -2836,7 +2836,6 @@ router.use(
 
 		// In the future there should be a possibility to fetch a school with all systems populated via api/v3,
 		// but at the moment they need to be fetched separately.
-		//school.systems = await Promise.all(school.systemIds.map((systemId) => api(req).get(`/systems/${systemId}`)));
 		school.systems = await api(req, { version: 'v3' }).get(`/school/${school._id}/systems`);
 
 		// Maintanance - Show Menu depending on the state
