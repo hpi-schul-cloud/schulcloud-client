@@ -1249,8 +1249,7 @@
 			"toTask": "To the task"
 		},
 		"text": {
-			"announcement": "<b>Important announcement:</b> The neXboard tool will be replaced by <b>tldraw</b>. Please back up your content from the neXboards that you wish to continue using by <b>15.03.2024</b>. Until then, neXboards you have created can still be used. Here you can find <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">backup options and further information</a>.",
-			"alternativeAnnouncement": "From now on, <b>tldraw</b> is available as a collaborative whiteboard in the column board. New neXboards can no longer be created. Already created neXboards are still available until <b>24.03.2024</b> to save the content. Instructions for transferring content from neXboard to tldraw can be found <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">here</a>.",
+			"announcement": "From now on, <b>tldraw</b> is available as a collaborative whiteboard in the column board. New neXboards can no longer be created. Already created neXboards are still available until <b>23.04.2024</b> to save the content. Instructions for transferring content from neXboard to tldraw can be found <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">here</a>.",
 			"emptyHomeworksInfo": "No assigned tasks. You can find all tasks in the tasks area.",
 			"emptyNewsInfo": "So far there is no news.",
 			"graded": "Graded",
