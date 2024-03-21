@@ -1,5 +1,6 @@
 const uk = require('../locales/calendar/uk.json');
 const es = require('../locales/calendar/es.json');
+const de = require('../locales/calendar/de.json');
 
 /*
 // const CONFIG_ORIG = i18nMoment().locale('en').localeData()._relativeTime;
@@ -48,6 +49,9 @@ const selectMomentOptions = (langAttribute) => {
 	}
 	if (langAttribute === 'es') {
 		options.relativeTime = createCustomRelativeTimeConfig(es);
+	}
+	if (langAttribute === 'de') {
+		options.relativeTime = createCustomRelativeTimeConfig(de);
 	}
 
 	return options;
