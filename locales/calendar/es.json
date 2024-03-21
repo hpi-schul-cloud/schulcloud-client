@@ -13,5 +13,6 @@
     "moment.relativeTime.seconds": "segundos",
     "moment.relativeTime.aWeek": "una semana",
     "moment.relativeTime.weeks": "semanas",
-    "moment.relativeTime.aYear": "un año"
+    "moment.relativeTime.aYear": "un año",
+    "moment.relativeTime.years": "años"
 }

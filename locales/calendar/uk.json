@@ -25,5 +25,6 @@
     "moment.relativeTime.seconds": "секунд",
     "moment.relativeTime.aWeek": "тиждень",
     "moment.relativeTime.weeks": "тижнів",
-    "moment.relativeTime.aYear": "рік"
+    "moment.relativeTime.aYear": "рік",
+    "moment.relativeTime.years": "років"
 }

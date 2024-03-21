@@ -39,6 +39,7 @@ const createCustomRelativeTimeConfig = (localFile) => ({
 	w: `${localFile['moment.relativeTime.aWeek']}`,
 	ww: `%d ${localFile['moment.relativeTime.weeks']}`,
 	y: `${localFile['moment.relativeTime.aYear']}`,
+	yy: `%d ${localFile['moment.relativeTime.years']}`,
 });
 
 const selectMomentOptions = (langAttribute) => {
