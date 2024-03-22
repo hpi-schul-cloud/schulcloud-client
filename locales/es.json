@@ -571,7 +571,7 @@
 				"afterTheTransferPhaseEnded": "Una vez finalizada la fase de transferencia",
 				"allStudentsVisibility": "La activación de esta opción tiene un nivel alto según la ley de protección de datos. Para activar la visibilidad de todos los alumnos de la escuela para cada profesor, es necesario que cada alumno haya dado su consentimiento de manera efectiva para este tratamiento de datos.",
 				"allStudentsVisibilityBrandenburg": "Activando esta opción se activa la visibilidad de todos los alumnos de esta escuela para cada profesor.",
-				"allStudentsVisibilityNiedersachsen" : "Si esta opción no está activada, los profesores sólo podrán ver las clases y sus alumnos de las que son miembros.",
+				"allStudentsVisibilityNiedersachsen": "Si esta opción no está activada, los profesores sólo podrán ver las clases y sus alumnos de las que son miembros.",
 				"authentication": "Autenticación",
 				"newPage": "A la nueva página de administración",
 				"changeOfClasses": "Cambio de clases / nuevas clases",
@@ -894,8 +894,7 @@
 			"dropdown_menu": {
 				"link": {
 					"editDeleteCourse": "Editar/eliminar",
-					"inviteToCourse": "Invitar",
-					"shareCourse": "Compartir"
+					"inviteToCourse": "Invitar"
 				}
 			},
 			"edit": {
@@ -1250,7 +1249,7 @@
 			"toTask": "A la tarea"
 		},
 		"text": {
-			"announcement": "<b>Anuncio importante:</b> La herramienta neXboard será sustituida por <b>tldraw</b>. Por favor, haga una copia de seguridad del contenido de los neXboards que desee seguir utilizando antes del <b>15 de marzo de 2024</b>. Los neXboards que haya creado podrán seguir utilizándose hasta entonces. Aquí encontrará <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">opciones de copia de seguridad y más informaciones</a>.",
+			"announcement": "A partir de ahora, <b>tldraw</b> está disponible como pizarra colaborativa en el tablero de columnas. Ya no se pueden crear nuevas neXboards. Los neXboards ya creados siguen estando disponibles hasta el <b>24 de abril de 2024</b> para guardar el contenido. Las instrucciones para transferir contenido de neXboard a tldraw se encuentran <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">aqui</a>.",
 			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
 			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
