@@ -2232,6 +2232,7 @@ router.get(
 					filterSettings: JSON.stringify(classFilterSettings({ years, defaultYear, showTab }, res)),
 					classesTabs,
 					showTab,
+					currentPath: 'administration/classes',
 				});
 			});
 	},
