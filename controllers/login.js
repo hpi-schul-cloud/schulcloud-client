@@ -463,7 +463,7 @@ const sessionDestroyer = (req, res, rej, next) => {
 };
 
 router.get('/logout/', (req, res, next) => {
-	api(req)
+	api(req, { version: 'v3' })
 		.del('/authentication') // async, ignore result
 		.catch((err) => {
 			logger.error('error during logout.', formatError(err));
