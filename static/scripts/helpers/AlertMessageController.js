@@ -1,4 +1,7 @@
+import moment from 'moment';
+
 const datetime = require('../datetime/datetime');
+const momentHelper = require('../../../helpers/momentHelper');
 
 function getIconTag(status) {
 	switch (status) {
@@ -22,6 +25,8 @@ class AlertMessageController {
 	buildMessage(message) {
 		const icon = getIconTag(message.status);
 
+		const getLangAttribute = () => document.querySelector('html').getAttribute('lang');
+		moment.updateLocale(getLangAttribute(), momentHelper.selectMomentOptions(getLangAttribute()));
 		const item = document.createElement('div');
 		if (this.loggedin) {
 			item.className = 'alert-item';
@@ -33,7 +38,7 @@ class AlertMessageController {
 			 	${$t('alert.text.updatedAt')} ${datetime.fromNow(message.timestamp)} <span>|</span>
 			</div>
 			<div class="alert-date text-nowrap text-muted" style="float: left; margin-left: 5px;">
-				${$t('alert.text.createdAt')} ${datetime.toDateTimeString(message.createdAt)}
+				${$t('alert.text.createdAt')} ${datetime.toDateTimeString(message.createdAt).replaceAll('/', '.')}
 			</div>
 			<div style="clear: both;"></div>`;
 		} else {
