@@ -124,11 +124,11 @@ router.get('/:newsId', (req, res, next) => {
 	api(req, { version: VERSION })
 		.get(`/news/${req.params.newsId}`)
 		.then((news) => {
-			const creatorAndUpdaterPresent = !!(news.updater && news.creator);
+			const updatedAtNotEqualCreatedAt = !(news.updatedAt === news.createdAt);
 			res.render('news/article', {
 				title: news.title,
 				news,
-				creatorAndUpdaterPresent,
+				updatedAtNotEqualCreatedAt,
 				isRSS: news.source === 'rss',
 			});
 		})
