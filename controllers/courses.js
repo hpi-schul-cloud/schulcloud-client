@@ -63,7 +63,7 @@ const getSyncedElements = 	(
 	substitutions,
 	students,
 	res,
-	syncedGroupId,
+	syncedWithGroup,
 ) => {
 	const startDate = course.startDate ? timesHelper.formatDate(course.startDate, 'DD.MM.YYYY') : undefined;
 	const untilDate = course.untilDate ? timesHelper.formatDate(course.untilDate, 'DD.MM.YYYY') : undefined;
@@ -75,7 +75,7 @@ const getSyncedElements = 	(
 		studentsSelected: selectedElementIdsToString(filterStudents(res, markSelected(students, course.userIds))),
 		startDate,
 		untilDate,
-		syncedGroupId,
+		syncedWithGroup,
 	};
 
 	return selectedElements;
@@ -207,11 +207,11 @@ const editCourseHandler = (req, res, next) => {
 			.get(`/courses/${req.params.courseId}/userPermissions/${res.locals.currentUser._id}`);
 	}
 
-	let syncedGroupId;
+	let syncedWithGroup;
 	let groupPromise;
-	if (Configuration.get('FEATURE_SCHULCONNEX_COURSE_SYNC_ENABLED') && req.query.syncWithGroup) {
-		syncedGroupId = req.query.syncWithGroup;
-		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedGroupId}`);
+	if (req.params.groupId && Configuration.get('FEATURE_SCHULCONNEX_COURSE_SYNC_ENABLED')) {
+		syncedWithGroup = req.params.groupId;
+		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedWithGroup}`);
 	}
 
 	Promise.all([
@@ -299,13 +299,13 @@ const editCourseHandler = (req, res, next) => {
 
 		const classAndGroupIdsOfCourse = [...(course.classIds || []), ...(course.groupIds || [])];
 
-		if (syncedGroupId && group) {
+		if (syncedWithGroup && group) {
 			course.name = group.name;
 			course.teacherIds = getUserIdsByRole(group.users, 'teacher');
 			course.userIds = getUserIdsByRole(group.users, 'student');
 		}
 
-		const syncedElements = (course.syncedGroupId || syncedGroupId) ? getSyncedElements(
+		const syncedElements = (course.syncedWithGroup || syncedWithGroup) ? getSyncedElements(
 			course,
 			classesAndGroups,
 			classAndGroupIdsOfCourse,
@@ -313,7 +313,7 @@ const editCourseHandler = (req, res, next) => {
 			substitutions,
 			students,
 			res,
-			syncedGroupId,
+			syncedWithGroup,
 		) : {};
 
 		if (req.params.courseId) {
