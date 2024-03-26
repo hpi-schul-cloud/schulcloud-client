@@ -1,6 +1,6 @@
 $primaryColor: #9e292b;
-$secondaryColor:#54616e;
-$accentColor: #E98404;
+$secondaryColor: #3a424b;
+$accentColor: #e98404;
 
 $logoGradient: linear-gradient(35deg, #9e292b 35%, #f6a800);
 
@@ -8,44 +8,46 @@ $colorBeige: #e6e2e2;
 $colorGrey: rgba(232, 232, 232, 0.5);
 
 $logoBackground: url("/images/logo/cloud-transparent-mono.svg") no-repeat center;
-$logoBackgroundTablet: url("/images/logo/cloud-transparent-mono-48-48.svg") no-repeat center;
-$logoBackgroundMobile: url("/images/logo/logo-dbildungsMobile.svg") no-repeat center;
+$logoBackgroundTablet: url("/images/logo/cloud-transparent-mono-48-48.svg")
+	no-repeat center;
+$logoBackgroundMobile: url("/images/logo/logo-dbildungsMobile.svg") no-repeat
+	center;
 
-aside.nav-sidebar{
-    .sc-branding{
-        padding: 0;
-        .cloud-logo{
-            width: 100%;
-            margin: 0;
-            padding: 30px;
-        }
-        .sc-title {
-            display: none;
-        }
-    }
+aside.nav-sidebar {
+	.sc-branding {
+		padding: 0;
+		.cloud-logo {
+			width: 100%;
+			margin: 0;
+			padding: 30px;
+		}
+		.sc-title {
+			display: none;
+		}
+	}
 
-    @media (max-width: 991px) {
-        .sc-branding{
-            padding: 0;
-            .cloud-logo{
-                background: $logoBackgroundTablet !important;
-                height: 32px;
-            }
-        }
-    }
+	@media (max-width: 991px) {
+		.sc-branding {
+			padding: 0;
+			.cloud-logo {
+				background: $logoBackgroundTablet !important;
+				height: 32px;
+			}
+		}
+	}
 }
 
 @media (max-width: 575px) {
-    .cloud-logo {
-        background: $logoBackgroundMobile !important;
-    }
+	.cloud-logo {
+		background: $logoBackgroundMobile !important;
+	}
 }
 
-.primary-color{
-    color: $primaryColor;
-    display: none;
+.primary-color {
+	color: $primaryColor;
+	display: none;
 }
 .secondary-color {
-    color: $secondaryColor;
-    display: none;
+	color: $secondaryColor;
+	display: none;
 }
