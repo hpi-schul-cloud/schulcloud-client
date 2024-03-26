@@ -507,7 +507,7 @@ const createSystemHandler = (req, res, next) => {
 				.patch(`/schools/${req.body.schoolId}`, {
 					json: {
 						$push: {
-							systems: system._id,
+							systems: system.id,
 						},
 					},
 				})
@@ -2837,7 +2837,7 @@ router.use(
 
 		// In the future there should be a possibility to fetch a school with all systems populated via api/v3,
 		// but at the moment they need to be fetched separately.
-		school.systems = await Promise.all(school.systemIds.map((systemId) => api(req).get(`/systems/${systemId}`)));
+		school.systems = await api(req, { version: 'v3' }).get(`/school/${school._id}/systems`);
 
 		// Maintanance - Show Menu depending on the state
 		const currentTime = new Date();
@@ -2891,8 +2891,8 @@ router.use(
 				if (hasSystemEditPermission) {
 					tableActions = tableActions.concat([
 						{
-							link: item.type === 'ldap' ? `/administration/ldap/config?id=${item._id}`
-								: `/administration/systems/${item._id}`,
+							link: item.type === 'ldap' ? `/administration/ldap/config?id=${item.id}`
+								: `/administration/systems/${item.id}`,
 							class: item.type === 'ldap' ? 'btn-edit-ldap' : 'btn-edit',
 							icon: 'edit',
 							title: res.$t('administration.controller.link.editEntry'),
@@ -2903,7 +2903,7 @@ router.use(
 				if (hasSystemCreatePermission) {
 					tableActions = tableActions.concat([
 						{
-							link: `/administration/systems/${item._id}`,
+							link: `/administration/systems/${item.id}`,
 							class: 'btn-delete--systems',
 							icon: 'trash-o',
 							method: 'delete',
@@ -3197,12 +3197,12 @@ router.post(
 						.patch(`/schools/${res.locals.currentSchool}`, {
 							json: {
 								$push: {
-									systems: system._id,
+									systems: system.id,
 								},
 							},
 						})
 						.then(() => {
-							res.redirect(`/administration/ldap/config?id=${system._id}`);
+							res.redirect(`/administration/ldap/config?id=${system.id}`);
 						})
 						.catch((err) => {
 							next(err);
