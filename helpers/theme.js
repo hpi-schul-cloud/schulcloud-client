@@ -23,7 +23,7 @@ const instanceInstitute = () => {
 		case 'thr':
 			return 'Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien';
 		case 'brb':
-			return 'Dataport';
+			return 'Ministerium für Bildung, Jugend und Sport des Landes Brandenburg';
 		default:
 			return 'Dataport';
 	}

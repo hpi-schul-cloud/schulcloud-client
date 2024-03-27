@@ -544,6 +544,7 @@
 				"theSynchronizationOfLDAPMasterData": "Die Synchronisierung von LDAP-Stammdaten wird während der Transferphase unterbrochen. Somit werden Nutzerdaten und Klassen (sofern verwendet) nicht mehr über LDAP aktualisiert. Der Login mit bereits synchronisierten Login-Daten ist weiterhin möglich. Passwortänderungen im LDAP während des Logins werden ebenfalls berücksichtigt.",
 				"useTheTransferPhaseAroundTheSchool": "Nutze die Transferphase rund um den Schuljahreswechsel, um in Ruhe im LDAP Klassenzugehörigkeit und Personendaten anzupassen. Übernimm abschließend alle Änderungen mit einem Mal in die {{title}}.",
 				"withAllChangesAndSettings": "Mit allen Änderungen und Einstellungen im Verwaltungsbereich wird bestätigt, dass diese durch einen weisungsberechtigten Schul-Admin mit Befugnis zu Anpassungen der Schule in der Cloud durchgeführt werden. Anpassungen durch den Schul-Admin gelten insofern als Weisung der Schule gegenüber dem Cloudbetreiber {{institute_title}}.",
+				"withAllChangesForTSC": "Einige oder alle Nutzer:innendaten deiner Schule werden aus einer externen Quelle (LDAP, IDM, Schulportal o. ä.) synchronisiert. Die Bearbeitung dieser Nutzer:innen-Stammdaten ist deshalb nur im Quellsystem möglich, nicht in der Schul-Cloud. Das Anlegen neuer Schüler:innen oder Lehrkräfte ist ebenfalls nur im Quellsystem möglich.",
 				"wouldYouLikeReportABug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}? Sende Wünsche oder Probleme direkt an den {{shortTitle}}-Nutzer-Support."
 			}
 		},
@@ -1248,8 +1249,7 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
-			"announcement": "<b>Wichtige Ankündigung:</b> Das Tool neXboard wird durch <b>tldraw</b> ersetzt. Sichern Sie Ihre Inhalte aus den neXboards, die Sie weiter verwenden wollen, bitte bis zum <b>15.03.2024</b>. Bis dahin können angelegte neXboards weiterhin verwendet werden. Hier finden Sie <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">Möglichkeiten der Sicherung und weitere Informationen</a>.",
-			"alternativeAnnouncement": "Ab sofort steht Ihnen <b>tldraw</b> als kollaboratives Whiteboard im Spalten-Board zur Verfügung. Neue neXboards können nun nicht mehr angelegt werden. Bereits erstellte neXboards sind noch bis <b>24.03.2024</b> zur Sicherung der Inhalte verfügbar. Hinweise zum Übertragen der Inhalte von neXboard zu tldraw finden Sie <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">hier</a>.",
+			"announcement": "Ab sofort steht Ihnen <b>tldraw</b> als kollaboratives Whiteboard im Spalten-Board zur Verfügung. Neue neXboards können nun nicht mehr angelegt werden. Bereits erstellte neXboards sind noch bis <b>23.04.2024</b> zur Sicherung der Inhalte verfügbar. Hinweise zum Übertragen der Inhalte von neXboard zu tldraw finden Sie <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">hier</a>.",
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",

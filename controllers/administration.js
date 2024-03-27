@@ -507,7 +507,7 @@ const createSystemHandler = (req, res, next) => {
 				.patch(`/schools/${req.body.schoolId}`, {
 					json: {
 						$push: {
-							systems: system._id,
+							systems: system.id,
 						},
 					},
 				})
@@ -960,7 +960,7 @@ router.get(
 	'/teachers/:id/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_EDIT'], 'or'),
 	(req, res, next) => {
-		const userPromise = api(req).get(`users/admin/teachers/${req.params.id}`);
+		const userPromise = api(req, { version: 'v3' }).get(`users/admin/teachers/${req.params.id}`);
 		const classesPromise = getSelectOptions(req, 'classes', {
 			$populate: ['year'],
 			$sort: 'displayName',
@@ -1119,7 +1119,7 @@ router.get(
 	'/students/:id/skipregistration',
 	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
 	(req, res, next) => {
-		api(req).get(`/users/admin/students/${req.params.id}`)
+		api(req, { version: 'v3' }).get(`/users/admin/students/${req.params.id}`)
 			.then((user) => {
 				res.render('administration/users_skipregistration', {
 					title: res.$t('administration.controller.link.toGiveConsent'),
@@ -1165,7 +1165,7 @@ router.get(
 			$skip: itemsPerPage * (currentPage - 1),
 		};
 		query = Object.assign(query, filterQuery);
-		api(req)
+		api(req, { version: 'v3' })
 			.get('/users/admin/students', {
 				qs: query,
 			})
@@ -1288,13 +1288,14 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	const batchSize = 50;
 	while (users.length > 0) {
 		usersWithMissingConsents.push(
-			...(await api(req).get('/users/admin/students', {
+			...(await api(req, { version: 'v3' }).get('/users/admin/students', {
 				qs: {
 					users: users
 						.splice(0, batchSize)
 						.map((u) => u._id),
-					consentStatus: ['missing', 'parentsAgreed'],
+					consentStatus: { $in: ['missing', 'parentsAgreed'] },
 					$limit: batchSize,
+					$sort: { 'lastName': 1},
 				},
 			})).data,
 		);
@@ -1400,7 +1401,7 @@ router.get(
 	'/students/:id/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_EDIT'], 'or'),
 	(req, res, next) => {
-		const userPromise = api(req).get(`/users/admin/students/${req.params.id}`);
+		const userPromise = api(req, { version: 'v3' }).get(`/users/admin/students/${req.params.id}`);
 		const accountPromise = api(req, { json: true, version: 'v3' })
 			.get('/account', {
 				qs: { type: 'userId', value: req.params.id },
@@ -2231,6 +2232,7 @@ router.get(
 					filterSettings: JSON.stringify(classFilterSettings({ years, defaultYear, showTab }, res)),
 					classesTabs,
 					showTab,
+					currentPath: 'administration/classes',
 				});
 			});
 	},
@@ -2835,7 +2837,7 @@ router.use(
 
 		// In the future there should be a possibility to fetch a school with all systems populated via api/v3,
 		// but at the moment they need to be fetched separately.
-		school.systems = await Promise.all(school.systemIds.map((systemId) => api(req).get(`/systems/${systemId}`)));
+		school.systems = await api(req, { version: 'v3' }).get(`/school/${school._id}/systems`);
 
 		// Maintanance - Show Menu depending on the state
 		const currentTime = new Date();
@@ -2889,8 +2891,8 @@ router.use(
 				if (hasSystemEditPermission) {
 					tableActions = tableActions.concat([
 						{
-							link: item.type === 'ldap' ? `/administration/ldap/config?id=${item._id}`
-								: `/administration/systems/${item._id}`,
+							link: item.type === 'ldap' ? `/administration/ldap/config?id=${item.id}`
+								: `/administration/systems/${item.id}`,
 							class: item.type === 'ldap' ? 'btn-edit-ldap' : 'btn-edit',
 							icon: 'edit',
 							title: res.$t('administration.controller.link.editEntry'),
@@ -2901,7 +2903,7 @@ router.use(
 				if (hasSystemCreatePermission) {
 					tableActions = tableActions.concat([
 						{
-							link: `/administration/systems/${item._id}`,
+							link: `/administration/systems/${item.id}`,
 							class: 'btn-delete--systems',
 							icon: 'trash-o',
 							method: 'delete',
@@ -3195,12 +3197,12 @@ router.post(
 						.patch(`/schools/${res.locals.currentSchool}`, {
 							json: {
 								$push: {
-									systems: system._id,
+									systems: system.id,
 								},
 							},
 						})
 						.then(() => {
-							res.redirect(`/administration/ldap/config?id=${system._id}`);
+							res.redirect(`/administration/ldap/config?id=${system.id}`);
 						})
 						.catch((err) => {
 							next(err);
