@@ -132,12 +132,6 @@ const helpers = () => ({
 		}
 		return opts.inverse(this);
 	},
-	ifNot: (value, opts) => {
-		if (!value) {
-			return opts.fn(this);
-		}
-		return opts.inverse(this);
-	},
 	ifvalue: (conditional, options) => {
 		if (options.hash.value === conditional) {
 			return options.fn(this);

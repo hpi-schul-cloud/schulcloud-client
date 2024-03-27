@@ -595,7 +595,6 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/add/', editCourseHandler);
-router.get('/:groupId/sync', editCourseHandler);
 
 /*
  * Single Course
