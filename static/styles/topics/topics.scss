@@ -18,15 +18,16 @@
 }
 
 .info-custom {
-	background-color: $colorGrey;
-	border-color: $colorLightGrey;
+	background-color: $colorWhite;
+	border-color: $colorInfo;
 	color: $fontColor;
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: flex-start;
+	border-top-width: 8px;
 	gap: 18px;
 
 	i {
-		margin: auto;
+		color: $colorInfo;
 	}
 }
