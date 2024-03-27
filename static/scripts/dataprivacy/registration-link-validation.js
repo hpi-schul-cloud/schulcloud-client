@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded', () => {
 						<mask id="mask-2" fill="white">
 							<use xlink:href="#path-1"></use>
 						</mask>
-						<use id="Combined-Shape" fill="#54616e" xlink:href="#path-1"></use>
+						<use id="Combined-Shape" fill="#3a424b" xlink:href="#path-1"></use>
 					</g>
 					<g id="Group-16-Copy" transform="translate(606.247539, 301.850704) rotate(-127.000000) translate(-606.247539, -301.850704) translate(565.747539, 139.850704)">
 						<g id="Group-15" transform="translate(40.500000, 134.000000) rotate(-180.000000) translate(-40.500000, -134.000000) translate(0.000000, 0.000000)">
