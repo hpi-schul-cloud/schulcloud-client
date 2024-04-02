@@ -193,6 +193,7 @@ const helpers = () => ({
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
 	getAssetPath: (assetPath) => getStaticAssetPath(assetPath),
 	timeFromNow: (date) => timesHelper.fromNow(date),
+	timeFromNowWithRule: (date) => timesHelper.fromNowWithRule(date),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
 			format = 'YYYY.MM.DD';

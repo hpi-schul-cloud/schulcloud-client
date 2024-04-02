@@ -20,36 +20,29 @@
 {{#unless isRSS}}
     <small class="text-muted">
         {{#if updatedAtNotEqualCreatedAt}}
-        {{$t "news.text.last" }} {{$t "news.text.processed" }}
+        <i class="mdi mdi-pencil" aria-hidden="true"></i> {{timeFromNowWithRule news.updatedAt}}
         {{/if}}
         {{#if news.updater}}
-        {{$t "news.text.by" }} {{news.updater.firstName}} {{news.updater.lastName}}
-        {{/if}}
-        {{#if updatedAtNotEqualCreatedAt}}
-        {{timeFromNow news.updatedAt}}
+         | <i class="mdi mdi-account-school-outline" aria-hidden="true"></i> {{news.updater.firstName}} {{news.updater.lastName}}
         {{/if}}
         {{#if updatedAtNotEqualCreatedAt}} | {{/if}}
-        {{$t "news.text.created" }}
+        <i class="mdi mdi-clock-time-four-outline" aria-hidden="true"></i> {{timeFromNowWithRule news.displayAt}}
         {{#if news.creator}}
-        {{$t "news.text.by" }} {{news.creator.firstName}} {{news.creator.lastName}}
+         | <i class="mdi mdi-account-school-outline" aria-hidden="true"></i> {{news.creator.firstName}} {{news.creator.lastName}}
         {{/if}}
-        {{timeFromNow news.displayAt}}
         {{#if news.target.name}}
         {{#ifCond news.targetModel '===' 'teams'}}
-        {{$t "news.text.inTheTeam" }}
+         | <i class="mdi mdi-account-group-outline" aria-hidden="true"></i>
         <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'courses'}}
-        {{$t "news.text.inTheCourse" }}
-         <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
+         | <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'class'}}
-        {{$t "news.text.inTheClass" }}
- <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
+         | <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{/if}}
-        </br>
-        {{#ifCond @root.currentUser.schoolId '!==' news.school.id}} {{$t "news.text.atSchool" }} {{../news.school.name}}
+        {{#ifCond @root.currentUser.schoolId '!==' news.school.id}} | <i class="fa fa-building" aria-hidden="true"></i> {{../news.school.name}}
         {{/ifCond}}
     </small>
     {{/unless}}
