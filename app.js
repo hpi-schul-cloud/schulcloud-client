@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const redis = require('redis');
+const redis = require('ioredis');
 const RedisStore = require('connect-redis').default;
 const session = require('express-session');
 const methodOverride = require('method-override');
@@ -210,7 +210,6 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 // add res.$t method for i18n with users prefered language
 app.use(require('./middleware/i18n'));
 app.use(require('./middleware/datetime'));
-
 
 const redirectUrl = Configuration.get('ROOT_URL_REDIRECT');
 if (redirectUrl !== '') {
