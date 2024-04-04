@@ -21,7 +21,7 @@ const timesHelper = require('../helpers/timesHelper');
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS, FEATURE_NEST_SYSTEMS_API_ENABLED } = require('../config/global');
+const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
 const renameIdsInSchool = require('../helpers/schoolHelper');
 
@@ -483,16 +483,10 @@ const getDeleteHandler = (service, redirectUrl, apiVersion = 'v1') => function d
 };
 
 const removeSystemFromSchoolHandler = (req, res, next) => {
-	api(req)
-		.patch(`/schools/${res.locals.currentSchool}`, {
-			json: {
-				$pull: {
-					systems: req.params.id,
-				},
-			},
-		})
+	api(req, { version: 'v3' })
+		.patch(`school/${res.locals.currentSchool}/system/${req.params.id}/remove/`)
 		.then(() => {
-			next();
+			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((err) => {
 			next(err);
@@ -2766,7 +2760,6 @@ router.get('/systems/:id', getDetailHandler('systems'));
 router.delete(
 	'/systems/:id',
 	removeSystemFromSchoolHandler,
-	getDeleteHandler('systems', undefined, FEATURE_NEST_SYSTEMS_API_ENABLED === 'true' ? 'v3' : 'v1'),
 );
 
 router.get('/rss/:id', async (req, res) => {
