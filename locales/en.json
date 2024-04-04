@@ -2645,17 +2645,12 @@
 			"searchForNews": "Search for news"
 		},
 		"text": {
-			"atSchool": "at school",
-			"atYourSchool": "at your school ",
-			"by": "by",
 			"created": "created",
+			"edited": "edited",
 			"inTheClass": "in the class",
 			"inTheCourse": "in the course",
-			"inTheTeam": "in the team",
-			"last": "last",
 			"newsNeedContent": "News need content!",
 			"newsNeedTitle": "News need a title!",
-			"processed": "edited",
 			"released": "Released",
 			"unpublished": "Unpublished"
 		}

@@ -1,7 +1,6 @@
 {{#extend "news/news"}}
 {{#content "page"}}
 <p>
-
     {{#if isRSS}}
     {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
     <small class="text-muted">
@@ -13,27 +12,25 @@
     {{/userHasPermission}}
     {{/if}}
 
-</p>
-<div class="ckcontent">
-    {{{news.content}}}
-</div>
-{{#unless isRSS}}
+    {{#unless isRSS}}
     <small class="text-muted">
         {{#if updatedAtNotEqualCreatedAt}}
-        <i class="mdi mdi-pencil" aria-hidden="true"></i> {{timeFromNowWithRule news.updatedAt}}
+            <small class="custom-style" data-html="true" data-toggle="tooltip" data-placement="bottom" title="{{$t "news.text.edited"}} {{timeFromNowWithRule news.updatedAt}} {{#if news.updater}} | {{news.updater.firstName}} {{news.updater.lastName}}{{/if}}<br>{{$t "news.text.created"}} {{timeFromNowWithRule news.displayAt}} {{#if news.creator}} | {{news.creator.firstName}} {{news.creator.lastName}} {{/if}}">
+                {{> 'news/svg_clock' }} {{timeFromNowWithRule news.updatedAt}}
+            </small>
+            {{#if news.updater}}
+             | {{> 'news/svg_teacher' }} {{news.updater.firstName}} {{news.updater.lastName}}
+            {{/if}}
         {{/if}}
-        {{#if news.updater}}
-         | <i class="mdi mdi-account-school-outline" aria-hidden="true"></i> {{news.updater.firstName}} {{news.updater.lastName}}
-        {{/if}}
-        {{#if updatedAtNotEqualCreatedAt}} | {{/if}}
-        <i class="mdi mdi-clock-time-four-outline" aria-hidden="true"></i> {{timeFromNowWithRule news.displayAt}}
-        {{#if news.creator}}
-         | <i class="mdi mdi-account-school-outline" aria-hidden="true"></i> {{news.creator.firstName}} {{news.creator.lastName}}
-        {{/if}}
+        {{#unless updatedAtNotEqualCreatedAt}}
+            {{> 'news/svg_clock' }} {{timeFromNowWithRule news.displayAt}}
+            {{#if news.creator}}
+             | {{> 'news/svg_teacher' }} {{news.creator.firstName}} {{news.creator.lastName}}
+            {{/if}}
+        {{/unless}}
         {{#if news.target.name}}
         {{#ifCond news.targetModel '===' 'teams'}}
-         | <i class="mdi mdi-account-group-outline" aria-hidden="true"></i>
-        <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
+         | {{> 'news/svg_team' }} <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'courses'}}
          | <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
@@ -42,10 +39,14 @@
          | <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{/if}}
-        {{#ifCond @root.currentUser.schoolId '!==' news.school.id}} | <i class="fa fa-building" aria-hidden="true"></i> {{../news.school.name}}
+        {{#ifCond @root.currentUser.schoolId '!==' news.school.id}} | {{> 'news/svg_school' }} {{../news.school.name}}
         {{/ifCond}}
     </small>
     {{/unless}}
+</p>
+<div class="ckcontent">
+    {{{news.content}}}
+</div>
 {{#unless isRSS}}
 <div class="mt-1">
     {{#inArray 'NEWS_EDIT' ../news.permissions}}

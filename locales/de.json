@@ -2645,17 +2645,12 @@
 			"searchForNews": "Suche nach Neuigkeiten"
 		},
 		"text": {
-			"atSchool": "an der Schule",
-			"atYourSchool": "an deiner Schule ",
 			"created": "erstellt",
-			"by": "von",
+			"edited": "bearbeitet",
 			"inTheClass": "in der Klasse",
 			"inTheCourse": "im Kurs",
-			"inTheTeam": "im Team",
-			"last": "zuletzt",
 			"newsNeedContent": "News benötigen Inhalt!",
 			"newsNeedTitle": "News benötigen einen Titel!",
-			"processed": "bearbeitet",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
 		}
