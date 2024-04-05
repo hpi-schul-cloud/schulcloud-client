@@ -602,11 +602,6 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables to get groups of type class in courses"
-		},
-		"FEATURE_NEST_SYSTEMS_API_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "Uses the v3 api over the v1 api for systems"
 		}
 	},
 	"allOf": [
