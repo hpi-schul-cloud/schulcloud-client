@@ -13,33 +13,33 @@
     {{/if}}
 
     {{#unless isRSS}}
-    <small class="text-muted">
+    <small class="text-muted news-title-container">
         {{#if updatedAtNotEqualCreatedAt}}
-            <small class="custom-style" data-html="true" data-toggle="tooltip" data-placement="bottom" title="{{$t "news.text.edited"}} {{timeFromNowWithRule news.updatedAt}} {{#if news.updater}} | {{news.updater.firstName}} {{news.updater.lastName}}{{/if}}<br>{{$t "news.text.created"}} {{timeFromNowWithRule news.displayAt}} {{#if news.creator}} | {{news.creator.firstName}} {{news.creator.lastName}} {{/if}}">
-                {{> 'news/svg_clock' }} {{timeFromNowWithRule news.updatedAt}}
+            <small class="news-custom-style" data-html="true" data-toggle="tooltip" data-placement="bottom" title="{{$t "news.text.edited"}} {{timeFromNowWithRule news.updatedAt}} {{#if news.updater}} | {{news.updater.firstName}} {{news.updater.lastName}}{{/if}}<br>{{$t "news.text.created"}} {{timeFromNowWithRule news.displayAt}} {{#if news.creator}} | {{news.creator.firstName}} {{news.creator.lastName}} {{/if}}">
+                {{> 'news/svg_clock' }}&nbsp;{{timeFromNowWithRule news.updatedAt}}
             </small>
             {{#if news.updater}}
-             | {{> 'news/svg_teacher' }} {{news.updater.firstName}} {{news.updater.lastName}}
+            &nbsp;|&nbsp;{{> 'news/svg_teacher' }}&nbsp;{{news.updater.firstName}} {{news.updater.lastName}}
             {{/if}}
         {{/if}}
         {{#unless updatedAtNotEqualCreatedAt}}
-            {{> 'news/svg_clock' }} {{timeFromNowWithRule news.displayAt}}
+            {{> 'news/svg_clock' }}&nbsp; {{timeFromNowWithRule news.displayAt}}
             {{#if news.creator}}
-             | {{> 'news/svg_teacher' }} {{news.creator.firstName}} {{news.creator.lastName}}
+            &nbsp;|&nbsp;{{> 'news/svg_teacher' }}&nbsp;{{news.creator.firstName}} {{news.creator.lastName}}
             {{/if}}
         {{/unless}}
         {{#if news.target.name}}
         {{#ifCond news.targetModel '===' 'teams'}}
-         | {{> 'news/svg_team' }} <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
+        &nbsp;|&nbsp;{{> 'news/svg_team' }}&nbsp;<a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'courses'}}
-         | <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
+        &nbsp;|&nbsp;<a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{#ifCond news.targetModel '===' 'class'}}
-         | <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
+        &nbsp;|&nbsp;<a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}
         {{/if}}
-        {{#ifCond @root.currentUser.schoolId '!==' news.school.id}} | {{> 'news/svg_school' }} {{../news.school.name}}
+        {{#ifCond @root.currentUser.schoolId '!==' news.school.id}}&nbsp;|&nbsp;{{> 'news/svg_school' }}&nbsp;{{../news.school.name}}
         {{/ifCond}}
     </small>
     {{/unless}}
