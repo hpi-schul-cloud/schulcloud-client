@@ -101,6 +101,22 @@ const now = () => {
 const fromNow = (date) => moment(date).fromNow();
 
 /**
+ *
+ * @param date
+ * @returns {string}
+ */
+const fromNowWithRule = (date) => {
+	let result;
+	const diff = moment() - moment(date);
+	if (moment.duration(diff).asDays() < -6 || moment.duration(diff).asDays() > 6) {
+		result = moment(date).format('DD.MM.YYYY');
+	} else {
+		result = moment(date).fromNow();
+	}
+	return result;
+};
+
+/**
  * @param {Date} date Date object
  * @param dateFormat date format
  * @param timeFormat optional time format (default HH:mm)
@@ -217,6 +233,7 @@ module.exports = {
 	currentDate,
 	now,
 	fromNow,
+	fromNowWithRule,
 	timeToString,
 	splitDate,
 	formatDate,

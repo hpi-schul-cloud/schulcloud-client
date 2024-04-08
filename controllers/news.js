@@ -124,7 +124,7 @@ router.get('/:newsId', (req, res, next) => {
 	api(req, { version: VERSION })
 		.get(`/news/${req.params.newsId}`)
 		.then((news) => {
-			const updatedAtNotEqualCreatedAt = !(news.updatedAt === news.createdAt);
+			const updatedAtNotEqualCreatedAt = !(news.updatedAt === news.createdAt) && (news.updatedAt !== undefined);
 			res.render('news/article', {
 				title: news.title,
 				news,

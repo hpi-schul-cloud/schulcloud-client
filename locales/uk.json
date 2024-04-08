@@ -1674,19 +1674,15 @@
 			"searchForNews": "Пошук новин"
 		},
 		"text": {
-			"atSchool": "у школі",
-			"atYourSchool": "у вашій школі ",
 			"created": "створено",
-			"by": "",
+			"edited": "відредаговано",
 			"inTheClass": "в класі",
 			"inTheCourse": "в курсі",
-			"inTheTeam": "в команді",
 			"last": "останній раз було",
-			"processed": "відредаговано",
-			"released": "Випущено",
-			"unpublished": "Не опубліковано",
 			"newsNeedContent": "Новинам потрібний контент!",
-			"newsNeedTitle": "Новинам потрібна назва!"
+			"newsNeedTitle": "Новинам потрібна назва!",
+			"released": "Випущено",
+			"unpublished": "Не опубліковано"
 		},
 		"_news": {
 			"headline": {
