@@ -103,7 +103,7 @@ function submitAfterUpload(type, id) {
 		$('#homework-form').trigger('submit');
 	}
 
-	if (type === 'submissions') {
+	if (type === 'submissions' || type === 'gradings') {
 		window.localStorage.setItem('afterUploadFiles', 'true');
 		$(`form.${id}`).trigger('submit');
 	}
