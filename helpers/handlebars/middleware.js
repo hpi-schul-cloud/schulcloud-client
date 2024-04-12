@@ -91,6 +91,7 @@ module.exports = (req, res, next) => {
 		icon: 'folder-open-outline',
 		link: '/files/',
 		excludedPermission: 'COLLABORATIVE_FILES_ONLY',
+		groupName: 'files',
 		children: [
 			{
 				name: res.$t('global.link.filesPersonal'),
@@ -235,6 +236,7 @@ module.exports = (req, res, next) => {
 		link: '/administration/',
 		permission: 'STUDENT_LIST',
 		excludedPermission: 'ADMIN_VIEW',
+		groupName: 'administration',
 		children: teacherChildren,
 	});
 
@@ -245,6 +247,7 @@ module.exports = (req, res, next) => {
 		link: '/administration/',
 		permission: 'TEACHER_LIST',
 		excludedPermission: ['ADMIN_VIEW', 'STUDENT_LIST'],
+		groupName: 'administration',
 		children: teacherChildrenWithoutStudents,
 	});
 
@@ -314,6 +317,7 @@ module.exports = (req, res, next) => {
 		icon: 'cog-outline',
 		link: '/administration/',
 		permission: 'ADMIN_VIEW',
+		groupName: 'administration',
 		children: adminChildItems,
 	});
 
@@ -357,6 +361,7 @@ module.exports = (req, res, next) => {
 		testId: 'Hilfebereich',
 		icon: 'help-circle-outline',
 		link: '/help/',
+		groupName: 'help',
 		children: [
 			{
 				name: res.$t('help.headline.helpSection'),

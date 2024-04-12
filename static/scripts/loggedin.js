@@ -22,6 +22,13 @@ function showHideGlobalAnnouncement() {
 	}
 }
 
+function toggleSidebarItemGroup(groupName) {
+    const itemGroup = document.querySelector(`.${groupName}`);
+	if (itemGroup) {
+		showHideElement(itemGroup);
+	}
+}
+
 function toggleMobileNav() {
     document.querySelector('aside.nav-sidebar').classList.toggle('active');
 	showHideGlobalAnnouncement();
@@ -76,6 +83,14 @@ $(document).ready(() => {
 });
 
 $(document).ready(function () {
+    // new sidebar
+    var groupToggleBtns = document.querySelectorAll('.group-toggle-btn');
+    if (groupToggleBtns) {
+        groupToggleBtns.forEach((btn) => {
+            btn.addEventListener('click', () => toggleSidebarItemGroup(btn.dataset.groupName));
+        })
+    }
+
     // Init mobile nav
     var mobileNavToggle = document.querySelector('.mobile-nav-toggle');
     var mobileSearchToggle = document.querySelector('.mobile-search-toggle');

@@ -28,9 +28,9 @@
                                     {{/if}}
                                     <span class="link-name">{{this.name}}</span>
                                 </div>
-                                <i class="toggle-icon mdi mdi-chevron-down" aria-hidden="true"></i>
+                                <i class="group-toggle-btn mdi mdi-chevron-down" data-group-name="{{this.groupName}}" aria-hidden="true"></i>
                             </div>
-                            <ul class="subitems">
+                            <ul class="subitems {{this.groupName}}" >
                                 {{#each this.children}}
                                     <li data-testid="{{this.testId}}">
                                         <a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
