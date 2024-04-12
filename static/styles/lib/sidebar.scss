@@ -63,13 +63,14 @@
 
 		&.subitems {
 			padding: 0px;
-			margin-top: 1px;
 		}
 
 		li {
 			width: 100%;
 
 			.subitem {
+        display: flex;
+				align-items: center;
 				color: $secondaryColor;
 				padding-left: 56px;
 				font-size: 16px;
@@ -77,7 +78,6 @@
 				overflow-x: visible;
 				white-space: nowrap;
 				height: 40px;
-				line-height: 40px;
 				letter-spacing: 0.009375em;
 				border-bottom: 1px solid transparent;
 			}
