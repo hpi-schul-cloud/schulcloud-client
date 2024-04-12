@@ -45,7 +45,8 @@
             <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
         {{/if}}
 
-        <div class="navtooltips"></div>
+        {{#embed "lib/sidebar"}}{{/embed}}
+        {{!-- <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
                 <ul class="sidebar-list">
@@ -89,7 +90,7 @@
                     {{/each}}
                 </ul>
             </nav>
-        </aside>
+        </aside> --}}
 
 		<section class="content-wrapper">
 					{{!-- <a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">

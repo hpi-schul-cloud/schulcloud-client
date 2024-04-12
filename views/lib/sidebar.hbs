@@ -1,0 +1,58 @@
+<div class="navtooltips"></div>
+    <aside class="sidebar">
+        <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
+            <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
+                <div class="cloud-logo"></div>
+                <div class="sc-title"><span>{{theme.short_title}}</span></div>
+            </a>
+            <ul class="sidebar-list">
+                {{#each sidebarItems}}
+                    <li>
+                        {{#unless this.children}}
+                            <a class="{{this.class}} sidebar-item" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+                                {{#if this.isExternalIcon}}
+                                    {{{this.icon}}}
+                                {{else}}
+                                    <i class="mdi mdi-{{this.icon}}" aria-hidden="true"></i>
+                                {{/if}}
+                                <span class="link-name">{{this.name}}</span>
+                            </a>
+                        {{/unless}}
+                        {{#if this.children}}
+                            <div class="{{this.class}} sidebar-item" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+                                <div>
+                                    {{#if this.isExternalIcon}}
+                                        {{{this.icon}}}
+                                    {{else}}
+                                        <i class="mdi mdi-{{this.icon}}" aria-hidden="true"></i>
+                                    {{/if}}
+                                    <span class="link-name">{{this.name}}</span>
+                                </div>
+                                <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
+                            </div>
+                        {{/if}}
+
+                        {{#if this.childActive}}
+                            {{#if this.children}}
+                                <ul class="subitems">
+                                    {{#each this.children}}
+                                        <li data-testid="{{this.testId}}">
+                                            <a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+                                                {{#if this.isExternalIcon}}
+                                                    {{{this.icon}}}
+                                                {{else}}
+                                                    <i class="mdi mdi-{{this.icon}}" aria-hidden="true"></i>
+                                                {{/if}}
+                                                <span class="link-name">{{this.name}}</span>
+                                            </a>
+                                        </li>
+                                    {{/each}}
+                                </ul>
+                            {{/if}}
+                        {{/if}}
+
+                    </li>
+                {{/each}}
+            </ul>
+        </nav>
+    </aside>
