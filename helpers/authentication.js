@@ -284,8 +284,8 @@ const mapErrorToTranslationKey = (error) => {
 			return 'login.text.schoolInMigration';
 		case 'USER_NOT_FOUND_AFTER_PROVISIONING':
 			return 'login.text.userNotFoundAfterProvisioning';
-		case 'MULTIPLE_USERS_MIGRATION_LOGGABLE_EXCEPTION':
-			return 'login.text.multipleUserFound';
+		case 'MULTIPLE_USERS_FOUND_LOGGABLE_EXCEPTION':
+			return 'login.text.multipleUsersFound';
 		default:
 			return 'login.text.loginFailed';
 	}
