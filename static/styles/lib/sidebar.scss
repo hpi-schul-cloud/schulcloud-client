@@ -7,7 +7,7 @@
 	top: 0;
 	left: 0;
 	overflow: auto;
-	width: 255px;
+	width: 256px;
 	height: 100vh;
 	margin: 0;
 	color: #727272;
@@ -61,8 +61,26 @@
 		padding: 12px 0px;
 		margin: 0px;
 
+		&.subitems {
+			padding: 0px;
+			margin-top: 1px;
+		}
+
 		li {
 			width: 100%;
+
+			.subitem {
+				color: $secondaryColor;
+				padding-left: 56px;
+				font-size: 16px;
+				text-decoration: none;
+				overflow-x: visible;
+				white-space: nowrap;
+				height: 40px;
+				line-height: 40px;
+				letter-spacing: 0.009375em;
+				border-bottom: 1px solid transparent;
+			}
 
 			.sidebar-item {
 				display: flex;
@@ -77,24 +95,19 @@
 				overflow-x: visible;
 				white-space: nowrap;
 
+				&:not(a) {
+					justify-content: space-between;
+				}
+
+				> div {
+					display: flex;
+					align-items: center;
+					justify-content: start;
+				}
+
 				&.child-active {
 					// border-bottom: 1px solid transparent;
 					color: $primaryColor;
-				}
-
-				&.subitem {
-					height: 40px;
-					line-height: 40px;
-					border-bottom: 1px solid transparent;
-
-					span {
-						margin-left: 6px;
-					}
-
-					.mdi,
-					svg {
-						margin-left: 10px;
-					}
 				}
 
 				&.active {
@@ -140,14 +153,6 @@
 					letter-spacing: 0.009375em;
 					text-overflow: ellipsis;
 					overflow: hidden;
-
-					@include media-breakpoint-down(md) {
-						display: none;
-					}
-
-					@include media-breakpoint-down(xs) {
-						display: inline-block;
-					}
 				}
 			}
 		}
