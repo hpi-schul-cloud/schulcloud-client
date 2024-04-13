@@ -253,7 +253,8 @@
 				"addons": "Доповнення",
 				"administrationClasses": "Класи",
 				"administrationCourses": "Курси",
-				"administration": "Адміністрація"
+				"administration": "Адміністрація",
+				"system": "Cистема"
 			}
 		},
 		"aria_label": {

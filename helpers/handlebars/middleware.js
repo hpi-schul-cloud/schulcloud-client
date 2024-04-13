@@ -8,6 +8,8 @@ const {
 	FEATURE_TEAMS_ENABLED,
 	FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED,
 	FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED,
+	ALERT_STATUS_URL,
+	SC_THEME,
 } = require('../../config/global');
 
 const makeActive = (items, currentUrl) => {
@@ -377,8 +379,50 @@ module.exports = (req, res, next) => {
 				link: 'https://lernen.cloud/',
 				isExternalLink: true,
 			},
+			// new sidebar
+			{
+				name: res.$t("lib.help_menu.link.releaseNotes"),
+				link: "/help/releases",
+				testId: "releases",
+			},
 		],
 	});
+
+	// new sidebar
+
+	// system group
+	let systemLinks = [{
+		name: res.$t("lib.global.link.github"),
+		link: "https://github.com/hpi-schul-cloud",
+		testId: "github",
+		target: "_blank",
+	}]
+
+	if (ALERT_STATUS_URL) {
+		systemLinks.push({
+			link: ALERT_STATUS_URL,
+			name: res.$t("lib.global.link.status"),
+			testId: "status",
+			isExternalLink: true,
+		});
+	}
+	if (SC_THEME === "default") {
+		systemLinks.push({
+			link: "/security",
+			name: res.$t("lib.global.link.safety"),
+			testId: "security",
+		});
+	}
+
+	res.locals.sidebarItems.push(
+		{
+			name: res.$t("global.sidebar.link.system"),
+			icon: "application-brackets-outline",
+			testId: "system",
+			groupName: "system",
+			children: systemLinks,
+		}
+	);
 
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 

@@ -36,7 +36,7 @@
                                 <ul class="subitems {{../groupName}}" >
                                     {{#each ../children}}
                                         <li data-testid="{{this.testId}}">
-                                            <a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+                                            <a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" rel="noopener"{{/if}}>
                                                 <span class="link-name">{{this.name}}</span>
                                             </a>
                                         </li>
