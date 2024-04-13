@@ -325,15 +325,6 @@ module.exports = (req, res, next) => {
 		children: adminChildItems,
 	});
 
-	// beta user view
-	res.locals.sidebarItems.push({
-		name: res.$t('global.headline.myMaterial'),
-		testId: 'Meine Materialien',
-		icon: 'book',
-		link: '/my-material/',
-		permission: 'BETA_FEATURES',
-	});
-
 	// team feature toggle
 	const teamsEnabled = FEATURE_TEAMS_ENABLED === 'true';
 	if (teamsEnabled) {
@@ -388,6 +379,7 @@ module.exports = (req, res, next) => {
 			},
 		],
 	});
+
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
 	let notificationsPromise = [];
