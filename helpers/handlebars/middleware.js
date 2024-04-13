@@ -230,6 +230,10 @@ module.exports = (req, res, next) => {
 	}
 
 	res.locals.sidebarItems.push({
+		name: 'divider',
+	});
+
+	res.locals.sidebarItems.push({
 		name: res.$t('global.link.management'),
 		testId: 'Verwaltung',
 		icon: 'cog-outline',

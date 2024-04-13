@@ -61,6 +61,18 @@
 		padding: 12px 0px;
 		margin: 0px;
 
+    .divider {
+      display: block;
+      flex: 1 1 100%;
+      height: 0px;
+      max-height: 0px;
+      opacity: var(--v-border-opacity);
+      transition: inherit;
+      border-style: solid;
+      border-width: thin 0 0 0;
+      margin: 12px 0px;
+    }
+
 		&.subitems {
 			padding: 0px;
 		}

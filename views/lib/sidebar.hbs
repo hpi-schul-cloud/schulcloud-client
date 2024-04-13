@@ -7,40 +7,44 @@
             </a>
             <ul class="sidebar-list">
                 {{#each sidebarItems}}
-                    <li>
-                        {{#unless this.children}}
-                            <a class="{{this.class}} sidebar-item" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
-                                {{#if this.isExternalIcon}}
-                                    {{{this.icon}}}
-                                {{else}}
-                                    <i class="mdi mdi-{{this.icon}}" aria-hidden="true"></i>
-                                {{/if}}
-                                <span class="link-name">{{this.name}}</span>
-                            </a>
-                        {{/unless}}
-                        {{#if this.children}}
-                            <div class="{{this.class}} sidebar-item" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
-                                <div>
-                                    {{#if this.isExternalIcon}}
-                                        {{{this.icon}}}
+                    {{#ifeq this.name "divider"}}
+                        <hr class="divider" aria-orientation="horizontal" role="separator">
+                    {{else}}
+                        <li>
+                            {{#unless ../children}}
+                                <a class="{{../class}} sidebar-item" href="{{../link}}" title="{{../name}}" data-testid="{{../testId}}" aria-label="{{../name}} {{#if ../isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if ../isExternalLink}}target="_blank" {{/if}}>
+                                    {{#if ../isExternalIcon}}
+                                        {{{../icon}}}
                                     {{else}}
-                                        <i class="mdi mdi-{{this.icon}}" aria-hidden="true"></i>
+                                        <i class="mdi mdi-{{../icon}}" aria-hidden="true"></i>
                                     {{/if}}
-                                    <span class="link-name">{{this.name}}</span>
+                                    <span class="link-name">{{../name}}</span>
+                                </a>
+                            {{/unless}}
+                            {{#if ../children}}
+                                <div class="{{../class}} sidebar-item" href="{{../link}}" title="{{../name}}" data-testid="{{../testId}}" aria-label="{{../name}} {{#if ../isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if ../isExternalLink}}target="_blank" {{/if}}>
+                                    <div>
+                                        {{#if ../isExternalIcon}}
+                                            {{{../icon}}}
+                                        {{else}}
+                                            <i class="mdi mdi-{{../icon}}" aria-hidden="true"></i>
+                                        {{/if}}
+                                        <span class="link-name">{{../name}}</span>
+                                    </div>
+                                    <i class="group-toggle-btn mdi mdi-chevron-down" data-group-name="{{../groupName}}" aria-hidden="true"></i>
                                 </div>
-                                <i class="group-toggle-btn mdi mdi-chevron-down" data-group-name="{{this.groupName}}" aria-hidden="true"></i>
-                            </div>
-                            <ul class="subitems {{this.groupName}}" >
-                                {{#each this.children}}
-                                    <li data-testid="{{this.testId}}">
-                                        <a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
-                                            <span class="link-name">{{this.name}}</span>
-                                        </a>
-                                    </li>
-                                {{/each}}
-                            </ul>
-                        {{/if}}
-                    </li>
+                                <ul class="subitems {{../groupName}}" >
+                                    {{#each ../children}}
+                                        <li data-testid="{{this.testId}}">
+                                            <a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+                                                <span class="link-name">{{this.name}}</span>
+                                            </a>
+                                        </li>
+                                    {{/each}}
+                                </ul>
+                            {{/if}}
+                        </li>
+                    {{/ifeq}}
                 {{/each}}
             </ul>
         </nav>
