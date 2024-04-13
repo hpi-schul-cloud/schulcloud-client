@@ -47,5 +47,36 @@
                     {{/ifeq}}
                 {{/each}}
             </ul>
+            <hr class="divider legal" aria-orientation="horizontal" role="separator">
+            <ul>
+                <li>
+                    <a href="/imprint" class="legal-link">{{$t "global.link.imprint"}}</a>
+                </li>
+                <li>
+                    <a class="legal-link" href="/termsofuse" target="_blank" aria-label="{{$t "login.headline.onlyTermsOfUse"}} Thüringer Schulcloud PDF {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "login.headline.onlyTermsOfUse"}}</a>
+                </li>
+                <li>
+                    <a class="legal-link" href="/privacypolicy" target="_blank" aria-label="{{$t "global.text.dataProtectionThr"}} Thüringer Schulcloud PDF {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "global.text.dataProtectionThr"}}</a>
+                </li>
+                {{!-- <li>
+                    <a href="https://github.com/hpi-schul-cloud/" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.github"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.github"}}</a>
+                    <span> - </span>
+                </li>
+                <li>
+                    <a href="{{theme.status_url}}" target="_blank" rel="noopener" aria-label="{{$t "lib.global.link.status"}} {{$t "global.link.openInNewTabWarning"}}">{{$t "lib.global.link.status"}}</a>
+                    <span> - </span>
+                </li>
+                <li>
+                    <a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject={{$t "lib.global.link.accessibilityReport"}}" target="_blank" rel="noopener"
+                        aria-label="{{$t "global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning"}}">
+                        {{$t "lib.global.link.accessibilityReport"}}</a>
+                    <span> - </span>
+                </li>
+                <li>
+                    <a href="{{theme.documents.specificFiles.accessibilityStatement}}" target="_blank" rel="noopener"
+                        aria-label="{{$t "lib.global.link.accessibilityStatement"}} Thüringer Schulcloud PDF {{$t "global.link.openInNewTabWarning"}}">
+                        {{$t "lib.global.link.accessibilityStatement"}}</a>
+                </li> --}}
+            </ul>
         </nav>
     </aside>
