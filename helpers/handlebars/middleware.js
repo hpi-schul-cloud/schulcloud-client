@@ -424,6 +424,38 @@ module.exports = (req, res, next) => {
 		}
 	);
 
+	// a11y group
+	let a11yLinks = [];
+	if (Configuration.get("ACCESSIBILITY_REPORT_EMAIL")) {
+		a11yLinks.push({
+			link:
+				"mailto:" +
+				Configuration.get("ACCESSIBILITY_REPORT_EMAIL") +
+				"?subject=" +
+				"global.link.accessibilityReport",
+			name: res.$t("lib.global.link.accessibilityReport"),
+			testId: "report-accessibility",
+			isExternalLink: true,
+		});
+	}
+	a11yLinks.push({
+		link: res.locals.theme.documents.specificFiles.accessibilityStatement,
+		name: res.$t("lib.global.link.accessibilityStatement"),
+		testId: "accessibility-statement",
+		isExternalLink: true,
+	});
+
+	if (SC_THEME === "default") {
+		res.locals.sidebarItems.push({
+			name: res.$t("global.sidebar.link.accessibility"),
+			icon: "human",
+			testId: "accessibility",
+			children: a11yLinks,
+		})
+	}
+
+	// end new sidebar
+
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
 	let notificationsPromise = [];

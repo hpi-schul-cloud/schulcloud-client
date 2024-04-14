@@ -254,7 +254,8 @@
 				"administrationClasses": "Класи",
 				"administrationCourses": "Курси",
 				"administration": "Адміністрація",
-				"system": "Cистема"
+				"system": "Cистема",
+				"accessibility": "Доступність"
 			}
 		},
 		"aria_label": {

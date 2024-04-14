@@ -1752,7 +1752,8 @@
 				"administration": "Administration",
 				"administrationClasses": "Classes",
 				"administrationCourses": "Courses",
-				"system": "System"
+				"system": "System",
+				"accessibility": "Accessibility"
 			}
 		},
 		"tab": {
