@@ -445,7 +445,7 @@ module.exports = (req, res, next) => {
 		isExternalLink: true,
 	});
 
-	if (SC_THEME === "default") {
+	if (SC_THEME !== "default") {
 		res.locals.sidebarItems.push({
 			name: res.$t("global.sidebar.link.accessibility"),
 			icon: "human",
