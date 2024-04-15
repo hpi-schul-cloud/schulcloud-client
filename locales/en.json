@@ -1693,7 +1693,7 @@
 			"contact": "Contact",
 			"courseData": "My course files",
 			"courseDataContent": "Here you will find all files used in the respective courses in class. All participants of the course, i.e. the teacher and the students, have access to these files.",
-			"files": "My Files",
+			"files": "Files",
 			"filesContent": "Here you can find all files used in the respective teams. All participants of the team have access to these files.",
 			"filesPersonal": "personal files",
 			"filesShared": "shared files",
@@ -2645,17 +2645,13 @@
 			"searchForNews": "Search for news"
 		},
 		"text": {
-			"atSchool": "at school",
-			"atYourSchool": "at your school ",
-			"by": "by",
 			"created": "created",
+			"edited": "edited",
 			"inTheClass": "in the class",
 			"inTheCourse": "in the course",
-			"inTheTeam": "in the team",
 			"last": "last",
 			"newsNeedContent": "News need content!",
 			"newsNeedTitle": "News need a title!",
-			"processed": "edited",
 			"released": "Released",
 			"unpublished": "Unpublished"
 		}

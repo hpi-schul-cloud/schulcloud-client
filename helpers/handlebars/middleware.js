@@ -87,7 +87,7 @@ module.exports = (req, res, next) => {
 		permission: 'TASK_DASHBOARD_TEACHER_VIEW_V3',
 	}, {
 		name: res.$t('global.link.files'),
-		testId: 'Meine Dateien',
+		testId: 'Dateien',
 		icon: 'folder-open-outline',
 		link: '/files/',
 		excludedPermission: 'COLLABORATIVE_FILES_ONLY',
