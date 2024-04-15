@@ -148,6 +148,12 @@
                     {{/if}}
 
                     <ul class="nav navbar-nav float-xs-none dropdowns">
+                        {{!-- new sidebar --}}
+                        <li class="nav-item"> 
+                            <span class="btn btn-thin sidebar-toggle" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}">
+                                <i class="mdi mdi-menu" aria-hidden="true"></i>
+                            </span>
+                        </li>
                         <li class="nav-item alert-button">
                             <div class="dropdown minimal-button minimal-button-loggedin">
                                 <a class="btn btn-alert-info btn-thin dropdown-toggle" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"

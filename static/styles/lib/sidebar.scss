@@ -16,6 +16,14 @@
 	display: flex;
 	flex-direction: column;
 
+  &.hidden {
+    left: -3000px;
+  }
+
+  &.visible {
+    left: 0px;
+  }
+
 	nav {
 		display: flex;
 		flex-direction: column;

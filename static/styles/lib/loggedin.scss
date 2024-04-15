@@ -392,9 +392,14 @@ header {
 	display: flex;
 	flex-direction: column;
 
-	@include media-breakpoint-down(md) {
-		padding-left: 60px;
-	}
+	// new sidebar
+	@media only screen and (max-width: 1279px) {
+		padding: 0;
+}
+
+	// @include media-breakpoint-down(md) {
+	// 	padding-left: 60px;
+	// }
 
 	@include media-breakpoint-down(xs) {
 		padding-left: 0px;
