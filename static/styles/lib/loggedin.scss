@@ -391,6 +391,7 @@ header {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+	transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
 	// new sidebar
 	@media only screen and (max-width: 1279px) {
