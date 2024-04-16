@@ -53,32 +53,27 @@
     }
   }
 
-	.sc-branding {
+	.logo-wrapper {
 		display: block;
-		// padding: 15px;
 		padding: 0px;
 		font-size: 24px;
 		color: whitesmoke;
 		text-decoration: none;
 		margin-bottom: 1px;
 
-		.cloud-logo {
+		.logo {
 			display: inline-block;
 			vertical-align: top;
-			// width: 45px;
 			width: 100%;
 			height: 30px;
 			margin: 0px;
 			margin-left: -8px;
 			padding: 30px;
-			// margin-bottom: -5px;
-			// margin-right: 0.25rem;
 			background: $logoBackground;
 			background-size: contain;
 		}
 
 		.sc-title {
-			// display: inline-block;
 			display: none;
 			max-width: calc(100% - 4px);
 			word-break: break-word;
@@ -137,7 +132,6 @@
 				}
 
 				&.child-active {
-					// border-bottom: 1px solid transparent;
 					color: $primaryColor;
 				}
 
