@@ -108,6 +108,11 @@
 				height: 40px;
 				letter-spacing: 0.009375em;
 				border-bottom: 1px solid transparent;
+
+        &:hover {
+          background: rgba(0, 0, 0, .07);
+          cursor: pointer;
+        }
 			}
 
 			.sidebar-item {
