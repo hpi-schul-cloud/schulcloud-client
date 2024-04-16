@@ -122,6 +122,12 @@
           background: rgba(0, 0, 0, .07);
           cursor: pointer;
         }
+
+        &.active {
+					background: $colorLightGrey;
+					background: $primaryColorOverlay;
+					color: $primaryColor;
+				}
 			}
 
 			.sidebar-item {
