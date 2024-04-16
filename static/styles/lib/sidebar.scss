@@ -3,6 +3,7 @@
 @import "./colors";
 
 .sidebar {
+  z-index: 1006;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -27,8 +28,9 @@
     transform: translateX(0%);
   }
 
-  @media screen and (max-width: 1250px) {
+  @media screen and (max-width: 1279px) {
     transform: translateX(-110%);
+    box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
   }
 
 	nav {
@@ -196,4 +198,17 @@
     letter-spacing: 0.009375em;
     border-bottom: 1px solid transparent;
   }
+}
+
+.overlay {
+  display: none;
+  z-index: 1005;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.2;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
