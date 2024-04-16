@@ -30,24 +30,33 @@ function toggleSidebarItemGroup(groupName) {
 	}
 }
 
-function toggleSidebar() {
+function adjustContentWidth(sidebar) {
+    const contentWrapper = document.querySelector('.content-wrapper');
+    if (contentWrapper) {
+        if (sidebar.classList.contains('hidden')) {
+            contentWrapper.style.paddingLeft = '0px';
+        } else {
+            contentWrapper.style.paddingLeft = '255px';
+        }
+    }
+}
+
+function toggleSidebarOnClick() {
     const sidebar = document.querySelector('.sidebar');
     const contentWrapper = document.querySelector('.content-wrapper');
 	if (sidebar && contentWrapper) {
 		if (sidebar.classList.contains('hidden')) {
             sidebar.classList.remove('hidden');
             sidebar.classList.add('visible');
-            contentWrapper.style.paddingLeft = '255px';
         } else {
             sidebar.classList.remove('visible');
             sidebar.classList.add('hidden');
-            contentWrapper.style.paddingLeft = '0px';
         }
+        adjustContentWidth(sidebar);
 	}
 }
 
-window.addEventListener('resize', () => {
-    const sidebar = document.querySelector('.sidebar');
+function toggleSidebarOnWindowWidth(sidebar) {
     if (window.innerWidth <= 1279) {
         sidebar.classList.remove('visible');
         sidebar.classList.add('hidden');
@@ -56,7 +65,23 @@ window.addEventListener('resize', () => {
         sidebar.classList.remove('hidden');
         sidebar.classList.add('visible');
     }
-})
+    adjustContentWidth(sidebar);
+}
+
+let priorWidth = window.innerWidth;
+window.addEventListener('resize', () => {
+    const sidebar = document.querySelector('.sidebar');
+    const currentWidth = window.innerWidth;
+
+    if (window.innerWidth <= 1279 && sidebar.classList.contains('visible') && priorWidth <= currentWidth) {
+        return;
+    }
+    if (currentWidth >= 1280 && sidebar.classList.contains('hidden') && priorWidth >= currentWidth) {
+        return;
+    }
+    toggleSidebarOnWindowWidth(sidebar);
+    priorWidth = currentWidth;
+});
 
 function toggleMobileNav() {
     document.querySelector('aside.nav-sidebar').classList.toggle('active');
@@ -122,8 +147,10 @@ $(document).ready(function () {
 
     var sidebarToggle = document.querySelector('.sidebar-toggle');
     if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', toggleSidebar);
+        sidebarToggle.addEventListener('click', toggleSidebarOnClick);
     }
+    const sidebar = document.querySelector('.sidebar');
+    toggleSidebarOnWindowWidth(sidebar);
 
     // Init mobile nav
     var mobileNavToggle = document.querySelector('.mobile-nav-toggle');

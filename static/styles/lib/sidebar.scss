@@ -20,11 +20,15 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
   &.hidden {
-    left: -3000px;
+    transform: translateX(-110%);
   }
 
   &.visible {
-    left: 0px;
+    transform: translateX(0%);
+  }
+
+  @media screen and (max-width: 1250px) {
+    transform: translateX(-110%);
   }
 
 	nav {
