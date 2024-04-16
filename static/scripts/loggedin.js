@@ -26,7 +26,11 @@ function showHideGlobalAnnouncement() {
 function toggleSidebarItemGroup(groupName) {
     const itemGroup = document.querySelector(`.${groupName}`);
 	if (itemGroup) {
-		showHideElement(itemGroup);
+		if (itemGroup.classList.contains('show-subgroup')) {
+            itemGroup.classList.remove('show-subgroup');
+        } else {
+            itemGroup.classList.add('show-subgroup');
+        }
 	}
 }
 
@@ -77,6 +81,9 @@ function toggleSidebarOnWindowWidth(sidebar) {
     if (window.innerWidth >= 1280) {
         sidebar.classList.remove('hidden');
         sidebar.classList.add('visible');
+        overlay.style.display = "none";
+    }
+    if (sidebar.classList.contains('hidden')) {
         overlay.style.display = "none";
     }
     adjustContentWidth(sidebar);

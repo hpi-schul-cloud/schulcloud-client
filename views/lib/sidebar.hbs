@@ -22,7 +22,7 @@
                             </a>
                         {{/unless}}
                         {{#if ../children}}
-                            <div class="{{../class}} sidebar-item" href="{{../link}}" title="{{../name}}" data-testid="{{../testId}}" aria-label="{{../name}} {{#if ../isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if ../isExternalLink}}target="_blank" {{/if}}>
+                            <div class="{{../class}} sidebar-item group-toggle-btn"  data-group-name="{{../groupName}}" href="{{../link}}" title="{{../name}}" data-testid="{{../testId}}" aria-label="{{../name}} {{#if ../isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if ../isExternalLink}}target="_blank" {{/if}}>
                                 <div>
                                     {{#if ../isExternalIcon}}
                                         {{{../icon}}}
@@ -31,7 +31,7 @@
                                     {{/if}}
                                     <span class="link-name">{{../name}}</span>
                                 </div>
-                                <i class="group-toggle-btn mdi mdi-chevron-down" data-group-name="{{../groupName}}" aria-hidden="true"></i>
+                                <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
                             </div>
                             <ul class="subitems {{../groupName}}" >
                                 {{#each ../children}}

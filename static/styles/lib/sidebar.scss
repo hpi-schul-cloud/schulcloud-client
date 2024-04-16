@@ -91,6 +91,15 @@
 
 		&.subitems {
 			padding: 0px;
+      max-height: 0px;
+      visibility: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &.show-subgroup {
+        max-height: 500px;
+        visibility: visible;
+        transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 		}
 
 		li {
