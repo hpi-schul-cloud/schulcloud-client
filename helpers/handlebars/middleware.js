@@ -450,6 +450,7 @@ module.exports = (req, res, next) => {
 			name: res.$t("global.sidebar.link.accessibility"),
 			icon: "human",
 			testId: "accessibility",
+			groupName: "accessibility",
 			children: a11yLinks,
 		})
 	}
