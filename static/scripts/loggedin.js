@@ -23,14 +23,19 @@ function showHideGlobalAnnouncement() {
 }
 
 // new sidebar
-function toggleSidebarItemGroup(e, groupName) {
-    e.stopImmediatePropagation();
+function toggleSidebarItemGroup(groupName, e) {
+    if (e) {
+        e.stopImmediatePropagation();
+    }
+    
     const itemGroup = document.querySelector(`.${groupName}`);
 	if (itemGroup) {
 		if (itemGroup.classList.contains('show-subgroup')) {
             itemGroup.classList.remove('show-subgroup');
+            itemGroup.classList.add('hide-subgroup');
         } else {
             itemGroup.classList.add('show-subgroup');
+            itemGroup.classList.remove('hide-subgroup');
         }
 	}
 }
@@ -163,12 +168,16 @@ $(document).ready(function () {
     const groupToggleBtns = document.querySelectorAll('.group-toggle-btn');
     if (groupToggleBtns) {
         groupToggleBtns.forEach((btn) => {
-            btn.addEventListener('click', (e) => toggleSidebarItemGroup(e, btn.dataset.groupName));
+            btn.addEventListener('click', (e) => toggleSidebarItemGroup(btn.dataset.groupName, e));
             btn.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     document.activeElement.click();
                 }
             });
+
+            if (btn.classList.contains('child-active')) {
+                toggleSidebarItemGroup(btn.dataset.groupName)
+            }
         })
     }
 

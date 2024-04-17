@@ -209,6 +209,23 @@
 		}
 	}
 
+  .sidebar-item.child-active ~ .subitems {
+    max-height: 500px;
+    visibility: visible;
+
+    &.show-subgroup {
+      max-height: 500px;
+      visibility: visible;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &.hide-subgroup {
+      max-height: 0px;
+      visibility: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+
   .legal-link {
     display: flex;
     align-items: center;
