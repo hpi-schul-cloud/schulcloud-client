@@ -395,7 +395,7 @@ module.exports = (req, res, next) => {
 		name: res.$t("lib.global.link.github"),
 		link: "https://github.com/hpi-schul-cloud",
 		testId: "github",
-		target: "_blank",
+		isExternalLink: true,
 	}]
 
 	if (ALERT_STATUS_URL) {
