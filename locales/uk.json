@@ -9,7 +9,6 @@
 			"welcome": "Вітаємо"
 		},
 		"text": {
-			"announcement": "Відтепер <b>tldraw</b> доступна як дошка для спільної роботи в колонці дошки. Створювати нові neXboards більше не можна. Вже створені дошки neXboard все ще доступні до <b>24 квітня 2024</b> року для збереження контенту. Інструкції з перенесення контенту з neXboard на tldraw можна знайти <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">тут</a>.",
 			"notFound": "Активних записів не знайдено.",
 			"emptyHomeworksInfo": "Усі домашні завдання показуються в розділі домашніх завдань.",
 			"emptyNewsInfo": "Немає останніх новин. Перегляньте розділ новин, щоб бути в курсі.",

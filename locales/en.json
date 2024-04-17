@@ -1249,7 +1249,6 @@
 			"toTask": "To the task"
 		},
 		"text": {
-			"announcement": "From now on, <b>tldraw</b> is available as a collaborative whiteboard in the column board. New neXboards can no longer be created. Already created neXboards are still available until <b>23.04.2024</b> to save the content. Instructions for transferring content from neXboard to tldraw can be found <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">here</a>.",
 			"emptyHomeworksInfo": "No assigned tasks. You can find all tasks in the tasks area.",
 			"emptyNewsInfo": "So far there is no news.",
 			"graded": "Graded",

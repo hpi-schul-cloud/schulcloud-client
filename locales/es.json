@@ -1249,7 +1249,6 @@
 			"toTask": "A la tarea"
 		},
 		"text": {
-			"announcement": "A partir de ahora, <b>tldraw</b> está disponible como pizarra colaborativa en el tablero de columnas. Ya no se pueden crear nuevas neXboards. Los neXboards ya creados siguen estando disponibles hasta el <b>24 de abril de 2024</b> para guardar el contenido. Las instrucciones para transferir contenido de neXboard a tldraw se encuentran <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">aqui</a>.",
 			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
 			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
