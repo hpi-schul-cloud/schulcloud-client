@@ -164,6 +164,11 @@ $(document).ready(function () {
     if (groupToggleBtns) {
         groupToggleBtns.forEach((btn) => {
             btn.addEventListener('click', (e) => toggleSidebarItemGroup(e, btn.dataset.groupName));
+            btn.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    document.activeElement.click();
+                }
+            });
         })
     }
 

@@ -22,7 +22,7 @@
                             </a>
                         {{/unless}}
                         {{#if ../children}}
-                            <div class="{{../class}} sidebar-item group-toggle-btn"  data-group-name="{{../groupName}}" href="{{../link}}" title="{{../name}}" data-testid="{{../testId}}" aria-label="{{../name}} {{#if ../isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if ../isExternalLink}}target="_blank" {{/if}}>
+                            <div class="{{../class}} sidebar-item group-toggle-btn"  data-group-name="{{../groupName}}" href="{{../link}}" title="{{../name}}" data-testid="{{../testId}}" aria-label="{{../name}} {{#if ../isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if ../isExternalLink}}target="_blank" {{/if}} tabindex="0">
                                 <div>
                                     {{#if ../isExternalIcon}}
                                         {{{../icon}}}
@@ -33,7 +33,7 @@
                                 </div>
                                 <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
                             </div>
-                            <ul class="subitems {{../groupName}}" >
+                            <ul class="subitems {{../groupName}}">
                                 {{#each ../children}}
                                     <li data-testid="{{this.testId}}">
                                         <a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" rel="noopener"{{/if}}>
