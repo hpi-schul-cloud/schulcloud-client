@@ -51,7 +51,7 @@ function adjustContentWidth(sidebar) {
     }
 }
 
-function toggleSidebarOnClick() {
+function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.querySelector('.overlay');
 
@@ -183,7 +183,12 @@ $(document).ready(function () {
 
     const sidebarToggle = document.querySelector('.sidebar-toggle');
     if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', toggleSidebarOnClick);
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        sidebarToggle.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                toggleSidebar();
+            }
+        })
     }
     const sidebar = document.querySelector('.sidebar');
     toggleSidebarOnWindowWidth(sidebar);
