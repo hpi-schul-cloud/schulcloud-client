@@ -118,6 +118,10 @@
 				letter-spacing: 0.009375em;
 				border-bottom: 1px solid transparent;
 
+        .link-name {
+          margin-bottom: 2px;
+        }
+
         &:hover {
           background: rgba(0, 0, 0, .07);
           cursor: pointer;
@@ -142,6 +146,7 @@
 				text-decoration: none;
 				overflow-x: visible;
 				white-space: nowrap;
+        border-bottom: 1px solid transparent;
 
 				&:not(a) {
 					justify-content: space-between;
