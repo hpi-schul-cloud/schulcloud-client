@@ -284,6 +284,8 @@ const mapErrorToTranslationKey = (error) => {
 			return 'login.text.schoolInMigration';
 		case 'USER_NOT_FOUND_AFTER_PROVISIONING':
 			return 'login.text.userNotFoundAfterProvisioning';
+		case 'MULTIPLE_USERS_FOUND':
+			return 'login.text.multipleUsersFound';
 		default:
 			return 'login.text.loginFailed';
 	}
@@ -506,6 +508,8 @@ const migrateUser = async (req, res, payload) => {
 			if (details.sourceSchoolNumber && details.targetSchoolNumber) {
 				queryString.append('sourceSchoolNumber', details.sourceSchoolNumber);
 				queryString.append('targetSchoolNumber', details.targetSchoolNumber);
+			} else if (details.multipleUsersFound) {
+				queryString.append('multipleUsersFound', details.multipleUsersFound);
 			}
 		}
 
