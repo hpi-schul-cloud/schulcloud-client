@@ -1750,7 +1750,8 @@
 				"addons": "Complementos",
 				"administration": "Administración",
 				"administrationClasses": "Clases",
-				"administrationCourses": "Cursos"
+				"administrationCourses": "Cursos",
+				"mediaShelf": "Estante multimedia"
 			}
 		},
 		"tab": {
