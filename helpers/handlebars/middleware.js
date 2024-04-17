@@ -6,8 +6,6 @@ const {
 	FEATURE_EXTENSIONS_ENABLED,
 	NOTIFICATION_SERVICE_ENABLED,
 	FEATURE_TEAMS_ENABLED,
-	FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED,
-	FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED,
 } = require('../../config/global');
 
 const makeActive = (items, currentUrl) => {
@@ -150,6 +148,17 @@ module.exports = (req, res, next) => {
 		});
 	}
 
+	// Media shelf Feature Toggle
+	const mediaShelfEnabled = Configuration.get('FEATURE_MEDIA_SHELF_ENABLED');
+	if (mediaShelfEnabled) {
+		res.locals.sidebarItems.push({
+			name: res.$t('global.sidebar.link.mediaShelf'),
+			testId: 'Media-shelf',
+			icon: 'bookshelf',
+			link: '/media-shelf/',
+		});
+	}
+
 	// Extensions Feature Toggle
 	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
 	if (extensionsEnabled) {
@@ -162,7 +171,7 @@ module.exports = (req, res, next) => {
 	}
 
 	// teacher views
-	const newClassViewEnabled = FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED === 'true';
+	const newClassViewEnabled = Configuration.get('FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED');
 	const teacherChildren = [
 		{
 			name: res.$t('global.link.administrationStudents'),
@@ -249,7 +258,7 @@ module.exports = (req, res, next) => {
 	});
 
 	// admin views
-	const newSchoolAdminPageAsDefault = FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED === 'true';
+	const newSchoolAdminPageAsDefault = Configuration.get('FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED');
 	const adminChildItems = [
 		{
 			name: res.$t('global.link.administrationStudents'),
