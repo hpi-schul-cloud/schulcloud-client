@@ -2590,7 +2590,8 @@
 			"userNotFound": "User not found.",
 			"internalError": "Internal Server Error. Please contact the admin.",
 			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system.",
-			"userNotFoundAfterProvisioning": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator."
+			"userNotFoundAfterProvisioning": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator.",
+			"multipleUsersFound": "This moin.schule user cannot be clearly assigned to an account in the Niedersächsische Bildungscloud. Please contact support!"
 		}
 	},
 	"messenger": {
