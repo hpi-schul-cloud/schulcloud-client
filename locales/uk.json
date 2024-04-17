@@ -9,7 +9,6 @@
 			"welcome": "Вітаємо"
 		},
 		"text": {
-			"announcement": "Відтепер <b>tldraw</b> доступна як дошка для спільної роботи в колонці дошки. Створювати нові neXboards більше не можна. Вже створені дошки neXboard все ще доступні до <b>24 квітня 2024</b> року для збереження контенту. Інструкції з перенесення контенту з neXboard на tldraw можна знайти <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">тут</a>.",
 			"notFound": "Активних записів не знайдено.",
 			"emptyHomeworksInfo": "Усі домашні завдання показуються в розділі домашніх завдань.",
 			"emptyNewsInfo": "Немає останніх новин. Перегляньте розділ новин, щоб бути в курсі.",
@@ -2160,32 +2159,28 @@
 			"input": {
 				"sectionTitle": "Назва розділу",
 				"brainstormAboutXYZ": "Мозковий штурм на тему XYZ",
-				"createNewNeXboard": "Створити новий neXboard",
 				"createsListInEtherpad": "Створює в наступному Etherpad список Pro-Contra на тему XYC",
-				"createsListInNeXboard": "Створює в наступному neXboard Pro-Contra-список на тему XYC",
-				"GeoGebraEnterId": "Введіть ідентифікатор матеріалу GeoGebra, напр. kEBfU7AR",
-				"keepNeXboard": "Підтримувати neXboard",
-				"selectNeXboard": "Вибрати neXboard"
+				"createsListInNeXboard": "Створіть список за і проти на тему XYC на наступній дошці",
+				"GeoGebraEnterId": "Введіть ідентифікатор матеріалу GeoGebra, напр. kEBfU7AR"
 			},
 			"button": {
 				"geoGebraWorksheet": "Бланк завдання GeoGebra",
 				"text": "Текст",
 				"material": "Навчальний матеріал",
 				"etherpad": "Etherpad",
-				"neXboard": "neXboard",
 				"h5p": "H5P"
 			},
 			"label": {
 				"descriptionEtherpad": "Опис Etherpad",
-				"descriptionNeXboard": "Опис neXboard",
+				"descriptionNeXboard": "Опис дошки",
 				"lockSection": "Заблокувати розділ",
 				"nameOfEtherpad": "Назва Etherpad",
-				"nameOfNeXboard": "Назва neXboard",
+				"nameOfNeXboard": "Назва дошки",
 				"openSection": "Розблокувати розділ",
-				"selectNeXboard": "Вибрати neXboard",
 				"theLinkHasToBeginWith": "Посилання має починатися з «{{- baseUrl}} / домашнє завдання»! Учні повинні мати доступ до домашнього завдання, щоб побачити його тут. Увага: якщо ви поділитеся цією темою або всім курсом з іншим викладачем за допомогою поширеного коду, завдання, інтегровані таким чином, наразі не розглядатимуться.",
 				"youllFindTheIdOn": "Ідентифікатор матеріалу можна знайти в URL-адресі робочого аркуша GeoGebra, який ви зберегли в Інтернеті. Напр., на вебсторінці https://www.geogebra.org/m/e6g4adXp ідентифікатор матеріалу — \"e6g4adXp\"",
-				"internalLink": "URL-адреса завдання"
+				"internalLink": "URL-адреса завдання",
+				"nexboardInfo": "Як ми вже повідомляли, інструмент для створення дошок neXboard було видалено з нашої платформи 23 квітня 2024 року. Замість нього тепер доступний інноваційний інструмент для роботи з дошкою tldraw у колонній дошці. Відвідайте наш блог для отримання детальних інструкцій та інформації."
 			},
 			"aria_label": {
 				"chooseContent": "Вибрати типи контенту для своєї теми",
