@@ -160,7 +160,7 @@ $(document).ready(() => {
 
 $(document).ready(function () {
     // new sidebar
-    var groupToggleBtns = document.querySelectorAll('.group-toggle-btn');
+    const groupToggleBtns = document.querySelectorAll('.group-toggle-btn');
     if (groupToggleBtns) {
         groupToggleBtns.forEach((btn) => {
             btn.addEventListener('click', (e) => toggleSidebarItemGroup(e, btn.dataset.groupName));
@@ -172,14 +172,14 @@ $(document).ready(function () {
         })
     }
 
-    var sidebarToggle = document.querySelector('.sidebar-toggle');
+    const sidebarToggle = document.querySelector('.sidebar-toggle');
     if (sidebarToggle) {
         sidebarToggle.addEventListener('click', toggleSidebarOnClick);
     }
     const sidebar = document.querySelector('.sidebar');
     toggleSidebarOnWindowWidth(sidebar);
 
-    var overlay = document.querySelector('.overlay');
+    const overlay = document.querySelector('.overlay');
     if (overlay) {
         overlay.addEventListener('click', () => {
             sidebar.classList.remove('visible');
