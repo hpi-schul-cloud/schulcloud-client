@@ -1249,7 +1249,6 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
-			"announcement": "Ab sofort steht Ihnen <b>tldraw</b> als kollaboratives Whiteboard im Spalten-Board zur Verfügung. Neue neXboards können nun nicht mehr angelegt werden. Bereits erstellte neXboards sind noch bis <b>23.04.2024</b> zur Sicherung der Inhalte verfügbar. Hinweise zum Übertragen der Inhalte von neXboard zu tldraw finden Sie <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">hier</a>.",
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",
@@ -3184,31 +3183,27 @@
 				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
 				"material": "Lern-Material",
-				"neXboard": "neXboard",
 				"text": "Text",
 				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming zum Thema XYZ",
-				"createNewNeXboard": "Neues neXboard anlegen",
 				"createsListInEtherpad": "Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC",
-				"createsListInNeXboard": "Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC",
+				"createsListInNeXboard": "Erstellt im nachfolgendem Whiteboard eine Pro-Contra-Liste zum Thema XYC",
 				"GeoGebraEnterId": "GeoGebra Material-ID eingeben, z.B. kEBfU7AR",
-				"keepNeXboard": "neXboard beibehalten",
-				"sectionTitle": "Titel des Abschnitts",
-				"selectNeXboard": "neXboard auswählen"
+				"sectionTitle": "Titel des Abschnitts"
 			},
 			"label": {
 				"descriptionEtherpad": "Beschreibung des Etherpads",
-				"descriptionNeXboard": "Beschreibung des neXboards",
+				"descriptionNeXboard": "Beschreibung des Whiteboards",
 				"internalLink": "URL der Aufgabe",
 				"lockSection": "Abschnitt sperren",
 				"nameOfEtherpad": "Name des Etherpads",
-				"nameOfNeXboard": "Name des neXboards",
+				"nameOfNeXboard": "Name des Whiteboards",
 				"openSection": "Abschnitt entsperren",
-				"selectNeXboard": "neXboard auswählen",
 				"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler:innen müssen Zugriff auf die Aufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
-				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
+				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'",
+				"nexboardInfo": "Wie angekündigt, wurde das Whiteboard-Tool neXboard am 23. April 2024 von unserer Plattform entfernt. Als Ersatz ist nun das innovative Whiteboard-Tool tldraw im Spaltenboard verfügbar. Besuchen Sie unseren Blogbeitrag für detaillierte Anleitungen und Informationen."
 			}
 		}
 	},
