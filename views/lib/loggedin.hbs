@@ -45,8 +45,9 @@
             <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
         {{/if}}
 
-        {{#embed "lib/sidebar"}}{{/embed}}
-        {{!-- <div class="navtooltips"></div>
+        {{!-- new sidebar --}}
+        {{!-- {{#embed "lib/sidebar"}}{{/embed}} --}}
+        <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
                 <ul class="sidebar-list">
@@ -91,7 +92,7 @@
                     {{/each}}
                 </ul>
             </nav>
-        </aside> --}}
+        </aside>
 
 		<section class="content-wrapper">
 					{{!-- <a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
@@ -149,11 +150,11 @@
 
                     <ul class="nav navbar-nav float-xs-none dropdowns">
                         {{!-- new sidebar --}}
-                        <li class="nav-item"> 
+                        {{!-- <li class="nav-item"> 
                             <span class="btn btn-thin sidebar-toggle" title="{{$t "lib.loggedin.label.sidebarMenu"}}" aria-label="{{$t "lib.loggedin.label.sidebarMenu"}}" tabindex="0">
                                 <i class="mdi mdi-menu" aria-hidden="true"></i>
                             </span>
-                        </li>
+                        </li> --}}
                         <li class="nav-item alert-button">
                             <div class="dropdown minimal-button minimal-button-loggedin">
                                 <a class="btn btn-alert-info btn-thin dropdown-toggle" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"

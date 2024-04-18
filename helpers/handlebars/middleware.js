@@ -389,11 +389,11 @@ module.exports = (req, res, next) => {
 				isExternalLink: true,
 			},
 			// new sidebar
-			{
-				name: res.$t("lib.help_menu.link.releaseNotes"),
-				link: "/help/releases",
-				testId: "releases",
-			},
+			// {
+			// 	name: res.$t("lib.help_menu.link.releaseNotes"),
+			// 	link: "/help/releases",
+			// 	testId: "releases",
+			// },
 		],
 	});
 
@@ -423,15 +423,15 @@ module.exports = (req, res, next) => {
 		});
 	}
 
-	res.locals.sidebarItems.push(
-		{
-			name: res.$t("global.sidebar.link.system"),
-			icon: "application-brackets-outline",
-			testId: "system",
-			groupName: "system",
-			children: systemLinks,
-		}
-	);
+	// res.locals.sidebarItems.push(
+	// 	{
+	// 		name: res.$t("global.sidebar.link.system"),
+	// 		icon: "application-brackets-outline",
+	// 		testId: "system",
+	// 		groupName: "system",
+	// 		children: systemLinks,
+	// 	}
+	// );
 
 	// a11y group
 	let a11yLinks = [];
@@ -454,15 +454,15 @@ module.exports = (req, res, next) => {
 		isExternalLink: true,
 	});
 
-	if (SC_THEME !== "default") {
-		res.locals.sidebarItems.push({
-			name: res.$t("global.sidebar.link.accessibility"),
-			icon: "human",
-			testId: "accessibility",
-			groupName: "accessibility",
-			children: a11yLinks,
-		})
-	}
+	// if (SC_THEME !== "default") {
+	// 	res.locals.sidebarItems.push({
+	// 		name: res.$t("global.sidebar.link.accessibility"),
+	// 		icon: "human",
+	// 		testId: "accessibility",
+	// 		groupName: "accessibility",
+	// 		children: a11yLinks,
+	// 	})
+	// }
 
 	// end new sidebar
 
