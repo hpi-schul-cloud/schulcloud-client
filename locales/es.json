@@ -2437,7 +2437,8 @@
 				"printQrCode": "Imprimir código QR",
 				"qrCode": "Código QR",
 				"search": "Buscar",
-				"thereIsAProblem": "Hay un problema"
+				"thereIsAProblem": "Hay un problema",
+				"sidebarMenu": "Abrir navegación lateral"
 			},
 			"tab_label": {
 				"settings": "Configuración",

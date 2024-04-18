@@ -2628,7 +2628,8 @@
 				"printQrCode": "Видрукувати QR-код",
 				"notifications": "Сповіщення",
 				"currentUser": "Поточний користувач:",
-				"search": "Пошук"
+				"search": "Пошук",
+				"sidebarMenu": "Відкрити бічну навігацію"
 			},
 			"aria_label": {
 				"mobileNavMenu": "Меню мобільної навігації"
