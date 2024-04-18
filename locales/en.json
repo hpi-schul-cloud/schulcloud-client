@@ -1249,7 +1249,6 @@
 			"toTask": "To the task"
 		},
 		"text": {
-			"announcement": "From now on, <b>tldraw</b> is available as a collaborative whiteboard in the column board. New neXboards can no longer be created. Already created neXboards are still available until <b>23.04.2024</b> to save the content. Instructions for transferring content from neXboard to tldraw can be found <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">here</a>.",
 			"emptyHomeworksInfo": "No assigned tasks. You can find all tasks in the tasks area.",
 			"emptyNewsInfo": "So far there is no news.",
 			"graded": "Graded",
@@ -3183,31 +3182,27 @@
 				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
-				"neXboard": "neXboard",
 				"text": "Text",
 				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
-				"createNewNeXboard": "Create new neXboard",
 				"createsListInEtherpad": "Creates in the following Etherpad a Pro-Contra list on the topic XYC",
-				"createsListInNeXboard": "Creates in the following neXboard a Pro-Contra-list on the topic XYC",
+				"createsListInNeXboard": "Create a pro-con list on the topic of XYC on the following whiteboard",
 				"GeoGebraEnterId": "Enter GeoGebra Material ID, e.g. kEBfU7AR",
-				"keepNeXboard": "Maintain neXboard",
-				"sectionTitle": "Title of the section",
-				"selectNeXboard": "Select neXboard"
+				"sectionTitle": "Title of the section"
 			},
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
-				"descriptionNeXboard": "Description of the neXboard",
+				"descriptionNeXboard": "Description of the whiteboard",
 				"internalLink": "URL of task",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
-				"nameOfNeXboard": "Name of the neXboard",
+				"nameOfNeXboard": "Name of the whiteboard",
 				"openSection": "Unlock section",
-				"selectNeXboard": "Select neXboard",
 				"theLinkHasToBeginWith": "The link must begin with '{{- baseUrl}} / task'! Students must have access to the task to see it included here. Attention: If you share this topic or the entire course with another teacher using a sharing code, the tasks integrated in this way will currently not be considered.",
-				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'"
+				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'",
+				"nexboardInfo": "As announced, the whiteboard tool neXboard was removed from our platform on 23 April 2024. As a replacement, the innovative whiteboard tool tldraw is now available in the column board. Visit our blog post for detailed instructions and information."
 			}
 		}
 	},

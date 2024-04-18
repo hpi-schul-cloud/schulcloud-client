@@ -204,7 +204,7 @@ const editCourseHandler = (req, res, next) => {
 	let scopePermissions;
 	if (req.params.courseId) {
 		scopePermissions = api(req)
-			.get(`/courses/${req.params.courseId}/userPermissions/${res.locals.currentUser._id}`);
+			.get(`/coursesUserPermissions/${req.params.courseId}/${res.locals.currentUser._id}`);
 	}
 
 	let syncedGroupId;
@@ -654,7 +654,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				$limit: false,
 			},
 		}),
-		api(req).get(`/courses/${req.params.courseId}/userPermissions`, {
+		api(req).get(`/coursesUserPermissions/${req.params.courseId}`, {
 			qs: { userId: res.locals.currentUser._id },
 		}),
 	];
