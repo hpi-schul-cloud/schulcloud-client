@@ -171,6 +171,7 @@ $(document).ready(function () {
             btn.addEventListener('click', (e) => toggleSidebarItemGroup(btn.dataset.groupName, e));
             btn.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
                     document.activeElement.click();
                 }
             });
@@ -186,6 +187,7 @@ $(document).ready(function () {
         sidebarToggle.addEventListener('click', toggleSidebar);
         sidebarToggle.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
                 toggleSidebar();
             }
         })
