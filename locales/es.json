@@ -1694,8 +1694,8 @@
 			"courseDataContent": "Aquí encontrarás todos los archivos utilizados en los respectivos cursos de la clase. Todos los participantes del curso, es decir, tanto el profesor como los alumnos, tienen acceso a estos archivos.",
 			"files": "Archivos",
 			"filesContent": "Aquí puedes encontrar todos los archivos utilizados en los respectivos equipos. Todos los participantes del equipo tienen acceso a estos archivos.",
-			"filesPersonal": "archivos personales",
-			"filesShared": "archivos compartidos",
+			"filesPersonal": "Archivos personales",
+			"filesShared": "Archivos compartidos",
 			"firstSteps": "Primeros pasos",
 			"footerSkipLink": "Saltar al pie de página",
 			"helpArea": "Sección de ayuda",
@@ -1751,6 +1751,8 @@
 				"administration": "Administración",
 				"administrationClasses": "Clases",
 				"administrationCourses": "Cursos",
+				"system": "Sistema",
+				"accessibility": "Accesibilidad",
 				"mediaShelf": "Estante multimedia"
 			}
 		},
@@ -2434,7 +2436,8 @@
 				"printQrCode": "Imprimir código QR",
 				"qrCode": "Código QR",
 				"search": "Buscar",
-				"thereIsAProblem": "Hay un problema"
+				"thereIsAProblem": "Hay un problema",
+				"sidebarMenu": "Abrir navegación lateral"
 			},
 			"tab_label": {
 				"settings": "Configuración",

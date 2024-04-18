@@ -1,0 +1,64 @@
+<div class="navtooltips"></div>
+<aside class="sidebar">
+    <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
+        <a class="logo-wrapper" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
+            <div class="logo"></div>
+            <div class="sc-title"><span>{{theme.short_title}}</span></div>
+        </a>
+        <ul class="sidebar-list">
+            {{#each sidebarItems}}
+                {{#ifeq this.name "divider"}}
+                    <hr class="divider" aria-orientation="horizontal" role="separator">
+                {{else}}
+                    <li>
+                        {{#unless ../children}}
+                            <a class="{{../class}} sidebar-item" href="{{../link}}" title="{{../name}}" data-testid="{{../testId}}" aria-label="{{../name}} {{#if ../isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if ../isExternalLink}}target="_blank" {{/if}}>
+                                {{#if ../isExternalIcon}}
+                                    {{{../icon}}}
+                                {{else}}
+                                    <i class="mdi mdi-{{../icon}}" aria-hidden="true"></i>
+                                {{/if}}
+                                <span class="link-name">{{../name}}</span>
+                            </a>
+                        {{/unless}}
+                        {{#if ../children}}
+                            <div class="{{../class}} sidebar-item group-toggle-btn"  data-group-name="{{../groupName}}" href="{{../link}}" title="{{../name}}" data-testid="{{../testId}}" aria-label="{{../name}} {{#if ../isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if ../isExternalLink}}target="_blank" {{/if}} tabindex="0">
+                                <div>
+                                    {{#if ../isExternalIcon}}
+                                        {{{../icon}}}
+                                    {{else}}
+                                        <i class="mdi mdi-{{../icon}}" aria-hidden="true"></i>
+                                    {{/if}}
+                                    <span class="link-name">{{../name}}</span>
+                                </div>
+                                <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
+                            </div>
+                            <ul class="subitems {{../groupName}}">
+                                {{#each ../children}}
+                                    <li data-testid="{{this.testId}}">
+                                        <a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" rel="noopener"{{/if}}>
+                                            <span class="link-name">{{this.name}}</span>
+                                        </a>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        {{/if}}
+                    </li>
+                {{/ifeq}}
+            {{/each}}
+        </ul>
+        <hr class="divider legal" aria-orientation="horizontal" role="separator">
+        <ul>
+            <li>
+                <a href="/imprint" class="legal-link">{{$t "global.link.imprint"}}</a>
+            </li>
+            <li>
+                <a class="legal-link" href="/termsofuse" target="_blank" aria-label="{{$t "login.headline.onlyTermsOfUse"}} Thüringer Schulcloud PDF {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "login.headline.onlyTermsOfUse"}}</a>
+            </li>
+            <li>
+                <a class="legal-link" href="/privacypolicy" target="_blank" aria-label="{{$t "global.text.dataProtectionThr"}} Thüringer Schulcloud PDF {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "global.text.dataProtectionThr"}}</a>
+            </li>
+        </ul>
+    </nav>
+</aside>
+<div class="overlay"></div>

@@ -187,8 +187,8 @@
 			"calendar": "Календар",
 			"contact": "Контакт",
 			"files": "Файли",
-			"filesPersonal": "персональні файли",
-			"filesShared": "поширені файли",
+			"filesPersonal": "Особисті файли",
+			"filesShared": "Спільні файли",
 			"firstSteps": "Перші кроки",
 			"footerSkipLink": "Нижній колонтитул",
 			"helpArea": "Довідковий розділ",
@@ -253,6 +253,8 @@
 				"administrationClasses": "Класи",
 				"administrationCourses": "Курси",
 				"administration": "Адміністрація",
+				"system": "Cистема",
+				"accessibility": "Доступність",
 				"mediaShelf": "Полиця для медіа"
 			}
 		},
@@ -2621,7 +2623,8 @@
 				"printQrCode": "Видрукувати QR-код",
 				"notifications": "Сповіщення",
 				"currentUser": "Поточний користувач:",
-				"search": "Пошук"
+				"search": "Пошук",
+				"sidebarMenu": "Відкрити бічну навігацію"
 			},
 			"aria_label": {
 				"mobileNavMenu": "Меню мобільної навігації"
