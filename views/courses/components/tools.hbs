@@ -3,7 +3,7 @@
 		<div class="list-group" data-courseId="{{@root/_id}}" data-testid="course_tool_list">
 			{{#if ltiTools}}
 			{{#each ltiTools}}
-			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}"
+			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}" data-testid="bbb_tool"
 				{{#unless this.isBBB}}
 					{{#if this.openNewTab}}
 						data-blank="true"
