@@ -286,6 +286,8 @@ const mapErrorToTranslationKey = (error) => {
 			return 'login.text.userNotFoundAfterProvisioning';
 		case 'MULTIPLE_USERS_FOUND':
 			return 'login.text.multipleUsersFound';
+		case 'EMAIL_ALREADY_EXISTS':
+			return 'login.text.duplicateEmail';
 		default:
 			return 'login.text.loginFailed';
 	}
