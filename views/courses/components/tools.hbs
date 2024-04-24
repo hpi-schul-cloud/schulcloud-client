@@ -73,7 +73,7 @@
 
 					{{#userHasPermission "TOOL_CREATE" }}
 					{{#unless @root.isArchived}}
-					<a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank"
+					<a class="delete-tool" href="/courses/{{../../_id}}/tools/delete/{{../_id}}" target="_blank" data-testid="bbb_tool_delete"
 						data-method="DELETE" data-name="{{../name}}" redirect="/courses/{{../../_id}}/?activeTab=tools">
 						<i class="fa fa-trash-o"></i>
 					</a>
