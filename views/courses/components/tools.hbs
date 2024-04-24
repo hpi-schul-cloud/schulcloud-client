@@ -3,7 +3,7 @@
 		<div class="list-group" data-courseId="{{@root/_id}}" data-testid="course_tool_list">
 			{{#if ltiTools}}
 			{{#each ltiTools}}
-			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}" data-testid="bbb_tool"
+			<div class="card card-block card-tool {{#if this.isBBB}} bbbTool {{else}} locationlink {{/if}}"
 				{{#unless this.isBBB}}
 					{{#if this.openNewTab}}
 						data-blank="true"
@@ -53,7 +53,7 @@
 
 
 				{{#if this.isBBB}}
-				<div class="card-title-directory bbb-state bbb-guest-inactive-state">
+				<div class="card-title-directory bbb-state bbb-guest-inactive-state" data-testid="bbb_tool_guest_inactive">
 					<img src="{{getAssetPath '/images/tools/bbb/not_started.png'}}" class="float-left" style="width:auto; height:75px;" />
 					<span>{{$t "global.text.videoconferenceNotStartedYet"}}</span>
 					<a class="bbbTool-info-icon">
@@ -65,7 +65,7 @@
 					</a>
 				</div>
 
-				<div class="card-title-directory bbb-state bbb-moderator-inactive-state">
+				<div class="card-title-directory bbb-state bbb-moderator-inactive-state" data-testid="bbb_tool_moderator_inactive">
 
 					<img src="{{getAssetPath '/images/tools/bbb/available.png'}}" class="float-left" style="width:auto; height:75px;" />
 
@@ -81,7 +81,7 @@
 					{{/userHasPermission}}
 				</div>
 
-				<div class="card-title-directory bbb-state bbb-running-videoconference-state">
+				<div class="card-title-directory bbb-state bbb-running-videoconference-state" data-testid="bbb_tool_running">
 
 					<img src="{{getAssetPath '/images/tools/bbb/available.png'}}" class="float-left" style="width:auto; height:75px;" />
 
@@ -90,7 +90,7 @@
 
 				</div>
 
-				<div class="card-title-directory bbb-state ">
+				<div class="card-title-directory bbb-state" data-testid="bbb_tool_not_running">
 					<img src="{{getAssetPath '/images/tools/bbb/not_started.png'}}" class="float-left" style="width:auto; height:75px;" />
 					<span>{{$t "courses._course.tools.text.videoConferenceBBB"}}</span>
 				</div>
