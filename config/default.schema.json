@@ -51,7 +51,6 @@
 			"default": true,
 			"description": "If enabled, additional security header will be set."
 		},
-
 		"GLOBAL_LOGIN_ANNOUNCEMENT": {
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage when not loggedin."
