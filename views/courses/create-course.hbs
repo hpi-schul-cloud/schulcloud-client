@@ -163,7 +163,7 @@
                       </div>
                       <div class="form-group col-md-6">
                         {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate" class="untilDate"
-                            value=course.untilDate disabled=@root.syncedWithGroup}}
+                            value=course.untilDate dataTestId="date_until" disabled=@root.syncedWithGroup}}
                         {{#if syncedWithGroup}}
                             <input type="hidden" id="untilDateSync" name="untilDate" value="{{untilDate}}">
                         {{/if}}
