@@ -110,23 +110,21 @@
 						</div>
 					</section>
 
-                {{!-- {{#hasConfig "GLOBAL_ANNOUNCEMENT_TEXT"}}
+                {{#hasConfig "GLOBAL_ANNOUNCEMENT_TEXT"}}
                     {{#hasConfig "GLOBAL_ANNOUNCEMENT_ROLES"}}
                         {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_TEXT") ""}}
                             {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ""}}
-                                {{#if (userHasRoleFromArray (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ../currentUser)}} --}}
+                                {{#if (userHasRoleFromArray (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ../currentUser)}}
                                     <section class="demo">
                                             <div class="alert alert-announcement no-bottom-margin" role="alert">
-                                                <p>TEXT: {{getConfig "GLOBAL_ANNOUNCEMENT_TEXT"}}</p>
-                                                <p>Roles: {{getConfig "GLOBAL_ANNOUNCEMENT_ROLES"}}</p>
                                                 <div>{{{$t (getConfig "GLOBAL_ANNOUNCEMENT_TEXT") }}}</div>
                                             </div>
                                     </section>
-                                {{!-- {{/if}}
+                                {{/if}}
                             {{/ifneq}}
                         {{/ifneq}}
                     {{/hasConfig}}
-                {{/hasConfig}} --}}
+                {{/hasConfig}}
 
                 {{> "lib/components/notification"}}
 				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.aria_label.topMenu"}}">
