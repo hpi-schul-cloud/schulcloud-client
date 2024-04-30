@@ -12,7 +12,7 @@ let handler = (req, res) => {
 if (Configuration.get('FEATURE_ALERTS_ENABLED')) {
 	handler = (req, res) => AlertsCache.get(req)
 		.then((alert) => {
-			res.json(alert);
+			res.json(alert?.data);
 		}).catch((err) => {
 			logger.error(new Error('Can not get /alert', formatError(err)));
 			res.json([]);
