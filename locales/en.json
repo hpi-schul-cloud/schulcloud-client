@@ -2467,7 +2467,8 @@
 			"schoolInTransferPhaseContactAdmin": "The school is in the transfer phase to the new school year. No classes and users can be created. Please contact the school administrator!",
 			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"/administration/school/\"> the new school year here!</a>",
 			"schoolInMigrationModeStarted": "The school is in user migration mode. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
-			"schoolInMigrationMode": "The school can import user accounts from Schulportal. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>."
+			"schoolInMigrationMode": "The school can import user accounts from Schulportal. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
+			"onlineEventsAnnouncement": "The dBildungscloud team invites you to various online events. Click <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>HERE</a> for more information."
 		}
 	},
 	"login": {
