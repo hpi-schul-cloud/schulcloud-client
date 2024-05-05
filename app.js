@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const redis = require('redis');
+const Redis = require('ioredis');
 const RedisStore = require('connect-redis').default;
 const session = require('express-session');
 const methodOverride = require('method-override');
@@ -123,10 +123,7 @@ let sessionStore;
 const redisUrl = REDIS_URI;
 if (redisUrl) {
 	logger.info(`Using Redis session store at '${redisUrl}'.`);
-	const client = redis.createClient({
-		url: redisUrl,
-	});
-	client.connect().catch((err) => logger.error(err));
+	const client = new Redis(redisUrl);
 
 	// The error event must be handled, otherwise the app crashes on redis connection errors.
 	// This is due to basic NodeJS behavior: https://nodejs.org/api/events.html#error-events
@@ -210,7 +207,6 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 // add res.$t method for i18n with users prefered language
 app.use(require('./middleware/i18n'));
 app.use(require('./middleware/datetime'));
-
 
 const redirectUrl = Configuration.get('ROOT_URL_REDIRECT');
 if (redirectUrl !== '') {

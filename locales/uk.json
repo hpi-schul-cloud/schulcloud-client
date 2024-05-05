@@ -9,8 +9,6 @@
 			"welcome": "Вітаємо"
 		},
 		"text": {
-			"announcement": "<b>Важливе оголошення:</b> Інструмент neXboard буде замінено на <b>tldraw</b>. Будь ласка, створіть резервну копію вашого контенту на дошках neXboards, які ви хочете продовжувати використовувати, до <b>15 березня 2024</b> року. Створені вами дошки neXboards можна буде використовувати до цього часу. Тут ви можете знайти <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">варіанти резервного копіювання та додаткову інформацію</a>.",
-			"alternativeAnnouncement": "Відтепер <b>tldraw</b> доступна як дошка для спільної роботи в колонці дошки. Створювати нові neXboards більше не можна. Вже створені дошки neXboard все ще доступні до <b>24 березня 2024</b> року для збереження контенту. Інструкції з перенесення контенту з neXboard на tldraw можна знайти <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">тут</a>.",
 			"notFound": "Активних записів не знайдено.",
 			"emptyHomeworksInfo": "Усі домашні завдання показуються в розділі домашніх завдань.",
 			"emptyNewsInfo": "Немає останніх новин. Перегляньте розділ новин, щоб бути в курсі.",
@@ -188,9 +186,9 @@
 			"archive": "Архів",
 			"calendar": "Календар",
 			"contact": "Контакт",
-			"files": "Мої файли",
-			"filesPersonal": "персональні файли",
-			"filesShared": "поширені файли",
+			"files": "Файли",
+			"filesPersonal": "Особисті файли",
+			"filesShared": "Спільні файли",
 			"firstSteps": "Перші кроки",
 			"footerSkipLink": "Нижній колонтитул",
 			"helpArea": "Довідковий розділ",
@@ -254,7 +252,10 @@
 				"addons": "Доповнення",
 				"administrationClasses": "Класи",
 				"administrationCourses": "Курси",
-				"administration": "Адміністрація"
+				"administration": "Адміністрація",
+				"system": "Cистема",
+				"accessibility": "Доступність",
+				"mediaShelf": "Полиця для медіа"
 			}
 		},
 		"aria_label": {
@@ -1277,6 +1278,7 @@
 				"teacherRegistrationNotCompleted": "Викладач ще не завершив реєстрацію. Отримайте посилання для особистого запрошення, щоб завершити реєстрацію, і роздайте його вчителю.",
 				"useTheTransferPhaseAroundTheSchool": "Використовуйте фазу переходу навколо зміни навчального року, щоб налаштувати належність до класу та особисті дані в LDAP. Нарешті, відразу перенесіть усі зміни в {{title}}.",
 				"withAllChangesAndSettings": "Усі зміни та налаштування в області адміністрування підтверджують, що вони здійснені адміністратором школи, який має повноваження вносити корективи в хмарну систему школи. Налаштування, зроблені адміністратором школи, вважаються інструкціями від школи до оператора хмари {{institute_title}}.",
+				"withAllChangesForTSC": "Деякі або всі дані користувачів вашої школи синхронізуються із зовнішнім джерелом (LDAP, IDM, шкільний портал тощо). Тому редагування цих основних даних користувачів можливе лише в системі-джерелі, а не в шкільній хмарі. Створення нових учнів або вчителів також можливе лише в системі-джерелі.",
 				"wouldYouLikeReportABug": "Хочете повідомити про помилку чи у вас є ідея покращити {{title}}? Відправляйте запити чи проблеми безпосередньо до служби підтримки користувачів {{shortTitle}}.",
 				"backgroundSoThatEveryStudentAndTeacher": "Довідкова інформація: щоб кожен учень і кожен викладач могли отримати доступ до контенту з попередніх класів (напр. фотографій з екскурсії), {{title}} зберігає, у якому навчальному році та у якому класі був користувач. {{title}} забезпечує фазу переходу і здатна працювати разом з вашим LDAP та класами, які синхронізовані з нею. Ось така процедура під час зміни навчального року:"
 			}
@@ -1674,19 +1676,15 @@
 			"searchForNews": "Пошук новин"
 		},
 		"text": {
-			"atSchool": "у школі",
-			"atYourSchool": "у вашій школі ",
 			"created": "створено",
-			"by": "",
+			"edited": "відредаговано",
 			"inTheClass": "в класі",
 			"inTheCourse": "в курсі",
-			"inTheTeam": "в команді",
 			"last": "останній раз було",
-			"processed": "відредаговано",
-			"released": "Випущено",
-			"unpublished": "Не опубліковано",
 			"newsNeedContent": "Новинам потрібний контент!",
-			"newsNeedTitle": "Новинам потрібна назва!"
+			"newsNeedTitle": "Новинам потрібна назва!",
+			"released": "Випущено",
+			"unpublished": "Не опубліковано"
 		},
 		"_news": {
 			"headline": {
@@ -1838,6 +1836,7 @@
 			"internalError": "Внутрішня помилка сервера. Будь ласка, зв'яжіться з адміністратором.",
 			"schoolInMigration": "Ваша школа перебуває в процесі зміни системи реєстрації на {{systemName}}. Перш ніж ви зможете увійти через {{systemName}}, вам потрібно перемістити свій обліковий запис. Для цього увійдіть у свою стару систему.",
 			"userNotFoundAfterProvisioning": "Помилка логіну. Або школа ще не переїхала до {{systemName}}, або створення нових користувачів у {{shortTitle}} неактивне для школи. Будь ласка, зверніться до адміністратора школи.",
+			"multipleUsersFound": "Цей користувач moin.schule не може бути чітко прив'язаний до облікового запису в Niedersächsische Bildungscloud. Будь ласка, зверніться до служби підтримки!",
 			"userAccountDeactivated": "Ваш обліковий запис було деактивовано. Будь ласка, зверніться до адміністратора школи."
 
 		},
@@ -2127,7 +2126,8 @@
 			"schoolInMigrationModeStarted": "Школа перебуває в режимі міграції користувачів. Щоб перенести користувачів, перейдіть на <a href=\"/administration/migration/\">цю сторінку</a>.",
 			"schoolInTransferPhaseContactAdmin": "Школа перебуває у фазі переходу до нового навчального року. Не можна створювати класи та користувачів.",
 			"schoolInTransferPhaseStartNew": "Школа перебуває у фазі переходу до нового навчального року. Не можна створювати класи та користувачів. Зателефонуйте в <a href=\"/administration/school/\"> новий навчальний рік тут!</a>",
-			"schoolInMigrationMode": "Школа перебуває в режимі міграції користувачів. Щоб перенести користувачів, перейдіть на <a href=\"/administration/migration/\">цю сторінку</a>."
+			"schoolInMigrationMode": "Школа перебуває в режимі міграції користувачів. Щоб перенести користувачів, перейдіть на <a href=\"/administration/migration/\">цю сторінку</a>.",
+			"onlineEventsAnnouncement": "Команда dBildungscloud запрошує вас на різноманітні онлайн-заходи. Для отримання додаткової інформації натисніть <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>ТУТ</a>."
 		}
 	},
 	"topic": {
@@ -2164,32 +2164,28 @@
 			"input": {
 				"sectionTitle": "Назва розділу",
 				"brainstormAboutXYZ": "Мозковий штурм на тему XYZ",
-				"createNewNeXboard": "Створити новий neXboard",
 				"createsListInEtherpad": "Створює в наступному Etherpad список Pro-Contra на тему XYC",
-				"createsListInNeXboard": "Створює в наступному neXboard Pro-Contra-список на тему XYC",
-				"GeoGebraEnterId": "Введіть ідентифікатор матеріалу GeoGebra, напр. kEBfU7AR",
-				"keepNeXboard": "Підтримувати neXboard",
-				"selectNeXboard": "Вибрати neXboard"
+				"createsListInNeXboard": "Створіть список за і проти на тему XYC на наступній дошці",
+				"GeoGebraEnterId": "Введіть ідентифікатор матеріалу GeoGebra, напр. kEBfU7AR"
 			},
 			"button": {
 				"geoGebraWorksheet": "Бланк завдання GeoGebra",
 				"text": "Текст",
 				"material": "Навчальний матеріал",
 				"etherpad": "Etherpad",
-				"neXboard": "neXboard",
 				"h5p": "H5P"
 			},
 			"label": {
 				"descriptionEtherpad": "Опис Etherpad",
-				"descriptionNeXboard": "Опис neXboard",
+				"descriptionNeXboard": "Опис дошки",
 				"lockSection": "Заблокувати розділ",
 				"nameOfEtherpad": "Назва Etherpad",
-				"nameOfNeXboard": "Назва neXboard",
+				"nameOfNeXboard": "Назва дошки",
 				"openSection": "Розблокувати розділ",
-				"selectNeXboard": "Вибрати neXboard",
 				"theLinkHasToBeginWith": "Посилання має починатися з «{{- baseUrl}} / домашнє завдання»! Учні повинні мати доступ до домашнього завдання, щоб побачити його тут. Увага: якщо ви поділитеся цією темою або всім курсом з іншим викладачем за допомогою поширеного коду, завдання, інтегровані таким чином, наразі не розглядатимуться.",
 				"youllFindTheIdOn": "Ідентифікатор матеріалу можна знайти в URL-адресі робочого аркуша GeoGebra, який ви зберегли в Інтернеті. Напр., на вебсторінці https://www.geogebra.org/m/e6g4adXp ідентифікатор матеріалу — \"e6g4adXp\"",
-				"internalLink": "URL-адреса завдання"
+				"internalLink": "URL-адреса завдання",
+				"nexboardInfo": "Як ми вже повідомляли, інструмент для створення дошок neXboard було видалено з нашої платформи 23 квітня 2024 року. Замість нього тепер доступний інноваційний інструмент для роботи з дошкою tldraw у колонній дошці. Відвідайте наш блог для отримання детальних інструкцій та інформації."
 			},
 			"aria_label": {
 				"chooseContent": "Вибрати типи контенту для своєї теми",
@@ -2630,7 +2626,8 @@
 				"printQrCode": "Видрукувати QR-код",
 				"notifications": "Сповіщення",
 				"currentUser": "Поточний користувач:",
-				"search": "Пошук"
+				"search": "Пошук",
+				"sidebarMenu": "Відкрити бічну навігацію"
 			},
 			"aria_label": {
 				"mobileNavMenu": "Меню мобільної навігації"

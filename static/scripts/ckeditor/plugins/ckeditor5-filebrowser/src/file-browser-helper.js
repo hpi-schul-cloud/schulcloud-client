@@ -17,7 +17,7 @@ export default class FileBrowserHelper {
 			sourceElement.setAttribute('data-parent-id', parentId);
 			$('.section-upload').attr('data-parent-id', parentId);
 
-			if (parentType === 'submissions') {
+			if (parentType === 'submissions' || parentType === 'gradings') {
 				const referrer = `/homework/${homeworkId}#activetabid=submission`;
 				$('input[name="referrer"]').val(referrer);
 			} else {

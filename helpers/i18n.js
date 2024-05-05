@@ -6,7 +6,7 @@ const path = require('path');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const logger = require('./logger');
 const api = require('../api');
-const uk = require('../locales/calendar/uk.json');
+const momentHelper = require('./momentHelper');
 
 const i18nDebug = Configuration.get('I18N__DEBUG');
 const fallbackLanguage = Configuration.get('I18N__FALLBACK_LANGUAGE');
@@ -89,57 +89,9 @@ const getInstance = () => (key, options = {}) => i18next.t(key, {
 	...options,
 });
 
-/*
-// const CONFIG_ORIG = i18nMoment().locale('en').localeData()._relativeTime;
-const relativeTime = {
-	d: 'a day',
-	dd: '%d days',
-	future: 'in %s',
-	h: 'an hour',
-	hh: '%d hours',
-	m: 'a minute',
-	M: 'a month',
-	mm: '%d minutes',
-	MM: '%d months',
-	past: '%s ago',
-	s: 'a few seconds',
-	ss: '%d seconds',
-	w: 'a week',
-	ww: '%d weeks',
-	y: 'a year',
-};
-*/
-const createCustomRelativeTimeConfig = (localFile) => ({
-	d: `${localFile['moment.relativeTime.aDay']}`,
-	dd: `%d ${localFile['moment.relativeTime.days']}`,
-	future: `${localFile['moment.relativeTime.futureIn']} %s`,
-	h: `${localFile['moment.relativeTime.anHour']}`,
-	hh: `%d ${localFile['moment.relativeTime.hours']}`,
-	m: `${localFile['moment.relativeTime.aMinute']}`,
-	M: `${localFile['moment.relativeTime.aMonths']}`,
-	mm: `%d ${localFile['moment.relativeTime.minutes']}`,
-	MM: `%d ${localFile['moment.relativeTime.months']}`,
-	past: `%s ${localFile['moment.relativeTime.pastAgo']}`,
-	s: `${localFile['moment.relativeTime.aFewSecondes']}`,
-	ss: `%d ${localFile['moment.relativeTime.seconds']}`,
-	w: `${localFile['moment.relativeTime.aWeek']}`,
-	ww: `%d ${localFile['moment.relativeTime.weeks']}`,
-	y: `${localFile['moment.relativeTime.aYear']}`,
-});
-
-const selectMomentOptions = (langAttribute) => {
-	const options = {};
-
-	if (langAttribute === 'uk') {
-		options.relativeTime = createCustomRelativeTimeConfig(uk);
-	}
-
-	return options;
-};
-
 const changeLanguage = (langAttribute) => {
 	if (availableLanguages.includes(langAttribute)) {
-		const momentOptions = selectMomentOptions(langAttribute);
+		const momentOptions = momentHelper.selectMomentOptions(langAttribute);
 		i18nMoment.locale(langAttribute, momentOptions);
 		return i18next.changeLanguage(langAttribute);
 	}

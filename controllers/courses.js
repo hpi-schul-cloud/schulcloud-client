@@ -39,12 +39,23 @@ const filterStudents = (ctx, s) => (
 		? s.filter(({ selected }) => selected) : s
 );
 
+const getUserIdsByRole = (users, role) => users.filter((u) => u.role === role).map((u) => u.id);
+
 const selectedElementIdsToString = (arr = []) => {
 	const txt = arr.filter((obj) => obj.selected).map((obj) => (obj.id !== undefined ? obj.id : obj._id)).join(',');
 	return txt;
 };
 
-const getSyncedElementIds = 	(
+const strToPropsArray = (props, keys) => {
+	keys.forEach((key) => {
+		if (typeof props[key] === 'string') {
+			props[key] = props[key].trim() ? props[key].split(',') : [];
+		}
+	});
+	return props;
+};
+
+const getSyncedElements = 	(
 	course,
 	classesAndGroups,
 	classAndGroupIdsOfCourse,
@@ -52,6 +63,7 @@ const getSyncedElementIds = 	(
 	substitutions,
 	students,
 	res,
+	syncedWithGroup,
 ) => {
 	const startDate = course.startDate ? timesHelper.formatDate(course.startDate, 'DD.MM.YYYY') : undefined;
 	const untilDate = course.untilDate ? timesHelper.formatDate(course.untilDate, 'DD.MM.YYYY') : undefined;
@@ -63,6 +75,7 @@ const getSyncedElementIds = 	(
 		studentsSelected: selectedElementIdsToString(filterStudents(res, markSelected(students, course.userIds))),
 		startDate,
 		untilDate,
+		syncedWithGroup,
 	};
 
 	return selectedElements;
@@ -191,7 +204,14 @@ const editCourseHandler = (req, res, next) => {
 	let scopePermissions;
 	if (req.params.courseId) {
 		scopePermissions = api(req)
-			.get(`/courses/${req.params.courseId}/userPermissions/${res.locals.currentUser._id}`);
+			.get(`/coursesUserPermissions/${req.params.courseId}/${res.locals.currentUser._id}`);
+	}
+
+	let syncedGroupId;
+	let groupPromise;
+	if (req.query.syncedGroupId && Configuration.get('FEATURE_SCHULCONNEX_COURSE_SYNC_ENABLED')) {
+		syncedGroupId = req.query.syncedGroupId;
+		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedGroupId}`);
 	}
 
 	Promise.all([
@@ -200,7 +220,8 @@ const editCourseHandler = (req, res, next) => {
 		teachersPromise,
 		studentsPromise,
 		scopePermissions,
-	]).then(([course, _classesAndGroups, _teachers, _students, _scopePermissions]) => {
+		groupPromise,
+	]).then(([course, _classesAndGroups, _teachers, _students, _scopePermissions, group]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		let classesAndGroups = [];
 		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
@@ -278,7 +299,13 @@ const editCourseHandler = (req, res, next) => {
 
 		const classAndGroupIdsOfCourse = [...(course.classIds || []), ...(course.groupIds || [])];
 
-		const syncedElementIds = course.syncedWithGroup ? getSyncedElementIds(
+		if (syncedGroupId && group) {
+			course.name = group.name;
+			course.teacherIds = getUserIdsByRole(group.users, 'teacher');
+			course.userIds = getUserIdsByRole(group.users, 'student');
+		}
+
+		const syncedElements = (course.syncedWithGroup || syncedGroupId) ? getSyncedElements(
 			course,
 			classesAndGroups,
 			classAndGroupIdsOfCourse,
@@ -286,6 +313,7 @@ const editCourseHandler = (req, res, next) => {
 			substitutions,
 			students,
 			res,
+			syncedGroupId,
 		) : {};
 
 		if (req.params.courseId) {
@@ -304,7 +332,7 @@ const editCourseHandler = (req, res, next) => {
 				students: filterStudents(res, markSelected(students, course.userIds)),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
-				...syncedElementIds,
+				...syncedElements,
 			});
 		}
 		return res.render('courses/create-course', {
@@ -316,18 +344,13 @@ const editCourseHandler = (req, res, next) => {
 			course,
 			colors,
 			classesAndGroups: markSelected(classesAndGroups, classAndGroupIdsOfCourse),
-			teachers: markSelected(
-				teachers,
-				course.teacherIds,
-			),
-			substitutions: markSelected(
-				substitutions,
-				course.substitutionIds,
-			),
+			teachers: markSelected(teachers, course.teacherIds),
+			substitutions: markSelected(substitutions, course.substitutionIds),
 			students: filterStudents(res, markSelected(students, course.userIds)),
 			redirectUrl: req.query.redirectUrl || '/courses',
 			schoolData: res.locals.currentSchoolData,
 			pageTitle: res.$t('courses.add.headline.addCourse'),
+			...syncedElements,
 		});
 	}).catch(next);
 };
@@ -546,6 +569,9 @@ router.post('/', (req, res, next) => {
 		req.body.untilDate = untilDate.toDate();
 	}
 
+	const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+	req.body = strToPropsArray(req.body, keys);
+
 	req.body.features = [];
 	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
 		if (req.body[feature] === 'true') {
@@ -628,7 +654,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				$limit: false,
 			},
 		}),
-		api(req).get(`/courses/${req.params.courseId}/userPermissions`, {
+		api(req).get(`/coursesUserPermissions/${req.params.courseId}`, {
 			qs: { userId: res.locals.currentUser._id },
 		}),
 	];
@@ -792,18 +818,8 @@ router.patch('/:courseId', async (req, res, next) => {
 			req.body.substitutionIds = [];
 		}
 
-		if (typeof req.body.teacherIds === 'string') {
-			req.body.teacherIds = req.body.teacherIds.split(',');
-		}
-		if (typeof req.body.substitutionIds === 'string') {
-			req.body.substitutionIds = req.body.substitutionIds.split(',');
-		}
-		if (typeof req.body.classIds === 'string') {
-			req.body.classIds = req.body.classIds.split(',');
-		}
-		if (typeof req.body.userIds === 'string') {
-			req.body.userIds = req.body.userIds.split(',');
-		}
+		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+		req.body = strToPropsArray(req.body, keys);
 
 		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
 		const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
