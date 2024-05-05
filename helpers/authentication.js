@@ -284,7 +284,7 @@ const mapErrorToTranslationKey = (error) => {
 			return 'login.text.schoolInMigration';
 		case 'USER_NOT_FOUND_AFTER_PROVISIONING':
 			return 'login.text.userNotFoundAfterProvisioning';
-		case 'DEACTIVATED_USER_ACCOUNT':
+		case 'USER_ACCOUNT_DEACTIVATED':
 			return 'login.text.userAccountDeactivated';
 		default:
 			return 'login.text.loginFailed';
@@ -310,7 +310,7 @@ const loginErrorHandler = (res, next) => (e) => {
 	}
 
 	// User account deactivated
-	if (e.statusCode === 401 && e.error.type === 'DEACTIVATED_USER_ACCOUNT') {
+	if (e.statusCode === 401 && e.error.type === 'USER_ACCOUNT_DEACTIVATED') {
 		res.locals.notification.message = res.$t('login.text.userAccountDeactivated');
 	}
 
