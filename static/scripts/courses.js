@@ -274,6 +274,7 @@ $(document).ready(() => {
 		e.preventDefault();
 		const courseId = $(this).parent().attr('data-courseId');
 		const $createVideoconferenceModal = $('.create-videoconference-modal');
+		$createVideoconferenceModal.attr('data-testid', 'createVideoConference');
 
 		const moderatorCardClickHandler = () => {
 			$.ajax({
