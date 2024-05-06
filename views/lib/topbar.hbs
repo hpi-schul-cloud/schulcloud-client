@@ -1,0 +1,97 @@
+<nav id="top-navbar" class="topbar">
+  <button class="icon-btn sidebar-toggle" title="{{$t "lib.loggedin.label.sidebarMenu"}}" aria-label="{{$t "lib.loggedin.label.sidebarMenu"}}">
+    <i class="mdi mdi-menu"></i>
+  </button>
+  <ul class="nav navbar-nav float-xs-none dropdowns">
+      <li class="nav-item alert-button">
+          <div class="dropdown minimal-button minimal-button-loggedin">
+              <a class="btn btn-alert-info btn-thin dropdown-toggle" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
+  data-toggle="dropdown" data-testid="dropdown-toggle">
+                  <i class="mdi mdi-alert" aria-hidden="true"></i>
+              </a>
+
+              <div class="dropdown-menu" data-testid="dropdown-menu">
+                  <div class="content js-alert-content"></div>
+              </div>
+          </div>
+      </li>
+      <li class="nav-item qr-code-action">
+          <div class="dropdown minimal-button">
+              <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" href="" title="{{$t "lib.loggedin.label.qrCode"}}" aria-label="{{$t "lib.loggedin.label.qrCode"}}" data-toggle="dropdown">
+                  <i class="mdi mdi-qrcode" aria-hidden="true"></i>
+              </a>
+              <div class="dropdown-menu print">
+                  <div class="content qr-show"></div>
+                      <div class="qr-hint-text">
+                        {{$t "global.text.qrHintText"}}
+                      </div>
+                  <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" tabindex="0">
+                      <i class="fa fa-print" aria-hidden="true"></i> {{$t "global.button.print" }}
+                  </div>
+              </div>
+          </div>
+      </li>
+      {{#if false}}
+      <li class="nav-item notification-dropdown">
+          <div class="dropdown minimal-button">
+              <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
+                      recentNotifications}}recent{{/if}}" href="" title="{{$t "lib.loggedin.label.notifications"}}" aria-label="{{$t "lib.loggedin.label.notifications"}}" data-toggle="dropdown">
+                  <i class="fa fa-bell" aria-hidden="true"></i> {{#if recentNotifications}}
+                  <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
+              </a>
+
+              <div class="dropdown-menu">
+                  <div class="content">
+                      {{#if notifications}}
+                          {{#each notifications}}
+                              <div class="notification-item {{#unless this.read}}unread{{/unless}}"
+                                  data-notification-id="{{this.notificationId}}">
+                                  <a href="{{this.action}}"><b>{{this.title}}</b></a>
+                                  <br>
+                                  <span>{{this.body}}</span>
+                                  <time class="notification-time">{{timeFromNow this.date}}</time>
+                              </div>
+                          {{/each}}
+                      {{else}}
+                          <div class="notification-item" data-notification-id="0">
+                              <span>{{$t "lib.loggedin.text.noNotificationsAtTheMoment" }}</span>
+                          </div>
+                      {{/if}}
+                  </div>
+              </div>
+          </div>
+      </li>
+      {{/if}}
+
+      {{#embed "lib/help_menu"}}{{/embed}}
+
+      {{!-- {{#if currentSchoolData}}
+          {{#unless currentSchoolData.isExpertSchool}}
+              <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
+              {{#if currentSchoolData.logo.dataUrl}}
+                  <img class="nav-item school-logo" src="{{ currentSchoolData.logo.dataUrl }}" alt="{{$t "lib.loggedin.img_alt.logoOfSchool" (dict "name" currentSchoolData.name)}}">
+              {{/if}}
+          {{/unless}}
+      {{/if}}  --}}
+
+      <li class="nav-item">
+          <div class="btn-group" data-matomo-mask>
+            <div class="dropdown btn-avatar">
+              <a class="btn btn-secondary btn-thin dropdown-toggle" href=""
+                  title='{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{$t (concat "global.placeholder." currentRole) }}' data-toggle="dropdown">
+                <div data-testid="initials" class="avatar-circle" >
+                    <span class="initials">{{ currentUser.avatarInitials }}</span>
+                </div>
+              </a>
+              <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
+              <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable" role="menu">
+                  <li><div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>
+                  {{> "user/forms/language" language=@root.userLanguage }}
+                  <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
+                  <li><a class="dropdown-item localstorageclear" data-testid="logout" href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}} role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
+              </ul>
+            </div>
+          </div>
+      </li>
+  </ul>
+</nav>
