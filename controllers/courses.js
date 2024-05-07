@@ -631,6 +631,13 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 // EDITOR
 
 router.get('/:courseId/', async (req, res, next) => {
+	const { activeTab } = req.query;
+
+	if (activeTab !== 'tools' && activeTab !== 'groups') {
+		res.redirect(getDefaultRedirectUrl(req.params.courseId));
+		return;
+	}
+
 	const promises = [
 		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
