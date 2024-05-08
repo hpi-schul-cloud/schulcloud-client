@@ -631,6 +631,21 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 // EDITOR
 
 router.get('/:courseId/', async (req, res, next) => {
+	const allowedActiveTabs = ['tools', 'groups'];
+	const { activeTab } = req.query;
+
+	if (!allowedActiveTabs.includes(activeTab)) {
+		res.redirect(getDefaultRedirectUrl(req.params.courseId));
+		return;
+	}
+
+	const FEATURE_CTL_TOOLS_TAB_ENABLED = Configuration.get('FEATURE_CTL_TOOLS_TAB_ENABLED');
+
+	if (FEATURE_CTL_TOOLS_TAB_ENABLED && activeTab === 'tools') {
+		res.redirect(`/rooms/${req.params.courseId}?tab=tools`);
+		return;
+	}
+
 	const promises = [
 		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
