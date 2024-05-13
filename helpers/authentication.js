@@ -64,8 +64,7 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 			});
 		});
 	}
-	// Remove etherpad client cookie
-	res.clearCookie('sessionID');
+	
 	res.clearCookie('jwt');
 	// this is deprecated and only used for cookie removal from now on,
 	// and can be removed after one month (max cookie lifetime from life systems)
