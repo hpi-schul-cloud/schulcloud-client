@@ -287,6 +287,8 @@ const mapErrorToTranslationKey = (error) => {
 			return 'login.text.userNotFoundAfterProvisioning';
 		case 'MULTIPLE_USERS_FOUND':
 			return 'login.text.multipleUsersFound';
+		case 'USER_ACCOUNT_DEACTIVATED':
+			return 'login.text.userAccountDeactivated';
 		default:
 			return 'login.text.loginFailed';
 	}
@@ -308,6 +310,11 @@ const loginErrorHandler = (res, next) => (e) => {
 	// Too Many Requests
 	if (e.statusCode === 429) {
 		res.locals.notification.timeToWait = e.error.data.timeToWait;
+	}
+
+	// User account deactivated
+	if (e.statusCode === 401 && e.error.type === 'USER_ACCOUNT_DEACTIVATED') {
+		res.locals.notification.message = res.$t('login.text.userAccountDeactivated');
 	}
 
 	next(e);
