@@ -19,14 +19,19 @@
               <button class="btn-create-qr icon-btn" title="{{$t "lib.loggedin.label.qrCode"}}" aria-label="{{$t "lib.loggedin.label.qrCode"}}" data-toggle="dropdown">
                   <i class="mdi mdi-qrcode" aria-hidden="true"></i>
               </button>
-              <div class="dropdown-menu print">
-                  <div class="content qr-show"></div>
-                      <div class="qr-hint-text">
-                        {{$t "global.text.qrHintText"}}
-                      </div>
-                  <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" tabindex="0">
-                      <i class="fa fa-print" aria-hidden="true"></i> {{$t "global.button.print" }}
-                  </div>
+              <div class="dropdown-menu print qr-code-menu">
+                <div class="qr-hint-text">
+                    {{$t "global.text.qrHintText"}}
+                </div>
+                <div class="content qr-show"></div>
+                <div class="btn-container">
+                    <button class="btn btn-secondary btn-vuetify btn-print" data-toggle="tooltip">
+                        <i class="mdi mdi-printer" aria-hidden="true"></i> {{$t "global.button.print" }}
+                    </button>
+                    <button class="btn btn-secondary btn-vuetify btn-copy-link" data-toggle="tooltip">
+                        <i class="mdi mdi-content-copy" aria-hidden="true"></i> {{$t "global.button.copyLink" }}
+                    </button>
+                </div>
               </div>
           </div>
       </li>

@@ -239,6 +239,10 @@ $(document).ready(function () {
         $qrbox.append(image);
     });
 
+    $('.btn-copy-link').on('click', function () {
+        navigator.clipboard.writeText(window.location.href);
+    });
+
     // Init mobile nav
     if (document.getElementById('searchBar') instanceof Object) {
         document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
