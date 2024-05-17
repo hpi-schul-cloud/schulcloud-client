@@ -23,14 +23,12 @@ function showHideGlobalAnnouncement() {
 }
 
 // new sidebar
-function toggleSidebarItemGroup(groupName, e) {
-    if (e) {
-        e.stopImmediatePropagation();
-    }
-    
-    const itemGroup = document.querySelector(`.${groupName}`);
+function toggleSidebarItemGroup(groupData) {
+    const itemGroup = document.querySelector(`.${groupData.groupName}`);
 	if (itemGroup) {
 		if (itemGroup.classList.contains('show-subgroup')) {
+            if (groupData.childActive) return;
+
             itemGroup.classList.remove('show-subgroup');
             itemGroup.classList.add('hide-subgroup');
         } else {
@@ -192,7 +190,10 @@ $(document).ready(function () {
     const groupToggleBtns = document.querySelectorAll('.group-toggle-btn');
     if (groupToggleBtns) {
         groupToggleBtns.forEach((btn) => {
-            btn.addEventListener('click', (e) => toggleSidebarItemGroup(btn.dataset.groupName, e));
+            btn.addEventListener('click', (e) => {
+                e.stopImmediatePropagation();
+                toggleSidebarItemGroup({ groupName: btn.dataset.groupName });
+            });
             btn.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -201,7 +202,7 @@ $(document).ready(function () {
             });
 
             if (btn.classList.contains('child-active')) {
-                toggleSidebarItemGroup(btn.dataset.groupName)
+                toggleSidebarItemGroup({ groupName: btn.dataset.groupName, childActive: true });
             }
         })
     }
