@@ -29,19 +29,13 @@ function toggleSidebarItemGroup(groupName, e) {
     }
     
     const itemGroup = document.querySelector(`.${groupName}`);
-	if (itemGroup && toggleIcon) {
+	if (itemGroup) {
 		if (itemGroup.classList.contains('show-subgroup')) {
             itemGroup.classList.remove('show-subgroup');
             itemGroup.classList.add('hide-subgroup');
-
-            toggleIcon.classList.remove('mdi-chevron-down');
-            toggleIcon.classList.add('mdi-chevron-up');
         } else {
             itemGroup.classList.add('show-subgroup');
             itemGroup.classList.remove('hide-subgroup');
-
-            toggleIcon.classList.remove('mdi-chevron-up');
-            toggleIcon.classList.add('mdi-chevron-down');
         }
 	}
 
