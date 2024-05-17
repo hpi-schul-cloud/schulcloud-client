@@ -312,10 +312,11 @@
                     }}
                 {{/if}}
             </div>
-            {{#unless inline}}
-                {{#embed "lib/footer"}}{{/embed}}
+            {{#unless (getConfig "FEATURE_NEW_LAYOUT_ENABLED")}}
+                {{#unless inline}}
+                    {{#embed "lib/footer"}}{{/embed}}
+                {{/unless}}
             {{/unless}}
-
         </section>
     {{/content}}
 {{/extend}}
