@@ -80,19 +80,21 @@ function toggleSidebar() {
 function toggleSidebarOnWindowWidth(sidebar) {
     const overlay = document.querySelector('.overlay');
 
-    if (window.innerWidth <= 1279) {
-        sidebar.classList.remove('visible');
-        sidebar.classList.add('hidden');
+    if (overlay) {
+        if (window.innerWidth <= 1279) {
+            sidebar.classList.remove('visible');
+            sidebar.classList.add('hidden');
+        }
+        if (window.innerWidth >= 1280) {
+            sidebar.classList.remove('hidden');
+            sidebar.classList.add('visible');
+            overlay.style.display = "none";
+        }
+        if (sidebar.classList.contains('hidden')) {
+            overlay.style.display = "none";
+        }
+        adjustContentWidth(sidebar);
     }
-    if (window.innerWidth >= 1280) {
-        sidebar.classList.remove('hidden');
-        sidebar.classList.add('visible');
-        overlay.style.display = "none";
-    }
-    if (sidebar.classList.contains('hidden')) {
-        overlay.style.display = "none";
-    }
-    adjustContentWidth(sidebar);
 }
 
 let priorWidth = window.innerWidth;
