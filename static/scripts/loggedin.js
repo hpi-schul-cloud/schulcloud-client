@@ -29,7 +29,6 @@ function toggleSidebarItemGroup(groupName, e) {
     }
     
     const itemGroup = document.querySelector(`.${groupName}`);
-    const toggleIcon = document.querySelector('#group-toggle-icon');
 	if (itemGroup && toggleIcon) {
 		if (itemGroup.classList.contains('show-subgroup')) {
             itemGroup.classList.remove('show-subgroup');
@@ -46,6 +45,7 @@ function toggleSidebarItemGroup(groupName, e) {
         }
 	}
 
+    const toggleIcon = document.querySelector('#group-toggle-icon');
     if (toggleIcon) {
 		if (toggleIcon.classList.contains('mdi-chevron-down')) {
             toggleIcon.classList.remove('mdi-chevron-down');
@@ -91,6 +91,17 @@ function toggleSidebar() {
 
         if (window.innerWidth <= 1279) return;
         adjustContentWidth(sidebar);
+	}
+
+    const toggleIcon = document.querySelector('#sidebar-toggle-icon');
+    if (toggleIcon) {
+		if (toggleIcon.classList.contains('mdi-menu')) {
+            toggleIcon.classList.remove('mdi-menu');
+            toggleIcon.classList.add('mdi-menu-open');
+        } else {
+            toggleIcon.classList.remove('mdi-menu-open');
+            toggleIcon.classList.add('mdi-menu');
+        }
 	}
 }
 
