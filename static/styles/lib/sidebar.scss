@@ -244,6 +244,20 @@
       cursor: pointer;
     }
   }
+
+	.instance-copy-right {
+		display: flex;
+    align-items: center;
+    padding-left: 16px;
+    font-size: 16px;
+    text-decoration: none;
+    overflow-x: visible;
+    white-space: nowrap;
+    height: 40px;
+    letter-spacing: 0.009375em;
+    border-bottom: 1px solid transparent;
+		color: #294C5A99;
+	}
 }
 
 .overlay {

@@ -49,6 +49,17 @@
         </ul>
         <hr class="divider legal" aria-orientation="horizontal" role="separator">
         <ul>
+            {{#unlessEnv "SC_THEME" "default"}}
+                {{#hasConfig "ACCESSIBILITY_REPORT_EMAIL"}}
+                    {{#ifneq (getConfig "ACCESSIBILITY_REPORT_EMAIL") ""}}
+                        <li>
+                            <a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject={{$t "lib.global.link.accessibilityReport"}}" target="_blank" rel="noopener"
+							aria-label="{{$t "lib.global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning" }}">
+							{{$t "lib.global.link.accessibilityReport"}}</a>
+					    </li>
+                    {{/ifneq}}
+                {{/hasConfig}}
+            {{/unlessEnv}}
             <li>
                 <a href="/imprint" class="legal-link">{{$t "global.link.imprint"}}</a>
             </li>
@@ -57,6 +68,9 @@
             </li>
             <li>
                 <a class="legal-link" href="/privacypolicy" target="_blank" aria-label="{{$t "global.text.dataProtectionThr"}} Thüringer Schulcloud PDF {{$t "global.openInNewTabWarning"}}" rel="noopener">{{$t "global.text.dataProtectionThr"}}</a>
+            </li>
+            <li data-testid="sidebar-instance-name" class="instance-copy-right">
+                &copy;{{currentYear}} {{theme.short_title}}
             </li>
         </ul>
     </nav>
