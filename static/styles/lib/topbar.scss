@@ -65,12 +65,26 @@
 		max-height: 40px;
 		max-width: 160px;
 		margin: 0 12px 0 0 !important;
+
+		@media (max-width: 1279px) {
+			display: none;
+		}
 	}
 
 	.school-data {
 		margin: 0 16px 2px 0 !important;
 		font-size: 16px;
 		line-height: 19.2px;
+
+		@media (max-width: 959px) {
+			display: none;
+		}
+	}
+
+	.qr-code-action {
+		@media (max-width: 959px) {
+			display: none;
+		}
 	}
 
 	.qr-code-menu {
