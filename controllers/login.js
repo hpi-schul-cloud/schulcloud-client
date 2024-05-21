@@ -468,6 +468,13 @@ router.get('/logout/', (req, res, next) => {
 		.catch((err) => {
 			logger.error('error during logout.', formatError(err));
 		});
+
+	api(req, { version: 'v3' })
+		.del('/collaborative-text-editor/delete-sessions') // async, ignore result
+		.catch((err) => {
+			logger.error('can not delete etherpad client sessions', formatError(err));
+		});
+
 	return authHelper.clearCookie(req, res, sessionDestroyer)
 	// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
