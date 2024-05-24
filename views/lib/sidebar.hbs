@@ -54,7 +54,7 @@
                     {{#ifneq (getConfig "ACCESSIBILITY_REPORT_EMAIL") ""}}
                         <li>
                             <a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject={{$t "lib.global.link.accessibilityReport"}}" target="_blank" rel="noopener"
-							aria-label="{{$t "lib.global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning" }}">
+							aria-label="{{$t "lib.global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning" }}" class="legal-link">
 							{{$t "lib.global.link.accessibilityReport"}}</a>
 					    </li>
                     {{/ifneq}}
