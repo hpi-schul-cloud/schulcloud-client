@@ -49,7 +49,7 @@ const makeActive = (items, currentUrl) => {
 		if (item.children && item.childActive) {
 			item.children = makeActive(item.children, currentUrl);
 
-			if (item.children.filter((child) => child.class == 'active').length == 0) {
+			if (item.children.filter((child) => child.class === 'active').length === 0) {
 				item.class += ' active';
 			}
 		}
@@ -412,55 +412,55 @@ module.exports = (req, res, next) => {
 
 	if (Configuration.get('FEATURE_NEW_LAYOUT_ENABLED')) {
 		// system group
-		let systemLinks = []
+		const systemLinks = [];
 
 		if (ALERT_STATUS_URL) {
 			systemLinks.push({
 				link: ALERT_STATUS_URL,
-				name: res.$t("lib.global.link.status"),
-				testId: "status",
+				name: res.$t('lib.global.link.status'),
+				testId: 'status',
 				isExternalLink: true,
 			});
 		}
 
 		systemLinks.push({
-			name: res.$t("lib.help_menu.link.releaseNotes"),
-			link: "/help/releases",
-			testId: "releases",
+			name: res.$t('lib.help_menu.link.releaseNotes'),
+			link: '/help/releases',
+			testId: 'releases',
 		});
 
-		if (SC_THEME !== "default") {
+		if (SC_THEME !== 'default') {
 			systemLinks.push({
 				link: res.locals.theme.documents.specificFiles.accessibilityStatement,
-				name: res.$t("lib.global.link.accessibilityStatement"),
-				testId: "accessibility-statement",
+				name: res.$t('lib.global.link.accessibilityStatement'),
+				testId: 'accessibility-statement',
 				isExternalLink: true,
 			});
 		}
 
 		systemLinks.push({
-			name: res.$t("lib.global.link.github"),
-			link: "https://github.com/hpi-schul-cloud",
-			testId: "github",
+			name: res.$t('lib.global.link.github'),
+			link: 'https://github.com/hpi-schul-cloud',
+			testId: 'github',
 			isExternalLink: true,
 		});
 
-		if (SC_THEME === "default") {
+		if (SC_THEME === 'default') {
 			systemLinks.push({
-				link: "/security",
-				name: res.$t("lib.global.link.safety"),
-				testId: "security",
+				link: '/security',
+				name: res.$t('lib.global.link.safety'),
+				testId: 'security',
 			});
 		}
 
 		res.locals.sidebarItems.push(
 			{
-				name: res.$t("global.sidebar.link.system"),
-				icon: "application-brackets-outline",
-				testId: "system",
-				groupName: "system",
+				name: res.$t('global.sidebar.link.system'),
+				icon: 'application-brackets-outline',
+				testId: 'system',
+				groupName: 'system',
 				children: systemLinks,
-			}
+			},
 		);
 	}
 
@@ -497,7 +497,7 @@ module.exports = (req, res, next) => {
 			});
 
 			if (!notification.read) {
-				notificationCount++;
+				notificationCount += 1;
 			}
 
 			return notification;
