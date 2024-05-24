@@ -15,14 +15,15 @@
 		height: 40px;
 		border: none;
 		background-color: white;
-		color: #3A424B;
+		color: #3a424b;
 		border-radius: 50%;
 		margin-right: 8px;
 		cursor: pointer;
 		margin-top: 2px;
 
-		&:hover, &:active {
-			background-color: rgba(0, 0, 0, .12);
+		&:hover,
+		&:active {
+			background-color: rgba(0, 0, 0, 0.12);
 		}
 
 		i {
@@ -38,18 +39,20 @@
 		justify-content: center;
 		align-items: center;
 
-		&:hover, &:active {
-			background-color: rgba(0, 0, 0, .12);
+		&:hover,
+		&:active {
+			background-color: rgba(0, 0, 0, 0.12);
 		}
 
 		.icon-btn {
 			width: 40px;
 			height: 40px;
-			background-color: #4E555D;
-			color: #F7F7F8;
+			background-color: #4e555d;
+			color: #f7f7f8;
 			font-size: 19.2px;
 			font-weight: bold;
-			font-family: "PT Sans Narrow", "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-family: "PT Sans Narrow", "PT Sans", "Helvetica Neue", Helvetica,
+				Arial, sans-serif;
 			margin-right: 0px;
 			margin-top: 0px;
 		}
@@ -75,6 +78,10 @@
 		margin: 0 16px 2px 0 !important;
 		font-size: 16px;
 		line-height: 19.2px;
+		max-width: 280px;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
 
 		@media (max-width: 959px) {
 			display: none;
