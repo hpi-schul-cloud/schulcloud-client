@@ -9,7 +9,7 @@
   data-toggle="dropdown" data-testid="dropdown-toggle">
                   <i class="mdi mdi-alert" aria-hidden="true"></i>
               </button>
-              <div class="dropdown-menu" data-testid="dropdown-menu">
+              <div class="dropdown-menu dropdown-menu-right" data-testid="dropdown-menu">
                   <div class="content js-alert-content"></div>
               </div>
           </div>
@@ -43,7 +43,7 @@
               {{/if}}
           {{/unless}}
       {{/if}} 
-      <li class="">
+      <li>
           <div class="dropdown btn-avatar user-menu">
               <button class="icon-btn" data-testid="initials" title='{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{$t (concat "global.placeholder." currentRole) }}' data-toggle="dropdown">
                   <span class="initials">{{ currentUser.avatarInitials }}</span>
