@@ -57,6 +57,52 @@
 			margin-top: 0px;
 			padding: 0px;
 		}
+
+		.dropdown-menu {
+			font-size: 16px;
+			padding: 8px 0;
+
+			.dropdown-item {
+				padding: 0;
+				padding: 4px 16px;
+				height: 48px;
+				display: flex;
+				align-items: center;
+			}
+
+			.dropdown-name {
+				border: none;
+				padding: 0;
+				margin: 0;
+				padding: 4px 16px;
+				height: 48px;
+				display: flex;
+				align-items: center;
+			}
+
+			.dropdown-submenu {
+				// padding: 4px 16px;
+				// height: 48px;
+				// display: flex;
+				// align-items: center;
+
+				.fla-de::before,
+				.fla-en:before,
+				.fla-es:before,
+				.fla-uk:before {
+					top: 0 !important;
+					margin-right: 4px;
+				}
+
+				.dropdown-item:after {
+					top: 0;
+				}
+			}
+
+			hr {
+				margin: 0;
+			}
+		}
 	}
 
 	.action-item-section {
