@@ -7,12 +7,12 @@ function getIconTag(status) {
 	switch (status) {
 		case 'danger':
 			$('.alert-button').addClass('danger');
-			return '<i class="fa fa-exclamation-circle text-danger"></i>';
+			return '<i class="mdi mdi-alert-circle text-danger"></i>';
 		case 'info':
 			$('.alert-button').addClass('info');
-			return '<i class="fa fa-info-circle text-info"></i>';
+			return '<i class="mdi mdi-information text-info"></i>';
 		default:
-			return '<i class="fa fa-info-circle text-info"></i>';
+			return '<i class="mdi mdi-information text-info"></i>';
 	}
 }
 
@@ -31,9 +31,10 @@ class AlertMessageController {
 		if (this.loggedin) {
 			item.className = 'alert-item';
 			item.innerHTML = `
-			<div class="alert-title">${icon} ${message.title}</div>
-			${message.text}
-			<br>
+			${icon}
+			<div class="alert-text-wrapper">
+			<div class="alert-title">${message.title}</div>
+			<div class="alert-subtitle">${message.text}</div>
 			<div class="alert-date text-nowrap text-muted" style="float: left;">
 			 	${$t('alert.text.updatedAt')} ${datetime.fromNow(message.timestamp)} <span>|</span>
 			</div>
@@ -53,7 +54,7 @@ class AlertMessageController {
 			<div class="text-muted" style="float: left; margin-left: 5px;">
 				${$t('alert.text.createdAt')} ${datetime.toDateTimeString(message.createdAt)}
 			</div>
-			<div style="clear: both;"></div>`;
+			<div style="clear: both;"></div></div>`;
 		}
 		return item;
 	}
@@ -62,9 +63,9 @@ class AlertMessageController {
 		if (!messageArray || messageArray.length === 0) {
 			// If messageArray is empty, we do not show the triangle
 			localStorage.setItem('SC-Alerts', JSON.stringify([]));
-			if (this.loggedin) {
-				$('.alert-button').css('visibility', 'hidden');
-			}
+			// if (this.loggedin) {
+			// 	$('.alert-button').css('visibility', 'hidden');
+			// }
 			return;
 		}
 		if (Array.isArray(messageArray)) {
