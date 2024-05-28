@@ -37,7 +37,7 @@ function toggleSidebarItemGroup(groupData) {
         }
 	}
 
-    const toggleIcon = document.querySelector('#group-toggle-icon');
+    const toggleIcon = document.querySelector(`#${groupData.groupName}-toggle-icon`);
     if (toggleIcon) {
 		if (toggleIcon.classList.contains('mdi-chevron-down')) {
             toggleIcon.classList.remove('mdi-chevron-down');
