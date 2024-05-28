@@ -2,7 +2,7 @@
 @import "./bootstrap/scss/bootstrap-flex";
 
 .alert-button {
-	// visibility: hidden;
+	visibility: hidden;
 
 	&.danger i {
 		color: $colorDanger;
@@ -34,7 +34,6 @@
 	.alert-item {
 		padding: 6px 15px;
 		font-size: 14px;
-		// border-top: 1px solid $dropdown-divider-bg;
 		display: flex;
 		padding-bottom: 16px;
 
