@@ -31,7 +31,7 @@
                                     {{/if}}
                                     <span class="link-name">{{../name}}</span>
                                 </div>
-                                <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
+                                <i id="{{../groupName}}-group-toggle-icon" class="mdi mdi-chevron-down" aria-hidden="true"></i>
                             </div>
                             <ul class="subitems {{../groupName}}">
                                 {{#each ../children}}
@@ -49,6 +49,17 @@
         </ul>
         <hr class="divider legal" aria-orientation="horizontal" role="separator">
         <ul>
+            {{#unlessEnv "SC_THEME" "default"}}
+                {{#hasConfig "ACCESSIBILITY_REPORT_EMAIL"}}
+                    {{#ifneq (getConfig "ACCESSIBILITY_REPORT_EMAIL") ""}}
+                        <li>
+                            <a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject={{$t "lib.global.link.accessibilityReport"}}" target="_blank" rel="noopener"
+							aria-label="{{$t "lib.global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning" }}" class="legal-link">
+							{{$t "lib.global.link.accessibilityReport"}}</a>
+					    </li>
+                    {{/ifneq}}
+                {{/hasConfig}}
+            {{/unlessEnv}}
             <li>
                 <a href="/imprint" class="legal-link">{{$t "global.link.imprint"}}</a>
             </li>

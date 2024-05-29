@@ -1,4 +1,3 @@
-
 .fla-de:before {
 	position: relative;
 	top: 5px;
@@ -38,7 +37,7 @@
 	background-repeat: no-repeat;
 	height: 24px;
 	width: 24px;
- }
+}
 
 .language-select .chosen-single {
 	border-color: #fff;
@@ -46,28 +45,13 @@
 
 .dropdown-submenu {
 	position: relative;
-}
 
-.dropdown-submenu > a::after {
-	display: inline-block;
-    margin-left: 0.255em;
-	position: absolute;
-	right: 1em;
-	top: 1.2em;
-    vertical-align: 0.255em;
-    content: " ";
-    border-top: 0.3em solid;
-    border-right: 0.3em solid transparent;
-    border-bottom: 0;
-    border-left: 0.3em solid transparent;
-	transform: rotate(0deg);
-	-webkit-transform: rotate(0deg);
+	.dropdown-item i {
+		font-size: 24px;
+		position: absolute;
+		right: 16px;
+	}
 }
-
- .dropdown-submenu > a.open::after {
-	transform: rotate(-180deg);
-	-webkit-transform: rotate(-180deg);
- }
 
 .dropdown-submenu .dropdown-menu {
 	top: 0;

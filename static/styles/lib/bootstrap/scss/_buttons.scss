@@ -154,6 +154,19 @@ fieldset[disabled] a.btn {
   // line-height: ensure proper height of button next to small input
   @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-border-radius-sm);
 }
+.btn-vuetify {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 15px;
+  font-size: 16px;
+  letter-spacing: 0.044em;
+
+  .mdi {
+    font-size: 1.25em;
+    margin-right: 8px;
+  }
+}
 
 
 //

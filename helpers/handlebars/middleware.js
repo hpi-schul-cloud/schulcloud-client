@@ -49,7 +49,7 @@ const makeActive = (items, currentUrl) => {
 		if (item.children && item.childActive) {
 			item.children = makeActive(item.children, currentUrl);
 
-			if (item.children.filter((child) => child.class == 'active').length == 0) {
+			if (item.children.filter((child) => child.class === 'active').length === 0) {
 				item.class += ' active';
 			}
 		}
@@ -353,116 +353,116 @@ module.exports = (req, res, next) => {
 			isExternalIcon: true,
 			link: '/files/teams/',
 		});
-		/*
-				res.locals.sidebarItems.find(i => i.name === 'Administration').children.splice(4, 0, {
-						name: 'Teams',
-						icon: 'users',
-						link: '/administration/teams/',
-				});
-				*/
 	}
 	// helpArea view
-	res.locals.sidebarItems.push({
-		name: res.$t('global.link.helpArea'),
-		testId: 'Hilfebereich',
-		icon: 'help-circle-outline',
-		link: '/help/',
-		groupName: 'help',
-		children: [
-			{
-				name: res.$t('help.headline.helpSection'),
-				testId: 'Hilfeartikel',
-				icon: 'file-question-outline',
-				link: '/help/articles/',
-			},
-			{
-				name: res.$t('global.link.contact'),
-				testId: 'Kontakt',
-				icon: 'chat-outline',
-				link: '/help/contact/',
-			},
-			{
-				name: res.$t('lib.help_menu.link.training'),
-				testId: 'Fortbildungen',
-				icon: 'file-certificate-outline',
-				link: 'https://lernen.cloud/',
-				isExternalLink: true,
-			},
-			// new sidebar
-			// {
-			// 	name: res.$t("lib.help_menu.link.releaseNotes"),
-			// 	link: "/help/releases",
-			// 	testId: "releases",
-			// },
-		],
-	});
+	if (Configuration.get('FEATURE_NEW_LAYOUT_ENABLED')) {
+		res.locals.sidebarItems.push({
+			name: res.$t('global.link.helpArea'),
+			testId: 'Hilfebereich',
+			icon: 'help-circle-outline',
+			link: '/help/',
+			groupName: 'help',
+			children: [
+				{
+					name: res.$t('help.headline.helpSection'),
+					testId: 'Hilfeartikel',
+					icon: 'file-question-outline',
+					link: '/help/articles/',
+				},
+				{
+					name: res.$t('global.link.contact'),
+					testId: 'Kontakt',
+					icon: 'chat-outline',
+					link: '/help/contact/',
+				},
+			],
+		});
+	} else {
+		res.locals.sidebarItems.push({
+			name: res.$t('global.link.helpArea'),
+			testId: 'Hilfebereich',
+			icon: 'help-circle-outline',
+			link: '/help/',
+			groupName: 'help',
+			children: [
+				{
+					name: res.$t('help.headline.helpSection'),
+					testId: 'Hilfeartikel',
+					icon: 'file-question-outline',
+					link: '/help/articles/',
+				},
+				{
+					name: res.$t('global.link.contact'),
+					testId: 'Kontakt',
+					icon: 'chat-outline',
+					link: '/help/contact/',
+				},
+				{
+					name: res.$t('lib.help_menu.link.training'),
+					testId: 'Fortbildungen',
+					icon: 'file-certificate-outline',
+					link: 'https://lernen.cloud/',
+					isExternalLink: true,
+				},
+			],
+		});
+	}
 
 	// new sidebar
 
-	// system group
-	let systemLinks = [{
-		name: res.$t("lib.global.link.github"),
-		link: "https://github.com/hpi-schul-cloud",
-		testId: "github",
-		isExternalLink: true,
-	}]
+	if (Configuration.get('FEATURE_NEW_LAYOUT_ENABLED')) {
+		// system group
+		const systemLinks = [];
 
-	if (ALERT_STATUS_URL) {
+		if (ALERT_STATUS_URL) {
+			systemLinks.push({
+				link: ALERT_STATUS_URL,
+				name: res.$t('lib.global.link.status'),
+				testId: 'status',
+				isExternalLink: true,
+			});
+		}
+
 		systemLinks.push({
-			link: ALERT_STATUS_URL,
-			name: res.$t("lib.global.link.status"),
-			testId: "status",
+			name: res.$t('lib.help_menu.link.releaseNotes'),
+			link: '/help/releases',
+			testId: 'releases',
+		});
+
+		if (SC_THEME !== 'default') {
+			systemLinks.push({
+				link: res.locals.theme.documents.specificFiles.accessibilityStatement,
+				name: res.$t('lib.global.link.accessibilityStatement'),
+				testId: 'accessibility-statement',
+				isExternalLink: true,
+			});
+		}
+
+		systemLinks.push({
+			name: res.$t('lib.global.link.github'),
+			link: 'https://github.com/hpi-schul-cloud',
+			testId: 'github',
 			isExternalLink: true,
 		});
-	}
-	if (SC_THEME === "default") {
-		systemLinks.push({
-			link: "/security",
-			name: res.$t("lib.global.link.safety"),
-			testId: "security",
-		});
-	}
 
-	// res.locals.sidebarItems.push(
-	// 	{
-	// 		name: res.$t("global.sidebar.link.system"),
-	// 		icon: "application-brackets-outline",
-	// 		testId: "system",
-	// 		groupName: "system",
-	// 		children: systemLinks,
-	// 	}
-	// );
+		if (SC_THEME === 'default') {
+			systemLinks.push({
+				link: '/security',
+				name: res.$t('lib.global.link.safety'),
+				testId: 'security',
+			});
+		}
 
-	// a11y group
-	let a11yLinks = [];
-	if (Configuration.get("ACCESSIBILITY_REPORT_EMAIL")) {
-		a11yLinks.push({
-			link:
-				"mailto:" +
-				Configuration.get("ACCESSIBILITY_REPORT_EMAIL") +
-				"?subject=" +
-				"global.link.accessibilityReport",
-			name: res.$t("lib.global.link.accessibilityReport"),
-			testId: "report-accessibility",
-			isExternalLink: true,
-		});
+		res.locals.sidebarItems.push(
+			{
+				name: res.$t('global.sidebar.link.system'),
+				icon: 'application-brackets-outline',
+				testId: 'system',
+				groupName: 'system',
+				children: systemLinks,
+			},
+		);
 	}
-	a11yLinks.push({
-		link: res.locals.theme.documents.specificFiles.accessibilityStatement,
-		name: res.$t("lib.global.link.accessibilityStatement"),
-		testId: "accessibility-statement",
-		isExternalLink: true,
-	});
-
-	// if (SC_THEME !== "default") {
-	// 	res.locals.sidebarItems.push({
-	// 		name: res.$t("global.sidebar.link.accessibility"),
-	// 		icon: "human",
-	// 		testId: "accessibility",
-	// 		groupName: "accessibility",
-	// 		children: a11yLinks,
-	// 	})
-	// }
 
 	// end new sidebar
 
@@ -497,7 +497,7 @@ module.exports = (req, res, next) => {
 			});
 
 			if (!notification.read) {
-				notificationCount++;
+				notificationCount += 1;
 			}
 
 			return notification;
