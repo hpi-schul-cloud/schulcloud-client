@@ -1,12 +1,12 @@
 
 {{#if @root.currentSchoolData.inUserMigration}}
-    {{#userHasPermission 'IMPORT_USER_VIEW'}}
+    {{#userHasPermission 'SCHOOL_IMPORT_USER_VIEW'}}
         <input type="hidden" id="inUserMigrationStarted" value="{{currentRole}}"/>
     {{/userHasPermission}}
 {{else}}
     {{#ifConfig "FEATURE_USER_MIGRATION_CENTRAL_LDAP" true}}
         {{#if @root.currentSchoolData.officialSchoolNumber}}
-            {{#userHasPermission 'IMPORT_USER_MIGRATE'}}
+            {{#userHasPermission 'SCHOOL_IMPORT_USER_MIGRATE'}}
                 <input type="hidden" id="inUserMigration" value="{{currentRole}}"/>
             {{/userHasPermission}}
         {{/if}}
