@@ -2469,7 +2469,10 @@
 			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"/administration/school/\"> the new school year here!</a>",
 			"schoolInMigrationModeStarted": "The school is in user migration mode. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
 			"schoolInMigrationMode": "The school can import user accounts from Schulportal. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
-			"onlineEventsAnnouncement": "The dBildungscloud team invites you to various online events. Click <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>HERE</a> for more information."
+			"onlineEventsAnnouncement": "The dBildungscloud team invites you to various online events. Click <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>HERE</a> for more information.",
+			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel-mit-der-nbc'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an die Kolleg:innen am ThILLM, die Sie unter <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a> erreichen können."
 		}
 	},
 	"login": {
@@ -2597,7 +2600,6 @@
 			"userNotFoundAfterProvisioning": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator.",
 			"multipleUsersFound": "This moin.schule user cannot be clearly assigned to an account in the Niedersächsische Bildungscloud. Please contact support!",
 			"userAccountDeactivated": "Your account has been deactivated. Please contact your school administrator."
-
 		}
 	},
 	"messenger": {

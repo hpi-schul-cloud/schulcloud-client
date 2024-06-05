@@ -1839,7 +1839,6 @@
 			"userNotFoundAfterProvisioning": "Помилка логіну. Або школа ще не переїхала до {{systemName}}, або створення нових користувачів у {{shortTitle}} неактивне для школи. Будь ласка, зверніться до адміністратора школи.",
 			"multipleUsersFound": "Цей користувач moin.schule не може бути чітко прив'язаний до облікового запису в Niedersächsische Bildungscloud. Будь ласка, зверніться до служби підтримки!",
 			"userAccountDeactivated": "Ваш обліковий запис було деактивовано. Будь ласка, зверніться до адміністратора школи."
-
 		},
 		"separatorExternalLogin": {
 			"text": {
@@ -2128,7 +2127,10 @@
 			"schoolInTransferPhaseContactAdmin": "Школа перебуває у фазі переходу до нового навчального року. Не можна створювати класи та користувачів.",
 			"schoolInTransferPhaseStartNew": "Школа перебуває у фазі переходу до нового навчального року. Не можна створювати класи та користувачів. Зателефонуйте в <a href=\"/administration/school/\"> новий навчальний рік тут!</a>",
 			"schoolInMigrationMode": "Школа перебуває в режимі міграції користувачів. Щоб перенести користувачів, перейдіть на <a href=\"/administration/migration/\">цю сторінку</a>.",
-			"onlineEventsAnnouncement": "Команда dBildungscloud запрошує вас на різноманітні онлайн-заходи. Для отримання додаткової інформації натисніть <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>ТУТ</a>."
+			"onlineEventsAnnouncement": "Команда dBildungscloud запрошує вас на різноманітні онлайн-заходи. Для отримання додаткової інформації натисніть <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>ТУТ</a>.",
+			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel-mit-der-nbc'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an die Kolleg:innen am ThILLM, die Sie unter <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a> erreichen können."
 		}
 	},
 	"topic": {
