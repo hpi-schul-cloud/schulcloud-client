@@ -37,7 +37,7 @@ async function filesStorageInit(schoolId, parentId, parentType, readonly, req) {
 
 	if (parentId) {
 		const result = await apiFilesStorage(req, { version: 'v3' })
-			.get(`/file/list/${schoolId}/${parentType}/${parentId}`);
+			.get(`/file/list/school/${schoolId}/${parentType}/${parentId}`);
 
 		if (result && result.data) {
 			files = result.data;
@@ -54,7 +54,7 @@ async function filesStorageInit(schoolId, parentId, parentType, readonly, req) {
 	return { filesStorage };
 }
 
-const getFileDownloadPath = (file) => `/api/v3/file/download/${file.id}/${encodeURIComponent(file.name)}`;
+const getFileDownloadPath = (file) => `/api/v3/file/download/${file.id}`;
 
 module.exports = {
 	getThumbnailIcon,

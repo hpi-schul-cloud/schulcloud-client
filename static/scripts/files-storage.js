@@ -270,7 +270,7 @@ $(document).ready(() => {
 	$('button[data-method="download"]').on('click', (e) => {
 		const fileRecordId = $(e.currentTarget).attr('data-file-id');
 		const fileName = $(e.currentTarget).attr('data-file-name');
-		const url = getFileDownloadUrl(fileRecordId, fileName);
+		const url = getFileDownloadUrl(fileRecordId);
 		const a = document.createElement('a');
 		a.href = url;
 		a.download = url.split('/').pop();
@@ -350,7 +350,7 @@ $('.videostop').on('keypress', (e) => {
 window.fileViewer = function fileViewer(type, name, id) {
 	$('#my-video').css('display', 'none');
 	let win;
-	const src = getFileDownloadUrl(id, name);
+	const src = getFileDownloadUrl(id);
 	switch (type) {
 		case `image/${type.substr(6)}`:
 			window.location.href = '#file-view';
