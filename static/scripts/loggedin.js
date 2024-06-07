@@ -85,14 +85,15 @@ function toggleSidebar() {
         adjustContentWidth(sidebar);
 	}
 
-    const toggleIcon = document.querySelector('#sidebar-toggle-icon-in-topbar');
-    if (toggleIcon) {
-		if (toggleIcon.classList.contains('mdi-menu')) {
-            toggleIcon.classList.remove('mdi-menu');
-            toggleIcon.classList.add('mdi-menu-open');
-        } else {
-            toggleIcon.classList.remove('mdi-menu-open');
-            toggleIcon.classList.add('mdi-menu');
+    const toggleInTopbar = document.querySelector('.sidebar-toggle-in-topbar');
+    const toggleInSidebar = document.querySelector('.sidebar-toggle-in-sidebar');
+    if (toggleInTopbar && toggleInSidebar) {
+		if (toggleInTopbar.classList.contains('invisible')) {
+            toggleInTopbar.classList.remove('invisible');
+            toggleInSidebar.classList.add('invisible');
+        } else if (toggleInSidebar.classList.contains('invisible')) {
+            toggleInSidebar.classList.remove('invisible');
+            toggleInTopbar.classList.add('invisible');
         }
 	}
 }
@@ -207,10 +208,20 @@ $(document).ready(function () {
         })
     }
 
-    const sidebarToggle = document.querySelector('.sidebar-toggle-in-topbar');
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', toggleSidebar);
-        sidebarToggle.addEventListener('keypress', (e) => {
+    const sidebarToggleButtonInTopbar = document.querySelector('.sidebar-toggle-button-in-topbar');
+    if (sidebarToggleButtonInTopbar) {
+        sidebarToggleButtonInTopbar.addEventListener('click', toggleSidebar);
+        sidebarToggleButtonInTopbar.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSidebar();
+            }
+        })
+    }
+    const sidebarToggleButtonInSidebar = document.querySelector('.sidebar-toggle-button-in-sidebar');
+    if (sidebarToggleButtonInSidebar) {
+        sidebarToggleButtonInSidebar.addEventListener('click', toggleSidebar);
+        sidebarToggleButtonInSidebar.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 toggleSidebar();

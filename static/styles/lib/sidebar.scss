@@ -84,6 +84,10 @@
 		padding-top: 2px;
 		margin-bottom: -2px;
 
+		&.invisible {
+			visibility: hidden;
+		}
+
 		.logo-wrapper {
 		display: block;
 		padding: 0px;

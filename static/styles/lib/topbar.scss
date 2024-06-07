@@ -35,6 +35,10 @@
 		display: flex;
 		align-items: center;
 
+		&.invisible {
+			visibility: hidden;
+		}
+
 		.logo-wrapper {
 		display: block;
 		padding: 0px;
@@ -71,11 +75,6 @@
 		justify-content: center;
 		align-items: center;
 
-		&:hover,
-		&:active {
-			background-color: rgba(0, 0, 0, 0.12);
-		}
-
 		.icon-btn {
 			width: 40px;
 			height: 40px;
@@ -88,6 +87,11 @@
 			margin-right: 0px;
 			margin-top: 0px;
 			padding: 0px;
+
+			/* &:hover,
+			&:active {
+				background-color: #5d6772;
+			} */
 		}
 
 		.dropdown-menu {
