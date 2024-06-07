@@ -2469,7 +2469,10 @@
 			"schoolInTransferPhaseStartNew": "La escuela está en fase de transferencia al nuevo año escolar. No se pueden crear clases ni usuarios. ¡Accede al <a href=\"/administration/school/\">nuevo año escolar aquí!</a>",
 			"schoolInMigrationModeStarted": "La escuela está en modo de migración de usuarios. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>.",
 			"schoolInMigrationMode": "La escuela puede importar cuentas de usuario de Schulportal. Para migrar los usuarios, por favor vaya a <a href=\"/administration/migration/\">esta página</a>.",
-			"onlineEventsAnnouncement": "El equipo de dBildungscloud le invita a varios eventos en línea. Haga clic <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>AQUÍ</a> para obtener más información."
+			"onlineEventsAnnouncement": "El equipo de dBildungscloud le invita a varios eventos en línea. Haga clic <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>AQUÍ</a> para obtener más información.",
+			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel-mit-der-nbc'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an die Kolleg:innen am ThILLM, die Sie unter <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a> erreichen können."
 		}
 	},
 	"login": {
@@ -2597,7 +2600,6 @@
 			"userNotFoundAfterProvisioning": "Error de inicio de sesion. La escuela aún no se ha mudado a {{systemName}} o la creación de nuevos usuarios en {{shortTitle}} no está activa para la escuela. Comuníquese con el administrador de su escuela.",
 			"multipleUsersFound": "Este usuario de moin.schule no puede ser asignado claramente a una cuenta en la Niedersächsische Bildungscloud. Póngase en contacto con el servicio de asistencia.",
 			"userAccountDeactivated": "Su cuenta ha sido desactivada. Comuníquese con el administrador de su escuela."
-
 		}
 	},
 	"messenger": {
