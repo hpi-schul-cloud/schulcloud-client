@@ -79,13 +79,13 @@ function toggleSidebar() {
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "none";
             }
-        } 
+        }
 
         if (window.innerWidth <= 1279) return;
         adjustContentWidth(sidebar);
 	}
 
-    const toggleIcon = document.querySelector('#sidebar-toggle-icon');
+    const toggleIcon = document.querySelector('#sidebar-toggle-icon-in-topbar');
     if (toggleIcon) {
 		if (toggleIcon.classList.contains('mdi-menu')) {
             toggleIcon.classList.remove('mdi-menu');
@@ -207,7 +207,7 @@ $(document).ready(function () {
         })
     }
 
-    const sidebarToggle = document.querySelector('.sidebar-toggle');
+    const sidebarToggle = document.querySelector('.sidebar-toggle-in-topbar');
     if (sidebarToggle) {
         sidebarToggle.addEventListener('click', toggleSidebar);
         sidebarToggle.addEventListener('keypress', (e) => {
