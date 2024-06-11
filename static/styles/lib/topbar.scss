@@ -35,8 +35,10 @@
 		display: flex;
 		align-items: center;
 
-		&.invisible {
+		@media screen and (min-width: 1280px) {
+			&.invisible-toggle {
 			visibility: hidden;
+			}
 		}
 
 		.logo-wrapper {

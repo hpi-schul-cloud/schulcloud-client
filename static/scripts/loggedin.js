@@ -88,12 +88,12 @@ function toggleSidebar() {
     const toggleInTopbar = document.querySelector('.sidebar-toggle-in-topbar');
     const toggleInSidebar = document.querySelector('.sidebar-toggle-in-sidebar');
     if (toggleInTopbar && toggleInSidebar) {
-		if (toggleInTopbar.classList.contains('invisible')) {
-            toggleInTopbar.classList.remove('invisible');
-            toggleInSidebar.classList.add('invisible');
-        } else if (toggleInSidebar.classList.contains('invisible')) {
-            toggleInSidebar.classList.remove('invisible');
-            toggleInTopbar.classList.add('invisible');
+		if (toggleInTopbar.classList.contains('invisible-toggle')) {
+            toggleInTopbar.classList.remove('invisible-toggle');
+            toggleInSidebar.classList.add('invisible-toggle');
+        } else if (toggleInSidebar.classList.contains('invisible-toggle')) {
+            toggleInSidebar.classList.remove('invisible-toggle');
+            toggleInTopbar.classList.add('invisible-toggle');
         }
 	}
 }
