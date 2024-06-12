@@ -45,67 +45,67 @@
             <input type="hidden" id="schuljahrtransfer" value="{{currentRole}}"/>
         {{/if}}
 
-        <div class="navtooltips"></div>
-        <aside class="nav-sidebar hide-inline">
-            <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
-                <ul class="sidebar-list">
-                    <li>
-                        <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
-                            <div class="cloud-logo"></div>
-                            <div class="sc-title"><span>{{theme.short_title}}</span></div>
-                        </a>
-                    </li>
-                    {{#each sidebarItems}}
+        {{!-- new sidebar --}}
+        {{#if (getConfig "FEATURE_NEW_LAYOUT_ENABLED")}}
+            {{#embed "lib/sidebar"}}{{/embed}}
+        {{else}}
+            <div class="navtooltips"></div>
+            <aside class="nav-sidebar hide-inline">
+                <nav id="sidebar" aria-label="{{$t "global.aria_label.sidebar"}}">
+                    <ul class="sidebar-list">
                         <li>
-								<a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}" data-testid="{{this.testId}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
-                                {{#if this.isExternalIcon}}
-                                    {{{this.icon}}}
-                                {{else}}
-                                    <i class="mdi mdi-{{this.icon}}" aria-hidden="true"></i>
-                                {{/if}}
-                                <span class="link-name">{{this.name}}</span>
+                            <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
+                                <div class="cloud-logo"></div>
+                                <div class="sc-title"><span>{{theme.short_title}}</span></div>
                             </a>
-
-                            {{#if this.childActive}}
-                                {{#if this.children}}
-                                    <ul class="subitems">
-                                        {{#each this.children}}
-                                            <li data-testid="{{this.testId}}">
-												<a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
-													{{#if this.isExternalIcon}}
-														{{{this.icon}}}
-													{{else}}
-														<i class="mdi mdi-{{this.icon}}" aria-hidden="true"></i>
-													{{/if}}
-													<span class="link-name">{{this.name}}</span>
-												</a>
-                                            </li>
-                                        {{/each}}
-                                    </ul>
-                                {{/if}}
-                            {{/if}}
-
                         </li>
-                    {{/each}}
-                </ul>
-            </nav>
-        </aside>
+                        {{#each sidebarItems}}
+                            <li>
+                                {{#ifneq this.name "divider"}}
+                                    <a class="{{../class}}" href="{{../link}}" title="{{../name}}" data-testid="{{../testId}}" aria-label="{{../name}} {{#if ../isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if ../isExternalLink}}target="_blank" {{/if}}>
+                                        {{#if ../isExternalIcon}}
+                                            {{{../icon}}}
+                                        {{else}}
+                                            <i class="mdi mdi-{{../icon}}" aria-hidden="true"></i>
+                                        {{/if}}
+                                        <span class="link-name">{{../name}}</span>
+                                    </a>
 
-		<section class="content-wrapper">
-					{{!-- <a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
-						<i class="mdi mdi-menu" aria-hidden="true"></i>
-					</a>
-                    <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
-                        <div class="cloud-logo"></div>
-                    </a> --}}
-				<div class="content-min-height">
-					<section class="demo" id="offlineAlert" style="display:none;">
-						<div class="alert alert-warning" role="alert">
-							<p>{{$t "lib.loggedin.text.youAreOffline" }}
-								<span class="hidden-md-down">{{$t "lib.loggedin.text.inOrderToShow" }}</span>
-							</p>
-						</div>
-					</section>
+                                    {{#if ../childActive}}
+                                        {{#if ../children}}
+                                            <ul class="subitems">
+                                                {{#each ../children}}
+                                                    <li data-testid="{{this.testId}}">
+                                                        <a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}" aria-label="{{this.name}} {{#if this.isExternalLink}}{{$t "global.link.openInNewTabWarning"}}{{/if}}" {{#if this.isExternalLink}}target="_blank" {{/if}}>
+                                                            {{#if this.isExternalIcon}}
+                                                                {{{this.icon}}}
+                                                            {{else}}
+                                                                <i class="mdi mdi-{{this.icon}}" aria-hidden="true"></i>
+                                                            {{/if}}
+                                                            <span class="link-name">{{this.name}}</span>
+                                                        </a>
+                                                    </li>
+                                                {{/each}}
+                                            </ul>
+                                        {{/if}}
+                                    {{/if}}
+                                {{/ifneq}}
+                            </li>
+                        {{/each}}
+                    </ul>
+                </nav>
+            </aside>
+        {{/if}}
+
+		<section class="content-wrapper {{#if (getConfig "FEATURE_NEW_LAYOUT_ENABLED")}} new-sidebar {{else}} old-sidebar {{/if}}">
+            <div class="content-min-height">
+                <section class="demo" id="offlineAlert" style="display:none;">
+                    <div class="alert alert-warning" role="alert">
+                        <p>{{$t "lib.loggedin.text.youAreOffline" }}
+                            <span class="hidden-md-down">{{$t "lib.loggedin.text.inOrderToShow" }}</span>
+                        </p>
+                    </div>
+                </section>
 
                 {{#hasConfig "GLOBAL_ANNOUNCEMENT_TEXT"}}
                     {{#hasConfig "GLOBAL_ANNOUNCEMENT_ROLES"}}
@@ -114,7 +114,7 @@
                                 {{#if (userHasRoleFromArray (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ../currentUser)}}
                                     <section class="demo">
                                             <div class="alert alert-announcement no-bottom-margin" role="alert">
-                                                <div>{{{getConfig "GLOBAL_ANNOUNCEMENT_TEXT"}}}</div>
+                                                <div>{{{$t (getConfig "GLOBAL_ANNOUNCEMENT_TEXT") }}}</div>
                                             </div>
                                     </section>
                                 {{/if}}
@@ -124,127 +124,132 @@
                 {{/hasConfig}}
 
                 {{> "lib/components/notification"}}
-				<nav id="top-navbar" class="topbar navbar hide-inline" aria-label="{{ $t "global.aria_label.topMenu"}}">
-	                <a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
-                        <svg class="mdi mdi-menu" width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="mdi mdi-menu">
-                            <path d="M0 0H18V2H0V0ZM0 5H18V7H0V5ZM0 10H18V12H0V10Z" fill="#1B1B1B"/>
-                        </svg>
-					</a>
-                    <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
-                        <div class="cloud-logo"></div>
-                    </a>
-                    {{#if breadcrumb}}
-                        <ol class="breadcrumb">
-                            {{#each breadcrumb}}
-                                {{#if this.title}}
-                                    <li class="breadcrumb-item {{this.class}}">
-                                        <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
-                                    </li>
-                                {{/if}}
-                            {{/each}}
-                        </ol>
-                    {{/if}}
 
-                    <ul class="nav navbar-nav float-xs-none dropdowns">
-                        <li class="nav-item alert-button">
-                            <div class="dropdown minimal-button minimal-button-loggedin">
-                                <a class="btn btn-alert-info btn-thin dropdown-toggle" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
-								   data-toggle="dropdown" data-testid="dropdown-toggle">
-                                    <i class="mdi mdi-alert" aria-hidden="true"></i>
-                                </a>
+                {{#if (getConfig "FEATURE_NEW_LAYOUT_ENABLED")}}
+                    {{#embed "lib/topbar"}}{{/embed}}
+                {{else}}
+                    <nav id="top-navbar" class="old-topbar navbar hide-inline" aria-label="{{ $t "global.aria_label.topMenu"}}">
+                        <a class="mobile-nav-toggle" aria-label="{{$t "lib.loggedin.aria_label.mobileNavMenu"}}">
+                            <svg class="mdi mdi-menu" width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="mdi mdi-menu">
+                                <path d="M0 0H18V2H0V0ZM0 5H18V7H0V5ZM0 10H18V12H0V10Z" fill="#1B1B1B"/>
+                            </svg>
+                        </a>
+                        <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
+                            <div class="cloud-logo"></div>
+                        </a>
+                        {{#if breadcrumb}}
+                            <ol class="breadcrumb">
+                                {{#each breadcrumb}}
+                                    {{#if this.title}}
+                                        <li class="breadcrumb-item {{this.class}}">
+                                            <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
+                                        </li>
+                                    {{/if}}
+                                {{/each}}
+                            </ol>
+                        {{/if}}
 
-                                <div class="dropdown-menu" data-testid="dropdown-menu">
-                                    <div class="content js-alert-content"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item fullscreen-action">
-                            <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" href="" title="{{$t "lib.loggedin.label.fullscreen"}}" aria-label="{{$t "lib.loggedin.label.fullscreen"}}" data-toggle="dropdown">
-                                    <i class="mdi mdi-arrow-expand" data-testid="fullscreen-mode" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item qr-code-action">
-                            <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" href="" title="{{$t "lib.loggedin.label.qrCode"}}" aria-label="{{$t "lib.loggedin.label.qrCode"}}" data-toggle="dropdown">
-                                    <i class="mdi mdi-qrcode" aria-hidden="true"></i>
-                                </a>
-                                <div class="dropdown-menu print">
-                                    <div class="content qr-show"></div>
-										<div class="qr-hint-text">
-											{{$t "global.text.qrHintText"}}
-										</div>
-                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" tabindex="0">
-                                        <i class="fa fa-print" aria-hidden="true"></i> {{$t "global.button.print" }}
+                        <ul class="nav navbar-nav float-xs-none dropdowns">
+                            <li class="nav-item alert-button">
+                                <div class="dropdown minimal-button minimal-button-loggedin">
+                                    <a class="btn btn-alert-info btn-thin dropdown-toggle" href="" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
+                                    data-toggle="dropdown" data-testid="dropdown-toggle">
+                                        <i class="mdi mdi-alert" aria-hidden="true"></i>
+                                    </a>
+
+                                    <div class="dropdown-menu" data-testid="dropdown-menu">
+                                        <div class="content js-alert-content"></div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                        {{#if false}}
-                        <li class="nav-item notification-dropdown">
-                            <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
-                                        recentNotifications}}recent{{/if}}" href="" title="{{$t "lib.loggedin.label.notifications"}}" aria-label="{{$t "lib.loggedin.label.notifications"}}" data-toggle="dropdown">
-                                    <i class="fa fa-bell" aria-hidden="true"></i> {{#if recentNotifications}}
-                                    <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
-                                </a>
-
-                                <div class="dropdown-menu">
-                                    <div class="content">
-                                        {{#if notifications}}
-                                            {{#each notifications}}
-                                                <div class="notification-item {{#unless this.read}}unread{{/unless}}"
-                                                    data-notification-id="{{this.notificationId}}">
-                                                    <a href="{{this.action}}"><b>{{this.title}}</b></a>
-                                                    <br>
-                                                    <span>{{this.body}}</span>
-                                                    <time class="notification-time">{{timeFromNow this.date}}</time>
-                                                </div>
-                                            {{/each}}
-                                        {{else}}
-                                            <div class="notification-item" data-notification-id="0">
-                                                <span>{{$t "lib.loggedin.text.noNotificationsAtTheMoment" }}</span>
+                            </li>
+                            <li class="nav-item fullscreen-action">
+                                <div class="dropdown minimal-button">
+                                    <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" href="" title="{{$t "lib.loggedin.label.fullscreen"}}" aria-label="{{$t "lib.loggedin.label.fullscreen"}}" data-toggle="dropdown">
+                                        <i class="mdi mdi-arrow-expand" data-testid="fullscreen-mode" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="nav-item qr-code-action">
+                                <div class="dropdown minimal-button">
+                                    <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" href="" title="{{$t "lib.loggedin.label.qrCode"}}" aria-label="{{$t "lib.loggedin.label.qrCode"}}" data-toggle="dropdown">
+                                        <i class="mdi mdi-qrcode" aria-hidden="true"></i>
+                                    </a>
+                                    <div class="dropdown-menu print">
+                                        <div class="content qr-show"></div>
+                                            <div class="qr-hint-text">
+                                                {{$t "global.text.qrHintText"}}
                                             </div>
-                                        {{/if}}
+                                        <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" tabindex="0">
+                                            <i class="fa fa-print" aria-hidden="true"></i> {{$t "global.button.print" }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                        {{/if}}
+                            </li>
+                            {{#if false}}
+                            <li class="nav-item notification-dropdown">
+                                <div class="dropdown minimal-button">
+                                    <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
+                                            recentNotifications}}recent{{/if}}" href="" title="{{$t "lib.loggedin.label.notifications"}}" aria-label="{{$t "lib.loggedin.label.notifications"}}" data-toggle="dropdown">
+                                        <i class="fa fa-bell" aria-hidden="true"></i> {{#if recentNotifications}}
+                                        <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
+                                    </a>
 
-                        {{#embed "lib/help_menu"}}{{/embed}}
+                                    <div class="dropdown-menu">
+                                        <div class="content">
+                                            {{#if notifications}}
+                                                {{#each notifications}}
+                                                    <div class="notification-item {{#unless this.read}}unread{{/unless}}"
+                                                        data-notification-id="{{this.notificationId}}">
+                                                        <a href="{{this.action}}"><b>{{this.title}}</b></a>
+                                                        <br>
+                                                        <span>{{this.body}}</span>
+                                                        <time class="notification-time">{{timeFromNow this.date}}</time>
+                                                    </div>
+                                                {{/each}}
+                                            {{else}}
+                                                <div class="notification-item" data-notification-id="0">
+                                                    <span>{{$t "lib.loggedin.text.noNotificationsAtTheMoment" }}</span>
+                                                </div>
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            {{/if}}
 
-                        {{#if currentSchoolData}}
-                            {{#unless currentSchoolData.isExpertSchool}}
-                                <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
-                                {{#if currentSchoolData.logo_dataUrl}}
-                                    <img class="nav-item school-logo" src="{{ currentSchoolData.logo_dataUrl }}" alt="{{$t "lib.loggedin.img_alt.logoOfSchool" (dict "name" currentSchoolData.name)}}">
-                                {{/if}}
-                            {{/unless}}
-                        {{/if}}
+                            {{#embed "lib/help_menu"}}{{/embed}}
 
-                        <li class="nav-item">
-                            <div class="btn-group" data-matomo-mask>
-                              <div class="dropdown btn-avatar">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle" href=""
-                                   title='{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{$t (concat "global.placeholder." currentRole) }}' data-toggle="dropdown">
-                                  <div data-testid="initials" class="avatar-circle" >
-                                      <span class="initials">{{ currentUser.avatarInitials }}</span>
-                                  </div>
-                                </a>
-                                <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
-                                <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable" role="menu">
-                                    <li><div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>
-                                    {{> "user/forms/language" language=@root.userLanguage }}
-                                    <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
-                                    <li><a class="dropdown-item localstorageclear" data-testid="logout" href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}} role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
-                                </ul>
-                              </div>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
+                            {{#if currentSchoolData}}
+                                {{#unless currentSchoolData.isExpertSchool}}
+                                    <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
+                                    {{#if currentSchoolData.logo.dataUrl}}
+                                        <img class="nav-item school-logo" src="{{ currentSchoolData.logo.dataUrl }}" alt="{{$t "lib.loggedin.img_alt.logoOfSchool" (dict "name" currentSchoolData.name)}}">
+                                    {{/if}}
+                                {{/unless}}
+                            {{/if}}
+
+                            <li class="nav-item">
+                                <div class="btn-group" data-matomo-mask>
+                                <div class="dropdown btn-avatar">
+                                    <a class="btn btn-secondary btn-thin dropdown-toggle" href=""
+                                    title='{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{$t (concat "global.placeholder." currentRole) }}' data-toggle="dropdown">
+                                    <div data-testid="initials" class="avatar-circle" >
+                                        <span class="initials">{{ currentUser.avatarInitials }}</span>
+                                    </div>
+                                    </a>
+                                    <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
+                                    <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable" role="menu">
+                                        <li><div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>
+                                        {{> "user/forms/language" language=@root.userLanguage }}
+                                        <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
+                                        <li><a class="dropdown-item localstorageclear" data-testid="logout" href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}} role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
+                                    </ul>
+                                </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                {{/if}}
 
                 <section class="section-title">
                     <div class="container-fluid">
@@ -287,11 +292,6 @@
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
                 <p id="backendUrl" hidden>{{ backendUrl }}</p>
                 <main id="main-content" class="container-fluid">
-					<dl class="skipLinks main" role="navigation" aria-label="{{$t "global.label.skipLinks"}} {{$t "global.aria_label.sidebar"}}">
-						<dd>
-							<a href="#sidebar">{{$t "global.aria_label.sidebar"}}</a>
-						</dd>
-					</dl>
 					{{#block "page"}}{{/block}}
                 </main>
 
@@ -307,10 +307,11 @@
                     }}
                 {{/if}}
             </div>
-            {{#unless inline}}
-                {{#embed "lib/footer"}}{{/embed}}
+            {{#unless (getConfig "FEATURE_NEW_LAYOUT_ENABLED")}}
+                {{#unless inline}}
+                    {{#embed "lib/footer"}}{{/embed}}
+                {{/unless}}
             {{/unless}}
-
         </section>
     {{/content}}
 {{/extend}}

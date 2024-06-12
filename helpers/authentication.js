@@ -64,6 +64,7 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 			});
 		});
 	}
+	
 	res.clearCookie('jwt');
 	// this is deprecated and only used for cookie removal from now on,
 	// and can be removed after one month (max cookie lifetime from life systems)
@@ -284,6 +285,10 @@ const mapErrorToTranslationKey = (error) => {
 			return 'login.text.schoolInMigration';
 		case 'USER_NOT_FOUND_AFTER_PROVISIONING':
 			return 'login.text.userNotFoundAfterProvisioning';
+		case 'MULTIPLE_USERS_FOUND':
+			return 'login.text.multipleUsersFound';
+		case 'USER_ACCOUNT_DEACTIVATED':
+			return 'login.text.userAccountDeactivated';
 		default:
 			return 'login.text.loginFailed';
 	}
@@ -305,6 +310,11 @@ const loginErrorHandler = (res, next) => (e) => {
 	// Too Many Requests
 	if (e.statusCode === 429) {
 		res.locals.notification.timeToWait = e.error.data.timeToWait;
+	}
+
+	// User account deactivated
+	if (e.statusCode === 401 && e.error.type === 'USER_ACCOUNT_DEACTIVATED') {
+		res.locals.notification.message = res.$t('login.text.userAccountDeactivated');
 	}
 
 	next(e);
@@ -506,6 +516,8 @@ const migrateUser = async (req, res, payload) => {
 			if (details.sourceSchoolNumber && details.targetSchoolNumber) {
 				queryString.append('sourceSchoolNumber', details.sourceSchoolNumber);
 				queryString.append('targetSchoolNumber', details.targetSchoolNumber);
+			} else if (details.multipleUsersFound) {
+				queryString.append('multipleUsersFound', details.multipleUsersFound);
 			}
 		}
 

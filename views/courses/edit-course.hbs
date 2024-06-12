@@ -83,7 +83,7 @@
 
 				<div class="form-group">
 					<label for="mathsClass">{{$t "global.label.nameOfTheCourse"}}</label>
-					<input id="mathsClass" class="form-control" name="name" type="text" placeholder="{{$t "courses.global.input.mathsClass"}}" value="{{course.name}}"
+					<input id="mathsClass" data-testid="coursename" class="form-control" name="name" type="text" placeholder="{{$t "courses.global.input.mathsClass"}}" value="{{course.name}}"
 						{{#if course.isArchived}}disabled{{/if}} required autofocus />
 				</div>
 
@@ -137,36 +137,41 @@
 
 				<div class="form-group">
 					<label for="teacherId">{{$t "administration.global.label.teachingTeacher"}}</label>
-
-					<select id="teacherId" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
-						{{#if course.isArchived}}disabled{{/if}}>
-						{{#each teachers}}
-							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
-									{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
-							</option>
-						{{/each}}
-					</select>
+                    <select id="teacherId" name="teacherIds[]" data-testid="teachersearch" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
+                            {{#ifCond course.isArchived '||' course.syncedWithGroup}}disabled{{/ifCond}}>
+                        {{#each teachers}}
+                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
+                                {{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
+                            </option>
+                        {{/each}}
+                    </select>
+                    {{#if course.syncedWithGroup}}
+                        <input type="hidden" id="teacherIdSync" name="teacherIds" value="{{teachersSelected}}">
+                    {{/if}}
 					<span class="small course-validation-error" id="courseTeacherErr">
 					{{$t "courses.global.input.noCourseTeacher"}}</span>
 				</div>
 
 				<div class="form-group">
 					<label for="substituteTeacher">{{$t "courses._course.edit.label.substitute"}}</label>
-					<select id="substituteTeacher" name="substitutionIds[]" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
-						{{#if course.isArchived}}disabled{{/if}}>
+					<select id="substituteTeacher" name="substitutionIds[]" data-testid="substituent" multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
+                        {{#ifCond course.isArchived '||' course.syncedWithGroup}}disabled{{/ifCond}}>
 						{{#each substitutions}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
 								{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
+                        {{#if course.syncedWithGroup}}
+                                <input type="hidden" id="substituteTeacherSync" name="substitutionIds" value="{{substitutionSelected}}">
+                        {{/if}}
 					</select>
 				</div>
 
 				<div class="form-group">
 					<label for="classId">{{$t "global.headline.classes"}} <small>{{$t "administration.global.label.afterSavingAllStudentsAdded"}}</small></label>
 
-					<select id="classId" name="classIds[]" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
-						{{#if course.isArchived}}disabled{{/if}}>
+					<select id="classId" name="classIds[]" data-testid="classes" multiple data-placeholder="{{$t "courses.global.input.selectClasses"}}"
+                        {{#ifCond course.isArchived '||' course.syncedWithGroup}}disabled{{/ifCond}}>
 						{{#each classesAndGroups}}
 							<option value="{{#if this._id}}{{this._id}}{{else}}{{this.id}}{{/if}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if (getConfig "FEATURE_GROUPS_IN_COURSE_ENABLED")}}
@@ -193,18 +198,24 @@
 							</option>
 						{{/each}}
 					</select>
+                    {{#if course.syncedWithGroup}}
+                            <input type="hidden" id="classIdSync" name="classIds" value="{{classesAndGroupsSelected}}">
+                    {{/if}}
 				</div>
 
 				<div class="form-group">
 					<label for="studentsId">{{$t "administration.global.label.studentParticipants"}}</label>
-					<select id="studentsId" name="userIds[]" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
-						{{#if course.isArchived}}disabled{{/if}}>
+					<select id="studentsId" name="userIds[]" data-testid="pupils" multiple data-placeholder="{{$t "courses.global.input.selectStudents"}}"
+                        {{#ifCond course.isArchived '||' course.syncedWithGroup}}disabled{{/ifCond}}>
 						{{#each students}}
 							<option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
 									{{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
 							</option>
 						{{/each}}
 					</select>
+                    {{#if course.syncedWithGroup}}
+                            <input type="hidden" id="studentsIdSync" name="userIds" value="{{studentsSelected}}">
+                    {{/if}}
 				</div>
 
 				<label>{{$t "administration.global.label.chooseDate"}}</label>
@@ -212,12 +223,20 @@
 					<label>{{$t "administration.global.label.timeSpan"}}</label>
 					<div class="row">
 						<div class="form-group col-md-6">
-                            {{> "lib/forms/form-date-input" label=($t "global.label.from") id="startDate" value=course.startDate disabled=@root.course.isArchived ariaLabel=($t "administration.global.label.chooseDate") }}
+                            {{> "lib/forms/form-date-input" label=($t "global.label.from") id="startDate" dataTestId="date_start"
+                                value=course.startDate disabled=(isCond @root.course.isArchived '||' @root.course.syncedWithGroup) ariaLabel=($t "administration.global.label.chooseDate") }}
 						</div>
+                        {{#if course.syncedWithGroup}}
+                            <input type="hidden" id="startDateSync" name="startDate" value="{{startDate}}">
+                        {{/if}}
 
 						<div class="form-group col-md-6">
-                            {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate" value=course.untilDate disabled=@root.course.isArchived ariaLabel=($t "administration.global.label.chooseDate") }}
+                            {{> "lib/forms/form-date-input" label=($t "global.label.to") id="untilDate" dataTestId="date_until"
+                                value=course.untilDate disabled=(isCond @root.course.isArchived '||' @root.course.syncedWithGroup) ariaLabel=($t "administration.global.label.chooseDate") }}
 						</div>
+                        {{#if course.syncedWithGroup}}
+                            <input type="hidden" id="untilDateSync" name="untilDate" value="{{untilDate}}">
+                        {{/if}}
 					</div>
 
 					<table width="100%" cellpadding="5px">

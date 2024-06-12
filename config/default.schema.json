@@ -51,7 +51,6 @@
 			"default": true,
 			"description": "If enabled, additional security header will be set."
 		},
-
 		"GLOBAL_LOGIN_ANNOUNCEMENT": {
 			"type": "string",
 			"description": "global announcement, shown as notification in header on startpage when not loggedin."
@@ -194,7 +193,7 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Enables to show the login and register button on the loginpage"
-		 },
+		},
 		"ALERT_STATUS_URL": {
 			"type": "string",
 			"default": null,
@@ -476,11 +475,6 @@
 			"default": true,
 			"description": "To start the application with calendar service."
 		},
-		"FEATURE_COURSE_SHARE": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables Share course button"
-		},
 		"FEATURE_COURSE_IMPORT": {
 			"type": "boolean",
 			"default": false,
@@ -608,10 +602,20 @@
 			"default": false,
 			"description": "Enables to get groups of type class in courses"
 		},
-		"FEATURE_NEST_SYSTEMS_API_ENABLED": {
+		"FEATURE_SCHULCONNEX_COURSE_SYNC_ENABLED": {
 			"type": "boolean",
-			"default": true,
-			"description": "Uses the v3 api over the v1 api for systems"
+			"default": false,
+			"description": "Enables the synchronization of courses with linked groups during provisioning."
+		},
+		"FEATURE_MEDIA_SHELF_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the media shelf feature"
+		},
+		"FEATURE_NEW_LAYOUT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the new layout feature"
 		}
 	},
 	"allOf": [
