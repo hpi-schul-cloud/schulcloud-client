@@ -42,7 +42,7 @@ export default class FileBrowserHelper {
 
 		const headers = { Authorization: `Bearer ${getCookie('jwt')}` };
 		const fileRecord = await $.ajax(
-			`${apiV3FileStorageBasePath}/upload-from-url/${schoolId}/${parentType}/${parentId}`,
+			`${apiV3FileStorageBasePath}/upload-from-url/school/${schoolId}/${parentType}/${parentId}`,
 			{
 				method: 'POST',
 				headers,
