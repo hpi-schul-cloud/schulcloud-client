@@ -121,8 +121,12 @@
 		flex: 1;
 		width: 100%;
 		list-style-type: none;
-		padding: 0px;
+		padding: 12px 0px;
 		margin: 0px;
+
+		&.sidebar-list {
+			padding-top: 0px;
+		}
 
 		&.subitems {
 			padding: 0px;
