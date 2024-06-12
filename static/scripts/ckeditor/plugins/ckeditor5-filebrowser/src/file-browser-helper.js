@@ -56,6 +56,6 @@ export default class FileBrowserHelper {
 			},
 		);
 
-		return getFileDownloadUrl(fileRecord.id);
+		return getFileDownloadUrl(fileRecord.id, fileRecord.name);
 	}
 }

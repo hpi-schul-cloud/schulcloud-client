@@ -5,6 +5,6 @@ export const session = storageFactory(() => sessionStorage);
 
 export const apiV3FileStorageBasePath = '/api/v3/file';
 
-export function getFileDownloadUrl(id) {
-	return `${apiV3FileStorageBasePath}/download/${id}`;
+export function getFileDownloadUrl(id, name) {
+	return `${apiV3FileStorageBasePath}/download/${id}/${encodeURIComponent(name)}`;
 }

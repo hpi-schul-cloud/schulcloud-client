@@ -54,7 +54,7 @@ async function filesStorageInit(schoolId, parentId, parentType, readonly, req) {
 	return { filesStorage };
 }
 
-const getFileDownloadPath = (file) => `/api/v3/file/download/${file.id}`;
+const getFileDownloadPath = (file) => `/api/v3/file/download/${file.id}/${encodeURIComponent(file.name)}`;
 
 module.exports = {
 	getThumbnailIcon,
