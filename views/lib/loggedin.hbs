@@ -107,22 +107,6 @@
                     </div>
                 </section>
 
-                {{#hasConfig "GLOBAL_ANNOUNCEMENT_TEXT"}}
-                    {{#hasConfig "GLOBAL_ANNOUNCEMENT_ROLES"}}
-                        {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_TEXT") ""}}
-                            {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ""}}
-                                {{#if (userHasRoleFromArray (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ../currentUser)}}
-                                    <section class="demo">
-                                            <div class="alert alert-announcement no-bottom-margin" role="alert">
-                                                <div>{{{$t (getConfig "GLOBAL_ANNOUNCEMENT_TEXT") }}}</div>
-                                            </div>
-                                    </section>
-                                {{/if}}
-                            {{/ifneq}}
-                        {{/ifneq}}
-                    {{/hasConfig}}
-                {{/hasConfig}}
-
                 {{> "lib/components/notification"}}
 
                 {{#if (getConfig "FEATURE_NEW_LAYOUT_ENABLED")}}
@@ -250,6 +234,22 @@
                         </ul>
                     </nav>
                 {{/if}}
+
+                {{#hasConfig "GLOBAL_ANNOUNCEMENT_TEXT"}}
+                    {{#hasConfig "GLOBAL_ANNOUNCEMENT_ROLES"}}
+                        {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_TEXT") ""}}
+                            {{#ifneq (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ""}}
+                                {{#if (userHasRoleFromArray (getConfig "GLOBAL_ANNOUNCEMENT_ROLES") ../currentUser)}}
+                                    <section class="demo">
+                                            <div class="alert alert-announcement no-bottom-margin" role="alert">
+                                                <div>{{{$t (getConfig "GLOBAL_ANNOUNCEMENT_TEXT") }}}</div>
+                                            </div>
+                                    </section>
+                                {{/if}}
+                            {{/ifneq}}
+                        {{/ifneq}}
+                    {{/hasConfig}}
+                {{/hasConfig}}
 
                 <section class="section-title">
                     <div class="container-fluid">
