@@ -63,6 +63,7 @@ function adjustContentWidth(sidebar) {
 function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.querySelector('.overlay');
+    const contentDiv = document.querySelector('.content-min-height');
 
 	if (sidebar) {
 		if (sidebar.classList.contains('hidden')) {
@@ -71,6 +72,7 @@ function toggleSidebar() {
 
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "block";
+                contentDiv.style.position = "fixed";
             }
         } else {
             sidebar.classList.remove('visible');
@@ -78,6 +80,7 @@ function toggleSidebar() {
 
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "none";
+                contentDiv.style.position = "static";
             }
         } 
 
