@@ -1,7 +1,13 @@
 <nav id="top-navbar" class="topbar">
-  <button class="icon-btn sidebar-toggle" title="{{$t "lib.loggedin.label.sidebarMenu"}}" aria-label="{{$t "lib.loggedin.label.sidebarMenu"}}">
-    <i id="sidebar-toggle-icon" class="mdi mdi-menu-open"></i>
-  </button>
+  <div class="sidebar-toggle sidebar-toggle-in-topbar invisible-toggle">
+    <button class="icon-btn sidebar-toggle-button-in-topbar" title="{{$t "lib.loggedin.label.sidebarMenu"}}" aria-label="{{$t "lib.loggedin.label.sidebarMenu"}}">
+        <i id="sidebar-toggle-icon-in-topbar" class="mdi mdi-menu"></i>
+    </button>
+    <a class="logo-wrapper" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
+        <div class="logo"></div>
+        <div class="sc-title"><span>{{theme.short_title}}</span></div>
+    </a>
+  </div>
   <ul class="nav navbar-nav float-xs-none dropdowns action-item-section">
       <li class="alert-button">
           <div class="dropdown">
@@ -42,7 +48,7 @@
                   <img class="school-logo" src="{{ currentSchoolData.logo.dataUrl }}" alt="{{$t "lib.loggedin.img_alt.logoOfSchool" (dict "name" currentSchoolData.name)}}">
               {{/if}}
           {{/unless}}
-      {{/if}} 
+      {{/if}}
       <li>
           <div class="dropdown btn-avatar user-menu">
               <button class="icon-btn" data-testid="initials" title='{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{$t (concat "global.placeholder." currentRole) }}' data-toggle="dropdown">
