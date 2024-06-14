@@ -35,13 +35,14 @@ module.exports = {
 			// All files that end on .js or .jsx are transpilled by babel
 			{
 				test: /\.(js|jsx)$/,
-				exclude: /(node_modules)/,
+				exclude: /(node_modules)[/\\](?!(htmlparser2)[/\\])/,
 				loader: 'babel-loader',
 				query: {
 					presets: [['@babel/preset-env']],
 					plugins: [
 						'@babel/plugin-transform-react-jsx',
 						'@babel/plugin-transform-runtime',
+						'@babel/plugin-proposal-export-namespace-from',
 					],
 				},
 			},
