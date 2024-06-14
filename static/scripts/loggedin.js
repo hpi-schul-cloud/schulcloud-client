@@ -235,11 +235,13 @@ $(document).ready(function () {
     toggleSidebarOnWindowWidth(sidebar);
 
     const overlay = document.querySelector('.overlay');
+    const contentDiv = document.querySelector('.content-min-height');
     if (overlay) {
         overlay.addEventListener('click', () => {
             sidebar.classList.remove('visible');
             sidebar.classList.add('hidden');
             overlay.style.display = "none";
+            contentDiv.style.position = "static";
         });
     }
 
