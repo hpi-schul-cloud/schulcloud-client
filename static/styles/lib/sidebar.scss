@@ -39,6 +39,30 @@
 		flex: 1;
 	}
 
+	.icon-btn {
+		width: 48px;
+		height: 48px;
+		border: none;
+		background-color: white;
+		color: #3a424b;
+		border-radius: 50%;
+		cursor: pointer;
+		padding-right: 0px;
+		padding-bottom: 0px;
+		padding-left: 0px;
+		padding-top: 3px;
+		margin-left: 4px;
+
+		&:hover,
+		&:active {
+			background-color: rgba(0, 0, 0, 0.12);
+		}
+
+		i {
+			font-size: 24px;
+		}
+	}
+
   .divider {
     display: block;
     flex: 1 1 100%;
@@ -55,30 +79,41 @@
     }
   }
 
-	.logo-wrapper {
+  	.sidebar-toggle {
+		display: flex;
+		align-items: center;
+		margin-bottom: -5px;
+
+		@media screen and (min-width: 1280px) {
+			&.invisible-toggle {
+			visibility: hidden;
+			}
+		}
+
+		.logo-wrapper {
 		display: block;
 		padding: 0px;
 		font-size: 24px;
 		color: whitesmoke;
 		text-decoration: none;
-		margin-bottom: 1px;
+		margin-top: 1px;
 
-		.logo {
-			display: inline-block;
-			vertical-align: top;
-			width: 100%;
-			height: 30px;
-			margin: 0px;
-			margin-left: -8px;
-			padding: 30px;
-			background: $logoBackground;
-			background-size: contain;
-		}
+			.logo {
+				display: inline-block;
+				vertical-align: top;
+				width: 160px;
+				height: 30px;
+				margin: 0px;
+				padding: 30px;
+				background: $navbarLogo;
+				background-size: contain;
+			}
 
-		.sc-title {
-			display: none;
-			max-width: calc(100% - 4px);
-			word-break: break-word;
+			.sc-title {
+				display: none;
+				max-width: calc(100% - 4px);
+				word-break: break-word;
+			}
 		}
 	}
 
@@ -88,6 +123,10 @@
 		list-style-type: none;
 		padding: 12px 0px;
 		margin: 0px;
+
+		&.sidebar-list {
+			padding-top: 0px;
+		}
 
 		&.subitems {
 			padding: 0px;
@@ -145,7 +184,7 @@
 				text-decoration: none;
 				overflow-x: visible;
 				white-space: nowrap;
-        border-bottom: 1px solid transparent;
+        		border-bottom: 1px solid transparent;
 
 				&:not(a) {
 					justify-content: space-between;

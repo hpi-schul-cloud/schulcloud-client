@@ -82,20 +82,21 @@ function toggleSidebar() {
                 overlay.style.display = "none";
                 contentDiv.style.position = "static";
             }
-        } 
+        }
 
         if (window.innerWidth <= 1279) return;
         adjustContentWidth(sidebar);
 	}
 
-    const toggleIcon = document.querySelector('#sidebar-toggle-icon');
-    if (toggleIcon) {
-		if (toggleIcon.classList.contains('mdi-menu')) {
-            toggleIcon.classList.remove('mdi-menu');
-            toggleIcon.classList.add('mdi-menu-open');
-        } else {
-            toggleIcon.classList.remove('mdi-menu-open');
-            toggleIcon.classList.add('mdi-menu');
+    const toggleInTopbar = document.querySelector('.sidebar-toggle-in-topbar');
+    const toggleInSidebar = document.querySelector('.sidebar-toggle-in-sidebar');
+    if (toggleInTopbar && toggleInSidebar) {
+		if (toggleInTopbar.classList.contains('invisible-toggle')) {
+            toggleInTopbar.classList.remove('invisible-toggle');
+            toggleInSidebar.classList.add('invisible-toggle');
+        } else if (toggleInSidebar.classList.contains('invisible-toggle')) {
+            toggleInSidebar.classList.remove('invisible-toggle');
+            toggleInTopbar.classList.add('invisible-toggle');
         }
 	}
 }
@@ -210,10 +211,20 @@ $(document).ready(function () {
         })
     }
 
-    const sidebarToggle = document.querySelector('.sidebar-toggle');
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', toggleSidebar);
-        sidebarToggle.addEventListener('keypress', (e) => {
+    const sidebarToggleButtonInTopbar = document.querySelector('.sidebar-toggle-button-in-topbar');
+    if (sidebarToggleButtonInTopbar) {
+        sidebarToggleButtonInTopbar.addEventListener('click', toggleSidebar);
+        sidebarToggleButtonInTopbar.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSidebar();
+            }
+        })
+    }
+    const sidebarToggleButtonInSidebar = document.querySelector('.sidebar-toggle-button-in-sidebar');
+    if (sidebarToggleButtonInSidebar) {
+        sidebarToggleButtonInSidebar.addEventListener('click', toggleSidebar);
+        sidebarToggleButtonInSidebar.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 toggleSidebar();
