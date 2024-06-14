@@ -32,7 +32,11 @@ module.exports = {
 	mode: 'production',
 	module: {
 		rules: [
-			// All files that end on .js or .jsx are transpilled by babel
+			// All files that end on .js or .jsx are transpilled by babel.
+			// Also the htmlparser2 module (as dependency of sanitize-html)
+			// needs to be included in transpilling, because of the module
+			// being otherwise not compatible with webpack 4 (see
+			// https://github.com/apostrophecms/sanitize-html/issues/592 ).
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /(node_modules)[/\\](?!(htmlparser2)[/\\])/,
