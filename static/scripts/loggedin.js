@@ -281,8 +281,14 @@ $(document).ready(function () {
 
     // Init mobile nav
     if (document.getElementById('searchBar') instanceof Object) {
-        document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
-        document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const mobileSearchToggle = document.querySelector('.mobile-search-toggle');
+        if (mobileNavToggle) {
+            mobileNavToggle.addEventListener('click', toggleMobileNav);
+        }
+        if (mobileSearchToggle) {
+            mobileSearchToggle.addEventListener('click', toggleMobileSearch);
+        }
     }
 
     if (!fullscreen) {
