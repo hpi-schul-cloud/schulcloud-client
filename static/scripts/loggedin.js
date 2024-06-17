@@ -72,7 +72,9 @@ function toggleSidebar() {
 
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "block";
+                overlay.style.height = `${sidebar.offsetHeight}px`;
                 contentDiv.style.position = "fixed";
+                contentDiv.style.height = `${sidebar.offsetHeight}px`;
             }
         } else {
             sidebar.classList.remove('visible');
@@ -80,7 +82,9 @@ function toggleSidebar() {
 
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "none";
+                overlay.style.height = "unset"
                 contentDiv.style.position = "static";
+                contentDiv.style.height = "unset";
             }
         }
 
@@ -241,7 +245,9 @@ $(document).ready(function () {
             sidebar.classList.remove('visible');
             sidebar.classList.add('hidden');
             overlay.style.display = "none";
+            overlay.style.height = "unset"
             contentDiv.style.position = "static";
+            contentDiv.style.height = "unset";
         });
     }
 
