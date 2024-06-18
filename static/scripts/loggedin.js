@@ -74,6 +74,7 @@ function toggleSidebar() {
                 overlay.style.display = "block";
                 overlay.style.position = "fixed";
                 contentDiv.style.position = "fixed";
+                sidebar.style.height = "100%";
             }
         } else {
             sidebar.classList.remove('visible');
@@ -83,6 +84,7 @@ function toggleSidebar() {
                 overlay.style.display = "none";
                 overlay.style.position = "absolute";
                 contentDiv.style.position = "static";
+                sidebar.style.height = "unset";
             }
         }
 
@@ -242,6 +244,7 @@ $(document).ready(function () {
         overlay.addEventListener('click', () => {
             sidebar.classList.remove('visible');
             sidebar.classList.add('hidden');
+            sidebar.style.height = "unset";
             overlay.style.display = "none";
             overlay.style.position = "absolute";
             contentDiv.style.position = "static";
