@@ -52,7 +52,7 @@
       <li>
           <div class="dropdown btn-avatar user-menu">
               <button class="icon-btn" data-testid="initials" title='{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{$t (concat "global.placeholder." currentRole) }}' data-toggle="dropdown">
-                  <span class="initials">{{ currentUser.avatarInitials }}</span>
+                  <span data-testid="initials" class="initials">{{ currentUser.avatarInitials }}</span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable" role="menu">
                   <li><div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>

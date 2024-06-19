@@ -63,6 +63,7 @@ function adjustContentWidth(sidebar) {
 function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.querySelector('.overlay');
+    const contentDiv = document.querySelector('.content-min-height');
 
 	if (sidebar) {
 		if (sidebar.classList.contains('hidden')) {
@@ -71,6 +72,9 @@ function toggleSidebar() {
 
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "block";
+                overlay.style.position = "fixed";
+                contentDiv.style.position = "fixed";
+                sidebar.style.height = "100%";
             }
         } else {
             sidebar.classList.remove('visible');
@@ -78,6 +82,9 @@ function toggleSidebar() {
 
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "none";
+                overlay.style.position = "absolute";
+                contentDiv.style.position = "static";
+                sidebar.style.height = "unset";
             }
         }
 
@@ -232,11 +239,15 @@ $(document).ready(function () {
     toggleSidebarOnWindowWidth(sidebar);
 
     const overlay = document.querySelector('.overlay');
+    const contentDiv = document.querySelector('.content-min-height');
     if (overlay) {
         overlay.addEventListener('click', () => {
             sidebar.classList.remove('visible');
             sidebar.classList.add('hidden');
+            sidebar.style.height = "unset";
             overlay.style.display = "none";
+            overlay.style.position = "absolute";
+            contentDiv.style.position = "static";
         });
     }
 
@@ -281,8 +292,14 @@ $(document).ready(function () {
 
     // Init mobile nav
     if (document.getElementById('searchBar') instanceof Object) {
-        document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
-        document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const mobileSearchToggle = document.querySelector('.mobile-search-toggle');
+        if (mobileNavToggle) {
+            mobileNavToggle.addEventListener('click', toggleMobileNav);
+        }
+        if (mobileSearchToggle) {
+            mobileSearchToggle.addEventListener('click', toggleMobileSearch);
+        }
     }
 
     if (!fullscreen) {

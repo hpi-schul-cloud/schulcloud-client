@@ -355,58 +355,35 @@ module.exports = (req, res, next) => {
 		});
 	}
 	// helpArea view
-	if (Configuration.get('FEATURE_NEW_LAYOUT_ENABLED')) {
-		res.locals.sidebarItems.push({
-			name: res.$t('global.link.helpArea'),
-			testId: 'Hilfebereich',
-			icon: 'help-circle-outline',
-			link: '/help/',
-			groupName: 'help',
-			children: [
-				{
-					name: res.$t('help.headline.helpSection'),
-					testId: 'Hilfeartikel',
-					icon: 'file-question-outline',
-					link: '/help/articles/',
-				},
-				{
-					name: res.$t('global.link.contact'),
-					testId: 'Kontakt',
-					icon: 'chat-outline',
-					link: '/help/contact/',
-				},
-			],
-		});
-	} else {
-		res.locals.sidebarItems.push({
-			name: res.$t('global.link.helpArea'),
-			testId: 'Hilfebereich',
-			icon: 'help-circle-outline',
-			link: '/help/',
-			groupName: 'help',
-			children: [
-				{
-					name: res.$t('help.headline.helpSection'),
-					testId: 'Hilfeartikel',
-					icon: 'file-question-outline',
-					link: '/help/articles/',
-				},
-				{
-					name: res.$t('global.link.contact'),
-					testId: 'Kontakt',
-					icon: 'chat-outline',
-					link: '/help/contact/',
-				},
-				{
-					name: res.$t('lib.help_menu.link.training'),
-					testId: 'Fortbildungen',
-					icon: 'file-certificate-outline',
-					link: 'https://lernen.cloud/',
-					isExternalLink: true,
-				},
-			],
-		});
-	}
+	res.locals.sidebarItems.push({
+		name: res.$t('global.link.helpArea'),
+		testId: 'Hilfebereich',
+		icon: 'help-circle-outline',
+		link: '/help/',
+		groupName: 'help',
+		children: [
+			{
+				name: res.$t('help.headline.helpSection'),
+				testId: 'Hilfeartikel',
+				icon: 'file-question-outline',
+				link: '/help/articles/',
+			},
+			{
+				name: res.$t('global.link.contact'),
+				testId: 'Kontakt',
+				icon: 'chat-outline',
+				link: '/help/contact/',
+			},
+			{
+				name: res.$t('lib.help_menu.link.training'),
+				testId: 'Fortbildungen',
+				icon: 'file-certificate-outline',
+				link: 'https://lernen.cloud/',
+				isExternalLink: true,
+			},
+		],
+	});
+	
 
 	// new sidebar
 
