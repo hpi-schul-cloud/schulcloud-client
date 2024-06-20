@@ -1401,7 +1401,6 @@
 			"deleteFolder": "Видалити каталог",
 			"downloadFile": "Завантажити файл",
 			"editFilePermissions": "Редагувати права доступу до файлу",
-			"moveFile": "Перемістити файл - тимчасово деактивовано",
 			"read": "Читати",
 			"renameFile": "Перейменувати файл",
 			"renameFolder": "Перейменувати каталог",
@@ -1463,7 +1462,6 @@
 			"headline": {
 				"assertDeletion": "Ви впевнені, що хочете видалити «{{filename}}»?",
 				"editPermissions": "Редагувати дозволи",
-				"moveFile": "Перемістити файл",
 				"renameDir": "Перейменувати каталог",
 				"shareLink": "Поширити посилання",
 				"functionCurrentlyDisabled": "Функція тимчасово вимкнена"
@@ -1486,8 +1484,6 @@
 				"renameDirSuccess": "Каталог успішно перейменовано!",
 				"renameFileSuccess": "Файл успішно перейменовано!",
 				"thereAreNoPermissionsToEdit": "Немає дозволів на редагування.",
-				"littleHintHowToMoveFiles": "<b>Маленька підказка:</b> Можна завантажити файл, а потім завантажити його в потрібний каталог.",
-				"movingFilesIsDisabled": "Переміщення файлів наразі неможливо. Ми працюємо над рішенням."
 			}
 		},
 		"search": {
