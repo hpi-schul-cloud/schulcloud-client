@@ -82,19 +82,6 @@
 										<a class="btn btn-secondary btn-file-share-close" style="width: 100%">{{$t "global.button.close"}}</a>
 									</div>
 								</div>
-
-									{{#if ../this.userIsOwner}}
-										<button
-										class="file-btn btn-file-move"
-                                        data-testid="file-move-btn"
-										title="{{$t "files.label.moveFile"}}"
-										data-file-path="{{../path}}"
-										data-file-id="{{../_id}}"
-										data-file-name="{{../name}}"
-										data-disabled="true">
-											<i aria-hidden="true" class="fa fa-folder-open"></i>
-										</button>
-									{{/if}}
 								{{/ifneq}}
 
 								<button
@@ -133,13 +120,6 @@
 				{{$t "global.headline.delete" }}
 			</button>
 		</div>
-	{{/content}}
-{{/embed}}
-
-{{#embed "lib/components/modal-information" class="move-modal-disabled danger-modal" title=($t "files._file.headline.functionCurrentlyDisabled")}}
-	{{#content "fields"}}
-			<p data-testid="move-file-text-first-para">{{$t "files._file.text.movingFilesIsDisabled"}}</p>
-			<p data-testid="move-file-text-second-para">{{{$t "files._file.text.littleHintHowToMoveFiles"}}}</p>
 	{{/content}}
 {{/embed}}
 
