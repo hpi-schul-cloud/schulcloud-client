@@ -1050,44 +1050,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 			}
 		}
 
-		let files = [];
-
-		try {
-			files = await api(req)
-				.get('/fileStorage', {
-					qs: {
-						owner: req.params.teamId,
-					},
-				});
-		} catch (e) {
-			logger.warn(e);
-		}
-
-		files = files.filter((file) => file);
-		files = files.map((file) => {
-			file.saveName = file.name.replace(/'/g, "\\'");
-			file.saveName = encodeURIComponent(file.name);
-			if (file?.permissions) {
-				file.permissions = mapPermissionRoles(file.permissions, roles);
-				return file;
-			}
-			return undefined;
-		});
-
-		files = files.filter((f) => !f.isDirectory);
-
-		files
-			.sort((a, b) => {
-				if (b?.updatedAt && a?.updatedAt) {
-					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
-				}
-				return 0;
-			});
-
-		team.userIds.forEach((user) => {
-			user.files = files.filter((file) => file.creator === user.userId._id).map((file) => file.saveName);
-		});
-
 		const body = team.userIds.map((user) => {
 			let actions = [];
 			actions = addButtonEdit(actions);
@@ -1108,7 +1070,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 				{
 					payload: {
 						userId: user.userId._id,
-						files: user.files,
 					},
 				},
 				actions,
