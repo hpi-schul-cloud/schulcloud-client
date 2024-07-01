@@ -400,12 +400,6 @@ module.exports = (req, res, next) => {
 			});
 		}
 
-		systemLinks.push({
-			name: res.$t('lib.help_menu.link.releaseNotes'),
-			link: '/help/releases',
-			testId: 'releases',
-		});
-
 		if (SC_THEME !== 'default') {
 			systemLinks.push({
 				link: res.locals.theme.documents.specificFiles.accessibilityStatement,
@@ -414,6 +408,12 @@ module.exports = (req, res, next) => {
 				isExternalLink: true,
 			});
 		}
+
+		systemLinks.push({
+			name: res.$t('lib.help_menu.link.releaseNotes'),
+			link: '/help/releases',
+			testId: 'releases',
+		});
 
 		if (SC_THEME !== 'n21') {
 			systemLinks.push({
