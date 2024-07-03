@@ -411,7 +411,7 @@ module.exports = (req, res, next) => {
 
 		systemLinks.push({
 			name: res.$t('lib.help_menu.link.releaseNotes'),
-			link: '/help/releases',
+			link: '/system/releases',
 			testId: 'releases',
 		});
 
@@ -438,6 +438,7 @@ module.exports = (req, res, next) => {
 				icon: 'application-brackets-outline',
 				testId: 'system',
 				groupName: 'system',
+				link: '/system/',
 				children: systemLinks,
 			},
 		);
