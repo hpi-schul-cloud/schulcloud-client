@@ -248,7 +248,7 @@
 														<span>
 															{{#each this.breadcrumbs}}
 																{{#if this.title}}
-																	<a class="{{#if @last}}active{{/if}}" href="{{this.url}}">{{{stripOnlyScript this.title}}}  </a> /
+																	<a class="{{#if @last}}active{{/if}}" href="{{this.url}}">{{{stripOnlyScript this.title}}}</a> {{#unless @last}}/{{/unless}}
 																{{/if}}
 															{{/each}}
 														</span>
