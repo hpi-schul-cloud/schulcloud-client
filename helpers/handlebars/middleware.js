@@ -426,7 +426,7 @@ module.exports = (req, res, next) => {
 
 		if (SC_THEME === 'default') {
 			systemLinks.push({
-				link: '/security',
+				link: '/system/security',
 				name: res.$t('lib.global.link.safety'),
 				testId: 'security',
 			});
