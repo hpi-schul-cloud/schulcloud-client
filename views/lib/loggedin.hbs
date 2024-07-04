@@ -121,7 +121,7 @@
                         <a class="sc-branding" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
                             <div class="cloud-logo"></div>
                         </a>
-                        {{#if breadcrumb}}
+                        {{!-- {{#if breadcrumb}}
                             <ol class="breadcrumb">
                                 {{#each breadcrumb}}
                                     {{#if this.title}}
@@ -131,7 +131,7 @@
                                     {{/if}}
                                 {{/each}}
                             </ol>
-                        {{/if}}
+                        {{/if}} --}}
 
                         <ul class="nav navbar-nav float-xs-none dropdowns">
                             <li class="nav-item alert-button">
@@ -255,6 +255,17 @@
                     <div class="container-fluid">
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
+																<div>
+																	{{#if this.breadcrumbs}}
+																			<span>
+																					{{#each this.breadcrumbs}}
+																							{{#if this.title}}
+																									<a class="{{#if @last}}active{{/if}}" href="{{this.url}}">{{{stripOnlyScript this.title}}}  </a> /
+																							{{/if}}
+																					{{/each}}
+																			</span>
+																	{{/if}}
+																</div>
                                 {{#unless notitle}}
                                 {{#if title}}
                                   <div>
