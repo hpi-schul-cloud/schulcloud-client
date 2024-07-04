@@ -659,7 +659,7 @@ router.get('/:teamId', async (req, res, next) => {
 				...course,
 				title: course.name,
 				activeTab: req.query.activeTab,
-				breadcrumb: [
+				breadcrumbs: [
 					{
 						title: res.$t('teams.headline.myTeams'),
 						url: '/teams',
@@ -1141,7 +1141,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				users: filteredUsers,
 				federalStates,
 				currentFederalState: currentFederalStateId,
-				breadcrumb: [
+				breadcrumbs: [
 					{
 						title: res.$t('teams.headline.myTeams'),
 						url: '/teams',
@@ -1351,7 +1351,7 @@ router.get('/:teamId/topics', async (req, res, next) => {
 					myhomeworks: homeworksData.filter((task) => task.private),
 					ltiToolIds,
 					courseGroups: courseGroupsData,
-					breadcrumb: [
+					breadcrumbs: [
 						{
 							title: res.$t('teams.headline.myTeams'),
 							url: '/teams',

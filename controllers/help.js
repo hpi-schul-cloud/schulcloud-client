@@ -48,7 +48,7 @@ router.get('/releases', (req, res, next) => {
 			});
 
 			res.render('help/releases', {
-				breadcrumb: [
+				breadcrumbs: [
 					{
 						title: res.$t('help.headline.helpSection'),
 						url: '/help/articles',
@@ -62,7 +62,7 @@ router.get('/releases', (req, res, next) => {
 
 router.get('/confluence/:id', (req, res, next) => {
 	res.render('help/confluence', {
-		breadcrumb: [
+		breadcrumbs: [
 			{
 				title: res.$t('help.headline.helpSection'),
 				url: '/help/articles',
@@ -76,7 +76,7 @@ router.get('/confluence/:id', (req, res, next) => {
 router.get('/faq/people', (req, res, next) => {
 	res.render('help/people', {
 		title: res.$t('help.headline.contactDetails'),
-		breadcrumb: [
+		breadcrumbs: [
 			{
 				title: res.$t('help.headline.helpSection'),
 				url: '/help/articles',
@@ -88,7 +88,7 @@ router.get('/faq/people', (req, res, next) => {
 router.get('/lernNuggets', (req, res, next) => {
 	res.render('help/lern-nuggets', {
 		title: res.$t('help.headline.privacyCourse'),
-		breadcrumb: [
+		breadcrumbs: [
 			{
 				title: res.$t('help.headline.helpSection'),
 				url: '/help/articles',
@@ -110,7 +110,7 @@ router.get('/faq/documents', async (req, res, next) => {
 
 	return res.render('help/accordion-sections', {
 		title: res.$t('help.headline.documentsToDownload'),
-		breadcrumb: [
+		breadcrumbs: [
 			{
 				title: res.$t('help.headline.helpSection'),
 				url: '/help/articles',
