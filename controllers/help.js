@@ -34,33 +34,6 @@ router.get('/contact', (req, res, next) => {
 	});
 });
 
-router.get('/releases', (req, res, next) => {
-	api(req).get('/releases', {
-		qs: {
-			$sort: '-createdAt',
-		},
-	})
-		.then((releases) => {
-			// eslint-disable-next-line array-callback-return
-			releases.data.map((release) => {
-				release.body = converter.makeHtml(release.body);
-				release.publishedAt = moment(release.publishedAt).format('ddd, ll');
-			});
-
-			res.render('help/releases', {
-				breadcrumbs: [
-					{
-						title: res.$t('help.headline.helpSection'),
-						url: '/help/articles',
-						dataTestId: 'navigate-to-help-article-from-release-note',
-					},
-				],
-				release: releases.data,
-				title: 'Release Notes',
-			});
-		});
-});
-
 router.get('/confluence/:id', (req, res, next) => {
 	res.render('help/confluence', {
 		breadcrumbs: [
@@ -124,6 +97,5 @@ router.get('/faq/documents', async (req, res, next) => {
 		sections: documents,
 	});
 });
-
 
 module.exports = router;
