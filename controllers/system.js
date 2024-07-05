@@ -28,6 +28,7 @@ router.get('/releases', (req, res, next) => {
 					{
 						title: res.$t('help.headline.helpSection'),
 						url: '/help/articles',
+						dataTestId: 'navigate-to-help-article-from-release-note',
 					},
 				],
 				release: releases.data,
