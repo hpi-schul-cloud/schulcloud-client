@@ -786,10 +786,11 @@ router.get('/:courseId/', async (req, res, next) => {
 				ltiTools,
 				courseGroups,
 				baseUrl,
-				breadcrumb: [
+				breadcrumbs: [
 					{
 						title: res.$t('courses.headline.myCourses'),
 						url: '/rooms-overview',
+						dataTestId: 'navigate-to-course-from-tools',
 					},
 				],
 				filesUrl: `/files/courses/${req.params.courseId}`,
