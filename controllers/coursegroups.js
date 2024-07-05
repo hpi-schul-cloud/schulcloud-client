@@ -168,6 +168,7 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			{
 				title: course.name,
 				url: `/rooms/${course._id}`,
+				dataTestId: 'navigate-to-course-from-group',
 			},
 			],
 		}));

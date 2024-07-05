@@ -663,6 +663,7 @@ router.get('/:teamId', async (req, res, next) => {
 					{
 						title: res.$t('teams.headline.myTeams'),
 						url: '/teams',
+						dataTestId: 'navigate-to-course-from-team',
 					},
 					{},
 				],

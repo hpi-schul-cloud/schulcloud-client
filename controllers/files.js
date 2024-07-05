@@ -118,6 +118,7 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = []) => api(req).get(`/files/${
 		breadcrumbs.push({
 			title: directory.name,
 			id: directory._id,
+			dataTestId: 'navigate-to-my-personal-files-folder',
 		});
 
 		return Promise.resolve(breadcrumbs);
@@ -567,6 +568,7 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 	let breadcrumbs = [{
 		title: res.$t('files.label.myPersonalData'),
 		url: basePath,
+		dataTestId: 'navigate-to-my-personal-files',
 	}];
 
 	if (req.params.folderId) {
@@ -629,6 +631,7 @@ router.get('/shared/', (req, res) => {
 			breadcrumbs: [{
 				title: res.$t('files.label.filesSharedWithMe'),
 				url: '/files/shared/',
+				dataTestId: 'navigate-to-my-shared-files',
 			}],
 			canUploadFile: false,
 			canCreateDir: false,
@@ -653,6 +656,7 @@ router.get('/courses/', (req, res, next) => {
 		const breadcrumbs = [{
 			title: res.$t('files.label.filesFromMyCourse'),
 			url: basePath,
+			dataTestId: 'navigate-to-my-course-files',
 		}];
 
 		res.render('files/files', {
@@ -675,9 +679,11 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 	let breadcrumbs = [{
 		title: res.$t('files.label.filesFromMyCourse'),
 		url: basePath,
+		dataTestId: 'navigate-to-my-courses-files',
 	}, {
 		title: record.name,
 		url: basePath + record._id,
+		dataTestId: 'navigate-to-my-files-in-course',
 	}];
 
 	if (req.params.folderId) {
@@ -720,6 +726,7 @@ router.get('/teams/', (req, res, next) => {
 		const breadcrumbs = [{
 			title: res.$t('files.label.filesFromMyTeam'),
 			url: basePath,
+			dataTestId: 'navigate-to-my-team-files',
 		}];
 
 		res.render('files/files', {
@@ -743,9 +750,11 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 	let breadcrumbs = [{
 		title: res.$t('files.label.filesFromMyTeam'),
 		url: basePath,
+		dataTestId: 'navigate-to-my-teams-files',
 	}, {
 		title: team.name,
 		url: basePath + team._id,
+		dataTestId: 'navigate-to-my-files-in-team',
 	}];
 
 	if (req.params.folderId) {

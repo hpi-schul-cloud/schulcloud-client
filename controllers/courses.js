@@ -790,6 +790,7 @@ router.get('/:courseId/', async (req, res, next) => {
 					{
 						title: res.$t('courses.headline.myCourses'),
 						url: '/rooms-overview',
+						dataTestId: 'navigate-to-course-from-tools',
 					},
 				],
 				filesUrl: `/files/courses/${req.params.courseId}`,

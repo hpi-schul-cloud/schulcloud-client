@@ -386,6 +386,7 @@ router.get('/:topicId', (req, res, next) => {
 			{
 				title: course.name,
 				url: `/rooms/${course._id}`,
+				dataTestId: 'navigate-to-course-from-topic',
 			},
 			courseGroup._id ? {
 				title: `${courseGroup.name} > Themen`,

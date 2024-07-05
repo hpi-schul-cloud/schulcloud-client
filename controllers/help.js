@@ -52,6 +52,7 @@ router.get('/releases', (req, res, next) => {
 					{
 						title: res.$t('help.headline.helpSection'),
 						url: '/help/articles',
+						dataTestId: 'navigate-to-help-article-from-release-note',
 					},
 				],
 				release: releases.data,
@@ -66,6 +67,7 @@ router.get('/confluence/:id', (req, res, next) => {
 			{
 				title: res.$t('help.headline.helpSection'),
 				url: '/help/articles',
+				dataTestId: 'navigate-to-help-article',
 			},
 		],
 		articleId: req.params.id,
@@ -80,6 +82,7 @@ router.get('/faq/people', (req, res, next) => {
 			{
 				title: res.$t('help.headline.helpSection'),
 				url: '/help/articles',
+				dataTestId: 'navigate-to-help-article-from-contact',
 			},
 		],
 	});
@@ -92,6 +95,7 @@ router.get('/lernNuggets', (req, res, next) => {
 			{
 				title: res.$t('help.headline.helpSection'),
 				url: '/help/articles',
+				dataTestId: 'navigate-to-help-article-from-document',
 			},
 		],
 	});
@@ -114,6 +118,7 @@ router.get('/faq/documents', async (req, res, next) => {
 			{
 				title: res.$t('help.headline.helpSection'),
 				url: '/help/articles',
+				dataTestId: 'navigate-to-help-article-from-document',
 			},
 		],
 		sections: documents,
