@@ -115,7 +115,6 @@ $(document).ready(() => {
 	const $editModal = $('.edit-modal');
 	const $deleteModal = $('.delete-modal');
 	const $moveModal = $('.move-modal');
-	const $disabledMoveModal = $('.move-modal-disabled');
 	const $renameModal = $('.rename-modal');
 	const $newFileModal = $('.new-file-modal');
 
@@ -851,47 +850,6 @@ $(document).ready(() => {
 			$parent.append($dirElement);
 		});
 	}
-
-	$('.btn-file-move').on('click', (e) => {
-		e.stopPropagation();
-		e.preventDefault();
-		const $context = $(e.currentTarget);
-
-		// temporary disabled
-		if ($context.attr('data-disabled')) {
-			$disabledMoveModal.appendTo('body').modal('show');
-			return;
-		}
-		populateModalForm($moveModal, {
-			title: $t('files._file.headline.moveFile'),
-			fields: {
-				fileId: $context.attr('data-file-id'),
-				fileName: $context.attr('data-file-name'),
-				filePath: $context.attr('data-file-path'),
-			},
-			submitDataTestId: 'move-modal',
-		});
-
-		$moveModal.find('.modal-footer').empty();
-		$moveModal.appendTo('body').modal('show');
-
-		const $loader = $moveModal.find('.loader');
-		let $dirTreeList = $moveModal.find('.dir-main-menu');
-		const $dirTree = $moveModal.find('.directories-tree');
-
-		if (!$dirTreeList.length) {
-			$loader.show();
-			// fetch all directories the user is permitted to access
-			$.getJSON('/files/permittedDirectories/', (result) => {
-				// add folder structure recursively
-				$dirTreeList = $('<div class="dir-main-menu"></div>');
-				addDirTree($dirTreeList, result);
-				$loader.hide();
-				$dirTree.append($dirTreeList);
-				// remove modal-footer
-			});
-		}
-	});
 });
 
 window.videoClick = function videoClick(e) {

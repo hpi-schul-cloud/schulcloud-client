@@ -1296,7 +1296,6 @@
 				"assertDeletion": "Bist du dir sicher, dass du '{{filename}}' löschen möchtest?",
 				"editPermissions": "Berechtigungen bearbeiten",
 				"functionCurrentlyDisabled": "Funktion vorübergehend deaktiviert",
-				"moveFile": "Datei verschieben",
 				"renameDir": "Ordner umbenennen",
 				"shareLink": "Freigabe-Link"
 			},
@@ -1313,8 +1312,6 @@
 				"fileNameEmpty": "Bitte geben Sie die Dateiname ein!",
 				"fileNameExists": "Es existiert bereits eine Datei mit diesem Namen",
 				"fileNotFound": "Die Datei konnte nicht gefunden werden",
-				"littleHintHowToMoveFiles": "<b>Kleiner Tipp:</b> Du kannst die gewünschte Datei herunterladen und danach in den richtigen Ordner hochladen.",
-				"movingFilesIsDisabled": "Das Verschieben von Dateien ist zurzeit nicht möglich. Wir arbeiten mit Hochdruck an einer Lösung.",
 				"permissionsChangedSuccess": "Datei-Berechtigungen erfolgreich geändert",
 				"pleaseSelectFileType": "Bitte wähle einen Dateityp aus.",
 				"renameDirSuccess": "Umbenennen des Ordners war erfolgreich!",
@@ -1376,7 +1373,6 @@
 			"filesSharedWithMeContent": "Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzer:innen zur Verfügung gestellt worden sind.",
 			"fileType": "Dateityp:",
 			"folder": "Ordner",
-			"moveFile": "Datei verschieben - vorübergehend deaktiviert",
 			"myPersonalData": "Meine persönlichen Dateien",
 			"myPersonalDataContent": "Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzer:innen teilen.",
 			"name": "Dateiname",
@@ -2250,9 +2246,6 @@
 				"valueStatement": "<li>eine konsequente Nutzung von Open Source Lösungen,</li><li>eine durchgängig nutzerzentrierte Entwicklung,</li><li>einen strikt modularen Aufbau,</li><li>die für ein Flächenland wichtige Funktion der schulübergreifenden Zusammenarbeit,</li><li>die EU-DSGVO/Datenschutz-Konformität durch Privacy by Design,</li><li>die Möglichkeit, durch die Zusammenarbeit der Verbundländer Brandenburg, Niedersachsen und Thüringen Synergien zu schaffen.</li><br>",
 				"welcome": "Mit der {{shortTitle}} steht Schulen in Brandenburg eine intuitiv nutzbare und datenschutzkonforme, digitale Lehr-Lernumgebung für den Schulunterricht bereit, die schulformübergreifend eingesetzt werden kann. Die Grundidee der Schul-Cloud ist es, Bildungsinhalte webbasiert überall erreichbar zu machen.",
 				"welcome2": "Seit dem 01.08.2021 wird die {{shortTitle}} auf Grundlage eines Verwaltungsabkommens der Verbundländer Brandenburg, Niedersachsen und Thüringen unter Berücksichtigung landesspezifischer Anforderungen in eine länderübergreifende Lehr- und Lerninfrastruktur überführt und gemeinschaftlich weiterentwickelt.",
-				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 184 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
-				"phone2": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
-				"onlineChat": "<i class=\"fa fa-comment\"></i> Online Chat <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
 				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
 			}
 		},
@@ -2469,7 +2462,11 @@
 			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
 			"schoolInMigrationModeStarted": "Die Schule befindet sich im Modus der Benutzermigration. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>.",
 			"schoolInMigrationMode": "Die Schule kann Benutzerkonten von Schulportal importieren. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>.",
-			"onlineEventsAnnouncement": "Das Team der dBildungscloud lädt zu verschiedenen Online-Veranstaltungen ein. Klicken Sie <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>HIER</a> für mehr Informationen."
+			"onlineEventsAnnouncement": "Das Team der dBildungscloud lädt zu verschiedenen Online-Veranstaltungen ein. Klicken Sie <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>HIER</a> für mehr Informationen.",
+			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel-mit-der-nbc'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an die Kolleg:innen am ThILLM, die Sie unter <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a> erreichen können."
 		}
 	},
 	"login": {
@@ -2597,7 +2594,6 @@
 			"userNotFoundAfterProvisioning": "Login fehlgeschlagen. Entweder ist die Schule noch nicht zu {{systemName}} umgezogen oder die Erstellung neuer Nutzer in der {{shortTitle}} ist für die Schule nicht aktiv. Bitte wenden Sie sich an Ihren Schuladministrator.",
 			"multipleUsersFound": "Dieser moin.schule-Benutzer kann nicht eindeutig einem Account in der Niedersächsischen Bildungscloud zugeordnet werden. Bitte Support benachrichtigen!",
 			"userAccountDeactivated": "Ihr Konto wurde deaktiviert. Bitte wenden Sie sich an Ihren Schuladministrator."
-
 		}
 	},
 	"messenger": {
@@ -3032,10 +3028,8 @@
 					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
 					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
 					"reallyWantToRmUser": "Möchtest du diese/n Teilnehmer:in wirklich entfernen?",
-					"reallyWantToRmUserWFiles": "Möchtest du diese/n Teilnehmer:in und sein Dateien wirklich entfernen?",
 					"removeClass": "Klasse entfernen",
 					"removeUser": "Nutzer:in entfernen",
-					"removeUserWFilesIntro": "Sie werden einen Teilnehmer löschen. Alle Dateien, die mit diesem Benutzer verknüpft sind, werden ebenfalls entfernt. Wenn Sie diese Dateien nicht verlieren möchten, kopieren Sie sie vor dem Löschen des Teilnehmers.",
 					"leaveTeamWFilesIntro": "Sie werden das Team verlassen. Alle Dateien, die mit Ihnen verknüpft sind, werden ebenfalls entfernt. Wenn Sie diese Dateien nicht verlieren wollen, kopieren Sie sie vor dem Verlassen.",
 					"roleOfInvitedTeacher": "Rolle der eingeladenen Lehrkraft",
 					"selectRoleForMember": "Gib ein, welche Rolle der/die Teilnehmer:in erhalten soll.",

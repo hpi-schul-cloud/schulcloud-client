@@ -379,13 +379,14 @@ router.get('/:topicId', (req, res, next) => {
 			courseId: req.params.courseId,
 			isCourseGroupTopic: courseGroup._id !== undefined,
 			isTeacher,
-			breadcrumb: [{
+			breadcrumbs: [{
 				title: res.$t('courses.headline.myCourses'),
 				url: '/rooms-overview',
 			},
 			{
 				title: course.name,
 				url: `/rooms/${course._id}`,
+				dataTestId: 'navigate-to-course-from-topic',
 			},
 			courseGroup._id ? {
 				title: `${courseGroup.name} > Themen`,

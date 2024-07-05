@@ -63,6 +63,7 @@ function adjustContentWidth(sidebar) {
 function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.querySelector('.overlay');
+    const contentDiv = document.querySelector('.content-min-height');
 
 	if (sidebar) {
 		if (sidebar.classList.contains('hidden')) {
@@ -71,6 +72,9 @@ function toggleSidebar() {
 
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "block";
+                overlay.style.position = "fixed";
+                contentDiv.style.position = "fixed";
+                sidebar.style.height = "100%";
             }
         } else {
             sidebar.classList.remove('visible');
@@ -78,21 +82,25 @@ function toggleSidebar() {
 
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "none";
+                overlay.style.position = "absolute";
+                contentDiv.style.position = "static";
+                sidebar.style.height = "unset";
             }
-        } 
+        }
 
         if (window.innerWidth <= 1279) return;
         adjustContentWidth(sidebar);
 	}
 
-    const toggleIcon = document.querySelector('#sidebar-toggle-icon');
-    if (toggleIcon) {
-		if (toggleIcon.classList.contains('mdi-menu')) {
-            toggleIcon.classList.remove('mdi-menu');
-            toggleIcon.classList.add('mdi-menu-open');
-        } else {
-            toggleIcon.classList.remove('mdi-menu-open');
-            toggleIcon.classList.add('mdi-menu');
+    const toggleInTopbar = document.querySelector('.sidebar-toggle-in-topbar');
+    const toggleInSidebar = document.querySelector('.sidebar-toggle-in-sidebar');
+    if (toggleInTopbar && toggleInSidebar) {
+		if (toggleInTopbar.classList.contains('invisible-toggle')) {
+            toggleInTopbar.classList.remove('invisible-toggle');
+            toggleInSidebar.classList.add('invisible-toggle');
+        } else if (toggleInSidebar.classList.contains('invisible-toggle')) {
+            toggleInSidebar.classList.remove('invisible-toggle');
+            toggleInTopbar.classList.add('invisible-toggle');
         }
 	}
 }
@@ -207,10 +215,20 @@ $(document).ready(function () {
         })
     }
 
-    const sidebarToggle = document.querySelector('.sidebar-toggle');
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', toggleSidebar);
-        sidebarToggle.addEventListener('keypress', (e) => {
+    const sidebarToggleButtonInTopbar = document.querySelector('.sidebar-toggle-button-in-topbar');
+    if (sidebarToggleButtonInTopbar) {
+        sidebarToggleButtonInTopbar.addEventListener('click', toggleSidebar);
+        sidebarToggleButtonInTopbar.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSidebar();
+            }
+        })
+    }
+    const sidebarToggleButtonInSidebar = document.querySelector('.sidebar-toggle-button-in-sidebar');
+    if (sidebarToggleButtonInSidebar) {
+        sidebarToggleButtonInSidebar.addEventListener('click', toggleSidebar);
+        sidebarToggleButtonInSidebar.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 toggleSidebar();
@@ -221,11 +239,15 @@ $(document).ready(function () {
     toggleSidebarOnWindowWidth(sidebar);
 
     const overlay = document.querySelector('.overlay');
+    const contentDiv = document.querySelector('.content-min-height');
     if (overlay) {
         overlay.addEventListener('click', () => {
             sidebar.classList.remove('visible');
             sidebar.classList.add('hidden');
+            sidebar.style.height = "unset";
             overlay.style.display = "none";
+            overlay.style.position = "absolute";
+            contentDiv.style.position = "static";
         });
     }
 
@@ -270,8 +292,14 @@ $(document).ready(function () {
 
     // Init mobile nav
     if (document.getElementById('searchBar') instanceof Object) {
-        document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
-        document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const mobileSearchToggle = document.querySelector('.mobile-search-toggle');
+        if (mobileNavToggle) {
+            mobileNavToggle.addEventListener('click', toggleMobileNav);
+        }
+        if (mobileSearchToggle) {
+            mobileSearchToggle.addEventListener('click', toggleMobileSearch);
+        }
     }
 
     if (!fullscreen) {

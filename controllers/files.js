@@ -116,8 +116,9 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = []) => api(req).get(`/files/${
 		}
 
 		breadcrumbs.push({
-			label: directory.name,
+			title: directory.name,
 			id: directory._id,
+			dataTestId: 'navigate-to-my-personal-files-folder',
 		});
 
 		return Promise.resolve(breadcrumbs);
@@ -565,8 +566,9 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) =>
 		.map(addThumbnails);
 
 	let breadcrumbs = [{
-		label: res.$t('files.label.myPersonalData'),
+		title: res.$t('files.label.myPersonalData'),
 		url: basePath,
+		dataTestId: 'navigate-to-my-personal-files',
 	}];
 
 	if (req.params.folderId) {
@@ -627,8 +629,9 @@ router.get('/shared/', (req, res) => {
 			title: res.$t('files.headline.sharedFiles'),
 			path: '/',
 			breadcrumbs: [{
-				label: res.$t('files.label.filesSharedWithMe'),
+				title: res.$t('files.label.filesSharedWithMe'),
 				url: '/files/shared/',
+				dataTestId: 'navigate-to-my-shared-files',
 			}],
 			canUploadFile: false,
 			canCreateDir: false,
@@ -651,8 +654,9 @@ router.get('/courses/', (req, res, next) => {
 	const basePath = '/files/courses/';
 	getScopeDirs(req, res, 'courses').then(async (directories) => {
 		const breadcrumbs = [{
-			label: res.$t('files.label.filesFromMyCourse'),
+			title: res.$t('files.label.filesFromMyCourse'),
 			url: basePath,
+			dataTestId: 'navigate-to-my-course-files',
 		}];
 
 		res.render('files/files', {
@@ -673,11 +677,13 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) =
 	let canCreateFile = true;
 
 	let breadcrumbs = [{
-		label: res.$t('files.label.filesFromMyCourse'),
+		title: res.$t('files.label.filesFromMyCourse'),
 		url: basePath,
+		dataTestId: 'navigate-to-my-courses-files',
 	}, {
-		label: record.name,
+		title: record.name,
 		url: basePath + record._id,
+		dataTestId: 'navigate-to-my-files-in-course',
 	}];
 
 	if (req.params.folderId) {
@@ -718,8 +724,9 @@ router.get('/teams/', (req, res, next) => {
 	const basePath = '/files/teams/';
 	getScopeDirs(req, res, 'teams').then(async (directories) => {
 		const breadcrumbs = [{
-			label: res.$t('files.label.filesFromMyTeam'),
+			title: res.$t('files.label.filesFromMyTeam'),
 			url: basePath,
+			dataTestId: 'navigate-to-my-team-files',
 		}];
 
 		res.render('files/files', {
@@ -741,11 +748,13 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 	res.locals.files.files = res.locals.files.files.map(addThumbnails);
 
 	let breadcrumbs = [{
-		label: res.$t('files.label.filesFromMyTeam'),
+		title: res.$t('files.label.filesFromMyTeam'),
 		url: basePath,
+		dataTestId: 'navigate-to-my-teams-files',
 	}, {
-		label: team.name,
+		title: team.name,
 		url: basePath + team._id,
+		dataTestId: 'navigate-to-my-files-in-team',
 	}];
 
 	if (req.params.folderId) {
@@ -792,7 +801,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
 router.get('/classes/', (req, res, next) => {
 	getScopeDirs(req, res, 'classes').then(async (directories) => {
 		const breadcrumbs = [{
-			label: res.$t('files.label.filesFromMyClasses'),
+			title: res.$t('files.label.filesFromMyClasses'),
 			url: '/files/classes/',
 		}];
 
@@ -813,10 +822,10 @@ router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
 		const files = res.locals.files.map(addThumbnails);
 
 		let breadcrumbs = [{
-			label: res.$t('files.label.filesFromMyClasses'),
+			title: res.$t('files.label.filesFromMyClasses'),
 			url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, { dir: '' }, basePath),
 		}, {
-			label: record.name,
+			title: record.name,
 			url: changeQueryParams(req.originalUrl, { dir: '' }, basePath + record._id),
 		}];
 
