@@ -161,13 +161,14 @@ router.get('/:courseGroupId/', (req, res, next) => {
 			lessons,
 			doneSubmissions,
 			openSubmissions,
-			breadcrumb: [{
+			breadcrumbs: [{
 				title: res.$t("courses.headline.myCourses"),
 				url: '/rooms-overview',
 			},
 			{
 				title: course.name,
 				url: `/rooms/${course._id}`,
+				dataTestId: 'navigate-to-course-from-group',
 			},
 			],
 		}));

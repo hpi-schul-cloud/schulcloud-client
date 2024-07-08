@@ -1,36 +1,6 @@
 {{#extend "news/news"}}
 {{#content "page"}}
 <p>
-    {{#unless isRSS}}
-    <small class="text-muted">
-        {{#if news.updater}}
-        {{$t "news.text.last" }} {{$t "news.text.processed" }} {{$t "news.text.by" }} {{news.updater.firstName}} {{news.updater.lastName}}
-        {{/if}}
-        {{#if creatorAndUpdaterPresent}} | {{/if}}
-        {{$t "news.text.created" }}
-        {{#if news.creator}}
-        {{$t "news.text.by" }} {{news.creator.firstName}} {{news.creator.lastName}}
-        {{/if}}
-        {{timeFromNow news.displayAt}}
-        {{#if news.target.name}}
-        {{#ifCond news.targetModel '===' 'teams'}}
-        {{$t "news.text.inTheTeam" }}
-        <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
-        {{/ifCond}}
-        {{#ifCond news.targetModel '===' 'courses'}}
-        {{$t "news.text.inTheCourse" }}
-         <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
-        {{/ifCond}}
-        {{#ifCond news.targetModel '===' 'class'}}
-        {{$t "news.text.inTheClass" }}
- <a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
-        {{/ifCond}}
-        {{/if}}
-        </br>
-        {{#ifCond @root.currentUser.schoolId '!==' news.school.id}} {{$t "news.text.atSchool" }} {{../news.school.name}}
-        {{/ifCond}}
-    </small>
-    {{/unless}}
     {{#if isRSS}}
     {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
     <small class="text-muted">
@@ -42,6 +12,37 @@
     {{/userHasPermission}}
     {{/if}}
 
+    {{#unless isRSS}}
+    <small class="text-muted news-title-container">
+        {{#if updatedAtNotEqualCreatedAt}}
+            <small class="news-custom-style" data-html="true" data-toggle="tooltip" data-placement="bottom" title="{{$t "news.text.edited"}} {{timeFromNowWithRule news.updatedAt}} {{#if news.updater}} | {{news.updater.firstName}} {{news.updater.lastName}}{{/if}}<br>{{$t "news.text.created"}} {{timeFromNowWithRule news.displayAt}} {{#if news.creator}} | {{news.creator.firstName}} {{news.creator.lastName}} {{/if}}">
+                {{> 'news/svg_clock' }}&nbsp;{{timeFromNowWithRule news.updatedAt}}
+            </small>
+            {{#if news.updater}}
+            &nbsp;|&nbsp;{{> 'news/svg_teacher' }}&nbsp;{{news.updater.firstName}} {{news.updater.lastName}}
+            {{/if}}
+        {{/if}}
+        {{#unless updatedAtNotEqualCreatedAt}}
+            {{> 'news/svg_clock' }}&nbsp; {{timeFromNowWithRule news.displayAt}}
+            {{#if news.creator}}
+            &nbsp;|&nbsp;{{> 'news/svg_teacher' }}&nbsp;{{news.creator.firstName}} {{news.creator.lastName}}
+            {{/if}}
+        {{/unless}}
+        {{#if news.target.name}}
+        {{#ifCond news.targetModel '===' 'teams'}}
+        &nbsp;|&nbsp;{{> 'news/svg_team' }}&nbsp;<a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
+        {{/ifCond}}
+        {{#ifCond news.targetModel '===' 'courses'}}
+        &nbsp;|&nbsp;<a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
+        {{/ifCond}}
+        {{#ifCond news.targetModel '===' 'class'}}
+        &nbsp;|&nbsp;<a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
+        {{/ifCond}}
+        {{/if}}
+        {{#ifCond @root.currentUser.schoolId '!==' news.school.id}}&nbsp;|&nbsp;{{> 'news/svg_school' }}&nbsp;{{../news.school.name}}
+        {{/ifCond}}
+    </small>
+    {{/unless}}
 </p>
 <div class="ckcontent">
     {{{news.content}}}

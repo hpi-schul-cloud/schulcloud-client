@@ -109,7 +109,9 @@ const checkIfUserCanCreateTeam = (res) => {
 	if (roleNames.includes('administrator') || roleNames.includes('teacher') || roleNames.includes('student')) {
 		allowedCreateTeam = true;
 		const currentSchool = res.locals.currentSchoolData;
-		if (roleNames.includes('student') && !currentSchool.features.includes('isTeamCreationByStudentsEnabled')) {
+		if (roleNames.includes('student')
+			&& !currentSchool.instanceFeatures.includes('isTeamCreationByStudentsEnabled')
+		) {
 			allowedCreateTeam = false;
 		}
 	}
@@ -657,10 +659,11 @@ router.get('/:teamId', async (req, res, next) => {
 				...course,
 				title: course.name,
 				activeTab: req.query.activeTab,
-				breadcrumb: [
+				breadcrumbs: [
 					{
 						title: res.$t('teams.headline.myTeams'),
 						url: '/teams',
+						dataTestId: 'navigate-to-course-from-team',
 					},
 					{},
 				],
@@ -1048,44 +1051,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 			}
 		}
 
-		let files = [];
-
-		try {
-			files = await api(req)
-				.get('/fileStorage', {
-					qs: {
-						owner: req.params.teamId,
-					},
-				});
-		} catch (e) {
-			logger.warn(e);
-		}
-
-		files = files.filter((file) => file);
-		files = files.map((file) => {
-			file.saveName = file.name.replace(/'/g, "\\'");
-			file.saveName = encodeURIComponent(file.name);
-			if (file?.permissions) {
-				file.permissions = mapPermissionRoles(file.permissions, roles);
-				return file;
-			}
-			return undefined;
-		});
-
-		files = files.filter((f) => !f.isDirectory);
-
-		files
-			.sort((a, b) => {
-				if (b?.updatedAt && a?.updatedAt) {
-					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
-				}
-				return 0;
-			});
-
-		team.userIds.forEach((user) => {
-			user.files = files.filter((file) => file.creator === user.userId._id).map((file) => file.saveName);
-		});
-
 		const body = team.userIds.map((user) => {
 			let actions = [];
 			actions = addButtonEdit(actions);
@@ -1106,7 +1071,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 				{
 					payload: {
 						userId: user.userId._id,
-						files: user.files,
 					},
 				},
 				actions,
@@ -1140,7 +1104,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			const { _id: studentRoleId } = roles.find((role) => role.name === 'student');
 			return res.locals.currentUser.permissions.includes('STUDENT_LIST')
 				|| !user.roles.includes(studentRoleId)
-				|| res.locals.currentSchoolData.features.includes('isTeamCreationByStudentsEnabled');
+				|| res.locals.currentSchoolData.instanceFeatures.includes('isTeamCreationByStudentsEnabled');
 		});
 
 		body.sort((a, b) => {
@@ -1178,7 +1142,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				users: filteredUsers,
 				federalStates,
 				currentFederalState: currentFederalStateId,
-				breadcrumb: [
+				breadcrumbs: [
 					{
 						title: res.$t('teams.headline.myTeams'),
 						url: '/teams',
@@ -1388,7 +1352,7 @@ router.get('/:teamId/topics', async (req, res, next) => {
 					myhomeworks: homeworksData.filter((task) => task.private),
 					ltiToolIds,
 					courseGroups: courseGroupsData,
-					breadcrumb: [
+					breadcrumbs: [
 						{
 							title: res.$t('teams.headline.myTeams'),
 							url: '/teams',

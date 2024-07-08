@@ -1,13 +1,16 @@
 
 $primaryColor: #2876D0;
-$secondaryColor: #185888;
+$primaryColorOverlay: rgba(40, 118, 208, 0.12);
+$secondaryColor: #0f3551;
 $accentColor: #f56b00;
+$grayDarkColor: #0f3551;
 
 $logoGradient: linear-gradient(45deg, $primaryColor, $primaryColor);
 
 $logoBackground: url("/images/logo/cloud-transparent-mono.svg") center / contain no-repeat;
 $logoBackgroundTablet: url("/images/logo/cloud-transparent-mono-48-48.svg") center / contain no-repeat;
 $logoBackgroundLanding: url("/images/logo/cloud-transparent-mono-long.svg") center / contain no-repeat;
+$navbarLogo: url("/images/logo/navbar-cloud-logo.svg") center / contain no-repeat;
 
 aside.nav-sidebar{
     .sc-branding{

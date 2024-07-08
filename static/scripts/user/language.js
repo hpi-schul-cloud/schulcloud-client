@@ -4,8 +4,17 @@ $(document).ready(() => {
 		e.stopPropagation();
 		e.preventDefault();
 		e.stopImmediatePropagation();
+
+		const expandIcon = document.querySelector('.language-menu-expand-icon');
+
 		$(this).toggleClass('open');
+		if (expandIcon.classList.contains('mdi-chevron-up')) {
+			expandIcon.classList.remove('mdi-chevron-up');
+			expandIcon.classList.add('mdi-chevron-down');
+		}
 		if (!$(this).next().hasClass('show')) {
+			expandIcon.classList.remove('mdi-chevron-down');
+			expandIcon.classList.add('mdi-chevron-up');
 			$(this)
 				.parents('.dropdown-menu')
 				.first()
@@ -14,7 +23,7 @@ $(document).ready(() => {
 		}
 		const $subMenu = $(this).next('.dropdown-menu');
 		$subMenu.toggleClass('show');
-
+		
 		$(this)
 			.parents('li.nav-item.dropdown.show')
 			.on('hidden.bs.dropdown', () => {

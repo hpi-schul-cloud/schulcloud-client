@@ -1,0 +1,18 @@
+{ 
+    "moment.relativeTime.aDay": "un día",
+    "moment.relativeTime.days": "días",
+    "moment.relativeTime.futureIn": "en",
+    "moment.relativeTime.anHour": "una hora",
+    "moment.relativeTime.hours": "horas",
+    "moment.relativeTime.aMinute": "un minuto",
+    "moment.relativeTime.aMonths": "un mes",
+    "moment.relativeTime.minutes": "minutos",
+    "moment.relativeTime.months": "meses",
+    "moment.relativeTime.pastAgo": "hace",
+    "moment.relativeTime.aFewSecondes": "unos segundos",
+    "moment.relativeTime.seconds": "segundos",
+    "moment.relativeTime.aWeek": "una semana",
+    "moment.relativeTime.weeks": "semanas",
+    "moment.relativeTime.aYear": "un año",
+    "moment.relativeTime.years": "años"
+}

@@ -20,7 +20,7 @@
 // Colors
 //
 // Grayscale and brand colors for use across Bootstrap.
-$gray-dark: #1b1b1b !default;
+$gray-dark: $grayDarkColor !default;
 $gray: #55595c !default;
 $gray-light: #818a91 !default;
 $gray-lighter: #eceeef !default;
@@ -235,9 +235,7 @@ $btn-padding-y-lg: .75rem !default;
 $btn-block-spacing-y: .5rem !default;
 $btn-toolbar-margin: .5rem !default;
 // Status alert colors
-$alert-info-color: #0A7AC9 !default;
-$alert-info-bg:      $alert-info-color !default;
-$alert-info-border:  $alert-info-color !default;
+$alert-info-color-alertbox: #0A7AC9 !default;
 // Announcement colors
 $alert-announcement-color: #D9EDF7 !default;
 $alert-announcement-bg: $alert-announcement-color !default;

@@ -3,6 +3,8 @@
 @import "./editor";
 @import "./alerts.scss";
 @import "./bootstrap/scss/mixins/grid";
+@import "./sidebar.scss";
+@import "./topbar.scss";
 
 $translateModal: translate(50px, 0px);
 
@@ -386,13 +388,25 @@ header {
 	vertical-align: top;
 	width: 100%;
 	padding: 0;
-	padding-left: 240px;
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+	transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
-	@include media-breakpoint-down(md) {
-		padding-left: 60px;
+	&.new-sidebar {
+		padding-left: 255px;
+
+		@media only screen and (max-width: 1279px) {
+			padding: 0;
+		}
+	}
+
+	&.old-sidebar {
+		padding-left: 240px;
+
+		@include media-breakpoint-down(md) {
+			padding-left: 60px;
+		}
 	}
 
 	@include media-breakpoint-down(xs) {
@@ -455,7 +469,7 @@ body.fullscreen {
 		width: 100%;
 	}
 
-	.topbar.navbar {
+	.old-topbar.navbar {
 		visibility: hidden;
 		height: 0;
 		padding: 0;
@@ -612,13 +626,13 @@ footer {
 
 
 @include media-breakpoint-down(xs) {
-	.topbar + .section-title {
+	.old-topbar + .section-title {
 		padding: 0px;
 	}
 }
 
 
-.topbar {
+.old-topbar {
 	text-align: right;
 	@include media-breakpoint-down(xs) {
 		margin-bottom: 15px;
@@ -837,7 +851,7 @@ footer {
 }
 
 @media (max-width: 575px) {
-	.topbar.navbar {
+	.old-topbar.navbar {
 		height: 56px;
 	}
 
