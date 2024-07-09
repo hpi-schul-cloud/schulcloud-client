@@ -22,7 +22,6 @@ function showHideGlobalAnnouncement() {
 	}
 }
 
-// new sidebar
 function toggleSidebarItemGroup(groupData) {
     const itemGroup = document.querySelector(`.${groupData.groupName}`);
 	if (itemGroup) {
@@ -194,7 +193,6 @@ $(document).ready(() => {
 });
 
 $(document).ready(function () {
-    // new sidebar
     const groupToggleBtns = document.querySelectorAll('.group-toggle-btn');
     if (groupToggleBtns) {
         groupToggleBtns.forEach((btn) => {

@@ -392,21 +392,10 @@ header {
 	display: flex;
 	flex-direction: column;
 	transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	padding-left: 255px;
 
-	&.new-sidebar {
-		padding-left: 255px;
-
-		@media only screen and (max-width: 1279px) {
-			padding: 0;
-		}
-	}
-
-	&.old-sidebar {
-		padding-left: 240px;
-
-		@include media-breakpoint-down(md) {
-			padding-left: 60px;
-		}
+	@media only screen and (max-width: 1279px) {
+		padding: 0;
 	}
 
 	@include media-breakpoint-down(xs) {
