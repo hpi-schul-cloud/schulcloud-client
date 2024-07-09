@@ -103,7 +103,7 @@ function submitAfterUpload(type, id) {
 		$('#homework-form').trigger('submit');
 	}
 
-	if (type === 'submissions') {
+	if (type === 'submissions' || type === 'gradings') {
 		window.localStorage.setItem('afterUploadFiles', 'true');
 		$(`form.${id}`).trigger('submit');
 	}
@@ -185,7 +185,7 @@ $(document).ready(() => {
 			const dictFileTooBig = $t('global.text.fileTooLarge', { maxFileSizeInGb });
 
 			$form.dropzone({
-				url: `${apiV3FileStorageBasePath}/upload/
+				url: `${apiV3FileStorageBasePath}/upload/school/
 			${schoolId}/
 			${parentType}/
 			${parentId}`,
@@ -204,14 +204,14 @@ $(document).ready(() => {
 							parentId = await createParent(parentType);
 						}
 
-						this.options.url = `${apiV3FileStorageBasePath}/upload/
+						this.options.url = `${apiV3FileStorageBasePath}/upload/school/
 						${schoolId}/
 						${parentType}/
 						${parentId}`;
 
 						const url = new URL(window.location.href);
 						const courseId = url.searchParams?.get('course');
-						const basereferrer =`/homework/${parentId}/edit?returnUrl=homework/${parentId}&isCreatedSilently=true`;
+						const basereferrer = `/homework/${parentId}/edit?returnUrl=homework/${parentId}&isCreatedSilently=true`;
 						const referrer = courseId
 							? `${basereferrer}&course=${courseId}`
 							: basereferrer;

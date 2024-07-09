@@ -5,19 +5,32 @@
         class="dropdown-item toggle-dropdown fla-{{language}}"
         data-language="{{language}}"
         data-testid="selected-language-{{language}}"
-        aria-label="{{$t 'global.language.label.selected'}} {{$t (concat 'global.language.label.' language)}}"
+        aria-label="{{$t 'global.language.label.selected'}} {{$t
+            (concat 'global.language.label.' language)
+        }}"
         role="menuitem"
-    >{{$t (concat "global.language.label." language)}}</a>
+    >
+        {{$t (concat "global.language.label." language)}}
+        <i
+            class="mdi mdi-chevron-down language-menu-expand-icon"
+            aria-hidden="true"
+        ></i>
+    </a>
     <ul id="available-languages" class="dropdown-menu" role="menu">
-        {{#each availableLanguages as | lang | }}
+        {{#each availableLanguages as |lang|}}
             {{#ifCond lang "!=" @root.userLanguage}}
-            <li><a href="#"
-                    class="dropdown-item fla-{{lang}}"
-                    data-language="{{lang}}"
-                    data-testid="available-language-{{lang}}"
-                     aria-label="{{$t (concat 'global.language.label.' lang)}}"
-                     role="menuitem"
-                >{{$t (concat "global.language.label." lang)}}</a></li>
+                <li>
+                    <a
+                        href="#"
+                        class="dropdown-item fla-{{lang}}"
+                        data-language="{{lang}}"
+                        data-testid="available-language-{{lang}}"
+                        aria-label="{{$t
+                            (concat 'global.language.label.' lang)
+                        }}"
+                        role="menuitem"
+                    >{{$t (concat "global.language.label." lang)}}</a>
+                </li>
 
             {{/ifCond}}
         {{/each}}

@@ -4,8 +4,8 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const redis = require('redis');
-const connectRedis = require('connect-redis');
+const Redis = require('ioredis');
+const RedisStore = require('connect-redis').default;
 const session = require('express-session');
 const methodOverride = require('method-override');
 const csurf = require('csurf');
@@ -123,10 +123,14 @@ let sessionStore;
 const redisUrl = REDIS_URI;
 if (redisUrl) {
 	logger.info(`Using Redis session store at '${redisUrl}'.`);
-	const RedisStore = connectRedis(session);
-	const client = redis.createClient({
-		url: redisUrl,
+	const client = new Redis(redisUrl);
+
+	// The error event must be handled, otherwise the app crashes on redis connection errors.
+	// This is due to basic NodeJS behavior: https://nodejs.org/api/events.html#error-events
+	client.on('error', (err) => {
+		logger.error('Redis client error', err);
 	});
+
 	sessionStore = new RedisStore({ client });
 } else {
 	logger.info('Using in-memory session store.');
@@ -203,7 +207,6 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 // add res.$t method for i18n with users prefered language
 app.use(require('./middleware/i18n'));
 app.use(require('./middleware/datetime'));
-
 
 const redirectUrl = Configuration.get('ROOT_URL_REDIRECT');
 if (redirectUrl !== '') {

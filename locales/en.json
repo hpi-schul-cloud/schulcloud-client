@@ -544,6 +544,7 @@
 				"theSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data is interrupted during the transfer phase. This means that user data and classes (if used) are no longer updated via LDAP. It is still possible to log in with login data that has already been synchronized. Password changes in the LDAP during login are also taken into account.",
 				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the {{title}} at once.",
 				"withAllChangesAndSettings": "With all changes and settings in the administration area, it is confirmed that these are carried out by a school admin with authority to make adjustments to the school in the cloud. Adjustments made by the school admin are deemed to be instructions from the school to the cloud operator {{institute_title}}.",
+				"withAllChangesForTSC": "Some or all of your school's user data is synchronised from an external source (LDAP, IDM, school portal, etc.). Editing this user master data is therefore only possible in the source system, not in the school cloud. Creating new students or teachers is also only possible in the source system.",
 				"wouldYouLikeReportABug": "Would you like to report an error or do you have an idea to improve the {{title}}? Send requests or problems directly to the {{shortTitle}} user support."
 			}
 		},
@@ -570,7 +571,7 @@
 				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
 				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
 				"allStudentsVisibilityBrandenburg": "Enabling this option turns on the visibility of all students of this school for each teacher.",
-				"allStudentsVisibilityNiedersachsen" : "If this option is not enabled, teachers can only see the classes and their students in which they are members.",
+				"allStudentsVisibilityNiedersachsen": "If this option is not enabled, teachers can only see the classes and their students in which they are members.",
 				"authentication": "Authentication",
 				"newPage": "To the new admin page",
 				"changeOfClasses": "Change of classes / new classes",
@@ -893,8 +894,7 @@
 			"dropdown_menu": {
 				"link": {
 					"editDeleteCourse": "Edit/delete",
-					"inviteToCourse": "Invite",
-					"shareCourse": "Share"
+					"inviteToCourse": "Invite"
 				}
 			},
 			"edit": {
@@ -1249,7 +1249,6 @@
 			"toTask": "To the task"
 		},
 		"text": {
-			"announcement": "<b>Important announcement:</b> The neXboard tool will be replaced by <b>tldraw</b>. Please back up your content from the neXboards that you wish to continue using by <b>15.03.2024</b>. Until then, neXboards you have created can still be used. Here you can find <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"https://blog.dbildungscloud.de/von-nexboard-zu-tldraw/\">backup options and further information</a>.",
 			"emptyHomeworksInfo": "No assigned tasks. You can find all tasks in the tasks area.",
 			"emptyNewsInfo": "So far there is no news.",
 			"graded": "Graded",
@@ -1297,7 +1296,6 @@
 				"assertDeletion": "Are you sure you want to delete ' {{filename}} '?",
 				"editPermissions": "Edit permissions",
 				"functionCurrentlyDisabled": "Function temporarily deactivated",
-				"moveFile": "Move file",
 				"renameDir": "Rename folder",
 				"shareLink": "Share link"
 			},
@@ -1314,8 +1312,6 @@
 				"fileNameEmpty": "Please enter the file name!",
 				"fileNameExists": "A file with this name already exists",
 				"fileNotFound": "The file could not be found",
-				"littleHintHowToMoveFiles": "<b>Little hint:</b> You can download the file and then upload it to the correct folder.",
-				"movingFilesIsDisabled": "Moving files is currently not possible. We are working on a solution.",
 				"permissionsChangedSuccess": "File permissions changed successfully",
 				"pleaseSelectFileType": "Please select a file type.",
 				"renameDirSuccess": "The folder was renamed successfully!",
@@ -1377,7 +1373,6 @@
 			"filesSharedWithMeContent": "Here you can find all the files you have shared with you. These are files that have been made available by other users.",
 			"fileType": "File type:",
 			"folder": "Folder",
-			"moveFile": "Move file - temporarily deactivated",
 			"myPersonalData": "My personal files",
 			"myPersonalDataContent": "Here you can find all your personal files. Only you have access to these files, but you can also share them with other users.",
 			"name": "File name",
@@ -1594,6 +1589,7 @@
 			"cancel": "Cancel",
 			"clickHere": "Click here",
 			"close": "Close",
+			"copyLink": "Copy link",
 			"create": "Create",
 			"createFirstCourse": "Create your first course",
 			"createFolder": "Create folder",
@@ -1693,10 +1689,10 @@
 			"contact": "Contact",
 			"courseData": "My course files",
 			"courseDataContent": "Here you will find all files used in the respective courses in class. All participants of the course, i.e. the teacher and the students, have access to these files.",
-			"files": "My Files",
+			"files": "Files",
 			"filesContent": "Here you can find all files used in the respective teams. All participants of the team have access to these files.",
-			"filesPersonal": "personal files",
-			"filesShared": "shared files",
+			"filesPersonal": "Personal Files",
+			"filesShared": "Shared Files",
 			"firstSteps": "First steps",
 			"footerSkipLink": "Skip to footer",
 			"helpArea": "Help section",
@@ -1751,7 +1747,10 @@
 				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationClasses": "Classes",
-				"administrationCourses": "Courses"
+				"administrationCourses": "Courses",
+				"system": "System",
+				"accessibility": "Accessibility",
+				"mediaShelf": "Media shelf"
 			}
 		},
 		"tab": {
@@ -2247,9 +2246,6 @@
 				"valueStatement": "<li>a consistent use of open source solutions,</li><li>a consistently user-centered development,</li><li>a strictly modular structure,</li><li>which is important for a large country Function of cross-school cooperation,</li><li>the EU-DSGVO/data protection conformity through privacy by design,</li><li>the possibility of creating synergies through national cooperation.</li><br>",
 				"welcome": "With the {{shortTitle}}, schools in Brandenburg have an intuitively usable and data protection-compliant digital teaching-learning environment for school lessons that can be used across all types of schools. The basic idea of the school cloud is to make educational content accessible everywhere on a web-based basis.",
 				"welcome2": "Since August 1st, 2021, the {{shortTitle}} has been transferred to a cross-state teaching and learning infrastructure based on an administrative agreement between the federal states of Brandenburg, Lower Saxony and Thuringia, taking into account state-specific requirements, and jointly further developed.",
-				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 184 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Office hours <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
-				"phone2": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Office hours <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
-				"onlineChat": "<i class=\"fa fa-comment\"></i> Online Chat <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Office hours <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>",
 				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
 			}
 		},
@@ -2434,7 +2430,8 @@
 				"printQrCode": "Print QR code",
 				"qrCode": "QR-Code",
 				"search": "Search",
-				"thereIsAProblem": "There is a problem"
+				"thereIsAProblem": "There is a problem",
+				"sidebarMenu": "Open side navigation"
 			},
 			"tab_label": {
 				"settings": "Settings",
@@ -2464,7 +2461,12 @@
 			"schoolInTransferPhaseContactAdmin": "The school is in the transfer phase to the new school year. No classes and users can be created. Please contact the school administrator!",
 			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"/administration/school/\"> the new school year here!</a>",
 			"schoolInMigrationModeStarted": "The school is in user migration mode. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
-			"schoolInMigrationMode": "The school can import user accounts from Schulportal. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>."
+			"schoolInMigrationMode": "The school can import user accounts from Schulportal. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
+			"onlineEventsAnnouncement": "The dBildungscloud team invites you to various online events. Click <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>HERE</a> for more information.",
+			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel-mit-der-nbc'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an die Kolleg:innen am ThILLM, die Sie unter <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a> erreichen können."
 		}
 	},
 	"login": {
@@ -2589,7 +2591,9 @@
 			"userNotFound": "User not found.",
 			"internalError": "Internal Server Error. Please contact the admin.",
 			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system.",
-			"userNotFoundInUnprovisionedSchool": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator."
+			"userNotFoundAfterProvisioning": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator.",
+			"multipleUsersFound": "This moin.schule user cannot be clearly assigned to an account in the Niedersächsische Bildungscloud. Please contact support!",
+			"userAccountDeactivated": "Your account has been deactivated. Please contact your school administrator."
 		}
 	},
 	"messenger": {
@@ -2645,17 +2649,13 @@
 			"searchForNews": "Search for news"
 		},
 		"text": {
-			"atSchool": "at school",
-			"atYourSchool": "at your school ",
-			"by": "by",
 			"created": "created",
+			"edited": "edited",
 			"inTheClass": "in the class",
 			"inTheCourse": "in the course",
-			"inTheTeam": "in the team",
 			"last": "last",
 			"newsNeedContent": "News need content!",
 			"newsNeedTitle": "News need a title!",
-			"processed": "edited",
 			"released": "Released",
 			"unpublished": "Unpublished"
 		}
@@ -3028,10 +3028,8 @@
 					"reallyWantToRmClass": "Do you really want to remove this class?",
 					"reallyWantToRmInvitation": "Do you really want to cancel the invitation?",
 					"reallyWantToRmUser": "Do you really want to remove this attendee?",
-					"reallyWantToRmUserWFiles": "Do you really want to remove this attendee and all above files?",
 					"removeClass": "Remove class",
 					"removeUser": "Remove user",
-					"removeUserWFilesIntro": "You are going to delete attendee. All files linked to that user will also be removed. If you don't want to lose these files, copy them before deleting attendee.",
 					"leaveTeamWFilesIntro": "You are going to leave team. All files linked to that you will also be removed. If you don't want to lose these files, copy them before leave.",
 					"roleOfInvitedTeacher": "Role of the invited teacher",
 					"selectRoleForMember": "Enter which role the attendee should be given.",
@@ -3183,31 +3181,27 @@
 				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
-				"neXboard": "neXboard",
 				"text": "Text",
 				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
-				"createNewNeXboard": "Create new neXboard",
 				"createsListInEtherpad": "Creates in the following Etherpad a Pro-Contra list on the topic XYC",
-				"createsListInNeXboard": "Creates in the following neXboard a Pro-Contra-list on the topic XYC",
+				"createsListInNeXboard": "Create a pro-con list on the topic of XYC on the following whiteboard",
 				"GeoGebraEnterId": "Enter GeoGebra Material ID, e.g. kEBfU7AR",
-				"keepNeXboard": "Maintain neXboard",
-				"sectionTitle": "Title of the section",
-				"selectNeXboard": "Select neXboard"
+				"sectionTitle": "Title of the section"
 			},
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
-				"descriptionNeXboard": "Description of the neXboard",
+				"descriptionNeXboard": "Description of the whiteboard",
 				"internalLink": "URL of task",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
-				"nameOfNeXboard": "Name of the neXboard",
+				"nameOfNeXboard": "Name of the whiteboard",
 				"openSection": "Unlock section",
-				"selectNeXboard": "Select neXboard",
 				"theLinkHasToBeginWith": "The link must begin with '{{- baseUrl}} / task'! Students must have access to the task to see it included here. Attention: If you share this topic or the entire course with another teacher using a sharing code, the tasks integrated in this way will currently not be considered.",
-				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'"
+				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'",
+				"nexboardInfo": "As announced, the whiteboard tool neXboard was removed from our platform on 23 April 2024. As a replacement, the innovative whiteboard tool tldraw is now available in the column board. Visit our blog post for detailed instructions and information."
 			}
 		}
 	},

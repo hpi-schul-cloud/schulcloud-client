@@ -33,6 +33,54 @@ const markSelected = (options, values = []) => options.map((option) => {
 	return option;
 });
 
+// checks for user's 'STUDENT_LIST' permission and filters checked students
+const filterStudents = (ctx, s) => (
+	!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
+		? s.filter(({ selected }) => selected) : s
+);
+
+const getUserIdsByRole = (users, role) => users.filter((u) => u.role === role).map((u) => u.id);
+
+const selectedElementIdsToString = (arr = []) => {
+	const txt = arr.filter((obj) => obj.selected).map((obj) => (obj.id !== undefined ? obj.id : obj._id)).join(',');
+	return txt;
+};
+
+const strToPropsArray = (props, keys) => {
+	keys.forEach((key) => {
+		if (typeof props[key] === 'string') {
+			props[key] = props[key].trim() ? props[key].split(',') : [];
+		}
+	});
+	return props;
+};
+
+const getSyncedElements = 	(
+	course,
+	classesAndGroups,
+	classAndGroupIdsOfCourse,
+	teachers,
+	substitutions,
+	students,
+	res,
+	syncedWithGroup,
+) => {
+	const startDate = course.startDate ? timesHelper.formatDate(course.startDate, 'DD.MM.YYYY') : undefined;
+	const untilDate = course.untilDate ? timesHelper.formatDate(course.untilDate, 'DD.MM.YYYY') : undefined;
+
+	const selectedElements = {
+		teachersSelected: selectedElementIdsToString(markSelected(teachers, course.teacherIds)),
+		substitutionSelected: selectedElementIdsToString(markSelected(substitutions, course.substitutionIds)),
+		classesAndGroupsSelected: selectedElementIdsToString(markSelected(classesAndGroups, classAndGroupIdsOfCourse)),
+		studentsSelected: selectedElementIdsToString(filterStudents(res, markSelected(students, course.userIds))),
+		startDate,
+		untilDate,
+		syncedWithGroup,
+	};
+
+	return selectedElements;
+};
+
 const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 
 /**
@@ -156,7 +204,14 @@ const editCourseHandler = (req, res, next) => {
 	let scopePermissions;
 	if (req.params.courseId) {
 		scopePermissions = api(req)
-			.get(`/courses/${req.params.courseId}/userPermissions/${res.locals.currentUser._id}`);
+			.get(`/coursesUserPermissions/${req.params.courseId}/${res.locals.currentUser._id}`);
+	}
+
+	let syncedGroupId;
+	let groupPromise;
+	if (req.query.syncedGroupId && Configuration.get('FEATURE_SCHULCONNEX_COURSE_SYNC_ENABLED')) {
+		syncedGroupId = req.query.syncedGroupId;
+		groupPromise = api(req, { version: 'v3' }).get(`/groups/${syncedGroupId}`);
 	}
 
 	Promise.all([
@@ -165,7 +220,8 @@ const editCourseHandler = (req, res, next) => {
 		teachersPromise,
 		studentsPromise,
 		scopePermissions,
-	]).then(([course, _classesAndGroups, _teachers, _students, _scopePermissions]) => {
+		groupPromise,
+	]).then(([course, _classesAndGroups, _teachers, _students, _scopePermissions, group]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		let classesAndGroups = [];
 		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
@@ -241,13 +297,24 @@ const editCourseHandler = (req, res, next) => {
 			'#795548',
 		];
 
-		// checks for user's 'STUDENT_LIST' permission and filters checked students
-		const filterStudents = (ctx, s) => (
-			!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
-				? s.filter(({ selected }) => selected) : s
-		);
-
 		const classAndGroupIdsOfCourse = [...(course.classIds || []), ...(course.groupIds || [])];
+
+		if (syncedGroupId && group) {
+			course.name = group.name;
+			course.teacherIds = getUserIdsByRole(group.users, 'teacher');
+			course.userIds = getUserIdsByRole(group.users, 'student');
+		}
+
+		const syncedElements = (course.syncedWithGroup || syncedGroupId) ? getSyncedElements(
+			course,
+			classesAndGroups,
+			classAndGroupIdsOfCourse,
+			teachers,
+			substitutions,
+			students,
+			res,
+			syncedGroupId,
+		) : {};
 
 		if (req.params.courseId) {
 			if (!_scopePermissions.includes('COURSE_EDIT')) return next(new Error(res.$t('global.text.403')));
@@ -260,17 +327,12 @@ const editCourseHandler = (req, res, next) => {
 				course,
 				colors,
 				classesAndGroups: markSelected(classesAndGroups, classAndGroupIdsOfCourse),
-				teachers: markSelected(
-					teachers,
-					course.teacherIds,
-				),
-				substitutions: markSelected(
-					substitutions,
-					course.substitutionIds,
-				),
+				teachers: markSelected(teachers, course.teacherIds),
+				substitutions: markSelected(substitutions, course.substitutionIds),
 				students: filterStudents(res, markSelected(students, course.userIds)),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
+				...syncedElements,
 			});
 		}
 		return res.render('courses/create-course', {
@@ -282,18 +344,13 @@ const editCourseHandler = (req, res, next) => {
 			course,
 			colors,
 			classesAndGroups: markSelected(classesAndGroups, classAndGroupIdsOfCourse),
-			teachers: markSelected(
-				teachers,
-				course.teacherIds,
-			),
-			substitutions: markSelected(
-				substitutions,
-				course.substitutionIds,
-			),
+			teachers: markSelected(teachers, course.teacherIds),
+			substitutions: markSelected(substitutions, course.substitutionIds),
 			students: filterStudents(res, markSelected(students, course.userIds)),
 			redirectUrl: req.query.redirectUrl || '/courses',
 			schoolData: res.locals.currentSchoolData,
 			pageTitle: res.$t('courses.add.headline.addCourse'),
+			...syncedElements,
 		});
 	}).catch(next);
 };
@@ -378,12 +435,6 @@ const copyCourseHandler = (req, res, next) => {
 		course.name = `${course.name} - Kopie`;
 
 		course.isArchived = false;
-
-		// checks for user's 'STUDENT_LIST' permission and filters checked students
-		const filterStudents = (ctx, s) => (
-			!ctx.locals.currentUser.permissions.includes('STUDENT_LIST')
-				? s.filter(({ selected }) => selected) : s
-		);
 
 		res.render('courses/edit-course', {
 			action,
@@ -518,6 +569,9 @@ router.post('/', (req, res, next) => {
 		req.body.untilDate = untilDate.toDate();
 	}
 
+	const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+	req.body = strToPropsArray(req.body, keys);
+
 	req.body.features = [];
 	OPTIONAL_COURSE_FEATURES.forEach((feature) => {
 		if (req.body[feature] === 'true') {
@@ -577,6 +631,21 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 // EDITOR
 
 router.get('/:courseId/', async (req, res, next) => {
+	const allowedActiveTabs = ['tools', 'groups'];
+	const { activeTab } = req.query;
+
+	if (!allowedActiveTabs.includes(activeTab)) {
+		res.redirect(getDefaultRedirectUrl(req.params.courseId));
+		return;
+	}
+
+	const FEATURE_CTL_TOOLS_TAB_ENABLED = Configuration.get('FEATURE_CTL_TOOLS_TAB_ENABLED');
+
+	if (FEATURE_CTL_TOOLS_TAB_ENABLED && activeTab === 'tools') {
+		res.redirect(`/rooms/${req.params.courseId}?tab=tools`);
+		return;
+	}
+
 	const promises = [
 		api(req).get(`/courses/${req.params.courseId}`),
 		api(req).get('/lessons/', {
@@ -600,7 +669,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				$limit: false,
 			},
 		}),
-		api(req).get(`/courses/${req.params.courseId}/userPermissions`, {
+		api(req).get(`/coursesUserPermissions/${req.params.courseId}`, {
 			qs: { userId: res.locals.currentUser._id },
 		}),
 	];
@@ -717,10 +786,11 @@ router.get('/:courseId/', async (req, res, next) => {
 				ltiTools,
 				courseGroups,
 				baseUrl,
-				breadcrumb: [
+				breadcrumbs: [
 					{
 						title: res.$t('courses.headline.myCourses'),
 						url: '/rooms-overview',
+						dataTestId: 'navigate-to-course-from-tools',
 					},
 				],
 				filesUrl: `/files/courses/${req.params.courseId}`,
@@ -763,6 +833,9 @@ router.patch('/:courseId', async (req, res, next) => {
 		if (!req.body.substitutionIds) {
 			req.body.substitutionIds = [];
 		}
+
+		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+		req.body = strToPropsArray(req.body, keys);
 
 		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
 		const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);

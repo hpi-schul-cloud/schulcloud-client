@@ -1,0 +1,67 @@
+<nav id="top-navbar" class="topbar">
+  <div class="sidebar-toggle sidebar-toggle-in-topbar invisible-toggle">
+    <button class="icon-btn sidebar-toggle-button-in-topbar" title="{{$t "lib.loggedin.label.sidebarMenu"}}" aria-label="{{$t "lib.loggedin.label.sidebarMenu"}}">
+        <i id="sidebar-toggle-icon-in-topbar" class="mdi mdi-menu"></i>
+    </button>
+    <a class="logo-wrapper" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
+        <div class="logo"></div>
+        <div class="sc-title"><span>{{theme.short_title}}</span></div>
+    </a>
+  </div>
+  <ul class="nav navbar-nav float-xs-none dropdowns action-item-section">
+      <li class="alert-button">
+          <div class="dropdown">
+              <button class="btn-alert-info icon-btn" title="{{$t "lib.loggedin.label.thereIsAProblem"}}" aria-label="{{$t "lib.loggedin.label.thereIsAProblem"}}"
+  data-toggle="dropdown" data-testid="dropdown-toggle">
+                  <i class="mdi mdi-alert" aria-hidden="true"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" data-testid="dropdown-menu">
+                  <div class="content js-alert-content"></div>
+              </div>
+          </div>
+      </li>
+      <li class="qr-code-action">
+          <div class="dropdown">
+              <button class="btn-create-qr icon-btn" title="{{$t "lib.loggedin.label.qrCode"}}" aria-label="{{$t "lib.loggedin.label.qrCode"}}" data-toggle="dropdown">
+                  <i class="mdi mdi-qrcode" aria-hidden="true"></i>
+              </button>
+              <div class="dropdown-menu print qr-code-menu">
+                <div class="qr-hint-text">
+                    {{$t "global.text.qrHintText"}}
+                </div>
+                <div class="content qr-show"></div>
+                <div class="btn-container">
+                    <button class="btn btn-secondary btn-vuetify btn-print" data-toggle="tooltip">
+                        <i class="mdi mdi-printer" aria-hidden="true"></i> {{$t "global.button.print" }}
+                    </button>
+                    <button class="btn btn-secondary btn-vuetify btn-copy-link" data-toggle="tooltip">
+                        <i class="mdi mdi-content-copy" aria-hidden="true"></i> {{$t "global.button.copyLink" }}
+                    </button>
+                </div>
+              </div>
+          </div>
+      </li>
+      {{#if currentSchoolData}}
+          {{#unless currentSchoolData.isExpertSchool}}
+              <li class="school-data hidden-sm-down" title="{{currentSchoolData.name}}">{{ currentSchoolData.name }}</li>
+              {{#if currentSchoolData.logo.dataUrl}}
+                  <img class="school-logo" src="{{ currentSchoolData.logo.dataUrl }}" alt="{{$t "lib.loggedin.img_alt.logoOfSchool" (dict "name" currentSchoolData.name)}}">
+              {{/if}}
+          {{/unless}}
+      {{/if}}
+      <li>
+          <div class="dropdown btn-avatar user-menu">
+              <button class="icon-btn" title='{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{$t (concat "global.placeholder." currentRole) }}' data-toggle="dropdown">
+                  <span data-testid="initials" class="initials">{{ currentUser.avatarInitials }}</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable" role="menu">
+                  <li><div class="dropdown-name" data-testid="name-in-the-icon">{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})</div></li>
+                  <hr>
+                  {{> "user/forms/language" language=@root.userLanguage }}
+                  <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
+                  <li><a class="dropdown-item localstorageclear" data-testid="logout" href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}} role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
+              </ul>
+          </div>
+      </li>
+  </ul>
+</nav>

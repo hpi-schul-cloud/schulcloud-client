@@ -33,3 +33,16 @@
 .tabContainer {
   clear: both;
 }
+.news-title-container {
+  display: flex;
+  align-items: center;
+}
+.news-custom-style {
+  display: flex;
+  align-items: center;
+  font-size: 100% !important;
+}
+.tooltip-inner {
+  max-width: 100%;
+  text-align: left !important;
+}
