@@ -320,7 +320,7 @@ const determineRedirectUrl = (req) => {
 
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
-		.get('/systems/public?onlyOauth=true')
+		.get('/systems/public?types=oauth')
 		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
 }
 
