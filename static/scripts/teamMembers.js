@@ -246,7 +246,6 @@ $(document).ready(() => {
 	}
 
 	$('#email').on('input', () => {
-		console.log('test');
 		const selectEmailTeacherSection = $('#select-email-teacher-section');
 		const teacherSelect = selectEmailTeacherSection.find('select');
 
