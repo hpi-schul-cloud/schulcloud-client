@@ -3057,7 +3057,8 @@
 					"pleaseSelectRole": "Please select a role.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Select a teacher from other schools from a central directory or provide the e-mail address with which she is registered. After joining your team, she can add students and teachers from her school to the team.",
 					"teacherIsFromOtherSchool": "Teacher is at another school",
-					"teachersRegisterProcessFinished": "Registration of the teacher in the {{ rootThemeShortTitle }} has been completed"
+					"teachersRegisterProcessFinished": "Registration of the teacher in the {{ rootThemeShortTitle }} has been completed",
+					"multipleTeachersWithEmail": "Several teachers were found with this email. Please select the teacher you want:"
 				}
 			},
 			"news": {
