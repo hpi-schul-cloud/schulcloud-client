@@ -1483,7 +1483,7 @@
 				"pleaseSelectFileType": "Виберіть тип файлу.",
 				"renameDirSuccess": "Каталог успішно перейменовано!",
 				"renameFileSuccess": "Файл успішно перейменовано!",
-				"thereAreNoPermissionsToEdit": "Немає дозволів на редагування."
+				"thereAreNoPermissionsToEdit": "Немає дозволів на редагування.",
 			}
 		},
 		"search": {

@@ -5,7 +5,7 @@
 		"watch": "nodemon --config nodemon.json",
 		"debug": "nodemon --inspect=9310 --config nodemon.json",
 		"debug:container": "nodemon --inspect=0.0.0.0:9310 --config nodemon.json",
-		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
+		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./locales ./test/mocha ./api.js ./app.js --ext .js --fix",
 		"startd": "echo 'Do you mean 'npm run watch'?'",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
 		"build": "gulp clear && cross-env NODE_OPTIONS=--openssl-legacy-provider gulp",
