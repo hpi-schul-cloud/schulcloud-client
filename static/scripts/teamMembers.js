@@ -3,7 +3,6 @@
 // jshint esversion: 6
 
 $(document).ready(() => {
-
 	const params = new Proxy(new URLSearchParams(window.location.search), {
 		get: (searchParams, prop) => searchParams.get(prop),
 	});
@@ -32,11 +31,13 @@ $(document).ready(() => {
 		if (index < 3) {
 			$(elem).append(
 				$(`<i class='col-sort-icon fa ${className}'></i>`),
-				);
-			}
-		});
+			);
+		}
+	});
 
-		sortByAscDesc();
+	$('#select-email-teacher-section').hide();
+
+	sortByAscDesc();
 
 	const handler = {
 		get(target, name) {
@@ -244,8 +245,17 @@ $(document).ready(() => {
 		return re.test(email);
 	}
 
+	$('#email').on('input', () => {
+		const selectEmailTeacherSection = $('#select-email-teacher-section');
+		const teacherSelect = selectEmailTeacherSection.find('select');
+
+		selectEmailTeacherSection.hide();
+		teacherSelect.find('option').remove();
+		teacherSelect.trigger('chosen:updated');
+	});
+
 	// eslint-disable-next-line consistent-return
-	$('.invite-external-member-modal form').on('submit', function inviteExternalEvent(e) {
+	$('.invite-external-member-modal form').on('submit', async function inviteExternalEvent(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const { origin } = window.location;
@@ -256,17 +266,56 @@ $(document).ready(() => {
 			return false;
 		}
 
-		const userId = $('#teacher').val();
+		let userId;
+		if (state.method === 'email') {
+			userId = $('#email-teacher').val();
+		}
+		if (state.method === 'directory') {
+			userId = $('#teacher').val();
+		}
+
 		// eslint-disable-next-line no-nested-ternary
 		const userRole = state.role === 'teacher' ? 'teamadministrator'
 			: (state.role === 'expert' ? 'teamexpert' : '');
-		let email;
 
-		if (state.method === 'email') {
+		let email;
+		if (state.method === 'email' && !userId) {
 			email = $(this).find(`div[data-role="${state.role}"] input[name=email]`).val();
 
 			if (!validateEmail(email)) {
 				$.showNotification($t('teams._team.members.add.text.pleaseEnterValidEmail'), 'danger', true);
+				return false;
+			}
+
+			// If multiple users with this email exist, then display a select field for them and cancel the form submit
+			let multipleUsersForEmail = false;
+			await $.ajax({
+				type: 'GET',
+				url: `${origin}/users/teachersWithEmail`,
+				data: {
+					email,
+				},
+			}).done((users) => {
+				if (users.length >= 2) {
+					multipleUsersForEmail = true;
+
+					const selectEmailTeacherSection = $('#select-email-teacher-section');
+					const teacherSelect = selectEmailTeacherSection.find('select');
+
+					selectEmailTeacherSection.show();
+					teacherSelect.find('option').remove();
+
+					users.forEach((user) => {
+						const displayText = `${user.firstName} ${user.lastName} - ${user.schoolName}`;
+						teacherSelect.append(`<option value="${user._id}">${displayText}</option>`);
+					});
+					teacherSelect.trigger('chosen:updated');
+				}
+			}).fail(() => {
+				$.showNotification($t('teams._team.members.add.text.errorWhileLoadingTeachers'), 'danger', true);
+			});
+
+			if (multipleUsersForEmail) {
 				return false;
 			}
 		}
@@ -276,9 +325,9 @@ $(document).ready(() => {
 			url: `${origin}/teams/external/invite`,
 			data: {
 				teamId,
-				userId: state.method === 'directory' ? userId : undefined,
+				userId,
 				role: userRole,
-				email: state.method === 'email' ? email : undefined,
+				email,
 			},
 		}).done(() => {
 			if (state.method === 'email') {

@@ -3057,7 +3057,8 @@
 					"pleaseSelectRole": "Selecciona un rol.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Selecciona un profesor de otra escuela de un directorio central o proporciona la dirección de correo electrónico con la que está registrado. Después de unirse a tu equipo, podrá añadir estudiantes y maestros de tu escuela al equipo.",
 					"teacherIsFromOtherSchool": "El profesor está en otra escuela",
-					"teachersRegisterProcessFinished": "Se ha completado el registro del profesor en {{ rootThemeShortTitle }}"
+					"teachersRegisterProcessFinished": "Se ha completado el registro del profesor en {{ rootThemeShortTitle }}",
+					"multipleTeachersWithEmail": "Se encontraron varios profesores con este correo electrónico. Por favor seleccione el profesor que desee:"
 				}
 			},
 			"news": {

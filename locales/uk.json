@@ -1483,7 +1483,7 @@
 				"pleaseSelectFileType": "Виберіть тип файлу.",
 				"renameDirSuccess": "Каталог успішно перейменовано!",
 				"renameFileSuccess": "Файл успішно перейменовано!",
-				"thereAreNoPermissionsToEdit": "Немає дозволів на редагування.",
+				"thereAreNoPermissionsToEdit": "Немає дозволів на редагування."
 			}
 		},
 		"search": {
@@ -2005,7 +2005,8 @@
 					"addedMemberFailure": "Проблема під час додавання учасника",
 					"addedMemberSuccess": "Учасника успішно додано до команди",
 					"errorWhileEditingMember": "Проблема під час редагування учасника",
-					"pleaseSelectRole": "Виберіть роль."
+					"pleaseSelectRole": "Виберіть роль.",
+					"multipleTeachersWithEmail": "Кілька вчителів знайшли цю електронну адресу. Будь ласка, виберіть потрібного викладача:"
 				},
 				"add": {
 					"button": {
