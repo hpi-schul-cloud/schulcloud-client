@@ -384,67 +384,60 @@ module.exports = (req, res, next) => {
 		],
 	});
 
+	// system group
+	const systemLinks = [];
 
-	// new sidebar
-
-	if (Configuration.get('FEATURE_NEW_LAYOUT_ENABLED')) {
-		// system group
-		const systemLinks = [];
-
-		if (ALERT_STATUS_URL) {
-			systemLinks.push({
-				link: ALERT_STATUS_URL,
-				name: res.$t('lib.global.link.status'),
-				testId: 'status',
-				isExternalLink: true,
-			});
-		}
-
-		if (SC_THEME !== 'default') {
-			systemLinks.push({
-				link: res.locals.theme.documents.specificFiles.accessibilityStatement,
-				name: res.$t('lib.global.link.accessibilityStatement'),
-				testId: 'accessibility-statement',
-				isExternalLink: true,
-			});
-		}
-
+	if (ALERT_STATUS_URL) {
 		systemLinks.push({
-			name: res.$t('lib.help_menu.link.releaseNotes'),
-			link: '/system/releases',
-			testId: 'releases',
+			link: ALERT_STATUS_URL,
+			name: res.$t('lib.global.link.status'),
+			testId: 'status',
+			isExternalLink: true,
 		});
-
-		if (SC_THEME !== 'n21') {
-			systemLinks.push({
-				name: res.$t('lib.global.link.github'),
-				link: 'https://github.com/hpi-schul-cloud',
-				testId: 'github',
-				isExternalLink: true,
-			});
-		}
-
-		if (SC_THEME === 'default') {
-			systemLinks.push({
-				link: '/system/security',
-				name: res.$t('lib.global.link.safety'),
-				testId: 'security',
-			});
-		}
-
-		res.locals.sidebarItems.push(
-			{
-				name: res.$t('global.sidebar.link.system'),
-				icon: 'application-brackets-outline',
-				testId: 'system',
-				groupName: 'system',
-				link: '/system/',
-				children: systemLinks,
-			},
-		);
 	}
 
-	// end new sidebar
+	if (SC_THEME !== 'default') {
+		systemLinks.push({
+			link: res.locals.theme.documents.specificFiles.accessibilityStatement,
+			name: res.$t('lib.global.link.accessibilityStatement'),
+			testId: 'accessibility-statement',
+			isExternalLink: true,
+		});
+	}
+
+	systemLinks.push({
+		name: res.$t('lib.help_menu.link.releaseNotes'),
+		link: '/system/releases',
+		testId: 'releases',
+	});
+
+	if (SC_THEME !== 'n21') {
+		systemLinks.push({
+			name: res.$t('lib.global.link.github'),
+			link: 'https://github.com/hpi-schul-cloud',
+			testId: 'github',
+			isExternalLink: true,
+		});
+	}
+
+	if (SC_THEME === 'default') {
+		systemLinks.push({
+			link: '/system/security',
+			name: res.$t('lib.global.link.safety'),
+			testId: 'security',
+		});
+	}
+
+	res.locals.sidebarItems.push(
+		{
+			name: res.$t('global.sidebar.link.system'),
+			icon: 'application-brackets-outline',
+			testId: 'system',
+			groupName: 'system',
+			link: '/system/',
+			children: systemLinks,
+		},
+	);
 
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
