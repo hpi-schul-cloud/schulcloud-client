@@ -33,7 +33,7 @@
 										<i aria-hidden="true" class="fa fa-exclamation-triangle"></i>
 									</button>
 								{{else}}
-									<button data-href="/files/file?download=true&file={{../this._id}}&name={{../this.storageFileName}}"
+									<button data-href="/files/file?download=true&file={{../this._id}}&name={{encodeURI ../this.saveName}}"
 										class="file-btn"
                                         data-testid="file-download-btn"
 										data-method="download"
