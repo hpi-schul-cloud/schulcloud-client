@@ -1289,7 +1289,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 						.map((u) => u._id),
 					consentStatus: { $in: ['missing', 'parentsAgreed'] },
 					$limit: batchSize,
-					$sort: { 'lastName': 1},
+					$sort: { lastName: 1 },
 				},
 			})).data,
 		);
@@ -2277,7 +2277,6 @@ const schoolUpdateHandler = async (req, res, next) => {
 			student: { LERNSTORE_VIEW: false },
 			teacher: { STUDENT_LIST: false },
 		},
-		features: [],
 		logo,
 	};
 
@@ -2291,17 +2290,6 @@ const schoolUpdateHandler = async (req, res, next) => {
 		const studentLernstoreFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED');
 		if (studentLernstoreFeature) {
 			requestBody.permissions.student.LERNSTORE_VIEW = !!req.body.studentlernstorevisibility;
-		}
-
-		// Update school features
-		const possibleSchoolFeatures = [
-			'messenger', 'messengerSchoolRoom', 'messengerStudentRoomCreate', 'rocketChat', 'videoconference',
-		];
-
-		for (const feature of possibleSchoolFeatures) {
-			if (req.body[feature] === 'true') {
-				requestBody.features.push(feature);
-			}
 		}
 
 		await api(req, { version: 'v3' }).patch(`/school/${res.locals.currentSchool}`, {

@@ -289,51 +289,6 @@
                             {{/ifConfig}}
                         {{/ifConfig}}
 
-                        {{! Only hide setting from UI and not completly from the DOM to ensure that the configured state is passed back to the server }}
-                        <div class="form-group {{#unless @root.ROCKETCHAT_SERVICE_ENABLED}}hidden{{/unless}}">
-							<div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
-								<label>
-									<input
-										type="checkbox"
-										name="rocketChat"
-										value="true"
-                                        data-testid="school-administration-chat-checkbox"
-										{{#inArray "rocketChat" ../school.features}}checked{{/inArray}}
-										{{#userHasPermission 'SCHOOL_EDIT'}}{{else}}
-											{{#userHasPermission 'SCHOOL_CHAT_MANAGE'}}{{else}}
-													disabled
-											{{/userHasPermission}}
-										{{/userHasPermission}}
-										{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
-											disabled
-										{{/hasConfig}}
-									/>
-									{{$t "administration.school.label.activeChatFunction" }}
-								</label>
-								<p class="text-muted">
-									{{$t "administration.school.text.ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan" }}
-								</p>
-							</div>
-							{{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
-								<p class="alert alert-info">
-									<strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
-									{{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (i18nDate (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
-								</p>
-							{{/hasConfig}}
-                        </div>
-
-						{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
-						<div class="form-group">
-							<label>
-								<input type="checkbox" name="videoconference" value="true" data-testid="school-administration-video-conference-checkbox"
-									{{#inArray "videoconference" ../../school.features}}checked{{/inArray}}>
-								{{$t "administration.school.label.enableVideoConference" }}
-								<p class="text-muted">
-									{{$t "administration.school.text.ifVideoConferenceAreActivatedAtYourSchool" }}
-								</p>
-							</label>
-						</div>
-						{{/ifConfig}}
 						{{#if ../school.fileStorageType}}
 						<div class="form-group">
 							<label>{{$t "administration.school.label.cloudStorageProvider" }}</label>
