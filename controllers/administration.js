@@ -2283,7 +2283,7 @@ const schoolUpdateHandler = async (req, res, next) => {
 	if (videoconference) {
 		features.add('videoconference');
 	} else {
-		features.delete('rocketChat');
+		features.delete('videoconference');
 	}
 
 	const requestBody = {
