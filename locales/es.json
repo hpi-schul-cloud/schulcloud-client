@@ -566,6 +566,7 @@
 				"generalSettings": "Configuración general"
 			},
 			"label": {
+				"activeChatFunction": "Activar función de chat",
 				"activeMatrixFunction": "Activar Matrix Messenger",
 				"afterTheTransferPhaseEnded": "Una vez finalizada la fase de transferencia",
 				"allStudentsVisibility": "La activación de esta opción tiene un nivel alto según la ley de protección de datos. Para activar la visibilidad de todos los alumnos de la escuela para cada profesor, es necesario que cada alumno haya dado su consentimiento de manera efectiva para este tratamiento de datos.",
@@ -584,6 +585,7 @@
 				"dataProtectionAdd": "Añadir política de privacidad",
 				"duringTheSchoolYear": "Durante el año escolar",
 				"duringTheTransferPhase": "Durante la fase de transferencia",
+				"enableVideoConference": "Activar videoconferencias para cursos y equipos",
 				"endOfTheTransferPhase": "Fin de la fase de transferencia",
 				"fileStorageSpaceUsedInCloud": "Almacenamiento de archivos usados en la nube",
 				"inTheTransferPhase": "en la fase de transferencia:",
@@ -629,7 +631,9 @@
 				"fileSelected": "Archivo seleccionado",
 				"fileTooLarge": "El archivo PDF es demasiado grande. Puede tener un tamaño máximo de {{size}} MB.",
 				"ifChatsAreActivatedAtYourSchool": "Si los chats están habilitados en tu escuela, los administradores del equipo y los profesores pueden desbloquear la función de chat de manera selectiva y respectivamente para su equipo o cursos.",
+				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Si los chats están habilitados en tu escuela, los administradores del equipo en el equipo respectivo pueden desbloquear específicamente la función de chat.",
 				"ifMatrixIsActivatedAtYourSchool": "Si se activa Matrix Messenger, todos los profesores de esta escuela pueden iniciar salas de chat, conversaciones privadas o discusiones en grupo dentro del curso o equipo. Los estudiantes inicialmente solo tienen acceso de lectura, pero también se les puede dar acceso de escritura a través de la configuración del curso y del equipo. Los estudiantes también pueden iniciar chats privados dentro de los cursos y equipos. Puedes encontrar más información al respecto en la",
+				"ifVideoConferenceAreActivatedAtYourSchool": "Si la videoconferencia está habilitada en tu escuela, los profesores pueden añadir la herramienta de videoconferencia a su curso en la sección Herramientas y entonces podrán iniciar desde allí videoconferencias para todos los participantes del curso. Los administradores del equipo pueden activar la función de videoconferencia en el equipo respectivo. Los líderes de equipo y los administradores de equipo pueden añadir e iniciar videoconferencias para citas.",
 				"LDAPChanges": "Puedes realizar los cambios necesarios para el nuevo año escolar en LDAP (nuevos usuarios, clases de actualización)",
 				"lernstoreEnabledForStudents": "Si no está seleccionado, los estudiantes no podrán acceder a Lern-Store",
 				"loginViaLDAP": "El inicio de sesión a través de LDAP sigue siendo posible para los usuarios existentes",

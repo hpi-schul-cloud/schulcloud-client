@@ -2260,6 +2260,8 @@ const schoolUpdateHandler = async (req, res, next) => {
 		name,
 		language,
 		logo_dataUrl,
+		rocketChat,
+		videoconference,
 	} = req.body;
 
 	let logo;
@@ -2270,6 +2272,20 @@ const schoolUpdateHandler = async (req, res, next) => {
 		};
 	}
 
+	let features = req.body.features;
+
+	if (rocketChat) {
+		features.push('rocketChat');
+	} else {
+		features = features.filter((feature) => feature !== 'rocketChat');
+	}
+
+	if (videoconference) {
+		features.push('videoconference');
+	} else {
+		features = features.filter((feature) => feature !== 'videoconference');
+	}
+
 	const requestBody = {
 		name,
 		language,
@@ -2277,6 +2293,7 @@ const schoolUpdateHandler = async (req, res, next) => {
 			student: { LERNSTORE_VIEW: false },
 			teacher: { STUDENT_LIST: false },
 		},
+		features,
 		logo,
 	};
 
