@@ -1289,7 +1289,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 						.map((u) => u._id),
 					consentStatus: { $in: ['missing', 'parentsAgreed'] },
 					$limit: batchSize,
-					$sort: { 'lastName': 1},
+					$sort: { lastName: 1 },
 				},
 			})).data,
 		);
@@ -2260,6 +2260,8 @@ const schoolUpdateHandler = async (req, res, next) => {
 		name,
 		language,
 		logo_dataUrl,
+		rocketChat,
+		videoconference,
 	} = req.body;
 
 	let logo;
@@ -2270,6 +2272,20 @@ const schoolUpdateHandler = async (req, res, next) => {
 		};
 	}
 
+	const features = new Set(req.body.features);
+
+	if (rocketChat) {
+		features.add('rocketChat');
+	} else {
+		features.delete('rocketChat');
+	}
+
+	if (videoconference) {
+		features.add('videoconference');
+	} else {
+		features.delete('videoconference');
+	}
+
 	const requestBody = {
 		name,
 		language,
@@ -2277,7 +2293,7 @@ const schoolUpdateHandler = async (req, res, next) => {
 			student: { LERNSTORE_VIEW: false },
 			teacher: { STUDENT_LIST: false },
 		},
-		features: [],
+		features: Array.from(features),
 		logo,
 	};
 
@@ -2291,17 +2307,6 @@ const schoolUpdateHandler = async (req, res, next) => {
 		const studentLernstoreFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED');
 		if (studentLernstoreFeature) {
 			requestBody.permissions.student.LERNSTORE_VIEW = !!req.body.studentlernstorevisibility;
-		}
-
-		// Update school features
-		const possibleSchoolFeatures = [
-			'messenger', 'messengerSchoolRoom', 'messengerStudentRoomCreate', 'rocketChat', 'videoconference',
-		];
-
-		for (const feature of possibleSchoolFeatures) {
-			if (req.body[feature] === 'true') {
-				requestBody.features.push(feature);
-			}
 		}
 
 		await api(req, { version: 'v3' }).patch(`/school/${res.locals.currentSchool}`, {
