@@ -2272,18 +2272,18 @@ const schoolUpdateHandler = async (req, res, next) => {
 		};
 	}
 
-	let features = req.body.features;
+	const features = new Set(req.body.features);
 
 	if (rocketChat) {
-		features.push('rocketChat');
+		features.add('rocketChat');
 	} else {
-		features = features.filter((feature) => feature !== 'rocketChat');
+		features.delete('rocketChat');
 	}
 
 	if (videoconference) {
-		features.push('videoconference');
+		features.add('videoconference');
 	} else {
-		features = features.filter((feature) => feature !== 'videoconference');
+		features.delete('rocketChat');
 	}
 
 	const requestBody = {
@@ -2293,7 +2293,7 @@ const schoolUpdateHandler = async (req, res, next) => {
 			student: { LERNSTORE_VIEW: false },
 			teacher: { STUDENT_LIST: false },
 		},
-		features,
+		features: Array.from(features),
 		logo,
 	};
 
