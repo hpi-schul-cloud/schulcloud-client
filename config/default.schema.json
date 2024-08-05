@@ -388,6 +388,10 @@
 			"default": "lernen.cloud@dataport.de",
 			"description": "Email to report accessibility issue"
 		},
+		"TRAINING_URL": {
+			"type": "string",
+			"description": "URL for the platform training material"
+		},
 		"I18N": {
 			"type": "object",
 			"description": "Configuration of I18N",

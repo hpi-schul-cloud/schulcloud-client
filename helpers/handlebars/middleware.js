@@ -355,6 +355,7 @@ module.exports = (req, res, next) => {
 		});
 	}
 	// helpArea view
+	const trainingUrl = Configuration.get('TRAINING_URL');
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.helpArea'),
 		testId: 'Hilfebereich',
@@ -378,7 +379,7 @@ module.exports = (req, res, next) => {
 				name: res.$t('lib.help_menu.link.training'),
 				testId: 'Fortbildungen',
 				icon: 'file-certificate-outline',
-				link: 'https://lernen.cloud/',
+				link: trainingUrl,
 				isExternalLink: true,
 			},
 		],
