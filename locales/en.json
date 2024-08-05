@@ -1249,6 +1249,7 @@
 			"toTask": "To the task"
 		},
 		"text": {
+			"announcementBrb": "New at bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Ready-made teaching units now for grades 5 to 8</a> and new <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>exercises and tests for grades 4 to 13</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Here</a> you can find our course examples/topic suggestions for the Brandenburg School Cloud: view, select and <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>import</a> as your own course!",
 			"emptyHomeworksInfo": "No assigned tasks. You can find all tasks in the tasks area.",
 			"emptyNewsInfo": "So far there is no news.",
 			"graded": "Graded",
