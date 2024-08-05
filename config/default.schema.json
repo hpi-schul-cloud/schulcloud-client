@@ -390,6 +390,7 @@
 		},
 		"TRAINING_URL": {
 			"type": "string",
+			"default": "https://lernen.dbildungscloud.de",
 			"description": "URL for the platform training material"
 		},
 		"I18N": {
