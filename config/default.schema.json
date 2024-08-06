@@ -63,10 +63,9 @@
 			"type": "string",
 			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
 		},
-		"DASHBOARD_ANNOUNCEMENT_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "enbale announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
+		"DASHBOARD_ANNOUNCEMENT_TEXT": {
+			"type": "string",
+			"description": "announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
 		},
 		"DASHBOARD_ANNOUNCEMENT_ROLES": {
 			"type": "string",
