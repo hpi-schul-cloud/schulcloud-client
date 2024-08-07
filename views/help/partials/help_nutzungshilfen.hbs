@@ -1,11 +1,11 @@
 {{#if (userHasRole "student" )}}
 	{{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12 help-icon-card" id="nutzungshilfen"}}
 		{{#content "card-body"}}
-			{{> "help/icon-link-group" links=(jsonParse '[
+			{{> "help/icon-link-group" links=(jsonParse (concat '[
 				{
 					"title": "Online-Videokurse",
 					"icon": "fa-video-camera",
-					"src": "https://lernen.cloud/"
+					"src": "' (getConfig "TRAINING_URL") '"
 				},
 				{
 					"title": "Live-Formate",
@@ -22,17 +22,17 @@
 					"icon": "fa-clipboard",
 					"src": "/system/releases"
 				}
-			]') link-class="col-sm-4"}}
+			]')) link-class="col-sm-4"}}
 		{{/content}}
 	{{/embed}}
 {{else}}
 	{{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12 help-icon-card" id="nutzungshilfen"}}
 		{{#content "card-body"}}
-			{{> "help/icon-link-group" links=(jsonParse '[
+			{{> "help/icon-link-group" links=(jsonParse (concat '[
 				{
 					"title": "Online-Videokurse",
 					"icon": "fa-video-camera",
-					"src": "https://lernen.cloud/"
+					"src": "' (getConfig "TRAINING_URL") '"
 				},
 				{
 					"title": "Live-Formate",
@@ -54,7 +54,7 @@
 					"icon": "fa-clipboard",
 					"src": "/system/releases"
 				}
-			]') link-class="col-sm-4"}}
+			]')) link-class="col-sm-4"}}
 		{{/content}}
 	{{/embed}}
 {{/if}}
