@@ -2415,12 +2415,12 @@ router.all('/courses', (req, res, next) => {
 			(item.teacherIds || []).map((item) => `${item.lastName}${item.outdatedSince ? ' ~~' : ''}`).join(', '),
 			[
 				{
-					link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+					link: Configuration.get('FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED') ? `/courses/${item._id}/edit?redirectUrl=/administration/rooms/new` : `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
 					icon: 'edit',
 					title: res.$t('administration.controller.link.editEntry'),
 				},
 				{
-					link: `/administration/courses/${item._id}`,
+					link: Configuration.get('FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED') ? `/courses/${item._id}/edit?redirectUrl=/administration/rooms/new` : `/administration/courses/${item._id}`,
 					class: 'btn-delete',
 					icon: 'trash-o',
 					method: 'delete',

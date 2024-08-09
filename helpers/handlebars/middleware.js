@@ -268,6 +268,8 @@ module.exports = (req, res, next) => {
 
 	// admin views
 	const newSchoolAdminPageAsDefault = Configuration.get('FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED');
+	const newRoomsViewEnabled = Configuration.get('FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED');
+
 	const adminChildItems = [
 		{
 			name: res.$t('global.link.administrationStudents'),
@@ -287,7 +289,7 @@ module.exports = (req, res, next) => {
 			name: res.$t('global.sidebar.link.administrationCourses'),
 			testId: 'Kurse',
 			icon: 'school-outline',
-			link: '/administration/courses/',
+			link: newRoomsViewEnabled ? '/administration/rooms/new':'/administration/courses/',
 		},
 		{
 			name: res.$t('global.sidebar.link.administrationClasses'),
