@@ -5,7 +5,7 @@
 		"watch": "nodemon --config nodemon.json",
 		"debug": "nodemon --inspect=9310 --config nodemon.json",
 		"debug:container": "nodemon --inspect=0.0.0.0:9310 --config nodemon.json",
-		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js ./locales --ext .js --ext .json --fix",		
+		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js ./locales --ext .js --ext .json --fix",
 		"startd": "echo 'Do you mean 'npm run watch'?'",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
 		"build": "gulp clear && cross-env NODE_OPTIONS=--openssl-legacy-provider gulp",
@@ -13,8 +13,8 @@
 		"coverage": "nyc npm run mocha"
 	},
 	"engines": {
-		"node": "18",
-		"npm": ">=9"
+		"node": "20",
+		"npm": ">=10"
 	},
 	"lint-staged": {
 		"static/images/**/*.{png,jpeg,jpg,gif,svg}": [
