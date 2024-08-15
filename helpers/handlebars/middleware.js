@@ -289,7 +289,7 @@ module.exports = (req, res, next) => {
 			name: res.$t('global.sidebar.link.administrationCourses'),
 			testId: 'Kurse',
 			icon: 'school-outline',
-			link: newRoomsViewEnabled ? '/administration/rooms/new':'/administration/courses/',
+			link: '/administration/courses/',
 		},
 		{
 			name: res.$t('global.sidebar.link.administrationClasses'),
@@ -317,6 +317,14 @@ module.exports = (req, res, next) => {
 		},
 	];
 
+	if (newRoomsViewEnabled) {
+		adminChildItems.splice(2, 1, {
+			name: res.$t('global.sidebar.link.administrationCourses'),
+			testId: 'Kurse',
+			icon: 'school-outline',
+			link: '/administration/rooms/new',
+		});
+	}
 	if (newClassViewEnabled) {
 		adminChildItems.splice(3, 1, {
 			name: res.$t('global.sidebar.link.administrationClasses'),
