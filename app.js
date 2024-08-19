@@ -250,7 +250,12 @@ app.use((err, req, res, next) => {
 		res.locals = {};
 	}
 	// prevent logging jwts and x-api-keys
-	delete error.options.headers;
+	if (error.options && error.options.headers) {
+		delete error.options.headers;
+	}
+	if (error.response && error.response.request && error.response.request.headers) {
+		delete error.response.request.headers;
+	}
 
 	if (Configuration.get('FEATURE_LOG_REQUEST') === true) {
 		const reqInfo = {
