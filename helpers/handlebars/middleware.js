@@ -180,7 +180,7 @@ module.exports = (req, res, next) => {
 			name: res.$t('global.sidebar.link.rooms'),
 			testId: 'Rooms',
 			icon: 'account-supervisor-circle-outline',
-			link: '/rooms/',
+			link: '/rooms',
 		});
 	}
 
