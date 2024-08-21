@@ -36,7 +36,7 @@
 									</div>
 								</div>
 							{{/userHasPermission}}
-                                {{#userHasPermission 'COURSE_LIST'}}
+                                {{#userHasPermission 'COURSE_ADMINISTRATION'}}
                                 {{#if (getConfig "FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED")}}
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="card h-100 teacher-option locationlink" data-loclink="/administration/rooms/new">
