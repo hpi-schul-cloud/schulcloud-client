@@ -615,6 +615,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables the media shelf feature"
+		},
+		"FEATURE_ROOMS_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the rooms feature"
 		}
 	},
 	"allOf": [
