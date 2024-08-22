@@ -173,6 +173,17 @@ module.exports = (req, res, next) => {
 		});
 	}
 
+	// Rooms Feature Toggle
+	const roomsEnabled = Configuration.get('FEATURE_ROOMS_ENABLED');
+	if (roomsEnabled) {
+		res.locals.sidebarItems.splice(1, 0, {
+			name: res.$t('global.sidebar.link.rooms'),
+			testId: 'Rooms',
+			icon: 'account-supervisor-circle-outline',
+			link: '/rooms',
+		});
+	}
+
 	// teacher views
 	const newClassViewEnabled = Configuration.get('FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED');
 	const teacherChildren = [
@@ -339,7 +350,7 @@ module.exports = (req, res, next) => {
 	// team feature toggle
 	const teamsEnabled = FEATURE_TEAMS_ENABLED === 'true';
 	if (teamsEnabled) {
-		res.locals.sidebarItems.splice(2, 0, {
+		res.locals.sidebarItems.splice(roomsEnabled ? 3 : 2, 0, {
 			name: res.$t('global.link.teams'),
 			testId: 'Teams',
 			icon: 'account-group-outline',
