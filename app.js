@@ -247,9 +247,6 @@ const errorHandler = (err) => {
 	if (error.options && error.options.headers) {
 		delete error.options.headers;
 	}
-	if (error.response && error.response.request && error.response.request.headers) {
-		delete error.response.request.headers;
-	}
 
 	return { error, status };
 };
@@ -312,8 +309,8 @@ app.use((err, req, res, next) => {
 	});
 });
 
-process.on('unhandledRejection', (err, res, req, next) => {
-	const { error, status } = errorHandler(err);
+process.on('unhandledRejection', (err) => {
+	const { error } = errorHandler(err);
 	error.message = `unhandledRejection: ${error.message}`;
 	logger.error(error);
 });
