@@ -34,7 +34,7 @@ const logger = createLogger({
 			level: logLevel,
 			format: formatter,
 			handleExceptions: true,
-			handleRejections: true,
+			handleRejections: false,
 		}),
 	],
 });
