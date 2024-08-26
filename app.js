@@ -238,19 +238,25 @@ const isTimeoutError = (err) => err && err.message && (
 	|| err.message.includes('ETIMEDOUT')
 );
 
-app.use((err, req, res, next) => {
+const errorHandler = (err) => {
 	const error = err.error || err;
 	const status = error.status || error.statusCode || 500;
 	error.statusCode = status;
 
-	if (!error.options) {
-		error.options = {};
+	// prevent logging jwts and x-api-keys
+	if (error.options && error.options.headers) {
+		delete error.options.headers;
 	}
+
+	return { error, status };
+};
+
+app.use((err, req, res, next) => {
+	const { error, status } = errorHandler(err);
+
 	if (!res.locals) {
 		res.locals = {};
 	}
-	// prevent logging jwts and x-api-keys
-	delete error.options.headers;
 
 	if (Configuration.get('FEATURE_LOG_REQUEST') === true) {
 		const reqInfo = {
@@ -301,6 +307,12 @@ app.use((err, req, res, next) => {
 		loggedin: res.locals.loggedin,
 		inline: res.locals.inline ? true : !res.locals.loggedin,
 	});
+});
+
+process.on('unhandledRejection', (err) => {
+	const { error } = errorHandler(err);
+	error.message = `unhandledRejection: ${error.message}`;
+	logger.error(error);
 });
 
 module.exports = app;
