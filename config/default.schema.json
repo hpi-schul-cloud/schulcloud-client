@@ -63,10 +63,9 @@
 			"type": "string",
 			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
 		},
-		"DASHBOARD_ANNOUNCEMENT_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "enbale announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
+		"DASHBOARD_ANNOUNCEMENT_TEXT": {
+			"type": "string",
+			"description": "announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
 		},
 		"DASHBOARD_ANNOUNCEMENT_ROLES": {
 			"type": "string",
@@ -386,8 +385,13 @@
 		},
 		"ACCESSIBILITY_REPORT_EMAIL": {
 			"type": "string",
-			"default": "lernen.cloud@dataport.de",
+			"default": "dbildungscloud@dataport.de",
 			"description": "Email to report accessibility issue"
+		},
+		"TRAINING_URL": {
+			"type": "string",
+			"default": "https://lernen.dbildungscloud.de",
+			"description": "URL for the platform training material"
 		},
 		"I18N": {
 			"type": "object",
@@ -617,10 +621,10 @@
 			"default": false,
 			"description": "Enables the media shelf feature"
 		},
-		"FEATURE_NEW_LAYOUT_ENABLED": {
+		"FEATURE_ROOMS_ENABLED": {
 			"type": "boolean",
 			"default": false,
-			"description": "Enables the new layout feature"
+			"description": "Enables the rooms feature"
 		}
 	},
 	"allOf": [

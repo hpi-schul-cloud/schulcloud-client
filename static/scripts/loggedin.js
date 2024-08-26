@@ -22,7 +22,6 @@ function showHideGlobalAnnouncement() {
 	}
 }
 
-// new sidebar
 function toggleSidebarItemGroup(groupData) {
     const itemGroup = document.querySelector(`.${groupData.groupName}`);
 	if (itemGroup) {
@@ -64,11 +63,17 @@ function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.querySelector('.overlay');
     const contentDiv = document.querySelector('.content-min-height');
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    const sidebarSubitems = document.querySelectorAll('.subitem');
+    const legalLinks = document.querySelectorAll('.legal-link');
 
 	if (sidebar) {
 		if (sidebar.classList.contains('hidden')) {
             sidebar.classList.remove('hidden');
             sidebar.classList.add('visible');
+            toggleTabindexOnSidebarItems(sidebarItems, 0);
+            toggleTabindexOnSidebarItems(legalLinks, 0);
+            toggleTabindexOnSidebarItems(sidebarSubitems, 0);
 
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "block";
@@ -79,6 +84,9 @@ function toggleSidebar() {
         } else {
             sidebar.classList.remove('visible');
             sidebar.classList.add('hidden');
+            toggleTabindexOnSidebarItems(sidebarItems, -1);
+            toggleTabindexOnSidebarItems(legalLinks, -1);
+            toggleTabindexOnSidebarItems(sidebarSubitems, -1);
 
             if (window.innerWidth <= 1279) {
                 overlay.style.display = "none";
@@ -103,6 +111,13 @@ function toggleSidebar() {
             toggleInTopbar.classList.add('invisible-toggle');
         }
 	}
+}
+
+function toggleTabindexOnSidebarItems(elements, tabindex) {
+    [].forEach.call(elements, function (el) {
+        el.setAttribute("tabindex", tabindex);
+        el.setAttribute("aria-hidden", true);
+    });
 }
 
 function toggleSidebarOnWindowWidth(sidebar) {
@@ -194,7 +209,6 @@ $(document).ready(() => {
 });
 
 $(document).ready(function () {
-    // new sidebar
     const groupToggleBtns = document.querySelectorAll('.group-toggle-btn');
     if (groupToggleBtns) {
         groupToggleBtns.forEach((btn) => {

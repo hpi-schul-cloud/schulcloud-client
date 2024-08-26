@@ -20,6 +20,34 @@ router.get('/teachersOfSchool', async (req, res, next) => {
 			_id: user._id,
 			firstName: user.firstName,
 			lastName: user.lastName,
+			schoolId: user.schoolId,
+			email: user.email,
+		}));
+
+		return res.json(result);
+	} catch (err) {
+		const error = new Error(res.$t('global.text.invalidRequest'));
+		error.status = 400;
+		return next(error);
+	}
+});
+
+router.get('/teachersWithEmail', async (req, res, next) => {
+	try {
+		const users = await api(req).get('/publicTeachers/', {
+			qs: {
+				$limit: false,
+				email: req.query.email,
+				$sort: 'firstName',
+				$populate: ['schoolId'],
+			},
+		});
+
+		const result = users.data.map((user) => ({
+			_id: user._id,
+			firstName: user.firstName,
+			lastName: user.lastName,
+			schoolName: user.schoolId.name,
 		}));
 
 		return res.json(result);

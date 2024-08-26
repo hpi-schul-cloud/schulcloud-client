@@ -1249,6 +1249,7 @@
 			"toTask": "To the task"
 		},
 		"text": {
+			"announcementBrb": "New at bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Ready-made teaching units now for grades 5 to 8</a> and new <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>exercises and tests for grades 4 to 13</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Here</a> you can find our course examples/topic suggestions for the Brandenburg School Cloud: view, select and <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>import</a> as your own course!",
 			"emptyHomeworksInfo": "No assigned tasks. You can find all tasks in the tasks area.",
 			"emptyNewsInfo": "So far there is no news.",
 			"graded": "Graded",
@@ -1748,6 +1749,7 @@
 				"administration": "Administration",
 				"administrationClasses": "Classes",
 				"administrationCourses": "Courses",
+				"rooms": "Rooms",
 				"system": "System",
 				"accessibility": "Accessibility",
 				"mediaShelf": "Media shelf"
@@ -3057,7 +3059,8 @@
 					"pleaseSelectRole": "Please select a role.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Select a teacher from other schools from a central directory or provide the e-mail address with which she is registered. After joining your team, she can add students and teachers from her school to the team.",
 					"teacherIsFromOtherSchool": "Teacher is at another school",
-					"teachersRegisterProcessFinished": "Registration of the teacher in the {{ rootThemeShortTitle }} has been completed"
+					"teachersRegisterProcessFinished": "Registration of the teacher in the {{ rootThemeShortTitle }} has been completed",
+					"multipleTeachersWithEmail": "Several teachers were found with this email. Please select the teacher you want:"
 				}
 			},
 			"news": {

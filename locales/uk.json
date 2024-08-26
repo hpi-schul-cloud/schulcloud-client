@@ -9,6 +9,7 @@
 			"welcome": "Вітаємо"
 		},
 		"text": {
+			"announcementBrb": "Нове на bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Готові навчальні блоки для 5-8 класів</a> та нові <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>вправи і тести для 4-13 класів</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Тут</a> ви можете знайти приклади наших курсів/пропозиції тем для Бранденбурзької шкільної хмари: переглядайте, обирайте та <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>імпортуйте</a> як свій власний курс!",
 			"notFound": "Активних записів не знайдено.",
 			"emptyHomeworksInfo": "Усі домашні завдання показуються в розділі домашніх завдань.",
 			"emptyNewsInfo": "Немає останніх новин. Перегляньте розділ новин, щоб бути в курсі.",
@@ -254,6 +255,7 @@
 				"administrationClasses": "Класи",
 				"administrationCourses": "Курси",
 				"administration": "Адміністрація",
+				"rooms": "Номери",
 				"system": "Cистема",
 				"accessibility": "Доступність",
 				"mediaShelf": "Полиця для медіа"
@@ -1483,7 +1485,7 @@
 				"pleaseSelectFileType": "Виберіть тип файлу.",
 				"renameDirSuccess": "Каталог успішно перейменовано!",
 				"renameFileSuccess": "Файл успішно перейменовано!",
-				"thereAreNoPermissionsToEdit": "Немає дозволів на редагування.",
+				"thereAreNoPermissionsToEdit": "Немає дозволів на редагування."
 			}
 		},
 		"search": {
@@ -2005,7 +2007,8 @@
 					"addedMemberFailure": "Проблема під час додавання учасника",
 					"addedMemberSuccess": "Учасника успішно додано до команди",
 					"errorWhileEditingMember": "Проблема під час редагування учасника",
-					"pleaseSelectRole": "Виберіть роль."
+					"pleaseSelectRole": "Виберіть роль.",
+					"multipleTeachersWithEmail": "Кілька вчителів знайшли цю електронну адресу. Будь ласка, виберіть потрібного викладача:"
 				},
 				"add": {
 					"button": {

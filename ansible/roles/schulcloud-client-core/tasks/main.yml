@@ -3,6 +3,8 @@
       kubeconfig: ~/.kube/config 
       namespace: "{{ NAMESPACE }}"
       template: svc.yml.j2
+    tags:
+      - service
       
   - name: Configmap
     kubernetes.core.k8s:
@@ -10,6 +12,8 @@
       namespace: "{{ NAMESPACE }}"
       template: configmap.yml.j2
       apply: yes
+    tags:
+      - configmap
       
   - name: Configmap File
     kubernetes.core.k8s:
@@ -17,6 +21,8 @@
       namespace: "{{ NAMESPACE }}"
       template: client-configmap-files.yml.j2
       apply: yes
+    tags:
+      - configmap
       
   - name: Secred
     kubernetes.core.k8s:
@@ -25,6 +31,8 @@
       template: secret.yml.j2
       apply: yes
     when: ONEPASSWORD_OPERATOR is undefined or ONEPASSWORD_OPERATOR is defined and not ONEPASSWORD_OPERATOR
+    tags:
+      - 1password
       
   - name: Secred by 1Password
     kubernetes.core.k8s:
@@ -32,6 +40,8 @@
       namespace: "{{ NAMESPACE }}"
       template: onepassword.yml.j2
     when: ONEPASSWORD_OPERATOR is defined and ONEPASSWORD_OPERATOR|bool
+    tags:
+      - 1password
 
       
   - name: Deployment
@@ -39,4 +49,6 @@
       kubeconfig: ~/.kube/config 
       namespace: "{{ NAMESPACE }}"
       template: deployment.yml.j2
+    tags:
+      - deployment
       
