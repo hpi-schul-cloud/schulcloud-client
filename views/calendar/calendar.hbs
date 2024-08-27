@@ -45,7 +45,7 @@
                 {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
             {{/content}}
             {{#content "additional-actions"}}
-                <button type="button" class="btn btn-primary btn-danger btn-delete">
+                <button type="button" class="btn btn-primary btn-danger btn-delete" data-testid='calendar-event-btn-delete'>
                     <i class="fa fa-trash-o"></i> {{$t "global.headline.delete" }}
                 </button>
             {{/content}}

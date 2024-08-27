@@ -672,52 +672,57 @@ router.get('/courses/', (req, res, next) => {
 
 router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) => {
 	const basePath = '/files/courses/';
-	const record = await api(req).get(`/courses/${req.params.courseId}`);
-	res.locals.files.files = res.locals.files.files.map(addThumbnails);
-	let canCreateFile = true;
+	try {
+		const record = await api(req).get(`/courses/${req.params.courseId}`);
 
-	let breadcrumbs = [{
-		title: res.$t('files.label.filesFromMyCourse'),
-		url: basePath,
-		dataTestId: 'navigate-to-my-courses-files',
-	}, {
-		title: record.name,
-		url: basePath + record._id,
-		dataTestId: 'navigate-to-my-files-in-course',
-	}];
+		res.locals.files.files = res.locals.files.files.map(addThumbnails);
+		let canCreateFile = true;
 
-	if (req.params.folderId) {
-		const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
-			crumb.url = `${basePath}${record._id}/${crumb.id}`;
-			return crumb;
+		let breadcrumbs = [{
+			title: res.$t('files.label.filesFromMyCourse'),
+			url: basePath,
+			dataTestId: 'navigate-to-my-courses-files',
+		}, {
+			title: record.name,
+			url: basePath + record._id,
+			dataTestId: 'navigate-to-my-files-in-course',
+		}];
+
+		if (req.params.folderId) {
+			const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
+				crumb.url = `${basePath}${record._id}/${crumb.id}`;
+				return crumb;
+			});
+			breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
+		}
+
+		if (['Schüler'].includes(res.locals.currentRole)) {
+			canCreateFile = false;
+		}
+
+		res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
+
+		res.render('files/files', {
+			title: res.$t('files.headline.courseFiles'),
+			canUploadFile: true,
+			canCreateDir: true,
+			canCreateFile,
+			path: res.locals.files.path,
+			inline: req.query.inline || req.query.CKEditor,
+			CKEditor: req.query.CKEditor,
+			breadcrumbs,
+			showSearch: false,
+			courseId: req.params.courseId,
+			ownerId: req.params.courseId,
+			toCourseText: res.$t('global.button.toCourse'),
+			courseUrl: `/rooms/${req.params.courseId}`,
+			canEditPermissions: true,
+			parentId: req.params.folderId,
+			...res.locals.files,
 		});
-		breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
+	} catch (error) {
+		next(error);
 	}
-
-	if (['Schüler'].includes(res.locals.currentRole)) {
-		canCreateFile = false;
-	}
-
-	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
-
-	res.render('files/files', {
-		title: res.$t('files.headline.courseFiles'),
-		canUploadFile: true,
-		canCreateDir: true,
-		canCreateFile,
-		path: res.locals.files.path,
-		inline: req.query.inline || req.query.CKEditor,
-		CKEditor: req.query.CKEditor,
-		breadcrumbs,
-		showSearch: false,
-		courseId: req.params.courseId,
-		ownerId: req.params.courseId,
-		toCourseText: res.$t('global.button.toCourse'),
-		courseUrl: `/rooms/${req.params.courseId}`,
-		canEditPermissions: true,
-		parentId: req.params.folderId,
-		...res.locals.files,
-	});
 });
 
 router.get('/teams/', (req, res, next) => {
