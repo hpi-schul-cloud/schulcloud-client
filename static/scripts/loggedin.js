@@ -67,6 +67,8 @@ function toggleSidebar() {
     const sidebarSubitems = document.querySelectorAll('.subitem');
     const legalLinks = document.querySelectorAll('.legal-link');
 
+    window.localStorage.setItem('sidebarExpanded', !sidebar.classList.contains('visible'));
+
 	if (sidebar) {
 		if (sidebar.classList.contains('hidden')) {
             sidebar.classList.remove('hidden');
