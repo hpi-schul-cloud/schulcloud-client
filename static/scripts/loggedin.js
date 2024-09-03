@@ -22,8 +22,6 @@ function showHideGlobalAnnouncement() {
 	}
 }
 
-
-
 function toggleSidebarItemGroup(groupData) {
     const itemGroup = document.querySelector(`.${groupData.groupName}`);
 	if (itemGroup) {
@@ -50,8 +48,8 @@ function toggleSidebarItemGroup(groupData) {
 	}
 }
 
-const sideBarExtendedValue = window.localStorage.getItem('sidebarExpanded')
-console.log('sideBarExtendedValue',sideBarExtendedValue)
+const sideBarExtendedValue = window.localStorage.getItem('sidebarExpanded');
+console.log('sideBarExtendedValue',sideBarExtendedValue);
 adjustContentWidthOnLoad();
 
 function adjustContentWidthOnLoad() {
@@ -153,28 +151,22 @@ function toggleSidebarOnWindowWidth(sidebar) {
             sidebar.classList.remove('visible');
             sidebar.classList.add('hidden');
         }
-        if (window.innerWidth >= 1280) {
+        if (window.innerWidth >= 1280 && sideBarExtendedValue == 'true') {
             sidebar.classList.remove('hidden');
             sidebar.classList.add('visible');
-            overlay.style.display = "none";
+            toggleInTopbar.classList.add('invisible-toggle')
+            toggleInSidebar.classList.remove('invisible-toggle')
+        }
+         if (window.innerWidth >= 1280 && sideBarExtendedValue == 'false') {
+            sidebar.classList.remove('visible');
+            sidebar.classList.add('hidden');
+            toggleInSidebar.classList.add('invisible-toggle')
+            toggleInTopbar.classList.remove('invisible-toggle')
         }
         if (sidebar.classList.contains('hidden')) {
             overlay.style.display = "none";
         }
-
-        if (sideBarExtendedValue == 'false') {
-        	sidebar.classList.remove('visible');
-            sidebar.classList.add('hidden');
-            toggleInTopbar.classList.remove('invisible-toggle')
-            toggleInSidebar.classList.add('invisible-toggle')
-            overlay.style.display = "none";
-        } else {
-        	sidebar.classList.remove('hidden');
-            sidebar.classList.add('visible');
-            toggleInTopbar.classList.remove('visible')
-            toggleInTopbar.classList.add('invisible-toggle')
-            toggleInSidebar.classList.remove('invisible-toggle')
-        }
+        
         adjustContentWidth(sidebar);
     }
 }
