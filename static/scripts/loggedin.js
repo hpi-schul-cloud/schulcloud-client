@@ -50,22 +50,23 @@ function toggleSidebarItemGroup(groupData) {
 	}
 }
 
-
 const sideBarExtendedValue = window.localStorage.getItem('sidebarExpanded')
 console.log('sideBarExtendedValue',sideBarExtendedValue)
-adjustContentWidthOnLoad()
+adjustContentWidthOnLoad();
 
 function adjustContentWidthOnLoad() {
     const contentWrapper = document.querySelector('.content-wrapper');
+    const sidebar = document.querySelector('.sidebar');
     if (contentWrapper) {
         if (sideBarExtendedValue == 'false') {
-        	document.querySelector("body").classList.remove("loaded");
             contentWrapper.style.paddingLeft = '0px';
+            sidebar.classList.add('hidden');
         } else {
-        	document.querySelector("body").classList.add("loaded");
             contentWrapper.style.paddingLeft = '255px';
+            sidebar.classList.remove('hidden');
         }
     }
+    toggleSidebarOnWindowWidth(sidebar);
 }
 
 function adjustContentWidth(sidebar) {
@@ -78,8 +79,6 @@ function adjustContentWidth(sidebar) {
         }
     }
 }
-
-
 
 function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
@@ -148,7 +147,6 @@ function toggleSidebarOnWindowWidth(sidebar) {
     const overlay = document.querySelector('.overlay');
     const toggleInTopbar = document.querySelector('.sidebar-toggle-in-topbar');
     const toggleInSidebar = document.querySelector('.sidebar-toggle-in-sidebar');
-    const sideBarExtendedValue = window.localStorage.getItem('sidebarExpanded')
 
     if (overlay) {
         if (window.innerWidth <= 1279) {
@@ -169,10 +167,11 @@ function toggleSidebarOnWindowWidth(sidebar) {
             sidebar.classList.add('hidden');
             toggleInTopbar.classList.remove('invisible-toggle')
             toggleInSidebar.classList.add('invisible-toggle')
+            overlay.style.display = "none";
         } else {
         	sidebar.classList.remove('hidden');
             sidebar.classList.add('visible');
-           // toggleInTopbar.classList.remove('visible')
+            toggleInTopbar.classList.remove('visible')
             toggleInTopbar.classList.add('invisible-toggle')
             toggleInSidebar.classList.remove('invisible-toggle')
         }
@@ -459,7 +458,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 // loading animation
 document.addEventListener("DOMContentLoaded", function (e) {
-    //document.querySelector("body").classList.add("loaded");
+    document.querySelector("body").classList.add("loaded");
 });
 window.addEventListener("beforeunload", function (e) {
     document.querySelector("body").classList.remove("loaded");
