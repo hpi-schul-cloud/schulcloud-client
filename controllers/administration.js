@@ -2398,6 +2398,7 @@ router.all('/courses', (req, res, next) => {
 		roles: ['student'],
 		$limit: 1000,
 	});
+	const newRoomViewEnabled = Configuration.get('FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED');
 
 	Promise.all([
 		coursesPromise,
@@ -2420,7 +2421,8 @@ router.all('/courses', (req, res, next) => {
 			(item.teacherIds || []).map((item) => `${item.lastName}${item.outdatedSince ? ' ~~' : ''}`).join(', '),
 			[
 				{
-					link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+					link: newRoomViewEnabled ? `/courses/${item._id}/edit?redirectUrl=/administration/rooms/new`
+						: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
 					icon: 'edit',
 					title: res.$t('administration.controller.link.editEntry'),
 				},
