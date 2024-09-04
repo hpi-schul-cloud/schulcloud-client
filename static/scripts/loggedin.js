@@ -56,8 +56,6 @@ function toggleSidebarItemGroup(groupData) {
     }
 }
 
-console.log('sideBarExtendedValue', sideBarExtendedValue);
-
 function adjustContentWidth() {
     if (contentWrapper) {
         if (sidebar.classList.contains('hidden')) {
@@ -95,7 +93,6 @@ function toggleSidebarOnWindowWidth() {
 }
 
 function adjustContentWidthOnLoad() {
-    console.log('loading', Date.now());
     if (contentWrapper) {
         if (sideBarExtendedValue == 'false') {
             contentWrapper.style.paddingLeft = '0px';
