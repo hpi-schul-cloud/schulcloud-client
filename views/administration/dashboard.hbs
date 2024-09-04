@@ -36,7 +36,18 @@
 									</div>
 								</div>
 							{{/userHasPermission}}
-							{{#userHasPermission 'ADMIN_VIEW'}}
+                                {{#userHasPermission 'COURSE_ADMINISTRATION'}}
+                                {{#if (getConfig "FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED")}}
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="card h-100 teacher-option locationlink" data-loclink="/administration/rooms/new">
+                                            <div class="card-block homework">
+                                                <div class="card-text">
+                                                    <h2 class="h4"><i class="fa fa-graduation-cap"></i> {{$t "administration.dashboard.headline.manageCourses" }}</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{else}}
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<div class="card h-100 teacher-option locationlink" data-loclink="/administration/courses">
 										<div class="card-block homework">
@@ -45,10 +56,11 @@
 											</div>
 										</div>
 									</div>
-								</div>
-							{{/userHasPermission}}
-                            {{#userHasPermission 'CLASS_LIST'}}
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                </div>
+                                {{/if}}
+                                {{/userHasPermission}}
+                                    {{#userHasPermission 'CLASS_LIST'}}
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                     {{#if (getConfig "FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED")}}
                                     <div class="card h-100 teacher-option locationlink" data-loclink="/administration/groups/classes" data-testid="administrate_classes">
                                         <div class="card-block homework">
