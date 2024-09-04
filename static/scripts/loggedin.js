@@ -280,7 +280,7 @@ $(document).ready(function () {
         })
     }
     const sidebar = document.querySelector('.sidebar');
-    toggleSidebarOnWindowWidth(sidebar);
+    toggleSidebarOnWindowWidth();
 
     const overlay = document.querySelector('.overlay');
     const contentDiv = document.querySelector('.content-min-height');
