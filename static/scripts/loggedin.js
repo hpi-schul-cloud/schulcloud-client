@@ -10,10 +10,14 @@ if (window.opener && window.opener !== window) {
 const sidebar = document.querySelector('.sidebar');
 const toggleInTopbar = document.querySelector('.sidebar-toggle-in-topbar');
 const toggleInSidebar = document.querySelector('.sidebar-toggle-in-sidebar');
-const sideBarExtendedValue = window.localStorage.getItem('sidebarExpanded');
 const contentWrapper = document.querySelector('.content-wrapper');
 const overlay = document.querySelector('.overlay');
 const contentDiv = document.querySelector('.content-min-height');
+const sideBarExtendedValue = window.localStorage.getItem('sidebarExpanded');
+
+if (!sideBarExtendedValue) {
+    window.localStorage.setItem('sidebarExpanded', 'true');
+}
 
 function showHideElement(element) {
     if (element.style.display === 'none') {
