@@ -13,9 +13,9 @@ const toggleInSidebar = document.querySelector('.sidebar-toggle-in-sidebar');
 const contentWrapper = document.querySelector('.content-wrapper');
 const overlay = document.querySelector('.overlay');
 const contentDiv = document.querySelector('.content-min-height');
-const sideBarExtendedValue = window.localStorage.getItem('sidebarExpanded');
+const sidebarExtendedValue = window.localStorage.getItem('sidebarExpanded');
 
-if (!sideBarExtendedValue) {
+if (!sidebarExtendedValue) {
     window.localStorage.setItem('sidebarExpanded', 'true');
 }
 
@@ -71,18 +71,19 @@ function adjustContentWidth() {
 }
 
 function toggleSidebarOnWindowWidth() {
+    const sidebarState = window.localStorage.getItem("sidebarExpanded");
     if (overlay) {
         if (window.innerWidth <= 1279) {
             sidebar.classList.remove('visible');
             sidebar.classList.add('hidden');
         }
-        if (window.innerWidth >= 1280 && sideBarExtendedValue == 'true') {
+        if (window.innerWidth >= 1280 && sidebarState == 'true') {
             sidebar.classList.remove('hidden');
             sidebar.classList.add('visible');
             toggleInTopbar.classList.add('invisible-toggle');
             toggleInSidebar.classList.remove('invisible-toggle');
         }
-        if (window.innerWidth >= 1280 && sideBarExtendedValue == 'false') {
+        if (window.innerWidth >= 1280 && sidebarState == 'false') {
             sidebar.classList.remove('visible');
             sidebar.classList.add('hidden');
             toggleInSidebar.classList.add('invisible-toggle');
@@ -98,7 +99,7 @@ function toggleSidebarOnWindowWidth() {
 
 function adjustContentWidthOnLoad() {
     if (contentWrapper) {
-        if (sideBarExtendedValue == 'false') {
+        if (sidebarExtendedValue == 'false') {
             contentWrapper.style.paddingLeft = '0px';
             sidebar.classList.add('hidden');
         } else {
@@ -117,7 +118,6 @@ function toggleSidebar() {
     const legalLinks = document.querySelectorAll('.legal-link');
 
     window.localStorage.setItem('sidebarExpanded', sidebar.classList.contains('hidden'));
-    window.location.reload();
 
     if (sidebar) {
         if (sidebar.classList.contains('hidden')) {
