@@ -29,7 +29,7 @@
 	</select>
 </div>
 
-<div class="form-group">
+<div class="form-group" data-testid="class-teacher-selection">
 	<label>{{$t "administration.classes.label.selectTeacher" }}</label>
 
 	<select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher" }}">
@@ -78,7 +78,7 @@
 				required value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}} />
 		</div>
 		<label class="my-1">
-			<input name="keepyear" type="checkbox" value="true"
+			<input name="keepyear" type="checkbox" value="true" data-testid="maintain-school-year-in-class"
 				{{#ifCond edit '&&' isCustom}}{{#if @root.class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}}
 				{{#unless isCustom}}disabled{{/unless}} />
 			<span>{{$t "administration.classes.label.maintainSchoolYearAssignment" }}</span>
