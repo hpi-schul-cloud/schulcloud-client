@@ -6,13 +6,13 @@
     <div class="row">
         <a class="d-block mb-1"
             href="/administration/classes/{{@root.class/_id}}/edit"
-            title="{{$t "administration.classes.placeholer.change" (dict "name" @root.class.name)}}">
+            title="{{$t "administration.classes.placeholer.change" (dict "name" @root.class.name)}}" data-testid="go-to-rename-class-btn">
             <i class="fa fa-pencil"></i> {{$t "administration.classes.label.renameClass" }}
         </a>
     </div>
 
     <div class="row">
-        <div style="width: 100%" class="form-group">
+        <div style="width: 100%" class="form-group" data-testid="teacher-selection-on-manage-class">
             <label>{{$t "global.placeholder.Lehrer" }} {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
 
             <select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher"}}" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="row">
-        <div style="width: 100%" class="form-group">
+        <div style="width: 100%" class="form-group" data-testid="student-selection-on-manage-class">
             <label>{{$t "administration.global.label.student" }}</label>
             <select name="userIds" multiple data-placeholder="{{$t "administration.global.placeholder.selectStudent" }}">
                 {{#each students}}

@@ -5,7 +5,7 @@
 	<input type="hidden" name="referrer" value="{{../referrer}}" />
 
 	<a class="d-block mb-1" href="/administration/classes/{{../class/_id}}/manage"
-		title="Klasse '{{../class.name}}' verwalten.">
+		title="Klasse '{{../class.name}}' verwalten." data-testid="go-to-manage-class-btn">
 		<i class="fa fa-users"></i> {{$t "administration.classes.text.manageClass" }}
 	</a>
 {{/ifeq}}
