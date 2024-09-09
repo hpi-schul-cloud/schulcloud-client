@@ -36,7 +36,7 @@
                                                 <label for="method" hidden>{{this.label}}</label>
                                                 <input id="method" type="hidden" name="_method" value="{{this.method}}" hidden />
                                                 {{> "lib/components/csrfInput"}}
-                                                <button type="submit" class="btn btn-secondary btn-sm no-inline-styling {{this.class}}" title="{{this.title}}" aria-label="{{this.title}}" tabindex="0">
+                                                <button type="submit" class="btn btn-secondary btn-sm no-inline-styling {{this.class}}" title="{{this.title}}" aria-label="{{this.title}}" data-testid="{{this.testId}}" tabindex="0">
                                                     <i class="fa fa-{{this.icon}}"></i> {{this.label}}
                                                 </button>
                                             </form>

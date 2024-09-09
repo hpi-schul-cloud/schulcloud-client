@@ -12,7 +12,7 @@
                     <div class="tabContainer mb-1" data-active-tab={{showTab}}>
                         <div class="tabs">
                             {{#each classesTabs}}
-                                <a class="tab" data-tab="js-{{this.key}}" href="{{this.link}}">
+                                <a class="tab" data-tab="js-{{this.key}}" href="{{this.link}}" data-testid="{{this.testId}}">
                                     <span class="text">{{this.title}}</span>
                                 </a>
                             {{/each}}
