@@ -7,25 +7,37 @@ if (window.opener && window.opener !== window) {
     window.isInline = true;
 }
 
+const sidebar = document.querySelector('.sidebar');
+const toggleInTopbar = document.querySelector('.sidebar-toggle-in-topbar');
+const toggleInSidebar = document.querySelector('.sidebar-toggle-in-sidebar');
+const contentWrapper = document.querySelector('.content-wrapper');
+const overlay = document.querySelector('.overlay');
+const contentDiv = document.querySelector('.content-min-height');
+const sidebarExtendedValue = window.localStorage.getItem('sidebarExpanded');
+
+if (!sidebarExtendedValue) {
+    window.localStorage.setItem('sidebarExpanded', 'true');
+}
+
 function showHideElement(element) {
-	if (element.style.display === 'none') {
-		element.style.display = 'block';
-	} else {
-		element.style.display = 'none';
-	}
+    if (element.style.display === 'none') {
+        element.style.display = 'block';
+    } else {
+        element.style.display = 'none';
+    }
 }
 
 function showHideGlobalAnnouncement() {
-	const announcementAlert = document.querySelector('.alert-announcement');
-	if (announcementAlert) {
-		showHideElement(announcementAlert);
-	}
+    const announcementAlert = document.querySelector('.alert-announcement');
+    if (announcementAlert) {
+        showHideElement(announcementAlert);
+    }
 }
 
 function toggleSidebarItemGroup(groupData) {
     const itemGroup = document.querySelector(`.${groupData.groupName}`);
-	if (itemGroup) {
-		if (itemGroup.classList.contains('show-subgroup')) {
+    if (itemGroup) {
+        if (itemGroup.classList.contains('show-subgroup')) {
             if (groupData.childActive) return;
 
             itemGroup.classList.remove('show-subgroup');
@@ -34,22 +46,21 @@ function toggleSidebarItemGroup(groupData) {
             itemGroup.classList.add('show-subgroup');
             itemGroup.classList.remove('hide-subgroup');
         }
-	}
+    }
 
     const toggleIcon = document.querySelector(`#${groupData.groupName}-toggle-icon`);
     if (toggleIcon) {
-		if (toggleIcon.classList.contains('mdi-chevron-down')) {
+        if (toggleIcon.classList.contains('mdi-chevron-down')) {
             toggleIcon.classList.remove('mdi-chevron-down');
             toggleIcon.classList.add('mdi-chevron-up');
         } else {
             toggleIcon.classList.remove('mdi-chevron-up');
             toggleIcon.classList.add('mdi-chevron-down');
         }
-	}
+    }
 }
 
-function adjustContentWidth(sidebar) {
-    const contentWrapper = document.querySelector('.content-wrapper');
+function adjustContentWidth() {
     if (contentWrapper) {
         if (sidebar.classList.contains('hidden')) {
             contentWrapper.style.paddingLeft = '0px';
@@ -59,16 +70,57 @@ function adjustContentWidth(sidebar) {
     }
 }
 
+function toggleSidebarOnWindowWidth() {
+    const sidebarState = window.localStorage.getItem("sidebarExpanded");
+    if (overlay) {
+        if (window.innerWidth <= 1279) {
+            sidebar.classList.remove('visible');
+            sidebar.classList.add('hidden');
+        }
+        if (window.innerWidth >= 1280 && sidebarState == 'true') {
+            sidebar.classList.remove('hidden');
+            sidebar.classList.add('visible');
+            toggleInTopbar.classList.add('invisible-toggle');
+            toggleInSidebar.classList.remove('invisible-toggle');
+        }
+        if (window.innerWidth >= 1280 && sidebarState == 'false') {
+            sidebar.classList.remove('visible');
+            sidebar.classList.add('hidden');
+            toggleInSidebar.classList.add('invisible-toggle');
+            toggleInTopbar.classList.remove('invisible-toggle');
+        }
+        if (sidebar.classList.contains('hidden')) {
+            overlay.style.display = 'none';
+        }
+
+        adjustContentWidth();
+    }
+}
+
+function adjustContentWidthOnLoad() {
+    if (contentWrapper) {
+        if (sidebarExtendedValue == 'false') {
+            contentWrapper.style.paddingLeft = '0px';
+            sidebar.classList.add('hidden');
+        } else {
+            contentWrapper.style.paddingLeft = '255px';
+            sidebar.classList.remove('hidden');
+        }
+    }
+    toggleSidebarOnWindowWidth();
+}
+
+
+
 function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.querySelector('.overlay');
-    const contentDiv = document.querySelector('.content-min-height');
     const sidebarItems = document.querySelectorAll('.sidebar-item');
     const sidebarSubitems = document.querySelectorAll('.subitem');
     const legalLinks = document.querySelectorAll('.legal-link');
 
-	if (sidebar) {
-		if (sidebar.classList.contains('hidden')) {
+    window.localStorage.setItem('sidebarExpanded', sidebar.classList.contains('hidden'));
+
+    if (sidebar) {
+        if (sidebar.classList.contains('hidden')) {
             sidebar.classList.remove('hidden');
             sidebar.classList.add('visible');
             toggleTabindexOnSidebarItems(sidebarItems, 0);
@@ -97,20 +149,18 @@ function toggleSidebar() {
         }
 
         if (window.innerWidth <= 1279) return;
-        adjustContentWidth(sidebar);
-	}
+        adjustContentWidth();
+    }
 
-    const toggleInTopbar = document.querySelector('.sidebar-toggle-in-topbar');
-    const toggleInSidebar = document.querySelector('.sidebar-toggle-in-sidebar');
     if (toggleInTopbar && toggleInSidebar) {
-		if (toggleInTopbar.classList.contains('invisible-toggle')) {
+        if (toggleInTopbar.classList.contains('invisible-toggle')) {
             toggleInTopbar.classList.remove('invisible-toggle');
             toggleInSidebar.classList.add('invisible-toggle');
         } else if (toggleInSidebar.classList.contains('invisible-toggle')) {
             toggleInSidebar.classList.remove('invisible-toggle');
             toggleInTopbar.classList.add('invisible-toggle');
         }
-	}
+    }
 }
 
 function toggleTabindexOnSidebarItems(elements, tabindex) {
@@ -120,29 +170,10 @@ function toggleTabindexOnSidebarItems(elements, tabindex) {
     });
 }
 
-function toggleSidebarOnWindowWidth(sidebar) {
-    const overlay = document.querySelector('.overlay');
 
-    if (overlay) {
-        if (window.innerWidth <= 1279) {
-            sidebar.classList.remove('visible');
-            sidebar.classList.add('hidden');
-        }
-        if (window.innerWidth >= 1280) {
-            sidebar.classList.remove('hidden');
-            sidebar.classList.add('visible');
-            overlay.style.display = "none";
-        }
-        if (sidebar.classList.contains('hidden')) {
-            overlay.style.display = "none";
-        }
-        adjustContentWidth(sidebar);
-    }
-}
 
 let priorWidth = window.innerWidth;
 window.addEventListener('resize', () => {
-    const sidebar = document.querySelector('.sidebar');
     const currentWidth = window.innerWidth;
 
     if (window.innerWidth <= 1279 && sidebar.classList.contains('visible') && priorWidth <= currentWidth) {
@@ -151,13 +182,13 @@ window.addEventListener('resize', () => {
     if (currentWidth >= 1280 && sidebar.classList.contains('hidden') && priorWidth >= currentWidth) {
         return;
     }
-    toggleSidebarOnWindowWidth(sidebar);
+    toggleSidebarOnWindowWidth();
     priorWidth = currentWidth;
 });
 
 function toggleMobileNav() {
     document.querySelector('aside.nav-sidebar').classList.toggle('active');
-	showHideGlobalAnnouncement();
+    showHideGlobalAnnouncement();
     this.classList.toggle('active');
 }
 
@@ -191,21 +222,21 @@ function showAJAXSuccess(message, modal) {
 }
 
 function initEnterTheCloud() {
-	const buttons = document.querySelectorAll('.enterthecloud-btn');
-	const modal = document.querySelector('.enterthecloud-modal');
-	if (!buttons.length || !modal) {
-		return false;
-	}
-	buttons.forEach((btn) => {
-		$(btn).on('click', () => {
-			$(modal).appendTo('body').modal('show');
-		});
-	});
-	return true;
+    const buttons = document.querySelectorAll('.enterthecloud-btn');
+    const modal = document.querySelector('.enterthecloud-modal');
+    if (!buttons.length || !modal) {
+        return false;
+    }
+    buttons.forEach((btn) => {
+        $(btn).on('click', () => {
+            $(modal).appendTo('body').modal('show');
+        });
+    });
+    return true;
 }
 
 $(document).ready(() => {
-	initEnterTheCloud();
+    initEnterTheCloud();
 });
 
 $(document).ready(function () {
@@ -250,7 +281,7 @@ $(document).ready(function () {
         })
     }
     const sidebar = document.querySelector('.sidebar');
-    toggleSidebarOnWindowWidth(sidebar);
+    toggleSidebarOnWindowWidth();
 
     const overlay = document.querySelector('.overlay');
     const contentDiv = document.querySelector('.content-min-height');
@@ -332,7 +363,7 @@ $(document).ready(function () {
         let $cancelModal = $('.cancel-modal');
         populateModalForm($cancelModal, {
             title: $t('global.text.sureAboutDiscardingChanges'),
-			submitDataTestId: 'cancel-modal',
+            submitDataTestId: 'cancel-modal',
         });
         $cancelModal.appendTo('body').modal('show');
     });
@@ -340,7 +371,7 @@ $(document).ready(function () {
     populateModalForm($featureModal, {
         title: $t('loggedin.text.newFeaturesAvailable'),
         closeLabel: $t('global.button.cancel'),
-		submitDataTestId: 'feature-modal',
+        submitDataTestId: 'feature-modal',
     });
 
     // from: https://stackoverflow.com/a/187557
@@ -361,20 +392,20 @@ $(document).ready(function () {
         return !(e.key === "Unidentified");
     });
 
-	// check for in user migration mode
-	if ($('#inUserMigrationStarted').length) {
-		$.showNotification($t('loggedin.text.schoolInMigrationModeStarted'), 'warning');
-	} else if ($('#inUserMigration').length) {
-		$.showNotification($t('loggedin.text.schoolInMigrationMode'), 'warning');
-	} else if ($('#schuljahrtransfer').length) {
-		if ($('#schuljahrtransfer').val() === 'Lehrer') {
-			$.showNotification($t('loggedin.text.schoolInTransferPhaseContactAdmin'), 'warning');
-		} else if ($('#schuljahrtransfer').val() === 'Administrator') {
-			$.showNotification($t('loggedin.text.schoolInTransferPhaseStartNew'), 'warning');
-		}
-	}
+    // check for in user migration mode
+    if ($('#inUserMigrationStarted').length) {
+        $.showNotification($t('loggedin.text.schoolInMigrationModeStarted'), 'warning');
+    } else if ($('#inUserMigration').length) {
+        $.showNotification($t('loggedin.text.schoolInMigrationMode'), 'warning');
+    } else if ($('#schuljahrtransfer').length) {
+        if ($('#schuljahrtransfer').val() === 'Lehrer') {
+            $.showNotification($t('loggedin.text.schoolInTransferPhaseContactAdmin'), 'warning');
+        } else if ($('#schuljahrtransfer').val() === 'Administrator') {
+            $.showNotification($t('loggedin.text.schoolInTransferPhaseStartNew'), 'warning');
+        }
+    }
 
-	initAlerts('loggedin');
+    initAlerts('loggedin');
 });
 
 function showAJAXError(req, textStatus, errorThrown) {
@@ -427,7 +458,7 @@ window.addEventListener("beforeunload", function (e) {
 });
 window.addEventListener("pageshow", function (e) {
     document.querySelector("body").classList.add("loaded");
-
+    adjustContentWidthOnLoad();
 });
 
 function changeNavBarPositionToAbsolute() {
