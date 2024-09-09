@@ -2128,15 +2128,19 @@ router.get(
 				key: 'upcoming',
 				title: `${upcomingYears.pop().name}`,
 				link: `/administration/classes/?showTab=upcoming${filterQueryString}`,
+				testId: 'upcoming-tab'
 			},
 			{
 				key: 'current',
 				title: `${currentYear.name}`,
 				link: `/administration/classes/?showTab=current${filterQueryString}`,
-			},			{
+				testId: 'current-tab'
+			},
+			{
 				key: 'archive',
 				title: res.$t('global.tab.label.archive'),
 				link: `/administration/classes/?showTab=archive${filterQueryString}`,
+				testId: 'archive-tab'
 			},
 		];
 
@@ -2162,11 +2166,13 @@ router.get(
 							link: `${basePath + item._id}/manage`,
 							icon: 'users',
 							title: res.$t('administration.controller.link.manageClass'),
+							testId: 'manage-class'
 						},
 						{
 							link: `${basePath + item._id}/edit`,
 							icon: 'edit',
 							title: res.$t('administration.controller.link.editClass'),
+							testId: 'edit-class'
 						},
 						{
 							link: basePath + item._id,
@@ -2174,6 +2180,7 @@ router.get(
 							icon: 'trash-o',
 							method: 'delete',
 							title: res.$t('administration.controller.link.deleteClass'),
+							testId: 'delete-class'
 						},
 					];
 					if (lastDefinedSchoolYear !== (item.year || {})._id
