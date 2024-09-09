@@ -112,7 +112,7 @@
 		{{/userHasPermission}}
 	{{/ifeq}}
 	{{#ifeq mode "edit"}}
-		<button class="btn btn-primary" type="submit" disabled>{{$t "global.button.saveChanges" }}</button>
+		<button data-testId="confirmClassEdit" class="btn btn-primary" type="submit" disabled>{{$t "global.button.saveChanges" }}</button>
 		{{#if ../isUpgradable}}
 			<a class="btn btn-outline-primary" href="/administration/classes/{{@root.class.id}}/createSuccessor">{{$t "administration.classes.button.transferClassToTheNextSchoolYear" }}</a>
 		{{/if}}
