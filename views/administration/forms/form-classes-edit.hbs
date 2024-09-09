@@ -5,7 +5,7 @@
 	<input type="hidden" name="referrer" value="{{../referrer}}" />
 
 	<a class="d-block mb-1" href="/administration/classes/{{../class/_id}}/manage"
-		title="Klasse '{{../class.name}}' verwalten." data-testid="go-to-manage-class-btn">
+		title="Klasse '{{../class.name}}' verwalten." data-testid="manage-class-btn">
 		<i class="fa fa-users"></i> {{$t "administration.classes.text.manageClass" }}
 	</a>
 {{/ifeq}}
@@ -112,7 +112,7 @@
 		{{/userHasPermission}}
 	{{/ifeq}}
 	{{#ifeq mode "edit"}}
-		<button data-testId="confirmClassEdit" class="btn btn-primary" type="submit" disabled>{{$t "global.button.saveChanges" }}</button>
+		<button data-testId="confirm-class-edit" class="btn btn-primary" type="submit" disabled>{{$t "global.button.saveChanges" }}</button>
 		{{#if ../isUpgradable}}
 			<a class="btn btn-outline-primary" href="/administration/classes/{{@root.class.id}}/createSuccessor">{{$t "administration.classes.button.transferClassToTheNextSchoolYear" }}</a>
 		{{/if}}
