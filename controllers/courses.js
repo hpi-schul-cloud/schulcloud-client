@@ -303,6 +303,11 @@ const editCourseHandler = (req, res, next) => {
 			course.name = group.name;
 			course.teacherIds = getUserIdsByRole(group.users, 'teacher');
 			course.userIds = getUserIdsByRole(group.users, 'student');
+
+			if (group.validPeriod) {
+				course.startDate = timesHelper.fromUTC(group.validPeriod.from);
+				course.untilDate = timesHelper.fromUTC(group.validPeriod.until);
+			}
 		}
 
 		const syncedElements = (course.syncedWithGroup || syncedGroupId) ? getSyncedElements(
