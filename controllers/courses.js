@@ -65,8 +65,12 @@ const getSyncedElements = 	(
 	res,
 	syncedWithGroup,
 ) => {
-	const startDate = course.startDate ? timesHelper.formatDate(course.startDate, 'DD.MM.YYYY') : undefined;
-	const untilDate = course.untilDate ? timesHelper.formatDate(course.untilDate, 'DD.MM.YYYY') : undefined;
+	const startDate = course.startDate
+		? timesHelper.formatDate(course.startDate, timesHelper.FORMAT.dateTime)
+		: undefined;
+	const untilDate = course.untilDate
+		? timesHelper.formatDate(course.untilDate, timesHelper.FORMAT.dateTime)
+		: undefined;
 
 	const selectedElements = {
 		teachersSelected: selectedElementIdsToString(markSelected(teachers, course.teacherIds)),
@@ -842,8 +846,8 @@ router.patch('/:courseId', async (req, res, next) => {
 		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
 		req.body = strToPropsArray(req.body, keys);
 
-		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
-		const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
+		const startDate = timesHelper.dateTimeStringToMoment(req.body.startDate).utc();
+		const untilDate = timesHelper.dateTimeStringToMoment(req.body.untilDate).utc();
 
 		delete req.body.startDate;
 		if (startDate.isValid()) {
