@@ -594,7 +594,6 @@ const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, 
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((error) => {
-			logger.error(error);
 			next(error);
 		});
 };
