@@ -47,11 +47,14 @@ router.get('/teachersWithEmail', async (req, res, next) => {
 			},
 		});
 
+		users.data = users.data.filter((user) => !isUserHidden(user, res.locals.currentSchoolData));
+
 		const result = users.data.map((user) => ({
 			_id: user._id,
 			firstName: user.firstName,
 			lastName: user.lastName,
 			schoolName: user.schoolId.name,
+			outdatedSince: user.outdatedSince,
 		}));
 
 		return res.json(result);
