@@ -224,7 +224,8 @@ $(document).ready(() => {
 				},
 			}).done((users) => {
 				users.forEach((user) => {
-					teacherSelect.append(`<option value="${user._id}">${user.firstName} ${user.lastName}</option>`);
+					const fullName = `${user.firstName} ${user.lastName} ${user.outdatedSince ? ' ~~' : ''}`;
+					teacherSelect.append(`<option value="${user._id}">${fullName}</option>`);
 				});
 				teacherSelect.trigger('chosen:updated');
 			}).fail(() => {

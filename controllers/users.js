@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 const { setCookie } = require('../helpers/cookieHelper');
+const { isUserHidden } = require('../helpers/users');
 
 // users
 
@@ -16,12 +17,15 @@ router.get('/teachersOfSchool', async (req, res, next) => {
 			},
 		});
 
+		users.data = users.data.filter((user) => !isUserHidden(user, res.locals.currentSchoolData));
+
 		const result = users.data.map((user) => ({
 			_id: user._id,
 			firstName: user.firstName,
 			lastName: user.lastName,
 			schoolId: user.schoolId,
 			email: user.email,
+			outdatedSince: user.outdatedSince,
 		}));
 
 		return res.json(result);
