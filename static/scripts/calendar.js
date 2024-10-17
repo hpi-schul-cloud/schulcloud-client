@@ -49,6 +49,25 @@ const getCalendarLanguage = (langAttribute) => {
 	}
 };
 
+// Add data-testid attributes to navigation buttons in calendar page
+const addDatatestidsToCalendarNavigation = () => {
+	const buttonData = [
+		{ selector: '.fc-right .fc-prev-button', testId: 'right-prev-button' },
+		{ selector: '.fc-right .fc-next-button', testId: 'right-next-button' },
+		{ selector: '.fc-right .fc-today-button', testId: 'right-today-button' },
+		{ selector: '.fc-right .fc-timeGridDay-button', testId: 'right-day-view-button' },
+		{ selector: '.fc-right .fc-timeGridWeek-button', testId: 'right-week-view-button' },
+		{ selector: '.fc-right .fc-dayGridMonth-button', testId: 'right-month-view-button' },
+	];
+
+	buttonData.forEach(({ selector, testId }) => {
+		const button = document.querySelector(selector);
+		if (button) {
+			button.setAttribute('data-testid', testId);
+		}
+	});
+};
+
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
@@ -119,7 +138,12 @@ $(document).ready(() => {
 	const getLangAttribute = () => document.querySelector('html').getAttribute('lang');
 
 	const calendar = new Calendar(getCalendarElement(), {
-		plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, momentTimezonePlugin],
+		plugins: [
+			dayGridPlugin,
+			timeGridPlugin,
+			interactionPlugin,
+			momentTimezonePlugin,
+		],
 		defaultView: getView() || 'dayGridMonth',
 		editable: false,
 		timeZone: getCalendarTimezone(),
@@ -143,8 +167,12 @@ $(document).ready(() => {
 				return false;
 			}
 			// personal event
-			const startDate = toMoment(event.start, calendar).format($t('format.dateTimeToPicker'));
-			const endDate = toMoment(event.end || event.start, calendar).format($t('format.dateTimeToPicker'));
+			const startDate = toMoment(event.start, calendar).format(
+				$t('format.dateTimeToPicker'),
+			);
+			const endDate = toMoment(event.end || event.start, calendar).format(
+				$t('format.dateTimeToPicker'),
+			);
 
 			const eventData = event.extendedProps || {};
 
@@ -163,7 +191,8 @@ $(document).ready(() => {
 				action: URI.getSingleEvent(eventData._id),
 			});
 
-			if (!eventData['x-sc-teamId']) { // course or non-course event
+			if (!eventData['x-sc-teamId']) {
+				// course or non-course event
 				transformCourseOrTeamEvent($editEventModal, eventData);
 				$editEventModal.find('.btn-delete').click(() => {
 					$.ajax({
@@ -178,7 +207,8 @@ $(document).ready(() => {
 				$editEventModal.appendTo('body').modal('show');
 			}
 
-			if (eventData['x-sc-teamId']) { // team event
+			if (eventData['x-sc-teamId']) {
+				// team event
 				const teamId = eventData['x-sc-teamId'];
 				window.location.assign(`/teams/${teamId}?activeTab=events`);
 			}
@@ -189,8 +219,12 @@ $(document).ready(() => {
 			const { date } = info;
 
 			// open create event modal
-			const startDate = toMoment(date, calendar).format($t('format.dateTimeToPicker'));
-			const endDate = toMoment(date, calendar).add(1, 'hour').format($t('format.dateTimeToPicker'));
+			const startDate = toMoment(date, calendar).format(
+				$t('format.dateTimeToPicker'),
+			);
+			const endDate = toMoment(date, calendar)
+				.add(1, 'hour')
+				.format($t('format.dateTimeToPicker'));
 
 			populateModalForm($createEventModal, {
 				title: $t('global.headline.addDate'),
@@ -206,6 +240,12 @@ $(document).ready(() => {
 		},
 		viewRender(info) {
 			window.location.hash = info.view.name;
+		},
+
+		// viewSkeletonRender to trigger the addition of data-testid to navigation buttons
+		viewSkeletonRender() {
+			// Add custom data-testids for navigation buttons
+			addDatatestidsToCalendarNavigation();
 		},
 	});
 

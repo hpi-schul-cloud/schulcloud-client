@@ -27,7 +27,7 @@
                 currentTimezoneOffset=../currentTimezoneOffset
             }}
                 {{#content "fields"}}
-                    {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="2" collapseIdTeam="3"}}
+                    {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="2" collapseIdTeam="3" testIdPrefix="create"}}
                 {{/content}}
             {{/embed}}
         {{/userHasPermission}}
@@ -42,7 +42,7 @@
             currentTimezoneOffset=../currentTimezoneOffset
         }}
             {{#content "fields"}}
-                {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
+                    {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5" testIdPrefix="edit"}}
             {{/content}}
             {{#content "additional-actions"}}
                 <button type="button" class="btn btn-primary btn-danger btn-delete" data-testid='calendar-event-btn-delete'>
