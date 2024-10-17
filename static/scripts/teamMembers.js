@@ -224,7 +224,8 @@ $(document).ready(() => {
 				},
 			}).done((users) => {
 				users.forEach((user) => {
-					teacherSelect.append(`<option value="${user._id}">${user.firstName} ${user.lastName}</option>`);
+					const fullName = `${user.firstName} ${user.lastName}${user.outdatedSince ? ' ~~' : ''}`;
+					teacherSelect.append(`<option value="${user._id}">${fullName}</option>`);
 				});
 				teacherSelect.trigger('chosen:updated');
 			}).fail(() => {
@@ -306,7 +307,7 @@ $(document).ready(() => {
 					teacherSelect.find('option').remove();
 
 					users.forEach((user) => {
-						const displayText = `${user.firstName} ${user.lastName} - ${user.schoolName}`;
+						const displayText = `${user.firstName} ${user.lastName}${user.outdatedSince ? ' ~~' : ''} - ${user.schoolName}`;
 						teacherSelect.append(`<option value="${user._id}">${displayText}</option>`);
 					});
 					teacherSelect.trigger('chosen:updated');
