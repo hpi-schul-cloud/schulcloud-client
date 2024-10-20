@@ -13,7 +13,7 @@
 
     {{#content "page"}}
         <div class="route-calendar">
-            <div class="fullcalendar" id="calendar"></div>
+            <div class="fullcalendar" id="calendar" data-testid="calendar"></div>
         </div>
         {{#userHasPermission "CALENDAR_CREATE"}}
             {{#embed
