@@ -49,9 +49,10 @@ const getCalendarLanguage = (langAttribute) => {
 	}
 };
 
-// Add data-testid attributes to navigation buttons in calendar page as the calendar module
-// that is used (https://fullcalendar.io) does not support configuration of data-testids for buttons in used version
-const addDatatestidsToCalendarNavigation = () => {
+// Add data-testid attributes to navigation buttons in calendar page
+// as the calendar module used (https://fullcalendar.io, version 4.4.2)
+// does not natively support configuring data-testids for buttons.
+const addDataTestIdsToCalendarNavigation = () => {
 	const buttonData = [
 		{ selector: '.fc-right .fc-prev-button', testId: 'right-prev-button' },
 		{ selector: '.fc-right .fc-next-button', testId: 'right-next-button' },
@@ -228,10 +229,8 @@ $(document).ready(() => {
 			window.location.hash = info.view.name;
 		},
 
-		// viewSkeletonRender to trigger the addition of data-testid to navigation buttons
 		viewSkeletonRender() {
-			// Add custom data-testids for navigation buttons
-			addDatatestidsToCalendarNavigation();
+			addDataTestIdsToCalendarNavigation();
 		},
 	});
 
