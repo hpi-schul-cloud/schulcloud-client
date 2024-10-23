@@ -301,7 +301,6 @@
 
 .dashboard-notification {
 	display: flex;
-	color: #424242;
 	border: solid $secondaryColor;
 	border-radius: 4px;
 	border-width: 8px 1px 1px;
@@ -310,11 +309,6 @@
 
 	.dashboard-notification-text {
 		margin: 0;
-	}
-
-	.alert-link {
-		font-weight: $alert-link-font-weight;
-		color: darken(#424242, 10%);
 	}
 
 	.externalLink:after {
