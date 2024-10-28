@@ -48,13 +48,15 @@
 							data-file-id="{{../this.id}}"
 							data-file-name="{{../this.name}}"
 							title="{{$t "files.label.renameFile"}}"
-							class="file-btn fa fa-edit file-name-edit">
+							class="file-btn fa fa-edit file-name-edit"
+                            data-testid="file-rename-btn">
 						</button>
 					{{/userHasPermission}}
 					{{#userHasPermission "FILESTORAGE_REMOVE"}}
 						<button
 							class="file-btn"
 							data-method="delete"
+                            data-testid="file-delete-btn"
 							title="{{$t "files.label.deleteFile"}}"
 							data-file-id="{{../this.id}}"
 							data-file-name="{{../this.name}}">
