@@ -2,7 +2,7 @@
 	<div class="row">
 		{{#each files}}
 			<div class="col-sm-12">
-				{{> "lib/components/files-storage/files-card" readonly=../readonly}}
+				{{> "lib/components/files-storage/files-card" readonly=../readonly index=@index}}
 			</div>
 		{{/each}}
 	</div>
