@@ -93,8 +93,8 @@
                 <div class="print">
                     <div class="recap">
                         <!--<p>Nutzername: <i data-from="firstName"></i>.<i data-from="lastName"></i></p>-->
-                        <p>{{$t "global.label.emailAddress"}} <i data-from="email"></i></p>
-                        <p>{{$t "global.label.password"}} <i class="student-password">{{password}}</i></p>
+                        <p>{{$t "global.label.emailAddress"}} <i data-from="email" data-testid="student-email"></i></p>
+                        <p>{{$t "global.label.password"}} <i class="student-password" data-testid="student-initial-pwd">{{password}}</i></p>
                     </div>
                     <button type="button" class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
                         <i class="fa fa-print"></i> {{$t "global.button.print"}}
@@ -104,7 +104,7 @@
             </div>
         {{/if}}
 
-        <a class="btn btn-primary" href="/logout">{{$t "registration._registration.global.button.openLogin"}}</a>
+        <a class="btn btn-primary" href="/logout" data-testid="open-login-button">{{$t "registration._registration.global.button.openLogin"}}</a>
       </section>
       {{/content}}
     {{/embed}}
