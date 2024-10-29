@@ -11,7 +11,7 @@
 			tabindex="0"
 			aria-label="{{$t "files.label.clickToOpenFile" (dict "name" this.name)}}"
 			role="button">
-			<div class="card-title" data-testid="file-title-card-{{@index}}">
+			<div class="card-title" data-testid="file-title-card-{{fileIndex}}">
 				<div class="file-preview-wrapper col-sm-1 no-padding hidden-xs-down">
 				<div class="file-preview" style="background-image: url({{getThumbnailIcon this.name}}); -webkit-background-size: 25px ;background-size: 25px;"></div>
 				</div>
@@ -37,7 +37,7 @@
 						data-file-name="{{../this.name}}"
 						class="file-btn"
 						data-method="download"
-                        data-testid="file-download-btn-{{@index}}"
+                        data-testid="file-download-btn-{{../fileIndex}}"
 						title="{{$t "files.label.downloadFile"}}">
 						<i aria-hidden="true" class="fa fa-cloud-download"></i>
 					</button>
@@ -49,14 +49,14 @@
 							data-file-name="{{../this.name}}"
 							title="{{$t "files.label.renameFile"}}"
 							class="file-btn fa fa-edit file-name-edit"
-                            data-testid="file-rename-btn-{{@index}}">
+                            data-testid="file-rename-btn-{{../fileIndex}}">
 						</button>
 					{{/userHasPermission}}
 					{{#userHasPermission "FILESTORAGE_REMOVE"}}
 						<button
 							class="file-btn"
 							data-method="delete"
-                            data-testid="file-delete-btn-{{@index}}"
+                            data-testid="file-delete-btn-{{../fileIndex}}"
 							title="{{$t "files.label.deleteFile"}}"
 							data-file-id="{{../this.id}}"
 							data-file-name="{{../this.name}}">
