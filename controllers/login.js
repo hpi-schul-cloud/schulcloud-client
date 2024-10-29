@@ -484,4 +484,21 @@ router.get('/logout/', (req, res, next) => {
 		.catch(next);
 });
 
+router.get('/logout/external/', (req, res, next) => {
+	let redirectUri = '/logout/';
+	if (Configuration.has('OAUTH2_LOGOUT_URI')) {
+		redirectUri = Configuration.get('OAUTH2_LOGOUT_URI');
+	}
+
+	api(req, { version: 'v3' })
+		.post('/logout/external') // async, ignore result
+		.catch((err) => {
+			logger.error('error during logout.', formatError(err));
+		})
+		.then(() => {
+			res.statusCode = 307;
+			res.redirect(redirectUri);
+		});
+});
+
 module.exports = router;
