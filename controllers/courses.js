@@ -80,7 +80,7 @@ const getSyncedElements = 	(
 		startDate,
 		untilDate,
 		syncedWithGroup,
-		syncExcludedFields: course.syncExcludedFields.join(','),
+		syncExcludedFields: course.syncExcludedFields?.join(','),
 	};
 
 	return selectedElements;
