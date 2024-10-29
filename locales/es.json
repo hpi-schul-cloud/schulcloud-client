@@ -2439,7 +2439,11 @@
 			},
 			"tab_label": {
 				"settings": "Configuración",
-				"signOut": "Cerrar sesión"
+				"signOut": "Cerrar sesión",
+				"n21": {
+					"signOut": "Cerrar sesión Bildungscloud",
+					"signOutWithMoinSchule": "Cerrar sesión Bildungscloud & moin.schule"
+				}
 			},
 			"text": {
 				"allActionsThatCreate": "Todas las acciones que crean o modifican datos están desactivadas y no son visibles.",

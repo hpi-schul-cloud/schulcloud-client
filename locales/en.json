@@ -2439,7 +2439,11 @@
 			},
 			"tab_label": {
 				"settings": "Settings",
-				"signOut": "Sign out"
+				"signOut": "Sign out",
+				"n21": {
+					"signOut": "Logout Bildungscloud",
+					"signOutWithMoinSchule": "Logout Bildungscloud & moin.schule"
+				}
 			},
 			"text": {
 				"allActionsThatCreate": "All actions that create or change data are deactivated and not visible.",
