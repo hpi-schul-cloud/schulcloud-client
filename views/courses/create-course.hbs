@@ -188,6 +188,10 @@
               </div>
             </div>
 
+              {{#if syncedWithGroup}}
+                      <input type="hidden" id="syncExcludedFields" name="syncExcludedFields" value="{{syncExcludedFields}}">
+              {{/if}}
+
             </section>
 
             <section data-panel="section-2" data-testid="section-2-area" class="submit-page course-submit-page">
