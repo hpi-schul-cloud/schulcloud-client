@@ -319,9 +319,16 @@ const determineRedirectUrl = (req) => {
 };
 
 async function getOauthSystems(req) {
-	return api(req, { version: 'v3' })
-		.get('/systems/public?types=oauth')
-		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
+	try {
+		const oauthSystems = await api(req, { version: 'v3' })
+			.get('/identity-management/providers/dbc');
+
+		return oauthSystems.data || [];
+	} catch (error) {
+		logger.error('error loading oauth system list', formatError(error));
+
+		return [];
+	}
 }
 
 router.all('/', async (req, res, next) => {
