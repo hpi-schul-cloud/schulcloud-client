@@ -2440,9 +2440,9 @@
 			"tab_label": {
 				"settings": "Configuración",
 				"signOut": "Cerrar sesión",
-				"n21": {
+				"sanis": {
 					"signOut": "Cerrar sesión Bildungscloud",
-					"signOutWithMoinSchule": "Cerrar sesión Bildungscloud & moin.schule"
+					"externalSignOut": "Cerrar sesión Bildungscloud & moin.schule"
 				}
 			},
 			"text": {

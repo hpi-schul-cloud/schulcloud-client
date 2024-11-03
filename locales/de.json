@@ -2440,9 +2440,9 @@
 			"tab_label": {
 				"settings": "Einstellungen",
 				"signOut": "Logout",
-				"n21": {
+				"sanis": {
 					"signOut": "Logout Bildungscloud",
-					"signOutWithMoinSchule": "Logout Bildungscloud & moin.schule"
+					"externalSignOut": "Logout Bildungscloud & moin.schule"
 				}
 			},
 			"text": {

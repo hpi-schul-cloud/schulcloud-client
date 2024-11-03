@@ -2608,9 +2608,9 @@
 			"tab_label": {
 				"settings": "Налаштування",
 				"signOut": "Вийти з системи",
-				"n21": {
+				"sanis": {
 					"signOut": "Вийти з системи Bildungscloud",
-					"signOutWithMoinSchule": "Вийти з системи Bildungscloud & moin.schule"
+					"externalSignOut": "Вийти з системи Bildungscloud & moin.schule"
 				}
 			},
 			"text": {
