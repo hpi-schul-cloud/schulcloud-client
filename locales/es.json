@@ -2440,10 +2440,8 @@
 			"tab_label": {
 				"settings": "Configuración",
 				"signOut": "Cerrar sesión",
-				"sanis": {
-					"signOut": "Cerrar sesión Bildungscloud",
-					"externalSignOut": "Cerrar sesión Bildungscloud & moin.schule"
-				}
+				"sanisSignOut": "Cerrar sesión Bildungscloud",
+				"sanisExternalSignOut": "Cerrar sesión Bildungscloud & moin.schule"
 			},
 			"text": {
 				"allActionsThatCreate": "Todas las acciones que crean o modifican datos están desactivadas y no son visibles.",

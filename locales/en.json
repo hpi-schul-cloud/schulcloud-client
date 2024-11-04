@@ -2440,10 +2440,8 @@
 			"tab_label": {
 				"settings": "Settings",
 				"signOut": "Sign out",
-				"sanis": {
-					"signOut": "Logout Bildungscloud",
-					"externalSignOut": "Logout Bildungscloud & moin.schule"
-				}
+				"sanisSignOut": "Logout Bildungscloud",
+				"sanisExternalSignOut": "Logout Bildungscloud & moin.schule"
 			},
 			"text": {
 				"allActionsThatCreate": "All actions that create or change data are deactivated and not visible.",
