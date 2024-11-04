@@ -305,13 +305,13 @@
 {{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1
 userId=../userId teamId=../teamId}}
     {{#content "fields"}}
-    {{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption}}
+    {{> "calendar/forms/form-create-event" showVideoconferenceOption=@root.showVideoconferenceOption testIdPrefix="create"}}
     {{/content}}
 {{/embed}}
 
 {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
     {{#content "fields"}}
-    {{> "calendar/forms/form-create-event" collapseIdCourse="4" collapseIdTeam="5"}}
+    {{> "calendar/forms/form-create-event" collapseIdCourse="4" collapseIdTeam="5" testIdPrefix="edit"}}
     {{/content}}
     {{#content "additional-actions"}}
     <button type="button" class="btn btn-primary btn-danger btn-delete pull-left" data-testid="delete_team_event">
