@@ -80,7 +80,7 @@ const getSyncedElements = 	(
 		startDate,
 		untilDate,
 		syncedWithGroup,
-		syncExcludedFields: course.syncExcludedFields?.join(','),
+		excludeFromSync: course.excludeFromSync?.join(','),
 	};
 
 	return selectedElements;
@@ -311,7 +311,7 @@ const editCourseHandler = (req, res, next) => {
 			const isTeacherInGroup = teacherIds.some((tid) => tid === res.locals.currentUser._id);
 			const isTeacher = res.locals.currentUser.roles.map((role) => role.name).includes('teacher');
 			if (!isTeacherInGroup && isTeacher) {
-				course.syncExcludedFields = ['teachers'];
+				course.excludeFromSync = ['teachers'];
 				course.teacherIds = [res.locals.currentUser._id];
 			} else {
 				course.teacherIds = teacherIds;
@@ -589,7 +589,7 @@ router.post('/', (req, res, next) => {
 		req.body.untilDate = untilDate.toDate();
 	}
 
-	const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds', 'syncExcludedFields'];
+	const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds', 'excludeFromSync'];
 	req.body = strToPropsArray(req.body, keys);
 
 	req.body.features = [];
