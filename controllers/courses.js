@@ -82,7 +82,6 @@ const getSyncedElements = 	(
 		syncedWithGroup,
 		excludeFromSync: course.excludeFromSync?.join(','),
 	};
-
 	return selectedElements;
 };
 
@@ -854,7 +853,7 @@ router.patch('/:courseId', async (req, res, next) => {
 			req.body.substitutionIds = [];
 		}
 
-		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds', 'excludeFromSync'];
 		req.body = strToPropsArray(req.body, keys);
 
 		const startDate = timesHelper.dateTimeStringToMoment(req.body.startDate).utc();
