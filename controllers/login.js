@@ -501,10 +501,8 @@ router.get('/logout/external/', (req, res, next) => {
 			req.session.notification = {
 				type: 'danger',
 				message: res.$t('logout.text.externalLogoutFailed', { systemName: res.locals.systemName ?? '' }),
-				statusCode: 500,
-				timeToWait: Configuration.get('LOGIN_BLOCK_TIME'),
 			};
-			res.redirect(req.header('referrer') ?? '/dashboard');
+			res.redirect('/dashboard');
 		});
 });
 

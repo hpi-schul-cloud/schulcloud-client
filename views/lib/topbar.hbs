@@ -59,9 +59,9 @@
                   <hr>
                   {{> "user/forms/language" language=@root.userLanguage }}
                   <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
-                  {{#if showExternalLogout}}
-                      <li><a class="dropdown-item localstorageclear"
-                          data-testid="logout-external"
+                  {{#if isExternalLogoutAllowed}}
+                      <li><a class="dropdown-item"
+                          data-testid="external-logout"
                           href="/logout/external/"
                           role="menuitem"
                           aria-label="{{$t 'lib.loggedin.tab_label.signOut'}} Bildungscloud & {{ systemName }}">
@@ -72,8 +72,8 @@
                       data-testid="logout"
                       role="menuitem"
                       href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}}
-                      aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}{{#if showExternalLogout}} Bildungscloud{{/if}}">
-                          {{$t 'lib.loggedin.tab_label.signOut'}}{{#if showExternalLogout}} Bildungscloud{{/if}}
+                      aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}{{#if isExternalLogoutAllowed}} Bildungscloud{{/if}}">
+                          {{$t 'lib.loggedin.tab_label.signOut'}}{{#if isExternalLogoutAllowed}} Bildungscloud{{/if}}
                   </a></li>
               </ul>
           </div>
