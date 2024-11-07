@@ -2439,9 +2439,7 @@
 			},
 			"tab_label": {
 				"settings": "Settings",
-				"signOut": "Sign out",
-				"sanisSignOut": "Logout Bildungscloud",
-				"sanisExternalSignOut": "Logout Bildungscloud & moin.schule"
+				"signOut": "Sign out"
 			},
 			"text": {
 				"allActionsThatCreate": "All actions that create or change data are deactivated and not visible.",
@@ -2600,6 +2598,11 @@
 			"userNotFoundAfterProvisioning": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator.",
 			"multipleUsersFound": "This moin.schule user cannot be clearly assigned to an account in the Niedersächsische Bildungscloud. Please contact support!",
 			"userAccountDeactivated": "Your account has been deactivated. Please contact your school administrator."
+		}
+	},
+	"logout": {
+		"text": {
+			"externalLogoutFailed": "Logout from {{systemName}} had failed. Please try again or contact support."
 		}
 	},
 	"messenger": {

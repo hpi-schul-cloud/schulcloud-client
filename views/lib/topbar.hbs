@@ -59,21 +59,22 @@
                   <hr>
                   {{> "user/forms/language" language=@root.userLanguage }}
                   <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
-                  {{#ifeq externalSystem "SANIS"}}
-                    <li><a class="dropdown-item localstorageclear" data-testid="logout-external" href="/logout/external/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.sanisExternalSignOut'}}">{{$t "lib.loggedin.tab_label.sanisExternalSignOut"}}</a></li>
-                    <li><a class="dropdown-item localstorageclear"
-                        data-testid="logout"
-                        role="menuitem"
-                        href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}}
-                        aria-label="{{$t 'lib.loggedin.tab_label.sanisSignOut'}}">{{$t 'lib.loggedin.tab_label.sanisSignOut'}}</a></li>
-                  {{else}}
-                    <li><a class="dropdown-item localstorageclear"
-                         data-testid="logout"
-                         role="menuitem"
-                         href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}}
-                         aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">
-                    {{$t 'lib.loggedin.tab_label.signOut'}}</a></li>
-                  {{/ifeq}}
+                  {{#if showExternalLogout}}
+                      <li><a class="dropdown-item localstorageclear"
+                          data-testid="logout-external"
+                          href="/logout/external/"
+                          role="menuitem"
+                          aria-label="{{$t 'lib.loggedin.tab_label.signOut'}} Bildungscloud & {{ systemName }}">
+                              {{$t 'lib.loggedin.tab_label.signOut'}} Bildungscloud & {{ systemName }}
+                      </a></li>
+                  {{/if}}
+                  <li><a class="dropdown-item localstorageclear"
+                      data-testid="logout"
+                      role="menuitem"
+                      href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}}
+                      aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}{{#if showExternalLogout}} Bildungscloud{{/if}}">
+                          {{$t 'lib.loggedin.tab_label.signOut'}}{{#if showExternalLogout}} Bildungscloud{{/if}}
+                  </a></li>
               </ul>
           </div>
       </li>

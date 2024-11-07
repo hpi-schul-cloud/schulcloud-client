@@ -2439,9 +2439,7 @@
 			},
 			"tab_label": {
 				"settings": "Einstellungen",
-				"signOut": "Logout",
-				"sanisSignOut": "Logout Bildungscloud",
-				"sanisExternalSignOut": "Logout Bildungscloud & moin.schule"
+				"signOut": "Logout"
 			},
 			"text": {
 				"allActionsThatCreate": "Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.",
@@ -2600,6 +2598,11 @@
 			"userNotFoundAfterProvisioning": "Login fehlgeschlagen. Entweder ist die Schule noch nicht zu {{systemName}} umgezogen oder die Erstellung neuer Nutzer in der {{shortTitle}} ist für die Schule nicht aktiv. Bitte wenden Sie sich an Ihren Schuladministrator.",
 			"multipleUsersFound": "Dieser moin.schule-Benutzer kann nicht eindeutig einem Account in der Niedersächsischen Bildungscloud zugeordnet werden. Bitte Support benachrichtigen!",
 			"userAccountDeactivated": "Ihr Konto wurde deaktiviert. Bitte wenden Sie sich an Ihren Schuladministrator."
+		}
+	},
+	"logout": {
+		"text": {
+			"externalLogoutFailed": "Die Abmeldung vom System {{systemName}} ist fehlgeschlagen. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support."
 		}
 	},
 	"messenger": {

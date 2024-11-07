@@ -2439,9 +2439,7 @@
 			},
 			"tab_label": {
 				"settings": "Configuración",
-				"signOut": "Cerrar sesión",
-				"sanisSignOut": "Cerrar sesión Bildungscloud",
-				"sanisExternalSignOut": "Cerrar sesión Bildungscloud & moin.schule"
+				"signOut": "Cerrar sesión"
 			},
 			"text": {
 				"allActionsThatCreate": "Todas las acciones que crean o modifican datos están desactivadas y no son visibles.",
@@ -2600,6 +2598,11 @@
 			"userNotFoundAfterProvisioning": "Error de inicio de sesion. La escuela aún no se ha mudado a {{systemName}} o la creación de nuevos usuarios en {{shortTitle}} no está activa para la escuela. Comuníquese con el administrador de su escuela.",
 			"multipleUsersFound": "Este usuario de moin.schule no puede ser asignado claramente a una cuenta en la Niedersächsische Bildungscloud. Póngase en contacto con el servicio de asistencia.",
 			"userAccountDeactivated": "Su cuenta ha sido desactivada. Comuníquese con el administrador de su escuela."
+		}
+	},
+	"logout": {
+		"text": {
+			"externalLogoutFailed": "El cierre de sesión del sistema {{systemName}} ha fallado. Inténtalo de nuevo o ponte en contacto con el servicio de asistencia."
 		}
 	},
 	"messenger": {

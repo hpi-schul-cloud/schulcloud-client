@@ -102,13 +102,14 @@ const isAuthenticated = (req) => {
 
 const populateCurrentUser = async (req, res) => {
 	async function setExternalSystemFromJwt(decodedJwt) {
-		if (!("systemId" in decodedJwt) && !decodedJwt.systemId) {
+		if (!('systemId' in decodedJwt) && !decodedJwt.systemId) {
 			return;
 		}
 
 		try {
 			const response = await api(req, { version: 'v3' }).get(`/systems/public/${decodedJwt.systemId}`);
-			res.locals.externalSystem = response.alias;
+			res.locals.showExternalLogout = response.alias === 'SANIS';
+			res.locals.systemName = response.displayName;
 		} catch (err) {
 			const metadata = { error: err.toString() };
 			logger.error('Unable to find out the external login system used by user', metadata);
@@ -121,7 +122,6 @@ const populateCurrentUser = async (req, res) => {
 			// eslint-disable-next-line prefer-destructuring
 			payload = (jwt.decode(req.cookies.jwt, { complete: true }) || {}).payload;
 			res.locals.currentPayload = payload;
-			await setExternalSystemFromJwt(payload);
 		} catch (err) {
 			logger.error('Broken JWT / JWT decoding failed', formatError(err));
 			return clearCookie(req, res, { destroySession: true })
@@ -144,6 +144,8 @@ const populateCurrentUser = async (req, res) => {
 	}
 
 	if (payload && payload.userId) {
+		await setExternalSystemFromJwt(payload);
+
 		if (res.locals.currentUser && res.locals.currentSchoolData) {
 			return Promise.resolve(res.locals.currentSchoolData);
 		}

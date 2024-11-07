@@ -1869,6 +1869,11 @@
 			"loginForRegisteredUsers": "Вхід в систему для зареєстрованих користувачів"
 		}
 	},
+	"logout": {
+		"text": {
+			"externalLogoutFailed": "Не вдалося вийти з системи {{SystemName}}. Спробуйте ще раз або зверніться до служби підтримки."
+		}
+	},
 	"teams": {
 		"_team": {
 			"edit": {
@@ -2607,9 +2612,7 @@
 		"loggedin": {
 			"tab_label": {
 				"settings": "Налаштування",
-				"signOut": "Вийти з системи",
-				"sanisSignOut": "Вийти з системи Bildungscloud",
-				"sanisExternalSignOut": "Вийти з системи Bildungscloud & moin.schule"
+				"signOut": "Вийти з системи"
 			},
 			"text": {
 				"allActionsThatCreate": "Усі дії, які створюють або змінюють дані, деактивовані та не показуються.",
