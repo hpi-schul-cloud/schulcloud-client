@@ -484,26 +484,27 @@ router.get('/logout/', (req, res, next) => {
 		.catch(next);
 });
 
-router.get('/logout/external/', (req, res, next) => {
+router.get('/logout/external/', async (req, res, next) => {
 	let redirectUri = '/logout/';
 	if (Configuration.has('OAUTH2_LOGOUT_URI')) {
 		redirectUri = Configuration.get('OAUTH2_LOGOUT_URI');
 	}
 
-	api(req, { version: 'v3' })
-		.post('/logout/external') // async, ignore result
-		.then(() => {
-			res.statusCode = 307;
-			res.redirect(redirectUri);
-		})
-		.catch((err) => {
+	if (res.locals.isExternalLogoutAllowed) {
+		try {
+			await api(req, { version: 'v3' }).post('/logout/external');
+		} catch (err) {
 			logger.error('error during external logout.', formatError(err));
 			req.session.notification = {
 				type: 'danger',
 				message: res.$t('logout.text.externalLogoutFailed', { systemName: res.locals.systemName ?? '' }),
 			};
 			res.redirect('/dashboard');
-		});
+		}
+	}
+
+	res.statusCode = 307;
+	res.redirect(redirectUri);
 });
 
 module.exports = router;
