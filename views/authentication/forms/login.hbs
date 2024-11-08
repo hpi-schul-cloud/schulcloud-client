@@ -84,27 +84,21 @@
 
             {{#if oauthSystems}}
             <div class="separator-external-login"><span class="separator-external-login-text">{{$t "login.separatorExternalLogin.text.separatorExternalLoginText"}}</span></div>
-            <div class="system-buttons">
+            <ul class="system-buttons">
                 {{#each oauthSystems as |system|}}
-                    {{!-- <form method="post" action="/login/oauth2" class="login-form">
-                        <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
-                        <input type="hidden" name="systemId" value="{{system.id}}"/>
-                        {{> "lib/components/csrfInput"}}
-                        <div class="oauth-system">
-                            <div class="form-group">
-                                <input autofocus aria-label="login" type="submit" class="btn btn-block btn-secondary btn-oauth" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-provider="{{system.oauthConfig.provider}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login-{{system.alias}}"/>
+                    <li class="login-form">
+                        <a href="{{ system.href }}">
+                            {{> "lib/components/csrfInput"}}
+                            <div class="oauth-system">
+                                <div class="form-group">
+                                    <input autofocus aria-label="login" type="submit" class="btn btn-block btn-secondary btn-oauth" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-provider="{{system.oauthConfig.provider}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login-{{system.alias}}"/>
+                                </div>
                             </div>
-                        </div>
-                    </form> --}}
-                    <a href="{{@system.href}}"
-                        class="btn btn-block btn-secondary btn-oauth"
-                        data-provider="{{system.oauthConfig.provider}}"
-                        data-testid="submit-oauth-login-{{system.alias}}">
-                        {{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}
-                    </a>
+                        </a>
+                    </li>
                 {{/each}}
                 <div class="oauth-error-logout" hidden>{{oauthErrorLogout}}</div>
-            </div>
+            </ul>
             <div class="form group login-params" data-schoolid="{{idOfSchool}}" data-strategy="{{strategyOfSchool}}"></div>
             {{/if}}
 

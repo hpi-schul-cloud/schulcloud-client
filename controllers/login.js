@@ -321,9 +321,11 @@ const determineRedirectUrl = (req) => {
 async function getOauthSystems(req) {
 	try {
 		const oauthSystems = await api(req, { version: 'v3' })
-			.get('/identity-management/providers/dbc');
+			.get('/identity-management/providers/svs');
 
-		return oauthSystems.data || [];
+		logger.info('loading oauth system list from Keycloak', oauthSystems);
+
+		return oauthSystems;
 	} catch (error) {
 		logger.error('error loading oauth system list', formatError(error));
 
@@ -369,7 +371,7 @@ const renderLogin = async (req, res) => {
 	const idOfSchool = req.query.schoolId;
 
 	const oauthSystemsResponse = await getOauthSystems(req);
-	const oauthSystems = oauthSystemsResponse.data || [];
+	const oauthSystems = oauthSystemsResponse || [];
 
 	res.render('authentication/login', {
 		pageTitle: res.$t('home.header.link.login'),
