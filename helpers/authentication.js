@@ -108,12 +108,9 @@ const populateCurrentUser = async (req, res) => {
 
 		try {
 			const response = await api(req, { version: 'v3' }).get(`/systems/public/${decodedJwt.systemId}`);
-			const featureFlag = Configuration.get('FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED');
 			res.locals.isExternalLogoutAllowed = Configuration.get('FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED')
 				&& response.alias === 'SANIS';
 			res.locals.systemName = response.displayName;
-			logger.info('response: ', response.alias, response.displayName);
-			logger.info('feature: ', featureFlag);
 		} catch (err) {
 			const metadata = { error: err.toString() };
 			logger.error('Unable to find out the external login system used by user', metadata);
