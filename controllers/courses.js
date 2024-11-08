@@ -80,8 +80,8 @@ const getSyncedElements = 	(
 		startDate,
 		untilDate,
 		syncedWithGroup,
+		excludeFromSync: course.excludeFromSync?.join(','),
 	};
-
 	return selectedElements;
 };
 
@@ -305,7 +305,17 @@ const editCourseHandler = (req, res, next) => {
 
 		if (syncedGroupId && group) {
 			course.name = group.name;
-			course.teacherIds = getUserIdsByRole(group.users, 'teacher');
+
+			const teacherIds = getUserIdsByRole(group.users, 'teacher');
+			const isTeacherInGroup = teacherIds.some((tid) => tid === res.locals.currentUser._id);
+			const isTeacher = res.locals.currentUser.roles.map((role) => role.name).includes('teacher');
+			if (!isTeacherInGroup && isTeacher) {
+				course.excludeFromSync = ['teachers'];
+				course.teacherIds = [res.locals.currentUser._id];
+			} else {
+				course.teacherIds = teacherIds;
+			}
+
 			course.userIds = getUserIdsByRole(group.users, 'student');
 
 			if (group.validPeriod) {
@@ -578,7 +588,7 @@ router.post('/', (req, res, next) => {
 		req.body.untilDate = untilDate.toDate();
 	}
 
-	const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+	const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds', 'excludeFromSync'];
 	req.body = strToPropsArray(req.body, keys);
 
 	req.body.features = [];
@@ -843,7 +853,7 @@ router.patch('/:courseId', async (req, res, next) => {
 			req.body.substitutionIds = [];
 		}
 
-		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds', 'excludeFromSync'];
 		req.body = strToPropsArray(req.body, keys);
 
 		const startDate = timesHelper.dateTimeStringToMoment(req.body.startDate).utc();
