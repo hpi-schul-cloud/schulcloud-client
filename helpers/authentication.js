@@ -108,8 +108,12 @@ const populateCurrentUser = async (req, res) => {
 
 		try {
 			const response = await api(req, { version: 'v3' }).get(`/systems/public/${decodedJwt.systemId}`);
+			const hasEndSessionEndpoint = 'oauthConfig' in response
+				&& 'endSessionEndpoint' in response.oauthConfig
+				&& response.oauthConfig.endSessionEndpoint;
+
 			res.locals.isExternalLogoutAllowed = Configuration.get('FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED')
-				&& response.alias === 'SANIS';
+				&& hasEndSessionEndpoint;
 			res.locals.systemName = response.displayName;
 		} catch (err) {
 			const metadata = { error: err.toString() };

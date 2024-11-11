@@ -495,15 +495,9 @@ router.get('/logout/external/', async (req, res, next) => {
 			await api(req, { version: 'v3' }).post('/logout/external');
 		} catch (err) {
 			logger.error('error during external logout.', formatError(err));
-			req.session.notification = {
-				type: 'danger',
-				message: res.$t('logout.text.externalLogoutFailed', { systemName: res.locals.systemName ?? '' }),
-			};
-			res.redirect('/dashboard');
 		}
 	}
 
-	res.statusCode = 307;
 	res.redirect(redirectUri);
 });
 

@@ -2600,11 +2600,6 @@
 			"userAccountDeactivated": "Your account has been deactivated. Please contact your school administrator."
 		}
 	},
-	"logout": {
-		"text": {
-			"externalLogoutFailed": "Logout from {{systemName}} had failed. Please try again or contact support."
-		}
-	},
 	"messenger": {
 		"button": {
 			"activate": "Activate",

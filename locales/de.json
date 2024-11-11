@@ -2600,11 +2600,6 @@
 			"userAccountDeactivated": "Ihr Konto wurde deaktiviert. Bitte wenden Sie sich an Ihren Schuladministrator."
 		}
 	},
-	"logout": {
-		"text": {
-			"externalLogoutFailed": "Die Abmeldung vom System {{systemName}} ist fehlgeschlagen. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support."
-		}
-	},
 	"messenger": {
 		"button": {
 			"activate": "Aktivieren",

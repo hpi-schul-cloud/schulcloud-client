@@ -1869,11 +1869,6 @@
 			"loginForRegisteredUsers": "Вхід в систему для зареєстрованих користувачів"
 		}
 	},
-	"logout": {
-		"text": {
-			"externalLogoutFailed": "Не вдалося вийти з системи {{SystemName}}. Спробуйте ще раз або зверніться до служби підтримки."
-		}
-	},
 	"teams": {
 		"_team": {
 			"edit": {

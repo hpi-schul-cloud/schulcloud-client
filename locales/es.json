@@ -2600,11 +2600,6 @@
 			"userAccountDeactivated": "Su cuenta ha sido desactivada. Comuníquese con el administrador de su escuela."
 		}
 	},
-	"logout": {
-		"text": {
-			"externalLogoutFailed": "El cierre de sesión del sistema {{systemName}} ha fallado. Inténtalo de nuevo o ponte en contacto con el servicio de asistencia."
-		}
-	},
 	"messenger": {
 		"button": {
 			"activate": "Activar",
