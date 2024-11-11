@@ -300,6 +300,9 @@
 					</button>
 				</div>
 
+                {{#if course.syncedWithGroup}}
+                    <input type="hidden" id="excludeFromSync" name="excludeFromSync" value="{{excludeFromSync}}">
+                {{/if}}
 
 				{{#unless @root.course.isArchived}}
 					<div class="modal-footer">
