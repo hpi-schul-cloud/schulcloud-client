@@ -64,7 +64,7 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 			});
 		});
 	}
-	
+
 	res.clearCookie('jwt');
 	// this is deprecated and only used for cookie removal from now on,
 	// and can be removed after one month (max cookie lifetime from life systems)
@@ -101,6 +101,26 @@ const isAuthenticated = (req) => {
 };
 
 const populateCurrentUser = async (req, res) => {
+	async function setExternalSystemFromJwt(decodedJwt) {
+		if (!('systemId' in decodedJwt) && !decodedJwt.systemId) {
+			return;
+		}
+
+		try {
+			const response = await api(req, { version: 'v3' }).get(`/systems/public/${decodedJwt.systemId}`);
+			const hasEndSessionEndpoint = 'oauthConfig' in response
+				&& 'endSessionEndpoint' in response.oauthConfig
+				&& response.oauthConfig.endSessionEndpoint;
+
+			res.locals.isExternalLogoutAllowed = Configuration.get('FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED')
+				&& hasEndSessionEndpoint;
+			res.locals.systemName = response.displayName;
+		} catch (err) {
+			const metadata = { error: err.toString() };
+			logger.error('Unable to find out the external login system used by user', metadata);
+		}
+	}
+
 	let payload = {};
 	if (isJWT(req)) {
 		try {
@@ -129,6 +149,8 @@ const populateCurrentUser = async (req, res) => {
 	}
 
 	if (payload && payload.userId) {
+		await setExternalSystemFromJwt(payload);
+
 		if (res.locals.currentUser && res.locals.currentSchoolData) {
 			return Promise.resolve(res.locals.currentSchoolData);
 		}

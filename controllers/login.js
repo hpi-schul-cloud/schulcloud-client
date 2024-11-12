@@ -484,4 +484,21 @@ router.get('/logout/', (req, res, next) => {
 		.catch(next);
 });
 
+router.get('/logout/external/', async (req, res, next) => {
+	let redirectUri = '/logout/';
+	if (Configuration.has('OAUTH2_LOGOUT_URI')) {
+		redirectUri = Configuration.get('OAUTH2_LOGOUT_URI');
+	}
+
+	if (res.locals.isExternalLogoutAllowed) {
+		try {
+			await api(req, { version: 'v3' }).post('/logout/external');
+		} catch (err) {
+			logger.error('error during external logout.', formatError(err));
+		}
+	}
+
+	res.redirect(redirectUri);
+});
+
 module.exports = router;
