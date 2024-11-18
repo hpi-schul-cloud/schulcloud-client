@@ -161,7 +161,7 @@
                     <div class="pull-left">
                         {{#unless schoolUsesLdap}}
                         {{#ifCond isAdmin '|| !' editTeacher}}
-                        <button style="margin: 0 10px 20px 0" class="btn btn-secondary btn-pw"
+                        <button style="margin: 0 10px 20px 0" class="btn btn-secondary btn-pw" data-testid="button-change-password"
                             {{#if @root.hidePwChangeButton}}
                                 disabled
                                 {{#if @root.consentNecessary}}
