@@ -109,7 +109,7 @@
                 <div class="form-group col-md-6" data-testid="teachers_container">
                   <label for="courseTeacher">{{$t "administration.global.label.teachingTeacher"}}</label>
                   <select id="courseTeacher" name="teacherIds[]" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}" data-testid="teachersearch" autocomplete="off"
-                    aria-describedby="courseTeacherErr" {{#if syncedWithGroup}}disabled{{/if}}>
+                    aria-describedby="courseTeacherErr" {{#if areTeachersSynced}}disabled{{/if}}>
                     {{#each teachers}}
                     <option data-testid="teacher" value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
                       {{#if this.displayName}}
@@ -120,7 +120,7 @@
                     </option>
                     {{/each}}
                   </select>
-                  {{#if syncedWithGroup}}
+                  {{#if areTeachersSynced}}
                     <input type="hidden" id="courseTeacherSync" name="teacherIds" value="{{teachersSelected}}">
                   {{/if}}
                   <span class="small course-validation-error" id="courseTeacherErr">

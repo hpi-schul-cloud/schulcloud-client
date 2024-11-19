@@ -23,6 +23,10 @@ const router = express.Router();
 const { HOST } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
 
+const SYNC_ATTRIBUTE = Object.freeze({
+	TEACHERS: 'teachers',
+});
+
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then((data) => data.data);
@@ -81,6 +85,7 @@ const getSyncedElements = 	(
 		untilDate,
 		syncedWithGroup,
 		excludeFromSync: course.excludeFromSync?.join(','),
+		areTeachersSynced: !course.excludeFromSync?.includes(SYNC_ATTRIBUTE.TEACHERS),
 	};
 	return selectedElements;
 };
@@ -310,7 +315,7 @@ const editCourseHandler = (req, res, next) => {
 			const isTeacherInGroup = teacherIds.some((tid) => tid === res.locals.currentUser._id);
 			const isTeacher = res.locals.currentUser.roles.map((role) => role.name).includes('teacher');
 			if (!isTeacherInGroup && isTeacher) {
-				course.excludeFromSync = ['teachers'];
+				course.excludeFromSync = [SYNC_ATTRIBUTE.TEACHERS];
 				course.teacherIds = [res.locals.currentUser._id];
 			} else {
 				course.teacherIds = teacherIds;
