@@ -322,7 +322,7 @@ const editCourseHandler = (req, res, next) => {
 			}
 
 			course.userIds = getUserIdsByRole(group.users, 'student');
-
+			course.substitutionIds = getUserIdsByRole(group.users, 'groupSubstitutionTeacher');
 			if (group.validPeriod) {
 				course.startDate = timesHelper.fromUTC(group.validPeriod.from);
 				course.untilDate = timesHelper.fromUTC(group.validPeriod.until);
