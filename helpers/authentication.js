@@ -437,6 +437,7 @@ const getAuthenticationUrl = (oauthConfig, state, migration) => {
 	return authenticationUrl.toString();
 };
 
+const oauth2LoginTimeout = Configuration.get('OAUTH2_LOGIN_REQUEST_TIMEOUT_MS');
 const requestLogin = (req, strategy, payload = {}) => {
 	switch (strategy) {
 		case 'local':
@@ -450,7 +451,7 @@ const requestLogin = (req, strategy, payload = {}) => {
 				.post('/authentication/oauth2', { json: payload });
 		default:
 			return api(req, { version: 'v1' })
-				.post('/authentication', { json: { strategy, ...payload } });
+				.post('/authentication', { json: { strategy, ...payload }, timeout: oauth2LoginTimeout });
 	}
 };
 
