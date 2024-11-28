@@ -1249,7 +1249,6 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
-			"announcementBrb": "Neu bei bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Fertige Unterrichtseinheiten jetzt für Klasse 5 bis 8</a> und neue <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>Übungs- und Testaufgaben für Jahrgangsstufe 4 bis 13</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Hier</a> finden Sie unsere Kursbeispiele/Themenvorschläge für die Schul-Cloud Brandenburg: einsehen, auswählen und als eigenen Kurs <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>importieren</a>!",
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",
