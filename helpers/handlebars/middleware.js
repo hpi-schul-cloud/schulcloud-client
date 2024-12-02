@@ -9,6 +9,7 @@ const {
 	ALERT_STATUS_URL,
 	SC_THEME,
 } = require('../../config/global');
+const { permission } = require('process');
 
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
@@ -181,6 +182,7 @@ module.exports = (req, res, next) => {
 			testId: 'Rooms',
 			icon: 'account-supervisor-circle-outline',
 			link: '/rooms',
+			permission: 'ROOM_CREATE',
 		});
 	}
 
