@@ -4,7 +4,6 @@
 		"start": "node --unhandled-rejections=warn ./bin/www",
 		"watch": "node --watch ./bin/www",
 		"debug": "node --inspect=9310 --watch ./bin/www",
-		"debug:container": "node --inspect=0.0.0.0:9310 --watch ./bin/www",
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js ./locales --ext .js --ext .json --fix",
 		"startd": "echo 'Do you mean 'npm run watch'?'",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
