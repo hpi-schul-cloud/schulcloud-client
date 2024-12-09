@@ -311,6 +311,10 @@ const mapErrorToTranslationKey = (error) => {
 			return 'login.text.multipleUsersFound';
 		case 'USER_ACCOUNT_DEACTIVATED':
 			return 'login.text.userAccountDeactivated';
+		case 'EXTERNAL_USER_ROLE_UNKNOWN':
+			return 'login.text.externalUserRoleUnknown';
+		case 'SCHOOL_MISSING':
+			return 'login.text.unprocessableData';
 		default:
 			return 'login.text.loginFailed';
 	}
