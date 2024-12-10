@@ -322,7 +322,8 @@ const editCourseHandler = (req, res, next) => {
 			}
 
 			course.userIds = getUserIdsByRole(group.users, 'student');
-			course.substitutionIds = getUserIdsByRole(group.users, 'groupSubstitutionTeacher');
+			course.substitutionIds = getUserIdsByRole(group.users, 'groupSubstitutionTeacher')
+				.filter((subTeacherId) => !course.teacherIds.includes(subTeacherId));
 			if (group.validPeriod) {
 				course.startDate = timesHelper.fromUTC(group.validPeriod.from);
 				course.untilDate = timesHelper.fromUTC(group.validPeriod.until);
