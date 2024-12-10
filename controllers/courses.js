@@ -201,11 +201,13 @@ const editCourseHandler = (req, res, next) => {
 
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher'],
+		schoolId: res.locals.currentSchool,
 		$limit: false,
 		$sort: 'lastName',
 	});
 	const studentsPromise = getSelectOptions(req, 'users', {
 		roles: ['student'],
+		schoolId: res.locals.currentSchool,
 		$limit: false,
 		$sort: 'lastName',
 	});
@@ -230,7 +232,7 @@ const editCourseHandler = (req, res, next) => {
 		studentsPromise,
 		scopePermissions,
 		groupPromise,
-	]).then(([course, _classesAndGroups, _teachers, _students, _scopePermissions, group]) => {
+	]).then(([course, _classesAndGroups, teachers, students, _scopePermissions, group]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		let classesAndGroups = [];
 		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
@@ -241,12 +243,6 @@ const editCourseHandler = (req, res, next) => {
 			).sort();
 		}
 
-		const teachers = _teachers.filter(
-			(t) => t.schoolId === res.locals.currentSchool,
-		);
-		const students = _students.filter(
-			(s) => s.schoolId === res.locals.currentSchool,
-		);
 		teachers.forEach((teacher) => {
 			teacher.isHidden = isUserHidden(teacher, res.locals.currentSchoolData);
 		});
@@ -322,7 +318,8 @@ const editCourseHandler = (req, res, next) => {
 			}
 
 			course.userIds = getUserIdsByRole(group.users, 'student');
-
+			course.substitutionIds = getUserIdsByRole(group.users, 'groupSubstitutionTeacher')
+				.filter((subTeacherId) => !course.teacherIds.includes(subTeacherId));
 			if (group.validPeriod) {
 				course.startDate = timesHelper.fromUTC(group.validPeriod.from);
 				course.untilDate = timesHelper.fromUTC(group.validPeriod.until);
