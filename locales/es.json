@@ -2597,7 +2597,7 @@
 			"userNotFoundAfterProvisioning": "Error de inicio de sesion. La escuela aún no se ha mudado a {{systemName}} o la creación de nuevos usuarios en {{shortTitle}} no está activa para la escuela. Comuníquese con el administrador de su escuela.",
 			"multipleUsersFound": "Este usuario de moin.schule no puede ser asignado claramente a una cuenta en la Niedersächsische Bildungscloud. Póngase en contacto con el servicio de asistencia.",
 			"userAccountDeactivated": "Su cuenta ha sido desactivada. Comuníquese con el administrador de su escuela.",
-			"externalUserRoleUnknown": "Su rol de usuario no pudo identificarse o no es compatible. Comuníquese con el administrador de su escuela.",
+			"externalUserRoleUnknown": "No se puede iniciar sesión en una cuenta con una función de usuario desconocida. Comuníquese con el administrador de la escuela.",
 			"unprocessableData": "Los datos del sistema de registro no se pudieron procesar en su totalidad. Inténtelo de nuevo o comuníquese con el soporte."
 		}
 	},

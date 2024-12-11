@@ -2597,7 +2597,7 @@
 			"userNotFoundAfterProvisioning": "Login fehlgeschlagen. Entweder ist die Schule noch nicht zu {{systemName}} umgezogen oder die Erstellung neuer Nutzer in der {{shortTitle}} ist für die Schule nicht aktiv. Bitte wenden Sie sich an Ihren Schuladministrator.",
 			"multipleUsersFound": "Dieser moin.schule-Benutzer kann nicht eindeutig einem Account in der Niedersächsischen Bildungscloud zugeordnet werden. Bitte Support benachrichtigen!",
 			"userAccountDeactivated": "Ihr Konto wurde deaktiviert. Bitte wenden Sie sich an Ihren Schuladministrator.",
-			"externalUserRoleUnknown": "Ihre Nutzerrolle konnte nicht identifiziert werden oder wird nicht unterstützt. Bitte wenden Sie sich an Ihren Schuladministrator.",
+			"externalUserRoleUnknown": "Konto mit einer unbekannten Nutzer-Rolle kann nicht angemeldet werden. Bitte an Schuladministrator wenden.",
 			"unprocessableData": "Die Daten des Anmeldesystems konnten nicht vollständig verarbeitet werden. Bitte erneut versuchen oder den Support kontaktieren."
 		}
 	},

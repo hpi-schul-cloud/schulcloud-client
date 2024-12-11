@@ -2597,7 +2597,7 @@
 			"userNotFoundAfterProvisioning": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator.",
 			"multipleUsersFound": "This moin.schule user cannot be clearly assigned to an account in the Niedersächsische Bildungscloud. Please contact support!",
 			"userAccountDeactivated": "Your account has been deactivated. Please contact your school administrator.",
-			"externalUserRoleUnknown": "Your user role could not be identified or is not supported. Please contact your school administrator.",
+			"externalUserRoleUnknown": "Account with an unknown user role cannot be logged in. Please contact school administrator.",
 			"unprocessableData": "The login system data could not be fully processed. Please try again or contact support."
 		}
 	},
