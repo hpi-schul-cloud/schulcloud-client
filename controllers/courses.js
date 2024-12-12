@@ -64,6 +64,7 @@ const getSyncedElements = 	(
 	classesAndGroups,
 	classAndGroupIdsOfCourse,
 	teachers,
+	substitutions,
 	students,
 	res,
 	syncedWithGroup,
@@ -77,7 +78,7 @@ const getSyncedElements = 	(
 
 	const selectedElements = {
 		teachersSelected: selectedElementIdsToString(markSelected(teachers, course.teacherIds)),
-		substitutionSelected: selectedElementIdsToString(markSelected(teachers, course.substitutionIds)),
+		substitutionSelected: selectedElementIdsToString(markSelected(substitutions, course.substitutionIds)),
 		classesAndGroupsSelected: selectedElementIdsToString(markSelected(classesAndGroups, classAndGroupIdsOfCourse)),
 		studentsSelected: selectedElementIdsToString(filterStudents(res, markSelected(students, course.userIds))),
 		startDate,
@@ -248,6 +249,9 @@ const editCourseHandler = (req, res, next) => {
 		students.forEach((student) => {
 			student.isHidden = isUserHidden(student, res.locals.currentSchoolData);
 		});
+		const substitutions = _.cloneDeep(
+			teachers,
+		);
 
 		// decode course name to display it properly in an input field
 		if (course.name) {
@@ -327,6 +331,7 @@ const editCourseHandler = (req, res, next) => {
 			classesAndGroups,
 			classAndGroupIdsOfCourse,
 			teachers,
+			substitutions,
 			students,
 			res,
 			syncedGroupId,
@@ -344,7 +349,7 @@ const editCourseHandler = (req, res, next) => {
 				colors,
 				classesAndGroups: markSelected(classesAndGroups, classAndGroupIdsOfCourse),
 				teachers: markSelected(teachers, course.teacherIds),
-				substitutions: markSelected(teachers, course.substitutionIds),
+				substitutions: markSelected(substitutions, course.substitutionIds),
 				students: filterStudents(res, markSelected(students, course.userIds)),
 				scopePermissions: _scopePermissions,
 				schoolData: res.locals.currentSchoolData,
@@ -361,7 +366,7 @@ const editCourseHandler = (req, res, next) => {
 			colors,
 			classesAndGroups: markSelected(classesAndGroups, classAndGroupIdsOfCourse),
 			teachers: markSelected(teachers, course.teacherIds),
-			substitutions: markSelected(teachers, course.substitutionIds),
+			substitutions: markSelected(substitutions, course.substitutionIds),
 			students: filterStudents(res, markSelected(students, course.userIds)),
 			redirectUrl: req.query.redirectUrl || '/courses',
 			schoolData: res.locals.currentSchoolData,
