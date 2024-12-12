@@ -1250,7 +1250,6 @@
 		},
 		"text": {
 			"announcementBrb": "Nuevo en bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Unidades didácticas preparadas ahora para los cursos 5º a 8º</a> y nuevos <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>ejercicios y tests para los cursos 4º a 13º</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Aquí</a> puede encontrar nuestros ejemplos de cursos/sugerencias de temas para la Nube Escolar de Brandenburgo: ¡visualícelos, selecciónelos e <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>impórtelos</a> como su propio curso!",
-			"announcement": "Participe en nuestra encuesta de satisfacción y ayúdenos a mejorar la nube. Haga clic <a href=\"https://befragungen.dataport.de/umfrage/1891615/SyBxM9\" target=\"_blank\">aquí</a> para acceder a la encuesta (exclusivamente en alemán).",
 			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
 			"emptyNewsInfo": "Hasta el momento no hay noticias.",
 			"graded": "Calificado",
@@ -2597,7 +2596,9 @@
 			"schoolInMigration": "Su escuela está en proceso de cambiar el sistema de registro a {{systemName}}. Antes de que pueda iniciar sesión a través de {{systemName}}, debe mover su cuenta. Para hacer esto, inicie sesión con su antiguo sistema.",
 			"userNotFoundAfterProvisioning": "Error de inicio de sesion. La escuela aún no se ha mudado a {{systemName}} o la creación de nuevos usuarios en {{shortTitle}} no está activa para la escuela. Comuníquese con el administrador de su escuela.",
 			"multipleUsersFound": "Este usuario de moin.schule no puede ser asignado claramente a una cuenta en la Niedersächsische Bildungscloud. Póngase en contacto con el servicio de asistencia.",
-			"userAccountDeactivated": "Su cuenta ha sido desactivada. Comuníquese con el administrador de su escuela."
+			"userAccountDeactivated": "Su cuenta ha sido desactivada. Comuníquese con el administrador de su escuela.",
+			"externalUserRoleUnknown": "No se puede iniciar sesión en una cuenta con una función de usuario desconocida. Comuníquese con el administrador de la escuela.",
+			"unprocessableData": "Los datos del sistema de registro no se pudieron procesar en su totalidad. Inténtelo de nuevo o comuníquese con el soporte."
 		}
 	},
 	"messenger": {

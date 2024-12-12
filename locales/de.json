@@ -1250,7 +1250,6 @@
 		},
 		"text": {
 			"announcementBrb": "Neu bei bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Fertige Unterrichtseinheiten jetzt für Klasse 5 bis 8</a> und neue <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>Übungs- und Testaufgaben für Jahrgangsstufe 4 bis 13</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Hier</a> finden Sie unsere Kursbeispiele/Themenvorschläge für die Schul-Cloud Brandenburg: einsehen, auswählen und als eigenen Kurs <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>importieren</a>!",
-			"announcement": "Nehmen Sie an unserer Zufriedenheitsumfrage teil und helfen Sie uns, die Cloud zu verbessern. <a href=\"https://befragungen.dataport.de/umfrage/1891615/SyBxM9\" target=\"_blank\">Hier</a> geht’s zur Befragung.",
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",
@@ -2597,7 +2596,9 @@
 			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an.",
 			"userNotFoundAfterProvisioning": "Login fehlgeschlagen. Entweder ist die Schule noch nicht zu {{systemName}} umgezogen oder die Erstellung neuer Nutzer in der {{shortTitle}} ist für die Schule nicht aktiv. Bitte wenden Sie sich an Ihren Schuladministrator.",
 			"multipleUsersFound": "Dieser moin.schule-Benutzer kann nicht eindeutig einem Account in der Niedersächsischen Bildungscloud zugeordnet werden. Bitte Support benachrichtigen!",
-			"userAccountDeactivated": "Ihr Konto wurde deaktiviert. Bitte wenden Sie sich an Ihren Schuladministrator."
+			"userAccountDeactivated": "Ihr Konto wurde deaktiviert. Bitte wenden Sie sich an Ihren Schuladministrator.",
+			"externalUserRoleUnknown": "Konto mit einer unbekannten Nutzer-Rolle kann nicht angemeldet werden. Bitte an Schuladministrator wenden.",
+			"unprocessableData": "Die Daten des Anmeldesystems konnten nicht vollständig verarbeitet werden. Bitte erneut versuchen oder den Support kontaktieren."
 		}
 	},
 	"messenger": {

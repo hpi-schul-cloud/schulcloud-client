@@ -23,22 +23,14 @@ Short setup version:
 
 1. Clone directory into local folder  
 2. Go into the cloned folder and enter `npm install`  
-3. Install nodemon and gulp globally by entering `npm install -g nodemon gulp`  
   
 ## Run  
   
 1. Start the [schul-cloud server](https://github.com/hpi-schul-cloud/schulcloud-server)  
 2. Go into project folder
-3. Run `gulp watch` to run gulp
-4. Set the ENV-variable `TZ=Europe/Berlin` (for windows use `set TZ=Europe/Berlin`). You can also set the variables `SC_TITLE=HPI Schul-Cloud` if you want.
-5. run `npm run watch` to boot the application
+5. run `npm run dev` to boot the application
 6. go to `http://localhost:3100`
 
-**Alternative with browser-sync**
-
-1. run `gulp watch-reload` to run gulp with browser sync. It also starts the node-client-server.
-2. go to `http://localhost:7000`
-  
 For connecting to the [SchulCloud Calendar-Service](https://github.com/hpi-schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.  
   
 For connecting to the [SchulCloud Notification-Service](https://github.com/hpi-schul-cloud/node-notification-service) you have to set `export NOTIFICATION_SERVICE_ENABLED=true`.  

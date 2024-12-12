@@ -10,7 +10,6 @@
 		},
 		"text": {
 			"announcementBrb": "Нове на bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Готові навчальні блоки для 5-8 класів</a> та нові <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>вправи і тести для 4-13 класів</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Тут</a> ви можете знайти приклади наших курсів/пропозиції тем для Бранденбурзької шкільної хмари: переглядайте, обирайте та <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>імпортуйте</a> як свій власний курс!",
-			"announcement": "Візьміть участь у нашому опитуванні та допоможіть нам покращити хмару. Натисніть <a href=\"https://befragungen.dataport.de/umfrage/1891615/SyBxM9\" target=\"_blank\">тут</a>, щоб пройти опитування (виключно німецькою мовою).",
 			"notFound": "Активних записів не знайдено.",
 			"emptyHomeworksInfo": "Усі домашні завдання показуються в розділі домашніх завдань.",
 			"emptyNewsInfo": "Немає останніх новин. Перегляньте розділ новин, щоб бути в курсі.",
@@ -1837,7 +1836,9 @@
 			"schoolInMigration": "Ваша школа перебуває в процесі зміни системи реєстрації на {{systemName}}. Перш ніж ви зможете увійти через {{systemName}}, вам потрібно перемістити свій обліковий запис. Для цього увійдіть у свою стару систему.",
 			"userNotFoundAfterProvisioning": "Помилка логіну. Або школа ще не переїхала до {{systemName}}, або створення нових користувачів у {{shortTitle}} неактивне для школи. Будь ласка, зверніться до адміністратора школи.",
 			"multipleUsersFound": "Цей користувач moin.schule не може бути чітко прив'язаний до облікового запису в Niedersächsische Bildungscloud. Будь ласка, зверніться до служби підтримки!",
-			"userAccountDeactivated": "Ваш обліковий запис було деактивовано. Будь ласка, зверніться до адміністратора школи."
+			"userAccountDeactivated": "Ваш обліковий запис було деактивовано. Будь ласка, зверніться до адміністратора школи.",
+			"externalUserRoleUnknown": "Неможливо ввійти в обліковий запис із невідомою роллю користувача. Будь ласка, зверніться до адміністратора школи.",
+			"unprocessableData": "Не вдалося повністю обробити дані системи реєстрації. Спробуйте ще раз або зверніться до служби підтримки."
 		},
 		"separatorExternalLogin": {
 			"text": {
