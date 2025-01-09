@@ -54,5 +54,6 @@ COPY bin /home/node/app/bin
 COPY --from=git /app/version /home/node/app/static/version
 # "build" .. this basically throws out non relevant files for the theme under build and does scss to css stuff
 RUN export NODE_OPTIONS=--openssl-legacy-provider && node node_modules/gulp/bin/gulp.js clear-cache && node node_modules/gulp/bin/gulp.js
+RUN npm prune --omit=dev
 
 CMD npm start
