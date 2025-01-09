@@ -1819,10 +1819,11 @@
 		},
 		"chooseTopicArea": {
 			"text": {
-				"chooseArea": "Selecciona el área",
+				"chooseArea": "Selecciona el tema",
 				"severalTopicsPossible": " Posibilidad de elegir entre varios temas",
 				"pAddOns": "Complementos",
 				"pAuthentication": "Autenticación",
+				"pBoards": "Juntas",
 				"pCalendar": "Calendario",
 				"pCommunication": "Comunicación",
 				"pCourses": "Cursos",
@@ -1836,8 +1837,10 @@
 				"pNews": "Noticias",
 				"pOther": "Otros",
 				"pPrivacy": "Protección de datos",
+				"pRooms": "Salas",
 				"pTasks": "Tareas",
-				"pTeams": "Equipos"
+				"pTeams": "Equipos",
+				"pTools": "Herramientas"
 			}
 		},
 		"confluence": {
@@ -1980,7 +1983,7 @@
 				"contactForm": "Formulario de contacto",
 				"contactPerson": "Persona de contacto",
 				"overview": "Visión general",
-				"problemArea": "Selecciona el área",
+				"problemArea": "Selecciona el tema",
 				"writeUsAnEmail": "Envíanos un correo electrónico"
 			}
 		},
