@@ -1819,10 +1819,11 @@
 		},
 		"chooseTopicArea": {
 			"text": {
-				"chooseArea": "Bereich wählen",
+				"chooseArea": "Thema wählen",
 				"severalTopicsPossible": " Auswahl mehrerer Themen möglich",
 				"pAddOns": "Zusatzangebote",
 				"pAuthentication": "Authentifizierung",
+				"pBoards": "Bereiche",
 				"pCalendar": "Termine",
 				"pCommunication": "Kommunikation",
 				"pCourses": "Kurse",
@@ -1836,8 +1837,10 @@
 				"pNews": "Neuigkeiten",
 				"pOther": "Sonstiges",
 				"pPrivacy": "Datenschutz",
+				"pRooms": "Räume",
 				"pTasks": "Aufgaben",
-				"pTeams": "Teams"
+				"pTeams": "Teams",
+				"pTools": "Tools"
 			}
 		},
 		"confluence": {
@@ -1980,7 +1983,7 @@
 				"contactForm": "Kontaktformular",
 				"contactPerson": "Ansprechpartner:in",
 				"overview": "Überblick",
-				"problemArea": "Bereich auswählen",
+				"problemArea": "Thema auswählen",
 				"writeUsAnEmail": "Schreib uns eine E-Mail"
 			}
 		},

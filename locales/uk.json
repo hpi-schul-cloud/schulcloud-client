@@ -2916,15 +2916,16 @@
 				"contactPerson": "Контактна особа",
 				"overview": "Огляд",
 				"writeUsAnEmail": "Відправте нам електронний лист",
-				"problemArea": "Вибрати область"
+				"problemArea": "Вибрати тему"
 			}
 		},
 		"chooseTopicArea": {
 			"text": {
-				"chooseArea": "Вибрати область",
+				"chooseArea": "Вибрати тему",
 				"severalTopicsPossible": " Можливий вибір декількох тем",
 				"pAddOns": "Доповнення",
 				"pAuthentication": "Аутентифікація",
+				"pBoards": "Дошки",
 				"pCalendar": "Календар",
 				"pCommunication": "Зв'язок",
 				"pCourses": "Курси",
@@ -2938,8 +2939,10 @@
 				"pNews": "Новини",
 				"pOther": "Інше",
 				"pPrivacy": "Захист даних",
+				"pRooms": "Кімнати",
 				"pTasks": "Завдання",
-				"pTeams": "Команди"
+				"pTeams": "Команди",
+				"pTools": "Інструменти"
 			}
 		}
 	},
