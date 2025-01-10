@@ -33,7 +33,6 @@ EXPOSE 3100
 WORKDIR /home/node/app
 
 COPY package.json package-lock.json ./
-RUN npm ci && npm cache clean --force
 # thanks to this crappy folder structure pulling only the relevant files is a mess
 COPY api.js /home/node/app/api.js
 COPY api-files-storage.js /home/node/app/api-files-storage.js
@@ -52,8 +51,12 @@ COPY controllers /home/node/app/controllers
 COPY config /home/node/app/config
 COPY bin /home/node/app/bin
 COPY --from=git /app/version /home/node/app/static/version
-# "build" .. this basically throws out non relevant files for the theme under build and does scss to css stuff
-RUN export NODE_OPTIONS=--openssl-legacy-provider && node node_modules/gulp/bin/gulp.js clear-cache && node node_modules/gulp/bin/gulp.js
-RUN npm prune --omit=dev
+
+RUN npm ci \
+	&& export NODE_OPTIONS=--openssl-legacy-provider \
+	&& node node_modules/gulp/bin/gulp.js clear-cache \
+	&& node node_modules/gulp/bin/gulp.js \
+	&& npm prune --omit=dev \
+	&& npm cache clean --force
 
 CMD npm start
