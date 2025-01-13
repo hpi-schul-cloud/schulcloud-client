@@ -27,6 +27,24 @@ class AlertMessageController {
 
 		const getLangAttribute = () => document.querySelector('html').getAttribute('lang');
 		moment.updateLocale(getLangAttribute(), momentHelper.selectMomentOptions(getLangAttribute()));
+		moment.updateLocale('de', {
+			relativeTime: {
+				future: 'in %s',
+				past: 'vor %s',
+				s: 'ein paar Sekunden',
+				ss: '%d Sekunden',
+				m: 'einer Minute',
+				mm: '%d Minuten',
+				h: 'einer Stunde',
+				hh: '%d Stunden',
+				d: 'einem Tag',
+				dd: '%d Tagen',
+				M: 'einem Monat',
+				MM: '%d Monaten',
+				y: 'einem Jahr',
+				yy: '%d Jahren',
+			},
+		});
 		const item = document.createElement('div');
 		if (this.loggedin) {
 			item.className = 'alert-item';
