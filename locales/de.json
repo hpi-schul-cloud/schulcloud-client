@@ -706,7 +706,7 @@
 				"cannotCreateTeam": "Schüler:innen können keine Teams anlegen.",
 				"selectAnAdditionalOwner": "Wähle hier eine/n zusätzlichen Eigentümer:in für das Team aus:",
 				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen",
-				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter Admin kann diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktiviert/aktiviert werden."
+				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Weisungsberechtigte Admins können diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktivieren."
 			},
 			"text": {
 				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
