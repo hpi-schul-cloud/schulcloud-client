@@ -706,7 +706,7 @@
 				"cannotCreateTeam": "Los estudiantes no pueden crear equipos.",
 				"selectAnAdditionalOwner": "Selecciona un propietario adicional aquí para el equipo:",
 				"studentsAreAllowedToCreateTeam": "Los estudiantes pueden crear equipos",
-				"whenFunctionIsActivated": "Si esta función está activada, los estudiantes pueden utilizar la función de equipos de forma independiente y crear equipos \n\t\t\t\t\t\t sin que un profesor tenga que estar involucrado. Como administrador autorizado para dar instrucciones, esta función puede \n\t\t\t\t\t\t desactivarse/activarse de forma centralizada para toda la escuela."
+				"whenFunctionIsActivated": "Si esta función está activada, los estudiantes pueden utilizar la función de equipos de forma independiente y crear equipos \n\t\t\t\t\t\t sin que un profesor tenga que estar involucrado. Los administradores autorizados pueden desactivar/activar esta función \n\t\t\t\t\t\t de forma centralizada para toda la escuela."
 			},
 			"text": {
 				"functionality": "Esta funcionalidad está activada en todo el sistema en el directorio central y no se puede desactivar.",
