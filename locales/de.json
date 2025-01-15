@@ -705,8 +705,8 @@
 				"canCreateTeam": "Schüler:innen können Teams anlegen.",
 				"cannotCreateTeam": "Schüler:innen können keine Teams anlegen.",
 				"selectAnAdditionalOwner": "Wähle hier eine/n zusätzlichen Eigentümer:in für das Team aus:",
-				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen.",
-				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter Admin kannst du diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktiveren."
+				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen",
+				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Weisungsberechtigte Admins können diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktivieren."
 			},
 			"text": {
 				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
@@ -1423,7 +1423,7 @@
 			"rememberThisSelection": "Diese Auswahl merken",
 			"searchResultFor": "Suchergebnisse für",
 			"searchResults": "Suchergebnisse",
-			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen, oder Computer durchsuchen.",
+			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen oder Computer durchsuchen",
 			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
 			"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern hochgeladen werden."
