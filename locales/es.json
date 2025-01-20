@@ -705,8 +705,8 @@
 				"canCreateTeam": "Los estudiantes pueden crear equipos.",
 				"cannotCreateTeam": "Los estudiantes no pueden crear equipos.",
 				"selectAnAdditionalOwner": "Selecciona un propietario adicional aquí para el equipo:",
-				"studentsAreAllowedToCreateTeam": "Los estudiantes pueden crear equipos.",
-				"whenFunctionIsActivated": "Si esta función está activada, los estudiantes pueden utilizar la función de equipos de forma independiente y crear equipos \n\t\t\t\t\t\t sin que un profesor tenga que estar involucrado. Como administrador autorizado para dar instrucciones, puedes utilizar esta función de forma centralizada para \n\t\t\t\t\t\t desactivar/activar a toda la escuela."
+				"studentsAreAllowedToCreateTeam": "Los estudiantes pueden crear equipos",
+				"whenFunctionIsActivated": "Si esta función está activada, los estudiantes pueden utilizar la función de equipos de forma independiente y crear equipos \n\t\t\t\t\t\t sin que un profesor tenga que estar involucrado. Los administradores autorizados pueden desactivar/activar esta función \n\t\t\t\t\t\t de forma centralizada para toda la escuela."
 			},
 			"text": {
 				"functionality": "Esta funcionalidad está activada en todo el sistema en el directorio central y no se puede desactivar.",
@@ -1423,7 +1423,7 @@
 			"rememberThisSelection": "Recuerda esta selección",
 			"searchResultFor": "resultados de búsqueda para",
 			"searchResults": "Resultados de la búsqueda",
-			"storeFilesForUpload": "Coloque aquí los archivos para cargar, o busque en los ordenadores.",
+			"storeFilesForUpload": "Coloque aquí los archivos para cargar o busque en los ordenadores",
 			"studentCanEdit": "¿Los estudiantes pueden editar?",
 			"tips": "SUGERENCIA: abre el documento de LibreOffice en una ventana aparte para mejorar el rendimiento",
 			"uploadAfterFirstSave": "Los archivos solo se pueden cargar después del primer guardado."
@@ -1819,10 +1819,11 @@
 		},
 		"chooseTopicArea": {
 			"text": {
-				"chooseArea": "Selecciona el área",
+				"chooseArea": "Selecciona el tema",
 				"severalTopicsPossible": " Posibilidad de elegir entre varios temas",
 				"pAddOns": "Complementos",
 				"pAuthentication": "Autenticación",
+				"pBoards": "Juntas",
 				"pCalendar": "Calendario",
 				"pCommunication": "Comunicación",
 				"pCourses": "Cursos",
@@ -1836,8 +1837,10 @@
 				"pNews": "Noticias",
 				"pOther": "Otros",
 				"pPrivacy": "Protección de datos",
+				"pRooms": "Salas",
 				"pTasks": "Tareas",
-				"pTeams": "Equipos"
+				"pTeams": "Equipos",
+				"pTools": "Herramientas"
 			}
 		},
 		"confluence": {
@@ -1980,7 +1983,7 @@
 				"contactForm": "Formulario de contacto",
 				"contactPerson": "Persona de contacto",
 				"overview": "Visión general",
-				"problemArea": "Selecciona el área",
+				"problemArea": "Selecciona el tema",
 				"writeUsAnEmail": "Envíanos un correo electrónico"
 			}
 		},

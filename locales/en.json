@@ -705,8 +705,8 @@
 				"canCreateTeam": "Students can create teams.",
 				"cannotCreateTeam": "Students cannot create teams.",
 				"selectAnAdditionalOwner": "Select an additional owner for the team here:",
-				"studentsAreAllowedToCreateTeam": "Students may create teams.",
-				"whenFunctionIsActivated": "If this function is activated, students can use the teams function independently and create teams, \n\t\t\t\t\t\t without a teacher having to be involved. As an administrator authorized to issue instructions, you can use this function centrally for \n\t\t\t\t\t\t deactivating / activating the entire school."
+				"studentsAreAllowedToCreateTeam": "Students may create teams",
+				"whenFunctionIsActivated": "If this function is activated, students can use the teams function independently and create teams, \n\t\t\t\t\t\t without a teacher having to be involved. Authorized admins can deactivate/activate this function \n\t\t\t\t\t\t centrally for the entire school."
 			},
 			"text": {
 				"functionality": "This functionality is activated system-wide in the central directory and cannot be deactivated.",
@@ -1423,7 +1423,7 @@
 			"rememberThisSelection": "Remember this selection",
 			"searchResultFor": "search results for",
 			"searchResults": "Search results",
-			"storeFilesForUpload": "Place files to upload here, or search computer.",
+			"storeFilesForUpload": "Place files to upload here, or search computer",
 			"studentCanEdit": "Students can edit?",
 			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
 			"uploadAfterFirstSave": "Files can only be uploaded after the first save."
@@ -1819,10 +1819,11 @@
 		},
 		"chooseTopicArea": {
 			"text": {
-				"chooseArea": "Select area",
+				"chooseArea": "Select topic",
 				"severalTopicsPossible": " Selection of several topics is possible",
 				"pAddOns": "Add-Ons",
 				"pAuthentication": "Authentication",
+				"pBoards": "Boards",
 				"pCalendar": "Calendar",
 				"pCommunication": "Communication",
 				"pCourses": "Courses",
@@ -1836,8 +1837,10 @@
 				"pNews": "News",
 				"pOther": "Other",
 				"pPrivacy": "Privacy",
+				"pRooms": "Rooms",
 				"pTasks": "Tasks",
-				"pTeams": "Teams"
+				"pTeams": "Teams",
+				"pTools": "Tools"
 			}
 		},
 		"confluence": {
@@ -1980,7 +1983,7 @@
 				"contactForm": "Contact form",
 				"contactPerson": "Contact person",
 				"overview": "Overview",
-				"problemArea": "Select area",
+				"problemArea": "Select topic",
 				"writeUsAnEmail": "Send us an e-mail"
 			}
 		},
