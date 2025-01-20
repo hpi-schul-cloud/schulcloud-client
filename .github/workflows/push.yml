@@ -61,6 +61,8 @@ jobs:
       - name: Build and push ${{ github.repository }}
         if: ${{ env.IMAGE_EXISTS == 0 }}
         uses: docker/build-push-action@v6
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: false
         with:
           build-args: |
             SC_THEME_BUILD=${{ matrix.tenants }}
