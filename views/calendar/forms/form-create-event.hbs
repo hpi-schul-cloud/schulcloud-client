@@ -1,20 +1,21 @@
 <input name="scopeId" type="hidden" data-force-value="true" value="{{userId}}" />
 <div class="form-group">
     <label class="control-label" for="title">{{$t "global.label.title" }}</label>
-    <input data-testid="team_event_name" class="form-control" name="summary" required placeholder="{{$t "calendar.input.egHandballTraining"}}">
+    <input data-testid="{{testIdPrefix}}-event-name" class="form-control" name="summary" required placeholder="{{$t "calendar.input.egHandballTraining"}}">
 </div>
 <div class="form-group">
-    {{> "lib/forms/form-datetime-input" label=($t "global.label.from") id="startDate" class="input-group" }}
-    {{> "lib/forms/form-datetime-input" label=($t "global.label.to") id="endDate" class="input-group" }}
+    {{> "lib/forms/form-datetime-input" label=($t "global.label.from") id="startDate" class="input-group" dataTestId=(concat testIdPrefix "-startDate") }}
+    {{> "lib/forms/form-datetime-input" label=($t "global.label.to") id="endDate" class="input-group" dataTestId=(concat testIdPrefix "-endDate") }}
 </div>
 <div class="form-group">
     <label class="control-label" for="description">{{$t "global.label.description" }}</label>
-    <textarea class="form-control" name="description" aria-label="{{$t "global.label.description"}}" placeholder="" data-testid="team_event_description" ></textarea>
+    <textarea class="form-control" name="description" aria-label="{{$t "global.label.description"}}" placeholder="" data-testid="{{testIdPrefix}}-event-description"></textarea>
 </div>
 <div class="form-group">
     <label class="control-label" for="location">{{$t "calendar.label.location" }}</label>
-    <input id="location" data-testid="team_event_location" class="form-control" name="location" placeholder="{{$t "calendar.input.egGym"}}">
+    <input id="location" data-testid="{{testIdPrefix}}-event-location" class="form-control" name="location" placeholder="{{$t "calendar.input.egGym"}}">
 </div>
+
 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
     {{#if ../showVideoconferenceOption}}
     <div class="form-group create-videoconference hidden">

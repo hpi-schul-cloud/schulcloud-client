@@ -705,8 +705,8 @@
 				"canCreateTeam": "Schüler:innen können Teams anlegen.",
 				"cannotCreateTeam": "Schüler:innen können keine Teams anlegen.",
 				"selectAnAdditionalOwner": "Wähle hier eine/n zusätzlichen Eigentümer:in für das Team aus:",
-				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen.",
-				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Als weisungsberechtigter Admin kannst du diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktiveren."
+				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen",
+				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Weisungsberechtigte Admins können diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktivieren."
 			},
 			"text": {
 				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
@@ -1249,6 +1249,7 @@
 			"toTask": "Zur Aufgabe"
 		},
 		"text": {
+			"announcementBrb": "Neu bei bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Fertige Unterrichtseinheiten jetzt für Klasse 5 bis 8</a> und neue <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>Übungs- und Testaufgaben für Jahrgangsstufe 4 bis 13</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Hier</a> finden Sie unsere Kursbeispiele/Themenvorschläge für die Schul-Cloud Brandenburg: einsehen, auswählen und als eigenen Kurs <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>importieren</a>!",
 			"emptyHomeworksInfo": "Keine gestellten Aufgaben. Du findest alle Aufgaben im Aufgaben-Bereich.",
 			"emptyNewsInfo": "Bisher gibt es keine News.",
 			"graded": "Bewertet",
@@ -1422,7 +1423,7 @@
 			"rememberThisSelection": "Diese Auswahl merken",
 			"searchResultFor": "Suchergebnisse für",
 			"searchResults": "Suchergebnisse",
-			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen, oder Computer durchsuchen.",
+			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen oder Computer durchsuchen",
 			"studentCanEdit": "Schüler:innen können editieren?",
 			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
 			"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern hochgeladen werden."
@@ -1748,6 +1749,7 @@
 				"administration": "Administration",
 				"administrationClasses": "Klassen",
 				"administrationCourses": "Kurse",
+				"rooms": "Räume",
 				"system": "System",
 				"accessibility": "Barrierefreiheit",
 				"mediaShelf": "Medienregal"
@@ -1817,10 +1819,11 @@
 		},
 		"chooseTopicArea": {
 			"text": {
-				"chooseArea": "Bereich wählen",
+				"chooseArea": "Thema wählen",
 				"severalTopicsPossible": " Auswahl mehrerer Themen möglich",
 				"pAddOns": "Zusatzangebote",
 				"pAuthentication": "Authentifizierung",
+				"pBoards": "Bereiche",
 				"pCalendar": "Termine",
 				"pCommunication": "Kommunikation",
 				"pCourses": "Kurse",
@@ -1834,8 +1837,10 @@
 				"pNews": "Neuigkeiten",
 				"pOther": "Sonstiges",
 				"pPrivacy": "Datenschutz",
+				"pRooms": "Räume",
 				"pTasks": "Aufgaben",
-				"pTeams": "Teams"
+				"pTeams": "Teams",
+				"pTools": "Tools"
 			}
 		},
 		"confluence": {
@@ -1978,7 +1983,7 @@
 				"contactForm": "Kontaktformular",
 				"contactPerson": "Ansprechpartner:in",
 				"overview": "Überblick",
-				"problemArea": "Bereich auswählen",
+				"problemArea": "Thema auswählen",
 				"writeUsAnEmail": "Schreib uns eine E-Mail"
 			}
 		},
@@ -2246,7 +2251,8 @@
 				"valueStatement": "<li>eine konsequente Nutzung von Open Source Lösungen,</li><li>eine durchgängig nutzerzentrierte Entwicklung,</li><li>einen strikt modularen Aufbau,</li><li>die für ein Flächenland wichtige Funktion der schulübergreifenden Zusammenarbeit,</li><li>die EU-DSGVO/Datenschutz-Konformität durch Privacy by Design,</li><li>die Möglichkeit, durch die Zusammenarbeit der Verbundländer Brandenburg, Niedersachsen und Thüringen Synergien zu schaffen.</li><br>",
 				"welcome": "Mit der {{shortTitle}} steht Schulen in Brandenburg eine intuitiv nutzbare und datenschutzkonforme, digitale Lehr-Lernumgebung für den Schulunterricht bereit, die schulformübergreifend eingesetzt werden kann. Die Grundidee der Schul-Cloud ist es, Bildungsinhalte webbasiert überall erreichbar zu machen.",
 				"welcome2": "Seit dem 01.08.2021 wird die {{shortTitle}} auf Grundlage eines Verwaltungsabkommens der Verbundländer Brandenburg, Niedersachsen und Thüringen unter Berücksichtigung landesspezifischer Anforderungen in eine länderübergreifende Lehr- und Lerninfrastruktur überführt und gemeinschaftlich weiterentwickelt.",
-				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>"
+				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>",
+				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Sprechzeiten <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>"
 			}
 		},
 		"label": {
@@ -2593,7 +2599,9 @@
 			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an.",
 			"userNotFoundAfterProvisioning": "Login fehlgeschlagen. Entweder ist die Schule noch nicht zu {{systemName}} umgezogen oder die Erstellung neuer Nutzer in der {{shortTitle}} ist für die Schule nicht aktiv. Bitte wenden Sie sich an Ihren Schuladministrator.",
 			"multipleUsersFound": "Dieser moin.schule-Benutzer kann nicht eindeutig einem Account in der Niedersächsischen Bildungscloud zugeordnet werden. Bitte Support benachrichtigen!",
-			"userAccountDeactivated": "Ihr Konto wurde deaktiviert. Bitte wenden Sie sich an Ihren Schuladministrator."
+			"userAccountDeactivated": "Ihr Konto wurde deaktiviert. Bitte wenden Sie sich an Ihren Schuladministrator.",
+			"externalUserRoleUnknown": "Konto mit einer unbekannten Nutzer-Rolle kann nicht angemeldet werden. Bitte an Schuladministrator wenden.",
+			"unprocessableData": "Die Daten des Anmeldesystems konnten nicht vollständig verarbeitet werden. Bitte erneut versuchen oder den Support kontaktieren."
 		}
 	},
 	"messenger": {
@@ -3057,7 +3065,8 @@
 					"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler:innen und Lehrkräfte ihrer Schule zum Team hinzufügen.",
 					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
-					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen"
+					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen",
+					"multipleTeachersWithEmail": "Es wurden mehrere Lehrkräfte mit dieser E-Mail gefunden. Bitte wähle die gewollte Lehrkraft aus:"
 				}
 			},
 			"news": {

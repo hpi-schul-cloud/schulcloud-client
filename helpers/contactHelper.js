@@ -9,6 +9,10 @@ const getSortedHelpOtions = (res) => {
 			optionText: res.$t('help.chooseTopicArea.text.pAuthentication'),
 		},
 		{
+			optionValue: 'Bereiche',
+			optionText: res.$t('help.chooseTopicArea.text.pBoards'),
+		},
+		{
 			optionValue: 'Dateien',
 			optionText: res.$t('help.chooseTopicArea.text.pMyFiles'),
 		},
@@ -45,6 +49,10 @@ const getSortedHelpOtions = (res) => {
 			optionText: res.$t('help.chooseTopicArea.text.pNews'),
 		},
 		{
+			optionValue: 'Raueme',
+			optionText: res.$t('help.chooseTopicArea.text.pRooms'),
+		},
+		{
 			optionValue: 'Sonstige',
 			optionText: res.$t('help.chooseTopicArea.text.pOther'),
 		},
@@ -55,6 +63,10 @@ const getSortedHelpOtions = (res) => {
 		{
 			optionValue: 'Termine',
 			optionText: res.$t('help.chooseTopicArea.text.pCalendar'),
+		},
+		{
+			optionValue: 'Tools',
+			optionText: res.$t('help.chooseTopicArea.text.pTools'),
 		},
 		{
 			optionValue: 'Uebersicht',

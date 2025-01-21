@@ -63,10 +63,9 @@
 			"type": "string",
 			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
 		},
-		"DASHBOARD_ANNOUNCEMENT_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "enbale announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
+		"DASHBOARD_ANNOUNCEMENT_TEXT": {
+			"type": "string",
+			"description": "announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
 		},
 		"DASHBOARD_ANNOUNCEMENT_ROLES": {
 			"type": "string",
@@ -386,8 +385,13 @@
 		},
 		"ACCESSIBILITY_REPORT_EMAIL": {
 			"type": "string",
-			"default": "lernen.cloud@dataport.de",
+			"default": "dbildungscloud@dataport.de",
 			"description": "Email to report accessibility issue"
+		},
+		"TRAINING_URL": {
+			"type": "string",
+			"default": "https://lernen.dbildungscloud.de",
+			"description": "URL for the platform training material"
 		},
 		"I18N": {
 			"type": "object",
@@ -492,12 +496,12 @@
 		},
 		"FEATURE_CTL_TOOLS_TAB_ENABLED": {
 			"type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "Enables new CTL-tool tab in a course"
 		},
 		"FEATURE_LTI_TOOLS_TAB_ENABLED": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Enables old LTI-tool tab in a course"
 		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
@@ -597,6 +601,11 @@
 			"default": false,
 			"description": "Enables the new class list view"
 		},
+		"FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the new rooms view"
+		},
 		"FEATURE_GROUPS_IN_COURSE_ENABLED": {
 			"type": "boolean",
 			"default": false,
@@ -612,10 +621,15 @@
 			"default": false,
 			"description": "Enables the media shelf feature"
 		},
-		"FEATURE_NEW_LAYOUT_ENABLED": {
+		"FEATURE_ROOMS_ENABLED": {
 			"type": "boolean",
 			"default": false,
-			"description": "Enables the new layout feature"
+			"description": "Enables the rooms feature"
+		},
+		"FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the external system logout feature"
 		}
 	},
 	"allOf": [

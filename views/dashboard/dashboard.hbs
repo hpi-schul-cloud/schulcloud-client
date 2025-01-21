@@ -75,14 +75,17 @@
         </div>
     {{/if}}
 
-    {{#hasConfig "DASHBOARD_ANNOUNCEMENT_ENABLED"}}
+    {{#hasConfig "DASHBOARD_ANNOUNCEMENT_TEXT"}}
         {{#hasConfig "DASHBOARD_ANNOUNCEMENT_ROLES"}}
-            {{#ifeq (getConfig "DASHBOARD_ANNOUNCEMENT_ENABLED") true}}
+            {{#ifneq (getConfig "DASHBOARD_ANNOUNCEMENT_TEXT") ""}}
                 {{#ifneq (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ""}}
                     {{#if (userHasRoleFromArray (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ../currentUser)}}
+                        <div class="alert dashboard-notification" role="alert">
+                            <i class="fa fa-fw fa-lightbulb-o fa-lg" style="margin: 6px 0.5rem 0 0.5rem" aria-hidden="true"></i><p class="dashboard-notification-text">{{{$t (getConfig "DASHBOARD_ANNOUNCEMENT_TEXT") }}}</p>
+                        </div>
                     {{/if}}
                 {{/ifneq}}
-            {{/ifeq}}
+            {{/ifneq}}
         {{/hasConfig}}
     {{/hasConfig}}
 </section>

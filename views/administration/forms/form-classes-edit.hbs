@@ -5,7 +5,7 @@
 	<input type="hidden" name="referrer" value="{{../referrer}}" />
 
 	<a class="d-block mb-1" href="/administration/classes/{{../class/_id}}/manage"
-		title="Klasse '{{../class.name}}' verwalten.">
+		title="Klasse '{{../class.name}}' verwalten." data-testid="manage-class-btn">
 		<i class="fa fa-users"></i> {{$t "administration.classes.text.manageClass" }}
 	</a>
 {{/ifeq}}
@@ -17,7 +17,7 @@
 	{{/each}}
 {{/ifeq}}
 
-<div class="form-group">
+<div class="form-group" data-testid="class-school-year-selection">
 	<label>{{$t "administration.global.label.schoolYear" }} <sup>*</sup></label>
 	<select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen"
 		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled {{/unless}}{{/ifCond}}>
@@ -29,7 +29,7 @@
 	</select>
 </div>
 
-<div class="form-group">
+<div class="form-group" data-testid="class-teacher-selection">
 	<label>{{$t "administration.classes.label.selectTeacher" }}</label>
 
 	<select name="teacherIds[]" multiple data-placeholder="{{$t "global.placeholder.selectTeacher" }}">
@@ -78,7 +78,7 @@
 				required value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}} />
 		</div>
 		<label class="my-1">
-			<input name="keepyear" type="checkbox" value="true"
+			<input name="keepyear" type="checkbox" value="true" data-testid="maintain-school-year-in-class"
 				{{#ifCond edit '&&' isCustom}}{{#if @root.class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}}
 				{{#unless isCustom}}disabled{{/unless}} />
 			<span>{{$t "administration.classes.label.maintainSchoolYearAssignment" }}</span>
@@ -112,7 +112,7 @@
 		{{/userHasPermission}}
 	{{/ifeq}}
 	{{#ifeq mode "edit"}}
-		<button class="btn btn-primary" type="submit" disabled>{{$t "global.button.saveChanges" }}</button>
+		<button data-testId="confirm-class-edit" class="btn btn-primary" type="submit" disabled>{{$t "global.button.saveChanges" }}</button>
 		{{#if ../isUpgradable}}
 			<a class="btn btn-outline-primary" href="/administration/classes/{{@root.class.id}}/createSuccessor">{{$t "administration.classes.button.transferClassToTheNextSchoolYear" }}</a>
 		{{/if}}

@@ -344,6 +344,11 @@
 								</option>
 								{{/each}} </select> </div> {{/if}}
 						{{> "lib/components/csrfInput"}}
+
+                        {{#each @root.school.features}}
+                            <input type="hidden" name="features[]" value="{{this}}">
+                        {{/each}}
+
 						<button type="submit" class="btn btn-primary btn-submit" data-testid="school-administration-save-general-setting">{{$t "administration.school.button.saveGeneralSettings" }}</button>
 					</form>
 

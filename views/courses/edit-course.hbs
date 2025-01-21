@@ -138,14 +138,14 @@
 				<div class="form-group">
 					<label for="teacherId">{{$t "administration.global.label.teachingTeacher"}}</label>
                     <select id="teacherId" name="teacherIds[]" data-testid="teachersearch" required multiple data-placeholder="{{$t "courses.global.input.chooseTeacher"}}"
-                            {{#ifCond course.isArchived '||' course.syncedWithGroup}}disabled{{/ifCond}}>
+                            {{#ifCond course.isArchived '||' areTeachersSynced}}disabled{{/ifCond}}>
                         {{#each teachers}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.isHidden}}hidden{{/if}}>
                                 {{this.lastName}}, {{this.firstName}}{{#if this.outdatedSince}} ~~{{/if}}
                             </option>
                         {{/each}}
                     </select>
-                    {{#if course.syncedWithGroup}}
+                    {{#if areTeachersSynced}}
                         <input type="hidden" id="teacherIdSync" name="teacherIds" value="{{teachersSelected}}">
                     {{/if}}
 					<span class="small course-validation-error" id="courseTeacherErr">
@@ -300,6 +300,9 @@
 					</button>
 				</div>
 
+                {{#if course.syncedWithGroup}}
+                    <input type="hidden" id="excludeFromSync" name="excludeFromSync" value="{{excludeFromSync}}">
+                {{/if}}
 
 				{{#unless @root.course.isArchived}}
 					<div class="modal-footer">

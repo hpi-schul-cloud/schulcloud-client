@@ -320,7 +320,7 @@ const determineRedirectUrl = (req) => {
 
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
-		.get('/systems/public?onlyOauth=true')
+		.get('/systems/public?types=oauth')
 		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
 }
 
@@ -463,8 +463,8 @@ const sessionDestroyer = (req, res, rej, next) => {
 };
 
 router.get('/logout/', (req, res, next) => {
-	api(req)
-		.del('/authentication') // async, ignore result
+	api(req, { version: 'v3' })
+		.post('/logout') // async, ignore result
 		.catch((err) => {
 			logger.error('error during logout.', formatError(err));
 		});
@@ -482,6 +482,23 @@ router.get('/logout/', (req, res, next) => {
 			res.redirect('/');
 		})
 		.catch(next);
+});
+
+router.get('/logout/external/', async (req, res, next) => {
+	let redirectUri = '/logout/';
+	if (Configuration.has('OAUTH2_LOGOUT_URI')) {
+		redirectUri = Configuration.get('OAUTH2_LOGOUT_URI');
+	}
+
+	if (res.locals.isExternalLogoutAllowed) {
+		try {
+			await api(req, { version: 'v3' }).post('/logout/external');
+		} catch (err) {
+			logger.error('error during external logout.', formatError(err));
+		}
+	}
+
+	res.redirect(redirectUri);
 });
 
 module.exports = router;

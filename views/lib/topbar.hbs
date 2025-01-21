@@ -3,7 +3,7 @@
     <button class="icon-btn sidebar-toggle-button-in-topbar" title="{{$t "lib.loggedin.label.sidebarMenu"}}" aria-label="{{$t "lib.loggedin.label.sidebarMenu"}}">
         <i id="sidebar-toggle-icon-in-topbar" class="mdi mdi-menu"></i>
     </button>
-    <a class="logo-wrapper" href="/" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
+    <a class="logo-wrapper" href="/dashboard" title="{{$t "global.link.landing"}}" data-testid="{{$t "global.link.landing"}}">
         <div class="logo"></div>
         <div class="sc-title"><span>{{theme.short_title}}</span></div>
     </a>
@@ -59,7 +59,22 @@
                   <hr>
                   {{> "user/forms/language" language=@root.userLanguage }}
                   <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
-                  <li><a class="dropdown-item localstorageclear" data-testid="logout" href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}} role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}">{{$t "lib.loggedin.tab_label.signOut"}}</a></li>
+                  {{#if isExternalLogoutAllowed}}
+                      <li><a class="dropdown-item"
+                          data-testid="external-logout"
+                          href="/logout/external/"
+                          role="menuitem"
+                          aria-label="{{$t 'lib.loggedin.tab_label.signOut'}} Bildungscloud & {{ systemName }}">
+                              {{$t 'lib.loggedin.tab_label.signOut'}} Bildungscloud & {{ systemName }}
+                      </a></li>
+                  {{/if}}
+                  <li><a class="dropdown-item localstorageclear"
+                      data-testid="logout"
+                      role="menuitem"
+                      href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}}
+                      aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}{{#if isExternalLogoutAllowed}} Bildungscloud{{/if}}">
+                          {{$t 'lib.loggedin.tab_label.signOut'}}{{#if isExternalLogoutAllowed}} Bildungscloud{{/if}}
+                  </a></li>
               </ul>
           </div>
       </li>

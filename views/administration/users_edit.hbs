@@ -161,7 +161,7 @@
                     <div class="pull-left">
                         {{#unless schoolUsesLdap}}
                         {{#ifCond isAdmin '|| !' editTeacher}}
-                        <button style="margin: 0 10px 20px 0" class="btn btn-secondary btn-pw"
+                        <button style="margin: 0 10px 20px 0" class="btn btn-secondary btn-pw" data-testid="button-change-password"
                             {{#if @root.hidePwChangeButton}}
                                 disabled
                                 {{#if @root.consentNecessary}}
@@ -178,7 +178,7 @@
                             class="btn btn-secondary btn-delete" data-testid="button_delete_user">{{$t "administration.users_edit.headline.deleteUser" }}</button>
                         {{/if}}
                         <button style="margin: 0 10px 20px 0" style="margin:15px"
-                            class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
+                            class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}" data-testid="generate-registration-link"
                             {{#if hasAccount}} disabled {{/if}}
                             {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}
                             title="{{$t "administration.users_edit.button.alreadyRegistered" }}" {{/ifeq}}>

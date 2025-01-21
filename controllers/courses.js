@@ -23,6 +23,10 @@ const router = express.Router();
 const { HOST } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
 
+const SYNC_ATTRIBUTE = Object.freeze({
+	TEACHERS: 'teachers',
+});
+
 const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then((data) => data.data);
@@ -65,8 +69,12 @@ const getSyncedElements = 	(
 	res,
 	syncedWithGroup,
 ) => {
-	const startDate = course.startDate ? timesHelper.formatDate(course.startDate, 'DD.MM.YYYY') : undefined;
-	const untilDate = course.untilDate ? timesHelper.formatDate(course.untilDate, 'DD.MM.YYYY') : undefined;
+	const startDate = course.startDate
+		? timesHelper.formatDate(course.startDate, timesHelper.FORMAT.dateTime)
+		: undefined;
+	const untilDate = course.untilDate
+		? timesHelper.formatDate(course.untilDate, timesHelper.FORMAT.dateTime)
+		: undefined;
 
 	const selectedElements = {
 		teachersSelected: selectedElementIdsToString(markSelected(teachers, course.teacherIds)),
@@ -76,8 +84,9 @@ const getSyncedElements = 	(
 		startDate,
 		untilDate,
 		syncedWithGroup,
+		excludeFromSync: course.excludeFromSync?.join(','),
+		areTeachersSynced: !course.excludeFromSync?.includes(SYNC_ATTRIBUTE.TEACHERS),
 	};
-
 	return selectedElements;
 };
 
@@ -192,11 +201,13 @@ const editCourseHandler = (req, res, next) => {
 
 	const teachersPromise = getSelectOptions(req, 'users', {
 		roles: ['teacher'],
+		schoolId: res.locals.currentSchool,
 		$limit: false,
 		$sort: 'lastName',
 	});
 	const studentsPromise = getSelectOptions(req, 'users', {
 		roles: ['student'],
+		schoolId: res.locals.currentSchool,
 		$limit: false,
 		$sort: 'lastName',
 	});
@@ -221,7 +232,7 @@ const editCourseHandler = (req, res, next) => {
 		studentsPromise,
 		scopePermissions,
 		groupPromise,
-	]).then(([course, _classesAndGroups, _teachers, _students, _scopePermissions, group]) => {
+	]).then(([course, _classesAndGroups, teachers, students, _scopePermissions, group]) => {
 		// these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		let classesAndGroups = [];
 		if (FEATURE_GROUPS_IN_COURSE_ENABLED) {
@@ -232,12 +243,6 @@ const editCourseHandler = (req, res, next) => {
 			).sort();
 		}
 
-		const teachers = _teachers.filter(
-			(t) => t.schoolId === res.locals.currentSchool,
-		);
-		const students = _students.filter(
-			(s) => s.schoolId === res.locals.currentSchool,
-		);
 		teachers.forEach((teacher) => {
 			teacher.isHidden = isUserHidden(teacher, res.locals.currentSchoolData);
 		});
@@ -301,8 +306,24 @@ const editCourseHandler = (req, res, next) => {
 
 		if (syncedGroupId && group) {
 			course.name = group.name;
-			course.teacherIds = getUserIdsByRole(group.users, 'teacher');
+
+			const teacherIds = getUserIdsByRole(group.users, 'teacher');
+			const isTeacherInGroup = teacherIds.some((tid) => tid === res.locals.currentUser._id);
+			const isTeacher = res.locals.currentUser.roles.map((role) => role.name).includes('teacher');
+			if (!isTeacherInGroup && isTeacher) {
+				course.excludeFromSync = [SYNC_ATTRIBUTE.TEACHERS];
+				course.teacherIds = [res.locals.currentUser._id];
+			} else {
+				course.teacherIds = teacherIds;
+			}
+
 			course.userIds = getUserIdsByRole(group.users, 'student');
+			course.substitutionIds = getUserIdsByRole(group.users, 'groupSubstitutionTeacher')
+				.filter((subTeacherId) => !course.teacherIds.includes(subTeacherId));
+			if (group.validPeriod) {
+				course.startDate = timesHelper.fromUTC(group.validPeriod.from);
+				course.untilDate = timesHelper.fromUTC(group.validPeriod.until);
+			}
 		}
 
 		const syncedElements = (course.syncedWithGroup || syncedGroupId) ? getSyncedElements(
@@ -569,7 +590,7 @@ router.post('/', (req, res, next) => {
 		req.body.untilDate = untilDate.toDate();
 	}
 
-	const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+	const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds', 'excludeFromSync'];
 	req.body = strToPropsArray(req.body, keys);
 
 	req.body.features = [];
@@ -834,11 +855,11 @@ router.patch('/:courseId', async (req, res, next) => {
 			req.body.substitutionIds = [];
 		}
 
-		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds'];
+		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds', 'excludeFromSync'];
 		req.body = strToPropsArray(req.body, keys);
 
-		const startDate = timesHelper.dateStringToMoment(req.body.startDate);
-		const untilDate = timesHelper.dateStringToMoment(req.body.untilDate);
+		const startDate = timesHelper.dateTimeStringToMoment(req.body.startDate).utc();
+		const untilDate = timesHelper.dateTimeStringToMoment(req.body.untilDate).utc();
 
 		delete req.body.startDate;
 		if (startDate.isValid()) {

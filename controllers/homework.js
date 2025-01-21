@@ -186,6 +186,8 @@ const getCreateHandler = (service) => (req, res, next) => {
 						req,
 						`${base}/${referrer}`,
 					);
+				}).catch((err) => {
+					next(err);
 				});
 		}
 

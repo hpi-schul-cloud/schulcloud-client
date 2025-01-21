@@ -42,7 +42,7 @@
 			<div id="collapseBrb" class="collapse" aria-labelledby="brbAccordion" data-parent="#accordionRegistration">
 				<div class="card-body p-1">
 					{{$t "community.text.inBrandenburgTheAdmissionOfNewSchools"}}<br>
-					{{$t "community.text.forGeneralQuestionsPleaseContact"}}<br> 
+					{{$t "community.text.forGeneralQuestionsPleaseContact"}}<br>
 					<a href="mailto:schul-cloud@bildungsserver.berlin-brandenburg.de">schul-cloud@bildungsserver.berlin-brandenburg.de</a>
 				</div>
 			</div>
@@ -84,8 +84,8 @@
 	</div>
 
 	<p class="mt-3">
-		{{$t "community.text.youCanGetSupport"}} <a href="https://lernen.cloud/"
-			target="_blank">https://lernen.cloud</a>.
+		{{$t "community.text.youCanGetSupport"}} <a href="{{getConfig "TRAINING_URL"}}"
+			target="_blank">{{{getConfig "TRAINING_URL"}}}</a>.
 	</p>
 	{{/content}}
 	{{/embed}}

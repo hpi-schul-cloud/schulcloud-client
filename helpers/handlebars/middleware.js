@@ -9,6 +9,7 @@ const {
 	ALERT_STATUS_URL,
 	SC_THEME,
 } = require('../../config/global');
+const { permission } = require('process');
 
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
@@ -173,6 +174,18 @@ module.exports = (req, res, next) => {
 		});
 	}
 
+	// Rooms Feature Toggle
+	const roomsEnabled = Configuration.get('FEATURE_ROOMS_ENABLED');
+	if (roomsEnabled) {
+		res.locals.sidebarItems.splice(1, 0, {
+			name: res.$t('global.sidebar.link.rooms'),
+			testId: 'Rooms',
+			icon: 'account-supervisor-circle-outline',
+			link: '/rooms',
+			permission: 'ROOM_CREATE',
+		});
+	}
+
 	// teacher views
 	const newClassViewEnabled = Configuration.get('FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED');
 	const teacherChildren = [
@@ -268,6 +281,8 @@ module.exports = (req, res, next) => {
 
 	// admin views
 	const newSchoolAdminPageAsDefault = Configuration.get('FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED');
+	const newRoomsViewEnabled = Configuration.get('FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED');
+
 	const adminChildItems = [
 		{
 			name: res.$t('global.link.administrationStudents'),
@@ -315,6 +330,14 @@ module.exports = (req, res, next) => {
 		},
 	];
 
+	if (newRoomsViewEnabled) {
+		adminChildItems.splice(2, 1, {
+			name: res.$t('global.sidebar.link.administrationCourses'),
+			testId: 'Kurse',
+			icon: 'school-outline',
+			link: '/administration/rooms/new',
+		});
+	}
 	if (newClassViewEnabled) {
 		adminChildItems.splice(3, 1, {
 			name: res.$t('global.sidebar.link.administrationClasses'),
@@ -339,7 +362,7 @@ module.exports = (req, res, next) => {
 	// team feature toggle
 	const teamsEnabled = FEATURE_TEAMS_ENABLED === 'true';
 	if (teamsEnabled) {
-		res.locals.sidebarItems.splice(2, 0, {
+		res.locals.sidebarItems.splice(roomsEnabled ? 3 : 2, 0, {
 			name: res.$t('global.link.teams'),
 			testId: 'Teams',
 			icon: 'account-group-outline',
@@ -355,6 +378,7 @@ module.exports = (req, res, next) => {
 		});
 	}
 	// helpArea view
+	const trainingUrl = Configuration.get('TRAINING_URL');
 	res.locals.sidebarItems.push({
 		name: res.$t('global.link.helpArea'),
 		testId: 'Hilfebereich',
@@ -378,73 +402,66 @@ module.exports = (req, res, next) => {
 				name: res.$t('lib.help_menu.link.training'),
 				testId: 'Fortbildungen',
 				icon: 'file-certificate-outline',
-				link: 'https://lernen.cloud/',
+				link: trainingUrl,
 				isExternalLink: true,
 			},
 		],
 	});
 
+	// system group
+	const systemLinks = [];
 
-	// new sidebar
-
-	if (Configuration.get('FEATURE_NEW_LAYOUT_ENABLED')) {
-		// system group
-		const systemLinks = [];
-
-		if (ALERT_STATUS_URL) {
-			systemLinks.push({
-				link: ALERT_STATUS_URL,
-				name: res.$t('lib.global.link.status'),
-				testId: 'status',
-				isExternalLink: true,
-			});
-		}
-
-		if (SC_THEME !== 'default') {
-			systemLinks.push({
-				link: res.locals.theme.documents.specificFiles.accessibilityStatement,
-				name: res.$t('lib.global.link.accessibilityStatement'),
-				testId: 'accessibility-statement',
-				isExternalLink: true,
-			});
-		}
-
+	if (ALERT_STATUS_URL) {
 		systemLinks.push({
-			name: res.$t('lib.help_menu.link.releaseNotes'),
-			link: '/system/releases',
-			testId: 'releases',
+			link: ALERT_STATUS_URL,
+			name: res.$t('lib.global.link.status'),
+			testId: 'status',
+			isExternalLink: true,
 		});
-
-		if (SC_THEME !== 'n21') {
-			systemLinks.push({
-				name: res.$t('lib.global.link.github'),
-				link: 'https://github.com/hpi-schul-cloud',
-				testId: 'github',
-				isExternalLink: true,
-			});
-		}
-
-		if (SC_THEME === 'default') {
-			systemLinks.push({
-				link: '/system/security',
-				name: res.$t('lib.global.link.safety'),
-				testId: 'security',
-			});
-		}
-
-		res.locals.sidebarItems.push(
-			{
-				name: res.$t('global.sidebar.link.system'),
-				icon: 'application-brackets-outline',
-				testId: 'system',
-				groupName: 'system',
-				link: '/system/',
-				children: systemLinks,
-			},
-		);
 	}
 
-	// end new sidebar
+	if (SC_THEME !== 'default') {
+		systemLinks.push({
+			link: res.locals.theme.documents.specificFiles.accessibilityStatement,
+			name: res.$t('lib.global.link.accessibilityStatement'),
+			testId: 'accessibility-statement',
+			isExternalLink: true,
+		});
+	}
+
+	systemLinks.push({
+		name: res.$t('lib.help_menu.link.releaseNotes'),
+		link: '/system/releases',
+		testId: 'releases',
+	});
+
+	if (SC_THEME !== 'n21') {
+		systemLinks.push({
+			name: res.$t('lib.global.link.github'),
+			link: 'https://github.com/hpi-schul-cloud',
+			testId: 'github',
+			isExternalLink: true,
+		});
+	}
+
+	if (SC_THEME === 'default') {
+		systemLinks.push({
+			link: '/system/security',
+			name: res.$t('lib.global.link.safety'),
+			testId: 'security',
+		});
+	}
+
+	res.locals.sidebarItems.push(
+		{
+			name: res.$t('global.sidebar.link.system'),
+			icon: 'application-brackets-outline',
+			testId: 'system',
+			groupName: 'system',
+			link: '/system/',
+			children: systemLinks,
+		},
+	);
 
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 

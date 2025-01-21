@@ -594,7 +594,6 @@ const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, 
 			redirectHelper.safeBackRedirect(req, res);
 		})
 		.catch((error) => {
-			logger.error(error);
 			next(error);
 		});
 };
@@ -1289,7 +1288,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 						.map((u) => u._id),
 					consentStatus: { $in: ['missing', 'parentsAgreed'] },
 					$limit: batchSize,
-					$sort: { 'lastName': 1},
+					$sort: { lastName: 1 },
 				},
 			})).data,
 		);
@@ -2128,15 +2127,19 @@ router.get(
 				key: 'upcoming',
 				title: `${upcomingYears.pop().name}`,
 				link: `/administration/classes/?showTab=upcoming${filterQueryString}`,
+				testId: 'upcoming-tab'
 			},
 			{
 				key: 'current',
 				title: `${currentYear.name}`,
 				link: `/administration/classes/?showTab=current${filterQueryString}`,
-			},			{
+				testId: 'current-tab'
+			},
+			{
 				key: 'archive',
 				title: res.$t('global.tab.label.archive'),
 				link: `/administration/classes/?showTab=archive${filterQueryString}`,
+				testId: 'archive-tab'
 			},
 		];
 
@@ -2162,11 +2165,13 @@ router.get(
 							link: `${basePath + item._id}/manage`,
 							icon: 'users',
 							title: res.$t('administration.controller.link.manageClass'),
+							testId: 'manage-class'
 						},
 						{
 							link: `${basePath + item._id}/edit`,
 							icon: 'edit',
 							title: res.$t('administration.controller.link.editClass'),
+							testId: 'edit-class'
 						},
 						{
 							link: basePath + item._id,
@@ -2174,6 +2179,7 @@ router.get(
 							icon: 'trash-o',
 							method: 'delete',
 							title: res.$t('administration.controller.link.deleteClass'),
+							testId: 'delete-class'
 						},
 					];
 					if (lastDefinedSchoolYear !== (item.year || {})._id
@@ -2260,6 +2266,8 @@ const schoolUpdateHandler = async (req, res, next) => {
 		name,
 		language,
 		logo_dataUrl,
+		rocketChat,
+		videoconference,
 	} = req.body;
 
 	let logo;
@@ -2270,6 +2278,20 @@ const schoolUpdateHandler = async (req, res, next) => {
 		};
 	}
 
+	const features = new Set(req.body.features);
+
+	if (rocketChat) {
+		features.add('rocketChat');
+	} else {
+		features.delete('rocketChat');
+	}
+
+	if (videoconference) {
+		features.add('videoconference');
+	} else {
+		features.delete('videoconference');
+	}
+
 	const requestBody = {
 		name,
 		language,
@@ -2277,7 +2299,7 @@ const schoolUpdateHandler = async (req, res, next) => {
 			student: { LERNSTORE_VIEW: false },
 			teacher: { STUDENT_LIST: false },
 		},
-		features: [],
+		features: Array.from(features),
 		logo,
 	};
 
@@ -2291,17 +2313,6 @@ const schoolUpdateHandler = async (req, res, next) => {
 		const studentLernstoreFeature = Configuration.get('FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED');
 		if (studentLernstoreFeature) {
 			requestBody.permissions.student.LERNSTORE_VIEW = !!req.body.studentlernstorevisibility;
-		}
-
-		// Update school features
-		const possibleSchoolFeatures = [
-			'messenger', 'messengerSchoolRoom', 'messengerStudentRoomCreate', 'rocketChat', 'videoconference',
-		];
-
-		for (const feature of possibleSchoolFeatures) {
-			if (req.body[feature] === 'true') {
-				requestBody.features.push(feature);
-			}
 		}
 
 		await api(req, { version: 'v3' }).patch(`/school/${res.locals.currentSchool}`, {
@@ -2393,6 +2404,7 @@ router.all('/courses', (req, res, next) => {
 		roles: ['student'],
 		$limit: 1000,
 	});
+	const newRoomViewEnabled = Configuration.get('FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED');
 
 	Promise.all([
 		coursesPromise,
@@ -2415,7 +2427,8 @@ router.all('/courses', (req, res, next) => {
 			(item.teacherIds || []).map((item) => `${item.lastName}${item.outdatedSince ? ' ~~' : ''}`).join(', '),
 			[
 				{
-					link: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+					link: newRoomViewEnabled ? `/courses/${item._id}/edit?redirectUrl=/administration/rooms/new`
+						: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
 					icon: 'edit',
 					title: res.$t('administration.controller.link.editEntry'),
 				},
