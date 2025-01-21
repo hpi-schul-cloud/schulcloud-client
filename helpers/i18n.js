@@ -93,6 +93,26 @@ const changeLanguage = (langAttribute) => {
 	if (availableLanguages.includes(langAttribute)) {
 		const momentOptions = momentHelper.selectMomentOptions(langAttribute);
 		i18nMoment.locale(langAttribute, momentOptions);
+		if (langAttribute === 'de') {
+			i18nMoment.updateLocale('de', {
+				relativeTime: {
+					future: 'in %s',
+					past: 'vor %s',
+					s: 'ein paar Sekunden',
+					ss: '%d Sekunden',
+					m: 'einer Minute',
+					mm: '%d Minuten',
+					h: 'einer Stunde',
+					hh: '%d Stunden',
+					d: 'einem Tag',
+					dd: '%d Tagen',
+					M: 'einem Monat',
+					MM: '%d Monaten',
+					y: 'einem Jahr',
+					yy: '%d Jahren',
+				},
+			});
+		}
 		return i18next.changeLanguage(langAttribute);
 	}
 	return false;
