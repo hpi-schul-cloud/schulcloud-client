@@ -15,7 +15,7 @@ Master: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client
 
 ## Requirements  
   
-* node.js 12 or later
+* node.js 22 or later
 
 You might take a look at the [Dockerfile](https://github.com/hpi-schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
   
