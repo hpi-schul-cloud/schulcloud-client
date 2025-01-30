@@ -1,6 +1,6 @@
 const url = require('url');
 const sanitizeHtml = require('sanitize-html');
-const SC_DOMAIN = require('../config/global');
+const global = require('../config/global');
 
 /**
  * Collapse leading slashes to one slash to avoid redirects to other websides
@@ -18,7 +18,7 @@ const getValidRedirect = (redirectUrl) => {
 	if (!redirectUrl) return '/';
 	const sanitizedUrl = sanitizeHtml(redirectUrl);
 	let relativeUrl = '/';
-	const parsedUrl = URL.parse(sanitizedUrl, SC_DOMAIN);
+	const parsedUrl = URL.parse(sanitizedUrl, global.HOST);
 	if (parsedUrl) {
 		relativeUrl = url.format(parsedUrl, { search: true, fragment: true, unicode: true });
 	}
