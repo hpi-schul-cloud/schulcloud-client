@@ -1,4 +1,3 @@
-const url = require('url');
 const sanitizeHtml = require('sanitize-html');
 const global = require('../config/global');
 
@@ -20,7 +19,7 @@ const getValidRedirect = (redirectUrl) => {
 	let relativeUrl = '/';
 	const parsedUrl = URL.parse(sanitizedUrl, global.HOST);
 	if (parsedUrl) {
-		relativeUrl = url.format(parsedUrl, { search: true, fragment: true, unicode: true });
+		relativeUrl = parsedUrl.pathname + parsedUrl.search + parsedUrl.hash;
 	}
 
 	return collapseLeadingSlashes(relativeUrl);
