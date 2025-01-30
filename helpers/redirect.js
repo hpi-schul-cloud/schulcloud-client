@@ -16,7 +16,12 @@ const collapseLeadingSlashes = (redirectUrl) => redirectUrl.replace(/^\/*/, '/')
 const getValidRedirect = (redirectUrl) => {
 	if (!redirectUrl) return '/';
 	const sanitizedUrl = sanitizeHtml(redirectUrl);
-	const relativeUrl = url.parse(sanitizedUrl).path || '/';
+	let relativeUrl = '/';
+	const parsedUrl = new URL(sanitizedUrl);
+	if (parsedUrl) {
+		relativeUrl = url.format(parsedUrl, { search: true, fragment: true, unicode: true });
+	}
+
 	return collapseLeadingSlashes(relativeUrl);
 };
 
