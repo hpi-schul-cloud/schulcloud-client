@@ -585,7 +585,7 @@
 				"dataProtectionAdd": "Add privacy policy",
 				"duringTheSchoolYear": "During the school year",
 				"duringTheTransferPhase": "During the transfer phase",
-				"enableVideoConference": "Activate video conferencing for courses and teams",
+				"enableVideoConference": "Activate video conferencing",
 				"endOfTheTransferPhase": "End of the transfer phase",
 				"fileStorageSpaceUsedInCloud": "Used file storage in the cloud",
 				"inTheTransferPhase": "in the transfer phase:",
@@ -633,7 +633,7 @@
 				"ifChatsAreActivatedAtYourSchool": "If chats are enabled at your school, team administrators and teachers can selectively unlock the chat function respectively for their team or courses.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifMatrixIsActivatedAtYourSchool": "If the Matrix Messenger is activated, all teachers in this school can start chat rooms, private conversations or group discussions within the course or team. Students initially  have read-only access, but can also be given write access via the course and team settings. Students can also start private chats within courses and teams. You can find more information about this in the ",
-				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is enabled at your school, teachers can add the video conferencing tool to their course in the Tools section and then start video conferencing for all course participants from there. Team administrators can activate the video conference function in the respective team. Team leaders and team admins can then add and start video conferences for appointments.",
+				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is activated at your school, teachers can start video conferences for all course participants in rooms, courses and teams. In rooms and courses, video conferences can be added as an element to sections (single-column and multi-column), in courses video conferences can be used under 'Tools' and in teams within the appointment function.",
 				"LDAPChanges": "you can make the necessary changes for the new school year in the\nLDAP (new users, update classes)",
 				"lernstoreEnabledForStudents": "If unchecked, then the students will not be able to access Learning Store",
 				"loginViaLDAP": "Login via LDAP is still possible for existing users",
@@ -1286,7 +1286,7 @@
 			"text": {
 				"supportDBC": "support@dbildungscloud.de",
 				"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
-				"supportNBC": "nbc-support@netz-21.de",
+				"supportNBC": "ticketsystem@niedersachsen.support",
 				"supportTHR": "schulcloud-support@thillm.de"
 			}
 		}

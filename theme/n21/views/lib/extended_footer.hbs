@@ -4,9 +4,7 @@
 			<div  class="col-md-4">
 				<h4>{{$t "global.link.contact" }}</h4>
 				<ul>
-					<li><a href="mailto:nbc-wunsch@netz-21.de" target="_blank" rel="noopener"
-							aria-label="Support-Anfragen {{$t "global.link.openInNewTabWarning"}}">Feedback/Wünsche</a></li>
-					<li><a href="mailto:nbc-support@netz-21.de" target="_blank" rel="noopener"
+					<li><a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}" target="_blank" rel="noopener"
 							aria-label="Allgemeine Anfragen {{$t "global.link.openInNewTabWarning"}}">Support-Anfragen</a></li>
 					<li><a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject={{$t "lib.global.link.accessibilityReport"}}" target="_blank" rel="noopener"
 							aria-label="{{$t "lib.global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning" }}">

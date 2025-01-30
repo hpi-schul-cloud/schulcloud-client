@@ -585,7 +585,7 @@
 				"dataProtectionAdd": "Añadir política de privacidad",
 				"duringTheSchoolYear": "Durante el año escolar",
 				"duringTheTransferPhase": "Durante la fase de transferencia",
-				"enableVideoConference": "Activar videoconferencias para cursos y equipos",
+				"enableVideoConference": "Activar la videoconferencia",
 				"endOfTheTransferPhase": "Fin de la fase de transferencia",
 				"fileStorageSpaceUsedInCloud": "Almacenamiento de archivos usados en la nube",
 				"inTheTransferPhase": "en la fase de transferencia:",
@@ -633,7 +633,7 @@
 				"ifChatsAreActivatedAtYourSchool": "Si los chats están habilitados en tu escuela, los administradores del equipo y los profesores pueden desbloquear la función de chat de manera selectiva y respectivamente para su equipo o cursos.",
 				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "Si los chats están habilitados en tu escuela, los administradores del equipo en el equipo respectivo pueden desbloquear específicamente la función de chat.",
 				"ifMatrixIsActivatedAtYourSchool": "Si se activa Matrix Messenger, todos los profesores de esta escuela pueden iniciar salas de chat, conversaciones privadas o discusiones en grupo dentro del curso o equipo. Los estudiantes inicialmente solo tienen acceso de lectura, pero también se les puede dar acceso de escritura a través de la configuración del curso y del equipo. Los estudiantes también pueden iniciar chats privados dentro de los cursos y equipos. Puedes encontrar más información al respecto en la",
-				"ifVideoConferenceAreActivatedAtYourSchool": "Si la videoconferencia está habilitada en tu escuela, los profesores pueden añadir la herramienta de videoconferencia a su curso en la sección Herramientas y entonces podrán iniciar desde allí videoconferencias para todos los participantes del curso. Los administradores del equipo pueden activar la función de videoconferencia en el equipo respectivo. Los líderes de equipo y los administradores de equipo pueden añadir e iniciar videoconferencias para citas.",
+				"ifVideoConferenceAreActivatedAtYourSchool": "Si la videoconferencia está activada en su centro, los profesores pueden iniciar videoconferencias para todos los participantes del curso en aulas, cursos y equipos. En las aulas y los cursos, las videoconferencias pueden añadirse como elemento a las secciones (de una columna y de varias columnas), en los cursos las videoconferencias pueden utilizarse en «Herramientas» y en los equipos dentro de la función de cita.",
 				"LDAPChanges": "Puedes realizar los cambios necesarios para el nuevo año escolar en LDAP (nuevos usuarios, clases de actualización)",
 				"lernstoreEnabledForStudents": "Si no está seleccionado, los estudiantes no podrán acceder a Lern-Store",
 				"loginViaLDAP": "El inicio de sesión a través de LDAP sigue siendo posible para los usuarios existentes",
@@ -1286,7 +1286,7 @@
 			"text": {
 				"supportDBC": "support@dbildungscloud.de",
 				"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
-				"supportNBC": "nbc-support@netz-21.de",
+				"supportNBC": "ticketsystem@niedersachsen.support",
 				"supportTHR": "schulcloud-support@thillm.de"
 			}
 		}
