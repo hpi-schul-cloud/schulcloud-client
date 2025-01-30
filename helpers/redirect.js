@@ -17,7 +17,7 @@ const getValidRedirect = (redirectUrl) => {
 	if (!redirectUrl) return '/';
 	const sanitizedUrl = sanitizeHtml(redirectUrl);
 	let relativeUrl = '/';
-	const parsedUrl = new URL(sanitizedUrl);
+	const parsedUrl = URL.parse(sanitizedUrl);
 	if (parsedUrl) {
 		relativeUrl = url.format(parsedUrl, { search: true, fragment: true, unicode: true });
 	}
