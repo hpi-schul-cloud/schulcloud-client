@@ -65,7 +65,7 @@ module.exports = (req, res, next) => {
 	// standard views
 	res.locals.sidebarItems = [{
 		name: res.$t('global.link.overview'),
-		testId: 'sidebar-overview',
+		testId: 'sidebar-dashboard',
 		icon: 'view-grid-outline',
 		link: '/dashboard/',
 	},
