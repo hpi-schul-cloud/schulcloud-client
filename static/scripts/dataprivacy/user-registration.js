@@ -1,7 +1,7 @@
 import getCookie from '../helpers/cookieManager';
 import './dataprivacy';
 import './registration-link-validation';
-import validatePassword from '../helpers/passwordValidations';
+import { validatePassword, validateConfirmationPassword } from '../helpers/passwordValidations';
 
 const USER_LANG_KEY = 'USER_LANG';
 
@@ -40,8 +40,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-	if (passwordInput) passwordInput.addEventListener('focusout', () => validatePassword(passwordInput, passwordConfirmInput));
-	if (passwordConfirmInput) passwordConfirmInput.addEventListener('keyup', () => validatePassword(passwordInput, passwordConfirmInput));
+	if (passwordInput) passwordInput.addEventListener('keyup', () => validatePassword(passwordInput));
+	if (passwordConfirmInput) passwordConfirmInput.addEventListener('keyup', () => validateConfirmationPassword(passwordInput, passwordConfirmInput));
 
 	const firstSection = document.querySelector(
 		'.form section[data-panel="section-1"]:not(.noback)',

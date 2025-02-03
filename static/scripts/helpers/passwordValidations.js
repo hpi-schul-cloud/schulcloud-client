@@ -1,4 +1,4 @@
-export default function validatePassword(passwordInput, passwordConfirmInput) {
+export function validatePassword(passwordInput) {
 	const minLength = 8;
 	const hasUpperCase = /[A-Z]/.test(passwordInput.value);
 	const hasLowerCase = /[a-z]/.test(passwordInput.value);
@@ -15,13 +15,19 @@ export default function validatePassword(passwordInput, passwordConfirmInput) {
 		passwordInput.setCustomValidity($t('global.text.hasSpecialCharacter'));
 	} else if (passwordInput.value.length < minLength) {
 		passwordInput.setCustomValidity($t('global.text.hasMinLength'));
-	} else if (passwordInput.value !== passwordConfirmInput.value) {
+	} else {
 		passwordInput.setCustomValidity('');
+	}
+
+	passwordInput.reportValidity();
+}
+
+export function validateConfirmationPassword(passwordInput, passwordConfirmInput) {
+	if (passwordInput.value !== passwordConfirmInput.value) {
 		passwordConfirmInput.setCustomValidity($t('global.text.passwordsAreDifferent'));
 	} else {
 		passwordConfirmInput.setCustomValidity('');
 	}
 
-	passwordInput.reportValidity();
 	passwordConfirmInput.reportValidity();
 }
