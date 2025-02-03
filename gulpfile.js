@@ -23,8 +23,6 @@ const path = require('path');
 const named = require('vinyl-named');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
-const nodemon = require('gulp-nodemon');
-const browserSync = require('browser-sync');
 const change = require('gulp-change');
 const { rewriteStaticAssetPaths } = require('./middleware/assets');
 const webpackConfig = require('./webpack.config');
@@ -80,11 +78,11 @@ const handleError = (error) => {
 
 const beginPipe = (src) => gulp
 	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
-	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
+	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()));
 
 const beginPipeAll = (src) => gulp
 	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
-	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()))
+	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()));
 
 // copy images
 // uses gulp.src instead of beginPipe for performance reasons (logging is slow)
@@ -127,8 +125,7 @@ gulp.task('styles', () => {
 		}))
 		.pipe(change(rewriteStaticAssetPaths))
 		.pipe(sourcemaps.write('./sourcemaps'))
-		.pipe(gulp.dest(`./build/${themeName()}/styles`))
-		.pipe(browserSync.stream());
+		.pipe(gulp.dest(`./build/${themeName()}/styles`));
 });
 
 const copyStyle = (dirname, filename, src) => gulp.src(src)
@@ -173,8 +170,7 @@ gulp.task('scripts', () => beginPipeAll(nonBaseScripts)
 		}),
 	)
 	.pipe(webpackStream(webpackConfig, webpack))
-	.pipe(gulp.dest(`./build/${themeName()}/scripts`))
-	.pipe(browserSync.stream()));
+	.pipe(gulp.dest(`./build/${themeName()}/scripts`)));
 
 // compile/transpile JSX and ES6 to ES5, minify and concatenate base scripts into all.js
 gulp.task('base-scripts', () => beginPipeAll(baseScripts)
@@ -209,8 +205,7 @@ gulp.task('vendor-styles', () => beginPipe('./static/vendor/**/*.{sass,scss}')
 		compatibility: 'ie9',
 	}))
 	.pipe(sourcemaps.write('./sourcemaps'))
-	.pipe(gulp.dest(`./build/${themeName()}/vendor`))
-	.pipe(browserSync.stream()));
+	.pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
 // compile/transpile vendor JSX and ES6 to ES5 and minify scripts
 gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
@@ -328,59 +323,6 @@ gulp.task('build-all', gulp.series(
 ));
 
 gulp.task('build-theme-files', gulp.series('styles', 'styles-done', 'images', 'static'));
-
-// watch and run corresponding task on change, process changed files only
-gulp.task('watch', gulp.series('build-all', () => {
-	const watchOptions = { interval: 1000 };
-	gulp.watch(baseScripts, watchOptions, gulp.series('base-scripts'));
-	gulp.watch(
-		withTheme('./static/styles/**/*.{css,sass,scss}'),
-		watchOptions,
-		gulp.series('styles', 'styles-done'),
-	);
-	gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, gulp.series('images'))
-		.on('change', browserSync.reload);
-	gulp.watch(withTheme(nonBaseScripts), watchOptions, gulp.series('scripts'));
-
-	gulp.watch(withTheme('./static/vendor/**/*.*'), watchOptions, gulp.series('vendor-styles',
-		'vendor-scripts',
-		'vendor-assets'));
-	gulp.watch(withTheme('./static/*.*'), watchOptions, gulp.series('static'));
-}));
-
-gulp.task('nodemon', (cb) => {
-	let started = false;
-	return nodemon({
-		ext: 'js hbs json',
-		script: './bin/www',
-		watch: ['views/', 'controllers/', 'helpers'],
-		exec: 'node --inspect=9310',
-	}).on('start', () => {
-		if (!started) {
-			cb();
-			started = true;
-		}
-		setTimeout(browserSync.reload, 3000); // server-start takes some time
-	});
-});
-
-gulp.task('browser-sync', () => {
-	browserSync.init(null, {
-		proxy: 'http://localhost:3100',
-		open: false,
-		port: 7000,
-		ghostMode: false,
-		reloadOnRestart: false,
-		socket: {
-			clients: {
-				heartbeatTimeout: 60000,
-			},
-		},
-	});
-});
-
-gulp.task('watch-reload', gulp.parallel('watch', 'nodemon', 'browser-sync'));
-
 
 // run this if only 'gulp' is run on the commandline with no task specified
 gulp.task('default', gulp.series('build-all'));
