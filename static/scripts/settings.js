@@ -9,7 +9,7 @@ $(document).ready(function() {
     const confirm_password = document.getElementById("password_control");
 
     if (password) password.addEventListener('focusout', () => validatePassword(password, confirm_password));
-    if (confirm_password) confirm_password.addEventListener('onkeyup', () => validatePassword(password, confirm_password));
+    if (confirm_password) confirm_password.addEventListener('keyup', () => validatePassword(password, confirm_password));
 
     // TODO: replace with something cooler
     var reloadSite = function() {

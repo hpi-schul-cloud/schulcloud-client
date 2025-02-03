@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 
 	if (passwordInput) passwordInput.addEventListener('focusout', () => validatePassword(passwordInput, passwordConfirmInput));
-	if (passwordConfirmInput) passwordConfirmInput.addEventListener('onkeyup', () => validatePassword(passwordInput, passwordConfirmInput));
+	if (passwordConfirmInput) passwordConfirmInput.addEventListener('keyup', () => validatePassword(passwordInput, passwordConfirmInput));
 
 	const firstSection = document.querySelector(
 		'.form section[data-panel="section-1"]:not(.noback)',
