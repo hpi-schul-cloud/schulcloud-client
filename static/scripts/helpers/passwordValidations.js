@@ -17,7 +17,7 @@ export default function validatePassword(passwordInput, passwordConfirmInput) {
 	} else if (!hasSpecialChar) {
 		passwordInput.setCustomValidity($t('global.text.hasSpecialCharacter'));
 		passwordInput.reportValidity();
-	} else if (!passwordInput.length >= minLength) {
+	} else if (passwordInput.length < minLength) {
 		passwordInput.setCustomValidity($t('global.text.hasMinLength'));
 		passwordInput.reportValidity();
 	} else if (passwordInput.value !== passwordConfirmInput.value) {
