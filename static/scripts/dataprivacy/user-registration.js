@@ -1,6 +1,7 @@
 import getCookie from '../helpers/cookieManager';
 import './dataprivacy';
 import './registration-link-validation';
+import validatePassword from '../helpers/passwordValidations';
 
 const USER_LANG_KEY = 'USER_LANG';
 
@@ -25,15 +26,6 @@ function validateDifferentEmails() {
 	parentMailInput.reportValidity();
 }
 
-function validatePassword() {
-	if (passwordInput.value !== passwordConfirmInput.value) {
-		passwordConfirmInput.setCustomValidity($t('global.text.passwordsAreDifferent'));
-		passwordConfirmInput.reportValidity();
-	} else {
-		passwordConfirmInput.setCustomValidity('');
-	}
-}
-
 function goBack(event) {
 	event.stopPropagation();
 	event.preventDefault();
@@ -48,8 +40,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-	if (passwordInput) passwordInput.onchange = validatePassword;
-	if (passwordConfirmInput) passwordConfirmInput.onkeyup = validatePassword;
+	if (passwordInput) passwordInput.addEventListener('focusout', () => validatePassword(passwordInput, passwordConfirmInput));
+	if (passwordConfirmInput) passwordConfirmInput.addEventListener('onkeyup', () => validatePassword(passwordInput, passwordConfirmInput));
 
 	const firstSection = document.querySelector(
 		'.form section[data-panel="section-1"]:not(.noback)',
