@@ -1,5 +1,5 @@
 import './pwd.js';
-import validatePassword from './helpers/passwordValidations';
+import { validatePassword, validateConfirmationPassword } from './helpers/passwordValidations';
 
 
 $(document).ready(function() {
@@ -8,8 +8,8 @@ $(document).ready(function() {
     const password = document.getElementById("passwordNew")
     const confirm_password = document.getElementById("password_control");
 
-    if (password) password.addEventListener('focusout', () => validatePassword(password, confirm_password));
-    if (confirm_password) confirm_password.addEventListener('keyup', () => validatePassword(password, confirm_password));
+    if (password) password.addEventListener('keyup', () => validatePassword(password));
+    if (confirm_password) confirm_password.addEventListener('keyup', () => validateConfirmationPassword(password, confirm_password));
 
     // TODO: replace with something cooler
     var reloadSite = function() {
