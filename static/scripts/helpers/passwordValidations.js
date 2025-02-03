@@ -7,24 +7,21 @@ export default function validatePassword(passwordInput, passwordConfirmInput) {
 
 	if (!hasLowerCase) {
 		passwordInput.setCustomValidity($t('global.text.hasLowerCase'));
-		passwordInput.reportValidity();
 	} else if (!hasUpperCase) {
 		passwordInput.setCustomValidity($t('global.text.hasUpperCase'));
-		passwordInput.reportValidity();
 	} else if (!hasNumber) {
 		passwordInput.setCustomValidity($t('global.text.hasNumber'));
-		passwordInput.reportValidity();
 	} else if (!hasSpecialChar) {
 		passwordInput.setCustomValidity($t('global.text.hasSpecialCharacter'));
-		passwordInput.reportValidity();
 	} else if (passwordInput.value.length < minLength) {
 		passwordInput.setCustomValidity($t('global.text.hasMinLength'));
-		passwordInput.reportValidity();
 	} else if (passwordInput.value !== passwordConfirmInput.value) {
 		passwordInput.setCustomValidity('');
 		passwordConfirmInput.setCustomValidity($t('global.text.passwordsAreDifferent'));
-		passwordConfirmInput.reportValidity();
 	} else {
 		passwordConfirmInput.setCustomValidity('');
 	}
+
+	passwordInput.reportValidity();
+	passwordConfirmInput.reportValidity();
 }
