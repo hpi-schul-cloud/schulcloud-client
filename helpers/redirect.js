@@ -1,12 +1,12 @@
-const url = require('url');
 const sanitizeHtml = require('sanitize-html');
+const global = require('../config/global');
 
 /**
  * Collapse leading slashes to one slash to avoid redirects to other websides
  * @param {string} redirectUrl URL to which the user should be redirected
  * @returns {string} URL without multiple leading slashes
  */
-const collapseLeadingSlashes = (redirectUrl) => redirectUrl.replace(/^\/*/, '/');
+const collapseLeadingSlashes = (redirectUrl) => redirectUrl.replace(/^\/+/, '/');
 
 /**
  * Transform given URL to valid (sanitized and relative) redirect URL
@@ -16,8 +16,13 @@ const collapseLeadingSlashes = (redirectUrl) => redirectUrl.replace(/^\/*/, '/')
 const getValidRedirect = (redirectUrl) => {
 	if (!redirectUrl) return '/';
 	const sanitizedUrl = sanitizeHtml(redirectUrl);
-	const relativeUrl = url.parse(sanitizedUrl).path || '/';
-	return collapseLeadingSlashes(relativeUrl);
+	let relativeUrl = '/';
+	const parsedUrl = URL.parse(collapseLeadingSlashes(sanitizedUrl), global.HOST);
+	if (parsedUrl) {
+		relativeUrl = parsedUrl.pathname + parsedUrl.search + parsedUrl.hash;
+	}
+
+	return relativeUrl;
 };
 
 const joinPathWithQuery = (path, paramsString) => (paramsString ? `${path}?${paramsString}` : path);
