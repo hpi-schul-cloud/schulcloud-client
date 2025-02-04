@@ -440,52 +440,6 @@
 					"draft": "Чернетка"
 				}
 			},
-			"tools": {
-				"button": {
-					"addNewTool": "Додати новий інструмент"
-				},
-				"headline": {
-					"addToolToCourse": "Додати інструменти до курсу",
-					"noTools": "У цьому курсі немає інструментів.",
-					"noToolsYet": "У цьому курсі ще немає інструментів."
-				},
-				"text": {
-					"addNewTool": "Додати новий інструмент",
-					"descriptionAddToolToCourse": "Додайте до курсу інтерактивні інструменти, такі як GeoGebra або CodeOcean.",
-					"noTools": "Немає інструментів.",
-					"videoConferenceBBB": "Відеоконференція BigBlueButton",
-					"opensInNewTab": "Нова вкладка",
-					"shouldNotUseSafariInBettermarks": "Для кращої роботи користувача рекомендується використовувати Firefox або Chrome замість Safari"
-				},
-				"add": {
-					"button": {
-						"createTool": "Створити інструмент"
-					},
-					"headline": {
-						"course": ", Курс: {{coursename}}",
-						"createToolForCourse": "Створити інструмент для {{coursename}}",
-						"videoConference": "Відеоконференція"
-					},
-					"text": {
-						"errorWhileAddingTool": "Під час додавання інструмента сталася помилка.",
-						"toolCouldNotBeFound": "Інструмент знайти не вдалося.",
-						"BBBDescriptionExplanation": "Проводьте відеоконференції з іншими користувачами. Інструмент BigBlueButton — легка і безпечна участь у всьому курсі з вашими входами в систему {{short_title}}. Гарна якість аудіо та відео доповнюється інтерактивною дошкою, яку можна використовувати під час виконання, функціями спільного доступу до екрана та чатом.",
-						"toolPortfolioCouldNotBeFound": "Інструмент знайти не вдалося. Портфоліо тимчасово деактивовано."
-					},
-					"placeholder": {
-						"key": "Ключ",
-						"value": "Значення"
-					}
-				},
-				"label": {
-					"logoUrl": "Логотип (URL-адреса):",
-					"nameTool": "Ім'я (обов'язкове поле):",
-					"otherSettings": "Інші налаштування:"
-				},
-				"img_alt": {
-					"noAddedTools": "Немає додаткових інструментів"
-				}
-			},
 			"topic": {
 				"button": {
 					"createAnotherTopic": "Створіть іншу тему",
