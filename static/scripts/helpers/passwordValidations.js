@@ -1,4 +1,8 @@
 export function validatePassword(passwordInput) {
+	// Firefox needs blur event to trigger validation
+	passwordInput.blur();
+	passwordInput.focus();
+
 	const minLength = 8;
 	const hasUpperCase = /[A-Z]/.test(passwordInput.value);
 	const hasLowerCase = /[a-z]/.test(passwordInput.value);
@@ -23,6 +27,10 @@ export function validatePassword(passwordInput) {
 }
 
 export function validateConfirmationPassword(passwordInput, passwordConfirmInput) {
+	// Firefox needs blur event to trigger validation
+	passwordConfirmInput.blur();
+	passwordConfirmInput.focus();
+
 	if (passwordInput.value !== passwordConfirmInput.value) {
 		passwordConfirmInput.setCustomValidity($t('global.text.passwordsAreDifferent'));
 	} else {
