@@ -1029,52 +1029,6 @@
 				"youAreAlreadyMember": "Ya eres participante en el curso {{coursename}}.",
 				"youHaveBeenAdded": "Se te ha añadido correctamente al curso {{coursename}}"
 			},
-			"tools": {
-				"add": {
-					"button": {
-						"createTool": "Crear herramienta"
-					},
-					"headline": {
-						"course": "Curso: {{coursename}}",
-						"createToolForCourse": "Crear herramienta para {{coursename}}",
-						"videoConference": "Videoconferencia"
-					},
-					"placeholder": {
-						"key": "Clave",
-						"value": "Valor"
-					},
-					"text": {
-						"BBBDescriptionExplanation": "Realiza videoconferencias con otros usuarios. La herramienta BigBlueButton permite una participación fácil y segura en todo el curso al iniciar sesión en {{short_title}}. La buena calidad de audio y vídeo se complementa con una pizarra interactiva, que se puede usar en tiempo de ejecución, con funciones para compartir pantalla y un chat.",
-						"errorWhileAddingTool": "Se ha producido un error al añadir la herramienta.",
-						"toolCouldNotBeFound": "No se ha podido encontrar la herramienta.",
-						"toolPortfolioCouldNotBeFound": "No se ha podido encontrar la herramienta. El portafolio está temporalmente desactivado."
-					}
-				},
-				"button": {
-					"addNewTool": "Añadir una nueva herramienta"
-				},
-				"headline": {
-					"addToolToCourse": "Añadir herramientas al curso",
-					"noTools": "No hay herramientas en este curso.",
-					"noToolsYet": "Todavía no hay herramientas en este curso."
-				},
-				"img_alt": {
-					"noAddedTools": "No hay herramientas añadidas"
-				},
-				"label": {
-					"logoUrl": "Logotipo (URL):",
-					"nameTool": "Nombre (campo obligatorio):",
-					"otherSettings": "Otros ajustes:"
-				},
-				"text": {
-					"addNewTool": "Añadir una nueva herramienta",
-					"descriptionAddToolToCourse": "Añade herramientas interactivas como GeoGebra o CodeOcean a un curso aquí.",
-					"noTools": "Sin herramientas.",
-					"opensInNewTab": "Nueva pestaña",
-					"shouldNotUseSafariInBettermarks": "Para una mejor experiencia de usuario, es mejor utilizar Chrome o Firefox en lugar de Safari. ",
-					"videoConferenceBBB": "Videoconferencia BigBlueButton"
-				}
-			},
 			"topic": {
 				"button": {
 					"createAnotherTopic": "Crear otro tema",

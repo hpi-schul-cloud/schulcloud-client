@@ -105,46 +105,6 @@
                 {{/if}}
             </div>
         </div>
-
-        <!-- Tools -->
-        <div class="col-sm-6">
-            {{#userHasPermission "TOOL_CREATE" }}
-            <a href="/teams/{{../_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1"
-                title="{{$t "teams.topics.button.addNewTool"}}">
-                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> {{$t "teams.topics.button.addNewTool"}}</span></a>
-            {{/userHasPermission}}
-            <h2 class="h4">Tools</h2>
-
-            <div class="list-group" data-testid="lti_tool_list">
-                {{#if ltiToolIds}}
-                {{#each ltiToolIds}}
-                <div class="card card-block card-tool locationlink"
-                    data-loclink="/teams/{{../_id}}/tools/show/{{this._id}}">
-                    <p class="card-title-directory">
-                        {{#if logo_url}}
-                        <img src="{{this.logo_url}}" class="float-left" alt="{{$t "partner.img_alt.logo"}}" />
-                        {{else}}
-                        <img src="{{getAssetPath '/images/cloud.png'}}" class="float-left" alt="{{$t "partner.img_alt.logo"}}" />
-                        {{/if}}
-                        <span>{{this.name}}</span>
-
-                        {{#userHasPermission "TOOL_CREATE" }}
-                        <a class="delete-tool" href="/teams/{{../../_id}}/tools/delete/{{../_id}}" target="_blank"
-                            data-method="DELETE" data-name="{{../name}}">
-                            <i class="fa fa-trash-o" aria-label="{{$t "courses._course.topic.text.deleteTopic"}}"></i>
-                        </a>
-                        {{/userHasPermission}}
-                    </p>
-                </div>
-                {{/each}}
-                {{else}}
-                <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-                    <span>{{$t "courses._course.tools.text.noTools"}}</span>
-                </p>
-                {{/if}}
-            </div>
-
-        </div>
     </div>
     <hr />
     <!-- Gruppen -->

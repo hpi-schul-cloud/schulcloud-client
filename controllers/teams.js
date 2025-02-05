@@ -190,7 +190,6 @@ const copyCourseHandler = (req, res, next) => {
 		coursePromise = api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
 				$populate: [
-					'ltiToolIds',
 					'classIds',
 					'teacherIds',
 					'userIds',
@@ -419,11 +418,7 @@ router.get('/:teamId/json', (req, res, next) => {
 				},
 			},
 		}),
-		api(req).get(`/teams/${req.params.teamId}`, {
-			qs: {
-				$populate: ['ltiToolIds'],
-			},
-		}),
+		api(req).get(`/teams/${req.params.teamId}`),
 	])
 		.then(([result, team]) => {
 			const { data: roles } = result;
@@ -477,7 +472,6 @@ router.get('/:teamId', async (req, res, next) => {
 		const course = await api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
 				$populate: [
-					'ltiToolIds',
 					{ path: 'schoolIds' },
 				],
 			},
@@ -1283,16 +1277,12 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 });
 
 /*
- * Single Team Topics, Tools & Lessons
+ * Single Team Topics & Lessons
  */
 
 router.get('/:teamId/topics', async (req, res, next) => {
 	Promise.all([
-		api(req).get(`/teams/${req.params.teamId}`, {
-			qs: {
-				$populate: ['ltiToolIds'],
-			},
-		}),
+		api(req).get(`/teams/${req.params.teamId}`),
 		api(req).get('/lessons/', {
 			qs: {
 				teamId: req.params.teamId,
@@ -1314,9 +1304,6 @@ router.get('/:teamId/topics', async (req, res, next) => {
 		}),
 	])
 		.then(([course, lessons, homeworks, courseGroups]) => {
-			const ltiToolIds = (course.ltiToolIds || []).filter(
-				(ltiTool) => ltiTool.isTemplate !== 'true',
-			);
 			const lessonsData = (lessons.data || []).map((lesson) => Object.assign(lesson, {
 				url: `/teams/${req.params.teamId}/topics/${lesson._id}/`,
 			}));
@@ -1350,7 +1337,6 @@ router.get('/:teamId/topics', async (req, res, next) => {
 					lessons: lessonsData,
 					homeworks: homeworksData.filter((task) => !task.private),
 					myhomeworks: homeworksData.filter((task) => task.private),
-					ltiToolIds,
 					courseGroups: courseGroupsData,
 					breadcrumbs: [
 						{

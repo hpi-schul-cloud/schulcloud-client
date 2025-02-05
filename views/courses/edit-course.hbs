@@ -120,7 +120,6 @@
 					</div>
 				</div>
 
-                {{#ifConfig "FEATURE_CTL_TOOLS_TAB_ENABLED" true}}
 				{{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">
                     <input id="activateConf" type="checkbox" name="videoconference" value="true" data-testid="videoconf_checkbox" {{#if @root.course.isArchived}}disabled{{/if}} {{#inArray "videoconference" @root.course.features}}checked{{/inArray}} {{#inArray "videoconference" @root.schoolData.features}} {{else}} disabled {{/inArray}}>
@@ -132,7 +131,6 @@
                             </small>
                         {{/inArray}}
                     </div>
-                {{/ifConfig}}
                 {{/ifConfig}}
 
 				<div class="form-group">

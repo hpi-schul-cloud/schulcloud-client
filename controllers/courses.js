@@ -660,9 +660,7 @@ router.get('/:courseId/', async (req, res, next) => {
 		return;
 	}
 
-	const FEATURE_CTL_TOOLS_TAB_ENABLED = Configuration.get('FEATURE_CTL_TOOLS_TAB_ENABLED');
-
-	if (FEATURE_CTL_TOOLS_TAB_ENABLED && activeTab === 'tools') {
+	if (activeTab === 'tools') {
 		res.redirect(`/rooms/${req.params.courseId}?tab=tools`);
 		return;
 	}
@@ -728,21 +726,6 @@ router.get('/:courseId/', async (req, res, next) => {
 
 		const isNewEdtrioActivated = editorBackendIsAlive && (courseHasNewEditorLessons || userHasEditorEnabled);
 		// ################################ end new Editor check ##################################
-		let ltiTools = [];
-		if (course.ltiToolIds && course.ltiToolIds.length > 0) {
-			ltiTools = await api(req).get('/ltiTools', {
-				qs: {
-					_id: { $in: course.ltiToolIds },
-				},
-			});
-		}
-		ltiTools = (ltiTools.data || []).filter(
-			(ltiTool) => ltiTool.isTemplate !== 'true',
-		).map((tool) => {
-			tool.isBBB = tool.name === 'Video-Konferenz mit BigBlueButton';
-			tool.isBettermarks = (tool.name && tool.name.includes('bettermarks'));
-			return tool;
-		});
 
 		const lessons = (_lessons.data || []).map((lesson) => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
@@ -804,7 +787,6 @@ router.get('/:courseId/', async (req, res, next) => {
 					? homeworks.filter((task) => !task.private && task.stats.submissionCount)
 					: homeworks.filter((task) => !task.private && task.submissions)),
 				privateHomeworks: homeworks.filter((task) => task.private),
-				ltiTools,
 				courseGroups,
 				baseUrl,
 				breadcrumbs: [

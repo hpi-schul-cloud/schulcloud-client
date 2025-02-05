@@ -1029,52 +1029,6 @@
 				"youAreAlreadyMember": "You are already a participant in the course {{coursename}} .",
 				"youHaveBeenAdded": "You have been successfully added to the course {{coursename}}"
 			},
-			"tools": {
-				"add": {
-					"button": {
-						"createTool": "Create tool"
-					},
-					"headline": {
-						"course": ", Course: {{coursename}}",
-						"createToolForCourse": "Create Tool for {{coursename}}",
-						"videoConference": "Video Conference"
-					},
-					"placeholder": {
-						"key": "Key",
-						"value": "Value"
-					},
-					"text": {
-						"BBBDescriptionExplanation": "Carry out video conferences with other users. The BigBlueButton tool easy and secure participation to the entire course with your {{short_title}} logins. Good audio and video quality is complemented by an interactive whiteboard that can be used at runtime, screen sharing functions and a chat.",
-						"errorWhileAddingTool": "An error occurred while adding the tool.",
-						"toolCouldNotBeFound": "The tool could not be found.",
-						"toolPortfolioCouldNotBeFound": "The tool could not be found. The portfolio is temporarily deactivated."
-					}
-				},
-				"button": {
-					"addNewTool": "Add a new tool"
-				},
-				"headline": {
-					"addToolToCourse": "Add tools to the course",
-					"noTools": "There are no tools in this course.",
-					"noToolsYet": "There are no tools in this course yet."
-				},
-				"img_alt": {
-					"noAddedTools": "No added tools"
-				},
-				"label": {
-					"logoUrl": "Logo (URL):",
-					"nameTool": "Name (required field):",
-					"otherSettings": "Other settings:"
-				},
-				"text": {
-					"addNewTool": "Add a new tool",
-					"descriptionAddToolToCourse": "Add interactive tools like GeoGebra or CodeOcean to a course here.",
-					"noTools": "No tools.",
-					"opensInNewTab": "New tab",
-					"shouldNotUseSafariInBettermarks": "For a better user experience, it is recommended to use Firefox or Chrome instead of Safari",
-					"videoConferenceBBB": "Videoconference BigBlueButton"
-				}
-			},
 			"topic": {
 				"button": {
 					"createAnotherTopic": "Create another topic",
