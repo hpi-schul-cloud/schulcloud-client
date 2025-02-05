@@ -1793,6 +1793,7 @@
 			"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 			"pageMoved": "Diese Seite wurde verschoben.",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
+			"containsOpeningTag": "Weiterer Text darf nicht direkt auf ein Kleiner-als-Zeichen folgen. Bitte Leerzeichen nach Kleiner-als-Zeichen einfügen.",
 			"hasLowerCase": "Passwort muss Kleinbuchstaben enthalten.",
 			"hasUpperCase": "Passwort muss Großbuchstaben enthalten.",
 			"hasNumber": "Passwort muss eine Zahl enthalten.",
