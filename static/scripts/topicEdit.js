@@ -429,8 +429,6 @@ class TopicBlock extends React.Component {
 				return TopicResources;
 			case 'geoGebra':
 				return TopicGeoGebra;
-			case 'neXboard':
-				return TopicNexboard;
 			case 'Etherpad':
 				return TopicEtherpad;
 			case 'H5P':
@@ -925,91 +923,6 @@ class TopicEtherpad extends TopicBlock {
                 </div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
                        value={this.props.content.url} />
-            </div>
-		);
-	}
-}
-
-/**
- * Class representing a neXboard
- * @extends React.Component
- */
-class TopicNexboard extends TopicBlock {
-	/**
-     * Initialize the list.
-     * @param {Object} props - Properties from React Component.
-     */
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			newBoard: 0,
-			id: Math.random().toString(36).substr(2, 5),
-			boards: [],
-		};
-		this.handleChange = this.handleChange.bind(this);
-	}
-
-	componentDidMount() {
-		$.getJSON('nexboard/boards')
-			.then((boards) => {
-				this.setState({ boards });
-			});
-		$(`select[id=${this.state.id}]`).chosen();
-		$(`select[id=${this.state.id}]`).on('change', this.handleChange);
-	}
-
-	componentDidUpdate() {
-		$('.chosen-select').trigger('chosen:updated');
-	}
-
-	handleChange() {
-		const id = $(`select[id=${this.state.id}]`).find('option:selected').val();
-
-		if (id == this.state.newBoard) {
-			return 0;
-		}
-		this.state.boards.map((board) => {
-			board = board.content;
-			if (board.board === id && board.title != '') {
-				const { content } = this.props;
-				content.board = board.board;
-				content.url = board.url;
-				this.props.onUpdate({
-					content,
-				});
-				return 0;
-			}
-		});
-	}
-
-	/**
-     * This function returns the name of the component that will be used to render the block in view mode.
-     */
-	static get component() {
-		return 'neXboard';
-	}
-
-	/**
-     * Render the block (an textarea)
-     */
-	render() {
-		return (
-            <div>
-                <div type="hidden" className="form-group">
-                    <label>{$t('topic.topicEdit.label.nameOfNeXboard')}</label>
-                    <input required className="form-control" name={`contents[${this.props.position}][content][title]`}
-                           type="text" placeholder={$t('topic.topicEdit.input.brainstormAboutXYZ')} value={(this.props.content || {}).title}/>
-                </div>
-                <div className="form-group">
-                    <label>{$t('topic.topicEdit.label.descriptionNeXboard')}</label>
-                    <textarea className="form-control" name={`contents[${this.props.position}][content][description]`}
-                              placeholder={$t('topic.topicEdit.input.createsListInNeXboard')}>
-                        {(this.props.content || {}).description}
-                    </textarea>
-                </div>
-                <input type="hidden" name={`contents[${this.props.position}][content][url]`}
-                       value={(this.props.content || {}).url } />
             </div>
 		);
 	}

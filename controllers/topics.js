@@ -4,7 +4,6 @@ const shortId = require('shortid');
 const { randomBytes } = require('crypto');
 const { decode } = require('html-entities');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const Nexboard = require('../helpers/nexboard');
 const api = require('../api');
 const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
@@ -12,11 +11,6 @@ const { logger } = require('../helpers');
 const filesStoragesHelper = require('../helpers/files-storage');
 
 const router = express.Router({ mergeParams: true });
-
-const {
-	NEXBOARD_USER_ID,
-	NEXBOARD_API_KEY,
-} = require('../config/global');
 
 const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
@@ -182,69 +176,6 @@ const getPadIdFromUrl = (path) => {
 	return path.substring(path.lastIndexOf('/') + 1);
 };
 
-const getNexBoardAPI = () => {
-	if (!NEXBOARD_USER_ID && !NEXBOARD_API_KEY) {
-		logger.error('nexBoard env is currently not defined.');
-	}
-	return new Nexboard(NEXBOARD_API_KEY, NEXBOARD_USER_ID);
-};
-
-const getNexBoardProjectFromUser = async (req, user) => {
-	const preferences = user.preferences || {};
-	if (typeof preferences.nexBoardProjectID === 'undefined') {
-		const project = await getNexBoardAPI().createProject(user._id, user._id);
-		preferences.nexBoardProjectID = project.id;
-		await api(req).patch(`/users/${user._id}`, { json: { preferences } });
-	}
-	return preferences.nexBoardProjectID;
-};
-
-async function createNewNexBoards(req, res, contents = [], next) {
-	// eslint-disable-next-line no-return-await
-	return await Promise.all(contents.map(async (content) => {
-		if (content.component === 'neXboard' && content.content.board === '0') {
-			try {
-				const nextboardProject = await getNexBoardProjectFromUser(req, res.locals.currentUser);
-				const board = await getNexBoardAPI().createBoard(
-					content.content.title,
-					content.content.description,
-					nextboardProject,
-					'schulcloud',
-				);
-
-				content.content.title = board.title;
-				content.content.board = board.id;
-				content.content.url = board.publicLink;
-				content.content.description = board.description;
-
-				return content;
-			} catch (err) {
-				next(err);
-
-				return undefined;
-			}
-		} else {
-			return content;
-		}
-	}));
-}
-
-const getNexBoards = (req, res, next) => {
-	api(req).get('/lessons/contents/neXboard', {
-		qs: {
-			type: 'neXboard',
-			user: res.locals.currentUser._id,
-		},
-	})
-		.then((boards) => {
-			res.json(boards);
-		});
-};
-
-router.get('/:topicId/nexboard/boards', getNexBoards);
-
-router.get('/nexboard/boards', getNexBoards);
-
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -261,8 +192,6 @@ router.post('/', async (req, res, next) => {
 
 	// Check for etherpad component
 	data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
-	// Check for neXboard compontent
-	data.contents = await createNewNexBoards(req, res, data.contents, next);
 
 	data.contents = data.contents.filter((c) => c !== undefined);
 
@@ -424,8 +353,6 @@ router.patch('/:topicId', async (req, res, next) => {
 
 	// create new Etherpads when necessary, if not simple hidden or position patch
 	if (data.contents) data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
-	// create new Nexboard when necessary, if not simple hidden or position patch
-	if (data.contents) data.contents = await createNewNexBoards(req, res, data.contents, next);
 
 	if (data.contents) { data.contents = data.contents.filter((c) => c !== undefined); }
 
