@@ -7,6 +7,16 @@ import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'r
 import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';
 import showFallbackImageOnError from './helpers/showFallbackImageOnError';
+import validateInputOnOpeningTag from './helpers/openingTagValidation';
+
+$(document).ready(() => {
+	const lessonName = document.getElementsByName('name')[0];
+	if (lessonName) lessonName.addEventListener('keyup', () => validateInputOnOpeningTag(lessonName));
+
+	document.querySelectorAll('[name^=contents]')
+		.forEach((element) => element.addEventListener('keyup', () => validateInputOnOpeningTag(element)));
+});
+
 
 /**
  * A wrapper for each block including a title field, remove, sortable, ...
