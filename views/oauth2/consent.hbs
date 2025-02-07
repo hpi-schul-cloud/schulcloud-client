@@ -3,6 +3,9 @@
         <link rel="stylesheet" href="{{getAssetPath '/styles/authentication/home.css'}}"/>
         <link rel="stylesheet" href="{{getAssetPath '/styles/authentication/login.css'}}"/>
     {{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="{{getAssetPath '/scripts/consent.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
+    {{/content}}
     {{#content "body"}}
         <main class="container">
             <div class="row">
