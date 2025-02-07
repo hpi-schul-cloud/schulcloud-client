@@ -1029,52 +1029,6 @@
 				"youAreAlreadyMember": "Du bist bereits Teilnehmer:in des Kurses {{coursename}}.",
 				"youHaveBeenAdded": "Du wurdest erfolgreich zum Kurs {{coursename}} hinzugefügt"
 			},
-			"tools": {
-				"add": {
-					"button": {
-						"createTool": "Tool anlegen"
-					},
-					"headline": {
-						"course": ", Kurs: {{coursename}}",
-						"createToolForCourse": "Tool anlegen für {{coursename}}",
-						"videoConference": "Videokonferenz"
-					},
-					"placeholder": {
-						"key": "Key",
-						"value": "Value"
-					},
-					"text": {
-						"BBBDescriptionExplanation": "Führe Videokonferenzen mit anderen Nutzer:innen durch. Das Tool BigBlueButton ermöglicht dem ganzen Kurs die unkomplizierte, sichere Teilnahme mit euren {{short_title}}-Logins. Gute Audio- und Videoübertragungsqualität werden ergänzt durch ein zur Laufzeit nutzbares interaktives Whiteboard, Funktionen zum Bildschirm teilen und einen Chat.",
-						"errorWhileAddingTool": "Beim Hinzufügen des Tools ist ein Fehler aufgetreten.",
-						"toolCouldNotBeFound": "Das Tool konnte nicht gefunden werden.",
-						"toolPortfolioCouldNotBeFound": "Das Tool konnte nicht gefunden werden. Das Portfolio ist temporär deaktiviert."
-					}
-				},
-				"button": {
-					"addNewTool": "Füge ein neues Tool hinzu"
-				},
-				"headline": {
-					"addToolToCourse": "Füge dem Kurs Tools hinzu",
-					"noTools": "Es gibt keine Tools in diesem Kurs.",
-					"noToolsYet": "Es gibt noch keine Tools in diesem Kurs."
-				},
-				"img_alt": {
-					"noAddedTools": "Keine hinzugefügten Tools"
-				},
-				"label": {
-					"logoUrl": "Logo (URL):",
-					"nameTool": "Name (Pflichtfeld):",
-					"otherSettings": "Sonstige Einstellungen:"
-				},
-				"text": {
-					"addNewTool": "Neues Tool hinzufügen",
-					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
-					"noTools": "Keine Tools.",
-					"opensInNewTab": "neuer Tab",
-					"shouldNotUseSafariInBettermarks": "Für das optimale Nutzer:innenerlebnis verwende Chrome oder Firefox anstatt Safari. ",
-					"videoConferenceBBB": "Videokonferenz BigBlueButton"
-				}
-			},
 			"topic": {
 				"button": {
 					"createAnotherTopic": "Weiteres Thema erstellen",
