@@ -1,5 +1,9 @@
+import validateInputOnOpeningTag from '../helpers/openingTagValidation';
+
 const moment = require('moment-timezone');
 const Mousetrap = require('../mousetrap/mousetrap');
+
+
 
 window.addEventListener('DOMContentLoaded', () => {
 	const lang = $('html').attr('lang');
@@ -131,4 +135,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			window.history.back();
 		}
 	});
+
+	const taskName = document.getElementsByName('name')[0];
+
+	if (taskName) taskName.addEventListener('keyup', () => validateInputOnOpeningTag(taskName));
 });
