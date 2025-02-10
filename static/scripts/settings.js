@@ -1,5 +1,6 @@
 import './pwd.js';
 import { validatePassword, validateConfirmationPassword } from './helpers/passwordValidations';
+import validateInputOnOpeningTag from './helpers/openingTagValidation';
 
 
 $(document).ready(function() {
@@ -10,6 +11,12 @@ $(document).ready(function() {
 
     if (password) password.addEventListener('keyup', () => validatePassword(password));
     if (confirm_password) confirm_password.addEventListener('keyup', () => validateConfirmationPassword(password, confirm_password));
+
+    const firstName = document.getElementsByName('firstName')[0];
+    if (firstName) firstName.addEventListener('keyup', () => validateInputOnOpeningTag(firstName));
+
+    const lastName = document.getElementsByName('lastName')[0];
+    if (lastName) lastName.addEventListener('keyup', () => validateInputOnOpeningTag(lastName));
 
     // TODO: replace with something cooler
     var reloadSite = function() {
