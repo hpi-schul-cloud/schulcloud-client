@@ -1,3 +1,5 @@
+import validateInputOnOpeningTag from '../helpers/openingTagValidation';
+
 function transformToBase64(imageSrc) {
 	const img = new Image();
 	const canvas = document.querySelector('#logo-canvas');
@@ -96,3 +98,9 @@ if (messengerInput && messengerSubOptions) {
 		setMessengerSubOptionsViability(event.target.checked);
 	});
 }
+
+$(document).ready(() => {
+	const schoolName = document.getElementsByName('name')[0];
+
+	if (schoolName) schoolName.addEventListener('keyup', () => validateInputOnOpeningTag(schoolName));
+});
