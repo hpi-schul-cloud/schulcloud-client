@@ -8,7 +8,7 @@ const api = require('../api');
 
 const csrfProtection = csrf({ cookie: true });
 
-router.get('/login', csrfProtection, (req, res, next) => api(req, { version: VERSION })
+router.get('/login', csrfProtection, (req, res, next) => api(req, { version: 'v3' })
 	.get(`/oauth2/loginRequest/${req.query.login_challenge}`)
 	.then((loginRequest) => {
 		req.session.login_challenge = req.query.login_challenge;
