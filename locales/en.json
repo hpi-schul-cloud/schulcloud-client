@@ -1029,52 +1029,6 @@
 				"youAreAlreadyMember": "You are already a participant in the course {{coursename}} .",
 				"youHaveBeenAdded": "You have been successfully added to the course {{coursename}}"
 			},
-			"tools": {
-				"add": {
-					"button": {
-						"createTool": "Create tool"
-					},
-					"headline": {
-						"course": ", Course: {{coursename}}",
-						"createToolForCourse": "Create Tool for {{coursename}}",
-						"videoConference": "Video Conference"
-					},
-					"placeholder": {
-						"key": "Key",
-						"value": "Value"
-					},
-					"text": {
-						"BBBDescriptionExplanation": "Carry out video conferences with other users. The BigBlueButton tool easy and secure participation to the entire course with your {{short_title}} logins. Good audio and video quality is complemented by an interactive whiteboard that can be used at runtime, screen sharing functions and a chat.",
-						"errorWhileAddingTool": "An error occurred while adding the tool.",
-						"toolCouldNotBeFound": "The tool could not be found.",
-						"toolPortfolioCouldNotBeFound": "The tool could not be found. The portfolio is temporarily deactivated."
-					}
-				},
-				"button": {
-					"addNewTool": "Add a new tool"
-				},
-				"headline": {
-					"addToolToCourse": "Add tools to the course",
-					"noTools": "There are no tools in this course.",
-					"noToolsYet": "There are no tools in this course yet."
-				},
-				"img_alt": {
-					"noAddedTools": "No added tools"
-				},
-				"label": {
-					"logoUrl": "Logo (URL):",
-					"nameTool": "Name (required field):",
-					"otherSettings": "Other settings:"
-				},
-				"text": {
-					"addNewTool": "Add a new tool",
-					"descriptionAddToolToCourse": "Add interactive tools like GeoGebra or CodeOcean to a course here.",
-					"noTools": "No tools.",
-					"opensInNewTab": "New tab",
-					"shouldNotUseSafariInBettermarks": "For a better user experience, it is recommended to use Firefox or Chrome instead of Safari",
-					"videoConferenceBBB": "Videoconference BigBlueButton"
-				}
-			},
 			"topic": {
 				"button": {
 					"createAnotherTopic": "Create another topic",
@@ -1220,7 +1174,7 @@
 			"descriptionArchivedCourses": "Courses whose end date has been reached can be found here. You can reuse archived courses as templates for the new school year, import a course or create a completely new course.",
 			"descriptionCourseManagement": "You can copy archived courses and use them as templates for the new school year, import a course, or create a brand new course.",
 			"finishImport": "Complete the import. In the next step, set a new course date and add students.",
-			"importCourseAttentionTools": "Attention: Manually replace tools with user data which are included in the topic subsequently (e.g. neXboard, Etherpad, GeoGebra), because changes to this will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
+			"importCourseAttentionTools": "Attention: Manually replace tools with user data which are included in the topic subsequently (e.g. Etherpad, GeoGebra), because changes to this will otherwise affect the original course! Files (images, videos, audio) and linked material are not affected and can remain unchanged.",
 			"importedCourseWithQR": "You have imported a course via a QR Code.",
 			"insertCodeToImport": "Insert a code to import course content from other users.",
 			"noAttendees": "No participants",
@@ -1793,6 +1747,11 @@
 			"noTopicFoundWithCode": "No topic was found for this code.",
 			"pageMoved": "This page has been moved.",
 			"passwordsAreDifferent": "Passwords do not match.",
+			"hasLowerCase": "Password must contain lowercase letters.",
+			"hasUpperCase": "Password must contain uppercase letters.",
+			"hasNumber": "Password must contain a number.",
+			"hasSpecialCharacter": "Password must contain a special character.",
+			"hasMinLength": "Password must be at least 8 characters long.",
 			"printingFailed": "Printing failed. Please try agian.",
 			"qrHintText": "Navigate other users to this site with the QR code",
 			"requestTimeout": "Request timed out",
@@ -2598,7 +2557,7 @@
 			"internalError": "Internal Server Error. Please contact the admin.",
 			"schoolInMigration": "Your school is in the process of changing the login system to {{systemName}}. Before you can log in via {{systemName}}, you have to move your account. To do this, log in with your old system.",
 			"userNotFoundAfterProvisioning": "Login failed. Either the school hasn't moved to {{systemName}} yet or the creation of new users in the {{shortTitle}} is not active for the school. Please contact your school administrator.",
-			"multipleUsersFound": "This moin.schule user cannot be clearly assigned to an account in the Niedersächsische Bildungscloud. Please contact support!",
+			"multipleUsersFound": "This {{systemName}} user cannot be clearly assigned to an account in the {{shortTitle}}. Please contact support!",
 			"userAccountDeactivated": "Your account has been deactivated. Please contact your school administrator.",
 			"externalUserRoleUnknown": "Account with an unknown user role cannot be logged in. Please contact school administrator.",
 			"unprocessableData": "The login system data could not be fully processed. Please try again or contact support."
@@ -3196,21 +3155,17 @@
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
 				"createsListInEtherpad": "Creates in the following Etherpad a Pro-Contra list on the topic XYC",
-				"createsListInNeXboard": "Create a pro-con list on the topic of XYC on the following whiteboard",
 				"GeoGebraEnterId": "Enter GeoGebra Material ID, e.g. kEBfU7AR",
 				"sectionTitle": "Title of the section"
 			},
 			"label": {
 				"descriptionEtherpad": "Description of the Etherpad",
-				"descriptionNeXboard": "Description of the whiteboard",
 				"internalLink": "URL of task",
 				"lockSection": "Lock section",
 				"nameOfEtherpad": "Name of the Etherpad",
-				"nameOfNeXboard": "Name of the whiteboard",
 				"openSection": "Unlock section",
 				"theLinkHasToBeginWith": "The link must begin with '{{- baseUrl}} / task'! Students must have access to the task to see it included here. Attention: If you share this topic or the entire course with another teacher using a sharing code, the tasks integrated in this way will currently not be considered.",
-				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'",
-				"nexboardInfo": "As announced, the whiteboard tool neXboard was removed from our platform on 23 April 2024. As a replacement, the innovative whiteboard tool tldraw is now available in the column board. Visit our blog post for detailed instructions and information."
+				"youllFindTheIdOn": "You can find the material ID in the URL to the GeoGebra worksheet, which you have saved online. At e.g. https://www.geogebra.org/m/e6g4adXp the material ID is 'e6g4adXp'"
 			}
 		}
 	},

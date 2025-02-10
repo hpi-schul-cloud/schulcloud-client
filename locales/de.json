@@ -1029,52 +1029,6 @@
 				"youAreAlreadyMember": "Du bist bereits Teilnehmer:in des Kurses {{coursename}}.",
 				"youHaveBeenAdded": "Du wurdest erfolgreich zum Kurs {{coursename}} hinzugefügt"
 			},
-			"tools": {
-				"add": {
-					"button": {
-						"createTool": "Tool anlegen"
-					},
-					"headline": {
-						"course": ", Kurs: {{coursename}}",
-						"createToolForCourse": "Tool anlegen für {{coursename}}",
-						"videoConference": "Videokonferenz"
-					},
-					"placeholder": {
-						"key": "Key",
-						"value": "Value"
-					},
-					"text": {
-						"BBBDescriptionExplanation": "Führe Videokonferenzen mit anderen Nutzer:innen durch. Das Tool BigBlueButton ermöglicht dem ganzen Kurs die unkomplizierte, sichere Teilnahme mit euren {{short_title}}-Logins. Gute Audio- und Videoübertragungsqualität werden ergänzt durch ein zur Laufzeit nutzbares interaktives Whiteboard, Funktionen zum Bildschirm teilen und einen Chat.",
-						"errorWhileAddingTool": "Beim Hinzufügen des Tools ist ein Fehler aufgetreten.",
-						"toolCouldNotBeFound": "Das Tool konnte nicht gefunden werden.",
-						"toolPortfolioCouldNotBeFound": "Das Tool konnte nicht gefunden werden. Das Portfolio ist temporär deaktiviert."
-					}
-				},
-				"button": {
-					"addNewTool": "Füge ein neues Tool hinzu"
-				},
-				"headline": {
-					"addToolToCourse": "Füge dem Kurs Tools hinzu",
-					"noTools": "Es gibt keine Tools in diesem Kurs.",
-					"noToolsYet": "Es gibt noch keine Tools in diesem Kurs."
-				},
-				"img_alt": {
-					"noAddedTools": "Keine hinzugefügten Tools"
-				},
-				"label": {
-					"logoUrl": "Logo (URL):",
-					"nameTool": "Name (Pflichtfeld):",
-					"otherSettings": "Sonstige Einstellungen:"
-				},
-				"text": {
-					"addNewTool": "Neues Tool hinzufügen",
-					"descriptionAddToolToCourse": "Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.",
-					"noTools": "Keine Tools.",
-					"opensInNewTab": "neuer Tab",
-					"shouldNotUseSafariInBettermarks": "Für das optimale Nutzer:innenerlebnis verwende Chrome oder Firefox anstatt Safari. ",
-					"videoConferenceBBB": "Videokonferenz BigBlueButton"
-				}
-			},
 			"topic": {
 				"button": {
 					"createAnotherTopic": "Weiteres Thema erstellen",
@@ -1220,7 +1174,7 @@
 			"descriptionArchivedCourses": "Kurse, deren Enddatum erreicht ist, findest du hier. Du kannst archivierte Kurse als Vorlage für das neue Schuljahr wiederverwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
 			"descriptionCourseManagement": "Du kannst archivierte Kurse kopieren und als Vorlage für das neue Schuljahr verwenden, einen Kurs importieren oder einen ganz neuen Kurs erstellen.",
 			"finishImport": "Schließe den Import ab. Lege im nächsten Schritt einen neuen Kurstermin fest und füge Schüler:innen hinzu.",
-			"importCourseAttentionTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. neXboard, Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
+			"importCourseAttentionTools": "Achtung: Tausche im Thema enthaltene, mit Nutzerdaten befüllte Tools (z.B. Etherpad, GeoGebra) nachträglich manuell aus, da Änderungen daran sich sonst auf den Original-Kurs auswirken! Dateien (Bilder, Videos, Audio) sowie verlinktes Material sind nicht betroffen und können unverändert bleiben.",
 			"importedCourseWithQR": "Du hast einen Kurs über einen QR-Code importiert.",
 			"insertCodeToImport": "Füge einen Code ein, um Kursinhalte anderer Nutzer:innen zu importieren.",
 			"noAttendees": "Keine Teilnehmer:innen",
@@ -1793,6 +1747,11 @@
 			"noTopicFoundWithCode": "Es wurde kein Thema für diesen Code gefunden.",
 			"pageMoved": "Diese Seite wurde verschoben.",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
+			"hasLowerCase": "Passwort muss Kleinbuchstaben enthalten.",
+			"hasUpperCase": "Passwort muss Großbuchstaben enthalten.",
+			"hasNumber": "Passwort muss eine Zahl enthalten.",
+			"hasSpecialCharacter": "Passwort muss ein Sonderzeichen enthalten.",
+			"hasMinLength": "Passwort muss mindestens 8 Zeichen lang sein.",
 			"printingFailed": "Drucken ist fehlgeschlagen. Bitte probieren Sie erneut",
 			"qrHintText": "Lotse mit dem QR-Code andere Nutzer:innen auf diese Seite",
 			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
@@ -2598,7 +2557,7 @@
 			"internalError": "Interner Serverfehler. Bitte wenden Sie sich an den Administrator.",
 			"schoolInMigration": "Deine Schule wechselt gerade das Anmeldesystem zu {{systemName}}. Bevor Du Dich über {{systemName}} anmelden kannst, musst Du Deinen Account umziehen. Melde Dich dazu mit Deinem alten System an.",
 			"userNotFoundAfterProvisioning": "Login fehlgeschlagen. Entweder ist die Schule noch nicht zu {{systemName}} umgezogen oder die Erstellung neuer Nutzer in der {{shortTitle}} ist für die Schule nicht aktiv. Bitte wenden Sie sich an Ihren Schuladministrator.",
-			"multipleUsersFound": "Dieser moin.schule-Benutzer kann nicht eindeutig einem Account in der Niedersächsischen Bildungscloud zugeordnet werden. Bitte Support benachrichtigen!",
+			"multipleUsersFound": "Dieser {{systemName}}-Benutzer kann nicht eindeutig einem Account in der {{shortTitle}} zugeordnet werden. Bitte Support benachrichtigen!",
 			"userAccountDeactivated": "Ihr Konto wurde deaktiviert. Bitte wenden Sie sich an Ihren Schuladministrator.",
 			"externalUserRoleUnknown": "Konto mit einer unbekannten Nutzer-Rolle kann nicht angemeldet werden. Bitte an Schuladministrator wenden.",
 			"unprocessableData": "Die Daten des Anmeldesystems konnten nicht vollständig verarbeitet werden. Bitte erneut versuchen oder den Support kontaktieren."
@@ -3196,21 +3155,17 @@
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming zum Thema XYZ",
 				"createsListInEtherpad": "Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC",
-				"createsListInNeXboard": "Erstellt im nachfolgendem Whiteboard eine Pro-Contra-Liste zum Thema XYC",
 				"GeoGebraEnterId": "GeoGebra Material-ID eingeben, z.B. kEBfU7AR",
 				"sectionTitle": "Titel des Abschnitts"
 			},
 			"label": {
 				"descriptionEtherpad": "Beschreibung des Etherpads",
-				"descriptionNeXboard": "Beschreibung des Whiteboards",
 				"internalLink": "URL der Aufgabe",
 				"lockSection": "Abschnitt sperren",
 				"nameOfEtherpad": "Name des Etherpads",
-				"nameOfNeXboard": "Name des Whiteboards",
 				"openSection": "Abschnitt entsperren",
 				"theLinkHasToBeginWith": "Der Link muss mit '{{- baseUrl}}/homework' beginnen! Die Schüler:innen müssen Zugriff auf die Aufgabe haben, um diese hier eingebunden zu sehen. Achtung: Wenn du dieses Thema oder den ganzen Kurs per Sharing-Code mit einer anderen Lehrkraft teilst, werden die auf diese Weise eingebundenen Aufgaben derzeit nicht berücksichtigt.",
-				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'",
-				"nexboardInfo": "Wie angekündigt, wurde das Whiteboard-Tool neXboard am 23. April 2024 von unserer Plattform entfernt. Als Ersatz ist nun das innovative Whiteboard-Tool tldraw im Spaltenboard verfügbar. Besuchen Sie unseren Blogbeitrag für detaillierte Anleitungen und Informationen."
+				"youllFindTheIdOn": "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"
 			}
 		}
 	},

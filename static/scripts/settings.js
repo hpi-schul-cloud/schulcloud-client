@@ -1,22 +1,15 @@
 import './pwd.js';
+import { validatePassword, validateConfirmationPassword } from './helpers/passwordValidations';
+
 
 $(document).ready(function() {
     var $deleteModal = $('.delete-modal');
 
-    var password = document.getElementById("passwordNew")
-        , confirm_password = document.getElementById("password_control");
+    const password = document.getElementById("passwordNew")
+    const confirm_password = document.getElementById("password_control");
 
-    function validatePassword(){
-        if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity($t('global.text.passwordsAreDifferent'));
-			confirm_password.reportValidity();
-        } else {
-            confirm_password.setCustomValidity('');
-        }
-    }
-
-    if (password) password.onchange = validatePassword;
-    if (confirm_password) confirm_password.onkeyup = validatePassword;
+    if (password) password.addEventListener('keyup', () => validatePassword(password));
+    if (confirm_password) confirm_password.addEventListener('keyup', () => validateConfirmationPassword(password, confirm_password));
 
     // TODO: replace with something cooler
     var reloadSite = function() {
