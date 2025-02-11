@@ -8,16 +8,7 @@ const api = require('../api');
 
 const csrfProtection = csrf({ cookie: true });
 
-const getVersion = () => {
-	if (Configuration.has('FEATURE_LEGACY_HYDRA_ENABLED')) {
-		return Configuration.get('FEATURE_LEGACY_HYDRA_ENABLED') ? 'v1' : 'v3';
-	}
-	return 'v3';
-};
-
-const VERSION = getVersion();
-
-router.get('/login', csrfProtection, (req, res, next) => api(req, { version: VERSION })
+router.get('/login', csrfProtection, (req, res, next) => api(req, { version: 'v3' })
 	.get(`/oauth2/loginRequest/${req.query.login_challenge}`)
 	.then((loginRequest) => {
 		req.session.login_challenge = req.query.login_challenge;
@@ -36,7 +27,7 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		remember_for: 0,
 	};
 
-	return api(req, { version: VERSION })
+	return api(req, { version: 'v3' })
 		.patch(
 			`/oauth2/loginRequest/${req.session.login_challenge}/?accept=1`,
 			{ body },
@@ -49,7 +40,7 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 });
 
 router.all('/logout', csrfProtection, auth.authChecker, (req) => {
-	api(req, { version: VERSION })
+	api(req, { version: 'v3' })
 		.get('/oauth2/logoutRequest');
 });
 
@@ -58,7 +49,7 @@ router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next
 		redirect_to: '',
 	};
 
-	return api(req, { version: VERSION })
+	return api(req, { version: 'v3' })
 		.patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { body })
 		.then((logoutRequest) => res.redirect(logoutRequest.redirect_to))
 		.catch(next);
@@ -71,7 +62,7 @@ const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
 		remember_for: 60 * 60 * 24 * 30,
 	};
 
-	return api(r, { version: VERSION })
+	return api(r, { version: 'v3' })
 		.patch(`/oauth2/consentRequest/${challenge}/?accept=1`, { body })
 		.then((consentRequest) => w.redirect(consentRequest.redirect_to));
 };
@@ -95,28 +86,10 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 		// An error occurred (at hydra)
 		return res.send(`${req.query.error}<br />${req.query.error_description}`);
 	}
-	return api(req, { version: VERSION })
+	return api(req, { version: 'v3' })
 		.get(`/oauth2/consentRequest/${req.query.consent_challenge}`)
 		.then(async (consentRequest) => {
-			let skipConsent = consentRequest.context?.skipConsent;
-
-			// Cannot skip consent for CTL-Tools with legacy hydra endpoints.
-			// Legacy endpoints are not supported by CTL-Tools.
-			if (VERSION === 'v1') {
-				const tools = await api(req)
-					.get(`/ltiTools/?oAuthClientId=${consentRequest.client.client_id}&isLocal=true`);
-
-				if (tools.data && Array.isArray(tools.data) && tools.data.length === 1) {
-					({ skipConsent } = tools.data[0]);
-				} else {
-					throw new Error(
-						`Unable to find a singular LtiTool with client_id
-						${consentRequest.client.client_id} for consent request`,
-					);
-				}
-			}
-
-			if (consentRequest.skip || skipConsent) {
+			if (consentRequest.skip || consentRequest.context?.skipConsent) {
 				return acceptConsent(req, res, req.query.consent_challenge, consentRequest.requested_scope);
 			}
 
@@ -146,32 +119,18 @@ router.get('/username/:pseudonym', async (req, res, next) => {
 			let shortName = '???';
 			let completeName = '???';
 
-			if (Configuration.get('FEATURE_CTL_TOOLS_TAB_ENABLED')) {
-				const pseudonymResponse = await api(req, { version: 'v3' })
-					.get(`/pseudonyms/${req.params.pseudonym}`);
-				const userResponse = await api(req)
-					.get('/users', {
-						qs: { _id: pseudonymResponse.userId },
-						$limit: 1,
-					});
-				if (userResponse.data.length) {
-					completeName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName}`;
-					shortName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName.charAt(0)}.`;
-				}
-			} else {
-				const feathersPseudonymResponse = await api(req)
-					.get('/pseudonym', {
-						qs: {
-							pseudonym: req.params.pseudonym,
-						},
-					});
-				if (feathersPseudonymResponse.data.length) {
-					// eslint-disable-next-line max-len
-					completeName = `${feathersPseudonymResponse.data[0].user.firstName} ${feathersPseudonymResponse.data[0].user.lastName}`;
-					// eslint-disable-next-line max-len
-					shortName = `${feathersPseudonymResponse.data[0].user.firstName} ${feathersPseudonymResponse.data[0].user.lastName.charAt(0)}.`;
-				}
+			const pseudonymResponse = await api(req, { version: 'v3' })
+				.get(`/pseudonyms/${req.params.pseudonym}`);
+			const userResponse = await api(req)
+				.get('/users', {
+					qs: { _id: pseudonymResponse.userId },
+					$limit: 1,
+				});
+			if (userResponse.data.length) {
+				completeName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName}`;
+				shortName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName.charAt(0)}.`;
 			}
+
 			return res.render('oauth2/username', {
 				depseudonymized: true,
 				completeName,
