@@ -603,7 +603,7 @@ router.post('/', (req, res, next) => {
 
 	api(req)
 		.post('/courses/', {
-			json: req.body, // TODO: sanitize
+			json: { ...req.body, name: req.body.name.trim() }, // TODO: sanitize
 		})
 		.then((course) => {
 			createEventsForCourse(req, res, course).then(() => {
@@ -900,10 +900,9 @@ router.patch('/:courseId', async (req, res, next) => {
 			// so temporarily add yourself to the list of teachers
 			req.body.teacherIds.push(currentUserId);
 		}
-
 		await deleteEventsForCourse(req, res, courseId);
 		await api(req).patch(`/courses/${courseId}`, {
-			json: req.body,
+			json: { ...req.body, name: req.body.name.trim() },
 		});
 		// due to eventual consistency we need to get the course again from server
 		// instead of using the response from patch

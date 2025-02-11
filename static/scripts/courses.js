@@ -12,10 +12,6 @@ $(document).ready(() => {
 		$('.safari-workaround').show();
 	}
 
-	$('.js-course-name-input').change(function courseNameInput() {
-		$(this).val($(this).val().trim());
-	});
-
 	$('.btn-hidden-toggle').click(function hiddenToggle(e) {
 		e.stopPropagation();
 		e.preventDefault();
