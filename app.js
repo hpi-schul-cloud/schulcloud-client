@@ -140,7 +140,9 @@ if (redisUrl) {
 const SIX_HOURS = 1000 * 60 * 60 * 6;
 app.use(session({
 	cookie: {
-		// TODO ...cookieDefaults,
+		httpOnly: true,
+		sameSite: Configuration.get('SESSION_COOKIE_SAME_SITE'),
+		secure: 'auto',
 		maxAge: SIX_HOURS,
 	},
 	rolling: true, // refresh session with every request within maxAge
