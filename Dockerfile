@@ -9,7 +9,7 @@ FROM docker.io/node:22-alpine
 
 ENV TZ=Europe/Berlin
 
-RUN apk add \
+RUN apk add --no-cache \
     git \
     libtool \
     make \
@@ -33,7 +33,7 @@ EXPOSE 3100
 WORKDIR /home/node/app
 
 COPY package.json package-lock.json ./
-RUN npm ci && npm cache clean --force
+RUN npm ci --ignore-scripts && npm cache clean --force
 # thanks to this crappy folder structure pulling only the relevant files is a mess
 COPY api.js /home/node/app/api.js
 COPY api-files-storage.js /home/node/app/api-files-storage.js
@@ -55,4 +55,4 @@ COPY --from=git /app/version /home/node/app/static/version
 # "build" .. this basically throws out non relevant files for the theme under build and does scss to css stuff
 RUN export NODE_OPTIONS=--openssl-legacy-provider && node node_modules/gulp/bin/gulp.js clear-cache && node node_modules/gulp/bin/gulp.js
 
-CMD npm start
+CMD ["npm", "start"]
