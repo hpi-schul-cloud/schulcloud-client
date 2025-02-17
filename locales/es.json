@@ -1747,6 +1747,7 @@
 			"noTopicFoundWithCode": "No se ha encontrado ningún tema para este código.",
 			"pageMoved": "Esta página se ha movido.",
 			"passwordsAreDifferent": "Las contraseñas no coinciden.",
+			"containsOpeningTag": "Inserte un espacio después del signo menos-que.",
 			"hasLowerCase": "El contraseña debe contener letras minúsculas.",
 			"hasUpperCase": "El contraseña debe contener letras mayúsculas.",
 			"hasNumber": "La contraseña debe contener un número.",

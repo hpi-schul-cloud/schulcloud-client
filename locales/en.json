@@ -1747,6 +1747,7 @@
 			"noTopicFoundWithCode": "No topic was found for this code.",
 			"pageMoved": "This page has been moved.",
 			"passwordsAreDifferent": "Passwords do not match.",
+			"containsOpeningTag": "Please insert a space after the less-than sign.",
 			"hasLowerCase": "Password must contain lowercase letters.",
 			"hasUpperCase": "Password must contain uppercase letters.",
 			"hasNumber": "Password must contain a number.",
