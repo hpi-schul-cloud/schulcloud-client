@@ -1,5 +1,5 @@
 function containsOpeningTagFollowedByString(input) {
-	const regex = /<\S+(?<!<)/;
+	const regex = /<[^<\s]+/;
 	const result = regex.test(input);
 
 	return result;
