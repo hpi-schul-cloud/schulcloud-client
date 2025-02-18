@@ -281,7 +281,7 @@
 		},
 		"SESSION_COOKIE_SAME_SITE": {
 			"type": "string",
-			"default": "lax",
+			"default": "strict",
 			"description": "express-session cookie samesite attribute"
 		},
 		"COOKIE": {
