@@ -7,6 +7,37 @@ import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'r
 import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';
 import showFallbackImageOnError from './helpers/showFallbackImageOnError';
+import validateInputOnOpeningTag from './helpers/openingTagValidation';
+
+$(document).ready(() => {
+	const lessonName = document.getElementsByName('name')[0];
+	if (lessonName) lessonName.addEventListener('keyup', () => validateInputOnOpeningTag(lessonName));
+
+	document.querySelectorAll('[name^="contents["][name$="[title]"]')
+		.forEach((element) => element.addEventListener('keyup', () => validateInputOnOpeningTag(element)));
+
+	// Observers if new content blocks are added to the page and ads the validation to the title input
+	const observer = new MutationObserver((mutations) => {
+		mutations.forEach((mutation) => {
+			if (mutation.addedNodes.length) {
+				mutation.addedNodes.forEach((node) => {
+					if (node.nodeType === 1) {
+						const inputs = node.querySelectorAll('[name^="contents["][name$="[title]"]');
+
+						inputs.forEach((input) => {
+							input.addEventListener('keyup', () => validateInputOnOpeningTag(input));
+						});
+					}
+				});
+			}
+		});
+	});
+
+	observer.observe(document.body, {
+		childList: true,
+		subtree: true,
+	});
+});
 
 /**
  * A wrapper for each block including a title field, remove, sortable, ...
