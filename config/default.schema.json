@@ -279,6 +279,11 @@
 			"default": "",
 			"description": "A string with concatenated user types (student, employee) that don't need to explicitly state their consent with the terms and conditions. \"employee\" means teachers and admins"
 		},
+		"SESSION_COOKIE_SAME_SITE": {
+			"type": "string",
+			"default": "strict",
+			"description": "express-session cookie samesite attribute"
+		},
 		"COOKIE": {
 			"type": "object",
 			"description": "Cookie properties, required always to be defined",
