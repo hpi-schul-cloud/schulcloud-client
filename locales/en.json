@@ -2998,7 +2998,6 @@
 					"reallyWantToRmUser": "Do you really want to remove this attendee?",
 					"removeClass": "Remove class",
 					"removeUser": "Remove user",
-					"leaveTeamWFilesIntro": "You are going to leave team. All files linked to that you will also be removed. If you don't want to lose these files, copy them before leave.",
 					"roleOfInvitedTeacher": "Role of the invited teacher",
 					"selectRoleForMember": "Enter which role the attendee should be given.",
 					"sendInvitationAgain": "Resend invitation"
