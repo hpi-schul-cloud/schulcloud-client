@@ -569,10 +569,6 @@ router.get('/:teamId', async (req, res, next) => {
 			})
 			.slice(0, 6);
 
-		const userFiles = JSON.stringify({
-			files: files.filter((file) => file.creator === res.locals.currentUser._id).map((file) => file.name),
-		});
-
 		const news = await api(req, { version: 'v3' })
 			.get(`/team/${req.params.teamId}/news`, {
 				qs: {
@@ -687,7 +683,6 @@ router.get('/:teamId', async (req, res, next) => {
 					course.times,
 				),
 				userId: res.locals.currentUser._id,
-				userFiles,
 				teamId: req.params.teamId,
 				rocketChatURL: rocketChatCompleteURL,
 			},
