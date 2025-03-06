@@ -18,31 +18,6 @@ const {
 } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
-// SSO Login
-router.get('/tsp-login/', (req, res, next) => {
-	const {
-		ticket,
-		redirect: redirectParam,
-	} = req.query;
-	let redirect = '/dashboard';
-	if (redirectParam) {
-		if (Array.isArray(redirectParam)) {
-			const redirects = redirectParam.filter((v) => v !== 'true');
-			if (redirects.length > 0) {
-				redirect = redirects[0];
-			}
-		} else if (String(redirectParam) !== 'true') {
-			redirect = redirectParam;
-		}
-	}
-	redirect = redirectHelper.getValidRedirect(redirect);
-	return authHelper.login({
-		strategy: 'tsp',
-		ticket,
-		redirect,
-	}, req, res, next);
-});
-
 // Login
 router.post('/login/', (req, res, next) => {
 	const {
