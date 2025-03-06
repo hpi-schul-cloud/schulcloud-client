@@ -2998,7 +2998,6 @@
 					"reallyWantToRmUser": "¿Estás seguro de que deseas eliminar a este asistente?",
 					"removeClass": "Eliminar clase",
 					"removeUser": "Eliminar usuario",
-					"leaveTeamWFilesIntro": "Vas a dejar el equipo. Todos los archivos vinculados a que también se eliminará. Si usted no quiere perder estos archivos, copiarlos antes de salir.",
 					"roleOfInvitedTeacher": "Rol del profesor invitado",
 					"selectRoleForMember": "Introduce el rol que se le debe dar al asistente.",
 					"sendInvitationAgain": "Reenviar invitación"
