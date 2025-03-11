@@ -7,7 +7,6 @@
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js ./locales --ext .js --ext .json --fix",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
 		"build": "gulp clear && cross-env NODE_OPTIONS=--openssl-legacy-provider gulp",
-		"dev": "gulp clear && cross-env NODE_OPTIONS=--openssl-legacy-provider gulp watch-reload",
 		"coverage": "nyc npm run mocha"
 	},
 	"engines": {
