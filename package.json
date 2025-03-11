@@ -46,7 +46,7 @@
 		"@ckeditor/ckeditor5-paragraph": "^20.0.0",
 		"@ckeditor/ckeditor5-paste-from-office": "^20.0.0",
 		"@ckeditor/ckeditor5-remove-format": "^20.0.0",
-		"@ckeditor/ckeditor5-special-characters": "^20.0.0",
+		"@ckeditor/ckeditor5-special-characters": "^44.3.0",
 		"@ckeditor/ckeditor5-table": "^20.0.0",
 		"@ckeditor/ckeditor5-theme-lark": "^20.0.0",
 		"@ckeditor/ckeditor5-ui": "^20.0.0",
