@@ -106,11 +106,7 @@ if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
 		morganLogFormat = ':method :url :status :response-time ms - :res[content-length]';
 	}
 
-	app.use(morgan(morganLogFormat, {
-		skip(req, res) {
-			return req && ((req.route || {}).path || '').includes('tsp-login');
-		},
-	}));
+	app.use(morgan(morganLogFormat));
 }
 
 app.use(bodyParser.json({ limit: '10mb' }));
