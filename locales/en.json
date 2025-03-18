@@ -41,7 +41,7 @@
 		"button": {
 			"activateNotifications": "Activate notifications",
 			"saveAccountSettings": "Save account settings",
-			"saveTeamSettings": "Save team settings",
+			"saveTeamSettings": "Save visibility settings",
 			"sendTestNotification": "Send test notification"
 		},
 		"error": {
@@ -74,7 +74,8 @@
 				"changeTeamSettings": "Change team settings"
 			},
 			"headline": {
-				"teamSettings": "Team settings"
+				"teamSettings": "Team settings",
+				"roomsAndTeamsSetings": "Rooms and Teams"
 			},
 			"label": {
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "The visibility in the central directory is activated system-wide for all teachers and cannot be deactivated.",
@@ -82,9 +83,9 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Deactivate visibility in the central directory"
 			},
 			"text": {
-				"hintVisibility": "Teachers from other schools who are team administrators can easily invite you to a cross-school team via the central directory service of {{themeTitle}}. Your name is assigned to your school and it is accessible in the directory structure under <i> Name of your state &raquo; Name of your school &raquo; Your name </i>.",
-				"visibilityTeamInvitations": "Visibility for team invitations",
-				"visibilityTeamInvitationsDisabled": "Visibility for team invitations is disabled"
+				"hintVisibility": "Teachers from other schools who are room or team admins can easily invite you to a room or team via the central directory service of {{themeTitle}}. Your name is assigned to your school and it is accessible in the directory structure under <i> Name of your state &raquo; Name of your school &raquo; Your name </i>.",
+				"visibilityTeamInvitations": "Visibility for room and team invitations",
+				"visibilityTeamInvitationsDisabled": "Visibility for room and team invitations is disabled"
 			}
 		},
 		"testNotification": {
