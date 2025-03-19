@@ -41,7 +41,7 @@
 		"button": {
 			"activateNotifications": "Benachrichtigungen aktivieren",
 			"saveAccountSettings": "Accounteinstellungen speichern",
-			"saveTeamSettings": "Teameinstellungen speichern",
+			"saveTeamSettings": "Einstellungen für Sichtbarkeit speichern",
 			"sendTestNotification": "Test-Benachrichtigung senden"
 		},
 		"error": {
@@ -74,7 +74,8 @@
 				"changeTeamSettings": "Teameinstellungen ändern"
 			},
 			"headline": {
-				"teamSettings": "Team Einstellungen"
+				"teamSettings": "Team Einstellungen",
+				"roomsAndTeamsSetings": "Räume und Teams"
 			},
 			"label": {
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrkräfte aktiviert und kann nicht deaktiviert werden.",
@@ -82,9 +83,9 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
 			},
 			"text": {
-				"hintVisibility": "Lehrkräfte anderer Schulen, die Teamadmins sind, können dich über den zentralen Verzeichnisdienst der {{themeTitle}} bequem in ein schulübergreifendes Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
-				"visibilityTeamInvitations": "Sichtbarkeit für Teameinladungen",
-				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Teameinladungen ist deaktiviert"
+				"hintVisibility": "Lehrkräfte anderer Schulen, die Raum- oder Teamadmins sind, können dich über den zentralen Verzeichnisdienst der {{themeTitle}} bequem in einen Raum oder ein Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
+				"visibilityTeamInvitations": "Sichtbarkeit für Raum- und Teameinladungen",
+				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Raum- und Teameinladungen ist deaktiviert"
 			}
 		},
 		"testNotification": {
