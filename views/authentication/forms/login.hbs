@@ -88,6 +88,7 @@
                 {{#each oauthSystems as |system|}}
                     <form method="post" action="/login/oauth2" class="login-form">
                         <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
+                        <input type="hidden" name="login_hint" value="{{@root.loginHint}}"/>
                         <input type="hidden" name="systemId" value="{{system.id}}"/>
                         {{> "lib/components/csrfInput"}}
                         <div class="oauth-system">
@@ -122,6 +123,7 @@
                 {{#each oauthSystems as |system|}}
                     <form method="post" action="/login/oauth2" class="login-form">
                         <input type="hidden" name="redirect" value="{{@root.redirect}}"/>
+                        <input type="hidden" name="login_hint" value="{{@root.loginHint}}"/>
                         <input type="hidden" name="systemId" value="{{system.id}}"/>
                         {{> "lib/components/csrfInput"}}
                         <div class="oauth-system">
