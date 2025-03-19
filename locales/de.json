@@ -1707,7 +1707,8 @@
 				"rooms": "Räume",
 				"system": "System",
 				"accessibility": "Barrierefreiheit",
-				"mediaShelf": "Medienregal"
+				"mediaShelf": "Medienregal",
+				"licenses": "Lizenzen"
 			}
 		},
 		"tab": {
