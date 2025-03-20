@@ -264,7 +264,8 @@
 				"rooms": "Номери",
 				"system": "Cистема",
 				"accessibility": "Доступність",
-				"mediaShelf": "Полиця для медіа"
+				"mediaShelf": "Полиця для медіа",
+				"licenses": "Ліцензії"
 			}
 		},
 		"aria_label": {

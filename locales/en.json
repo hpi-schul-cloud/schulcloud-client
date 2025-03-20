@@ -1707,7 +1707,8 @@
 				"rooms": "Rooms",
 				"system": "System",
 				"accessibility": "Accessibility",
-				"mediaShelf": "Media shelf"
+				"mediaShelf": "Media shelf",
+				"licenses": "Licenses"
 			}
 		},
 		"tab": {
