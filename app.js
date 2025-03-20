@@ -182,11 +182,6 @@ app.use(async (req, res, next) => {
 	res.locals.sha = sha;
 	res.locals.ROCKETCHAT_SERVICE_ENABLED = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
 	delete req.session.notification;
-	try {
-		await authHelper.populateCurrentUser(req, res);
-	} catch (error) {
-		return next(error);
-	}
 	return next();
 });
 
