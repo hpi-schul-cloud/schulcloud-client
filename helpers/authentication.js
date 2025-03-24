@@ -421,7 +421,7 @@ const login = (payload = {}, req, res, next) => {
 
 const oauth2RedirectUri = new URL('/login/oauth2-callback', Configuration.get('HOST')).toString();
 
-const getAuthenticationUrl = (oauthConfig, state, migration) => {
+const getAuthenticationUrl = (oauthConfig, state, migration, loginHint) => {
 	const authenticationUrl = new URL(oauthConfig.authEndpoint);
 
 	authenticationUrl.searchParams.append('client_id', oauthConfig.clientId);
@@ -429,6 +429,10 @@ const getAuthenticationUrl = (oauthConfig, state, migration) => {
 	authenticationUrl.searchParams.append('response_type', oauthConfig.responseType);
 	authenticationUrl.searchParams.append('scope', oauthConfig.scope);
 	authenticationUrl.searchParams.append('state', state);
+
+	if (loginHint) {
+		authenticationUrl.searchParams.append('login_hint', loginHint);
+	}
 
 	if (migration) {
 		authenticationUrl.searchParams.append('prompt', 'login');
