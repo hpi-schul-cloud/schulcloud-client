@@ -864,7 +864,8 @@ router.patch('/:courseId', async (req, res, next) => {
 			});
 		}
 
-		if (req.body.unarchive === 'true') {
+		const unarchiveCourse = req.body.unarchive === 'true';
+		if (unarchiveCourse) {
 			req.body = { untilDate: req.body.untilDate };
 		}
 		const { courseId } = req.params;
@@ -883,9 +884,14 @@ router.patch('/:courseId', async (req, res, next) => {
 			req.body.teacherIds.push(currentUserId);
 		}
 		await deleteEventsForCourse(req, res, courseId);
+
+		const requestBody = unarchiveCourse
+			? req.body
+			: { ...req.body, name: req.body.name.trim() };
 		await api(req).patch(`/courses/${courseId}`, {
-			json: { ...req.body, name: req.body.name.trim() },
+			json: requestBody,
 		});
+
 		// due to eventual consistency we need to get the course again from server
 		// instead of using the response from patch
 		const course = await api(req).get(`/courses/${courseId}`);
