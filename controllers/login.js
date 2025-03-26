@@ -146,7 +146,7 @@ router.get('/login/ldap', (req, res) => {
 });
 
 // eslint-disable-next-line consistent-return
-const redirectOAuth2Authentication = async (req, res, systemId, migration, redirect) => {
+const redirectOAuth2Authentication = async (req, res, systemId, migration, redirect, loginHint) => {
 	let system;
 	try {
 		system = await api(req, { version: 'v3' })
@@ -166,7 +166,7 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 
 	const state = shortid.generate();
 
-	const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state, migration);
+	const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state, migration, loginHint);
 
 	req.session.oauth2State = {
 		state,
@@ -186,9 +186,10 @@ router.post('/login/oauth2', async (req, res) => {
 		systemId,
 		migration,
 		redirect,
+		login_hint: loginHint,
 	} = req.body;
 
-	await redirectOAuth2Authentication(req, res, systemId, migration, redirect);
+	await redirectOAuth2Authentication(req, res, systemId, migration, redirect, loginHint);
 });
 
 router.get('/login/oauth2/:systemId', async (req, res) => {
@@ -196,9 +197,10 @@ router.get('/login/oauth2/:systemId', async (req, res) => {
 	const {
 		migration,
 		redirect,
+		login_hint: loginHint,
 	} = req.query;
 
-	await redirectOAuth2Authentication(req, res, systemId, migration, redirect);
+	await redirectOAuth2Authentication(req, res, systemId, migration, redirect, loginHint);
 });
 
 // eslint-disable-next-line consistent-return
@@ -324,6 +326,7 @@ const renderLogin = async (req, res) => {
 
 	const schools = await LoginSchoolsCache.get(req);
 	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
+	const loginHint = req.query.login_hint;
 
 	let oauthErrorLogout = false;
 
@@ -347,6 +350,7 @@ const renderLogin = async (req, res) => {
 		oauthErrorLogout,
 		hideMenu: true,
 		redirect,
+		loginHint,
 		idOfSchool,
 		showAlerts: true,
 		showLoginAndRegisterButtons: false,
