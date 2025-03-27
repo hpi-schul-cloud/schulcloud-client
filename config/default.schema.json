@@ -619,11 +619,6 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables the external system logout feature"
-		},
-		"LICENSE_SUMMARY_URL": {
-			"type": "string",
-			"default": "",
-			"description": "URL that provides the license summary"
 		}
 	},
 	"allOf": [
