@@ -41,7 +41,7 @@
 		"button": {
 			"activateNotifications": "Activar notificaciones",
 			"saveAccountSettings": "Guardar la configuración de la cuenta",
-			"saveTeamSettings": "Guardar la configuración del equipo",
+			"saveTeamSettings": "Guardar la configuración de visibilidad",
 			"sendTestNotification": "Enviar notificación de prueba"
 		},
 		"error": {
@@ -74,7 +74,8 @@
 				"changeTeamSettings": "Cambiar la configuración del equipo"
 			},
 			"headline": {
-				"teamSettings": "Configuración del equipo"
+				"teamSettings": "Configuración del equipo",
+				"roomsAndTeamsSetings": "Salas y equipos"
 			},
 			"label": {
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "La visibilidad en el directorio central está activada en todo el sistema para todos los profesores y no se puede desactivar.",
@@ -82,9 +83,9 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Desactivar la visibilidad en el directorio central"
 			},
 			"text": {
-				"hintVisibility": "Los profesores de otras escuelas que son administradores de equipo pueden invitarte fácilmente a un equipo formado por varias escuelas a través del servicio de directorio central de {{themeTitle}}. Tu nombre está asignado a tu escuela y es accesible en la estructura del directorio en <i>Nombre de tu estado&raquo;Nombre de tu escuela&raquo;Tu nombre</i>.",
-				"visibilityTeamInvitations": "Visibilidad de las invitaciones de equipo",
-				"visibilityTeamInvitationsDisabled": "La visibilidad de las invitaciones de equipo está desactivada"
+				"hintVisibility": "Los profesores de otras escuelas que son administradores de salas o equipos pueden invitarte fácilmente a una sala o equipo a través del servicio de directorio central de {{themeTitle}}. Tu nombre está asignado a tu escuela y es accesible en la estructura del directorio en <i>Nombre de tu estado&raquo;Nombre de tu escuela&raquo;Tu nombre</i>.",
+				"visibilityTeamInvitations": "Visibilidad de las invitaciones a salas y equipos",
+				"visibilityTeamInvitationsDisabled": "La visibilidad de las invitaciones a salas y equipos está desactivada"
 			}
 		},
 		"testNotification": {
