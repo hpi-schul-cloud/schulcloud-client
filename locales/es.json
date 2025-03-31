@@ -1707,7 +1707,8 @@
 				"rooms": "Salas",
 				"system": "Sistema",
 				"accessibility": "Accesibilidad",
-				"mediaShelf": "Estante multimedia"
+				"mediaShelf": "Estante multimedia",
+				"licenses": "Licencias"
 			}
 		},
 		"tab": {
