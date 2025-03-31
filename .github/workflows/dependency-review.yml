@@ -24,5 +24,6 @@ jobs:
             X11,
             0BSD,
             GPL-3.0,
-            AGPL-3.0
+            AGPL-3.0,
+            CC-BY-4.0
           allow-dependencies-licenses: pkg:npm/indutny/elliptic@6.6.1
