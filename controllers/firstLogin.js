@@ -184,9 +184,6 @@ router.get('/', async (req, res, next) => {
 			} else if (userConsent && (res.locals.currentUser.preferences || {}).firstLogin) {
 				// UE16 (schonmal eingeloggt)
 				sections.push('welcome_existing');
-			} else if (!userConsent && parentConsent && (res.locals.currentUser.preferences || {}).firstLogin) {
-				// GEB 14
-				sections.push('welcome_existing_geb14');
 			} else {
 				// default fallback
 				sections.push('welcome');
