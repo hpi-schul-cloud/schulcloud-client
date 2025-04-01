@@ -27,7 +27,7 @@ const change = require('gulp-change');
 const { rewriteStaticAssetPaths } = require('./middleware/assets');
 const webpackConfig = require('./webpack.config');
 
-const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
+const browserlist = ['> 0.2%', 'last 20 version', 'not dead'];
 
 const baseScripts = [
 	'./node_modules/jquery/dist/jquery.min.js',
