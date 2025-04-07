@@ -4,9 +4,12 @@ const router = express.Router();
 const api = require('../api');
 const { setCookie } = require('../helpers/cookieHelper');
 const { isUserHidden } = require('../helpers/users');
+const authHelper = require('../helpers/authentication');
+
+// secure routes
+router.use(authHelper.authChecker);
 
 // users
-
 router.get('/teachersOfSchool', async (req, res, next) => {
 	try {
 		const users = await api(req).get('/publicTeachers/', {
