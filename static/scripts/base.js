@@ -22,19 +22,16 @@ if (!NodeList.prototype.forEach) {
 	NodeList.prototype.forEach = Array.prototype.forEach;
 }
 
-// if is needed for IE11
-if (window.EventTarget) {
-	const nativeEventListener = EventTarget.prototype.addEventListener;
-	// eslint-disable-next-line no-inner-declarations
-	function customAddEventListener(events, callback, useCapture) {
-		this.nativeListener = nativeEventListener;
-		events.split(' ').forEach((event) => {
-			this.nativeListener(event, callback, useCapture);
-		});
-		return this;
-	}
-	EventTarget.prototype.addEventListener = customAddEventListener;
+const nativeEventListener = EventTarget.prototype.addEventListener;
+// eslint-disable-next-line no-inner-declarations
+function customAddEventListener(events, callback, useCapture) {
+	this.nativeListener = nativeEventListener;
+	events.split(' ').forEach((event) => {
+		this.nativeListener(event, callback, useCapture);
+	});
+	return this;
 }
+EventTarget.prototype.addEventListener = customAddEventListener;
 
 // IE11 Polyfill
 // eslint-disable-next-line
