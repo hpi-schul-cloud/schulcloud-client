@@ -17,11 +17,6 @@ if (!NodeList.prototype.addEventListener) {
 	NodeList.prototype.addEventListener = nodeListAddEventListener;
 }
 
-// Polyfill for Edge 13 and other outdated browsers
-if (!NodeList.prototype.forEach) {
-	NodeList.prototype.forEach = Array.prototype.forEach;
-}
-
 const nativeEventListener = EventTarget.prototype.addEventListener;
 // eslint-disable-next-line no-inner-declarations
 function customAddEventListener(events, callback, useCapture) {
@@ -32,10 +27,6 @@ function customAddEventListener(events, callback, useCapture) {
 	return this;
 }
 EventTarget.prototype.addEventListener = customAddEventListener;
-
-// IE11 Polyfill
-// eslint-disable-next-line
-Number.isInteger = Number.isInteger || (value => typeof value === 'number' && isFinite(value) && Math.floor(value) === value);
 
 function populateModal(modal, identifier, data) {
 	const block = modal.find(identifier);
