@@ -296,6 +296,16 @@
   transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@supports (scrollbar-color: auto) {
+	.sidebar {
+		scrollbar-color: transparent transparent;
+	}
+
+	.sidebar:hover {
+		scrollbar-color: initial;
+	}
+}
+
 @supports selector(::-webkit-scrollbar) {
 	.sidebar::-webkit-scrollbar-thumb {
 		background-color: transparent;
@@ -310,12 +320,3 @@
 	}
 }
 
-@supports not selector(::-webkit-scrollbar) {
-	.sidebar {
-		scrollbar-color: transparent transparent;
-	}
-
-	.sidebar:hover {
-		scrollbar-color: initial;
-	}
-}
