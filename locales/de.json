@@ -41,7 +41,7 @@
 		"button": {
 			"activateNotifications": "Benachrichtigungen aktivieren",
 			"saveAccountSettings": "Accounteinstellungen speichern",
-			"saveTeamSettings": "Einstellungen für Sichtbarkeit speichern",
+			"saveTeamSettings": "Einstellungen für Teams und Räume speichern",
 			"sendTestNotification": "Test-Benachrichtigung senden"
 		},
 		"error": {
@@ -83,8 +83,8 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
 			},
 			"text": {
-				"hintVisibility": "Lehrkräfte anderer Schulen, die Raum- oder Teamadmins sind, können dich über den zentralen Verzeichnisdienst der {{themeTitle}} bequem in einen Raum oder ein Team einladen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
-				"visibilityTeamInvitations": "Sichtbarkeit für Raum- und Teameinladungen",
+				"hintVisibility": "Lehrkräfte anderer Schulen können dich über den zentralen Verzeichnisdienst der {{themeTitle}} bequem in ein schulübergreifendes Team einladen oder einem schulübergreifenden Raum hinzufügen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter  <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
+				"visibilityTeamInvitations": "Sichtbarkeit für Einladungen in Teams und Räume",
 				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Raum- und Teameinladungen ist deaktiviert"
 			}
 		},
