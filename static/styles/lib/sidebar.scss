@@ -295,3 +295,27 @@
   opacity: 0.2;
   transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+@supports selector(::-webkit-scrollbar) {
+	.sidebar::-webkit-scrollbar-thumb {
+		background-color: transparent;
+	}
+
+	.sidebar:hover::-webkit-scrollbar-thumb {
+		background-color: rgba(#3a424b, 0.6);
+	}
+
+	.sidebar:hover::-webkit-scrollbar-thumb:hover {
+		background-color: rgba(#3a424b, 0.8);
+	}
+}
+
+@supports not selector(::-webkit-scrollbar) {
+	.sidebar {
+		scrollbar-color: transparent transparent;
+	}
+
+	.sidebar:hover {
+		scrollbar-color: initial;
+	}
+}
