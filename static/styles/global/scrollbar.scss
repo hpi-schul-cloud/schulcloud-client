@@ -1,7 +1,7 @@
 @supports selector(::-webkit-scrollbar) {
 	*::-webkit-scrollbar {
-		width: 6px;
-		height: 6px;
+		width: 8px;
+		height: 8px;
 	}
 
 	*::-webkit-scrollbar-track {
@@ -11,7 +11,7 @@
 
 	*::-webkit-scrollbar-thumb {
 		background-color: rgba(#3a424b, 0.6);
-		border-radius: 3px;
+		border-radius: 4px;
 	}
 
 	*::-webkit-scrollbar-thumb:hover {
