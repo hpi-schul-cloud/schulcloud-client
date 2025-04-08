@@ -41,7 +41,7 @@
 		"button": {
 			"activateNotifications": "Activar notificaciones",
 			"saveAccountSettings": "Guardar la configuración de la cuenta",
-			"saveTeamSettings": "Guardar la configuración de visibilidad",
+			"saveTeamSettings": "Guardar la configuración de equipos y salas",
 			"sendTestNotification": "Enviar notificación de prueba"
 		},
 		"error": {
@@ -83,8 +83,8 @@
 				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Desactivar la visibilidad en el directorio central"
 			},
 			"text": {
-				"hintVisibility": "Los profesores de otras escuelas que son administradores de salas o equipos pueden invitarte fácilmente a una sala o equipo a través del servicio de directorio central de {{themeTitle}}. Tu nombre está asignado a tu escuela y es accesible en la estructura del directorio en <i>Nombre de tu estado&raquo;Nombre de tu escuela&raquo;Tu nombre</i>.",
-				"visibilityTeamInvitations": "Visibilidad de las invitaciones a salas y equipos",
+				"hintVisibility": "Los profesores de otros centros pueden invitarte fácilmente a un equipo intercolegial o añadirte a una sala intercolegial a través del servicio de directorio central {{themeTitle}}. Tu nombre se asigna a tu centro educativo y puede consultarse en la estructura del directorio bajo <i>Nombre de tu estado federado &raquo; nombre de tu centro educativo &raquo; tu nombre</i>.",
+				"visibilityTeamInvitations": "Visibilidad de las invitaciones a equipos y salas",
 				"visibilityTeamInvitationsDisabled": "La visibilidad de las invitaciones a salas y equipos está desactivada"
 			}
 		},
