@@ -463,7 +463,7 @@ router.get('/logout/', (req, res, next) => {
 		.catch(next);
 });
 
-router.get('/logout/external/', async (req, res, next) => {
+router.get('/logout/external/', authHelper.authChecker, async (req, res, next) => {
 	let redirectUri = '/logout/';
 	if (Configuration.has('OAUTH2_LOGOUT_URI')) {
 		redirectUri = Configuration.get('OAUTH2_LOGOUT_URI');
