@@ -2905,7 +2905,7 @@
 					"renameFolder": "Renombrar carpeta",
 					"shareFolder": "Compartir carpeta",
 					"toTeamFiles": "A los archivos del equipo",
-					"toNextcloud": "Abrir área de archivos",
+					"toNextcloud": "Abrir área de archivos"
 				},
 				"headline": {
 					"changeFilePermissions": "Cambiar configuración compartida",

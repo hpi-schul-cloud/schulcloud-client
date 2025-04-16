@@ -2905,7 +2905,7 @@
 					"renameFolder": "Rename folder",
 					"shareFolder": "Share folder",
 					"toTeamFiles": "To the team files",
-					"toNextcloud": "Open file area",
+					"toNextcloud": "Open file area"
 				},
 				"headline": {
 					"changeFilePermissions": "Change share settings",
