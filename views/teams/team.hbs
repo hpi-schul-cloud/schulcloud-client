@@ -66,17 +66,16 @@
                 {{/inArray}}
                 {{/userHasPermission}}
             </div>
-                <div style="margin-left: auto">
+            <div style="margin-left: auto">
                 {{#if useNextcloud}}
                     {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                         <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">
                             <i class="fa fa-external-link" aria-hidden="true"></i>
                             {{$t "teams._team.files.button.toNextcloud"}}
-                            <span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
                         </a>
                     {{/if}}
                 {{/if}}
-                        </div>
+            </div>
         </div>
         <section class="row section-description">
             <div class="col-sm-12">
