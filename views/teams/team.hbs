@@ -115,14 +115,6 @@
                 <div class="sections">
                     <!-- Dateien -->
                     <div class="section" data-testid="team_files" data-section="js-files">
-                        {{#if useNextcloud}}
-                            {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
-                                <div class="alert info-custom" role="alert">
-                                    <i class="fa fa-info-circle pr-1"></i>
-                                    <div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
-                                </div>
-                            {{/if}}
-                        {{/if}}
                         {{#if canUploadFile}}
                             {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                                 {{#embed "files/file-upload"}}{{/embed}}

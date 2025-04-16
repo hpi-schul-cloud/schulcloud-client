@@ -28,14 +28,6 @@
 										</a>
 						{{/if}}
 		</div>
-		<div style="clear: both">
-		{{#if useNextcloud}}
-						<div class="alert info-custom" role="alert">
-								<i class="fa fa-info-circle pr-1"></i>
-								<div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
-						</div>
-		{{/if}}
-		</div>
 		{{#if canUploadFile}}
 				{{#embed "files/file-upload"}}{{/embed}}
 		{{/if}}

@@ -3182,11 +3182,6 @@
 			"videoConferencesNotAllowedBySchool": "Las videoconferencias no están permitidas en tu escuela. Ponte en contacto con el administrador de tu escuela para habilitar esta opción."
 		}
 	},
-	"info": {
-		"text": {
-			"nextcloudLink": "Estamos trabajando en un nuevo espacio de archivos. A partir de ahora, todos los <b>archivos nuevos</b> se pueden guardar y administrar allí (área de archivos abiertos). Todos los miembros del equipo tienen acceso automáticamente a los archivos almacenados allí. Todos los <b>archivos existentes</b> en {{title}} todavía están disponibles aquí."
-		}
-	},
 	"h5p": {
 		"text": {
 			"createAfterFirstSave": "Los contenidos H5P solo se pueden crear después del primer guardado."
