@@ -13,28 +13,18 @@
 {{#content "page"}}
 <div class="route-files">
 		<div style="clear: both">
-		{{#if useNextcloud}}
-				<a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary pull-right{{#unless ../nextcloudUrl}}disabled{{/unless}}" style="margin-left: 5px">
-						<i class="fa fa-external-link" aria-hidden="true"></i>
-				{{$t "teams._team.files.button.toNextcloud"}}
-						<span class="tag">{{$t "teams._team.files.button.newTag"}}</span>
-						</a>
-						{{/if}}
-
-						{{#if courseUrl}}
-										<a href="{{courseUrl}}" data-testid="navigate-to-course-btn" class="btn btn-secondary pull-right">
-												<i class="fa fa-users"></i>
-												{{ toCourseText }}
-										</a>
-						{{/if}}
-		</div>
-		<div style="clear: both">
-		{{#if useNextcloud}}
-						<div class="alert info-custom" role="alert">
-								<i class="fa fa-info-circle pr-1"></i>
-								<div>{{{$t "info.text.nextcloudLink" (dict "title" theme.title)}}}</div>
-						</div>
-		{{/if}}
+            {{#if useNextcloud}}
+                <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary pull-right{{#unless ../nextcloudUrl}}disabled{{/unless}}" style="margin-left: 5px">
+                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                    {{$t "teams._team.files.button.toNextcloud"}}
+                </a>
+            {{/if}}
+            {{#if courseUrl}}
+                <a href="{{courseUrl}}" data-testid="navigate-to-course-btn" class="btn btn-secondary pull-right">
+                    <i class="fa fa-users"></i>
+                    {{ toCourseText }}
+                </a>
+            {{/if}}
 		</div>
 		{{#if canUploadFile}}
 				{{#embed "files/file-upload"}}{{/embed}}

@@ -2905,8 +2905,7 @@
 					"renameFolder": "Renombrar carpeta",
 					"shareFolder": "Compartir carpeta",
 					"toTeamFiles": "A los archivos del equipo",
-					"toNextcloud": "Abrir área de archivos",
-					"newTag": "Nuevo"
+					"toNextcloud": "Abrir área de archivos"
 				},
 				"headline": {
 					"changeFilePermissions": "Cambiar configuración compartida",
@@ -3180,11 +3179,6 @@
 			"theVideoConferenceHasEither": "La videoconferencia aún no ha comenzado o ya ha finalizado.",
 			"youDoNotHaveTheNecessaryAuthorization": "No tienes la autorización necesaria para participar en la videoconferencia.",
 			"videoConferencesNotAllowedBySchool": "Las videoconferencias no están permitidas en tu escuela. Ponte en contacto con el administrador de tu escuela para habilitar esta opción."
-		}
-	},
-	"info": {
-		"text": {
-			"nextcloudLink": "Estamos trabajando en un nuevo espacio de archivos. A partir de ahora, todos los <b>archivos nuevos</b> se pueden guardar y administrar allí (área de archivos abiertos). Todos los miembros del equipo tienen acceso automáticamente a los archivos almacenados allí. Todos los <b>archivos existentes</b> en {{title}} todavía están disponibles aquí."
 		}
 	},
 	"h5p": {
