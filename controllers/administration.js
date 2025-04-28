@@ -3052,12 +3052,15 @@ router.post('/terminateschoolyear', async (req, res) => {
 });
 
 // Start
-router.use('/startschoolyear', async (req, res) => {
+router.use('/startschoolyear', async (req, res, next) => {
 	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
 		json: {
 			maintenance: false,
 		},
-	});
+	})
+		.catch((err) => {
+			next(err);
+		});
 
 	res.redirect('/administration/school');
 });
