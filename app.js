@@ -4,15 +4,13 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const Redis = require('ioredis');
-const RedisStore = require('connect-redis').default;
-const session = require('express-session');
 const methodOverride = require('method-override');
 const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const { initializeSessionStorage } = require('./helpers/sessionStorage');
 
 const { staticAssetsMiddleware } = require('./middleware/assets');
 const { version } = require('./package.json');
@@ -31,7 +29,6 @@ const {
 	KEEP_ALIVE,
 	SC_DOMAIN,
 	SC_THEME,
-	REDIS_URI,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
 	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
 	JWT_TIMEOUT_SECONDS,
@@ -115,38 +112,7 @@ app.use(cookieParser());
 
 staticAssetsMiddleware(app);
 
-let sessionStore;
-const redisUrl = REDIS_URI;
-if (redisUrl) {
-	logger.info(`Using Redis session store at '${redisUrl}'.`);
-	const client = new Redis(redisUrl);
-
-	// The error event must be handled, otherwise the app crashes on redis connection errors.
-	// This is due to basic NodeJS behavior: https://nodejs.org/api/events.html#error-events
-	client.on('error', (err) => {
-		logger.error('Redis client error', err);
-	});
-
-	sessionStore = new RedisStore({ client });
-} else {
-	logger.info('Using in-memory session store.');
-	sessionStore = new session.MemoryStore();
-}
-
-const SIX_HOURS = 1000 * 60 * 60 * 6;
-app.use(session({
-	cookie: {
-		httpOnly: true,
-		sameSite: Configuration.get('SESSION_COOKIE_SAME_SITE'),
-		secure: 'auto',
-		maxAge: SIX_HOURS,
-	},
-	rolling: true, // refresh session with every request within maxAge
-	store: sessionStore,
-	saveUninitialized: true,
-	resave: false,
-	secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
-}));
+initializeSessionStorage(app);
 
 // CSRF middlewares
 if (Configuration.get('FEATURE_CSRF_ENABLED')) {
