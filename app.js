@@ -211,7 +211,6 @@ const errorHandler = (err) => {
 };
 
 app.use((err, req, res, next) => {
-	console.log(JSON.stringify(err))
 
 	const { error, status } = errorHandler(err);
 
@@ -255,7 +254,7 @@ app.use((err, req, res, next) => {
 	}
 
 	// do not show full errors in production mode
-	res.locals.error = req.app.get('env') === 'development' ? err : { status };
+	res.locals.error = req.app.get('env') !== 'development' ? err : { status };
 
 	logger.error(error);
 
@@ -268,6 +267,9 @@ app.use((err, req, res, next) => {
 		loggedin: res.locals.loggedin,
 		inline: res.locals.inline ? true : !res.locals.loggedin,
 	});
+
+	console.log(JSON.stringify(res));
+
 });
 
 process.on('unhandledRejection', (err) => {
