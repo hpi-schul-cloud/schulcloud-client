@@ -29,6 +29,7 @@ async function discoverSentinelHosts() {
 		);
 	}
 
+	console.log("serviceName", serviceName)
 	const resolveSrv = util.promisify(dns.resolveSrv);
 	try {
 		const records = await resolveSrv(serviceName);
@@ -37,6 +38,7 @@ async function discoverSentinelHosts() {
 			host: record.name,
 			port: record.port,
 		}));
+		console.log("hosts", hosts)
 
 		return hosts;
 	} catch (err) {
@@ -60,7 +62,7 @@ function createNewValkeyInstance() {
 async function createValkeySentinelInstance() {
 	const sentinelName = REDIS_SENTINEL_NAME;
 	const sentinelPassword = REDIS_SENTINEL_PASSWORD;
-
+	console.log("createValkeySentinelInstance", sentinelName, sentinelPassword)
 	if (!sentinelName) {
 		throw new Error(
 			'SENTINEL_NAME is required for creating a Valkey Sentinel instance',
@@ -108,6 +110,7 @@ function initSessionMiddleware(app, store) {
 const initializeSessionStorage = (app) => {
 	if (REDIS_CLUSTER_ENABLED) {
 		createValkeySentinelInstance().then((client) => {
+			console.log("client", client)
 			const sessionStore = new RedisStore({ client });
 			initSessionMiddleware(app, sessionStore);
 		}).catch((err) => console.log(err));
