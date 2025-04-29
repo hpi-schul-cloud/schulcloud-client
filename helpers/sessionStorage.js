@@ -104,12 +104,11 @@ function initSessionMiddleware(app, store) {
 	);
 }
 
-const initializeSessionStorage = (app) => {
+const initializeSessionStorage = async (app) => {
 	if (REDIS_CLUSTER_ENABLED) {
-		createValkeySentinelInstance().then((client) => {
-			const sessionStore = new RedisStore({ client });
-			initSessionMiddleware(app, sessionStore);
-		}).catch((err) => logger.error(err));
+		const client = await createValkeySentinelInstance();
+		const sessionStore = new RedisStore({ client });
+		initSessionMiddleware(app, sessionStore);
 	} else if (REDIS_URI && !REDIS_CLUSTER_ENABLED) {
 		const client = createNewValkeyInstance();
 		const sessionStore = new RedisStore({ client });
