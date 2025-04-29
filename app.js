@@ -237,6 +237,8 @@ app.use((err, req, res, next) => {
 		};
 	}
 
+	console.log(JSON.stringify(error))
+
 	if (error.message) {
 		res.setHeader('error-message', error.message);
 		res.locals.message = error.message;
