@@ -105,19 +105,20 @@ function initSessionMiddleware(app, store) {
 }
 
 const initializeSessionStorage = async (app) => {
+	let sessionStore = null;
+
 	if (REDIS_CLUSTER_ENABLED) {
 		const client = await createValkeySentinelInstance();
-		const sessionStore = new RedisStore({ client });
-		initSessionMiddleware(app, sessionStore);
+		sessionStore = new RedisStore({ client });
 	} else if (REDIS_URI && !REDIS_CLUSTER_ENABLED) {
 		const client = createNewValkeyInstance();
-		const sessionStore = new RedisStore({ client });
-		initSessionMiddleware(app, sessionStore);
+		sessionStore = new RedisStore({ client });
 	} else {
-		const sessionStore = new session.MemoryStore();
-		initSessionMiddleware(app, sessionStore);
+		sessionStore = new session.MemoryStore();
 		logger.info('Using in-memory session store.');
 	}
+
+	initSessionMiddleware(app, sessionStore);
 };
 
 module.exports = {
