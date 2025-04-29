@@ -211,6 +211,8 @@ const errorHandler = (err) => {
 };
 
 app.use((err, req, res, next) => {
+	console.log(JSON.stringify(err))
+
 	const { error, status } = errorHandler(err);
 
 	if (!res.locals) {
@@ -236,8 +238,6 @@ app.use((err, req, res, next) => {
 			roles: (roles || []).map((r) => r.name),
 		};
 	}
-
-	console.log(JSON.stringify(error))
 
 	if (error.message) {
 		res.setHeader('error-message', error.message);
