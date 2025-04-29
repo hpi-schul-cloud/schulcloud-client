@@ -6,11 +6,11 @@ const util = require('util');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const { logger } = require('.');
 const {
-	REDIS_URI,
-	REDIS_CLUSTER_ENABLED,
-	REDIS_SENTINEL_NAME,
-	REDIS_SENTINEL_PASSWORD,
-	REDIS_SENTINEL_SERVICE_NAME,
+	SESSION_VALKEY_URI,
+	SESSION_VALKEY_CLUSTER_ENABLED,
+	SESSION_VALKEY_SENTINEL_NAME,
+	SESSION_VALKEY_SENTINEL_PASSWORD,
+	SESSION_VALKEY_SENTINEL_SERVICE_NAME,
 } = require('../config/global');
 
 function getValkeyInstance(params) {
@@ -22,7 +22,7 @@ function getValkeyInstance(params) {
 }
 
 async function discoverSentinelHosts() {
-	const serviceName = REDIS_SENTINEL_SERVICE_NAME;
+	const serviceName = SESSION_VALKEY_SENTINEL_SERVICE_NAME;
 	if (!serviceName) {
 		throw new Error(
 			'SENTINEL_SERVICE_NAME is required for service discovery',
@@ -46,7 +46,7 @@ async function discoverSentinelHosts() {
 }
 
 function createNewValkeyInstance() {
-	const redisUri = REDIS_URI;
+	const redisUri = SESSION_VALKEY_URI;
 	if (!redisUri) {
 		throw new Error('URI is required for creating a new Valkey instance');
 	}
@@ -58,8 +58,8 @@ function createNewValkeyInstance() {
 }
 
 async function createValkeySentinelInstance() {
-	const sentinelName = REDIS_SENTINEL_NAME;
-	const sentinelPassword = REDIS_SENTINEL_PASSWORD;
+	const sentinelName = SESSION_VALKEY_SENTINEL_NAME;
+	const sentinelPassword = SESSION_VALKEY_SENTINEL_PASSWORD;
 	if (!sentinelName) {
 		throw new Error(
 			'SENTINEL_NAME is required for creating a Valkey Sentinel instance',
@@ -107,10 +107,10 @@ function initSessionMiddleware(app, store) {
 const initializeSessionStorage = async (app) => {
 	let sessionStore = null;
 
-	if (REDIS_CLUSTER_ENABLED) {
+	if (SESSION_VALKEY_CLUSTER_ENABLED) {
 		const client = await createValkeySentinelInstance();
 		sessionStore = new RedisStore({ client });
-	} else if (REDIS_URI && !REDIS_CLUSTER_ENABLED) {
+	} else if (SESSION_VALKEY_URI && !SESSION_VALKEY_CLUSTER_ENABLED) {
 		const client = createNewValkeyInstance();
 		sessionStore = new RedisStore({ client });
 	} else {
