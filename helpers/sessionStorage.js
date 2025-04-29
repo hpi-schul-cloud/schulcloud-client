@@ -110,7 +110,7 @@ const initializeSessionStorage = (app) => {
 		createValkeySentinelInstance().then((client) => {
 			const sessionStore = new RedisStore({ client });
 			initSessionMiddleware(app, sessionStore);
-		});
+		}).catch((err) => console.log(err));
 	} else if (REDIS_URI && !REDIS_CLUSTER_ENABLED) {
 		const client = createNewValkeyInstance();
 		const sessionStore = new RedisStore({ client });
