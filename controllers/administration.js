@@ -3047,11 +3047,10 @@ router.post('/terminateschoolyear', async (req, res, next) => {
 			maintenance: true,
 		},
 	})
+		.then(() => res.redirect('/administration/school'))
 		.catch((err) => {
 			next(err);
 		});
-
-	res.redirect('/administration/school');
 });
 
 // Start
@@ -3061,11 +3060,10 @@ router.use('/startschoolyear', async (req, res, next) => {
 			maintenance: false,
 		},
 	})
+		.then(() => res.redirect('/administration/school'))
 		.catch((err) => {
 			next(err);
 		});
-
-	res.redirect('/administration/school');
 });
 
 // Start preview LDAP
