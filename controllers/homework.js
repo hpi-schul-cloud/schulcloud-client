@@ -658,10 +658,7 @@ router.get('/:assignmentId', (req, res, next) => {
 			// Abgabenübersicht anzeigen -> weitere Daten berechnen
 			if (!assignment.private && (isTeacher || assignment.publicSubmissions)) {
 				// Daten für Abgabenübersicht
-				const sortByStudentAttribute = (attr) => (a, b) => ((a.studentId[attr].toUpperCase() < b.studentId[attr].toUpperCase()) ? -1 : 1);
 				assignment.submissions = submissions.data
-					.sort(sortByStudentAttribute('firstName'))
-					.sort(sortByStudentAttribute('lastName'))
 					.map((sub) => {
 						if (Array.isArray(sub.teamMembers)) {
 							sub.teamMembers = sub.teamMembers
