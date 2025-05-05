@@ -52,7 +52,7 @@ const generateConsentPassword = () => passwordGenerator.generate({
 	strict: true,
 });
 
-const clearCookie = async (req, res, options = { destroySession: false }) => {
+const clearCookies = async (req, res, options = { destroySession: false }) => {
 	if (options.destroySession && req.session && req.session.destroy) {
 		await new Promise((resolve, reject) => {
 			req.session.destroy((err) => {
@@ -71,6 +71,8 @@ const clearCookie = async (req, res, options = { destroySession: false }) => {
 	if (res.locals && res.locals.domain) {
 		res.clearCookie('jwt', { domain: res.locals.domain });
 	}
+
+	res.clearCookie('isLoggedIn');
 };
 
 const etherpadCookieHelper = (etherpadSession, padId, res) => {
@@ -129,7 +131,7 @@ const populateCurrentUser = async (req, res) => {
 			res.locals.currentPayload = payload;
 		} catch (err) {
 			logger.error('Broken JWT / JWT decoding failed', formatError(err));
-			return clearCookie(req, res, { destroySession: true })
+			return clearCookies(req, res, { destroySession: true })
 				.catch((err) => {
 					logger.error('clearCookie failed during jwt check', formatError(err));
 				})
@@ -182,7 +184,7 @@ const populateCurrentUser = async (req, res) => {
 			.catch((e) => {
 			// 400 for missing information in jwt, 401 for invalid jwt, not-found for deleted user
 				if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
-					return clearCookie(req, res, { destroySession: true })
+					return clearCookies(req, res, { destroySession: true })
 						.catch((err) => {
 							const meta = { error: err.toString() };
 							logger.error('clearCookie failed during populateUser', meta);
@@ -288,8 +290,17 @@ const authChecker = (req, res, next) => {
 		});
 };
 
+const setLoginCookies = (res, token) => {
+	setCookie(res, 'jwt', token);
+
+	// This second cookie "isLoggedIn" is set because the cookie with the JWT shall be set to httpOnly perspectively.
+	// Thus we need another cookie to check from javascript if the user is logged in.
+	setCookie(res, 'isLoggedIn', true);
+};
+
 const loginSuccessfulHandler = (res, redirect) => (data) => {
-	setCookie(res, 'jwt', data.accessToken);
+	setLoginCookies(res, data.accessToken);
+
 	let redirectUrl = '/login/success';
 	if (redirect) {
 		redirectUrl = `${redirectUrl}?redirect=${redirect}`;
@@ -378,7 +389,7 @@ const handleLoginError = async (req, res, error, postLoginRedirect, strategy, sy
 		delete req.session.oauth2State;
 	}
 
-	await clearCookie(req, res);
+	await clearCookies(req, res);
 
 	const queryString = new URLSearchParams();
 	if (postLoginRedirect) {
@@ -487,7 +498,7 @@ const loginUser = async (req, res, strategy, payload, postLoginRedirect) => {
 
 	const migration = await getMigrationStatus(req, res, currentUser.userId, accessToken);
 
-	setCookie(res, 'jwt', accessToken);
+	setLoginCookies(res, accessToken);
 
 	if (migration && !migration.closedAt) {
 		return {
@@ -554,13 +565,13 @@ const migrateUser = async (req, res, payload) => {
 		redirect = redirectHelper.joinPathWithQuery('/migration/error', queryString.toString());
 	}
 
-	await clearCookie(req, res);
+	await clearCookies(req, res);
 
 	return redirect;
 };
 
 module.exports = {
-	clearCookie,
+	clearCookies,
 	isJWT,
 	authChecker,
 	isAuthenticated,
