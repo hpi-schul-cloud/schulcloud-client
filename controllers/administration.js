@@ -3041,12 +3041,15 @@ router.get('/policies/:id', async (req, res, next) => {
 */
 
 // Terminate
-router.post('/terminateschoolyear', async (req, res) => {
+router.post('/terminateschoolyear', async (req, res, next) => {
 	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
 		json: {
 			maintenance: true,
 		},
-	});
+	})
+		.catch((err) => {
+			next(err);
+		});
 
 	res.redirect('/administration/school');
 });
