@@ -11,5 +11,8 @@
 	"FEATURE_PROMETHEUS_ENABLED": true,
 	"FEATURE_ALERTS_ENABLED": true,
 	"PUBLIC_BACKEND_URL": "http://localhost:3030/api",
-	"FEATURE_ROOMS_ENABLED": true
+	"FEATURE_ROOMS_ENABLED": true,
+	"SESSION_VALKEY": {
+		"MODE": "in-memory"
+	}
 }
