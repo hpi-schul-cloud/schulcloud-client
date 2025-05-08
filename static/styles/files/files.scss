@@ -368,4 +368,8 @@
       margin: auto;
     }
   }
+
+  .clearfix::after {
+		clear: both;
+	}
 }
