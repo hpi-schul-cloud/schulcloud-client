@@ -322,7 +322,7 @@ router.all('/', async (req, res, next) => {
 });
 
 const renderLogin = async (req, res) => {
-	await authHelper.clearCookie(req, res);
+	await authHelper.clearCookies(req, res);
 
 	const schools = await LoginSchoolsCache.get(req);
 	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
@@ -454,7 +454,7 @@ router.get('/logout/', (req, res, next) => {
 			logger.error('can not delete etherpad client sessions', formatError(err));
 		});
 
-	return authHelper.clearCookie(req, res, sessionDestroyer)
+	return authHelper.clearCookies(req, res, sessionDestroyer)
 	// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
 			res.statusCode = 307;
