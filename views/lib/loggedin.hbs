@@ -29,6 +29,7 @@
         {{#if @root.currentUser.preferences.enterthecloud}}
             <script type="text/javascript" src="{{getAssetPath '/vendor/enterthecloud.min.js'}}" nonce="{{nonceValue}}" defer></script>
         {{/if}}
+        <script src="{{getAssetPath '/scripts/topbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "body"}}
@@ -86,8 +87,8 @@
 														<span>
 															{{#each this.breadcrumbs}}
 																{{#if this.title}}
-																	<a class="{{#if @last}}active{{/if}}" 
-																		href="{{this.url}}" 
+																	<a class="{{#if @last}}active{{/if}}"
+																		href="{{this.url}}"
 																		{{#if this.dataTestId}} data-testid="{{this.dataTestId}}" {{/if}}>
 																			{{{stripOnlyScript this.title}}}
 																	</a> {{#unless @last}}/{{/unless}}
