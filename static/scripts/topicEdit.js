@@ -1017,7 +1017,7 @@ class TopicH5P extends TopicBlock {
 
 		const { contentId, title, contentType } = this.props.content;
 
-		const h5pPreview =			<div className="card-columns">
+		const h5pPreview = <div className="card-columns">
 				<div className="card">
 					<div className="card-block">
 						<h4 className="card-title">
