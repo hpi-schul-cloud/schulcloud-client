@@ -1016,14 +1016,14 @@ class TopicH5P extends TopicBlock {
 		const saved = !!this.props.parentId;
 
 		const {
-			contentId, title, contentType, parentType,
+			contentId, title, contentType,
 		} = this.props.content;
 
 		const h5pPreview = <div className="card-columns">
 				<div className="card">
 					<div className="card-block">
 						<h4 className="card-title">
-							<a href={`/h5p/player/${contentId}?parentType=${parentType}`} target="_blank">
+							<a href={`/h5p/player/${contentId}?parentType=lessons`} target="_blank">
 								{title}
 							</a>
 						</h4>
