@@ -15,6 +15,7 @@ $(document).ready(() => {
 
 		if (!sessionTokenExpirationDate) {
 			$('#external-logout').addClass('disabled');
+			return;
 		}
 
 		const now = new Date();
