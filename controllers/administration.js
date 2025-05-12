@@ -4,7 +4,7 @@
  */
 
 const express = require('express');
-const logger = require('winston');
+const logger = require('../helpers/logger');
 const moment = require('moment');
 const multer = require('multer');
 const encoding = require('encoding-japanese');
