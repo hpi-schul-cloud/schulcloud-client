@@ -47,7 +47,7 @@ $(document).ready(function () {
         });
 
         let $modalForm = $importModal.find(".modal-form");
-        $modalForm.attr('action', `/courses/import`);
+        $modalForm.attr('action', `/common-cartridge/import`);
         $importModal.appendTo('body').modal('show');
         $('.import-modal').trigger('hideButton');
     });
