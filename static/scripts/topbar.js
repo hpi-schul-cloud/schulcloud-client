@@ -13,8 +13,12 @@ $(document).ready(() => {
 			return;
 		}
 
+		if (!sessionTokenExpirationDate) {
+			$('#external-logout').addClass('disabled');
+		}
+
 		const now = new Date();
-		if (sessionTokenExpirationDate && now < sessionTokenExpirationDate) {
+		if (now >= sessionTokenExpirationDate) {
 			$('#external-logout').addClass('disabled');
 		} else {
 			$('#external-logout').removeClass('disabled');
