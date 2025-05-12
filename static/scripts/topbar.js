@@ -14,7 +14,7 @@ $(document).ready(() => {
 		}
 
 		const now = new Date();
-		if (sessionTokenExpirationDate && now >= sessionTokenExpirationDate) {
+		if (sessionTokenExpirationDate && now < sessionTokenExpirationDate) {
 			$('#external-logout').addClass('disabled');
 		} else {
 			$('#external-logout').removeClass('disabled');
