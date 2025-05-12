@@ -1,10 +1,10 @@
 $(document).ready(() => {
-	let sessionTokenExpiration;
+	let sessionTokenExpirationDate;
 
 	const route = '/api/v3/oauth/session-token/expiration';
 	$.getJSON(route)
 		.done((response) => {
-			sessionTokenExpiration = new Date() >= new Date(response.expiresAt);
+			sessionTokenExpirationDate = new Date(response.expiresAt);
 		});
 
 	$('.user-menu-btn').click(() => {
@@ -14,7 +14,7 @@ $(document).ready(() => {
 		}
 
 		const now = new Date();
-		if (sessionTokenExpiration && now >= new Date(sessionTokenExpiration)) {
+		if (sessionTokenExpirationDate && now >= sessionTokenExpirationDate) {
 			$('#external-logout').addClass('disabled');
 		} else {
 			$('#external-logout').removeClass('disabled');
