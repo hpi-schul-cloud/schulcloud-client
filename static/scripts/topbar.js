@@ -1,13 +1,15 @@
 $(document).ready(() => {
+	const $externalLogoutBtn = $('#external-logout');
+
 	function disableExternalLogoutBtn() {
-		$('#external-logout')
+		$externalLogoutBtn
 			.addClass('disabled')
 			.attr('tabindex', '-1')
 			.attr('aria-disabled', 'true');
 	}
 
 	function enableExternalLogoutBtn() {
-		$('#external-logout')
+		$externalLogoutBtn
 			.removeClass('disabled')
 			.removeAttr('tabindex')
 			.removeAttr('aria-disabled');
@@ -15,11 +17,13 @@ $(document).ready(() => {
 
 	let sessionTokenExpirationDate;
 
-	const route = '/api/v3/oauth/session-token/expiration';
-	$.getJSON(route)
-		.done((response) => {
-			sessionTokenExpirationDate = new Date(response.expiresAt);
-		});
+	if ($externalLogoutBtn.length > 0) {
+		const route = '/api/v3/oauth/session-token/expiration';
+		$.getJSON(route)
+			.done((response) => {
+				sessionTokenExpirationDate = new Date(response.expiresAt);
+			});
+	}
 
 	$('.user-menu-btn').click(() => {
 		const isMenuClosing = $('.user-menu').hasClass('open');
