@@ -1,4 +1,18 @@
 $(document).ready(() => {
+	function disableExternalLogoutBtn() {
+		$('#external-logout')
+			.addClass('disabled')
+			.attr('tabindex', '-1')
+			.attr('aria-disabled', 'true');
+	}
+
+	function enableExternalLogoutBtn() {
+		$('#external-logout')
+			.removeClass('disabled')
+			.removeAttr('tabindex')
+			.removeAttr('aria-disabled');
+	}
+
 	let sessionTokenExpirationDate;
 
 	const route = '/api/v3/oauth/session-token/expiration';
@@ -14,15 +28,15 @@ $(document).ready(() => {
 		}
 
 		if (!sessionTokenExpirationDate) {
-			$('#external-logout').addClass('disabled');
+			disableExternalLogoutBtn();
 			return;
 		}
 
 		const now = new Date();
 		if (now >= sessionTokenExpirationDate) {
-			$('#external-logout').addClass('disabled');
+			disableExternalLogoutBtn();
 		} else {
-			$('#external-logout').removeClass('disabled');
+			enableExternalLogoutBtn();
 		}
 	});
 });
