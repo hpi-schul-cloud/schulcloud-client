@@ -51,7 +51,7 @@
       {{/if}}
       <li>
           <div class="dropdown btn-avatar user-menu">
-              <button class="icon-btn" title='{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{$t (concat "global.placeholder." currentRole) }}' data-toggle="dropdown">
+              <button class="icon-btn user-menu-btn" title='{{ currentUser.displayName }} ({{$t (concat "global.placeholder." currentRole) }})' aria-label='{{$t "lib.loggedin.label.currentUser"}} {{ currentUser.displayName }} {{$t (concat "global.placeholder." currentRole) }}' data-toggle="dropdown">
                   <span data-testid="initials" class="initials">{{ currentUser.avatarInitials }}</span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right" data-testid="icon-clickable" role="menu">
@@ -61,6 +61,7 @@
                   <li><a class="dropdown-item" data-testid="settings" href="/account/" role="menuitem" aria-label="{{$t 'lib.loggedin.tab_label.settings' }}">{{$t "lib.loggedin.tab_label.settings" }}</a></li>
                   {{#if isExternalLogoutAllowed}}
                       <li><a class="dropdown-item"
+                          id="external-logout"
                           data-testid="external-logout"
                           href="/logout/external/"
                           role="menuitem"
