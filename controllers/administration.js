@@ -3040,25 +3040,29 @@ router.get('/policies/:id', async (req, res, next) => {
 */
 
 // Terminate
-router.post('/terminateschoolyear', async (req, res) => {
+router.post('/terminateschoolyear', async (req, res, next) => {
 	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
 		json: {
 			maintenance: true,
 		},
-	});
-
-	res.redirect('/administration/school');
+	})
+		.then(() => res.redirect('/administration/school'))
+		.catch((err) => {
+			next(err);
+		});
 });
 
 // Start
-router.use('/startschoolyear', async (req, res) => {
+router.use('/startschoolyear', async (req, res, next) => {
 	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
 		json: {
 			maintenance: false,
 		},
-	});
-
-	res.redirect('/administration/school');
+	})
+		.then(() => res.redirect('/administration/school'))
+		.catch((err) => {
+			next(err);
+		});
 });
 
 // Start preview LDAP
