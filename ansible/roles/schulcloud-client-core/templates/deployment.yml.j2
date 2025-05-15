@@ -63,6 +63,8 @@ spec:
             name: client-configmap
         - secretRef:
             name: client-secret
+        - secretRef:
+            name: session-valkey-password
         volumeMounts:
         - mountPath: /home/node/app/config/http-headers.js
           subPath: http-headers.js

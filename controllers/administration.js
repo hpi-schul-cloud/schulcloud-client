@@ -4,7 +4,7 @@
  */
 
 const express = require('express');
-const logger = require('winston');
+const logger = require('../helpers/logger');
 const moment = require('moment');
 const multer = require('multer');
 const encoding = require('encoding-japanese');
@@ -586,7 +586,6 @@ const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, 
 	const { password, accountId } = req.body;
 	api(req, { json: true, version: 'v3' }).patch(`/account/${accountId}`, { json: { password } })
 		.then((response) => {
-			logger.info(response);
 			req.session.notification = {
 				type: 'success',
 				message: res.$t('administration.controller.text.changesSuccessfullySaved'),

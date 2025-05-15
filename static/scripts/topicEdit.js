@@ -3,7 +3,9 @@
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+import {
+	arrayMove, SortableContainer, SortableElement, SortableHandle,
+} from 'react-sortable-hoc';
 import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';
 import showFallbackImageOnError from './helpers/showFallbackImageOnError';
@@ -989,7 +991,7 @@ class TopicH5P extends TopicBlock {
 		const { parentType, parentId } = this.props;
 
 		const editorPopup = window.open(
-			`/h5p/editor/${id ?? 'new'}?parentType=${parentType}&parentId=${parentId}&inline=1`,
+			`/h5p/editor/${id ?? ''}?parentType=${parentType}&parentId=${parentId}`,
 			'h5p-editor',
 			`width=${w}, height=${h}, left=${x}, top=${y},
 			fullscreen=yes, toolbar=no, location=no, directories=no, status=no, scrollbars=yes, resizable=yes`,
@@ -1013,14 +1015,15 @@ class TopicH5P extends TopicBlock {
 
 		const saved = !!this.props.parentId;
 
-		const { contentId, title, contentType } = this.props.content;
+		const {
+			contentId, title, contentType,
+		} = this.props.content;
 
-		const h5pPreview =
-			<div className="card-columns">
+		const h5pPreview = <div className="card-columns">
 				<div className="card">
 					<div className="card-block">
 						<h4 className="card-title">
-							<a href={`/h5p/player/${contentId}?inline=1`} target="_blank">
+							<a href={`/h5p/player/${contentId}?parentType=lessons`} target="_blank">
 								{title}
 							</a>
 						</h4>
@@ -1028,7 +1031,7 @@ class TopicH5P extends TopicBlock {
 					</div>
 					<div className="card-footer">
 						<a className="btn-edit-h5p" onClick={this.openEditor.bind(this, contentId)} onKeyDown={(e) => {
-							if (e.key === 'Enter'){
+							if (e.key === 'Enter') {
 								this.openEditor.bind(this, contentId);
 							}
 						}}>
@@ -1057,8 +1060,8 @@ class TopicH5P extends TopicBlock {
 			<div>
 				{saved || infoBox}
 				{contentId && h5pPreview}
-				{!contentId &&
-					<div>
+				{!contentId
+					&& <div>
 						<button
 							disabled={!saved}
 							type="button"
