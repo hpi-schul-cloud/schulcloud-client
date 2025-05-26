@@ -1,7 +1,6 @@
 const express = require('express');
 
 const router = express.Router();
-const logger = require('winston');
 const fileUpload = require('express-fileupload');
 const UAParser = require('ua-parser-js');
 const moment = require('moment');
@@ -16,7 +15,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const timesHelper = require('../helpers/timesHelper');
 
 const permissionsHelper = require('../helpers/permissions');
-const { formatError } = require('../helpers');
+const { logger, formatError } = require('../helpers');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
