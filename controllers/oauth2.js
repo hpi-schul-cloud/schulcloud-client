@@ -1,14 +1,11 @@
 const express = require('express');
 
 const router = express.Router();
-const csrf = require('csurf');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const auth = require('../helpers/authentication');
 const api = require('../api');
 
-const csrfProtection = csrf({ cookie: true });
-
-router.get('/login', csrfProtection, (req, res, next) => api(req, { version: 'v3' })
+router.get('/login', (req, res, next) => api(req, { version: 'v3' })
 	.get(`/oauth2/loginRequest/${req.query.login_challenge}`)
 	.then((loginRequest) => {
 		req.session.login_challenge = req.query.login_challenge;
@@ -19,7 +16,7 @@ router.get('/login', csrfProtection, (req, res, next) => api(req, { version: 'v3
 	})
 	.catch(next));
 
-router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) => {
+router.get('/login/success', auth.authChecker, (req, res, next) => {
 	if (!req.session.login_challenge) res.redirect('/dashboard/');
 
 	const body = {
@@ -39,12 +36,12 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 		.catch(next);
 });
 
-router.all('/logout', csrfProtection, auth.authChecker, (req) => {
+router.all('/logout', auth.authChecker, (req) => {
 	api(req, { version: 'v3' })
 		.get('/oauth2/logoutRequest');
 });
 
-router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next) => {
+router.all('/logout/redirect', auth.authChecker, (req, res, next) => {
 	const body = {
 		redirect_to: '',
 	};
@@ -80,7 +77,7 @@ const displayScope = (scope, w) => {
 	}
 };
 
-router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
+router.get('/consent', auth.authChecker, (req, res, next) => {
 	// This endpoint is hit when hydra initiates the consent flow
 	if (req.query.error) {
 		// An error occurred (at hydra)
