@@ -1658,7 +1658,6 @@
 			"lernstore": "Lern-Store",
 			"mainContentSkipLink": "Saltar al contenido principal",
 			"management": "Administración",
-			"managementTeachers": "Profesores",
 			"openInNewTab": "abrir en una nueva pestaña",
 			"openInNewTabWarning": "Se abre en una pestaña nueva",
 			"overview": "Panel",
@@ -1702,6 +1701,8 @@
 			"link": {
 				"addons": "Complementos",
 				"administration": "Administración",
+				"administrationStudents": "Estudiantes",
+				"administrationTeachers": "Profesores",
 				"administrationClasses": "Clases",
 				"administrationCourses": "Cursos",
 				"rooms": "Salas",
