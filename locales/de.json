@@ -1658,7 +1658,6 @@
 			"lernstore": "Lern-Store",
 			"mainContentSkipLink": "Zum Hauptinhalt wechseln",
 			"management": "Verwaltung",
-			"managementTeachers": "Lehrkräfte",
 			"openInNewTab": "in neuem Tab öffnen",
 			"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 			"overview": "Übersicht",
@@ -1702,6 +1701,8 @@
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
+				"administrationStudents": "Lernende",
+				"administrationTeachers": "Lernbegleitende",
 				"administrationClasses": "Klassen",
 				"administrationCourses": "Kurse",
 				"rooms": "Räume",
