@@ -24,7 +24,7 @@
 		}
 	},
 	"dependencies": {
-		"@babel/runtime": "^7.14.8",
+		"@babel/runtime": "^7.27.6",
 		"@ckeditor/ckeditor5-autoformat": "^20.0.0",
 		"@ckeditor/ckeditor5-basic-styles": "^20.0.0",
 		"@ckeditor/ckeditor5-block-quote": "^20.0.0",
