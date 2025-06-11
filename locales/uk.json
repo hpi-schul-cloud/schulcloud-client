@@ -206,7 +206,6 @@
 			"lernstore": "Навчальний магазин",
 			"mainContentSkipLink": "Основний розділ",
 			"management": "Управління",
-			"managementTeachers": "Викладачі",
 			"openInNewTabWarning": "Відкривається в новій вкладці",
 			"overview": "Панель керування",
 			"register": "Зареєструватися",
@@ -258,6 +257,8 @@
 		"sidebar": {
 			"link": {
 				"addons": "Доповнення",
+				"administrationStudents": "Учні",
+				"administrationTeachers": "Викладачі",
 				"administrationClasses": "Класи",
 				"administrationCourses": "Курси",
 				"administration": "Адміністрація",

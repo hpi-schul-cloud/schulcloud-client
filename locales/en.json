@@ -1658,7 +1658,6 @@
 			"lernstore": "Learning Store",
 			"mainContentSkipLink": "Skip to main content",
 			"management": "Management",
-			"managementTeachers": "Teachers",
 			"openInNewTab": "open in new tab",
 			"openInNewTabWarning": "Opens in a new tab",
 			"overview": "Dashboard",
@@ -1702,6 +1701,8 @@
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
+				"administrationStudents": "Students",
+				"administrationTeachers": "Teachers",
 				"administrationClasses": "Classes",
 				"administrationCourses": "Courses",
 				"rooms": "Rooms",
