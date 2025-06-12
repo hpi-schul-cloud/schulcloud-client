@@ -3024,6 +3024,7 @@
 					"inviteTeachersAndExpertsByEmail": "Invita a profesores de otras escuelas.",
 					"member": "Asistentes",
 					"pleaseSelectRole": "Selecciona un rol.",
+					"selectTeacherFromRegister":"Selecciona un profesor de otra escuela de un directorio central. Después de unirse a tu equipo, podrá añadir estudiantes y maestros de su escuela al equipo.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Selecciona un profesor de otra escuela de un directorio central o proporciona la dirección de correo electrónico con la que está registrado. Después de unirse a tu equipo, podrá añadir estudiantes y maestros de tu escuela al equipo.",
 					"teacherIsFromOtherSchool": "El profesor está en otra escuela",
 					"teachersRegisterProcessFinished": "Se ha completado el registro del profesor en {{ rootThemeShortTitle }}",
