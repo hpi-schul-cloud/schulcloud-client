@@ -35,7 +35,11 @@
                     {{#inArray "INVITE_EXPERTS" permissions}}
                         {{#inArray "TEAM_INVITE_EXTERNAL" ../rolePermissions}}
                             <div class="col-sm-6">
-                                <p>{{$t "teams._team.members.text.inviteTeachersAndExpertsByEmail"}}</p>
+                                {{#if (getConfig "FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED")}}
+                                    <p>{{$t "teams._team.members.text.inviteTeachersAndExpertsByEmail"}}</p>
+                                {{else}}
+                                    <p>{{$t "teams._team.members.text.inviteTeachersAndExperts"}}</p>
+                                {{/if}}
                                 <button class="btn btn-primary btn-invite-external-member">
                                     {{$t "teams._team.members.button.addExternMembers"}}
                                 </button>
