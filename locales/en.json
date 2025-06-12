@@ -3021,7 +3021,7 @@
 					"errorWhileRemovingMember": "Problem while removing attendee",
 					"expert": "External expert",
 					"invitationEmailIsEqualToRegisterEmail": "The specified e-mail matches the e-mail with which the teacher is registered in the {{ rootThemeShortTitle }}.",
-					"inviteTeachersAndExpertsByEmail": "Invite teachers from other schools and experts via e-mail.",
+					"inviteTeachersAndExpertsByEmail": "Invite teachers from other schools.",
 					"member": "Attendees",
 					"pleaseSelectRole": "Please select a role.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Select a teacher from other schools from a central directory or provide the e-mail address with which she is registered. After joining your team, she can add students and teachers from her school to the team.",

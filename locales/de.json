@@ -3021,7 +3021,7 @@
 					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers/der Teilnehmerin",
 					"expert": "Externe/r Expert:in",
 					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
-					"inviteTeachersAndExpertsByEmail": "Lade Lehrkräfte anderer Schulen und Expert:innen per E-Mail ein.",
+					"inviteTeachersAndExpertsByEmail": "Lade Lehrkräfte anderer Schulen ein.",
 					"member": "Teilnehmer:innen",
 					"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler:innen und Lehrkräfte ihrer Schule zum Team hinzufügen.",

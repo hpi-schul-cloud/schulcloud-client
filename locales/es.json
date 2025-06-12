@@ -3021,7 +3021,7 @@
 					"errorWhileRemovingMember": "Problema al eliminar el asistente",
 					"expert": "Experto externo",
 					"invitationEmailIsEqualToRegisterEmail": "El correo electrónico especificado coincide con el correo electrónico con el que el profesor está registrado en {{ rootThemeShortTitle }}.",
-					"inviteTeachersAndExpertsByEmail": "Invita a profesores de otras escuelas y expertos por correo electrónico.",
+					"inviteTeachersAndExpertsByEmail": "Invita a profesores de otras escuelas.",
 					"member": "Asistentes",
 					"pleaseSelectRole": "Selecciona un rol.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Selecciona un profesor de otra escuela de un directorio central o proporciona la dirección de correo electrónico con la que está registrado. Después de unirse a tu equipo, podrá añadir estudiantes y maestros de tu escuela al equipo.",

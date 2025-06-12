@@ -32,18 +32,16 @@
                             </button>
                         </div>
                     {{/inArray}}
-                    {{#if (getConfig "FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED")}}
-                        {{#inArray "INVITE_EXPERTS" permissions}}
-                            {{#inArray "TEAM_INVITE_EXTERNAL" ../rolePermissions}}
-                                <div class="col-sm-6">
-                                    <p>{{$t "teams._team.members.text.inviteTeachersAndExpertsByEmail"}}</p>
-                                    <button class="btn btn-primary btn-invite-external-member">
-                                        {{$t "teams._team.members.button.addExternMembers"}}
-                                    </button>
-                                </div>
-                            {{/inArray}}
+                    {{#inArray "INVITE_EXPERTS" permissions}}
+                        {{#inArray "TEAM_INVITE_EXTERNAL" ../rolePermissions}}
+                            <div class="col-sm-6">
+                                <p>{{$t "teams._team.members.text.inviteTeachersAndExpertsByEmail"}}</p>
+                                <button class="btn btn-primary btn-invite-external-member">
+                                    {{$t "teams._team.members.button.addExternMembers"}}
+                                </button>
+                            </div>
                         {{/inArray}}
-                    {{/if}}
+                    {{/inArray}}
                 </div>
             </div>
 
