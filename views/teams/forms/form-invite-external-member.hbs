@@ -3,9 +3,9 @@
 {{/content}}
 
 <div class="form-group" data-teamId="{{teamId}}">
-
-    {{> "help/partials/help_form_invite_external_members"}}
-
+    {{#if (getConfig "FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED")}}
+        {{> "help/partials/help_form_invite_external_members"}}
+    {{/if}}
     <div class="form-group mt-3" data-role="teacher">
         <h2 class="h3">{{$t "teams._team.members.headline.inviteTeacherFromOtherSchool"}}</h2>
         {{#if (getConfig "FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED")}}
