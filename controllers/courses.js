@@ -59,7 +59,7 @@ const strToPropsArray = (props, keys) => {
 	return props;
 };
 
-const getSyncedElements = 	(
+const getSyncedElements = (
 	course,
 	classesAndGroups,
 	classAndGroupIdsOfCourse,
@@ -267,10 +267,17 @@ const editCourseHandler = (req, res, next) => {
 			time.count = count;
 		});
 
+		const { activeYear, nextYear } = res.locals.currentSchoolData.years;
+
 		// if new course -> add default start and end dates
 		if (!req.params.courseId) {
-			course.startDate = res.locals.currentSchoolData.years.activeYear.startDate;
-			course.untilDate = res.locals.currentSchoolData.years.activeYear.endDate;
+			if (activeYear.courseCreationInNextYear && nextYear) {
+				course.startDate = nextYear.startDate;
+				course.untilDate = nextYear.endDate;
+			} else {
+				course.startDate = activeYear.startDate;
+				course.untilDate = activeYear.endDate;
+			}
 		}
 
 		// format course start end until date
@@ -873,10 +880,10 @@ router.patch('/:courseId', async (req, res, next) => {
 		const isAdministrator = res.locals.currentRole === 'Administrator';
 		const currentUserId = res.locals.currentUser._id;
 		const isRemovingYourself = !isAdministrator
-		&& req.body.teacherIds
-		&& req.body.substitutionIds
-		&& !req.body.teacherIds.some((id) => id === currentUserId)
-		&& !req.body.substitutionIds.some((id) => id === currentUserId);
+			&& req.body.teacherIds
+			&& req.body.substitutionIds
+			&& !req.body.teacherIds.some((id) => id === currentUserId)
+			&& !req.body.substitutionIds.some((id) => id === currentUserId);
 
 		if (isRemovingYourself) {
 			// if you are removing yourself from a course you will not have permissions to create events anymore
