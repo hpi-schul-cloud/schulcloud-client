@@ -176,13 +176,15 @@ module.exports = (req, res, next) => {
 
 	// Rooms Feature Toggle
 	const roomsEnabled = Configuration.get('FEATURE_ROOMS_ENABLED');
+
 	if (roomsEnabled) {
+		const roomsForStudentsEnabled = Configuration.get('FEATURE_ROOM_ADD_STUDENTS_ENABLED');
 		res.locals.sidebarItems.splice(1, 0, {
 			name: res.$t('global.sidebar.link.rooms'),
 			testId: 'sidebar-rooms',
 			icon: 'account-supervisor-circle-outline',
 			link: '/rooms',
-			permission: 'ROOM_CREATE',
+			permission: roomsForStudentsEnabled ? undefined : 'ROOM_CREATE',
 		});
 	}
 
