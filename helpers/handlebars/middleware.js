@@ -178,13 +178,13 @@ module.exports = (req, res, next) => {
 	const roomsEnabled = Configuration.get('FEATURE_ROOMS_ENABLED');
 
 	if (roomsEnabled) {
-		const roomsForStudentsEnabled = Configuration.get('FEATURE_ROOM_ADD_STUDENTS_ENABLED');
+		const isRoomsFeatureEnabledForStudents = Configuration.get('FEATURE_ROOM_ADD_STUDENTS_ENABLED');
 		res.locals.sidebarItems.splice(1, 0, {
 			name: res.$t('global.sidebar.link.rooms'),
 			testId: 'sidebar-rooms',
 			icon: 'account-supervisor-circle-outline',
 			link: '/rooms',
-			permission: roomsForStudentsEnabled ? undefined : 'ROOM_CREATE',
+			permission: isRoomsFeatureEnabledForStudents ? undefined : 'ROOM_CREATE',
 		});
 	}
 
