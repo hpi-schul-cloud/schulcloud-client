@@ -1,6 +1,6 @@
-import './pwd';
 import initAlerts from './alerts';
 import * as storage from './helpers/storage';
+import './pwd';
 
 $(document).ready(() => {
 	// reset localStorage when new version is Published
@@ -224,6 +224,7 @@ $(document).ready(() => {
 			setSystemOptions(dataSystems);
 		} else {
 			$systems.parent().hide();
+			$systems.empty();
 		}
 		$school.find('option').not(`[value='${id}']`).removeAttr('selected');
 		$school.find(`option[value='${id}']`).attr('selected', true);
