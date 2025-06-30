@@ -644,6 +644,11 @@
 			"default": false,
 			"description": "Enables the rooms feature"
 		},
+		"FEATURE_ROOM_ADD_STUDENTS_ENABLED": {
+			"type": "boolean",
+			"default": "false",
+			"description": "Enables adding students to a room"
+		},
 		"FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED": {
 			"type": "boolean",
 			"default": false,
