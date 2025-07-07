@@ -148,10 +148,10 @@
 			"passwordsAreDifferent": "Паролі не збігаються.",
 			"containsOpeningTag": "Будь ласка, вставте пробіл після знаку менше.",
 			"hasLowerCase": "Пароль повинен містити малі літери.",
-            "hasUpperCase": "Пароль повинен містити великі літери.",
-            "hasNumber": "Пароль повинен містити цифру.",
-            "hasSpecialCharacter": "Пароль повинен містити спеціальний символ.",
-            "hasMinLength": "«Пароль повинен містити щонайменше 8 символів.",
+			"hasUpperCase": "Пароль повинен містити великі літери.",
+			"hasNumber": "Пароль повинен містити цифру.",
+			"hasSpecialCharacter": "Пароль повинен містити спеціальний символ.",
+			"hasMinLength": "«Пароль повинен містити щонайменше 8 символів.",
 			"qrHintText": "Переведіть інших користувачів на цей сайт за допомогою QR-коду",
 			"requestTimeout": "Час запиту вичерпано",
 			"somethingWentWrong": "Щось пішло не так!",
@@ -206,7 +206,6 @@
 			"lernstore": "Навчальний магазин",
 			"mainContentSkipLink": "Основний розділ",
 			"management": "Управління",
-			"managementTeachers": "Викладачі",
 			"openInNewTabWarning": "Відкривається в новій вкладці",
 			"overview": "Панель керування",
 			"register": "Зареєструватися",
@@ -258,6 +257,8 @@
 		"sidebar": {
 			"link": {
 				"addons": "Доповнення",
+				"administrationStudents": "Учні",
+				"administrationTeachers": "Викладачі",
 				"administrationClasses": "Класи",
 				"administrationCourses": "Курси",
 				"administration": "Адміністрація",
@@ -694,7 +695,6 @@
 				"printSheetIsBeingGenerated": "Друкований аркуш створюється...",
 				"addCourse": " Додати курс",
 				"bug": "Хочете повідомити про помилку чи у вас є ідея покращити {{title}}?\n  Надсилайте запити чи проблеми безпосередньо до служби підтримки користувачів {{short_title}}.",
-				"createLinkSheet": "Створити друкований аркуш з посиланням",
 				"sendLinksToStudentEmailAddresses": "Відправити посилання на електронні адреси учнів",
 				"contactSupport": "Зверніться до служби підтримки"
 			},
@@ -1960,8 +1960,10 @@
 					"errorWhileRemovingMember": "Проблема під час вилучення учасника",
 					"expert": "Зовнішній експерт",
 					"invitationEmailIsEqualToRegisterEmail": "Вказана електронна пошта збігається з електронною поштою, з якою викладач зареєстрований в {{ rootThemeShortTitle }}.",
+					"inviteTeachersAndExperts": "Запросіть викладачів з інших шкіл.",
 					"inviteTeachersAndExpertsByEmail": "Запросіть викладачів з інших шкіл і експертів електронною поштою.",
 					"member": "Учасники",
+					"selectTeacherFromRegister": "Виберіть викладача з інших шкіл із центрального довідника. Приєднавшись до вашої команди, вона може додати до команди учнів і викладачів зі своєї школи.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Виберіть викладача з інших шкіл із центрального довідника або вкажіть адресу електронної пошти, за якою вона зареєстрована. Приєднавшись до вашої команди, вона може додати до команди учнів і викладачів зі своєї школи.",
 					"teacherIsFromOtherSchool": "Викладач в іншій школі",
 					"teachersRegisterProcessFinished": "Реєстрацію викладача в {{ rootThemeShortTitle }} завершено",
@@ -2088,8 +2090,8 @@
 			"onlineEventsAnnouncement": "Команда dBildungscloud запрошує вас на різноманітні онлайн-заходи. Для отримання додаткової інформації натисніть <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>ТУТ</a>.",
 			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
-			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel-mit-der-nbc'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
-			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an die Kolleg:innen am ThILLM, die Sie unter <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a> erreichen können."
+			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>."
 		}
 	},
 	"topic": {

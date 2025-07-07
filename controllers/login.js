@@ -322,7 +322,7 @@ router.all('/', async (req, res, next) => {
 });
 
 const renderLogin = async (req, res) => {
-	await authHelper.clearCookie(req, res);
+	await authHelper.clearCookies(req, res);
 
 	const schools = await LoginSchoolsCache.get(req);
 	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
@@ -454,7 +454,7 @@ router.get('/logout/', (req, res, next) => {
 			logger.error('can not delete etherpad client sessions', formatError(err));
 		});
 
-	return authHelper.clearCookie(req, res, sessionDestroyer)
+	return authHelper.clearCookies(req, res, sessionDestroyer)
 	// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
 			res.statusCode = 307;
@@ -469,6 +469,8 @@ router.get('/logout/external/', authHelper.authChecker, async (req, res, next) =
 		redirectUri = Configuration.get('OAUTH2_LOGOUT_URI');
 	}
 
+	res.redirect(redirectUri);
+
 	if (res.locals.isExternalLogoutAllowed) {
 		try {
 			await api(req, { version: 'v3' }).post('/logout/external');
@@ -476,8 +478,6 @@ router.get('/logout/external/', authHelper.authChecker, async (req, res, next) =
 			logger.error('error during external logout.', formatError(err));
 		}
 	}
-
-	res.redirect(redirectUri);
 });
 
 module.exports = router;

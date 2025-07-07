@@ -122,6 +122,35 @@
 			],
 			"description": "Sets the winston log level. Winston is used for all logs. @see AbstractConfigSetLevels"
 		},
+		"SESSION_VALKEY": {
+			"type": "object",
+			"description": "Session configuration.",
+			"properties": {
+				"MODE": {
+					"type": "string",
+					"default": "cluster",
+					"enum": ["cluster", "single" ,"in-memory"],
+					"description": "Define valkey mode."
+				},
+				"URI": {
+					"type": "string",
+					"pattern": "(rediss?:)?//((\\w+)?(:.+@)?)?((\\w+)?(:\\w+))?(/d+)?(\\?db=\\d+(&password=.+(&option=.+)*)?)?",
+					"description": "URL of a Valkey server. If undefined, JWT whitelisting and timeouts will be disabled. Format: [redis[s]:]//[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]"
+				},
+				"SENTINEL_NAME": {
+					"type": "string",
+					"description": "The name of the Redis Sentinel."
+				},
+				"SENTINEL_PASSWORD": {
+					"type": "string",
+					"description": "The password for the Redis Sentinel service."
+				},
+				"SENTINEL_SERVICE_NAME": {
+					"type": "string",
+					"description": "The name of the Redis Sentinel service."
+				}
+			}
+		},
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
 			"type": "string",
 			"default": "disabled",
@@ -580,7 +609,7 @@
 			"default": false,
 			"description": "Changes the login flow to one that supports user login migrations"
 		},
-		"FEATURE_H5P_EDITOR_ENABLED": {
+		"FEATURE_LESSON_H5P_ENABLED": {
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled, adds H5P editor to course topics."
@@ -614,6 +643,11 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables the rooms feature"
+		},
+		"FEATURE_ROOM_ADD_STUDENTS_ENABLED": {
+			"type": "boolean",
+			"default": "false",
+			"description": "Enables adding students to a room"
 		},
 		"FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED": {
 			"type": "boolean",

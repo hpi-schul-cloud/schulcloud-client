@@ -395,7 +395,6 @@
 				"addCourse": " Kurs hinzufügen",
 				"bug": "Du möchtest einen Fehler melden oder hast eine Idee zur Verbesserung der {{title}}?\n Sende Wünsche oder Probleme direkt an den {{short_title}}-Nutzer-Support.",
 				"contactSupport": "Support kontaktieren",
-				"createLinkSheet": "Link-Druckbogen erstellen",
 				"mailsAreBeingSent": "E-Mails werden gesendet...",
 				"printSheetIsBeingGenerated": "Druckbogen wird generiert...",
 				"sendLinksToStudentEmailAddresses": "Links an Schüler:innen-E-Mail-Adressen senden"
@@ -1658,7 +1657,6 @@
 			"lernstore": "Lern-Store",
 			"mainContentSkipLink": "Zum Hauptinhalt wechseln",
 			"management": "Verwaltung",
-			"managementTeachers": "Lehrkräfte",
 			"openInNewTab": "in neuem Tab öffnen",
 			"openInNewTabWarning": "Wird in einem neuem Tab geöffnet",
 			"overview": "Übersicht",
@@ -1702,6 +1700,8 @@
 			"link": {
 				"addons": "Add-ons",
 				"administration": "Administration",
+				"administrationStudents": "Lernende",
+				"administrationTeachers": "Lernbegleitende",
 				"administrationClasses": "Klassen",
 				"administrationCourses": "Kurse",
 				"rooms": "Räume",
@@ -2433,8 +2433,8 @@
 			"onlineEventsAnnouncement": "Das Team der dBildungscloud lädt zu verschiedenen Online-Veranstaltungen ein. Klicken Sie <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>HIER</a> für mehr Informationen.",
 			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
-			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel-mit-der-nbc'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
-			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an die Kolleg:innen am ThILLM, die Sie unter <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a> erreichen können."
+			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>."
 		}
 	},
 	"login": {
@@ -3020,9 +3020,11 @@
 					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers/der Teilnehmerin",
 					"expert": "Externe/r Expert:in",
 					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
+					"inviteTeachersAndExperts": "Lade Lehrkräfte anderer Schulen ein.",
 					"inviteTeachersAndExpertsByEmail": "Lade Lehrkräfte anderer Schulen und Expert:innen per E-Mail ein.",
 					"member": "Teilnehmer:innen",
 					"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
+					"selectTeacherFromRegister": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus. Nach Beitritt zu deinem Team kann sie Schüler:innen und Lehrkräfte ihrer Schule zum Team hinzufügen.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler:innen und Lehrkräfte ihrer Schule zum Team hinzufügen.",
 					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
 					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen",

@@ -120,7 +120,7 @@
 
                         {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled"}}</label>{{/ifConfig}}
 
-                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in"}}</label>{{/ifConfig}}
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" data-testid="checkbox-show-in-directory" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in"}}</label>{{/ifConfig}}
 
                         {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out"}}</label>{{/ifConfig}}
                     </div>
@@ -128,7 +128,7 @@
                     {{> "lib/components/csrfInput"}}
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" data-testid="submit_visibility_settings_btn">
                             {{$t "account.button.saveTeamSettings" }}
                         </button>
                     </div>

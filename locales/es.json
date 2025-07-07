@@ -395,7 +395,6 @@
 				"addCourse": "Añadir curso",
 				"bug": "¿Te gustaría informar de un error o tienes alguna idea para mejorar {{title}}?\n Envía tus solicitudes o problemas directamente al servicio de atención al usuario de {{short_title}}.",
 				"contactSupport": "Contactar soporte",
-				"createLinkSheet": "Crear una hoja impresa con los enlaces",
 				"mailsAreBeingSent": "Enviando correos electrónicos...",
 				"printSheetIsBeingGenerated": "Se está generando la hoja de impresión...",
 				"sendLinksToStudentEmailAddresses": "Enviar enlaces a las direcciones de correo electrónico de los estudiantes"
@@ -1658,7 +1657,6 @@
 			"lernstore": "Lern-Store",
 			"mainContentSkipLink": "Saltar al contenido principal",
 			"management": "Administración",
-			"managementTeachers": "Profesores",
 			"openInNewTab": "abrir en una nueva pestaña",
 			"openInNewTabWarning": "Se abre en una pestaña nueva",
 			"overview": "Panel",
@@ -1702,6 +1700,8 @@
 			"link": {
 				"addons": "Complementos",
 				"administration": "Administración",
+				"administrationStudents": "Estudiantes",
+				"administrationTeachers": "Profesores",
 				"administrationClasses": "Clases",
 				"administrationCourses": "Cursos",
 				"rooms": "Salas",
@@ -2433,8 +2433,8 @@
 			"onlineEventsAnnouncement": "El equipo de dBildungscloud le invita a varios eventos en línea. Haga clic <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>AQUÍ</a> para obtener más información.",
 			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
-			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel-mit-der-nbc'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
-			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an die Kolleg:innen am ThILLM, die Sie unter <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a> erreichen können."
+			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>."
 		}
 	},
 	"login": {
@@ -3020,9 +3020,11 @@
 					"errorWhileRemovingMember": "Problema al eliminar el asistente",
 					"expert": "Experto externo",
 					"invitationEmailIsEqualToRegisterEmail": "El correo electrónico especificado coincide con el correo electrónico con el que el profesor está registrado en {{ rootThemeShortTitle }}.",
+					"inviteTeachersAndExperts": "Invita a profesores de otras escuelas.",
 					"inviteTeachersAndExpertsByEmail": "Invita a profesores de otras escuelas y expertos por correo electrónico.",
 					"member": "Asistentes",
 					"pleaseSelectRole": "Selecciona un rol.",
+					"selectTeacherFromRegister": "Selecciona un profesor de otra escuela de un directorio central. Después de unirse a tu equipo, podrá añadir estudiantes y maestros de su escuela al equipo.",
 					"selectTeacherFromRegisterOrInvitePerEmail": "Selecciona un profesor de otra escuela de un directorio central o proporciona la dirección de correo electrónico con la que está registrado. Después de unirse a tu equipo, podrá añadir estudiantes y maestros de tu escuela al equipo.",
 					"teacherIsFromOtherSchool": "El profesor está en otra escuela",
 					"teachersRegisterProcessFinished": "Se ha completado el registro del profesor en {{ rootThemeShortTitle }}",
