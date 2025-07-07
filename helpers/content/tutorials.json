@@ -6,6 +6,23 @@
 		"icon": "fa-graduation-cap",
 		"categories": [
 			{
+				"id": "375458794",
+				"title": "Räume",
+				"type": "category",
+				"articles": [
+					{
+						"id": "381583517",
+						"title": "Räume und ihre Funktionen",
+						"type": "article"
+					},
+					{
+						"id": "270827606",
+						"title": "Bereiche - einspaltig und zweispaltig",
+						"type": "article"
+					}
+				]
+			},
+			{
 				"id": "44072994",
 				"title": "Kurse",
 				"type": "category",
@@ -64,7 +81,7 @@
 				"articles": [
 					{
 						"id": "13828870",
-						"title": "Thema erstellen",
+						"title": "Themen, Aufgaben und Bereiche erstellen",
 						"type": "article"
 					},
 					{
@@ -83,8 +100,8 @@
 						"type": "article"
 					},
 					{
-						"id": "270827606",
-						"title": "Spalten-Board",
+						"id": "314998942",
+						"title": "Interaktives Whiteboard nutzen",
 						"type": "article"
 					}
 				]
@@ -185,14 +202,14 @@
 				"articles": []
 			},
 			{
-				"id": "44073000",
-				"title": "Lern-Store",
+				"id": "123409350",
+				"title": "Texteditor",
 				"type": "category",
 				"articles": []
 			},
 			{
-				"id": "123409350",
-				"title": "Texteditor",
+				"id": "44073000",
+				"title": "Lern-Store",
 				"type": "category",
 				"articles": []
 			},
@@ -259,12 +276,7 @@
 				"articles": [
 					{
 						"id": "98598995",
-						"title": "Browser konfigurieren mit Windows",
-						"type": "article"
-					},
-					{
-						"id": "170593514",
-						"title": "Browser konfigurieren mit mac OS/OS X",
+						"title": "Browserspezifische Hinweise",
 						"type": "article"
 					},
 					{
@@ -279,7 +291,7 @@
 					},
 					{
 						"id": "223674916",
-						"title": "Teams bearbeiten Verwaltung",
+						"title": "Teams bearbeiten und verwalten",
 						"type": "article"
 					},
 					{
@@ -318,6 +330,11 @@
 						"type": "article"
 					},
 					{
+						"id": "123407871",
+						"title": "Spezielle Anleitung zum Schulwechsel für Schulen mit LDAP-System",
+						"type": "article"
+					},
+					{
 						"id": "154188767",
 						"title": "Schulweit Sprache ändern",
 						"type": "article"
@@ -334,7 +351,12 @@
 					},
 					{
 						"id": "246055610",
-						"title": "Externe Tools anbinden und verwalten",
+						"title": "Externe Tools anbinden und verwalten (LTI)",
+						"type": "article"
+					},
+					{
+						"id": "308413368",
+						"title": "Migrationsassistent für moin.schule",
 						"type": "article"
 					}
 				]
@@ -388,7 +410,7 @@
 					},
 					{
 						"id": "132683186",
-						"title": "Rollen und Berechtigungen",
+						"title": "Rollen und Berechtigungen in Teams",
 						"type": "article"
 					},
 					{
@@ -451,11 +473,6 @@
 						"type": "article"
 					},
 					{
-						"id": "15106089",
-						"title": "Hilfebereich",
-						"type": "article"
-					},
-					{
 						"id": "13828795",
 						"title": "Wunsch oder Problem senden",
 						"type": "article"
@@ -475,12 +492,6 @@
 				"articles": []
 			},
 			{
-				"id": "69664812",
-				"title": "Schulungen",
-				"type": "category",
-				"articles": []
-			},
-			{
 				"id": "123407337",
 				"title": "Schuljahreswechsel",
 				"type": "category",
@@ -489,6 +500,12 @@
 			{
 				"id": "214237489",
 				"title": "Dateien in Nextcloud",
+				"type": "category",
+				"articles": []
+			},
+			{
+				"id": "352583745",
+				"title": "Medienregal",
 				"type": "category",
 				"articles": []
 			}
