@@ -1,3 +1,5 @@
+
+
 [
 	{
 		"id": "17170472",
@@ -13,6 +15,11 @@
 					{
 						"id": "381583517",
 						"title": "Räume und ihre Funktionen",
+						"type": "article"
+					},
+					{
+						"id": "270827606",
+						"title": "Bereiche - einspaltig und zweispaltig",
 						"type": "article"
 					}
 				]
@@ -92,11 +99,6 @@
 					{
 						"id": "246055834",
 						"title": "Themen kopieren",
-						"type": "article"
-					},
-					{
-						"id": "270827606",
-						"title": "Bereiche: einspaltig und zweispaltig",
 						"type": "article"
 					},
 					{
@@ -470,11 +472,6 @@
 					{
 						"id": "148537858",
 						"title": "Bekannte Fehler in der Cloud und ihre Behebung",
-						"type": "article"
-					},
-					{
-						"id": "15106089",
-						"title": "Hilfebereich",
 						"type": "article"
 					},
 					{
