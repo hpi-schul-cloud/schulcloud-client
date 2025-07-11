@@ -5,10 +5,6 @@ $(document).ready(() => {
 	}
 	initialized = true;
 	const API_HOST = (document.querySelector('script[data-backendurl]').dataset.backendurl).replace(/\/$/, '');
-	const getJwt = (() => {
-		const rawJwt = document.cookie.split(';').filter((item) => item.includes('jwt'));
-		return rawJwt[0].replace('jwt=', '');
-	});
 
 	let timeOnStart = Date.now(); // timestamp on script load
 	const $autoLoggoutAlertModal = $('.auto-logout-alert-modal');
@@ -57,8 +53,6 @@ $(document).ready(() => {
 			url: `${API_HOST}/v1/accounts/jwtTimer`,
 			type: 'POST',
 			dataType: 'json',
-			// Fetch the stored token from localStorage and set in the header
-			headers: { Authorization: `Bearer ${getJwt()}` },
 		})
 			.done(() => {
 				processing = false;

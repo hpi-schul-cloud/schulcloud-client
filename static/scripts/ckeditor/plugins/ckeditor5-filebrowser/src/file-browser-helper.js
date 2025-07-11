@@ -1,4 +1,3 @@
-import getCookie from '../../../../helpers/cookieManager';
 import { apiV3FileStorageBasePath, getFileDownloadUrl } from '../../../../helpers/storage';
 import { createParent } from '../../../../helpers/homework';
 
@@ -40,18 +39,13 @@ export default class FileBrowserHelper {
 			return undefined;
 		}
 
-		const headers = { Authorization: `Bearer ${getCookie('jwt')}` };
 		const fileRecord = await $.ajax(
 			`${apiV3FileStorageBasePath}/upload-from-url/school/${schoolId}/${parentType}/${parentId}`,
 			{
 				method: 'POST',
-				headers,
 				data: {
 					url: `${window.location.origin}${url}`,
 					fileName: `${fileNameMatch}`,
-					headers: {
-						cookie: document.cookie,
-					},
 				},
 			},
 		);
