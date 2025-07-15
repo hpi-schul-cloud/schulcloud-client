@@ -33,19 +33,26 @@ export default class FileBrowserHelper {
 	}
 
 	static async copyFile(schoolId, parentType, parentId, url) {
-		const fileNameMatch = url.split('name=')[1];
+		const urlParams = new URLSearchParams(url.split('?')[1]);
+		const fileId = urlParams.get('file');
+		const fileName = urlParams.get('name');
 
-		if (!fileNameMatch) {
+		if (!fileName) {
 			return undefined;
 		}
+
+		const signedUrlResponse = await $.ajax({
+			url: `${window.location.origin}/files/signedurl?file=${fileId}&name=${fileName}`,
+			method: 'GET',
+		});
 
 		const fileRecord = await $.ajax(
 			`${apiV3FileStorageBasePath}/upload-from-url/school/${schoolId}/${parentType}/${parentId}`,
 			{
 				method: 'POST',
 				data: {
-					url: `${window.location.origin}${url}`,
-					fileName: `${fileNameMatch}`,
+					url: signedUrlResponse.url,
+					fileName: `${fileName}`,
 				},
 			},
 		);
