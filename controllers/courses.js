@@ -813,6 +813,7 @@ router.get('/:courseId/', async (req, res, next) => {
 				scopedCoursePermission: scopedPermissions[res.locals.currentUser._id],
 				isTeacher: hasRole(teacher),
 				isStudent: hasRole(student),
+				isLocked: course.teacherIds.length === 0,
 			},
 		);
 	} catch (err) {
