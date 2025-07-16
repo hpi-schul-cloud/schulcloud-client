@@ -276,7 +276,7 @@
 		"ETHERPAD": {
 			"type": "object",
 			"description": "Cookie properties, required always to be defined",
-			"required": ["PAD_PATH", "PAD_URI", "OLD_DOMAIN", "NEW_DOMAIN"],
+			"required": ["PAD_PATH", "PAD_URI", "DOMAIN"],
 			"properties": {
 				"PAD_PATH": {
 					"type": "string",
@@ -291,12 +291,7 @@
 					"pattern": ".*(?<!/)$",
 					"description": "The etherpad pad uri"
 				},
-				"OLD_DOMAIN": {
-					"type": "string",
-					"default": "etherpad.dbildungscloud.de",
-					"description": "The old etherpad domain"
-				},
-				"NEW_DOMAIN": {
+				"DOMAIN": {
 					"type": "string",
 					"default": "dbildungscloud.de",
 					"description": "The new etherpad domain"
