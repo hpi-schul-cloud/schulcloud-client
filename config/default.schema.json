@@ -92,11 +92,6 @@
 			"default": true,
 			"description": "If enabled, morgan logs are written."
 		},
-		"FEATURE_SKIP_FIRST_LOGIN_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "If enabled, firstLogin page is not shown."
-		},
 		"FEATURE_LOG_REQUEST": {
 			"type": "boolean",
 			"default": false,
