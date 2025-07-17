@@ -11,7 +11,7 @@ const cookieDefaults = {
 const setCookie = (res, cookieName, value, options = {}) => {
 	const cookieOptions = { ...cookieDefaults, ...options };
 	if (cookieName === 'jwt') {
-		cookieOptions.httpOnly = true;
+		cookieOptions.httpOnly = Configuration.get('COOKIE__JWT_HTTP_ONLY');
 	}
 	res.cookie(cookieName, value, cookieOptions);
 };
