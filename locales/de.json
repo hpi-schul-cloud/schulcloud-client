@@ -310,6 +310,7 @@
 				"manageSchool": "Schule verwalten",
 				"manageStudents": "Schüler:innen verwalten",
 				"manageTeachers": "Lehrkräfte verwalten",
+				"manageRooms": "Räume verwalten",
 				"manageTeams": "Teams verwalten",
 				"migration": "Benutzerkonten aus Schulportal migrieren"
 			}
@@ -1702,6 +1703,7 @@
 				"administration": "Administration",
 				"administrationStudents": "Lernende",
 				"administrationTeachers": "Lernbegleitende",
+				"administrationRooms": "Räume",
 				"administrationClasses": "Klassen",
 				"administrationCourses": "Kurse",
 				"rooms": "Räume",

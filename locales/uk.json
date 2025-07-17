@@ -259,6 +259,7 @@
 				"addons": "Доповнення",
 				"administrationStudents": "Учні",
 				"administrationTeachers": "Викладачі",
+				"administrationRooms": "Кімнати",
 				"administrationClasses": "Класи",
 				"administrationCourses": "Курси",
 				"administration": "Адміністрація",
@@ -1255,6 +1256,7 @@
 				"manageSchool": "Керувати школою",
 				"manageStudents": "Керувати учнями",
 				"manageTeachers": "Керувати викладачами",
+				"manageRooms": "Керувати кімнатами",
 				"manageTeams": "Керувати командами",
 				"migration": "Керувати міграцією користувачів"
 			}
