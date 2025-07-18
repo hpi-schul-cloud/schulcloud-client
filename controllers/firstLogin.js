@@ -55,19 +55,6 @@ router.get('/', async (req, res, next) => {
 	const { redirect } = req.query;
 	const redirectUrl = redirect ? redirectHelper.getValidRedirect(redirect) : '/dashboard';
 
-	if (Configuration.get('FEATURE_SKIP_FIRST_LOGIN_ENABLED') === true) {
-		return api(req)
-			.post('/firstLogin/', { json: req.body })
-			.then(() => res.redirect(redirectUrl))
-			.catch((err) => {
-				res.status(500)
-					.send(
-						(err.error || err).message
-							|| res.$t('login.text.errorFirstLogin'),
-					);
-			});
-	}
-
 	if (
 		!currentUser.birthday && res.locals.currentRole === 'Schüler' // fixme identical to isStudent() here
 			&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
