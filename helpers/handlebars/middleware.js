@@ -301,7 +301,7 @@ module.exports = (req, res, next) => {
 			link: '/administration/teachers/',
 		},
 		{
-			name: res.$t('global.sidebar.link.administrationCourses'),
+			name: res.$t('global.sidebar.link.administrationRooms'),
 			testId: 'sidebar-management-rooms',
 			link: '/administration/rooms/manage',
 		},
