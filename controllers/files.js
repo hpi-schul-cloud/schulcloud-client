@@ -436,6 +436,27 @@ router.delete('/file', (req, res, next) => {
 	});
 });
 
+router.get('/signedurl', (req, res, next) => {
+	try {
+		const { fileId, name } = req.query;
+		if (!fileId || !name) {
+			throw new Error('Missing fileId or name query parameter');
+		}
+
+		const data = {
+			file: fileId,
+			name,
+			download: false,
+		};
+
+		retrieveSignedUrl(req, data).then((signedUrl) => {
+			res.json(signedUrl);
+		});
+	} catch (error) {
+		next(error);
+	}
+});
+
 // get file
 router.get('/file', (req, res, next) => {
 	const {

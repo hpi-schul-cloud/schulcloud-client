@@ -9,7 +9,11 @@ const cookieDefaults = {
 };
 
 const setCookie = (res, cookieName, value, options = {}) => {
-	res.cookie(cookieName, value, { ...cookieDefaults, ...options });
+	const cookieOptions = { ...cookieDefaults, ...options };
+	if (cookieName === 'jwt') {
+		cookieOptions.httpOnly = Configuration.get('COOKIE__JWT_HTTP_ONLY');
+	}
+	res.cookie(cookieName, value, cookieOptions);
 };
 
 module.exports = {
