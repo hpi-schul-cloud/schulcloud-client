@@ -310,6 +310,7 @@
 				"manageSchool": "Administrar escuela",
 				"manageStudents": "Administrar estudiantes",
 				"manageTeachers": "Administrar profesores",
+				"manageRooms": "Administrar salas",
 				"manageTeams": "Administrar equipos",
 				"migration": "Administrar la migración de usuarios"
 			}
@@ -1702,6 +1703,7 @@
 				"administration": "Administración",
 				"administrationStudents": "Estudiantes",
 				"administrationTeachers": "Profesores",
+				"administrationRooms": "Salas",
 				"administrationClasses": "Clases",
 				"administrationCourses": "Cursos",
 				"rooms": "Salas",
