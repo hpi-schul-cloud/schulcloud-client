@@ -9,7 +9,6 @@ const {
 	ALERT_STATUS_URL,
 	SC_THEME,
 } = require('../../config/global');
-const { permission } = require('process');
 
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
