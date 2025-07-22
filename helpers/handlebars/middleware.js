@@ -337,7 +337,7 @@ module.exports = (req, res, next) => {
 	];
 
 	if (newRoomsViewEnabled) {
-		adminChildItems.splice(2, 1, {
+		adminChildItems.splice(3, 1, {
 			name: res.$t('global.sidebar.link.administrationCourses'),
 			testId: 'sidebar-management-courses',
 			icon: 'school-outline',
@@ -345,7 +345,7 @@ module.exports = (req, res, next) => {
 		});
 	}
 	if (newClassViewEnabled) {
-		adminChildItems.splice(3, 1, {
+		adminChildItems.splice(4, 1, {
 			name: res.$t('global.sidebar.link.administrationClasses'),
 			testId: 'sidebar-management-classes',
 			icon: // eslint-disable-next-line max-len
