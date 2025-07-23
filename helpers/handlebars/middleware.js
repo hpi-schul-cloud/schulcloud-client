@@ -299,11 +299,11 @@ module.exports = (req, res, next) => {
 			isExternalIcon: true,
 			link: '/administration/teachers/',
 		},
-		// {
-		// 	name: res.$t('global.sidebar.link.administrationRooms'),
-		// 	testId: 'sidebar-management-rooms',
-		// 	link: '/administration/rooms/manage',
-		// },
+		{
+			name: res.$t('global.sidebar.link.administrationRooms'),
+			testId: 'sidebar-management-rooms',
+			link: '/administration/rooms/manage',
+		},
 		{
 			name: res.$t('global.sidebar.link.administrationCourses'),
 			testId: 'sidebar-management-courses',
@@ -355,12 +355,11 @@ module.exports = (req, res, next) => {
 		});
 	}
 
-	if (roomsEnabled) {
-		adminChildItems.splice(2, 1, {
-			name: res.$t('global.sidebar.link.rooms'),
-			testId: 'sidebar-management-rooms',
-			link: '/administration/rooms/manage',
-		});
+	if (!roomsEnabled) {
+		const index = adminChildItems.findIndex((item) => item.testId === 'sidebar-management-rooms');
+		if (index !== -1) {
+			adminChildItems.splice(index, 1);
+		}
 	}
 
 	res.locals.sidebarItems.push({
