@@ -356,7 +356,7 @@ module.exports = (req, res, next) => {
 	}
 
 	if (roomsEnabled) {
-		adminChildItems.splice(3, 1, {
+		adminChildItems.splice(2, 1, {
 			name: res.$t('global.sidebar.link.rooms'),
 			testId: 'sidebar-management-rooms',
 			link: '/administration/rooms/manage',
