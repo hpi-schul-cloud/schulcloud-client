@@ -283,6 +283,7 @@ module.exports = (req, res, next) => {
 	// admin views
 	const newSchoolAdminPageAsDefault = Configuration.get('FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED');
 	const newRoomsViewEnabled = Configuration.get('FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED');
+	const administrationRoomsEnabled = Configuration.get('FEATURE_ADMINISTRATE_ROOMS_ENABLED');
 
 	const adminChildItems = [
 		{
@@ -355,7 +356,7 @@ module.exports = (req, res, next) => {
 		});
 	}
 
-	if (!roomsEnabled) {
+	if (!administrationRoomsEnabled) {
 		const index = adminChildItems.findIndex((item) => item.testId === 'sidebar-management-rooms');
 		if (index !== -1) {
 			adminChildItems.splice(index, 1);
