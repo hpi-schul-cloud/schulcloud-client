@@ -13,6 +13,7 @@
 	"PUBLIC_BACKEND_URL": "http://localhost:3030/api",
 	"FEATURE_ROOMS_ENABLED": true,
 	"FEATURE_ROOM_ADD_STUDENTS_ENABLED": true,
+	"FEATURE_ADMINISTRATE_ROOMS_ENABLED": true,
 	"SESSION_VALKEY": {
 		"MODE": "in-memory"
 	}
