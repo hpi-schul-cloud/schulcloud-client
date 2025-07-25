@@ -19,6 +19,9 @@
 {{#content "page"}}
 <meta name="baseUrl" content={{baseUrl}}>
 <div class="dropdown dropdown-course minimal-button">
+{{#if isLocked}}
+    This course is locked.
+{{else}}
   {{#inArray "COURSE_EDIT" scopedCoursePermission}}
   <button class="btn btn-sm dropdown-toggle btn-course-dropdown" data-testid="edit_course_dropdown" title="{{$t " global.label.more"}}"
     data-toggle="dropdown">
@@ -77,6 +80,7 @@
       </div>
     </div>
   </div>
+    {{/if}}
 
   {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
   {{#content "body"}}
