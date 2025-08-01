@@ -19,7 +19,7 @@ const instanceSpecificTitle = () => {
 const instanceInstitute = () => {
 	switch (SC_THEME) {
 		case 'n21':
-			return 'Landesinitiative n-21: Schulen in Niedersachsen online e.V.';
+			return 'Niedersächsisches Landesinstitut für schulische Qualitätsentwicklung (NLQ)';
 		case 'thr':
 			return 'Thüringer Institut für Lehrerfortbildung, Lehrplanentwicklung und Medien';
 		case 'brb':
