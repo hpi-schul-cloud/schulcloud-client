@@ -64,7 +64,7 @@
 		"compression": "^1.8.1",
 		"connect-redis": "^7.1.1",
 		"cookie-parser": "~1.4.3",
-		"cross-env": "^7.0.3",
+		"cross-env": "^10.0.0",
 		"csurf": "^1.10.0",
 		"debug": "~2.6.0",
 		"device-detector-js": "^1.1.1",
