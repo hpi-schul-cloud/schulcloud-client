@@ -493,27 +493,6 @@ const removeSystemFromSchoolHandler = (req, res, next) => {
 		});
 };
 
-const createSystemHandler = (req, res, next) => {
-	api(req)
-		.post('/systems/', { json: req.body })
-		.then((system) => {
-			api(req)
-				.patch(`/schools/${req.body.schoolId}`, {
-					json: {
-						$push: {
-							systems: system.id,
-						},
-					},
-				})
-				.then(() => {
-					res.redirect('/administration/school');
-				})
-				.catch((err) => {
-					next(err);
-				});
-		});
-};
-
 const getStorageProviders = (res) => [
 	{
 		label: res.locals.theme.short_title,
@@ -527,28 +506,6 @@ const getSSOTypes = () => [
 	{ label: 'IServ', value: 'iserv' },
 	{ label: 'LDAP', value: 'ldap', hidden: true },
 ];
-
-const createBucket = (req, res, next) => {
-	if (req.body.fileStorageType) {
-		Promise.all([
-			api(req).post('/fileStorage/bucket', {
-				json: {
-					fileStorageType: req.body.fileStorageType,
-					schoolId: req.params.id,
-				},
-			}),
-			api(req).patch(`/schools/${req.params.id}`, {
-				json: req.body,
-			}),
-		])
-			.then(() => {
-				redirectHelper.safeBackRedirect(req, res);
-			})
-			.catch((err) => {
-				next(err);
-			});
-	}
-};
 
 const updatePolicy = (req, res, next) => {
 	const body = req.body;
@@ -596,7 +553,7 @@ const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, 
 			next(error);
 		});
 };
-
+/*
 const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 	{
 		type: 'sort',
@@ -641,7 +598,7 @@ const userFilterSettings = (res, defaultOrder, isTeacherPage = false) => [
 				['ok', res.$t('administration.controller.text.declarationOfConsentAvailable')],
 			],
 	},
-];
+]; */
 
 const skipRegistration = (req, res, next) => {
 	const userid = req.params.id;
@@ -705,7 +662,7 @@ const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 	}
 };
 
-// teacher admin permissions
+/* // teacher admin permissions
 router.get(
 	'/',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST', 'TEACHER_LIST'], 'or'),
@@ -716,7 +673,7 @@ router.get(
 			inUserMigration: res.locals.currentSchoolData.inUserMigration,
 		});
 	},
-);
+); */
 
 const getTeacherUpdateHandler = () => async function teacherUpdateHandler(req, res, next) {
 	// extract consent
@@ -796,12 +753,12 @@ router.post(
 	},
 );
 
-router.post(
+/* router.post(
 	'/teachers/',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	generateRegistrationLink({ role: 'teacher', patchUser: true, save: true }),
 	getUserCreateHandler(),
-);
+); */
 router.post(
 	'/teachers/import/',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
@@ -842,7 +799,7 @@ router.delete(
 	'/teachers/:id',
 	getDeleteHandler('users/v2/admin/teacher', '/administration/teachers'),
 );
-
+/*
 router.get(
 	'/teachers',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_LIST'], 'or'),
@@ -946,7 +903,7 @@ router.get(
 				});
 			});
 	},
-);
+); */
 
 router.get(
 	'/teachers/:id/edit',
@@ -1056,12 +1013,12 @@ const getStudentUpdateHandler = () => async function studentUpdateHandler(req, r
 		});
 };
 
-router.post(
+/* router.post(
 	'/students/',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
 	generateRegistrationLink({ role: 'student', patchUser: true, save: true }),
 	getUserCreateHandler(),
-);
+); */
 router.post(
 	'/students/import/',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'),
@@ -1128,7 +1085,7 @@ router.get(
 			});
 	},
 );
-
+/*
 router.get(
 	'/students',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_LIST'], 'or'),
@@ -1255,7 +1212,7 @@ router.get(
 				return [];
 			});
 	},
-);
+); */
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
 	let users = [];
@@ -1495,7 +1452,7 @@ const skipRegistrationClass = async (req, res, next) => {
 			title: res.$t('administration.controller.text.consentGrantedSuccessfully'),
 			submitLabel: res.$t('global.button.back'),
 			users: result,
-			linktarget: '/administration/classes',
+			linktarget: '/administration/groups/classes/',
 		});
 	}).catch(() => {
 		req.session.notification = {
@@ -1611,15 +1568,14 @@ const renderClassEdit = (req, res, next) => {
 						class: currentClass,
 						gradeLevels,
 						isCustom,
-						referrer: Configuration.get('FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED')
-							? '/administration/groups/classes/' : '/administration/classes/',
+						referrer: '/administration/groups/classes/',
 					});
 				},
 			);
 		})
 		.catch(next);
 };
-const getClassOverview = (req, res, next) => {
+/* const getClassOverview = (req, res, next) => {
 	const query = {
 		$limit: 1000,
 	};
@@ -1636,7 +1592,7 @@ const getClassOverview = (req, res, next) => {
 		.catch((err) => {
 			next(err);
 		});
-};
+}; */
 router.get(
 	'/classes/create',
 	permissionsHelper.permissionsChecker(
@@ -1672,11 +1628,11 @@ router.get(
 			});
 	},
 );
-router.get(
+/* router.get(
 	'/classes/json',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
 	getClassOverview,
-);
+); */
 router.get(
 	'/classes/:classId/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_EDIT'], 'or'),
@@ -1843,8 +1799,7 @@ router.get(
 						students: filterStudents(res, students),
 						schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 						notes,
-						referrer: Configuration.get('FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED')
-							? '/administration/groups/classes/' : '/administration/classes/',
+						referrer: '/administration/groups/classes/',
 						consentsMissing: usersWithoutConsent.length !== 0,
 						consentNecessary,
 						// eslint-disable-next-line max-len
@@ -1949,7 +1904,7 @@ router.post(
 					'ADMIN_VIEW',
 				);
 				if (isAdmin) {
-					Configuration.get('FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED') ? res.redirect('/administration/groups/classes/') : res.redirect('/administration/classes/');
+					res.redirect('/administration/groups/classes/');
 				} else {
 					res.redirect(`/administration/classes/${data._id}/manage`);
 				}
@@ -2023,7 +1978,7 @@ router.delete(
 			});
 	},
 );
-
+/*
 const classFilterSettings = ({ years, defaultYear, showTab }, res) => {
 	const filterSettings = [];
 	filterSettings.push({
@@ -2061,8 +2016,8 @@ const classFilterSettings = ({ years, defaultYear, showTab }, res) => {
 
 	return filterSettings;
 };
-
-router.get(
+ */
+/* router.get(
 	'/classes',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CLASS_LIST'], 'or'),
 	(req, res, next) => {
@@ -2203,7 +2158,7 @@ router.get(
 					];
 					displayName = item.displayName;
 					if (hasEditPermission) {
-						cells.push(createActionButtons(item, '/administration/classes/'));
+						cells.push(createActionButtons(item, '/administration/groups/classes/'));
 					}
 					return cells;
 				});
@@ -2236,7 +2191,7 @@ router.get(
 			});
 	},
 );
-
+ */
 // general admin permissions
 // ONLY useable with ADMIN_VIEW !
 
@@ -2258,7 +2213,7 @@ const getCourseCreateHandler = () => function coruseCreateHandler(req, res, next
 			next(err);
 		});
 };
-
+/*
 const schoolUpdateHandler = async (req, res, next) => {
 	const defaultLogoName = 'logo.png';
 	const {
@@ -2322,11 +2277,10 @@ const schoolUpdateHandler = async (req, res, next) => {
 	} catch (err) {
 		next(err);
 	}
-};
+}; */
 
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
-router.patch('/schools/:id', schoolUpdateHandler);
-router.post('/schools/:id/bucket', createBucket);
+/* router.patch('/schools/:id', schoolUpdateHandler); */
 router.post('/schools/policy', updatePolicy);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch(
@@ -2343,7 +2297,7 @@ router.delete(
 	deleteEventsForData('courses'),
 );
 
-const buildArchiveQuery = (courseStatus) => {
+/* const buildArchiveQuery = (courseStatus) => {
 	const yesterday = new Date();
 	yesterday.setDate(yesterday.getDate() - 1);
 	let archiveQuery = {};
@@ -2360,8 +2314,8 @@ const buildArchiveQuery = (courseStatus) => {
 		archiveQuery = { untilDate: { $lt: yesterday } };
 	}
 	return archiveQuery;
-};
-
+}; */
+/*
 const getCourses = (req, params = {}) => {
 	const { courseStatus = 'active', itemsPerPage = 10, currentPage = 1 } = params;
 	const archiveQuery = buildArchiveQuery(courseStatus);
@@ -2375,8 +2329,8 @@ const getCourses = (req, params = {}) => {
 	};
 
 	return api(req).get('courses', { qs: query });
-};
-
+}; */
+/*
 router.all('/courses', (req, res, next) => {
 	const itemsPerPage = req.query.limit || 10;
 	const currentPage = parseInt(req.query.p, 10) || 1;
@@ -2403,7 +2357,6 @@ router.all('/courses', (req, res, next) => {
 		roles: ['student'],
 		$limit: 1000,
 	});
-	const newRoomViewEnabled = Configuration.get('FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED');
 
 	Promise.all([
 		coursesPromise,
@@ -2426,8 +2379,7 @@ router.all('/courses', (req, res, next) => {
 			(item.teacherIds || []).map((item) => `${item.lastName}${item.outdatedSince ? ' ~~' : ''}`).join(', '),
 			[
 				{
-					link: newRoomViewEnabled ? `/courses/${item._id}/edit?redirectUrl=/administration/rooms/new`
-						: `/courses/${item._id}/edit?redirectUrl=/administration/courses`,
+					link: `/courses/${item._id}/edit?redirectUrl=/administration/rooms/new`,
 					icon: 'edit',
 					title: res.$t('administration.controller.link.editEntry'),
 				},
@@ -2470,7 +2422,7 @@ router.all('/courses', (req, res, next) => {
 			activeTab,
 		});
 	});
-});
+}); */
 
 /**
  *  Teams
@@ -2766,7 +2718,6 @@ router.delete('/teams/:id', (req, res, next) => {
 	SCHOOL / SYSTEMS / RSS
 */
 
-router.post('/systems/', createSystemHandler);
 router.patch('/systems/:id', getUpdateHandler('systems'));
 router.get('/systems/:id', getDetailHandler('systems'));
 router.delete(
@@ -2774,51 +2725,7 @@ router.delete(
 	removeSystemFromSchoolHandler,
 );
 
-router.get('/rss/:id', async (req, res) => {
-	const school = await api(req).patch(`/schools/${res.locals.currentSchool}`);
-
-	const matchingRSSFeed = school.rssFeeds.find(
-		(feed) => feed._id === req.params.id,
-	);
-
-	res.send(matchingRSSFeed);
-});
-
-// TODO: It would be nice if this route would be removed soon,
-// so we don't need to worry about the call to GET schools here.
-// Ticket for removal: https://ticketsystem.dbildungscloud.de/browse/BC-4231
-router.post('/rss/', async (req, res) => {
-	const school = await api(req).get(`/schools/${req.body.schoolId}`);
-
-	if (
-		school.rssFeeds
-		&& school.rssFeeds.find((el) => el.url === req.body.rssURL)
-	) {
-		return res.redirect('/administration/school');
-	}
-
-	await api(req).patch(`/schools/${req.body.schoolId}`, {
-		json: {
-			$push: {
-				rssFeeds: { url: req.body.rssURL, description: req.body.description },
-			},
-		},
-	});
-	return res.redirect('/administration/school');
-});
-
-router.delete('/rss/:id', async (req, res) => {
-	await api(req).patch(`/schools/${res.locals.currentSchool}`, {
-		json: {
-			$pull: {
-				rssFeeds: { _id: req.params.id },
-			},
-		},
-	});
-
-	res.redirect('/administration/school');
-});
-
+/*
 router.use(
 	'/school',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
@@ -3019,7 +2926,7 @@ router.use(
 			timezone: `${timesHelper.schoolTimezoneToString(true)}`,
 		});
 	},
-);
+); */
 
 router.get('/policies/:id', async (req, res, next) => {
 	try {
@@ -3038,32 +2945,6 @@ router.get('/policies/:id', async (req, res, next) => {
 	Change School Year
 
 */
-
-// Terminate
-router.post('/terminateschoolyear', async (req, res, next) => {
-	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
-		json: {
-			maintenance: true,
-		},
-	})
-		.then(() => res.redirect('/administration/school'))
-		.catch((err) => {
-			next(err);
-		});
-});
-
-// Start
-router.use('/startschoolyear', async (req, res, next) => {
-	await api(req).post(`/schools/${res.locals.currentSchool}/maintenance`, {
-		json: {
-			maintenance: false,
-		},
-	})
-		.then(() => res.redirect('/administration/school'))
-		.catch((err) => {
-			next(err);
-		});
-});
 
 // Start preview LDAP
 router.get('/startldapschoolyear', async (req, res) => {
@@ -3131,94 +3012,5 @@ router.get('/startldapschoolyear', async (req, res) => {
 		bodyClasses,
 	});
 });
-
-/*
-	LDAP SYSTEMS
-*/
-
-router.post(
-	'/systems/ldap/add',
-	permissionsHelper.permissionsChecker('ADMIN_VIEW'),
-	async (req, res, next) => {
-		// Check if LDAP-System already exists
-		const school = await Promise.resolve(
-			api(req, { version: 'v3' }).get(`/school/id/${res.locals.currentSchool}`)
-				.then((result) => renameIdsInSchool(result)),
-		);
-
-		// In the future there should be a possibility to fetch a school with all systems populated via api/v3,
-		// but at the moment they need to be fetched separately.
-		school.systems = await Promise.all(school.systemIds.map((systemId) => api(req).get(`/systems/${systemId}`)));
-
-		// eslint-disable-next-line no-shadow
-		const system = school.systems.filter((system) => system.type === 'ldap');
-
-		if (system.length === 1) {
-			// LDAP System already available, do not create another one
-			res.redirect('/administration/school');
-		} else {
-			// Create System for LDAP
-			const ldapTemplate = {
-				type: 'ldap',
-				alias: res.locals.currentSchoolData.name,
-				ldapConfig: {
-					active: false,
-					url: 'ldaps://',
-					rootPath: '',
-					searchUser: '',
-					searchUserPassword: '',
-					provider: 'general',
-					providerOptions: {
-						schoolName: res.locals.currentSchoolData.name,
-						userPathAdditions: '',
-						classPathAdditions: '',
-						roleType: 'text',
-						userAttributeNameMapping: {
-							givenName: 'givenName',
-							sn: 'sn',
-							dn: 'dn',
-							uuid: 'objectGUID',
-							uid: 'cn',
-							mail: 'mail',
-							role: 'description',
-						},
-						roleAttributeNameMapping: {
-							roleStudent: 'student',
-							roleTeacher: 'teacher',
-							roleAdmin: 'admin',
-							roleNoSc: 'no-sc',
-						},
-						classAttributeNameMapping: {
-							description: 'name',
-							dn: 'dn',
-							uniqueMember: 'member',
-						},
-					},
-				},
-			};
-
-			api(req)
-				.post('/systems/', { json: ldapTemplate })
-				// eslint-disable-next-line no-shadow
-				.then((system) => {
-					api(req)
-						// TODO move to server. Should be one transaction
-						.patch(`/schools/${res.locals.currentSchool}`, {
-							json: {
-								$push: {
-									systems: system.id,
-								},
-							},
-						})
-						.then(() => {
-							res.redirect(`/administration/ldap/config?id=${system.id}`);
-						})
-						.catch((err) => {
-							next(err);
-						});
-				});
-		}
-	},
-);
 
 module.exports = router;

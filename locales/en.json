@@ -276,10 +276,8 @@
 				"inTheQueue": "In the queue",
 				"invitationEmailContent": "Invitation to the {{title}} Hello {{firstName}} {{lastName}}!\nYou are invited to join the {{title}}, please complete your registration at the following link: {{shortLink}} \nYour {{shortTitle}} team wishes you fun and a good start",
 				"invitationEmailSubject": "Invitation to use the {{title}} !",
-				"noDeclarationOfConsentAvailable": "Consent form not available",
 				"onlyAllMembers": "Only all members of your own school can be removed from the team",
 				"open": "Open",
-				"parentsAgreed": "Parents have agreed, student still open",
 				"passTheRegistrationLinkDirectly": "Send the registration link directly to the student.",
 				"registrationExplanation": "First give the registration link to the parents. They create the student data and electronically declare their consent. The student is then registered in the {{title}} and you can see him in your class list. The student can log in with his e-mail address and his individual initial password. After logging in for the first time, every student must change his password. If the student is over 14 years old, he must also give his electronic consent so that he can use the {{title}} .",
 				"removeStudentsFromYourOwnSchool": "Remove students of your own school from the team. Only possible, if the team was founded in another school and therefore it is not possible to or give someone else admin rights for the team.",
@@ -304,20 +302,7 @@
 		},
 		"dashboard": {
 			"headline": {
-				"manageClasses": "Manage classes",
-				"manageClassesNew": "Manage classes (new)",
-				"manageCourses": "Manage courses",
-				"manageSchool": "Manage school",
-				"manageStudents": "Manage students",
-				"manageTeachers": "Manage teachers",
-				"manageRooms": "Manage rooms",
-				"manageTeams": "Manage teams",
-				"migration": "Manage user migration"
-			}
-		},
-		"form_DeleteRss": {
-			"text": {
-				"areYouSureYouWantToDeleteTheFollowingRSS": "Are you sure you want to delete the following RSS feed?"
+				"manageTeams": "Manage teams"
 			}
 		},
 		"form_DeleteUser": {
@@ -356,39 +341,12 @@
 				"toInvite": "To invite to the {{shortTitle}}, send the following link:"
 			}
 		},
-		"form_Policy": {
-			"input": {
-				"schoolsPrivacyPolicy": "Privacy policy of the school"
-			},
-			"label": {
-				"uploadFile": "Upload file (PDF only, max 4MB)"
-			},
-			"text": {
-				"important": "Important:",
-				"whenANewPrivacyPolicyUpdated": "When a new privacy policy is uploaded, it will be given to all users from that school for consent."
-			}
-		},
 		"form_Problem": {
 			"label": {
 				"createdOn": "Created on:",
 				"itsOn": "Current state",
 				"remarks": "Remarks",
 				"targetState": "Target state"
-			}
-		},
-		"form_rss": {
-			"label": {
-				"briefDescription": "Brief description (optional)",
-				"urlOfTheRSSSystem": "URL of the RSS feed"
-			}
-		},
-		"form_System": {
-			"label": {
-				"clientSecret": "Client secret",
-				"furtherInformation": "Further information (OAuth)",
-				"systemName": "Name of the system",
-				"systemType": "Type of system",
-				"urlOfTheSystem": "Url of the system"
 			}
 		},
 		"global": {
@@ -424,16 +382,12 @@
 				"weekday": "Weekday"
 			},
 			"placeholder": {
-				"modelMan": "Mustermann",
 				"selectClasses": "Select class(es)",
 				"selectGrade": "Select grade",
 				"selectOldClasses": "Select old class (es)",
 				"selectStudent": "Select students"
 			},
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingClass": "Are you sure you want to delete the following class?",
-				"areYouSureYouWantToDeleteTheFollowingCourse": "Are you sure you want to delete the following course?",
-				"areYouSureYouWantToDeleteTheFollowingItem": "Are you sure you want to remove the following item?",
 				"areYouSureYouWantToDeleteTheFollowingTeam": "Are you sure you want to delete the following team?",
 				"byConnectingToASchoolState": "By connecting to a state or school system, the students can already log in to the {{shortTitle}}. Ask your students to log in for the first time in the presence of a parent or legal guardian so that they can give their consent and complete the registration.",
 				"chatIsActivated": "Chat is activated",
@@ -441,7 +395,6 @@
 				"errorSendingMails": "Error while sending reminder e-mails",
 				"forStudentsUnder": "For pupils under {{minAge}} years: parental consent",
 				"inviteparentsAndStudentViaLink": "Invite parents and students via a link to submit their consent",
-				"manuallyConsent": "Manually declare consent",
 				"obtainADeclarationConsent": "Obtain a declaration of consent",
 				"orSelectStudentFromTable": "Alternatively, use <i>Administration > Students</i>. There you can also send links to students who are not fully registered or create QR print sheets.",
 				"studentsLoginInThePresenceOfGuardian": "Students log in in the presence of a parent or legal guardian",
@@ -461,7 +414,6 @@
 			"headline": {
 				"classAttributes": "Class attributes",
 				"classAttributesTitle": "Specify the class attribute in which the following information is available in your LDAP",
-				"importantNote": "Important note",
 				"roleAttributes": "Role attributes",
 				"roleAttributesTitle": "Which value in your previously defined role field corresponds to the role mentioned?",
 				"userAttributes": "User attributes",
@@ -477,7 +429,6 @@
 				"domainName": "Domain name",
 				"domainName_pathInLDAP": "Domain name (path in LDAP)",
 				"fullPathClassUsers": "User of the class with full path",
-				"hide": "Hide",
 				"noSchoolCloud": "No HPI school cloud",
 				"noSchoolCloudTitle": "This allows you to prevent users from your LDAP from being transferred to the HPI school cloud",
 				"rolesAttributes": "Role attributes",
@@ -496,7 +447,6 @@
 				"urlIdapIsMandatory": "URL (ldaps is mandatory)",
 				"userPath": "User path",
 				"userPathTitle": "Relative path from the root path to the LDAP node from which all users can be reached. With the separation by two semicolons (;;), multiple relative paths to LDAP users can also be specified.",
-				"users": "User:",
 				"uuidTitle": "Unique, non-changeable user ID. May not change like the uid (e.g. through marriage)"
 			},
 			"placeholder": {
@@ -509,7 +459,6 @@
 				"errorActivation": "Activation problem",
 				"errorLDAPTimeout": "LDAP timeout - Possible reasons are: incorrect server data, SSL certificates (ldaps) not officially signed, incorrect user data for the search user, incorrect root path, incorrect user path, incorrect class path or incorrect role- LDAP paths . If you cannot solve the problem, contact support.",
 				"errorTimeout": "Application timed out",
-				"furtherInfoHere": "Further information on LDAP configuration can be found in our <a href=\"/help/confluence/55902270\">Help section</a>.",
 				"onlyProtocolLDAP": "LDAP is only possible via the secure protocol of ldaps!",
 				"verification": "After verification, you can preview the contents that have been read out. Deleted contents are not transferred because the user's first name, last name and / or e-mail address is not available in the LDAP."
 			}
@@ -529,164 +478,50 @@
 		},
 		"longText": {
 			"text": {
-				"afterVerificationCanPreviewTheReadContent": "After verification, you can preview the contents that have been read out. Deleted contents are not transferred because the user's first name, surname and / or email address is not available in the LDAP.",
-				"anyChangesToTheFollowingConfiguration": "Any changes to the following configuration may result in the login no longer working for you and all users in your school. Therefore, only make changes if you are aware of the consequences. Some sections are read-only. However, you can enable editing of the information by clicking on the lock in the respective section. After each verification, your system will be updated and initially set to deactivated. Do not forget to finally save the changes if the verification was successful.",
-				"backgroundSoThatEveryStudentAndTeacher": "Background: So that every student and every teacher can access content from previous classes (e.g. class trip photos), the {{title}} saves which school year a user was in which class. The {{title}} provides a transfer phase so that this works in conjunction with your LDAP and the classes that are synchronized from it. This is the procedure during a school year change:",
 				"canCreateYearIndependentClasses": "You can create independent classes with free names. These classes cannot be <i> 'moved' </i> by the administrator, but must be updated manually.",
-				"canStartTheTransferPhase": "You can start the transfer phase manually from two weeks before the start of the holidays",
 				"ifAllStudentsAndParentsHaveGiven": "If the consent has been given by all students and parents in paper form, the consent for the whole class can be declared manually here.",
-				"ifThereIsNoManualStart": "if there is no manual start at the beginning of the holiday, the transfer phase begins automatically",
-				"newUsersClassAffiliations": "new added users, class memberships and changes to user data are constantly synchronized",
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{title}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
 				"thereIsNoDeclarationOfConsent": "There is no consent form for the user yet. Call a personal invitation link to complete the registration and distribute it to the user or his parents. During registration, the consent is then granted by the user himself. If a declaration of consent is available in paper form, the user can be activated by clicking on 'Received consent on paper' and a start password can be assigned. This will unlock the login.",
 				"registrationNotCompleted": "The student has not yet completed the registration. Retrieve a personal invitation link to complete the registration and distribute it to the student.",
 				"teacherRegistrationNotCompleted": "The teacher has not yet completed the registration. Retrieve a personal invitation link to complete the registration and distribute it to the teacher.",
 				"theSchoolYearEndsAnd": "The school year {{schoolName}} is ended and the transfer phase  to the new school year begins. <strong>This step cannot be undone.</strong> No classes and users can be created or changed during this time.",
-				"theSynchronizationOfLDAPMasterData": "The synchronization of LDAP master data is interrupted during the transfer phase. This means that user data and classes (if used) are no longer updated via LDAP. It is still possible to log in with login data that has already been synchronized. Password changes in the LDAP during login are also taken into account.",
-				"useTheTransferPhaseAroundTheSchool": "Use the transfer phase around the change of school year to adjust class affiliation and personal data in the LDAP. Finally, transfer all changes to the {{title}} at once.",
-				"withAllChangesAndSettings": "With all changes and settings in the administration area, it is confirmed that these are carried out by a school admin with authority to make adjustments to the school in the cloud. Adjustments made by the school admin are deemed to be instructions from the school to the cloud operator {{institute_title}}.",
-				"withAllChangesForTSC": "Some or all of your school's user data is synchronised from an external source (LDAP, IDM, school portal, etc.). Editing this user master data is therefore only possible in the source system, not in the school cloud. Creating new students or teachers is also only possible in the source system.",
 				"wouldYouLikeReportABug": "Would you like to report an error or do you have an idea to improve the {{title}}? Send requests or problems directly to the {{shortTitle}} user support."
 			}
 		},
 		"school": {
-			"button": {
-				"addLDAPSystem": "Add LDAP System",
-				"addRSSFeed": "Add RSS feed",
-				"addSystem": "Add system",
-				"checkLDAPData": "Check LDAP data",
-				"endSchoolYear": "End school year",
-				"endTransferPhase": "End transfer phase",
-				"saveGeneralSettings": "Save general settings",
-				"start": "Start",
-				"startTransferPhase": "Start transfer phase"
-			},
 			"headline": {
 				"addPolicy": "Add privacy policy",
-				"finishSchoolYear": "Sure you want to end the school year?",
-				"generalSettings": "General Settings"
+				"finishSchoolYear": "Sure you want to end the school year?"
 			},
 			"label": {
-				"activeChatFunction": "Activate chat function",
 				"activeMatrixFunction": "Activate Matrix Messenger",
-				"afterTheTransferPhaseEnded": "After the transfer phase has ended",
-				"allStudentsVisibility": "Activating this option has a high threshold under data protection law. In order to activate the visibility of all students in the school for each teacher, it is necessary that each student has effectively consented to this data processing.",
-				"allStudentsVisibilityBrandenburg": "Enabling this option turns on the visibility of all students of this school for each teacher.",
-				"allStudentsVisibilityNiedersachsen": "If this option is not enabled, teachers can only see the classes and their students in which they are members.",
-				"authentication": "Authentication",
-				"newPage": "To the new admin page",
-				"changeOfClasses": "Change of classes / new classes",
-				"changeOfUserData": "Change of user data / new users",
-				"chooseACounty": "Please choose the county your school belongs to.",
 				"className": "Class name:",
-				"cloudStorageProvider": "Cloud storage provider",
-				"counties": "Counties",
 				"county": "County",
-				"currentSchoolYear": "Current school year:",
-				"dataProtectionAdd": "Add privacy policy",
-				"duringTheSchoolYear": "During the school year",
-				"duringTheTransferPhase": "During the transfer phase",
-				"enableVideoConference": "Activate video conferencing",
-				"endOfTheTransferPhase": "End of the transfer phase",
-				"fileStorageSpaceUsedInCloud": "Used file storage in the cloud",
-				"inTheTransferPhase": "in the transfer phase:",
-				"lernstoreEnabledForStudents": "Learning Store for students",
-				"loginFromExistingUsers": "Logins of existing users",
 				"messengerSchoolRoom": "Create a chat room for announcements to the entire school",
 				"messengerStudentRoomCreate": "Students can create their own chat rooms",
-				"nameOfTheSchool": "Name of the school",
-				"noteAvailableFunction": "Note available functions",
-				"noteBeforeTheTransferPhase": "Note before the transfer phase:",
-				"passwordChangesInLDAP": "Password changes in LDAP",
-				"privacySettings": "Privacy Settings",
-				"schoolNumber": "School number:",
-				"schoolYear": "School year:",
-				"schoolYearChange": "Change of school year",
-				"selectProvider": "Select provider",
-				"startOfTheTransferPhase": "Start of the transfer phase",
-				"studentVisibility": "Activate student visibility for teachers",
-				"timezone": "Timezone",
-				"transferPhase": "Transfer phase",
-				"uploadSchoolLogo": "Upload school logo",
-				"userAndClassDataInLDAP": "User and class data for the new school year have been processed in LDAP<br>.",
-				"youCantGoBack": "You can't go back",
-				"yourSchoolCanStartNewSchool": "your school can enter the new school year"
+				"schoolYear": "School year:"
 			},
 			"link": {
-				"matrixHelpPage": "messenger help section",
-				"moreInfo": "More information"
-			},
-			"placeholder": {
-				"chooseCounty": "Choose a county"
+				"matrixHelpPage": "messenger help section"
 			},
 			"text": {
-				"allAboutTheSummerVacation": "Around the summer holidays",
-				"allDataFromTheLDAP": "All data from the LDAP will be synchronized as usual, new users and classes can be created there at any time",
-				"allDone": "All done!",
-				"atTheEndOfTheSchoolYearWithLDAP": "When the school year changes, carry out the following actions with LDAP:",
-				"atTheEndOfTheTransferPhase": "When the transfer phase ends, all changes made in the LDAP are synchronized in one go",
-				"atTheSameTime": "At the same time, you ring in the new school year in the {{title}}",
-				"changeSchoolValueWarning": "Once set, it cannot be changed!",
-				"coursesWithLearningContent": "Courses with learning content for the coming school year can also be created during the transfer phase (without class assignment)",
-				"doNotEndTheTransferPhase": "Do not end the transfer phase until the users are assigned to the new classes",
 				"fileSelected": "File selected",
 				"fileTooLarge": "PDF file is too large. It can be at max {{size}}MB large.",
 				"ifChatsAreActivatedAtYourSchool": "If chats are enabled at your school, team administrators and teachers can selectively unlock the chat function respectively for their team or courses.",
-				"ifChatsAreActivatedAtYourSchoolTeamAdministratorsCan": "If chats are enabled at your school, team administrators in the respective team can specifically unlock the chat function.",
 				"ifMatrixIsActivatedAtYourSchool": "If the Matrix Messenger is activated, all teachers in this school can start chat rooms, private conversations or group discussions within the course or team. Students initially  have read-only access, but can also be given write access via the course and team settings. Students can also start private chats within courses and teams. You can find more information about this in the ",
-				"ifVideoConferenceAreActivatedAtYourSchool": "If video conferencing is activated at your school, teachers can start video conferences for all course participants in rooms, courses and teams. In rooms and courses, video conferences can be added as an element to sections (single-column and multi-column), in courses video conferences can be used under 'Tools' and in teams within the appointment function.",
-				"LDAPChanges": "you can make the necessary changes for the new school year in the\nLDAP (new users, update classes)",
-				"lernstoreEnabledForStudents": "If unchecked, then the students will not be able to access Learning Store",
-				"loginViaLDAP": "Login via LDAP is still possible for existing users",
 				"messengerSchoolRoom": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
 				"messengerStudentRoomCreate": "If this feature is enabled, students are allowed to create chat rooms, private conversations and course and team discussions. These rooms are not visible to teachers unless they are explicitly invited.",
-				"newSchoolYear": "New school year",
-				"newUsersClassesAndChanges": "Newly added users, classes and changes to existing data are not synchronized from the LDAP",
-				"noFileSelected": "No file selected",
-				"noRssFeedsYet": "There are no RSS feeds yet.",
-				"oldSchoolYear": "Old school year",
 				"onlyPDFSupport": "Only PDF files are supported.",
-				"passwordChanges": "Password changes are still synchronized",
 				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes.",
-				"theNewClassesAreSavedInTheContext": "the new classes are saved in the context of the new school year, the old classes are archived in the context of the old school year",
-				"theNewClassesCanNowBeAssigned": "the new classes can now be assigned to prepared courses",
-				"theNewSchoolYearStartsInThe": "The new school year begins in the {{themeTitle}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time.",
-				"thisOptionIsAvailable": "This option is available 2 weeks before the end of the current school year.",
-				"yourSchoolIsCurrentlyDrawing": "Your school is currently getting"
+				"theNewSchoolYearStartsInThe": "The new school year begins in the {{themeTitle}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time."
 			}
 		},
 		"students": {
 			"button": {
-				"addStudents": "Add students",
-				"generateInvitationLink": "Generate invitation link",
-				"importStudents": "Import students"
-			},
-			"label": {
-				"sendRegistrationLinkToStudent": "Send registration link to students"
+				"generateInvitationLink": "Generate invitation link"
 			},
 			"text": {
-				"allApprovalsAvailable": "All consents available",
-				"forAllStudentsWithoutAFullConsentForm": "For all students without a full declaration of consent:",
-				"parentsAgreed": "Parents have agreed",
-				"studentsStillNeedTheDecalaration": "<strong> {{studentsWithoutConsentCount}} out of {{allStudentsCount}} </strong> students still need a declaration of consent to use the {{shortTitle}}. \nStudents under {{minAge}} years of age first need the consent of a guardian, students aged 14 and above must also give their own consent."
-			}
-		},
-		"teachers": {
-			"button": {
-				"addTeacher": "Add teacher",
-				"importTeacher": "Import teachers",
-				"sendLinksToTeacherEmail": "Send links to teachers' e-mail addresses"
-			},
-			"label": {
-				"inviteTeachersViaLink": "Invite teachers via a link to submit the declaration of consent.",
-				"linksDistribution": "Send your teachers individual links to declare their consents by e-mail or use the QR code print sheet to physically distribute the links. <br/> You can create a password and give your consent to the use of the {{shortTitle}}.",
-				"passwordsAndDeclarationOfConsent": "Passwords and declaration of consent",
-				"sendRegistrationLinkToTeachers": "Send registration link to teachers"
-			},
-			"text": {
-				"alternativeRegistration": "Alternatively, you can also generate individual registration links in the \"Edit User\" dialog of each user individually.",
-				"connectToASchool": "By connecting to a state or school system, the teachers already have a password and can log in to the {{shortTitle}}. At first login, they are asked to give their consent to the use of the {{shortTitle}}.",
-				"forAllTeachersWithoutAFullConsentForm": "For all teachers without a full declaration of consent:"
+				"forAllStudentsWithoutAFullConsentForm": "For all students without a full declaration of consent:"
 			}
 		},
 		"teams": {
@@ -1554,8 +1389,6 @@
 			"done": "Done",
 			"edit": "Edit",
 			"editTopic": "Edit topic",
-			"filterAdd": "Add filter",
-			"filterApply": "Apply",
 			"import": "Import",
 			"next": "Next",
 			"no": "No",
@@ -1604,7 +1437,6 @@
 			"password": "Password"
 		},
 		"label": {
-			"chooseAFile": "Select file",
 			"creationDate": "Creation date",
 			"dateOfBirth": "Date of birth:",
 			"description": "Description",
