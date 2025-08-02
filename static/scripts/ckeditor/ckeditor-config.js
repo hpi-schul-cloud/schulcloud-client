@@ -1,32 +1,25 @@
-import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat';
-import BlockQuotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote';
-import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
-import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code';
-import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials';
-import FontPlugin from '@ckeditor/ckeditor5-font/src/font';
-import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading';
-import HorizontalLinePlugin from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline';
-import ImagePlugin from '@ckeditor/ckeditor5-image/src/image';
-import ImageResizePlugin from '@ckeditor/ckeditor5-image/src/imageresize';
-import IndentPlugin from '@ckeditor/ckeditor5-indent/src/indent';
-import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
-import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
-import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
-import MathPlugin from 'ckeditor5-math/src/math';
-import MediaEmbedPlugin from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
-import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
-import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
-import RemoveFormatPlugin from '@ckeditor/ckeditor5-remove-format/src/removeformat';
-import SpecialCharacterEssentialPlugin from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials';
-import SpecialCharacterPlugin from '@ckeditor/ckeditor5-special-characters/src/specialcharacters';
-import StrikethroughPlugin from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
-import SubscriptPlugin from '@ckeditor/ckeditor5-basic-styles/src/subscript';
-import SuperscriptPlugin from '@ckeditor/ckeditor5-basic-styles/src/superscript';
-import TableCellPropertiesPlugin from '@ckeditor/ckeditor5-table/src/tablecellproperties';
-import TablePlugin from '@ckeditor/ckeditor5-table/src/table';
-import TablePropertiesPlugin from '@ckeditor/ckeditor5-table/src/tableproperties';
-import TableToolbarPlugin from '@ckeditor/ckeditor5-table/src/tabletoolbar';
-import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline';
+import { Autoformat } from '@ckeditor/ckeditor5-autoformat/src/index';
+import { BlockQuote } from '@ckeditor/ckeditor5-block-quote/src/index';
+import {
+	Bold, Code, Italic, Strikethrough, Subscript, Superscript, Underline,
+} from '@ckeditor/ckeditor5-basic-styles/src/index';
+import { Essentials } from '@ckeditor/ckeditor5-essentials/src/index';
+import { Font } from '@ckeditor/ckeditor5-font/src/index';
+import { Heading } from '@ckeditor/ckeditor5-heading/src/index';
+import { HorizontalLine } from '@ckeditor/ckeditor5-horizontal-line/src/index';
+import { Image, ImageResize } from '@ckeditor/ckeditor5-image/src/index';
+import { Indent } from '@ckeditor/ckeditor5-indent/src/index';
+import { Link } from '@ckeditor/ckeditor5-link/src/index';
+import { List } from '@ckeditor/ckeditor5-list/src/index';
+import Mathematics from 'ckeditor5-math/src/math';
+import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed/src/index';
+import { Paragraph } from '@ckeditor/ckeditor5-paragraph/src/index';
+import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office/src/index';
+import { RemoveFormat } from '@ckeditor/ckeditor5-remove-format/src/index';
+import { SpecialCharactersEssentials, SpecialCharacters } from '@ckeditor/ckeditor5-special-characters/src/index';
+import {
+	TableCellProperties, Table, TableProperties, TableToolbar,
+} from '@ckeditor/ckeditor5-table/src/index';
 
 import FileBrowserPlugin from './plugins/ckeditor5-filebrowser/src/filebrowser';
 import HelpLinkPlugin from './plugins/ckeditor5-helplink/src/helplink';
@@ -101,37 +94,37 @@ const fontColors = [
 const ckeditorConfig = {
 	language: 'de',
 	plugins: [
-		AutoformatPlugin,
-		BlockQuotePlugin,
-		BoldPlugin,
-		CodePlugin,
-		EssentialsPlugin,
+		Autoformat,
+		BlockQuote,
+		Bold,
+		Code,
+		Essentials,
 		FileBrowserPlugin,
-		FontPlugin,
-		HeadingPlugin,
+		Font,
+		Heading,
 		HelpLinkPlugin,
-		HorizontalLinePlugin,
-		ImagePlugin,
-		ImageResizePlugin,
-		IndentPlugin,
-		ItalicPlugin,
-		LinkPlugin,
-		ListPlugin,
-		MathPlugin,
-		MediaEmbedPlugin,
-		ParagraphPlugin,
-		PasteFromOfficePlugin,
-		RemoveFormatPlugin,
-		SpecialCharacterEssentialPlugin,
-		SpecialCharacterPlugin,
-		StrikethroughPlugin,
-		SubscriptPlugin,
-		SuperscriptPlugin,
-		TableCellPropertiesPlugin,
-		TablePlugin,
-		TablePropertiesPlugin,
-		TableToolbarPlugin,
-		UnderlinePlugin,
+		HorizontalLine,
+		Image,
+		ImageResize,
+		Indent,
+		Italic,
+		Link,
+		List,
+		Mathematics,
+		MediaEmbed,
+		Paragraph,
+		PasteFromOffice,
+		RemoveFormat,
+		SpecialCharactersEssentials,
+		SpecialCharacters,
+		Strikethrough,
+		Subscript,
+		Superscript,
+		TableCellProperties,
+		Table,
+		TableProperties,
+		TableToolbar,
+		Underline,
 	],
 	toolbar: [
 		'undo', 'redo', '|',
