@@ -4,7 +4,7 @@
  */
 
 const express = require('express');
-const logger = require('../helpers/logger');
+// const logger = require('../helpers/logger');
 const moment = require('moment');
 const multer = require('multer');
 const encoding = require('encoding-japanese');
@@ -314,7 +314,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
 	return redirectHelper.safeBackRedirect(req, res);
 };
 
-const getUserCreateHandler = (internalReturn) => function userCreate(req, res, next) {
+/* const getUserCreateHandler = (internalReturn) => function userCreate(req, res, next) {
 	const { shortLink } = req.body;
 	if (req.body.birthday) {
 		req.body.birthday = timesHelper.dateStringToMoment(req.body.birthday);
@@ -336,11 +336,11 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 			};
 			return redirectHelper.safeBackRedirect(req, res);
 
-			/*
+
 			createEventsForData(data, service, req, res).then(_ => {
 				next();
 			});
-			*/
+
 		})
 		.catch((err) => {
 			if (internalReturn) return false;
@@ -352,7 +352,7 @@ const getUserCreateHandler = (internalReturn) => function userCreate(req, res, n
 			};
 			return redirectHelper.safeBackRedirect(req, res);
 		});
-};
+}; */
 
 const getCSVImportHandler = () => async function handler(req, res, next) {
 	const buildMessage = (stats) => {
@@ -482,7 +482,7 @@ const getDeleteHandler = (service, redirectUrl, apiVersion = 'v1') => function d
 		});
 };
 
-const removeSystemFromSchoolHandler = (req, res, next) => {
+/* const removeSystemFromSchoolHandler = (req, res, next) => {
 	api(req, { version: 'v3' })
 		.patch(`school/${res.locals.currentSchool}/system/${req.params.id}/remove/`)
 		.then(() => {
@@ -491,23 +491,23 @@ const removeSystemFromSchoolHandler = (req, res, next) => {
 		.catch((err) => {
 			next(err);
 		});
-};
+}; */
 
-const getStorageProviders = (res) => [
+/* const getStorageProviders = (res) => [
 	{
 		label: res.locals.theme.short_title,
 		value: 'awsS3',
 	},
-];
+]; */
 
-const getSSOTypes = () => [
+/* const getSSOTypes = () => [
 	{ label: 'Moodle', value: 'moodle' },
 	{ label: 'itslearning', value: 'itslearning' },
 	{ label: 'IServ', value: 'iserv' },
 	{ label: 'LDAP', value: 'ldap', hidden: true },
-];
+]; */
 
-const updatePolicy = (req, res, next) => {
+/* const updatePolicy = (req, res, next) => {
 	const body = req.body;
 	// TODO: set correct API request
 	api(req).post('/consentVersions', {
@@ -524,9 +524,9 @@ const updatePolicy = (req, res, next) => {
 	}).catch((err) => {
 		next(err);
 	});
-};
+}; */
 
-const returnAdminPrefix = (roles, res) => {
+/* const returnAdminPrefix = (roles, res) => {
 	let prefix;
 	// eslint-disable-next-line array-callback-return
 	roles.forEach((role) => {
@@ -536,7 +536,7 @@ const returnAdminPrefix = (roles, res) => {
 			: (prefix = res.$t('administration.controller.headline.administration'));
 	});
 	return prefix;
-};
+}; */
 
 // with userId to accountId
 const userIdToAccountIdUpdate = () => async function useIdToAccountId(req, res, next) {
@@ -2281,7 +2281,7 @@ const schoolUpdateHandler = async (req, res, next) => {
 
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 /* router.patch('/schools/:id', schoolUpdateHandler); */
-router.post('/schools/policy', updatePolicy);
+// router.post('/schools/policy', updatePolicy);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch(
 	'/courses/:id',
@@ -2718,12 +2718,12 @@ router.delete('/teams/:id', (req, res, next) => {
 	SCHOOL / SYSTEMS / RSS
 */
 
-router.patch('/systems/:id', getUpdateHandler('systems'));
+/* router.patch('/systems/:id', getUpdateHandler('systems'));
 router.get('/systems/:id', getDetailHandler('systems'));
 router.delete(
 	'/systems/:id',
 	removeSystemFromSchoolHandler,
-);
+); */
 
 /*
 router.use(
@@ -2928,7 +2928,7 @@ router.use(
 	},
 ); */
 
-router.get('/policies/:id', async (req, res, next) => {
+/* router.get('/policies/:id', async (req, res, next) => {
 	try {
 		const base64File = await Promise.resolve(
 			api(req).get(`/base64Files/${req.params.id}`),
@@ -2938,7 +2938,7 @@ router.get('/policies/:id', async (req, res, next) => {
 	} catch (err) {
 		next(err);
 	}
-});
+}); */
 
 /*
 
