@@ -438,13 +438,13 @@ router.delete('/file', (req, res, next) => {
 
 router.get('/signedurl', (req, res, next) => {
 	try {
-		const { fileId, name } = req.query;
-		if (!fileId || !name) {
+		const { file, name } = req.query;
+		if (!file || !name) {
 			throw new Error('Missing fileId or name query parameter');
 		}
 
 		const data = {
-			file: fileId,
+			file,
 			name,
 			download: false,
 		};
