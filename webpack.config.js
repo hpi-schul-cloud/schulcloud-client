@@ -41,8 +41,8 @@ module.exports = {
 			// was also added for that reason as well and can be removed
 			// once the update to webpack 5.x is done.
 			{
-				test: /\.(js|jsx)$/,
-				exclude: /(node_modules)[/\\](?!(htmlparser2)[/\\])/,
+				test: /\.(?:js|jsx|cjs)$/,
+				exclude: /(node_modules)[/\\](?!(htmlparser2|string-strip-html)[/\\])/,
 				loader: 'babel-loader',
 				query: {
 					presets: [['@babel/preset-env']],
