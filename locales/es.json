@@ -655,7 +655,7 @@
 			"hereIsOurRegistrationForm": "Haz clic aquí para obtener nuestro formulario de registro:",
 			"hereIsOurRegistrationFormMINT": "Las nuevas escuelas STEM EC se pueden registrar aquí:",
 			"inBrandenburgTheAdmissionOfNewSchools": "En Brandemburgo, la admisión de nuevas escuelas se coordina conjuntamente con el MBJS.",
-			"inNiedersachsenTheReferenceSchool": "En Baja Sajonia, la red de escuelas de referencia n-21 es responsable de la admisión de nuevas escuelas.",
+			"inNiedersachsenTheReferenceSchool": "En Baja Sajonia, la Niedersächsisches Landesinstitut für schulische Qualitätsentwicklung (NLQ) es responsable de la admisión de nuevas escuelas.",
 			"inThuringiaTheThuringianInstitute": "En Turingia, el Instituto de Turingia para la formación del profesorado, el desarrollo curricular y los medios de comunicación (ThILLM) es responsable de la admisión de nuevas escuelas.",
 			"justWriteAnEmailTo": "Simplemente escribe un correo electrónico a <a href=\"mailto:schul-cloud-ZfA@bva.bund.de\">schul-cloud-ZfA@bva.bund.de</a>.",
 			"MINTECSchoolsAnd": "<a href='https://www.mint-ec.de' target='_blank'>MINT-EC</a> es la red nacional de excelencia de escuelas con nivel secundario superior y tiene un perfil distintivo en matemáticas, informática y ciencias naturales y tecnología (MINT). Las escuelas de la red han estado participando en el proyecto de la nube escolar de HPI desde 2017.",
@@ -1738,7 +1738,6 @@
 				"whoDoYouWantToInviteTheTeam": "¿A quién te gustaría invitar al equipo?"
 			},
 			"label": {
-				"lowerSaxonyRegistration": "Mediante la expresión de interés <a href=\"https://www.n-21.de/nbc-interesse\">(https://www.n-21.de/nbc-interesse)</a>, los centros escolares se inscriben (a través de la administración de la escuela) en la Nube Educativa de Baja Sajonia.",
 				"pedagogicalExperts": "Cuando invite a personal pedagógico como expertos externos, por favor no utilice direcciones de correo electrónico que estén en uso y que son necesarias para el registro en la Nube Educativa de Baja Sajonia."
 			}
 		},
