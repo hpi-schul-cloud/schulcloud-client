@@ -2659,7 +2659,7 @@
 			"forGeneralQuestionsPleaseContact": "Якщо у вас виникли загальні запитання, зверніться за такою адресою електронної пошти:",
 			"hereIsOurRegistrationForm": "Натисніть тут, щоб отримати нашу реєстраційну форму:",
 			"inBrandenburgTheAdmissionOfNewSchools": "У Бранденбурзі приймання нових шкіл координується разом з DigitalAgentur Brandenburg (ILB) та MBJS.",
-			"inNiedersachsenTheReferenceSchool": "У Нижній Саксонії за приймання нових шкіл відповідає мережа опорних шкіл n-21.",
+			"inNiedersachsenTheReferenceSchool": "У Нижній Саксонії за дозвіл на відкриття нових шкіл відповідає Niedersächsisches Landesinstitut für schulische Qualitätsentwicklung (NLQ).",
 			"inThuringiaTheThuringianInstitute": "У Тюрингії за приймання нових шкіл відповідає Тюрінгський інститут підготовки вчителів, розробки навчальних програм та медіа (ThILLM)",
 			"ourPartnerOfMINIECAlso": "Наш партнер MINT-EC також пропонує регулярні вебінари на шкільній хмарі HPI. Нові дати можна знайти тут:",
 			"pleaseContactTheFollowingEmailAddress": "Щоб почати процес реєстрації, зверніться за такою адресою електронної пошти:",
@@ -2865,7 +2865,6 @@
 				"whoDoYouWantToInviteTheTeam": "Кого б ви хотіли запросити до команди?"
 			},
 			"label": {
-				"lowerSaxonyRegistration": "Через вираження зацікавленості <a href=\"https://www.n-21.de/nbc-interesse\">(https://www.n-21.de/nbc-interesse)</a> школи реєструються через адміністрацію школи на проєкт «Освітня хмара Нижньої Саксонії».",
 				"pedagogicalExperts": "Запрошуючи освітніх працівників як зовнішніх експертів, не використовуйте електронні адреси, які вже використовуються та необхідні для реєстрації в проєкті «Освітня хмара Нижньої Саксонії»."
 			}
 		},
