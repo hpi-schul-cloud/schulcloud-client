@@ -1,4 +1,4 @@
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic/src/index';
 import showFallbackImageOnError from '../helpers/showFallbackImageOnError';
 import ckeditorConfig from './ckeditor-config';
 

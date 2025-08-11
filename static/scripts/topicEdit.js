@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-classes-per-file */
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic/src/index';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
