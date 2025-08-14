@@ -253,20 +253,10 @@
 				"IS_CONFIGURABLE": false
 			}
 		},
-		"FEATURE_ADMIN_TOGGLE_STUDENT_LERNSTORE_VIEW_ENABLED": {
-			"type": "boolean",
-			"default": "true",
-			"description": "Allows school admin to toggle student's LERNSTORE_VIEW permission."
-		},
 		"FEATURE_ETHERPAD_ENABLED": {
 			"type": "boolean",
 			"default": true,
 			"description": "Etherpad "
-		},
-		"FEATURE_SCHOOL_POLICY_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Custom School Policy can be uploaded by the school admin "
 		},
 		"ETHERPAD": {
 			"type": "object",
@@ -513,11 +503,6 @@
 			"default": false,
 			"description": "Enables Course import"
 		},
-		"FEATURE_NUXT_SCHOOL_ADMIN_BETA": {
-			"type": "boolean",
-			"default": true,
-			"description": "Enables button to new Nuxt School Admin beta-version page"
-		},
 		"FEATURE_LEGACY_TEAM_FILES_ENABLED": {
 			"type": "boolean",
 			"default": true,
@@ -532,11 +517,6 @@
 			"type": "boolean",
 			"default": true,
 			"description": "Enables button for invitations of external experts within teams"
-		},
-		"FEATURE_USER_MIGRATION_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "If enabled, admin can see a message with link to user migration page"
 		},
 		"FEATURE_USER_MIGRATION_CENTRAL_LDAP": {
 			"type": "boolean",
@@ -594,11 +574,6 @@
 			"default": true,
 			"description": "Determines if consent is necessary during registration."
 		},
-		"FEATURE_NEW_SCHOOL_ADMINISTRATION_PAGE_AS_DEFAULT_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Makes the new school administration page the default page"
-		},
 		"FEATURE_CLIENT_USER_LOGIN_MIGRATION_ENABLED": {
 			"type": "boolean",
 			"default": false,
@@ -608,16 +583,6 @@
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled, adds H5P editor to course topics."
-		},
-		"FEATURE_SHOW_NEW_CLASS_VIEW_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables the new class list view"
-		},
-		"FEATURE_SHOW_NEW_ROOMS_VIEW_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables the new rooms view"
 		},
 		"FEATURE_GROUPS_IN_COURSE_ENABLED": {
 			"type": "boolean",
