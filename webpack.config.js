@@ -42,7 +42,7 @@ module.exports = {
 			// once the update to webpack 5.x is done.
 			{
 				test: /\.(?:js|jsx|cjs)$/,
-				exclude: /(node_modules)[/\\](?!(htmlparser2|string-strip-html)[/\\])/,
+				exclude: /(node_modules)[/\\](?!(htmlparser2)[/\\])/,
 				loader: 'babel-loader',
 				query: {
 					presets: [['@babel/preset-env']],
