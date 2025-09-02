@@ -124,7 +124,7 @@
 				"MODE": {
 					"type": "string",
 					"default": "cluster",
-					"enum": ["cluster", "single" ,"in-memory"],
+					"enum": ["cluster", "single", "in-memory"],
 					"description": "Define valkey mode."
 				},
 				"URI": {
@@ -598,16 +598,6 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables the media shelf feature"
-		},
-		"FEATURE_ROOMS_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables the rooms feature"
-		},
-		"FEATURE_ROOM_ADD_STUDENTS_ENABLED": {
-			"type": "boolean",
-			"default": "false",
-			"description": "Enables adding students to a room"
 		},
 		"FEATURE_ADMINISTRATE_ROOMS_ENABLED": {
 			"type": "boolean",
