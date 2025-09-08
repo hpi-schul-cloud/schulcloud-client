@@ -68,7 +68,4 @@ const exp = {
 	FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED,
 };
 
-// eslint-disable-next-line no-console
-console.log(util.inspect(exp, { depth: 1, compact: false, sorted: true }));
-
 module.exports = exp;
