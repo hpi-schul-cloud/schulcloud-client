@@ -698,7 +698,7 @@ router.get(
 
 const getStudentUpdateHandler = () => async function studentUpdateHandler(req, res, next) {
 	if (req.body.birthday) {
-		req.body.birthday = moment.utc(req.body.birthday, 'DD.MM.YYYY');
+		req.body.birthday = timesHelper.dateStringToMomentInUTC(req.body.birthday);
 	}
 
 	const promises = [];
