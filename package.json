@@ -38,7 +38,7 @@
 		"@ckeditor/ckeditor5-remove-format": "^28.0.0",
 		"@ckeditor/ckeditor5-special-characters": "^28.0.0",
 		"@ckeditor/ckeditor5-table": "^28.0.0",
-		"@ckeditor/ckeditor5-theme-lark": "^28.0.0",
+		"@ckeditor/ckeditor5-theme-lark": "^46.0.3",
 		"@ckeditor/ckeditor5-ui": "^28.0.0",
 		"@ckeditor/ckeditor5-upload": "^28.0.0",
 		"@fullcalendar/core": "^4.4.2",
