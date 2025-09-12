@@ -469,7 +469,7 @@ const skipRegistration = (req, res, next) => {
 		termsOfUseConsent,
 		birthday,
 	} = req.body;
-	const parsedDate = timesHelper.dateStringToMoment(birthday);
+	const parsedDate = timesHelper.dateStringToMomentInUtc(birthday);
 	api(req).post(`/users/${userid}/skipregistration`, {
 		json: {
 			password: passwd,
