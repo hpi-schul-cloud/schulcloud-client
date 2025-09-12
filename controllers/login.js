@@ -19,7 +19,7 @@ const {
 const { LoginSchoolsCache } = require('../helpers/cache');
 
 // Login
-router.post('/legacy-login/', (req, res, next) => {
+router.post('/login/', (req, res, next) => {
 	const {
 		username,
 		password,
@@ -370,7 +370,7 @@ router.get('/loginRedirect', (req, res, next) => {
 		.catch(next);
 });
 
-router.all('/legacy-login/', async (req, res, next) => {
+router.all('/login/', async (req, res, next) => {
 	authHelper.isAuthenticated(req)
 		.then(async (isAuthenticated) => {
 			if (isAuthenticated) {
