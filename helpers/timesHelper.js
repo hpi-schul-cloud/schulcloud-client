@@ -157,6 +157,8 @@ const dateTimeStringToMoment = (dateTimeString) => createFromString(dateTimeStri
  */
 const dateStringToMoment = (dateString) => createFromString(dateString, FORMAT.date);
 
+const dateStringToMomentInUtc = (dateString) => moment.utc(dateString, FORMAT.date);
+
 /**
  * formats date based on the given format with UTC offset if it was changed to school specific one and is required by
  * the input parameter
@@ -239,6 +241,7 @@ module.exports = {
 	formatDate,
 	createFromString,
 	dateStringToMoment,
+	dateStringToMomentInUtc,
 	dateTimeStringToMoment,
 	dateToDateString,
 	dateToDateTimeString,

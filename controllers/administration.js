@@ -469,7 +469,7 @@ const skipRegistration = (req, res, next) => {
 		termsOfUseConsent,
 		birthday,
 	} = req.body;
-	const parsedDate = timesHelper.dateStringToMoment(birthday);
+	const parsedDate = timesHelper.dateStringToMomentInUtc(birthday);
 	api(req).post(`/users/${userid}/skipregistration`, {
 		json: {
 			password: passwd,
@@ -698,7 +698,7 @@ router.get(
 
 const getStudentUpdateHandler = () => async function studentUpdateHandler(req, res, next) {
 	if (req.body.birthday) {
-		req.body.birthday = timesHelper.dateStringToMoment(req.body.birthday);
+		req.body.birthday = timesHelper.dateStringToMomentInUtc(req.body.birthday);
 	}
 
 	const promises = [];
@@ -997,70 +997,6 @@ router.get(
 /*
   CLASSES
 */
-const skipRegistrationClass = async (req, res, next) => {
-	let {
-		userids,
-		birthdays,
-		passwords,
-		emails,
-		fullnames,
-	} = req.body;
-	if (!(userids && birthdays && passwords && emails && fullnames)) {
-		req.session.notification = {
-			type: 'danger',
-			message: res.$t('administration.controller.text.thereWasAnError'),
-		};
-		redirectHelper.safeBackRedirect(req, res);
-		return;
-	}
-	// fallback if only one user is supposed to be edited
-	if (typeof (birthdays) === 'string') {
-		userids = [userids];
-		birthdays = [birthdays];
-		passwords = [passwords];
-		emails = [emails];
-		fullnames = [fullnames];
-	}
-	if (!((userids.length === birthdays.length) && (birthdays.length === passwords.length))) {
-		req.session.notification = {
-			type: 'danger',
-			message: res.$t('administration.controller.text.thereWasAnError'),
-		};
-		redirectHelper.safeBackRedirect(req, res);
-		return;
-	}
-	const changePromises = userids.map(async (userid, i) => {
-		api(req).post(`/users/${userid}/skipregistration`, {
-			json: {
-				password: passwords[i],
-				parent_privacyConsent: true,
-				parent_termsOfUseConsent: true,
-				privacyConsent: true,
-				termsOfUseConsent: true,
-				birthday: timesHelper.dateStringToMoment(birthdays[i]),
-			},
-		});
-	});
-	Promise.all(changePromises).then(() => {
-		const result = userids.map((student, i) => ({
-			email: emails[i],
-			password: passwords[i],
-			fullname: fullnames[i],
-		}));
-		res.render('administration/users_registrationcomplete', {
-			title: res.$t('administration.controller.text.consentGrantedSuccessfully'),
-			submitLabel: res.$t('global.button.back'),
-			users: result,
-			linktarget: '/administration/groups/classes/',
-		});
-	}).catch(() => {
-		req.session.notification = {
-			type: 'danger',
-			message: res.$t('administration.controller.text.thereWasAnError'),
-		};
-		redirectHelper.safeBackRedirect(req, res);
-	});
-};
 
 const renderClassEdit = (req, res, next) => {
 	api(req)
@@ -1405,37 +1341,6 @@ router.post(
 			.catch((err) => {
 				next(err);
 			});
-	},
-);
-
-router.post(
-	'/classes/:classId/skipregistration',
-	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
-	skipRegistrationClass,
-);
-
-router.get(
-	'/classes/:classId/skipregistration',
-	permissionsHelper.permissionsChecker('STUDENT_SKIP_REGISTRATION'),
-	async (req, res, next) => {
-		let students = await getUsersWithoutConsent(req, 'student', req.params.classId);
-		students = students.filter((obj) => {
-			if (obj.importHash) return true;
-			return false;
-		});
-		const passwords = students.map(() => (authHelper.generateConsentPassword()));
-		const renderUsers = students.map((student, i) => ({
-			fullname: `${student.firstName} ${student.lastName}`,
-			id: student._id,
-			email: student.email,
-			birthday: timesHelper.dateStringToMoment(student.birthday),
-			password: passwords[i],
-		}));
-
-		res.render('administration/classes_skipregistration', {
-			title: res.$t('administration.controller.link.toGiveConsent'),
-			students: renderUsers,
-		});
 	},
 );
 
