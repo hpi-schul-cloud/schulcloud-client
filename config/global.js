@@ -1,5 +1,3 @@
-const util = require('util');
-
 const {
 	PUBLIC_BACKEND_URL,
 	SC_DOMAIN = 'localhost',
@@ -25,10 +23,6 @@ const {
 	FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED,
 	FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED,
 	FEATURE_MINT_PAGES_ENABLED,
-	SC_DEMO_USER_PASSWORD = 'Schulcloud1!',
-	SC_DEMO_USER_NAME = 'schueler@schul-cloud.org',
-	SC_SUPERHERO_USER_PASSWORD = 'Schulcloud1!',
-	SC_SUPERHERO_USER_NAME = 'superhero@schul-cloud.org',
 	ALERT_STATUS_URL = 'https://status.dbildungscloud.de',
 	FEATURE_ALERTS_ON_HOMEPAGE_ENABLED,
 	FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED,
@@ -59,16 +53,9 @@ const exp = {
 	FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED,
 	FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED,
 	FEATURE_MINT_PAGES_ENABLED,
-	SC_DEMO_USER_PASSWORD,
-	SC_DEMO_USER_NAME,
-	SC_SUPERHERO_USER_PASSWORD,
-	SC_SUPERHERO_USER_NAME,
 	ALERT_STATUS_URL,
 	FEATURE_ALERTS_ON_HOMEPAGE_ENABLED,
 	FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED,
 };
-
-// eslint-disable-next-line no-console
-console.log(util.inspect(exp, { depth: 1, compact: false, sorted: true }));
 
 module.exports = exp;

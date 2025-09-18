@@ -47,9 +47,6 @@ const datetimeMiddleware = require('./middleware/datetime');
 const setupApp = async () => {
 	const app = express();
 
-	// print current configuration
-	Configuration.printHierarchy();
-
 	// setup prometheus metrics
 	prometheus(app);
 
