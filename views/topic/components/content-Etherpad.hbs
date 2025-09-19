@@ -1,7 +1,11 @@
-<h2 class="h4">{{title}}</h2>
-<p>{{content.description}}</p>
+<h2 class="h4" data-testid="etherpad-title">{{title}}</h2>
+<p data-testid="etherpad-description">{{content.description}}</p>
 {{#if content.url}}
-<iframe src="{{content.url}}"
-	style="width: 100%; height: 400px; resize: vertical; overflow: auto;"></iframe>
-<a href="{{content.url}}" target="_blank" class="pull-right">{{$t "global.link.openInNewTab" }}</a>
+    <iframe
+        src="{{content.url}}"
+        style="width: 100%; height: 400px; resize: vertical; overflow: auto;"
+    ></iframe>
+    <a href="{{content.url}}" target="_blank" class="pull-right">{{$t
+            "global.link.openInNewTab"
+        }}</a>
 {{/if}}
