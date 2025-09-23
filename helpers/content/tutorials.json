@@ -330,7 +330,18 @@
 				"id": "426312891",
 				"title": "Klassenverwaltung",
 				"type": "category",
-				"articles": []
+				"articles": [
+					{
+						"id": "442991374",
+						"title": "Klassen - Anlegen, Bearbeiten und Löschen",
+						"type": "article"
+					},
+					{
+						"id": "442991388",
+						"title": "Klassen in neues Schuljahr versetzen",
+						"type": "article"
+					}
+				]
 			},
 			{
 				"id": "426313034",
