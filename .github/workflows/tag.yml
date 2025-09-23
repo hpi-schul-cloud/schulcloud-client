@@ -16,7 +16,7 @@ jobs:
       matrix:
         tenants: [default, brb, n21, thr ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Docker meta Service Name for docker hub
