@@ -75,75 +75,40 @@
 				]
 			},
 			{
-				"id": "44072996",
+				"id": "423592596",
 				"title": "Themen & Inhalte",
 				"type": "category",
 				"articles": [
 					{
-						"id": "13828870",
+						"id": "424706075",
 						"title": "Themen, Aufgaben und Bereiche erstellen",
 						"type": "article"
 					},
 					{
-						"id": "13828873",
-						"title": "Inhalte in Themen einfügen",
+						"id": "424706092",
+						"title": "Themen - Einfügen, Teilen, Importieren und Kopieren",
 						"type": "article"
 					},
 					{
-						"id": "13828893",
-						"title": "Themen teilen und importieren",
-						"type": "article"
-					},
-					{
-						"id": "246055834",
-						"title": "Themen kopieren",
-						"type": "article"
-					},
-					{
-						"id": "314998942",
+						"id": "424706131",
 						"title": "Interaktives Whiteboard nutzen",
 						"type": "article"
 					}
 				]
 			},
 			{
-				"id": "44072998",
+				"id": "424706267",
 				"title": "Aufgaben",
 				"type": "category",
 				"articles": [
 					{
-						"id": "13829023",
-						"title": "Aufgabe erstellen",
+						"id": "424706478",
+						"title": "Aufgaben - Funktionen für Lehrkräfte",
 						"type": "article"
 					},
 					{
-						"id": "13829025",
-						"title": "Aufgaben bewerten",
-						"type": "article"
-					},
-					{
-						"id": "13829029",
-						"title": "Aufgaben drucken",
-						"type": "article"
-					},
-					{
-						"id": "13829035",
-						"title": "Aufgaben archivieren",
-						"type": "article"
-					},
-					{
-						"id": "13829061",
-						"title": "Aufgaben abgeben",
-						"type": "article"
-					},
-					{
-						"id": "246055003",
-						"title": "Aufgaben kopieren",
-						"type": "article"
-					},
-					{
-						"id": "254476906",
-						"title": "Aufgaben teilen",
+						"id": "424706507",
+						"title": "Aufgaben - Funktionen für Schülerinnen und Schüler",
 						"type": "article"
 					}
 				]
@@ -362,70 +327,45 @@
 				]
 			},
 			{
-				"id": "44073006",
+				"id": "426312891",
 				"title": "Klassenverwaltung",
 				"type": "category",
 				"articles": [
 					{
-						"id": "13828804",
-						"title": "Klassen anlegen",
+						"id": "442991374",
+						"title": "Klassen - Anlegen, Bearbeiten und Löschen",
 						"type": "article"
 					},
 					{
-						"id": "36700233",
-						"title": "Klassen bearbeiten",
-						"type": "article"
-					},
-					{
-						"id": "123407339",
+						"id": "442991388",
 						"title": "Klassen in neues Schuljahr versetzen",
-						"type": "article"
-					},
-					{
-						"id": "154187968",
-						"title": "Klassen löschen",
 						"type": "article"
 					}
 				]
 			},
 			{
-				"id": "102204927",
+				"id": "426313034",
 				"title": "Teams",
 				"type": "category",
 				"articles": [
 					{
-						"id": "102205180",
-						"title": "Teams anlegen",
+						"id": "426313035",
+						"title": "Teams anlegen, bearbeiten und löschen",
 						"type": "article"
 					},
 					{
-						"id": "102205209",
+						"id": "426313038",
 						"title": "Teammitglieder einladen",
 						"type": "article"
 					},
 					{
-						"id": "110724218",
-						"title": "Teamrollen vergeben",
+						"id": "426313051",
+						"title": "Teamrollen und Berechtigungen",
 						"type": "article"
 					},
 					{
-						"id": "132683186",
-						"title": "Rollen und Berechtigungen in Teams",
-						"type": "article"
-					},
-					{
-						"id": "154188006",
+						"id": "426313060",
 						"title": "Teameinladung freigeben",
-						"type": "article"
-					},
-					{
-						"id": "102205291",
-						"title": "Teams bearbeiten",
-						"type": "article"
-					},
-					{
-						"id": "102205330",
-						"title": "Teams löschen",
 						"type": "article"
 					}
 				]
