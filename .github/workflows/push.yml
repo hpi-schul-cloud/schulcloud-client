@@ -164,9 +164,9 @@ jobs:
     needs:
       - branch_meta
       - deploy
-    uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@main
+    uses: hpi-schul-cloud/e2e-system-tests/.github/workflows/remote-trigger.yml@BC-10512-prio-0-tests-split
     with:
-        ref: ${{ needs.branch_meta.outputs.branch }}
+        ref: BC-10512-prio-0-tests-split
     secrets:
         service-account-token: ${{ secrets.CYPRESS_ONEPWD_SERVICE_ACCOUNT_TOKEN }}
 
