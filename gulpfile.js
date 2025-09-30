@@ -4,7 +4,6 @@ const autoprefixer = require('autoprefixer');
 const fs = require('fs');
 const gulp = require('gulp');
 const babel = require('gulp-babel');
-const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const gulpErrorHandler = require('gulp-error-handle');
 const header = require('gulp-header');
@@ -112,9 +111,6 @@ gulp.task('styles', () => {
 				browsers: browserlist,
 			}),
 		]))
-		.pipe(cleanCSS({
-			compatibility: 'ie9',
-		}))
 		.pipe(change(rewriteStaticAssetPaths))
 		.pipe(sourcemaps.write('./sourcemaps'))
 		.pipe(gulp.dest(`./build/${themeName()}/styles`));
@@ -188,9 +184,6 @@ gulp.task('vendor-styles', () => beginPipe('./static/vendor/**/*.{sass,scss}')
 			browsers: browserlist,
 		}),
 	]))
-	.pipe(cleanCSS({
-		compatibility: 'ie9',
-	}))
 	.pipe(sourcemaps.write('./sourcemaps'))
 	.pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 

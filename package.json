@@ -128,7 +128,6 @@
 		"expose-loader": "^0.7.5",
 		"gulp": "^4.0.2",
 		"gulp-babel": "^8.0.0",
-		"gulp-clean-css": "^3.0.3",
 		"gulp-concat": "^2.6.1",
 		"gulp-error-handle": "^1.0.1",
 		"gulp-header": "^2.0.1",
