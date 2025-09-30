@@ -322,7 +322,5 @@ gulp.task('build-all', gulp.series(
 	'static',
 ));
 
-gulp.task('build-theme-files', gulp.series('styles', 'styles-done', 'images', 'static'));
-
 // run this if only 'gulp' is run on the commandline with no task specified
 gulp.task('default', gulp.series('build-all'));
