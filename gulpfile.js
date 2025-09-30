@@ -6,7 +6,6 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
-const gulpCount = require('gulp-count');
 const gulpErrorHandler = require('gulp-error-handle');
 const header = require('gulp-header');
 const gulpif = require('gulp-if');
@@ -174,7 +173,6 @@ gulp.task('scripts', () => beginPipeAll(nonBaseScripts)
 
 // compile/transpile JSX and ES6 to ES5, minify and concatenate base scripts into all.js
 gulp.task('base-scripts', () => beginPipeAll(baseScripts)
-	.pipe(gulpCount('## js-files selected'))
 	.pipe(babel({
 		presets: [
 			[
