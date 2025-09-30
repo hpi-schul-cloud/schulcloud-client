@@ -2263,6 +2263,7 @@
 			"schoolInMigrationModeStarted": "The school is in user migration mode. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
 			"schoolInMigrationMode": "The school can import user accounts from Schulportal. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
 			"onlineEventsAnnouncement": "The dBildungscloud team invites you to various online events. Click <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/login?redirect=/help/confluence/320144063'>HERE</a> for more information.",
+			"onlineEventAnnouncement": "The dBildungscloud team invites you to an online event. Click <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/x/vwIVEw'>HERE</a> for more information.",
 			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
