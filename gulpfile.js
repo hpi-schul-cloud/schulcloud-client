@@ -225,13 +225,6 @@ gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
-// copy other vendor files
-gulp.task('vendor-assets', () => beginPipe([
-	'./static/vendor/**/*.*',
-	'!./static/vendor/**/*.js',
-	'!./static/vendor/**/*.{sass,scss}',
-]).pipe(gulp.dest(`./build/${themeName()}/vendor`)));
-
 // copy node modules
 const nodeModules = {
 	// example
@@ -318,7 +311,6 @@ gulp.task('build-all', gulp.series(
 	'base-scripts',
 	'vendor-styles',
 	'vendor-scripts',
-	'vendor-assets',
 	'static',
 ));
 
