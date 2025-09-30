@@ -102,7 +102,6 @@ gulp.task('other-with-theme', gulp.series('other', () => gulp
 	.src(withTheme('./static/other/**/*.*'))
 	.pipe(gulp.dest(`./build/${themeName()}/other`))));
 
-let firstRun = true;
 gulp.task('styles', () => {
 	const themeFile = `./theme/${themeName()}/style.scss`;
 	return beginPipe('./static/styles/**/*.{css,sass,scss}')
@@ -137,10 +136,6 @@ const copyStyle = (dirname, filename, src) => gulp.src(src)
 
 gulp.task('copy-styles',
 	() => merge(baseStyles.map(({ dirname, filename, src }) => copyStyle(dirname, filename, src))));
-
-gulp.task('styles-done', gulp.series('styles'), () => {
-	firstRun = false;
-});
 
 // copy fonts
 gulp.task('fonts', () => beginPipe('./static/fonts/**/*.{eot,svg,ttf,woff,woff2}')
@@ -305,7 +300,6 @@ gulp.task('build-all', gulp.series(
 	'other-with-theme',
 	'node-modules',
 	'styles',
-	'styles-done',
 	'copy-styles',
 	'scripts',
 	'base-scripts',
