@@ -90,17 +90,11 @@ gulp.task('images', () => gulp
 	.src(withTheme('./static/images/**/*.*'))
 	.pipe(gulp.dest(`./build/${themeName()}/images`)));
 
-// minify static/other
+// copy static/other
 // uses gulp.src instead of beginPipe for performance reasons (logging is slow)
 gulp.task('other', () => gulp
-	.src(withTheme('./static/other/**/*.*'))
+	.src('./static/other/**/*.*')
 	.pipe(gulp.dest(`./build/${themeName()}/other`)));
-
-// minify static/other
-// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
-gulp.task('other-with-theme', gulp.series('other', () => gulp
-	.src(withTheme('./static/other/**/*.*'))
-	.pipe(gulp.dest(`./build/${themeName()}/other`))));
 
 gulp.task('styles', () => {
 	const themeFile = `./theme/${themeName()}/style.scss`;
@@ -297,7 +291,6 @@ gulp.task('build-all', gulp.series(
 	'images',
 	'other',
 	'fonts',
-	'other-with-theme',
 	'node-modules',
 	'styles',
 	'copy-styles',
