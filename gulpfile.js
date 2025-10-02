@@ -116,19 +116,6 @@ gulp.task('styles', () => {
 		.pipe(gulp.dest(`./build/${themeName()}/styles`));
 });
 
-gulp.task('vendor-styles', () => beginPipe('./static/vendor/**/*.{sass,scss}')
-	.pipe(sourcemaps.init())
-	.pipe(sass({
-		sourceMap: true,
-	}))
-	.pipe(postcss([
-		autoprefixer({
-			browsers: browserlist,
-		}),
-	]))
-	.pipe(sourcemaps.write('./sourcemaps'))
-	.pipe(gulp.dest(`./build/${themeName()}/vendor`)));
-
 const copyStyle = (dirname, filename, src) => gulp.src(src)
 	.pipe(rename((targetPath) => {
 		targetPath.basename = path.parse(filename).name;
@@ -185,6 +172,13 @@ gulp.task('base-scripts', () => beginPipeAll(baseScripts)
 	.pipe(uglify())
 	.pipe(concat('all.js'))
 	.pipe(gulp.dest(`./build/${themeName()}/scripts`)));
+
+// copy other vendor files
+gulp.task('vendor-assets', () => beginPipe([
+	'./static/vendor/**/*.*',
+	'!./static/vendor/**/*.js',
+	'!./static/vendor/**/*.{sass,scss}',
+]).pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
 // compile/transpile vendor JSX and ES6 to ES5 and minify scripts
 gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
@@ -286,8 +280,8 @@ gulp.task('build-all', gulp.series(
 	'copy-styles',
 	'scripts',
 	'base-scripts',
-	'vendor-styles',
 	'vendor-scripts',
+	'vendor-assets',
 	'static',
 ));
 
