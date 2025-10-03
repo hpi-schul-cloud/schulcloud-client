@@ -48,6 +48,6 @@ cssFilePaths.forEach((cssFilePath) => {
 	});
 
 	if (!isUsedinScss && !isUsedinHbs) {
-		console.log('Unused CSS file:', cssFilePath);
+		console.log('Unused stylesheet:', cssFilePath);
 	}
 });
