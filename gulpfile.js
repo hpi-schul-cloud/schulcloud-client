@@ -78,10 +78,6 @@ const beginPipe = (src) => gulp
 	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()));
 
-const beginPipeAll = (src) => gulp
-	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
-	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()));
-
 // copy images
 // uses gulp.src instead of beginPipe for performance reasons (logging is slow)
 gulp.task('images', () => gulp
@@ -135,7 +131,7 @@ gulp.task('static', () => beginPipe('./static/*')
 	.pipe(gulp.dest(`./build/${themeName()}/`)));
 
 // compile/transpile JSX and ES6 to ES5 and minify scripts
-gulp.task('scripts', () => beginPipeAll(nonBaseScripts)
+gulp.task('scripts', () => beginPipe(nonBaseScripts)
 	.pipe(
 		named((file) => {
 			// As a preparation for webpack stream: Transform nonBaseScripts paths
@@ -157,7 +153,7 @@ gulp.task('scripts', () => beginPipeAll(nonBaseScripts)
 	.pipe(gulp.dest(`./build/${themeName()}/scripts`)));
 
 // compile/transpile JSX and ES6 to ES5, minify and concatenate base scripts into all.js
-gulp.task('base-scripts', () => beginPipeAll(baseScripts)
+gulp.task('base-scripts', () => beginPipe(baseScripts)
 	.pipe(babel({
 		presets: [
 			[
