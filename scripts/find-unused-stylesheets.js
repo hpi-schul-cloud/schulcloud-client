@@ -44,7 +44,7 @@ cssFilePaths.forEach((cssFilePath) => {
 		const fileContent = fs.readFileSync(scssFileName, 'utf8');
 		const cssFileNameWithoutExt = path.basename(cssFilePath, '.css');
 
-		return fileContent.includes(`./${cssFileNameWithoutExt}`);
+		return fileContent.search(new RegExp(`@import.*${cssFileNameWithoutExt}`)) !== -1;
 	});
 
 	if (!isUsedinScss && !isUsedinHbs) {
