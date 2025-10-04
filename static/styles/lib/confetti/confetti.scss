@@ -2,7 +2,8 @@
 src: https://codepen.io/fionnachan/pen/EvaqOB
 */
 
-@import '../bootstrap/scss/bootstrap-flex';
+@import '../bootstrap/scss/mixins/breakpoints';
+@import '../bootstrap/scss/variables';
 
 .confetti-wrapper:not(.hidden) {
     position: relative;
@@ -39,7 +40,7 @@ src: https://codepen.io/fionnachan/pen/EvaqOB
             animation: drop-#{$i} unquote(8+random()+"s") unquote(8*random()+"s") infinite;
         }
     }
-  
+
     @keyframes drop-#{$i} {
         100% {
             transform: translateX(unquote(random(30)-15+"%")) translateY(120%);

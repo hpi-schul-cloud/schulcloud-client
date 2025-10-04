@@ -1,5 +1,8 @@
 @import "../lib/colors";
-@import "../lib/bootstrap/scss/bootstrap-flex";
+@import '../lib/bootstrap/scss/mixins/breakpoints';
+@import '../lib/bootstrap/scss/variables';
+@import '../lib/bootstrap/scss/mixins';
+@import '../lib/bootstrap/scss/buttons';
 
 .tab-content#submissions {
 	table {
