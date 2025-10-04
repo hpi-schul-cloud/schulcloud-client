@@ -1,5 +1,6 @@
 @import "./colors";
-@import "./bootstrap/scss/bootstrap-flex";
+@import './bootstrap/scss/mixins/breakpoints';
+@import './bootstrap/scss/variables';
 
 .alert-button {
 	visibility: hidden;

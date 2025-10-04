@@ -1,5 +1,6 @@
+@import '../lib/bootstrap/scss/mixins/breakpoints';
+@import '../lib/bootstrap/scss/variables';
 @import "./variables";
-@import "../lib/bootstrap/scss/bootstrap";
 // legacy css for login form
 #loginarea {
 	&:not(.demo-login) {
