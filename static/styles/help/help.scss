@@ -1,4 +1,3 @@
-@import "../lib/colors";
 @import "./search";
 @import "./icon-card";
 @import "./icon-link-group";
@@ -272,7 +271,7 @@ fieldset.switch_wrapper {
 
       .label-wrapper {
         display: flex;
-      
+
         .required-label{
           color: $colorDarkerGrey;
           font-weight: 400;

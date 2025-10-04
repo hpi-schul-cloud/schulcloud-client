@@ -1,5 +1,6 @@
 @import '../lib/colors';
-@import '../lib/bootstrap/scss/bootstrap';
+@import '../lib/bootstrap/scss/mixins/breakpoints';
+@import '../lib/bootstrap/scss/variables';
 
 body {
     position: absolute;
