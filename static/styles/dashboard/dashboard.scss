@@ -1,6 +1,6 @@
 @import "../lib/colors";
-@import '../lib/bootstrap/scss/mixins/breakpoints';
-@import '../lib/bootstrap/scss/custom';
+@import "../lib/bootstrap/scss/bootstrap-flex";
+@import "../homework/homework";
 
 @include media-breakpoint-down(xs) {
 	.row.lesson-cards,
