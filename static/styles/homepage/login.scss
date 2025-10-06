@@ -1,5 +1,5 @@
-@import '../lib/bootstrap/scss/bootstrap-grid';
 @import "./variables";
+@import '../lib/bootstrap/scss/bootstrap-grid';
 // legacy css for login form
 #loginarea {
 	&:not(.demo-login) {
