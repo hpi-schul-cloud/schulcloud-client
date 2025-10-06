@@ -1,7 +1,6 @@
 @import "./alerts.scss";
 @import "./colors";
-@import './bootstrap/scss/mixins/breakpoints';
-@import './bootstrap/scss/custom';
+@import "./bootstrap/scss/bootstrap-flex";
 
 .input-group-addon {
 	width: auto;

@@ -1,5 +1,4 @@
-@import './bootstrap/scss/mixins/breakpoints';
-@import './bootstrap/scss/custom';
+@import "./bootstrap/scss/bootstrap-flex";
 @import "./bootstrap/scss/_animation"; // this import is needed to enable the toggle feature of the detail card
 @import "static/styles/lib/colors";
 
