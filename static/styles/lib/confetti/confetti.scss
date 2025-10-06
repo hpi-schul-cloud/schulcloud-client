@@ -3,7 +3,7 @@ src: https://codepen.io/fionnachan/pen/EvaqOB
 */
 
 @import '../bootstrap/scss/mixins/breakpoints';
-@import '../bootstrap/scss/variables';
+@import '../bootstrap/scss/custom';
 
 .confetti-wrapper:not(.hidden) {
     position: relative;
