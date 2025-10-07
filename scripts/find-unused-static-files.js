@@ -1,7 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-// Script for manually finding unused static files
+// Script for manually finding unused static files.
+// It is assumed that you previously ran `npm run build` with SC_THEME=default (which is the default).
 
 function getCssFilePaths() {
 	const dirPath = './build/default/styles';
