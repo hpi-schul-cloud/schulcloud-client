@@ -2463,21 +2463,6 @@
 			"unpublished": "Sin publicar"
 		}
 	},
-	"partner": {
-		"headline": {
-			"advisoryBoard": "Consejo asesor",
-			"pilotPartners": "Socios piloto para contenido de aprendizaje",
-			"supporters": "Colaboradores de la infraestructura escolar < 3"
-		},
-		"img_alt": {
-			"logo": "Logotipo"
-		},
-		"text": {
-			"advisoryBoardDescription": "El proyecto de la nube escolar de HPI cuenta con el apoyo de un consejo asesor formado por varios representantes de la práctica educativa, empresarial y política. Además de los aspectos técnicos, la atención se centra también en temas como la privacidad y la pedagogía.",
-			"pilotPartnersDescription": "Nos gustaría agradecer a nuestros socios que han puesto a nuestra disposición varios contenidos de aprendizaje de forma gratuita durante la fase piloto para que se pueda probar la nube escolar de HPI.",
-			"supportersDescription": "Agradecemos a nuestros colaboradores por la infraestructura escolar."
-		}
-	},
 	"pwRecovery": {
 		"button": {
 			"createNewPassword": "Crear nueva contraseña"
