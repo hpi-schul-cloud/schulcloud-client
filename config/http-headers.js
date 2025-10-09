@@ -58,9 +58,6 @@ const config = {
 				fontSrc: 'https://vjs.zencdn.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},
-			'^/about': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
-			},
 		},
 	},
 	/*
