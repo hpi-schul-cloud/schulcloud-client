@@ -2463,21 +2463,6 @@
 			"unpublished": "Unpublished"
 		}
 	},
-	"partner": {
-		"headline": {
-			"advisoryBoard": "Advisory Board",
-			"pilotPartners": "Pilot partners for learning content",
-			"supporters": "Supporters for school infrastructure < 3"
-		},
-		"img_alt": {
-			"logo": "Logo"
-		},
-		"text": {
-			"advisoryBoardDescription": "The HPI School Cloud project is supported by an advisory board made up of various representatives from educational practice, business and politics. In addition to technical aspects, the focus also lies on topics such as privacy and pedagogy.",
-			"pilotPartnersDescription": "We would like to thank our partners who have made various learning contents available for free during the pilot phase so that the HPI school cloud can be experienced.",
-			"supportersDescription": "We thank our supporters for school infrastructure."
-		}
-	},
 	"pwRecovery": {
 		"button": {
 			"createNewPassword": "Create new password"
