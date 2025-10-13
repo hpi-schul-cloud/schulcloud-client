@@ -76,7 +76,7 @@ const handleError = (error) => {
 };
 
 const beginPipe = (src) => gulp
-	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
+	.src(withTheme(src), { allowEmpty: true })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()));
 
 // copy images
@@ -268,8 +268,8 @@ gulp.task('clear-cache', () => gulp
 	)
 	.pipe(rimraf({})));
 
-// run all tasks, processing changed files
-gulp.task('build-all', gulp.series(
+// run this if only 'gulp' is run on the commandline with no task specified
+gulp.task('default', gulp.series(
 	'images',
 	'other',
 	'fonts',
@@ -282,6 +282,3 @@ gulp.task('build-all', gulp.series(
 	'vendor-assets',
 	'static',
 ));
-
-// run this if only 'gulp' is run on the commandline with no task specified
-gulp.task('default', gulp.series('build-all'));
