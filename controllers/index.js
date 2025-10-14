@@ -27,7 +27,6 @@ router.use('/pwrecovery/', require('./pwrecovery'));
 router.use('/notification/', require('./notification'));
 router.use('/link/', require('./link'));
 router.use('/community/', require('./community'));
-router.use('/about/', require('./about'));
 router.use('/help/', require('./help'));
 router.use('/privacypolicy/', require('./dataprivacy'));
 router.use('/termsofuse/', require('./termsofuse'));
