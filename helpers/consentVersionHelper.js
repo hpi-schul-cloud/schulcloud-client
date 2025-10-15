@@ -11,11 +11,16 @@ const getConsentVersion = async (req, res, consentType) => {
 		},
 	};
 
-	if (isAuthenticated && res.locals.currentSchool) {
-		qs.schoolId = res.locals.currentSchool;
+	if (isAuthenticated) {
+		await authHelper.populateCurrentUser(req, res);
+
+		if (res.locals.currentSchool) {
+			qs.schoolId = res.locals.currentSchool;
+		}
 	}
 
 	const consentVersion = await api(req).get('/consentVersions', { qs });
+
 	return consentVersion;
 };
 
