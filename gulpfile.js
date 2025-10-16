@@ -6,7 +6,6 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
-const gulpCount = require('gulp-count');
 const gulpErrorHandler = require('gulp-error-handle');
 const header = require('gulp-header');
 const gulpif = require('gulp-if');
@@ -77,11 +76,7 @@ const handleError = (error) => {
 };
 
 const beginPipe = (src) => gulp
-	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
-	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()));
-
-const beginPipeAll = (src) => gulp
-	.src(withTheme(src), { allowEmpty: true, since: gulp.lastRun('build-all') })
+	.src(withTheme(src), { allowEmpty: true })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()));
 
 // copy images
@@ -90,19 +85,12 @@ gulp.task('images', () => gulp
 	.src(withTheme('./static/images/**/*.*'))
 	.pipe(gulp.dest(`./build/${themeName()}/images`)));
 
-// minify static/other
+// copy static/other
 // uses gulp.src instead of beginPipe for performance reasons (logging is slow)
 gulp.task('other', () => gulp
-	.src(withTheme('./static/other/**/*.*'))
+	.src('./static/other/**/*.*')
 	.pipe(gulp.dest(`./build/${themeName()}/other`)));
 
-// minify static/other
-// uses gulp.src instead of beginPipe for performance reasons (logging is slow)
-gulp.task('other-with-theme', gulp.series('other', () => gulp
-	.src(withTheme('./static/other/**/*.*'))
-	.pipe(gulp.dest(`./build/${themeName()}/other`))));
-
-let firstRun = true;
 gulp.task('styles', () => {
 	const themeFile = `./theme/${themeName()}/style.scss`;
 	return beginPipe('./static/styles/**/*.{css,sass,scss}')
@@ -120,9 +108,7 @@ gulp.task('styles', () => {
 				browsers: browserlist,
 			}),
 		]))
-		.pipe(cleanCSS({
-			compatibility: 'ie9',
-		}))
+		.pipe(cleanCSS())
 		.pipe(change(rewriteStaticAssetPaths))
 		.pipe(sourcemaps.write('./sourcemaps'))
 		.pipe(gulp.dest(`./build/${themeName()}/styles`));
@@ -138,10 +124,6 @@ const copyStyle = (dirname, filename, src) => gulp.src(src)
 gulp.task('copy-styles',
 	() => merge(baseStyles.map(({ dirname, filename, src }) => copyStyle(dirname, filename, src))));
 
-gulp.task('styles-done', gulp.series('styles'), () => {
-	firstRun = false;
-});
-
 // copy fonts
 gulp.task('fonts', () => beginPipe('./static/fonts/**/*.{eot,svg,ttf,woff,woff2}')
 	.pipe(gulp.dest(`./build/${themeName()}/fonts`)));
@@ -151,7 +133,7 @@ gulp.task('static', () => beginPipe('./static/*')
 	.pipe(gulp.dest(`./build/${themeName()}/`)));
 
 // compile/transpile JSX and ES6 to ES5 and minify scripts
-gulp.task('scripts', () => beginPipeAll(nonBaseScripts)
+gulp.task('scripts', () => beginPipe(nonBaseScripts)
 	.pipe(
 		named((file) => {
 			// As a preparation for webpack stream: Transform nonBaseScripts paths
@@ -173,8 +155,7 @@ gulp.task('scripts', () => beginPipeAll(nonBaseScripts)
 	.pipe(gulp.dest(`./build/${themeName()}/scripts`)));
 
 // compile/transpile JSX and ES6 to ES5, minify and concatenate base scripts into all.js
-gulp.task('base-scripts', () => beginPipeAll(baseScripts)
-	.pipe(gulpCount('## js-files selected'))
+gulp.task('base-scripts', () => beginPipe(baseScripts)
 	.pipe(babel({
 		presets: [
 			[
@@ -189,23 +170,6 @@ gulp.task('base-scripts', () => beginPipeAll(baseScripts)
 	.pipe(uglify())
 	.pipe(concat('all.js'))
 	.pipe(gulp.dest(`./build/${themeName()}/scripts`)));
-
-// compile vendor SASS/SCSS to CSS and minify it
-gulp.task('vendor-styles', () => beginPipe('./static/vendor/**/*.{sass,scss}')
-	.pipe(sourcemaps.init())
-	.pipe(sass({
-		sourceMap: true,
-	}))
-	.pipe(postcss([
-		autoprefixer({
-			browsers: browserlist,
-		}),
-	]))
-	.pipe(cleanCSS({
-		compatibility: 'ie9',
-	}))
-	.pipe(sourcemaps.write('./sourcemaps'))
-	.pipe(gulp.dest(`./build/${themeName()}/vendor`)));
 
 // compile/transpile vendor JSX and ES6 to ES5 and minify scripts
 gulp.task('vendor-scripts', () => beginPipe('./static/vendor/**/*.js')
@@ -304,25 +268,17 @@ gulp.task('clear-cache', () => gulp
 	)
 	.pipe(rimraf({})));
 
-// run all tasks, processing changed files
-gulp.task('build-all', gulp.series(
+// run this if only 'gulp' is run on the commandline with no task specified
+gulp.task('default', gulp.series(
 	'images',
 	'other',
 	'fonts',
-	'other-with-theme',
 	'node-modules',
 	'styles',
-	'styles-done',
 	'copy-styles',
 	'scripts',
 	'base-scripts',
-	'vendor-styles',
 	'vendor-scripts',
 	'vendor-assets',
 	'static',
 ));
-
-gulp.task('build-theme-files', gulp.series('styles', 'styles-done', 'images', 'static'));
-
-// run this if only 'gulp' is run on the commandline with no task specified
-gulp.task('default', gulp.series('build-all'));
