@@ -1,40 +1,7 @@
 {
 	"about": {
-		"button": {
-			"showLess": "mostrar menos",
-			"showMore": "mostrar más"
-		},
-		"headline": {
-			"bestPractice": "Escuelas de mejores prácticas",
-			"educSupp": "Apoyo científico educativo",
-			"morePublications": "Otras publicaciones",
-			"ourAwards": "Nuestros premios",
-			"pilotSchool": "Escuelas piloto",
-			"project": "Proyecto",
-			"publications": "Publicaciones",
-			"recordingsLecture": "Grabaciones de conferencias",
-			"title": "Acerca de la nube escolar de HPI"
-		},
-		"link": {
-			"awardWinnerIdea": "Nombramiento como \"Excelente Lugar\" en el concurso nacional \"Tierra de Ideas\"",
-			"awardWinnerInnovation": "Ganador del \"Premio a la Innovación Berlín Brandeburgo 2018",
-			"cloudGermanyConcept": "La nube escolar en Alemania: concepto y prueba piloto de la nube escolar de HPI",
-			"cloudImportanceStakeholder": "Los ordenadores de la escuela se están migrando a la nube: ¿qué significa esto para las distintas partes interesadas?",
-			"hpiCloudDuringLesson": "La nube escolar de HPI en el aula: escenarios y métodos de enseñanza interdisciplinarios",
-			"hpiCloudInDayLife": "La nube escolar de HPI en la enseñanza y la vida escolar diaria: valor añadido y requisitos",
-			"hpiCloudLearning": "Nube escolar de HPI y aprendizaje 4.0: ejemplos de mejores prácticas de enseñanza para escuelas secundarias",
-			"hpiCloudTechnicalReport": "Informe técnico: Nube escolar de HPI: implementación de una arquitectura en la nube para escuelas en Alemania",
-			"shortDescription": "Short description \"The HPI Schul-Cloud\" (.pdf) [Breve descripción \"La nube escolar de HPI\"]",
-			"talksFirstCloudForum": "Presentaciones del primer foro de la nube escolar de HPI (abril de 2017)",
-			"talksSecondCloudForum": "Presentaciones del segundo foro de la nube escolar de HPI (marzo de 2018)",
-			"talksThirdCloudForum": "Presentaciones del tercer foro de la nube escolar de HPI (marzo de 2019)"
-		},
 		"text": {
-			"browserNotSupported": "Tu navegador no puede mostrar el PDF integrado. Puedes verlo aquí:",
-			"startA2019": "(Inicio en agosto de 2019)",
-			"startF2019": "(Inicio en febrero de 2019)",
-			"startM2017": "(Inicio en marzo de 2017)",
-			"startM2018": "(Inicio en mayo de 2018)"
+			"browserNotSupported": "Tu navegador no puede mostrar el PDF integrado. Puedes verlo aquí:"
 		}
 	},
 	"account": {
