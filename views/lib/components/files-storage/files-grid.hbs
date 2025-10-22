@@ -1,7 +1,7 @@
 <section class="files" data-testid="{{parentType}}-section-files">
 	<div class="row">
 		{{#each files}}
-			<div class="col-sm-12">
+			<div class="col-sm-12 {{#ifeq this.isUploading true}}file-is-uploading{{/ifeq}}">
 				{{> "lib/components/files-storage/files-card" readonly=../readonly fileIndex=@index}}
 			</div>
 		{{/each}}

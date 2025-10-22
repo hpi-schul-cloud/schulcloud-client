@@ -106,6 +106,10 @@
   width: 100%;
   margin-bottom: 40px;
 
+  .file-is-uploading {
+    display: none;
+  }
+
   h5 {
     color: $primaryColor;
     padding: 10px 0 20px;
