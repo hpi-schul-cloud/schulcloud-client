@@ -9,6 +9,7 @@ const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const { logger } = require('../helpers');
 const filesStoragesHelper = require('../helpers/files-storage');
+const { preventCourseLocked } = require('../helpers/course');
 
 const router = express.Router({ mergeParams: true });
 
@@ -158,6 +159,8 @@ const getPadIdFromUrl = (path) => {
 
 // secure routes
 router.use(authHelper.authChecker);
+
+router.use(preventCourseLocked);
 
 router.get('/', (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
