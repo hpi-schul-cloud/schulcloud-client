@@ -23,6 +23,8 @@ const router = express.Router();
 const { HOST } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
 
+const { preventCourseLocked } = require('../helpers/course');
+
 const SYNC_ATTRIBUTE = Object.freeze({
 	TEACHERS: 'teachers',
 });
@@ -483,6 +485,8 @@ const copyCourseHandler = (req, res, next) => {
 
 // secure routes
 router.use(authHelper.authChecker);
+
+router.use(preventCourseLocked);
 
 /**
  *

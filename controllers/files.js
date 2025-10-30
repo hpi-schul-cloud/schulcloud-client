@@ -19,6 +19,8 @@ const { logger, formatError } = require('../helpers');
 const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = require('../config/global');
 const { useNextcloudFilesystem, makeNextcloudFolderName } = require('../helpers/nextcloud');
 
+const { preventCourseLocked } = require('../helpers/course');
+
 const router = express.Router();
 
 const filterOptions = (res) => [
@@ -376,6 +378,8 @@ const getFilesWithSaveName = (files) => files.map((file) => {
 
 // secure routes
 router.use(authHelper.authChecker);
+
+router.use(preventCourseLocked);
 
 const getSignedUrl = (req, res, next) => {
 	const {

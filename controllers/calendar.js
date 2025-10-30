@@ -8,6 +8,7 @@ const router = express.Router();
 const api = require('../api');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const timesHelper = require('../helpers/timesHelper');
+const { authorizeLockedCourse } = require('../helpers/course');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
@@ -52,6 +53,7 @@ router.post('/events/', (req, res, next) => {
 		.toISOString(true);
 
 	if (req.body.courseId && req.body.courseId !== '') {
+		authorizeLockedCourse(req, res, next, req.body.courseId);
 		req.body.scopeId = req.body.courseId;
 	} else {
 		delete req.body.courseId;
