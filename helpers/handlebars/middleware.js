@@ -382,15 +382,6 @@ module.exports = (req, res, next) => {
 		});
 	}
 
-	if (SC_THEME !== 'default') {
-		systemLinks.push({
-			link: res.locals.theme.documents.specificFiles.accessibilityStatement,
-			name: res.$t('lib.global.link.accessibilityStatement'),
-			testId: 'sidebar-system-accessibilitystatement',
-			isExternalLink: true,
-		});
-	}
-
 	systemLinks.push({
 		name: res.$t('lib.help_menu.link.releaseNotes'),
 		link: '/system/releases',

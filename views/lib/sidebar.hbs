@@ -65,6 +65,20 @@
                     {{/ifneq}}
                 {{/hasConfig}}
             {{/unlessEnv}}
+
+            {{#unlessEnv "SC_THEME" "default"}}
+                  <li>
+                    <a href="{{theme.documents.specificFiles.accessibilityStatement}}"
+                       target="_blank"
+                       rel="noopener"
+                       aria-label="{{$t "lib.global.link.accessibilityStatement"}} {{$t "global.link.openInNewTabWarning"}}"
+                       class="legal-link"
+                       data-testid="sidebar-system-accessibilitystatement">
+                      {{$t "lib.global.link.accessibilityStatement"}}
+                    </a>
+                  </li>
+            {{/unlessEnv}}
+
             <li>
                 <a href="/imprint" class="legal-link">{{$t "global.link.imprint"}}</a>
             </li>
