@@ -37,7 +37,6 @@
 	{{/block}}
 
 	{{#block "scripts"}}
-	{{#embed "lib/sw-metrix"}}{{/embed}}
 	{{! make window.$t() available. Must be executed before all other scripts! }}
 	<script src="{{getAssetPath '/scripts/i18n.js'}}" type="text/javascript" nonce="{{nonceValue}}"></script>
     <script src="{{getAssetPath '/scripts/timezone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
