@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-vars */
 import multiDownload from 'multi-download';
 
-import { softNavigate } from './helpers/navigation';
-import { getQueryParameters } from './helpers/queryStringParameter';
-
 let lastFocusedElement;
 
 window.addEventListener('keydown', (e) => {
@@ -91,36 +88,6 @@ function importSubmission(e) {
 		});
 	}
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-	/* FEATHERS FILTER MODULE */
-	const filterModule = document.getElementById('filter');
-	const sortingModal = document.querySelector('.md-chip.md-theme-default');
-	const closingButton = document.querySelector('.md-icon-button');
-	if (closingButton) {
-		closingButton.setAttribute('aria-label', 'Abbrechen');
-		closingButton.setAttribute('tabindex', '0');
-	}
-
-	if (!filterModule) { return; }
-	filterModule.addEventListener('newFilter', (e) => {
-		const filter = e.detail;
-		const params = getQueryParameters();
-		let newurl = `?filterQuery=${escape(JSON.stringify(filter[0]))}`;
-		if (params.p) {
-			newurl += `&p=${params.p}`;
-		}
-		softNavigate(newurl, '.homework', '.pagination');
-	});
-	if (!sortingModal) { return; }
-	sortingModal.addEventListener('keydown', (e) => {
-		if (e.keyCode === 13 || e.keyCode === 32) {
-			lastFocusedElement = sortingModal;
-			sortingModal.click();
-		}
-	});
-	document.querySelector('.filter').dispatchEvent(new CustomEvent('getFilter'));
-});
 
 $(document).ready(() => {
 	$('.submission-button').on('click', (event) => {
