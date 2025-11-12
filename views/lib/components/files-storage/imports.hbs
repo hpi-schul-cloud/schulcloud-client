@@ -5,10 +5,9 @@
 {{#content "scripts" mode="append"}}
 	<script src="{{getAssetPath '/scripts/dropzone/dropzone.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 	<script src="{{getAssetPath '/scripts/files-storage.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-	<script src="{{getAssetPath '/scripts/jquery.cookie.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
 {{/content}}
 
-{{#content "body" mode="append"}} 
+{{#content "body" mode="append"}}
 
 {{#embed "lib/components/files-storage/file-viewer"}}{{/embed}}
 {{#embed "lib/components/modal" class="files-storage-delete-modal" title=($t "global.text.areYouSure")}}
