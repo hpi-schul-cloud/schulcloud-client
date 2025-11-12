@@ -1,6 +1,5 @@
 import { populateCourseTimes } from './coursesTimes';
 import './jquery/datetimepicker-easy';
-import printQRs from './helpers/printQRs';
 
 const datetime = require('./datetime/datetime');
 
@@ -244,56 +243,7 @@ $(document).ready(() => {
 			});
 	}
 
-	function handlePrintLinksClick(e) {
-		e.preventDefault();
-		const $this = $(this);
-		const text = $this.html();
-		const role = $this.data('role');
-
-		$this.html($t('administration.global.button.printSheetIsBeingGenerated'));
-		$this.attr('disabled', 'disabled');
-
-		$.ajax({
-			type: 'GET',
-			url:
-				`${window.location.origin
-				}/administration/users-without-consent/get-json`,
-			data: {
-				role,
-			},
-		})
-			.done((users) => {
-				printQRs(
-					users.map((user) => ({
-						href: user.registrationLink.shortLink,
-						title:
-							user.fullName
-							|| `${user.firstName} ${user.lastName}`,
-						description: user.registrationLink.shortLink,
-					})),
-				);
-				$.showNotification(
-					$t('administration.global.text.successfullyGeneratedPrintSheet'),
-					'success',
-					true,
-				);
-				$this.attr('disabled', false);
-				$this.html(text);
-			})
-			.fail(() => {
-				$.showNotification(
-					$t('administration.global.text.errorGeneratingPrintSheet'),
-					'danger',
-					true,
-				);
-				$this.attr('disabled', false);
-				$this.html(text);
-			});
-	}
-
 	$('.btn-send-links-emails').off('click').on('click', handleSendLinkEmailsClick);
-
-	$('.btn-print-links').off('click').on('click', handlePrintLinksClick);
 
 	$('#csv-import-example').off('click').on('click', (e) => {
 		e.preventDefault();

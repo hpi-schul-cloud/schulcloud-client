@@ -1,5 +1,3 @@
-import printQRs from '../../helpers/printQRs';
-
 window.addEventListener('load', () => {
 	document
 		.getElementById('filter_schoolyear')
@@ -68,52 +66,4 @@ window.addEventListener('load', () => {
 	}
 
 	$('.btn-send-links-emails').on('click', btnSendLinksEmailsHandler);
-
-	function btnPrintLinksHandler(e) {
-		e.preventDefault();
-		const $this = $(this);
-		const text = $this.html();
-		const classId = $this.data('class');
-		const role = $this.data('role');
-
-		$this.html($t('administration.global.button.printSheetIsBeingGenerated'));
-		$this.attr('disabled', 'disabled');
-
-		$.ajax({
-			type: 'GET',
-			url: `${window.location.origin}/administration/users-without-consent/get-json`,
-			data: {
-				classId,
-				role,
-			},
-		})
-			.done((users) => {
-				printQRs(
-					users.map((user) => ({
-						href: user.registrationLink.shortLink,
-						title:
-							user.fullName
-							|| `${user.firstName} ${user.lastName}`,
-						description: user.registrationLink.shortLink,
-					})),
-				);
-				$.showNotification(
-					$t('administration.global.text.successfullyGeneratedPrintSheet'),
-					'success',
-					true,
-				);
-				$this.attr('disabled', false);
-				$this.html(text);
-			})
-			.fail(() => {
-				$.showNotification(
-					$t('administration.global.text.errorGeneratingPrintSheet'),
-					'danger',
-					true,
-				);
-				$this.attr('disabled', false);
-				$this.html(text);
-			});
-	}
-	$('.btn-print-links').on('click', btnPrintLinksHandler);
 });
