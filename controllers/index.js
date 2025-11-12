@@ -32,7 +32,6 @@ router.use('/privacypolicy/', require('./dataprivacy'));
 router.use('/termsofuse/', require('./termsofuse'));
 router.use('/my-material', require('./my-material'));
 router.use('/base64Files', require('./base64Files'));
-router.use('/logs', require('./logs'));
 router.use('/firstLogin', require('./firstLogin'));
 router.use('/forcePasswordChange', require('./forcePasswordChange'));
 router.use('/oauth2', require('./oauth2'));

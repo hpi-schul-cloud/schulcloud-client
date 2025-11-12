@@ -1,48 +1,8 @@
-import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
 import './jquery/datetimepicker-easy';
-import {
-	updateQueryStringParameter,
-	getQueryParameterByName,
-} from './helpers/queryStringParameter';
 import printQRs from './helpers/printQRs';
 
 const datetime = require('./datetime/datetime');
-
-/* global populateModalForm */
-
-window.addEventListener('DOMContentLoaded', () => {
-	/* FEATHERS FILTER MODULE */
-	const filterModule = document.getElementById('filter');
-	if (filterModule) {
-		filterModule.addEventListener('newFilter', (e) => {
-			const filter = e.detail;
-
-			const filterQuery = ` ?filterQuery=${escape(JSON.stringify(filter[0]))}`;
-
-			let page = getQueryParameterByName('p');
-			page = page ? `&p=${page}` : '';
-
-			let showTab = getQueryParameterByName('showTab');
-			showTab = showTab ? `&showTab=${showTab}` : '';
-
-			softNavigate(`${filterQuery}${page}${showTab}`, '.ajaxcontent', '.pagination');
-		});
-		document
-			.querySelector('.filter')
-			.dispatchEvent(new CustomEvent('getFilter'));
-	}
-});
-
-window.addEventListener('softNavigate', (event) => {
-	const { target_url: targetUrl } = event.detail;
-
-	const page = getQueryParameterByName('p', targetUrl);
-	updateQueryStringParameter('p', page);
-
-	const showTab = getQueryParameterByName('showTab', targetUrl);
-	updateQueryStringParameter('showTab', showTab);
-});
 
 $(document).ready(() => {
 	const $modals = $('.modal');
