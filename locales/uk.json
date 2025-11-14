@@ -17,7 +17,8 @@
 			"noDueDate": "Дата подання не встановлена",
 			"noMaterialsYetLookAtOthers": "Ви ще не створили власні матеріали. Але ви також можете черпати натхнення з матеріалів своїх колег. Перевірте <a href=\"/my-material\">Розділ «Мої матеріали»</a>.",
 			"graded": "Оцінено",
-			"handedIn": "Подані"
+			"handedIn": "Подані",
+			"surveyAnnouncement": "Візьміть участь в нашому опитуванні користувачів і допоможіть нам поліпшити хмарні технології. <a target='_blank' rel='noopener noreferrer' href='https://befragungen.dataport.de/umfrage/2019781/852cUJk'>Перейти до опитування.</a>"
 		},
 		"img_alt": {
 			"showAppointmentInTeam": "Показати призначення в команді",
