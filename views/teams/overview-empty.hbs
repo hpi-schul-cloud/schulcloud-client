@@ -23,7 +23,7 @@
                 </div>
             </div>
             {{else}}
-            {{#unless (userHasRole "expert")}}
+            {{#unless (userHasRole "externalPerson")}}
             <div class="text-wrapper mx-auto d-block">
                 <h2 class="h5 text-muted text-center">
                     {{$t "teams.text.studentsCantCreateTeams"}}
