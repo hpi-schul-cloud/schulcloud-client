@@ -26,7 +26,7 @@ const rolesDisplayName = {
 	superhero: 'Schul-Cloud Admin',
 	helpdesk: 'Helpdesk',
 	betaTeacher: 'Beta',
-	expert: 'Experte',
+	externalPerson: 'externalPerson',
 };
 
 const USER_FORCED_TO_CHANGE_PASSWORD_REJECT = 'USER_FORCED_TO_CHANGE_PASSWORD_REJECT';
