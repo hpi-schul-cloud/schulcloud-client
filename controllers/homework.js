@@ -16,6 +16,8 @@ const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
 const timesHelper = require('../helpers/timesHelper');
 const filesStoragesHelper = require('../helpers/files-storage');
 
+const { preventCourseLocked } = require('../helpers/course');
+
 const router = express.Router();
 
 handlebars.registerHelper('ifvalue', (conditional, options) => {
@@ -26,6 +28,8 @@ handlebars.registerHelper('ifvalue', (conditional, options) => {
 });
 
 router.use(authHelper.authChecker);
+
+router.use(preventCourseLocked);
 
 const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
 	qs: query,
@@ -270,6 +274,7 @@ const patchFunction = (service, req, res, next) => {
 		if (service === 'submissions') {
 			api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
 				.then((homework) => {
+					// TODO locked course check here, or in feathers?
 					sendNotification(data.studentId,
 						res.$t('homework._task.text.submissionGradedNotification', {
 							coursename: homework.courseId.name,
@@ -449,6 +454,7 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 			$populate: ['courseId'],
 		},
 	}).then((assignment) => {
+		// TODO check locked course here or in api?
 		const isTeacher = (assignment.teacherId == res.locals.currentUser._id) || ((assignment.courseId || {}).teacherIds || []).includes(res.locals.currentUser._id);
 		const isSubstitution = ((assignment.courseId || {}).substitutionIds || []).includes(res.locals.currentUser._id);
 		if (!isTeacher && !isSubstitution) {

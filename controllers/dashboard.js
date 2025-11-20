@@ -178,6 +178,7 @@ router.get('/', (req, res, next) => {
 			},
 		})
 		.then((data) => data.data.map((homeworks) => {
+			// TODO check locked course here or exclude locked courses in the api request
 			homeworks.secondaryTitle = homeworks.dueDate
 				? timesHelper.fromNow(homeworks.dueDate)
 				: res.$t('dashboard.text.noDueDate');
@@ -213,14 +214,14 @@ router.get('/', (req, res, next) => {
 			},
 		})
 		.then((news) => news.data.map((n) => {
-				n.url = `/news/${n.id}`;
-				n.secondaryTitle = timesHelper.fromNow(n.displayAt);
-				return n;
+			n.url = `/news/${n.id}`;
+			n.secondaryTitle = timesHelper.fromNow(n.displayAt);
+			return n;
 		}))
 		.catch((err) => {
 			/* eslint-disable-next-line max-len */
 			logger.error(
-				`Can not fetch data from /news/ in router.all("/") | message: ${err.message} | code: ${err.code}.`
+				`Can not fetch data from /news/ in router.all("/") | message: ${err.message} | code: ${err.code}.`,
 			);
 			return [];
 		});
