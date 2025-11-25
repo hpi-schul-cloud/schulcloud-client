@@ -178,12 +178,23 @@ router.get('/', (req, res, next) => {
 
 		return homework;
 	};
-
 	const homeworksPromise = api(req, { version: 'v3' }).get('/tasks/')
 		.then((data) => {
 			const legacyData = data.data.map(mapV3TaskToLegacyHomework);
 
-			return legacyData.map((homeworks) => {
+			// Filter to get only homeworks with dueDate within 7 days after and 1 year before today
+			const sevenDaysFromNow = timesHelper.currentDate().add(7, 'days');
+			const oneYearAgo = timesHelper.currentDate().subtract(1, 'year');
+
+			const filteredLegacyData = legacyData.filter((homework) => {
+				if (!homework.dueDate) {
+					return true; // Keep homeworks without dueDate
+				}
+				const dueDate = timesHelper.fromUTC(homework.dueDate);
+				return dueDate.isAfter(oneYearAgo) && dueDate.isBefore(sevenDaysFromNow);
+			});
+
+			return filteredLegacyData.map((homeworks) => {
 				homeworks.secondaryTitle = homeworks.dueDate
 					? timesHelper.fromNow(homeworks.dueDate)
 					: res.$t('dashboard.text.noDueDate');
