@@ -174,6 +174,7 @@ router.get('/', (req, res, next) => {
 			},
 			hasEvaluation: task.status.graded > 0,
 			submissions: task.status.submitted,
+			private: task.status.isDraft,
 		};
 
 		return homework;
