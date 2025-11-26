@@ -516,7 +516,7 @@
 		"FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED": {
 			"type": "boolean",
 			"default": true,
-			"description": "Enables button for invitations of external experts within teams"
+			"description": "Enables button for invitations of external persons within teams"
 		},
 		"FEATURE_USER_MIGRATION_CENTRAL_LDAP": {
 			"type": "boolean",

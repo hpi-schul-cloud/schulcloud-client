@@ -45,7 +45,7 @@ $(document).ready(() => {
 		},
 		set(obj, prop, value) {
 			obj[prop] = value;
-			if (prop === 'role' && value === 'expert') {
+			if (prop === 'role' && value === 'externalPerson') {
 				obj.method = 'email';
 			}
 			if (['role', 'method'].includes(prop)) {
@@ -277,7 +277,7 @@ $(document).ready(() => {
 
 		// eslint-disable-next-line no-nested-ternary
 		const userRole = state.role === 'teacher' ? 'teamadministrator'
-			: (state.role === 'expert' ? 'teamexpert' : '');
+			: (state.role === 'externalPerson' ? 'teamexpert' : '');
 
 		let email;
 		if (state.method === 'email' && !userId) {

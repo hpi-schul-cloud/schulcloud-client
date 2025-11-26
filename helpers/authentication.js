@@ -26,7 +26,7 @@ const rolesDisplayName = {
 	superhero: 'Schul-Cloud Admin',
 	helpdesk: 'Helpdesk',
 	betaTeacher: 'Beta',
-	expert: 'Experte',
+	externalPerson: 'externalPerson',
 };
 
 const USER_FORCED_TO_CHANGE_PASSWORD_REJECT = 'USER_FORCED_TO_CHANGE_PASSWORD_REJECT';
@@ -171,7 +171,7 @@ const populateCurrentUser = async (req, res) => {
 					.then((data2) => {
 						res.locals.currentSchool = res.locals.currentUser.schoolId;
 						res.locals.currentSchoolData = renameIdsInSchool(data2);
-						res.locals.currentSchoolData.isExpertSchool = data2.purpose === 'expert';
+						res.locals.currentSchoolData.isExternalPersonSchool = data2.purpose === 'external_person_school';
 						return data2;
 					});
 			})

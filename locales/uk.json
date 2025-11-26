@@ -252,7 +252,8 @@
 			"Lehrer": "Викладач",
 			"Schüler": "Учень",
 			"Superhero": "Адміністратор Schul-Cloud",
-			"Experte": "Експерт"
+			"Experte": "Експерт",
+			"externalPerson": "Зовнішня особа"
 		},
 		"pagination": {
 			"aria_label": {

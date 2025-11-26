@@ -1480,6 +1480,7 @@
 			"Administrator": "Administrator",
 			"BetaTeacher": "Beta",
 			"Experte": "Expert",
+			"externalPerson": "External Person",
 			"firstName": "Enter your first name here",
 			"Helpdesk": "Helpdesk",
 			"lastName": "Enter your last name here",

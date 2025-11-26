@@ -32,7 +32,7 @@
                             </button>
                         </div>
                     {{/inArray}}
-                    {{#inArray "INVITE_EXPERTS" permissions}}
+                    {{#inArray "INVITE_EXTERNAL_PERSONS" permissions}}
                         {{#inArray "TEAM_INVITE_EXTERNAL" ../rolePermissions}}
                             <div class="col-sm-6">
                                 {{#if (getConfig "FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED")}}

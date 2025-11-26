@@ -488,17 +488,11 @@ router.get('/:teamId', async (req, res, next) => {
 			if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
 		}
 		const courseUsesRocketChat = course.features.includes('rocketChat');
-		const schoolUsesRocketChat = (
-			res.locals.currentSchoolData.features || []
-		).includes('rocketChat');
-		const schoolIsExpertSchool = res.locals.currentSchoolData.purpose === 'expert';
+		const schoolUsesRocketChat = (res.locals.currentSchoolData.features ?? []).includes('rocketChat');
+		const isExternalPersonSchool = res.locals.currentSchoolData.purpose === 'external_person_school';
 
 		let rocketChatCompleteURL;
-		if (
-			instanceUsesRocketChat
-			&& courseUsesRocketChat
-			&& (schoolUsesRocketChat || schoolIsExpertSchool)
-		) {
+		if (instanceUsesRocketChat && courseUsesRocketChat && (schoolUsesRocketChat || isExternalPersonSchool)) {
 			try {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
@@ -618,16 +612,14 @@ router.get('/:teamId', async (req, res, next) => {
 			events = [];
 		}
 
-		const teamUsesVideoconferencing = course.features.includes('videoconference');
-		const schoolUsesVideoconferencing = (
-			res.locals.currentSchoolData.features || []
-		).includes('videoconference');
+		const teamUsesVideoconference = course.features.includes('videoconference');
+		const schoolUsesVideoconference = (res.locals.currentSchoolData.features ?? []).includes('videoconference');
 
 		let showVideoconferenceOption;
 		if (Configuration.get('FEATURE_VIDEOCONFERENCE_WAITING_ROOM_ENABLED')) {
-			showVideoconferenceOption = schoolUsesVideoconferencing && teamUsesVideoconferencing;
+			showVideoconferenceOption = schoolUsesVideoconference && teamUsesVideoconference;
 		} else {
-			showVideoconferenceOption = !schoolIsExpertSchool && schoolUsesVideoconferencing && teamUsesVideoconferencing;
+			showVideoconferenceOption = !isExternalPersonSchool && schoolUsesVideoconference && teamUsesVideoconference;
 		}
 
 		// leave team
