@@ -178,9 +178,22 @@ router.get('/', (req, res, next) => {
 
 		return homework;
 	};
-	const homeworksPromise = api(req, { version: 'v3' }).get('/tasks/')
-		.then((data) => {
-			const legacyData = data.data.map(mapV3TaskToLegacyHomework);
+
+	const fetchAllTasks = async (skip = 0, limit = 100, accumulatedTasks = []) => {
+		const data = await api(req, { version: 'v3' }).get('/tasks/', { limit, skip });
+
+		const allTasks = accumulatedTasks.concat(data.data);
+
+		if (skip + limit < data.total) {
+			return fetchAllTasks(skip + limit, limit, allTasks);
+		}
+
+		return allTasks;
+	};
+
+	const homeworksPromise = fetchAllTasks()
+		.then((tasks) => {
+			const legacyData = tasks.map(mapV3TaskToLegacyHomework);
 
 			// Filter to get only homeworks with dueDate within 7 days after and 1 year before today
 			const sevenDaysFromNow = timesHelper.currentDate().add(7, 'days');
