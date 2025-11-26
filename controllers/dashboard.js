@@ -156,7 +156,7 @@ router.get('/', (req, res, next) => {
 		const homework = {
 			_id: task.id,
 			name: task.name,
-			description: task.description && task.description.content ? task.description.content : '',
+			description: task.description?.content ?? '',
 			dueDate: task.dueDate,
 			availableDate: task.availableDate,
 			courseId: task.courseId ? {
