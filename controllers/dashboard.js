@@ -180,7 +180,12 @@ router.get('/', (req, res, next) => {
 	};
 
 	const fetchAllTasks = async (skip = 0, limit = 100, accumulatedTasks = []) => {
-		const data = await api(req, { version: 'v3' }).get('/tasks/', { limit, skip });
+		const data = await api(req, { version: 'v3' }).get('/tasks/', {
+			qs: {
+				limit,
+				skip,
+			},
+		});
 
 		const allTasks = accumulatedTasks.concat(data.data);
 
