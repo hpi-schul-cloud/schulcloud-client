@@ -297,7 +297,8 @@ const loginSuccessfulHandler = (res, redirect) => (data) => {
 
 	let redirectUrl = '/login/success';
 	if (redirect) {
-		redirectUrl = `${redirectUrl}?redirect=${redirect}`;
+		const encoded = encodeURIComponent(redirect);
+		redirectUrl = `${redirectUrl}?redirect=${encoded}`;
 	}
 	res.redirect(redirectUrl);
 };
