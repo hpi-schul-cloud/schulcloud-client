@@ -152,51 +152,88 @@ router.get('/', (req, res, next) => {
 		&& Configuration.get('CALENDAR_DASHBOARD_ENABLED') === true;
 	const eventsPromise = show ? getCalendarEvents(req, res, timeOptions) : Promise.resolve([]);
 
-	const { _id: userId, schoolId } = res.locals.currentUser;
-	const homeworksPromise = api(req)
-		.get('/homework/', {
-			qs: {
-				$populate: ['courseId', 'lessonId'],
-				$sort: 'createdAt',
-				archived: { $ne: userId },
-				schoolId,
-				$or: [
-					{
-						dueDate: null,
-					},
-					{
-						dueDate: {
-							// homeworks with max. 7 days after and 1 year before dueDate
-							$gte: timesHelper.currentDate().add(-7, 'days').format('x'),
-							$lte: timesHelper.currentDate()
-								.add(1, 'years')
-								.set({ hour: 23, minute: 59, second: 59 })
-								.format('x'),
-						},
-					},
-				],
+	const mapV3TaskToLegacyHomework = (task) => {
+		const homework = {
+			_id: task.id,
+			name: task.name,
+			description: task.description?.content ?? '',
+			dueDate: task.dueDate,
+			availableDate: task.availableDate,
+			courseId: task.courseId ? {
+				_id: task.courseId,
+				name: task.courseName,
+				color: task.displayColor,
+			} : null,
+			lessonId: {
+				hidden: task.lessonHidden,
 			},
+			stats: {
+				userCount: task.status.maxSubmissions,
+				submissionCount: task.status.submitted,
+				gradeCount: task.status.graded,
+			},
+			hasEvaluation: task.status.graded > 0,
+			submissions: task.status.submitted,
+			private: task.status.isDraft,
+		};
+
+		return homework;
+	};
+
+	const fetchAllTasks = async (skip = 0, limit = 100, accumulatedTasks = []) => {
+		const data = await api(req, { version: 'v3' }).get('/tasks/', {
+			qs: {
+				limit,
+				skip,
+			},
+		});
+
+		const allTasks = accumulatedTasks.concat(data.data);
+
+		if (skip + limit < data.total) {
+			return fetchAllTasks(skip + limit, limit, allTasks);
+		}
+
+		return allTasks;
+	};
+
+	const homeworksPromise = fetchAllTasks()
+		.then((tasks) => {
+			const legacyData = tasks.map(mapV3TaskToLegacyHomework);
+
+			// Filter to get only homeworks with dueDate within 7 days after and 1 year before today
+			const sevenDaysFromNow = timesHelper.currentDate().add(7, 'days');
+			const oneYearAgo = timesHelper.currentDate().subtract(1, 'year');
+
+			const filteredLegacyData = legacyData.filter((homework) => {
+				if (!homework.dueDate) {
+					return true; // Keep homeworks without dueDate
+				}
+				const dueDate = timesHelper.fromUTC(homework.dueDate);
+				return dueDate.isAfter(oneYearAgo) && dueDate.isBefore(sevenDaysFromNow);
+			});
+
+			return filteredLegacyData.map((homeworks) => {
+				homeworks.secondaryTitle = homeworks.dueDate
+					? timesHelper.fromNow(homeworks.dueDate)
+					: res.$t('dashboard.text.noDueDate');
+				if (homeworks.courseId != null) {
+					homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
+					homeworks.background = homeworks.courseId.color;
+				} else {
+					homeworks.title = homeworks.name;
+					homeworks.private = true;
+				}
+				if (homeworks.lessonId != null) {
+					homeworks.lessonHidden = homeworks.lessonId.hidden;
+				} else {
+					homeworks.lessonHidden = false;
+				}
+				homeworks.url = `/homework/${homeworks._id}`;
+				homeworks.content = homeworks.description;
+				return homeworks;
+			});
 		})
-		.then((data) => data.data.map((homeworks) => {
-			homeworks.secondaryTitle = homeworks.dueDate
-				? timesHelper.fromNow(homeworks.dueDate)
-				: res.$t('dashboard.text.noDueDate');
-			if (homeworks.courseId != null) {
-				homeworks.title = `[${homeworks.courseId.name}] ${homeworks.name}`;
-				homeworks.background = homeworks.courseId.color;
-			} else {
-				homeworks.title = homeworks.name;
-				homeworks.private = true;
-			}
-			if (homeworks.lessonId != null) {
-				homeworks.lessonHidden = homeworks.lessonId.hidden;
-			} else {
-				homeworks.lessonHidden = false;
-			}
-			homeworks.url = `/homework/${homeworks._id}`;
-			homeworks.content = homeworks.description;
-			return homeworks;
-		}))
 		.catch((err) => {
 			/* eslint-disable-next-line max-len */
 			logger.error(
