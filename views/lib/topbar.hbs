@@ -42,7 +42,7 @@
           </div>
       </li>
       {{#if currentSchoolData}}
-          {{#unless currentSchoolData.isExpertSchool}}
+          {{#unless currentSchoolData.isExternalPersonSchool}}
               <li class="school-data hidden-sm-down" title="{{currentSchoolData.name}}">{{ currentSchoolData.name }}</li>
               {{#if currentSchoolData.logo.dataUrl}}
                   <img class="school-logo" src="{{ currentSchoolData.logo.dataUrl }}" alt="{{$t "lib.loggedin.img_alt.logoOfSchool" (dict "name" currentSchoolData.name)}}">
