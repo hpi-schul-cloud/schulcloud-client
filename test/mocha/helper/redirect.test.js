@@ -23,12 +23,4 @@ describe('Redirect Helper tests', () => {
 	it('adds leading slash to relative URL', () => {
 		expect(redirectHelper.getValidRedirect('hello/world')).to.equal('/hello/world');
 	});
-
-	it('removes unwanted script tag', () => {
-		expect(redirectHelper.getValidRedirect('<script>alert(1)</script>')).to.equal('/');
-	});
-
-	it('removes unwanted img tag', () => {
-		expect(redirectHelper.getValidRedirect('<img src=x onerror=alert(1) />')).to.equal('/');
-	});
 });

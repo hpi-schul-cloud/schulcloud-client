@@ -279,7 +279,8 @@ const authChecker = (req, res, next) => {
 						}
 					});
 			} else {
-				res.redirect(`${redirectUrl}?redirect=${req.originalUrl}`);
+				const encodedRedirectUrl = encodeURIComponent(req.originalUrl);
+				res.redirect(`${redirectUrl}?redirect=${encodedRedirectUrl}`);
 			}
 		});
 };
@@ -297,7 +298,8 @@ const loginSuccessfulHandler = (res, redirect) => (data) => {
 
 	let redirectUrl = '/login/success';
 	if (redirect) {
-		redirectUrl = `${redirectUrl}?redirect=${redirect}`;
+		const encodedRedirectUrl = encodeURIComponent(redirect);
+		redirectUrl = `${redirectUrl}?redirect=${encodedRedirectUrl}`;
 	}
 	res.redirect(redirectUrl);
 };

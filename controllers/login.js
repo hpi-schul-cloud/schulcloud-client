@@ -280,7 +280,8 @@ router.get('/login/oauth2-callback', async (req, res) => {
 const redirectAuthenticated = (req, res) => {
 	let redirectUrl = '/login/success';
 	if (req.query && req.query.redirect) {
-		redirectUrl = `${redirectUrl}?redirect=${req.query.redirect}`;
+		const encodedRedirectUrl = encodeURIComponent(req.query.redirect);
+		redirectUrl = `${redirectUrl}?redirect=${encodedRedirectUrl}`;
 	}
 	return res.redirect(redirectHelper.getValidRedirect(redirectUrl));
 };
@@ -418,7 +419,8 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 		}
 
 		// make sure fistLogin flag is not set
-		return res.redirect(`/firstLogin?redirect=${redirectUrl}`);
+		const encodedRedirectUrl = encodeURIComponent(redirectUrl);
+		return res.redirect(`/firstLogin?redirect=${encodedRedirectUrl}`);
 	}
 
 	const redirectUrl = determineRedirectUrl(req);
