@@ -6,13 +6,12 @@
 
     {{#content "scripts" mode="append"}}
         <script src="{{getAssetPath '/scripts/files.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getAssetPath '/scripts/jquery.cookie.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
         <div class="route-files-overview">
             {{#if libreOfficeUrl}}
-            <iframe 
+            <iframe
               src="{{libreOfficeUrl}}"
 	            style="width: 100%; height: 800px; resize: vertical; overflow: auto;">
             </iframe>
