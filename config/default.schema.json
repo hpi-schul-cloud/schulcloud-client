@@ -516,7 +516,7 @@
 		"FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED": {
 			"type": "boolean",
 			"default": true,
-			"description": "Enables button for invitations of external experts within teams"
+			"description": "Enables button for invitations of external persons within teams"
 		},
 		"FEATURE_USER_MIGRATION_CENTRAL_LDAP": {
 			"type": "boolean",
@@ -552,7 +552,7 @@
 					"format": "uri",
 					"description": "The URI of the file service"
 				},
-				"INCOMING_REQUEST_TIMEOUT": {
+				"REQUEST_TIMEOUT": {
 					"type": "integer",
 					"minimum": 0,
 					"description": "Timeout for incoming requests to the File-Storage in milliseconds."
@@ -565,7 +565,7 @@
 			},
 			"required": [
 				"SERVICE_BASE_URL",
-				"INCOMING_REQUEST_TIMEOUT",
+				"REQUEST_TIMEOUT",
 				"MAX_FILE_SIZE"
 			]
 		},
