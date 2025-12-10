@@ -416,4 +416,6 @@ module.exports = (req, res, next) => {
 	);
 
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
+
+	next();
 };
