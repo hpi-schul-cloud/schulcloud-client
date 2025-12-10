@@ -13,12 +13,12 @@
       </div>
     </fieldset>
 
-    <form class="wish_form hidden" action="http://localhost:3030/api/v3/helpdesk/wish" method="post" enctype="multipart/form-data">
+    <form class="wish_form hidden" data-action="http://localhost:3030/api/v3/helpdesk/wish" method="post" enctype="multipart/form-data">
       {{> "help/forms/form_wish"}}
       {{> "lib/components/csrfInput"}}
       <button type="submit" id="wish_submit">{{$t "global.button.submit" }}</button>
     </form>
-    <form class="bug_form" action="http://localhost:3030/api/v3/helpdesk/problem" method="post" enctype="multipart/form-data">
+    <form class="bug_form" data-action="http://localhost:3030/api/v3/helpdesk/problem" method="post" enctype="multipart/form-data">
       {{> "help/forms/form_bug"}}
       {{> "lib/components/csrfInput"}}
       <button type="submit" id="bug_submit" data-testid="bug_submit">{{$t "global.button.submit" }}</button>
