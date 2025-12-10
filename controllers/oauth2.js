@@ -124,7 +124,6 @@ router.get('/username/:pseudonym', async (req, res, next) => {
 			const userResponse = await api(req)
 				.get('/users', {
 					qs: { _id: pseudonymResponse.userId },
-					$limit: 1,
 				});
 			if (userResponse.data.length) {
 				completeName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName}`;
