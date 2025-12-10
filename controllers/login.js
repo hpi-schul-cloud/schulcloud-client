@@ -449,7 +449,7 @@ router.get('/logout/', (req, res, next) => {
 		});
 
 	api(req, { version: 'v3' })
-		.del('/collaborative-text-editor/delete-sessions') // async, ignore result
+		.delete('/collaborative-text-editor/delete-sessions') // async, ignore result
 		.catch((err) => {
 			logger.error('can not delete etherpad client sessions', formatError(err));
 		});
