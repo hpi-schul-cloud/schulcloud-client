@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import multiDownload from 'multi-download';
 
 let lastFocusedElement;
 
