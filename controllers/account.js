@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
 router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
 	const isDiscoverable = res.locals.currentUser.discoverable;
-	api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`).then(([session]) => {
+	api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`).then((session) => {
 		res.render('account/settings', {
 			title: res.$t('account.headline.yourAccount'),
 			pageTitle: res.$t('lib.loggedin.tab_label.settings'),

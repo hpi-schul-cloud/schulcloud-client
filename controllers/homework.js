@@ -211,7 +211,7 @@ const patchFunction = (service, req, res, next) => {
 	api(req).patch(`/${service}/${req.params.id}`, {
 		// TODO: sanitize
 		json: req.body,
-	}).then(async () => {
+	}).then(() => {
 		if (service === 'submissions') {
 			base = req.header('Referrer');
 		}
