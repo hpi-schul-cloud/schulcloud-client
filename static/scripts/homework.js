@@ -192,13 +192,39 @@ $(document).ready(() => {
 
 	// allow muti-download
 	$('button.multi-download').on('click', function action() {
-		const files = $(this).data('files').split(' ');
+		const files = $(this).data('files');
 
-		// renaming here does not work, because the files are all served from a different origin
-		multiDownload(files).then(() => {
-			// Clicking a link, even if it is a download link, triggers a `beforeunload` event. Undo those changes here.
-			setTimeout(() => document.querySelector('body').classList.add('loaded'), 1000);
-		});
+		// Convert to array if needed
+		const filesArray = Array.isArray(files) ? files : [files];
+
+		// Download files as archive via API using fetch
+		fetch('/api/v3/file/download-files-as-archive', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				fileRecordIds: filesArray,
+				archiveName: 'files-archive',
+			}),
+		})
+			.then((response) => {
+				if (!response.ok) throw new Error('Download failed');
+				return response.blob();
+			})
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = 'files-archive.zip';
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+				document.body.removeChild(a);
+			})
+			.catch(() => {
+				console.log('Error downloading files');
+			});
 	});
 
 	const $dontShowAgainAlertModal = $('.dontShowAgainAlert-modal');
