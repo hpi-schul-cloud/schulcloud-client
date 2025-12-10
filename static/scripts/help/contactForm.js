@@ -10,7 +10,7 @@ function showAJAXError(err) {
 	if (err.responseJSON) {
 		const { message } = err.responseJSON;
 		showErrorMessage(
-			`Here should go a very important error message: ${message}`
+			`Here should go a very important error message: ${message}`,
 		);
 	}
 }
@@ -53,9 +53,7 @@ function initForm(formContainer) {
 	formContainer
 		.querySelector('#message_type')
 		.addEventListener('change', (event) => {
-			const value =
-				event.target.value ||
-				event.target.querySelector('[name=message_type]:checked').value;
+			const value = event.target.value || event.target.querySelector('[name=message_type]:checked').value;
 			if (value === 'wish') {
 				wishForm.classList.remove('hidden');
 				bugForm.classList.add('hidden');
@@ -66,11 +64,8 @@ function initForm(formContainer) {
 		});
 
 	// AJAX-Handler für beide Forms aktivieren
-	console.log('init contact forms');
 	handleFormSubmit(wishForm);
-	console.log('init bug forms');
 	handleFormSubmit(bugForm);
-	console.log('contact forms initialized');
 }
 
 function init() {
@@ -97,8 +92,7 @@ document.querySelectorAll('label').forEach((label) => {
 		'keydown',
 		(event) => {
 			if (
-				input.getAttribute('disabled') !== null ||
-				input.getAttribute('readonly') !== null
+				input.getAttribute('disabled') !== null || input.getAttribute('readonly') !== null
 			) {
 				return true;
 			}
@@ -120,6 +114,6 @@ document.querySelectorAll('label').forEach((label) => {
 			}
 			return false;
 		},
-		false
+		false,
 	);
 });
