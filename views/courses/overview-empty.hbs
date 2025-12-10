@@ -21,7 +21,7 @@
                         <h3 class="h5 text-muted text-center">{{$t "courses.text.noCourseGetInvited"}}</h3>
                     {{else}}
                         <h2 class="text-center">{{$t "courses.headline.makeTeachingDigital" (dict "themetitle" theme.title)}}</h2>
-                        {{#if (userHasRole "expert")}}
+                        {{#if (userHasRole "externalPerson")}}
                             <h3 class="h5 text-muted text-center">{{$t "courses.text.courseNoAccess"}}</h3>
                         {{else}}
                             <h3 class="h5 text-muted text-center">{{$t "courses.headline.noCoursesYet" (dict "short_title" theme.short_title)}}</h3>
