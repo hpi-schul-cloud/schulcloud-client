@@ -10,7 +10,7 @@
 			<span class="control-label"><i class="info_text fa fa-info-circle"></i>{{$t "help.chooseTopicArea.text.severalTopicsPossible"}}</span>
 			<span class="required-label">{{$t "help.global.label.requiredField"}}</span>
 		</div>
-		<select class="form-control" id="problemAreaWish" name="problemArea" class="problemArea" data-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" aria-placeholder={{$t "help.chooseTopicArea.text.chooseArea"}} multiple required>
+		<select class="form-control" id="problemAreaWish" name="problemArea[]" class="problemArea" data-placeholder="{{$t "help.chooseTopicArea.text.chooseArea"}}" aria-placeholder={{$t "help.chooseTopicArea.text.chooseArea"}} multiple required>
 			<option value="" disabled hidden>{{$t "help.chooseTopicArea.text.chooseArea"}}</option>
 			{{#each helpOptions}}
 				<option value={{ this.optionValue}}>{{ this.optionText }}</option>
