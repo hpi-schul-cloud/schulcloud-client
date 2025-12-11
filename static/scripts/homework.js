@@ -222,7 +222,7 @@ $(document).ready(() => {
 				document.body.removeChild(a);
 			})
 			.catch(() => {
-				console.log('Error downloading files');
+				$.showNotification($t('global.text.internalProblem'), 'danger', 15000);
 			});
 	});
 
