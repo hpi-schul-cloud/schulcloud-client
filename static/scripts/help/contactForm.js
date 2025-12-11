@@ -35,7 +35,7 @@ function handleFormSubmit(form) {
 		event.preventDefault();
 
 		const formData = new FormData(form);
-		const action = form.getAttribute('data-action');
+		const { action } = form.dataset;
 		const actionUrl = `/api/v3/helpdesk/${action}`;
 
 		$.ajax({
