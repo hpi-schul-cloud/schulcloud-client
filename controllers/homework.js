@@ -12,7 +12,7 @@ const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const { logger, formatError } = require('../helpers');
-const { NOTIFICATION_SERVICE_ENABLED, HOST } = require('../config/global');
+const { HOST } = require('../config/global');
 const timesHelper = require('../helpers/timesHelper');
 const filesStoragesHelper = require('../helpers/files-storage');
 
@@ -27,24 +27,9 @@ handlebars.registerHelper('ifvalue', (conditional, options) => {
 
 router.use(authHelper.authChecker);
 
-const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
+const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then((data) => data.data);
-
-const getActions = (res, item, path) => [{
-	link: `${path + item._id}/edit`,
-	class: 'btn-edit',
-	icon: 'edit',
-	title: res.$t('homework.button.editSubmissionFromList'),
-},
-{
-	link: path + item._id,
-	class: 'btn-delete',
-	icon: 'trash-o',
-	method: 'DELETE',
-	title: res.$t('homework.button.deleteSubmissionFromList'),
-},
-];
 
 const handleTeamSubmissionsBody = (body, currentUser) => {
 	if (body.isEvaluation) {
@@ -52,23 +37,6 @@ const handleTeamSubmissionsBody = (body, currentUser) => {
 	}
 
 	body.teamSubmissionOptions === 'courseGroup' ? body.teamMembers = [currentUser._id] : body.courseGroupId = null;
-};
-
-const sendNotification = (courseId, title, message, userId, req, link) => {
-	if (NOTIFICATION_SERVICE_ENABLED) {
-		api(req).post('/notification/messages', {
-			json: {
-				title,
-				body: message,
-				token: userId,
-				priority: 'high',
-				action: link,
-				scopeIds: [
-					courseId,
-				],
-			},
-		});
-	}
 };
 
 function collectUngradedFiles(submissions) {
@@ -168,29 +136,6 @@ const getCreateHandler = (service) => (req, res, next) => {
 		// TODO: sanitize
 		json: req.body,
 	}).then((data) => {
-		if (data.courseId && !data.private && service === 'homework') {
-			api(req).get(`/courses/${data.courseId}`)
-				.then((course) => {
-					sendNotification(
-						data.courseId,
-						res.$t('homework._task.text.newHomeworkCourseNotification',
-							{ coursename: course.name }),
-						res.$t('homework._task.text.newHomeworkDueDateNotification',
-							{
-								homeworkname: data.name,
-								duedate: timesHelper
-									.fromUTC(data.dueDate)
-									.format(res.$t('format.dateTime')),
-							}),
-						data.teacherId,
-						req,
-						`${base}/${referrer}`,
-					);
-				}).catch((err) => {
-					next(err);
-				});
-		}
-
 		if (referrer === 'tasks' || referrer.includes('rooms')) {
 			referrer = `homework/${data._id}`;
 		}
@@ -266,19 +211,8 @@ const patchFunction = (service, req, res, next) => {
 	api(req).patch(`/${service}/${req.params.id}`, {
 		// TODO: sanitize
 		json: req.body,
-	}).then(async (data) => {
+	}).then(() => {
 		if (service === 'submissions') {
-			api(req).get(`/homework/${data.homeworkId}`, { qs: { $populate: ['courseId'] } })
-				.then((homework) => {
-					sendNotification(data.studentId,
-						res.$t('homework._task.text.submissionGradedNotification', {
-							coursename: homework.courseId.name,
-						}),
-						' ',
-						data.studentId,
-						req,
-						`${base}/homework/${homework._id}`);
-				});
 			base = req.header('Referrer');
 		}
 		if (referrer) {
