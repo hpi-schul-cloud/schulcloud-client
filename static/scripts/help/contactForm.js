@@ -54,19 +54,18 @@ function initForm(formContainer) {
 	const wishForm = teamForm.querySelector('.wish_form');
 	const bugForm = teamForm.querySelector('.bug_form');
 
+
 	// handle form change when type changes
-	formContainer
-		.querySelector('#message_type')
-		.addEventListener('change', (event) => {
-			const value = event.target.value || event.target.querySelector('[name=message_type]:checked').value;
-			if (value === 'wish') {
-				wishForm.classList.remove('hidden');
-				bugForm.classList.add('hidden');
-			} else {
-				wishForm.classList.add('hidden');
-				bugForm.classList.remove('hidden');
-			}
-		});
+	formContainer.querySelector('#message_type').addEventListener('change', (event) => {
+		const value = event.target.value || event.target.querySelector('[name=message_type]:checked').value;
+		if (value === 'wish') {
+			wishForm.classList.remove('hidden');
+			bugForm.classList.add('hidden');
+		} else {
+			wishForm.classList.add('hidden');
+			bugForm.classList.remove('hidden');
+		}
+	});
 
 	// AJAX-Handler für beide Forms aktivieren
 	handleFormSubmit(wishForm);
