@@ -77,6 +77,7 @@ function init() {
 	document.querySelectorAll('.contact-form').forEach(initForm);
 }
 
+
 if (!window.contactForm) {
 	window.contactForm = init;
 	window.addEventListener('load', window.contactForm);
@@ -84,41 +85,29 @@ if (!window.contactForm) {
 
 // accessability radio buttons (keyboard navigation)
 document.querySelectorAll('label').forEach((label) => {
-	if (!label.getAttribute('for')) {
-		return;
-	}
+	if (!label.getAttribute('for')) { return; }
 	const input = document.getElementById(label.getAttribute('for'));
-	if (!input || input.getAttribute('type') !== 'radio') {
-		return;
-	}
+	if (!input || input.getAttribute('type') !== 'radio') { return; }
 	const fieldset = input.closest('fieldset');
 
-	label.addEventListener(
-		'keydown',
-		(event) => {
-			if (
-				input.getAttribute('disabled') !== null || input.getAttribute('readonly') !== null
-			) {
-				return true;
-			}
-			// other than spacebar and enter see: https://webaim.org/techniques/keyboard/
-			if (event.keyCode !== 32 && event.keyCode !== 13) {
-				return true;
-			}
-			// check input
-			event.preventDefault();
-			event.stopPropagation();
-			input.checked = true;
+	label.addEventListener('keydown', (event) => {
+		if (input.getAttribute('disabled') !== null || input.getAttribute('readonly') !== null) {
+			return true;
+		}
+		// other than spacebar and enter see: https://webaim.org/techniques/keyboard/
+		if (event.keyCode !== 32 && event.keyCode !== 13) {
+			return true;
+		}
+		// check input
+		event.preventDefault();
+		event.stopPropagation();
+		input.checked = true;
 
-			// trigger change event
-			if (fieldset) {
-				const newEvent = new CustomEvent('change', {
-					target: fieldset,
-				});
-				fieldset.dispatchEvent(newEvent);
-			}
-			return false;
-		},
-		false,
-	);
+		// trigger change event
+		if (fieldset) {
+			const newEvent = new CustomEvent('change', { target: fieldset });
+			fieldset.dispatchEvent(newEvent);
+		}
+		return false;
+	}, false);
 });
