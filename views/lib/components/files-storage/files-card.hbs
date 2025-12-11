@@ -48,7 +48,12 @@
 							data-file-id="{{../this.id}}"
 							data-file-name="{{../this.name}}"
 							title="{{$t "files.label.renameFile"}}"
-							class="file-btn fa fa-edit file-name-edit"
+                            {{#ifeq ../this.securityCheckStatus "blocked"}}
+                                class="file-btn fa fa-disabled fa-edit file-name-edit"
+                                disabled
+                            {{else}}
+                                class="file-btn fa fa-edit file-name-edit"
+                            {{/ifeq}}
                             data-testid="file-rename-btn-{{../fileIndex}}">
 						</button>
 					{{/userHasPermission}}
