@@ -1,3 +1,8 @@
+const errorMessages = {
+	// TODO: add more specific error messages as needed
+	INTERNAL_ERROR: 'global.text.internalProblem',
+};
+
 function showSuccessMessage(message) {
 	$.showNotification($t(message), 'success', 5000);
 }
@@ -7,12 +12,12 @@ function showErrorMessage(message) {
 }
 
 function showAJAXError(err) {
-	if (err.responseJSON) {
-		const { message } = err.responseJSON;
-		showErrorMessage(
-			`Here should go a very important error message: ${message}`,
-		);
-	}
+	// TODO: handle specific error messages from server
+	// if (err.responseJSON) {
+	// 	const { message } = err.responseJSON;
+	// 	showErrorMessage(errorMessages[message] || errorMessages.INTERNAL_ERROR);
+	// }
+	showErrorMessage('helpdesk.text.feedbackError');
 }
 
 const reloadPage = (msg, timeout = 2000) => {
@@ -27,7 +32,7 @@ const reloadPage = (msg, timeout = 2000) => {
 // handle form submissions via AJAX
 function handleFormSubmit(form) {
 	form.addEventListener('submit', async (event) => {
-		event.preventDefault(); // Verhindert die Standard-Form-Übermittlung
+		event.preventDefault();
 
 		const formData = new FormData(form);
 		const actionUrl = form.getAttribute('data-action');
@@ -38,7 +43,7 @@ function handleFormSubmit(form) {
 			type: 'POST',
 			processData: false,
 			contentType: false,
-			success: () => reloadPage(undefined, 0),
+			success: () => reloadPage('helpdesk.text.feedbackSuccessful', 0),
 			error: showAJAXError,
 		});
 	});
