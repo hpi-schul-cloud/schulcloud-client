@@ -191,19 +191,15 @@ $(document).ready(() => {
 
 	// allow muti-download
 	$('button.multi-download').on('click', function action() {
-		const files = $(this).data('files');
+		const files = $(this).data('files').split(',');
 
-		// Convert to array if needed
-		const filesArray = Array.isArray(files) ? files : [files];
-
-		// Download files as archive via API using fetch
 		fetch('/api/v3/file/download-files-as-archive', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				fileRecordIds: filesArray,
+				fileRecordIds: files,
 				archiveName: 'files-archive',
 			}),
 		})
