@@ -54,17 +54,4 @@ $(document).ready(function() {
     function delete_cookie(name) {
         document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
-
-    $(".send-test-notification").on('click', function () {
-        $.post('/notification/message', {
-            "title": $t('account.testNotification.headline.newTestNotification'),
-            "body": $t('account.testNotification.text.youHaveANewNotification'),
-            "action": document.location.origin + '/dashboard/',
-            "token": $("[name='userId']").val(),
-            "scopeIds": [
-                $("[name='userId']").val()
-            ]
-        });
-    });
-
 });

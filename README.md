@@ -33,8 +33,6 @@ Short setup version:
 
 For connecting to the [SchulCloud Calendar-Service](https://github.com/hpi-schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.  
   
-For connecting to the [SchulCloud Notification-Service](https://github.com/hpi-schul-cloud/node-notification-service) you have to set `export NOTIFICATION_SERVICE_ENABLED=true`.  
-   
 ## Theming  
   
 Add Themes to /theme directory. Call gulp and node with SC_THEME set to name of directory.  

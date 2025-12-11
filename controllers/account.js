@@ -2,8 +2,6 @@ const express = require('express');
 
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
-const { NOTIFICATION_SERVICE_ENABLED } = require('../config/global');
-const { setCookie } = require('../helpers/cookieHelper');
 
 const router = express.Router();
 
@@ -66,23 +64,10 @@ router.post('/', async (req, res) => {
 router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
 	const isDiscoverable = res.locals.currentUser.discoverable;
-	Promise.all([
-		api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`),
-		(NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null),
-	]).then(([session, device]) => {
-		if (device) {
-			device.map((d) => {
-				if (d.token === req.cookies.deviceToken) {
-					Object.assign(d, { selected: true });
-				}
-				return d;
-			});
-		}
-
+	api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`).then((session) => {
 		res.render('account/settings', {
 			title: res.$t('account.headline.yourAccount'),
 			pageTitle: res.$t('lib.loggedin.tab_label.settings'),
-			device,
 			session,
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
@@ -122,17 +107,6 @@ router.get('/thirdPartyProviders/', async (req, res, next) => {
 		title: res.$t('account.thirdPartyProviders.headline.thirdPartyProviderLogin'),
 		userId: res.locals.currentUser._id,
 		session,
-	});
-});
-
-// delete file
-router.delete('/settings/device', (req, res, next) => {
-	const { _id = '' } = req.body;
-
-	api(req).delete(`/notification/devices/${_id}`).then(() => {
-		res.sendStatus(200);
-	}).catch((err) => {
-		res.status((err.statusCode || 500)).send(err);
 	});
 });
 

@@ -24,7 +24,6 @@ router.use('/homework/', require('./homework'));
 router.use('/news/', require('./news'));
 router.use('/helpdesk/', require('./helpdesk'));
 router.use('/pwrecovery/', require('./pwrecovery'));
-router.use('/notification/', require('./notification'));
 router.use('/link/', require('./link'));
 router.use('/community/', require('./community'));
 router.use('/help/', require('./help'));

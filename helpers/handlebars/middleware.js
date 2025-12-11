@@ -4,7 +4,6 @@ const api = require('../../api');
 const {
 	PUBLIC_BACKEND_URL,
 	FEATURE_EXTENSIONS_ENABLED,
-	NOTIFICATION_SERVICE_ENABLED,
 	FEATURE_TEAMS_ENABLED,
 	ALERT_STATUS_URL,
 	SC_THEME,
@@ -418,41 +417,5 @@ module.exports = (req, res, next) => {
 
 	makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
-	let notificationsPromise = [];
-	if (NOTIFICATION_SERVICE_ENABLED) {
-		notificationsPromise = api(req).get('/notification', {
-			qs: {
-				$limit: 10,
-				$sort: '-createdAt',
-			},
-		}).catch((_) => []);
-	}
-	let notificationCount = 0;
-
-	Promise.all([
-		notificationsPromise,
-	]).then(([notifications]) => {
-		res.locals.notifications = (notifications.data || []).map((notification) => {
-			const notificationId = notification._id;
-			const callbacks = notification.callbacks || [];
-
-			notification = notification.message;
-			notification.notificationId = notificationId;
-
-			notification.date = new Date(notification.createdAt); // make new date out of iso string
-
-			notification.read = false;
-			callbacks.forEach((callback) => {
-				if (callback.type === 'read') notification.read = true;
-			});
-
-			if (!notification.read) {
-				notificationCount += 1;
-			}
-
-			return notification;
-		});
-		res.locals.recentNotifications = notificationCount;
-		next();
-	});
+	next();
 };
