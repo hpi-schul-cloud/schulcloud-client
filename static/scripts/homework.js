@@ -191,35 +191,30 @@ $(document).ready(() => {
 
 	// allow muti-download
 	$('button.multi-download').on('click', function action() {
-		const files = $(this).data('files').split(',');
+		const fileRecordIds = $(this).data('files').split(',');
 
-		fetch('/api/v3/file/download-files-as-archive', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				fileRecordIds: files,
-				archiveName: 'files-archive',
-			}),
-		})
-			.then((response) => {
-				if (!response.ok) throw new Error('Download failed');
-				return response.blob();
-			})
-			.then((blob) => {
-				const url = window.URL.createObjectURL(blob);
-				const a = document.createElement('a');
-				a.href = url;
-				a.download = 'files-archive.zip';
-				document.body.appendChild(a);
-				a.click();
-				window.URL.revokeObjectURL(url);
-				document.body.removeChild(a);
-			})
-			.catch(() => {
-				$.showNotification($t('global.text.internalProblem'), 'danger', 15000);
-			});
+		const form = document.createElement('form');
+		form.method = 'POST';
+		form.action = '/api/v3/file/download-files-as-archive';
+		form.enctype = 'application/json';
+		form.target = '_blank';
+
+		const archiveNameInput = document.createElement('input');
+		archiveNameInput.type = 'hidden';
+		archiveNameInput.name = 'archiveName';
+		archiveNameInput.value = $t('homework.label.submissions');
+
+		const fileRecordIdsInput = document.createElement('input');
+		fileRecordIdsInput.type = 'hidden';
+		fileRecordIdsInput.name = 'fileRecordIds';
+		fileRecordIdsInput.value = JSON.stringify(fileRecordIds);
+
+		form.appendChild(fileRecordIdsInput);
+		form.appendChild(archiveNameInput);
+
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
 	});
 
 	const $dontShowAgainAlertModal = $('.dontShowAgainAlert-modal');
