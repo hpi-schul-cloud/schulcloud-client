@@ -1,3 +1,55 @@
+const errorMessages = {
+	// TODO: add more specific error messages as needed
+	INTERNAL_ERROR: 'global.text.internalProblem',
+};
+
+function showSuccessMessage(message) {
+	$.showNotification($t(message), 'success', 5000);
+}
+
+function showErrorMessage(message) {
+	$.showNotification($t(message), 'danger', 5000);
+}
+
+function showAJAXError(err) {
+	// TODO: handle specific error messages from server
+	// if (err.responseJSON) {
+	// 	const { message } = err.responseJSON;
+	// 	showErrorMessage(errorMessages[message] || errorMessages.INTERNAL_ERROR);
+	// }
+	showErrorMessage('helpdesk.text.feedbackError');
+}
+
+const reloadPage = (msg, timeout = 2000) => {
+	if (msg) {
+		showSuccessMessage(msg);
+	}
+	setTimeout(() => {
+		window.location.reload();
+	}, timeout);
+};
+
+// handle form submissions via AJAX
+function handleFormSubmit(form) {
+	form.addEventListener('submit', async (event) => {
+		event.preventDefault();
+
+		const formData = new FormData(form);
+		const { action } = form.dataset;
+		const actionUrl = `/api/v3/helpdesk/${action}`;
+
+		$.ajax({
+			data: formData,
+			url: actionUrl,
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			success: () => reloadPage('helpdesk.text.feedbackSuccessful', 0),
+			error: showAJAXError,
+		});
+	});
+}
+
 function initForm(formContainer) {
 	const teamForm = formContainer.querySelector('.team_form');
 	const wishForm = teamForm.querySelector('.wish_form');
@@ -15,6 +67,10 @@ function initForm(formContainer) {
 			bugForm.classList.remove('hidden');
 		}
 	});
+
+	// AJAX-Handler für beide Forms aktivieren
+	handleFormSubmit(wishForm);
+	handleFormSubmit(bugForm);
 }
 
 function init() {
