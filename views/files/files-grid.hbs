@@ -41,13 +41,19 @@
 										<i aria-hidden="true" class="fa fa-cloud-download"></i>
 									</button>
 								{{/ifeq}}
-
+            
 								<button
 								    data-file-id="{{this._id}}"
 									data-file-name="{{this.name}}"
 									data-file-path="{{this.path}}"
 									title="{{$t "files.label.renameFile"}}"
-									class="file-btn fa fa-edit file-name-edit"
+									
+                                    {{#ifeq this.securityCheck.status "blocked"}} 
+                                        class="file-btn fa fa-disabled fa-edit file-name-edit"
+                                        disabled
+                                    {{else}}
+                                        class="file-btn fa fa-edit file-name-edit"
+                                    {{/ifeq}}
                                     data-testid="file-edit-btn">
 								</button>
 
@@ -65,13 +71,22 @@
 								{{/userHasPermission}}
 
 								<button
-								class="file-btn btn-file-share"
-								title="{{$t "files.label.shareFile"}}"
-								data-file-id="{{../this._id}}"
-								data-file-name="{{../this.name}}"
-								id="{{@index}}"
-                                data-testid="file-share-btn">
-									<i aria-hidden="true" class="fa fa-share-alt"></i>
+                                    class="file-btn btn-file-share"
+                                    title="{{$t "files.label.shareFile"}}"
+                                    data-file-id="{{../this._id}}"
+                                    data-file-name="{{../this.name}}"
+                                    id="{{@index}}"
+                                    {{#ifeq ../this.securityCheck.status "blocked"}} 
+                                        disabled
+                                    {{/ifeq}}
+                                    data-testid="file-share-btn">
+									<i aria-hidden="true" 
+                                        {{#ifeq ../this.securityCheck.status "blocked"}} 
+                                            class="fa fa-disabled fa-share-alt"
+                                        {{else}}    
+                                            class="fa fa-share-alt"
+                                        {{/ifeq}}>
+                                    </i>
 								</button>
 
 								<div class="popup-overlay" id="{{@index}}">
@@ -88,9 +103,18 @@
 									class="file-btn btn-file-settings"
                                     data-testid="file-settings-btn"
 									title="{{$t "files.label.editFilePermissions"}}"
+                                    {{#ifeq this.securityCheck.status "blocked"}} 
+                                        disabled
+                                    {{/ifeq}}
 									data-file-id="{{this._id}}"
 								>
-									<i aria-hidden="true" class="fa fa-cogs"></i>
+									<i aria-hidden="true" 
+                                        {{#ifeq this.securityCheck.status "blocked"}} 
+                                            class="fa fa-disabled fa-cogs"
+                                        {{else}}
+                                            class="fa fa-cogs"
+                                        {{/ifeq}}>
+                                    </i>
 								</button>
 							</div>
 						</div>

@@ -152,6 +152,12 @@
       }
     }
 
+    .fa-disabled {
+      &:hover {
+        color: #ccc;
+      }
+    }
+
     .fa-exclamation-triangle {
       color: $colorDanger;
     }
