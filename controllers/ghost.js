@@ -13,7 +13,7 @@ router.get('/:slug', async (req, res, next) => {
 
 	const { slug } = req.params;
 
-	// Validate slug: only allow letters, numbers, hyphens, and underscores
+	// Validate slug to protect from SSRF
 	if (!/^[a-zA-Z0-9_-]+$/.test(slug)) {
 		return res.status(400).json({ error: 'Invalid slug format' });
 	}
