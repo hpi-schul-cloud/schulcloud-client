@@ -30,7 +30,7 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 	return api(req, { version: 'v3' })
 		.patch(
 			`/oauth2/loginRequest/${req.session.login_challenge}/?accept=1`,
-			{ body },
+			{ json: body },
 		)
 		.then((loginRequest) => {
 			delete (req.session.login_challenge);
@@ -50,7 +50,7 @@ router.all('/logout/redirect', csrfProtection, auth.authChecker, (req, res, next
 	};
 
 	return api(req, { version: 'v3' })
-		.patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { body })
+		.patch(`/oauth2/logoutRequest/${req.query.logout_challenge}`, { json: body })
 		.then((logoutRequest) => res.redirect(logoutRequest.redirect_to))
 		.catch(next);
 });
@@ -63,7 +63,7 @@ const acceptConsent = (r, w, challenge, grantScopes, remember = false) => {
 	};
 
 	return api(r, { version: 'v3' })
-		.patch(`/oauth2/consentRequest/${challenge}/?accept=1`, { body })
+		.patch(`/oauth2/consentRequest/${challenge}/?accept=1`, { json: body })
 		.then((consentRequest) => w.redirect(consentRequest.redirect_to));
 };
 

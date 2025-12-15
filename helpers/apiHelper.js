@@ -8,9 +8,6 @@ const adaptOptions = (options) => {
 	if ('json' in adapted) {
 		adapted.data = adapted.json;
 		delete adapted.json;
-	} else if ('body' in adapted) {
-		adapted.data = adapted.body;
-		delete adapted.body;
 	}
 
 	if ('qs' in adapted) {
