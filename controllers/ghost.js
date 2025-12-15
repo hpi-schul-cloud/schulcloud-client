@@ -13,6 +13,11 @@ router.get('/:slug', async (req, res, next) => {
 
 	const { slug } = req.params;
 
+	// Validate slug: only allow letters, numbers, hyphens, and underscores
+	if (!/^[a-zA-Z0-9_-]+$/.test(slug)) {
+		return res.status(400).json({ error: 'Invalid slug format' });
+	}
+
 	if (!cache[slug] || cache[slug].lastUpdatedTimestamp < Date.now() - 1000 * 60 * 5) {
 		const options = {
 			url: `${Configuration.get('GHOST_BASE_URL')}/ghost/api/v3/content/pages/slug/${slug}/`,
