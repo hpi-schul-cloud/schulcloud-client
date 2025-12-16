@@ -16,19 +16,6 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 // secure routes
 router.use(authHelper.authChecker);
 
-const filterRequestInfos = (err) => {
-	if (!err) {
-		return err;
-	}
-	if (err.options && err.options.headers) {
-		delete err.options.headers.Authorization;
-	}
-	delete err.cause;
-	delete err.response;
-	delete err.request;
-	return err;
-};
-
 const getCalendarEvents = (req, res, {
 	numMinutes, timeStart, start, end,
 }) => api(req)
@@ -96,7 +83,7 @@ const getCalendarEvents = (req, res, {
 						event.alt = res.$t('dashboard.img_alt.showCalendar');
 					}
 				} catch (err) {
-					logger.error(filterRequestInfos(err));
+					logger.error(err);
 				}
 			}
 
@@ -104,7 +91,7 @@ const getCalendarEvents = (req, res, {
 		}).sort((a, b) => b.style.left - a.style.left);
 	})
 	.catch((err) => {
-		logger.error(filterRequestInfos(err));
+		logger.error(err);
 		return [];
 	});
 
@@ -248,9 +235,9 @@ router.get('/', (req, res, next) => {
 			},
 		})
 		.then((news) => news.data.map((n) => {
-				n.url = `/news/${n.id}`;
-				n.secondaryTitle = timesHelper.fromNow(n.displayAt);
-				return n;
+			n.url = `/news/${n.id}`;
+			n.secondaryTitle = timesHelper.fromNow(n.displayAt);
+			return n;
 		}))
 		.catch((err) => {
 			/* eslint-disable-next-line max-len */
