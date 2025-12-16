@@ -10,7 +10,7 @@ const authHelper = require('../helpers/authentication');
 const timesHelper = require('../helpers/timesHelper');
 const { getCurrentLanguage } = require('../helpers/i18n');
 const { setCookie } = require('../helpers/cookieHelper');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 
 let invalid = false;
 const isProduction = NODE_ENV === 'production';
@@ -60,7 +60,7 @@ const getSchoolConsentVersionByType = async (req, res, consentType) => {
 		// invalid token
 		logger.warn(
 			'Invalid import hash!',
-			formatError(error),
+			error,
 		);
 		return Promise.resolve();
 	}
@@ -156,7 +156,7 @@ router.post(
 							},
 						});
 					} catch (error) {
-						logger.error('An error occurred while sending the welcome e-mail', formatError(error));
+						logger.error('An error occurred while sending the welcome e-mail', error);
 					}
 				});
 			})

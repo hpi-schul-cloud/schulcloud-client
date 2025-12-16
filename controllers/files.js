@@ -11,7 +11,7 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = require('../config/global');
 const { useNextcloudFilesystem, makeNextcloudFolderName } = require('../helpers/nextcloud');
 
@@ -414,7 +414,7 @@ router.delete('/file', (req, res, next) => {
 	}).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
-		logger.error('Can not delete file', formatError(err));
+		logger.error('Can not delete file', err);
 		next(err);
 	});
 });

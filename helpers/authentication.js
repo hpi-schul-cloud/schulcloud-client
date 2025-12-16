@@ -13,7 +13,6 @@ const {
 	MINIMAL_PASSWORD_LENGTH,
 } = require('../config/global');
 const logger = require('./logger');
-const { formatError } = require('./logFilter');
 
 const { setCookie } = require('./cookieHelper');
 const redirectHelper = require('./redirect');
@@ -124,10 +123,10 @@ const populateCurrentUser = async (req, res) => {
 			payload = (jwt.decode(req.cookies.jwt, { complete: true }) || {}).payload;
 			res.locals.currentPayload = payload;
 		} catch (err) {
-			logger.error('Broken JWT / JWT decoding failed', formatError(err));
+			logger.error('Broken JWT / JWT decoding failed', err);
 			return clearCookies(req, res, { destroySession: true })
 				.catch((err) => {
-					logger.error('clearCookie failed during jwt check', formatError(err));
+					logger.error('clearCookie failed during jwt check', err);
 				})
 				.finally(() => res.redirect('/'));
 		}

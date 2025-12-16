@@ -1,5 +1,5 @@
 const {
-	filterLog, filterQuery, filter, formatError,
+	filterLog, filterQuery, filter,
 } = require('./logFilter');
 const { nonceValueSet } = require('./csp');
 const prometheus = require('./prometheus');
@@ -10,7 +10,6 @@ module.exports = {
 	filterLog,
 	filterQuery,
 	filter,
-	formatError,
 	nonceValueSet,
 	prometheus,
 	tokenInjector,

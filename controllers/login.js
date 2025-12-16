@@ -12,10 +12,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 
-const {
-	logger,
-	formatError,
-} = require('../helpers');
+const {	logger } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
 // Login
@@ -299,7 +296,7 @@ const determineRedirectUrl = (req) => {
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
 		.get('/systems/public?types=oauth')
-		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
+		.catch((err) => logger.error('error loading oauth system list', err));
 }
 
 router.all('/', async (req, res, next) => {
@@ -447,13 +444,13 @@ router.get('/logout/', (req, res, next) => {
 	api(req, { version: 'v3' })
 		.post('/logout') // async, ignore result
 		.catch((err) => {
-			logger.error('error during logout.', formatError(err));
+			logger.error('error during logout.', err);
 		});
 
 	api(req, { version: 'v3' })
 		.delete('/collaborative-text-editor/delete-sessions') // async, ignore result
 		.catch((err) => {
-			logger.error('can not delete etherpad client sessions', formatError(err));
+			logger.error('can not delete etherpad client sessions', err);
 		});
 
 	return authHelper.clearCookies(req, res, sessionDestroyer)
@@ -477,7 +474,7 @@ router.get('/logout/external/', authHelper.authChecker, async (req, res, next) =
 		try {
 			await api(req, { version: 'v3' }).post('/logout/external');
 		} catch (err) {
-			logger.error('error during external logout.', formatError(err));
+			logger.error('error during external logout.', err);
 		}
 	}
 });

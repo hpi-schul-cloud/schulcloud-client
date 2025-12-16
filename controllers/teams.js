@@ -10,7 +10,7 @@ const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 const { makeNextcloudFolderName, useNextcloudFilesystem } = require('../helpers/nextcloud');
 const { isUserHidden } = require('../helpers/users');
@@ -143,7 +143,7 @@ const editTeamHandler = async (req, res, next) => {
 			permissions = await api(req)
 				.get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
 		} catch (error) {
-			logger.error(formatError(error));
+			logger.error(error);
 		}
 	}
 
@@ -435,7 +435,7 @@ router.get('/:teamId/json', (req, res, next) => {
 			res.json({ team });
 		})
 		.catch((err) => {
-			logger.warn(formatError(err));
+			logger.warn(err);
 			res.sendStatus(500);
 		});
 });
@@ -501,7 +501,7 @@ router.get('/:teamId', async (req, res, next) => {
 				rocketChatCompleteURL = `${rocketChatURL}/group/${rocketChatChannel.channelName
 				}`;
 			} catch (err) {
-				logger.warn(formatError(err));
+				logger.warn(err);
 				rocketChatCompleteURL = undefined;
 			}
 		}
@@ -738,7 +738,7 @@ router.patch('/:teamId/permissions', (req, res) => {
 		})
 		.then(() => res.sendStatus(200))
 		.catch((err) => {
-			logger.warn(formatError(err));
+			logger.warn(err);
 			res.sendStatus(500);
 		});
 });
@@ -1257,7 +1257,7 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		.catch((err) => {
 			logger.warn(
 				res.$t('teams._team.text.errorAcceptingInvitation'),
-				formatError(err),
+				err,
 			);
 			res.redirect(`/teams/${req.params.teamId}`);
 		});

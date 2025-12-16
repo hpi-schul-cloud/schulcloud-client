@@ -1,6 +1,6 @@
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const { contentSecurityPolicy, accessControlAllowOrigin, enabled } = require('../config/http-headers');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 
 if (Configuration.has('CORS') !== true) {
 	throw new Error('CORS missing in Configuration');
@@ -139,7 +139,7 @@ const cors = (req, res, next) => {
 				logger.debug('do not set cors header, because config does not contain valid content');
 			}
 		} catch (error) {
-			logger.error('error while setting cors header', formatError(error));
+			logger.error('error while setting cors header', error);
 		}
 	}
 	return next();

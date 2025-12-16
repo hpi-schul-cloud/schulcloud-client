@@ -89,25 +89,6 @@ const filterLog = (log) => {
 	return log;
 };
 
-const formatError = (err = {}) => {
-	try {
-		const e = {
-			message: err.message,
-			error: err.error,
-			statusCode: err.statusCode || err.code,
-			stack: err.stack,
-		};
-		if (e.options) {
-			e.options = err.options;
-			delete e.options.headers;
-		}
-		return e;
-	} catch (err) {
-		logger.error(err);
-		return err;
-	}
-};
-
 module.exports = {
-	filterLog, filterQuery, filter, formatError,
+	filterLog, filterQuery, filter,
 };
