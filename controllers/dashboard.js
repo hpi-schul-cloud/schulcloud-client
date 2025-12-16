@@ -4,7 +4,7 @@
 
 const express = require('express');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const logger = require('../helpers/logger');
+const { logger } = require('../helpers');
 
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
@@ -12,8 +12,6 @@ const api = require('../api');
 const timesHelper = require('../helpers/timesHelper');
 
 const recurringEventsHelper = require('../helpers/recurringEvents');
-
-const { error, warn } = require('../helpers/logger');
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -98,7 +96,7 @@ const getCalendarEvents = (req, res, {
 						event.alt = res.$t('dashboard.img_alt.showCalendar');
 					}
 				} catch (err) {
-					error(filterRequestInfos(err));
+					logger.error(filterRequestInfos(err));
 				}
 			}
 
@@ -106,7 +104,7 @@ const getCalendarEvents = (req, res, {
 		}).sort((a, b) => b.style.left - a.style.left);
 	})
 	.catch((err) => {
-		error(filterRequestInfos(err));
+		logger.error(filterRequestInfos(err));
 		return [];
 	});
 
@@ -318,7 +316,7 @@ router.get('/', (req, res, next) => {
 						json: { 'preferences.releaseDate': newestRelease.publishedAt },
 					})
 					.catch(() => {
-						warn('failed to update user preference releaseDate');
+						logger.warn('failed to update user preference releaseDate');
 					});
 			}
 
@@ -330,7 +328,7 @@ router.get('/', (req, res, next) => {
 						json: { 'preferences.data_privacy_incident_note_2020_01_was_displayed': Date.now() },
 					})
 					.catch(() => {
-						warn('failed to update user preference releaseDate');
+						logger.warn('failed to update user preference releaseDate');
 					});
 				displayDataprivacyAlert = true;
 			}
