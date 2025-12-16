@@ -21,9 +21,7 @@ function showAJAXError(err) {
 }
 
 const reloadPage = (msg, timeout = 2000) => {
-	if (msg) {
-		showSuccessMessage(msg);
-	}
+	window.localStorage.setItem('afterSendHelpdeskForm', 'true');
 	setTimeout(() => {
 		window.location.reload();
 	}, timeout);
@@ -55,7 +53,6 @@ function initForm(formContainer) {
 	const wishForm = teamForm.querySelector('.wish_form');
 	const bugForm = teamForm.querySelector('.bug_form');
 
-
 	// handle form change when type changes
 	formContainer.querySelector('#message_type').addEventListener('change', (event) => {
 		const value = event.target.value || event.target.querySelector('[name=message_type]:checked').value;
@@ -73,10 +70,20 @@ function initForm(formContainer) {
 	handleFormSubmit(bugForm);
 }
 
+function afterSendHelpdeskForm() {
+	if (window.localStorage?.getItem('afterSendHelpdeskForm')) {
+		showSuccessMessage('helpdesk.text.feedbackSuccessful');
+		window.localStorage.removeItem('afterSendHelpdeskForm');
+	}
+}
+
+$(document).ready(() => {
+	afterSendHelpdeskForm();
+});
+
 function init() {
 	document.querySelectorAll('.contact-form').forEach(initForm);
 }
-
 
 if (!window.contactForm) {
 	window.contactForm = init;
