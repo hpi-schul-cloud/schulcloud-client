@@ -1,8 +1,26 @@
 const axios = require('axios');
 
-// The api was initially built with request-promise and used its method signatures.
-// To use axios we have to adapt the options.
-const adaptOptions = (options) => {
+const mapError = (err) => {
+	// We map to the error that was used with request-promise before moving to Axios.
+	const mappedError = {
+		name: err.name,
+		statusCode: err.status,
+		message: err.message,
+		error: err.response.data,
+		options: {
+			baseUrl: err.config.baseURL,
+			method: err.config.method,
+			qs: err.config.params,
+			timeout: err.config.timeout,
+			uri: err.config.url,
+		},
+		stack: err.stack,
+	};
+
+	return mappedError;
+};
+
+const mapOptions = (options) => {
 	const adapted = { ...options };
 
 	if ('json' in adapted) {
@@ -41,7 +59,12 @@ const api = (baseUrl, { keepAlive, xApiKey, timeout } = {}) => (req, { version =
 		headers,
 	});
 
-	axiosInstance.interceptors.response.use((res) => res.data);
+	axiosInstance.interceptors.response.use((res) => res.data, (err) => {
+		// The full AxiosError can contain critical information like the auth token. Thus we map it here.
+		const mappedError = mapError(err);
+
+		throw mappedError;
+	});
 
 	const methods = ['get', 'post', 'patch', 'put', 'delete'];
 
@@ -49,14 +72,16 @@ const api = (baseUrl, { keepAlive, xApiKey, timeout } = {}) => (req, { version =
 
 	methods.forEach((method) => {
 		apiInstance[method] = (url, options) => {
-			const adaptedOptions = adaptOptions(options);
+			// The api was initially built with request-promise and used its method signatures.
+			// To use axios we have to map the options.
+			const mappedOptions = mapOptions(options);
 
 			let methodHandler;
 
 			if (method === 'get' || method === 'delete') {
-				methodHandler = axiosInstance[method](url, adaptedOptions);
+				methodHandler = axiosInstance[method](url, mappedOptions);
 			} else {
-				methodHandler = axiosInstance[method](url, adaptedOptions.data, adaptedOptions);
+				methodHandler = axiosInstance[method](url, mappedOptions.data, mappedOptions);
 			}
 
 			return methodHandler;
