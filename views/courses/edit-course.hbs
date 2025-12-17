@@ -248,7 +248,7 @@
 						</thead>
 						<tbody class="add-course-times" data-testid="course-time-section">
 							{{#each course.times}}
-								<tr class="course-time" id="{{this._id}}">
+								<tr class="course-time" data-testid="course-time-section-option" id="{{this._id}}">
 									<td>
 										<button class="btn-link course-time-delete" data-testid="course-time-delete-button" type="button" data-id="{{this._id}}"
 											{{#if @root.course.isArchived}}disabled{{/if}} aria-label="{{$t "global.headline.delete"}}">
