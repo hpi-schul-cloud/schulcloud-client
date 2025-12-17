@@ -1014,8 +1014,7 @@
 			"noDueDate": "No se ha fijado una fecha de envío",
 			"noMaterialsYetLookAtOthers": "Aún no has creado tus propios materiales. También puedes inspirarte en los materiales de tus compañeros. Consulta la <a href=\"/my-material\">sección \"Mis materiales\"</a>.",
 			"noNews": "No hay noticias",
-			"notFound": "No se han encontrado entradas activas.",
-			"surveyAnnouncement": "Participe en nuestra encuesta para usuarios y ayúdenos a mejorar la nube. <a target='_blank' rel='noopener noreferrer' href='https://befragungen.dataport.de/umfrage/2019781/852cUJk'>Aquí puede acceder a la encuesta.</a>"
+			"notFound": "No se han encontrado entradas activas."
 		}
 	},
 	"dataprivacy": {
