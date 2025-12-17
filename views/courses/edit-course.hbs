@@ -250,7 +250,7 @@
 							{{#each course.times}}
 								<tr class="course-time" data-testid="course-time-section-option" id="{{this._id}}">
 									<td>
-										<button class="btn-link course-time-delete" type="button" data-id="{{this._id}}"
+										<button class="btn-link course-time-delete" data-testid="course-time-delete-button"type="button" data-id="{{this._id}}"
 											{{#if @root.course.isArchived}}disabled{{/if}} aria-label="{{$t "global.headline.delete"}}">
 											<i class="fa fa-trash-o" aria-hidden="true"></i>
 										</button></td>
@@ -274,17 +274,17 @@
 										</select>
 									</td>
 									<td>
-										<input id="startOfLesson" class="form-control" name="times[{{this.count}}][startTime]"
+										<input id="startOfLesson" class="form-control" data-testid="start-lesson-time" name="times[{{this.count}}][startTime]"
 											value="{{this.startTime}}" data-time type="text"
 											{{#if @root.course.isArchived}}disabled{{/if}} />
 									</td>
 									<td>
-										<input id="lengthOfLesson" class="form-control" name="times[{{this.count}}][duration]" type="number"
+										<input id="lengthOfLesson" class="form-control" data-testid="lesson-duration" name="times[{{this.count}}][duration]" type="number"
 											value="{{this.duration}}" placeholder="{{$t "courses.global.input.inMinutes"}}"
 											{{#if @root.course.isArchived}}disabled{{/if}} min="0"/>
 									</td>
 									<td>
-										<input id="room" class="form-control" type="text" name="times[{{this.count}}][room]"
+										<input id="room" class="form-control" data-testid="course-appointment-room" type="text" name="times[{{this.count}}][room]"
 											value="{{this.room}}" placeholder="{{$t "courses.global.input.egRoom1-21"}}"
 											{{#if @root.course.isArchived}}disabled{{/if}} />
 									</td>
