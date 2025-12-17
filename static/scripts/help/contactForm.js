@@ -1,8 +1,3 @@
-const errorMessages = {
-	// TODO: add more specific error messages as needed
-	INTERNAL_ERROR: 'global.text.internalProblem',
-};
-
 function showSuccessMessage(message) {
 	$.showNotification($t(message), 'success', 5000);
 }
@@ -12,11 +7,6 @@ function showErrorMessage(message) {
 }
 
 function showAJAXError(err) {
-	// TODO: handle specific error messages from server
-	// if (err.responseJSON) {
-	// 	const { message } = err.responseJSON;
-	// 	showErrorMessage(errorMessages[message] || errorMessages.INTERNAL_ERROR);
-	// }
 	showErrorMessage('helpdesk.text.feedbackError');
 }
 
