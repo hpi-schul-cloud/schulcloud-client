@@ -1,7 +1,7 @@
 <!-- just for copying, add input names programmatically! -->
 <tr class="new-course-time-template">
     <td>
-        <button type="button" class="course-time-delete" aria-label="{{$t "global.headline.delete"}}" data-id="{{this._id}}">
+        <button type="button" class="course-time-delete" data-testid="course-time-delete-button" aria-label="{{$t "global.headline.delete"}}" data-id="{{this._id}}">
             <i class="fa fa-trash-o" aria-hidden="true"></i>
         </button></td>
     <td>
@@ -16,11 +16,11 @@
         </select>
     </td>
     <td>
-        <input id="startOfLesson" class="form-control new-course-time-template-startTime" data-time type="text"/>
+        <input id="startOfLesson" class="form-control new-course-time-template-startTime" data-testid="start-lesson-time" data-time type="text"/>
     </td>
     <td>
         <div>
-            <input id="lengthOfLesson" class="form-control new-course-time-template-duration lengthOfLesson" type="number" placeholder="{{$t "courses.global.input.inMinutes"}}" min="0" />
+            <input id="lengthOfLesson" class="form-control new-course-time-template-duration lengthOfLesson" data-testid="lesson-duration" type="number" placeholder="{{$t "courses.global.input.inMinutes"}}" min="0" />
         </div>
         <div>
           <span class="small course-validation-error" id="courseTimesErr">
@@ -29,6 +29,6 @@
         </div>
     </td>
     <td>
-        <input id="room" class="form-control new-course-time-template-room" type="text" placeholder="{{$t "courses.global.input.egRoom1-21"}}"/>
+        <input id="room" class="form-control new-course-time-template-room" data-testid="course-appointment-room" type="text" placeholder="{{$t "courses.global.input.egRoom1-21"}}"/>
     </td>
 </tr>
