@@ -248,14 +248,14 @@
 						</thead>
 						<tbody class="add-course-times">
 							{{#each course.times}}
-								<tr class="course-time" id="{{this._id}}">
+								<tr class="course-time" data-testid="course-time-section" id="{{this._id}}">
 									<td>
-										<button class="btn-link course-time-delete" type="button" data-id="{{this._id}}"
+										<button class="btn-link course-time-delete" data-testid="course-time-delete-button" type="button" data-id="{{this._id}}"
 											{{#if @root.course.isArchived}}disabled{{/if}} aria-label="{{$t "global.headline.delete"}}">
 											<i class="fa fa-trash-o" aria-hidden="true"></i>
 										</button></td>
 									<td>
-										<select id="weekday" class="form-control" name="times[{{this.count}}][weekday]" type="text"
+										<select id="weekday" data-testid="choose-weekday" class="form-control" name="times[{{this.count}}][weekday]" type="text"
 											{{#if @root.course.isArchived}}disabled{{/if}}>
 											<option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>{{$t "global.text.monday"}}
 											</option>
@@ -274,17 +274,17 @@
 										</select>
 									</td>
 									<td>
-										<input id="startOfLesson" class="form-control" name="times[{{this.count}}][startTime]"
+										<input id="startOfLesson" data-testid="start-lesson-time" class="form-control" name="times[{{this.count}}][startTime]"
 											value="{{this.startTime}}" data-time type="text"
 											{{#if @root.course.isArchived}}disabled{{/if}} />
 									</td>
 									<td>
-										<input id="lengthOfLesson" class="form-control" name="times[{{this.count}}][duration]" type="number"
+										<input id="lengthOfLesson" data-testid="lesson-duration" class="form-control" name="times[{{this.count}}][duration]" type="number"
 											value="{{this.duration}}" placeholder="{{$t "courses.global.input.inMinutes"}}"
 											{{#if @root.course.isArchived}}disabled{{/if}} min="0"/>
 									</td>
 									<td>
-										<input id="room" class="form-control" type="text" name="times[{{this.count}}][room]"
+										<input id="room" data-testid="course-appointment-room" class="form-control" type="text" name="times[{{this.count}}][room]"
 											value="{{this.room}}" placeholder="{{$t "courses.global.input.egRoom1-21"}}"
 											{{#if @root.course.isArchived}}disabled{{/if}} />
 									</td>
@@ -293,7 +293,7 @@
 							{{#embed "courses/components/template-new-course-time"}}{{/embed}}
 						</tbody>
 					</table>
-					<button class="new-course-time-add btn-link" data-timesref="#timesContainer" type="button"
+					<button class="new-course-time-add btn-link" data-testid="add-new-course-appointment" data-timesref="#timesContainer" type="button"
 						{{#if @root.course.isArchived}}disabled{{/if}}>
 						<i class="fa fa-plus-circle fa-6" aria-hidden="true"></i> {{$t "courses._course.edit.button.addLesson"}}
 					</button>
