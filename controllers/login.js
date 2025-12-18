@@ -144,6 +144,12 @@ router.get('/login/ldap', (req, res) => {
 // eslint-disable-next-line consistent-return
 const redirectOAuth2Authentication = async (req, res, systemId, migration, redirect, loginHint) => {
 	let system;
+
+	// Validate systemId to protect from SSRF
+	if (!/^[a-f\d]$/i.test(systemId)) {
+		return res.status(400).json({ error: 'Invalid systemId format' });
+	}
+
 	try {
 		system = await api(req, { version: 'v3' })
 			.get(`/systems/public/${systemId}`);
