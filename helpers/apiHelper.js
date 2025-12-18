@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const mapError = (err) => {
-	// We map to the error that was used previously with request-promise before moving to Axios.
+	// We map to the error interface that was previously used with request-promise.
 	const mappedError = {
 		name: err.name,
 		statusCode: err.status,
@@ -72,7 +72,8 @@ const api = (baseUrl, { keepAlive, xApiKey, timeout } = {}) => (req, { version =
 
 	methods.forEach((method) => {
 		apiInstance[method] = (url, options) => {
-			// The api was initially built with request-promise. To use Axios we have to map the options.
+			// The api was initially built with request-promise and we'll keep its interface.
+			// To use Axios we have to map the options.
 			const mappedOptions = mapOptions(method, url, options);
 
 			const methodHandler = axiosInstance.request(mappedOptions);
