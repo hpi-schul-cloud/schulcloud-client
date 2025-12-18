@@ -1,5 +1,3 @@
-const logger = require('./logger');
-
 const MAX_LEVEL_FILTER = 12;
 
 const secretDataKeys = (() => [
