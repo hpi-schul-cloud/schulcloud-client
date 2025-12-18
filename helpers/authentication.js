@@ -13,7 +13,6 @@ const {
 	MINIMAL_PASSWORD_LENGTH,
 } = require('../config/global');
 const logger = require('./logger');
-const { formatError } = require('./logFilter');
 
 const { setCookie } = require('./cookieHelper');
 const redirectHelper = require('./redirect');
@@ -112,8 +111,7 @@ const populateCurrentUser = async (req, res) => {
 				&& hasEndSessionEndpoint;
 			res.locals.systemName = response.displayName;
 		} catch (err) {
-			const metadata = { error: err.toString() };
-			logger.error('Unable to find out the external login system used by user', metadata);
+			logger.error('Unable to find out the external login system used by user', err);
 		}
 	}
 
@@ -124,10 +122,10 @@ const populateCurrentUser = async (req, res) => {
 			payload = (jwt.decode(req.cookies.jwt, { complete: true }) || {}).payload;
 			res.locals.currentPayload = payload;
 		} catch (err) {
-			logger.error('Broken JWT / JWT decoding failed', formatError(err));
+			logger.error('Broken JWT / JWT decoding failed', err);
 			return clearCookies(req, res, { destroySession: true })
 				.catch((err) => {
-					logger.error('clearCookie failed during jwt check', formatError(err));
+					logger.error('clearCookie failed during jwt check', err);
 				})
 				.finally(() => res.redirect('/'));
 		}
@@ -180,8 +178,7 @@ const populateCurrentUser = async (req, res) => {
 				if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
 					return clearCookies(req, res, { destroySession: true })
 						.catch((err) => {
-							const meta = { error: err.toString() };
-							logger.error('clearCookie failed during populateUser', meta);
+							logger.error('clearCookie failed during populateUser', err);
 						})
 						.finally(() => res.redirect('/'));
 				}

@@ -585,7 +585,7 @@ router.post(
 	generateRegistrationLink({}),
 	(req, res) => {
 		const email = req.body.email || req.body.toHash || '';
-		api(req).get('/users', { qs: { email }, $limit: 1 })
+		api(req).get('/users', { qs: { email } })
 			.then((users) => {
 				if (users.total === 1) {
 					sendMailHandler({ ...users.data[0], email }, req, res, true);
@@ -826,10 +826,9 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	} else {
 		const role = await api(req).get('/roles', {
 			qs: { name: roleName },
-			$limit: false,
 		});
 		const qs = { roles: role.data[0]._id, $limit: false };
-		users = (await api(req).get('/users', { qs, $limit: false })).data;
+		users = (await api(req).get('/users', { qs })).data;
 	}
 
 	const usersWithMissingConsents = [];

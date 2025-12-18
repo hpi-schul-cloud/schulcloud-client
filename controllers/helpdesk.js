@@ -15,7 +15,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const timesHelper = require('../helpers/timesHelper');
 
 const permissionsHelper = require('../helpers/permissions');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
@@ -399,7 +399,7 @@ router.post(
 					type: 'danger',
 					message: res.$t('helpdesk.text.feedbackError'),
 				};
-				logger.warn(formatError(err));
+				logger.warn(err);
 				redirectHelper.safeBackRedirect(req, res);
 			});
 	},
