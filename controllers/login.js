@@ -6,7 +6,6 @@ const express = require('express');
 
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const Handlebars = require('handlebars');
 const shortid = require('shortid');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
