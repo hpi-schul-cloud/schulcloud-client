@@ -576,12 +576,7 @@ router.get('/:teamId', async (req, res, next) => {
 					return n;
 				}))
 			.catch((err) => {
-				logger.error(
-					`
-						Can not fetch data from /news/ in router.get("/:teamId")
-						| message: ${err.message} | code: ${err.code}.
-					`,
-				);
+				logger.error(`Can not fetch data from /news/ in router.get("/:teamId") | message: ${err.message}.`);
 				return [];
 			});
 

@@ -111,8 +111,7 @@ const populateCurrentUser = async (req, res) => {
 				&& hasEndSessionEndpoint;
 			res.locals.systemName = response.displayName;
 		} catch (err) {
-			const metadata = { error: err.toString() };
-			logger.error('Unable to find out the external login system used by user', metadata);
+			logger.error('Unable to find out the external login system used by user', err);
 		}
 	}
 
@@ -179,8 +178,7 @@ const populateCurrentUser = async (req, res) => {
 				if (e.statusCode === 400 || e.statusCode === 401 || e.error.className === 'not-found') {
 					return clearCookies(req, res, { destroySession: true })
 						.catch((err) => {
-							const meta = { error: err.toString() };
-							logger.error('clearCookie failed during populateUser', meta);
+							logger.error('clearCookie failed during populateUser', err);
 						})
 						.finally(() => res.redirect('/'));
 				}
