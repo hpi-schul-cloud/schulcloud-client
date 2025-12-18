@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const mapError = (err) => {
-	// We map to the error that was used with request-promise before moving to Axios.
+	// We map to the error that was used previously with request-promise before moving to Axios.
 	const mappedError = {
 		name: err.name,
 		statusCode: err.status,
@@ -20,20 +20,20 @@ const mapError = (err) => {
 	return mappedError;
 };
 
-const mapOptions = (options) => {
-	const adapted = { ...options };
+const mapOptions = (method, url, options) => {
+	const mappedOptions = { method, url, ...options };
 
-	if ('json' in adapted) {
-		adapted.data = adapted.json;
-		delete adapted.json;
+	if ('json' in mappedOptions) {
+		mappedOptions.data = mappedOptions.json;
+		delete mappedOptions.json;
 	}
 
-	if ('qs' in adapted) {
-		adapted.params = adapted.qs;
-		delete adapted.qs;
+	if ('qs' in mappedOptions) {
+		mappedOptions.params = mappedOptions.qs;
+		delete mappedOptions.qs;
 	}
 
-	return adapted;
+	return mappedOptions;
 };
 
 const api = (baseUrl, { keepAlive, xApiKey, timeout } = {}) => (req, { version = 'v1', accessToken } = {}) => {
@@ -72,17 +72,10 @@ const api = (baseUrl, { keepAlive, xApiKey, timeout } = {}) => (req, { version =
 
 	methods.forEach((method) => {
 		apiInstance[method] = (url, options) => {
-			// The api was initially built with request-promise and used its method signatures.
-			// To use axios we have to map the options.
-			const mappedOptions = mapOptions(options);
+			// The api was initially built with request-promise. To use Axios we have to map the options.
+			const mappedOptions = mapOptions(method, url, options);
 
-			let methodHandler;
-
-			if (method === 'get' || method === 'delete') {
-				methodHandler = axiosInstance[method](url, mappedOptions);
-			} else {
-				methodHandler = axiosInstance[method](url, mappedOptions.data, mappedOptions);
-			}
+			const methodHandler = axiosInstance.request(mappedOptions);
 
 			return methodHandler;
 		};
