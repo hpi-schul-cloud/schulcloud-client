@@ -1,8 +1,47 @@
+function showSuccessMessage(message) {
+	$.showNotification($t(message), 'success', 5000);
+}
+
+function showErrorMessage(message) {
+	$.showNotification($t(message), 'danger', 5000);
+}
+
+function showAJAXError(err) {
+	showErrorMessage('helpdesk.text.feedbackError');
+}
+
+const reloadPage = (msg, timeout = 2000) => {
+	window.localStorage.setItem('afterSendHelpdeskForm', 'true');
+	setTimeout(() => {
+		window.location.reload();
+	}, timeout);
+};
+
+// handle form submissions via AJAX
+function handleFormSubmit(form) {
+	form.addEventListener('submit', async (event) => {
+		event.preventDefault();
+
+		const formData = new FormData(form);
+		const { action } = form.dataset;
+		const actionUrl = `/api/v3/helpdesk/${action}`;
+
+		$.ajax({
+			data: formData,
+			url: actionUrl,
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			success: () => reloadPage('helpdesk.text.feedbackSuccessful', 0),
+			error: showAJAXError,
+		});
+	});
+}
+
 function initForm(formContainer) {
 	const teamForm = formContainer.querySelector('.team_form');
 	const wishForm = teamForm.querySelector('.wish_form');
 	const bugForm = teamForm.querySelector('.bug_form');
-
 
 	// handle form change when type changes
 	formContainer.querySelector('#message_type').addEventListener('change', (event) => {
@@ -15,12 +54,26 @@ function initForm(formContainer) {
 			bugForm.classList.remove('hidden');
 		}
 	});
+
+	// AJAX-Handler für beide Forms aktivieren
+	handleFormSubmit(wishForm);
+	handleFormSubmit(bugForm);
 }
+
+function afterSendHelpdeskForm() {
+	if (window.localStorage?.getItem('afterSendHelpdeskForm')) {
+		showSuccessMessage('helpdesk.text.feedbackSuccessful');
+		window.localStorage.removeItem('afterSendHelpdeskForm');
+	}
+}
+
+$(document).ready(() => {
+	afterSendHelpdeskForm();
+});
 
 function init() {
 	document.querySelectorAll('.contact-form').forEach(initForm);
 }
-
 
 if (!window.contactForm) {
 	window.contactForm = init;

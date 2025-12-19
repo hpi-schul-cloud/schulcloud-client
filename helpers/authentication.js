@@ -23,7 +23,6 @@ const rolesDisplayName = {
 	student: 'Schüler',
 	administrator: 'Administrator',
 	superhero: 'Schul-Cloud Admin',
-	helpdesk: 'Helpdesk',
 	betaTeacher: 'Beta',
 	externalPerson: 'externalPerson',
 };
