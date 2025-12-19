@@ -1,6 +1,6 @@
 const express = require('express');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 const { AlertsCache } = require('../helpers/cache');
 
 const router = express.Router();
@@ -14,7 +14,7 @@ if (Configuration.get('FEATURE_ALERTS_ENABLED')) {
 		.then((alert) => {
 			res.json(alert?.data);
 		}).catch((err) => {
-			logger.error(new Error('Can not get /alert', formatError(err)));
+			logger.error(new Error('Can not get /alert', err));
 			res.json([]);
 		});
 }

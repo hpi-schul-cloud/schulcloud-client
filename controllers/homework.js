@@ -11,7 +11,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 const { HOST } = require('../config/global');
 const timesHelper = require('../helpers/timesHelper');
 const filesStoragesHelper = require('../helpers/files-storage');
@@ -345,7 +345,7 @@ router.get('/new', (req, res, next) => {
 				lessons = await lessonsPromise;
 			} catch (error) {
 				// TODO log error
-				logger.error('Error getting lessons', formatError(error));
+				logger.error('Error getting lessons', error);
 			}
 
 			lessons = (lessons || []).sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1);

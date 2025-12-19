@@ -3,19 +3,15 @@
  */
 
 const url = require('url');
-const rp = require('request-promise');
 const express = require('express');
-const multer = require('multer');
 const shortid = require('shortid');
 const _ = require('lodash');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 
-const upload = multer({ storage: multer.memoryStorage() });
-
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = require('../config/global');
 const { useNextcloudFilesystem, makeNextcloudFolderName } = require('../helpers/nextcloud');
 
@@ -408,19 +404,6 @@ const getSignedUrl = (req, res, next) => {
 // get signed url to upload file
 router.post('/file', getSignedUrl);
 
-// upload file directly
-router.post('/upload', upload.single('upload'), (req, res, next) => getSignedUrl(req, null, next)
-	.then(({ signedUrl }) => rp.put({
-		url: signedUrl.url,
-		headers: { ...signedUrl.header, 'content-type': req.file.mimetype },
-		body: req.file.buffer,
-	})).then(() => {
-		res.json({
-			uploaded: 1,
-			fileName: req.file.originalname,
-		});
-	}).catch(next));
-
 // delete file
 router.delete('/file', (req, res, next) => {
 	const data = {
@@ -431,7 +414,7 @@ router.delete('/file', (req, res, next) => {
 	}).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
-		logger.error('Can not delete file', formatError(err));
+		logger.error('Can not delete file', err);
 		next(err);
 	});
 });
