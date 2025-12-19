@@ -1,13 +1,13 @@
 const api = require('../../api');
 const Cache = require('./Cache');
-const { logger, formatError } = require('..');
+const { logger } = require('..');
 
 const getLoginSchools = async (req) => {
 	let schools = [];
 	try {
 		schools = await api(req, { version: 'v3' }).get('/school/list-for-ldap-login');
 	} catch (err) {
-		logger.error('error getting schools', formatError(err));
+		logger.error('error getting schools', err);
 	}
 	return schools;
 };

@@ -4,7 +4,7 @@
 
 const express = require('express');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const logger = require('../helpers/logger');
+const { logger } = require('../helpers');
 
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
@@ -13,23 +13,8 @@ const timesHelper = require('../helpers/timesHelper');
 
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
-const { error, warn } = require('../helpers/logger');
-
 // secure routes
 router.use(authHelper.authChecker);
-
-const filterRequestInfos = (err) => {
-	if (!err) {
-		return err;
-	}
-	if (err.options && err.options.headers) {
-		delete err.options.headers.Authorization;
-	}
-	delete err.cause;
-	delete err.response;
-	delete err.request;
-	return err;
-};
 
 const getCalendarEvents = (req, res, {
 	numMinutes, timeStart, start, end,
@@ -98,7 +83,7 @@ const getCalendarEvents = (req, res, {
 						event.alt = res.$t('dashboard.img_alt.showCalendar');
 					}
 				} catch (err) {
-					error(filterRequestInfos(err));
+					logger.error(err);
 				}
 			}
 
@@ -106,7 +91,7 @@ const getCalendarEvents = (req, res, {
 		}).sort((a, b) => b.style.left - a.style.left);
 	})
 	.catch((err) => {
-		error(filterRequestInfos(err));
+		logger.error(err);
 		return [];
 	});
 
@@ -237,7 +222,7 @@ router.get('/', (req, res, next) => {
 		.catch((err) => {
 			/* eslint-disable-next-line max-len */
 			logger.error(
-				`Can not fetch data from /homework/ in router.all("/") | message: ${err.message} | code: ${err.code}.`,
+				`Can not fetch data from /homework/ in router.all("/") | message: ${err.message}.`,
 			);
 			return [];
 		});
@@ -250,14 +235,14 @@ router.get('/', (req, res, next) => {
 			},
 		})
 		.then((news) => news.data.map((n) => {
-				n.url = `/news/${n.id}`;
-				n.secondaryTitle = timesHelper.fromNow(n.displayAt);
-				return n;
+			n.url = `/news/${n.id}`;
+			n.secondaryTitle = timesHelper.fromNow(n.displayAt);
+			return n;
 		}))
 		.catch((err) => {
 			/* eslint-disable-next-line max-len */
 			logger.error(
-				`Can not fetch data from /news/ in router.all("/") | message: ${err.message} | code: ${err.code}.`
+				`Can not fetch data from /news/ in router.all("/") | message: ${err.message}.`,
 			);
 			return [];
 		});
@@ -275,7 +260,7 @@ router.get('/', (req, res, next) => {
 		.catch((err) => {
 			/* eslint-disable-next-line max-len */
 			logger.error(
-				`Can not fetch data from /releases in router.all("/") | message: ${err.message} | code: ${err.code}.`,
+				`Can not fetch data from /releases in router.all("/") | message: ${err.message}.`,
 			);
 			return [];
 		});
@@ -318,7 +303,7 @@ router.get('/', (req, res, next) => {
 						json: { 'preferences.releaseDate': newestRelease.publishedAt },
 					})
 					.catch(() => {
-						warn('failed to update user preference releaseDate');
+						logger.warn('failed to update user preference releaseDate');
 					});
 			}
 
@@ -330,7 +315,7 @@ router.get('/', (req, res, next) => {
 						json: { 'preferences.data_privacy_incident_note_2020_01_was_displayed': Date.now() },
 					})
 					.catch(() => {
-						warn('failed to update user preference releaseDate');
+						logger.warn('failed to update user preference releaseDate');
 					});
 				displayDataprivacyAlert = true;
 			}

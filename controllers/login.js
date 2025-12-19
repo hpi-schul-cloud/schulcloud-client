@@ -6,16 +6,12 @@ const express = require('express');
 
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const Handlebars = require('handlebars');
 const shortid = require('shortid');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 
-const {
-	logger,
-	formatError,
-} = require('../helpers');
+const {	logger } = require('../helpers');
 const { LoginSchoolsCache } = require('../helpers/cache');
 
 // Login
@@ -148,6 +144,12 @@ router.get('/login/ldap', (req, res) => {
 // eslint-disable-next-line consistent-return
 const redirectOAuth2Authentication = async (req, res, systemId, migration, redirect, loginHint) => {
 	let system;
+
+	// Validate systemId to protect from SSRF
+	if (!/^[a-f\d]$/i.test(systemId)) {
+		return res.status(400).json({ error: 'Invalid systemId format' });
+	}
+
 	try {
 		system = await api(req, { version: 'v3' })
 			.get(`/systems/public/${systemId}`);
@@ -299,7 +301,7 @@ const determineRedirectUrl = (req) => {
 async function getOauthSystems(req) {
 	return api(req, { version: 'v3' })
 		.get('/systems/public?types=oauth')
-		.catch((err) => logger.error('error loading oauth system list', formatError(err)));
+		.catch((err) => logger.error('error loading oauth system list', err));
 }
 
 router.all('/', async (req, res, next) => {
@@ -447,13 +449,13 @@ router.get('/logout/', (req, res, next) => {
 	api(req, { version: 'v3' })
 		.post('/logout') // async, ignore result
 		.catch((err) => {
-			logger.error('error during logout.', formatError(err));
+			logger.error('error during logout.', err);
 		});
 
 	api(req, { version: 'v3' })
-		.del('/collaborative-text-editor/delete-sessions') // async, ignore result
+		.delete('/collaborative-text-editor/delete-sessions') // async, ignore result
 		.catch((err) => {
-			logger.error('can not delete etherpad client sessions', formatError(err));
+			logger.error('can not delete etherpad client sessions', err);
 		});
 
 	return authHelper.clearCookies(req, res, sessionDestroyer)
@@ -477,7 +479,7 @@ router.get('/logout/external/', authHelper.authChecker, async (req, res, next) =
 		try {
 			await api(req, { version: 'v3' }).post('/logout/external');
 		} catch (err) {
-			logger.error('error during external logout.', formatError(err));
+			logger.error('error during external logout.', err);
 		}
 	}
 });
