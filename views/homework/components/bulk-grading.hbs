@@ -5,6 +5,7 @@
 				class="btn btn-secondary multi-download mb-1"
 				id="submissions-download-ungraded-files"
 				{{#if @root.ungradedFileSubmissions.empty}}disabled="disabled" {{/if}}
+				data-archive-filename="{{@root.title}}"
 				data-files="{{@root.ungradedFileSubmissions.ids}}"
 			>
 			<i class="fa fa-cloud-download"></i>

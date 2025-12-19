@@ -192,6 +192,7 @@ $(document).ready(() => {
 	// allow muti-download
 	$('button.multi-download').on('click', function action() {
 		const fileRecordIds = $(this).data('files').split(',');
+		const archiveFilename = $(this).data('archive-filename').split(',');
 
 		const form = document.createElement('form');
 		form.method = 'POST';
@@ -202,7 +203,7 @@ $(document).ready(() => {
 		const archiveNameInput = document.createElement('input');
 		archiveNameInput.type = 'hidden';
 		archiveNameInput.name = 'archiveName';
-		archiveNameInput.value = $t('homework.label.submissions');
+		archiveNameInput.value = `${$t('homework.label.submissions')}-${archiveFilename}`;
 
 		const fileRecordIdsInput = document.createElement('input');
 		fileRecordIdsInput.type = 'hidden';
