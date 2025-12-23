@@ -203,7 +203,7 @@ $(document).ready(() => {
 		const archiveNameInput = document.createElement('input');
 		archiveNameInput.type = 'hidden';
 		archiveNameInput.name = 'archiveName';
-		archiveNameInput.value = `${$t('homework.label.submissions')}-${archiveFilename}`;
+		archiveNameInput.value = `${$t('homework.label.submissions')} - ${archiveFilename}`;
 
 		const fileRecordIdsInput = document.createElement('input');
 		fileRecordIdsInput.type = 'hidden';
