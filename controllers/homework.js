@@ -45,7 +45,7 @@ function collectUngradedFiles(submissions) {
 
 	return {
 		empty: _.isEmpty(ungradedFiles),
-		urls: ungradedFiles.map(filesStoragesHelper.getFileDownloadPath).join(' '),
+		ids: ungradedFiles.map((file) => file.id),
 		fileNames: ungradedFiles.map((file) => file.name),
 	};
 }
