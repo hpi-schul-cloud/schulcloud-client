@@ -1863,7 +1863,7 @@
 			"copy": "Copy",
 			"copySubmissionFromList": "Copy",
 			"deleteSubmissionFromList": "Delete",
-			"downloadUngradedFiles": "Ungraded task",
+			"downloadUngradedFiles": "Download ungraded task files",
 			"editSubmissionFromList": "Edit",
 			"hrefAlt": "Delete submission",
 			"hrefDataName": "Your submission",
