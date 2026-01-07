@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import multiDownload from 'multi-download';
 
 let lastFocusedElement;
 
@@ -192,13 +191,33 @@ $(document).ready(() => {
 
 	// allow muti-download
 	$('button.multi-download').on('click', function action() {
-		const files = $(this).data('files').split(' ');
+		const fileRecordIds = $(this).data('files').split(',');
+		const taskTitle = $(this).data('task-title');
+		const archiveFilename = `${$t('homework.label.submissions')} - ${taskTitle}`;
+		const trimmedArchiveFileName = archiveFilename.substring(0, 140);
 
-		// renaming here does not work, because the files are all served from a different origin
-		multiDownload(files).then(() => {
-			// Clicking a link, even if it is a download link, triggers a `beforeunload` event. Undo those changes here.
-			setTimeout(() => document.querySelector('body').classList.add('loaded'), 1000);
-		});
+		const form = document.createElement('form');
+		form.method = 'POST';
+		form.action = '/api/v3/file/download-files-as-archive';
+		form.enctype = 'application/json';
+		form.target = '_blank';
+
+		const archiveNameInput = document.createElement('input');
+		archiveNameInput.type = 'hidden';
+		archiveNameInput.name = 'archiveName';
+		archiveNameInput.value = trimmedArchiveFileName;
+
+		const fileRecordIdsInput = document.createElement('input');
+		fileRecordIdsInput.type = 'hidden';
+		fileRecordIdsInput.name = 'fileRecordIds';
+		fileRecordIdsInput.value = JSON.stringify(fileRecordIds);
+
+		form.appendChild(fileRecordIdsInput);
+		form.appendChild(archiveNameInput);
+
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
 	});
 
 	const $dontShowAgainAlertModal = $('.dontShowAgainAlert-modal');

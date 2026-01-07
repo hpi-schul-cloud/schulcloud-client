@@ -146,7 +146,7 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 	let system;
 
 	// Validate systemId to protect from SSRF
-	if (!/^[a-f\d]$/i.test(systemId)) {
+	if (!/^[a-f\d]{24}$/i.test(systemId)) {
 		return res.status(400).json({ error: 'Invalid systemId format' });
 	}
 
