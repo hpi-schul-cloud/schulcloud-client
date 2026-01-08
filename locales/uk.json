@@ -17,8 +17,7 @@
 			"noDueDate": "Дата подання не встановлена",
 			"noMaterialsYetLookAtOthers": "Ви ще не створили власні матеріали. Але ви також можете черпати натхнення з матеріалів своїх колег. Перевірте <a href=\"/my-material\">Розділ «Мої матеріали»</a>.",
 			"graded": "Оцінено",
-			"handedIn": "Подані",
-			"surveyAnnouncement": "Візьміть участь в нашому опитуванні користувачів і допоможіть нам поліпшити хмарні технології. <a target='_blank' rel='noopener noreferrer' href='https://befragungen.dataport.de/umfrage/2019781/852cUJk'>Перейти до опитування.</a>"
+			"handedIn": "Подані"
 		},
 		"img_alt": {
 			"showAppointmentInTeam": "Показати призначення в команді",
@@ -1285,7 +1284,7 @@
 			"saveAndSubmit": "Надіслати заявку",
 			"submit": "надіслати",
 			"toTheCourseFiles": "До файлів курсу",
-			"downloadUngradedFiles": "Завантажити файли неоцінених домашніх завдань",
+			"downloadUngradedFiles": "Завантажити неоцінені збори",
 			"importing": "імпорт",
 			"importSubmission": "Імпортувати подання учнів",
 			"copySubmissionFromList": "Копіювати",
@@ -2538,7 +2537,7 @@
 			},
 			"text": {
 				"whatKindOfFeedbackDoYouWant": "Який відгук ви хотіли б надіслати нам?",
-				"thankYouForYourFeedback": "Дякуємо за ваш відгук, його буде надіслано безпосередньо команді розробників {{shortTitle}}. Будьте обережні, не надсилайте паролі чи інші конфіденційні дані.",
+				"thankYouForYourFeedback": "Дякуємо за відгук, він буде надісланий безпосередньо до служби підтримки {{shortTitle}}. Будь ласка, не надсилайте паролі та інші конфіденційні дані.",
 				"whoDoYouWantToContact": "До кого ви хочете звернутися?",
 				"whichAreaOfSchulCloud": "Якої області проєкту HPI Schul-Cloud стосується ваша тема?",
 				"contactSupport": "Зверніться до служби підтримки",

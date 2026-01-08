@@ -13,7 +13,7 @@ const { EDITOR_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
-const { logger, formatError } = require('../helpers');
+const { logger } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 
 const OPTIONAL_COURSE_FEATURES = ['messenger', 'videoconference'];
@@ -129,7 +129,7 @@ const createEventsForCourse = (req, res, course) => {
 		).catch((error) => {
 			logger.warn(
 				'failed creating events for the course, the calendar service might be unavailible',
-				formatError(error),
+				error,
 			);
 			req.session.notification = {
 				type: 'danger',
@@ -706,7 +706,7 @@ router.get('/:courseId/', async (req, res, next) => {
 		promises.push(apiEditor(req)
 			.get(`course/${req.params.courseId}/lessons`)
 			.catch((err) => {
-				logger.warn('Can not fetch new editor lessons.', formatError(err));
+				logger.warn('Can not fetch new editor lessons.', err);
 				editorBackendIsAlive = false;
 				return {
 					total: 0,

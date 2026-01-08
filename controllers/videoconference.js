@@ -18,7 +18,7 @@ router.post('/', (req, res, next) => {
 	const { scopeName, scopeId, options = {} } = req.body;
 	return authHelper.isAuthenticated(req).then(() => api(req, { version: 'v3' })
 		.post(`/videoconference/${scopeName}/${scopeId}`, {
-			body: options,
+			json: options,
 		}))
 		.then((response) => res.send(response))
 		.catch((error) => res.status(error.statusCode).send(sanitizeHtml(error)));

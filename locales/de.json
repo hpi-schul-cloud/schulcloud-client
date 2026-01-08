@@ -1014,8 +1014,7 @@
 			"noDueDate": "Kein Abgabedatum festgelegt",
 			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg:innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
-			"notFound": "Keine aktuellen Einträge vorhanden.",
-			"surveyAnnouncement": "Nehmen Sie an unserer Nutzendenbefragung teil und helfen Sie uns, die Cloud zu verbessern. <a target='_blank' rel='noopener noreferrer' href='https://befragungen.dataport.de/umfrage/2019781/852cUJk'>Hier geht's zur Befragung.</a>"
+			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
 	},
 	"dataprivacy": {
@@ -1627,7 +1626,7 @@
 				"contactSupport": "Support kontaktieren",
 				"contactSupportSubtitle": "Dein Problem ist nicht dabei? Kontaktiere den Support.",
 				"contactSupportSubtitleWish": "Du möchtest einen Wunsch mitteilen? Kontaktiere den Support.",
-				"thankYouForYourFeedback": "Danke für dein Feedback, es wird direkt an das Entwicklungsteam der {{shortTitle}} gesendet. Bitte achte darauf, keine Passwörter und andere sensible Daten mitzusenden.",
+				"thankYouForYourFeedback": "Danke für das Feedback, es wird direkt an das Support-Team der {{shortTitle}} gesendet. Bitte keine Passwörter oder andere sensible Daten mitsenden.",
 				"whatKindOfFeedbackDoYouWant": "Welche Art von Feedback möchtest du uns senden?",
 				"whichAreaOfSchulCloud": "Welchen Bereich der {{themeTitle}} betrifft dein Thema?",
 				"whoDoYouWantToContact": "Wen möchtest du kontaktieren?"
@@ -1864,7 +1863,7 @@
 			"copy": "Kopieren",
 			"copySubmissionFromList": "kopieren",
 			"deleteSubmissionFromList": "löschen",
-			"downloadUngradedFiles": "Unbewertete Aufgaben",
+			"downloadUngradedFiles": "Unbewertete Abgaben herunterladen",
 			"editSubmissionFromList": "bearbeiten",
 			"hrefAlt": "Abgabe löschen",
 			"hrefDataName": "deine Abgabe",

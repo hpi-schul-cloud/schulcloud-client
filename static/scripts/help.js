@@ -1,6 +1,6 @@
-import livesearch from './helpers/livesearch';
-import { resizeIframes } from './helpers/iFrameResize';
 import './help/contactForm';
+import { resizeIframes } from './helpers/iFrameResize';
+import livesearch from './helpers/livesearch';
 
 /* eslint-disable max-len */
 const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE =	Number($('.form-control-file').data('maxAttachmentSizeMb')) * 1024 * 1024;
@@ -92,19 +92,11 @@ $(document).ready(() => {
 			}
 		}
 		if (fileSize > MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE) {
-			if (this.files.length > 1) {
-				form.find('.file-alert').html(
-					'<i class="fa fa-exclamation"></i> '.concat(
-						$t('global.text.filesTooLarge'),
-					),
-				);
-			} else {
-				form.find('.file-alert').html(
-					'<i class="fa fa-exclamation"></i> '.concat(
-						$t('global.text.fileTooLarge'),
-					),
-				);
-			}
+			form.find('.file-alert').html(
+				'<i class="fa fa-exclamation"></i> '.concat(
+					$t('global.text.filesTooLarge'),
+				),
+			);
 			form.find(':submit').prop('disabled', true);
 		} else {
 			form.find('.file-alert').html('');

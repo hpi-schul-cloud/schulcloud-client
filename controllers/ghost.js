@@ -1,6 +1,6 @@
 const express = require('express');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const request = require('request-promise');
+const axios = require('axios');
 
 const router = express.Router();
 
@@ -13,19 +13,24 @@ router.get('/:slug', async (req, res, next) => {
 
 	const { slug } = req.params;
 
+	// Validate slug to protect from SSRF
+	if (!/^[a-zA-Z0-9_-]+$/.test(slug)) {
+		return res.status(400).json({ error: 'Invalid slug format' });
+	}
+
 	if (!cache[slug] || cache[slug].lastUpdatedTimestamp < Date.now() - 1000 * 60 * 5) {
 		const options = {
-			uri: `${Configuration.get('GHOST_BASE_URL')}/ghost/api/v3/content/pages/slug/${slug}/`,
-			qs: {
+			url: `${Configuration.get('GHOST_BASE_URL')}/ghost/api/v3/content/pages/slug/${slug}/`,
+			params: {
 				key: Configuration.get('GHOST_API_KEY'),
 				fields: 'html,title',
 			},
-			json: true,
 			timeout: Configuration.get('REQUEST_OPTION__TIMEOUT_MS'),
 		};
 
-		await request(options)
-			.then((page) => {
+		await axios(options)
+			.then((axiosRes) => {
+				const page = axiosRes.data;
 				const element = {
 					page,
 					lastUpdatedTimestamp: Date.now(),
