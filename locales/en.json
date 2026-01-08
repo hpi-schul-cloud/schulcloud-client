@@ -1169,7 +1169,6 @@
 			"foldersAreLocated": "Loading folders",
 			"foundIn": "found in:",
 			"foundMaliciousContent": "Wow! We have discovered potentially harmful content in this file.",
-			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online was not configured correctly!",
 			"newDir": "New folder",
 			"newFile": "New file",
 			"noAccessToThisFile": "You don't have access to this file!",
@@ -1180,7 +1179,6 @@
 			"searchResults": "Search results",
 			"storeFilesForUpload": "Place files to upload here, or search computer",
 			"studentCanEdit": "Students can edit?",
-			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
 			"uploadAfterFirstSave": "Files can only be uploaded after the first save."
 		}
 	},

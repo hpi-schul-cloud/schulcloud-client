@@ -121,32 +121,6 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = []) => api(req).get(`/files/${
 	});
 
 /**
- * check whether given files can be opened in LibreOffice
- */
-const checkIfOfficeFiles = (files) => {
-	if (!LIBRE_OFFICE_CLIENT_URL) {
-		logger.error('LibreOffice env is currently not defined.');
-		return files;
-	}
-	const officeFileTypes = [
-		'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
-		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
-		'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
-		'application/vnd.ms-powerpoint', // .ppt
-		'application/vnd.ms-excel', // .xlx
-		'application/vnd.ms-word', // .doc
-		'application/vnd.oasis.opendocument.text', // .odt
-		'text/plain', // .txt
-		'application/msword', // .doc
-	];
-
-	return files.map((f) => ({
-		isOfficeFile: officeFileTypes.indexOf(f.type) > -1,
-		...f,
-	}));
-};
-
-/**
  * generates the correct file's or directory's storage context for further requests
  */
 const getStorageContext = (req, res) => {
@@ -259,7 +233,7 @@ const FileGetter = (req, res, next) => {
 
 		res.locals.files = {
 			files: dataSort(
-				checkIfOfficeFiles(files.filter((f) => !f.isDirectory)),
+				files.filter((f) => !f.isDirectory),
 				res.locals.fileSort.sortBy,
 				res.locals.fileSort.sortOrder,
 			),
@@ -580,7 +554,7 @@ router.get('/shared/', (req, res) => {
 			.map(addThumbnails);
 
 		const files = {
-			files: checkIfOfficeFiles(data.filter((f) => !f.isDirectory)),
+			files: data.filter((f) => !f.isDirectory),
 			directories: data.filter((f) => f.isDirectory),
 		};
 
