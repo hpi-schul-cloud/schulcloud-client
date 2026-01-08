@@ -2939,7 +2939,6 @@
 				"geoGebraWorksheet": "GeoGebra Arbeitsblatt",
 				"material": "Lern-Material",
 				"text": "Text",
-				"h5p": "H5P"
 			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming zum Thema XYZ",
@@ -2969,9 +2968,4 @@
 			"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Admin, um diese Option zu ermöglichen."
 		}
 	},
-	"h5p": {
-		"text": {
-			"createAfterFirstSave": "H5P Inhalte können erst nach dem ersten Speichern erstellt werden."
-		}
-	}
 }

@@ -2938,9 +2938,7 @@
 				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra worksheet",
 				"material": "Learning material",
-				"text": "Text",
-				"h5p": "H5P"
-			},
+				"text": "Text"			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
 				"createsListInEtherpad": "Creates in the following Etherpad a Pro-Contra list on the topic XYC",
@@ -2967,11 +2965,6 @@
 			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
 			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference.",
 			"videoConferencesNotAllowedBySchool": "Video conferences are not allowed at your school. Contact your school administrator to enable this option."
-		}
-	},
-	"h5p": {
-		"text": {
-			"createAfterFirstSave": "H5P contents can only be created after the first save."
 		}
 	}
 }
