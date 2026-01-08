@@ -1081,7 +1081,6 @@
 			"ascending": "↑ aufsteigend",
 			"createANewFile": "Neue Datei erstellen",
 			"createANewFolder": "Neuen Ordner erstellen",
-			"createNewFile": "Datei erstellen",
 			"descending": "↓ absteigend",
 			"download": "Herunterladen",
 			"presentation": "Präsentation (pptx)",
@@ -1093,7 +1092,6 @@
 		},
 		"headline": {
 			"attention": "Achtung",
-			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
 			"newFolder": "Neuer Ordner",
 			"personalFiles": "Persönliche Dateien",

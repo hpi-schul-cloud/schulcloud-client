@@ -1081,7 +1081,6 @@
 			"ascending": "↑ ascendente",
 			"createANewFile": "Crear un nuevo archivo",
 			"createANewFolder": "Crear una nueva carpeta",
-			"createNewFile": "Crear archivo",
 			"descending": "↓ descendente",
 			"download": "Descargar",
 			"presentation": "Presentación (pptx)",
@@ -1093,7 +1092,6 @@
 		},
 		"headline": {
 			"attention": "Atención",
-			"createNewFile": "Crear un nuevo archivo",
 			"doYouWantToOpenThisFile": "¿Quieres abrir este archivo con un servicio externo?",
 			"newFolder": "Nueva carpeta",
 			"personalFiles": "Archivos personales",

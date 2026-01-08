@@ -1146,7 +1146,6 @@
 			"selectFormat": "Вибрати формат",
 			"table": "Таблиця (xlsx)",
 			"textDocument": "Текстовий документ (docx)",
-			"createNewFile": "Створити файл",
 			"download": "Завантажити",
 			"toTeam": "До команди"
 		},
@@ -1209,7 +1208,6 @@
 		},
 		"headline": {
 			"attention": "Увага",
-			"createNewFile": "Створити новий файл",
 			"doYouWantToOpenThisFile": "Ви хочете відкрити цей файл за допомогою зовнішнього сервісу?",
 			"newFolder": "Новий каталог",
 			"personalFiles": "Персональні файли",

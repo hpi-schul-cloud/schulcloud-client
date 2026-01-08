@@ -342,25 +342,6 @@ const registerSharedPermission = (userId, fileId, shareToken, req, res) => api(r
 	});
 
 /**
- * generates the correct LibreOffice url for (only) opening office-files
- * @param {*} fileId, the id of the file which has to be opened in LibreOffice
- * @param {*} accessToken, the auth token for the wopi-host later on
- * see https://wopi.readthedocs.io/en/latest/overview.html#integration-process for further details
- */
-const getLibreOfficeUrl = (fileId, accessToken) => {
-	if (!LIBRE_OFFICE_CLIENT_URL) {
-		logger.error('LibreOffice env is currently not defined.');
-		return '';
-	}
-
-	// in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980
-	const libreOfficeBaseUrl = LIBRE_OFFICE_CLIENT_URL;
-	const wopiRestUrl = `${PUBLIC_BACKEND_URL}/v1`;
-	const wopiSrc = `${wopiRestUrl}/wopi/files/${fileId}?access_token=${accessToken}`;
-	return `${libreOfficeBaseUrl}/loleaflet/dist/loleaflet.html?WOPISrc=${wopiSrc}`;
-};
-
-/**
  * generates saveName attribute with escaped quotes for an array of files
  * @param {*} files, the array of files
  * @returns The file array with saveName attribute
@@ -447,7 +428,6 @@ router.get('/file', (req, res, next) => {
 		download,
 		name,
 		share,
-		lool,
 	} = req.query;
 	const data = {
 		file,
@@ -459,32 +439,9 @@ router.get('/file', (req, res, next) => {
 		? registerSharedPermission(res.locals.currentUser._id, data.file, share, req, res)
 		: Promise.resolve();
 
-	sharedPromise.then(() => {
-		if (lool) {
-			return res.redirect(307, `/files/file/${file}/lool`);
-		}
-
-		return retrieveSignedUrl(req, data).then((signedUrl) => {
-			res.redirect(307, signedUrl.url);
-		});
-	}).catch(next);
-});
-
-// open in LibreOffice Online frame
-router.get('/file/:id/lool', (req, res, next) => {
-	const { share } = req.query;
-
-	// workaround for faulty sanitze hook (& => &amp;)
-	if (share) {
-		api(req).get(`/files/${req.params.id}`).then(() => {
-			res.redirect(`/files/file?file=${req.params.id}&share=${share}&lool=true`);
-		}).catch(next);
-	} else {
-		res.render('files/lool', {
-			title: 'LibreOffice Online',
-			libreOfficeUrl: getLibreOfficeUrl(req.params.id, req.cookies.jwt),
-		});
-	}
+	sharedPromise.then(() => retrieveSignedUrl(req, data).then((signedUrl) => {
+		res.redirect(307, signedUrl.url);
+	})).catch(next);
 });
 
 // move file

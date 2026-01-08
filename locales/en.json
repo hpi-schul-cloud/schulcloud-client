@@ -1081,7 +1081,6 @@
 			"ascending": "↑ ascending",
 			"createANewFile": "Create a new file",
 			"createANewFolder": "Create a new folder",
-			"createNewFile": "Create file",
 			"descending": "↓ descending",
 			"download": "Download",
 			"presentation": "Presentation (pptx)",
@@ -1093,7 +1092,6 @@
 		},
 		"headline": {
 			"attention": "Attention",
-			"createNewFile": "Create a new file",
 			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
 			"newFolder": "New folder",
 			"personalFiles": "Personal files",

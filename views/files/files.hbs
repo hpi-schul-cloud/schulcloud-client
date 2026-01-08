@@ -89,11 +89,6 @@
 				<button class="btn btn-primary create-directory" data-testid="create-new-folder-btn">
 					<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
 				</button>
-				{{#if ../canCreateFile}}
-				<button class="btn btn-primary new-file" data-testid="create-new-file-btn" data-file-path="{{this.path}}">
-					<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFile" }}
-				</button>
-				{{/if}}
 			</div>
 		</div>
 		{{/if}}
