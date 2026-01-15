@@ -1015,7 +1015,11 @@
 			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg:innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
 			"notFound": "Keine aktuellen Einträge vorhanden.",
-			"lernStoreBannerTitle": "Lern-Store-Inhalte neu organisiert"
+			"lernStoreBannerTitle": "Lern-Store-Inhalte neu organisiert",
+			"lernStoreHelpLinkText": "Hilfeseite",
+			"lernStoreBannerItem0": "Alle Lern-Store-Inhalte stehen ab sofort im Medienregal zur Verfügung und können als Tool in Kursen sowie in Bereichen eingebunden werden.",
+			"lernStoreBannerItem1": "Bereits in Themen eingebundene Lern-Store-Inhalte sind weiterhin verfügbar.",
+			"lernStoreBannerItem2": "Die Seite Lern-Store wird in KW 9 (24.02.2026) abgeschaltet – weitere Infos auf unserer "
 		}
 	},
 	"dataprivacy": {

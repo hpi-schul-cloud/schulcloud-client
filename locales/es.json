@@ -1014,7 +1014,12 @@
 			"noDueDate": "No se ha fijado una fecha de envío",
 			"noMaterialsYetLookAtOthers": "Aún no has creado tus propios materiales. También puedes inspirarte en los materiales de tus compañeros. Consulta la <a href=\"/my-material\">sección \"Mis materiales\"</a>.",
 			"noNews": "No hay noticias",
-			"notFound": "No se han encontrado entradas activas."
+			"notFound": "No se han encontrado entradas activas.",
+			"lernStoreBannerTitle": "Contenidos de la Tienda de Aprendizaje reorganizados",
+			"lernStoreHelpLinkText": "página de ayuda",
+			"lernStoreBannerItem0":	"Todos los contenidos de la Tienda de Aprendizaje ya están disponibles en el Estante de Medios y pueden integrarse como herramienta en cursos y áreas.",
+			"lernStoreBannerItem1":	"Los contenidos de la Tienda de Aprendizaje ya incorporados en temas siguen disponibles.",
+			"lernStoreBannerItem2":	"La página de la Tienda de Aprendizaje se desactivará en la semana 9 (24.02.2026) – más información en nuestra "
 		}
 	},
 	"dataprivacy": {

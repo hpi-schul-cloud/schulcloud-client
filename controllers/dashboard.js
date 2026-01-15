@@ -12,6 +12,7 @@ const api = require('../api');
 const timesHelper = require('../helpers/timesHelper');
 
 const recurringEventsHelper = require('../helpers/recurringEvents');
+const { SC_THEME } = require('../config/global');
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -360,6 +361,19 @@ router.get('/', (req, res, next) => {
 				);
 			}
 
+			const urlToHelpPageForBanner = () => {
+				switch (SC_THEME) {
+					case 'n21':
+						return 'https://niedersachsen.cloud/help/confluence/44073000';
+					case 'thr':
+						return 'https://schulcloud-thueringen.de/help/confluence/44073000';
+					case 'brb':
+						return 'https://brandenburg.cloud/help/confluence/44073000';
+					default:
+						return 'https://dbildungscloud.de/help/confluence/44073000';
+				}
+			};
+
 			res.render('dashboard/dashboard', {
 				title: res.$t('dashboard.headline.title'),
 				events: events.reverse(),
@@ -380,6 +394,7 @@ router.get('/', (req, res, next) => {
 				news,
 				hours,
 				currentTimePercentage,
+				bannerUrl: urlToHelpPageForBanner(),
 				showNewReleaseModal: newRelease,
 				currentTime: timesHelper.fromUTC(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),

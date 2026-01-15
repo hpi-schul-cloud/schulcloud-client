@@ -95,7 +95,6 @@
     {{#hasConfig "DASHBOARD_ANNOUNCEMENT_ROLES"}}
         {{#ifneq (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ""}}
             {{#if (userHasRoleFromArray (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ../currentUser)}}
-
                     <div style="position: relative; display: flex; padding: 16px; margin-bottom: 0; margin-top: 48px; border-radius: 4px; font-family: Roboto, sans-serif; font-size: 14px; line-height: 1.5; background-color: rgb(227, 242, 253); color: rgb(1, 87, 155);" role="alert">
                         <div style="display: flex; align-items: flex-start; padding-right: 16px; flex-shrink: 0;">
                             <svg style="width: 24px; height: 24px; fill: currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -106,10 +105,11 @@
                             <div style="font-weight: 700; margin-bottom: 4px; font-size: 19px;">
                                 <span style="color: rgba(58,66,75);">{{{$t "dashboard.text.lernStoreBannerTitle"}}}</span>
                             </div>
-                            <div style="color: rgba(58,66,75)">
+                            <div style="color: rgba(58,66,75); font-size: 16px;">
                                 <ul style="margin-top: 4px; padding-left: 20px; margin-bottom: 0;">
-                                    <li style="margin-bottom: 8px;">{{{$t "dashboard.text.lernStoreBannerTitle"}}}</li>
-                                    <li style="margin-bottom: 0;">{{{$t "dashboard.text.lernStoreBannerTitle"}}}</li>
+                                    <li>{{{$t "dashboard.text.lernStoreBannerItem0"}}}</li>
+                                    <li>{{{$t "dashboard.text.lernStoreBannerItem1"}}}</li>
+                                    <li>{{this.bannerUrl}}{{{$t "dashboard.text.lernStoreBannerItem2" }}}<a target="_blank" href="{{../this.bannerUrl}}">{{{$t "dashboard.text.lernStoreHelpLinkText" }}}.</a></li>
                                 </ul>
                             </div>
                         </div>
