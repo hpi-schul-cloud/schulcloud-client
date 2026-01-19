@@ -579,11 +579,6 @@
 			"default": false,
 			"description": "Changes the login flow to one that supports user login migrations"
 		},
-		"FEATURE_LESSON_H5P_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "If enabled, adds H5P editor to course topics."
-		},
 		"FEATURE_GROUPS_IN_COURSE_ENABLED": {
 			"type": "boolean",
 			"default": false,
