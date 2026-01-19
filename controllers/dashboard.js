@@ -361,16 +361,16 @@ router.get('/', (req, res, next) => {
 				);
 			}
 
-			const urlToHelpPageForBanner = () => {
+			const translateKeyInfobanner = () => {
 				switch (SC_THEME) {
 					case 'n21':
-						return 'https://niedersachsen.cloud/help/confluence/44073000';
+						return 'dashboard.text.lernStoreBannerItem0_n21';
 					case 'thr':
-						return 'https://schulcloud-thueringen.de/help/confluence/44073000';
+						return 'dashboard.text.lernStoreBannerItem0_thr';
 					case 'brb':
-						return 'https://brandenburg.cloud/help/confluence/44073000';
+						return 'dashboard.text.lernStoreBannerItem0_brb';
 					default:
-						return 'https://dbildungscloud.de/help/confluence/44073000';
+						return 'dashboard.text.lernStoreBannerItem0_n21';
 				}
 			};
 
@@ -394,7 +394,7 @@ router.get('/', (req, res, next) => {
 				news,
 				hours,
 				currentTimePercentage,
-				bannerUrl: urlToHelpPageForBanner(),
+				translateKeyInfoBanner: translateKeyInfobanner(),
 				showNewReleaseModal: newRelease,
 				currentTime: timesHelper.fromUTC(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),
