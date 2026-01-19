@@ -370,7 +370,7 @@ router.get('/', (req, res, next) => {
 					case 'brb':
 						return 'dashboard.text.lernStoreBannerItem0_brb';
 					default:
-						return 'dashboard.text.lernStoreBannerItem0_n21';
+						return 'dashboard.text.lernStoreBannerItem0_dbc';
 				}
 			};
 
