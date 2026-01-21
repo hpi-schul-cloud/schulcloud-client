@@ -1081,7 +1081,6 @@
 			"ascending": "↑ aufsteigend",
 			"createANewFile": "Neue Datei erstellen",
 			"createANewFolder": "Neuen Ordner erstellen",
-			"createNewFile": "Datei erstellen",
 			"descending": "↓ absteigend",
 			"download": "Herunterladen",
 			"presentation": "Präsentation (pptx)",
@@ -1093,7 +1092,6 @@
 		},
 		"headline": {
 			"attention": "Achtung",
-			"createNewFile": "Neue Datei erstellen",
 			"doYouWantToOpenThisFile": "Möchtest du diese Datei mit einem externen Dienst öffnen?",
 			"newFolder": "Neuer Ordner",
 			"personalFiles": "Persönliche Dateien",
@@ -1171,7 +1169,6 @@
 			"foldersAreLocated": "Ordner werden geladen",
 			"foundIn": "gefunden in:",
 			"foundMaliciousContent": "Oha! Wir haben in dieser Datei möglicherweise schädlichen Inhalt entdeckt.",
-			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online wurde nicht richtig konfiguriert!",
 			"newDir": "Neuer Ordner",
 			"newFile": "Neue Datei",
 			"noAccessToThisFile": "Zu dieser Datei haben Sie keinen Zugriff!",
@@ -1182,7 +1179,6 @@
 			"searchResults": "Suchergebnisse",
 			"storeFilesForUpload": "Dateien zum Hochladen hier ablegen oder Computer durchsuchen",
 			"studentCanEdit": "Schüler:innen können editieren?",
-			"tips": "TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern",
 			"uploadAfterFirstSave": "Dateien können erst nach dem ersten Speichern hochgeladen werden."
 		}
 	},

@@ -12,7 +12,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 const { logger } = require('../helpers');
-const { LIBRE_OFFICE_CLIENT_URL, PUBLIC_BACKEND_URL, FEATURE_TEAMS_ENABLED } = require('../config/global');
+const { FEATURE_TEAMS_ENABLED } = require('../config/global');
 const { useNextcloudFilesystem, makeNextcloudFolderName } = require('../helpers/nextcloud');
 
 const router = express.Router();
@@ -119,32 +119,6 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = []) => api(req).get(`/files/${
 
 		return Promise.resolve(breadcrumbs);
 	});
-
-/**
- * check whether given files can be opened in LibreOffice
- */
-const checkIfOfficeFiles = (files) => {
-	if (!LIBRE_OFFICE_CLIENT_URL) {
-		logger.error('LibreOffice env is currently not defined.');
-		return files;
-	}
-	const officeFileTypes = [
-		'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
-		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
-		'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
-		'application/vnd.ms-powerpoint', // .ppt
-		'application/vnd.ms-excel', // .xlx
-		'application/vnd.ms-word', // .doc
-		'application/vnd.oasis.opendocument.text', // .odt
-		'text/plain', // .txt
-		'application/msword', // .doc
-	];
-
-	return files.map((f) => ({
-		isOfficeFile: officeFileTypes.indexOf(f.type) > -1,
-		...f,
-	}));
-};
 
 /**
  * generates the correct file's or directory's storage context for further requests
@@ -259,7 +233,7 @@ const FileGetter = (req, res, next) => {
 
 		res.locals.files = {
 			files: dataSort(
-				checkIfOfficeFiles(files.filter((f) => !f.isDirectory)),
+				files.filter((f) => !f.isDirectory),
 				res.locals.fileSort.sortBy,
 				res.locals.fileSort.sortOrder,
 			),
@@ -340,25 +314,6 @@ const registerSharedPermission = (userId, fileId, shareToken, req, res) => api(r
 		}
 		return Promise.resolve(file);
 	});
-
-/**
- * generates the correct LibreOffice url for (only) opening office-files
- * @param {*} fileId, the id of the file which has to be opened in LibreOffice
- * @param {*} accessToken, the auth token for the wopi-host later on
- * see https://wopi.readthedocs.io/en/latest/overview.html#integration-process for further details
- */
-const getLibreOfficeUrl = (fileId, accessToken) => {
-	if (!LIBRE_OFFICE_CLIENT_URL) {
-		logger.error('LibreOffice env is currently not defined.');
-		return '';
-	}
-
-	// in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980
-	const libreOfficeBaseUrl = LIBRE_OFFICE_CLIENT_URL;
-	const wopiRestUrl = `${PUBLIC_BACKEND_URL}/v1`;
-	const wopiSrc = `${wopiRestUrl}/wopi/files/${fileId}?access_token=${accessToken}`;
-	return `${libreOfficeBaseUrl}/loleaflet/dist/loleaflet.html?WOPISrc=${wopiSrc}`;
-};
 
 /**
  * generates saveName attribute with escaped quotes for an array of files
@@ -447,7 +402,6 @@ router.get('/file', (req, res, next) => {
 		download,
 		name,
 		share,
-		lool,
 	} = req.query;
 	const data = {
 		file,
@@ -459,32 +413,9 @@ router.get('/file', (req, res, next) => {
 		? registerSharedPermission(res.locals.currentUser._id, data.file, share, req, res)
 		: Promise.resolve();
 
-	sharedPromise.then(() => {
-		if (lool) {
-			return res.redirect(307, `/files/file/${file}/lool`);
-		}
-
-		return retrieveSignedUrl(req, data).then((signedUrl) => {
-			res.redirect(307, signedUrl.url);
-		});
-	}).catch(next);
-});
-
-// open in LibreOffice Online frame
-router.get('/file/:id/lool', (req, res, next) => {
-	const { share } = req.query;
-
-	// workaround for faulty sanitze hook (& => &amp;)
-	if (share) {
-		api(req).get(`/files/${req.params.id}`).then(() => {
-			res.redirect(`/files/file?file=${req.params.id}&share=${share}&lool=true`);
-		}).catch(next);
-	} else {
-		res.render('files/lool', {
-			title: 'LibreOffice Online',
-			libreOfficeUrl: getLibreOfficeUrl(req.params.id, req.cookies.jwt),
-		});
-	}
+	sharedPromise.then(() => retrieveSignedUrl(req, data).then((signedUrl) => {
+		res.redirect(307, signedUrl.url);
+	})).catch(next);
 });
 
 // move file
@@ -623,7 +554,7 @@ router.get('/shared/', (req, res) => {
 			.map(addThumbnails);
 
 		const files = {
-			files: checkIfOfficeFiles(data.filter((f) => !f.isDirectory)),
+			files: data.filter((f) => !f.isDirectory),
 			directories: data.filter((f) => f.isDirectory),
 		};
 
