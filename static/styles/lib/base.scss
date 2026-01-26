@@ -214,25 +214,16 @@ footer {
 		}
 
 		.imprint {
-			.center {
-				text-align: center;
-				align-items: center;
-
-				.made-with-love {
-					margin-top: 8px;
-
-					.heart {
-						color: $primaryColor;
-					}
-				}
-			}
-
-			#footer-logo {
-				width: auto;
-				max-width: 175px;
-				height: auto;
-				max-height: 44px;
-			}
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			text-align: center;
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			margin-bottom: 30px;
 		}
 	}
 
