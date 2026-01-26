@@ -80,6 +80,7 @@ const config = {
 		'Access-Control-Allow-Credentials': 'true',
 		'Referrer-Policy': 'same-origin',
 		'Feature-Policy': "vibrate 'self'; speaker *; fullscreen *; sync-xhr *; notifications 'self'; push 'self'; geolocation 'self'; midi 'self'; microphone 'self'; camera 'self'; magnetometer 'self'; gyroscope 'self'; payment 'none';",
+		'Cache-Control': 'no-cache="set-cookie", private',
 	},
 };
 
