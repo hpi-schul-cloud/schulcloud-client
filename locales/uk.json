@@ -1152,7 +1152,6 @@
 			"selectFormat": "Вибрати формат",
 			"table": "Таблиця (xlsx)",
 			"textDocument": "Текстовий документ (docx)",
-			"createNewFile": "Створити файл",
 			"download": "Завантажити",
 			"toTeam": "До команди"
 		},
@@ -1199,7 +1198,6 @@
 			"foldersAreLocated": "Завантаження каталогів",
 			"foundIn": "знайдено в:",
 			"foundMaliciousContent": "Ого! Ми виявили в цьому файлі потенційно шкідливий контент.",
-			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online налаштовано неправильно!",
 			"noSearchResults": "Немає результатів пошуку",
 			"pleaseTryAgainLaterOrNotifyYourAdministrator": "Спробуйте пізніше або повідомте адміністратора.",
 			"rememberThisSelection": "Запам’ятайте цей вибір",
@@ -1207,7 +1205,6 @@
 			"searchResults": "Результати пошуку",
 			"storeFilesForUpload": "Розмістіть тут файли для завантаження або здійсніть пошук на комп’ютері",
 			"studentCanEdit": "Чи можуть учні редагувати?",
-			"tips": "ПОРАДА: Щоб підвищити результати, відкрийте документ LibreOffice в окремому вікні",
 			"newDir": "Новий каталог",
 			"newFile": "Новий файл",
 			"noAccessToThisFile": "Ви не маєте доступу до цього файлу!",
@@ -1215,7 +1212,6 @@
 		},
 		"headline": {
 			"attention": "Увага",
-			"createNewFile": "Створити новий файл",
 			"doYouWantToOpenThisFile": "Ви хочете відкрити цей файл за допомогою зовнішнього сервісу?",
 			"newFolder": "Новий каталог",
 			"personalFiles": "Персональні файли",

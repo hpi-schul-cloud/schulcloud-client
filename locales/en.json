@@ -1087,7 +1087,6 @@
 			"ascending": "↑ ascending",
 			"createANewFile": "Create a new file",
 			"createANewFolder": "Create a new folder",
-			"createNewFile": "Create file",
 			"descending": "↓ descending",
 			"download": "Download",
 			"presentation": "Presentation (pptx)",
@@ -1099,7 +1098,6 @@
 		},
 		"headline": {
 			"attention": "Attention",
-			"createNewFile": "Create a new file",
 			"doYouWantToOpenThisFile": "Do you want to open this file with an external service?",
 			"newFolder": "New folder",
 			"personalFiles": "Personal files",
@@ -1177,7 +1175,6 @@
 			"foldersAreLocated": "Loading folders",
 			"foundIn": "found in:",
 			"foundMaliciousContent": "Wow! We have discovered potentially harmful content in this file.",
-			"libreOfficeOnlineWasNotConfiguredCorrectly": "LibreOffice Online was not configured correctly!",
 			"newDir": "New folder",
 			"newFile": "New file",
 			"noAccessToThisFile": "You don't have access to this file!",
@@ -1188,7 +1185,6 @@
 			"searchResults": "Search results",
 			"storeFilesForUpload": "Place files to upload here, or search computer",
 			"studentCanEdit": "Students can edit?",
-			"tips": "TIP: Open the LibreOffice document in a separate window to improve performance",
 			"uploadAfterFirstSave": "Files can only be uploaded after the first save."
 		}
 	},

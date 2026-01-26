@@ -116,7 +116,6 @@ $(document).ready(() => {
 	const $deleteModal = $('.delete-modal');
 	const $moveModal = $('.move-modal');
 	const $renameModal = $('.rename-modal');
-	const $newFileModal = $('.new-file-modal');
 
 	const isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
 
@@ -365,11 +364,6 @@ $(document).ready(() => {
 		$renameModal.modal('hide');
 	});
 
-	$('.new-file').on('click', () => {
-		if (!window.location.href.includes('/courses/')) { $('#student-can-edit-div').hide(); }
-		$newFileModal.appendTo('body').modal('show');
-	});
-
 	const returnFileUrl = (fileId, fileName) => {
 		if (window.opener) {
 			const fullUrl = `/files/file?file=${fileId}&name=${fileName}`;
@@ -450,33 +444,6 @@ $(document).ready(() => {
 		).fail(showAJAXError);
 	});
 
-	$newFileModal.find('.modal-form').on('submit', (e) => {
-		e.preventDefault();
-
-		let studentEdit = false;
-		if (document.getElementById('student-can-edit')) {
-			studentEdit = document.getElementById('student-can-edit').checked;
-		}
-		const fileType = $('#file-ending').val();
-		if (!fileType || fileType === 'Format auswählen' || fileType === $t('files.button.selectFormat')) {
-			$.showNotification($t('files._file.text.pleaseSelectFileType'), 'danger', 30000);
-		} else {
-			$.post(
-				'/files/newFile',
-				{
-					name: $newFileModal.find('[name="new-file-name"]').val(),
-					type: fileType,
-					owner: getOwnerId(),
-					parent: getCurrentParent(),
-					studentEdit,
-				},
-				(id) => {
-					window.location.href = `/files/file/${id}/lool`;
-				},
-			).fail(showAJAXError);
-		}
-	});
-
 	$modals.find('.close, .btn-close').on('click', () => {
 		$modals.modal('hide');
 	});
@@ -493,7 +460,7 @@ $(document).ready(() => {
 			$.showNotification($t('files._file.text.fileNameEmpty'), 'danger', 5000);
 			return;
 		}
-			this.submit();
+		this.submit();
 	});
 
 	function fileMouseOverHandler() {
@@ -561,7 +528,7 @@ $(document).ready(() => {
 		}
 	});
 
-	const fileShare = (fileId, $shareModal, view) => {
+	const fileShare = (fileId, $shareModal) => {
 		const $input = $shareModal.find('input[name="invitation"]');
 
 		$input.click(() => {
@@ -573,9 +540,7 @@ $(document).ready(() => {
 
 		$.ajax({ url: `/files/share/?file=${fileId}` })
 			.then((result) => {
-				const target = view
-					? `files/file/${fileId}/lool?share=${result.shareToken}`
-					: `files/fileModel/${fileId}/proxy?share=${result.shareToken}`;
+				const target = `files/fileModel/${fileId}/proxy?share=${result.shareToken}`;
 				return $.ajax({
 					type: 'POST',
 					url: '/link/',
@@ -922,23 +887,6 @@ window.fileViewer = function fileViewer(type, name, id) {
 			$('.videostop').focus();
 			break;
 
-		case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': // .docx
-		case 'application/vnd.ms-word':
-		case 'application/msword': // .doc
-		case 'application/vnd.oasis.opendocument.text': // .odt
-		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': // .xlsx
-		case 'application/vnd.ms-excel':
-		case 'application/msexcel': // .xls
-		case 'application/vnd.oasis.opendocument.spreadsheet': // .ods
-		case 'application/vnd.openxmlformats-officedocument.presentationml.presentation': // .pptx
-		case 'application/vnd.ms-powerpoint':
-		case 'application/mspowerpoint': // .ppt
-		case 'application/vnd.oasis.opendocument.presentation': // .odp
-		case 'text/plain': // .txt
-			$('#file-view').hide();
-			win = window.open(`/files/file/${id}/lool`, '_self');
-			win.focus();
-			break;
 		case 'application/pdf': // .pdf
 			$('#file-view').hide();
 			win = window.open(`/files/file?file=${id}`, '_blank');
