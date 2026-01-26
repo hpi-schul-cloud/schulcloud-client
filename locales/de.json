@@ -1014,7 +1014,13 @@
 			"noDueDate": "Kein Abgabedatum festgelegt",
 			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg:innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
-			"notFound": "Keine aktuellen Einträge vorhanden."
+			"notFound": "Keine aktuellen Einträge vorhanden.",
+			"lernStoreBannerTitle": "Die Medien sind künftig über das Medienregal erreichbar",
+			"lernStoreBannerItem0_dbc": "Ab sofort sind die Mediatheken aus dem Lern-Store (Mundo und Wir lernen online) über das Medienregal verfügbar und die Inhalte können in Bereichen als Tool eingebunden werden. Weitere Infos zu den erweiterten Such- und Filtermöglichkeiten sowie der Einbindung von Inhalten via Deeplink sind auf den <a href=\"https://dbildungscloud.de/help/confluence/44073000\">Hilfeseiten</a> zu finden.",
+			"lernStoreBannerItem0_n21": "Ab sofort sind die Mediatheken aus dem Lern-Store (Mundo und Wir lernen online) über das Medienregal verfügbar und die Inhalte können in Bereichen als Tool eingebunden werden. Weitere Infos zu den erweiterten Such- und Filtermöglichkeiten sowie der Einbindung von Inhalten via Deeplink sind auf den <a href=\"https://niedersachsen.cloud/help/confluence/44073000\">Hilfeseiten</a> zu finden.",
+			"lernStoreBannerItem0_brb": "Ab sofort sind die Mediatheken aus dem Lern-Store (Mundo, Wir lernen online und FWU-Medien) über das Medienregal verfügbar und die Inhalte können in Bereichen als Tool eingebunden werden. Weitere Infos zu den erweiterten Such- und Filtermöglichkeiten sowie der Einbindung von Inhalten via Deeplink sind auf den <a href=\"https://brandenburg.cloud/help/confluence/44073000\">Hilfeseiten</a> zu finden.",
+			"lernStoreBannerItem0_thr": "Ab sofort sind die Mediatheken aus dem Lern-Store (Mundo, Wir lernen online und Mediothek/Pixiothek) über das Medienregal verfügbar und die Inhalte können in Bereichen als Tool eingebunden werden. Weitere Infos zu den erweiterten Such- und Filtermöglichkeiten sowie der Einbindung von Inhalten via Deeplink sind auf den <a href=\"https://schulcloud-thueringen.de/help/confluence/44073000\">Hilfeseiten</a> zu finden.",
+			"lernStoreBannerItem1": "Der Lern-Store wird daher in KW 10 (04.03.2026) abgeschaltet. In den Themen bereits eingebundene Lern-Store-Inhalte sind weiterhin verfügbar."
 		}
 	},
 	"dataprivacy": {

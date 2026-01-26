@@ -75,19 +75,49 @@
         </div>
     {{/if}}
 
-    {{#hasConfig "DASHBOARD_ANNOUNCEMENT_TEXT"}}
-        {{#hasConfig "DASHBOARD_ANNOUNCEMENT_ROLES"}}
-            {{#ifneq (getConfig "DASHBOARD_ANNOUNCEMENT_TEXT") ""}}
-                {{#ifneq (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ""}}
-                    {{#if (userHasRoleFromArray (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ../currentUser)}}
-                        <div class="alert dashboard-notification" role="alert">
-                            <i class="fa fa-fw fa-lightbulb-o fa-lg" style="margin: 6px 0.5rem 0 0.5rem" aria-hidden="true"></i><p class="dashboard-notification-text">{{{$t (getConfig "DASHBOARD_ANNOUNCEMENT_TEXT") }}}</p>
-                        </div>
-                    {{/if}}
+
+    {{!-- Announcement template for single text from config mapping to given translation key. Uncomment and fill in config to reactivate.
+        {{#hasConfig "DASHBOARD_ANNOUNCEMENT_TEXT"}}
+            {{#hasConfig "DASHBOARD_ANNOUNCEMENT_ROLES"}}
+                {{#ifneq (getConfig "DASHBOARD_ANNOUNCEMENT_TEXT") ""}}
+                    {{#ifneq (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ""}}
+                        {{#if (userHasRoleFromArray (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ../currentUser)}}
+                            <div class="alert dashboard-notification" role="alert">
+                                <i class="fa fa-fw fa-lightbulb-o fa-lg" style="margin: 6px 0.5rem 0 0.5rem" aria-hidden="true"></i><p class="dashboard-notification-text">{{{$t (getConfig "DASHBOARD_ANNOUNCEMENT_TEXT") }}}</p>
+                            </div>
+                        {{/if}}
+                    {{/ifneq}}
                 {{/ifneq}}
-            {{/ifneq}}
+            {{/hasConfig}}
         {{/hasConfig}}
+    --}}
+
+    {{#hasConfig "DASHBOARD_ANNOUNCEMENT_ROLES"}}
+        {{#ifneq (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ""}}
+            {{#if (userHasRoleFromArray (getConfig "DASHBOARD_ANNOUNCEMENT_ROLES") ../currentUser)}}
+                    <div style="position: relative; display: flex; padding: 16px; margin-bottom: 0; margin-top: 48px; border-radius: 4px; font-family: Roboto, sans-serif; font-size: 14px; line-height: 1.5; background-color: rgb(227, 242, 253); color: rgb(1, 87, 155);" role="alert">
+                        <div style="display: flex; align-items: flex-start; padding-right: 16px; flex-shrink: 0;">
+                            <svg style="width: 24px; height: 24px; fill: currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"></path>
+                            </svg>
+                        </div>
+                        <div style="flex: 1; align-self: center; font-family: 'PT Sans',serif">
+                            <div style="font-weight: 700; margin-bottom: 4px; font-size: 19px;">
+                                <span style="color: rgba(58,66,75);">{{{$t "dashboard.text.lernStoreBannerTitle"}}}</span>
+                            </div>
+                            <div style="color: rgba(58,66,75); font-size: 16px;">
+                                <ul style="margin-top: 4px; padding-left: 20px; margin-bottom: 0;">
+                                    <li>{{{$t ../translateKeyInfoBanner}}}</li>
+                                    <li>{{{$t "dashboard.text.lernStoreBannerItem1"}}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+            {{/if}}
+        {{/ifneq}}
     {{/hasConfig}}
+
+
 </section>
 
 {{#if (getConfig "FEATURE_DASHBOARD_NEWS_ON_TOP_ENABLED")}}
