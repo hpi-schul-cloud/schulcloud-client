@@ -23,6 +23,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
 const renameIdsInSchool = require('../helpers/schoolHelper');
+const translateKeyTeamsInfoBanner = require('../helpers/banner');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
@@ -1726,6 +1727,7 @@ router.all('/teams', async (req, res, next) => {
 					classes,
 					users,
 					pagination,
+					translateKeyTeamsInfoBanner: translateKeyTeamsInfoBanner(),
 					school,
 					limit: true,
 					isTeamCreationByStudentsEnabled,

@@ -2841,6 +2841,14 @@
 				"allFilesWillBeDeletedWarning": "Alle <b>Dateien</b> des Teams werden <b>unwiderruflich gelöscht</b>!"
 			}
 		},
+		"banner": {
+			"title": "Jetzt auf Räume umsteigen",
+			"item0": "In den <a href=\"/rooms\">Räumen</a> stehen nun alle Möglichkeiten bereit, um noch besser schulintern und -übergreifend zusammenzuarbeiten. Daher ist das Anlegen neuer Teams ab KW 12 (18.03.2026) nicht mehr möglich. Bestehende Teams bleiben bis auf Weiteres erhalten.",
+			"item1_dbc": "Ab diesem Zeitpunkt steht zudem der Chat in den Teams nicht mehr zur Verfügung. In den Räumen bietet sich alternativ die Chatfunktion in Etherpads für den gemeinsamen Austausch an. Wir empfehlen die rechtzeitige manuelle Sicherung wichtiger Informationen aus den Chats. Weitere Informationen finden sich auf den <a href=\"https://dbildungscloud.de/help/confluence/426313035\">Hilfeseiten</a>.",
+			"item1_n21": "Ab diesem Zeitpunkt steht zudem der Chat in den Teams nicht mehr zur Verfügung. In den Räumen bietet sich alternativ die Chatfunktion in Etherpads für den gemeinsamen Austausch an. Wir empfehlen die rechtzeitige manuelle Sicherung wichtiger Informationen aus den Chats. Weitere Informationen finden sich auf den <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
+			"item1_brb": "Ab diesem Zeitpunkt steht zudem der Chat in den Teams nicht mehr zur Verfügung. In den Räumen bietet sich alternativ die Chatfunktion in Etherpads für den gemeinsamen Austausch an. Wir empfehlen die rechtzeitige manuelle Sicherung wichtiger Informationen aus den Chats. Weitere Informationen finden sich auf den <a href=\"https://brandenburg.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
+			"item1_thr": "Ab diesem Zeitpunkt steht zudem der Chat in den Teams nicht mehr zur Verfügung. In den Räumen bietet sich alternativ die Chatfunktion in Etherpads für den gemeinsamen Austausch an. Wir empfehlen die rechtzeitige manuelle Sicherung wichtiger Informationen aus den Chats. Weitere Informationen finden sich auf den <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">Hilfeseiten</a>."
+		},
 		"add": {
 			"headline": {
 				"editTeam": "Team bearbeiten"

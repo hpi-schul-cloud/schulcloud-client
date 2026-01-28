@@ -10,6 +10,9 @@
         <script src="{{getAssetPath '/scripts/administration/teams.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
     {{#content "page" mode="prepend"}}
+
+        {{> 'teams/partials/teams-banner' translateKeyItem1=translateKeyTeamsInfoBanner}}
+
 			{{#ifConfig "STUDENT_TEAM_CREATION" "disabled"}}
 			<label>{{$t "administration.teams.label.cannotCreateTeam" }}
 				<p class="text-muted">{{$t "administration.teams.text.functionality" }}</p>
@@ -24,7 +27,7 @@
             <input type="hidden" name="_method" value="patch" />
             <div class="form-group" id="enableStudentsTeamsCreate">
 				<label>
-					<input type="checkbox" name="enablestudentteamcreation" data-testid="student_team_checkbox" 
+					<input type="checkbox" name="enablestudentteamcreation" data-testid="student_team_checkbox"
                         value="true"
                         {{#if ../isTeamCreationByStudentsEnabled}}
                             checked
