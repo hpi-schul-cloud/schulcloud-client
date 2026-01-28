@@ -1,6 +1,6 @@
 const { SC_THEME } = require('../config/global');
 
-const translateKeyInfoBanner = () => {
+const translateKeyTeamsInfoBanner = () => {
 	switch (SC_THEME) {
 		case 'n21':
 			return 'teams.banner.item1_n21';
@@ -13,4 +13,4 @@ const translateKeyInfoBanner = () => {
 	}
 };
 
-module.exports = translateKeyInfoBanner;
+module.exports = translateKeyTeamsInfoBanner;
