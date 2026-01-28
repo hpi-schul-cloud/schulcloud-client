@@ -7,6 +7,9 @@
     {{/content}}
 
     {{#content "page"}}
+
+        {{> 'teams/partials/teams-banner' translateKeyItem1=translateKeyTeamsInfoBanner}}
+
         <section class="section-courses">
             {{#if teams}}
                 {{> 'dashboard/components/card_section' section-id="teams" title="" content=teams link-text=($t "global.button.open") additionalInfoName="memberCount"}}
