@@ -14,7 +14,7 @@ const { logger } = require('../helpers');
 const timesHelper = require('../helpers/timesHelper');
 const { makeNextcloudFolderName, useNextcloudFilesystem } = require('../helpers/nextcloud');
 const { isUserHidden } = require('../helpers/users');
-const translateKeyTeamsInfoBanner = require('../helpers/banner');
+const getTeamsInfoBannerTranslateKey = require('../helpers/banner');
 
 const router = express.Router();
 moment.locale('de');
@@ -325,7 +325,7 @@ router.get('/', async (req, res, next) => {
 	} else if (teams.length !== 0 || teamInvitations.length !== 0) {
 		res.render('teams/overview', {
 			title: res.$t('teams.headline.myTeams'),
-			translateKeyTeamsInfoBanner: translateKeyTeamsInfoBanner(),
+			translateKeyTeamsInfoBanner: getTeamsInfoBannerTranslateKey(),
 			teams,
 			teamInvitations,
 			allowedCreateTeam,
@@ -336,7 +336,7 @@ router.get('/', async (req, res, next) => {
 		});
 	} else {
 		res.render('teams/overview-empty', {
-			translateKeyTeamsInfoBanner: translateKeyTeamsInfoBanner(),
+			translateKeyTeamsInfoBanner: getTeamsInfoBannerTranslateKey(),
 			allowedCreateTeam,
 		});
 	}
