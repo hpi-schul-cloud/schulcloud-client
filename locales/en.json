@@ -2875,7 +2875,13 @@
 		},
 		"text": {
 			"descriptionTeams": "Study group, school band or meeting of class representatives? Create a team to exchange material and news with each other - within your school or across schools.",
-			"studentsCantCreateTeams": "The school does not allow students to create teams in your school. Please contact a teacher or an administrator."
+			"studentsCantCreateTeams": "The school does not allow students to create teams in your school. Please contact a teacher or an administrator.",
+			"title": "Switch to Rooms now",
+			"item0": "All options for better collaboration within and across schools are now available in the <a href=\"/rooms\">Rooms</a>. Therefore, creating new teams will no longer be possible from week 12 (18.03.2026). Existing teams will remain available for the time being.",
+			"item1_dbc": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://dbildungscloud.de/help/confluence/426313035\">help pages</a>.",
+			"item1_n21": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">help pages</a>.",
+			"item1_brb": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://brandenburg.cloud/help/confluence/426313035\">help pages</a>.",
+			"item1_thr": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">help pages</a>."
 		},
 		"topics": {
 			"button": {
