@@ -301,10 +301,6 @@ const helpers = () => ({
 	},
 	isset: (value) => !!value,
 	getThumbnailIcon: (filename) => filesStorage.getThumbnailIcon(filename),
-	bytesToMB: (bytes) => {
-		const mb = bytes / 1024 / 1024;
-		return Math.round(mb * 10) / 10; // Round to 1 decimal place
-	},
 });
 
 module.exports = helpers;
