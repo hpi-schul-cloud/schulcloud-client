@@ -28,8 +28,5 @@
 		"SERVICE_BASE_URL": "http://localhost:4444",
 		"REQUEST_TIMEOUT": 600000,
 		"MAX_FILE_SIZE": 2684354560
-	},
-    "CSV_IMPORT": {
-        "MAX_FILE_SIZE": 5242880
-    }
+	}
 }

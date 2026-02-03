@@ -20,7 +20,7 @@ const timesHelper = require('../helpers/timesHelper');
 const router = express.Router();
 const upload = multer({
 	storage: multer.memoryStorage(),
-	limits: { fileSize: Configuration.get('CSV_IMPORT__MAX_FILE_SIZE') },
+	limits: { fileSize: Configuration.get('CSV_IMPORT_MAX_FILE_SIZE') },
 });
 
 const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');

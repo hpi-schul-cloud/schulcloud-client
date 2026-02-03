@@ -569,20 +569,11 @@
 				"MAX_FILE_SIZE"
 			]
 		},
-        "CSV_IMPORT": {
-			"type": "object",
-			"description": "CSV import for students and teachers, required always to be defined",
-			"properties": {
-				"MAX_FILE_SIZE": {
-					"type": "integer",
-					"minimum": 0,
-					"description": "Maximum file size for incoming requests in Byte"
-				}
-			},
-			"required": [
-				"MAX_FILE_SIZE"
-			]
-		},
+        "CSV_IMPORT_MAX_FILE_SIZE": {
+            "type": "integer",
+            "default": 5242880,
+            "description": "Maximum file size for incoming requests in Byte"
+        },
 		"FEATURE_CONSENT_NECESSARY": {
 			"type": "boolean",
 			"default": true,
