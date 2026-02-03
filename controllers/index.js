@@ -44,7 +44,7 @@ router.use('/administration/', require('./administration'));
 router.use('/alerts', require('./alerts'));
 router.use('/ghost', require('./ghost'));
 router.use('/blog', require('./blog'));
-router.use('/system/', require('./system'));
 router.use('/system/security/', require('./security'));
+router.use('/system/', require('./system'));
 
 module.exports = router;
