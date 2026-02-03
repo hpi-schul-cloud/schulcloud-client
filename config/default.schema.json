@@ -571,7 +571,7 @@
 		},
         "CSV_IMPORT_MAX_FILE_SIZE": {
             "type": "integer",
-            "default": 5242880,
+            "default": 20971520,
             "description": "Maximum file size for incoming requests in Byte"
         },
 		"FEATURE_CONSENT_NECESSARY": {
