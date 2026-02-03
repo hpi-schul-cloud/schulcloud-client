@@ -9,7 +9,7 @@
     <img src="{{getAssetPath '/images/csv_example.png'}}" />
 </p>
 <div class="form-group">
-    <label>{{$t "administration.form_Import.label.selectCSVFile" }}</label>
+    <label>{{$t "administration.form_Import.label.selectCSVFile" }} ({{$t "administration.form_Import.label.fileSizeInfo" }} {{ bytesToMB (getConfig "CSV_IMPORT__MAX_FILE_SIZE") }} MB)</label>
     <input class="form-control" name="csvFile" type="file" required />
 </div>
 <div class="form-group">
