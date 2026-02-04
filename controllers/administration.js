@@ -427,6 +427,21 @@ const getDetailHandler = (service) => function detailHandler(req, res, next) {
 		.catch(next);
 };
 
+const getUserDeleteHandler = (redirectUrl) => function deleteHandler(req, res, next) {
+	api(req, { version: 'v3' })
+		.delete(`/deletionRequestsPublic?ids[]=${req.params.id}`)
+		.then(() => {
+			if (redirectUrl) {
+				res.redirect(redirectUrl);
+			} else {
+				redirectHelper.safeBackRedirect(req, res);
+			}
+		})
+		.catch((err) => {
+			next(err);
+		});
+};
+
 const getDeleteHandler = (service, redirectUrl, apiVersion = 'v1') => function deleteHandler(req, res, next) {
 	api(req, { version: apiVersion })
 		.delete(`/${service}/${req.params.id}`)
@@ -636,7 +651,7 @@ router.get(
 );
 router.delete(
 	'/teachers/:id',
-	getDeleteHandler('users/v2/admin/teacher', '/administration/teachers'),
+	getUserDeleteHandler('/administration/teachers'),
 );
 
 router.get(
@@ -785,7 +800,7 @@ router.get(
 );
 router.delete(
 	'/students/:id',
-	getDeleteHandler('users/v2/admin/student', '/administration/students'),
+	getUserDeleteHandler('/administration/students'),
 );
 router.post(
 	'/students/:id/skipregistration/',
