@@ -2638,16 +2638,6 @@
 			"welcomeMailText": "Hello {{firstName}} \n You can log in to the {{title}} with the following login details: \n Address: {{address}} \n Email: {{email}} \n {{password}} \n {{infotext}} \n Your \n {{shortTitle}} team wishes you fun and a good start"
 		}
 	},
-	"security": {
-		"headline": {
-			"reportSecurityIssue": "Report security problem",
-			"security": "Security"
-		},
-		"text": {
-			"scIsTestedRegularyWeValueSecurity": "The {{themeTitle}} regularly undergoes security checks and penetration tests, as the security of our users' data is very important to us.",
-			"youHaveFoundAWeakness": "You still found a security problem? Write to us so that we can close the gap as soon as possible:"
-		}
-	},
 	"team": {
 		"headline": {
 			"team": "The HPI school cloud team"
