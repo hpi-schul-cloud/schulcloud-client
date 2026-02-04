@@ -240,6 +240,14 @@ $(document).ready(() => {
 });
 
 $(document).ready(function () {
+    const sidebarLinks = document.querySelectorAll('.sidebar-item, .subitem');
+    sidebarLinks.forEach((link) => {
+        link.addEventListener('click', function () {
+            if (window.innerWidth <= 1279) {
+                window.localStorage.setItem('sidebarExpanded', 'false');
+            }
+        });
+    });
     const groupToggleBtns = document.querySelectorAll('.group-toggle-btn');
     if (groupToggleBtns) {
         groupToggleBtns.forEach((btn) => {
