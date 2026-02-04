@@ -216,11 +216,6 @@ function fullscreenBtnClicked() {
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
-function showAJAXSuccess(message, modal) {
-    modal.modal('hide');
-    $.showNotification(message, "success", true);
-}
-
 function initEnterTheCloud() {
     const buttons = document.querySelectorAll('.enterthecloud-btn');
     const modal = document.querySelector('.enterthecloud-modal');
@@ -468,16 +463,6 @@ window.addEventListener("pageshow", function (e) {
     document.querySelector("body").classList.add("loaded");
     adjustContentWidthOnLoad();
 });
-
-function changeNavBarPositionToAbsolute() {
-    var navBar = document.querySelector('.nav-sidebar');
-    navBar.classList.add("position-absolute");
-}
-
-function changeNavBarPositionToFixed() {
-    var navBar = document.querySelector('.nav-sidebar');
-    navBar.classList.remove("position-absolute");
-}
 
 document.querySelectorAll('#main-content a').forEach((a) => {
     const href = a.getAttribute('href');
