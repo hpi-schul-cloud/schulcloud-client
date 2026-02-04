@@ -1048,7 +1048,7 @@
 		"support": {
 			"text": {
 				"supportDBC": "support@dbildungscloud.de",
-				"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+				"supportBRB": "support.scbb@meinlibra.de",
 				"supportNBC": "ticketsystem@niedersachsen.support",
 				"supportTHR": "schulcloud-support@thillm.de"
 			}
@@ -2015,7 +2015,7 @@
 				"valueStatement": "<li>un uso coherente de las soluciones de código abierto,</li><li>un desarrollo coherente centrado en el usuario,</li><li>una estructura estrictamente modular,</li><li>la función de la cooperación inter-escolar, que es importante para un país con una gran extension,</li><li>la conformidad de la EU-DSGVO/protección de datos a través de Privacy by Design,</li><li>la posibilidad de crear sinergias mediante la cooperación entre países.</li><br>",
 				"welcome": "Con la {{shortTitle}}, las escuelas de Brandenburgo disponen de un entorno digital de enseñanza-aprendizaje de uso intuitivo y que cumple con la protección de datos para las lecciones escolares que puede utilizarse en todo tipo de escuelas. La idea básica de la nube escolar es hacer que los contenidos educativos sean accesibles en cualquier lugar a través de la web.",
 				"welcome2": "Desde el 01.08.2021, la {{shortTitle}} se ha transferido a una infraestructura de enseñanza y aprendizaje interestatal sobre la base de un acuerdo administrativo entre los estados conjuntos de Brandenburgo, Baja Sajonia y Turingia, teniendo en cuenta los requisitos específicos de cada estado, y se está desarrollando conjuntamente.",
-				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>",
+				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto:support.scbb@meinlibra.de\">support.scbb@meinlibra.de</a>",
 				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Horario Oficial <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>"
 			}
 		},
@@ -2875,7 +2875,13 @@
 		},
 		"text": {
 			"descriptionTeams": "¿Grupo de estudio, equipo escolar o reunión de representantes de la clase? Crea un equipo para que puedan intercambiar material y noticias entre ellos, dentro de tu escuela o entre escuelas.",
-			"studentsCantCreateTeams": "La escuela no permite que los estudiantes creen equipos en tu escuela. Ponte en contacto con un profesor o administrador."
+			"studentsCantCreateTeams": "La escuela no permite que los estudiantes creen equipos en tu escuela. Ponte en contacto con un profesor o administrador.",
+			"title": "Cambio a Espacios ahora",
+			"item0": "En los <a href=\"/rooms\">Espacios</a> ahora están disponibles todas las opciones para colaborar mejor dentro y entre escuelas. Por lo tanto, a partir de la semana 12 (18.03.2026) ya no será posible crear nuevos equipos. Los equipos existentes se mantendrán hasta nuevo aviso.",
+			"item1_dbc": "A partir de este momento, el chat en los equipos ya no estará disponible. En los Espacios, la función de chat en Etherpads ofrece una alternativa para el intercambio conjunto. Recomendamos guardar manualmente y a tiempo la información importante de los chats. Más información está disponible en las <a href=\"https://dbildungscloud.de/help/confluence/426313035\">páginas de ayuda</a>.",
+			"item1_n21": "A partir de este momento, el chat en los equipos ya no estará disponible. En los Espacios, la función de chat en Etherpads ofrece una alternativa para el intercambio conjunto. Recomendamos guardar manualmente y a tiempo la información importante de los chats. Más información está disponible en las <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">páginas de ayuda</a>.",
+			"item1_brb": "A partir de este momento, el chat en los equipos ya no estará disponible. En los Espacios, la función de chat en Etherpads ofrece una alternativa para el intercambio conjunto. Recomendamos guardar manualmente y a tiempo la información importante de los chats. Más información está disponible en las <a href=\"https://brandenburg.cloud/help/confluence/426313035\">páginas de ayuda</a>.",
+			"item1_thr": "A partir de este momento, el chat en los equipos ya no estará disponible. En los Espacios, la función de chat en Etherpads ofrece una alternativa para el intercambio conjunto. Recomendamos guardar manualmente y a tiempo la información importante de los chats. Más información está disponible en las <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">páginas de ayuda</a>."
 		},
 		"topics": {
 			"button": {

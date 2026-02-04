@@ -1048,7 +1048,7 @@
 		"support": {
 			"text": {
 				"supportDBC": "support@dbildungscloud.de",
-				"supportBRB": "schul-cloud@bildungsserver.berlin-brandenburg.de",
+				"supportBRB": "support.scbb@meinlibra.de",
 				"supportNBC": "ticketsystem@niedersachsen.support",
 				"supportTHR": "schulcloud-support@thillm.de"
 			}
@@ -2015,7 +2015,7 @@
 				"valueStatement": "<li>a consistent use of open source solutions,</li><li>a consistently user-centered development,</li><li>a strictly modular structure,</li><li>which is important for a large country Function of cross-school cooperation,</li><li>the EU-DSGVO/data protection conformity through privacy by design,</li><li>the possibility of creating synergies through national cooperation.</li><br>",
 				"welcome": "With the {{shortTitle}}, schools in Brandenburg have an intuitively usable and data protection-compliant digital teaching-learning environment for school lessons that can be used across all types of schools. The basic idea of the school cloud is to make educational content accessible everywhere on a web-based basis.",
 				"welcome2": "Since August 1st, 2021, the {{shortTitle}} has been transferred to a cross-state teaching and learning infrastructure based on an administrative agreement between the federal states of Brandenburg, Lower Saxony and Thuringia, taking into account state-specific requirements, and jointly further developed.",
-				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto: schul-cloud@bildungsserver.berlin-brandenburg.de\">schul-cloud@bildungsserver.berlin-brandenburg.de</a>",
+				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto:support.scbb@meinlibra.de\">support.scbb@meinlibra.de</a>",
 				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Office hours <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>"
 			}
 		},
@@ -2875,7 +2875,13 @@
 		},
 		"text": {
 			"descriptionTeams": "Study group, school band or meeting of class representatives? Create a team to exchange material and news with each other - within your school or across schools.",
-			"studentsCantCreateTeams": "The school does not allow students to create teams in your school. Please contact a teacher or an administrator."
+			"studentsCantCreateTeams": "The school does not allow students to create teams in your school. Please contact a teacher or an administrator.",
+			"title": "Switch to Rooms now",
+			"item0": "All options for better collaboration within and across schools are now available in the <a href=\"/rooms\">Rooms</a>. Therefore, creating new teams will no longer be possible from week 12 (18.03.2026). Existing teams will remain available for the time being.",
+			"item1_dbc": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://dbildungscloud.de/help/confluence/426313035\">help pages</a>.",
+			"item1_n21": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">help pages</a>.",
+			"item1_brb": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://brandenburg.cloud/help/confluence/426313035\">help pages</a>.",
+			"item1_thr": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">help pages</a>."
 		},
 		"topics": {
 			"button": {
