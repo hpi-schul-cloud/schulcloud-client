@@ -1014,13 +1014,7 @@
 			"noDueDate": "No se ha fijado una fecha de envío",
 			"noMaterialsYetLookAtOthers": "Aún no has creado tus propios materiales. También puedes inspirarte en los materiales de tus compañeros. Consulta la <a href=\"/my-material\">sección \"Mis materiales\"</a>.",
 			"noNews": "No hay noticias",
-			"notFound": "No se han encontrado entradas activas.",
-			"lernStoreBannerTitle": "En el futuro, los medios estarán disponibles a través del estante de medios",
-			"lernStoreBannerItem0_dbc": "A partir de ahora, las mediatecas del Lern-store (Mundo y Wir lernen online) están disponibles a través del estante de medios y los contenidos pueden integrarse en áreas como herramienta. Más información sobre las opciones avanzadas de búsqueda y filtrado, así como la integración de contenidos mediante enlaces profundos, se encuentra en las <a href=\"https://dbildungscloud.de/help/confluence/44073000\">páginas de ayuda</a>.",
-			"lernStoreBannerItem0_n21": "A partir de ahora, las mediatecas del Lern-store (Mundo y Wir lernen online) están disponibles a través del estante de medios y los contenidos pueden integrarse en áreas como herramienta. Más información sobre las opciones avanzadas de búsqueda y filtrado, así como la integración de contenidos mediante enlaces profundos, se encuentra en las <a href=\"https://niedersachsen.cloud/help/confluence/44073000\">páginas de ayuda</a>.",
-			"lernStoreBannerItem0_brb":	"A partir de ahora, las mediatecas del Lern-store (Mundo, Wir lernen online y FWU-Medios) están disponibles a través del estante de medios y los contenidos pueden integrarse en áreas como herramienta. Más información sobre las opciones avanzadas de búsqueda y filtrado, así como la integración de contenidos mediante enlaces profundos, se encuentra en las <a href=\"https://brandenburg.cloud/help/confluence/44073000\">páginas de ayuda</a>.",
-			"lernStoreBannerItem0_thr":	"A partir de ahora, las mediatecas del Lern-store (Mundo, Wir lernen online y Mediothek/Pixiothek) están disponibles a través del estante de medios y los contenidos pueden integrarse en áreas como herramienta. Más información sobre las opciones avanzadas de búsqueda y filtrado, así como la integración de contenidos mediante enlaces profundos, se encuentra en las <a href=\"https://schulcloud-thueringen.de/help/confluence/44073000\">páginas de ayuda</a>.",
-			"lernStoreBannerItem1":	"Por lo tanto, el Lern-store se desconectará en la semana 10 (04.03.2026). Los contenidos del Lern-store ya integrados en los temas seguirán estando disponibles."
+			"notFound": "No se han encontrado entradas activas."
 		}
 	},
 	"dataprivacy": {

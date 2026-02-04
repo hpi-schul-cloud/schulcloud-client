@@ -376,7 +376,7 @@
 		},
 		"FEATURE_LERNSTORE_ENABLED": {
 			"type": "boolean",
-			"default": true,
+			"default": false,
 			"description": "Defines if backend for the Lern-Store link in sidebar is enabled."
 		},
 		"FEATURE_TSP_AUTO_CONSENT_ENABLED": {
