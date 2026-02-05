@@ -571,7 +571,7 @@
 		},
         "CSV_IMPORT_MAX_FILE_SIZE": {
             "type": "integer",
-            "default": 1048576,
+            "default": 512000,
             "description": "Maximum file size for incoming requests in Byte, sync with nginx config"
         },
 		"FEATURE_CONSENT_NECESSARY": {
