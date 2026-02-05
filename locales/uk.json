@@ -979,6 +979,7 @@
 		"form_Import": {
 			"label": {
 				"selectCSVFile": "Вибрати CSV-файл",
+                "fileSizeInfo" : "максимальний розмір файлу",
 				"sendRegistrationLinkToUsers": "Відразу після імпорту надсилайте користувачам посилання для реєстрації"
 			},
 			"text": {
