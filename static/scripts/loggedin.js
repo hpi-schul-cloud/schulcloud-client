@@ -235,6 +235,7 @@ $(document).ready(() => {
 });
 
 $(document).ready(function () {
+	// If the navigation link leads to the Vue client, localStorage is used to transmit that the sidebar should be closed on mobile.
     const sidebarLinks = document.querySelectorAll('a.sidebar-item, a.subitem');
     sidebarLinks.forEach((link) => {
         link.addEventListener('click', function () {
