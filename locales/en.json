@@ -280,6 +280,7 @@
 		"form_Import": {
 			"label": {
 				"selectCSVFile": "Select CSV file",
+                "fileSizeInfo" : "max file size",
 				"sendRegistrationLinkToUsers": "Send registration links to users immediately after import"
 			},
 			"text": {
