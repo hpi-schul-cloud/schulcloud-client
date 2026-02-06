@@ -235,7 +235,7 @@ $(document).ready(() => {
 });
 
 $(document).ready(function () {
-    const sidebarLinks = document.querySelectorAll('.sidebar-item, .subitem');
+    const sidebarLinks = document.querySelectorAll('a.sidebar-item, a.subitem');
     sidebarLinks.forEach((link) => {
         link.addEventListener('click', function () {
             if (window.innerWidth <= 1279) {
