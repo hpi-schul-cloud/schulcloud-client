@@ -275,7 +275,6 @@
 		"form_DeleteUser": {
 			"text": {
 				"areYouSureYouWantToDeleteTheFollowingUser": "Are you sure you want to remove the following users?",
-				"warning": "The deletion process will start in the background and may take a while. Until then, these user will remain visible."
 			}
 		},
 		"form_Import": {
