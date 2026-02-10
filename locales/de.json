@@ -274,7 +274,8 @@
 		},
 		"form_DeleteUser": {
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingUser": "Bist du sicher, dass du den Nutzer:in löschen möchtest?"
+				"areYouSureYouWantToDeleteTheFollowingUser": "Bist du sicher, dass du den Nutzer:in löschen möchtest?",
+				"warning": "Die Löschung wird im Hintergrund gestartet und kann eine Weile dauern. Bis dahin bleib der Nutzer:in weiterhin sichtbar."
 			}
 		},
 		"form_Import": {
