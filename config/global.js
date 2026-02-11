@@ -1,5 +1,4 @@
 const {
-	PUBLIC_BACKEND_URL,
 	SC_DOMAIN = 'localhost',
 	SC_THEME = 'default',
 	SC_TITLE = 'dBildungscloud',
@@ -25,7 +24,6 @@ const {
 } = process.env;
 
 const exp = {
-	PUBLIC_BACKEND_URL,
 	SC_DOMAIN,
 	SC_THEME,
 	SC_TITLE,

@@ -25,6 +25,30 @@
 				"KEEP_ALIVE": true
 			}
 		},
+		"FEATURE_EXTENSIONS_ENABLED": {
+			"type": "boolean",
+			"description": "Enables the extensions system in the app, which allows to add features via extensions."
+		},
+		"FEATURE_TEAMS_ENABLED": {
+			"type": "boolean",
+			"description": "Enables the teams feature in the app, which allows users to create and manage teams.",
+			"default": true
+		},
+		"SC_DOMAIN": {
+			"type": "string",
+			"description": "The domain of the schulcloud instance, used for cookies and CORS configuration. Should not include protocol or slashes.",
+			"default": "localhost"
+		},
+		"SC_THEME": {
+			"type": "string",
+			"description": "The theme of the schulcloud instance, used for styling and theming. Should be one of 'default' or 'hpi'.",
+			"default": "default"
+		},
+		"MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE": {
+			"type": "integer",
+			"default": 5242880,
+			"description": "Maximum total size of attachments in bytes. Default 5 MB = 5 * 1024 * 1024."
+		},
 		"HOST": {
 			"type": "string",
 			"format": "uri",
@@ -187,6 +211,15 @@
 			"type": "string",
 			"default": "",
 			"description": "The URL to redirect to when accessing '/'. Leave empty for no redirect."
+		},
+		"JWT_SHOW_TIMEOUT_WARNING_SECONDS": {
+			"type": "integer",
+			"default": 3600,
+			"description": "Number of seconds before JWT token expiration when a warning should be shown to the user. Default 60 min."
+		},
+		"JWT_TIMEOUT_SECONDS": {
+			"type": "integer",
+			"description": "Number of seconds after which a JWT token expires."
 		},
 		"FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED": {
 			"type": "boolean",
