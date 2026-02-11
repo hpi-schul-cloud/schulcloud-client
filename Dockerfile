@@ -37,7 +37,6 @@ RUN npm ci && npm cache clean --force
 # thanks to this crappy folder structure pulling only the relevant files is a mess
 COPY api.js /home/node/app/api.js
 COPY api-files-storage.js /home/node/app/api-files-storage.js
-COPY apiEditor.js /home/node/app/apiEditor.js
 COPY app.js /home/node/app/app.js
 COPY gulpfile.js /home/node/app/gulpfile.js
 COPY webpack.config.js /home/node/app/webpack.config.js

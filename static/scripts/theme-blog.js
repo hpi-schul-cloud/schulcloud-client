@@ -1,6 +1,6 @@
 const { stripHtml } = require('string-strip-html');
 
-const ghostTheme = $('#SC_THEME').text(); // TODO: Need to be checked!
+const ghostTheme = $('#SC_THEME').text();
 
 const fetchContent = () => {
 	$(`.${ghostTheme}-blog .spinner`).show();

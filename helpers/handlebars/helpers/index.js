@@ -5,10 +5,10 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const { getStaticAssetPath } = require('../../../middleware/assets');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
-const Globals = require('../../../config/global');
 const filesStorage = require('../../files-storage');
-
 const timesHelper = require('../../timesHelper');
+
+const ConfigObject = Configuration.toObject(); // TODO: Need to be tested!
 
 moment.locale('de');
 
@@ -139,13 +139,13 @@ const helpers = () => ({
 		return options.inverse(this);
 	},
 	ifEnv: (env_variable, value, options) => {
-		if (Globals[env_variable] === value) {
+		if (ConfigObject[env_variable] === value) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
 	},
 	unlessEnv: (env_variable, value, options) => {
-		if (Globals[env_variable] === value) {
+		if (ConfigObject[env_variable] === value) {
 			return options.inverse(this);
 		}
 		return options.fn(this);
