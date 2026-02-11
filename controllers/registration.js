@@ -4,7 +4,6 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const router = express.Router();
 const api = require('../api');
 
-const { HOST, NODE_ENV, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
 const timesHelper = require('../helpers/timesHelper');
@@ -13,7 +12,9 @@ const { setCookie } = require('../helpers/cookieHelper');
 const { logger } = require('../helpers');
 
 let invalid = false;
-const isProduction = NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
+const HOST = Configuration.get('HOST');
+const CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS = Configuration.get('CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS');
 
 const getImportHash = (req) => req.query.importHash;
 

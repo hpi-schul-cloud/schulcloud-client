@@ -25,6 +25,11 @@
 				"KEEP_ALIVE": true
 			}
 		},
+		"CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS": {
+			"type": "integer",
+			"default": 16,
+			"description": "Minimum age in years for which consent without parents is valid. Default 16."
+		},
 		"FEATURE_EXTENSIONS_ENABLED": {
 			"type": "boolean",
 			"description": "Enables the extensions system in the app, which allows to add features via extensions."
