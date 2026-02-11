@@ -274,7 +274,7 @@
 		},
 		"form_DeleteUser": {
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingUser": "¿Estás seguro de que deseas eliminar a los siguientes usuarios?",
+				"areYouSureYouWantToDeleteTheFollowingUser": "¿Estás seguro de que deseas eliminar a los siguientes usuarios?"
 			}
 		},
 		"form_Import": {
