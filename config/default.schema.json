@@ -44,6 +44,16 @@
 			"description": "The theme of the schulcloud instance, used for styling and theming. Should be one of 'default' or 'hpi'.",
 			"default": "default"
 		},
+		"SC_TITLE": {
+			"type": "string",
+			"description": "The title of the schulcloud instance, used for display in the browser tab and other places.",
+			"default": "dBildungscloud"
+		},
+		"DOCUMENT_BASE_DIR": {
+			"type": "string",
+			"description": "The base directory for documents, used for storing and serving documents. Should be a valid URI.",
+			"default": "https://s3.hidrive.strato.com/cloud-instances/"
+		},
 		"MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE": {
 			"type": "integer",
 			"default": 5242880,

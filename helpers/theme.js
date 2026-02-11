@@ -1,11 +1,10 @@
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const { defaultDocuments } = require('../config/documents');
-const {
-	SC_THEME,
-	SC_TITLE,
-	HOST,
-	ALERT_STATUS_URL,
-} = require('../config/global');
+
+const SC_THEME = Configuration.get('SC_THEME');
+const SC_TITLE = Configuration.get('SC_TITLE');
+const HOST = Configuration.get('HOST');
+const ALERT_STATUS_URL = Configuration.get('ALERT_STATUS_URL');
 
 const instanceSpecificTitle = () => {
 	switch (SC_THEME) {
@@ -38,7 +37,7 @@ const setTheme = (res) => {
 	res.locals.theme = {
 		name: SC_THEME,
 		title: SC_TITLE,
-		short_title: SC_TITLE, // depracted (SC_SHORT_TITLE removed)
+		short_title: SC_TITLE,
 		theme_title: themeTitle,
 		institute_title: instituteTitle,
 		documents: {

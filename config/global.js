@@ -1,8 +1,4 @@
 const {
-	SC_DOMAIN = 'localhost',
-	SC_THEME = 'default',
-	SC_TITLE = 'dBildungscloud',
-	DOCUMENT_BASE_DIR = 'https://s3.hidrive.strato.com/cloud-instances/',
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS,
 	NODE_ENV = 'development',
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS = 3600, // 60 min
@@ -24,10 +20,6 @@ const {
 } = process.env;
 
 const exp = {
-	SC_DOMAIN,
-	SC_THEME,
-	SC_TITLE,
-	DOCUMENT_BASE_DIR,
 	CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS: parseInt(CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS || 16, 10),
 	NODE_ENV,
 	JWT_SHOW_TIMEOUT_WARNING_SECONDS,

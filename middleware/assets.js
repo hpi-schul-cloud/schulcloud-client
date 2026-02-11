@@ -2,9 +2,8 @@ const staticify = require('staticify');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const path = require('path');
 const express = require('express');
-const {
-	SC_THEME,
-} = require('../config/global');
+
+const SC_THEME = Configuration.get('SC_THEME');
 
 let staticifyInstance = null;
 const localesDir = path.join(__dirname, '../locales');

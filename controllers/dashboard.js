@@ -10,9 +10,9 @@ const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 const timesHelper = require('../helpers/timesHelper');
-
 const recurringEventsHelper = require('../helpers/recurringEvents');
-const { SC_THEME } = require('../config/global');
+
+const SC_THEME = Configuration.get('SC_THEME');
 
 // secure routes
 router.use(authHelper.authChecker);

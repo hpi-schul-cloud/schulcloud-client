@@ -1,6 +1,8 @@
 const { URL } = require('url');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
-const { DOCUMENT_BASE_DIR, SC_THEME } = require('./global');
+const SC_THEME = Configuration.get('SC_THEME');
+const DOCUMENT_BASE_DIR = Configuration.get('DOCUMENT_BASE_DIR');
 
 const specificFiles = {
 	accessibilityStatement: 'Willkommensordner/Barrierefreiheit/Barrierefreiheitserklaerung.pdf',
@@ -17,9 +19,11 @@ const globalFiles = {
 	TechnischerBericht2019:
 	'Dokumente/Die-HPI-Schul-Cloud_Roll-Out-einer-Cloud-Architektur-für-Schulen-in-Deutschland.pdf',
 	BroschuereSCimUnterricht1:
-	'Willkommensordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien-und-Methoden.pdf',
+	'Willkommensordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-'
+	+ 'Fachuebergreifende-Unterrichtsszenarien-und-Methoden.pdf',
 	BroschuereSCimUnterricht2:
-	'Willkommensordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-und-Schulalltag-Mehrwert-und-Voraussetzungen.pdf',
+	'Willkommensordner/Begleitmaterial/Broschuere_Die-Schul-Cloud-im-Unterricht-und-Schulalltag-'
+	+ 'Mehrwert-und-Voraussetzungen.pdf',
 	BroschuereSCundLernen4:
 	'Willkommensordner/Begleitmaterial/Broschuere_HPI-Schul-Cloud-und-Lernen-4.0.pdf',
 	SchulrechnerInDieSC2017: 'Dokumente/Schulrechner-wandern-in-die-Cloud-2017.pdf',
@@ -29,7 +33,7 @@ const globalFiles = {
 module.exports = {
 	defaultDocuments: () => ({
 		documentBaseDir: String(new URL(`${SC_THEME}/`, DOCUMENT_BASE_DIR)),
-		specificFiles: baseDir => Object.entries(specificFiles).reduce((obj, [key, value]) => {
+		specificFiles: (baseDir) => Object.entries(specificFiles).reduce((obj, [key, value]) => {
 			obj[key] = String(new URL(value, baseDir));
 			return obj;
 		}, {}),
