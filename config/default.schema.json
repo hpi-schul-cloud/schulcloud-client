@@ -251,6 +251,10 @@
 			"default": false,
 			"description": "Using privateDevice parameter in login, the logout/jwt timeout can be extended to JWT_EXTENDED_TIMEOUT_SECONDS instead of JWT_TIMEOUT_SECONDS."
 		},
+		"FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED": {
+			"type": "boolean",
+			"description": "Enables the option to add attachments to the contact form."
+		},
 		"SC_CONTACT_EMAIL": {
 			"type": "string",
 			"default": "support@dbildungscloud.de",
@@ -277,7 +281,7 @@
 		},
 		"ALERT_STATUS_URL": {
 			"type": "string",
-			"default": null,
+			"default": "https://status.dbildungscloud.de",
 			"description": "The url of status message provider (should end without a slash)."
 		},
 		"GHOST_API_KEY": {
