@@ -219,13 +219,13 @@
 		},
 		"FEATURE_ASSET_CACHING_ENABLED": {
 			"type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "If enabled, static assets will be fingerprinted and cached."
 		},
 		"ASSET_CACHING_MAX_AGE_SECONDS": {
 			"type": "integer",
-			"default": 86400,
-			"description": "Max-Age for static assets response header. Defaults to one day."
+			"default": 864000,
+			"description": "Max-Age for static assets response header. Defaults to one day. Default 10 days = 10 * 24 * 60 * 60 = 864000."
 		},
 		"NOT_AUTHENTICATED_REDIRECT_URL": {
 			"type": "string",
@@ -266,7 +266,7 @@
 		},
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "If enabled, user will see messages/incidents from e.g status.dbildungscloud"
 		},
 		"FEATURE_ALERTS_ON_HOMEPAGE_ENABLED": {
@@ -509,7 +509,7 @@
 		},
 		"FEATURE_PROMETHEUS_ENABLED": {
 			"type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "Feature flag to enable prometheus api metrics"
 		},
 		"PROMETHEUS": {

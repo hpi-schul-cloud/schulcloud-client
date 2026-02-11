@@ -1,5 +1,10 @@
 {
 	"$schema": "./default.schema.json",
+	"ETHERPAD": {
+		"PAD_PATH": "/etherpad/p",
+		"PAD_URI": "https://dbildungscloud.de/etherpad/p",
+		"DOMAIN": "dbildungscloud.de"
+	},
 	"COOKIE": {
 		"SAME_SITE": "lax",
 		"HTTP_ONLY": false,
@@ -7,12 +12,19 @@
 		"SECURE": false,
 		"EXPIRES_SECONDS": 2592000000
 	},
+	"COOKIE_SECRET": "ihasDF(=4jA4aF",
 	"FEATURE_LOG_REQUEST": true,
-	"FEATURE_PROMETHEUS_ENABLED": true,
-	"FEATURE_ALERTS_ENABLED": true,
 	"PUBLIC_BACKEND_URL": "http://localhost:3030/api",
 	"FEATURE_ADMINISTRATE_ROOMS_ENABLED": true,
 	"SESSION_VALKEY": {
 		"MODE": "in-memory"
+	},
+	"I18N": {
+		"DEBUG": false
+	},
+	"FILES_STORAGE": {
+		"SERVICE_BASE_URL": "http://localhost:4444",
+		"REQUEST_TIMEOUT": 600000,
+		"MAX_FILE_SIZE": 2684354560
 	}
 }
