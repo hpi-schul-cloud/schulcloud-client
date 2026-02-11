@@ -25,6 +25,11 @@
 				"KEEP_ALIVE": true
 			}
 		},
+		"SW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the service worker in the app, which allows to use offline features and caching."
+		},
 		"MINIMAL_PASSWORD_LENGTH": {
 			"type": "integer",
 			"default": 12,
