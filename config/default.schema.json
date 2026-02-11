@@ -25,6 +25,11 @@
 				"KEEP_ALIVE": true
 			}
 		},
+		"MINIMAL_PASSWORD_LENGTH": {
+			"type": "integer",
+			"default": 12,
+			"description": "Minimum password length for user registration and password change. Default 12."
+		},
 		"CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS": {
 			"type": "integer",
 			"default": 16,

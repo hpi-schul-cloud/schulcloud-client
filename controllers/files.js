@@ -12,8 +12,9 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 const { logger } = require('../helpers');
-const { FEATURE_TEAMS_ENABLED } = require('../config/global');
 const { useNextcloudFilesystem, makeNextcloudFolderName } = require('../helpers/nextcloud');
+
+const FEATURE_TEAMS_ENABLED = Configuration.get('FEATURE_TEAMS_ENABLED');
 
 const router = express.Router();
 
