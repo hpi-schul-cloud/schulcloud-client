@@ -1894,7 +1894,6 @@
 			"button": {
 				"geoGebraWorksheet": "Бланк завдання GeoGebra",
 				"text": "Текст",
-				"material": "Навчальний матеріал",
 				"etherpad": "Etherpad"
 			},
 			"label": {

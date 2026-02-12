@@ -2894,7 +2894,6 @@
 			"button": {
 				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra worksheet",
-				"material": "Learning material",
 				"text": "Text"			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
