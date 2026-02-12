@@ -224,7 +224,6 @@
 		},
 		"sidebar": {
 			"link": {
-				"addons": "Доповнення",
 				"administrationStudents": "Учні",
 				"administrationTeachers": "Викладачі",
 				"administrationClasses": "Класи",
@@ -1460,14 +1459,6 @@
 		},
 		"headline": {
 			"newsTeam": "Новини від команди"
-		}
-	},
-	"addons": {
-		"headline": {
-			"portfolio": "Портфоліо"
-		},
-		"text": {
-			"portfolioDescription": "Створіть своє цифрове портфоліо в гнучкої персональної системи навчання. Поділіться своїми успіхами та своїм розвитком у місці, яке ви самі розробили. Робота з іншими в групах."
 		}
 	},
 	"home": {

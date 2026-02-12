@@ -75,14 +75,6 @@
 			}
 		}
 	},
-	"addons": {
-		"headline": {
-			"portfolio": "Portfolio"
-		},
-		"text": {
-			"portfolioDescription": "Erzeuge dein digitales Portfolio in einem flexiblen persönlichen Lernsystem. Teile die Erfolge und deine Entwicklung an einem Ort, den du selbst gestaltest. Arbeite mit anderen in Gruppen zusammen."
-		}
-	},
 	"administration": {
 		"button": {
 			"changePassword": "Passwort ändern",
@@ -1501,7 +1493,6 @@
 		},
 		"sidebar": {
 			"link": {
-				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationStudents": "Lernende",
 				"administrationTeachers": "Lernbegleitende",

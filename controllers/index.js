@@ -36,7 +36,6 @@ router.use('/welcome', require('./welcome'));
 router.use('/schools/', require('./schools'));
 router.use('/users/', require('./users'));
 router.use('/rocketChat/', require('./rocketChat'));
-router.use('/addons', require('./addons'));
 router.use('/messenger/', require('./messenger'));
 router.use('/videoconference', require('./videoconference'));
 router.use('/administration/', require('./administration'));

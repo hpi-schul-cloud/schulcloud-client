@@ -75,14 +75,6 @@
 			}
 		}
 	},
-	"addons": {
-		"headline": {
-			"portfolio": "Portfolio"
-		},
-		"text": {
-			"portfolioDescription": "Create your digital portfolio in a flexible personal learning system. Share your successes and your development in a place that you design yourself. Work with others in groups."
-		}
-	},
 	"administration": {
 		"button": {
 			"changePassword": "Change Password",
@@ -1501,7 +1493,6 @@
 		},
 		"sidebar": {
 			"link": {
-				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationStudents": "Students",
 				"administrationTeachers": "Teachers",
