@@ -24,17 +24,14 @@
 				"repeatNewPassword": "Neues Passwort wiederholen:"
 			},
 			"text": {
-				"name": "Name",
-				"noThirdPartyProvidersUsed": "Keine Drittanbieter genutzt",
-				"thirdPartyLogins": "Drittanbieter-Logins"
+				"name": "Name"
 			}
 		},
 		"headline": {
 			"yourAccount": "Dein Account"
 		},
 		"label": {
-			"notificationSettings": "Benachrichtigungseinstellungen",
-			"providers": "Anbieter"
+			"notificationSettings": "Benachrichtigungseinstellungen"
 		},
 		"teams": {
 			"button": {

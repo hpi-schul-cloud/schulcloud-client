@@ -24,17 +24,14 @@
 				"repeatNewPassword": "Repetir nueva contraseña:"
 			},
 			"text": {
-				"name": "Nombre",
-				"noThirdPartyProvidersUsed": "No se utilizan proveedores de terceros",
-				"thirdPartyLogins": "Inicios de sesión de terceros"
+				"name": "Nombre"
 			}
 		},
 		"headline": {
 			"yourAccount": "Tu cuenta"
 		},
 		"label": {
-			"notificationSettings": "Configuración de las notificaciones",
-			"providers": "Proveedor"
+			"notificationSettings": "Configuración de las notificaciones"
 		},
 		"teams": {
 			"button": {

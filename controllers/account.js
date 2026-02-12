@@ -64,23 +64,12 @@ router.post('/', async (req, res) => {
 router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
 	const isDiscoverable = res.locals.currentUser.discoverable;
-	api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`).then((session) => {
-		res.render('account/settings', {
-			title: res.$t('account.headline.yourAccount'),
-			pageTitle: res.$t('lib.loggedin.tab_label.settings'),
-			session,
-			userId: res.locals.currentUser._id,
-			sso: isSSO,
-			isDiscoverable,
-		});
-	}).catch(() => {
-		res.render('account/settings', {
-			title: res.$t('account.headline.yourAccount'),
-			pageTitle: res.$t('lib.loggedin.tab_label.settings'),
-			userId: res.locals.currentUser._id,
-			sso: isSSO,
-			isDiscoverable,
-		});
+	res.render('account/settings', {
+		title: res.$t('account.headline.yourAccount'),
+		pageTitle: res.$t('lib.loggedin.tab_label.settings'),
+		userId: res.locals.currentUser._id,
+		sso: isSSO,
+		isDiscoverable,
 	});
 });
 
@@ -92,32 +81,6 @@ router.get('/teams/', (req, res, next) => {
 		userId: res.locals.currentUser._id,
 		isDiscoverable,
 	});
-});
-
-router.get('/thirdPartyProviders/', async (req, res, next) => {
-	let session;
-
-	try {
-		session = await api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`);
-	} catch (e) {
-		session = null;
-	}
-
-	res.render('account/thirdPartyProviders', {
-		title: res.$t('account.thirdPartyProviders.headline.thirdPartyProviderLogin'),
-		userId: res.locals.currentUser._id,
-		session,
-	});
-});
-
-// revoke oauth2 session
-router.get('/oauth2/revoke/:client', (req, res, next) => {
-	api(req).delete(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}?client=${req.params.client}`)
-		.then(() => {
-			res.redirect('/account');
-		}).catch((err) => {
-			res.send(err);
-		});
 });
 
 router.get('/user', (req, res, next) => {
