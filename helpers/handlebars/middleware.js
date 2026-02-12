@@ -165,7 +165,10 @@ module.exports = (req, res, next) => {
 		});
 	}
 
-	// Extensions Feature Toggle
+	/**
+	 * Extensions Feature Toggle
+	 * @deprecated
+	 *  */
 	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
 	if (extensionsEnabled) {
 		res.locals.sidebarItems.push({
