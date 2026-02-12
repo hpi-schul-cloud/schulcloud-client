@@ -194,31 +194,6 @@
     </section>
 {{/if}}
 
-{{#ifeq this.currentRole "Beta"}}
-<section class="section section-my-material">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 class="h5">{{$t "global.headline.myMaterial"}}</h2>
-            </div>
-        </div>
-        <div class="row tasks card-deck-row" data-testid="courses">
-            {{#each myMaterials}}
-            <div class="sc-card-wrapper col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                {{> 'lib/components/sc-card' link-text=../link-text}}
-            </div>
-            {{else}}
-            <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
-                <div class="alert">
-                    {{{$t "dashboard.text.noMaterialsYetLookAtOthers"}}}
-                </div>
-            </div>
-            {{/each}}
-        </div>
-    </div>
-</section>
-{{/ifeq}}
-
 {{#if isTeacher}}
     {{#if homeworksFeedbackRequired}}
         {{> 'dashboard/components/homework_tiles' section-id="tasks-with-required-feedback" title=($t "dashboard.headline.withRequiredFeedback") content=homeworksFeedbackRequired href="/tasks" redirectToTab="submissions"}}

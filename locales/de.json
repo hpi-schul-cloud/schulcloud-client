@@ -1014,7 +1014,6 @@
 			"graded": "Bewertet",
 			"handedIn": "Abgegeben",
 			"noDueDate": "Kein Abgabedatum festgelegt",
-			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg:innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
 			"notFound": "Keine aktuellen Einträge vorhanden.",
 			"lernStoreBannerTitle": "Die Medien sind künftig über das Medienregal erreichbar",
@@ -1389,7 +1388,6 @@
 			"entriesPerPage": "Einträge pro Seite",
 			"files": "Dateien",
 			"invitationLinkGenerated": "Einladungslink generiert!",
-			"myMaterial": "Meine Materialien",
 			"name": "Name",
 			"news": "Neuigkeiten",
 			"draftTasks": "Entwürfe",
@@ -2385,13 +2383,6 @@
 			"howToDeactivateMatrix": "Den Messenger kannst du jeder Zeit deaktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren.",
 			"rocketChatDeprecation": "Die alte Team-Chatfunktion wird am {{date}} abgeschaltet. Alte Chatnachrichten werden nicht automatisch in den neuen Messenger übertragen.",
 			"welcomeMatrix": "Ab sofort ist unser neuer Messenger verfügbar, mit dem sich alle Nutzer:innen deiner Schule Direkt- oder Gruppennachrichten schicken können, wie aus sozialen Plattformen gewohnt."
-		}
-	},
-	"my_material": {
-		"text": {
-			"andTakeTheOpportunityToDesign": "und nutzen Sie die Möglichkeit, das Feature nach Ihren Wünschen zu gestalten.",
-			"blogArticle": "Blogartikel",
-			"hereYouWillSoonHaveTheOpportunity": "Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrkräfte anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den"
 		}
 	},
 	"navigation": {

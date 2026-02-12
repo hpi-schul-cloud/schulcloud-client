@@ -28,7 +28,6 @@ router.use('/community/', require('./community'));
 router.use('/help/', require('./help'));
 router.use('/privacypolicy/', require('./dataprivacy'));
 router.use('/termsofuse/', require('./termsofuse'));
-router.use('/my-material', require('./my-material'));
 router.use('/base64Files', require('./base64Files'));
 router.use('/firstLogin', require('./firstLogin'));
 router.use('/forcePasswordChange', require('./forcePasswordChange'));

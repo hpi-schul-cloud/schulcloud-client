@@ -1014,7 +1014,6 @@
 			"graded": "Calificado",
 			"handedIn": "Presentado",
 			"noDueDate": "No se ha fijado una fecha de envío",
-			"noMaterialsYetLookAtOthers": "Aún no has creado tus propios materiales. También puedes inspirarte en los materiales de tus compañeros. Consulta la <a href=\"/my-material\">sección \"Mis materiales\"</a>.",
 			"noNews": "No hay noticias",
 			"notFound": "No se han encontrado entradas activas.",
 			"lernStoreBannerTitle": "En el futuro, los medios estarán disponibles a través del estante de medios",
@@ -1389,7 +1388,6 @@
 			"entriesPerPage": "Entradas por página",
 			"files": "Archivos",
 			"invitationLinkGenerated": "¡Enlace de invitación generado!",
-			"myMaterial": "Mis materiales",
 			"name": "Nombre",
 			"news": "Noticias",
 			"draftTasks": "Borradores",
@@ -2385,13 +2383,6 @@
 			"howToDeactivateMatrix": "Puedes desactivar el messenger en cualquier momento en Administración > Escuela > Activar Matrix Messenger.",
 			"rocketChatDeprecation": "La antigua función de chat de equipo fue desactivada el {{date}}. Los mensajes de chat antiguos no se transfieren automáticamente al nuevo Messenger.",
 			"welcomeMatrix": "Ya está disponible nuestro nuevo Messenger con el que todos los usuarios de tu escuela pueden enviarse mensajes directos o de grupo, como se hace de manera habitual desde las plataformas de las redes sociales."
-		}
-	},
-	"my_material": {
-		"text": {
-			"andTakeTheOpportunityToDesign": "y aprovecha la oportunidad para diseñar la función como quieras.",
-			"blogArticle": "Artículos del blog",
-			"hereYouWillSoonHaveTheOpportunity": "Aquí pronto tendrás la oportunidad de crear tus propios contenidos, ver los contenidos de otros profesores y ganar puntos evaluándolos y clasificándolos para poder utilizar las funciones de búsqueda ampliadas. ¿Te interesa saber cómo funcionará esto? Lee los"
 		}
 	},
 	"navigation": {
