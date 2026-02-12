@@ -1,3 +1,5 @@
+import { notifyLogout } from './helpers/sessionBroadcast';
+
 $(document).ready(() => {
 	const $externalLogoutBtn = $('#external-logout');
 
@@ -24,6 +26,10 @@ $(document).ready(() => {
 				sessionTokenExpirationDate = new Date(response.expiresAt);
 			});
 	}
+
+	$('#logout').click(() => {
+		notifyLogout();
+	});
 
 	$('.user-menu-btn').click(() => {
 		const isMenuClosing = $('.user-menu').hasClass('open');

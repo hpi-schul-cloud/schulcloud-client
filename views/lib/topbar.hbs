@@ -71,6 +71,7 @@
                   {{/if}}
                   <li><a class="dropdown-item localstorageclear"
                       data-testid="logout"
+                      id="logout"
                       role="menuitem"
                       href= {{#hasConfig "OAUTH2_LOGOUT_URI"}} {{getConfig "OAUTH2_LOGOUT_URI"}} {{else}} "/logout/" {{/hasConfig}}
                       aria-label="{{$t 'lib.loggedin.tab_label.signOut'}}{{#if isExternalLogoutAllowed}} Bildungscloud{{/if}}">
