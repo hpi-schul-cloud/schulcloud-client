@@ -69,7 +69,7 @@
         <div class="row d-block text-center">
             <div class="empty-state">
                 <div class="image wide-image center">
-                    {{> 'dashboard/svg_welcome' }}
+                    <img src="{{getAssetPath '/images/dashboard/welcome.svg'}}" alt="" role="presentation" />
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@
     <div class="row d-block text-center">
         <div class="empty-state">
             <div class="image center">
-                {{> 'dashboard/svg_news-empty' }}
+                <img src="{{getAssetPath '/images/dashboard/news-empty.svg'}}" alt="" role="presentation" class="image" />
             </div>
             <p class="text-muted dashboard-empty-info">
                 {{$t "dashboard.text.emptyNewsInfo"}}
@@ -270,7 +270,7 @@
     <div class="row d-block text-center">
         <div class="empty-state">
             <div class="image center">
-                {{> 'dashboard/svg_news-empty' }}
+                <img src="{{getAssetPath '/images/dashboard/news-empty.svg'}}" alt="" role="presentation" class="image" />
             </div>
             <p class="text-muted dashboard-empty-info">
                 {{$t "dashboard.text.emptyNewsInfo"}}
