@@ -1,17 +1,24 @@
 const express = require('express');
-const feedr = require('feedr').create();
+const axios = require('axios');
+const { parseStringPromise } = require('xml2js');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const router = express.Router();
 const ghostBaseUrl = Configuration.get('GHOST_BASE_URL');
 
-router.get('/', (req, res) => {
-	feedr.readFeed(`${ghostBaseUrl}/rss`, {
-		requestOptions: { timeout: 2000 },
-	}, (err, data) => {
+router.get('/', async (req, res) => {
+	try {
+		const response = await axios.get(`${ghostBaseUrl}/rss`, {
+			timeout: 2000,
+			headers: {
+				Accept: 'application/rss+xml, application/xml, text/xml',
+			},
+		});
+
+		const parsedData = await parseStringPromise(response.data);
 		let blogFeed;
 		try {
-			blogFeed = data.rss.channel[0].item
+			blogFeed = parsedData.rss.channel[0].item
 				.filter((item) => (item['media:content'] || []).length && (item.link || []).length)
 				.slice(0, 3)
 				.map((e) => {
@@ -33,7 +40,11 @@ router.get('/', (req, res) => {
 		res.send({
 			blogFeed,
 		});
-	});
+	} catch (error) {
+		res.send({
+			blogFeed: [],
+		});
+	}
 });
 
 module.exports = router;
