@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
 		res.send({
 			blogFeed,
 		});
-	} catch (error) {
+	} catch {
 		res.send({
 			blogFeed: [],
 		});
