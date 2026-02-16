@@ -369,11 +369,6 @@
 			"default": 15,
 			"description": "Number of second the user will be blocked before logging in again"
 		},
-		"FEATURE_LERNSTORE_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "Defines if backend for the Lern-Store link in sidebar is enabled."
-		},
 		"FEATURE_TSP_AUTO_CONSENT_ENABLED": {
 			"type": "boolean",
 			"default": false,

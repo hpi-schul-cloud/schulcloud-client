@@ -626,50 +626,6 @@
 			"youWillThenBeGiven": "A continuación, se te dará toda la información necesaria para que puedas empezar pronto."
 		}
 	},
-	"content": {
-		"button": {
-			"choose": "Elegir..."
-		},
-		"form_add_lesson": {
-			"label": {
-				"chooseALessonTopic": "Elige un tema de la lección"
-			}
-		},
-		"headline": {
-			"addContentToTopic": "Añadir material al tema",
-			"contentStore": "Tienda de aprendizaje",
-			"fileType": "Tipo de archivo",
-			"noResultsFoundWith": "No se han encontrado resultados de búsqueda para \"{{ query }}\"",
-			"nSearchResultsFoundWith": "{{ searchResultsTotal }} resultados de búsqueda para \"{{ query }}\"",
-			"youAreLeavingSC": "Ahora estás saliendo de la nube de la escuela"
-		},
-		"input": {
-			"searchInSC": "Buscar en la nube escolar"
-		},
-		"item": {
-			"text": {
-				"report": "informe"
-			}
-		},
-		"label": {
-			"fileType": "Tipos de archivo:% 1"
-		},
-		"store": {
-			"headline": {
-				"currentContent": "Contenidos actuales",
-				"popularContent": "Contenidos populares"
-			}
-		},
-		"text": {
-			"date": "Actualidad",
-			"popularity": "Popularidad",
-			"provider": "Proveedor",
-			"text": "Texto",
-			"viaProvider": "a través de {{provider}}",
-			"video": "Vídeo",
-			"youAreRedirectedToProvider": "Se te redirigirá a la página de <span class=\"provider\">un proveedor externo</span>."
-		}
-	},
 	"courses": {
 		"_course": {
 			"addStudent": {
@@ -1004,13 +960,7 @@
 			"handedIn": "Presentado",
 			"noDueDate": "No se ha fijado una fecha de envío",
 			"noNews": "No hay noticias",
-			"notFound": "No se han encontrado entradas activas.",
-			"lernStoreBannerTitle": "En el futuro, los medios estarán disponibles a través del estante de medios",
-			"lernStoreBannerItem0_dbc": "A partir de ahora, las mediatecas del Lern-store (Mundo y Wir lernen online) están disponibles a través del estante de medios y los contenidos pueden integrarse en áreas como herramienta. Más información sobre las opciones avanzadas de búsqueda y filtrado, así como la integración de contenidos mediante enlaces profundos, se encuentra en las <a href=\"https://dbildungscloud.de/help/confluence/44073000\">páginas de ayuda</a>.",
-			"lernStoreBannerItem0_n21": "A partir de ahora, las mediatecas del Lern-store (Mundo y Wir lernen online) están disponibles a través del estante de medios y los contenidos pueden integrarse en áreas como herramienta. Más información sobre las opciones avanzadas de búsqueda y filtrado, así como la integración de contenidos mediante enlaces profundos, se encuentra en las <a href=\"https://niedersachsen.cloud/help/confluence/44073000\">páginas de ayuda</a>.",
-			"lernStoreBannerItem0_brb":	"A partir de ahora, las mediatecas del Lern-store (Mundo, Wir lernen online y FWU-Medios) están disponibles a través del estante de medios y los contenidos pueden integrarse en áreas como herramienta. Más información sobre las opciones avanzadas de búsqueda y filtrado, así como la integración de contenidos mediante enlaces profundos, se encuentra en las <a href=\"https://brandenburg.cloud/help/confluence/44073000\">páginas de ayuda</a>.",
-			"lernStoreBannerItem0_thr":	"A partir de ahora, las mediatecas del Lern-store (Mundo, Wir lernen online y Mediothek/Pixiothek) están disponibles a través del estante de medios y los contenidos pueden integrarse en áreas como herramienta. Más información sobre las opciones avanzadas de búsqueda y filtrado, así como la integración de contenidos mediante enlaces profundos, se encuentra en las <a href=\"https://schulcloud-thueringen.de/help/confluence/44073000\">páginas de ayuda</a>.",
-			"lernStoreBannerItem1":	"Por lo tanto, el Lern-store se desconectará en la semana 10 (04.03.2026). Los contenidos del Lern-store ya integrados en los temas seguirán estando disponibles."
+			"notFound": "No se han encontrado entradas activas."
 		}
 	},
 	"dataprivacy": {
@@ -1445,7 +1395,6 @@
 			"helpDesk": "Centro de ayuda",
 			"imprint": "Impresión",
 			"landing": "Página de inicio",
-			"lernstore": "Lern-Store",
 			"mainContentSkipLink": "Saltar al contenido principal",
 			"management": "Administración",
 			"openInNewTab": "abrir en una nueva pestaña",
@@ -1583,7 +1532,6 @@
 				"pDashboard": "Panel",
 				"pExternalTools": "Herramientas externas",
 				"pHelparea": "Sección de ayuda",
-				"pLernStore": "Tienda de aprendizaje",
 				"pManagement": "Administración",
 				"pMobileUse": "Uso del móvil",
 				"pMyFiles": "Ficheros",
@@ -2925,7 +2873,6 @@
 			"button": {
 				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "Hoja de trabajo de GeoGebra",
-				"material": "Material de aprendizaje",
 				"text": "Texto"
 			},
 			"input": {
