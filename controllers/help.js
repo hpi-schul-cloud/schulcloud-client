@@ -1,12 +1,10 @@
 const express = require('express');
-const moment = require('moment');
 const { Converter } = require('showdown');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 const contactHelper = require('../helpers/contactHelper');
 
 const router = express.Router();
-const converter = new Converter();
 
 // read here for updating the tutorials.json: https://docs.dbildungscloud.de/display/Intern/Hilfe-Artikel+aktualisieren
 const tutorials = require('../helpers/content/tutorials.json');
@@ -22,9 +20,7 @@ router.get('/articles', (req, res, next) => {
 	});
 });
 
-router.get('/', (req, res, next) => {
-	return res.redirect('/help/articles');
-});
+router.get('/', (req, res, next) => res.redirect('/help/articles'));
 
 router.get('/contact', (req, res, next) => {
 	res.render('help/contact', {
