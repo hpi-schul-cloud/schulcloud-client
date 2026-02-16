@@ -2308,9 +2308,6 @@
 			"headline": {
 				"createNews": "News erstellen",
 				"editNews": "News bearbeiten"
-			},
-			"label": {
-				"contentOfMessage": "Inhalt der Nachricht..."
 			}
 		},
 		"button": {
@@ -2322,8 +2319,6 @@
 			"newsTeam": "Neuigkeiten aus dem Team"
 		},
 		"label": {
-			"content": "Inhalt",
-			"scheduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
 			"searchForNews": "Suche nach Neuigkeiten"
 		},
 		"text": {

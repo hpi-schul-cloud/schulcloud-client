@@ -137,23 +137,4 @@ router.get('/:newsId', (req, res, next) => {
 		});
 });
 
-router.get('/:newsId/edit', (req, res, next) => {
-	api(req, { version: VERSION })
-		.get(`/news/${req.params.newsId}`, {})
-		.then((news) => {
-			news.displayAt = timesHelper.fromUTC(news.displayAt);
-			res.render('news/edit', {
-				title: res.$t('news._news.headline.editNews'),
-				submitLabel: res.$t('global.button.save'),
-				closeLabel: res.$t('global.button.cancel'),
-				method: 'patch',
-				action: `/news/${req.params.newsId}`,
-				news,
-			});
-		})
-		.catch((err) => {
-			next(err);
-		});
-});
-
 module.exports = router;

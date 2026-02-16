@@ -1382,8 +1382,6 @@
 			"deleteNewsAlt": "Видалити статтю «{{name}}»"
 		},
 		"label": {
-			"content": "Контент",
-			"scheduleAutomaticPublication": "автоматична публікація попереднього плану (за бажанням)",
 			"searchForNews": "Пошук новин"
 		},
 		"text": {
@@ -1401,9 +1399,6 @@
 			"headline": {
 				"createNews": "Створити новини",
 				"editNews": "Редагувати новини"
-			},
-			"label": {
-				"contentOfMessage": "Контент повідомлення..."
 			}
 		},
 		"headline": {
