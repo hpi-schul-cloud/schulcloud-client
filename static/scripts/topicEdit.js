@@ -395,14 +395,6 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
 								{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
 						</button>
-                        <button
-							type="button"
-							className="btn btn-secondary"
-							data-testid="topic-addcontent-material-btn"
-							aria-label={$t('global.button.add')}
-							onClick={this.addBlock.bind(this, TopicResources)}>
-								{`+ ${$t('topic.topicEdit.button.material')}`}
-						</button>
 						<button
 							type="button"
 							className="btn btn-secondary"
@@ -721,10 +713,6 @@ class TopicResources extends TopicBlock {
                             index={index}
                             resource={item}
                         />))}
-                </div>
-
-                <div className="btn-group" role="group" >
-                    <button type="button" className="btn btn-secondary btn-add" data-testid="topic-material-addmaterial-btn" onClick={this.addResource.bind(this, '')}>{`+ ${$t('topic.topicEdit.button.material')}`}</button>
                 </div>
             </div>
 		);
