@@ -1905,29 +1905,6 @@
 			"hasUnpublishedLesson": "Task not visible, because topic is unpublished"
 		}
 	},
-	"imprint": {
-		"imprint_infotext_below": {
-			"text": {
-				"theContentOfThe": "The contents of the {{shortTitle}} are not official announcements of the HPI. The respective authors are responsible for the contents. Without prior written permission, a commercial distribution of the contents available via the {{shortTitle}} is explicitly prohibited, unless they are explicitly marked. The editorial responsibility for the content of linked websites of other providers (including links to third parties), in particular the responsibility for compliance with the regulations of the law for the protection of minors and data privacy, is in every respect the sole responsibility of the respective provider.",
-				"theHassoPlattnerInstituteRegularlyChecks": "The Hasso Plattner Institute (HPI) regularly checks and updates the contents of its websites. Despite the greatest possible care, we cannot rule out that individual information on our website is out of date or no longer correct. Therefore, we cannot accept liability for the up-to-datedness, accuracy and completeness of the information published. The same applies to all websites that can be accessed from the HPI pages via hyperlinks. The following applies to all these links: We expressly declare that we have no influence on the design and content of the linked site. Therefore we hereby distance ourselves from all contents of all linked pages and do not adopt their contents as our own. This declaration applies to all links on our site to external sites. The HPI is not responsible for the content of these linked pages. Furthermore, the HPI reserves the right to make changes and additions to the information displayed at any time. The content and structure of the HPI website are protected by copyright. The further use of information and data is only permitted with our consent. We wish you an informative stay on our website and look forward to your suggestions, wishes or criticism"
-			}
-		},
-		"imprint_platform_intro": {
-			"headline": {
-				"legalNotice": "Legal Notice:"
-			},
-			"text": {
-				"TheProjectIsANonCommercialPilotProject": "The {{shortTitle}} is a non-commercial pilot project, which is carried out by the HPI in cooperation with the national Excellence School Network MINT-EC (<a href=''https://www.mint-ec.de/'' target='_blank' rel='noopener'>''https://www.mint-ec.de/''</a>) and is funded by the German Federal Ministry of Education and Research (BMBF) (for more information see: <a href=''https://hpi.de/schul-cloud'' target=''_blank'' rel=''noopener''>''https://hpi.de/schul-cloud''</a>)."
-			}
-		},
-		"imprint_rights": {
-			"headline": {
-				"editorialStuff": "Editorial staff:",
-				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso Plattner Institute for Digital Engineering gGmbH",
-				"managingDirectorAuthorized": "Managing director authorized to represent:"
-			}
-		}
-	},
 	"landingPage": {
 		"brb": {
 			"headline": {
