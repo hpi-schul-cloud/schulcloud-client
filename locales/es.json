@@ -2485,11 +2485,6 @@
 				"nextStepRegistration": "Al registrarse en {{title}} en el siguiente paso, se aceptan la <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">política de privacidad</a> y las <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">condiciones de uso</a>. La <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">política de privacidad</a> está disponible en el pie de página en todo momento. Se aplican las siguientes <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">condiciones de uso</a> (a menos que la escuela o institución educativa haya emitido sus propias normas de uso)."
 			}
 		},
-		"deprecatedWarning": {
-			"text": {
-				"weHaveRevisedAndImprovedRegistration": "Hemos revisado y mejorado el registro en la nube escolar de HPI. Desafortunadamente, los enlaces de registro antiguos ya no son válidos. Ponte en contacto con tu profesor o administrador para obtener un nuevo enlace de registro."
-			}
-		},
 		"headline": {
 			"invalidLink": "Enlace de registro no válido",
 			"registrationEmployee": "Registro - {{role}}",

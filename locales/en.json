@@ -2485,11 +2485,6 @@
 				"nextStepRegistration": "By registering in the {{title}} in the next step, the <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">privacy policy</a> and <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">terms of use</a> are accepted. The <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">privacy policy</a> is available in the footer at all times. The following <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">terms of use</a> apply (unless the school or educational institution has issued its own usage rules)."
 			}
 		},
-		"deprecatedWarning": {
-			"text": {
-				"weHaveRevisedAndImprovedRegistration": "We have revised and improved the registration in the HPI school cloud. Unfortunately, old registration links are therefore no longer valid. Please contact your teacher or administrator to get a new registration link."
-			}
-		},
 		"headline": {
 			"invalidLink": "Invalid registration link",
 			"registrationEmployee": "Registration - {{role}}",
