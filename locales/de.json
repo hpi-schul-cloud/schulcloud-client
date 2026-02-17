@@ -2304,16 +2304,9 @@
 		}
 	},
 	"news": {
-		"_news": {
-			"headline": {
-				"createNews": "News erstellen",
-				"editNews": "News bearbeiten"
-			}
-		},
 		"button": {
 			"addNews": "News hinzufügen",
-			"deleteNewsAlt": "Artikel '{{name}}' löschen",
-			"editNewsAlt": "Artikel '{{title}}' bearbeiten."
+			"deleteNewsAlt": "Artikel '{{name}}' löschen"
 		},
 		"headline": {
 			"newsTeam": "Neuigkeiten aus dem Team"
@@ -2324,11 +2317,6 @@
 		"text": {
 			"created": "erstellt",
 			"edited": "bearbeitet",
-			"inTheClass": "in der Klasse",
-			"inTheCourse": "im Kurs",
-			"last": "zuletzt",
-			"newsNeedContent": "News benötigen Inhalt!",
-			"newsNeedTitle": "News benötigen einen Titel!",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
 		}
