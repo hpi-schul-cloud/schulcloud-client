@@ -39,7 +39,8 @@ label.form-group {
 }
 
 // Inputs
-.form-control {
+.form-control,
+.chosen-container-single .chosen-single {
   border: 1px solid #d9d9d9;
   text-align: left;
   font-weight: normal;
@@ -271,7 +272,7 @@ fieldset.switch_wrapper {
 
       .label-wrapper {
         display: flex;
-
+      
         .required-label{
           color: $colorDarkerGrey;
           font-weight: 400;
