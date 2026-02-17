@@ -1,5 +1,4 @@
 const express = require('express');
-const { Converter } = require('showdown');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 const contactHelper = require('../helpers/contactHelper');
