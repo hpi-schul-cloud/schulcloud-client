@@ -27,7 +27,7 @@ router.post('/', (req, res, next) => {
 // handles redirecting from client
 router.get('/:id', (req, res, next) => {
 	if (!req.params || !req.params.id) {
-		return res.sendStatus(400);
+		return res.send(400);
 	}
 	const customError = { message: res.$t('link.text.invalidLink'), statusCode: 404 };
 	return api(req).get(`/link/${req.params.id}?includeShortId=true&redirect=false`)
