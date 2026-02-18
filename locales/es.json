@@ -274,8 +274,7 @@
 		},
 		"form_DeleteUser": {
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingUser": "¿Estás seguro de que deseas eliminar a los siguientes usuarios?",
-				"warning": "La eliminación comenzará en segundo plano y puede tardar un tiempo. Hasta entonces, este usuario seguirá siendo visible."
+				"areYouSureYouWantToDeleteTheFollowingUser": "¿Estás seguro de que deseas eliminar a los siguientes usuarios?"
 			}
 		},
 		"form_Import": {
