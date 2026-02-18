@@ -336,13 +336,11 @@
 				"PAD_URI": {
 					"type": "string",
 					"format": "uri",
-					"default": "https://dbildungscloud.de/etherpad/p",
 					"pattern": ".*(?<!/)$",
 					"description": "The etherpad pad uri"
 				},
 				"DOMAIN": {
 					"type": "string",
-					"default": "dbildungscloud.de",
 					"description": "The new etherpad domain"
 				}
 			}
