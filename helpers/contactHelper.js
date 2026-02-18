@@ -37,10 +37,6 @@ const getSortedHelpOtions = (res) => {
 			optionText: res.$t('help.chooseTopicArea.text.pCourses'),
 		},
 		{
-			optionValue: 'Lern-Store',
-			optionText: res.$t('help.chooseTopicArea.text.pLernStore'),
-		},
-		{
 			optionValue: 'Mobile Nutzung',
 			optionText: res.$t('help.chooseTopicArea.text.pMobileUse'),
 		},
