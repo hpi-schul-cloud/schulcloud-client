@@ -12,8 +12,6 @@ const api = require('../api');
 const timesHelper = require('../helpers/timesHelper');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
-const SC_THEME = Configuration.get('SC_THEME');
-
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -361,19 +359,6 @@ router.get('/', (req, res, next) => {
 				);
 			}
 
-			const translateKeyInfobanner = () => {
-				switch (SC_THEME) {
-					case 'n21':
-						return 'dashboard.text.lernStoreBannerItem0_n21';
-					case 'thr':
-						return 'dashboard.text.lernStoreBannerItem0_thr';
-					case 'brb':
-						return 'dashboard.text.lernStoreBannerItem0_brb';
-					default:
-						return 'dashboard.text.lernStoreBannerItem0_dbc';
-				}
-			};
-
 			res.render('dashboard/dashboard', {
 				title: res.$t('dashboard.headline.title'),
 				events: events.reverse(),
@@ -394,7 +379,6 @@ router.get('/', (req, res, next) => {
 				news,
 				hours,
 				currentTimePercentage,
-				translateKeyInfoBanner: translateKeyInfobanner(),
 				showNewReleaseModal: newRelease,
 				currentTime: timesHelper.fromUTC(currentTime).format('HH:mm'),
 				isTeacher: hasRole(teacher),

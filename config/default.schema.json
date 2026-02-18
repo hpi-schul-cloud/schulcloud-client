@@ -437,11 +437,6 @@
 			"default": false,
 			"description": "Enables Portfolio (navigation, addons) in app"
 		},
-		"FEATURE_LERNSTORE_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "Defines if backend for the Lern-Store link in sidebar is enabled."
-		},
 		"FEATURE_TSP_AUTO_CONSENT_ENABLED": {
 			"type": "boolean",
 			"default": false,
