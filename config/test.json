@@ -20,9 +20,6 @@
 	"SESSION_VALKEY": {
 		"MODE": "in-memory"
 	},
-	"I18N": {
-		"DEBUG": false
-	},
 	"FILES_STORAGE": {
 		"SERVICE_BASE_URL": "http://localhost:4444",
 		"REQUEST_TIMEOUT": 600000,
