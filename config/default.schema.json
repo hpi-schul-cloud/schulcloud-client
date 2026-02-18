@@ -255,6 +255,7 @@
 		},
 		"FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED": {
 			"type": "boolean",
+			"default": true,
 			"description": "Enables the option to add attachments to the contact form."
 		},
 		"SC_CONTACT_EMAIL": {
