@@ -8,7 +8,14 @@ const i18n = require('../../i18n');
 const filesStorage = require('../../files-storage');
 const timesHelper = require('../../timesHelper');
 
-const ConfigObject = Configuration.toObject(); // TODO: Need to be tested!
+const ConfigurationUsedInHandlebars = {
+	FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED: Configuration.get('FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED'),
+	FEATURE_TEAMS_ENABLED: Configuration.get('FEATURE_TEAMS_ENABLED'),
+	FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED: Configuration.get('FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED'),
+	FEATURE_ENTERTHECLOUD: Configuration.get('FEATURE_ENTERTHECLOUD'),
+	SC_THEME: Configuration.get('SC_THEME'),
+	NODE_ENV: process.env.NODE_ENV,
+};
 
 moment.locale('de');
 
@@ -139,13 +146,13 @@ const helpers = () => ({
 		return options.inverse(this);
 	},
 	ifEnv: (env_variable, value, options) => {
-		if (ConfigObject[env_variable] === value) {
+		if (ConfigurationUsedInHandlebars[env_variable] === value) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
 	},
 	unlessEnv: (env_variable, value, options) => {
-		if (ConfigObject[env_variable] === value) {
+		if (ConfigurationUsedInHandlebars[env_variable] === value) {
 			return options.inverse(this);
 		}
 		return options.fn(this);

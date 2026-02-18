@@ -45,9 +45,6 @@ const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = Configuration.get(
 );
 const JWT_TIMEOUT_SECONDS = Configuration.get('JWT_TIMEOUT_SECONDS');
 
-/******* TODO: Test ****** */
-console.log(Configuration.toObject());
-
 const setupApp = async () => {
 	const app = express();
 
