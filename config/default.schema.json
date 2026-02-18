@@ -13,17 +13,16 @@
 			"properties": {
 				"KEEP_ALIVE": {
 					"type": "boolean",
-					"description": "Add Keep-Alive header to the request connection."
+					"description": "Add Keep-Alive header to the request connection.",
+					"default": true
 				},
 				"TIMEOUT_MS": {
 					"type": "integer",
-					"description": "Outgoing request timeout in milliseconds."
+					"description": "Outgoing request timeout in milliseconds.",
+					"default": 8000
 				}
 			},
-			"default": {
-				"TIMEOUT_MS": 8000,
-				"KEEP_ALIVE": true
-			}
+			"default": {}
 		},
 		"SW_ENABLED": {
 			"type": "boolean",
@@ -194,7 +193,8 @@
 					"type": "string",
 					"description": "The name of the Redis Sentinel service."
 				}
-			}
+			},
+			"default": {}
 		},
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
 			"type": "string",
@@ -310,12 +310,11 @@
 			"properties": {
 				"IS_CONFIGURABLE": {
 					"type": "boolean",
-					"description": "Allows school admin to toggle teachers' STUDENT_LIST permission."
+					"description": "Allows school admin to toggle teachers' STUDENT_LIST permission.",
+					"default": false
 				}
 			},
-			"default": {
-				"IS_CONFIGURABLE": false
-			}
+			"default": {}
 		},
 		"FEATURE_ETHERPAD_ENABLED": {
 			"type": "boolean",
@@ -343,7 +342,8 @@
 					"type": "string",
 					"description": "The new etherpad domain"
 				}
-			}
+			},
+			"default": {}
 		},
 		"SKIP_CONDITIONS_CONSENT": {
 			"type": "string",
@@ -363,7 +363,7 @@
 					"type": "string",
 					"default": "lax",
 					"enum": ["none", "lax", "strict"],
-					"description": "Value for cookies sameSite property. When SECURE flag is false, 'None' is not allowed in SAME_SITE and Lax should be used as default instead"
+					"description": "Value for cookies sameSite property. When SECURE flag is false, 'None' is not allowed in SAME_SITE and Lax should be used as default instead."
 				},
 				"HTTP_ONLY": {
 					"type": "boolean",
@@ -398,6 +398,7 @@
 				"SECURE",
 				"EXPIRES_SECONDS"
 			],
+			"default": {},
 			"allOf": [
 				{
 					"$ref": "#/properties/COOKIE/definitions/SAME_SITE_SECURE_VALID"
@@ -505,7 +506,8 @@
 					"description": "Available languages"
 				}
 			},
-			"required": ["DEFAULT_LANGUAGE", "AVAILABLE_LANGUAGES"]
+			"required": ["DEFAULT_LANGUAGE", "AVAILABLE_LANGUAGES"],
+			"default": {}
 		},
 		"FEATURE_PROMETHEUS_ENABLED": {
 			"type": "boolean",
@@ -539,6 +541,7 @@
 				"METRIC_TYPE": {
 					"type": "string",
 					"enum": ["summary", "histogram"],
+					"default": "histogram",
 					"description": "metric types supported for http_request_duration_seconds metric"
 				}
 			},
@@ -548,7 +551,8 @@
 				"INCLUDE_METHOD",
 				"INCLUDE_PATH",
 				"METRIC_TYPE"
-			]
+			],
+			"default": {}
 		},
 		"CALENDAR_DASHBOARD_ENABLED": {
 			"type": "boolean",
@@ -612,24 +616,28 @@
 				"SERVICE_BASE_URL": {
 					"type": "string",
 					"format": "uri",
-					"description": "The URI of the file service"
+					"description": "The URI of the file service",
+					"default": "http://localhost:4444"
 				},
 				"REQUEST_TIMEOUT": {
 					"type": "integer",
 					"minimum": 0,
-					"description": "Timeout for incoming requests to the File-Storage in milliseconds."
+					"description": "Timeout for incoming requests to the File-Storage in milliseconds.",
+					"default": 600000
 				},
 				"MAX_FILE_SIZE": {
 					"type": "integer",
 					"minimum": 0,
-					"description": "Maximum file size for incoming requests in Byte"
+					"description": "Maximum file size for incoming requests in Byte",
+					"default": 2684354560
 				}
 			},
 			"required": [
 				"SERVICE_BASE_URL",
 				"REQUEST_TIMEOUT",
 				"MAX_FILE_SIZE"
-			]
+			],
+			"default": {}
 		},
         "CSV_IMPORT_MAX_FILE_SIZE": {
             "type": "integer",
@@ -705,13 +713,5 @@
 				"required": ["PROMETHEUS"]
 			}
 		}
-	},
-	"required": [
-		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
-		"COOKIE",
-		"COOKIE_SECRET",
-		"STUDENT_TEAM_CREATION",
-		"FEATURE_ETHERPAD_ENABLED",
-		"FEATURE_EXTENSION_PORTFOLIO_ENABLED"
-	]
+	}
 }

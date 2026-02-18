@@ -9,7 +9,7 @@
 		"SECURE": true,
 		"EXPIRES_SECONDS": 2592000000,
 		"HTTP_ONLY": false,
-		"SAME_SITE": "none",
+		"SAME_SITE": "lax",
 		"HOST_ONLY": true
 	},
 	"COOKIE_SECRET": "ihasDF(=4jA4aF",
