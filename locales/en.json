@@ -24,14 +24,17 @@
 				"repeatNewPassword": "Repeat new password:"
 			},
 			"text": {
-				"name": "Name"
+				"name": "Name",
+				"noThirdPartyProvidersUsed": "No third party providers used",
+				"thirdPartyLogins": "Third party logins"
 			}
 		},
 		"headline": {
 			"yourAccount": "Your account"
 		},
 		"label": {
-			"notificationSettings": "Notification settings"
+			"notificationSettings": "Notification settings",
+			"providers": "Provider"
 		},
 		"teams": {
 			"button": {

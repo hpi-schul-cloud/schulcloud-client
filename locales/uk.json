@@ -1970,7 +1970,9 @@
 				"repeatNewPassword": "Повторіть новий пароль:"
 			},
 			"text": {
-				"name": "Назва"
+				"name": "Назва",
+				"noThirdPartyProvidersUsed": "Сторонні постачальники не використовуються",
+				"thirdPartyLogins": "Вхід в систему третіх сторін"
 			}
 		},
 		"testNotification": {
