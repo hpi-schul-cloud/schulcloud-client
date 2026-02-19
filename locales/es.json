@@ -2587,16 +2587,6 @@
 			"welcomeMailText": "Hola {{firstName}}: \n Puedes iniciar sesión en {{title}} con los siguientes detalles de inicio de sesión: \n Dirección: {{address}} \n Correo electrónico: {{email}} \n {{password}} \n {{infotext}} \n Tu equipo de \n {{shortTitle}} te desea un buen comienzo y espera que te diviertas."
 		}
 	},
-	"security": {
-		"headline": {
-			"reportSecurityIssue": "Informar del problema de seguridad",
-			"security": "Seguridad"
-		},
-		"text": {
-			"scIsTestedRegularyWeValueSecurity": "{{themeTitle}} está sometido a controles de seguridad y pruebas de intrusión regularmente, ya que la seguridad de los datos de nuestros usuarios es muy importante para nosotros.",
-			"youHaveFoundAWeakness": "¿Sigues con problemas de seguridad? Escríbenos para que podamos cerrar la incidencia lo antes posible:"
-		}
-	},
 	"team": {
 		"headline": {
 			"team": "El equipo de la nube escolar de HPI"
