@@ -1622,7 +1622,6 @@
 			}
 		},
 		"headline": {
-			"contactDetails": "Contact person and contact details",
 			"helpSection": "Help articles",
 			"privacyCourse": "Privacy course",
 			"documentsToDownload": "Documents for download"
@@ -1702,12 +1701,7 @@
 		},
 		"text": {
 			"hereYouCanFindOut": "Here you can find out how to delete your cookies.",
-			"noWelcomeDocuments": "There may not be any welcome documents. Please contact the user support.",
-			"someConcernsNeedMoreOptions": "Some concerns require more options than the fields in the contact function allow. Write us an e-mail if you want to get in touch with us:",
-			"theHassoPlattnerInstituteIsAvailable": "The Hasso Plattner Institute is available for all technical questions. If you have problems with the HPI school cloud itself or if you have difficulties operating it, please use the contact form or send an e-mail to:",
-			"theMintTeamIsNotAvailave": "The MINT-EC team is available for all non-technical questions and can be contacted at the following email address:",
-			"toMINTECWithQuestions": "to MINT-EC for queries and suggestions regarding the introduction and use of the HPI school cloud at your school",
-			"toTheHpiForIdeas": "To HPI for ideas, feedback and requests regarding cloud itself."
+			"noWelcomeDocuments": "There may not be any welcome documents. Please contact the user support."
 		}
 	},
 	"helpdesk": {

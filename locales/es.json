@@ -1622,7 +1622,6 @@
 			}
 		},
 		"headline": {
-			"contactDetails": "Persona de contacto y datos de contacto",
 			"helpSection": "Artículos de ayuda",
 			"privacyCourse": "Curso de privacidad",
 			"documentsToDownload": "Documentos para descargar"
@@ -1702,12 +1701,7 @@
 		},
 		"text": {
 			"hereYouCanFindOut": "Aquí puedes descubrir cómo eliminar tus cookies.",
-			"noWelcomeDocuments": "Puede que no haya ningún documento de bienvenida. Ponte en contacto con el servicio de atención al usuario.",
-			"someConcernsNeedMoreOptions": "Algunas cuestiones requieren más opciones de las que permiten los campos de la función de contacto. Escríbenos un correo electrónico si quieres ponerte en contacto con nosotros:",
-			"theHassoPlattnerInstituteIsAvailable": "El Instituto Hasso Plattner está disponible para todas las preguntas técnicas. Si tienes problemas con la nube escolar de HPI en sí o si tienes dificultades para usarla, utiliza el formulario de contacto o envía un correo electrónico a:",
-			"theMintTeamIsNotAvailave": "El equipo de MINT-EC está disponible para todas las preguntas no técnicas y se puede contactar con ellos en la siguiente dirección de correo electrónico:",
-			"toMINTECWithQuestions": "a MINT-EC para consultas y sugerencias sobre la introducción y el uso de la nube escolar de HPI en tu escuela",
-			"toTheHpiForIdeas": "A HPI para obtener ideas, comentarios y solicitudes sobre la nube en sí."
+			"noWelcomeDocuments": "Puede que no haya ningún documento de bienvenida. Ponte en contacto con el servicio de atención al usuario."
 		}
 	},
 	"helpdesk": {
