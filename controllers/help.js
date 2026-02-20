@@ -43,19 +43,6 @@ router.get('/confluence/:id', (req, res, next) => {
 	});
 });
 
-router.get('/lernNuggets', (req, res, next) => {
-	res.render('help/lern-nuggets', {
-		title: res.$t('help.headline.privacyCourse'),
-		breadcrumbs: [
-			{
-				title: res.$t('help.headline.helpSection'),
-				url: '/help/articles',
-				dataTestId: 'navigate-to-help-article-from-document',
-			},
-		],
-	});
-});
-
 router.get('/faq/documents', async (req, res, next) => {
 	const documents = await api(req)
 		.get('/help/documents/', { qs: { theme: res.locals.theme.name } })

@@ -1649,37 +1649,6 @@
 				"pedagogicalExperts": "When inviting educational stuff as external experts, please do not use e-mail addresses that are already used and required for the registration in the Lower Saxony Education Cloud."
 			}
 		},
-		"lernNuggets": {
-			"headline": {
-				"instructionsForUse": "Instructions for use",
-				"learningNuggetBasicOfGDPR": "Learning nugget: Basic principles of the GDPR",
-				"learningNuggetDataProtectioin": "Learning nugget: Privacy in everyday school routine",
-				"learningNuggetDataProtectionAndCloud": "Learning nugget: Privacy and cloud solutions",
-				"learningNuggetLicenseModels": "Learning nugget: license models and usage rights",
-				"welcomeToTheOnlineCourse": "Welcome to the online course 'Privacy and Copyright'"
-			},
-			"link": {
-				"basicsOfTheGDPR": "Basic principles of the GDPR",
-				"dataProtectionAndCloudSolution": "Privacy and cloud solutions",
-				"dataProtectionInSchoolLife": "Data protection in school routine",
-				"licenseModelAndUsageRights": "License models and usage rights"
-			},
-			"text": {
-				"aLearningUnitLasts": "A learning unit lasts a maximum of 15 minutes. In order to receive the full scope of the contents, it is best to connect loudspeakers or headphones to your device.",
-				"byTheWayYouWillAlways": "By the way, you will always receive a certificate of participation as proof of your learning success at the end of a learning nugget.",
-				"clientAndLicensedFor": "Client and licensed for: Verein MINT-EC®,",
-				"contentAndProduction": "Content and production: youknow GmbH, St.-Martin-Straße 57, 81669 Munich,",
-				"createdAsPartOfThe": "Developed as part of the HPI school cloud project.",
-				"dealingWithPersonalDetails": "The handling of personal data, the requirements of a cloud solution in school routine and the digital sharing of teaching and learning materials repeatedly cause uncertainty among school administrators and teachers.",
-				"forThisReasonYouHaveTheOpportunity": "For this reason, you have the opportunity to learn everything you need to know about data protection and copyright in small learning units.",
-				"hereIsTheLearningNugget": "Click here for the learning nugget:",
-				"inTheLearningNuggetOnDataProtection": "In the learning nugget on data protection in school routine, you can find out which data protection regulations you must observe in the context of school. We also show specific data protection cases from school routine here.",
-				"inThisLessonYouWillLearnAllTheBasics": "In this learning unit, you will learn all the basics of personal data. You will also get an overview of the five basic principles applicable in dealing with the GDPR.",
-				"learningNiggetsImproveTheLearningEffect": "Learning nuggets improve the learning effect and are also fun. In addition, thanks to the modular structure, you can freely decide which learning unit you want to execute first. Simply click on the respective learning nugget to take the training.",
-				"whatAreTheAdvantagesAndDisadvantages": "What are the advantages and disadvantages of cloud solutions in school use? What should be considered for use at your school? In this learning unit, we introduce everything you need to know about cloud solutions such as the HPI school cloud.",
-				"withTheTopicsOfLicenseModels": "With regard to licensing models and right of use, you will be informed about the basics of copyright law and the requirements for reproducing materials in analogous and digital school routine. You can also learn what Open Educational Resources are and how to identify licenses adequately."
-			}
-		},
 		"partials": {
 			"headline": {
 				"contactForm": "Contact form",
