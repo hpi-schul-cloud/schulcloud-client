@@ -163,7 +163,6 @@ router.get('/', (req, res, next) => {
 router.get('/add', editTopicHandler);
 
 router.post('/', async (req, res, next) => {
-	const context = req.originalUrl.split('/')[1];
 	const data = req.body;
 
 	// Check for etherpad component
