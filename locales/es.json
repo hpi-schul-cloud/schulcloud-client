@@ -1649,37 +1649,6 @@
 				"pedagogicalExperts": "Cuando invite a personal pedagógico como expertos externos, por favor no utilice direcciones de correo electrónico que estén en uso y que son necesarias para el registro en la Nube Educativa de Baja Sajonia."
 			}
 		},
-		"lernNuggets": {
-			"headline": {
-				"instructionsForUse": "Instrucciones de uso",
-				"learningNuggetBasicOfGDPR": "Actividad rápida de aprendizaje: principios básicos del RGPD",
-				"learningNuggetDataProtectioin": "Actividad rápida de aprendizaje: privacidad en las rutinas escolares diarias",
-				"learningNuggetDataProtectionAndCloud": "Actividad rápida de aprendizaje: soluciones de privacidad y en la nube",
-				"learningNuggetLicenseModels": "Actividad rápida de aprendizaje: modelos de licencia y derechos de uso",
-				"welcomeToTheOnlineCourse": "¡Bienvenido al curso en línea 'Privacidad y derechos de autor'!"
-			},
-			"link": {
-				"basicsOfTheGDPR": "Principios básicos del RGPD",
-				"dataProtectionAndCloudSolution": "Soluciones en la nube y privacidad",
-				"dataProtectionInSchoolLife": "Protección de datos en la rutina escolar",
-				"licenseModelAndUsageRights": "Modelos de licencia y derechos de uso"
-			},
-			"text": {
-				"aLearningUnitLasts": "Una unidad de aprendizaje tiene una duración máxima de 15 minutos. Para recibir todos los contenidos es mejor conectar los altavoces o los auriculares a tu dispositivo.",
-				"byTheWayYouWillAlways": "Por cierto, siempre recibirás un certificado de participación como prueba de tu éxito en la formación al final de una actividad rápida de aprendizaje.",
-				"clientAndLicensedFor": "Cliente y con licencia para: Verein MINT-EC®,",
-				"contentAndProduction": "Contenido y producción: youknow GmbH, St.-Martin-Straße 57, 81669 Múnich,",
-				"createdAsPartOfThe": "Desarrollado como parte del proyecto de la nube escolar de HPI.",
-				"dealingWithPersonalDetails": "La gestión de datos personales, los requisitos de una solución en la nube en la rutina escolar y el intercambio digital de materiales de enseñanza y aprendizaje causan incertidumbre entre los administradores y profesores de escuela de forma reiterada.",
-				"forThisReasonYouHaveTheOpportunity": "Por esta razón, tienes la oportunidad de aprender todo lo que necesitas saber sobre protección de datos y derechos de autor en pequeñas unidades de aprendizaje.",
-				"hereIsTheLearningNugget": "Haz clic aquí para acceder a la actividad rápida de aprendizaje:",
-				"inTheLearningNuggetOnDataProtection": "En la actividad rápida de aprendizaje sobre la protección de datos en la rutina escolar puedes averiguar qué normas de protección de datos debes observar en el contexto escolar. También mostramos aquí casos específicos de protección de datos en la rutina escolar.",
-				"inThisLessonYouWillLearnAllTheBasics": "En esta unidad de aprendizaje aprenderás todos los conceptos básicos de los datos personales. También obtendrás una descripción general de los cinco principios básicos aplicables al abordar el RGPD.",
-				"learningNiggetsImproveTheLearningEffect": "Las actividades rápidas de aprendizaje mejoran el efecto del aprendizaje y, además, son divertidas. Por otro lado y, gracias a la estructura modular, puedes decidir libremente qué unidad de aprendizaje deseas realizar primero. Simplemente haz clic en la actividad rápida de aprendizaje correspondiente para realizar la formación.",
-				"whatAreTheAdvantagesAndDisadvantages": "¿Cuáles son las ventajas y desventajas de las soluciones en la nube en el uso escolar? ¿Qué se debe considerar para su uso en tu escuela? En esta unidad de aprendizaje presentamos todo lo que necesitas saber sobre las soluciones en la nube, como la nube escolar de HPI.",
-				"withTheTopicsOfLicenseModels": "Con respecto a los modelos de licencias y el derecho de uso, se te informará sobre los conceptos básicos de la ley de derechos de autor y los requisitos para reproducir materiales en la rutina escolar analógica y digital. También puedes aprender qué son los recursos educativos abiertos y cómo identificar las licencias de manera adecuada."
-			}
-		},
 		"partials": {
 			"headline": {
 				"contactForm": "Formulario de contacto",
