@@ -26,25 +26,6 @@ const getDeleteHandler = (service) => (req, res, next) => {
 		});
 };
 
-router.patch('/:newsId', (req, res, next) => {
-	req.body.displayAt = timesHelper
-		.dateTimeStringToMoment(req.body.displayAt)
-		.toISOString();
-	req.body.updatedAt = timesHelper.currentDate().toISOString();
-	req.body.updaterId = res.locals.currentUser._id;
-
-	api(req, { version: VERSION })
-		.patch(`/news/${req.params.newsId}`, {
-			json: req.body,
-		})
-		.then(() => {
-			res.redirect('/news');
-		})
-		.catch((err) => {
-			next(err);
-		});
-});
-
 router.delete('/:id', getDeleteHandler('news'));
 
 router.all('/', async (req, res, next) => {
