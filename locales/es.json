@@ -2037,19 +2037,11 @@
 			"yourDigitalLearningEnvironment": "Tu entorno de aprendizaje digital"
 		},
 		"help_menu": {
-			"button": {
-				"openGame": "Abrir juego",
-				"playEnterTheCloud": "Reproducir entrada a la nube"
-			},
 			"img_alt": {
 				"learnCloud": "Información sobre la nube"
 			},
-			"input": {
-				"userName": "Nombre de usuario:"
-			},
 			"label": {
-				"helpSection": "Sección de ayuda",
-				"playEnterTheCloud": "Juega a \"Enter The Cloud\" (Entra en la nube)"
+				"helpSection": "Sección de ayuda"
 			},
 			"link": {
 				"releaseNotes": "¿Qué hay de nuevo?",

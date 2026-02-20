@@ -2263,13 +2263,6 @@
 			}
 		},
 		"help_menu": {
-			"button": {
-				"openGame": "Відкрити гру",
-				"playEnterTheCloud": "Play Enter The Cloud"
-			},
-			"input": {
-				"userName": "Ім'я користувача:"
-			},
 			"link": {
 				"releaseNotes": "Що нового?",
 				"training": "Підвищення кваліфікації"
@@ -2278,8 +2271,7 @@
 				"learnCloud": "Навчальна хмара"
 			},
 			"label": {
-				"helpSection": "Розділ довідки",
-				"playEnterTheCloud": "Play Enter The Cloud"
+				"helpSection": "Розділ довідки"
 			}
 		},
 		"ldap_info": {

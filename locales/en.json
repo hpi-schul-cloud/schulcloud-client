@@ -2037,19 +2037,11 @@
 			"yourDigitalLearningEnvironment": "Your digital learning environment"
 		},
 		"help_menu": {
-			"button": {
-				"openGame": "Open game",
-				"playEnterTheCloud": "Play Enter The Cloud"
-			},
 			"img_alt": {
 				"learnCloud": "Learn Cloud"
 			},
-			"input": {
-				"userName": "Username:"
-			},
 			"label": {
-				"helpSection": "Help Section",
-				"playEnterTheCloud": "Play Enter The Cloud"
+				"helpSection": "Help Section"
 			},
 			"link": {
 				"releaseNotes": "What's new?",
