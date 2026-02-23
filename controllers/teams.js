@@ -134,18 +134,14 @@ const editTeamHandler = async (req, res, next) => {
 		method = 'patch';
 		teamPromise = api(req).get(`/teams/${req.params.teamId}`);
 	} else {
-		action = '/teams/';
-		method = 'post';
-		teamPromise = Promise.resolve({});
+		return;
 	}
 
-	if (req.params.teamId) {
-		try {
-			permissions = await api(req)
-				.get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
-		} catch (error) {
-			logger.error(error);
-		}
+	try {
+		permissions = await api(req)
+			.get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
+	} catch (error) {
+		logger.error(error);
 	}
 
 	let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
@@ -397,8 +393,6 @@ router.post('/copy/:teamId', (req, res, next) => {
 			res.sendStatus(500);
 		});
 });
-
-router.get('/add/', editTeamHandler);
 
 /*
  * Single Course
