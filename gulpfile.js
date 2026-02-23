@@ -7,7 +7,7 @@ const babel = require('gulp-babel');
 const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const gulpErrorHandler = require('gulp-error-handle');
-const insert = require('gulp-insert');
+const header = require('gulp-header');
 const gulpif = require('gulp-if');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
@@ -94,7 +94,7 @@ gulp.task('other', () => gulp
 gulp.task('styles', () => {
 	const themeFile = `./theme/${themeName()}/style.scss`;
 	return beginPipe('./static/styles/**/*.{css,sass,scss}')
-		.pipe(insert.prepend(fs.readFileSync(themeFile, 'utf8')))
+		.pipe(header(fs.readFileSync(themeFile, 'utf8')))
 		.pipe(sourcemaps.init())
 		.pipe(sass({
 			sourceMap: true,
