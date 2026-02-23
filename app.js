@@ -25,16 +25,6 @@ const {
 	sha,
 } = require('./helpers');
 
-const {
-	KEEP_ALIVE,
-	SC_DOMAIN,
-	SC_THEME,
-	JWT_SHOW_TIMEOUT_WARNING_SECONDS,
-	MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE,
-	JWT_TIMEOUT_SECONDS,
-	API_HOST,
-	PUBLIC_BACKEND_URL,
-} = require('./config/global');
 const authHelper = require('./helpers/authentication');
 const securityHeaders = require('./middleware/security_headers');
 const cors = require('./middleware/cors');
@@ -43,6 +33,17 @@ const setTheme = require('./helpers/theme');
 const controllers = require('./controllers');
 const i18nMiddleware = require('./middleware/i18n');
 const datetimeMiddleware = require('./middleware/datetime');
+
+const PUBLIC_BACKEND_URL = Configuration.get('PUBLIC_BACKEND_URL');
+const API_HOST = Configuration.get('API_HOST'); // where undefined before
+const KEEP_ALIVE = Configuration.get('REQUEST_OPTION__KEEP_ALIVE'); // where undefined before
+const SC_DOMAIN = Configuration.get('SC_DOMAIN');
+const SC_THEME = Configuration.get('SC_THEME');
+const JWT_SHOW_TIMEOUT_WARNING_SECONDS = Configuration.get('JWT_SHOW_TIMEOUT_WARNING_SECONDS');
+const MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE = Configuration.get(
+	'MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE',
+);
+const JWT_TIMEOUT_SECONDS = Configuration.get('JWT_TIMEOUT_SECONDS');
 
 const setupApp = async () => {
 	const app = express();

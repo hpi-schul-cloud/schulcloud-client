@@ -5,7 +5,6 @@ const { randomBytes } = require('crypto');
 const { decode } = require('html-entities');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
-const apiEditor = require('../apiEditor');
 const authHelper = require('../helpers/authentication');
 const { logger } = require('../helpers');
 const filesStoragesHelper = require('../helpers/files-storage');
@@ -379,40 +378,5 @@ router.delete('/:topicId/materials/:materialId', (req, res, next) => {
 });
 
 router.get('/:topicId/edit', editTopicHandler);
-
-// ########################################## new Edtiro ############################################
-
-router.get('/add/neweditor', async (req, res, next) => {
-	const lesson = await apiEditor(req).post(`/course/${req.params.courseId}/lessons`, {
-		title: '',
-	});
-
-	res.redirect(`/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`);
-});
-
-const boolean = (v) => v === 1 || v === 'true' || v === true || v === '1';
-router.patch('/:topicId/neweditor', (req, res, next) => {
-	if (req.body.hidden !== undefined) {
-		apiEditor(req).patch(`/helpers/setVisibility/${req.params.topicId}`, {
-			json: { visible: !boolean(req.body.hidden) },
-		}).then((response) => {
-			res.json({
-				hidden: !response.visible,
-			});
-		}).catch((err) => {
-			next(err);
-		});
-	} else {
-		res.sendStatus(200);
-	}
-});
-
-router.delete('/:topicId/neweditor', async (req, res, next) => {
-	apiEditor(req).delete(`course/${req.params.courseId}/lessons/${req.params.topicId}`).then(() => {
-		res.sendStatus(200);
-	}).catch((err) => {
-		next(err);
-	});
-});
 
 module.exports = router;

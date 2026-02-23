@@ -8,8 +8,6 @@ const { decode } = require('html-entities');
 
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
-const apiEditor = require('../apiEditor');
-const { EDITOR_URL } = require('../config/global');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
@@ -20,8 +18,9 @@ const OPTIONAL_COURSE_FEATURES = ['messenger', 'videoconference'];
 const FEATURE_GROUPS_IN_COURSE_ENABLED = Configuration.get('FEATURE_GROUPS_IN_COURSE_ENABLED');
 
 const router = express.Router();
-const { HOST } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
+
+const HOST = Configuration.get('HOST');
 
 const SYNC_ATTRIBUTE = Object.freeze({
 	TEACHERS: 'teachers',
@@ -700,22 +699,6 @@ router.get('/:courseId/', async (req, res, next) => {
 		}),
 	];
 
-	// ########################### start requests to new Editor #########################
-	let editorBackendIsAlive = true;
-	if (EDITOR_URL) {
-		promises.push(apiEditor(req)
-			.get(`course/${req.params.courseId}/lessons`)
-			.catch((err) => {
-				logger.warn('Can not fetch new editor lessons.', err);
-				editorBackendIsAlive = false;
-				return {
-					total: 0,
-					data: [],
-				};
-			}));
-	}
-
-	// ############################ end requests to new Editor ##########################
 	try {
 		const [
 			course,
@@ -723,16 +706,7 @@ router.get('/:courseId/', async (req, res, next) => {
 			_homeworks,
 			_courseGroups,
 			scopedPermissions,
-			_newLessons,
 		] = await Promise.all(promises);
-
-		// ############################## check if new Editor options should show #################
-		const edtrUser = (res.locals.currentUser.features || []).includes('edtr');
-		const userHasEditorEnabled = EDITOR_URL && edtrUser;
-		const courseHasNewEditorLessons = ((_newLessons || {}).total || 0) > 0;
-
-		const isNewEdtrioActivated = editorBackendIsAlive && (courseHasNewEditorLessons || userHasEditorEnabled);
-		// ################################ end new Editor check ##################################
 
 		const lessons = (_lessons.data || []).map((lesson) => Object.assign(lesson, {
 			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
@@ -760,17 +734,8 @@ router.get('/:courseId/', async (req, res, next) => {
 				(user) => user._id === res.locals.currentUser._id,
 			));
 
-		// ###################### start of code for new Editor ################################
-		let newLessons;
-		if (isNewEdtrioActivated) {
-			newLessons = (_newLessons.data || []).map((lesson) => ({
-				...lesson,
-				url: `/courses/${req.params.courseId}/topics/${lesson._id}?edtr=true`,
-				hidden: !lesson.visible,
-			}));
-		}
-
-		// ###################### end of code for new Editor ################################
+		const newLessons = undefined; // It is always undefined handlebar code need to be clean up.
+		const isNewEdtrioActivated = false; // It is always false handlebar code need to be clean up.
 		const user = res.locals.currentUser || {};
 		const roles = user.roles.map((role) => role.name);
 		const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
@@ -807,7 +772,6 @@ router.get('/:courseId/', async (req, res, next) => {
 				nextEvent: recurringEventsHelper.getNextEventForCourseTimes(
 					course.times,
 				),
-				// #################### new Editor, till replacing old one ######################
 				newLessons,
 				isNewEdtrioActivated,
 				scopedCoursePermission: scopedPermissions[res.locals.currentUser._id],

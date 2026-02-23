@@ -10,12 +10,11 @@ const { getCurrentLanguage } = require('../helpers/i18n');
 
 const converter = new showdown.Converter();
 
-const { CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const redirectHelper = require('../helpers/redirect');
 
-const router = express.Router();
+const CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS = Configuration.get('CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS');
 
-// secure routes
+const router = express.Router();
 router.use(authHelper.authChecker);
 
 const consentFullfilled = (consent) => consent.privacyConsent && consent.termsOfUseConsent;

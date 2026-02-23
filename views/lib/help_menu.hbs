@@ -28,23 +28,6 @@
                         }}</a>
                 </li>
 
-                {{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
-                    {{#userHasPermission "ENTERTHECLOUD_START"}}
-                        <li
-                            class="list-group-item list-group-item-action enterthecloud-btn"
-                        >
-                            <i class="fa fa-gamepad" aria-hidden="true"></i>
-                            <button
-                                type="button"
-                                class="link btn-link enterthecloud-btn"
-                                style="line-height: initial"
-                            >{{$t
-                                    "lib.help_menu.button.playEnterTheCloud"
-                                }}</button>
-                        </li>
-                    {{/userHasPermission}}
-                {{/ifEnv}}
-
                 <li class="list-group-item list-group-item-action">
                     <svg
                         width="24"

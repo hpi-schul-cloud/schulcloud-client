@@ -7,14 +7,16 @@
 const express = require('express');
 const handlebars = require('handlebars');
 const _ = require('lodash');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 const redirectHelper = require('../helpers/redirect');
 const { logger } = require('../helpers');
-const { HOST } = require('../config/global');
 const timesHelper = require('../helpers/timesHelper');
 const filesStoragesHelper = require('../helpers/files-storage');
+
+const HOST = Configuration.get('HOST');
 
 const router = express.Router();
 

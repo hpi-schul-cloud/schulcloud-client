@@ -13,17 +13,66 @@
 			"properties": {
 				"KEEP_ALIVE": {
 					"type": "boolean",
-					"description": "Add Keep-Alive header to the request connection."
+					"description": "Add Keep-Alive header to the request connection.",
+					"default": true
 				},
 				"TIMEOUT_MS": {
 					"type": "integer",
-					"description": "Outgoing request timeout in milliseconds."
+					"description": "Outgoing request timeout in milliseconds.",
+					"default": 8000
 				}
 			},
-			"default": {
-				"TIMEOUT_MS": 8000,
-				"KEEP_ALIVE": true
-			}
+			"default": {}
+		},
+		"SW_ENABLED": {
+			"type": "boolean",
+			"default": false,
+			"description": "Enables the service worker in the app, which allows to use offline features and caching."
+		},
+		"MINIMAL_PASSWORD_LENGTH": {
+			"type": "integer",
+			"default": 12,
+			"description": "Minimum password length for user registration and password change. Default 12."
+		},
+		"CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS": {
+			"type": "integer",
+			"default": 16,
+			"description": "Minimum age in years for which consent without parents is valid. Default 16."
+		},
+		"FEATURE_EXTENSIONS_ENABLED": {
+			"type": "boolean",
+			"description": "Enables the extensions system in the app, which allows to add features via extensions. Deprecated!",
+			"default": false
+		},
+		"FEATURE_TEAMS_ENABLED": {
+			"type": "boolean",
+			"description": "Enables the teams feature in the app, which allows users to create and manage teams.",
+			"default": true
+		},
+		"SC_DOMAIN": {
+			"type": "string",
+			"description": "The domain of the schulcloud instance, used for cookies and CORS configuration. Should not include protocol or slashes.",
+			"default": "localhost"
+		},
+		"SC_THEME": {
+			"type": "string",
+			"description": "The theme of the schulcloud instance, used for styling and theming. Should be one of 'default' or 'hpi'.",
+			"default": "default"
+		},
+		"SC_TITLE": {
+			"type": "string",
+			"description": "The title of the schulcloud instance, used for display in the browser tab and other places.",
+			"default": "dBildungscloud"
+		},
+		"DOCUMENT_BASE_DIR": {
+			"type": "string",
+			"description": "The base directory for documents, used for storing and serving documents. Should be a valid URI.",
+			"default": "https://s3.hidrive.strato.com/cloud-instances/"
+		},
+		"MAXIMUM_ALLOWABLE_TOTAL_ATTACHMENTS_SIZE_BYTE": {
+			"type": "integer",
+			"default": 5242880,
+			"description": "Maximum total size of attachments in bytes. Default 5 MB = 5 * 1024 * 1024."
 		},
 		"HOST": {
 			"type": "string",
@@ -144,7 +193,8 @@
 					"type": "string",
 					"description": "The name of the Redis Sentinel service."
 				}
-			}
+			},
+			"default": {}
 		},
 		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
 			"type": "string",
@@ -170,13 +220,13 @@
 		},
 		"FEATURE_ASSET_CACHING_ENABLED": {
 			"type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "If enabled, static assets will be fingerprinted and cached."
 		},
 		"ASSET_CACHING_MAX_AGE_SECONDS": {
 			"type": "integer",
-			"default": 86400,
-			"description": "Max-Age for static assets response header. Defaults to one day."
+			"default": 864000,
+			"description": "Max-Age for static assets response header. Defaults to one day. Default 10 days = 10 * 24 * 60 * 60 = 864000."
 		},
 		"NOT_AUTHENTICATED_REDIRECT_URL": {
 			"type": "string",
@@ -188,10 +238,25 @@
 			"default": "",
 			"description": "The URL to redirect to when accessing '/'. Leave empty for no redirect."
 		},
+		"JWT_SHOW_TIMEOUT_WARNING_SECONDS": {
+			"type": "integer",
+			"default": 3600,
+			"description": "Number of seconds before JWT token expiration when a warning should be shown to the user. Default 60 min."
+		},
+		"JWT_TIMEOUT_SECONDS": {
+			"type": "integer",
+			"description": "Number of seconds after which a JWT token expires.",
+			"default": 7200
+		},
 		"FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED": {
 			"type": "boolean",
 			"default": false,
 			"description": "Using privateDevice parameter in login, the logout/jwt timeout can be extended to JWT_EXTENDED_TIMEOUT_SECONDS instead of JWT_TIMEOUT_SECONDS."
+		},
+		"FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the option to add attachments to the contact form."
 		},
 		"SC_CONTACT_EMAIL": {
 			"type": "string",
@@ -204,7 +269,7 @@
 		},
 		"FEATURE_ALERTS_ENABLED": {
 			"type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "If enabled, user will see messages/incidents from e.g status.dbildungscloud"
 		},
 		"FEATURE_ALERTS_ON_HOMEPAGE_ENABLED": {
@@ -219,7 +284,7 @@
 		},
 		"ALERT_STATUS_URL": {
 			"type": "string",
-			"default": null,
+			"default": "https://status.dbildungscloud.de",
 			"description": "The url of status message provider (should end without a slash)."
 		},
 		"GHOST_API_KEY": {
@@ -246,12 +311,11 @@
 			"properties": {
 				"IS_CONFIGURABLE": {
 					"type": "boolean",
-					"description": "Allows school admin to toggle teachers' STUDENT_LIST permission."
+					"description": "Allows school admin to toggle teachers' STUDENT_LIST permission.",
+					"default": false
 				}
 			},
-			"default": {
-				"IS_CONFIGURABLE": false
-			}
+			"default": {}
 		},
 		"FEATURE_ETHERPAD_ENABLED": {
 			"type": "boolean",
@@ -272,16 +336,15 @@
 				"PAD_URI": {
 					"type": "string",
 					"format": "uri",
-					"default": "https://dbildungscloud.de/etherpad/p",
 					"pattern": ".*(?<!/)$",
 					"description": "The etherpad pad uri"
 				},
 				"DOMAIN": {
 					"type": "string",
-					"default": "dbildungscloud.de",
 					"description": "The new etherpad domain"
 				}
-			}
+			},
+			"default": {}
 		},
 		"SKIP_CONDITIONS_CONSENT": {
 			"type": "string",
@@ -301,7 +364,7 @@
 					"type": "string",
 					"default": "lax",
 					"enum": ["none", "lax", "strict"],
-					"description": "Value for cookies sameSite property. When SECURE flag is false, 'None' is not allowed in SAME_SITE and Lax should be used as default instead"
+					"description": "Value for cookies sameSite property. When SECURE flag is false, 'None' is not allowed in SAME_SITE and Lax should be used as default instead."
 				},
 				"HTTP_ONLY": {
 					"type": "boolean",
@@ -336,6 +399,7 @@
 				"SECURE",
 				"EXPIRES_SECONDS"
 			],
+			"default": {},
 			"allOf": [
 				{
 					"$ref": "#/properties/COOKIE/definitions/SAME_SITE_SECURE_VALID"
@@ -438,11 +502,12 @@
 					"description": "Available languages"
 				}
 			},
-			"required": ["DEFAULT_LANGUAGE", "AVAILABLE_LANGUAGES"]
+			"required": ["DEFAULT_LANGUAGE", "AVAILABLE_LANGUAGES"],
+			"default": {}
 		},
 		"FEATURE_PROMETHEUS_ENABLED": {
 			"type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "Feature flag to enable prometheus api metrics"
 		},
 		"PROMETHEUS": {
@@ -472,6 +537,7 @@
 				"METRIC_TYPE": {
 					"type": "string",
 					"enum": ["summary", "histogram"],
+					"default": "histogram",
 					"description": "metric types supported for http_request_duration_seconds metric"
 				}
 			},
@@ -481,7 +547,8 @@
 				"INCLUDE_METHOD",
 				"INCLUDE_PATH",
 				"METRIC_TYPE"
-			]
+			],
+			"default": {}
 		},
 		"CALENDAR_DASHBOARD_ENABLED": {
 			"type": "boolean",
@@ -545,24 +612,28 @@
 				"SERVICE_BASE_URL": {
 					"type": "string",
 					"format": "uri",
-					"description": "The URI of the file service"
+					"description": "The URI of the file service",
+					"default": "http://localhost:4444"
 				},
 				"REQUEST_TIMEOUT": {
 					"type": "integer",
 					"minimum": 0,
-					"description": "Timeout for incoming requests to the File-Storage in milliseconds."
+					"description": "Timeout for incoming requests to the File-Storage in milliseconds.",
+					"default": 600000
 				},
 				"MAX_FILE_SIZE": {
 					"type": "integer",
 					"minimum": 0,
-					"description": "Maximum file size for incoming requests in Byte"
+					"description": "Maximum file size for incoming requests in Byte",
+					"default": 2684354560
 				}
 			},
 			"required": [
 				"SERVICE_BASE_URL",
 				"REQUEST_TIMEOUT",
 				"MAX_FILE_SIZE"
-			]
+			],
+			"default": {}
 		},
         "CSV_IMPORT_MAX_FILE_SIZE": {
             "type": "integer",
@@ -638,13 +709,5 @@
 				"required": ["PROMETHEUS"]
 			}
 		}
-	},
-	"required": [
-		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION",
-		"COOKIE",
-		"COOKIE_SECRET",
-		"STUDENT_TEAM_CREATION",
-		"FEATURE_ETHERPAD_ENABLED",
-		"FEATURE_EXTENSION_PORTFOLIO_ENABLED"
-	]
+	}
 }

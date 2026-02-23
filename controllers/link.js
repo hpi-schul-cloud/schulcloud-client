@@ -1,11 +1,12 @@
 const express = require('express');
 
 const router = express.Router();
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const api = require('../api');
 const { logger } = require('../helpers');
 const authHelper = require('../helpers/authentication');
 
-const { HOST } = require('../config/global');
+const HOST = Configuration.get('HOST');
 
 router.post('/', (req, res, next) => {
 	// check first if target already exists (preventing db to be wasted)

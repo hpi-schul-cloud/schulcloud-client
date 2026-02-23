@@ -1,4 +1,6 @@
-const { SC_THEME } = require('../config/global');
+const { Configuration } = require('@hpi-schul-cloud/commons');
+
+const SC_THEME = Configuration.get('SC_THEME');
 
 const getTeamsInfoBannerTranslateKey = () => {
 	switch (SC_THEME) {

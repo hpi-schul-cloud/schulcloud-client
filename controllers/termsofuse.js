@@ -1,9 +1,12 @@
 const express = require('express');
 const { URL } = require('url');
-const { DOCUMENT_BASE_DIR, SC_THEME } = require('../config/global');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 const { specificFiles } = require('../config/documents');
 const { getBase64File } = require('../helpers/fileHelper');
 const { getConsentVersion } = require('../helpers/consentVersionHelper');
+
+const SC_THEME = Configuration.get('SC_THEME');
+const DOCUMENT_BASE_DIR = Configuration.get('DOCUMENT_BASE_DIR');
 
 const router = express.Router();
 
