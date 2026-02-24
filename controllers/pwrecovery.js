@@ -1,4 +1,3 @@
-
 const express = require('express');
 
 const router = express.Router();
@@ -62,6 +61,5 @@ router.post('/reset', (req, res, next) => {
 		next(err);
 	});
 });
-
 
 module.exports = router;

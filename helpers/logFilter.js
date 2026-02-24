@@ -79,7 +79,6 @@ const filterQuery = (url) => {
 // important that it is not added it to logs
 const filterLog = (log) => {
 	if (log) {
-		// req.url = filterQuery(req.url);
 		log.url = filterQuery(log.url);
 		log.body = filter(log.body);
 		log.params = filter(log.params);
