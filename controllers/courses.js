@@ -484,44 +484,6 @@ const copyCourseHandler = (req, res, next) => {
 // secure routes
 router.use(authHelper.authChecker);
 
-/**
- *
- * @param {*} courses, string userId
- * @returns [substitutions, others]
- */
-
-const enrichCourse = (course, res) => {
-	course.url = `/courses/${course._id}`;
-	course.title = course.name;
-	course.content = (course.description || '').substr(0, 140);
-	course.secondaryTitle = '';
-	course.background = course.color;
-	course.memberAmount = course.userIds ? course.userIds.length : 0;
-	(course.times || []).forEach((time) => {
-		time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
-		time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday, res);
-		course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''}</div>`;
-	});
-	return course;
-};
-
-const filterSubstitutionCourses = (courses, userId, res) => {
-	const substitutions = [];
-	const others = [];
-
-	courses.data.forEach((course) => {
-		enrichCourse(course, res);
-
-		if ((course.substitutionIds || []).includes(userId)) {
-			substitutions.push(course);
-		} else {
-			others.push(course);
-		}
-	});
-
-	return [substitutions, others];
-};
-
 router.get('/getNames', async (req, res, next) => {
 	try {
 		const result = await api(req).get('/courses/');
@@ -534,45 +496,7 @@ router.get('/getNames', async (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-	const { currentUser } = res.locals;
-	const userId = currentUser._id.toString();
-	const importToken = req.query.import;
-
-	Promise.all([
-		api(req).get(`/users/${userId}/courses/`, {
-			qs: {
-				filter: 'active',
-				$limit: 75,
-			},
-		}),
-		api(req).get(`/users/${userId}/courses/`, {
-			qs: {
-				filter: 'archived',
-				$limit: 750,
-			},
-		}),
-	])
-		.then(([active, archived]) => {
-			let activeSubstitutions = [];
-			let activeCourses = [];
-			let archivedSubstitutions = [];
-			let archivedCourses = [];
-
-			[activeSubstitutions, activeCourses] = filterSubstitutionCourses(
-				active,
-				userId,
-				res,
-			);
-			[
-				archivedSubstitutions,
-				archivedCourses,
-			] = filterSubstitutionCourses(archived, userId, res);
-
-			res.redirect('/rooms-overview');
-		})
-		.catch((err) => {
-			next(err);
-		});
+	res.redirect('/rooms-overview');
 });
 
 router.post('/', (req, res, next) => {

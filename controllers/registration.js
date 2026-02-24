@@ -42,11 +42,6 @@ const checkValidRegistration = async (req) => {
 	return false;
 };
 
-/*
- * Warnings for users who wan't to use the old register version if not teacher
- */
-router.get(['/register', '/register/*'], (req, res, next) => res.render('registration/deprecated_warning'));
-
 const getSchoolConsentVersionByType = async (req, res, consentType) => {
 	const importHash = getImportHash(req);
 
