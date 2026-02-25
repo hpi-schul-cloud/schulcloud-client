@@ -22,17 +22,9 @@
             {{#if allowedCreateTeam}}
             <div class="row">
                 <div class="center buttons">
-                    <a href="/teams/add" data-testid="add_team_button_empty_overview" class="btn btn-lg btn-add btn-primary">{{$t "teams.button.foundATeam"}}</a>
+                    <a style="opacity: 0.5; pointer-events: none;" tabindex="-1" aria-disabled="true" data-testid="add_team_button_empty_overview" class="btn btn-lg btn-add btn-primary">{{$t "teams.button.foundATeam"}}</a>
                 </div>
             </div>
-            {{else}}
-            {{#unless (userHasRole "externalPerson")}}
-            <div class="text-wrapper mx-auto d-block">
-                <h2 class="h5 text-muted text-center">
-                    {{$t "teams.text.studentsCantCreateTeams"}}
-                </h2>
-            </div>
-            {{/unless}}
             {{/if}}
         </section>
     {{/content}}

@@ -2706,7 +2706,7 @@
 		},
 		"text": {
 			"descriptionTeams": "¿Grupo de estudio, equipo escolar o reunión de representantes de la clase? Crea un equipo para que puedan intercambiar material y noticias entre ellos, dentro de tu escuela o entre escuelas.",
-			"studentsCantCreateTeams": "La escuela no permite que los estudiantes creen equipos en tu escuela. Ponte en contacto con un profesor o administrador.",
+			"roomsInsteadOfTeams": "Ya no es posible crear equipos.<br />¿Desea crear una nueva <a href=\"/rooms/new\">sala</a> en su lugar?",
 			"title": "Cambio a Espacios ahora",
 			"item0": "En los <a href=\"/rooms\">Espacios</a> ahora están disponibles todas las opciones para colaborar mejor dentro y entre escuelas. Por lo tanto, a partir de la semana 12 (18.03.2026) ya no será posible crear nuevos equipos. Los equipos existentes se mantendrán hasta nuevo aviso.",
 			"item1_dbc": "A partir de este momento, el chat en los equipos ya no estará disponible. En los Espacios, la función de chat en Etherpads ofrece una alternativa para el intercambio conjunto. Recomendamos guardar manualmente y a tiempo la información importante de los chats. Más información está disponible en las <a href=\"https://dbildungscloud.de/help/confluence/426313035\">páginas de ayuda</a>.",

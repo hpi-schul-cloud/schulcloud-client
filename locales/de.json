@@ -2706,7 +2706,7 @@
 		},
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecher:innenversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
-			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler:innen in deiner Schule nicht. Wende dich bitte an eine Lehrkraft oder Admin.",
+			"roomsInsteadOfTeams":  "Das Anlegen von Teams ist nicht mehr möglich.<br /> Soll stattdessen ein neuer <a href=\"/rooms/new\">Raum erstellt</a> werden?",
 			"title": "Jetzt auf Räume umsteigen",
 			"item0": "In den <a href=\"/rooms\">Räumen</a> stehen nun alle Möglichkeiten bereit, um noch besser schulintern und -übergreifend zusammenzuarbeiten. Daher ist das Anlegen neuer Teams ab KW 12 (18.03.2026) nicht mehr möglich. Bestehende Teams bleiben bis auf Weiteres erhalten.",
 			"item1_dbc": "Ab diesem Zeitpunkt steht zudem der Chat in den Teams nicht mehr zur Verfügung. In den Räumen bietet sich alternativ die Chatfunktion in Etherpads für den gemeinsamen Austausch an. Wir empfehlen die rechtzeitige manuelle Sicherung wichtiger Informationen aus den Chats. Weitere Informationen finden sich auf den <a href=\"https://dbildungscloud.de/help/confluence/426313035\">Hilfeseiten</a>.",
