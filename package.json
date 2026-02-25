@@ -63,7 +63,7 @@
 		"gulp-change": "^1.0.2",
 		"gulp-cli": "^2.3.0",
 		"gulp-rename": "^2.0.0",
-		"handlebars": "^4.7.7",
+		"handlebars": "^4.7.8",
 		"handlebars-layouts": "^3.1.4",
 		"handlebars-wax": "^5.1.1",
 		"hbs": "^4.2.0",
@@ -95,7 +95,7 @@
 		"storage-factory": "^0.1.1",
 		"string-strip-html": "8.3.0",
 		"video.js": "^7.20.3",
-		"winston": "^3.2.0",
+		"winston": "^3.19.0",
 		"xml2js": "^0.6.2"
 	},
 	"devDependencies": {
