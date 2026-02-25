@@ -28,23 +28,6 @@
                         }}</a>
                 </li>
 
-                {{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
-                    {{#userHasPermission "ENTERTHECLOUD_START"}}
-                        <li
-                            class="list-group-item list-group-item-action enterthecloud-btn"
-                        >
-                            <i class="fa fa-gamepad" aria-hidden="true"></i>
-                            <button
-                                type="button"
-                                class="link btn-link enterthecloud-btn"
-                                style="line-height: initial"
-                            >{{$t
-                                    "lib.help_menu.button.playEnterTheCloud"
-                                }}</button>
-                        </li>
-                    {{/userHasPermission}}
-                {{/ifEnv}}
-
                 <li class="list-group-item list-group-item-action">
                     <svg
                         width="24"
@@ -102,24 +85,3 @@
         </div>
     </div>
 </li>
-
-{{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
-    {{#userHasPermission "ENTERTHECLOUD_START"}}
-        {{#embed
-            "lib/components/modal"
-            class="enterthecloud-modal"
-            title=($t "lib.help_menu.label.playEnterTheCloud")
-        }}
-            {{#content "body"}}
-                <div class="modal-body">
-                    <p>{{$t "lib.help_menu.input.userName"}}
-                        <code>...</code></p>
-                    <p>{{$t "global.label.password"}} <code>...</code></p>
-                    <a class="btn btn-primary" href="TODO">{{$t
-                            "lib.help_menu.button.openGame"
-                        }}</a>
-                </div>
-            {{/content}}
-        {{/embed}}
-    {{/userHasPermission}}
-{{/ifEnv}}
