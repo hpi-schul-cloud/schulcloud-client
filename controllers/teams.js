@@ -134,18 +134,14 @@ const editTeamHandler = async (req, res, next) => {
 		method = 'patch';
 		teamPromise = api(req).get(`/teams/${req.params.teamId}`);
 	} else {
-		action = '/teams/';
-		method = 'post';
-		teamPromise = Promise.resolve({});
+		return;
 	}
 
-	if (req.params.teamId) {
-		try {
-			permissions = await api(req)
-				.get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
-		} catch (error) {
-			logger.error(error);
-		}
+	try {
+		permissions = await api(req)
+			.get(`/teams/${req.params.teamId}/userPermissions/${res.locals.currentUser._id}`);
+	} catch (error) {
+		logger.error(error);
 	}
 
 	let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
@@ -342,29 +338,6 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
-router.post('/', (req, res, next) => {
-	const features = new Set([]);
-
-	OPTIONAL_TEAM_FEATURES.forEach((feature) => {
-		if (req.body[feature] === 'true') {
-			features.add(feature);
-		}
-
-		delete req.body[feature];
-	});
-
-	if (features.size > 0) {
-		req.body.features = Array.from(features);
-	}
-
-	api(req)
-		.post('/teams/', {
-			json: req.body,
-		})
-		.then((team) => res.redirect(`/teams/${team._id}`))
-		.catch(next);
-});
-
 router.post('/copy/:teamId', (req, res, next) => {
 	// map course times to fit model
 	(req.body.times || []).forEach((time) => {
@@ -397,8 +370,6 @@ router.post('/copy/:teamId', (req, res, next) => {
 			res.sendStatus(500);
 		});
 });
-
-router.get('/add/', editTeamHandler);
 
 /*
  * Single Course
@@ -951,7 +922,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 		});
 
 		const { permissions } = team.user || {};
-		team.userIds = team.userIds.filter((user) => user.userId !== null); // fix if user do not exist
+		team.userIds = team.userIds.filter((teamUser) => teamUser.userId !== null
+			&& users.some((user) => user._id === teamUser.userId._id)); // fix if user do not exist
 		const teamUserIds = team.userIds.map((user) => user.userId._id);
 		users = users.filter((user) => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter((s) => s._id === schoolId)[0];

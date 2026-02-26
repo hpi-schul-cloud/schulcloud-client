@@ -216,24 +216,6 @@ function fullscreenBtnClicked() {
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
-function initEnterTheCloud() {
-    const buttons = document.querySelectorAll('.enterthecloud-btn');
-    const modal = document.querySelector('.enterthecloud-modal');
-    if (!buttons.length || !modal) {
-        return false;
-    }
-    buttons.forEach((btn) => {
-        $(btn).on('click', () => {
-            $(modal).appendTo('body').modal('show');
-        });
-    });
-    return true;
-}
-
-$(document).ready(() => {
-    initEnterTheCloud();
-});
-
 $(document).ready(function () {
 	// If the navigation link leads to the Vue client, localStorage is used to transmit that the sidebar should be closed on mobile.
     const sidebarLinks = document.querySelectorAll('a.sidebar-item, a.subitem');

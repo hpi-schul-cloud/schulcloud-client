@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
-const { Configuration } = require('@hpi-schul-cloud/commons');
 const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -193,7 +192,6 @@ router.patch('/:courseGroupId', (req, res, next) => {
 		res.sendStatus(500);
 	});
 });
-
 
 router.get('/:courseGroupId/edit', editCourseGroupHandler);
 
