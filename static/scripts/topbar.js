@@ -1,4 +1,7 @@
+import { broadcast, notifyLogout, subsscribeToLogoutBroadcast } from './helpers/sessionBroadcast';
+
 $(document).ready(() => {
+	subsscribeToLogoutBroadcast();
 	const $externalLogoutBtn = $('#external-logout');
 
 	function disableExternalLogoutBtn() {
@@ -24,6 +27,11 @@ $(document).ready(() => {
 				sessionTokenExpirationDate = new Date(response.expiresAt);
 			});
 	}
+
+	$('#logout').click(() => {
+		notifyLogout();
+		broadcast.close();
+	});
 
 	$('.user-menu-btn').click(() => {
 		const isMenuClosing = $('.user-menu').hasClass('open');
