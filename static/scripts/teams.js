@@ -35,7 +35,7 @@ function getDownloadRequestBody() {
 	const ownerId = $('.section-teams').data('id');
 	const ownerType = 'teams';
 	const teamName = $('#page-title').text().trim();
-	const archiveName = `${teamName}_files.zip`;
+	const archiveName = teamName.substring(0, 140);
 
 	return {
 		ownerId,
@@ -45,39 +45,36 @@ function getDownloadRequestBody() {
 }
 
 function downloadFiles() {
-	const action = '/api/v3/download-archive/download-files-as-archive';
 	const requestBody = getDownloadRequestBody();
 
-	$.ajax({
-		url: action,
-		method: 'POST',
-		data: requestBody,
-		xhrFields: {
-			responseType: 'blob',
-		},
-		success(blob) {
-			// Create blob URL
-			const url = window.URL.createObjectURL(blob);
+	const form = document.createElement('form');
+	form.method = 'POST';
+	form.action = '/api/v3/download-archive/download-files-as-archive';
+	form.enctype = 'application/json';
+	form.target = '_blank';
 
-			// Create temporary anchor element for download
-			const a = document.createElement('a');
-			a.href = url;
-			a.download = requestBody.archiveName;
-			document.body.appendChild(a);
+	const ownerIdInput = document.createElement('input');
+	ownerIdInput.type = 'hidden';
+	ownerIdInput.name = 'ownerId';
+	ownerIdInput.value = requestBody.ownerId;
 
-			// Trigger download
-			a.click();
+	const ownerTypeInput = document.createElement('input');
+	ownerTypeInput.type = 'hidden';
+	ownerTypeInput.name = 'ownerType';
+	ownerTypeInput.value = requestBody.ownerType;
 
-			// Cleanup
-			document.body.removeChild(a);
-			window.URL.revokeObjectURL(url);
+	const archiveNameInput = document.createElement('input');
+	archiveNameInput.type = 'hidden';
+	archiveNameInput.name = 'archiveName';
+	archiveNameInput.value = requestBody.archiveName;
 
-			$.showNotification($t('global.text.downloadStarted'), 'success', true);
-		},
-		error() {
-			$.showNotification($t('global.text.downloadError'), 'danger', true);
-		},
-	});
+	form.appendChild(ownerIdInput);
+	form.appendChild(ownerTypeInput);
+	form.appendChild(archiveNameInput);
+
+	document.body.appendChild(form);
+	form.submit();
+	document.body.removeChild(form);
 }
 
 $(document).ready(() => {
