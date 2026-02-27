@@ -12,6 +12,7 @@
 	"FEATURE_ALERTS_ENABLED": true,
 	"PUBLIC_BACKEND_URL": "http://localhost:3030/api",
 	"FEATURE_ADMINISTRATE_ROOMS_ENABLED": true,
+    "FEATURE_TEAM_ARCHIVE_DOWNLOAD": true,
 	"SESSION_VALKEY": {
 		"MODE": "in-memory"
 	}
