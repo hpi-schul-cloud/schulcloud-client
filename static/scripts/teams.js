@@ -31,10 +31,57 @@ function transformTeamEvent(modal, event) {
 	});
 }
 
+function getDownloadRequestBody() {
+	const ownerId = $('.section-teams').data('id');
+	const ownerType = 'teams';
+	const teamName = $('#page-title').text().trim();
+	const archiveName = teamName.substring(0, 140);
+
+	return {
+		ownerId,
+		ownerType,
+		archiveName,
+	};
+}
+
+function downloadFiles() {
+	const requestBody = getDownloadRequestBody();
+
+	const form = document.createElement('form');
+	form.method = 'POST';
+	form.action = '/api/v3/download-archive/download-files-as-archive';
+	form.enctype = 'application/json';
+	form.target = '_blank';
+
+	const ownerIdInput = document.createElement('input');
+	ownerIdInput.type = 'hidden';
+	ownerIdInput.name = 'ownerId';
+	ownerIdInput.value = requestBody.ownerId;
+
+	const ownerTypeInput = document.createElement('input');
+	ownerTypeInput.type = 'hidden';
+	ownerTypeInput.name = 'ownerType';
+	ownerTypeInput.value = requestBody.ownerType;
+
+	const archiveNameInput = document.createElement('input');
+	archiveNameInput.type = 'hidden';
+	archiveNameInput.name = 'archiveName';
+	archiveNameInput.value = requestBody.archiveName;
+
+	form.appendChild(ownerIdInput);
+	form.appendChild(ownerTypeInput);
+	form.appendChild(archiveNameInput);
+
+	document.body.appendChild(form);
+	form.submit();
+	document.body.removeChild(form);
+}
+
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
 	const $filePermissionsModal = $('.file-permissions-modal');
+	const $fileDownloadModal = $('.file-download-modal');
 	const $deleteTeamModal = $('.delete-team-modal');
 
 	const handler = {
@@ -122,6 +169,30 @@ $(document).ready(() => {
 				window.location.reload();
 			},
 		});
+	});
+
+	$('.btn-file-download').click(() => {
+		const useNextcloud = $('.btn-file-download').data('use-nextcloud');
+
+		if (useNextcloud) {
+			populateModalForm($fileDownloadModal, {
+				title: $t('global.headline.downloadAllFiles'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('files.button.download'),
+				submitDataTestId: 'file-download-modal',
+			});
+			$fileDownloadModal.appendTo('body').modal('show');
+		} else {
+			downloadFiles();
+		}
+	});
+
+	$('.file-download-modal form').on('submit', (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+
+		downloadFiles();
+		$('.file-download-modal').modal('hide');
 	});
 
 	$('.btn-file-permissions').click(() => {

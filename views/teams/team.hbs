@@ -184,6 +184,14 @@
                                     </button>
                             {{/if}}
                             {{/inArray}}
+                            {{#inArray 'DELETE_TEAM' permissions}}
+                                {{#if (getConfig "FEATURE_TEAM_ARCHIVE_DOWNLOAD")}}
+                                    <button class="btn btn-add btn-secondary btn-file-download" data-use-nextcloud="{{../useNextcloud}}">
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                        {{$t "global.button.downloadAllFiles"}}
+                                    </button>
+                                {{/if}}
+                            {{/inArray}}
                             {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                             {{#if ../canCreateDir}}
                                 <button class="btn btn-primary create-directory">
@@ -281,6 +289,15 @@
     {{> "teams/forms/form-file-permissions" teamFiles=true}}
     {{/content}}
 {{/embed}}
+
+{{#if useNextcloud}}
+    {{#embed "lib/components/modal-form" class="file-download-modal" title=($t
+    "global.headline.downloadAllFiles")}}
+        {{#content "fields"}}
+            <p>{{{$t "global.text.downloadHint" (dict "nextcloudUrl" ../nextcloudUrl)}}}</p>
+        {{/content}}
+    {{/embed}}
+{{/if}}
 
 {{#embed "lib/components/modal-form" action=leaveTeamAction class="leave-team-modal"}}
     {{#content "fields"}}
