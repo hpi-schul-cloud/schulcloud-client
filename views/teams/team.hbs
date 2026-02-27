@@ -185,10 +185,12 @@
                             {{/if}}
                             {{/inArray}}
                             {{#inArray 'DELETE_TEAM' permissions}}
-                                <button class="btn btn-add btn-secondary btn-file-download" data-use-nextcloud="{{../useNextcloud}}">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    {{$t "global.button.downloadAllFiles"}}
-                                </button>
+                                {{#if (getConfig "FEATURE_TEAM_ARCHIVE_DOWNLOAD")}}
+                                    <button class="btn btn-add btn-secondary btn-file-download" data-use-nextcloud="{{../useNextcloud}}">
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                        {{$t "global.button.downloadAllFiles"}}
+                                    </button>
+                                {{/if}}
                             {{/inArray}}
                             {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                             {{#if ../canCreateDir}}

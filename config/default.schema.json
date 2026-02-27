@@ -598,7 +598,12 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables the external system logout feature"
-		}
+		},
+        "FEATURE_TEAM_ARCHIVE_DOWNLOAD": {
+            "type": "boolean",
+			"default": false,
+			"description": "Enables the archive download in teams section"
+        }
 	},
 	"allOf": [
 		{
