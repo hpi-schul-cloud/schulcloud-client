@@ -35,6 +35,7 @@ $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
 	const $filePermissionsModal = $('.file-permissions-modal');
+	const $fileDownloadModal = $('.file-download-modal');
 	const $deleteTeamModal = $('.delete-team-modal');
 
 	const handler = {
@@ -122,6 +123,16 @@ $(document).ready(() => {
 				window.location.reload();
 			},
 		});
+	});
+
+	$('.btn-file-download').click(() => {
+		populateModalForm($fileDownloadModal, {
+			title: $t('global.headline.downloadAllFiles'),
+			closeLabel: $t('global.button.cancel'),
+			submitLabel: $t('global.button.download'),
+			submitDataTestId: 'file-download-modal',
+		});
+		$fileDownloadModal.appendTo('body').modal('show');
 	});
 
 	$('.btn-file-permissions').click(() => {
