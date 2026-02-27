@@ -184,6 +184,10 @@
                                     </button>
                             {{/if}}
                             {{/inArray}}
+                            <button class="btn btn-add btn-secondary btn-file-download">
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                        {{$t "global.button.downloadAllFiles"}}
+                                    </button>
                             {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                             {{#if ../canCreateDir}}
                                 <button class="btn btn-primary create-directory">
@@ -279,6 +283,13 @@
 "teams._team.files.button.changeSharingSettings")}}
     {{#content "fields"}}
     {{> "teams/forms/form-file-permissions" teamFiles=true}}
+    {{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal-form" class="file-download-modal" title=($t
+"global.headline.downloadAllFiles")}}
+    {{#content "fields"}}
+    {{> "files/download" }}
     {{/content}}
 {{/embed}}
 
