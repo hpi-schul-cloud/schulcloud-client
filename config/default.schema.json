@@ -601,7 +601,7 @@
 		},
         "FEATURE_TEAM_ARCHIVE_DOWNLOAD": {
             "type": "boolean",
-			"default": false,
+			"default": true,
 			"description": "Enables the archive download in teams section"
         }
 	},
