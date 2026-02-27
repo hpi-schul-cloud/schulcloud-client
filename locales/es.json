@@ -1474,7 +1474,7 @@
 			"dataProtectionThr": "Política de Privacidad",
 			"dataProtectionFile": "Política de Privacidad de la Escuela",
 			"dataProtectionFileThr": "Política de Privacidad de la Escuela",
-            "downloadHint": "Los archivos ubicados en el área de archivos externos (nextcloud) deben descargarse allí en un paso separado.",
+            "downloadHint": "Los archivos ubicados en el área de archivos externos (<a href=\"{{nextcloudUrl}}\" target=\"_blank\">nextcloud</a>) deben descargarse allí en un paso separado.",
 			"termsOfUse": "Condiciones de Uso",
 			"termsOfUseFile": "Condiciones de Uso de la Escuela",
 			"emailDomainBlocked": "Este proveedor de correo ya no es compatible. Ponte en contacto con el administrador de tu escuela.",

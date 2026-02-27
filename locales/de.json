@@ -1474,7 +1474,7 @@
 			"dataProtectionThr": "Datenschutzhinweise",
 			"dataProtectionFile": "Datenschutzerklärung der Schule",
 			"dataProtectionFileThr": "Datenschutzhinweise der Schule",
-            "downloadHint": "Dateien, die sich im externen Dateibereich (nextcloud) befinden, müssen dort in einem separaten Schritt heruntergeladen werden.",
+            "downloadHint": "Dateien, die sich im externen Dateibereich (<a href=\"{{nextcloudUrl}}\" target=\"_blank\">nextcloud</a>) befinden, müssen dort in einem separaten Schritt heruntergeladen werden.",
 			"termsOfUse": "Nutzungsordnung",
 			"termsOfUseFile": "Nutzungsordnung der Schule",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Admin.",

@@ -286,12 +286,14 @@
     {{/content}}
 {{/embed}}
 
-{{#embed "lib/components/modal-form" class="file-download-modal" title=($t
-"global.headline.downloadAllFiles")}}
-    {{#content "fields"}}
-    {{> "files/download" }}
-    {{/content}}
-{{/embed}}
+{{#if useNextcloud}}
+    {{#embed "lib/components/modal-form" class="file-download-modal" title=($t
+    "global.headline.downloadAllFiles")}}
+        {{#content "fields"}}
+            <p>{{{$t "global.text.downloadHint" (dict "nextcloudUrl" ../nextcloudUrl)}}}</p>
+        {{/content}}
+    {{/embed}}
+{{/if}}
 
 {{#embed "lib/components/modal-form" action=leaveTeamAction class="leave-team-modal"}}
     {{#content "fields"}}
