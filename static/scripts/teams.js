@@ -178,7 +178,7 @@ $(document).ready(() => {
 			populateModalForm($fileDownloadModal, {
 				title: $t('global.headline.downloadAllFiles'),
 				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('global.button.download'),
+				submitLabel: $t('files.button.download'),
 				submitDataTestId: 'file-download-modal',
 			});
 			$fileDownloadModal.appendTo('body').modal('show');
