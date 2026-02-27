@@ -31,21 +31,27 @@ function transformTeamEvent(modal, event) {
 	});
 }
 
-function downloadFiles() {
-	const teamId = $('.section-teams').data('id');
+function getDownloadRequestBody() {
+	const ownerId = $('.section-teams').data('id');
+	const ownerType = 'teams';
 	const teamName = $('#page-title').text().trim();
 	const archiveName = `${teamName}_files.zip`;
-	const action = '/api/v3/download-archive/download-files-as-archive';
-	const data = {
-		ownerId: teamId,
-		ownerType: 'teams',
+
+	return {
+		ownerId,
+		ownerType,
 		archiveName,
 	};
+}
+
+function downloadFiles() {
+	const action = '/api/v3/download-archive/download-files-as-archive';
+	const requestBody = getDownloadRequestBody();
 
 	$.ajax({
 		url: action,
 		method: 'POST',
-		data,
+		data: requestBody,
 		xhrFields: {
 			responseType: 'blob',
 		},
@@ -56,7 +62,7 @@ function downloadFiles() {
 			// Create temporary anchor element for download
 			const a = document.createElement('a');
 			a.href = url;
-			a.download = archiveName;
+			a.download = requestBody.archiveName;
 			document.body.appendChild(a);
 
 			// Trigger download
@@ -189,7 +195,6 @@ $(document).ready(() => {
 		e.preventDefault();
 
 		downloadFiles();
-
 		$('.file-download-modal').modal('hide');
 	});
 
