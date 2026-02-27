@@ -32,6 +32,46 @@ function transformTeamEvent(modal, event) {
 }
 
 function downloadFiles() {
+	const teamId = $('.section-teams').data('id');
+	const teamName = $('#page-title').text().trim();
+	const archiveName = `${teamName}_files.zip`;
+	const action = '/api/v3/download-archive/download-files-as-archive';
+	const data = {
+		ownerId: teamId,
+		ownerType: 'teams',
+		archiveName,
+	};
+
+	$.ajax({
+		url: action,
+		method: 'POST',
+		data,
+		xhrFields: {
+			responseType: 'blob',
+		},
+		success(blob) {
+			// Create blob URL
+			const url = window.URL.createObjectURL(blob);
+
+			// Create temporary anchor element for download
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = archiveName;
+			document.body.appendChild(a);
+
+			// Trigger download
+			a.click();
+
+			// Cleanup
+			document.body.removeChild(a);
+			window.URL.revokeObjectURL(url);
+
+			$.showNotification($t('global.text.downloadStarted'), 'success', true);
+		},
+		error() {
+			$.showNotification($t('global.text.downloadError'), 'danger', true);
+		},
+	});
 }
 
 $(document).ready(() => {
