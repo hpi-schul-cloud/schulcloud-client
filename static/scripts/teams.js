@@ -31,6 +31,9 @@ function transformTeamEvent(modal, event) {
 	});
 }
 
+function downloadFiles() {
+}
+
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
@@ -126,13 +129,28 @@ $(document).ready(() => {
 	});
 
 	$('.btn-file-download').click(() => {
-		populateModalForm($fileDownloadModal, {
-			title: $t('global.headline.downloadAllFiles'),
-			closeLabel: $t('global.button.cancel'),
-			submitLabel: $t('global.button.download'),
-			submitDataTestId: 'file-download-modal',
-		});
-		$fileDownloadModal.appendTo('body').modal('show');
+		const useNextcloud = $('.btn-file-download').data('use-nextcloud');
+
+		if (useNextcloud) {
+			populateModalForm($fileDownloadModal, {
+				title: $t('global.headline.downloadAllFiles'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('global.button.download'),
+				submitDataTestId: 'file-download-modal',
+			});
+			$fileDownloadModal.appendTo('body').modal('show');
+		} else {
+			downloadFiles();
+		}
+	});
+
+	$('.file-download-modal form').on('submit', (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+
+		downloadFiles();
+
+		$('.file-download-modal').modal('hide');
 	});
 
 	$('.btn-file-permissions').click(() => {
