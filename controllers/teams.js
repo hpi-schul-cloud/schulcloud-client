@@ -923,7 +923,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 		const { permissions } = team.user || {};
 		team.userIds = team.userIds.filter((teamUser) => teamUser.userId !== null
-			&& users.some((user) => user._id === teamUser.userId._id)); // fix if user do not exist
+			&& (!teamUser.userId.deletedAt || new Date(teamUser.userId.deletedAt) > new Date()));
 		const teamUserIds = team.userIds.map((user) => user.userId._id);
 		users = users.filter((user) => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter((s) => s._id === schoolId)[0];
