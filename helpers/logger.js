@@ -1,11 +1,11 @@
 const winston = require('winston');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const { NODE_ENV } = require('../config/global');
 
 const { format, transports, createLogger } = winston;
 
 const logLevel = Configuration.get('LOG_LEVEL');
 const noColor = Configuration.has('NO_COLOR') && Configuration.get('NO_COLOR');
+const { NODE_ENV } = process.env;
 
 let formatter;
 if (NODE_ENV === 'test') {

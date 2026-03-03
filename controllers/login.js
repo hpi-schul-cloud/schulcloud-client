@@ -63,7 +63,7 @@ router.post('/login/email', async (req, res) => {
 	try {
 		const loginEmailRedirect = await authHelper.loginUser(req, res, 'local', payload, redirect);
 
-		res.redirect(loginEmailRedirect.redirect);
+		return res.redirect(loginEmailRedirect.redirect);
 	} catch (ldapEmailError) {
 		return authHelper.handleLoginError(req, res, ldapEmailError.error, redirect, 'local');
 	}

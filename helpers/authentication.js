@@ -8,10 +8,6 @@ const api = require('../api');
 const permissionsHelper = require('./permissions');
 const wordlist = require('../static/other/wordlist');
 
-const {
-	SW_ENABLED,
-	MINIMAL_PASSWORD_LENGTH,
-} = require('../config/global');
 const logger = require('./logger');
 
 const { setCookie } = require('./cookieHelper');
@@ -28,6 +24,8 @@ const rolesDisplayName = {
 };
 
 const USER_FORCED_TO_CHANGE_PASSWORD_REJECT = 'USER_FORCED_TO_CHANGE_PASSWORD_REJECT';
+const MINIMAL_PASSWORD_LENGTH = Configuration.get('MINIMAL_PASSWORD_LENGTH');
+const SW_ENABLED = Configuration.get('SW_ENABLED');
 
 const generatePassword = () => {
 	const passphraseParts = [];
