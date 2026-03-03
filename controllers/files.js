@@ -491,7 +491,7 @@ router.delete('/directory', (req, res, next) => {
 	}).catch(next);
 });
 
-router.get('/my/:folderId?/:subFolderId?', FileGetter, async (req, res, next) => {
+router.get('/my/{:folderId}{/:subFolderId}', FileGetter, async (req, res, next) => {
 	const userId = res.locals.currentUser._id;
 	const basePath = '/files/my/';
 	const parentId = req.params.subFolderId || req.params.folderId;
@@ -606,7 +606,7 @@ router.get('/courses/', (req, res, next) => {
 	}).catch(next);
 });
 
-router.get('/courses/:courseId/:folderId?', FileGetter, async (req, res, next) => {
+router.get('/courses/:courseId{/:folderId}', FileGetter, async (req, res, next) => {
 	const basePath = '/files/courses/';
 	try {
 		const record = await api(req).get(`/courses/${req.params.courseId}`);
@@ -682,7 +682,7 @@ router.get('/teams/', (req, res, next) => {
 	});
 });
 
-router.get('/teams/:teamId/:folderId?', FileGetter, async (req, res, next) => {
+router.get('/teams/:teamId{/:folderId}', FileGetter, async (req, res, next) => {
 	const basePath = '/files/teams/';
 	const team = await api(req).get(`/teams/${req.params.teamId}`);
 
@@ -757,7 +757,7 @@ router.get('/classes/', (req, res, next) => {
 	});
 });
 
-router.get('/classes/:classId/:folderId?', FileGetter, (req, res, next) => {
+router.get('/classes/:classId{/:folderId}', FileGetter, (req, res, next) => {
 	const basePath = '/files/classes/';
 	api(req).get(`/classes/${req.params.classId}`).then(async (record) => {
 		const files = res.locals.files.map(addThumbnails);

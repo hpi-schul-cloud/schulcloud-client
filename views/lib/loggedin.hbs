@@ -25,9 +25,6 @@
         <script src="{{getAssetPath '/scripts/loggedin.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
         <script src="{{getAssetPath '/scripts/autologout.js'}}" type="text/javascript" data-backendurl="{{@root.API_HOST}}" nonce="{{nonceValue}}" defer></script>
         <script type="text/javascript" src="{{getAssetPath '/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML'}}" nonce="{{nonceValue}}" defer></script>
-        {{#if @root.currentUser.preferences.enterthecloud}}
-            <script type="text/javascript" src="{{getAssetPath '/vendor/enterthecloud.min.js'}}" nonce="{{nonceValue}}" defer></script>
-        {{/if}}
         <script src="{{getAssetPath '/scripts/topbar.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 

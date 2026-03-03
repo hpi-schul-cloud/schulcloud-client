@@ -26,25 +26,6 @@ const getDeleteHandler = (service) => (req, res, next) => {
 		});
 };
 
-router.patch('/:newsId', (req, res, next) => {
-	req.body.displayAt = timesHelper
-		.dateTimeStringToMoment(req.body.displayAt)
-		.toISOString();
-	req.body.updatedAt = timesHelper.currentDate().toISOString();
-	req.body.updaterId = res.locals.currentUser._id;
-
-	api(req, { version: VERSION })
-		.patch(`/news/${req.params.newsId}`, {
-			json: req.body,
-		})
-		.then(() => {
-			res.redirect('/news');
-		})
-		.catch((err) => {
-			next(err);
-		});
-});
-
 router.delete('/:id', getDeleteHandler('news'));
 
 router.all('/', async (req, res, next) => {
@@ -130,25 +111,6 @@ router.get('/:newsId', (req, res, next) => {
 				news,
 				updatedAtNotEqualCreatedAt,
 				isRSS: news.source === 'rss',
-			});
-		})
-		.catch((err) => {
-			next(err);
-		});
-});
-
-router.get('/:newsId/edit', (req, res, next) => {
-	api(req, { version: VERSION })
-		.get(`/news/${req.params.newsId}`, {})
-		.then((news) => {
-			news.displayAt = timesHelper.fromUTC(news.displayAt);
-			res.render('news/edit', {
-				title: res.$t('news._news.headline.editNews'),
-				submitLabel: res.$t('global.button.save'),
-				closeLabel: res.$t('global.button.cancel'),
-				method: 'patch',
-				action: `/news/${req.params.newsId}`,
-				news,
 			});
 		})
 		.catch((err) => {

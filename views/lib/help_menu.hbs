@@ -85,24 +85,3 @@
         </div>
     </div>
 </li>
-
-{{#ifEnv "FEATURE_ENTERTHECLOUD" "true"}}
-    {{#userHasPermission "ENTERTHECLOUD_START"}}
-        {{#embed
-            "lib/components/modal"
-            class="enterthecloud-modal"
-            title=($t "lib.help_menu.label.playEnterTheCloud")
-        }}
-            {{#content "body"}}
-                <div class="modal-body">
-                    <p>{{$t "lib.help_menu.input.userName"}}
-                        <code>...</code></p>
-                    <p>{{$t "global.label.password"}} <code>...</code></p>
-                    <a class="btn btn-primary" href="TODO">{{$t
-                            "lib.help_menu.button.openGame"
-                        }}</a>
-                </div>
-            {{/content}}
-        {{/embed}}
-    {{/userHasPermission}}
-{{/ifEnv}}
