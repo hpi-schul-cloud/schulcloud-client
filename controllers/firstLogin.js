@@ -57,7 +57,7 @@ router.get('/', async (req, res, next) => {
 
 	if (
 		!currentUser.birthday && res.locals.currentRole === 'Schüler' // fixme identical to isStudent() here
-			&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
+		&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
 	) {
 		return res.redirect('firstLogin/existing');
 	}
@@ -118,7 +118,7 @@ router.get('/', async (req, res, next) => {
 					res.status(500)
 						.send(
 							(err.error || err).message
-								|| res.$t('login.text.errorFirstLogin'),
+							|| res.$t('login.text.errorFirstLogin'),
 						);
 				});
 		}
@@ -165,7 +165,7 @@ router.get('/', async (req, res, next) => {
 				// U14
 				sections.push('welcome');
 			} else if (consent.requiresParentConsent
-					&& !(res.locals.currentUser.preferences || {}).firstLogin) {
+				&& !(res.locals.currentUser.preferences || {}).firstLogin) {
 				// 14-15
 				sections.push('welcome_14-15');
 			} else if (userConsent && (res.locals.currentUser.preferences || {}).firstLogin) {
@@ -207,8 +207,8 @@ router.get('/', async (req, res, next) => {
 		// USER CONSENT
 		if (
 			!skipConsent
-				&& !userConsent
-				&& ((!res.locals.currentUser.age && !req.query.u14) || res.locals.currentUser.age >= 14)
+			&& !userConsent
+			&& ((!res.locals.currentUser.age && !req.query.u14) || res.locals.currentUser.age >= 14)
 		) {
 			submitPageIndex += 1;
 			sections.push('consent');
@@ -217,7 +217,7 @@ router.get('/', async (req, res, next) => {
 		// PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
 		const userHasAccount = await hasAccount(req, res);
 		if (!userHasAccount
-				|| (!(res.locals.currentUser.preferences || {}).firstLogin && isStudent(res))) {
+			|| (!(res.locals.currentUser.preferences || {}).firstLogin && isStudent(res))) {
 			submitPageIndex += 1;
 			sections.push('password');
 		}
@@ -273,6 +273,16 @@ router.get('/consentError', (req, res, next) => {
 	res.render('firstLogin/consentError');
 });
 
+const mapError = (err, res) => {
+	console.log(err)
+	if ((err.error || err).message === 'PRIVACY_AND_TERMS_OF_USE_CONSENT_NO_SET') {
+		return res.$t('firstLogin.consent.text.pleaseConfirmTheFollowingDeclarationOfConsent',
+			{ title: res.locals.theme.title });
+	}
+	return (err.error || err).message
+		|| res.$t('login.text.errorFirstLogin');
+};
+
 router.post(['/submit', '/submit/sso'], async (req, res, next) => {
 	try {
 		const { studentBirthdate } = req.body;
@@ -286,10 +296,7 @@ router.post(['/submit', '/submit/sso'], async (req, res, next) => {
 		await api(req).post('/firstLogin/', { json: req.body });
 		res.sendStatus(200);
 	} catch (err) {
-		res.status(500).send(
-			(err.error || err).message
-			|| res.$t('login.text.errorFirstLogin'),
-		);
+		res.status(err.statusCode).send(mapError(err, res));
 	}
 });
 
