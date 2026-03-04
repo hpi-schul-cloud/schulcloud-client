@@ -20,3 +20,11 @@ broadcast.onmessage = (event) => {
 		window.location.href = '/logout';
 	}
 };
+
+export const subsscribeToLogoutBroadcast = () => {
+	broadcast.onmessage = (event) => {
+		if (event.data === 'logout') {
+			window.location.href = '/logout';
+		}
+	};
+};
