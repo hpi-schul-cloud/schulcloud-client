@@ -2,27 +2,6 @@ const uk = require('../locales/calendar/uk.json');
 const es = require('../locales/calendar/es.json');
 const de = require('../locales/calendar/de.json');
 
-/*
-// const CONFIG_ORIG = i18nMoment().locale('en').localeData()._relativeTime;
-const relativeTime = {
-	d: 'a day',
-	dd: '%d days',
-	future: 'in %s',
-	h: 'an hour',
-	hh: '%d hours',
-	m: 'a minute',
-	M: 'a month',
-	mm: '%d minutes',
-	MM: '%d months',
-	past: '%s ago',
-	s: 'a few seconds',
-	ss: '%d seconds',
-	w: 'a week',
-	ww: '%d weeks',
-	y: 'a year',
-};
-*/
-
 const createCustomRelativeTimeConfig = (localFile, lang) => {
 	const commonConfig = {
 		d: `${localFile['moment.relativeTime.aDay']}`, // e.g. "ein Tag"

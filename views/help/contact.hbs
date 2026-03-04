@@ -14,7 +14,11 @@
 
 <div class="container">
   <div class="row">
-    {{#embed "help/partials/help_contact"}}{{/embed}}
+    {{#embed "help/icon-card" id="contact-form" title=($t "help.partials.headline.contactForm") icon="fa-pencil" class="contact-card col-md-12" id="kontakt"}}
+      {{#content "card-body"}}
+        {{> "help/contact-card"}}
+      {{/content}}
+    {{/embed}}
   </div>
 </div>
 {{/content}}

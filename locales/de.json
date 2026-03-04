@@ -75,14 +75,6 @@
 			}
 		}
 	},
-	"addons": {
-		"headline": {
-			"portfolio": "Portfolio"
-		},
-		"text": {
-			"portfolioDescription": "Erzeuge dein digitales Portfolio in einem flexiblen persönlichen Lernsystem. Teile die Erfolge und deine Entwicklung an einem Ort, den du selbst gestaltest. Arbeite mit anderen in Gruppen zusammen."
-		}
-	},
 	"administration": {
 		"button": {
 			"changePassword": "Passwort ändern",
@@ -274,8 +266,7 @@
 		},
 		"form_DeleteUser": {
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingUser": "Bist du sicher, dass du den Nutzer:in löschen möchtest?",
-				"warning": "Die Löschung wird im Hintergrund gestartet und kann eine Weile dauern. Bis dahin bleib der Nutzer:in weiterhin sichtbar."
+				"areYouSureYouWantToDeleteTheFollowingUser": "Bist du sicher, dass du den Nutzer:in löschen möchtest?"
 			}
 		},
 		"form_Import": {
@@ -970,7 +961,6 @@
 			"graded": "Bewertet",
 			"handedIn": "Abgegeben",
 			"noDueDate": "Kein Abgabedatum festgelegt",
-			"noMaterialsYetLookAtOthers": "Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg:innen holen. Schauen Sie doch im <a href=\"/my-material\">\"Meine Materialien\"-Abschnitt</a> vorbei.",
 			"noNews": "Keine Neuigkeiten",
 			"notFound": "Keine aktuellen Einträge vorhanden."
 		}
@@ -1339,7 +1329,6 @@
 			"entriesPerPage": "Einträge pro Seite",
 			"files": "Dateien",
 			"invitationLinkGenerated": "Einladungslink generiert!",
-			"myMaterial": "Meine Materialien",
 			"name": "Name",
 			"news": "Neuigkeiten",
 			"draftTasks": "Entwürfe",
@@ -1452,7 +1441,6 @@
 		},
 		"sidebar": {
 			"link": {
-				"addons": "Add-ons",
 				"administration": "Administration",
 				"administrationStudents": "Lernende",
 				"administrationTeachers": "Lernbegleitende",
@@ -1636,7 +1624,6 @@
 			}
 		},
 		"headline": {
-			"contactDetails": "Ansprechpartner:innen und Kontaktdaten",
 			"helpSection": "Hilfeartikel",
 			"privacyCourse": "Datenschutzkurs",
 			"documentsToDownload": "Dokumente zum Download"
@@ -1659,37 +1646,6 @@
 			},
 			"label": {
 				"pedagogicalExperts": "Verwende für die Einladung von pädagogischem Personal als externe/r Expert:in bitte keine E-Mail-Adressen, die bereits im schulischen Kontext genutzt werden und für deren Registrierung in der Niedersächsischen Bildungscloud benötigt werden."
-			}
-		},
-		"lernNuggets": {
-			"headline": {
-				"instructionsForUse": "Hinweise zur Benutzung",
-				"learningNuggetBasicOfGDPR": "Lern-Nugget: Grundlagen der DSGVO",
-				"learningNuggetDataProtectioin": "Lern-Nugget: Datenschutz im Schulalltag",
-				"learningNuggetDataProtectionAndCloud": "Lern-Nugget: Datenschutz und Cloud-Lösungen",
-				"learningNuggetLicenseModels": "Lern-Nugget: Lizenzmodelle und Nutzungsrechte",
-				"welcomeToTheOnlineCourse": "Willkommen beim Online-Kurs 'Datenschutz und Urheberrecht' "
-			},
-			"link": {
-				"basicsOfTheGDPR": "Grundlagen der DSGVO",
-				"dataProtectionAndCloudSolution": "Datenschutz und Cloud-Lösungen",
-				"dataProtectionInSchoolLife": "Datenschutz im Schulalltag",
-				"licenseModelAndUsageRights": "Lizenzmodelle und Nutzungsrechte"
-			},
-			"text": {
-				"aLearningUnitLasts": "Eine Lerneinheit dauert höchstens 15 Minuten. Um den vollen Umfang der Inhalte zu erhalten, schaltet am besten Lautsprecher oder Kopfhörer an eurem Endgerät ein.",
-				"byTheWayYouWillAlways": "Übrigens erhaltet ihr immer am Ende eines Lern-Nuggets eine Teilnahmebescheinigung zum Nachweis eures Lernerfolgs.",
-				"clientAndLicensedFor": "Auftraggeber und lizenziert für: Verein MINT-EC®,",
-				"contentAndProduction": "Inhalte und Produktion: youknow GmbH, St.-Martin-Straße 57, 81669 München,",
-				"createdAsPartOfThe": "Entstanden im Rahmen des Projekts HPI Schul-Cloud.",
-				"dealingWithPersonalDetails": "Der Umgang mit personenbezogenen Daten, die Anforderungen an eine Cloud-Lösung im Schulalltag sowie das digitale Teilen von Lehr- und Lernmaterialien rufen bei Schulleitungen und Lehrkräften immer wieder Verunsicherung hervor.",
-				"forThisReasonYouHaveTheOpportunity": "Aus diesem Grund habt ihr hier die Möglichkeit, alles Wissenswerte zu den Themen Datenschutz und Urheberrecht in kleinen Lerneinheiten kennenzulernen.",
-				"hereIsTheLearningNugget": "Hier geht's zum Lern-Nugget:",
-				"inTheLearningNuggetOnDataProtection": "Im Lern-Nugget zum Datenschutz im Schulalltag erfahrt ihr, welche datenschutzrechtlichen Vorschriften ihr im Kontext Schule beachten müsst. Außerdem zeigen wir hier ganz konkrete Datenschutzfälle aus dem Schulalltag.",
-				"inThisLessonYouWillLearnAllTheBasics": "In dieser Lerneinheit lernt ihr alle Grundlagen personenbezogener Daten kennen. Zudem bekommt ihr einen Überblick über die fünf Grundprinzipien, die im Umgang mit der DSGVO gelten.",
-				"learningNiggetsImproveTheLearningEffect": "Lern-Nuggets verbessern den Lerneffekt und machen nebenbei noch Spaß. Außerdem könnt ihr durch die modulare Struktur ganz frei entscheiden, welche Lerneinheit ihr zuerst durchführen möchtet. Klickt einfach auf das jeweilige Lern-Nugget, um das Training zu absolvieren.",
-				"whatAreTheAdvantagesAndDisadvantages": "Was sind die Vor- und Nachteile von Cloud-Lösungen beim Einsatz in der Schule? Was müsst ihr beim Einsatz an eurer Schule beachten? In dieser Lerneinheit stellen wir alles Wissenswerte zu Cloud-Lösungen wie der HPI Schul-Cloud vor.",
-				"withTheTopicsOfLicenseModels": "Bei den Themen Lizenzmodelle und Nutzungsrecht lernt ihr die Grundlagen des Urheberrechts und die Vorgaben zur Vervielfältigung von Materialien im analogen sowie digitalen Schulalltag kennen. Außerdem erfahrt ihr hier, was Open Educational Ressources sind und wie ihr Lizenzen adäquat kennzeichnet."
 			}
 		},
 		"partials": {
@@ -1716,12 +1672,7 @@
 		},
 		"text": {
 			"hereYouCanFindOut": "Hier findest du heraus, wie du deine Cookies löschst.",
-			"noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support.",
-			"someConcernsNeedMoreOptions": "Manche Anliegen brauchen mehr Möglichkeiten, als die Felder der Kontaktfunktion zulassen. Schreibe uns eine E-Mail, wenn du mit uns ins Gespräch kommen willst:",
-			"theHassoPlattnerInstituteIsAvailable": "Das Hasso-Plattner-Institut steht für alle Fragen technischer Natur bereit. Bei Problemen mit der HPI Schul-Cloud selbst oder bei Schwierigkeiten bezüglich der Bedienung verwende bitte das Kontaktformular oder sende eine E-Mail an:",
-			"theMintTeamIsNotAvailave": "Für alle nicht-technischen Fragen steht das Team des MINT-EC bereit und ist unter folgender Email-Adresse erreichbar:",
-			"toMINTECWithQuestions": "an MINT-EC bei Fragen und Anregungen zur Einführung und Nutzung der HPI Schul-Cloud an deiner Schule.",
-			"toTheHpiForIdeas": "ans HPI für Ideen, Kritik und Wünsche rund um die Cloud selbst."
+			"noWelcomeDocuments": "Es existieren womöglich keine Willkommensdokumente. Bitte wende dich an den User-Support."
 		}
 	},
 	"helpdesk": {
@@ -1919,29 +1870,6 @@
 			"hasUnpublishedLesson": "Aufgabe nicht sichtbar, da Thema unveröffentlicht"
 		}
 	},
-	"imprint": {
-		"imprint_infotext_below": {
-			"text": {
-				"theContentOfThe": "Die Inhalte der {{shortTitle}} stellen keine offiziellen Verlautbarungen des HPI dar. Für die Inhalte sind die jeweiligen Autor:innen selbst verantwortlich. Ohne vorherige schriftliche Genehmigung ist eine kommerzielle Verbreitung der über die {{shortTitle}} verfügbaren Inhalte ausdrücklich untersagt, außer diese sind ausdrücklich gekennzeichnet. Die redaktionelle Verantwortung für den Inhalt verlinkter Webseiten anderer Anbieter (einschließlich der dort verankerten Links zu Dritten), insbesondere die Verantwortung für die Beachtung der Bestimmungen des Jugendschutz- und Datenschutzrechts, trägt in jeder Hinsicht der jeweilige Anbieter allein.",
-				"theHassoPlattnerInstituteRegularlyChecks": "Das Hasso-Plattner-Institut (HPI) überprüft und aktualisiert regelmäßig die Inhalte seiner Websites. Trotz größtmöglicher Sorgfalt können wir nicht ausschließen, dass einzelne Informationen auf unseren Seiten veraltet oder nicht mehr zutreffend sind. Daher können wir keine Haftung für Aktualität, Genauigkeit und Vollständigkeit der publizierten Informationen übernehmen. Das Gleiche gilt für alle Websites, die von den HPI-Seiten über Hyperlinks erreichbar sind. Für alle diese Links gilt: Wir erklären ausdrücklich, dass wir keinen Einfluss auf die Gestaltung und die Inhalte der verlinkten Seite haben. Deshalb distanzieren wir uns hiermit von allen Inhalten aller verlinkten Seiten und machen uns ihre Inhalte nicht zu Eigen. Diese Erklärung gilt für alle auf unserer Seite angebrachten Links zu fremden Seiten. Für den Inhalt dieser verlinkten Seiten ist das HPI nicht verantwortlich. Weiterhin behält sich das HPI jederzeit Änderungen und Ergänzungen der angezeigten Informationen vor. Inhalt und Struktur der HPI-Website sind durch das Copyright geschützt. Die Weiterverwendung von Informationen und Daten ist nur nach unserer Zustimmung zulässig. Wir wünschen Ihnen einen informativen Aufenthalt auf unseren Websites und freuen uns über Vorschläge, Wünsche oder Kritik zur"
-			}
-		},
-		"imprint_platform_intro": {
-			"headline": {
-				"legalNotice": "Rechtliche Hinweise:"
-			},
-			"text": {
-				"TheProjectIsANonCommercialPilotProject": "Die {{shortTitle}} ist ein nicht kommerzielles Pilotprojekt, welches vom HPI in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT-EC ( <a href=\"https://www.mint-ec.de/\" target=\"_blank\" rel=\"noopener\">https://www.mint-ec.de/</a> ) durchgeführt und durch das Bundesministerium für Bildung und Forschung (BMBF) gefördert wird (mehr Informationen finden Sie unter: <a href=\"https://hpi.de/open-campus/hpi-initiativen/hpi-schul-cloud.html\" target=\"_blank\" rel=\"noopener\">hpi-schul-cloud</a> )."
-			}
-		},
-		"imprint_rights": {
-			"headline": {
-				"editorialStuff": "Redaktion:",
-				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Hasso-Plattner-Institut für Digital Engineering gGmbH",
-				"managingDirectorAuthorized": "Vertretungsberechtigte Geschäftsführung:"
-			}
-		}
-	},
 	"landingPage": {
 		"brb": {
 			"headline": {
@@ -2108,19 +2036,11 @@
 			"yourDigitalLearningEnvironment": "Deine digitale Lernumgebung"
 		},
 		"help_menu": {
-			"button": {
-				"openGame": "Spiel öffnen",
-				"playEnterTheCloud": "Enter The Cloud spielen"
-			},
 			"img_alt": {
 				"learnCloud": "Lern Cloud"
 			},
-			"input": {
-				"userName": "Benutzername:"
-			},
 			"label": {
-				"helpSection": "Hilfebereich",
-				"playEnterTheCloud": "Enter The Cloud spielen"
+				"helpSection": "Hilfebereich"
 			},
 			"link": {
 				"releaseNotes": "Was ist neu?",
@@ -2335,49 +2255,25 @@
 			"welcomeMatrix": "Ab sofort ist unser neuer Messenger verfügbar, mit dem sich alle Nutzer:innen deiner Schule Direkt- oder Gruppennachrichten schicken können, wie aus sozialen Plattformen gewohnt."
 		}
 	},
-	"my_material": {
-		"text": {
-			"andTakeTheOpportunityToDesign": "und nutzen Sie die Möglichkeit, das Feature nach Ihren Wünschen zu gestalten.",
-			"blogArticle": "Blogartikel",
-			"hereYouWillSoonHaveTheOpportunity": "Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrkräfte anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den"
-		}
-	},
 	"navigation": {
 		"text": {
 			"errorNavigation": "Fehler bei AJAX-Navigation"
 		}
 	},
 	"news": {
-		"_news": {
-			"headline": {
-				"createNews": "News erstellen",
-				"editNews": "News bearbeiten"
-			},
-			"label": {
-				"contentOfMessage": "Inhalt der Nachricht..."
-			}
-		},
 		"button": {
 			"addNews": "News hinzufügen",
-			"deleteNewsAlt": "Artikel '{{name}}' löschen",
-			"editNewsAlt": "Artikel '{{title}}' bearbeiten."
+			"deleteNewsAlt": "Artikel '{{name}}' löschen"
 		},
 		"headline": {
 			"newsTeam": "Neuigkeiten aus dem Team"
 		},
 		"label": {
-			"content": "Inhalt",
-			"scheduleAutomaticPublication": "automatische Veröffentlichung vorplanen (optional)",
 			"searchForNews": "Suche nach Neuigkeiten"
 		},
 		"text": {
 			"created": "erstellt",
 			"edited": "bearbeitet",
-			"inTheClass": "in der Klasse",
-			"inTheCourse": "im Kurs",
-			"last": "zuletzt",
-			"newsNeedContent": "News benötigen Inhalt!",
-			"newsNeedTitle": "News benötigen einen Titel!",
 			"released": "Veröffentlicht",
 			"unpublished": "Unveröffentlicht"
 		}
@@ -2534,11 +2430,6 @@
 				"nextStepRegistration": "Mit der Registrierung in der {{title}} im nächsten Schritt werden die <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">Datenschutzhinweise</a> und <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">Nutzungsordnung</a> akzeptiert. Die <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">Datenschutzhinweise</a> sind jederzeit im Footer verfügbar. Für die Nutzung gilt folgende <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">Nutzungsordnung</a> (soweit die Schule oder Bildungseinrichtung keine eigene Nutzungsordnung erlassen hat)."
 			}
 		},
-		"deprecatedWarning": {
-			"text": {
-				"weHaveRevisedAndImprovedRegistration": "Wir haben die Registrierung in der HPI Schul-Cloud überarbeitet und verbessert. Leider sind deswegen alte Registrierungslinks nicht mehr gültig. Bitte kontaktiere eine Lehrkraft oder Admin, um einen neuen Registrierungslink zu erhalten."
-			}
-		},
 		"headline": {
 			"invalidLink": "Ungültiger Registrierungslink",
 			"registrationEmployee": "Registrierung - {{role}}",
@@ -2586,16 +2477,6 @@
 			"unknownError": "Hoppla, ein unbekannter Fehler ist aufgetreten. Bitte versuche es erneut.",
 			"welcomeMailSubject": "Willkommen in der {{title}}!",
 			"welcomeMailText": "Hallo {{firstName}}\nmit folgenden Anmeldedaten kannst du dich in der {{title}} einloggen:\nAdresse: {{address}}\nE-Mail: {{email}}\n{{password}}\n{{infotext}}\nViel Spaß und einen guten Start wünscht dir dein\n{{shortTitle}}-Team"
-		}
-	},
-	"security": {
-		"headline": {
-			"reportSecurityIssue": "Sicherheitsproblem melden",
-			"security": "Sicherheit"
-		},
-		"text": {
-			"scIsTestedRegularyWeValueSecurity": "Die {{themeTitle}} wird regelmäßig Sicherheitsüberprüfungen und Penetrationstests unterzogen, da uns die Sicherheit der Daten unserer Nutzer:innen sehr wichtig ist.",
-			"youHaveFoundAWeakness": "Du hast trotzdem ein Sicherheitsproblem gefunden? Schreib uns, damit wir die Lücke schnellstmöglich schließen können:"
 		}
 	},
 	"team": {
@@ -2825,7 +2706,7 @@
 		},
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecher:innenversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
-			"studentsCantCreateTeams": "Die Schule erlaubt das Anlegen von Teams durch Schüler:innen in deiner Schule nicht. Wende dich bitte an eine Lehrkraft oder Admin.",
+			"roomsInsteadOfTeams":  "Das Anlegen von Teams ist nicht mehr möglich.<br /> Soll stattdessen ein neuer <a href=\"/rooms/new\">Raum erstellt</a> werden?",
 			"title": "Jetzt auf Räume umsteigen",
 			"item0": "In den <a href=\"/rooms\">Räumen</a> stehen nun alle Möglichkeiten bereit, um noch besser schulintern und -übergreifend zusammenzuarbeiten. Daher ist das Anlegen neuer Teams ab KW 12 (18.03.2026) nicht mehr möglich. Bestehende Teams bleiben bis auf Weiteres erhalten.",
 			"item1_dbc": "Ab diesem Zeitpunkt steht zudem der Chat in den Teams nicht mehr zur Verfügung. In den Räumen bietet sich alternativ die Chatfunktion in Etherpads für den gemeinsamen Austausch an. Wir empfehlen die rechtzeitige manuelle Sicherung wichtiger Informationen aus den Chats. Weitere Informationen finden sich auf den <a href=\"https://dbildungscloud.de/help/confluence/426313035\">Hilfeseiten</a>.",

@@ -735,86 +735,6 @@ $(document).ready(() => {
 				$.showNotification($t('global.text.errorChangingFilePermissions'), 'danger', true);
 			});
 	});
-
-	const moveToDirectory = (modal, targetId) => {
-		const fileId = modal
-			.find('.modal-form')
-			.find("input[name='fileId']")
-			.val();
-
-		$.ajax({
-			url: `/files/file/${fileId}/move/`,
-			type: 'POST',
-			data: {
-				parent: targetId,
-			},
-			success: reloadFiles,
-			error: showAJAXError,
-		});
-	};
-
-	const openSubTree = (e) => {
-		const $parent = $(e.target).parent();
-		const $parentDirElement = $parent.parent();
-		const $toggle = $parent.find('.toggle-icon');
-		const $subMenu = $parentDirElement.children('.dir-sub-menu');
-		const isCollapsed = $toggle.hasClass('fa-plus-square-o');
-
-		if (isCollapsed) {
-			$subMenu.css('display', 'block');
-			$toggle.removeClass('fa-plus-square-o');
-			$toggle.addClass('fa-minus-square-o');
-		} else {
-			$subMenu.css('display', 'none');
-			$toggle.removeClass('fa-minus-square-o');
-			$toggle.addClass('fa-plus-square-o');
-		}
-	};
-
-	function addDirTree($parent, dirTree, isMainFolder = true) {
-		dirTree.forEach((d) => {
-			const $dirElement = $(
-				`<div class="dir-element dir-${isMainFolder ? 'main' : 'sub'
-				}-element" id="${d._id}" data-href="${d._id}"></div>`,
-			);
-
-			const $dirHeader = $(
-				`<div class="dir-header dir-${isMainFolder ? 'main' : 'sub'
-				}-header"></div>`,
-			);
-			const $toggle = $(
-				'<i class="fa fa-plus-square-o toggle-icon"></i>',
-			).click(openSubTree);
-			const $dirSpan = $(`<span>${d.name}</span>`).click(openSubTree);
-			// just displayed on hovering parent element
-			const $move = $(`<i class="fa ${d._id ? 'fa-share' : ''}"></i>`).click(
-				d._id ? moveToDirectory.bind(this, $moveModal, d._id) : '',
-			);
-
-			$dirHeader.append($toggle);
-			$dirHeader.append($dirSpan);
-			$dirHeader.hover(
-				() => {
-					$move.css('display', 'inline');
-				},
-				() => {
-					$move.css('display', 'none');
-				},
-			);
-			$dirHeader.append($move);
-
-			$dirElement.append($dirHeader);
-
-			if (d.children && d.children.length) {
-				const $newList = $('<div class="dir-sub-menu"></div>');
-				addDirTree($newList, d.children, false);
-				$dirElement.append($newList);
-			} else {
-				$toggle.css('visibility', 'hidden');
-			}
-			$parent.append($dirElement);
-		});
-	}
 });
 
 window.videoClick = function videoClick(e) {
@@ -915,7 +835,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 	}
 };
 
-$('.fileviewer').on('click', function determineViewer(e) {
+$('.fileviewer').on('click', function determineViewer() {
 	const fileviewertype = this.getAttribute('data-file-viewer-type');
 	const fileviewersavename = this.getAttribute('data-file-viewer-savename');
 	const fileviewerid = this.getAttribute('data-file-viewer-id');

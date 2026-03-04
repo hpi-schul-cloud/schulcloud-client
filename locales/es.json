@@ -75,14 +75,6 @@
 			}
 		}
 	},
-	"addons": {
-		"headline": {
-			"portfolio": "Portafolio"
-		},
-		"text": {
-			"portfolioDescription": "Crea tu portafolio digital en un sistema de aprendizaje personal flexible. Comparte tus éxitos y tu desarrollo en un lugar que puedes diseñar tú mismo. Trabaja con otros en grupos."
-		}
-	},
 	"administration": {
 		"button": {
 			"changePassword": "Cambiar contraseña",
@@ -274,8 +266,7 @@
 		},
 		"form_DeleteUser": {
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingUser": "¿Estás seguro de que deseas eliminar a los siguientes usuarios?",
-				"warning": "La eliminación comenzará en segundo plano y puede tardar un tiempo. Hasta entonces, este usuario seguirá siendo visible."
+				"areYouSureYouWantToDeleteTheFollowingUser": "¿Estás seguro de que deseas eliminar a los siguientes usuarios?"
 			}
 		},
 		"form_Import": {
@@ -970,7 +961,6 @@
 			"graded": "Calificado",
 			"handedIn": "Presentado",
 			"noDueDate": "No se ha fijado una fecha de envío",
-			"noMaterialsYetLookAtOthers": "Aún no has creado tus propios materiales. También puedes inspirarte en los materiales de tus compañeros. Consulta la <a href=\"/my-material\">sección \"Mis materiales\"</a>.",
 			"noNews": "No hay noticias",
 			"notFound": "No se han encontrado entradas activas."
 		}
@@ -1339,7 +1329,6 @@
 			"entriesPerPage": "Entradas por página",
 			"files": "Archivos",
 			"invitationLinkGenerated": "¡Enlace de invitación generado!",
-			"myMaterial": "Mis materiales",
 			"name": "Nombre",
 			"news": "Noticias",
 			"draftTasks": "Borradores",
@@ -1452,7 +1441,6 @@
 		},
 		"sidebar": {
 			"link": {
-				"addons": "Complementos",
 				"administration": "Administración",
 				"administrationStudents": "Estudiantes",
 				"administrationTeachers": "Profesores",
@@ -1636,7 +1624,6 @@
 			}
 		},
 		"headline": {
-			"contactDetails": "Persona de contacto y datos de contacto",
 			"helpSection": "Artículos de ayuda",
 			"privacyCourse": "Curso de privacidad",
 			"documentsToDownload": "Documentos para descargar"
@@ -1659,37 +1646,6 @@
 			},
 			"label": {
 				"pedagogicalExperts": "Cuando invite a personal pedagógico como expertos externos, por favor no utilice direcciones de correo electrónico que estén en uso y que son necesarias para el registro en la Nube Educativa de Baja Sajonia."
-			}
-		},
-		"lernNuggets": {
-			"headline": {
-				"instructionsForUse": "Instrucciones de uso",
-				"learningNuggetBasicOfGDPR": "Actividad rápida de aprendizaje: principios básicos del RGPD",
-				"learningNuggetDataProtectioin": "Actividad rápida de aprendizaje: privacidad en las rutinas escolares diarias",
-				"learningNuggetDataProtectionAndCloud": "Actividad rápida de aprendizaje: soluciones de privacidad y en la nube",
-				"learningNuggetLicenseModels": "Actividad rápida de aprendizaje: modelos de licencia y derechos de uso",
-				"welcomeToTheOnlineCourse": "¡Bienvenido al curso en línea 'Privacidad y derechos de autor'!"
-			},
-			"link": {
-				"basicsOfTheGDPR": "Principios básicos del RGPD",
-				"dataProtectionAndCloudSolution": "Soluciones en la nube y privacidad",
-				"dataProtectionInSchoolLife": "Protección de datos en la rutina escolar",
-				"licenseModelAndUsageRights": "Modelos de licencia y derechos de uso"
-			},
-			"text": {
-				"aLearningUnitLasts": "Una unidad de aprendizaje tiene una duración máxima de 15 minutos. Para recibir todos los contenidos es mejor conectar los altavoces o los auriculares a tu dispositivo.",
-				"byTheWayYouWillAlways": "Por cierto, siempre recibirás un certificado de participación como prueba de tu éxito en la formación al final de una actividad rápida de aprendizaje.",
-				"clientAndLicensedFor": "Cliente y con licencia para: Verein MINT-EC®,",
-				"contentAndProduction": "Contenido y producción: youknow GmbH, St.-Martin-Straße 57, 81669 Múnich,",
-				"createdAsPartOfThe": "Desarrollado como parte del proyecto de la nube escolar de HPI.",
-				"dealingWithPersonalDetails": "La gestión de datos personales, los requisitos de una solución en la nube en la rutina escolar y el intercambio digital de materiales de enseñanza y aprendizaje causan incertidumbre entre los administradores y profesores de escuela de forma reiterada.",
-				"forThisReasonYouHaveTheOpportunity": "Por esta razón, tienes la oportunidad de aprender todo lo que necesitas saber sobre protección de datos y derechos de autor en pequeñas unidades de aprendizaje.",
-				"hereIsTheLearningNugget": "Haz clic aquí para acceder a la actividad rápida de aprendizaje:",
-				"inTheLearningNuggetOnDataProtection": "En la actividad rápida de aprendizaje sobre la protección de datos en la rutina escolar puedes averiguar qué normas de protección de datos debes observar en el contexto escolar. También mostramos aquí casos específicos de protección de datos en la rutina escolar.",
-				"inThisLessonYouWillLearnAllTheBasics": "En esta unidad de aprendizaje aprenderás todos los conceptos básicos de los datos personales. También obtendrás una descripción general de los cinco principios básicos aplicables al abordar el RGPD.",
-				"learningNiggetsImproveTheLearningEffect": "Las actividades rápidas de aprendizaje mejoran el efecto del aprendizaje y, además, son divertidas. Por otro lado y, gracias a la estructura modular, puedes decidir libremente qué unidad de aprendizaje deseas realizar primero. Simplemente haz clic en la actividad rápida de aprendizaje correspondiente para realizar la formación.",
-				"whatAreTheAdvantagesAndDisadvantages": "¿Cuáles son las ventajas y desventajas de las soluciones en la nube en el uso escolar? ¿Qué se debe considerar para su uso en tu escuela? En esta unidad de aprendizaje presentamos todo lo que necesitas saber sobre las soluciones en la nube, como la nube escolar de HPI.",
-				"withTheTopicsOfLicenseModels": "Con respecto a los modelos de licencias y el derecho de uso, se te informará sobre los conceptos básicos de la ley de derechos de autor y los requisitos para reproducir materiales en la rutina escolar analógica y digital. También puedes aprender qué son los recursos educativos abiertos y cómo identificar las licencias de manera adecuada."
 			}
 		},
 		"partials": {
@@ -1716,12 +1672,7 @@
 		},
 		"text": {
 			"hereYouCanFindOut": "Aquí puedes descubrir cómo eliminar tus cookies.",
-			"noWelcomeDocuments": "Puede que no haya ningún documento de bienvenida. Ponte en contacto con el servicio de atención al usuario.",
-			"someConcernsNeedMoreOptions": "Algunas cuestiones requieren más opciones de las que permiten los campos de la función de contacto. Escríbenos un correo electrónico si quieres ponerte en contacto con nosotros:",
-			"theHassoPlattnerInstituteIsAvailable": "El Instituto Hasso Plattner está disponible para todas las preguntas técnicas. Si tienes problemas con la nube escolar de HPI en sí o si tienes dificultades para usarla, utiliza el formulario de contacto o envía un correo electrónico a:",
-			"theMintTeamIsNotAvailave": "El equipo de MINT-EC está disponible para todas las preguntas no técnicas y se puede contactar con ellos en la siguiente dirección de correo electrónico:",
-			"toMINTECWithQuestions": "a MINT-EC para consultas y sugerencias sobre la introducción y el uso de la nube escolar de HPI en tu escuela",
-			"toTheHpiForIdeas": "A HPI para obtener ideas, comentarios y solicitudes sobre la nube en sí."
+			"noWelcomeDocuments": "Puede que no haya ningún documento de bienvenida. Ponte en contacto con el servicio de atención al usuario."
 		}
 	},
 	"helpdesk": {
@@ -1919,29 +1870,6 @@
 			"hasUnpublishedLesson": "Tarea no visible, porque el tema no está publicado"
 		}
 	},
-	"imprint": {
-		"imprint_infotext_below": {
-			"text": {
-				"theContentOfThe": "El contenido de {{shortTitle}} no es información oficial de HPI. Los respectivos autores son responsables de los contenidos. La distribución comercial de los contenidos disponibles a través de {{shortTitle}} está explícitamente prohibida sin premiso previo por escrito, a menos que estén explícitamente marcados. La responsabilidad editorial por el contenido de los sitios web enlazados de otros proveedores (incluidos los enlaces a terceros), en particular la responsabilidad por el cumplimiento de las regulaciones de la ley para la protección de menores y la privacidad de los datos, es en todos los aspectos, responsabilidad exclusiva del proveedor respectivo.",
-				"theHassoPlattnerInstituteRegularlyChecks": "El Instituto Hasso Plattner (HPI) comprueba y actualiza periódicamente el contenido de sus sitios web. A pesar de que se tiene el mayor cuidado posible, no podemos descartar que la información individual en nuestro sitio web esté desactualizada o ya no sea correcta. Por lo tanto, no podemos hacernos responsables de la actualización, precisión e integridad de la información publicada. Lo mismo se aplica a todos los sitios web a los que se puede acceder desde las páginas de HPI mediante hipervínculos. Lo siguiente se aplica a todos estos enlaces: Declaramos expresamente que no tenemos ninguna influencia en el diseño y contenido del sitio enlazado. Por lo tanto, nos distanciamos de todos los contenidos de todas las páginas enlazadas y no adoptamos sus contenidos como propios. Esta declaración se aplica a todos los enlaces de nuestro sitio a sitios externos. HPI no se hace responsable del contenido de estas páginas enlazadas. Además, HPI se reserva el derecho de realizar cambios y adiciones a la información mostrada en cualquier momento. El contenido y la estructura del sitio web de HPI están protegidos por derechos de autor. El uso posterior de información y datos solo está permitido con nuestro consentimiento. Te deseamos una estancia informativa en nuestro sitio web y esperamos tus sugerencias, deseos o críticas."
-			}
-		},
-		"imprint_platform_intro": {
-			"headline": {
-				"legalNotice": "Aviso legal:"
-			},
-			"text": {
-				"TheProjectIsANonCommercialPilotProject": "{{shortTitle}} es un proyecto piloto no comercial, que se lleva a cabo por HPI en cooperación con la Red Nacional de Escuelas de Excelencia MINT-EC (<a href=''https://www.mint-ec.de/'' target='_blank' rel='noopener'>''https://www.mint-ec.de/''</a>) y está financiado por el Ministerio Federal de Educación e Investigación de Alemania (BMBF) (para más información consulta: <a href=''https://hpi.de/schul-cloud'' target=''_blank'' rel=''noopener''>''https://hpi.de/schul-cloud''</a>)."
-			}
-		},
-		"imprint_rights": {
-			"headline": {
-				"editorialStuff": "Redacción:",
-				"hassoPlattnerInstituteForDigital": "HPI Schul-Cloud - Instituto Hasso Plattner de Ingeniería Digital gGmbH",
-				"managingDirectorAuthorized": "Consejero delegado autorizado para representar:"
-			}
-		}
-	},
 	"landingPage": {
 		"brb": {
 			"headline": {
@@ -2108,19 +2036,11 @@
 			"yourDigitalLearningEnvironment": "Tu entorno de aprendizaje digital"
 		},
 		"help_menu": {
-			"button": {
-				"openGame": "Abrir juego",
-				"playEnterTheCloud": "Reproducir entrada a la nube"
-			},
 			"img_alt": {
 				"learnCloud": "Información sobre la nube"
 			},
-			"input": {
-				"userName": "Nombre de usuario:"
-			},
 			"label": {
-				"helpSection": "Sección de ayuda",
-				"playEnterTheCloud": "Juega a \"Enter The Cloud\" (Entra en la nube)"
+				"helpSection": "Sección de ayuda"
 			},
 			"link": {
 				"releaseNotes": "¿Qué hay de nuevo?",
@@ -2335,49 +2255,25 @@
 			"welcomeMatrix": "Ya está disponible nuestro nuevo Messenger con el que todos los usuarios de tu escuela pueden enviarse mensajes directos o de grupo, como se hace de manera habitual desde las plataformas de las redes sociales."
 		}
 	},
-	"my_material": {
-		"text": {
-			"andTakeTheOpportunityToDesign": "y aprovecha la oportunidad para diseñar la función como quieras.",
-			"blogArticle": "Artículos del blog",
-			"hereYouWillSoonHaveTheOpportunity": "Aquí pronto tendrás la oportunidad de crear tus propios contenidos, ver los contenidos de otros profesores y ganar puntos evaluándolos y clasificándolos para poder utilizar las funciones de búsqueda ampliadas. ¿Te interesa saber cómo funcionará esto? Lee los"
-		}
-	},
 	"navigation": {
 		"text": {
 			"errorNavigation": "Error de navegación de AJAX"
 		}
 	},
 	"news": {
-		"_news": {
-			"headline": {
-				"createNews": "Crear noticias",
-				"editNews": "Editar noticias"
-			},
-			"label": {
-				"contentOfMessage": "Contenido del mensaje..."
-			}
-		},
 		"button": {
 			"addNews": "Añadir noticias",
-			"deleteNewsAlt": "Eliminar artículo '{{name}}'",
-			"editNewsAlt": "Editar artículo '{{title}}'."
+			"deleteNewsAlt": "Eliminar artículo '{{name}}'"
 		},
 		"headline": {
 			"newsTeam": "Noticias del equipo"
 		},
 		"label": {
-			"content": "Contenido",
-			"scheduleAutomaticPublication": "publicación automática del plan previo (opcional)",
 			"searchForNews": "Buscar noticias"
 		},
 		"text": {
 			"created": "creado",
 			"edited": "editado",
-			"inTheClass": "en la clase",
-			"inTheCourse": "en el curso",
-			"last": "últimamente",
-			"newsNeedContent": "¡Las noticias necesitan contenido!",
-			"newsNeedTitle": "¡Las noticias necesitan un título!",
 			"released": "Publicado",
 			"unpublished": "Sin publicar"
 		}
@@ -2534,11 +2430,6 @@
 				"nextStepRegistration": "Al registrarse en {{title}} en el siguiente paso, se aceptan la <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">política de privacidad</a> y las <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">condiciones de uso</a>. La <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/privacypolicy\">política de privacidad</a> está disponible en el pie de página en todo momento. Se aplican las siguientes <a target=\"_blank\" class=\"alert-link\" rel=\"noopener noreferrer\" href=\"/termsofuse\">condiciones de uso</a> (a menos que la escuela o institución educativa haya emitido sus propias normas de uso)."
 			}
 		},
-		"deprecatedWarning": {
-			"text": {
-				"weHaveRevisedAndImprovedRegistration": "Hemos revisado y mejorado el registro en la nube escolar de HPI. Desafortunadamente, los enlaces de registro antiguos ya no son válidos. Ponte en contacto con tu profesor o administrador para obtener un nuevo enlace de registro."
-			}
-		},
 		"headline": {
 			"invalidLink": "Enlace de registro no válido",
 			"registrationEmployee": "Registro - {{role}}",
@@ -2586,16 +2477,6 @@
 			"unknownError": "Vaya, se ha producido un error desconocido. Inténtalo de nuevo.",
 			"welcomeMailSubject": "¡Bienvenido a {{title}}!",
 			"welcomeMailText": "Hola {{firstName}}: \n Puedes iniciar sesión en {{title}} con los siguientes detalles de inicio de sesión: \n Dirección: {{address}} \n Correo electrónico: {{email}} \n {{password}} \n {{infotext}} \n Tu equipo de \n {{shortTitle}} te desea un buen comienzo y espera que te diviertas."
-		}
-	},
-	"security": {
-		"headline": {
-			"reportSecurityIssue": "Informar del problema de seguridad",
-			"security": "Seguridad"
-		},
-		"text": {
-			"scIsTestedRegularyWeValueSecurity": "{{themeTitle}} está sometido a controles de seguridad y pruebas de intrusión regularmente, ya que la seguridad de los datos de nuestros usuarios es muy importante para nosotros.",
-			"youHaveFoundAWeakness": "¿Sigues con problemas de seguridad? Escríbenos para que podamos cerrar la incidencia lo antes posible:"
 		}
 	},
 	"team": {
@@ -2825,7 +2706,7 @@
 		},
 		"text": {
 			"descriptionTeams": "¿Grupo de estudio, equipo escolar o reunión de representantes de la clase? Crea un equipo para que puedan intercambiar material y noticias entre ellos, dentro de tu escuela o entre escuelas.",
-			"studentsCantCreateTeams": "La escuela no permite que los estudiantes creen equipos en tu escuela. Ponte en contacto con un profesor o administrador.",
+			"roomsInsteadOfTeams": "Ya no es posible crear equipos.<br />¿Desea crear una nueva <a href=\"/rooms/new\">sala</a> en su lugar?",
 			"title": "Cambio a Espacios ahora",
 			"item0": "En los <a href=\"/rooms\">Espacios</a> ahora están disponibles todas las opciones para colaborar mejor dentro y entre escuelas. Por lo tanto, a partir de la semana 12 (18.03.2026) ya no será posible crear nuevos equipos. Los equipos existentes se mantendrán hasta nuevo aviso.",
 			"item1_dbc": "A partir de este momento, el chat en los equipos ya no estará disponible. En los Espacios, la función de chat en Etherpads ofrece una alternativa para el intercambio conjunto. Recomendamos guardar manualmente y a tiempo la información importante de los chats. Más información está disponible en las <a href=\"https://dbildungscloud.de/help/confluence/426313035\">páginas de ayuda</a>.",

@@ -1,9 +1,7 @@
 const url = require('url');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const api = require('../../api');
 const {
 	PUBLIC_BACKEND_URL,
-	FEATURE_EXTENSIONS_ENABLED,
 	FEATURE_TEAMS_ENABLED,
 	ALERT_STATUS_URL,
 	SC_THEME,
@@ -151,17 +149,6 @@ module.exports = (req, res, next) => {
 			testId: 'sidebar-mediashelf',
 			icon: 'bookshelf',
 			link: '/media-shelf/',
-		});
-	}
-
-	// Extensions Feature Toggle
-	const extensionsEnabled = FEATURE_EXTENSIONS_ENABLED === 'true';
-	if (extensionsEnabled) {
-		res.locals.sidebarItems.push({
-			name: res.$t('global.sidebar.link.addons'),
-			testId: 'sidebar-addons',
-			icon: 'puzzle-outline',
-			link: '/addons/',
 		});
 	}
 
