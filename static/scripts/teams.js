@@ -48,9 +48,8 @@ function downloadFiles() {
 	const requestBody = getDownloadRequestBody();
 
 	const form = document.createElement('form');
-	form.method = 'POST';
-	form.action = '/api/v3/download-archive/download-files-as-archive';
-	form.enctype = 'application/json';
+	form.method = 'GET';
+	form.action = '/api/v1/filestorage/files/archive';
 	form.target = '_blank';
 
 	const ownerIdInput = document.createElement('input');
