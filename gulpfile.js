@@ -105,7 +105,7 @@ gulp.task('styles', () => {
 				preserve: true,
 			}),
 			autoprefixer({
-				browsers: browserlist,
+				overrideBrowserslist: browserlist,
 			}),
 		]))
 		.pipe(cleanCSS())
