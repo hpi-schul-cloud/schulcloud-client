@@ -1,7 +1,7 @@
-import { broadcast, notifyLogout, subsscribeToLogoutBroadcast } from './helpers/sessionBroadcast';
+import { broadcast, notifyLogout, subscribeToLogoutBroadcast } from './helpers/sessionBroadcast';
 
 $(document).ready(() => {
-	subsscribeToLogoutBroadcast();
+	subscribeToLogoutBroadcast();
 	const $externalLogoutBtn = $('#external-logout');
 
 	function disableExternalLogoutBtn() {

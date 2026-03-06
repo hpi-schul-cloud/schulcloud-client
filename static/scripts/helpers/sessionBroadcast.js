@@ -17,7 +17,7 @@ broadcast.onmessage = (event) => {
 	}
 };
 
-export const subsscribeToLogoutBroadcast = () => {
+export const subscribeToLogoutBroadcast = () => {
 	broadcast.onmessage = (event) => {
 		if (event.data === 'logout') {
 			window.location.href = '/logout';
