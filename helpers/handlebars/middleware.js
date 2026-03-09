@@ -121,13 +121,6 @@ module.exports = (req, res, next) => {
 		],
 	},
 	{
-		name: res.$t('global.headline.files'),
-		testId: 'Dateien',
-		icon: 'folder-open-outline',
-		link: '/cfiles/',
-		permission: 'COLLABORATIVE_FILES',
-	},
-	{
 		name: res.$t('global.headline.news'),
 		testId: 'sidebar-news',
 		icon: 'newspaper-variant-outline',
