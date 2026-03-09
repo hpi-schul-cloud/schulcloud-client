@@ -33,7 +33,7 @@
                         link-aria-label=($t 'files.overview.aria_label.openCourseFiles')
                     }}
                 </div>
-                {{#ifEnv "FEATURE_TEAMS_ENABLED" "true"}}
+                {{#if (getConfig "FEATURE_TEAMS_ENABLED")}}
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
                         title=(concat '<i class="fa fa-users"></i> '($t 'global.link.teamData'))
@@ -45,7 +45,7 @@
                         link-aria-label=($t 'files.overview.aria_label.openTeamFiles')
                     }}
                 </div>
-                {{/ifEnv}}
+                {{/if}}
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
                         title=(concat '<i class="fa fa-share-alt"></i> '($t 'files.label.filesSharedWithMe'))

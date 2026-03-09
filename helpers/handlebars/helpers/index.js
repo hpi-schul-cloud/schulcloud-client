@@ -8,14 +8,7 @@ const i18n = require('../../i18n');
 const filesStorage = require('../../files-storage');
 const timesHelper = require('../../timesHelper');
 
-const FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED = Configuration.get('FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED');
-const FEATURE_TEAMS_ENABLED = Configuration.get('FEATURE_TEAMS_ENABLED');
-const FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED = Configuration.get('FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED');
-
 const ConfigurationUsedInHandlebars = {
-	FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED: FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED ? 'true' : 'false',
-	FEATURE_TEAMS_ENABLED: FEATURE_TEAMS_ENABLED ? 'true' : 'false',
-	FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED: FEATURE_CONTACT_FORM_ATTACHMENTS_ENABLED ? 'true' : 'false',
 	SC_THEME: Configuration.get('SC_THEME'),
 	NODE_ENV: process.env.NODE_ENV,
 };
@@ -144,12 +137,6 @@ const helpers = () => ({
 	},
 	ifvalue: (conditional, options) => {
 		if (options.hash.value === conditional) {
-			return options.fn(this);
-		}
-		return options.inverse(this);
-	},
-	ifEnv: (env_variable, value, options) => {
-		if (ConfigurationUsedInHandlebars[env_variable] === value) {
 			return options.fn(this);
 		}
 		return options.inverse(this);
