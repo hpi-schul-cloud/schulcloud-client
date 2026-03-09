@@ -318,8 +318,8 @@ router.all('/', async (req, res, next) => {
 			systems: [],
 			oauthSystems: oauthSystems.data || [],
 			inline: true,
-			showAlerts: (Configuration.get('FEATURE_ALERTS_ON_HOMEPAGE_ENABLED')),
-			showLoginAndRegisterButtons: (Configuration.get('FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED')),
+			showAlerts: Configuration.get('FEATURE_ALERTS_ON_HOMEPAGE_ENABLED'),
+			showLoginAndRegisterButtons: Configuration.get('FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED'),
 		});
 	}
 });

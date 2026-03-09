@@ -25,7 +25,6 @@ const rolesDisplayName = {
 
 const USER_FORCED_TO_CHANGE_PASSWORD_REJECT = 'USER_FORCED_TO_CHANGE_PASSWORD_REJECT';
 const MINIMAL_PASSWORD_LENGTH = Configuration.get('MINIMAL_PASSWORD_LENGTH');
-const SW_ENABLED = Configuration.get('SW_ENABLED');
 
 const generatePassword = () => {
 	const passphraseParts = [];
@@ -130,7 +129,7 @@ const populateCurrentUser = async (req, res) => {
 
 	// separates users in two groups for AB testing
 	function setTestGroup(user) {
-		if (SW_ENABLED) {
+		if (Configuration.get('SW_ENABLED')) {
 			const lChar = user._id.substr(user._id.length - 1);
 			const group = parseInt(lChar, 16) % 2 ? 1 : 0;
 			user.testGroup = group;
