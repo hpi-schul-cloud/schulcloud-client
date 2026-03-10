@@ -1,5 +1,6 @@
-const global = require('../config/global');
+const { Configuration } = require('@hpi-schul-cloud/commons');
 
+const HOST = Configuration.get('HOST');
 /**
  * Collapse leading slashes to one slash to avoid redirects to other websides
  * @param {string} redirectUrl URL to which the user should be redirected
@@ -15,7 +16,7 @@ const collapseLeadingSlashes = (redirectUrl) => redirectUrl.replace(/^\/+/, '/')
 const getValidRedirect = (redirectUrl) => {
 	if (!redirectUrl) return '/';
 	let relativeUrl = '/';
-	const parsedUrl = URL.parse(collapseLeadingSlashes(redirectUrl), global.HOST);
+	const parsedUrl = URL.parse(collapseLeadingSlashes(redirectUrl), HOST);
 	if (parsedUrl) {
 		relativeUrl = parsedUrl.pathname + parsedUrl.search + parsedUrl.hash;
 	}

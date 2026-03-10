@@ -1,11 +1,9 @@
 const url = require('url');
 const { Configuration } = require('@hpi-schul-cloud/commons');
-const {
-	PUBLIC_BACKEND_URL,
-	FEATURE_TEAMS_ENABLED,
-	ALERT_STATUS_URL,
-	SC_THEME,
-} = require('../../config/global');
+
+const PUBLIC_BACKEND_URL = Configuration.get('PUBLIC_BACKEND_URL');
+const ALERT_STATUS_URL = Configuration.get('ALERT_STATUS_URL');
+const SC_THEME = Configuration.get('SC_THEME');
 
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
@@ -121,13 +119,6 @@ module.exports = (req, res, next) => {
 				link: '/files/shared/',
 			},
 		],
-	},
-	{
-		name: res.$t('global.headline.files'),
-		testId: 'Dateien',
-		icon: 'folder-open-outline',
-		link: '/cfiles/',
-		permission: 'COLLABORATIVE_FILES',
 	},
 	{
 		name: res.$t('global.headline.news'),
@@ -294,9 +285,7 @@ module.exports = (req, res, next) => {
 		children: adminChildItems,
 	});
 
-	// team feature toggle
-	const teamsEnabled = FEATURE_TEAMS_ENABLED === 'true';
-	if (teamsEnabled) {
+	if (Configuration.get('FEATURE_TEAMS_ENABLED')) {
 		res.locals.sidebarItems.splice(3, 0, {
 			name: res.$t('global.link.teams'),
 			testId: 'sidebar-teams',

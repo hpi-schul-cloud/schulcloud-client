@@ -23,10 +23,12 @@ const upload = multer({
 	limits: { fileSize: Configuration.get('CSV_IMPORT_MAX_FILE_SIZE') },
 });
 
-const { HOST, CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS } = require('../config/global');
 const { isUserHidden } = require('../helpers/users');
 const renameIdsInSchool = require('../helpers/schoolHelper');
 const getTeamsInfoBannerTranslateKey = require('../helpers/banner');
+
+const HOST = Configuration.get('HOST');
+const CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS = Configuration.get('CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS');
 
 // eslint-disable-next-line no-unused-vars
 const getSelectOptions = (req, service, query, values = []) => api(req)
