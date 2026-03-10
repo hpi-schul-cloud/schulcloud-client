@@ -57,12 +57,6 @@ const helpers = () => ({
 		}
 		return opts.inverse(this);
 	},
-	notInArray: (item, array = [], opts) => {
-		if (!array.includes(item)) {
-			return opts.fn(this);
-		}
-		return opts.inverse(this);
-	},
 	arrayLength: (array) => (array && array.length) || 0,
 	truncate: (text = '', { length = 140 } = {}) => {
 		if (text.length <= length) {
@@ -77,20 +71,6 @@ const helpers = () => ({
 		}
 		const subString = text.substr(0, length - 1);
 		return `${subString}...`;
-	},
-	truncateLength: (text = '', length = 140) => {
-		if (text.length <= length) {
-			return text;
-		}
-		const subString = text.substr(0, length);
-		return `${(subString.indexOf(' ') > -1) ? subString.substr(0, subString.lastIndexOf(' ')) : subString}...`;
-	},
-	truncateArray: (rawArray = [], length = 0) => {
-		const truncatedArray = rawArray;
-		if (length > 0 && length <= truncatedArray.length) {
-			truncatedArray.length = length;
-		}
-		return truncatedArray;
 	},
 	stripHTMLTags: (htmlText = '') => stripHtml(htmlText).result,
 	stripOnlyScript: (htmlText = '') => stripHtml(htmlText, {
@@ -112,9 +92,10 @@ const helpers = () => ({
 		},
 	}).result,
 	conflictFreeHtml: (text = '') => {
-		text = text.replace(/style=["'][^"]*["']/g, '');
-		text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');
-		return text;
+		const withoutInlineStyles = text.replace(/style=["'][^"]*["']/g, '');
+		const withoutAnchorTags = withoutInlineStyles.replace(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');
+
+		return withoutAnchorTags;
 	},
 	ifCond: (v1, operator, v2, options) => (ifCondBool(v1, operator, v2)
 		? options.fn(this)
@@ -164,7 +145,6 @@ const helpers = () => ({
 		return options.inverse(this);
 	},
 	getConfig: (key) => Configuration.get(key),
-	userInitials: (opts) => opts.data.local.currentUser.avatarInitials,
 	userHasPermission: (permission, opts) => {
 		if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
 			return opts.fn(this);
@@ -181,14 +161,6 @@ const helpers = () => ({
 			.split(',')
 			.map((role) => role.trim());
 		return currentUser.roles.some((r) => allowedRoles.includes(r.name));
-	},
-	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
-		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
-		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW')
-			|| !isNonOerContent) {
-			return options.fn(this);
-		}
-		return options.inverse(this);
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
 	getAssetPath: (assetPath) => getStaticAssetPath(assetPath),
@@ -233,13 +205,14 @@ const helpers = () => ({
 		}
 		return i18n.getInstance(data.data.local.currentUser)('global.text.somethingWentWrong');
 	},
-	writeFileSizePretty: (fileSize) => {
+	writeFileSizePretty: (sourceFileSize) => {
+		let fileSize = sourceFileSize;
 		let unit;
 		let iterator = 0;
 
 		while (fileSize > 1024) {
 			fileSize = Math.round((fileSize / 1024) * 100) / 100;
-			iterator++;
+			iterator += 1;
 		}
 		switch (iterator) {
 			case 0:
@@ -256,6 +229,8 @@ const helpers = () => ({
 				break;
 			case 4:
 				unit = 'TB';
+				break;
+			default:
 				break;
 		}
 		return (`${fileSize} ${unit}`);
