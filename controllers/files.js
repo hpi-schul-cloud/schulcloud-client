@@ -12,7 +12,6 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 const { logger } = require('../helpers');
-const { FEATURE_TEAMS_ENABLED } = require('../config/global');
 const { useNextcloudFilesystem, makeNextcloudFolderName } = require('../helpers/nextcloud');
 
 const router = express.Router();
@@ -898,7 +897,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 		children: (await getScopeDirs(req, res, 'courses')).map(extractor),
 	}];
 
-	if (FEATURE_TEAMS_ENABLED === 'true') {
+	if (Configuration.get('FEATURE_TEAMS_ENABLED')) {
 		directoryTree.push({
 			name: res.$t('global.link.teamData'),
 			model: 'teams',
