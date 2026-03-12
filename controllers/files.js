@@ -523,6 +523,7 @@ router.get('/my/{:folderId}{/:subFolderId}', FileGetter, async (req, res, next) 
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile: true,
+		canDownloadArchive: Configuration.get('FEATURE_PERSONAL_FILES_ARCHIVE_DOWNLOAD'),
 		showSearch: false,
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,

@@ -80,21 +80,28 @@
 {{/if}}
 {{#embed "files/file-viewer"}}{{/embed}}
 {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
-{{#userHasPermission "FOLDER_CREATE"}}
-<section class="new-directory">
+<section class="files-actions">
 	<div class="row">
-		{{#if ../canCreateDir}}
-		<div class="col-sm-12">
-			<div data-toggle="modal">
-				<button class="btn btn-primary create-directory" data-testid="create-new-folder-btn">
-					<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
-				</button>
-			</div>
-		</div>
-		{{/if}}
+		{{#userHasPermission "FOLDER_CREATE"}}
+            {{#if ../canCreateDir}}
+                <div class="col-sm-12">
+                    <div data-toggle="modal">
+                        <button class="btn btn-primary create-directory" data-testid="create-new-folder-btn">
+                            <i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
+                        </button>
+                    </div>
+                </div>
+            {{/if}}
+        {{/userHasPermission}}
+        {{#if ../canDownloadArchive}}
+            <div class="col-sm-12">
+                <button class="btn btn-secondary download-archive" data-testid="download-archive-btn">
+                    <i class="fa fa-download" aria-hidden="true"></i> {{$t "global.button.downloadAllFiles"}}
+                </button>
+            </div>
+        {{/if}}
 	</div>
 </section>
-{{/userHasPermission}}
 </div>
 {{/content}}
 {{/extend}}
