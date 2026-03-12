@@ -364,6 +364,52 @@ $(document).ready(() => {
 		$renameModal.modal('hide');
 	});
 
+	function getDownloadRequestBody() {
+		const ownerId = $('.files-actions').data('user-id');
+		const ownerType = 'user'; // 'user' || 'course' || 'teams'
+		// const teamName = $('#page-title').text().trim();
+		const archiveName = 'myFiles';
+
+		return {
+			ownerId,
+			ownerType,
+			archiveName,
+		};
+	}
+
+	$('.download-archive').on('click', () => {
+		const requestBody = getDownloadRequestBody();
+		console.log('Requesting archive download with body:', requestBody);
+
+		const form = document.createElement('form');
+		form.method = 'GET';
+		form.action = '/api/v1/filestorage/files/archive';
+		form.target = '_blank';
+
+		const ownerIdInput = document.createElement('input');
+		ownerIdInput.type = 'hidden';
+		ownerIdInput.name = 'ownerId';
+		ownerIdInput.value = requestBody.ownerId;
+
+		const ownerTypeInput = document.createElement('input');
+		ownerTypeInput.type = 'hidden';
+		ownerTypeInput.name = 'ownerType';
+		ownerTypeInput.value = requestBody.ownerType;
+
+		const archiveNameInput = document.createElement('input');
+		archiveNameInput.type = 'hidden';
+		archiveNameInput.name = 'archiveName';
+		archiveNameInput.value = requestBody.archiveName;
+
+		form.appendChild(ownerIdInput);
+		form.appendChild(ownerTypeInput);
+		form.appendChild(archiveNameInput);
+
+		document.body.appendChild(form);
+		form.submit();
+		form.remove();
+	});
+
 	const returnFileUrl = (fileId, fileName) => {
 		if (window.opener) {
 			const fullUrl = `/files/file?file=${fileId}&name=${fileName}`;
