@@ -161,7 +161,7 @@ const helpers = () => ({
 	timeFromNow: (date) => timesHelper.fromNow(date),
 	timeFromNowWithRule: (date) => timesHelper.fromNowWithRule(date),
 	datePickerTodayMinus: (years, months, days, format) => {
-		const dateFormat = typeof (format) !== 'string' ? 'YYYY.MM.DD' : format;
+		const dateFormat = typeof format === 'string' ? format : 'YYYY.MM.DD';
 		return moment()
 			.subtract(years, 'years')
 			.subtract(months, 'months')
