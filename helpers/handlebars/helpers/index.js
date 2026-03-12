@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const moment = require('moment');
 const { stripHtml } = require('string-strip-html');
 const { Configuration } = require('@hpi-schul-cloud/commons');
@@ -14,14 +13,15 @@ const ConfigurationUsedInHandlebars = {
 };
 
 moment.locale('de');
-
 const ifCondBool = (v1, operator, v2) => {
 	switch (operator) {
 		case '==':
+			// eslint-disable-next-line eqeqeq
 			return (v1 == v2);
 		case '===':
 			return (v1 === v2);
 		case '!=':
+			// eslint-disable-next-line eqeqeq
 			return (v1 != v2);
 		case '!==':
 			return (v1 !== v2);
@@ -42,11 +42,12 @@ const ifCondBool = (v1, operator, v2) => {
 		case '|| !':
 			return (v1 || !v2);
 		default:
-			return false;
+			throw new Error(`Passed condition has an invalid operator ${operator}`);
 	}
 };
 
 const helpers = () => ({
+	// eslint-disable-next-line global-require
 	pagination: require('./pagination'),
 	ifArray: (item, options) => {
 		if (Array.isArray(item)) {
@@ -105,6 +106,7 @@ const helpers = () => ({
 		: options.inverse(this)),
 	isCond: (v1, operator, v2, options) => ifCondBool(v1, operator, v2),
 	ifeq: (a, b, opts) => {
+		// eslint-disable-next-line eqeqeq
 		if (a == b) {
 			return opts.fn(this);
 		}
@@ -122,8 +124,8 @@ const helpers = () => ({
 		}
 		return options.inverse(this);
 	},
-	unlessEnv: (env_variable, value, options) => {
-		if (ConfigurationUsedInHandlebars[env_variable] === value) {
+	unlessEnv: (envName, value, options) => {
+		if (ConfigurationUsedInHandlebars[envName] === value) {
 			return options.inverse(this);
 		}
 		return options.fn(this);
@@ -179,12 +181,12 @@ const helpers = () => ({
 	i18nDateTime: (date) => timesHelper.dateToDateTimeString(date, true),
 	timeToString: (date) => timesHelper.timeToString(date),
 	currentYear: () => timesHelper.currentDate().year(),
-	concat() {
-		const arg = Array.prototype.slice.call(arguments, 0);
-		arg.pop();
-		return arg.join('');
+	concat(...args) {
+		args.pop();
+		return args.join('');
 	},
 	log: (data) => {
+		// eslint-disable-next-line no-console
 		console.log(data);
 	},
 	castStatusCodeToString: (statusCode, data) => {
@@ -236,7 +238,7 @@ const helpers = () => ({
 	jsonParse: (data) => JSON.parse(data),
 	times: (n, block) => {
 		let accum = '';
-		for (let i = 0; i < n; ++i) {
+		for (let i = 0; i < n; i += 1) {
 			accum += block.fn(i);
 		}
 		return accum;
@@ -249,6 +251,7 @@ const helpers = () => ({
 		return accum;
 	},
 	add: (a, b) => a + b,
+	toNumber: (value) => Number(value),
 	indexOf: (item, searchValue, fromIndex) => item.indexOf(searchValue, fromIndex),
 	escapeHtml: (text) => text
 		.replace(/</g, '&lt;')
