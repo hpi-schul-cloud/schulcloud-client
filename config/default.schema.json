@@ -670,6 +670,12 @@
 			"default": false,
 			"description": "Enables the external system logout feature"
 		},
+        "FEATURE_TEAM_ARCHIVE_DOWNLOAD": {
+            "type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in teams section"
+        }
+		},
         "FEATURE_PERSONAL_FILES_ARCHIVE_DOWNLOAD": {
             "type": "boolean",
 			"default": true,
