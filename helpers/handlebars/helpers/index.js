@@ -91,8 +91,8 @@ const helpers = () => ({
 		},
 	}).result,
 	conflictFreeHtml: (text = '') => {
-		const withoutInlineStyles = text.replace(/style=["'][^"]*["']/g, '');
-		const withoutAnchorTags = withoutInlineStyles.replace(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');
+		const withoutInlineStyles = text.replaceAll(/style=["'][^"]*["']/g, '');
+		const withoutAnchorTags = withoutInlineStyles.replaceAll(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');
 
 		return withoutAnchorTags;
 	},
