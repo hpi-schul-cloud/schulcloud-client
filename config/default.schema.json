@@ -679,6 +679,11 @@
             "type": "boolean",
 			"default": true,
 			"description": "Enables the archive download in the personal files section"
+        },
+        "FEATURE_COURSE_FILES_ARCHIVE_DOWNLOAD": {
+            "type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in the course files section"
         }
 	},
 	"allOf": [
