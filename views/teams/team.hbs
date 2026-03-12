@@ -282,13 +282,15 @@
     {{/content}}
 {{/embed}}
 
-{{#if useNextcloud}}
-    {{#embed "lib/components/modal-form" class="file-download-modal" title=($t
-    "global.headline.downloadAllFiles")}}
-        {{#content "fields"}}
-            <p>{{{$t "global.text.downloadHint" (dict "nextcloudUrl" ../nextcloudUrl)}}}</p>
-        {{/content}}
-    {{/embed}}
+{{#if (getConfig "FEATURE_TEAM_ARCHIVE_DOWNLOAD")}}
+    {{#if useNextcloud}}
+        {{#embed "lib/components/modal-form" class="file-download-modal" title=($t
+        "global.headline.downloadAllFiles")}}
+            {{#content "fields"}}
+                <p>{{{$t "global.text.downloadHint" (dict "nextcloudUrl" ../nextcloudUrl)}}}</p>
+            {{/content}}
+        {{/embed}}
+    {{/if}}
 {{/if}}
 
 {{#embed "lib/components/modal-form" action=leaveTeamAction class="leave-team-modal"}}
