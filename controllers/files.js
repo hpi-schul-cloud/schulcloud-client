@@ -528,6 +528,7 @@ router.get('/my/{:folderId}{/:subFolderId}', FileGetter, async (req, res, next) 
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,
 		parentId,
+		userId,
 		canEditPermissions: true,
 		...res.locals.files,
 	});
@@ -642,6 +643,7 @@ router.get('/courses/:courseId{/:folderId}', FileGetter, async (req, res, next) 
 			canUploadFile: true,
 			canCreateDir: true,
 			canCreateFile,
+			canDownloadArchive: Configuration.get('FEATURE_COURSE_FILES_ARCHIVE_DOWNLOAD') && canCreateFile,
 			path: res.locals.files.path,
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,
