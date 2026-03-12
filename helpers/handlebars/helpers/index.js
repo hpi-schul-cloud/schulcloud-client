@@ -244,7 +244,6 @@ const helpers = () => ({
 		return accum;
 	},
 	add: (a, b) => a + b,
-	toNumber: (value) => Number(value),
 	indexOf: (item, searchValue, fromIndex) => item.indexOf(searchValue, fromIndex),
 	escapeHtml: (text) => text
 		.replace(/</g, '&lt;')
