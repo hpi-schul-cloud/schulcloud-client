@@ -674,7 +674,6 @@
             "type": "boolean",
 			"default": true,
 			"description": "Enables the archive download in teams section"
-        }
 		},
         "FEATURE_PERSONAL_FILES_ARCHIVE_DOWNLOAD": {
             "type": "boolean",
