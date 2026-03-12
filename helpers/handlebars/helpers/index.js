@@ -7,11 +7,6 @@ const i18n = require('../../i18n');
 const filesStorage = require('../../files-storage');
 const timesHelper = require('../../timesHelper');
 
-const ConfigurationUsedInHandlebars = {
-	SC_THEME: Configuration.get('SC_THEME'),
-	NODE_ENV: process.env.NODE_ENV,
-};
-
 moment.locale('de');
 const ifCondBool = (v1, operator, v2) => {
 	switch (operator) {
@@ -105,18 +100,18 @@ const helpers = () => ({
 		? options.fn(this)
 		: options.inverse(this)),
 	isCond: (v1, operator, v2, options) => ifCondBool(v1, operator, v2),
-	ifeq: (a, b, opts) => {
+	ifeq: (a, b, options) => {
 		// eslint-disable-next-line eqeqeq
 		if (a == b) {
-			return opts.fn(this);
+			return options.fn(this);
 		}
-		return opts.inverse(this);
+		return options.inverse(this);
 	},
-	ifneq: (a, b, opts) => {
+	ifneq: (a, b, options) => {
 		if (a !== b) {
-			return opts.fn(this);
+			return options.fn(this);
 		}
-		return opts.inverse(this);
+		return options.inverse(this);
 	},
 	ifvalue: (conditional, options) => {
 		if (options.hash.value === conditional) {
@@ -124,8 +119,8 @@ const helpers = () => ({
 		}
 		return options.inverse(this);
 	},
-	unlessEnv: (envName, value, options) => {
-		if (ConfigurationUsedInHandlebars[envName] === value) {
+	unlessEnv: (configKey, value, options) => {
+		if (Configuration.has(configKey) && Configuration.get(configKey) === value) {
 			return options.inverse(this);
 		}
 		return options.fn(this);
@@ -166,14 +161,12 @@ const helpers = () => ({
 	timeFromNow: (date) => timesHelper.fromNow(date),
 	timeFromNowWithRule: (date) => timesHelper.fromNowWithRule(date),
 	datePickerTodayMinus: (years, months, days, format) => {
-		if (typeof (format) !== 'string') {
-			format = 'YYYY.MM.DD';
-		}
+		const dateFormat = typeof (format) !== 'string' ? 'YYYY.MM.DD' : format;
 		return moment()
 			.subtract(years, 'years')
 			.subtract(months, 'months')
 			.subtract(days, 'days')
-			.format(format);
+			.format(dateFormat);
 	},
 	dateToPicker: (date) => timesHelper.formatDate(date, i18n.getInstance()('format.dateToPicker')),
 	dateTimeToPicker: (date) => timesHelper.formatDate(date, i18n.getInstance()('format.dateTimeToPicker')),
