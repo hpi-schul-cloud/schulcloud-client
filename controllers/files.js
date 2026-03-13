@@ -640,12 +640,15 @@ router.get('/courses/:courseId{/:folderId}', FileGetter, async (req, res, next) 
 
 		res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
+		const canDownloadArchive = Configuration.get('FEATURE_COURSE_FILES_ARCHIVE_DOWNLOAD')
+			&& !['Schüler'].includes(res.locals.currentRole) && !req.params.folderId;
+
 		res.render('files/files', {
 			title: res.$t('files.headline.courseFiles'),
 			canUploadFile: true,
 			canCreateDir: true,
 			canCreateFile,
-			canDownloadArchive: Configuration.get('FEATURE_COURSE_FILES_ARCHIVE_DOWNLOAD') && canCreateFile,
+			canDownloadArchive,
 			path: res.locals.files.path,
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,
@@ -653,6 +656,8 @@ router.get('/courses/:courseId{/:folderId}', FileGetter, async (req, res, next) 
 			showSearch: false,
 			courseId: req.params.courseId,
 			ownerId: req.params.courseId,
+			ownerType: 'course',
+			archiveName: record.name.substring(0, 140),
 			toCourseText: res.$t('global.button.toCourse'),
 			courseUrl: `/rooms/${req.params.courseId}`,
 			canEditPermissions: true,

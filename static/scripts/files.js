@@ -378,7 +378,6 @@ $(document).ready(() => {
 
 	$('.download-archive').on('click', () => {
 		const requestBody = getDownloadRequestBody();
-		console.log('Requesting archive download with body:', requestBody);
 
 		const form = document.createElement('form');
 		form.method = 'GET';
