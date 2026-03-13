@@ -96,7 +96,7 @@
 			"dataProtectionThr": "Політика конфіденційності",
 			"dataProtectionFile": "Політика конфіденційності школи",
 			"dataProtectionFileThr": "Політика конфіденційності школи",
-            "downloadHint": "Файли, розташовані в зовнішній файловій області (<a href=\"{{nextcloudUrl}}\" target=\"_blank\">nextcloud</a>), необхідно завантажити туди окремим кроком.",
+            "downloadHint": "Файли, розташовані в зовнішній файловій області (<a href=\"{{nextcloudUrl}}\" target=\"_blank\" rel=\"noopener noreferrer\">nextcloud</a>), необхідно завантажити туди окремим кроком.",
 			"downloadStarted": "Завантаження розпочато",
             "downloadError": "Помилка завантаження",
             "termsOfUse": "Умови використання",
