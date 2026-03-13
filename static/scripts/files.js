@@ -1,4 +1,5 @@
 import { getQueryParameterByName } from './helpers/queryStringParameter';
+import archiveDownload from './download';
 
 window.addEventListener('DOMContentLoaded', () => {
 	let sortBy = getQueryParameterByName('sortBy');
@@ -362,6 +363,22 @@ $(document).ready(() => {
 	$('.create-directory').on('click', () => {
 		$editModal.appendTo('body').modal('show');
 		$renameModal.modal('hide');
+	});
+
+	function getDownloadRequestBody() {
+		const ownerId = $('.files-actions').data('owner-id');
+		const ownerType = $('.files-actions').data('owner-type');
+		const archiveName = $('.files-actions').data('archive-name');
+
+		return {
+			ownerId,
+			ownerType,
+			archiveName,
+		};
+	}
+
+	$('.download-archive').on('click', () => {
+		archiveDownload(getDownloadRequestBody());
 	});
 
 	const returnFileUrl = (fileId, fileName) => {
