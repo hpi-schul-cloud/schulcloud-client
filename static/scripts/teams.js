@@ -143,8 +143,8 @@ $(document).ready(() => {
 		});
 	});
 
-	$('.btn-file-download').click(() => {
-		const useNextcloud = $('.btn-file-download').data('use-nextcloud');
+	$('.btn-file-download').click(function () {
+		const useNextcloud = $(this).data('use-nextcloud');
 
 		if (useNextcloud) {
 			populateModalForm($fileDownloadModal, {
