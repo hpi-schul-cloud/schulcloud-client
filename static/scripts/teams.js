@@ -146,7 +146,7 @@ $(document).ready(() => {
 	$('.btn-file-download').click(function () {
 		const useNextcloud = $(this).data('use-nextcloud');
 
-		if (useNextcloud) {
+		if (useNextcloud && $fileDownloadModal && $fileDownloadModal.length) {
 			populateModalForm($fileDownloadModal, {
 				title: $t('global.headline.downloadAllFiles'),
 				closeLabel: $t('global.button.cancel'),
