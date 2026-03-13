@@ -365,10 +365,9 @@ $(document).ready(() => {
 	});
 
 	function getDownloadRequestBody() {
-		const ownerId = $('.files-actions').data('user-id');
-		const ownerType = 'user'; // 'user' || 'course' || 'teams'
-		// const teamName = $('#page-title').text().trim();
-		const archiveName = 'myFiles';
+		const ownerId = $('.files-actions').data('owner-id');
+		const ownerType = $('.files-actions').data('owner-type');
+		const archiveName = $('.files-actions').data('archive-name');
 
 		return {
 			ownerId,
