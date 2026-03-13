@@ -1473,7 +1473,7 @@
 			"dataProtectionThr": "Privacy Policy",
 			"dataProtectionFile": "Privacy Policy of School",
 			"dataProtectionFileThr": "Privacy Policy of School",
-            "downloadHint": "Files located in the external file area (<a href=\"{{nextcloudUrl}}\" target=\"_blank\">nextcloud</a>) must be downloaded there in a separate step.",
+            "downloadHint": "Files located in the external file area (<a href=\"{{nextcloudUrl}}\" target=\"_blank\" rel=\"noopener noreferrer\">nextcloud</a>) must be downloaded there in a separate step.",
 			"downloadStarted": "Download started",
             "downloadError": "Download failed",
             "termsOfUse": "Terms of Use",
