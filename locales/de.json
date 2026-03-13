@@ -1473,7 +1473,7 @@
 			"dataProtectionThr": "Datenschutzhinweise",
 			"dataProtectionFile": "Datenschutzerklärung der Schule",
 			"dataProtectionFileThr": "Datenschutzhinweise der Schule",
-            "downloadHint": "Dateien, die sich im externen Dateibereich (<a href=\"{{nextcloudUrl}}\" target=\"_blank\">nextcloud</a>) befinden, müssen dort in einem separaten Schritt heruntergeladen werden.",
+            "downloadHint": "Dateien, die sich im externen Dateibereich (<a href=\"{{nextcloudUrl}}\" target=\"_blank\" rel=\"noopener noreferrer\">nextcloud</a>) befinden, müssen dort in einem separaten Schritt heruntergeladen werden.",
 			"downloadStarted": "Download hat begonnen",
             "downloadError": "Download fehlgeschlagen",
             "termsOfUse": "Nutzungsordnung",
