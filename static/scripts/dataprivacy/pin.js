@@ -7,6 +7,9 @@ function sendPin(sendConfirm) {
 	let role;
 	try {
 		role = window.location.pathname.split('/by')[1].split('/')[0].replace('/', '');
+		if (role === 'expert') {
+			role = 'externalPerson';
+		}
 	} catch (e) {
 		if (window.location.pathname === '/firstLogin') { role = 'parent'; }
 	}
