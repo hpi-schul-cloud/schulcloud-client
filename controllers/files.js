@@ -640,8 +640,10 @@ router.get('/courses/:courseId{/:folderId}', FileGetter, async (req, res, next) 
 
 		res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
+		const currentUserId = res.locals.currentUser._id;
+		const isTeacher = record.teacherIds && record.teacherIds.includes(currentUserId);
 		const canDownloadArchive = Configuration.get('FEATURE_COURSE_FILES_ARCHIVE_DOWNLOAD')
-			&& !['Schüler'].includes(res.locals.currentRole) && !req.params.folderId;
+			&& isTeacher && !req.params.folderId;
 
 		res.render('files/files', {
 			title: res.$t('files.headline.courseFiles'),
