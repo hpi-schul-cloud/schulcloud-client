@@ -61,7 +61,7 @@ module.exports = (req, res, next) => {
 		name: res.$t('global.link.overview'),
 		testId: 'sidebar-dashboard',
 		icon: 'view-grid-outline',
-		link: '/dashboard/',
+		link: '/dashboard',
 	},
 	{
 		name: res.$t('global.sidebar.link.rooms'),
