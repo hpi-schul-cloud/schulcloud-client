@@ -1999,12 +1999,6 @@
 				"muteParticipants": "Silenciar participantes al entrar"
 			}
 		},
-		"form_features": {
-			"text": {
-				"forMoreInformationClickThisButton": "Para más información, haz clic en este botón",
-				"thereAreNewFeatures": "Hay nuevas funciones en {{shortTitle}}"
-			}
-		},
 		"form_poll": {
 			"global": {
 				"button": {

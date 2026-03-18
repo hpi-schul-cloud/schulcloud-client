@@ -2229,12 +2229,6 @@
 				"muteParticipants": "Вимкнути звук учасників під час входу"
 			}
 		},
-		"form_features": {
-			"text": {
-				"forMoreInformationClickThisButton": "Для отримання додаткової інформації натисніть цю кнопку",
-				"thereAreNewFeatures": "В {{shortTitle}} є нові функції"
-			}
-		},
 		"form_poll": {
 			"global": {
 				"button": {

@@ -1999,12 +1999,6 @@
 				"muteParticipants": "Teilnehmer:innen beim Betreten stummschalten"
 			}
 		},
-		"form_features": {
-			"text": {
-				"forMoreInformationClickThisButton": "Für weitere Informationen klicken Sie doch bitte diesen Button",
-				"thereAreNewFeatures": "Es gibt neue Features in der {{shortTitle}}"
-			}
-		},
 		"form_poll": {
 			"global": {
 				"button": {
