@@ -537,11 +537,6 @@
 			],
 			"default": {}
 		},
-		"CALENDAR_DASHBOARD_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "If true calendar events are displayed on the dashboard. Otherwise the request is skipped."
-		},
 		"CALENDAR_SERVICE_ENABLED": {
 			"type": "boolean",
 			"default": true,
