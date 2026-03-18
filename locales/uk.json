@@ -1,32 +1,10 @@
 {
 	"dashboard": {
-		"headline": {
-			"title": "Панель керування",
-			"schedule": "Розклад",
-			"withFeedback": "Подання з коментарями викладача",
-			"withRequiredFeedback": "Завдання з поданнями ще без коментарів",
-			"poll2Title": "Опитування ІІ у проєкті шкільної хмари",
-			"welcome": "Вітаємо"
-		},
 		"text": {
-			"announcementBrb": "Нове на bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Готові навчальні блоки для 5-8 класів</a> та нові <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>вправи і тести для 4-13 класів</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Тут</a> ви можете знайти приклади наших курсів/пропозиції тем для Бранденбурзької шкільної хмари: переглядайте, обирайте та <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>імпортуйте</a> як свій власний курс!",
-			"notFound": "Активних записів не знайдено.",
-			"emptyHomeworksInfo": "Усі домашні завдання показуються в розділі домашніх завдань.",
-			"emptyNewsInfo": "Немає останніх новин. Перегляньте розділ новин, щоб бути в курсі.",
-			"noNews": "Немає новин",
-			"noDueDate": "Дата подання не встановлена",
-			"graded": "Оцінено",
-			"handedIn": "Подані"
-		},
-		"img_alt": {
-			"showAppointmentInTeam": "Показати призначення в команді",
-			"showCalendar": "Показати календар",
-			"showCourse": "Показати курс"
+			"notFound": "Активних записів не знайдено."
 		},
 		"link": {
-			"continueReading": "Детальніше",
-			"toTask": "До завдання",
-			"moreTasks": "Інші завдання..."
+			"continueReading": "Детальніше"
 		}
 	},
 	"about": {
