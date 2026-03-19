@@ -3,13 +3,16 @@
   <p>{{$t "firstLogin.birthdate.text.weNeedYourDateOfBirth" }}</p>
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">
-        {{> "lib/forms/form-date-input"
-                label=($t "global.label.dateOfBirth")
-                id="studentBirthdate"
-                value=(datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 0)
-                dataMinDate=(datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 -1)
-                dataMaxDate=(datePickerTodayMinus 14 0 0)
-        }}
+          <label for="studentBirthdate">{{$t "global.label.dateOfBirth" }}</label>
+          <input
+            class="form-control linked"
+            type="date"
+            id="studentBirthdate"
+            name="studentBirthdate"
+            value="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 0 'YYYY-MM-DD'}}"
+            min="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 -1 'YYYY-MM-DD'}}"
+            max="{{datePickerTodayMinus 14 0 0 'YYYY-MM-DD'}}"
+            />  
     </div>
   </div>
 </section>
