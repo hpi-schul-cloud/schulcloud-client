@@ -484,33 +484,6 @@ router.get('/:teamId', async (req, res, next) => {
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
 		const allowTeamMembers = isAllowed(course.filePermission, 'teammember');
 
-		const hasAnyFiles = async (ownerId, parentId = undefined) => {
-			const items = await api(req).get('/fileStorage', {
-				qs: {
-					owner: ownerId,
-					parent: parentId,
-				},
-			});
-
-			/* note: fileStorage can return arrays and error objects */
-			if (!Array.isArray(items)) return false;
-
-			for (const item of items) {
-				if (item.isDirectory) {
-					if (await hasAnyFiles(ownerId, item._id)) {
-						return true; // Stop recursion if we found at least one file
-					}
-				} else {
-					// Found a file, stop searching
-					return true;
-				}
-			}
-			return false;
-		};
-
-		// Check if any files exist including all subfolders
-		const hasFiles = await hasAnyFiles(course._id);
-
 		let files;
 
 		files = await api(req).get('/fileStorage', {
@@ -651,7 +624,6 @@ router.get('/:teamId', async (req, res, next) => {
 				showVideoconferenceOption,
 				directories,
 				files,
-				hasFiles,
 				filesUrl: `/files/teams/${req.params.teamId}`,
 				nextcloudUrl,
 				useNextcloud,
