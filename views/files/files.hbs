@@ -80,7 +80,7 @@
 {{/if}}
 {{#embed "files/file-viewer"}}{{/embed}}
 {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
-<section class="files-actions" data-owner-id="{{../ownerId}}" data-owner-type="{{../ownerType}}" data-archive-name="{{../archiveName}}">
+<section class="files-actions" data-owner-id="{{../archive.ownerId}}" data-owner-type="{{../archive.type}}" data-archive-name="{{../archive.name}}">
 	<div class="row">
         <div class="col-sm-12">
             {{#if ../canDownloadArchive}}

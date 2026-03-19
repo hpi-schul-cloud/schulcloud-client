@@ -528,9 +528,11 @@ router.get('/my/{:folderId}{/:subFolderId}', FileGetter, async (req, res, next) 
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,
 		parentId,
-		ownerId: userId,
-		ownerType: 'user',
-		archiveName: 'myFiles',
+		archive: {
+			ownerId: userId,
+			type: 'user',
+			name: 'myFiles',
+		},
 		canEditPermissions: true,
 		...res.locals.files,
 	});
@@ -658,8 +660,11 @@ router.get('/courses/:courseId{/:folderId}', FileGetter, async (req, res, next) 
 			showSearch: false,
 			courseId: req.params.courseId,
 			ownerId: req.params.courseId,
-			ownerType: 'course',
-			archiveName: record.name.substring(0, 140),
+			archive: {
+				ownerId: req.params.courseId,
+				type: 'course',
+				name: record.name.substring(0, 140),
+			},
 			toCourseText: res.$t('global.button.toCourse'),
 			courseUrl: `/rooms/${req.params.courseId}`,
 			canEditPermissions: true,
