@@ -18,7 +18,6 @@ router.use('/courses/:courseId/groups/', require('./coursegroups'));
 router.use('/teams/', require('./teams'));
 router.use('/teams/:targetId/news', require('./news'));
 router.use('/teams/:teamId/topics/', require('./topics'));
-router.use('/bff/dashboard/', require('./dashboard'));
 router.use('/files/', require('./files'));
 router.use('/homework/', require('./homework'));
 router.use('/news/', require('./news'));
