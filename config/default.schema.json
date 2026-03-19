@@ -7,6 +7,12 @@
 			"type": "string",
 			"description": "May refere to the schema file to enable auto-fill and validation in some editors."
 		},
+		"NODE_ENV": {
+			"type": "string",
+			"description": "The Node.js environment the application is running in.",
+			"enum": ["development", "production", "test"],
+			"default": "production"
+		},
 		"REQUEST_OPTION": {
 			"type": "object",
 			"description": "Request helper options for internal requests.",
@@ -324,8 +330,8 @@
 		},
 		"ETHERPAD": {
 			"type": "object",
-			"description": "Cookie properties, required always to be defined",
-			"required": ["PAD_PATH", "PAD_URI", "DOMAIN"],
+			"description": "Cookie properties, required always to be defined.",
+			"required": ["PAD_URI", "DOMAIN"],
 			"properties": {
 				"PAD_PATH": {
 					"type": "string",
@@ -337,11 +343,11 @@
 					"type": "string",
 					"format": "uri",
 					"pattern": ".*(?<!/)$",
-					"description": "The etherpad pad uri"
+					"description": "The etherpad pad uri."
 				},
 				"DOMAIN": {
 					"type": "string",
-					"description": "The new etherpad domain"
+					"description": "The etherpad domain."
 				}
 			},
 			"default": {}
@@ -392,37 +398,7 @@
 					"description": "Expiration in seconds from now"
 				}
 			},
-			"required": [
-				"SAME_SITE",
-				"HTTP_ONLY",
-				"HOST_ONLY",
-				"SECURE",
-				"EXPIRES_SECONDS"
-			],
-			"default": {},
-			"allOf": [
-				{
-					"$ref": "#/properties/COOKIE/definitions/SAME_SITE_SECURE_VALID"
-				}
-			],
-			"definitions": {
-				"SAME_SITE_SECURE_VALID": {
-					"if": {
-						"properties": {
-							"SECURE": {
-								"const": false
-							}
-						}
-					},
-					"then": {
-						"properties": {
-							"SAME_SITE": {
-								"enum": ["lax", "strict"]
-							}
-						}
-					}
-				}
-			}
+			"default": {}
 		},
 		"COOKIE_SECRET": {
 			"type": "string",
@@ -605,11 +581,6 @@
 					"default": 2684354560
 				}
 			},
-			"required": [
-				"SERVICE_BASE_URL",
-				"REQUEST_TIMEOUT",
-				"MAX_FILE_SIZE"
-			],
 			"default": {}
 		},
         "CSV_IMPORT_MAX_FILE_SIZE": {
