@@ -23,7 +23,7 @@ const named = require('vinyl-named');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const change = require('gulp-change');
-const { rewriteStaticAssetPaths } = require('./middleware/assets');
+const { rewriteStaticAssetPaths, themeName } = require('./middleware/assets');
 const webpackConfig = require('./webpack.config');
 
 const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
@@ -46,10 +46,6 @@ const baseStyles = [
 	{ dirname: 'calendar/', filename: 'daygrid.min.css', src: './node_modules/@fullcalendar/daygrid/main.min.css' },
 	{ dirname: 'calendar/', filename: 'timegrid.min.css', src: './node_modules/@fullcalendar/timegrid/main.min.css' },
 ];
-
-function themeName() {
-	return process.env.SC_THEME || 'default';
-}
 
 const EXIT_ON_ERROR = process.env.GULP_EXIT_ON_ERROR
 	? process.env.GULP_EXIT_ON_ERROR === 'true'

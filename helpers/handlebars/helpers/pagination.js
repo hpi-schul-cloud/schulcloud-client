@@ -10,7 +10,7 @@ module.exports = (userSettings, options) => {
 		currentPage: 1,
 	};
 
-	const settings = Object.assign({}, defaultSettings, userSettings);
+	const settings = { ...defaultSettings, ...userSettings };
 	settings.baseUrl = decodeURI(settings.baseUrl);
 
 	// only show paginationif it can be actually used
@@ -32,12 +32,11 @@ module.exports = (userSettings, options) => {
 		return settings.baseUrl + numString;
 	};
 
+	const pageItems = [];
 	const addItem = (item) => {
 		item.url = getUrl(item.num);
 		pageItems.push(item);
 	};
-
-	const pageItems = [];
 
 	if (settings.showFirst) {
 		addItem({
@@ -58,7 +57,9 @@ module.exports = (userSettings, options) => {
 	let numItemsLeft = Math.ceil(settings.maxItems / 2) - 1;
 	const numItemsRight = settings.maxItems - numItemsLeft - 1;
 
-	if (settings.currentPage + numItemsRight > settings.numPages) { numItemsLeft = settings.maxItems - (settings.numPages - settings.currentPage) - 1; }
+	if (settings.currentPage + numItemsRight > settings.numPages) {
+		numItemsLeft = settings.maxItems - (settings.numPages - settings.currentPage) - 1;
+	}
 	if (settings.currentPage - numItemsLeft < 1) { numItemsLeft = settings.currentPage - 1; }
 
 	let i = 0;
@@ -71,8 +72,8 @@ module.exports = (userSettings, options) => {
 			active: (start === settings.currentPage),
 		});
 
-		start++;
-		i++;
+		start += 1;
+		i += 1;
 	}
 
 	if (settings.showNext) {
