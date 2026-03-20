@@ -1823,7 +1823,7 @@
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>.",
-            "backupFeatures": "Backup und Datensicherung: Neue Funktion zum Export von Kursen/Lerninhalten. Hier geht's zur (<a href='https://dbildungscloud.de/help/confluence/123407337' target='_blank' rel='noopener noreferrer'>Hilfe und Anleitung</a>)"
+            "backupFeatures": "Зробіть резервну копію вашого контенту в хмарі та використовуйте також нову функцію для експорту курсів. <a href='https://dbildungscloud.de/help/confluence/123407337' target='_blank' rel='noopener noreferrer'>Додаткову інформацію та допомогу можна знайти тут</a>."
         }
 	},
 	"topic": {
