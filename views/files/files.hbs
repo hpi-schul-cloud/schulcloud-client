@@ -84,16 +84,11 @@
 	<div class="row">
         <div class="col-sm-12">
             {{#if ../canDownloadArchive}}
-                {{#if (arrayLength files)}}
+                {{#if (isCond (arrayLength files) '||' (arrayLength directories))}}
                     <button class="btn btn-secondary download-archive" data-testid="download-archive-btn">
                         <i class="fa fa-download" aria-hidden="true"></i> {{$t "global.button.downloadAllFiles"}}
                     </button>
-                {{else}}
-                    {{#if (arrayLength directories)}}
-                        <button class="btn btn-secondary download-archive" data-testid="download-archive-btn">
-                            <i class="fa fa-download" aria-hidden="true"></i> {{$t "global.button.downloadAllFiles"}}
-                        </button>
-                    {{/if}}
+                {{/if}}
                 {{/if}}
             {{/if}}
             {{#userHasPermission "FOLDER_CREATE"}}
