@@ -19,7 +19,7 @@ const getTeamsInfoBannerTranslateKey = require('../helpers/banner');
 const router = express.Router();
 moment.locale('de');
 
-const OPTIONAL_TEAM_FEATURES = ['rocketChat', 'videoconference', 'messenger'];
+const OPTIONAL_TEAM_FEATURES = ['videoconference', 'messenger'];
 
 const addThumbnails = (file) => {
 	const thumbs = {
@@ -144,13 +144,6 @@ const editTeamHandler = async (req, res, next) => {
 		logger.error(error);
 	}
 
-	let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
-	const rocketChatDeprecated = Configuration.has('ROCKET_CHAT_DEPRECATION_DATE');
-	if (rocketChatDeprecated) {
-		const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
-		if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
-	}
-
 	teamPromise.then((team) => {
 		if (req.params.teamId && !permissions.includes('RENAME_TEAM')) {
 			return next(new Error(res.$t('global.text.403')));
@@ -171,8 +164,6 @@ const editTeamHandler = async (req, res, next) => {
 			closeLabel: res.$t('global.button.cancel'),
 			team,
 			schoolData: res.locals.currentSchoolData,
-			instanceUsesRocketChat,
-			rocketChatDeprecated,
 		});
 	});
 };
@@ -456,29 +447,8 @@ router.get('/:teamId', async (req, res, next) => {
 			course.name = decode(course.name);
 		}
 
-		let instanceUsesRocketChat = Configuration.get('ROCKETCHAT_SERVICE_ENABLED');
-		if (Configuration.has('ROCKET_CHAT_DEPRECATION_DATE')) {
-			const deprecationDate = new Date(Configuration.get('ROCKET_CHAT_DEPRECATION_DATE'));
-			if (deprecationDate < timesHelper.now()) instanceUsesRocketChat = false;
-		}
-		const courseUsesRocketChat = course.features.includes('rocketChat');
-		const schoolUsesRocketChat = (res.locals.currentSchoolData.features ?? []).includes('rocketChat');
 		const isExternalPersonSchool = res.locals.currentSchoolData.purpose === 'external_person_school';
 
-		let rocketChatCompleteURL;
-		if (instanceUsesRocketChat && courseUsesRocketChat && (schoolUsesRocketChat || isExternalPersonSchool)) {
-			try {
-				const rocketChatChannel = await api(req).get(
-					`/rocketChat/channel/${req.params.teamId}`,
-				);
-				const rocketChatURL = Configuration.get('ROCKET_CHAT_URI');
-				rocketChatCompleteURL = `${rocketChatURL}/group/${rocketChatChannel.channelName
-				}`;
-			} catch (err) {
-				logger.warn(err);
-				rocketChatCompleteURL = undefined;
-			}
-		}
 		course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
@@ -645,7 +615,6 @@ router.get('/:teamId', async (req, res, next) => {
 				),
 				userId: res.locals.currentUser._id,
 				teamId: req.params.teamId,
-				rocketChatURL: rocketChatCompleteURL,
 			},
 		);
 	} catch (e) {

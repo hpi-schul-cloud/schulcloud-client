@@ -20,7 +20,7 @@
 
 {{#content "page"}}
 <div id="team-wrapper">
-    <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
+    <section class="section-teams" data-id="{{../_id}}">
         <div class="dropdown dropdown-title minimal-button" style="flex-wrap: wrap">
             <a href="#0" class="dropdown-toggle btn-title-dropdown" data-testid="team_settings" aria-label="{{$t "
                 global.label.more"}}" data-toggle="dropdown">
@@ -76,14 +76,6 @@
                 <p class="lead">{{description}}</p>
             </div>
         </section>
-
-        {{#if rocketChatURL}}
-        <section class="section-chat">
-            <div class="rocketchat" data-testid="rocketchat_wrapper">
-                <iframe src="{{rocketChatURL}}?layout=embedded" frameborder="0"></iframe>
-            </div>
-        </section>
-        {{/if}}
 
         <div class="course-card">
             <div class="tabContainer" data-active-tab={{activeTab}}>
@@ -179,10 +171,19 @@
                             {{/if}}
                             {{/inArray}}
                             {{#if (getConfig "FEATURE_TEAM_ARCHIVE_DOWNLOAD")}}
-                                <button class="btn btn-add btn-secondary btn-file-download" data-use-nextcloud="{{../useNextcloud}}">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    {{$t "global.button.downloadAllFiles"}}
-                                </button>
+                                {{#if (arrayLength files)}}
+                                    <button class="btn btn-add btn-secondary btn-file-download" data-use-nextcloud="{{../useNextcloud}}">
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                        {{$t "global.button.downloadAllFiles"}}
+                                    </button>
+                                {{else}}
+                                    {{#if (arrayLength directories)}}
+                                        <button class="btn btn-add btn-secondary btn-file-download" data-use-nextcloud="{{../useNextcloud}}">
+                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                            {{$t "global.button.downloadAllFiles"}}
+                                        </button>
+                                    {{/if}}
+                                {{/if}}
                             {{/if}}
                             {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                             {{#if ../canCreateDir}}

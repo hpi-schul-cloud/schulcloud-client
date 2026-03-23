@@ -30,32 +30,6 @@
                     <textarea id="teamDesc" class="form-control" data-testid="description_team" name="description">{{team.description}}</textarea>
                 </div>
 
-                {{! Rocketchat is activated for instace }}
-                {{#if @root.instanceUsesRocketChat}}
-                    {{! Rocketchat is activated for current school }}
-                    {{#inArray "rocketChat" @root.schoolData.features}}
-                        <div class="form-group">
-                            <div {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}style="opacity: 0.4"{{/hasConfig}}>
-                                    <input
-                                        id="activateRC"
-                                        type="checkbox"
-                                        name="rocketChat"
-                                        value="true"
-                                        data-testid="rocketchat_checkbox"
-                                        {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}
-                                        {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}disabled{{/hasConfig}}>
-                                    <label for="activateRC">{{$t "teams._team.edit.label.activateMessengerForTeam"}}</label>
-                            </div>
-                            {{#hasConfig "ROCKET_CHAT_DEPRECATION_DATE"}}
-                                <p class="alert alert-info">
-                                    <strong><i class="fa fa-info-circle" aria-hidden="true"></i> {{$t "global.text.info"}}</strong>
-                                    {{$t "administration.school.text.rocketChatDeprecationInfo" (dict "date" (timeToString (getConfig "ROCKET_CHAT_DEPRECATION_DATE")))}}
-                                </p>
-							{{/hasConfig}}
-                        </div>
-                    {{/inArray}}
-                {{/if}}
-
                 {{! Videoconferences are activated for instace }}
                 {{#ifConfig "FEATURE_VIDEOCONFERENCE_ENABLED" true}}
                     <div class="form-group">
