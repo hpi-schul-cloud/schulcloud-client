@@ -143,9 +143,6 @@ const setupApp = async () => {
 		res.locals.API_HOST = PUBLIC_BACKEND_URL || `${API_HOST}/`;
 		res.locals.version = version;
 		res.locals.sha = sha;
-		res.locals.ROCKETCHAT_SERVICE_ENABLED = Configuration.get(
-			'ROCKETCHAT_SERVICE_ENABLED',
-		);
 		delete req.session.notification;
 		return next();
 	});
