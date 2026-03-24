@@ -730,6 +730,7 @@ router.get('/teams/:teamId{/:folderId}', FileGetter, async (req, res, next) => {
 		: '';
 
 	const useNextcloud = useNextcloudFilesystem(res.locals.currentUser);
+	const canDownloadArchive = Configuration.get('FEATURE_TEAM_ARCHIVE_DOWNLOAD') && !req.params.folderId;
 
 	res.render('files/files', {
 		title: res.$t('files.headline.teamFiles'),
@@ -738,6 +739,7 @@ router.get('/teams/:teamId{/:folderId}', FileGetter, async (req, res, next) => {
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile: true,
+		canDownloadArchive,
 		path: res.locals.files.path,
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,
@@ -750,6 +752,11 @@ router.get('/teams/:teamId{/:folderId}', FileGetter, async (req, res, next) => {
 		toCourseText: res.$t('files.button.toTeam'),
 		courseUrl: `/teams/${req.params.teamId}/`,
 		parentId: req.params.folderId,
+		archive: {
+			ownerId: req.params.teamId,
+			type: 'teams',
+			name: team.name.substring(0, 140),
+		},
 		...res.locals.files,
 	});
 });
