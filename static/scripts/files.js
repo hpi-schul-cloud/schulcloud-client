@@ -117,6 +117,7 @@ $(document).ready(() => {
 	const $deleteModal = $('.delete-modal');
 	const $moveModal = $('.move-modal');
 	const $renameModal = $('.rename-modal');
+	const $fileDownloadModal = $('.file-download-modal');
 
 	const isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
 
@@ -377,8 +378,32 @@ $(document).ready(() => {
 		};
 	}
 
-	$('.download-archive').on('click', () => {
+	function downloadFiles() {
 		archiveDownload(getDownloadRequestBody());
+	}
+
+	$('.download-archive').click(function () {
+		const useNextcloud = $(this).data('use-nextcloud');
+
+		if (useNextcloud && $fileDownloadModal?.length) {
+			populateModalForm($fileDownloadModal, {
+				title: $t('global.headline.downloadAllFiles'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('files.button.download'),
+				submitDataTestId: 'file-download-modal',
+			});
+			$fileDownloadModal.appendTo('body').modal('show');
+		} else {
+			downloadFiles();
+		}
+	});
+
+	$('.file-download-modal form').on('submit', (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+
+		downloadFiles();
+		$('.file-download-modal').modal('hide');
 	});
 
 	const returnFileUrl = (fileId, fileName) => {

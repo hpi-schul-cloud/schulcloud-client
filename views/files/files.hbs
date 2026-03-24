@@ -85,7 +85,7 @@
         <div class="col-sm-12">
             {{#if ../canDownloadArchive}}
                 {{#if (isCond (arrayLength files) '||' (arrayLength directories))}}
-                    <button class="btn btn-secondary download-archive" data-testid="download-archive-btn">
+                    <button class="btn btn-secondary download-archive" data-testid="download-archive-btn" data-use-nextcloud="{{../useNextcloud}}">
                         <i class="fa fa-download" aria-hidden="true"></i> {{$t "global.button.downloadAllFiles"}}
                     </button>
                 {{/if}}
@@ -102,6 +102,19 @@
         </div>
 	</div>
 </section>
+
+{{#if (getConfig "FEATURE_TEAM_ARCHIVE_DOWNLOAD")}}
+    {{#if useNextcloud}}
+        {{#if nextcloudUrl}}
+            {{#embed "lib/components/modal-form" class="file-download-modal" title=($t
+            "global.headline.downloadAllFiles")}}
+                {{#content "fields"}}
+                    <p>{{{$t "global.text.downloadHint" (dict "nextcloudUrl" ../nextcloudUrl)}}}</p>
+                {{/content}}
+            {{/embed}}
+        {{/if}}
+    {{/if}}
+{{/if}}
 </div>
 {{/content}}
 {{/extend}}
