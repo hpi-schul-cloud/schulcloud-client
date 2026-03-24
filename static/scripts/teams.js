@@ -159,7 +159,7 @@ $(document).ready(() => {
 		}
 	});
 
-	$('.file-download-modal form').on('submit', (e) => {
+	$('.file-team-download-modal form').on('submit', (e) => {
 		e.stopPropagation();
 		e.preventDefault();
 
