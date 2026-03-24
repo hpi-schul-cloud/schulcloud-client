@@ -4,6 +4,7 @@
 import 'jquery-datetimepicker';
 import './jquery/datetimepicker-easy';
 import { initVideoconferencing } from './videoconference';
+import archiveDownload from './download';
 
 const datetime = require('./datetime/datetime');
 
@@ -45,42 +46,14 @@ function getDownloadRequestBody() {
 }
 
 function downloadFiles() {
-	const requestBody = getDownloadRequestBody();
-
-	const form = document.createElement('form');
-	form.method = 'GET';
-	form.action = '/api/v1/filestorage/files/archive';
-	form.target = '_blank';
-
-	const ownerIdInput = document.createElement('input');
-	ownerIdInput.type = 'hidden';
-	ownerIdInput.name = 'ownerId';
-	ownerIdInput.value = requestBody.ownerId;
-
-	const ownerTypeInput = document.createElement('input');
-	ownerTypeInput.type = 'hidden';
-	ownerTypeInput.name = 'ownerType';
-	ownerTypeInput.value = requestBody.ownerType;
-
-	const archiveNameInput = document.createElement('input');
-	archiveNameInput.type = 'hidden';
-	archiveNameInput.name = 'archiveName';
-	archiveNameInput.value = requestBody.archiveName;
-
-	form.appendChild(ownerIdInput);
-	form.appendChild(ownerTypeInput);
-	form.appendChild(archiveNameInput);
-
-	document.body.appendChild(form);
-	form.submit();
-	form.remove();
+	archiveDownload(getDownloadRequestBody());
 }
 
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
 	const $filePermissionsModal = $('.file-permissions-modal');
-	const $fileDownloadModal = $('.file-download-modal');
+	const $fileDownloadModal = $('.file-team-download-modal');
 	const $deleteTeamModal = $('.delete-team-modal');
 
 	const handler = {
@@ -170,10 +143,10 @@ $(document).ready(() => {
 		});
 	});
 
-	$('.btn-file-download').click(() => {
-		const useNextcloud = $('.btn-file-download').data('use-nextcloud');
+	$('.btn-file-download').click(function () {
+		const useNextcloud = $(this).data('use-nextcloud');
 
-		if (useNextcloud) {
+		if (useNextcloud && $fileDownloadModal?.length) {
 			populateModalForm($fileDownloadModal, {
 				title: $t('global.headline.downloadAllFiles'),
 				closeLabel: $t('global.button.cancel'),
@@ -186,12 +159,12 @@ $(document).ready(() => {
 		}
 	});
 
-	$('.file-download-modal form').on('submit', (e) => {
+	$('.file-team-download-modal form').on('submit', (e) => {
 		e.stopPropagation();
 		e.preventDefault();
 
 		downloadFiles();
-		$('.file-download-modal').modal('hide');
+		$('.file-team-download-modal').modal('hide');
 	});
 
 	$('.btn-file-permissions').click(() => {
