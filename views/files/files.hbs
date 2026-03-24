@@ -80,21 +80,41 @@
 {{/if}}
 {{#embed "files/file-viewer"}}{{/embed}}
 {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
-{{#userHasPermission "FOLDER_CREATE"}}
-<section class="new-directory">
+<section class="files-actions" data-owner-id="{{../archive.ownerId}}" data-owner-type="{{../archive.type}}" data-archive-name="{{../archive.name}}">
 	<div class="row">
-		{{#if ../canCreateDir}}
-		<div class="col-sm-12">
-			<div data-toggle="modal">
-				<button class="btn btn-primary create-directory" data-testid="create-new-folder-btn">
-					<i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
-				</button>
-			</div>
-		</div>
-		{{/if}}
+        <div class="col-sm-12">
+            {{#if ../canDownloadArchive}}
+                {{#if (isCond (arrayLength files) '||' (arrayLength directories))}}
+                    <button class="btn btn-secondary download-archive" data-testid="download-archive-btn" data-use-nextcloud="{{../useNextcloud}}">
+                        <i class="fa fa-download" aria-hidden="true"></i> {{$t "global.button.downloadAllFiles"}}
+                    </button>
+                {{/if}}
+            {{/if}}
+            {{#userHasPermission "FOLDER_CREATE"}}
+                {{#if ../canCreateDir}}
+                    <span data-toggle="modal">
+                        <button class="btn btn-primary create-directory" data-testid="create-new-folder-btn">
+                            <i class="fa fa-plus" aria-hidden="true"></i> {{$t "files.button.createANewFolder" }}
+                        </button>
+                    </span>
+                {{/if}}
+            {{/userHasPermission}}
+        </div>
 	</div>
 </section>
-{{/userHasPermission}}
+
+{{#if (getConfig "FEATURE_TEAM_ARCHIVE_DOWNLOAD")}}
+    {{#if useNextcloud}}
+        {{#if nextcloudUrl}}
+            {{#embed "lib/components/modal-form" class="file-download-modal" title=($t
+            "global.headline.downloadAllFiles")}}
+                {{#content "fields"}}
+                    <p>{{{$t "global.text.downloadHint" (dict "nextcloudUrl" ../nextcloudUrl)}}}</p>
+                {{/content}}
+            {{/embed}}
+        {{/if}}
+    {{/if}}
+{{/if}}
 </div>
 {{/content}}
 {{/extend}}
