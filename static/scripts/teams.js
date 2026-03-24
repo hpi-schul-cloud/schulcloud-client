@@ -53,7 +53,7 @@ $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
 	const $filePermissionsModal = $('.file-permissions-modal');
-	const $fileDownloadModal = $('.file-download-modal');
+	const $fileDownloadModal = $('.file-team-download-modal');
 	const $deleteTeamModal = $('.delete-team-modal');
 
 	const handler = {
@@ -164,7 +164,7 @@ $(document).ready(() => {
 		e.preventDefault();
 
 		downloadFiles();
-		$('.file-download-modal').modal('hide');
+		$('.file-team-download-modal').modal('hide');
 	});
 
 	$('.btn-file-permissions').click(() => {
