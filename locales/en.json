@@ -472,7 +472,6 @@
 				"messengerSchoolRoom": "The announcement chat room enables school administrators to send messages to the entire school. \nStudents only have read access to this room, but they can see each other and thus start private chats.",
 				"messengerStudentRoomCreate": "If this feature is enabled, students are allowed to create chat rooms, private conversations and course and team discussions. These rooms are not visible to teachers unless they are explicitly invited.",
 				"onlyPDFSupport": "Only PDF files are supported.",
-				"rocketChatDeprecationInfo": "The old chat function in the teams area will be automatically deactivated on {{date}}. You can no longer make any changes.",
 				"theNewSchoolYearStartsInThe": "The new school year begins in the {{themeTitle}} with the preparation time one week before the end of the summer vacation. Regardless of this, you can make changes to the classes for the current, past and coming school year at any time."
 			}
 		},
@@ -1298,6 +1297,7 @@
 			"deleteTeam": "Delete team",
 			"discard": "Discard",
 			"done": "Done",
+            "downloadAllFiles": "Download all files",
 			"edit": "Edit",
 			"editTopic": "Edit topic",
 			"import": "Import",
@@ -1326,6 +1326,7 @@
 			"dateDetails": "Date - Details",
 			"declarationOfConsent": "Declaration of consent",
 			"delete": "Delete",
+            "downloadAllFiles": "Download all files",
 			"entriesPerPage": "Entries per page",
 			"files": "Files",
 			"invitationLinkGenerated": "Invitation link generated!",
@@ -1471,7 +1472,10 @@
 			"dataProtectionThr": "Privacy Policy",
 			"dataProtectionFile": "Privacy Policy of School",
 			"dataProtectionFileThr": "Privacy Policy of School",
-			"termsOfUse": "Terms of Use",
+            "downloadHint": "Files located in the external file area (<a href=\"{{nextcloudUrl}}\" target=\"_blank\">nextcloud</a>) must be downloaded there in a separate step.",
+			"downloadStarted": "Download started",
+            "downloadError": "Download failed",
+            "termsOfUse": "Terms of Use",
 			"termsOfUseFile": "Terms of Use of School",
 			"emailDomainBlocked": "This mail provider is no longer supported. Please contact your school administrator.",
 			"errorChangingFilePermissions": "Problem changing permissions",
@@ -2252,7 +2256,6 @@
 			"callToCopyMessages": "Please copy all messages that are important to you.",
 			"howToActivateMatrix": "In order to use the Messenger at your school, it has to be activated by you as admin once for the whole school under Administration > School > Activate Matrix Messenger.",
 			"howToDeactivateMatrix": "You can deactivate the messenger at any time under Administration > School > Activate Matrix Messenger.",
-			"rocketChatDeprecation": "The old team chat function is switched off on {{date}}. Old chat messages are not automatically transferred to the new Messenger.",
 			"welcomeMatrix": "Our new Messenger is now available, with which all users of your school can send direct or group messages to each other, as usual from social platforms."
 		}
 	},
