@@ -79,17 +79,7 @@
         {{else}}
             {{#embed "lib/components/files-storage/files" submissionFilesStorageData}}{{/embed}}
         {{/if}}
-  {{else}}
-    {{#if @root.submission}}
-        {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}
-        <div class="comment">
-                {{{@root.submission.comment}}}
-        </div>
-    {{else}}
-        <p>{{$t "homework.text.noSubmission" }}.</p>
-    {{/if}}
-  {{/if}}
-    {{#if @root.submittable}}
+
         {{> "lib/components/csrfInput"}}
 
         <div class="button-container">
@@ -113,15 +103,14 @@
                     <button class="btn btn-submit submission-button save-button" name="submitted" value="false" {{#if @root.submission.submitted}}hidden="true"{{/if}} data-testid="tasks-submission-save-btn">
                         {{$t "homework.button.saveDraft" }}
                     </button>
-                    <button class="btn btn-primary btn-submit submission-button" name="submitted" value="true"  data-testid="tasks-submission-submit-btn">
+                    <button class="btn btn-primary btn-submit submission-button" name="submitted" value="true" data-testid="tasks-submission-submit-btn">
                         {{$t "homework.button.saveAndSubmit" }}
                     </button>
                 </div>
             {{/userHasPermission}}
         </div>
-            </form>
-    </div>
-    {{/if}}
+
+        </form>
 
     {{#embed "lib/components/modal" class="delete-modal" title="${res.$t('global.text.areYousure')}"}}
         {{#content "body"}}
@@ -135,4 +124,17 @@
             </div>
         {{/content}}
     {{/embed}}
+    </div>
+
+  {{else}}
+    {{#if @root.submission}}
+        {{#embed "lib/components/files-storage/files" @root.submission.submissionFiles}}{{/embed}}
+        <div class="comment">
+                {{{@root.submission.comment}}}
+        </div>
+    {{else}}
+        <p>{{$t "homework.text.noSubmission" }}.</p>
+    {{/if}}
+  {{/if}}
+
 </section>
