@@ -406,24 +406,6 @@
 			"default": false,
 			"description": "Feature toggle for automatic consent during TSP sync."
 		},
-		"ROCKETCHAT_SERVICE_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "feature toggle to activate rocketchat for the instance."
-		},
-		"ROCKET_CHAT_URI": {
-			"type": "string",
-			"format": "uri",
-			"default": "http://localhost:15000",
-			"pattern": ".*(?<!/)$",
-			"description": "uri of the rocketchat server."
-		},
-		"ROCKET_CHAT_DEPRECATION_DATE": {
-			"type": "string",
-			"format": "date-time",
-			"examples": ["2020-11-01T20:20:00+00:00"],
-			"description": "if this is set, rocketchat will be treated as disabled after this date."
-		},
 		"ACCESSIBILITY_REPORT_EMAIL": {
 			"type": "string",
 			"default": "dbildungscloud@dataport.de",
@@ -617,6 +599,21 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables the external system logout feature"
+		},
+		"FEATURE_TEAM_ARCHIVE_DOWNLOAD": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in teams section"
+		},
+		"FEATURE_PERSONAL_FILES_ARCHIVE_DOWNLOAD": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in the personal files section"
+		},
+		"FEATURE_COURSE_FILES_ARCHIVE_DOWNLOAD": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in the course files section"
 		}
 	},
 	"allOf": [

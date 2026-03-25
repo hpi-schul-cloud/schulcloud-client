@@ -472,7 +472,6 @@
 				"messengerSchoolRoom": "Der Ankündigungs-Chatraum ermöglicht Schul-Admins, Nachrichten an die gesamte Schule zu senden.\nSchüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.",
 				"messengerStudentRoomCreate": "Ist diese Funktion aktiviert, dürfen Schüler:innen Chaträume, private Unterhaltungen und kurs- und teaminterne Gruppendiskussionen starten. Diese Räume sind für Lehrkräfte nicht einzusehen, wenn diese nicht explizit eingeladen werden.",
 				"onlyPDFSupport": "nur PDF Dateien werden unterstützt",
-				"rocketChatDeprecationInfo": "Die alte Chat-Funktion im Teams-Bereich wird am {{date}} automatisch deaktiviert. Du kannst keine Änderungen mehr vornehmen.",
 				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen."
 			}
 		},
@@ -1276,6 +1275,7 @@
 			"deleteTeam": "Team löschen",
 			"discard": "Verwerfen",
 			"done": "Fertig",
+			"downloadAllFiles": "Alle Dateien herunterladen",
 			"edit": "Bearbeiten",
 			"editTopic": "Thema bearbeiten",
 			"import": "Importieren",
@@ -1304,6 +1304,7 @@
 			"dateDetails": "Termin - Details",
 			"declarationOfConsent": "Einwilligungserklärung",
 			"delete": "Löschen",
+			"downloadAllFiles": "Alle Dateien herunterladen",
 			"entriesPerPage": "Einträge pro Seite",
 			"files": "Dateien",
 			"invitationLinkGenerated": "Einladungslink generiert!",
@@ -1449,6 +1450,9 @@
 			"dataProtectionThr": "Datenschutzhinweise",
 			"dataProtectionFile": "Datenschutzerklärung der Schule",
 			"dataProtectionFileThr": "Datenschutzhinweise der Schule",
+			"downloadHint": "Dateien, die sich im externen Dateibereich (<a href=\"{{nextcloudUrl}}\" target=\"_blank\" rel=\"noopener noreferrer\">nextcloud</a>) befinden, müssen dort in einem separaten Schritt heruntergeladen werden.",
+			"downloadStarted": "Download hat begonnen",
+			"downloadError": "Download fehlgeschlagen",
 			"termsOfUse": "Nutzungsordnung",
 			"termsOfUseFile": "Nutzungsordnung der Schule",
 			"emailDomainBlocked": "Dieser Mailprovider wird nicht mehr unterstützt. Bitte wende dich an deinen Schul-Admin.",
@@ -2078,8 +2082,9 @@
 			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
-			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>."
-		}
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>.",
+            "backupFeatures": "Sichern Sie Ihre Inhalte der Cloud und nutzen Sie auch die neue Funktion zum Export von Kursen. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Weitere Informationen und Hilfestellungen sind hier zu finden</a>."
+        }
 	},
 	"login": {
 		"button": {
@@ -2223,7 +2228,6 @@
 			"callToCopyMessages": "Bitte kopiere selber alle Nachrichten, die dir wichtig sind.",
 			"howToActivateMatrix": "Um den Messenger an deiner Schule zu nutzen, muss er von dir als Admin einmalig für die ganze Schule freigeschaltet werden unter: Verwaltung > Schule > Matrix Messenger aktivieren.",
 			"howToDeactivateMatrix": "Den Messenger kannst du jeder Zeit deaktivieren unter: Verwaltung > Schule > Matrix Messenger aktivieren.",
-			"rocketChatDeprecation": "Die alte Team-Chatfunktion wird am {{date}} abgeschaltet. Alte Chatnachrichten werden nicht automatisch in den neuen Messenger übertragen.",
 			"welcomeMatrix": "Ab sofort ist unser neuer Messenger verfügbar, mit dem sich alle Nutzer:innen deiner Schule Direkt- oder Gruppennachrichten schicken können, wie aus sozialen Plattformen gewohnt."
 		}
 	},

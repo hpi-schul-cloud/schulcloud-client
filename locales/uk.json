@@ -45,6 +45,7 @@
 			"editTopic": "Редагувати тему",
 			"toCourse": "До курсу",
 			"done": "Готово",
+			"downloadAllFiles": "Завантажити всі файли",
 			"addDraftTask": "Додайте чернетку",
 			"discard": "Відхилити"
 		},
@@ -73,6 +74,9 @@
 			"dataProtectionThr": "Політика конфіденційності",
 			"dataProtectionFile": "Політика конфіденційності школи",
 			"dataProtectionFileThr": "Політика конфіденційності школи",
+			"downloadHint": "Файли, розташовані в зовнішній файловій області (<a href=\"{{nextcloudUrl}}\" target=\"_blank\" rel=\"noopener noreferrer\">nextcloud</a>), необхідно завантажити туди окремим кроком.",
+			"downloadStarted": "Завантаження розпочато",
+			"downloadError": "Помилка завантаження",
 			"termsOfUse": "Умови використання",
 			"termsOfUseFile": "Умови використання школи",
 			"emailDomainBlocked": "Цей постачальник пошти більше не підтримується. Будь ласка, зв’яжіться з адміністратором школи.",
@@ -167,6 +171,7 @@
 			"classes": "Клас(-и)",
 			"dateDetails": "Дата - Подробиці",
 			"declarationOfConsent": "Заява про згоду",
+			"downloadAllFiles": "Завантажити всі файли",
 			"entriesPerPage": "Записів на сторінці",
 			"files": "Файли",
 			"invitationLinkGenerated": "Посилання на запрошення створено!",
@@ -748,7 +753,6 @@
 				"theNewSchoolYearStartsInThe": "Новий навчальний рік починається в {{themeTitle}} з часом підготовки за тиждень до закінчення літніх канікул. Незалежно від цього ви можете в будь-який час внести зміни до класів на поточний, минулий та майбутній навчальний рік.",
 				"fileTooLarge": "PDF-файл завеликий. Максимальний розмір — {{size}}.",
 				"onlyPDFSupport": "Підтримуються лише PDF-файли.",
-				"rocketChatDeprecationInfo": "Стару функцію чату в області команд буде автоматично деактивовано на {{date}}. Більше не можна вносити жодних змін.",
 				"ifMatrixIsActivatedAtYourSchool": "Якщо активовано Matrix Messenger, усі викладачі в цій школі можуть почати чати, приватні бесіди або групові дискусії в рамках курсу або команди. Спочатку учні мають доступ лише для читання, але також можуть отримати доступ до записів через налаштування курсу та команди. Учні також можуть почати приватні чати в рамках курсів і команд. Знайти більше інформації про це можна в ",
 				"messengerStudentRoomCreate": "Якщо цю функцію ввімкнено, учням дозволено створювати чати, приватні бесіди та обговорення курсів і команд. Ці чати не видно викладачам, якщо їх явно не запросять.",
 				"messengerSchoolRoom": "Чат з оголошеннями дає змогу адміністраторам школи відправляти повідомлення всій школі.\nУчні мають лише доступ для читання до цього чату, але вони можуть бачити один одного і, таким чином, починати приватні чати."
@@ -1800,8 +1804,9 @@
 			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
-			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>."
-		}
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>.",
+            "backupFeatures": "Зробіть резервну копію вашого контенту в хмарі та використовуйте також нову функцію для експорту курсів. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Додаткову інформацію та допомогу можна знайти тут</a>."
+        }
 	},
 	"topic": {
 		"_topic": {
@@ -2717,7 +2722,6 @@
 	},
 	"messenger": {
 		"text": {
-			"rocketChatDeprecation": "Стару функцію командного чату на {{date}} вимкнено. Старі повідомлення чату автоматично до нового Messenger не передаються.",
 			"howToActivateMatrix": "Щоб використовувати Messenger у вашій школі, ви як адміністратор маєте активувати його один раз для всієї школи під Адміністрація > Школа > Активувати Matrix Messenger.",
 			"welcomeMatrix": "Тепер доступний наш новий Messenger, за допомогою якого всі користувачі вашої школи можуть надсилати одна одній прямі або групові повідомлення, як зазвичай із соціальних платформ.",
 			"callToCopyMessages": "Скопіюйте всі важливі для вас повідомлення.",
