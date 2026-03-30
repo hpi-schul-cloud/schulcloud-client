@@ -306,7 +306,7 @@ const getImportHandler = (service) => (req, res, next) => {
 const getDeleteHandler = (service, redirectToReferer) => (req, res, next) => {
 	api(req, { version: 'v3' }).delete(`/${service}/${req.params.id}`).then((_) => {
 		if (redirectToReferer) {
-			redirectHelper.safeBackRedirect(req, res);
+			redirectHelper.safeBackRedirect(req, res, '#activetabid=submission');
 		} else {
 			res.redirect(200, `/${service}`);
 		}
