@@ -118,14 +118,6 @@
 			"type": "string",
 			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
 		},
-		"DASHBOARD_ANNOUNCEMENT_TEXT": {
-			"type": "string",
-			"description": "announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
-		},
-		"DASHBOARD_ANNOUNCEMENT_ROLES": {
-			"type": "string",
-			"description": "comma separated list of roles which dashboard announcement is shown to"
-		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
 			"type": "string",
 			"default": "info",
@@ -503,11 +495,6 @@
 			],
 			"default": {}
 		},
-		"CALENDAR_DASHBOARD_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "If true calendar events are displayed on the dashboard. Otherwise the request is skipped."
-		},
 		"CALENDAR_SERVICE_ENABLED": {
 			"type": "boolean",
 			"default": true,
@@ -537,16 +524,6 @@
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled school admins can start user migration without specifying an LDAP for the school based on a central LDAP"
-		},
-		"FEATURE_DASHBOARD_DEFAULT_PICTURE_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "Enables the default picture of the dashboard"
-		},
-		"FEATURE_DASHBOARD_NEWS_ON_TOP_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables the order of the dashboard with the news on top"
 		},
 		"FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED": {
 			"type": "boolean",
@@ -622,6 +599,21 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables the external system logout feature"
+		},
+		"FEATURE_TEAM_ARCHIVE_DOWNLOAD": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in teams section"
+		},
+		"FEATURE_PERSONAL_FILES_ARCHIVE_DOWNLOAD": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in the personal files section"
+		},
+		"FEATURE_COURSE_FILES_ARCHIVE_DOWNLOAD": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in the course files section"
 		}
 	},
 	"allOf": [

@@ -18,6 +18,8 @@ Base links to copy
 - https://github.com/schul-cloud/schulcloud-server/pull/????
 - https://ticketsystem.dbildungscloud.de/browse/BC-????
 -->
+<!-- related-prs-and-tickets-start -->
+<!-- related-prs-and-tickets-end -->
 
 ## Changes
 <!--

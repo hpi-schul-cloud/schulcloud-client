@@ -1,32 +1,10 @@
 {
 	"dashboard": {
-		"headline": {
-			"title": "Панель керування",
-			"schedule": "Розклад",
-			"withFeedback": "Подання з коментарями викладача",
-			"withRequiredFeedback": "Завдання з поданнями ще без коментарів",
-			"poll2Title": "Опитування ІІ у проєкті шкільної хмари",
-			"welcome": "Вітаємо"
-		},
 		"text": {
-			"announcementBrb": "Нове на bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Готові навчальні блоки для 5-8 класів</a> та нові <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>вправи і тести для 4-13 класів</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Тут</a> ви можете знайти приклади наших курсів/пропозиції тем для Бранденбурзької шкільної хмари: переглядайте, обирайте та <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>імпортуйте</a> як свій власний курс!",
-			"notFound": "Активних записів не знайдено.",
-			"emptyHomeworksInfo": "Усі домашні завдання показуються в розділі домашніх завдань.",
-			"emptyNewsInfo": "Немає останніх новин. Перегляньте розділ новин, щоб бути в курсі.",
-			"noNews": "Немає новин",
-			"noDueDate": "Дата подання не встановлена",
-			"graded": "Оцінено",
-			"handedIn": "Подані"
-		},
-		"img_alt": {
-			"showAppointmentInTeam": "Показати призначення в команді",
-			"showCalendar": "Показати календар",
-			"showCourse": "Показати курс"
+			"notFound": "Активних записів не знайдено."
 		},
 		"link": {
-			"continueReading": "Детальніше",
-			"toTask": "До завдання",
-			"moreTasks": "Інші завдання..."
+			"continueReading": "Детальніше"
 		}
 	},
 	"about": {
@@ -67,6 +45,7 @@
 			"editTopic": "Редагувати тему",
 			"toCourse": "До курсу",
 			"done": "Готово",
+			"downloadAllFiles": "Завантажити всі файли",
 			"addDraftTask": "Додайте чернетку",
 			"discard": "Відхилити"
 		},
@@ -95,6 +74,9 @@
 			"dataProtectionThr": "Політика конфіденційності",
 			"dataProtectionFile": "Політика конфіденційності школи",
 			"dataProtectionFileThr": "Політика конфіденційності школи",
+			"downloadHint": "Файли, розташовані в зовнішній файловій області (<a href=\"{{nextcloudUrl}}\" target=\"_blank\" rel=\"noopener noreferrer\">nextcloud</a>), необхідно завантажити туди окремим кроком.",
+			"downloadStarted": "Завантаження розпочато",
+			"downloadError": "Помилка завантаження",
 			"termsOfUse": "Умови використання",
 			"termsOfUseFile": "Умови використання школи",
 			"emailDomainBlocked": "Цей постачальник пошти більше не підтримується. Будь ласка, зв’яжіться з адміністратором школи.",
@@ -189,6 +171,7 @@
 			"classes": "Клас(-и)",
 			"dateDetails": "Дата - Подробиці",
 			"declarationOfConsent": "Заява про згоду",
+			"downloadAllFiles": "Завантажити всі файли",
 			"entriesPerPage": "Записів на сторінці",
 			"files": "Файли",
 			"invitationLinkGenerated": "Посилання на запрошення створено!",
@@ -1821,8 +1804,9 @@
 			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
-			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>."
-		}
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>.",
+            "backupFeatures": "Зробіть резервну копію вашого контенту в хмарі та використовуйте також нову функцію для експорту курсів. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Додаткову інформацію та допомогу можна знайти тут</a>."
+        }
 	},
 	"topic": {
 		"_topic": {
@@ -2226,12 +2210,6 @@
 				"allUsersParticipate": "Усі користувачі беруть участь як модератори",
 				"approvalByTheModerator": "Схвалення модератором перед тим, як увійти в кімнату",
 				"muteParticipants": "Вимкнути звук учасників під час входу"
-			}
-		},
-		"form_features": {
-			"text": {
-				"forMoreInformationClickThisButton": "Для отримання додаткової інформації натисніть цю кнопку",
-				"thereAreNewFeatures": "В {{shortTitle}} є нові функції"
 			}
 		},
 		"form_poll": {
