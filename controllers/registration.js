@@ -104,7 +104,7 @@ router.post(
 				);
 			});
 		}
-		req.body.birthDate = timesHelper.dateStringToMoment(req.body.birthDate, false);
+		// req.body.birthDate = timesHelper.dateStringToMoment(req.body.birthDate, false);
 
 		return api(req)
 			.post('/registration/', {
