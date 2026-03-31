@@ -33,7 +33,7 @@ const joinPathWithQuery = (path, paramsString) => (paramsString ? `${path}?${par
  * @param {string} [appendage=''] string that should be attached to the redirect
  */
 const safeBackRedirect = (req, res, appendage = '') => {
-	const location = req.body.referrer || req.header('Referer') || '/';
+	const location = (req.body && req.body.referrer) || req.header('Referer') || '/';
 	return res.redirect(getValidRedirect(location) + appendage);
 };
 
