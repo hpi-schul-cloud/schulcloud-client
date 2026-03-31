@@ -274,14 +274,6 @@ router.get('/consentError', (req, res, next) => {
 
 router.post(['/submit', '/submit/sso'], async (req, res, next) => {
 	try {
-		// const { studentBirthdate } = req.body;
-		// if (studentBirthdate) {
-		// 	const lang = await getCurrentLanguage(req, res);
-		// 	const normalizedBirthdate = normalizeDate(studentBirthdate, lang);
-
-		// 	req.body.studentBirthdate = normalizedBirthdate;
-		// }
-
 		await api(req).post('/firstLogin/', { json: req.body });
 		res.sendStatus(200);
 	} catch (err) {
