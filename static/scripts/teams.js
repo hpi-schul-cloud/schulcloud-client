@@ -4,6 +4,7 @@
 import 'jquery-datetimepicker';
 import './jquery/datetimepicker-easy';
 import { initVideoconferencing } from './videoconference';
+import archiveDownload from './download';
 
 const datetime = require('./datetime/datetime');
 
@@ -31,10 +32,28 @@ function transformTeamEvent(modal, event) {
 	});
 }
 
+function getDownloadRequestBody() {
+	const ownerId = $('.section-teams').data('id');
+	const ownerType = 'teams';
+	const teamName = $('#page-title').text().trim();
+	const archiveName = teamName.substring(0, 140);
+
+	return {
+		ownerId,
+		ownerType,
+		archiveName,
+	};
+}
+
+function downloadFiles() {
+	archiveDownload(getDownloadRequestBody());
+}
+
 $(document).ready(() => {
 	const $createEventModal = $('.create-event-modal');
 	const $editEventModal = $('.edit-event-modal');
 	const $filePermissionsModal = $('.file-permissions-modal');
+	const $fileDownloadModal = $('.file-team-download-modal');
 	const $deleteTeamModal = $('.delete-team-modal');
 
 	const handler = {
@@ -122,6 +141,30 @@ $(document).ready(() => {
 				window.location.reload();
 			},
 		});
+	});
+
+	$('.btn-file-download').click(function () {
+		const useNextcloud = $(this).data('use-nextcloud');
+
+		if (useNextcloud && $fileDownloadModal?.length) {
+			populateModalForm($fileDownloadModal, {
+				title: $t('global.headline.downloadAllFiles'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('files.button.download'),
+				submitDataTestId: 'file-download-modal',
+			});
+			$fileDownloadModal.appendTo('body').modal('show');
+		} else {
+			downloadFiles();
+		}
+	});
+
+	$('.file-team-download-modal form').on('submit', (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+
+		downloadFiles();
+		$('.file-team-download-modal').modal('hide');
 	});
 
 	$('.btn-file-permissions').click(() => {

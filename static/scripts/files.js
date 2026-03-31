@@ -1,4 +1,5 @@
 import { getQueryParameterByName } from './helpers/queryStringParameter';
+import archiveDownload from './download';
 
 window.addEventListener('DOMContentLoaded', () => {
 	let sortBy = getQueryParameterByName('sortBy');
@@ -116,6 +117,7 @@ $(document).ready(() => {
 	const $deleteModal = $('.delete-modal');
 	const $moveModal = $('.move-modal');
 	const $renameModal = $('.rename-modal');
+	const $fileDownloadModal = $('.file-download-modal');
 
 	const isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
 
@@ -362,6 +364,46 @@ $(document).ready(() => {
 	$('.create-directory').on('click', () => {
 		$editModal.appendTo('body').modal('show');
 		$renameModal.modal('hide');
+	});
+
+	function getDownloadRequestBody() {
+		const ownerId = $('.files-actions').data('owner-id');
+		const ownerType = $('.files-actions').data('owner-type');
+		const archiveName = $('.files-actions').data('archive-name');
+
+		return {
+			ownerId,
+			ownerType,
+			archiveName,
+		};
+	}
+
+	function downloadFiles() {
+		archiveDownload(getDownloadRequestBody());
+	}
+
+	$('.download-archive').click(function () {
+		const useNextcloud = $(this).data('use-nextcloud');
+
+		if (useNextcloud && $fileDownloadModal?.length) {
+			populateModalForm($fileDownloadModal, {
+				title: $t('global.headline.downloadAllFiles'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('files.button.download'),
+				submitDataTestId: 'file-download-modal',
+			});
+			$fileDownloadModal.appendTo('body').modal('show');
+		} else {
+			downloadFiles();
+		}
+	});
+
+	$('.file-download-modal form').on('submit', (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+
+		downloadFiles();
+		$('.file-download-modal').modal('hide');
 	});
 
 	const returnFileUrl = (fileId, fileName) => {

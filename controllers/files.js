@@ -523,10 +523,17 @@ router.get('/my/{:folderId}{/:subFolderId}', FileGetter, async (req, res, next) 
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile: true,
+		useNextcloud: false,
+		canDownloadArchive: Configuration.get('FEATURE_PERSONAL_FILES_ARCHIVE_DOWNLOAD') && !parentId,
 		showSearch: false,
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,
 		parentId,
+		archive: {
+			ownerId: userId,
+			type: 'user',
+			name: 'myFiles',
+		},
 		canEditPermissions: true,
 		...res.locals.files,
 	});
@@ -636,11 +643,15 @@ router.get('/courses/:courseId{/:folderId}', FileGetter, async (req, res, next) 
 
 		res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
 
+		const canDownloadArchive = Configuration.get('FEATURE_COURSE_FILES_ARCHIVE_DOWNLOAD') && !req.params.folderId;
+
 		res.render('files/files', {
 			title: res.$t('files.headline.courseFiles'),
 			canUploadFile: true,
 			canCreateDir: true,
 			canCreateFile,
+			useNextcloud: false,
+			canDownloadArchive,
 			path: res.locals.files.path,
 			inline: req.query.inline || req.query.CKEditor,
 			CKEditor: req.query.CKEditor,
@@ -648,6 +659,11 @@ router.get('/courses/:courseId{/:folderId}', FileGetter, async (req, res, next) 
 			showSearch: false,
 			courseId: req.params.courseId,
 			ownerId: req.params.courseId,
+			archive: {
+				ownerId: req.params.courseId,
+				type: 'course',
+				name: record.name.substring(0, 140),
+			},
 			toCourseText: res.$t('global.button.toCourse'),
 			courseUrl: `/rooms/${req.params.courseId}`,
 			canEditPermissions: true,
@@ -713,6 +729,7 @@ router.get('/teams/:teamId{/:folderId}', FileGetter, async (req, res, next) => {
 		: '';
 
 	const useNextcloud = useNextcloudFilesystem(res.locals.currentUser);
+	const canDownloadArchive = Configuration.get('FEATURE_TEAM_ARCHIVE_DOWNLOAD') && !req.params.folderId;
 
 	res.render('files/files', {
 		title: res.$t('files.headline.teamFiles'),
@@ -721,6 +738,7 @@ router.get('/teams/:teamId{/:folderId}', FileGetter, async (req, res, next) => {
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile: true,
+		canDownloadArchive,
 		path: res.locals.files.path,
 		inline: req.query.inline || req.query.CKEditor,
 		CKEditor: req.query.CKEditor,
@@ -733,6 +751,11 @@ router.get('/teams/:teamId{/:folderId}', FileGetter, async (req, res, next) => {
 		toCourseText: res.$t('files.button.toTeam'),
 		courseUrl: `/teams/${req.params.teamId}/`,
 		parentId: req.params.folderId,
+		archive: {
+			ownerId: req.params.teamId,
+			type: 'teams',
+			name: team.name.substring(0, 140),
+		},
 		...res.locals.files,
 	});
 });
