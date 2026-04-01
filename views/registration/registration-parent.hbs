@@ -42,15 +42,18 @@
         </div>
 
         <div class="form-group">
-          {{> "lib/forms/form-date-input"
-                  label=($t "registration._registration.global.label.studentsDateOfBirth")
-                  id="birthDate"
-                  value=user.birthday
-                  required=true
-                  readonly=(isset user.birthday)
-                  dataMinDate=(datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 -1)
-                  dataMaxDate=(datePickerTodayMinus 4 0 0)
-          }}
+          <label for="birthDate">{{$t "registration._registration.global.label.studentsDateOfBirth" }}</label>
+          <input
+            class="form-control linked"
+            type="date"
+            id="birthDate"
+            data-testid="form-date-input-birthDate"
+            name="birthDate"
+            value="{{user.birthday}}"
+            min="{{datePickerTodayMinus CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS 0 -1 'YYYY-MM-DD'}}"
+            max="{{datePickerTodayMinus 4 0 0 'YYYY-MM-DD'}}"
+            {{#if user.birthday}}readonly{{/if}}
+            />
         </div>
 
         <div class="form-group">
