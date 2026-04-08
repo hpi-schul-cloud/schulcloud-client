@@ -465,7 +465,7 @@ router.post('/newFile', (req, res, next) => {
 // create directory
 router.post('/directory', (req, res, next) => {
 	const { name, owner, parent } = req.body;
-	const sanitizedName = name ? name.replace(/[^a-zA-Z0-9äöüÄÖÜß\s\-_.]/g, '') : null;
+	const sanitizedName = name ? name.replaceAll(/[^a-zA-Z0-9äöüÄÖÜß\s\-_.]/g, '') : null;
 	const json = {
 		name: sanitizedName || res.$t('files.text.newDir'),
 		owner,
