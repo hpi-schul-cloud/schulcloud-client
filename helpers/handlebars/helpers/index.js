@@ -80,7 +80,7 @@ const helpers = () => ({
 			insert,
 			rangesArr,
 		}) => {
-			if (['script', 'style'].includes(tag.name.toLowerCase() === 'script')) {
+			if (['script', 'style'].includes(tag.name?.toLowerCase() === 'script')) {
 				rangesArr.push(
 					tag.lastOpeningBracketAt,
 					tag.lastClosingBracketAt + 1,
