@@ -474,7 +474,7 @@ router.post('/directory', (req, res, next) => {
 		return redirectHelper.safeBackRedirect(req, res);
 	}
 	const json = {
-		name: sanitizedName || res.$t('files.text.newDir'),
+		name: sanitizedName,
 		owner,
 		parent,
 	};
