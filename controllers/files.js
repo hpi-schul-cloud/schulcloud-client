@@ -466,6 +466,13 @@ router.post('/newFile', (req, res, next) => {
 router.post('/directory', (req, res, next) => {
 	const { name, owner, parent } = req.body;
 	const sanitizedName = name ? name.replaceAll(/[^a-zA-Z0-9äöüÄÖÜß\s\-_.]/g, '') : null;
+	if (!sanitizedName) {
+		req.session.notification = {
+			type: 'danger',
+			message: res.$t('files._file.text.invalidFileName'),
+		};
+		return redirectHelper.safeBackRedirect(req, res);
+	}
 	const json = {
 		name: sanitizedName || res.$t('files.text.newDir'),
 		owner,
@@ -994,10 +1001,18 @@ router.post('/fileModel/:id/rename', (req, res) => {
 });
 
 router.post('/directoryModel/:id/rename', (req, res, next) => {
+	const sanitizedName = req.body.name.replaceAll(/[^a-zA-Z0-9äöüÄÖÜß\s\-_.]/g, '');
+	if (!sanitizedName) {
+		req.session.notification = {
+			type: 'danger',
+			message: res.$t('files._file.text.invalidFileName'),
+		};
+		return redirectHelper.safeBackRedirect(req, res);
+	}
 	api(req).post('/fileStorage/directories/rename', {
 		json: {
 			id: req.params.id,
-			newName: req.body.name,
+			newName: sanitizedName,
 		},
 	})
 		.then(() => {
