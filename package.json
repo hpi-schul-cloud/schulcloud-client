@@ -10,8 +10,8 @@
 		"coverage": "nyc npm run mocha"
 	},
 	"engines": {
-		"node": "22",
-		"npm": ">=9"
+		"node": "24",
+		"npm": ">=10"
 	},
 	"dependencies": {
 		"@ckeditor/ckeditor5-autoformat": "^28.0.0",
