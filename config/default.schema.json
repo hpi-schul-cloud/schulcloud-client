@@ -55,6 +55,11 @@
 			"description": "Enables the teams feature in the app, which allows users to create and manage teams.",
 			"default": true
 		},
+		"FEATURE_TEAM_CREATE_ROOM_ENABLED": {
+			"type": "boolean",
+			"description": "Enables creating a room with the members of the team",
+			"default": false
+		},
 		"SC_DOMAIN": {
 			"type": "string",
 			"description": "The domain of the schulcloud instance, used for cookies and CORS configuration. Should not include protocol or slashes.",

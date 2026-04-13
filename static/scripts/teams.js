@@ -55,6 +55,7 @@ $(document).ready(() => {
 	const $filePermissionsModal = $('.file-permissions-modal');
 	const $fileDownloadModal = $('.file-team-download-modal');
 	const $deleteTeamModal = $('.delete-team-modal');
+	const $convertTeamModal = $('.convert-team-modal');
 
 	const handler = {
 		get(target, name) {
@@ -141,6 +142,17 @@ $(document).ready(() => {
 				window.location.reload();
 			},
 		});
+	});
+
+	$('.btn-convert-team').click(() => {
+		$convertTeamModal.appendTo('body').modal('show');
+	});
+
+	$convertTeamModal.find('.btn-submit').on('click', () => {
+		// Your submission logic here
+		// ...
+
+		$convertTeamModal.modal('hide');
 	});
 
 	$('.btn-file-download').click(function () {

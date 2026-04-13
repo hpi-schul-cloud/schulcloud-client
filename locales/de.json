@@ -2463,8 +2463,7 @@
 	"teams": {
 		"_team": {
 			"button": {
-				"leaveTeam": "Team verlassen",
-				"convertTeam": "Team umwandeln"
+				"leaveTeam": "Team verlassen"
 			},
 			"dropdown_menu": {
 				"link": {
@@ -2491,6 +2490,18 @@
 			"events": {
 				"button": {
 					"addDate": "Termin anlegen"
+				}
+			},
+			"convertTeamsToRoom": {
+				"button": {
+					"convertTeam": "Team umwandeln",
+					"submit": "Team umwandeln"
+				},
+				"headline": {
+					"convertTeam": "Team in Raum umwandeln"
+				},
+				"text": {
+					"convertTeam": "Soll das Team „[Teamname]“ in einen Raum umgewandelt werden? \n- Die Team-Mitglieder sowie Team-Name und -Farbe werden automatisch übernommen. \n- Alle Mitglieder erhalten im neuen Raum „[Teamname]“ automatisch die Raumberechtigung Lesen. Anschließend können die Raumberechtigungen individuell angepasst werden. \n- Dateien und Ordner können im Team über die neue Funktion „Alle Dateien herunterladen“ archiviert und bei Bedarf im Raum an gewünschter Stelle hochgeladen werden."
 				}
 			},
 			"files": {
