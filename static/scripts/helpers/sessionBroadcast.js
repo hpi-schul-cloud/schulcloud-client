@@ -12,7 +12,9 @@ export const notifyLogout = () => {
 export const subscribeToLogoutBroadcast = () => {
 	broadcast.onmessage = (event) => {
 		if (event.data === BROADCAST_MESSAGE_LOGOUT || event.data === BROADCAST_MESSAGE_EXPIRED) {
-			window.location.href = '/';
+			setTimeout(() => {
+				window.location.href = '/';
+			}, 5000);
 		}
 	};
 };
