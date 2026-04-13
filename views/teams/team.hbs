@@ -61,6 +61,13 @@
                 {{/userHasPermission}}
             </div>
             <div style="margin-left: auto">
+                 {{#if canConvertToRoom}}
+                    {{!-- {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}} --}}
+                       <button class="btn btn-secondary create-directory">
+                            {{$t "teams._team.button.convertTeam"}}
+                        </button>
+                    {{!-- {{/if}} --}}
+                {{/if}}
                 {{#if useNextcloud}}
                     {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                         <a href="{{../nextcloudUrl}}" target="_blank" class="btn btn-add btn-primary {{#unless ../nextcloudUrl}}disabled{{/unless}}">

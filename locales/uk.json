@@ -1554,7 +1554,8 @@
 				}
 			},
 			"button": {
-				"leaveTeam": "Залишити команду"
+				"leaveTeam": "Залишити команду",
+				"convertTeam": "Перетворити команду"
 			},
 			"dropdown_menu": {
 				"link": {

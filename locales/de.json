@@ -2463,7 +2463,8 @@
 	"teams": {
 		"_team": {
 			"button": {
-				"leaveTeam": "Team verlassen"
+				"leaveTeam": "Team verlassen",
+				"convertTeam": "Team umwandeln"
 			},
 			"dropdown_menu": {
 				"link": {

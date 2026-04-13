@@ -604,6 +604,7 @@ router.get('/:teamId', async (req, res, next) => {
 				canEditPermissions: permissions.includes('EDIT_ALL_FILES'),
 				canEditEvents: permissions.includes('CALENDAR_EDIT'),
 				createEventAction: `/teams/${req.params.teamId}/events/`,
+				canConvertToRoom: true,
 				leaveTeamAction,
 				couldLeave,
 				allowExternalExperts: allowExternalExperts ? 'checked' : '',
