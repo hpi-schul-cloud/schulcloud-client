@@ -3,11 +3,13 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const path = require('path');
 const express = require('express');
 
-const SC_THEME = Configuration.get('SC_THEME');
+function themeName() {
+	return process.env.SC_THEME || 'default';
+}
 
 let staticifyInstance = null;
 const localesDir = path.join(__dirname, '../locales');
-const buildThemeAssetDir = path.join(__dirname, `../build/${SC_THEME}`);
+const buildThemeAssetDir = path.join(__dirname, `../build/${themeName()}`);
 
 /**
  * initializes the staticify instance lazy which is required in gulp
@@ -63,4 +65,6 @@ const rewriteStaticAssetPaths = (content) => {
 	return content;
 };
 
-module.exports = { staticAssetsMiddleware, getStaticAssetPath, rewriteStaticAssetPaths };
+module.exports = {
+	staticAssetsMiddleware, getStaticAssetPath, rewriteStaticAssetPaths, themeName,
+};

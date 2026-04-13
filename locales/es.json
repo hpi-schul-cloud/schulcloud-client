@@ -472,7 +472,6 @@
 				"messengerSchoolRoom": "La sala de chat e información permite a los administradores de la escuela enviar mensajes a todo el centro.\nLos estudiantes solo tienen acceso de lectura a esta sala, pero pueden verse y así iniciar chats privados.",
 				"messengerStudentRoomCreate": "Si esta función está habilitada, los estudiantes pueden crear salas de chat, conversaciones privadas y discusiones de cursos y equipos. Estas salas no son visibles para los profesores a menos que se les invite expresamente.",
 				"onlyPDFSupport": "Solo se admiten archivos PDF.",
-				"rocketChatDeprecationInfo": "La antigua función de chat en el área de equipos se desactivará automáticamente el {{date}}. Ya no puedes realizar ninguna modificación.",
 				"theNewSchoolYearStartsInThe": "El nuevo año escolar comienza en el {{themeTitle}} con el tiempo de preparación una semana antes del final de las vacaciones de verano. Independientemente de esto, puedes realizar cambios en las clases del año escolar actual, pasado y futuro en cualquier momento."
 			}
 		},
@@ -936,32 +935,10 @@
 		}
 	},
 	"dashboard": {
-		"headline": {
-			"poll2Title": "Encuesta II en el proyecto de la nube escolar",
-			"schedule": "Programación",
-			"welcome": "Hola",
-			"title": "Panel",
-			"withFeedback": "Envíos con comentarios de los profesores",
-			"withRequiredFeedback": "Las tareas con envíos todavía no tienen comentarios"
-		},
-		"img_alt": {
-			"showAppointmentInTeam": "Mostrar citas en el equipo",
-			"showCalendar": "Mostrar calendario",
-			"showCourse": "Mostrar curso"
-		},
 		"link": {
-			"continueReading": "Leer más",
-			"moreTasks": "Otras tareas...",
-			"toTask": "A la tarea"
+			"continueReading": "Leer más"
 		},
 		"text": {
-			"announcementBrb": "Nuevo en bettermarks: <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/unterrichten'>Unidades didácticas preparadas ahora para los cursos 5º a 8º</a> y nuevos <a target='_blank' rel='noopener noreferrer' href='https://de.bettermarks.com/ueben-testen'>ejercicios y tests para los cursos 4º a 13º</a>!<br> <a target='_blank' rel='noopener noreferrer' href='https://bbb3.bsbb.eu/hedgedoc/s/qIIjH-LWN#'>Aquí</a> puede encontrar nuestros ejemplos de cursos/sugerencias de temas para la Nube Escolar de Brandenburgo: ¡visualícelos, selecciónelos e <a target='_blank' rel='noopener noreferrer' href='https://docs.dbildungscloud.de/pages/viewpage.action?pageId=39387173#Kurseteilenundimportieren-Kursimportieren'>impórtelos</a> como su propio curso!",
-			"emptyHomeworksInfo": "No hay tareas asignadas. Puedes encontrarar todas las tareas en el área de tareas.",
-			"emptyNewsInfo": "Hasta el momento no hay noticias.",
-			"graded": "Calificado",
-			"handedIn": "Presentado",
-			"noDueDate": "No se ha fijado una fecha de envío",
-			"noNews": "No hay noticias",
 			"notFound": "No se han encontrado entradas activas."
 		}
 	},
@@ -1298,6 +1275,7 @@
 			"deleteTeam": "Eliminar equipo",
 			"discard": "Descartar",
 			"done": "Listo",
+			"downloadAllFiles": "Descargar todos los archivos",
 			"edit": "Editar",
 			"editTopic": "Editar tema",
 			"import": "Importar",
@@ -1326,6 +1304,7 @@
 			"dateDetails": "Fecha - Detalles",
 			"declarationOfConsent": "Declaración de consentimiento",
 			"delete": "Eliminar",
+			"downloadAllFiles": "Descargar todos los archivos",
 			"entriesPerPage": "Entradas por página",
 			"files": "Archivos",
 			"invitationLinkGenerated": "¡Enlace de invitación generado!",
@@ -1471,6 +1450,9 @@
 			"dataProtectionThr": "Política de Privacidad",
 			"dataProtectionFile": "Política de Privacidad de la Escuela",
 			"dataProtectionFileThr": "Política de Privacidad de la Escuela",
+			"downloadHint": "Los archivos ubicados en el área de archivos externos (<a href=\"{{nextcloudUrl}}\" target=\"_blank\" rel=\"noopener noreferrer\">nextcloud</a>) deben descargarse allí en un paso separado.",
+			"downloadStarted": "Descarga iniciada",
+			"downloadError": "Descarga fallida",
 			"termsOfUse": "Condiciones de Uso",
 			"termsOfUseFile": "Condiciones de Uso de la Escuela",
 			"emailDomainBlocked": "Este proveedor de correo ya no es compatible. Ponte en contacto con el administrador de tu escuela.",
@@ -1999,12 +1981,6 @@
 				"muteParticipants": "Silenciar participantes al entrar"
 			}
 		},
-		"form_features": {
-			"text": {
-				"forMoreInformationClickThisButton": "Para más información, haz clic en este botón",
-				"thereAreNewFeatures": "Hay nuevas funciones en {{shortTitle}}"
-			}
-		},
 		"form_poll": {
 			"global": {
 				"button": {
@@ -2106,8 +2082,9 @@
 			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
-			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>."
-		}
+			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>.",
+            "backupFeatures": "Haga una copia de seguridad de sus contenidos de la nube y utilice también la nueva función para exportar cursos. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Más información y ayuda disponible aquí</a>."
+        }
 	},
 	"login": {
 		"button": {
@@ -2251,7 +2228,6 @@
 			"callToCopyMessages": "Copia todos los mensajes que sean importantes para ti.",
 			"howToActivateMatrix": "Para usar el Messenger en tu escuela, debes activarlo como administrador una vez para todo el centro en Administración > Escuela > Activar Matrix Messenger.",
 			"howToDeactivateMatrix": "Puedes desactivar el messenger en cualquier momento en Administración > Escuela > Activar Matrix Messenger.",
-			"rocketChatDeprecation": "La antigua función de chat de equipo fue desactivada el {{date}}. Los mensajes de chat antiguos no se transfieren automáticamente al nuevo Messenger.",
 			"welcomeMatrix": "Ya está disponible nuestro nuevo Messenger con el que todos los usuarios de tu escuela pueden enviarse mensajes directos o de grupo, como se hace de manera habitual desde las plataformas de las redes sociales."
 		}
 	},

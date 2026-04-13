@@ -7,6 +7,12 @@
 			"type": "string",
 			"description": "May refere to the schema file to enable auto-fill and validation in some editors."
 		},
+		"NODE_ENV": {
+			"type": "string",
+			"description": "The Node.js environment the application is running in.",
+			"enum": ["development", "production", "test"],
+			"default": "production"
+		},
 		"REQUEST_OPTION": {
 			"type": "object",
 			"description": "Request helper options for internal requests.",
@@ -111,14 +117,6 @@
 		"GLOBAL_ANNOUNCEMENT_ROLES": {
 			"type": "string",
 			"description": "comma separated list of roles which GLOBAL_ANNOUNCEMENT_TEXT is shown to"
-		},
-		"DASHBOARD_ANNOUNCEMENT_TEXT": {
-			"type": "string",
-			"description": "announcement on dashboard, shown to all user roles specified in DASHBOARD_ANNOUNCEMENT_ROLES"
-		},
-		"DASHBOARD_ANNOUNCEMENT_ROLES": {
-			"type": "string",
-			"description": "comma separated list of roles which dashboard announcement is shown to"
 		},
 		"GLOBAL_LOGIN_ANNOUNCEMENT_TYPE": {
 			"type": "string",
@@ -324,8 +322,8 @@
 		},
 		"ETHERPAD": {
 			"type": "object",
-			"description": "Cookie properties, required always to be defined",
-			"required": ["PAD_PATH", "PAD_URI", "DOMAIN"],
+			"description": "Cookie properties, required always to be defined.",
+			"required": ["PAD_URI", "DOMAIN"],
 			"properties": {
 				"PAD_PATH": {
 					"type": "string",
@@ -337,11 +335,11 @@
 					"type": "string",
 					"format": "uri",
 					"pattern": ".*(?<!/)$",
-					"description": "The etherpad pad uri"
+					"description": "The etherpad pad uri."
 				},
 				"DOMAIN": {
 					"type": "string",
-					"description": "The new etherpad domain"
+					"description": "The etherpad domain."
 				}
 			},
 			"default": {}
@@ -392,37 +390,7 @@
 					"description": "Expiration in seconds from now"
 				}
 			},
-			"required": [
-				"SAME_SITE",
-				"HTTP_ONLY",
-				"HOST_ONLY",
-				"SECURE",
-				"EXPIRES_SECONDS"
-			],
-			"default": {},
-			"allOf": [
-				{
-					"$ref": "#/properties/COOKIE/definitions/SAME_SITE_SECURE_VALID"
-				}
-			],
-			"definitions": {
-				"SAME_SITE_SECURE_VALID": {
-					"if": {
-						"properties": {
-							"SECURE": {
-								"const": false
-							}
-						}
-					},
-					"then": {
-						"properties": {
-							"SAME_SITE": {
-								"enum": ["lax", "strict"]
-							}
-						}
-					}
-				}
-			}
+			"default": {}
 		},
 		"COOKIE_SECRET": {
 			"type": "string",
@@ -437,24 +405,6 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Feature toggle for automatic consent during TSP sync."
-		},
-		"ROCKETCHAT_SERVICE_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "feature toggle to activate rocketchat for the instance."
-		},
-		"ROCKET_CHAT_URI": {
-			"type": "string",
-			"format": "uri",
-			"default": "http://localhost:15000",
-			"pattern": ".*(?<!/)$",
-			"description": "uri of the rocketchat server."
-		},
-		"ROCKET_CHAT_DEPRECATION_DATE": {
-			"type": "string",
-			"format": "date-time",
-			"examples": ["2020-11-01T20:20:00+00:00"],
-			"description": "if this is set, rocketchat will be treated as disabled after this date."
 		},
 		"ACCESSIBILITY_REPORT_EMAIL": {
 			"type": "string",
@@ -545,11 +495,6 @@
 			],
 			"default": {}
 		},
-		"CALENDAR_DASHBOARD_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "If true calendar events are displayed on the dashboard. Otherwise the request is skipped."
-		},
 		"CALENDAR_SERVICE_ENABLED": {
 			"type": "boolean",
 			"default": true,
@@ -579,16 +524,6 @@
 			"type": "boolean",
 			"default": false,
 			"description": "If enabled school admins can start user migration without specifying an LDAP for the school based on a central LDAP"
-		},
-		"FEATURE_DASHBOARD_DEFAULT_PICTURE_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "Enables the default picture of the dashboard"
-		},
-		"FEATURE_DASHBOARD_NEWS_ON_TOP_ENABLED": {
-			"type": "boolean",
-			"default": false,
-			"description": "Enables the order of the dashboard with the news on top"
 		},
 		"FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED": {
 			"type": "boolean",
@@ -623,11 +558,6 @@
 					"default": 2684354560
 				}
 			},
-			"required": [
-				"SERVICE_BASE_URL",
-				"REQUEST_TIMEOUT",
-				"MAX_FILE_SIZE"
-			],
 			"default": {}
 		},
         "CSV_IMPORT_MAX_FILE_SIZE": {
@@ -669,6 +599,21 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables the external system logout feature"
+		},
+		"FEATURE_TEAM_ARCHIVE_DOWNLOAD": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in teams section"
+		},
+		"FEATURE_PERSONAL_FILES_ARCHIVE_DOWNLOAD": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in the personal files section"
+		},
+		"FEATURE_COURSE_FILES_ARCHIVE_DOWNLOAD": {
+			"type": "boolean",
+			"default": true,
+			"description": "Enables the archive download in the course files section"
 		}
 	},
 	"allOf": [

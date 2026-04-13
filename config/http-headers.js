@@ -67,9 +67,7 @@ const config = {
 		if several regex match the URL routes will be joined
 		if no regex is given for URLs the Access-Control-Allow-Origin will not be set
 	*/
-	accessControlAllowOrigin: {
-		'^/rocketChat/authGet': 'https://scchat.dbildungscloud.de',
-	},
+	accessControlAllowOrigin: {},
 	// Additional default Security header can be set - key reprensents the HTTP header and the value the value of the header
 	additionalSecurityHeader: {
 		// "X-Frame-Options": "sameorigin", disabled: Some browser override with this options the CSP rules
