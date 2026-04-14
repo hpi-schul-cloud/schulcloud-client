@@ -2463,8 +2463,7 @@
 	"teams": {
 		"_team": {
 			"button": {
-				"leaveTeam": "Abandonar el equipo",
-				"convertTeam": "Convertir equipo"
+				"leaveTeam": "Abandonar el equipo"
 			},
 			"dropdown_menu": {
 				"link": {
@@ -2491,6 +2490,18 @@
 			"events": {
 				"button": {
 					"addDate": "Añadir fecha"
+				}
+			},
+			"convertTeamsToRoom": {
+				"button": {
+					"convertTeam": "Convertir equipo",
+					"submit": "Convertir equipo"
+				},
+				"headline": {
+					"convertTeam": "Convertir equipo en una sala"
+				},
+				"text": {
+					"convertTeam": "¿Desea convertir el equipo “{{teamname}}” en una sala?<ul><li>Los miembros del equipo, así como el nombre y el color del equipo, se transferirán automáticamente.</li><li>Todos los miembros recibirán automáticamente el permiso de sala <b>“Lectura”</b> en la nueva sala “{{teamname}}”. Los permisos se pueden ajustar individualmente después.</li><li><b>Los archivos y carpetas</b> pueden archivarse en el equipo mediante la nueva función “Descargar todos los archivos” y cargarse en la ubicación deseada en la sala si es necesario.</li></ul>"
 				}
 			},
 			"files": {

@@ -279,7 +279,7 @@
 {{#embed "lib/components/modal" class="convert-team-modal" title=($t "teams._team.convertTeamsToRoom.headline.convertTeam")}}
     {{#content "body"}}
     <div class="modal-body">
-        <p>{{$t "teams._team.convertTeamsToRoom.text.convertTeam"}}</p>
+        <p>{{{$t "teams._team.convertTeamsToRoom.text.convertTeam" (dict "teamname" ../name)}}}</p>
     </div>
 
     <div class="modal-footer">
