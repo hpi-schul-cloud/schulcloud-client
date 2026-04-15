@@ -2502,6 +2502,9 @@
 				},
 				"text": {
 					"convertTeam": "Do you want to convert the team “{{teamname}}” into a room?<ul><li>Team members as well as the team name and color will be transferred automatically.</li><li>All members will automatically receive the room permission <b>“View”</b> in the new room “{{teamname}}”. Permissions can be adjusted individually afterwards.</li><li><b>Files and folders</b> can be archived in the team using the new function “Download all files” and uploaded to the desired location in the room if needed.</li></ul>"
+				},
+				"error": {
+					"convertError": "An error has occurred."
 				}
 			},
 			"files": {

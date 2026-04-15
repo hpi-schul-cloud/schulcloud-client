@@ -2502,6 +2502,9 @@
 				},
 				"text": {
 					"convertTeam": "Soll das Team „{{teamname}}“ in einen Raum umgewandelt werden?<ul><li>Die Team-Mitglieder sowie Team-Name und -Farbe werden automatisch übernommen.</li><li>Alle Mitglieder erhalten im neuen Raum „{{teamname}}“ automatisch die Raumberechtigung <b>„Lesen“</b>. Anschließend können die Raumberechtigungen individuell angepasst werden.</li><li><b>Dateien und Ordner</b> können im Team über die neue Funktion „Alle Dateien herunterladen“ archiviert und bei Bedarf im Raum an gewünschter Stelle hochgeladen werden.</li></ul>"
+				},
+				"error": {
+					"convertError": "Es ist ein Fehler aufgetreten."
 				}
 			},
 			"files": {

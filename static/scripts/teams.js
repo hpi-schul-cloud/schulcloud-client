@@ -149,10 +149,19 @@ $(document).ready(() => {
 	});
 
 	$convertTeamModal.find('.btn-submit').on('click', () => {
-		// Your submission logic here
-		// ...
+		const teamId = $('.section-teams').data('id');
 
-		$convertTeamModal.modal('hide');
+		$.ajax({
+			url: `/teams/${teamId}/convert-to-room`,
+			method: 'POST',
+			contentType: 'application/json',
+		}).done((response) => {
+			window.location.href = response.redirectUrl;
+		}).fail((xhr) => {
+			const errorMessage = xhr.responseJSON?.message || $t('teams._team.convertTeamsToRoom.error.convertError');
+			$.showNotification(errorMessage, 'danger', true);
+			$convertTeamModal.modal('hide');
+		});
 	});
 
 	$('.btn-file-download').click(function () {

@@ -670,6 +670,23 @@ router.patch('/:teamId', async (req, res, next) => {
 	}
 });
 
+router.post('/:teamId/convert-to-room', (req, res) => {
+	console.log('on the clientserver');
+	api(req, { version: 'v3' })
+		.post(`/teams/${req.params.teamId}/create-room`, {
+			json: req.body,
+		})
+		.then((apiResponse) => {
+			res.json({
+				redirectUrl: `/rooms/${apiResponse.roomId}/members?tab=members`,
+			});
+		})
+		.catch((err) => {
+			logger.warn(err);
+			res.sendStatus(500);
+		});
+});
+
 router.patch('/:teamId/permissions', (req, res) => {
 	api(req)
 		.patch(`/teams/${req.params.teamId}`, {
