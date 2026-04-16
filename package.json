@@ -79,7 +79,7 @@
 		"moment": "^2.29.1",
 		"moment-timezone": "^0.5.33",
 		"morgan": "^1.10.1",
-		"multer": "^2.0.2",
+		"multer": "^2.1.1",
 		"querystring": "^0.2.1",
 		"react": "^16.14.0",
 		"react-dom": "^16.14.0",
