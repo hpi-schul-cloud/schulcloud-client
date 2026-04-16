@@ -14,13 +14,13 @@
         <tr>
             <td><label for="externalExperts">{{$t "help.help_fromInviteExternalMember.button.externalExperts"}}</label></td>
             <td>
-                <input class="box" type="checkbox" id="externalExperts" data-force-value value="allowExternalExperts" {{allowExternalExperts}} />
+                <input class="box" type="checkbox" id="externalExperts" name="externalExperts" data-force-value value="allowExternalExperts" {{allowExternalExperts}} />
             </td>
         </tr>
         <tr>
             <td><label for="teamMembers">{{$t "teams._team.label.members"}}</label></td>
             <td>
-                <input class="box" type="checkbox" id="teamMembers" data-force-value value="allowTeamMembers" {{allowTeamMembers}} />
+                <input class="box" type="checkbox" id="teamMembers" name="teamMembers" data-force-value value="allowTeamMembers" {{allowTeamMembers}} />
             </td>
         </tr>
         <tr>
