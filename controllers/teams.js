@@ -567,7 +567,8 @@ router.get('/:teamId', async (req, res, next) => {
 		const couldLeave = checkIfUserCouldLeaveTeam(course.user, course.userIds);
 
 		const permissions = await api(req).get(`/teams/${teamId}/userPermissions/${course.user.userId}`);
-		const canConvertToRoom = res.locals.currentUser.permissions.includes('SCHOOL_CREATE_ROOM');
+		const canConvertToRoom = res.locals.currentUser.permissions.includes('SCHOOL_CREATE_ROOM')
+			&& permissions.includes('TEAM_EXPORT_TO_ROOM');
 
 		const nextcloudUrl = Configuration.get('NEXTCLOUD_REDIRECT_URL') !== ''
 			? Configuration.get('NEXTCLOUD_REDIRECT_URL') + encodeURI(makeNextcloudFolderName(req.params.teamId, course.name))
