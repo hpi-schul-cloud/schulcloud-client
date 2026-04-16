@@ -73,7 +73,7 @@
 		"jquery": "^3.6.0",
 		"jquery-datetimepicker": "^2.5.21",
 		"jsonwebtoken": "^9.0.3",
-		"lodash": "^4.17.23",
+		"lodash": "^4.18.1",
 		"mathjax": "^2.7.9",
 		"method-override": "^2.3.7",
 		"moment": "^2.29.1",
