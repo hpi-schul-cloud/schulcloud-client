@@ -678,7 +678,7 @@ router.post('/:teamId/convert-to-room', (req, res) => {
 		})
 		.then((apiResponse) => {
 			res.json({
-				redirectUrl: `/rooms/${apiResponse.roomId}/members?tab=members`,
+				redirectUrl: `/rooms/${apiResponse.roomId}`,
 			});
 		})
 		.catch((err) => {
