@@ -61,7 +61,7 @@
                 {{/userHasPermission}}
             </div>
             <div style="margin-left: auto">
-                 {{#if canConvertToRoom}}
+                 {{#if canExportTeamToRoom}}
                     {{#if (getConfig "FEATURE_TEAM_CREATE_ROOM_ENABLED")}}
                        <button class="btn btn-secondary btn-convert-team">
                             {{$t "teams._team.convertTeamsToRoom.button.convertTeam"}}

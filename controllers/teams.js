@@ -567,7 +567,7 @@ router.get('/:teamId', async (req, res, next) => {
 		const couldLeave = checkIfUserCouldLeaveTeam(course.user, course.userIds);
 
 		const permissions = await api(req).get(`/teams/${teamId}/userPermissions/${course.user.userId}`);
-		const canConvertToRoom = res.locals.currentUser.permissions.includes('SCHOOL_CREATE_ROOM')
+		const canExportTeamToRoom = res.locals.currentUser.permissions.includes('SCHOOL_CREATE_ROOM')
 			&& permissions.includes('TEAM_EXPORT_TO_ROOM');
 
 		const nextcloudUrl = Configuration.get('NEXTCLOUD_REDIRECT_URL') !== ''
@@ -606,7 +606,7 @@ router.get('/:teamId', async (req, res, next) => {
 				canEditPermissions: permissions.includes('EDIT_ALL_FILES'),
 				canEditEvents: permissions.includes('CALENDAR_EDIT'),
 				createEventAction: `/teams/${req.params.teamId}/events/`,
-				canConvertToRoom,
+				canExportTeamToRoom,
 				leaveTeamAction,
 				couldLeave,
 				allowExternalExperts: allowExternalExperts ? 'checked' : '',
@@ -673,7 +673,6 @@ router.patch('/:teamId', async (req, res, next) => {
 });
 
 router.post('/:teamId/convert-to-room', (req, res) => {
-	console.log('on the clientserver');
 	api(req, { version: 'v3' })
 		.post(`/teams/${req.params.teamId}/create-room`, {
 			json: req.body,
