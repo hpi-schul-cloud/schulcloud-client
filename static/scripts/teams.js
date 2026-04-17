@@ -55,6 +55,7 @@ $(document).ready(() => {
 	const $filePermissionsModal = $('.file-permissions-modal');
 	const $fileDownloadModal = $('.file-team-download-modal');
 	const $deleteTeamModal = $('.delete-team-modal');
+	const $convertTeamModal = $('.convert-team-modal');
 
 	const handler = {
 		get(target, name) {
@@ -140,6 +141,26 @@ $(document).ready(() => {
 			success(result) {
 				window.location.reload();
 			},
+		});
+	});
+
+	$('.btn-convert-team').click(() => {
+		$convertTeamModal.appendTo('body').modal('show');
+	});
+
+	$convertTeamModal.find('.btn-submit').on('click', () => {
+		const teamId = $('.section-teams').data('id');
+
+		$.ajax({
+			url: `/teams/${teamId}/convert-to-room`,
+			method: 'POST',
+			contentType: 'application/json',
+		}).done((response) => {
+			window.location.href = response.redirectUrl;
+		}).fail((xhr) => {
+			const errorMessage = xhr.responseJSON?.message || $t('teams._team.convertTeamsToRoom.error.convertError');
+			$.showNotification(errorMessage, 'danger', true);
+			$convertTeamModal.modal('hide');
 		});
 	});
 
