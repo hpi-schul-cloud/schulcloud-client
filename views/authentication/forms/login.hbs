@@ -1,4 +1,12 @@
+{{#if showAutoLogoutMessage}}
+    <div class="notification alert alert-info">
+        <div class="notification-content">
+            <i class="mdi mdi-information text-info" aria-hidden="true"></i> {{$t "autologout.text.sessionAlreadyExpired"}}
+        </div>
+    </div>
+{{/if}}
 <section id="loginarea" class="card loginarea_login">
+
 	<div class="card-block">
 		<h1 class="h4 card-title">{{$t "login.headline.loginForRegisteredUsers"}}</h1>
 		<div class="card-text form-wrapper">

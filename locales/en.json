@@ -571,7 +571,7 @@
 	},
 	"autologout": {
 		"text": {
-			"sessionAlreadyExpired": "Your session has already expired. Please log in again.",
+			"sessionAlreadyExpired": "Session expired: You have been logged out because your session has expired.",
 			"sessionCouldNotBeExtended": "Your session could not be extended! Please save your work and reload the page.",
 			"sessionExtended": "Session successfully extended."
 		}

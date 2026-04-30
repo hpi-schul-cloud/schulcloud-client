@@ -1,3 +1,5 @@
+import { broadcast, BROADCAST_MESSAGE_TIME_UPDATED, notifyLogout } from './helpers/sessionBroadcast';
+
 let initialized = false;
 $(document).ready(() => {
 	if (initialized) {
@@ -17,6 +19,11 @@ $(document).ready(() => {
 
 	populateModalForm($autoLoggoutAlertModal, { submitDataTestId: 'auto-logout-alert-modal' });
 
+	const gotoLogoutPage = async () => {
+		window.location.href = '/logout?auto-logout=true';
+		notifyLogout();
+	};
+
 	const showAutoLogoutModal = ((status) => {
 		// switching between  to texts inlcuded in the modal
 		if (status === 'error') {
@@ -32,17 +39,18 @@ $(document).ready(() => {
 
 	const decRst = (() => {
 		setTimeout(() => {
-			if (rst >= 60) {
-				rst = Math.max(0, rstDefault - Math.floor((Date.now() - timeOnStart) / 1000));
-				$('.js-time').text(Math.floor(rst / 60));
-				// show auto loggout alert modal
-				// don't show modal while processing
-				if (!processing && rst <= showModalOnRemainingSeconds) {
-					showAutoLogoutModal('default');
-				}
-				decRst();
+			rst = Math.max(0, rstDefault - Math.floor((Date.now() - timeOnStart) / 1000));
+			$('.js-time').text(Math.floor(rst / 60));
+			// show auto loggout alert modal
+			// don't show modal while processing
+			if (!processing && rst <= showModalOnRemainingSeconds) {
+				showAutoLogoutModal('default');
 			}
-		}, 1000 * 20);
+			if (rst === 0) {
+				gotoLogoutPage();
+			}
+			decRst();
+		}, 1000 * 5);
 	});
 
 	let retry = 0;
@@ -86,7 +94,7 @@ $(document).ready(() => {
 					}
 				} else {
 					// Session was expired due to inactivity - autologout
-					window.location.href = '/logout';
+					gotoLogoutPage();
 					/* eslint-disable-next-line max-len */
 					$.showNotification($t('autologout.text.sessionAlreadyExpired'), 'danger', false);
 				}
@@ -107,4 +115,21 @@ $(document).ready(() => {
 		processing = true;
 		IStillLoveYou();
 	});
+
+	const handleTimeUpdate = (timeInSeconds) => {
+		const now = new Date();
+		now.setSeconds(now.getSeconds() + (timeInSeconds - rstDefault));
+		timeOnStart = now.getTime();
+		rst = Math.max(0, rstDefault - Math.floor((Date.now() - timeOnStart) / 1000));
+	};
+
+	broadcast.onmessage = (event) => {
+		if (event.data.match(new RegExp(`^${BROADCAST_MESSAGE_TIME_UPDATED}`))) {
+			const time = event.data.split(':').at(1) ?? '';
+			const timeInSeconds = Number.parseInt(time, 10);
+			if (!Number.isNaN(timeInSeconds)) {
+				handleTimeUpdate(timeInSeconds);
+			}
+		}
+	};
 });
