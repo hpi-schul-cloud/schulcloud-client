@@ -42,7 +42,6 @@ $(document).ready(() => {
 	const decRst = (() => {
 		setTimeout(() => {
 			rst = Math.max(0, rstDefault - Math.floor((Date.now() - timeOnStart) / 1000));
-			console.log('rst', rst, 'showModalOnRemainingSeconds', showModalOnRemainingSeconds);
 			$('.js-time').text(Math.floor(rst / 60));
 			// show auto loggout alert modal
 			// don't show modal while processing
