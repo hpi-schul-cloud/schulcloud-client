@@ -462,7 +462,7 @@ router.get('/logout/', (req, res, next) => {
 			logger.error('can not delete etherpad client sessions', err);
 		});
 
-	const redirectUrl = autoLogout ? '/login?auto-logout=true' : '/login';
+	const redirectUrl = autoLogout ? '/login?auto-logout=true' : '/';
 
 	return authHelper.clearCookies(req, res, sessionDestroyer)
 	// eslint-disable-next-line prefer-template, no-return-assign
