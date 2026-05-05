@@ -14,6 +14,8 @@ $(document).ready(() => {
 	const rstDefault = $autoLoggoutAlertModal.find('.form-group').data('rstDefault') || showModalOnRemainingSeconds * 2;
 	const maxTotalRetrys = 1;
 
+	console.log('showModalOnRemainingSeconds', showModalOnRemainingSeconds);
+
 	let rst = rstDefault; // remaining session time in sec
 	let processing = false;
 
@@ -40,6 +42,7 @@ $(document).ready(() => {
 	const decRst = (() => {
 		setTimeout(() => {
 			rst = Math.max(0, rstDefault - Math.floor((Date.now() - timeOnStart) / 1000));
+			console.log('rst', rst, 'showModalOnRemainingSeconds', showModalOnRemainingSeconds);
 			$('.js-time').text(Math.floor(rst / 60));
 			// show auto loggout alert modal
 			// don't show modal while processing
@@ -121,6 +124,7 @@ $(document).ready(() => {
 		now.setSeconds(now.getSeconds() + (timeInSeconds - rstDefault));
 		timeOnStart = now.getTime();
 		rst = Math.max(0, rstDefault - Math.floor((Date.now() - timeOnStart) / 1000));
+		console.log('time updated via broadcast channel, new rst', rst);
 	};
 
 	broadcast.onmessage = (event) => {
