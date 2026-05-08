@@ -10,11 +10,10 @@ $(document).ready(() => {
 
 	let timeOnStart = Date.now(); // timestamp on script load
 	const $autoLoggoutAlertModal = $('.auto-logout-alert-modal');
-	const showModalOnRemainingSeconds = $autoLoggoutAlertModal.find('.form-group').data('showOnRemainingSec') || 3600;
-	const rstDefault = $autoLoggoutAlertModal.find('.form-group').data('rstDefault') || showModalOnRemainingSeconds * 2;
+	const rstDefault = $autoLoggoutAlertModal.find('.form-group').data('rstDefault') || 7200;
+	const showModalOnRemainingSeconds = $autoLoggoutAlertModal.find('.form-group')
+		.data('showOnRemainingSec') || rstDefault / 2;
 	const maxTotalRetrys = 1;
-
-	console.log('showModalOnRemainingSeconds', showModalOnRemainingSeconds);
 
 	let rst = rstDefault; // remaining session time in sec
 	let processing = false;
