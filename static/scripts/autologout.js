@@ -122,7 +122,6 @@ $(document).ready(() => {
 		now.setSeconds(now.getSeconds() + (timeInSeconds - rstDefault));
 		timeOnStart = now.getTime();
 		rst = Math.max(0, rstDefault - Math.floor((Date.now() - timeOnStart) / 1000));
-		console.log('time updated via broadcast channel, new rst', rst);
 	};
 
 	broadcast.onmessage = (event) => {
