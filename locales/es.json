@@ -571,7 +571,7 @@
 	},
 	"autologout": {
 		"text": {
-			"sessionAlreadyExpired": "Tu sesión ya ha caducado. Inicia sesión de nuevo.",
+			"sessionAlreadyExpired": "Sesión caducada: Se te ha desconectado porque tu sesión ha caducado.",
 			"sessionCouldNotBeExtended": "¡Tu sesión no se ha podido ampliar! Guarda tu trabajo y vuelve a cargar la página.",
 			"sessionExtended": "Sesión ampliada correctamente."
 		}
