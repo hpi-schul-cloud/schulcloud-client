@@ -2,7 +2,7 @@ const archiveDownload = (requestBody) => {
 	const form = document.createElement('form');
 	form.method = 'GET';
 	form.action = '/api/v1/filestorage/files/archive';
-	form.target = '_blank';
+	form.target = '_self';
 
 	const ownerIdInput = document.createElement('input');
 	ownerIdInput.type = 'hidden';
