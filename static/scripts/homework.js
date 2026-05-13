@@ -200,7 +200,7 @@ $(document).ready(() => {
 		form.method = 'POST';
 		form.action = '/api/v3/file/download-files-as-archive';
 		form.enctype = 'application/json';
-		form.target = '_self';
+		form.target = '_blank';
 
 		const archiveNameInput = document.createElement('input');
 		archiveNameInput.type = 'hidden';
