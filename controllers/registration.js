@@ -192,10 +192,10 @@ const schoolExists = async (req, schoolId) => {
 
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'],
 	async (req, res, next) => {
-		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
+		if (!/^[0-9a-fA-F]{24}$/.test(req.params.classOrSchoolId)) {
 			if (
 				req.params.sso
-				&& !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)
+				&& !/^[0-9a-fA-F]{24}$/.test(req.params.accountId)
 			) {
 				return res.sendStatus(400);
 			}
@@ -325,10 +325,10 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 	});
 
 router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
-	if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
+	if (!/^[0-9a-fA-F]{24}$/.test(req.params.classOrSchoolId)) {
 		if (
 			req.params.sso
-			&& !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)
+			&& !/^[0-9a-fA-F]{24}$/.test(req.params.accountId)
 		) {
 			return res.sendStatus(400);
 		}
@@ -340,7 +340,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 			try {
 				await api(req).get(`/classes/${req.params.classOrSchoolId}`);
 				idExists = true;
-			} catch (e) {
+			} catch {
 				idExists = false;
 			}
 		}
@@ -351,17 +351,22 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 	const correctID = await validID();
 
 	const user = {};
-	user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
+	const importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
 	user.classOrSchoolId = req.params.classOrSchoolId;
 
 	invalid = await checkValidRegistration(req);
 
 	await resetThemeForPrivacyDocuments(req, res);
 
-	if (user.importHash) {
+	if (importHash) {
 		const existingUser = await api(req).get(
-			`/users/linkImport/${user.importHash}`,
+			`/users/linkImport/${importHash}`,
 		);
+		if (!existingUser.userId) {
+			// invalid import hash, render page without user data and show error message
+			// todo: create proper error message / screen
+			return res.sendStatus(400);
+		}
 		Object.assign(user, existingUser);
 	}
 
