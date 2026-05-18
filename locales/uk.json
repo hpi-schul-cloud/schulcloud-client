@@ -1810,7 +1810,7 @@
 			"newFeaturesAvailable": "Доступні нові функції",
 			"schoolInMigrationModeStarted": "Школа перебуває в режимі міграції користувачів. Щоб перенести користувачів, перейдіть на <a href=\"/administration/migration/\">цю сторінку</a>.",
 			"schoolInTransferPhaseContactAdmin": "Школа перебуває у фазі переходу до нового навчального року. Не можна створювати класи та користувачів.",
-			"schoolInTransferPhaseStartNew": "Школа перебуває у фазі переходу до нового навчального року. Не можна створювати класи та користувачів. Зателефонуйте в <a href=\"/administration/school/\"> новий навчальний рік тут!</a>",
+			"schoolInTransferPhaseStartNew": "Школа перебуває у фазі переходу до нового навчального року. Не можна створювати класи та користувачів. Зателефонуйте в <a href=\"/administration/school-settings/\"> новий навчальний рік тут!</a>",
 			"schoolInMigrationMode": "Школа перебуває в режимі міграції користувачів. Щоб перенести користувачів, перейдіть на <a href=\"/administration/migration/\">цю сторінку</a>.",
 			"onlineEventAnnouncement": "Команда dBildungscloud запрошує вас на онлайн-захід. Натисніть <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/320144063'>ТУТ</a> для отримання додаткової інформації.",
 			"schoolYearChangeBrb": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://brandenburg.cloud/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
@@ -2360,7 +2360,7 @@
 	},
 	"autologout": {
 		"text": {
-			"sessionAlreadyExpired": "Ваш сеанс уже закінчився. Увійдіть у систему ще раз.",
+			"sessionAlreadyExpired": "Сесія закінчилася: тебе було виведено з системи, оскільки термін дії твоєї сесії закінчився.",
 			"sessionCouldNotBeExtended": "Ваш сеанс не вдалося продовжити! Збережіть свою роботу та перезавантажте сторінку.",
 			"sessionExtended": "Сеанс успішно продовжено."
 		}
