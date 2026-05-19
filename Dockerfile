@@ -22,10 +22,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --ignore-scripts
 
-COPY .git ./.git
-
-
-# Copy only necessary files for the build
+# Copy application source
 COPY bin ./bin
 COPY config ./config
 COPY controllers ./controllers
@@ -37,8 +34,9 @@ COPY theme ./theme
 COPY views ./views
 COPY api-files-storage.js api.js app.js gulpfile.js sc-config.json webpack.config.js ./
 
-# Get version info from git
-RUN git config --global --add safe.directory /app && \
+# Get version info from git using build-time mount
+RUN --mount=type=bind,source=.git,target=/app/.git \
+    git config --global --add safe.directory /app && \
     echo "{\"sha\": \"$(git rev-parse HEAD)\", \"version\": \"$(git describe --tags --abbrev=0)\", \"commitDate\": \"$(git log -1 --format=%cd --date=format:'%Y-%m-%dT%H:%M:%SZ')\", \"birthdate\": \"$(date +%Y-%m-%dT%H:%M:%SZ)\"}" > version
 
 # Build assets for the specified theme
@@ -62,13 +60,6 @@ ENV SC_THEME=default
 
 # Copy the cleaned /app directory from builder
 COPY --from=builder /app ./
-#COPY --from=builder /app/build ./build
-#COPY --from=builder /app/node_modules ./node_modules
-#COPY --from=builder /app/api.js ./api.js
-#COPY --from=builder /app/api-files-storage.js ./api-files-storage.js
-#COPY --from=builder /app/app.js ./app.js
-#COPY --from=builder /app/config ./config
-#COPY --from=builder /app/bin ./bin
 
 USER nonroot
 
