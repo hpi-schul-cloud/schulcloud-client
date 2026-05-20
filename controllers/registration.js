@@ -359,15 +359,15 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 	await resetThemeForPrivacyDocuments(req, res);
 
 	if (importHash) {
-		const existingUser = await api(req).get(
+		const response = await api(req).get(
 			`/users/linkImport/${importHash}`,
 		);
-		if (!existingUser.userId) {
+		if (!response.userId) {
 			// invalid import hash, render page without user data and show error message
 			// todo: create proper error message / screen
 			return res.sendStatus(400);
 		}
-		Object.assign(user, existingUser);
+		Object.assign(user, response);
 	}
 
 	let needConsent = true;
