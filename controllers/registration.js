@@ -364,7 +364,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		);
 		if (!response.userId) {
 			// invalid import hash return error code
-			return res.status(400).send(res.$t('registration.text.invalidImportHash'));
+			return res.status(400).send(res.$t('registration.text.invalidLink'));
 		}
 		Object.assign(user, response);
 	}
