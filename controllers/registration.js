@@ -363,9 +363,8 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 			`/users/linkImport/${importHash}`,
 		);
 		if (!response.userId) {
-			// invalid import hash, render page without user data and show error message
-			// todo: create proper error message / screen
-			return res.sendStatus(400);
+			// invalid import hash return error code
+			return res.status(400).send(res.$t('registration.text.invalidImportHash'));
 		}
 		Object.assign(user, response);
 	}
