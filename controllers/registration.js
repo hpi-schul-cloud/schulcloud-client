@@ -351,16 +351,16 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 	const correctID = await validID();
 
 	const user = {};
-	const importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
+	user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
 	user.classOrSchoolId = req.params.classOrSchoolId;
 
 	invalid = await checkValidRegistration(req);
 
 	await resetThemeForPrivacyDocuments(req, res);
 
-	if (importHash) {
+	if (user.importHash) {
 		const response = await api(req).get(
-			`/users/linkImport/${importHash}`,
+			`/users/linkImport/${user.importHash}`,
 		);
 		Object.assign(user, response);
 	}
