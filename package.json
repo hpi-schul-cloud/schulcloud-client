@@ -7,7 +7,8 @@
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js ./locales --ext .js --ext .json --fix",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
 		"build": "gulp clear && cross-env NODE_OPTIONS=--openssl-legacy-provider gulp",
-		"coverage": "nyc npm run mocha"
+		"coverage": "nyc npm run mocha",
+		"postinstall": "patch-package"
 	},
 	"engines": {
 		"node": "24",
@@ -74,7 +75,7 @@
 		"jquery-datetimepicker": "^2.5.21",
 		"jsonwebtoken": "^9.0.3",
 		"lodash": "^4.18.1",
-		"mathjax": "^2.7.9",
+		"mathjax": "^4.1.2",
 		"method-override": "^2.3.7",
 		"moment": "^2.29.1",
 		"moment-timezone": "^0.5.33",
@@ -131,6 +132,7 @@
 		"merge-stream": "^2.0.0",
 		"mocha": "^10.8.2",
 		"nyc": "^15.1.0",
+		"patch-package": "^8.0.1",
 		"postcss-css-variables": "^0.13.0",
 		"postcss-loader": "^4.2.0",
 		"raw-loader": "^3.1.0",

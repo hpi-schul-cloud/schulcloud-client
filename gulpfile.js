@@ -201,12 +201,8 @@ const nodeModules = {
 	// ],
 
 	// mathjax
-	mathjax: ['MathJax.js'],
-	'mathjax/config': ['**/*'],
-	'mathjax/extensions': ['**/*'],
-	'mathjax/fonts': ['**/*'],
-	'mathjax/jax': ['**/*'],
-	'mathjax/localization': ['**/*'],
+	mathjax: ['tex-chtml.js'],
+	'mathjax/sre': ['**/*'],
 
 	// font-awesome
 	'font-awesome/fonts': [
