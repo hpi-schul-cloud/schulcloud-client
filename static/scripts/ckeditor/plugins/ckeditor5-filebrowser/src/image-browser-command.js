@@ -14,7 +14,7 @@ export default class ImageBrowserCommand extends Command {
 			if (!imageUrl) return;
 			const imageAltText = document.getElementById('alt-text-input').value;
 			this.editor.model.change((writer) => {
-				const imageElement = writer.createElement('image', {
+				const imageElement = writer.createElement('imageBlock', {
 					src: imageUrl,
 					alt: imageAltText,
 				});
