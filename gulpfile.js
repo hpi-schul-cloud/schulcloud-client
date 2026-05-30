@@ -237,7 +237,7 @@ gulp.task('clear', () => gulp
 		[
 			'./build/*',
 			'./.gulp-changed-smart.json',
-			'./.webpack-changed-plugin-cache/*',
+			'./node_modules/.cache/webpack',
 		],
 		{
 			read: false,
@@ -251,7 +251,7 @@ gulp.task('clear-cache', () => gulp
 	.src(
 		[
 			'./.gulp-changed-smart.json',
-			'./.webpack-changed-plugin-cache/*',
+			'./node_modules/.cache/webpack',
 		],
 		{
 			read: false,
@@ -274,3 +274,29 @@ gulp.task('default', gulp.series(
 	'vendor-assets',
 	'static',
 ));
+
+// incremental dev watch — do a full build first, then watch for changes
+// styles/scripts/images re-run only when their source files change
+gulp.task('watch', gulp.series('default', (done) => {
+	console.log('Watching for changes…');
+
+	gulp.watch(
+		withTheme('./static/styles/**/*.{css,sass,scss}'),
+		gulp.series('styles', 'copy-styles'),
+	);
+
+	gulp.watch(
+		withTheme('./static/scripts/**/*.js'),
+		gulp.series('scripts'),
+	);
+
+	gulp.watch(
+		withTheme('./static/images/**/*.*'),
+		gulp.series('images'),
+	);
+
+	gulp.watch('./static/*', gulp.series('static'));
+
+	// signal async completion — watcher runs indefinitely
+	done();
+}));

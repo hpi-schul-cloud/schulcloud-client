@@ -2,11 +2,11 @@
 	"name": "schulcloud-client",
 	"scripts": {
 		"start": "node --unhandled-rejections=warn ./bin/www",
-		"watch": "node --watch ./bin/www",
+		"watch": "concurrently --names \"server,assets\" --prefix-colors \"cyan,yellow\" \"node --unhandled-rejections=warn --watch ./bin/www\" \"gulp watch\"",
 		"debug": "node --inspect=9310 --watch ./bin/www",
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js ./locales --ext .js --ext .json --fix",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
-		"build": "gulp clear && cross-env NODE_OPTIONS=--openssl-legacy-provider gulp",
+		"build": "gulp clear && gulp",
 		"coverage": "nyc npm run mocha",
 		"postinstall": "patch-package"
 	},
@@ -45,10 +45,10 @@
 		"@fullcalendar/moment-timezone": "^4.4.2",
 		"@fullcalendar/timegrid": "^4.4.2",
 		"@hpi-schul-cloud/commons": "^1.3.4",
+		"@isaul32/ckeditor5-math": "41.4.2",
 		"@mdi/font": "^7.4.47",
 		"axios": "^1.16.1",
 		"body-parser": "^2.2.2",
-		"@isaul32/ckeditor5-math": "41.4.2",
 		"compression": "^1.8.1",
 		"connect-redis": "^7.1.1",
 		"cookie-parser": "^1.4.7",
@@ -106,13 +106,14 @@
 		"babel-eslint": "^10.1.0",
 		"babel-loader": "^8.3.0",
 		"chai": "^4.3.4",
+		"concurrently": "^10.0.0",
 		"cross-env": "^10.1.0",
 		"css-loader": "^5.2.7",
 		"eslint": "^7.32.0",
 		"eslint-config-airbnb-base": "^14.2.1",
 		"eslint-plugin-import": "^2.32.0",
 		"eslint-plugin-json": "^2.1.2",
-		"expose-loader": "^0.7.5",
+		"expose-loader": "^5.0.1",
 		"gulp": "^4.0.2",
 		"gulp-babel": "^8.0.0",
 		"gulp-change": "^1.0.2",
@@ -135,15 +136,14 @@
 		"patch-package": "^8.0.1",
 		"postcss-css-variables": "^0.13.0",
 		"postcss-loader": "^4.2.0",
-		"raw-loader": "^3.1.0",
-		"rebuild-changed-entrypoints-webpack-plugin": "^1.0.1",
+		"raw-loader": "^4.0.2",
 		"sass": "^1.100.0",
 		"style-loader": "^1.3.0",
 		"vinyl-named": "^1.1.0",
-		"webpack": "^4.46.0",
-		"webpack-stream": "^5.2.1"
+		"webpack": "^5.99.9",
+		"webpack-stream": "^7.0.0"
 	},
 	"overrides": {
- 		"chokidar": "^3.6.0"
+		"chokidar": "^3.6.0"
 	}
 }
