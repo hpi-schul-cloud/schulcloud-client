@@ -1,7 +1,20 @@
+const path = require('path');
 const webpack = require('webpack');
 const RebuildChangedPlugin = require('rebuild-changed-entrypoints-webpack-plugin');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const { styles } = require('@ckeditor/ckeditor5-dev-utils');
+
+// Force all CKEditor5 internal packages to resolve to a single canonical copy.
+// In v41, individual packages depend on the `ckeditor5` meta-package which
+// installs its own nested copies, causing the ckeditor-duplicated-modules error.
+const CK_PACKAGES = ['ckeditor5-clipboard', 'ckeditor5-engine', 'ckeditor5-enter',
+	'ckeditor5-typing', 'ckeditor5-undo', 'ckeditor5-utils', 'ckeditor5-widget'];
+const ckAlias = Object.fromEntries(
+	CK_PACKAGES.map(pkg => [
+		`@ckeditor/${pkg}`,
+		path.resolve(__dirname, `node_modules/ckeditor5/node_modules/@ckeditor/${pkg}`),
+	]),
+);
 
 let minimize = true;
 
@@ -42,7 +55,7 @@ module.exports = {
 			// once the update to webpack 5.x is done.
 			{
 				test: /\.(?:js|jsx|cjs)$/,
-				exclude: /(node_modules)[/\\](?!(htmlparser2)[/\\])/,
+				exclude: /(node_modules)[/\\](?!(htmlparser2|@isaul32)[/\\])/,
 				loader: 'babel-loader',
 				query: {
 					presets: [['@babel/preset-env']],
@@ -103,6 +116,9 @@ module.exports = {
 	externals: {
 		jquery: 'jQuery',
 		'jquery-mousewheel': 'jQuery',
+	},
+	resolve: {
+		alias: ckAlias,
 	},
 	output: {
 		path: '/',
