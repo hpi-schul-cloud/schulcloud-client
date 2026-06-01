@@ -35,7 +35,7 @@ function showAJAXError(req, textStatus, errorThrown) {
 }
 
 $(document).on('pageload', () => {
-	MathJax.Hub.Queue(['Typeset', MathJax.Hub]); // eslint-disable-line no-undef
+	if (window.MathJax) MathJax.typesetPromise(); // eslint-disable-line no-undef
 });
 
 function archiveTask(e) {
@@ -187,7 +187,7 @@ $(document).ready(() => {
 	);
 
 	// typeset all MathJAX formulas displayed
-	MathJax.Hub.Typeset(); // eslint-disable-line no-undef
+	if (window.MathJax) MathJax.typesetPromise(); // eslint-disable-line no-undef
 
 	// allow muti-download
 	$('button.multi-download').on('click', function action() {
