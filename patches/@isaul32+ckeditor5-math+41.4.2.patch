@@ -1,5 +1,5 @@
 diff --git a/node_modules/@isaul32/ckeditor5-math/src/utils.js b/node_modules/@isaul32/ckeditor5-math/src/utils.js
-index f2ddcfc..0b4e898 100644
+index f2ddcfc..2017bc6 100644
 --- a/node_modules/@isaul32/ckeditor5-math/src/utils.js
 +++ b/node_modules/@isaul32/ckeditor5-math/src/utils.js
 @@ -13,7 +13,7 @@ export function getSelectedMathModelWidget(selection) {
@@ -11,18 +11,3 @@ index f2ddcfc..0b4e898 100644
  }
  // Simple MathJax 2 version check
  export function isMathJaxVersion2(MathJax) {
-@@ -173,6 +173,14 @@ function renderMathJax3(equation, element, display, cb) {
-             cb();
-         });
-     }
-+    else if (MathJax.typesetPromise) {
-+        // MathJax v4 fallback: tex2chtmlPromise is not available, use typesetPromise
-+        element.innerHTML = display ? '\\[' + equation + '\\]' : '\\(' + equation + '\\)';
-+        if (MathJax.typesetClear) {
-+            MathJax.typesetClear([element]);
-+        }
-+        void MathJax.typesetPromise([element]).then(() => cb());
-+    }
- }
- function renderMathJax2(equation, element, display) {
-     if (isMathJaxVersion2(MathJax)) {
