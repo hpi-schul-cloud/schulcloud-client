@@ -33,6 +33,7 @@ EXPOSE 3100
 WORKDIR /home/node/app
 
 COPY package.json package-lock.json ./
+COPY patches ./patches
 RUN npm ci && npm cache clean --force
 # thanks to this crappy folder structure pulling only the relevant files is a mess
 COPY api.js /home/node/app/api.js
