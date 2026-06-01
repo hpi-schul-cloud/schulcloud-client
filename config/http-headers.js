@@ -22,7 +22,7 @@ const config = {
 		// Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
 		corsDefault: {
 			defaultSrc: '\'self\' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org',
-			fontSrc: '\'self\' data:',
+			fontSrc: '\'self\' data: https://cdn.jsdelivr.net',
 			styleSrc: '\'self\' \'unsafe-inline\'',
 			scriptSrc: '\'self\' \'unsafe-eval\'',
 			workerSrc: '\'self\' blob:',
