@@ -25,6 +25,8 @@ const config = {
 			fontSrc: '\'self\' data:',
 			styleSrc: '\'self\' \'unsafe-inline\'',
 			scriptSrc: '\'self\' \'unsafe-eval\'',
+			workerSrc: '\'self\' blob:',
+			connectSrc: '\'self\' webpack:',
 			// Please activate for production
 			// upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
 			// blockAllMixedContentSrc: 'block-all-mixed-content',
