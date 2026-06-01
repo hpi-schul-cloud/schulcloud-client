@@ -49,7 +49,7 @@ const config = {
 			},
 			'^/courses': {
 				defaultSrc: 'https://www.geogebra.org https://lti.tools https://acc.bettermarks.com',
-				fontSrc: 'https://vjs.zencdn.net https://cdn.jsdelivr.net',
+				fontSrc: 'https://vjs.zencdn.net',
 				styleSrc: 'https://vjs.zencdn.net',
 			},
 			'^/teams': {
