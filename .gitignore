@@ -97,6 +97,7 @@ version
 
 # patch files
 *.patch
+!patches/*.patch
 
 # secrets
 travis_rsa
