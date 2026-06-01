@@ -52,6 +52,6 @@ COPY config /home/node/app/config
 COPY bin /home/node/app/bin
 COPY --from=git /app/version /home/node/app/static/version
 # "build" .. this basically throws out non relevant files for the theme under build and does scss to css stuff
-RUN NODE_ENV=production node node_modules/gulp/bin/gulp.js clear-cache && NODE_ENV=production node node_modules/gulp/bin/gulp.js
+RUN WEBPACK_PRODUCTION=1 node node_modules/gulp/bin/gulp.js clear-cache && WEBPACK_PRODUCTION=1 node node_modules/gulp/bin/gulp.js
 
 CMD ["npm", "start"]

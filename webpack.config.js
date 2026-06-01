@@ -15,7 +15,11 @@ const ckAlias = Object.fromEntries(
 	]),
 );
 
-let minimize = true;
+// Use WEBPACK_PRODUCTION=1 to build in production mode (minified, no source maps).
+// NODE_ENV is intentionally not used here because setting it to 'production' also
+// triggers app config validation (ETHERPAD_PAD_URI etc.) which is unavailable at build time.
+const isDev = !process.env.WEBPACK_PRODUCTION;
+const minimize = !isDev;
 
 const plugins = [
 	// By default, moment loads aaaall the locale files, which bloats the bundle size
@@ -27,12 +31,6 @@ const plugins = [
 		addMainLanguageTranslationsToAllAssets: true,
 	}),
 ];
-
-if (process.env.NODE_ENV !== 'production') {
-	minimize = false;
-}
-
-const isDev = process.env.NODE_ENV !== 'production';
 
 module.exports = {
 	mode: isDev ? 'development' : 'production',
