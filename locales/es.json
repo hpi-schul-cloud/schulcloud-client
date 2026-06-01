@@ -2697,7 +2697,7 @@
 			"roomsInsteadOfTeams": "Ya no es posible crear equipos.<br />¿Desea crear una nueva <a href=\"/rooms/new\">sala</a> en su lugar?",
 			"title": "Cambiar a Espacios ahora: Teams será desactivado",
 			"item0": "Espacios ahora ofrece todas las herramientas que necesitas para colaborar de manera más efectiva dentro y entre escuelas.",
-			"item1": "Equipos se desactivará el 30.09.2026, pero los usuarios con el rol de 'profesor' pueden convertirse automáticamente en Espacios antes de esa fecha. Paralelamente, cualquier archivo de Equipos necesario debe ser respaldado o descargado para entonces.",
+			"item1": "Los equipos se desactivarán el 30.09.2026, pero los usuarios con el rol de 'profesor' pueden convertirse automáticamente en Espacios antes de esa fecha. Paralelamente, cualquier archivo de Equipos necesario debe ser respaldado o descargado para entonces.",
 			"item2_dbc": "Más información sobre la migración se puede encontrar en <a href=\"https://dbildungscloud.de/help/confluence/426313035\">páginas de ayuda</a>.",
 			"item2_n21": "Más información sobre la migración se puede encontrar en <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">páginas de ayuda</a>.",
 			"item2_brb": "Más información sobre la migración se puede encontrar en <a href=\"https://brandenburg.cloud/help/confluence/426313035\">páginas de ayuda</a>.",
