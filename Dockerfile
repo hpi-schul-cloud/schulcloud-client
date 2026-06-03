@@ -37,7 +37,7 @@ COPY api-files-storage.js api.js app.js gulpfile.js sc-config.json webpack.confi
 # Get version info from git using build-time mount
 RUN --mount=type=bind,source=.git,target=/app/.git \
     git config --global --add safe.directory /app && \
-    echo "{\"sha\": \"$(git rev-parse HEAD)\", \"version\": \"$(git describe --tags --abbrev=0)\", \"commitDate\": \"$(git log -1 --format=%cd --date=format:'%Y-%m-%dT%H:%M:%SZ')\", \"birthdate\": \"$(date +%Y-%m-%dT%H:%M:%SZ)\"}" > version
+    echo "{\"sha\": \"$(git rev-parse HEAD)\", \"version\": \"$(git describe --tags --abbrev=0)\", \"commitDate\": \"$(git log -1 --format=%cd --date=format:'%Y-%m-%dT%H:%M:%SZ')\", \"birthdate\": \"$(date +%Y-%m-%dT%H:%M:%SZ)\"}" > /app/static/version
 
 # Build assets for the specified theme
 ARG SC_THEME_BUILD=default
