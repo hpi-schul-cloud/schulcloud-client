@@ -571,7 +571,7 @@
 	},
 	"autologout": {
 		"text": {
-			"sessionAlreadyExpired": "Deine Sitzung ist bereits abgelaufen. Bitte melde dich erneut an.",
+            "sessionAlreadyExpired": "Sitzung abgelaufen: Du wurdest ausgeloggt, da deine Sitzung abgelaufen ist.",
 			"sessionCouldNotBeExtended": "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
 			"sessionExtended": "Sitzung erfolgreich verlängert."
 		}
@@ -2075,7 +2075,7 @@
 		"text": {
 			"newFeaturesAvailable": "Neue Features sind verfügbar",
 			"schoolInTransferPhaseContactAdmin": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte kontaktiere deinen Schul-Admin!",
-			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"/administration/school/\"> hier das neue Schuljahr ein!</a>",
+			"schoolInTransferPhaseStartNew": "Die Schule befindet sich in der Transferphase zum neuen Schuljahr. Es können keine Klassen und Nutzer:innen angelegt werden. Bitte läute <a href=\"/administration/school-settings/\"> hier das neue Schuljahr ein!</a>",
 			"schoolInMigrationModeStarted": "Die Schule befindet sich im Modus der Benutzermigration. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>.",
 			"schoolInMigrationMode": "Die Schule kann Benutzerkonten von Schulportal importieren. Um die Migration der Benutzer durchzuführen, besuchen Sie bitte <a href=\"/administration/migration/\">diese Seite</a>.",
 			"onlineEventAnnouncement": "Das Team der dBildungscloud lädt zu einer Online-Veranstaltung ein. Klicken Sie <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/320144063'>HIER</a> für mehr Informationen.",
@@ -2500,7 +2500,7 @@
 					"convertTeam": "Team in Raum umwandeln"
 				},
 				"text": {
-					"convertTeam": "Soll das Team „{{teamname}}“ in einen Raum umgewandelt werden?<ul><li>Die Team-Mitglieder sowie Team-Name und -Farbe werden automatisch übernommen.</li><li>Alle Mitglieder erhalten im neuen Raum „{{teamname}}“ automatisch die Raumberechtigung <b>„Lesen“</b>. Anschließend können die Raumberechtigungen individuell angepasst werden.</li><li><b>Dateien und Ordner</b> können im Team über die neue Funktion „Alle Dateien herunterladen“ archiviert und bei Bedarf im Raum an gewünschter Stelle hochgeladen werden.</li></ul>",
+					"convertTeam": "Soll das Team „{{teamname}}“ in einen Raum umgewandelt werden?<ul><li>Die Team-Mitglieder sowie Team-Name und -Farbe werden automatisch übernommen. Team-Mitglieder mit der Schulrolle „Administrator“ werden nicht in Räume übertragen.</li><li>Alle Mitglieder erhalten im neuen Raum „{{teamname}}“ automatisch die Raumberechtigung <b>„Lesen“</b>. Anschließend können die Raumberechtigungen individuell angepasst werden.</li><li><b>Dateien und Ordner</b> können im Team über die neue Funktion „Alle Dateien herunterladen“ archiviert und bei Bedarf im Raum an gewünschter Stelle hochgeladen werden.</li></ul>",
 					"convertError": "Es ist ein Fehler aufgetreten."
 				}
 			},
@@ -2695,12 +2695,13 @@
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecher:innenversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
 			"roomsInsteadOfTeams":  "Das Anlegen von Teams ist nicht mehr möglich.<br /> Soll stattdessen ein neuer <a href=\"/rooms/new\">Raum erstellt</a> werden?",
-			"title": "Jetzt auf Räume umsteigen",
-			"item0": "In den <a href=\"/rooms\">Räumen</a> stehen nun alle Möglichkeiten bereit, um noch besser schulintern und -übergreifend zusammenzuarbeiten. Daher ist das Anlegen neuer Teams ab KW 12 (18.03.2026) nicht mehr möglich. Bestehende Teams bleiben bis auf Weiteres erhalten.",
-			"item1_dbc": "Ab diesem Zeitpunkt steht zudem der Chat in den Teams nicht mehr zur Verfügung. In den Räumen bietet sich alternativ die Chatfunktion in Etherpads für den gemeinsamen Austausch an. Wir empfehlen die rechtzeitige manuelle Sicherung wichtiger Informationen aus den Chats. Weitere Informationen finden sich auf den <a href=\"https://dbildungscloud.de/help/confluence/426313035\">Hilfeseiten</a>.",
-			"item1_n21": "Ab diesem Zeitpunkt steht zudem der Chat in den Teams nicht mehr zur Verfügung. In den Räumen bietet sich alternativ die Chatfunktion in Etherpads für den gemeinsamen Austausch an. Wir empfehlen die rechtzeitige manuelle Sicherung wichtiger Informationen aus den Chats. Weitere Informationen finden sich auf den <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
-			"item1_brb": "Ab diesem Zeitpunkt steht zudem der Chat in den Teams nicht mehr zur Verfügung. In den Räumen bietet sich alternativ die Chatfunktion in Etherpads für den gemeinsamen Austausch an. Wir empfehlen die rechtzeitige manuelle Sicherung wichtiger Informationen aus den Chats. Weitere Informationen finden sich auf den <a href=\"https://brandenburg.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
-			"item1_thr": "Ab diesem Zeitpunkt steht zudem der Chat in den Teams nicht mehr zur Verfügung. In den Räumen bietet sich alternativ die Chatfunktion in Etherpads für den gemeinsamen Austausch an. Wir empfehlen die rechtzeitige manuelle Sicherung wichtiger Informationen aus den Chats. Weitere Informationen finden sich auf den <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">Hilfeseiten</a>."
+			"title": "Jetzt auf Räume umsteigen – Teams werden abgeschaltet",
+			"item0": "In den Räumen stehen nun alle Möglichkeiten bereit, um noch besser schulintern und -übergreifend zusammenzuarbeiten.",
+			"item1": "Teams werden daher zum 30.09.2026 abgeschaltet, können aber zuvor durch Nutzende mit der Rolle „lernbegleitend“ automatisiert in Räume umgewandelt werden. Parallel dazu müssen die noch benötigten Team-Dateien bis dahin gesichert bzw. heruntergeladen werden.",
+			"item2_dbc": "Weitere Infos zur Migration finden sich auf den <a href=\"https://dbildungscloud.de/help/confluence/426313035\">Hilfeseiten</a>.",
+			"item2_n21": "Weitere Infos zur Migration finden sich auf den <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
+			"item2_brb": "Weitere Infos zur Migration finden sich auf den <a href=\"https://brandenburg.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
+			"item2_thr": "Weitere Infos zur Migration finden sich auf den <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">Hilfeseiten</a>."
 		},
 		"topics": {
 			"button": {

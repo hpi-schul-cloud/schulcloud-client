@@ -192,10 +192,10 @@ const schoolExists = async (req, schoolId) => {
 
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'],
 	async (req, res, next) => {
-		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
+		if (!/^[0-9a-fA-F]{24}$/.test(req.params.classOrSchoolId)) {
 			if (
 				req.params.sso
-				&& !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)
+				&& !/^[0-9a-fA-F]{24}$/.test(req.params.accountId)
 			) {
 				return res.sendStatus(400);
 			}
@@ -325,10 +325,10 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 	});
 
 router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
-	if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
+	if (!/^[0-9a-fA-F]{24}$/.test(req.params.classOrSchoolId)) {
 		if (
 			req.params.sso
-			&& !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)
+			&& !/^[0-9a-fA-F]{24}$/.test(req.params.accountId)
 		) {
 			return res.sendStatus(400);
 		}
@@ -340,7 +340,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 			try {
 				await api(req).get(`/classes/${req.params.classOrSchoolId}`);
 				idExists = true;
-			} catch (e) {
+			} catch {
 				idExists = false;
 			}
 		}
@@ -359,10 +359,10 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 	await resetThemeForPrivacyDocuments(req, res);
 
 	if (user.importHash) {
-		const existingUser = await api(req).get(
+		const response = await api(req).get(
 			`/users/linkImport/${user.importHash}`,
 		);
-		Object.assign(user, existingUser);
+		Object.assign(user, response);
 	}
 
 	let needConsent = true;

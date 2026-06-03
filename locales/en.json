@@ -571,7 +571,7 @@
 	},
 	"autologout": {
 		"text": {
-			"sessionAlreadyExpired": "Your session has already expired. Please log in again.",
+			"sessionAlreadyExpired": "Session expired: You have been logged out because your session has expired.",
 			"sessionCouldNotBeExtended": "Your session could not be extended! Please save your work and reload the page.",
 			"sessionExtended": "Session successfully extended."
 		}
@@ -2075,7 +2075,7 @@
 		"text": {
 			"newFeaturesAvailable": "New features are available",
 			"schoolInTransferPhaseContactAdmin": "The school is in the transfer phase to the new school year. No classes and users can be created. Please contact the school administrator!",
-			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"/administration/school/\"> the new school year here!</a>",
+			"schoolInTransferPhaseStartNew": "The school is in the transfer phase to the new school year. No classes and users can be created. Please ring in <a href=\"/administration/school-settings/\"> the new school year here!</a>",
 			"schoolInMigrationModeStarted": "The school is in user migration mode. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
 			"schoolInMigrationMode": "The school can import user accounts from Schulportal. To migrate users, please go to <a href=\"/administration/migration/\">this page</a>.",
 			"onlineEventAnnouncement": "The dBildungscloud team invites you to an online event. Click <a target='_blank' aria-label='Online Events' class='alert-link' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/320144063'>HERE</a> for more information.",
@@ -2500,7 +2500,7 @@
 					"convertTeam": "Convert team into a room"
 				},
 				"text": {
-					"convertTeam": "Do you want to convert the team “{{teamname}}” into a room?<ul><li>Team members as well as the team name and color will be transferred automatically.</li><li>All members will automatically receive the room permission <b>“View”</b> in the new room “{{teamname}}”. Permissions can be adjusted individually afterwards.</li><li><b>Files and folders</b> can be archived in the team using the new function “Download all files” and uploaded to the desired location in the room if needed.</li></ul>",
+					"convertTeam": "Do you want to convert the team “{{teamname}}” into a room?<ul><li>Team members as well as the team name and color will be transferred automatically. Team members with the school role “Administrator“ will not be transferred to rooms.</li><li>All members will automatically receive the room permission <b>“View”</b> in the new room “{{teamname}}”. Permissions can be adjusted individually afterwards.</li><li><b>Files and folders</b> can be archived in the team using the new function “Download all files” and uploaded to the desired location in the room if needed.</li></ul>",
 					"convertError": "An error has occurred."
 				}
 			},
@@ -2695,12 +2695,13 @@
 		"text": {
 			"descriptionTeams": "Study group, school band or meeting of class representatives? Create a team to exchange material and news with each other - within your school or across schools.",
 			"roomsInsteadOfTeams": "Creating teams is no longer possible.<br />Would you like to create a new <a href=\"/rooms/new\">room</a> instead?",
-			"title": "Switch to Rooms now",
-			"item0": "All options for better collaboration within and across schools are now available in the <a href=\"/rooms\">Rooms</a>. Therefore, creating new teams will no longer be possible from week 12 (18.03.2026). Existing teams will remain available for the time being.",
-			"item1_dbc": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://dbildungscloud.de/help/confluence/426313035\">help pages</a>.",
-			"item1_n21": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">help pages</a>.",
-			"item1_brb": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://brandenburg.cloud/help/confluence/426313035\">help pages</a>.",
-			"item1_thr": "From this point on, the chat in the teams will no longer be available. In the Rooms, the chat function in Etherpads offers an alternative for joint exchange. We recommend manually saving important information from the chats in a timely manner. Further information can be found on the <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">help pages</a>."
+			"title": "Switch to Rooms now – Teams is being shut down",
+			"item0": "Rooms now offer all the tools you need to collaborate even more effectively within and across schools.",
+			"item1": "Teams will be deactivated on 30.09.2026, but can be automatically converted into Rooms by users with the role 'teacher' beforehand. In parallel, any necessary Team files must be backed up or downloaded by then.",
+			"item2_dbc": "More information about the migration can be found on the <a href=\"https://dbildungscloud.de/help/confluence/426313035\">help pages</a>.",
+			"item2_n21": "More information about the migration can be found on the <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">help pages</a>.",
+			"item2_brb": "More information about the migration can be found on the <a href=\"https://brandenburg.cloud/help/confluence/426313035\">help pages</a>.",
+			"item2_thr": "More information about the migration can be found on the <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">help pages</a>."
 		},
 		"topics": {
 			"button": {
