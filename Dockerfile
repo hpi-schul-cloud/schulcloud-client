@@ -40,8 +40,8 @@ RUN --mount=type=bind,source=.git,target=/app/.git \
     echo "{\"sha\": \"$(git rev-parse HEAD)\", \"version\": \"$(git describe --tags --abbrev=0)\", \"commitDate\": \"$(git log -1 --format=%cd --date=format:'%Y-%m-%dT%H:%M:%SZ')\", \"birthdate\": \"$(date +%Y-%m-%dT%H:%M:%SZ)\"}" > version
 
 # Build assets for the specified theme
-ARG SC_THEME=default
-ENV SC_THEME=$SC_THEME
+ARG SC_THEME_BUILD=default
+ENV SC_THEME=$SC_THEME_BUILD
 
 RUN export NODE_OPTIONS=--openssl-legacy-provider && \
     node node_modules/gulp/bin/gulp.js clear-cache && \
