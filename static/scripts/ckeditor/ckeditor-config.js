@@ -148,7 +148,7 @@ const ckeditorConfig = {
 		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'],
 	},
 	math: {
-		engine: 'mathjax',
+		engine: 'katex',
 		outputType: 'span',
 		forceOutputType: false,
 		enablePreview: true,

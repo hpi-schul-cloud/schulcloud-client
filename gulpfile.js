@@ -200,9 +200,10 @@ const nodeModules = {
 	//	 'folder/**/*', // folders defined by name will be flattened
 	// ],
 
-	// mathjax
-	mathjax: ['tex-chtml.js'],
-	'mathjax/sre': ['**/*'],
+	// katex
+	'katex/dist': ['katex.min.js', 'katex.min.css'],
+	'katex/dist/fonts': ['**/*'],
+	'katex/dist/contrib': ['auto-render.min.js'],
 
 	// font-awesome
 	'font-awesome/fonts': [
