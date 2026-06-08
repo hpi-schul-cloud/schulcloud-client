@@ -216,6 +216,16 @@ const setupApp = async () => {
 	app.use((err, req, res, next) => {
 		const { error, status } = errorHandler(err);
 
+		// If a 401 occurs or the server explicitly requests an auto-logout, we clear local session data.
+		// This prevents "zombie sessions" where an expired JWT remains in the browser and blocks access to public pages.
+		// A feature flag is used to control this behavior as it is a significant change.
+		const isAutoLogout = status === 401 || (error && error.className === 'auto-logout');
+		if (isAutoLogout && Configuration.get('FEATURE_401_AUTO_LOGOUT_ENABLED') !== false) {
+			authHelper.clearCookies(req, res, { destroySession: true }).catch((error2) => {
+				logger.error('Error clearing cookies in global error handler', error2);
+			});
+		}
+
 		if (!res.locals) {
 			res.locals = {};
 		}

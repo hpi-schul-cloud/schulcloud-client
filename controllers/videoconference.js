@@ -8,7 +8,7 @@ const api = require('../api');
 
 router.get('/:scopeName/:scopeId', (req, res, next) => {
 	const { scopeName, scopeId } = req.params;
-	return authHelper.isAuthenticated(req).then(() => api(req, { version: 'v3' })
+	return authHelper.isAuthenticated(req, res).then(() => api(req, { version: 'v3' })
 		.get(`/videoconference/${scopeName}/${scopeId}`))
 		.then((response) => res.send(response))
 		.catch((error) => res.status(error.statusCode).send(sanitizeHtml(error)));
@@ -16,7 +16,7 @@ router.get('/:scopeName/:scopeId', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
 	const { scopeName, scopeId, options = {} } = req.body;
-	return authHelper.isAuthenticated(req).then(() => api(req, { version: 'v3' })
+	return authHelper.isAuthenticated(req, res).then(() => api(req, { version: 'v3' })
 		.post(`/videoconference/${scopeName}/${scopeId}`, {
 			json: options,
 		}))

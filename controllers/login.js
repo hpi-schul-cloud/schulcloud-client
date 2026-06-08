@@ -236,7 +236,7 @@ router.get('/login/oauth2-callback', async (req, res) => {
 	};
 
 	let loginResponse;
-	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
+	if (oauth2State.migration && await authHelper.isAuthenticated(req, res)) {
 		const migrationRedirect = await authHelper.migrateUser(req, res, payload);
 		delete req.session.oauth2State;
 
@@ -305,7 +305,7 @@ async function getOauthSystems(req) {
 }
 
 router.all('/', async (req, res, next) => {
-	const isAuthenticated = await authHelper.isAuthenticated(req);
+	const isAuthenticated = await authHelper.isAuthenticated(req, res);
 	if (isAuthenticated) {
 		redirectAuthenticated(req, res);
 	} else {
@@ -364,7 +364,7 @@ const renderLogin = async (req, res) => {
 };
 
 router.get('/loginRedirect', (req, res, next) => {
-	authHelper.isAuthenticated(req)
+	authHelper.isAuthenticated(req, res)
 		.then((isAuthenticated) => {
 			if (isAuthenticated) {
 				redirectAuthenticated(req, res);
@@ -376,7 +376,7 @@ router.get('/loginRedirect', (req, res, next) => {
 });
 
 router.all('/login/', async (req, res, next) => {
-	authHelper.isAuthenticated(req)
+	authHelper.isAuthenticated(req, res)
 		.then(async (isAuthenticated) => {
 			if (isAuthenticated) {
 				redirectAuthenticated(req, res);

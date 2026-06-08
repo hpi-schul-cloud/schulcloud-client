@@ -251,6 +251,11 @@
 			"description": "Number of seconds after which a JWT token expires.",
 			"default": 7200
 		},
+		"FEATURE_401_AUTO_LOGOUT_ENABLED": {
+			"type": "boolean",
+			"default": true,
+			"description": "If enabled, any 401 Unauthorized response from the backend will trigger a local logout (clearing cookies and destroying session) to prevent zombie sessions."
+		},
 		"FEATURE_JWT_EXTENDED_TIMEOUT_ENABLED": {
 			"type": "boolean",
 			"default": false,

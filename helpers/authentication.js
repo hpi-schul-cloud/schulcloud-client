@@ -62,6 +62,11 @@ const clearCookies = async (req, res, options = { destroySession: false }) => {
 
 	res.clearCookie('jwt');
 	res.clearCookie('isLoggedIn');
+
+	if (req && req.cookies) {
+		delete req.cookies.jwt;
+		delete req.cookies.isLoggedIn;
+	}
 };
 
 const etherpadCookieHelper = (etherpadSession, padId, res) => {
@@ -75,7 +80,7 @@ const etherpadCookieHelper = (etherpadSession, padId, res) => {
 
 const isJWT = (req) => (req && req.cookies && req.cookies.jwt);
 
-const isAuthenticated = (req) => {
+const isAuthenticated = (req, res) => {
 	if (!isJWT(req)) {
 		return Promise.resolve(false);
 	}
@@ -88,7 +93,16 @@ const isAuthenticated = (req) => {
 			},
 		})
 		.then(() => true)
-		.catch(() => false);
+		.catch((e) => {
+			// If the backend returns 401, the JWT is invalid or expired.
+			// We clear cookies to allow the user to continue as a guest and avoid "zombie sessions".
+			if (e.statusCode === 401 && res && Configuration.get('FEATURE_401_AUTO_LOGOUT_ENABLED') !== false) {
+				clearCookies(req, res, { destroySession: true }).catch((err) => {
+					logger.error('clearCookie failed during isAuthenticated', err);
+				});
+			}
+			return false;
+		});
 };
 
 const populateCurrentUser = async (req, res) => {
@@ -244,7 +258,7 @@ const restrictSidebar = (req, res) => {
 };
 
 const authChecker = (req, res, next) => {
-	isAuthenticated(req)
+	isAuthenticated(req, res)
 		.then((isAuthenticated2) => {
 			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
 
