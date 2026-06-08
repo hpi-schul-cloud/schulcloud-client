@@ -1,58 +1,68 @@
-FROM docker.io/node:24 AS git
+FROM node:24-bookworm-slim AS builder
 
-RUN mkdir /app && chown -R node:node /app
-WORKDIR /app
-COPY .git .
-RUN git config --global --add safe.directory /app && echo "{\"sha\": \"$(git rev-parse HEAD)\", \"version\": \"$(git describe --tags --abbrev=0)\", \"commitDate\": \"$(git log -1 --format=%cd --date=format:'%Y-%m-%dT%H:%M:%SZ')\", \"birthdate\": \"$(date +%Y-%m-%dT%H:%M:%SZ)\"}" > /app/version
-
-FROM docker.io/node:24-alpine
-
-ENV TZ=Europe/Berlin
-
-RUN apk add \
-    git \
+# Install build dependencies for native modules
+RUN apt-get update && apt-get install -y --no-install-recommends git  \
     libtool \
     make \
     python3 \
     autoconf \
     automake \
-    build-base \
+    build-essential \
     nasm \
-    tzdata \
-    zlib-dev
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# use git https at all cost to avoid depdencies getting downloaded via ssh, which will fail
+# Configure git to use https (to avoid SSH dependency issues)
 RUN git config --global url."https://github.com/".insteadOf git@github.com: \
     && git config --global url."https://".insteadOf git:// \
     && git config --global url."https://".insteadOf ssh://
 
-ARG SC_THEME_BUILD=default
-ENV SC_THEME=$SC_THEME_BUILD
-EXPOSE 3100
-
-WORKDIR /home/node/app
+WORKDIR /app
 
 COPY package.json package-lock.json ./
-COPY patches ./patches
-RUN npm ci && npm cache clean --force
-# thanks to this crappy folder structure pulling only the relevant files is a mess
-COPY api.js /home/node/app/api.js
-COPY api-files-storage.js /home/node/app/api-files-storage.js
-COPY app.js /home/node/app/app.js
-COPY gulpfile.js /home/node/app/gulpfile.js
-COPY webpack.config.js /home/node/app/webpack.config.js
-COPY sc-config.json /home/node/app/sc-config.json
-COPY views /home/node/app/views
-COPY static /home/node/app/static
-COPY theme /home/node/app/theme
-COPY middleware /home/node/app/middleware
-COPY locales /home/node/app/locales
-COPY helpers /home/node/app/helpers
-COPY controllers /home/node/app/controllers
-COPY config /home/node/app/config
-COPY bin /home/node/app/bin
-COPY --from=git /app/version /home/node/app/static/version
-# "build" .. this basically throws out non relevant files for the theme under build and does scss to css stuff
-RUN WEBPACK_PRODUCTION=1 node node_modules/gulp/bin/gulp.js clear-cache && WEBPACK_PRODUCTION=1 node node_modules/gulp/bin/gulp.js
+RUN npm ci
 
-CMD ["npm", "start"]
+# Copy application source
+COPY bin ./bin
+COPY config ./config
+COPY controllers ./controllers
+COPY helpers ./helpers
+COPY locales ./locales
+COPY middleware ./middleware
+COPY static ./static
+COPY theme ./theme
+COPY views ./views
+COPY api-files-storage.js api.js app.js gulpfile.js sc-config.json webpack.config.js ./
+
+# Get version info from git using build-time mount
+RUN --mount=type=bind,source=.git,target=/app/.git \
+    git config --global --add safe.directory /app && \
+    echo "{\"sha\": \"$(git rev-parse HEAD)\", \"version\": \"$(git describe --tags --abbrev=0)\", \"commitDate\": \"$(git log -1 --format=%cd --date=format:'%Y-%m-%dT%H:%M:%SZ')\", \"birthdate\": \"$(date +%Y-%m-%dT%H:%M:%SZ)\"}" > /app/static/version
+
+# Build assets for the specified theme
+ARG SC_THEME_BUILD=default
+ENV SC_THEME=$SC_THEME_BUILD
+
+RUN export NODE_OPTIONS=--openssl-legacy-provider && \
+    node node_modules/gulp/bin/gulp.js clear-cache && \
+    node node_modules/gulp/bin/gulp.js
+
+# Remove devDependencies to keep the production image small
+RUN npm prune --production
+
+FROM registry.opencode.de/oci-community/images/zendis/nodejs:24-minimal AS production
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NO_COLOR="true"
+ENV SC_THEME=default
+
+# Copy the cleaned /app directory from builder
+COPY --from=builder /app ./
+
+USER nonroot
+
+EXPOSE 3100
+
+CMD ["node", "--unhandled-rejections=warn", "./bin/www"]
