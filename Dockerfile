@@ -47,7 +47,7 @@ RUN export NODE_OPTIONS=--openssl-legacy-provider && \
     node node_modules/gulp/bin/gulp.js clear-cache && \
     node node_modules/gulp/bin/gulp.js
 
-# Remove devDependencies and build-only files to keep the production image small
+# Remove devDependencies to keep the production image small
 RUN npm prune --production
 
 FROM registry.opencode.de/oci-community/images/zendis/nodejs:24-minimal AS production
