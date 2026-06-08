@@ -7,8 +7,7 @@
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js ./locales --ext .js --ext .json --fix",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
 		"build": "gulp clear && gulp",
-		"coverage": "nyc npm run mocha",
-		"postinstall": "patch-package"
+		"coverage": "nyc npm run mocha"
 	},
 	"engines": {
 		"node": "24",
@@ -133,7 +132,6 @@
 		"merge-stream": "^2.0.0",
 		"mocha": "^10.8.2",
 		"nyc": "^15.1.0",
-		"patch-package": "^8.0.1",
 		"postcss-css-variables": "^0.13.0",
 		"postcss-loader": "^4.2.0",
 		"raw-loader": "^4.0.2",
@@ -144,6 +142,7 @@
 		"webpack-stream": "^7.0.0"
 	},
 	"overrides": {
+		"cacache": "^15.3.0",
 		"chokidar": "^3.6.0",
 		"tar": "^7.5.15",
 		"serialize-javascript": "^7.0.5",
