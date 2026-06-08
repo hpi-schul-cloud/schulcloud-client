@@ -66,25 +66,28 @@ spec:
         - secretRef:
             name: session-valkey-password
         volumeMounts:
-        - mountPath: /home/node/app/config/http-headers.js
+        - mountPath: /app/config/http-headers.js
           subPath: http-headers.js
           name: http-headers
         # /login was chosen because on THR, the / redirects to TSP
         readinessProbe:
-          exec:
-            command: ["wget", "--timeout", "4", "-O", "/dev/null", "http://localhost:3100/login"]
+          httpGet:
+            path: /login
+            port: 3100
           timeoutSeconds: 5
           failureThreshold: 3
           periodSeconds: 10
         livenessProbe:
-          exec:
-            command: ["wget", "--timeout", "4", "-O", "/dev/null", "http://localhost:3100/login"]
+          httpGet:
+            path: /login
+            port: 3100
           timeoutSeconds: 5
           failureThreshold: 3
           periodSeconds: 15
         startupProbe:
-          exec:
-            command: ["wget", "--timeout", "4", "-O", "/dev/null", "http://localhost:3100/login"]
+          httpGet:
+            path: /login
+            port: 3100
           timeoutSeconds: 5
           failureThreshold: 12
           periodSeconds: 5

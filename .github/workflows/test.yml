@@ -20,4 +20,4 @@ jobs:
                   node-version: '24'
 
             - name: setup environment and execute mocha tests
-              run: npm ci && npm run build && npm run mocha
+              run: npm ci --ignore-scripts && npm run build && npm run mocha
