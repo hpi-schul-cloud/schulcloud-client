@@ -5,6 +5,8 @@ if (Configuration.has('CORS') !== true) {
 	throw new Error('CORS missing in Configuration');
 }
 
+const sharedSources = '\'self\' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org';
+
 const config = {
 	enabled: Configuration.get('CORS'),
 	// Settings for HTTP Content-Security-Policy Header
@@ -21,12 +23,12 @@ const config = {
 		// Default Content-Security-Policy Header for every site
 		// Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
 		corsDefault: {
-			defaultSrc: '\'self\' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org',
+			defaultSrc: sharedSources,
 			fontSrc: '\'self\' data:',
 			styleSrc: '\'self\' \'unsafe-inline\'',
 			scriptSrc: '\'self\' \'unsafe-eval\'',
 			workerSrc: '\'self\' blob:',
-			connectSrc: '\'self\' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org webpack:',
+			connectSrc: `${sharedSources} webpack:`,
 			// Please activate for production
 			// upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
 			// blockAllMixedContentSrc: 'block-all-mixed-content',

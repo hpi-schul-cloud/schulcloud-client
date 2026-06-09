@@ -20,7 +20,7 @@ RUN git config --global url."https://github.com/".insteadOf git@github.com: \
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --ignore-scripts
 
 # Copy application source
 COPY bin ./bin
