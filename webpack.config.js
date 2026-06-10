@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const webpack = require('webpack');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const { styles } = require('@ckeditor/ckeditor5-dev-utils');
