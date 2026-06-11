@@ -50,7 +50,7 @@ RUN export NODE_OPTIONS=--openssl-legacy-provider && \
 # Remove devDependencies to keep the production image small
 RUN npm prune --production
 
-FROM registry.opencode.de/oci-community/images/zendis/nodejs:24-minimal AS production
+FROM gcr.io/distroless/nodejs24-debian13:nonroot AS production
 
 WORKDIR /app
 
@@ -65,4 +65,4 @@ USER nonroot
 
 EXPOSE 3100
 
-CMD ["node", "--unhandled-rejections=warn", "./bin/www"]
+CMD ["--unhandled-rejections=warn", "./bin/www"]
