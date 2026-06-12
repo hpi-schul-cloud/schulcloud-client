@@ -767,7 +767,7 @@ class TopicGeoGebra extends TopicBlock {
                     <span
                         className="btn btn-secondary geo-gebra-info"
                         data-toggle="tooltip"
-                        tabindex="0"
+                        tabIndex="0"
                         data-placement="top"
                         title={$t('topic.topicEdit.label.youllFindTheIdOn')}><i className="fa fa-info-circle" /></span>
                 </span>
@@ -854,7 +854,7 @@ class TopicInternal extends TopicBlock {
                         <span
                             className="btn btn-secondary geo-gebra-info"
                             data-toggle="tooltip"
-                            tabindex="0"
+                            tabIndex="0"
                             data-placement="top"
                             title={$t('topic.topicEdit.label.theLinkHasToBeginWith', { baseUrl: this.state.baseUrl })}>
 								<i className="fa fa-info-circle" />
