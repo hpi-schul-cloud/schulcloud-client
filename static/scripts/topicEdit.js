@@ -96,7 +96,7 @@ class TopicBlockWrapper extends React.Component {
      */
 	render() {
 		const DragHandle = SortableHandle(() => (
-				<span tabindex={0} className="input-group-addon"
+				<span tabIndex={0} className="input-group-addon"
 					aria-label={$t('topic.topicEdit.aria_label.moveSectionWithKeys')}>
                     <i className="fa fa-arrows move-handle" />
                 </span>
@@ -846,7 +846,7 @@ class TopicInternal extends TopicBlock {
 	render() {
 		return (
             <div>
-                <label for={`internalLinkInput${this.props.position}`}>
+                <label htmlFor={`internalLinkInput${this.props.position}`}>
 					{$t('topic.topicEdit.label.internalLink')}
 				</label><br/>
                 <div className="input-group">
@@ -888,9 +888,19 @@ class TopicEtherpad extends TopicBlock {
      */
 	constructor(props) {
 		super(props);
-		this.props.content = this.props.content || {};
 		const randomId = Math.random().toString(36).substr(2, 5);
-		this.props.content.url = this.props.content.url || `${props.etherpadBaseUrl}${randomId}`;
+		this.defaultUrl = (props.content || {}).url || `${props.etherpadBaseUrl}${randomId}`;
+	}
+
+	componentDidMount() {
+		if (!(this.props.content || {}).url) {
+			this.props.onUpdate({
+				content: {
+					...this.props.content,
+					url: this.defaultUrl,
+				},
+			});
+		}
 	}
 
 	/**
@@ -915,7 +925,7 @@ class TopicEtherpad extends TopicBlock {
                         value={this.props.content.title}/>
                 </div>
                 <div className="form-group">
-                    <label for={`EtherpadDescInput${this.props.position}`}>
+                    <label htmlFor={`EtherpadDescInput${this.props.position}`}>
 						{$t('topic.topicEdit.label.descriptionEtherpad')}
 					</label>
 					<textarea className="form-control"
@@ -926,7 +936,7 @@ class TopicEtherpad extends TopicBlock {
                     </textarea>
                 </div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
-                       value={this.props.content.url} />
+                       value={(this.props.content || {}).url || this.defaultUrl} />
             </div>
 		);
 	}
