@@ -1,7 +1,7 @@
 const i18next = require('i18next');
 const i18nMoment = require('moment');
 
-const Backend = require('i18next-sync-fs-backend');
+const Backend = require('i18next-fs-backend');
 const path = require('path');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const logger = require('./logger');
@@ -21,7 +21,6 @@ i18next
 	.use(Backend)
 	.init({
 		debug: i18nDebug,
-		initImmediate: false,
 		lng: defaultLanguage,
 		fallbackLng: fallbackLanguage,
 		supportedLngs: availableLanguages || false,

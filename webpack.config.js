@@ -1,9 +1,25 @@
+const path = require('node:path');
 const webpack = require('webpack');
-const RebuildChangedPlugin = require('rebuild-changed-entrypoints-webpack-plugin');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const { styles } = require('@ckeditor/ckeditor5-dev-utils');
 
-let minimize = true;
+// Force all CKEditor5 internal packages to resolve to a single canonical copy.
+// In v41, individual packages depend on the `ckeditor5` meta-package which
+// installs its own nested copies, causing the ckeditor-duplicated-modules error.
+const CK_PACKAGES = ['ckeditor5-clipboard', 'ckeditor5-engine', 'ckeditor5-enter',
+	'ckeditor5-typing', 'ckeditor5-undo', 'ckeditor5-utils', 'ckeditor5-widget'];
+const ckAlias = Object.fromEntries(
+	CK_PACKAGES.map(pkg => [
+		`@ckeditor/${pkg}`,
+		path.resolve(__dirname, `node_modules/ckeditor5/node_modules/@ckeditor/${pkg}`),
+	]),
+);
+
+// Use WEBPACK_PRODUCTION=1 to build in production mode (minified, no source maps).
+// NODE_ENV is intentionally not used here because setting it to 'production' also
+// triggers app config validation (ETHERPAD_PAD_URI etc.) which is unavailable at build time.
+const isDev = !process.env.WEBPACK_PRODUCTION;
+const minimize = !isDev;
 
 const plugins = [
 	// By default, moment loads aaaall the locale files, which bloats the bundle size
@@ -16,46 +32,30 @@ const plugins = [
 	}),
 ];
 
-const devPlugins = [
-	// Rebuild onlyl changed files
-	new RebuildChangedPlugin({
-		cacheDirectory: __dirname,
-	}),
-];
-
-if (process.env.NODE_ENV !== 'production') {
-	minimize = false;
-	plugins.push(...devPlugins);
-}
-
 module.exports = {
-	mode: 'production',
+	mode: isDev ? 'development' : 'production',
+	cache: isDev ? { type: 'filesystem' } : false,
 	module: {
 		rules: [
-			// All files that end on .js or .jsx are transpilled by babel.
-			// Also the htmlparser2 module (as dependency of sanitize-html)
-			// needs to be included in transpilling, because of the module
-			// being otherwise not compatible with webpack 4.x (see
-			// https://github.com/apostrophecms/sanitize-html/issues/592 ).
-			// In addition the @babel/plugin-proposal-export-namespace-from
-			// was also added for that reason as well and can be removed
-			// once the update to webpack 5.x is done.
+			// All files that end on .js or .jsx are transpiled by babel.
+			// htmlparser2 and @isaul32 are excluded from the node_modules
+			// exclusion because they use syntax that requires transpilation.
 			{
 				test: /\.(?:js|jsx|cjs)$/,
-				exclude: /(node_modules)[/\\](?!(htmlparser2)[/\\])/,
+				exclude: /(node_modules)[/\\](?!(htmlparser2|@isaul32)[/\\])/,
 				loader: 'babel-loader',
-				query: {
-					presets: [['@babel/preset-env']],
+				options: {
+					sourceType: 'unambiguous',
+					presets: [['@babel/preset-env', { modules: false }]],
 					plugins: [
 						'@babel/plugin-transform-react-jsx',
 						'@babel/plugin-transform-runtime',
-						'@babel/plugin-proposal-export-namespace-from',
 					],
 				},
 			},
 			{
 				test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
-				use: ['raw-loader'],
+				type: 'asset/source',
 			},
 			{
 				test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
@@ -84,7 +84,11 @@ module.exports = {
 				],
 			},
 			// moment needs to be globally exposed in order to work with fullcalendar
-			{ test: require.resolve('moment'), loader: 'expose-loader?moment' },
+			{
+				test: require.resolve('moment'),
+				loader: 'expose-loader',
+				options: { exposes: [{ globalName: 'moment', override: true }] },
+			},
 		],
 	},
 	optimization: {
@@ -103,6 +107,9 @@ module.exports = {
 	externals: {
 		jquery: 'jQuery',
 		'jquery-mousewheel': 'jQuery',
+	},
+	resolve: {
+		alias: ckAlias,
 	},
 	output: {
 		path: '/',

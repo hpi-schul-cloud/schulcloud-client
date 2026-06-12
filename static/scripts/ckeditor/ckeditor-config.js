@@ -11,7 +11,7 @@ import { Image, ImageResize } from '@ckeditor/ckeditor5-image/src/index';
 import { Indent } from '@ckeditor/ckeditor5-indent/src/index';
 import { Link } from '@ckeditor/ckeditor5-link/src/index';
 import { List } from '@ckeditor/ckeditor5-list/src/index';
-import Mathematics from 'ckeditor5-math/src/math';
+import Mathematics from '@isaul32/ckeditor5-math/src/math';
 import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed/src/index';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph/src/index';
 import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office/src/index';
@@ -148,7 +148,7 @@ const ckeditorConfig = {
 		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'],
 	},
 	math: {
-		engine: 'mathjax',
+		engine: 'katex',
 		outputType: 'span',
 		forceOutputType: false,
 		enablePreview: true,

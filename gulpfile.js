@@ -200,13 +200,10 @@ const nodeModules = {
 	//	 'folder/**/*', // folders defined by name will be flattened
 	// ],
 
-	// mathjax
-	mathjax: ['MathJax.js'],
-	'mathjax/config': ['**/*'],
-	'mathjax/extensions': ['**/*'],
-	'mathjax/fonts': ['**/*'],
-	'mathjax/jax': ['**/*'],
-	'mathjax/localization': ['**/*'],
+	// katex
+	'katex/dist': ['katex.min.js', 'katex.min.css'],
+	'katex/dist/fonts': ['**/*'],
+	'katex/dist/contrib': ['auto-render.min.js'],
 
 	// font-awesome
 	'font-awesome/fonts': [
@@ -241,7 +238,7 @@ gulp.task('clear', () => gulp
 		[
 			'./build/*',
 			'./.gulp-changed-smart.json',
-			'./.webpack-changed-plugin-cache/*',
+			'./node_modules/.cache/webpack',
 		],
 		{
 			read: false,
@@ -255,7 +252,7 @@ gulp.task('clear-cache', () => gulp
 	.src(
 		[
 			'./.gulp-changed-smart.json',
-			'./.webpack-changed-plugin-cache/*',
+			'./node_modules/.cache/webpack',
 		],
 		{
 			read: false,
@@ -278,3 +275,29 @@ gulp.task('default', gulp.series(
 	'vendor-assets',
 	'static',
 ));
+
+// incremental dev watch — do a full build first, then watch for changes
+// styles/scripts/images re-run only when their source files change
+gulp.task('watch', gulp.series('default', (done) => {
+	console.log('Watching for changes…');
+
+	gulp.watch(
+		withTheme('./static/styles/**/*.{css,sass,scss}'),
+		gulp.series('styles', 'copy-styles'),
+	);
+
+	gulp.watch(
+		withTheme('./static/scripts/**/*.js'),
+		gulp.series('scripts'),
+	);
+
+	gulp.watch(
+		withTheme('./static/images/**/*.*'),
+		gulp.series('images'),
+	);
+
+	gulp.watch('./static/*', gulp.series('static'));
+
+	// signal async completion — watcher runs indefinitely
+	done();
+}));
