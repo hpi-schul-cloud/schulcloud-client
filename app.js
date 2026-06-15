@@ -77,7 +77,7 @@ const setupApp = async () => {
 	// DDoS protection: Rate limiting
 	const limiter = rateLimit({
 		windowMs: 10 * 60 * 1000, // 10 minutes
-		max: Configuration.get('RATE_LIMIT_MAX') || 300, // Limit each IP to 300 requests per windowMs
+		max: Configuration.get('RATE_LIMIT_MAX'), // Limit each IP to 300 requests per windowMs
 		standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 		legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 		message: 'Too many requests from this IP, please try again later.',
