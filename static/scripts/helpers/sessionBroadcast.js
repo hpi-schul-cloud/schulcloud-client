@@ -13,7 +13,15 @@ export const notifyLogout = () => {
 };
 
 broadcast.onmessage = (event) => {
+	console.log('Received broadcast message:', event.data);
 	if (event.data === BROADCAST_MESSAGE_LOGOUT) {
-		window.location.href = '/login?auto-logout=true';
+		const csrfMetaTag = document.querySelector('meta[name="csrfToken"]');
+		if (csrfMetaTag) {
+			csrfMetaTag.setAttribute('content', '');
+		}
+		window.csrftoken = null;
+		document.location.href = '/login?auto-logout=true';
 	}
 };
+
+console.log('Session broadcast channel initialized');
