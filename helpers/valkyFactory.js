@@ -42,7 +42,15 @@ class ValkeyFactory {
 	static createValkeyInstanceStore() {
 		const redisUri = Configuration.get('SESSION_VALKEY__URI');
 		try {
-			const client = ValkeyFactory.createValkeyInstance(redisUri);
+			const client = ValkeyFactory.createValkeyInstance({
+				// Parse URI and add DDoS protection settings
+				...(typeof redisUri === 'string' ? { path: redisUri } : redisUri),
+				maxRetriesPerRequest: 3,
+				connectTimeout: 5000,
+				commandTimeout: 3000,
+				enableOfflineQueue: false,
+				retryStrategy: (times) => Math.min(times * 50, 2000),
+			});
 			logger.info(`Using Valkey session store at '${redisUri}'.`);
 
 			const sessionStore = new RedisStore({ client });
@@ -67,6 +75,12 @@ class ValkeyFactory {
 				sentinelPassword,
 				password: sentinelPassword,
 				name: sentinelName,
+				// DDoS protection: connection limits and timeouts
+				maxRetriesPerRequest: 3,
+				connectTimeout: 5000,
+				commandTimeout: 3000,
+				enableOfflineQueue: false, // Reject requests immediately when disconnected
+				retryStrategy: (times) => Math.min(times * 50, 2000),
 			});
 
 			const sessionStore = new RedisStore({ client });

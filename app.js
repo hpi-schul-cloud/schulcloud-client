@@ -9,6 +9,7 @@ const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
+const rateLimit = require('express-rate-limit');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const { initializeSessionStorage } = require('./helpers/sessionStorage');
 
@@ -72,6 +73,18 @@ const setupApp = async () => {
 
 	// set cors headers
 	app.use(cors);
+
+	// DDoS protection: Rate limiting
+	const limiter = rateLimit({
+		windowMs: 10 * 60 * 1000, // 10 minutes
+		max: Configuration.get('RATE_LIMIT_MAX') || 300, // Limit each IP to 300 requests per windowMs
+		standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+		legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+		message: 'Too many requests from this IP, please try again later.',
+		// Skip rate limiting for health checks and metrics
+		skip: (req) => req.path === '/nuxt/health' || req.path === '/metrics',
+	});
+	app.use(limiter);
 
 	app.use(compression());
 	app.set('trust proxy', true);
