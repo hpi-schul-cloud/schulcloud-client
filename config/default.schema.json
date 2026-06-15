@@ -207,7 +207,7 @@
 		},
 		"RATE_LIMIT_MAX": {
 			"type": "integer",
-			"default": 300,
+			"default": 45000,
 			"description": "Maximum number of requests per IP address per 15-minute window. Used for DDoS protection."
 		},
 		"STUDENT_TEAM_CREATION": {
