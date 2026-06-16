@@ -18,7 +18,8 @@ broadcast.onmessage = (event) => {
 		if (csrfMetaTag) {
 			csrfMetaTag.setAttribute('content', '');
 		}
-		// window.csrftoken = null;
-		document.location.href = '/login?auto-logout=true';
+		setTimeout(() => {
+			document.location.href = '/login?auto-logout=true';
+		}, 5000);
 	}
 };
