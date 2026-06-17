@@ -4,10 +4,10 @@
 			<div  class="col-md-4">
 				<h4>{{$t "global.link.contact" }}</h4>
 				<ul>
-					<li><a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}" target="_blank" rel="noopener"
-							aria-label="Allgemeine Anfragen {{$t "global.link.openInNewTabWarning"}}">Support-Anfragen</a></li>
-					<li><a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject={{$t "lib.global.link.accessibilityReport"}}" target="_blank" rel="noopener"
-							aria-label="{{$t "lib.global.link.accessibilityReport"}} {{$t "global.link.openInNewTabWarning" }}">
+					<li><a href="mailto:{{getConfig "SC_CONTACT_EMAIL"}}" rel="noopener"
+							aria-label="Allgemeine Anfragen">Support-Anfragen</a></li>
+					<li><a href="mailto:{{getConfig "ACCESSIBILITY_REPORT_EMAIL"}}?subject={{$t "lib.global.link.accessibilityReport"}}" rel="noopener"
+							aria-label="{{$t "lib.global.link.accessibilityReport"}}">
 							{{$t "lib.global.link.accessibilityReport"}}</a>
 					</li>
 				</ul>
