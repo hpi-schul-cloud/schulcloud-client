@@ -19,7 +19,7 @@ broadcast.onmessage = (event) => {
 			csrfMetaTag.setAttribute('content', '');
 		}
 		setTimeout(() => {
-			document.location.href = '/login?auto-logout=true';
-		}, 5000);
+			document.location.href = '/logout-tab';
+		}, 2000);
 	}
 };

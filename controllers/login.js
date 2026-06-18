@@ -434,16 +434,14 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 });
 
 const sessionDestroyer = (req, res, rej, next) => {
-	if (req.url === '/logout') {
-		req.session.destroy((err) => {
-			if (err) {
-				rej(`Error destroying session: ${err}`);
-			} else {
-				// clear the CSRF token to prevent re-use after logout
-				res.locals.csrfToken = null;
-			}
-		});
-	}
+	req.session.destroy((err) => {
+		if (err) {
+			rej(`Error destroying session: ${err}`);
+		} else {
+			// clear the CSRF token to prevent re-use after logout
+			res.locals.csrfToken = null;
+		}
+	});
 	return next();
 };
 
@@ -472,6 +470,14 @@ router.get('/logout/', (req, res, next) => {
 		})
 		.catch(next);
 });
+
+router.get('/logout-tab', authHelper.authChecker, (req, res, next) => authHelper
+	.clearCookies(req, res, sessionDestroyer)
+	.then(() => {
+		res.statusCode = 307;
+		res.redirect('/login?auto-logout=true');
+	})
+	.catch(next));
 
 router.get('/logout/external/', authHelper.authChecker, async (req, res, next) => {
 	let redirectUri = '/logout/';
