@@ -471,7 +471,7 @@ router.get('/logout/', (req, res, next) => {
 		.catch(next);
 });
 
-router.get('/logout-tab', authHelper.authChecker, (req, res, next) => authHelper
+router.get('/logout-tab', (req, res, next) => authHelper
 	.clearCookies(req, res, sessionDestroyer)
 	.then(() => {
 		res.statusCode = 307;
