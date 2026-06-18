@@ -3,14 +3,15 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const { ValkeyFactory } = require('./valkyFactory');
 
 function initSessionMiddleware(app, store) {
-	const SIX_HOURS = 1000 * 60 * 60 * 6;
+	// const SIX_HOURS = 1000 * 60 * 60 * 6;
+	const FIVE_MINUTES = 1000 * 60 * 5;
 	app.use(
 		session({
 			cookie: {
 				httpOnly: true,
 				sameSite: Configuration.get('SESSION_COOKIE_SAME_SITE'),
 				secure: 'auto',
-				maxAge: SIX_HOURS,
+				maxAge: FIVE_MINUTES,
 			},
 			rolling: true, // refresh session with every request within maxAge
 			store,
