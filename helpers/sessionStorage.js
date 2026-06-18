@@ -14,7 +14,7 @@ function initSessionMiddleware(app, store) {
 			},
 			rolling: true, // refresh session with every request within maxAge
 			store,
-			saveUninitialized: true,
+			saveUninitialized: false, // don't create session until something stored, prevent flooding attacks
 			resave: false,
 			secret: Configuration.get('COOKIE_SECRET'), // Secret used to sign the session ID cookie
 		}),
