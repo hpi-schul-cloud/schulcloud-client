@@ -117,7 +117,7 @@ const setupApp = async () => {
 	// CSRF middlewares
 	if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 		app.use(duplicateTokenHandler);
-		app.use(csurf({ maxAge: 60 }));
+		app.use(csurf());
 		app.use(tokenInjector);
 		// there follows an csrf error handler below...
 	}
