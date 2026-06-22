@@ -16,7 +16,6 @@ const buildThemeAssetDir = path.join(__dirname, `../build/${themeName()}`);
  */
 const lazyInitialization = () => {
 	if (staticifyInstance == null) {
-		// expectAssetsDir();
 		// configure static file hashing and caching
 		staticifyInstance = staticify(buildThemeAssetDir, {
 			maxAgeNonHashed: '1d',
