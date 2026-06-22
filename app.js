@@ -93,8 +93,6 @@ const setupApp = async () => {
 
 	app.set('view cache', true);
 
-	// uncomment after placing your favicon in /public
-	// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 	if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
 		let morganLogFormat = Configuration.get('MORGAN_LOG_FORMAT');
 		const noColor = Configuration.has('NO_COLOR') && Configuration.get('NO_COLOR');
