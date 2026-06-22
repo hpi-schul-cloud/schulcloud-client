@@ -17,9 +17,7 @@ All new frontend work is done in Vue.js and can be found here: https://github.co
 For a full walkthrough of the local development environment, see the [Getting Started guide](https://documentation.dbildungscloud.dev/docs/getting-started).
 
 ## Theming  
-  
-Add Themes to /theme directory. Call gulp and node with SC_THEME set to name of directory.  
-then clear build files and gulp cache with `gulp clear`  
-  
-### Windows  
-  run `set SC_THEME={themeName}` without spaces around the equal sign!
+
+Add Themes to /theme directory. Call gulp and node with SC_THEME set to name of directory, e.g. 
+1. `SC_THEME=n21 npm run build`
+1. `SC_THEME=n21 npm start`
