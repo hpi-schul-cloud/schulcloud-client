@@ -59,7 +59,7 @@ $(document).ready(() => {
 	// extend session
 	const IStillLoveYou = (async () => {
 		$.ajax({
-			url: `${API_HOST}/v1/accounts/jwtTimer`,
+			url: `${API_HOST}/v3/authentication/refresh-session`,
 			type: 'POST',
 			dataType: 'json',
 		})
