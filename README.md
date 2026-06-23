@@ -1,4 +1,6 @@
-# Schul-Cloud Client  
+# schulcloud-client
+
+The schulcloud-client is the legacy part of the UI of the [Schulcloud](https://github.com/hpi-schul-cloud).
 
 ## Deprecation Warning
 Please note that this client is deprecated.
