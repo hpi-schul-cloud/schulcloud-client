@@ -54,9 +54,6 @@ const EXIT_ON_ERROR = process.env.GULP_EXIT_ON_ERROR
 const nonBaseScripts = [
 	'./static/scripts/**/*.js',
 ].concat(baseScripts.map((script) => `!${script}`));
-// used by almost all gulp tasks instead of gulp.src(...)
-// plumber prevents pipes from stopping when errors occur
-// changed only passes on files that were modified since last time
 
 function withTheme(src) {
 	if (typeof src === 'string') {
@@ -71,6 +68,8 @@ const handleError = (error) => {
 	process.exit(1);
 };
 
+// used by almost all gulp tasks instead of gulp.src(...)
+// plumber prevents pipes from stopping when errors occur
 const beginPipe = (src) => gulp
 	.src(withTheme(src), { allowEmpty: true })
 	.pipe(gulpif(EXIT_ON_ERROR, gulpErrorHandler(handleError), plumber()));
