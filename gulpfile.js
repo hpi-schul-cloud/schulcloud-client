@@ -247,20 +247,6 @@ gulp.task('clear', () => gulp
 	)
 	.pipe(rimraf()));
 
-// clear gulp cache without removing current build
-gulp.task('clear-cache', () => gulp
-	.src(
-		[
-			'./.gulp-changed-smart.json',
-			'./node_modules/.cache/webpack',
-		],
-		{
-			read: false,
-			allowEmpty: true,
-		},
-	)
-	.pipe(rimraf({})));
-
 // run this if only 'gulp' is run on the commandline with no task specified
 gulp.task('default', gulp.series(
 	'images',

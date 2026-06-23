@@ -44,7 +44,6 @@ ARG SC_THEME_BUILD=default
 ENV SC_THEME=$SC_THEME_BUILD
 
 RUN export NODE_OPTIONS=--openssl-legacy-provider && \
-    node node_modules/gulp/bin/gulp.js clear-cache && \
     node node_modules/gulp/bin/gulp.js
 
 # Remove devDependencies to keep the production image small
