@@ -268,7 +268,7 @@ const setupApp = async () => {
 		// render the error page
 		res.status(status).render('lib/error', {
 			// For errors coming from middlewares which are registered before i18nMiddleware, res.$t is not available. Thus the check below.
-			pageTitle: res.$t && res.$t('lib.error.headline.pageTitle'),
+			pageTitle: res.$t?.('lib.error.headline.pageTitle'),
 			loggedin: res.locals.loggedin,
 			inline: res.locals.inline ? true : !res.locals.loggedin,
 		});
