@@ -515,7 +515,7 @@ router.get('/:teamId', async (req, res, next) => {
 			})
 			.then((newsres) => newsres.data
 				.map((n) => {
-					n.url = `/teams/${req.params.teamId}/news/${n.id}`;
+					n.url = `/news/${n.id}`;
 					n.secondaryTitle = timesHelper.fromNow(n.displayAt);
 					return n;
 				}))
