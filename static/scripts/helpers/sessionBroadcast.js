@@ -14,6 +14,12 @@ export const notifyLogout = () => {
 
 broadcast.onmessage = (event) => {
 	if (event.data === BROADCAST_MESSAGE_LOGOUT) {
-		window.location.href = '/login?auto-logout=true';
+		const csrfMetaTag = document.querySelector('meta[name="csrfToken"]');
+		if (csrfMetaTag) {
+			csrfMetaTag.setAttribute('content', '');
+		}
+		setTimeout(() => {
+			document.location.href = '/logout-tab';
+		}, 2000);
 	}
 };

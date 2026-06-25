@@ -951,7 +951,7 @@
 		"form_Import": {
 			"label": {
 				"selectCSVFile": "Вибрати CSV-файл",
-                "fileSizeInfo" : "максимальний розмір файлу",
+				"fileSizeInfo": "максимальний розмір файлу",
 				"sendRegistrationLinkToUsers": "Відразу після імпорту надсилайте користувачам посилання для реєстрації"
 			},
 			"text": {
@@ -1818,8 +1818,8 @@
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>.",
-            "backupFeatures": "Зробіть резервну копію вашого контенту в хмарі та використовуйте також нову функцію для експорту курсів. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Додаткову інформацію та допомогу можна знайти тут</a>."
-        }
+			"backupFeatures": "Зробіть резервну копію вашого контенту в хмарі та використовуйте також нову функцію для експорту курсів. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Додаткову інформацію та допомогу можна знайти тут</a>."
+		}
 	},
 	"topic": {
 		"_topic": {
@@ -2551,7 +2551,7 @@
 		"support": {
 			"text": {
 				"supportDBC": "support@dbildungscloud.de",
-				"supportBRB": "support.scbb@meinlibra.de",
+				"supportBRB": "schul-cloud@support.meinlibra.de",
 				"supportNBC": "ticketsystem@niedersachsen.support",
 				"supportTHR": "schulcloud-support@thillm.de"
 			}
@@ -2780,15 +2780,15 @@
 				"text": "Короткий опис «The HPI School-Cloud» (.pdf)"
 			},
 			"text": {
-				"welcome": "«Навчання за допомогою цифрових медіа є найдинамічнішим викликом. Для цього потрібна високопродуктивна цифрова інфраструктура. Одним із найважливіших проєктів є {{shortTitle}}, розроблений в Інституті Хассо Платтнера (HPI). Його мета — створити мережу шкіл землі, щоб викладачі й учні мали доступ до навчально-методичних матеріалів у будь-який час і в будь-якому місці. Професійне центральне обслуговування всіх шкіл значно зменшує адміністративні та допоміжні зусилля. Ми очікуємо, що {{shortTitle}} надасть значний поштовх цифровій освіті, та з нетерпінням чекаємо початку проєкту», — міністр освіти Брітта Ернст на відкритті 2 травня 2019 р.",
-				"welcome2": "З 1 серпня 2021 року {{shortTitle}} переведена в міждержавну інфраструктуру викладання та навчання на підставі адміністративної угоди між федеральними землями Бранденбург, Нижня Саксонія та Тюрингія з урахуванням специфічних вимог земель і надалі розробляється спільно.",
-				"registration": "Єдина цифрова платформа для всієї школи пропонує багато переваг. Реєстрація на {{shortTitle}} здійснюється керівництвом школи. Напишіть на <a href=\"mailto:brandenburg@hpi-schul-cloud.org\">brandenburg@hpi-schul-cloud.org</a>, якщо ви хочете зареєструвати свою школу.\nПотім усі учні отримають посилання для реєстрації або дані для входу зі своєї школи для первинної реєстрації в {{shortTitle}}. Якщо у вас виникли запитання щодо реєстрації вперше, зверніться до технічного директора вашої школи або до відповідного викладача.",
-				"registration2": "Викладачі та учні отримують посилання на реєстрацію або дані для входу зі своєї школи для первинної реєстрації в {{shortTitle}}.<br>Якщо у вас виникли запитання щодо процесу реєстрації, зверніться до призначених адміністраторів шкільної хмари у вашій школі або до відповідальних викладачів на місці",
+				"welcome": "З {{shortTitle}} школи Бранденбургу отримують інтуїтивно зрозуміле та відповідне вимогам захисту даних цифрове навчальне середовище, яке можна використовувати не лише в межах одного типу шкіл, а й між різними школами. Основна ідея шкільної хмари — зробити навчальні матеріали доступними будь-де через інтернет.",
+				"welcome2": "З 01.08.2021 {{shortTitle}} спільно розробляється землями Бранденбург, Нижня Саксонія та Тюрингія з урахуванням специфічних вимог кожної землі.",
+				"registration": "Реєстрацію школи в {{shortTitle}} здійснює керівництво школи. Окремі кроки та корисні документи можна знайти на <a href=\"https://bildungsserver.berlin-brandenburg.de/scbb\" target=\"_blank\" rel=\"noopener\"><span style='white-space: nowrap;'>Bildungsserver Berlin Brandenburg <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i></span></a>.",
+				"registration2": "Викладачі та учні отримують посилання на реєстрацію або дані для входу зі своєї школи для первинної реєстрації в {{shortTitle}}.<br>Якщо у вас виникли запитання щодо процесу реєстрації, зверніться до призначених адміністраторів шкільної хмари у вашій школі або до відповідальних викладачів на місці.",
 				"valueStatement": "<li>послідовне використання рішень з відкритим кодом,</li><li>постійно орієнтована на користувача розробка,</li><li>суворо модульна структура,</li><li>що важливо для великої країни Функція міжшкільної співпраці,</li><li>відповідність EU-DSGVO/захисту даних через конфіденційність за проєктом,</li><li>можливість створення синергії через національне співробітництво.</li><br>",
 				"access": "Сучасна інфраструктура викладання та навчання є незамінною для того, щоб вести цифрову трансформацію в освітньому секторі до успіху та оптимально підготувати дітей у школі до життя у все більш цифровому суспільстві.",
-				"advantages": "<li>Незалежний від часу та місця доступ до широкого спектра цифрового навчального контенту</li><li>Обмін цифровими, самостійно створеними матеріалами</li><li>Цифрова освіта за межами окремих комп’ютерних кабінетів</li><li>Професійне обслуговування</li><li>Постійна доступність новітнього програмного забезпечення для викладачів й учнів</li><li>ІТ-додатки відповідають останнім стандартам безпеки</li><li>Контактна точка для нових можливостей цифрового навчання</li><li>Прямий відгук від користувачів</li><li>Пропозиція для самостійного навчання</li><li>Надання спеціально розроблених навчальних пропозицій</li><li>Мережа різних місць навчання</li>",
-				"furtherInformation": "<a href=\"https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/\">https://bildung-bb.digital/schulcloud-brandenburg/erste-schritte/</a>",
-				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto:support.scbb@meinlibra.de\">support.scbb@meinlibra.de</a>",
+				"advantages": "<li>Незалежний від часу та місця доступ до широкого спектра цифрового навчального контенту</li><li>Обмін цифровими, самостійно створеними матеріалами</li><li>Цифрова освіта за межами окремих комп’ютерних кабінетів</li><li>Професійне обслуговування</li><li>Постійна доступність новітнього програмного забезпечення для викладачів й учнів</li><li>ІТ-додатки відповідають останнім стандартам безпеки</li><li>Контактна точка для нових можливостей цифрового навчання</li><li>Прямий відгук від користувачів</li><li>Пропозиція для самостійного навчання</li><li>Надання спеціально розроблених навчальних пропозицій</li><li>Мережа різних місць навчання</li><li>Міжшкільна співпраця</li><li>Відповідність EU-DSGVO/захисту даних через Privacy by Design</li><li>Послідовне використання рішень з відкритим кодом</li><br>",
+				"furtherInformation": "Додаткову інформацію та допомогу можна знайти <a href=\"https://bildungsserver.berlin-brandenburg.de/schul-cloud-einstieg\" target=\"_blank\" rel=\"noopener\">тут <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i></a>.",
+				"email": "<i class=\"fa fa-envelope\"></i> <a href=\"mailto:schul-cloud@support.meinlibra.de\">schul-cloud@support.meinlibra.de</a>",
 				"phone1": "<i class=\"fa fa-phone\"></i> 03378 209 185 <a href=\"https://docs.dbildungscloud.de/display/SCDOK/Live-Formate\" target=\"_blank\">(Графік роботи <i class=\"fa fa-external-link\" aria-hidden=\"true\"></i>)</a>"
 			}
 		},

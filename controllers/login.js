@@ -473,6 +473,12 @@ router.get('/logout/', (req, res, next) => {
 		.catch(next);
 });
 
+router.get('/logout-tab', (req, res, next) => {
+	res.locals.csrfToken = null;
+	res.statusCode = 307;
+	res.redirect('/login?auto-logout=true');
+});
+
 router.get('/logout/external/', authHelper.authChecker, async (req, res, next) => {
 	let redirectUri = '/logout/';
 	if (Configuration.has('OAUTH2_LOGOUT_URI')) {
