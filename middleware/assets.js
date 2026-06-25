@@ -4,7 +4,7 @@ const path = require('path');
 const express = require('express');
 
 function themeName() {
-	return process.env.SC_THEME || 'default';
+	return Configuration.get('SC_THEME') || 'default';
 }
 
 let staticifyInstance = null;
