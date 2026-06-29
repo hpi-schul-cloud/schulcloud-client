@@ -2,11 +2,12 @@
 	"name": "schulcloud-client",
 	"scripts": {
 		"start": "node --unhandled-rejections=warn ./bin/www",
-		"watch": "concurrently --names \"server,assets\" --prefix-colors \"cyan,yellow\" \"node --unhandled-rejections=warn --watch ./bin/www\" \"gulp watch\"",
-		"debug": "node --inspect=9310 --watch ./bin/www",
+		"watch": "node --unhandled-rejections=warn --watch ./bin/www",
+		"debug": "node --unhandled-rejections=warn --inspect=9310 --watch ./bin/www",
 		"lint": "eslint --ext .json --fix . && eslint ./controllers ./helpers ./test/mocha ./api.js ./app.js ./locales --ext .js --ext .json --fix",
 		"mocha": "cross-env NODE_ENV=test mocha test/mocha/ --exit --recursive",
 		"build": "gulp clear && gulp",
+		"build:watch": "gulp clear && gulp watch",		
 		"coverage": "nyc npm run mocha"
 	},
 	"engines": {
@@ -105,7 +106,6 @@
 		"babel-eslint": "^10.1.0",
 		"babel-loader": "^8.3.0",
 		"chai": "^4.3.4",
-		"concurrently": "^10.0.0",
 		"cross-env": "^10.1.0",
 		"css-loader": "^5.2.7",
 		"eslint": "^7.32.0",

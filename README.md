@@ -1,72 +1,20 @@
-# Schul-Cloud Client  
-_An implementation of the Schul-Cloud client with NodeJS and Express._  
+# schulcloud-client
 
-Dev: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/hpi-schul-cloud/schulcloud-client)
-Master: [![Build Status](https://travis-ci.com/hpi-schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/hpi-schul-cloud/schulcloud-client)
+The schulcloud-client is the legacy part of the UI of the [Schulcloud](https://github.com/hpi-schul-cloud).
 
-## Powered By
+## Deprecation Warning
+Please note that this client is deprecated.
+All new frontend work is done in Vue.js and can be found here: https://github.com/hpi-schul-cloud/nuxt-client
 
-[![Mergify Status](https://gh.mergify.io/badges/hpi-schul-cloud/nuxt-client.png?style=cut)](https://mergify.io)
-<a href="https://lokalise.com/" ><img height="18px" src="https://lokalise.com/img/lokalise_logo_black.png" style="padding: 2px 8px; border: 1px solid lightgrey; border-radius: 4px;" alt="Lokalise Logo"></a>
+## Requirements
 
-> # Deprecation Warning
-> Please note that this client is going to be deprecated.
-> All new frontend works is done in Vue.js and can be found here: https://github.com/hpi-schul-cloud/nuxt-client
-
-## Requirements  
+* Node.js and npm must be installed in the versions specified in package.json.
   
-* node.js 12 or later
+## Installation and start
 
-You might take a look at the [Dockerfile](https://github.com/hpi-schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
-  
-Short setup version:
+1. Run `npm install`.
+1. Run `npm run build` to build static files.
+1. Run `npm start` (or another start script from package.json) to start the application.
 
-1. Clone directory into local folder  
-2. Go into the cloned folder and enter `npm install`  
-  
-## Run  
-  
-1. Start the [schul-cloud server](https://github.com/hpi-schul-cloud/schulcloud-server)  
-2. Go into project folder
-5. run `npm run dev` to boot the application
-6. go to `http://localhost:3100`
+For a full walkthrough of the local development environment, see the [Getting Started guide](https://documentation.dbildungscloud.dev/docs/getting-started).
 
-For connecting to the [SchulCloud Calendar-Service](https://github.com/hpi-schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.  
-  
-## Theming  
-  
-Add Themes to /theme directory. Call gulp and node with SC_THEME set to name of directory.  
-then clear build files and gulp cache with `gulp clear`  
-  
-### Windows  
-  run `set SC_THEME={themeName}` without spaces around the equal sign!
-
-## How to name your branch and create a pull request (PR)
-  
-1. Take the Ticket Number from JIRA (ticketsystem.dbildungscloud.de), e.g. BC-999  
-2. Name the feature branch beginning with Ticket Number, all words separated by dash "-", e.g. `feature/BC-999-fantasy-problem`
-3. Create a PR on branch develop containing the Ticket Number in PR title
-4. Keep the `WIP` label as long as this PR is in development, complete PR checklist (is automatically added), keep or increase code test coverage, and pass all tests before you remove the `WIP` label. Reviewers will be added automatically.
-
-## Testing  
-  
-**Information**: Please make sure that all your changes works on [Chrome](https://www.google.de/chrome/browser/desktop/index.html) , [Firefox](https://www.mozilla.org/de/firefox/new/) and [Safari](https://www.apple.com/de/safari/)!  
-For html/css components please check [caniuse](https://caniuse.com/).  
-
-1. run `npm run coverage`
-
-## Commiting
-
-Default branch: main
-
-1. Go into project folder
-2. Checkout to develop branch (or clone for the first time)
-3. Run `git pull`
-4. Create a branch for your new feature named feature/BC-*Ticket-ID*-*Description*
-5. Run the tests (see above)
-6. Commit with a meanigful commit message(!) even at 4 a.m. and not stuff like "dfsdfsf"
-7. Start a pull request (see above) to branch develop to merge your changes
-
-## Code rules
-
-[CSP rules](https://github.com/hpi-schul-cloud/schulcloud-client/tree/develop/docs/CSP_RULES_DEV.md)

@@ -93,8 +93,6 @@ const setupApp = async () => {
 
 	app.set('view cache', true);
 
-	// uncomment after placing your favicon in /public
-	// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 	if (Configuration.get('FEATURE_MORGAN_LOG_ENABLED')) {
 		let morganLogFormat = Configuration.get('MORGAN_LOG_FORMAT');
 		const noColor = Configuration.has('NO_COLOR') && Configuration.get('NO_COLOR');
@@ -269,7 +267,8 @@ const setupApp = async () => {
 
 		// render the error page
 		res.status(status).render('lib/error', {
-			pageTitle: res.$t('lib.error.headline.pageTitle'),
+			// For errors coming from middlewares which are registered before i18nMiddleware, res.$t is not available. Thus the check below.
+			pageTitle: res.$t?.('lib.error.headline.pageTitle'),
 			loggedin: res.locals.loggedin,
 			inline: res.locals.inline ? true : !res.locals.loggedin,
 		});
