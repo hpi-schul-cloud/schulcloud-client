@@ -281,7 +281,7 @@ const authChecker = (req, res, next) => {
 const setLoginCookies = (res, token) => {
 	setCookie(res, 'jwt', token);
 
-	// This second cookie "isLoggedIn" is set because the cookie with the JWT shall be set to httpOnly perspectively.
+	// This second cookie "isLoggedIn" is set because the cookie with the JWT is httpOnly.
 	// Thus we need another cookie to check from javascript if the user is logged in.
 	setCookie(res, 'isLoggedIn', true);
 };
