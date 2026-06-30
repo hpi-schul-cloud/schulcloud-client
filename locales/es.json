@@ -2083,7 +2083,7 @@
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>.",
-            "backupFeatures": "Haga una copia de seguridad de sus contenidos de la nube y utilice también la nueva función para exportar cursos. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Más información y ayuda disponible aquí</a>."
+            "backupFeatures": "La dBildungscloud se desactivará el 14 de septiembre de 2026, ya que finaliza el proyecto subvencionado en el que se basa. A partir de esa fecha, la dBildungscloud ya no estará disponible para el funcionamiento de los centros educativos ni para la enseñanza. Por favor, haga una copia de seguridad de sus datos antes de esa fecha. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Aquí encontrará más información y consejos sobre cómo realizar copias de seguridad</a>."
         }
 	},
 	"login": {
