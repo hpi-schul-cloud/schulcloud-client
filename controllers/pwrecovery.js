@@ -44,7 +44,6 @@ router.post('/', (req, res, next) => {
 	api(req).post('/passwordRecovery', { json: { username } }).then((result) => {
 		res.locals.result = result;
 		res.redirect('response');
-		next();
 	}).catch((err) => {
 		if (err.statusCode === 400 && err.error.message === 'EMAIL_DOMAIN_BLOCKED') {
 			res.redirect('failed');
