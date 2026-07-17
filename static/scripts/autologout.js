@@ -21,14 +21,7 @@ $(document).ready(() => {
 	populateModalForm($autoLoggoutAlertModal, { submitDataTestId: 'auto-logout-alert-modal' });
 
 	const gotoLogoutPage = async () => {
-		const isExternalLogoutEnabled = document.querySelector('script[data-external-logout]')
-			.dataset.externalLogout === 'true';
-
-		if (isExternalLogoutEnabled) {
-			window.location.href = '/logout/external';
-		} else {
-			window.location.href = '/logout?auto-logout=true';
-		}
+		window.location.href = '/logout?auto-logout=true';
 		notifyLogout();
 	};
 

@@ -288,7 +288,7 @@ const redirectAuthenticated = (req, res) => {
 	return res.redirect(redirectHelper.getValidRedirect(redirectUrl));
 };
 
-const determineRedirectUrl = (req) => {
+const determineLoginRedirectUrl = (req) => {
 	if (req.query && req.query.redirect) {
 		return redirectHelper.getValidRedirect(req.query.redirect);
 	}
@@ -296,6 +296,47 @@ const determineRedirectUrl = (req) => {
 		return '/oauth2/login/success';
 	}
 	return '/dashboard';
+};
+
+// NBC offers two menu items, logout and external logout (moin.schule)
+const instanceRequiresSchulcloudLogoutOnly = () => Configuration.has('FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED')
+	&& Configuration.has('OAUTH2_LOGOUT_URI');
+
+// THR only offers one logout item which triggers also the external logout (TSP)
+const instanceRequiresCombinedLogout = () => !Configuration.has('FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED')
+	&& Configuration.has('OAUTH2_LOGOUT_URI');
+
+// Other instances offer no external logout at all, only the schulcloud logout
+const instanceRequiresDefaultLogout = () => !Configuration.has('FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED')
+	&& !Configuration.has('OAUTH2_LOGOUT_URI');
+
+const determineLogoutRedirectUrl = (isAutologout) => {
+	if (instanceRequiresCombinedLogout()) {
+		return Configuration.get('OAUTH2_LOGOUT_URI');
+	}
+
+	if (instanceRequiresSchulcloudLogoutOnly() || instanceRequiresDefaultLogout()) {
+		return isAutologout ? '/login?auto-logout=true' : '/login/';
+	}
+
+	// if neither is true something is misconfigured, so we default to the schulcloud logout
+	logger.info('misconfigured logout instance, defaulting to schulcloud logout');
+
+	return isAutologout ? '/login?auto-logout=true' : '/login/';
+};
+
+const executeExternalLogout = async (req, res, next) => {
+	res.redirect(determineLogoutRedirectUrl(req.query['auto-logout'] === 'true'));
+
+	if (Configuration.has('OAUTH2_LOGOUT_URI')) {
+		try {
+			await api(req, { version: 'v3' }).post('/logout/external');
+		} catch (err) {
+			logger.error('error during external logout.', err);
+		}
+	} else {
+		logger.error('OAUTH2_LOGOUT_URI is not configured, cannot execute external logout');
+	}
 };
 
 async function getOauthSystems(req) {
@@ -406,7 +447,8 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 		}
 
 		const user = res.locals.currentUser;
-		const redirectUrl = determineRedirectUrl(req);
+		const redirectUrl = determineLoginRedirectUrl(req);
+
 		// check consent versions
 		const {
 			haveBeenUpdated,
@@ -427,7 +469,7 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 		return res.redirect(`/firstLogin?redirect=${encodedRedirectUrl}`);
 	}
 
-	const redirectUrl = determineRedirectUrl(req);
+	const redirectUrl = determineLoginRedirectUrl(req);
 	res.redirect(redirectUrl);
 
 	return null;
@@ -462,10 +504,15 @@ router.get('/logout/', (req, res, next) => {
 			logger.error('can not delete etherpad client sessions', err);
 		});
 
+	if (instanceRequiresCombinedLogout()) {
+		authHelper.clearCookies(req, res, sessionDestroyer).then(() => {
+			executeExternalLogout(req, res, next);
+		}).catch((err) => logger.error('error during logout.', err));
+	}
+
 	const redirectUrl = autoLogout ? '/login?auto-logout=true' : '/';
 
 	return authHelper.clearCookies(req, res, sessionDestroyer)
-	// eslint-disable-next-line prefer-template, no-return-assign
 		.then(() => {
 			res.statusCode = 307;
 			res.redirect(redirectUrl);
@@ -476,24 +523,11 @@ router.get('/logout/', (req, res, next) => {
 router.get('/logout-tab', (req, res, next) => {
 	res.locals.csrfToken = null;
 	res.statusCode = 307;
-	res.redirect('/login?auto-logout=true');
+	res.redirect(determineLogoutRedirectUrl(req.query['auto-logout'] === 'true'));
 });
 
 router.get('/logout/external/', authHelper.authChecker, async (req, res, next) => {
-	let redirectUri = '/logout/';
-	if (Configuration.has('OAUTH2_LOGOUT_URI')) {
-		redirectUri = Configuration.get('OAUTH2_LOGOUT_URI');
-	}
-
-	res.redirect(redirectUri);
-
-	if (res.locals.isExternalLogoutAllowed) {
-		try {
-			await api(req, { version: 'v3' }).post('/logout/external');
-		} catch (err) {
-			logger.error('error during external logout.', err);
-		}
-	}
+	await executeExternalLogout(req, res, next);
 });
 
 module.exports = router;
