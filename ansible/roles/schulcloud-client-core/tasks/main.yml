@@ -41,3 +41,10 @@
     tags:
       - deployment
 
+  - name: Add schulcloud-client-core default allow network policy
+    kubernetes.core.k8s:
+      kubeconfig: ~/.kube/config
+      namespace: "{{ NAMESPACE }}"
+      template: default-allow-networkpolicy.yml.j2
+    tags:
+      - networkPolicy
