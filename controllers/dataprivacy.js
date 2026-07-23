@@ -31,6 +31,11 @@ router.get('/', async (req, res, next) => {
 			res.redirect(privacyUrl().toString());
 		}
 	} catch (err) {
+		if (err.statusCode === 401) {
+			res.clearCookie('jwt');
+			res.clearCookie('isLoggedIn');
+			return res.redirect(privacyUrl().toString());
+		}
 		next(err);
 	}
 });

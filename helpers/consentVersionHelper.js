@@ -19,7 +19,7 @@ const getConsentVersion = async (req, res, consentType) => {
 		}
 	}
 
-	const consentVersion = await api(req).get('/consentVersions', { qs });
+	const consentVersion = await api(isAuthenticated ? req : null).get('/consentVersions', { qs });
 
 	return consentVersion;
 };
