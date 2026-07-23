@@ -64,6 +64,17 @@ const clearCookies = async (req, res, options = { destroySession: false }) => {
 	res.clearCookie('isLoggedIn');
 };
 
+const isAuthenticationInvalidError = (error) => {
+	if (!error) {
+		return false;
+	}
+
+	return error.statusCode === 400
+		|| error.statusCode === 401
+		|| error.error?.className === 'not-found'
+		|| error.error?.className === 'auto-logout';
+};
+
 const etherpadCookieHelper = (etherpadSession, padId, res) => {
 	const encodedPadId = encodeURI(padId);
 	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
@@ -75,20 +86,31 @@ const etherpadCookieHelper = (etherpadSession, padId, res) => {
 
 const isJWT = (req) => (req && req.cookies && req.cookies.jwt);
 
-const isAuthenticated = (req) => {
+const isAuthenticated = async (req, res) => {
 	if (!isJWT(req)) {
-		return Promise.resolve(false);
+		return false;
 	}
 
-	return api(req)
-		.post('/authentication', {
-			json: {
-				strategy: 'jwt',
-				accessToken: req.cookies.jwt,
-			},
-		})
-		.then(() => true)
-		.catch(() => false);
+	try {
+		await api(req)
+			.post('/authentication', {
+				json: {
+					strategy: 'jwt',
+					accessToken: req.cookies.jwt,
+				},
+			});
+
+		return true;
+	} catch (error) {
+		if (res && isAuthenticationInvalidError(error)) {
+			await clearCookies(req, res, { destroySession: true })
+				.catch((err) => {
+					logger.error('clearCookie failed during authentication check', err);
+				});
+		}
+
+		return false;
+	}
 };
 
 const populateCurrentUser = async (req, res) => {
@@ -273,7 +295,13 @@ const authChecker = (req, res, next) => {
 					});
 			} else {
 				const encodedRedirectUrl = encodeURIComponent(req.originalUrl);
-				res.redirect(`${redirectUrl}?redirect=${encodedRedirectUrl}`);
+				Promise.resolve(isJWT(req) ? clearCookies(req, res, { destroySession: true }) : null)
+					.catch((err) => {
+						logger.error('clearCookie failed during authChecker redirect', err);
+					})
+					.finally(() => {
+						res.redirect(`${redirectUrl}?redirect=${encodedRedirectUrl}`);
+					});
 			}
 		});
 };
