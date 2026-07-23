@@ -475,6 +475,8 @@ router.get('/logout/', (req, res, next) => {
 
 router.get('/logout-tab', (req, res, next) => {
 	res.locals.csrfToken = null;
+	res.clearCookie('jwt');
+	res.clearCookie('isLoggedIn');
 	res.statusCode = 307;
 	res.redirect('/login?auto-logout=true');
 });
