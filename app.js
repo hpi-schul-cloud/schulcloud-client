@@ -214,6 +214,16 @@ const setupApp = async () => {
 	app.use((err, req, res, next) => {
 		const { error, status } = errorHandler(err);
 
+		// A 401 means the JWT cookie is expired or invalid. Clear it so the user
+		// is not stuck with a broken cookie on every subsequent request, then
+		// redirect to the login page so they can re-authenticate cleanly.
+		if (status === 401) {
+			res.clearCookie('jwt');
+			res.clearCookie('isLoggedIn');
+			const encodedRedirectUrl = encodeURIComponent(req.originalUrl || req.url);
+			return res.redirect(`/login?redirect=${encodedRedirectUrl}`);
+		}
+
 		if (!res.locals) {
 			res.locals = {};
 		}
@@ -266,7 +276,7 @@ const setupApp = async () => {
 		authHelper.restrictSidebar(req, res);
 
 		// render the error page
-		res.status(status).render('lib/error', {
+		return res.status(status).render('lib/error', {
 			// For errors coming from middlewares which are registered before i18nMiddleware, res.$t is not available. Thus the check below.
 			pageTitle: res.$t?.('lib.error.headline.pageTitle'),
 			loggedin: res.locals.loggedin,
