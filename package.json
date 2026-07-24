@@ -48,7 +48,7 @@
 		"@isaul32/ckeditor5-math": "41.4.2",
 		"@mdi/font": "^7.4.47",
 		"axios": "^1.18.0",
-		"body-parser": "^2.2.2",
+		"body-parser": "^2.3.0",
 		"compression": "^1.8.1",
 		"connect-redis": "^7.1.1",
 		"cookie-parser": "^1.4.7",
