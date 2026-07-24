@@ -4,6 +4,8 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const { specificFiles } = require('../config/documents');
 const { getBase64File } = require('../helpers/fileHelper');
 const { getConsentVersion } = require('../helpers/consentVersionHelper');
+const authHelper = require('../helpers/authentication');
+const logger = require('../helpers/logger');
 
 const SC_THEME = Configuration.get('SC_THEME');
 const DOCUMENT_BASE_DIR = Configuration.get('DOCUMENT_BASE_DIR');
@@ -19,22 +21,24 @@ router.get('/', async (req, res, next) => {
 		if (consentVersions.data.length) {
 			const fileId = consentVersions.data[0].consentDataId;
 			if (!fileId) {
-				res.redirect(termsUrl().toString());
+				return res.redirect(termsUrl().toString());
 			}
 
 			const fileTitle = res.$t('global.text.termsOfUseFile');
 
-			await getBase64File(req, res, fileId, fileTitle);
-		} else {
-			res.redirect(termsUrl().toString());
+			return await getBase64File(req, res, fileId, fileTitle);
 		}
+
+		return res.redirect(termsUrl().toString());
 	} catch (err) {
 		if (err.statusCode === 401) {
-			res.clearCookie('jwt');
-			res.clearCookie('isLoggedIn');
+			await authHelper.clearCookies(req, res, { destroySession: true })
+				.catch((clearError) => {
+					logger.error('error clearing session while loading terms of use', clearError);
+				});
 			return res.redirect(termsUrl().toString());
 		}
-		next(err);
+		return next(err);
 	}
 });
 

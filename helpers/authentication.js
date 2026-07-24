@@ -48,12 +48,13 @@ const generateConsentPassword = () => passwordGenerator.generate({
 });
 
 const clearCookies = async (req, res, options = { destroySession: false }) => {
+	let sessionDestroyError;
+
 	if (options.destroySession && req.session && req.session.destroy) {
-		await new Promise((resolve, reject) => {
+		await new Promise((resolve) => {
 			req.session.destroy((err) => {
 				if (err) {
-					reject(err);
-					return;
+					sessionDestroyError = err;
 				}
 				resolve();
 			});
@@ -62,6 +63,21 @@ const clearCookies = async (req, res, options = { destroySession: false }) => {
 
 	res.clearCookie('jwt');
 	res.clearCookie('isLoggedIn');
+
+	if (sessionDestroyError) {
+		throw sessionDestroyError;
+	}
+};
+
+const isAuthenticationInvalidError = (error) => {
+	if (!error) {
+		return false;
+	}
+
+	return error.statusCode === 400
+		|| error.statusCode === 401
+		|| error.error?.className === 'not-found'
+		|| error.error?.className === 'auto-logout';
 };
 
 const etherpadCookieHelper = (etherpadSession, padId, res) => {
@@ -75,20 +91,31 @@ const etherpadCookieHelper = (etherpadSession, padId, res) => {
 
 const isJWT = (req) => (req && req.cookies && req.cookies.jwt);
 
-const isAuthenticated = (req) => {
+const isAuthenticated = async (req, res) => {
 	if (!isJWT(req)) {
-		return Promise.resolve(false);
+		return false;
 	}
 
-	return api(req)
-		.post('/authentication', {
-			json: {
-				strategy: 'jwt',
-				accessToken: req.cookies.jwt,
-			},
-		})
-		.then(() => true)
-		.catch(() => false);
+	try {
+		await api(req)
+			.post('/authentication', {
+				json: {
+					strategy: 'jwt',
+					accessToken: req.cookies.jwt,
+				},
+			});
+
+		return true;
+	} catch (error) {
+		if (res && isAuthenticationInvalidError(error)) {
+			await clearCookies(req, res, { destroySession: true })
+				.catch((err) => {
+					logger.error('clearCookie failed during authentication check', err);
+				});
+		}
+
+		return false;
+	}
 };
 
 const populateCurrentUser = async (req, res) => {
@@ -165,7 +192,8 @@ const populateCurrentUser = async (req, res) => {
 					.then((data2) => {
 						res.locals.currentSchool = res.locals.currentUser.schoolId;
 						res.locals.currentSchoolData = renameIdsInSchool(data2);
-						res.locals.currentSchoolData.isExternalPersonSchool = data2.purpose === 'external_person_school';
+						res.locals.currentSchoolData.isExternalPersonSchool = data2.purpose
+							=== 'external_person_school';
 						return data2;
 					});
 			})
@@ -244,7 +272,7 @@ const restrictSidebar = (req, res) => {
 };
 
 const authChecker = (req, res, next) => {
-	isAuthenticated(req)
+	isAuthenticated(req, res)
 		.then((isAuthenticated2) => {
 			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
 

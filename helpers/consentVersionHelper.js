@@ -2,7 +2,7 @@ const api = require('../api');
 const authHelper = require('./authentication');
 
 const getConsentVersion = async (req, res, consentType) => {
-	const isAuthenticated = await authHelper.isAuthenticated(req);
+	const isAuthenticated = await authHelper.isAuthenticated(req, res);
 	const qs = {
 		$limit: 1,
 		consentTypes: [consentType],
