@@ -432,21 +432,6 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 
 	return null;
 });
-
-const sessionDestroyer = (req, res, rej, next) => {
-	if (req.url === '/logout') {
-		req.session.destroy((err) => {
-			if (err) {
-				rej(`Error destroying session: ${err}`);
-			} else {
-				// clear the CSRF token to prevent re-use after logout
-				res.locals.csrfToken = null;
-			}
-		});
-	}
-	return next();
-};
-
 router.get('/logout/', (req, res, next) => {
 	const url = new URL(req.url, 'http://example.com');
 	const autoLogout = url.searchParams.get('auto-logout') === 'true';
@@ -463,9 +448,9 @@ router.get('/logout/', (req, res, next) => {
 		});
 
 	const redirectUrl = autoLogout ? '/login?auto-logout=true' : '/';
+	res.locals.csrfToken = null;
 
-	return authHelper.clearCookies(req, res, sessionDestroyer)
-	// eslint-disable-next-line prefer-template, no-return-assign
+	return authHelper.clearCookies(req, res, { destroySession: true })
 		.then(() => {
 			res.statusCode = 307;
 			res.redirect(redirectUrl);
