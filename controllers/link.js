@@ -32,9 +32,10 @@ router.get('/:id', (req, res, next) => {
 	}
 	const customError = { message: res.$t('link.text.invalidLink'), statusCode: 404 };
 	return api(req).get(`/link/${req.params.id}?includeShortId=true&redirect=false`)
-		.then((result) => {
+		.then(async (result) => {
 			if (result.target) {
-				if (result.target.match(/^\/files\/fileModel/) && !authHelper.isAuthenticated(req)) {
+				if (result.target.match(/^\/files\/fileModel/)
+					&& !await authHelper.isAuthenticated(req, res)) {
 					return authHelper.authChecker(req, res, next);
 				}
 				return res.redirect(result.target);
