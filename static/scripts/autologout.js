@@ -1,6 +1,5 @@
+import { Configuration } from '@hpi-schul-cloud/commons';
 import { broadcast, BROADCAST_MESSAGE_TIME_UPDATED, notifyLogout } from './helpers/sessionBroadcast';
-
-const { Configuration } = require('@hpi-schul-cloud/commons');
 
 let initialized = false;
 $(document).ready(() => {
