@@ -1,5 +1,7 @@
 import { broadcast, BROADCAST_MESSAGE_TIME_UPDATED, notifyLogout } from './helpers/sessionBroadcast';
 
+const { Configuration } = require('@hpi-schul-cloud/commons');
+
 let initialized = false;
 $(document).ready(() => {
 	if (initialized) {
@@ -21,10 +23,9 @@ $(document).ready(() => {
 	populateModalForm($autoLoggoutAlertModal, { submitDataTestId: 'auto-logout-alert-modal' });
 
 	const gotoLogoutPage = async () => {
-		const isExternalLogoutEnabled = document.querySelector('script[data-external-logout]')
-			.dataset.externalLogout === 'true';
+		const externalLogoutEnabled = Configuration.get('FEATURE_EXTERNAL_SYSTEM_LOGOUT_ENABLED');
 
-		if (isExternalLogoutEnabled) {
+		if (externalLogoutEnabled) {
 			window.location.href = '/logout/external';
 		} else {
 			window.location.href = '/logout?auto-logout=true';
