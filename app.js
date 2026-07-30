@@ -266,7 +266,7 @@ const setupApp = async () => {
 		authHelper.restrictSidebar(req, res);
 
 		// render the error page
-		res.status(status).render('lib/error', {
+		return res.status(status).render('lib/error', {
 			// For errors coming from middlewares which are registered before i18nMiddleware, res.$t is not available. Thus the check below.
 			pageTitle: res.$t?.('lib.error.headline.pageTitle'),
 			loggedin: res.locals.loggedin,

@@ -236,7 +236,7 @@ router.get('/login/oauth2-callback', async (req, res) => {
 	};
 
 	let loginResponse;
-	if (oauth2State.migration && await authHelper.isAuthenticated(req)) {
+	if (oauth2State.migration && await authHelper.isAuthenticated(req, res)) {
 		const migrationRedirect = await authHelper.migrateUser(req, res, payload);
 		delete req.session.oauth2State;
 
@@ -305,7 +305,7 @@ async function getOauthSystems(req) {
 }
 
 router.all('/', async (req, res, next) => {
-	const isAuthenticated = await authHelper.isAuthenticated(req);
+	const isAuthenticated = await authHelper.isAuthenticated(req, res);
 	if (isAuthenticated) {
 		redirectAuthenticated(req, res);
 	} else {
@@ -364,7 +364,7 @@ const renderLogin = async (req, res) => {
 };
 
 router.get('/loginRedirect', (req, res, next) => {
-	authHelper.isAuthenticated(req)
+	authHelper.isAuthenticated(req, res)
 		.then((isAuthenticated) => {
 			if (isAuthenticated) {
 				redirectAuthenticated(req, res);
@@ -376,7 +376,7 @@ router.get('/loginRedirect', (req, res, next) => {
 });
 
 router.all('/login/', async (req, res, next) => {
-	authHelper.isAuthenticated(req)
+	authHelper.isAuthenticated(req, res)
 		.then(async (isAuthenticated) => {
 			if (isAuthenticated) {
 				redirectAuthenticated(req, res);
@@ -432,21 +432,6 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 
 	return null;
 });
-
-const sessionDestroyer = (req, res, rej, next) => {
-	if (req.url === '/logout') {
-		req.session.destroy((err) => {
-			if (err) {
-				rej(`Error destroying session: ${err}`);
-			} else {
-				// clear the CSRF token to prevent re-use after logout
-				res.locals.csrfToken = null;
-			}
-		});
-	}
-	return next();
-};
-
 router.get('/logout/', (req, res, next) => {
 	const url = new URL(req.url, 'http://example.com');
 	const autoLogout = url.searchParams.get('auto-logout') === 'true';
@@ -463,9 +448,9 @@ router.get('/logout/', (req, res, next) => {
 		});
 
 	const redirectUrl = autoLogout ? '/?auto-logout=true' : '/';
+	res.locals.csrfToken = null;
 
-	return authHelper.clearCookies(req, res, sessionDestroyer)
-	// eslint-disable-next-line prefer-template, no-return-assign
+	return authHelper.clearCookies(req, res, { destroySession: true })
 		.then(() => {
 			res.statusCode = 307;
 			res.redirect(redirectUrl);
@@ -475,8 +460,14 @@ router.get('/logout/', (req, res, next) => {
 
 router.get('/logout-tab', (req, res, next) => {
 	res.locals.csrfToken = null;
-	res.statusCode = 307;
-	res.redirect('/?auto-logout=true');
+	return authHelper.clearCookies(req, res, { destroySession: true })
+		.catch((err) => {
+			logger.error('error clearing session during cross-tab logout', err);
+		})
+		.finally(() => {
+			res.statusCode = 307;
+			res.redirect('/?auto-logout=true');
+		});
 });
 
 router.get('/logout/external/', authHelper.authChecker, async (req, res, next) => {
