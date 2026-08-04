@@ -869,7 +869,10 @@ router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
 			.then(() => Promise.resolve(shareToken));
 	})
 	.then((shareToken) => res.json({ shareToken }))
-	.catch(() => res.sendStatus(500)));
+	.catch((err) => {
+		console.log(err);
+		res.sendStatus(500);
+	}));
 
 router.get('/permissions/', (req, res) => {
 	const { file } = req.query;
