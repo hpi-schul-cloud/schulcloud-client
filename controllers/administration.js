@@ -1038,14 +1038,20 @@ const renderClassEdit = (req, res, next) => {
 					const selectableSchoolYears = getSelectableYears(res.locals.currentSchoolData);
 					const selectableSchoolYearsIds = new Set(selectableSchoolYears.map((year) => year._id));
 
-					let schoolYears = res.locals.currentSchoolData.years.schoolYears
-						.sort((a, b) => b.startDate.localeCompare(a.startDate));
-					schoolYears = schoolYears.map((year) => {
-						if (!selectableSchoolYearsIds.has(year._id)) {
-							return { ...year, disabled: true };
-						}
-						return year;
-					});
+					const schoolYears = res.locals.currentSchoolData.years.schoolYears
+						.sort((a, b) => b.startDate.localeCompare(a.startDate))
+						.map((year) => {
+							if (!selectableSchoolYearsIds.has(year._id)) {
+								return { ...year, disabled: true };
+							}
+							if (currentClass && currentClass.year === year._id) {
+								return { ...year, selected: true };
+							}
+							if (mode === 'create' && res.locals.currentSchoolData.years.activeYear._id === year._id) {
+								return { ...year, selected: true };
+							}
+							return year;
+						});
 
 					const isAdmin = res.locals.currentUser.permissions.includes(
 						'ADMIN_VIEW',
@@ -1066,14 +1072,6 @@ const renderClassEdit = (req, res, next) => {
 
 					let isCustom = false;
 					let isUpgradable = false;
-
-					if (mode === 'create') {
-						schoolYears.forEach((schoolyear) => {
-							if (res.locals.currentSchoolData.years.activeYear._id === schoolyear._id) {
-								schoolyear.selected = true;
-							}
-						});
-					}
 					if (currentClass) {
 						// preselect already selected teachers
 						teachers.forEach((t) => {
@@ -1085,11 +1083,6 @@ const renderClassEdit = (req, res, next) => {
 							// eslint-disable-next-line eqeqeq
 							if (currentClass.gradeLevel == g.grade) {
 								g.selected = true;
-							}
-						});
-						schoolYears.forEach((schoolyear) => {
-							if (currentClass.year === schoolyear._id) {
-								schoolyear.selected = true;
 							}
 						});
 						if (currentClass.gradeLevel) {
