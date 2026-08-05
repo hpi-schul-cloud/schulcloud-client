@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
 		}
 	});
 
-	const urlWithParams = new URL(window.location.href.replace('#', '?'));
+	const urlWithParams = new URL(window.location.href.replace('#', window.location.search ? '&' : '?'));
 	if (urlWithParams.searchParams.get('activetabid')) {
 		const id = urlWithParams.searchParams.get('activetabid');
 		const range = $(`#${id}`).closest('.tab-view');

@@ -50,6 +50,11 @@
 			"description": "Enables the extensions system in the app, which allows to add features via extensions. Deprecated!",
 			"default": false
 		},
+		"FEATURE_TASKS_V3_ENABLED": {
+			"type": "boolean",
+			"description": "Enables the V3 task dashboard and task routes.",
+			"default": true
+		},
 		"FEATURE_TEAMS_ENABLED": {
 			"type": "boolean",
 			"description": "Enables the teams feature in the app, which allows users to create and manage teams.",

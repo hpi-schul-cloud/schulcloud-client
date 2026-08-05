@@ -97,7 +97,7 @@
 
             <div class="tab-view maintabs">
                 <nav class="nav tab-links">
-                    <a id="extended-tab-link" class="tab-link active" href="/tasks/{{_id}}">
+                    <a id="extended-tab-link" class="tab-link {{#ifeq activeTabId "extended"}}active{{/ifeq}}" href="/tasks/{{_id}}">
                         {{$t "homework.label.details" }}
                     </a>
                     {{#if private}}
@@ -106,7 +106,7 @@
                         </a>
                     {{else}}
                         {{#if (userHasRole "teacher")}}
-                            <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions">
+                            <a id="submissions-tab-link" class="tab-link {{#ifeq activeTabId "submissions"}}active{{/ifeq}}" href="#activetabid=submissions">
                                 {{$t "homework.label.submissions" }}
                             </a>
                         {{else}}
@@ -117,7 +117,7 @@
                                 {{$t "homework.label.rating_comment" }}
                             </a>
                             {{#if ../publicSubmissions}}
-                                <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions">
+                                <a id="submissions-tab-link" class="tab-link {{#ifeq activeTabId "submissions"}}active{{/ifeq}}" href="#activetabid=submissions">
                                     {{$t "homework.label.submissions" }}
                                 </a>
                             {{/if}}
