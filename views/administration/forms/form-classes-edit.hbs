@@ -21,7 +21,7 @@
 	<label>{{$t "administration.global.label.schoolYear" }} <sup>*</sup></label>
 	<select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen"
 		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled {{/unless}}{{/ifCond}}>
-        <option value>{{$t "administration.global.label.chooseSchoolYear" }}</option>
+		<option disabled value="">{{$t "administration.global.label.chooseSchoolYear" }}</option>
 		{{#each schoolYears}}
 			<option value="{{this._id}}" {{#if this.disabled}}disabled{{/if}} {{#if this.selected}}selected{{else}}{{#ifeq ../mode "upgrade"}}disabled{{/ifeq}}{{/if}}>
 				{{this.name}}
@@ -91,7 +91,7 @@
 			<p>{{$t "administration.classes.text.className" }}
 				<span data-from="grade"></span><span data-from="classsuffix"></span>
 			</p>
-			<p>{{$t "administration.global.label.schoolYear" }}:  <span data-from="schoolyear" /> {{ schoolyear }} </p>
+			<p>{{$t "administration.global.label.schoolYear" }}:  <span data-from="schoolyear" /></p>
 		</div>
 		<div class="class-custom {{#unless isCustom}}hidden{{/unless}}">
 			<p>{{$t "administration.classes.text.className" }}

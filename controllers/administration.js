@@ -1041,16 +1041,14 @@ const renderClassEdit = (req, res, next) => {
 					const schoolYears = res.locals.currentSchoolData.years.schoolYears
 						.sort((a, b) => b.startDate.localeCompare(a.startDate))
 						.map((year) => {
-							if (!selectableSchoolYearsIds.has(year._id)) {
-								return { ...year, disabled: true };
-							}
-							if (currentClass && currentClass.year === year._id) {
-								return { ...year, selected: true };
-							}
-							if (mode === 'create' && res.locals.currentSchoolData.years.activeYear._id === year._id) {
-								return { ...year, selected: true };
-							}
-							return year;
+							const selected = (currentClass && currentClass.year === year._id)
+								|| (mode === 'create' && res.locals.currentSchoolData.years.activeYear._id === year._id);
+							const disabled = !selectableSchoolYearsIds.has(year._id);
+							return {
+								...year,
+								...(disabled ? { disabled: true } : {}),
+								...(selected ? { selected: true } : {}),
+							};
 						});
 
 					const isAdmin = res.locals.currentUser.permissions.includes(
