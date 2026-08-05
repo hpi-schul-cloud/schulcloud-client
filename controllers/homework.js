@@ -18,6 +18,13 @@ const filesStoragesHelper = require('../helpers/files-storage');
 
 const HOST = Configuration.get('HOST');
 
+const redirectToNuxtTask = (req, res) => {
+	if (Configuration.get('FEATURE_TASKS_V3_ENABLED') !== true) return false;
+
+	res.redirect(req.originalUrl.replace(/^\/homework/, '/tasks'));
+	return true;
+};
+
 const router = express.Router();
 
 handlebars.registerHelper('ifvalue', (conditional, options) => {
@@ -331,6 +338,8 @@ router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandler('comments', true));
 
 router.get('/new', (req, res, next) => {
+	if (redirectToNuxtTask(req, res)) return;
+
 	const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
 		$limit: false,
 	});
@@ -380,6 +389,8 @@ router.get('/new', (req, res, next) => {
 });
 
 router.get('/:assignmentId/edit', (req, res, next) => {
+	if (redirectToNuxtTask(req, res)) return;
+
 	api(req).get(`/homework/${req.params.assignmentId}`, {
 		qs: {
 			$populate: ['courseId'],
@@ -459,6 +470,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 });
 
 router.get('/:assignmentId', (req, res, next) => {
+	if (req.query.tab !== 'submissions' && redirectToNuxtTask(req, res)) return;
+
 	api(req).get(`/homework/${req.params.assignmentId}`, {
 		qs: {
 			$populate: ['courseId'],
