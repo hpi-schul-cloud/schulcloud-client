@@ -1066,6 +1066,14 @@ const renderClassEdit = (req, res, next) => {
 
 					let isCustom = false;
 					let isUpgradable = false;
+
+					if (mode === 'create') {
+						schoolYears.forEach((schoolyear) => {
+							if (res.locals.currentSchoolData.years.activeYear._id === schoolyear._id) {
+								schoolyear.selected = true;
+							}
+						});
+					}
 					if (currentClass) {
 						// preselect already selected teachers
 						teachers.forEach((t) => {
