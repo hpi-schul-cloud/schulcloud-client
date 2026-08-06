@@ -167,8 +167,9 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 	}
 
 	const state = shortid.generate();
+	const { codeVerifier, codeChallenge } = authHelper.generatePkcePair();
 
-	const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state, migration, loginHint);
+	const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state, migration, loginHint, codeChallenge);
 
 	req.session.oauth2State = {
 		state,
@@ -178,6 +179,7 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 		migration,
 		logoutEndpoint: oauthConfig.logoutEndpoint,
 		provider: oauthConfig.provider,
+		codeVerifier,
 	};
 
 	res.redirect(authenticationUrl.toString());
@@ -233,6 +235,7 @@ router.get('/login/oauth2-callback', async (req, res) => {
 		code,
 		systemId: oauth2State.systemId,
 		redirectUri: authHelper.oauth2RedirectUri,
+		codeVerifier: oauth2State.codeVerifier,
 	};
 
 	let loginResponse;

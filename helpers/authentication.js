@@ -449,7 +449,19 @@ const login = (payload = {}, req, res, next) => {
 
 const oauth2RedirectUri = new URL('/login/oauth2-callback', Configuration.get('HOST')).toString();
 
-const getAuthenticationUrl = (oauthConfig, state, migration, loginHint) => {
+// PKCE - Brandenburg's SchulConnex IDP
+// requires a code_challenge on the authorization request and rejects it
+// otherwise. Generating and sending PKCE params is backwards compatible with
+// IdPs that don't require it (unknown/unused params are ignored), so this is
+// applied for every oauth2 login.
+const generatePkcePair = () => {
+	const codeVerifier = crypto.randomBytes(32).toString('base64url');
+	const codeChallenge = crypto.createHash('sha256').update(codeVerifier).digest('base64url');
+
+	return { codeVerifier, codeChallenge };
+};
+
+const getAuthenticationUrl = (oauthConfig, state, migration, loginHint, codeChallenge) => {
 	const authenticationUrl = new URL(oauthConfig.authEndpoint);
 
 	authenticationUrl.searchParams.append('client_id', oauthConfig.clientId);
@@ -468,6 +480,11 @@ const getAuthenticationUrl = (oauthConfig, state, migration, loginHint) => {
 
 	if (oauthConfig.idpHint) {
 		authenticationUrl.searchParams.append('kc_idp_hint', oauthConfig.idpHint);
+	}
+
+	if (codeChallenge) {
+		authenticationUrl.searchParams.append('code_challenge', codeChallenge);
+		authenticationUrl.searchParams.append('code_challenge_method', 'S256');
 	}
 
 	return authenticationUrl.toString();
@@ -599,6 +616,7 @@ module.exports = {
 	generatePassword,
 	generateConsentPassword,
 	oauth2RedirectUri,
+	generatePkcePair,
 	getAuthenticationUrl,
 	loginUser,
 	migrateUser,
