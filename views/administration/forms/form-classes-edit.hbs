@@ -21,8 +21,9 @@
 	<label>{{$t "administration.global.label.schoolYear" }} <sup>*</sup></label>
 	<select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen"
 		{{#ifCond edit '&&' isCustom}}{{#unless @root.class.keepYear}}disabled {{/unless}}{{/ifCond}}>
-		{{#each schoolyears}}
-			<option value="{{this._id}}" {{#if this.selected}}selected{{else}}{{#ifeq ../mode "upgrade"}}disabled{{/ifeq}}{{/if}}>
+		<option disabled value="">{{$t "administration.global.label.chooseSchoolYear" }}</option>
+		{{#each schoolYears}}
+			<option value="{{this._id}}" {{#if this.disabled}}disabled{{/if}} {{#if this.selected}}selected{{else}}{{#ifeq ../mode "upgrade"}}disabled{{/ifeq}}{{/if}}>
 				{{this.name}}
 			</option>
 		{{/each}}
