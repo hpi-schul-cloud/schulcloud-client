@@ -310,8 +310,9 @@ router.all('/', async (req, res, next) => {
 		redirectAuthenticated(req, res);
 	} else {
 		const schools = await LoginSchoolsCache.get(req);
-
 		const oauthSystems = await getOauthSystems(req);
+
+		const showAutoLogoutMessage = req.query['auto-logout'] === 'true';
 
 		res.render('authentication/home', {
 			schools,
@@ -320,6 +321,7 @@ router.all('/', async (req, res, next) => {
 			inline: true,
 			showAlerts: Configuration.get('FEATURE_ALERTS_ON_HOMEPAGE_ENABLED'),
 			showLoginAndRegisterButtons: Configuration.get('FEATURE_BUTTONS_ON_LOGINPAGE_ENABLED'),
+			showAutoLogoutMessage,
 		});
 	}
 });
@@ -330,7 +332,6 @@ const renderLogin = async (req, res) => {
 	const schools = await LoginSchoolsCache.get(req);
 	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
 	const loginHint = req.query.login_hint;
-	const showAutoLogoutMessage = req.query['auto-logout'] === 'true';
 
 	let oauthErrorLogout = false;
 
@@ -358,7 +359,6 @@ const renderLogin = async (req, res) => {
 		idOfSchool,
 		showAlerts: true,
 		showLoginAndRegisterButtons: false,
-		showAutoLogoutMessage,
 		strategyOfSchool,
 	});
 };
@@ -447,7 +447,7 @@ router.get('/logout/', (req, res, next) => {
 			logger.error('can not delete etherpad client sessions', err);
 		});
 
-	const redirectUrl = autoLogout ? '/login?auto-logout=true' : '/';
+	const redirectUrl = autoLogout ? '/?auto-logout=true' : '/';
 	res.locals.csrfToken = null;
 
 	return authHelper.clearCookies(req, res, { destroySession: true })
@@ -466,7 +466,7 @@ router.get('/logout-tab', (req, res, next) => {
 		})
 		.finally(() => {
 			res.statusCode = 307;
-			res.redirect('/login?auto-logout=true');
+			res.redirect('/?auto-logout=true');
 		});
 });
 
