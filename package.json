@@ -35,7 +35,7 @@
 		"@ckeditor/ckeditor5-paste-from-office": "41.4.2",
 		"@ckeditor/ckeditor5-remove-format": "41.4.2",
 		"@ckeditor/ckeditor5-special-characters": "41.4.2",
-		"@ckeditor/ckeditor5-table": "41.4.2",
+		"@ckeditor/ckeditor5-table": "48.2.0",
 		"@ckeditor/ckeditor5-theme-lark": "41.4.2",
 		"@ckeditor/ckeditor5-ui": "41.4.2",
 		"@fullcalendar/core": "^4.4.2",
