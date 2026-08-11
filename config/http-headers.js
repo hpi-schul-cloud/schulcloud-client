@@ -5,7 +5,7 @@ if (Configuration.has('CORS') !== true) {
 	throw new Error('CORS missing in Configuration');
 }
 
-const sharedSources = '\'self\' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org';
+const sharedSources = '\'self\' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://s3-eu-central-2.ionoscloud.com https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org';
 
 const config = {
 	enabled: Configuration.get('CORS'),
@@ -44,10 +44,7 @@ const config = {
 		*/
 		corsSiteSpecific: {
 			'^/$': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
-			},
-			'^/dashboard': {
-				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
+				defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com https://s3-eu-central-2.ionoscloud.com',
 			},
 			'^/courses': {
 				defaultSrc: 'https://www.geogebra.org https://lti.tools https://acc.bettermarks.com',

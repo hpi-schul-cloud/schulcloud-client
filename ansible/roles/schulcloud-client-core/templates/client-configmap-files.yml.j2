@@ -34,7 +34,7 @@ data:
         // Default Content-Security-Policy Header for every site
         // Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
         corsDefault: {
-            defaultSrc: `'self' data: blob: {{TSP_API_BASE_NO_WWW_URL | default("") }}  {{NOT_AUTHENTICATED_REDIRECT_URL | default("") }} https://{{ DOMAIN }} wss://{{ DOMAIN }} https://api.{{ DOMAIN }} https://embed.{{ DOMAIN }} https://oauth.{{ DOMAIN }} https://{{STORAGE_PREFIX}}{{ DOMAIN }} https://etherpad.{{ DOMAIN }} https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://docs.dbildungscloud.de https://sc-content-resources.schul-cloud.org https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://s3.hidrive.strato.com https://scalelite.bbb.messenger.schule {% if NAMESPACE == "niedersachsen" %}https://portfolio.niedersachsen.cloud{% endif %}`,
+            defaultSrc: `'self' data: blob: {{TSP_API_BASE_NO_WWW_URL | default("") }}  {{NOT_AUTHENTICATED_REDIRECT_URL | default("") }} https://{{ DOMAIN }} wss://{{ DOMAIN }} https://api.{{ DOMAIN }} https://embed.{{ DOMAIN }} https://oauth.{{ DOMAIN }} https://{{STORAGE_PREFIX}}{{ DOMAIN }} https://etherpad.{{ DOMAIN }} https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://docs.dbildungscloud.de https://sc-content-resources.schul-cloud.org https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://s3.hidrive.strato.com https://s3-eu-central-2.ionoscloud.com https://scalelite.bbb.messenger.schule {% if NAMESPACE == "niedersachsen" %}https://portfolio.niedersachsen.cloud{% endif %}`,
             fontSrc: `'self' data:`,
             styleSrc: `'self' 'unsafe-inline'`,
             // scriptSrc: "'strict-dynamic' 'unsafe-eval' 'nonce-<nonceValue>'",
@@ -57,10 +57,7 @@ data:
         */
         corsSiteSpecific: {
             '^/$': {
-                defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://blog.dbildungscloud.de https://s3.hidrive.strato.com https://cloud-instances.s3.hidrive.strato.com',
-            },
-            '^/dashboard': {
-                  defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://cloud-instances.s3.hidrive.strato.com',
+                defaultSrc: 'https://www10-fms.hpi.uni-potsdam.de https://blog.dbildungscloud.de https://s3.hidrive.strato.com https://cloud-instances.s3.hidrive.strato.com https://s3-eu-central-2.ionoscloud.com',
             },
             '^/courses': {
                 defaultSrc: 'https://lti.tools {{ BETTERMARKS_SCHOOL_URL | default("") }}',
