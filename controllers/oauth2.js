@@ -85,8 +85,10 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 	// This endpoint is hit when hydra initiates the consent flow
 	if (req.query.error) {
 		// An error occurred (at hydra)
-		const sanitizedError = stripHtml(req.query.error);
-		const sanitizedErrorDiscription = stripHtml(req.query.error_description);
+		const error = req.query.error ? req.query.error : 'undefined';
+		const errorDescription = req.query.error_description ? req.query.error_description : 'undefined';
+		const sanitizedError = encodeURIComponent(stripHtml(error).result);
+		const sanitizedErrorDiscription = encodeURIComponent(stripHtml(errorDescription).result);
 		return res.send(`${sanitizedError}<br />${sanitizedErrorDiscription}`);
 	}
 	return api(req, { version: 'v3' })
