@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const csrf = require('csurf');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const { stripHtml } = require('string-strip-html');
 const auth = require('../helpers/authentication');
 const api = require('../api');
 
@@ -84,7 +85,9 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 	// This endpoint is hit when hydra initiates the consent flow
 	if (req.query.error) {
 		// An error occurred (at hydra)
-		return res.send(`${req.query.error}<br />${req.query.error_description}`);
+		const sanitizedError = stripHtml(req.query.error);
+		const sanitizedErrorDiscription = stripHtml(req.query.error_description);
+		return res.send(`${sanitizedError}<br />${sanitizedErrorDiscription}`);
 	}
 	return api(req, { version: 'v3' })
 		.get(`/oauth2/consentRequest/${req.query.consent_challenge}`)
