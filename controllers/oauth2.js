@@ -88,8 +88,8 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 		const error = req.query.error ? req.query.error : 'undefined';
 		const errorDescription = req.query.error_description ? req.query.error_description : 'undefined';
 		const sanitizedError = encodeURIComponent(stripHtml(error).result);
-		const sanitizedErrorDiscription = encodeURIComponent(stripHtml(errorDescription).result);
-		return res.send(`${sanitizedError}<br />${sanitizedErrorDiscription}`);
+		const sanitizedErrorDescription = encodeURIComponent(stripHtml(errorDescription).result);
+		return res.send(`${sanitizedError}<br />${sanitizedErrorDescription}`);
 	}
 	return api(req, { version: 'v3' })
 		.get(`/oauth2/consentRequest/${req.query.consent_challenge}`)
