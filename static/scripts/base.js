@@ -1,3 +1,6 @@
+// eslint-disable-next-line max-len
+const EMAIL_VALIDATION_PATTERN = "^[a-zA-Z0-9.!#$%&'*+\\/=?\\^_`\\{\\|\\}~\\-]+@[a-zA-Z0-9](?:[a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?)+$"
+
 /**
  * HELPER - addEventListener
  * 1. allow multiple events "clicked input" ...
@@ -447,8 +450,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		.forEach((input) => {
 			input.setAttribute(
 				'pattern',
-				// eslint-disable-next-line max-len
-				"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+				EMAIL_VALIDATION_PATTERN,
 			);
 		});
 });
