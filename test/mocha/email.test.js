@@ -58,6 +58,7 @@ describe('email pattern v-flag migration', () => {
 		'user@[127.0.0.1]',
 		'user@.example.org',
 		'user@example.org.',
+		'test@domain.d​e, // "test@domain.d\u200Be"
 	];
 
 	it('compiles the pattern with v-flag', () => {
