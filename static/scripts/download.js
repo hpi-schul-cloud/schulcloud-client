@@ -31,13 +31,13 @@ const archiveDownload = (requestBody) => {
 
 const selectiveArchiveDownload = (requestBody) => {
 	$.ajax({
-		url: '/api/v1/filestorage/files/archive/file-list';
+		url: '/api/v1/filestorage/files/archive/file-list',
 		method: 'GET',
 		contentType: 'application/json',
 	}).done((response) => {
-		console.log(response)
+		console.log(response);
 	}).fail((xhr) => {
-		console.error(xhr.responseJSON?.message ? xhr.responseJSON?.message : 'error')
+		console.error(xhr.responseJSON?.message ? xhr.responseJSON?.message : 'error');
 	});
 };
 
