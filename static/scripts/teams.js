@@ -2,9 +2,9 @@
 // jshint esversion: 6
 
 import 'jquery-datetimepicker';
+import { archiveDownload, selectiveArchiveDownload } from './download';
 import './jquery/datetimepicker-easy';
 import { initVideoconferencing } from './videoconference';
-import archiveDownload from './download';
 
 const datetime = require('./datetime/datetime');
 
@@ -47,6 +47,10 @@ function getDownloadRequestBody() {
 
 function downloadFiles() {
 	archiveDownload(getDownloadRequestBody());
+}
+
+function listFiles() {
+	selectiveArchiveDownload(getDownloadRequestBody());
 }
 
 $(document).ready(() => {
@@ -177,6 +181,22 @@ $(document).ready(() => {
 			$fileDownloadModal.appendTo('body').modal('show');
 		} else {
 			downloadFiles();
+		}
+	});
+
+	$('.btn-file-selective-download').click(function () {
+		const useNextcloud = $(this).data('use-nextcloud');
+
+		if (useNextcloud && $fileDownloadModal?.length) {
+			populateModalForm($fileDownloadModal, {
+				title: $t('global.headline.downloadAllFiles'),
+				closeLabel: $t('global.button.cancel'),
+				submitLabel: $t('files.button.download'),
+				submitDataTestId: 'file-download-modal',
+			});
+			$fileDownloadModal.appendTo('body').modal('show');
+		} else {
+			listFiles();
 		}
 	});
 

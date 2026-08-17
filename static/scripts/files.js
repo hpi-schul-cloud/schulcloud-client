@@ -1,5 +1,5 @@
+import { archiveDownload } from './download';
 import { getQueryParameterByName } from './helpers/queryStringParameter';
-import archiveDownload from './download';
 
 window.addEventListener('DOMContentLoaded', () => {
 	let sortBy = getQueryParameterByName('sortBy');
