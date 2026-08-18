@@ -184,21 +184,7 @@ $(document).ready(() => {
 		}
 	});
 
-	$('.btn-file-selective-download').click(function () {
-		const useNextcloud = $(this).data('use-nextcloud');
-
-		if (useNextcloud && $fileDownloadModal?.length) {
-			populateModalForm($fileDownloadModal, {
-				title: $t('global.headline.downloadAllFiles'),
-				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('files.button.download'),
-				submitDataTestId: 'file-download-modal',
-			});
-			$fileDownloadModal.appendTo('body').modal('show');
-		} else {
-			listFiles();
-		}
-	});
+	$('.btn-file-selective-download').click(listFiles);
 
 	$('.file-team-download-modal form').on('submit', (e) => {
 		e.stopPropagation();
