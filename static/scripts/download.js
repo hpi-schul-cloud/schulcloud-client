@@ -71,5 +71,4 @@ const convertToTree = (fileDocs) => {
 	return tree;
 };
 
-
 export { archiveDownload, convertToTree };
