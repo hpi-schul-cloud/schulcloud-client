@@ -473,10 +473,11 @@ router.get('/:teamId', async (req, res, next) => {
 					archiveName: 'zip',
 				},
 			});
+			console.log('response.data', response.data);
 			fileTree = convertToTree(response.data);
 		} catch (error) {
 			logger.error('Error fetching file tree:', error);
-			files = [];
+			fileTree = [];
 		}
 
 		/* note: fileStorage can return arrays and error objects */
