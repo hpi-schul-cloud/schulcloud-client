@@ -469,7 +469,7 @@ router.get('/:teamId', async (req, res, next) => {
 			const response = await api(req).get('/filestorage/files/archive/file-list', {
 				qs: {
 					ownerId: course._id,
-					ownerType: 'team',
+					ownerType: 'teams',
 					archiveName: 'zip',
 				},
 			});
