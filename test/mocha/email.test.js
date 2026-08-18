@@ -36,6 +36,16 @@ describe('email pattern v-flag migration', () => {
 		'USER+tag/ops=1@example.COM',
 		`edgecase@${domainLabel63}.org`,
 		`multi.level@sub.${domainLabel63}.example`,
+		'müller@example.de',
+		'用户@例子.广告',
+		'अजय@डाटा.भारत',
+		'квіточка@пошта.укр',
+		'θσερ@εχαμπλε.ψομ',
+		'Dörte@Sörensen.example.com',
+		'коля@пример.рф',
+		'我買@屋企.香港',
+		'甲斐@黒川.日本',
+		'чебурашка@ящик-с-апельсинами.рф',
 	];
 
 	const invalidEmails = [

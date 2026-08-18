@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-len
-const EMAIL_VALIDATION_PATTERN = "^[a-zA-Z0-9.!#$%&'*+\\/=?\\^_`\\{\\|\\}~\\-]+@[a-zA-Z0-9](?:[a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?)+$"
+const EMAIL_VALIDATION_PATTERN = "^[\\p{L}\\p{N}\\p{M}.!#$%&'*+\\/=?\\^_`\\{\\|\\}~\\-]+@[\\p{L}\\p{N}](?:[\\p{L}\\p{N}\\p{M}\\-]{0,61}[\\p{L}\\p{N}\\p{M}])?(?:\\.[\\p{L}\\p{N}](?:[\\p{L}\\p{N}\\p{M}\\-]{0,61}[\\p{L}\\p{N}\\p{M}])?)+$"
 
 /**
  * HELPER - addEventListener
