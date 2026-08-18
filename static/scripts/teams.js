@@ -2,7 +2,7 @@
 // jshint esversion: 6
 
 import 'jquery-datetimepicker';
-import { archiveDownload, selectiveArchiveDownload } from './download';
+import { archiveDownload } from './download';
 import './jquery/datetimepicker-easy';
 import { initVideoconferencing } from './videoconference';
 
@@ -45,12 +45,17 @@ function getDownloadRequestBody() {
 	};
 }
 
-function downloadFiles() {
-	archiveDownload(getDownloadRequestBody());
+function getSelectedFileIds() {
+	const fileIds = [];
+	$('.filetree-file input[type="checkbox"]:checked').each((index, checkbox) => {
+		const fileId = $(checkbox).data('file-id');
+		fileIds.push(fileId);
+	});
+	return fileIds;
 }
 
-function listFiles() {
-	selectiveArchiveDownload(getDownloadRequestBody());
+function downloadFiles(selectedFileIds = []) {
+	archiveDownload(getDownloadRequestBody(), selectedFileIds);
 }
 
 $(document).ready(() => {
@@ -184,7 +189,10 @@ $(document).ready(() => {
 		}
 	});
 
-	$('.btn-file-selective-download').click(listFiles);
+	$('.btn-file-selective-download').click(() => {
+		const selectedFileIds = getSelectedFileIds();
+		downloadFiles(selectedFileIds);
+	});
 
 	$('.file-team-download-modal form').on('submit', (e) => {
 		e.stopPropagation();

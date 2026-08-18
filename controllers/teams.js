@@ -15,6 +15,7 @@ const timesHelper = require('../helpers/timesHelper');
 const { makeNextcloudFolderName, useNextcloudFilesystem } = require('../helpers/nextcloud');
 const { isUserHidden } = require('../helpers/users');
 const getTeamsInfoBannerTranslateKey = require('../helpers/banner');
+const { convertToTree } = require('../static/scripts/download');
 
 const router = express.Router();
 moment.locale('de');
@@ -461,6 +462,23 @@ router.get('/:teamId', async (req, res, next) => {
 				owner: course._id,
 			},
 		});
+
+		let fileTree = [];
+
+		try {
+			const response = await api(req).get('/filestorage/files/archive/file-list', {
+				qs: {
+					owner: course._id,
+					ownerType: 'team',
+					archiveName: 'zip',
+				},
+			});
+			fileTree = convertToTree(response.data);
+		} catch (error) {
+			logger.error('Error fetching file tree:', error);
+			files = [];
+		}
+
 		/* note: fileStorage can return arrays and error objects */
 		if (!Array.isArray(files)) {
 			if (files?.code) {
@@ -596,6 +614,7 @@ router.get('/:teamId', async (req, res, next) => {
 				showVideoconferenceOption,
 				directories,
 				files,
+				fileTree,
 				filesUrl: `/files/teams/${req.params.teamId}`,
 				nextcloudUrl,
 				useNextcloud,

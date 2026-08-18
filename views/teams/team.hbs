@@ -163,6 +163,15 @@
                                 canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
                             </div>
                         </section>
+                        <section style="padding-top: 2rem; clear: both" class="row">
+                            <div class="col-sm-12">
+                                {{#embed "teams/partials/filetree" files=files teamFiles=true teamId=../_id}}{{/embed}}
+                                <button class="btn btn-add btn-secondary btn-file-selective-download" data-use-nextcloud="{{../useNextcloud}}">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                                selektiver Download
+                            </button>
+                            </div>
+                        </section>
                         {{/if}}
                         <section style="margin-top: 1rem">
                             {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
@@ -185,10 +194,6 @@
                                     <button class="btn btn-add btn-secondary btn-file-download" data-use-nextcloud="{{../useNextcloud}}">
                                         <i class="fa fa-download" aria-hidden="true"></i>
                                         {{$t "global.button.downloadAllFiles"}}
-                                    </button>
-                                    <button class="btn btn-add btn-secondary btn-file-selective-download" data-use-nextcloud="{{../useNextcloud}}">
-                                        <i class="fa fa-download" aria-hidden="true"></i>
-                                        selektiver Download
                                     </button>
                                 {{/if}}
                             {{/if}}

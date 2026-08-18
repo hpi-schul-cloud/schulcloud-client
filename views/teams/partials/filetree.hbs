@@ -1,0 +1,38 @@
+{{#unless isSubFolder}}
+    <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
+<div class="col-sm-12" data-testid="files-section" style="margin-right: 0px;">
+{{/unless}}
+
+{{#each fileTree}}
+    {{#if this.isDirectory}}
+        <div class="filetree-folder" style="display: flex; gap: 10px;">
+            <span style="vertical-align: top; width: 1rem;">
+                &nbsp;
+            </span>
+            <label for="folder-{{this.id}}" class="folder-label">
+                <i class="fa fa-folder" aria-hidden="true"></i>
+                <span>{{this.name}}</span>
+            </label>
+        </div>
+        {{#if this.children}}
+                <div style="margin-left: 2rem; ">
+                    {{#embed "teams/partials/filetree" fileTree=this.children teamFiles=true teamId=../_id isSubFolder=true}}{{/embed}}
+                </div>
+            {{/if}}
+    {{else}}
+        <div class="filetree-file" style="display: flex; gap: 10px;">
+            <span style="vertical-align: top; width: 1rem;">
+                <input type="checkbox" id="file-{{this.id}}" class="file-checkbox" data-file-id="{{this.id}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-parent-id="{{this.parentId}}">
+            </span>
+            <label for="file-{{this.id}}" style="font-weight: normal; flex:1; display: flex; gap: 5px;">
+                <span><i class="fa fa-file" aria-hidden="true"></i></span>
+                <span style="flex: 1">{{this.name}}</span>
+                <span>({{this.humanReadableFileSize}})</span>
+            </label>
+        </div>
+    {{/if}}
+{{/each}}
+
+{{#unless isSubFolder}}
+</div>
+{{/unless}}
