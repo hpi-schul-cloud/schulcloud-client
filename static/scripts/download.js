@@ -29,11 +29,12 @@ const archiveDownload = (requestBody) => {
 	form.remove();
 };
 
-const selectiveArchiveDownload = (requestBody) => {
+const selectiveArchiveDownload = (queryParams) => {
 	$.ajax({
 		url: '/api/v1/filestorage/files/archive/file-list',
 		method: 'GET',
 		contentType: 'application/json',
+		data: queryParams,
 	}).done((response) => {
 		console.log(response);
 	}).fail((xhr) => {
