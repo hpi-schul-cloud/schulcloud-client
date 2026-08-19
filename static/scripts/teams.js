@@ -194,6 +194,9 @@ $(document).ready(() => {
 		$('.selective-download-filelist').show();
 		$('.files-grid').hide();
 		$('.directories').hide();
+		$('html, body').animate({
+			scrollTop: $('.selective-download-filelist').offset().top,
+		}, 800);
 	});
 
 	function sumFileSizes(fileIds) {
