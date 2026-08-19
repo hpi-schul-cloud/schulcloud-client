@@ -153,7 +153,7 @@
                         {{/if}}
                         {{/ifneq}}
                         {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
-                        <section style="padding-top: 2rem; clear: both" class="row">
+                        <section style="padding-top: 2rem; clear: both" class="row files-grid">
                             <div class="col-sm-12">
                                 {{#ifneq 0 (arrayLength files)}}
                                     <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
@@ -166,10 +166,6 @@
                         <section style="padding-top: 2rem; clear: both" class="row">
                             <div class="col-sm-12">
                                 {{#embed "teams/partials/filetree" files=files teamFiles=true teamId=../_id}}{{/embed}}
-                                <button class="btn btn-add btn-secondary btn-file-selective-download" data-use-nextcloud="{{../useNextcloud}}">
-                                <i class="fa fa-download" aria-hidden="true"></i>
-                                selektiver Download
-                            </button>
                             </div>
                         </section>
                         {{/if}}
@@ -194,6 +190,10 @@
                                     <button class="btn btn-add btn-secondary btn-file-download" data-use-nextcloud="{{../useNextcloud}}">
                                         <i class="fa fa-download" aria-hidden="true"></i>
                                         {{$t "global.button.downloadAllFiles"}}
+                                    </button>
+                                    <button class="btn btn-add btn-secondary btn-file-selective-download" data-use-nextcloud="{{../useNextcloud}}">
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                        {{$t "global.button.downloadSomeFiles"}}
                                     </button>
                                 {{/if}}
                             {{/if}}

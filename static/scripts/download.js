@@ -40,16 +40,11 @@ const archiveDownload = (requestBody, selectedFileIds = []) => {
 };
 
 function humanReadableFileSize(originalFilesize) {
-	const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-	let filesize = originalFilesize;
-	let unitIndex = 0;
+	const bytesToMbytes = 1024 * 1024;
+	const mb = originalFilesize / bytesToMbytes;
+	const formated = new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(mb);
 
-	while (filesize > 1024 && unitIndex < units.length - 1) {
-		filesize = Math.round((filesize / 1024) * 100) / 100;
-		unitIndex += 1;
-	}
-
-	const result = `${filesize} ${units[unitIndex] || ''}`.replace('.', ',');
+	const result = `${formated} MB`;
 
 	return result;
 }
@@ -73,4 +68,4 @@ const convertToTree = (fileDocs) => {
 	return tree;
 };
 
-export { archiveDownload, convertToTree };
+export { archiveDownload, convertToTree, humanReadableFileSize };

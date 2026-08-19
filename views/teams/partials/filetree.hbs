@@ -1,13 +1,18 @@
 {{#unless isSubFolder}}
+<section class="selective-download-filelist" style="display: none;">
     <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
-<div class="col-sm-12" data-testid="files-section" style="margin-right: 0px;">
+    <div class="col-sm-12" data-testid="files-section" style="margin-right: 0px;">
+        <p>{{$t "global.text.selectFilesForDownload"}}</p>
+        <div class="card file {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
+            <div class="card-block">
+                <div class="card-text">
 {{/unless}}
 
 {{#each fileTree}}
     {{#if this.isDirectory}}
         <div class="filetree-folder" style="display: flex; gap: 10px;">
             <span style="vertical-align: top; width: 1rem;">
-                &nbsp;
+                <input type="checkbox" id="folder-{{this.id}}" class="folder-checkbox" data-file-id="{{this.id}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-parent-id="{{this.parentId}}">
             </span>
             <label for="folder-{{this.id}}" class="folder-label">
                 <i class="fa fa-folder" aria-hidden="true"></i>
@@ -26,7 +31,7 @@
             </span>
             <label for="file-{{this.id}}" style="font-weight: normal; flex:1; display: flex; gap: 5px;">
                 <span><i class="fa fa-file" aria-hidden="true"></i></span>
-                <span style="flex: 1">{{this.name}}</span>
+                <span style="flex: 1; word-break: break-all; overflow-wrap: anywhere;">{{this.name}}</span>
                 <span>({{this.humanReadableFileSize}})</span>
             </label>
         </div>
@@ -34,5 +39,14 @@
 {{/each}}
 
 {{#unless isSubFolder}}
-</div>
+                    </div>
+                </div>
+            </div>
+        <div class="filesize-sum">{{$t "global.text.fileTotalSize"}} <span class="current-total">0,00 MB</span></div>
+        <button class="btn btn-add btn-secondary btn-file-selective-download-submit" data-use-nextcloud="{{../useNextcloud}}">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            {{$t "global.button.downloadSelected"}}
+        </button>
+    </div>
+</section>
 {{/unless}}

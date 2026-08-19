@@ -2,7 +2,7 @@
 // jshint esversion: 6
 
 import 'jquery-datetimepicker';
-import { archiveDownload } from './download';
+import { archiveDownload, humanReadableFileSize } from './download';
 import './jquery/datetimepicker-easy';
 import { initVideoconferencing } from './videoconference';
 
@@ -189,7 +189,49 @@ $(document).ready(() => {
 		}
 	});
 
-	$('.btn-file-selective-download').click(() => {
+	$('.btn-file-selective-download').click((e) => {
+		e.preventDefault();
+		$('.selective-download-filelist').show();
+		$('.files-grid').hide();
+		$('.directories').hide();
+	});
+
+	function sumFileSizes(fileIds) {
+		let totalSize = 0;
+
+		fileIds.forEach((fileId) => {
+			const fileSize = parseInt($(`.filetree-file input[data-file-id="${fileId}"]`).data('file-size'), 10);
+			totalSize += fileSize;
+		});
+
+		return totalSize;
+	}
+
+	function updateFilesizeSum() {
+		const selectedFileIds = getSelectedFileIds();
+		const totalSize = sumFileSizes(selectedFileIds);
+		const humanReadableSize = humanReadableFileSize(totalSize);
+
+		$('.filesize-sum .current-total').text(humanReadableSize);
+	}
+
+	$('.folder-checkbox').click((e) => {
+		e.stopPropagation();
+		const isChecked = $(e.currentTarget).is(':checked');
+		const folderId = $(e.currentTarget).data('file-id');
+
+		// Check/uncheck all child checkboxes
+		$(`.filetree-file input[data-file-parent-id="${folderId}"]`).prop('checked', isChecked);
+
+		updateFilesizeSum();
+	});
+
+	$('.file-checkbox').click((e) => {
+		e.stopPropagation();
+		updateFilesizeSum();
+	});
+
+	$('.btn-file-selective-download-submit').click(() => {
 		const selectedFileIds = getSelectedFileIds();
 		downloadFiles(selectedFileIds);
 	});

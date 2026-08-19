@@ -50,7 +50,6 @@ const getArchiveFileList = async (req, params) => {
 				headers,
 				timeout,
 			});
-			console.log('response', response);
 
 			return response.data;
 		} catch (error) {
@@ -514,7 +513,6 @@ router.get('/:teamId', async (req, res, next) => {
 				ownerType: 'teams',
 				archiveName: 'zip',
 			});
-			console.log('fileList', fileList);
 			fileTree = convertToTree(fileList);
 		} catch (error) {
 			logger.error('Error fetching file tree from legacy-file-archive service:', error);
