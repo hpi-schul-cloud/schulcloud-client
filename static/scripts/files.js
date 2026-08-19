@@ -1,4 +1,4 @@
-import { archiveDownload } from './download';
+import archiveDownload from './download';
 import { getQueryParameterByName } from './helpers/queryStringParameter';
 
 window.addEventListener('DOMContentLoaded', () => {

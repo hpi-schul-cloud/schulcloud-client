@@ -39,48 +39,4 @@ const archiveDownload = (requestBody, selectedFileIds = []) => {
 	form.remove();
 };
 
-function humanReadableFileSize(originalFilesize) {
-	const bytesToMbytes = 1024 * 1024;
-	const mb = originalFilesize / bytesToMbytes;
-	const formated = new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(mb);
-
-	const result = `${formated} MB`;
-
-	return result;
-}
-
-const convertToTree = (fileDocs) => {
-	const tree = [];
-	const lookup = {};
-	const root = {
-		id: 'root', name: 'Team', isDirectory: true,
-	};
-
-	const extendedFileDocs = fileDocs.map((file) => ({
-		...file,
-		parentId: file.parentId || 'root',
-	}));
-
-	const files = [root, ...extendedFileDocs]
-		.toSorted((a, b) => (
-			a.parentId - b.parentId
-			|| a.isDirectory - b.isDirectory
-			|| a.name.localeCompare(b.name)
-		));
-
-	files.forEach((file) => {
-		lookup[file.id] = { ...file, children: [], humanReadableFileSize: humanReadableFileSize(file.size) };
-	});
-
-	files.forEach((file) => {
-		if (file.parentId) {
-			lookup[file.parentId || 'root'].children.push(lookup[file.id]);
-		} else {
-			tree.push(lookup[file.id]);
-		}
-	});
-
-	return tree;
-};
-
-export { archiveDownload, convertToTree, humanReadableFileSize };
+export default archiveDownload;

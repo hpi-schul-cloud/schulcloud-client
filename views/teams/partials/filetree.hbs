@@ -3,7 +3,7 @@
     <div class="col-sm-12" data-testid="files-section" style="margin-right: 0px;">
         <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
         <p>{{convertToParagraphs ($t "global.text.selectFilesForDownload") "|"}}</p>
-        <div class="card file {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
+        <div class="card selective-download-card {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
             <div class="card-block">
                 <div class="card-text">
 {{/unless}}

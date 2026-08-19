@@ -16,7 +16,6 @@ const timesHelper = require('../helpers/timesHelper');
 const { makeNextcloudFolderName, useNextcloudFilesystem } = require('../helpers/nextcloud');
 const { isUserHidden } = require('../helpers/users');
 const getTeamsInfoBannerTranslateKey = require('../helpers/banner');
-const { convertToTree } = require('../static/scripts/download');
 
 const router = express.Router();
 moment.locale('de');
@@ -472,6 +471,51 @@ async function fetchRootTeamFilesAndDirectories(req, course, roles) {
 	return { directories, files };
 }
 
+const humanReadableFileSize = (originalFilesize) => {
+	const bytesToMbytes = 1024 * 1024;
+	const mb = originalFilesize / bytesToMbytes;
+	const options = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+	const formated = new Intl.NumberFormat('de-DE', options).format(mb);
+
+	const result = `${formated} MB`;
+
+	return result;
+};
+
+const convertToTree = (fileDocs) => {
+	const tree = [];
+	const lookup = {};
+	const root = {
+		id: 'root', name: 'Team', isDirectory: true,
+	};
+
+	const extendedFileDocs = fileDocs.map((file) => ({
+		...file,
+		parentId: file.parentId || 'root',
+	}));
+
+	const files = [root, ...extendedFileDocs]
+		.toSorted((a, b) => (
+			a.parentId - b.parentId
+			|| a.isDirectory - b.isDirectory
+			|| a.name.localeCompare(b.name)
+		));
+
+	files.forEach((file) => {
+		lookup[file.id] = { ...file, children: [], humanReadableFileSize: humanReadableFileSize(file.size) };
+	});
+
+	files.forEach((file) => {
+		if (file.parentId) {
+			lookup[file.parentId || 'root'].children.push(lookup[file.id]);
+		} else {
+			tree.push(lookup[file.id]);
+		}
+	});
+
+	return tree;
+};
+
 async function fetchFileTree(req, course) {
 	async function internalFetch(params) {
 		const publicBackendUrl = Configuration.get('PUBLIC_BACKEND_URL');
@@ -509,6 +553,7 @@ async function fetchFileTree(req, course) {
 		}
 
 		if (lastError?.code === 'ECONNREFUSED') {
+			logger.warn('Archive file-list service not reachable (ECONNREFUSED); returning empty file list');
 			return [];
 		}
 
