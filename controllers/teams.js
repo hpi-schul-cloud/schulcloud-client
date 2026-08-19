@@ -1,6 +1,7 @@
 // jshint esversion: 8
 
 const _ = require('lodash');
+const axios = require('axios');
 const express = require('express');
 const moment = require('moment');
 const { Configuration } = require('@hpi-schul-cloud/commons');
@@ -21,6 +22,48 @@ const router = express.Router();
 moment.locale('de');
 
 const OPTIONAL_TEAM_FEATURES = ['videoconference', 'messenger'];
+
+const getArchiveFileList = async (req, params) => {
+	const publicBackendUrl = Configuration.get('PUBLIC_BACKEND_URL');
+	const apiHost = Configuration.get('API_HOST');
+	const configuredApiBase = (publicBackendUrl || apiHost || '').replace(/\/$/, '');
+	const archiveApiBases = [`${configuredApiBase}/v1`];
+
+	// Backward compatibility: older local environments run a standalone archive service.
+	if (configuredApiBase === 'http://localhost:3030/api') {
+		archiveApiBases.push('http://localhost:3351/api/v1');
+	}
+
+	const jwt = req?.cookies?.jwt;
+	const headers = {};
+	if (jwt) {
+		headers.Authorization = (jwt.startsWith('Bearer ') ? '' : 'Bearer ') + jwt;
+	}
+
+	const timeout = Configuration.get('REQUEST_OPTION__TIMEOUT_MS');
+
+	let lastError;
+	for (const archiveApiBase of archiveApiBases) {
+		try {
+			const response = await axios.get(`${archiveApiBase}/filestorage/files/archive/file-list`, {
+				params,
+				headers,
+				timeout,
+			});
+			console.log('response', response);
+
+			return response.data;
+		} catch (error) {
+			lastError = error;
+		}
+	}
+
+	if (lastError?.code === 'ECONNREFUSED') {
+		return [];
+	}
+
+	throw lastError;
+};
 
 const addThumbnails = (file) => {
 	const thumbs = {
@@ -466,17 +509,15 @@ router.get('/:teamId', async (req, res, next) => {
 		let fileTree = [];
 
 		try {
-			const response = await api(req).get('/filestorage/files/archive/file-list', {
-				qs: {
-					ownerId: course._id,
-					ownerType: 'teams',
-					archiveName: 'zip',
-				},
+			const fileList = await getArchiveFileList(req, {
+				ownerId: course._id,
+				ownerType: 'teams',
+				archiveName: 'zip',
 			});
-			console.log('response.data', response.data);
-			fileTree = convertToTree(response.data);
+			console.log('fileList', fileList);
+			fileTree = convertToTree(fileList);
 		} catch (error) {
-			logger.error('Error fetching file tree:', error);
+			logger.error('Error fetching file tree from legacy-file-archive service:', error);
 			fileTree = [];
 		}
 
