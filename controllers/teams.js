@@ -23,47 +23,6 @@ moment.locale('de');
 
 const OPTIONAL_TEAM_FEATURES = ['videoconference', 'messenger'];
 
-const getArchiveFileList = async (req, params) => {
-	const publicBackendUrl = Configuration.get('PUBLIC_BACKEND_URL');
-	const apiHost = Configuration.get('API_HOST');
-	const configuredApiBase = (publicBackendUrl || apiHost || '').replace(/\/$/, '');
-	const archiveApiBases = [`${configuredApiBase}/v1`];
-
-	// Backward compatibility: older local environments run a standalone archive service.
-	if (configuredApiBase === 'http://localhost:3030/api') {
-		archiveApiBases.push('http://localhost:3351/api/v1');
-	}
-
-	const jwt = req?.cookies?.jwt;
-	const headers = {};
-	if (jwt) {
-		headers.Authorization = (jwt.startsWith('Bearer ') ? '' : 'Bearer ') + jwt;
-	}
-
-	const timeout = Configuration.get('REQUEST_OPTION__TIMEOUT_MS');
-
-	let lastError;
-	for (const archiveApiBase of archiveApiBases) {
-		try {
-			const response = await axios.get(`${archiveApiBase}/filestorage/files/archive/file-list`, {
-				params,
-				headers,
-				timeout,
-			});
-
-			return response.data;
-		} catch (error) {
-			lastError = error;
-		}
-	}
-
-	if (lastError?.code === 'ECONNREFUSED') {
-		return [];
-	}
-
-	throw lastError;
-};
-
 const addThumbnails = (file) => {
 	const thumbs = {
 		default: '/images/thumbs/default.png',
@@ -461,7 +420,7 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
-async function fetchTeamFilesAndDirectories(req, course, roles) {
+async function fetchRootTeamFilesAndDirectories(req, course, roles) {
 	const sortByUpdatedAtDescending = () => (a, b) => {
 		if (b?.updatedAt && a?.updatedAt) {
 			return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
@@ -514,20 +473,59 @@ async function fetchTeamFilesAndDirectories(req, course, roles) {
 }
 
 async function fetchFileTree(req, course) {
-	let fileTree = [];
+	async function internalFetch(params) {
+		const publicBackendUrl = Configuration.get('PUBLIC_BACKEND_URL');
+		const apiHost = Configuration.get('API_HOST');
+		const configuredApiBase = (publicBackendUrl || apiHost || '').replace(/\/$/, '');
+		const archiveApiBases = [`${configuredApiBase}/v1`];
+
+		// Backward compatibility: older local environments run a standalone archive service.
+		if (configuredApiBase === 'http://localhost:3030/api') {
+			archiveApiBases.push('http://localhost:3351/api/v1');
+		}
+
+		const jwt = req?.cookies?.jwt;
+		const headers = {};
+		if (jwt) {
+			headers.Authorization = (jwt.startsWith('Bearer ') ? '' : 'Bearer ') + jwt;
+		}
+
+		const timeout = Configuration.get('REQUEST_OPTION__TIMEOUT_MS');
+
+		let lastError;
+		for (const archiveApiBase of archiveApiBases) {
+			try {
+				const response = await axios.get(`${archiveApiBase}/filestorage/files/archive/file-list`, {
+					params,
+					headers,
+					timeout,
+				});
+
+				const fileTree = convertToTree(response.data);
+				return fileTree;
+			} catch (error) {
+				lastError = error;
+			}
+		}
+
+		if (lastError?.code === 'ECONNREFUSED') {
+			return [];
+		}
+
+		throw lastError;
+	}
 
 	try {
-		const fileList = await getArchiveFileList(req, {
+		const fileTree = await internalFetch({
 			ownerId: course._id,
 			ownerType: 'teams',
 			archiveName: 'zip',
 		});
-		fileTree = convertToTree(fileList);
+		return fileTree;
 	} catch (error) {
 		logger.error('Error fetching file tree from legacy-file-archive service:', error);
-		fileTree = [];
+		return [];
 	}
-	return fileTree;
 }
 
 async function fetchTeamNews(req) {
@@ -617,7 +615,7 @@ router.get('/:teamId', async (req, res, next) => {
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
 		const allowTeamMembers = isAllowed(course.filePermission, 'teammember');
 
-		const { directories, files } = await fetchTeamFilesAndDirectories(req, course, roles);
+		const { directories, files } = await fetchRootTeamFilesAndDirectories(req, course, roles);
 		const fileTree = await fetchFileTree(req, course);
 		const news = await fetchTeamNews(req);
 		const events = await fetchCalendarEvents(req);
