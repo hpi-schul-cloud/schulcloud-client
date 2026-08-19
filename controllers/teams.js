@@ -461,6 +461,126 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
+async function fetchTeamFilesAndDirectories(req, course, roles) {
+	const sortByUpdatedAtDescending = () => (a, b) => {
+		if (b?.updatedAt && a?.updatedAt) {
+			return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
+		}
+		return 0;
+	};
+
+	let files;
+
+	files = await api(req).get('/fileStorage', {
+		qs: {
+			owner: course._id,
+		},
+	});
+
+	/* note: fileStorage can return arrays and error objects */
+	if (!Array.isArray(files)) {
+		if (files?.code) {
+			logger.warn(files);
+		}
+		files = [];
+	}
+
+	files = files.filter((file) => file);
+
+	files = files.map((file) => {
+		// set saveName attribute with escaped quotes and encoded specific characters
+		file.saveName = file.name.replace(/'/g, "\\'");
+		file.saveName = encodeURIComponent(file.name);
+
+		if (file?.permissions) {
+			file.permissions = mapPermissionRoles(file.permissions, roles);
+			return file;
+		}
+		return undefined;
+	});
+
+	files = files.filter((f) => !f.isDirectory);
+
+	// Sort by most recent files and limit to 6 files
+	files = files.toSorted(sortByUpdatedAtDescending)
+		.slice(0, 6)
+		.map(addThumbnails);
+
+	const directories = files.filter((f) => f.isDirectory)
+		.toSorted(sortByUpdatedAtDescending)
+		.slice(0, 6);
+
+	return { directories, files };
+}
+
+async function fetchFileTree(req, course) {
+	let fileTree = [];
+
+	try {
+		const fileList = await getArchiveFileList(req, {
+			ownerId: course._id,
+			ownerType: 'teams',
+			archiveName: 'zip',
+		});
+		fileTree = convertToTree(fileList);
+	} catch (error) {
+		logger.error('Error fetching file tree from legacy-file-archive service:', error);
+		fileTree = [];
+	}
+	return fileTree;
+}
+
+async function fetchTeamNews(req) {
+	return api(req, { version: 'v3' })
+		.get(`/team/${req.params.teamId}/news`, {
+			qs: {
+				limit: 3,
+			},
+		})
+		.then((newsres) => newsres.data
+			.map((n) => {
+				n.url = `/news/${n.id}`;
+				n.secondaryTitle = timesHelper.fromNow(n.displayAt);
+				return n;
+			}))
+		.catch((err) => {
+			logger.error(`Can not fetch data from /news/ in router.get("/:teamId") | message: ${err.message}.`);
+			return [];
+		});
+}
+
+async function fetchCalendarEvents(req) {
+	return api(req)
+		.get('/calendar/', {
+			qs: {
+				'scope-id': req.params.teamId,
+				all: false,
+			},
+		})
+		.then((events) => {
+			const processedEvents = events
+				.map((event) => {
+					const start = timesHelper.fromUTC(event.start);
+					const end = timesHelper.fromUTC(event.end);
+					event.day = start.format('D');
+					event.month = start
+						.format('MMM')
+						.toUpperCase()
+						.split('.')
+						.join('');
+					event.dayOfTheWeek = start.format('dddd');
+					event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
+					return event;
+				})
+				.toSorted((a, b) => a.start - b.start);
+			return processedEvents;
+		})
+		.catch((err) => {
+			logger.error(`Can not fetch data from /calendar/ in router.get("/:teamId") | message: ${err.message}.`);
+			return [];
+		});
+}
+
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
@@ -497,117 +617,10 @@ router.get('/:teamId', async (req, res, next) => {
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
 		const allowTeamMembers = isAllowed(course.filePermission, 'teammember');
 
-		let files;
-
-		files = await api(req).get('/fileStorage', {
-			qs: {
-				owner: course._id,
-			},
-		});
-
-		let fileTree = [];
-
-		try {
-			const fileList = await getArchiveFileList(req, {
-				ownerId: course._id,
-				ownerType: 'teams',
-				archiveName: 'zip',
-			});
-			fileTree = convertToTree(fileList);
-		} catch (error) {
-			logger.error('Error fetching file tree from legacy-file-archive service:', error);
-			fileTree = [];
-		}
-
-		/* note: fileStorage can return arrays and error objects */
-		if (!Array.isArray(files)) {
-			if (files?.code) {
-				logger.warn(files);
-			}
-			files = [];
-		}
-
-		files = files.filter((file) => file);
-
-		files = files.map((file) => {
-			// set saveName attribute with escaped quotes and encoded specific characters
-			file.saveName = file.name.replace(/'/g, "\\'");
-			file.saveName = encodeURIComponent(file.name);
-
-			if (file?.permissions) {
-				file.permissions = mapPermissionRoles(file.permissions, roles);
-				return file;
-			}
-			return undefined;
-		});
-
-		const directories = files.filter((f) => f.isDirectory);
-		files = files.filter((f) => !f.isDirectory);
-
-		// Sort by most recent files and limit to 6 files
-		files
-			.sort((a, b) => {
-				if (b?.updatedAt && a?.updatedAt) {
-					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
-				}
-				return 0;
-			})
-			.slice(0, 6);
-
-		files.map(addThumbnails);
-
-		directories
-			.sort((a, b) => {
-				if (b?.updatedAt && a?.updatedAt) {
-					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
-				}
-				return 0;
-			})
-			.slice(0, 6);
-
-		const news = await api(req, { version: 'v3' })
-			.get(`/team/${req.params.teamId}/news`, {
-				qs: {
-					limit: 3,
-				},
-			})
-			.then((newsres) => newsres.data
-				.map((n) => {
-					n.url = `/news/${n.id}`;
-					n.secondaryTitle = timesHelper.fromNow(n.displayAt);
-					return n;
-				}))
-			.catch((err) => {
-				logger.error(`Can not fetch data from /news/ in router.get("/:teamId") | message: ${err.message}.`);
-				return [];
-			});
-
-		let events = [];
-		try {
-			events = await api(req).get('/calendar/', {
-				qs: {
-					'scope-id': req.params.teamId,
-					all: false,
-				},
-			});
-			events = events
-				.map((event) => {
-					const start = timesHelper.fromUTC(event.start);
-					const end = timesHelper.fromUTC(event.end);
-					event.day = start.format('D');
-					event.month = start
-						.format('MMM')
-						.toUpperCase()
-						.split('.')
-						.join('');
-					event.dayOfTheWeek = start.format('dddd');
-					event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
-					return event;
-				});
-			events = events.sort((a, b) => a.start - b.start);
-		} catch (e) {
-			events = [];
-		}
+		const { directories, files } = await fetchTeamFilesAndDirectories(req, course, roles);
+		const fileTree = await fetchFileTree(req, course);
+		const news = await fetchTeamNews(req);
+		const events = await fetchCalendarEvents(req);
 
 		const teamUsesVideoconference = course.features.includes('videoconference');
 		const schoolUsesVideoconference = (res.locals.currentSchoolData.features ?? []).includes('videoconference');

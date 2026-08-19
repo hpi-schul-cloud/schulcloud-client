@@ -203,7 +203,7 @@ $(document).ready(() => {
 		let totalSize = 0;
 
 		fileIds.forEach((fileId) => {
-			const fileSize = parseInt($(`.filetree-file input[data-file-id="${fileId}"]`).data('file-size'), 10);
+			const fileSize = Number.parseInt($(`.filetree-file input[data-file-id="${fileId}"]`).data('file-size'), 10);
 			totalSize += fileSize;
 		});
 
