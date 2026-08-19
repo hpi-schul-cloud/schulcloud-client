@@ -446,6 +446,10 @@ async function fetchRootTeamFilesAndDirectories(req, course, roles) {
 
 	files = files.filter((file) => file);
 
+	const directories = files.filter((f) => f.isDirectory)
+		.toSorted(sortByUpdatedAtDescending)
+		.slice(0, 6);
+
 	files = files.map((file) => {
 		// set saveName attribute with escaped quotes and encoded specific characters
 		file.saveName = file.name.replace(/'/g, "\\'");
@@ -464,10 +468,6 @@ async function fetchRootTeamFilesAndDirectories(req, course, roles) {
 	files = files.toSorted(sortByUpdatedAtDescending)
 		.slice(0, 6)
 		.map(addThumbnails);
-
-	const directories = files.filter((f) => f.isDirectory)
-		.toSorted(sortByUpdatedAtDescending)
-		.slice(0, 6);
 
 	return { directories, files };
 }

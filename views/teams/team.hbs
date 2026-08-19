@@ -169,14 +169,7 @@
                             </div>
                         </section>
                         {{/if}}
-                        <section style="margin-top: 1rem">
-                            {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
-                            <h5 style="padding: 10px 0 20px">{{$t "teams._team.files.headline.fileActions"}}</h5>
-                            <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
-                                <i class="fa fa-folder-open" aria-hidden="true"></i>
-                                {{$t "teams._team.files.button.toTeamFiles"}}
-                            </a>
-                            {{/if}}
+                        <section class="button-list" style="margin-top: 1rem; margin-bottom: 50vh;">
                             {{#inArray 'DEFAULT_FILE_PERMISSIONS' permissions}}
                             {{#if (getConfig "FEATURE_LEGACY_TEAM_FILES_ENABLED")}}
                                     <button class="btn btn-add btn-secondary btn-file-permissions">

@@ -1,6 +1,7 @@
 const moment = require('moment');
 const { stripHtml } = require('string-strip-html');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const Handlebars = require('handlebars');
 const { getStaticAssetPath } = require('../../../middleware/assets');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
@@ -268,6 +269,13 @@ const helpers = () => ({
 	},
 	isset: (value) => !!value,
 	getThumbnailIcon: (filename) => filesStorage.getThumbnailIcon(filename),
+	convertToParagraphs: (string) => {
+		const escapedString = Handlebars.escapeExpression(string);
+		const escapedArray = escapedString.split('|');
+		const htmlString = escapedArray.map((paragraph) => `<p>${paragraph}</p>`).join('');
+
+		return new Handlebars.SafeString(htmlString);
+	},
 });
 
 module.exports = helpers;

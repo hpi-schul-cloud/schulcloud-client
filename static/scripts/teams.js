@@ -194,6 +194,7 @@ $(document).ready(() => {
 		$('.selective-download-filelist').show();
 		$('.files-grid').hide();
 		$('.directories').hide();
+		$('.button-list').hide();
 		$('html, body').animate({
 			scrollTop: $('.selective-download-filelist').offset().top,
 		}, 800);
@@ -216,6 +217,9 @@ $(document).ready(() => {
 		const humanReadableSize = humanReadableFileSize(totalSize);
 
 		$('.filesize-sum .current-total').text(humanReadableSize);
+
+		const areAnyFilesSelected = selectedFileIds.length > 0;
+		$('.btn-file-selective-download-submit').prop('disabled', !areAnyFilesSelected);
 	}
 
 	$('.folder-checkbox').click((e) => {
@@ -237,6 +241,13 @@ $(document).ready(() => {
 	$('.btn-file-selective-download-submit').click(() => {
 		const selectedFileIds = getSelectedFileIds();
 		downloadFiles(selectedFileIds);
+	});
+
+	$('.btn-file-selective-download-back').click(() => {
+		$('.selective-download-filelist').hide();
+		$('.files-grid').show();
+		$('.directories').show();
+		$('.button-list').show();
 	});
 
 	$('.file-team-download-modal form').on('submit', (e) => {

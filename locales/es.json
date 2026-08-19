@@ -1488,7 +1488,7 @@
 			"requestTimeout": "Tiempo de espera agotado",
 			"saturday": "Sábado",
 			"severalSecurityTokens": "Se han enviado varios tokens de seguridad (CSRF) con la solicitud. Inténtalo de nuevo.",
-			"selectFilesForDownload": "Los archivos seleccionados se descargarán como un único archivo ZIP. Si hay problemas, puede ayudar descargar menos archivos o archivos más grandes individualmente. Para comenzar, haz clic en 'Descargar archivos seleccionados' al final de la lista.",
+			"selectFilesForDownload": "Los archivos seleccionados se descargarán como un único archivo ZIP.|Si hay problemas, puede ayudar descargar menos archivos o archivos más grandes individualmente.|Para comenzar la descarga, haz clic en 'Descargar archivos seleccionados' al final de la lista.",
 			"somethingWentWrong": "¡Algo ha salido mal!",
 			"specialCharacters": "! § $% & / () =? \\;:,. # + * ~ -",
 			"sunday": "Domingo",

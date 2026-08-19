@@ -1488,7 +1488,7 @@
 			"requestTimeout": "Request timed out",
 			"saturday": "Saturday",
 			"severalSecurityTokens": "Several security tokens (CSRF) were sent with the request. Please try again.",
-			"selectFilesForDownload": "Selected files will be downloaded as a single ZIP archive. If there are problems, it may help to download fewer files or larger files individually. To start, click 'Download selected files' at the end of the list.",
+			"selectFilesForDownload": "Selected files will be downloaded as a single ZIP archive.|If there are problems, it may help to download fewer files or larger files individually.|To start the download, click 'Download selected files' at the end of the list.",
 			"somethingWentWrong": "Something went wrong!",
 			"specialCharacters": "! § $% & / () =? \\;:,. # + * ~ -",
 			"sunday": "Sunday",

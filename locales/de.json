@@ -1488,7 +1488,7 @@
 			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
-            "selectFilesForDownload": "Ausgewählte Dateien werden als gemeinsames ZIP-Archiv heruntergeladen. Sollte es dabei Probleme geben, kann es helfen, weniger Dateien oder größere Dateien einzeln herunterzuladen. Zum Start 'Ausgewählte Dateien herunterladen' am Ende der Liste klicken.",
+            "selectFilesForDownload": "Ausgewählte Dateien werden als gemeinsames ZIP-Archiv heruntergeladen.|Sollte es dabei Probleme geben, kann es helfen, weniger Dateien oder größere Dateien einzeln herunterzuladen.|Zum Starten des Downloads 'Ausgewählte Dateien herunterladen' am Ende der Liste klicken.",
 			"somethingWentWrong": "Da ist etwas schiefgelaufen!",
 			"specialCharacters": "!§$%&/()=?\\;:,.#+*~-",
 			"sunday": "Sonntag",

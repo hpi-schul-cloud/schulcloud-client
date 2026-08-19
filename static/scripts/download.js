@@ -52,14 +52,29 @@ function humanReadableFileSize(originalFilesize) {
 const convertToTree = (fileDocs) => {
 	const tree = [];
 	const lookup = {};
+	const root = {
+		id: 'root', name: 'Team', isDirectory: true,
+	};
 
-	fileDocs.forEach((file) => {
+	const extendedFileDocs = fileDocs.map((file) => ({
+		...file,
+		parentId: file.parentId || 'root',
+	}));
+
+	const files = [root, ...extendedFileDocs]
+		.toSorted((a, b) => (
+			a.parentId - b.parentId
+			|| a.isDirectory - b.isDirectory
+			|| a.name.localeCompare(b.name)
+		));
+
+	files.forEach((file) => {
 		lookup[file.id] = { ...file, children: [], humanReadableFileSize: humanReadableFileSize(file.size) };
 	});
 
-	fileDocs.forEach((file) => {
+	files.forEach((file) => {
 		if (file.parentId) {
-			lookup[file.parentId].children.push(lookup[file.id]);
+			lookup[file.parentId || 'root'].children.push(lookup[file.id]);
 		} else {
 			tree.push(lookup[file.id]);
 		}
