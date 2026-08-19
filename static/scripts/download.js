@@ -20,11 +20,13 @@ const archiveDownload = (requestBody, selectedFileIds = []) => {
 	archiveNameInput.value = requestBody.archiveName;
 
 	if (selectedFileIds && selectedFileIds.length > 0) {
-		const selectedFilesInput = document.createElement('input');
-		selectedFilesInput.type = 'hidden';
-		selectedFilesInput.name = 'selectedFiles';
-		selectedFilesInput.value = JSON.stringify(selectedFileIds);
-		form.appendChild(selectedFilesInput);
+		selectedFileIds.forEach((selectedFileId) => {
+			const selectedFilesInput = document.createElement('input');
+			selectedFilesInput.type = 'hidden';
+			selectedFilesInput.name = 'selectedFiles';
+			selectedFilesInput.value = selectedFileId;
+			form.appendChild(selectedFilesInput);
+		});
 	}
 
 	form.appendChild(ownerIdInput);
