@@ -482,11 +482,11 @@ const humanReadableFileSize = (originalFilesize) => {
 	return result;
 };
 
-const convertToTree = (fileDocs) => {
+const convertToTree = (fileDocs, rootName) => {
 	const tree = [];
 	const lookup = {};
 	const root = {
-		id: 'root', name: 'Team', isDirectory: true,
+		id: 'root', name: rootName, isDirectory: true,
 	};
 
 	const extendedFileDocs = fileDocs.map((file) => ({
@@ -516,7 +516,7 @@ const convertToTree = (fileDocs) => {
 	return tree;
 };
 
-async function fetchFileTree(req, course) {
+async function fetchFileTree(req, course, rootName) {
 	async function internalFetch(params) {
 		const publicBackendUrl = Configuration.get('PUBLIC_BACKEND_URL');
 		const apiHost = Configuration.get('API_HOST');
@@ -545,7 +545,7 @@ async function fetchFileTree(req, course) {
 					timeout,
 				});
 
-				const fileTree = convertToTree(response.data);
+				const fileTree = convertToTree(response.data, rootName);
 				return fileTree;
 			} catch (error) {
 				lastError = error;
@@ -661,7 +661,7 @@ router.get('/:teamId', async (req, res, next) => {
 		const allowTeamMembers = isAllowed(course.filePermission, 'teammember');
 
 		const { directories, files } = await fetchRootTeamFilesAndDirectories(req, course, roles);
-		const fileTree = await fetchFileTree(req, course);
+		const fileTree = await fetchFileTree(req, course, res.$t('global.text.allFiles'));
 		const news = await fetchTeamNews(req);
 		const events = await fetchCalendarEvents(req);
 

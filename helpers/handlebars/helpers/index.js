@@ -269,13 +269,6 @@ const helpers = () => ({
 	},
 	isset: (value) => !!value,
 	getThumbnailIcon: (filename) => filesStorage.getThumbnailIcon(filename),
-	convertToParagraphs: (string) => {
-		const escapedString = Handlebars.escapeExpression(string);
-		const escapedArray = escapedString.split('|');
-		const htmlString = escapedArray.map((paragraph) => `<p>${paragraph}</p>`).join('');
-
-		return new Handlebars.SafeString(htmlString);
-	},
 });
 
 module.exports = helpers;
