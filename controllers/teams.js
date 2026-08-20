@@ -1,6 +1,7 @@
 // jshint esversion: 8
 
 const _ = require('lodash');
+const axios = require('axios');
 const express = require('express');
 const moment = require('moment');
 const { Configuration } = require('@hpi-schul-cloud/commons');
@@ -418,6 +419,210 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	]).then(([course]) => res.json({ course }));
 });
 
+async function fetchRootTeamFilesAndDirectories(req, course, roles) {
+	const sortByUpdatedAtDescending = () => (a, b) => {
+		if (b?.updatedAt && a?.updatedAt) {
+			return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
+		}
+		return 0;
+	};
+
+	let files;
+
+	files = await api(req).get('/fileStorage', {
+		qs: {
+			owner: course._id,
+		},
+	});
+
+	/* note: fileStorage can return arrays and error objects */
+	if (!Array.isArray(files)) {
+		if (files?.code) {
+			logger.warn(files);
+		}
+		files = [];
+	}
+
+	files = files.filter((file) => file);
+
+	const directories = files.filter((f) => f.isDirectory)
+		.toSorted(sortByUpdatedAtDescending)
+		.slice(0, 6);
+
+	files = files.map((file) => {
+		// set saveName attribute with escaped quotes and encoded specific characters
+		file.saveName = encodeURIComponent(file.name);
+
+		if (file?.permissions) {
+			file.permissions = mapPermissionRoles(file.permissions, roles);
+			return file;
+		}
+		return undefined;
+	});
+
+	files = files.filter((f) => !f.isDirectory);
+
+	// Sort by most recent files and limit to 6 files
+	files = files.toSorted(sortByUpdatedAtDescending)
+		.slice(0, 6)
+		.map(addThumbnails);
+
+	return { directories, files };
+}
+
+const humanReadableFileSize = (originalFilesize) => {
+	const bytesToMbytes = 1024 * 1024;
+	const mb = originalFilesize / bytesToMbytes;
+	const options = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+	const formated = new Intl.NumberFormat('de-DE', options).format(mb);
+
+	const result = `${formated} MB`;
+
+	return result;
+};
+
+const convertToTree = (fileDocs, rootName) => {
+	const tree = [];
+	const lookup = {};
+	const root = {
+		id: 'root', name: rootName, isDirectory: true,
+	};
+
+	const extendedFileDocs = fileDocs.map((file) => ({
+		...file,
+		parentId: file.parentId || 'root',
+	}));
+
+	const files = [root, ...extendedFileDocs]
+		.toSorted((a, b) => (
+			a.parentId - b.parentId
+			|| a.isDirectory - b.isDirectory
+			|| a.name.localeCompare(b.name)
+		));
+
+	files.forEach((file) => {
+		lookup[file.id] = { ...file, children: [], humanReadableFileSize: humanReadableFileSize(file.size) };
+	});
+
+	files.forEach((file) => {
+		if (file.parentId) {
+			lookup[file.parentId || 'root'].children.push(lookup[file.id]);
+		} else {
+			tree.push(lookup[file.id]);
+		}
+	});
+
+	return tree;
+};
+
+async function fetchFileTree(req, course, rootName) {
+	async function internalFetch(params) {
+		const publicBackendUrl = Configuration.get('PUBLIC_BACKEND_URL');
+		const apiHost = Configuration.get('API_HOST');
+		const configuredApiBase = (publicBackendUrl || apiHost || '').replace(/\/$/, '');
+		const archiveApiBases = [`${configuredApiBase}/v1`];
+
+		// Backward compatibility: older local environments run a standalone archive service.
+		if (configuredApiBase === 'http://localhost:3030/api') {
+			archiveApiBases.push('http://localhost:3351/api/v1');
+		}
+
+		const jwt = req?.cookies?.jwt;
+		const headers = {};
+		if (jwt) {
+			headers.Authorization = (jwt.startsWith('Bearer ') ? '' : 'Bearer ') + jwt;
+		}
+
+		const timeout = Configuration.get('REQUEST_OPTION__TIMEOUT_MS');
+
+		let lastError;
+		for (const archiveApiBase of archiveApiBases) {
+			try {
+				const response = await axios.get(`${archiveApiBase}/filestorage/files/archive/file-list`, {
+					params,
+					headers,
+					timeout,
+				});
+
+				const fileTree = convertToTree(response.data, rootName);
+				return fileTree;
+			} catch (error) {
+				lastError = error;
+			}
+		}
+
+		if (lastError?.code === 'ECONNREFUSED') {
+			logger.warn('Archive file-list service not reachable (ECONNREFUSED); returning empty file list');
+			return [];
+		}
+
+		throw lastError;
+	}
+
+	try {
+		const fileTree = await internalFetch({
+			ownerId: course._id,
+			ownerType: 'teams',
+			archiveName: 'zip',
+		});
+		return fileTree;
+	} catch (error) {
+		logger.error('Error fetching file tree from legacy-file-archive service:', error);
+		return [];
+	}
+}
+
+async function fetchTeamNews(req) {
+	return api(req, { version: 'v3' })
+		.get(`/team/${req.params.teamId}/news`, {
+			qs: {
+				limit: 3,
+			},
+		})
+		.then((newsres) => newsres.data
+			.map((n) => {
+				n.url = `/news/${n.id}`;
+				n.secondaryTitle = timesHelper.fromNow(n.displayAt);
+				return n;
+			}))
+		.catch((err) => {
+			logger.error(`Can not fetch data from /news/ in router.get("/:teamId") | message: ${err.message}.`);
+			return [];
+		});
+}
+
+async function fetchCalendarEvents(req) {
+	return api(req)
+		.get('/calendar/', {
+			qs: {
+				'scope-id': req.params.teamId,
+				all: false,
+			},
+		})
+		.then((events) => {
+			const processedEvents = events
+				.map((event) => {
+					const start = timesHelper.fromUTC(event.start);
+					const end = timesHelper.fromUTC(event.end);
+					event.day = start.format('D');
+					event.month = start
+						.format('MMM')
+						.toUpperCase()
+						.split('.')
+						.join('');
+					event.dayOfTheWeek = start.format('dddd');
+					event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
+					return event;
+				})
+				.toSorted((a, b) => a.start - b.start);
+			return processedEvents;
+		})
+		.catch((err) => {
+			logger.error(`Can not fetch data from /calendar/ in router.get("/:teamId") | message: ${err.message}.`);
+			return [];
+		});
+}
+
 router.get('/:teamId', async (req, res, next) => {
 	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
@@ -454,102 +659,10 @@ router.get('/:teamId', async (req, res, next) => {
 		const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
 		const allowTeamMembers = isAllowed(course.filePermission, 'teammember');
 
-		let files;
-
-		files = await api(req).get('/fileStorage', {
-			qs: {
-				owner: course._id,
-			},
-		});
-		/* note: fileStorage can return arrays and error objects */
-		if (!Array.isArray(files)) {
-			if (files?.code) {
-				logger.warn(files);
-			}
-			files = [];
-		}
-
-		files = files.filter((file) => file);
-
-		files = files.map((file) => {
-			// set saveName attribute with escaped quotes and encoded specific characters
-			file.saveName = file.name.replace(/'/g, "\\'");
-			file.saveName = encodeURIComponent(file.name);
-
-			if (file?.permissions) {
-				file.permissions = mapPermissionRoles(file.permissions, roles);
-				return file;
-			}
-			return undefined;
-		});
-
-		const directories = files.filter((f) => f.isDirectory);
-		files = files.filter((f) => !f.isDirectory);
-
-		// Sort by most recent files and limit to 6 files
-		files
-			.sort((a, b) => {
-				if (b?.updatedAt && a?.updatedAt) {
-					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
-				}
-				return 0;
-			})
-			.slice(0, 6);
-
-		files.map(addThumbnails);
-
-		directories
-			.sort((a, b) => {
-				if (b?.updatedAt && a?.updatedAt) {
-					return timesHelper.fromUTC(b.updatedAt) - timesHelper.fromUTC(a.updatedAt);
-				}
-				return 0;
-			})
-			.slice(0, 6);
-
-		const news = await api(req, { version: 'v3' })
-			.get(`/team/${req.params.teamId}/news`, {
-				qs: {
-					limit: 3,
-				},
-			})
-			.then((newsres) => newsres.data
-				.map((n) => {
-					n.url = `/news/${n.id}`;
-					n.secondaryTitle = timesHelper.fromNow(n.displayAt);
-					return n;
-				}))
-			.catch((err) => {
-				logger.error(`Can not fetch data from /news/ in router.get("/:teamId") | message: ${err.message}.`);
-				return [];
-			});
-
-		let events = [];
-		try {
-			events = await api(req).get('/calendar/', {
-				qs: {
-					'scope-id': req.params.teamId,
-					all: false,
-				},
-			});
-			events = events
-				.map((event) => {
-					const start = timesHelper.fromUTC(event.start);
-					const end = timesHelper.fromUTC(event.end);
-					event.day = start.format('D');
-					event.month = start
-						.format('MMM')
-						.toUpperCase()
-						.split('.')
-						.join('');
-					event.dayOfTheWeek = start.format('dddd');
-					event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
-					return event;
-				});
-			events = events.sort((a, b) => a.start - b.start);
-		} catch (e) {
-			events = [];
-		}
+		const { directories, files } = await fetchRootTeamFilesAndDirectories(req, course, roles);
+		const fileTree = await fetchFileTree(req, course, res.$t('global.text.allFiles'));
+		const news = await fetchTeamNews(req);
+		const events = await fetchCalendarEvents(req);
 
 		const teamUsesVideoconference = course.features.includes('videoconference');
 		const schoolUsesVideoconference = (res.locals.currentSchoolData.features ?? []).includes('videoconference');
@@ -596,6 +709,7 @@ router.get('/:teamId', async (req, res, next) => {
 				showVideoconferenceOption,
 				directories,
 				files,
+				fileTree,
 				filesUrl: `/files/teams/${req.params.teamId}`,
 				nextcloudUrl,
 				useNextcloud,

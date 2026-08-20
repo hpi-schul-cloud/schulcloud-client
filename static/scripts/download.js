@@ -1,4 +1,4 @@
-const archiveDownload = (requestBody) => {
+const archiveDownload = (requestBody, selectedFileIds = []) => {
 	const form = document.createElement('form');
 	form.method = 'GET';
 	form.action = '/api/v1/filestorage/files/archive';
@@ -19,11 +19,22 @@ const archiveDownload = (requestBody) => {
 	archiveNameInput.name = 'archiveName';
 	archiveNameInput.value = requestBody.archiveName;
 
+	if (selectedFileIds && selectedFileIds.length > 0) {
+		selectedFileIds.forEach((selectedFileId) => {
+			const selectedFilesInput = document.createElement('input');
+			selectedFilesInput.type = 'hidden';
+			selectedFilesInput.name = 'selectedFiles';
+			selectedFilesInput.value = selectedFileId;
+			form.appendChild(selectedFilesInput);
+		});
+	}
+
 	form.appendChild(ownerIdInput);
 	form.appendChild(ownerTypeInput);
 	form.appendChild(archiveNameInput);
 
 	document.body.appendChild(form);
+
 	form.submit();
 	form.remove();
 };

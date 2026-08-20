@@ -2,9 +2,9 @@
 // jshint esversion: 6
 
 import 'jquery-datetimepicker';
+import archiveDownload from './download';
 import './jquery/datetimepicker-easy';
 import { initVideoconferencing } from './videoconference';
-import archiveDownload from './download';
 
 const datetime = require('./datetime/datetime');
 
@@ -45,8 +45,50 @@ function getDownloadRequestBody() {
 	};
 }
 
-function downloadFiles() {
-	archiveDownload(getDownloadRequestBody());
+function getSelectedFileIds() {
+	const fileIds = [];
+	$('.filetree-file input[type="checkbox"]:checked').each((index, checkbox) => {
+		const fileId = $(checkbox).data('file-id');
+		fileIds.push(fileId);
+	});
+	return fileIds;
+}
+
+function downloadFiles(selectedFileIds = []) {
+	archiveDownload(getDownloadRequestBody(), selectedFileIds);
+}
+
+function humanReadableFileSize(originalFilesize) {
+	const bytesToMbytes = 1024 * 1024;
+	const mb = originalFilesize / bytesToMbytes;
+	const options = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+	const formated = new Intl.NumberFormat('de-DE', options).format(mb);
+
+	const result = `${formated} MB`;
+
+	return result;
+}
+
+function sumFileSizes(fileIds) {
+	let totalSize = 0;
+
+	fileIds.forEach((fileId) => {
+		const fileSize = Number.parseInt($(`.filetree-file input[data-file-id="${fileId}"]`).data('file-size'), 10);
+		totalSize += fileSize;
+	});
+
+	return totalSize;
+}
+
+function updateFilesizeSum() {
+	const selectedFileIds = getSelectedFileIds();
+	const totalSize = sumFileSizes(selectedFileIds);
+	const humanReadableSize = humanReadableFileSize(totalSize);
+
+	$('.filesize-sum .current-total').text(humanReadableSize);
+
+	const areAnyFilesSelected = selectedFileIds.length > 0;
+	$('.btn-file-selective-download-submit').prop('disabled', !areAnyFilesSelected);
 }
 
 $(document).ready(() => {
@@ -178,6 +220,54 @@ $(document).ready(() => {
 		} else {
 			downloadFiles();
 		}
+	});
+
+	$('.btn-file-selective-download').click((e) => {
+		e.preventDefault();
+		$('.selective-download-filelist').show();
+		$('.files-grid').hide();
+		$('.directories').hide();
+		$('.button-list').hide();
+		updateFilesizeSum();
+		$('html, body').animate({
+			scrollTop: $('.selective-download-filelist').offset().top,
+		}, 800);
+	});
+
+	$('.folder-checkbox').click((e) => {
+		e.stopPropagation();
+		const isChecked = $(e.currentTarget).is(':checked');
+		const folderId = $(e.currentTarget).data('file-id');
+
+		$(`.filetree-file input[data-file-parent-id="${folderId}"]`).prop('checked', isChecked);
+		const toggleDescendants = (parentId) => {
+			$(`.filetree-file input[data-file-parent-id="${parentId}"]`).prop('checked', isChecked);
+			$(`.folder-checkbox[data-file-parent-id="${parentId}"]`).each((_, el) => {
+				$(el).prop('checked', isChecked);
+				toggleDescendants($(el).data('file-id'));
+			});
+		};
+
+		toggleDescendants(folderId);
+
+		updateFilesizeSum();
+	});
+
+	$('.file-checkbox').click((e) => {
+		e.stopPropagation();
+		updateFilesizeSum();
+	});
+
+	$('.btn-file-selective-download-submit').click(() => {
+		const selectedFileIds = getSelectedFileIds();
+		downloadFiles(selectedFileIds);
+	});
+
+	$('.btn-file-selective-download-back').click(() => {
+		$('.selective-download-filelist').hide();
+		$('.files-grid').show();
+		$('.directories').show();
+		$('.button-list').show();
 	});
 
 	$('.file-team-download-modal form').on('submit', (e) => {
