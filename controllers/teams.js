@@ -451,7 +451,7 @@ async function fetchRootTeamFilesAndDirectories(req, course, roles) {
 
 	files = files.map((file) => {
 		// set saveName attribute with escaped quotes and encoded specific characters
-		file.saveName = encodeURIComponent(file.name.replaceAll("'", String.raw`\'`));
+		file.saveName = encodeURIComponent(file.name);
 
 		if (file?.permissions) {
 			file.permissions = mapPermissionRoles(file.permissions, roles);
