@@ -1,5 +1,5 @@
 {{#unless isSubFolder}}
-<section class="col-sm-12 selective-download-filelist" data-testid="filetree-section" style="display: none;">
+<section class="col-sm-12 selective-download-filelist" data-testid="filetree-section" style="display: none">
     <section class="selective-download-filelist-header">
         <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
         <p>{{{$t "global.text.selectFilesForDownload"}}}</p>
@@ -23,12 +23,12 @@
                         </label>
                     </div>
                     {{#if this.children}}
-                            <div style="margin-left: 2rem; ">
-                                {{#embed "teams/partials/filetree" fileTree=this.children teamFiles=true teamId=../_id isSubFolder=true}}{{/embed}}
-                            </div>
-                        {{/if}}
+                        <div style="margin-left: 2rem; ">
+                            {{#embed "teams/partials/filetree" fileTree=this.children teamFiles=true teamId=../_id isSubFolder=true}}{{/embed}}
+                        </div>
+                    {{/if}}
                 {{else}}
-                    <div class="filetree-file" style="display: flex; gap: 10px;">
+                    <div class="filetree-file" style="display: flex; gap: 10px">
                         <span style="vertical-align: top; width: 1rem;">
                             <input type="checkbox" id="file-{{this.id}}" class="file-checkbox" data-file-id="{{this.id}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-parent-id="{{this.parentId}}">
                         </span>
@@ -48,7 +48,7 @@
         <div class="filesize-sum">{{$t "global.text.fileTotalSize"}} <span class="current-total">0,00 MB</span></div>
     </section>
 
-    <section class="button-list" style="margin-top: 1rem; margin-bottom: 50vh;">
+    <section class="filetree-button-list" style="margin-top: 1rem; margin-bottom: 50vh;">
         <button class="btn btn-add btn-secondary btn-file-selective-download-back">
             {{$t "global.button.back"}}
         </button>
