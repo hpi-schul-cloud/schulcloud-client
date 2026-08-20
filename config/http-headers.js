@@ -6,6 +6,9 @@ if (Configuration.has('CORS') !== true) {
 }
 
 const sharedSources = '\'self\' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org';
+const localDevConnectSources = Configuration.get('NODE_ENV') === 'development'
+	? ' http://localhost:9000 http://127.0.0.1:9000'
+	: '';
 
 const config = {
 	enabled: Configuration.get('CORS'),
@@ -28,7 +31,7 @@ const config = {
 			styleSrc: '\'self\' \'unsafe-inline\'',
 			scriptSrc: '\'self\' \'unsafe-eval\'',
 			workerSrc: '\'self\' blob:',
-			connectSrc: `${sharedSources} webpack:`,
+			connectSrc: `${sharedSources} webpack:${localDevConnectSources}`,
 			// Please activate for production
 			// upgradeInsecureRequestsSrc: 'upgrade-insecure-requests',
 			// blockAllMixedContentSrc: 'block-all-mixed-content',

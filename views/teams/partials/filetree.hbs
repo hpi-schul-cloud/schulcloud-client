@@ -1,0 +1,61 @@
+{{#unless isSubFolder}}
+<section class="col-sm-12 selective-download-filelist" data-testid="filetree-section" style="display: none">
+    <section class="selective-download-filelist-header">
+        <h5 style="padding: 10px 0 20px">{{$t "global.headline.files"}}</h5>
+        <p>{{{$t "global.text.selectFilesForDownload"}}}</p>
+    </section>
+
+    <section class="filetree">
+        <div class="card selective-download-card {{#ifeq this.securityCheck.status "blocked"}}btn-file-danger{{/ifeq}}" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
+            <div class="card-block">
+                <div class="card-text">
+{{/unless}}
+
+            {{#each fileTree}}
+                {{#if this.isDirectory}}
+                    <div class="filetree-folder" style="display: flex; gap: 10px;">
+                        <span style="vertical-align: top; width: 1rem;">
+                            <input type="checkbox" id="folder-{{this.id}}" class="folder-checkbox" data-file-id="{{this.id}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-parent-id="{{this.parentId}}">
+                        </span>
+                        <label for="folder-{{this.id}}" class="folder-label">
+                            <i class="fa fa-folder" aria-hidden="true" style="color: darkgrey;"></i>
+                            <span>{{this.name}}</span>
+                        </label>
+                    </div>
+                    {{#if this.children}}
+                        <div style="margin-left: 2rem; ">
+                            {{#embed "teams/partials/filetree" fileTree=this.children teamFiles=true teamId=../_id isSubFolder=true}}{{/embed}}
+                        </div>
+                    {{/if}}
+                {{else}}
+                    <div class="filetree-file" style="display: flex; gap: 10px">
+                        <span style="vertical-align: top; width: 1rem;">
+                            <input type="checkbox" id="file-{{this.id}}" class="file-checkbox" data-file-id="{{this.id}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-parent-id="{{this.parentId}}">
+                        </span>
+                        <label for="file-{{this.id}}" style="font-weight: normal; flex:1; display: flex; gap: 5px;">
+                            <span><i class="fa fa-file" aria-hidden="true" style="color: rgb(199, 113, 8);"></i></span>
+                            <span style="flex: 1; word-break: break-all; overflow-wrap: anywhere;">{{this.name}}</span>
+                            <span>({{this.humanReadableFileSize}})</span>
+                        </label>
+                    </div>
+                {{/if}}
+            {{/each}}
+
+{{#unless isSubFolder}}
+                </div>
+            </div>
+        </div>
+        <div class="filesize-sum">{{$t "global.text.fileTotalSize"}} <span class="current-total">0,00 MB</span></div>
+    </section>
+
+    <section class="filetree-button-list" style="margin-top: 1rem; margin-bottom: 50vh;">
+        <button class="btn btn-add btn-secondary btn-file-selective-download-back">
+            {{$t "global.button.back"}}
+        </button>
+        <button class="btn btn-add btn-secondary btn-file-selective-download-submit" disabled="disabled" data-use-nextcloud="{{../useNextcloud}}">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            {{$t "global.button.downloadSelected"}}
+        </button>
+    </section>
+</section>
+{{/unless}}

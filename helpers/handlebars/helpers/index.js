@@ -1,6 +1,7 @@
 const moment = require('moment');
 const { stripHtml } = require('string-strip-html');
 const { Configuration } = require('@hpi-schul-cloud/commons');
+const Handlebars = require('handlebars');
 const { getStaticAssetPath } = require('../../../middleware/assets');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
