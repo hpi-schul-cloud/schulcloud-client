@@ -250,6 +250,7 @@ class TopicBlockList extends React.Component {
 		this.state = {
 			blocks: initialBlocks,
 			etherpadBaseUrl: $contentBlocksContainer.data('etherpadbaseurl'),
+			etherpadEnabled: $contentBlocksContainer.data('etherpadenabled'),
 			onSortEndCallbacks: [],
 		};
 	}
@@ -395,14 +396,14 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
 								{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
 						</button>
-						<button
+						{this.state.etherpadEnabled && <button
 							type="button"
 							className="btn btn-secondary"
 							data-testid="topic-addcontent-etherpad-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicEtherpad)}>
 								{`+ ${$t('topic.topicEdit.button.etherpad')}`}
-						</button>
+						</button>}
                         <button
 							type="button"
 							className="btn btn-secondary"
