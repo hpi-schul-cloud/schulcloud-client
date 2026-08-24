@@ -105,17 +105,19 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 		if (typeof (content.content.title) === 'undefined' || content.content.title === '') {
 			content.content.title = randomBytes(12).toString('hex');
 		}
-		const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
-		await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content)
-			.then((etherpadPadId) => {
-				content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
-			}).catch((err) => {
-				logger.error(err.message);
-				req.session.notification = {
-					type: 'danger',
-					message: res.$t('courses._course.text.etherpadCouldNotBeAdded'),
-				};
-			});
+		if (featureEtherpadEnabled) {
+			const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
+			await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content)
+				.then((etherpadPadId) => {
+					content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
+				}).catch((err) => {
+					logger.error(err.message);
+					req.session.notification = {
+						type: 'danger',
+						message: res.$t('courses._course.text.etherpadCouldNotBeAdded'),
+					};
+				});
+		}
 		return content;
 	})).catch((err) => {
 		logger.error(err.message);
@@ -166,11 +168,9 @@ router.get('/add', editTopicHandler);
 router.post('/', async (req, res, next) => {
 	const data = req.body;
 
-	data.courseId = [];
-	if (featureEtherpadEnabled) {
-		// Check for etherpad component
-		data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
-	}
+	// Check for etherpad component
+	data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
+
 	data.contents = data.contents.filter((c) => c !== undefined);
 
 	data.time = moment(data.time || 0, 'HH:mm').toString();
@@ -230,7 +230,7 @@ router.get('/:topicId', (req, res, next) => {
 					}
 				});
 			}
-			if (typeof lesson.contents !== 'undefined') {
+			if (featureEtherpadEnabled && typeof lesson.contents !== 'undefined') {
 				return getEtherpadSession(req, res, req.params.courseId).then((sessionInfo) => {
 					etherpadPads.forEach((padId) => {
 						authHelper.etherpadCookieHelper(sessionInfo, padId, res);
