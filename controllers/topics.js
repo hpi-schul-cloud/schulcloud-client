@@ -62,6 +62,7 @@ const editTopicHandler = (req, res, next) => {
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
 			etherpadBaseUrl: featureEtherpadEnabled ? Configuration.get('ETHERPAD__PAD_URI') : '',
+			featureEtherpadEnabled,
 			referrer,
 			lessonFilesStorageData: filesStorage,
 		});
