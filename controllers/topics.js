@@ -220,15 +220,19 @@ router.get('/:topicId', (req, res, next) => {
 		api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`).then((lesson) => {
 			const etherpadPads = [];
 			if (typeof lesson.contents !== 'undefined') {
-				lesson.contents.forEach((element) => {
-					if (featureEtherpadEnabled && element.component === 'Etherpad') {
-						const { url } = element.content;
-						const padId = getPadIdFromUrl(url);
-						// set cookie for this pad
-						if (typeof (padId) !== 'undefined') {
-							etherpadPads.push(padId);
+				lesson.contents = lesson.contents.filter((element) => {
+					if (element.component === 'Etherpad') {
+						if (featureEtherpadEnabled) {
+							const { url } = element.content;
+							const padId = getPadIdFromUrl(url);
+							// set cookie for this pad
+							if (typeof (padId) !== 'undefined') {
+								etherpadPads.push(padId);
+							}
 						}
+						return false;
 					}
+					return true;
 				});
 			}
 			if (featureEtherpadEnabled && typeof lesson.contents !== 'undefined') {
