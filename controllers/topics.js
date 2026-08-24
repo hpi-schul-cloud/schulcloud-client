@@ -60,6 +60,7 @@ const editTopicHandler = (req, res, next) => {
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
 			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
+			etherpadEnabled: Configuration.get('FEATURE_ETHERPAD_ENABLED'),
 			referrer,
 			lessonFilesStorageData: filesStorage,
 		});
@@ -90,6 +91,8 @@ const getEtherpadPadForCourse = async (req, user, courseId, content) => api(req)
 }).then((response) => response.data.padID);
 
 async function createNewEtherpad(req, res, contents = [], courseId) {
+	if (!Configuration.get('FEATURE_ETHERPAD_ENABLED')) return contents;
+
 	// eslint-disable-next-line no-return-await
 	return await Promise.all(contents.map(async (content) => {
 		if (!content
@@ -213,6 +216,8 @@ router.get('/:topicId', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/${context}/${req.params.courseId}`),
 		api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`).then((lesson) => {
+			if (!Configuration.get('FEATURE_ETHERPAD_ENABLED')) return lesson;
+
 			const etherpadPads = [];
 			if (typeof lesson.contents !== 'undefined') {
 				lesson.contents.forEach((element) => {
