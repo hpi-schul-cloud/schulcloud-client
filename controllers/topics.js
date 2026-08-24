@@ -11,6 +11,8 @@ const filesStoragesHelper = require('../helpers/files-storage');
 
 const router = express.Router({ mergeParams: true });
 
+const featureEtherpadEnabled = Configuration.get('FEATURE_ETHERPAD_ENABLED') || false;
+
 const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	let lessonPromise;
@@ -59,7 +61,7 @@ const editTopicHandler = (req, res, next) => {
 			schoolId,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
-			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
+			etherpadBaseUrl: featureEtherpadEnabled ? Configuration.get('ETHERPAD__PAD_URI') : '',
 			referrer,
 			lessonFilesStorageData: filesStorage,
 		});
@@ -164,10 +166,12 @@ router.get('/add', editTopicHandler);
 router.post('/', async (req, res, next) => {
 	const data = req.body;
 
-	// Check for etherpad component
-	data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
-
-	data.contents = data.contents.filter((c) => c !== undefined);
+	data.courseId = [];
+	if (featureEtherpadEnabled) {
+		// Check for etherpad component
+		data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
+		data.contents = data.contents.filter((c) => c !== undefined);
+	}
 
 	data.time = moment(data.time || 0, 'HH:mm').toString();
 	data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
@@ -213,6 +217,9 @@ router.get('/:topicId', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/${context}/${req.params.courseId}`),
 		api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`).then((lesson) => {
+			if (!featureEtherpadEnabled) {
+				return lesson;
+			}
 			const etherpadPads = [];
 			if (typeof lesson.contents !== 'undefined') {
 				lesson.contents.forEach((element) => {
@@ -326,7 +333,9 @@ router.patch('/:topicId', async (req, res, next) => {
 	if (!req.query.courseGroup) delete data.courseGroupId;
 
 	// create new Etherpads when necessary, if not simple hidden or position patch
-	if (data.contents) data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
+	if (featureEtherpadEnabled && data.contents) {
+		data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
+	}
 
 	if (data.contents) { data.contents = data.contents.filter((c) => c !== undefined); }
 
