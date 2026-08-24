@@ -170,8 +170,8 @@ router.post('/', async (req, res, next) => {
 	if (featureEtherpadEnabled) {
 		// Check for etherpad component
 		data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
-		data.contents = data.contents.filter((c) => c !== undefined);
 	}
+	data.contents = data.contents.filter((c) => c !== undefined);
 
 	data.time = moment(data.time || 0, 'HH:mm').toString();
 	data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
