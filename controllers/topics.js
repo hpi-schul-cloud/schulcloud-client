@@ -11,6 +11,8 @@ const filesStoragesHelper = require('../helpers/files-storage');
 
 const router = express.Router({ mergeParams: true });
 
+const featureEtherpadEnabled = Configuration.get('FEATURE_ETHERPAD_ENABLED') || false;
+
 const editTopicHandler = (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	let lessonPromise;
@@ -59,7 +61,8 @@ const editTopicHandler = (req, res, next) => {
 			schoolId,
 			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
-			etherpadBaseUrl: Configuration.get('ETHERPAD__PAD_URI'),
+			etherpadBaseUrl: featureEtherpadEnabled ? Configuration.get('ETHERPAD__PAD_URI') : '',
+			featureEtherpadEnabled,
 			referrer,
 			lessonFilesStorageData: filesStorage,
 		});
@@ -103,17 +106,19 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 		if (typeof (content.content.title) === 'undefined' || content.content.title === '') {
 			content.content.title = randomBytes(12).toString('hex');
 		}
-		const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
-		await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content)
-			.then((etherpadPadId) => {
-				content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
-			}).catch((err) => {
-				logger.error(err.message);
-				req.session.notification = {
-					type: 'danger',
-					message: res.$t('courses._course.text.etherpadCouldNotBeAdded'),
-				};
-			});
+		if (featureEtherpadEnabled) {
+			const etherpadApiUri = Configuration.get('ETHERPAD__PAD_URI');
+			await getEtherpadPadForCourse(req, res.locals.currentUser, courseId, content)
+				.then((etherpadPadId) => {
+					content.content.url = `${etherpadApiUri}/${etherpadPadId}`;
+				}).catch((err) => {
+					logger.error(err.message);
+					req.session.notification = {
+						type: 'danger',
+						message: res.$t('courses._course.text.etherpadCouldNotBeAdded'),
+					};
+				});
+		}
 		return content;
 	})).catch((err) => {
 		logger.error(err.message);
@@ -215,18 +220,22 @@ router.get('/:topicId', (req, res, next) => {
 		api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`).then((lesson) => {
 			const etherpadPads = [];
 			if (typeof lesson.contents !== 'undefined') {
-				lesson.contents.forEach((element) => {
+				lesson.contents = lesson.contents.filter((element) => {
 					if (element.component === 'Etherpad') {
-						const { url } = element.content;
-						const padId = getPadIdFromUrl(url);
-						// set cookie for this pad
-						if (typeof (padId) !== 'undefined') {
-							etherpadPads.push(padId);
+						if (featureEtherpadEnabled) {
+							const { url } = element.content;
+							const padId = getPadIdFromUrl(url);
+							// set cookie for this pad
+							if (typeof (padId) !== 'undefined') {
+								etherpadPads.push(padId);
+							}
 						}
+						return false;
 					}
+					return true;
 				});
 			}
-			if (typeof lesson.contents !== 'undefined') {
+			if (featureEtherpadEnabled && typeof lesson.contents !== 'undefined') {
 				return getEtherpadSession(req, res, req.params.courseId).then((sessionInfo) => {
 					etherpadPads.forEach((padId) => {
 						authHelper.etherpadCookieHelper(sessionInfo, padId, res);
@@ -274,6 +283,7 @@ router.get('/:topicId', (req, res, next) => {
 
 		// return for consistent return
 		return res.render('topic/topic', {
+			featureEtherpadEnabled,
 			...lesson,
 			title: lesson.name,
 			context,
@@ -326,7 +336,9 @@ router.patch('/:topicId', async (req, res, next) => {
 	if (!req.query.courseGroup) delete data.courseGroupId;
 
 	// create new Etherpads when necessary, if not simple hidden or position patch
-	if (data.contents) data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
+	if (featureEtherpadEnabled && data.contents) {
+		data.contents = await createNewEtherpad(req, res, data.contents, data.courseId);
+	}
 
 	if (data.contents) { data.contents = data.contents.filter((c) => c !== undefined); }
 

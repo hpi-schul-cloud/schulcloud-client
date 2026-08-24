@@ -2750,7 +2750,8 @@
 			"text": {
 				"shareWithOthersTeachers": "compartir con otros profesores",
 				"warningFooter": "El uso de estas ofertas puede estar sujeto a otras condiciones legales. Por lo tanto, consulta la política de privacidad del proveedor externo.",
-				"warningMain": "Nota: al hacer clic en el enlace, te irás de Schul-Cloud Brandenburg"
+				"warningMain": "Nota: al hacer clic en el enlace, te irás de Schul-Cloud Brandenburg",
+				"etherpadContentDeactivated": "El contenido de Etherpad está desactivado."
 			}
 		},
 		"aria_label": {
