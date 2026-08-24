@@ -403,14 +403,15 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicEtherpad)}>
 								{`+ ${$t('topic.topicEdit.button.etherpad')}`}
 						</button>
-                        <button
+						{/* FEATURE_ETHERPAD_ENABLED false
+						<button
 							type="button"
 							className="btn btn-secondary"
 							data-testid="topic-addcontent-task-btn"
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicInternal)}>
 								{`+ ${$t('global.headline.task')}`}
-						</button>
+						</button> */}
                     </div>
                 </div>
             </div>
