@@ -217,13 +217,10 @@ router.get('/:topicId', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/${context}/${req.params.courseId}`),
 		api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`).then((lesson) => {
-			if (!featureEtherpadEnabled) {
-				return lesson;
-			}
 			const etherpadPads = [];
 			if (typeof lesson.contents !== 'undefined') {
 				lesson.contents.forEach((element) => {
-					if (element.component === 'Etherpad') {
+					if (featureEtherpadEnabled && element.component === 'Etherpad') {
 						const { url } = element.content;
 						const padId = getPadIdFromUrl(url);
 						// set cookie for this pad
@@ -281,6 +278,7 @@ router.get('/:topicId', (req, res, next) => {
 
 		// return for consistent return
 		return res.render('topic/topic', {
+			featureEtherpadEnabled,
 			...lesson,
 			title: lesson.name,
 			context,
