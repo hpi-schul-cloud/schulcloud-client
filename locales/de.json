@@ -2750,7 +2750,8 @@
 			"text": {
 				"shareWithOthersTeachers": "mit anderen Lehrkräften teilen",
 				"warningFooter": "Die Nutzung dieser Angebote unterliegt gegebenenfalls anderen rechtlichen Bedingungen. Bitte schauen Sie daher in die Datenschutzerklärung des externen Anbieters!",
-				"warningMain": "Hinweis: Beim Klicken des Links verlassen Sie das Angebot der Schul-Cloud Brandenburg"
+				"warningMain": "Hinweis: Beim Klicken des Links verlassen Sie das Angebot der Schul-Cloud Brandenburg",
+				"etherpadContentDeactivated": "Etherpad-Inhalte sind deaktiviert."
 			}
 		},
 		"aria_label": {
