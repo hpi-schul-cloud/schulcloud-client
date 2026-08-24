@@ -395,6 +395,7 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicGeoGebra)}>
 								{`+ ${$t('topic.topicEdit.button.geoGebraWorksheet')}`}
 						</button>
+						{/* FEATURE_ETHERPAD_ENABLED false
 						<button
 							type="button"
 							className="btn btn-secondary"
@@ -403,7 +404,7 @@ class TopicBlockList extends React.Component {
 							onClick={this.addBlock.bind(this, TopicEtherpad)}>
 								{`+ ${$t('topic.topicEdit.button.etherpad')}`}
 						</button>
-						{/* FEATURE_ETHERPAD_ENABLED false
+						*/}
 						<button
 							type="button"
 							className="btn btn-secondary"
@@ -411,7 +412,7 @@ class TopicBlockList extends React.Component {
 							aria-label={$t('global.button.add')}
 							onClick={this.addBlock.bind(this, TopicInternal)}>
 								{`+ ${$t('global.headline.task')}`}
-						</button> */}
+						</button>
                     </div>
                 </div>
             </div>
