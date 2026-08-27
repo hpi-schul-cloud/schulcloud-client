@@ -4,6 +4,8 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const PUBLIC_BACKEND_URL = Configuration.get('PUBLIC_BACKEND_URL');
 const ALERT_STATUS_URL = Configuration.get('ALERT_STATUS_URL');
 const SC_THEME = Configuration.get('SC_THEME');
+const TASKS_LINK = Configuration.has('FEATURE_TASKS_V3_ENABLED')
+	&& Configuration.get('FEATURE_TASKS_V3_ENABLED') === true ? '/tasks' : '/homework';
 
 const makeActive = (items, currentUrl) => {
 	currentUrl += '/';
@@ -78,13 +80,13 @@ module.exports = (req, res, next) => {
 		name: res.$t('global.headline.tasks'),
 		testId: 'sidebar-tasks',
 		icon: 'format-list-checks',
-		link: '/tasks',
+		link: TASKS_LINK,
 		permission: 'TASK_DASHBOARD_VIEW_V3',
 	}, {
 		name: res.$t('global.headline.tasks'),
 		testId: 'sidebar-tasks',
 		icon: 'format-list-checks',
-		link: '/tasks',
+		link: TASKS_LINK,
 		permission: 'TASK_DASHBOARD_TEACHER_VIEW_V3',
 	}, {
 		name: res.$t('global.link.files'),

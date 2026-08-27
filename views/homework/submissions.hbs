@@ -1,4 +1,4 @@
-<section id="submissions" class="tab-content section-homeworksubmissions">
+<section id="submissions" class="tab-content section-homeworksubmissions {{#ifeq @root.activeTabId "submissions"}}active{{/ifeq}}">
     <table class="table table-hover">
         {{#if teamSubmissions}}
             <thead>
