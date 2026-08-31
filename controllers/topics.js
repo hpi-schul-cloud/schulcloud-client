@@ -218,29 +218,31 @@ router.get('/:topicId', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/${context}/${req.params.courseId}`),
 		api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`).then((lesson) => {
-			const etherpadPads = [];
-			if (typeof lesson.contents !== 'undefined') {
-				lesson.contents = lesson.contents.filter((element) => {
-					if (element.component === 'Etherpad') {
-						if (featureEtherpadEnabled) {
+			if (lesson.contents !== undefined) {
+				if (featureEtherpadEnabled) {
+					const etherpadPads = [];
+					lesson.contents.forEach((element) => {
+						if (element.component === 'Etherpad') {
 							const { url } = element.content;
 							const padId = getPadIdFromUrl(url);
-							// set cookie for this pad
-							if (typeof (padId) !== 'undefined') {
+							if (padId !== undefined) {
 								etherpadPads.push(padId);
 							}
 						}
-						return false;
-					}
-					return true;
-				});
-			}
-			if (featureEtherpadEnabled && typeof lesson.contents !== 'undefined') {
-				return getEtherpadSession(req, res, req.params.courseId).then((sessionInfo) => {
-					etherpadPads.forEach((padId) => {
-						authHelper.etherpadCookieHelper(sessionInfo, padId, res);
 					});
-				}).then(() => lesson);
+
+					return getEtherpadSession(req, res, req.params.courseId)
+						.then((sessionInfo) => {
+							etherpadPads.forEach((padId) => {
+								authHelper.etherpadCookieHelper(sessionInfo, padId, res);
+							});
+						})
+						.then(() => lesson);
+				}
+
+				if (featureEtherpadEnabled === false) {
+					lesson.contents = lesson.contents.filter((element) => element.component !== 'Etherpad');
+				}
 			}
 			return lesson;
 		}),
