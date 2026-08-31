@@ -1,11 +1,7 @@
 <h2 class="h4">{{title}}</h2>
 <p>{{content.description}}</p>
-{{#if featureEtherpadEnabled}}
-	{{#if content.url}}
-		<iframe src="{{content.url}}"
-			style="width: 100%; height: 400px; resize: vertical; overflow: auto;"></iframe>
-		<a href="{{content.url}}" target="_blank" class="pull-right">{{$t "global.link.openInNewTab" }}</a>
-	{{/if}}
-{{else}}
-	<div style="vertical-align: center; background: grey; text-align: center;">{{$t "topic._topic.text.etherpadContentDeactivated" }}</div>
+{{#if content.url}}
+	<iframe src="{{content.url}}"
+		style="width: 100%; height: 400px; resize: vertical; overflow: auto;"></iframe>
+	<a href="{{content.url}}" target="_blank" class="pull-right">{{$t "global.link.openInNewTab" }}</a>
 {{/if}}
