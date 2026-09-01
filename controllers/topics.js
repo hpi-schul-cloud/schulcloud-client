@@ -128,17 +128,18 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 
 const getEtherpadSession = (req, res, courseId) => api(req).post(
 	'/etherpad/sessions', { json: { courseId } },
-).catch((err) => {
-	logger.error(err.message);
-	return undefined;
-});
+)
+	.then((response) => response.data)
+	.catch((err) => {
+		logger.error(err.message);
+		return undefined;
+	});
 
-const getActiveSessions = (req, res) => api(req).get(
-	'/etherpad/active-sessions', {},
-).catch((err) => {
-	logger.error(err.message);
-	return undefined;
-});
+const getActiveSessions = (req) => api(req).get('/etherpad/active-sessions')
+	.catch((err) => {
+		logger.error(err.message);
+		return undefined;
+	});
 
 const validatePadDomain = (url) => {
 	const whitelist = [
@@ -240,11 +241,8 @@ router.get('/:topicId', async (req, res, next) => {
 
 					const sessionInfo = await getEtherpadSession(req, res, req.params.courseId);
 					const { validUntil } = sessionInfo || {};
-
-					const sessionIds = await getActiveSessions(req, res);
-					etherpadPads.forEach((padId) => {
-						authHelper.etherpadCookieHelper(sessionIds, validUntil, padId, res);
-					});
+					const sessionIds = await getActiveSessions(req);
+					authHelper.etherpadCookieHelper(sessionIds, validUntil, res);
 					return lesson;
 				}
 

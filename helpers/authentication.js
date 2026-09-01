@@ -81,7 +81,7 @@ const isAuthenticationInvalidError = (error) => {
 };
 
 const etherpadCookieHelper = (sessionIds, validUntil, res) => {
-	const sessionIdList = sessionIds.filter(Boolean).join(',');
+	const sessionIdList = (sessionIds || []).filter(Boolean).join(',');
 
 	setCookie(res, 'sessionID', sessionIdList, {
 		path: '/etherpad/',
