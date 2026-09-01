@@ -30,45 +30,50 @@ const { addDelimiters, extractDelimiters } = loadEsmModule(
 
 describe('ckeditor5-math utils', () => {
 	describe('extractDelimiters', () => {
-		it('reads an inline formula', () => {
-			expect(extractDelimiters('\\( x^2 \\)')).to.deep.equal({
+		const cases = [
+			{
+				name: 'reads an inline formula',
+				stored: '\\( x^2 \\)',
 				equation: 'x^2',
 				display: false,
-			});
-		});
-
-		it('reads a display formula', () => {
-			expect(extractDelimiters('\\[ x^2 \\]')).to.deep.equal({
+			},
+			{
+				name: 'reads a display formula',
+				stored: '\\[ x^2 \\]',
 				equation: 'x^2',
 				display: true,
-			});
-		});
-
-		it('reads a formula without surrounding whitespace', () => {
-			expect(extractDelimiters('\\(\\sqrt{\\frac{a}{b}}\\)')).to.deep.equal({
+			},
+			{
+				name: 'reads a formula without surrounding whitespace',
+				stored: '\\(\\sqrt{\\frac{a}{b}}\\)',
 				equation: '\\sqrt{\\frac{a}{b}}',
 				display: false,
-			});
-		});
-
-		it('trims whitespace around the stored value', () => {
-			expect(extractDelimiters('  \\( a+b \\)  ')).to.deep.equal({
+			},
+			{
+				name: 'trims whitespace around the stored value',
+				stored: '  \\( a+b \\)  ',
 				equation: 'a+b',
 				display: false,
-			});
-		});
-
-		it('treats an undelimited value as an inline formula', () => {
-			expect(extractDelimiters('x^2')).to.deep.equal({
+			},
+			{
+				name: 'treats an undelimited value as an inline formula',
+				stored: 'x^2',
 				equation: 'x^2',
 				display: false,
-			});
-		});
-
-		it('does not mistake square brackets inside a formula for display mode', () => {
-			expect(extractDelimiters('\\( [a,b] \\)')).to.deep.equal({
+			},
+			{
+				name: 'does not mistake square brackets inside a formula for display mode',
+				stored: '\\( [a,b] \\)',
 				equation: '[a,b]',
 				display: false,
+			},
+		];
+
+		cases.forEach(({
+			name, stored, equation, display,
+		}) => {
+			it(name, () => {
+				expect(extractDelimiters(stored)).to.deep.equal({ equation, display });
 			});
 		});
 	});
