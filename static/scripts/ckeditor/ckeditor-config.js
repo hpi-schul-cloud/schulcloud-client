@@ -11,7 +11,6 @@ import { Image, ImageResize } from '@ckeditor/ckeditor5-image/src/index';
 import { Indent } from '@ckeditor/ckeditor5-indent/src/index';
 import { Link } from '@ckeditor/ckeditor5-link/src/index';
 import { List } from '@ckeditor/ckeditor5-list/src/index';
-import Mathematics from '@isaul32/ckeditor5-math/src/math';
 import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed/src/index';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph/src/index';
 import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office/src/index';
@@ -23,6 +22,7 @@ import {
 
 import FileBrowserPlugin from './plugins/ckeditor5-filebrowser/src/filebrowser';
 import HelpLinkPlugin from './plugins/ckeditor5-helplink/src/helplink';
+import Mathematics from './plugins/ckeditor5-math/src/math';
 
 // Material Design Colors: https://materialuicolors.co/
 const fontColors = [
@@ -146,12 +146,6 @@ const ckeditorConfig = {
 	},
 	table: {
 		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties'],
-	},
-	math: {
-		engine: 'katex',
-		outputType: 'span',
-		forceOutputType: false,
-		enablePreview: true,
 	},
 	filebrowser: {
 		browseUrl: '/files/my',

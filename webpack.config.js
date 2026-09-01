@@ -38,11 +38,11 @@ module.exports = {
 	module: {
 		rules: [
 			// All files that end on .js or .jsx are transpiled by babel.
-			// htmlparser2 and @isaul32 are excluded from the node_modules
-			// exclusion because they use syntax that requires transpilation.
+			// htmlparser2 is excluded from the node_modules exclusion because it
+			// uses syntax that requires transpilation.
 			{
 				test: /\.(?:js|jsx|cjs)$/,
-				exclude: /(node_modules)[/\\](?!(htmlparser2|@isaul32)[/\\])/,
+				exclude: /(node_modules)[/\\](?!(htmlparser2)[/\\])/,
 				loader: 'babel-loader',
 				options: {
 					sourceType: 'unambiguous',
