@@ -80,12 +80,15 @@ const isAuthenticationInvalidError = (error) => {
 		|| error.error?.className === 'auto-logout';
 };
 
-const etherpadCookieHelper = (etherpadSession, padId, res) => {
-	const encodedPadId = encodeURI(padId);
-	const padPath = Configuration.get('ETHERPAD__PAD_PATH');
-	setCookie(res, 'sessionID', etherpadSession.data.sessionID, {
-		path: `${padPath}/${encodedPadId}`,
-		expires: new Date(etherpadSession.data.validUntil * 1000),
+const etherpadCookieHelper = (sessionIds, validUntil, res) => {
+	const sessionIdList = (sessionIds || []).filter(Boolean).join(',');
+
+	setCookie(res, 'sessionID', sessionIdList, {
+		path: '/etherpad/',
+		secure: true,
+		sameSite: 'lax',
+		httpOnly: true,
+		expires: new Date(validUntil * 1000),
 	});
 };
 
