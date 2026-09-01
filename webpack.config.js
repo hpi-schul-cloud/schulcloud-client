@@ -1,4 +1,5 @@
 const path = require('node:path');
+const fs = require('node:fs');
 const webpack = require('webpack');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const { styles } = require('@ckeditor/ckeditor5-dev-utils');
@@ -6,13 +7,22 @@ const { styles } = require('@ckeditor/ckeditor5-dev-utils');
 // Force all CKEditor5 internal packages to resolve to a single canonical copy.
 // In v41, individual packages depend on the `ckeditor5` meta-package which
 // installs its own nested copies, causing the ckeditor-duplicated-modules error.
+// Whether a package ends up hoisted to the top level or nested under `ckeditor5`
+// is an npm dedupe decision that changes between installs, so probe for it.
 const CK_PACKAGES = ['ckeditor5-clipboard', 'ckeditor5-engine', 'ckeditor5-enter',
 	'ckeditor5-typing', 'ckeditor5-undo', 'ckeditor5-utils', 'ckeditor5-widget'];
+const CK_CANDIDATE_ROOTS = [
+	path.resolve(__dirname, 'node_modules'),
+	path.resolve(__dirname, 'node_modules/ckeditor5/node_modules'),
+];
 const ckAlias = Object.fromEntries(
-	CK_PACKAGES.map(pkg => [
-		`@ckeditor/${pkg}`,
-		path.resolve(__dirname, `node_modules/ckeditor5/node_modules/@ckeditor/${pkg}`),
-	]),
+	CK_PACKAGES.flatMap((pkg) => {
+		const resolved = CK_CANDIDATE_ROOTS
+			.map((root) => path.join(root, '@ckeditor', pkg))
+			.find((candidate) => fs.existsSync(candidate));
+
+		return resolved ? [[`@ckeditor/${pkg}`, resolved]] : [];
+	}),
 );
 
 // Use WEBPACK_PRODUCTION=1 to build in production mode (minified, no source maps).
