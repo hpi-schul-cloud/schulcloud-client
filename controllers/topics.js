@@ -240,8 +240,11 @@ router.get('/:topicId', async (req, res, next) => {
 					});
 
 					const sessionInfo = await getEtherpadSession(req, res, req.params.courseId);
+					console.log('req.params', req.params); // TODO: remove debug
+					console.log('sessionInfo', sessionInfo); // TODO: remove debug
 					const { validUntil } = sessionInfo || {};
 					const sessionIds = await getActiveSessions(req);
+					console.log('sessionIds', sessionIds); // TODO: remove debug
 					authHelper.etherpadCookieHelper(sessionIds, validUntil, res);
 					return lesson;
 				}
