@@ -38,6 +38,7 @@
 		"@ckeditor/ckeditor5-table": "41.4.2",
 		"@ckeditor/ckeditor5-theme-lark": "41.4.2",
 		"@ckeditor/ckeditor5-ui": "41.4.2",
+		"@ckeditor/ckeditor5-widget": "41.4.2",
 		"@fullcalendar/core": "^4.4.2",
 		"@fullcalendar/daygrid": "^4.4.2",
 		"@fullcalendar/interaction": "^4.4.2",

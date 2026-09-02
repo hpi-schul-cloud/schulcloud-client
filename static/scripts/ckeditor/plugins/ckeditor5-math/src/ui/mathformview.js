@@ -9,6 +9,8 @@ import cancelIcon from '@ckeditor/ckeditor5-core/theme/icons/cancel.svg';
 
 import { renderEquation } from '../utils';
 
+import '../../theme/math.css';
+
 export default class MathFormView extends View {
 	constructor(locale) {
 		super(locale);
@@ -16,6 +18,7 @@ export default class MathFormView extends View {
 		const { t } = locale;
 
 		this.set('displayMode', false);
+		this.previewRenderElement = null;
 
 		this.equationInputView = new LabeledFieldView(locale, createLabeledInputText);
 		this.equationInputView.label = t('TeX formula');
@@ -39,6 +42,13 @@ export default class MathFormView extends View {
 		this.cancelButtonView = this.createButton(t('Cancel'), cancelIcon, 'ck-button-cancel');
 		this.cancelButtonView.delegate('execute').to(this, 'cancel');
 
+		this.actionsView = new View(locale);
+		this.actionsView.setTemplate({
+			tag: 'div',
+			attributes: { class: ['ck', 'ck-math-form__actions'] },
+			children: [this.saveButtonView, this.cancelButtonView],
+		});
+
 		this.on('change:displayMode', () => this.updatePreview());
 
 		this.setTemplate({
@@ -51,14 +61,16 @@ export default class MathFormView extends View {
 				this.equationInputView,
 				this.displayButtonView,
 				this.previewView,
-				this.saveButtonView,
-				this.cancelButtonView,
+				this.actionsView,
 			],
 		});
 	}
 
 	render() {
 		super.render();
+		this.previewRenderElement = document.createElement('div');
+		this.previewRenderElement.className = 'ck-math-preview__rendered';
+		document.body.appendChild(this.previewRenderElement);
 
 		submitHandler({ view: this });
 		this.equationInputView.fieldView.element.addEventListener('input', () => this.updatePreview());
@@ -69,6 +81,11 @@ export default class MathFormView extends View {
 				event.stopPropagation();
 			}
 		});
+	}
+
+	destroy() {
+		this.previewRenderElement?.remove();
+		super.destroy();
 	}
 
 	focus() {
@@ -92,18 +109,51 @@ export default class MathFormView extends View {
 	updatePreview() {
 		const { element } = this.previewView;
 
-		if (!element) {
+		if (!element || !this.previewRenderElement) {
 			return;
 		}
 
 		const { equation } = this;
 
 		if (!equation) {
-			element.textContent = '';
+			this.previewRenderElement.textContent = '';
+			this.previewRenderElement.style.display = 'none';
+			element.style.height = '';
 			return;
 		}
 
-		renderEquation(equation, element, this.displayMode);
+		renderEquation(equation, this.previewRenderElement, this.displayMode);
+		this.positionPreview();
+	}
+
+	positionPreview() {
+		const { element } = this.previewView;
+
+		if (!element || !this.previewRenderElement) {
+			return;
+		}
+
+		const rect = element.getBoundingClientRect();
+		Object.assign(this.previewRenderElement.style, {
+			display: 'block',
+			visibility: 'hidden',
+			left: `${rect.left}px`,
+			top: `${rect.top}px`,
+			width: `${rect.width}px`,
+			height: 'auto',
+		});
+
+		const height = Math.max(rect.height, this.previewRenderElement.scrollHeight);
+
+		element.style.height = `${height}px`;
+		Object.assign(this.previewRenderElement.style, {
+			display: 'flex',
+			visibility: 'visible',
+			left: `${rect.left}px`,
+			top: `${rect.top}px`,
+			width: `${rect.width}px`,
+			height: `${height}px`,
+		});
 	}
 
 	createButton(label, icon, className) {

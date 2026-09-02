@@ -1,9 +1,6 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-// Resolved via the `ckAlias` entry in webpack.config.js, which pins all CKEditor
-// internals to the single canonical copy nested under the `ckeditor5` package.
 import {
 	Widget, toWidget, viewToModelPositionOutsideModelElement,
-	// eslint-disable-next-line import/no-unresolved
 } from '@ckeditor/ckeditor5-widget/src/index';
 
 import MathCommand from './mathcommand';
