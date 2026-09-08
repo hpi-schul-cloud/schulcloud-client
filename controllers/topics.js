@@ -128,10 +128,12 @@ async function createNewEtherpad(req, res, contents = [], courseId) {
 
 const getEtherpadSession = (req, res, courseId) => api(req).post(
 	'/etherpad/sessions', { json: { courseId } },
-).catch((err) => {
-	logger.error(err.message);
-	return undefined;
-});
+)
+	.then((response) => response.data)
+	.catch((err) => {
+		logger.error(err.message);
+		return undefined;
+	});
 
 const validatePadDomain = (url) => {
 	const whitelist = [
@@ -213,34 +215,33 @@ router.post('/:id/share', (req, res, next) => {
 });
 
 // eslint-disable-next-line consistent-return
-router.get('/:topicId', (req, res, next) => {
+router.get('/:topicId', async (req, res, next) => {
 	const context = req.originalUrl.split('/')[1];
 	Promise.all([
 		api(req).get(`/${context}/${req.params.courseId}`),
-		api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`).then((lesson) => {
-			const etherpadPads = [];
-			if (typeof lesson.contents !== 'undefined') {
-				lesson.contents = lesson.contents.filter((element) => {
-					if (element.component === 'Etherpad') {
-						if (featureEtherpadEnabled) {
+		api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`).then(async (lesson) => {
+			if (lesson.contents !== undefined) {
+				if (featureEtherpadEnabled) {
+					const etherpadPads = [];
+					lesson.contents.forEach((element) => {
+						if (element.component === 'Etherpad') {
 							const { url } = element.content;
 							const padId = getPadIdFromUrl(url);
-							// set cookie for this pad
-							if (typeof (padId) !== 'undefined') {
+							if (padId !== undefined) {
 								etherpadPads.push(padId);
 							}
 						}
-						return false;
-					}
-					return true;
-				});
-			}
-			if (featureEtherpadEnabled && typeof lesson.contents !== 'undefined') {
-				return getEtherpadSession(req, res, req.params.courseId).then((sessionInfo) => {
-					etherpadPads.forEach((padId) => {
-						authHelper.etherpadCookieHelper(sessionInfo, padId, res);
 					});
-				}).then(() => lesson);
+
+					const sessionInfo = await getEtherpadSession(req, res, req.params.courseId);
+					const { activeSessionIds, validUntil } = sessionInfo || {};
+					authHelper.etherpadCookieHelper(activeSessionIds, validUntil, res);
+					return lesson;
+				}
+
+				if (featureEtherpadEnabled === false) {
+					lesson.contents = lesson.contents.filter((element) => element.component !== 'Etherpad');
+				}
 			}
 			return lesson;
 		}),
