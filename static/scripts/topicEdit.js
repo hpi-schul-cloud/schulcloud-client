@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-classes-per-file */
-import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic/src/index';
+import { LegacyClassicEditor } from '@hpi-schul-cloud/ckeditor/legacy';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
@@ -486,17 +486,14 @@ class TopicText extends TopicBlock {
 		const editorId = (this.props.content || {}).editorId || this.editorId;
 		ckeditorConfig.filebrowser.browseUrl = `/files/${storageContext}`;
 
-		const editor = await ClassicEditor.create(document.querySelector(`#${editorId}`), ckeditorConfig);
+		const editor = await LegacyClassicEditor.create(document.querySelector(`#${editorId}`), ckeditorConfig);
 
 		editor.on('change:data', () => {
 			this.updateText(editor.getData());
 		});
 
 		if (!parentId) {
-			editor.commands.get('imagebrowser').forceDisabled();
-			editor.commands.get('audiobrowser').forceDisabled();
-			editor.commands.get('videobrowser').forceDisabled();
-		}
+					}
 
 		showFallbackImageOnError();
 	}

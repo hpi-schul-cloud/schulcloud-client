@@ -1,4 +1,4 @@
-import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic/src/index';
+import { LegacyClassicEditor } from '@hpi-schul-cloud/ckeditor/legacy';
 import showFallbackImageOnError from '../helpers/showFallbackImageOnError';
 import ckeditorConfig from './ckeditor-config';
 
@@ -25,20 +25,12 @@ const setStorageContext = () => {
 const initEditor = async (element) => {
 	setStorageContext();
 
-	const editor = await ClassicEditor.create(element, ckeditorConfig);
+	const editor = await LegacyClassicEditor.create(element, ckeditorConfig);
 
 	if (urlParts[1] === 'homework' && (urlParts[2] === 'new' || urlParts[3] === 'edit')) {
 		document.getElementById('coursePicker').onchange = () => {
-			editor.destroy(element).then(initEditor(element));
+			editor.destroy().then(() => initEditor(element));
 		};
-	}
-
-	const isFileBrowserDisabled = 	$('.ckeditor').data('disable-file-browser');
-
-	if (isFileBrowserDisabled) {
-		editor.commands.get('imagebrowser').forceDisabled();
-		editor.commands.get('audiobrowser').forceDisabled();
-		editor.commands.get('videobrowser').forceDisabled();
 	}
 
 	showFallbackImageOnError();
