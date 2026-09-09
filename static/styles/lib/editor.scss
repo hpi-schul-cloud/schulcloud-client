@@ -37,3 +37,68 @@
 .ckeditor-html5-video{
 	max-width: 500px;
 }
+
+/*
+ * CKEditor 5 content styles for both the editable area (.ck-content)
+ * and the rendered homework/topic descriptions outside the editor
+ * (.ck-content-homework). These mirror the CKEditor 5 image/video styles
+ * so content looks the same while editing and after saving.
+ */
+.ck-content,
+.ck-content-homework {
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	figure.image {
+		display: table;
+		clear: both;
+		text-align: center;
+		margin: 0.9em auto;
+
+		img {
+			display: block;
+			margin: 0 auto;
+		}
+	}
+
+	figure.image.image-style-align-left {
+		float: left;
+		margin-right: 1em;
+		text-align: left;
+
+		img {
+			margin: 0;
+		}
+	}
+
+	figure.image.image-style-align-right {
+		float: right;
+		margin-left: 1em;
+		text-align: right;
+
+		img {
+			margin: 0;
+		}
+	}
+
+	figure.image.image-style-align-center {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	video,
+	audio,
+	.ckeditor-html5-video,
+	figure.media,
+	oembed {
+		max-width: 100%;
+	}
+
+	video,
+	.ckeditor-html5-video {
+		max-width: 500px;
+	}
+}

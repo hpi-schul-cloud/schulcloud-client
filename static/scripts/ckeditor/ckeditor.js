@@ -1,6 +1,8 @@
+import '@hpi-schul-cloud/ckeditor/build/style-legacy.css';
 import { LegacyClassicEditor } from '@hpi-schul-cloud/ckeditor/legacy';
 import showFallbackImageOnError from '../helpers/showFallbackImageOnError';
 import ckeditorConfig from './ckeditor-config';
+import createFileBrowserAdapter from './file-browser-adapter';
 
 const url = window.location.pathname;
 const urlParts = url.split('/');
@@ -25,7 +27,14 @@ const setStorageContext = () => {
 const initEditor = async (element) => {
 	setStorageContext();
 
-	const editor = await LegacyClassicEditor.create(element, ckeditorConfig);
+	const config = {
+		...ckeditorConfig,
+		filebrowser: {
+			adapter: createFileBrowserAdapter(element, ckeditorConfig.filebrowser.browseUrl),
+		},
+	};
+
+	const editor = await LegacyClassicEditor.create(element, config);
 
 	if (urlParts[1] === 'homework' && (urlParts[2] === 'new' || urlParts[3] === 'edit')) {
 		document.getElementById('coursePicker').onchange = () => {

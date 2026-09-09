@@ -13,6 +13,9 @@ const plugins = [
 	new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de/),
 ];
 
+const isEditorCss = (filePath) => filePath.endsWith('.css')
+	&& (filePath.includes('@hpi-schul-cloud/ckeditor') || filePath.includes(`${path.sep}ck5_v42${path.sep}`));
+
 module.exports = {
 	mode: isDev ? 'development' : 'production',
 	cache: isDev ? { type: 'filesystem' } : false,
@@ -36,6 +39,11 @@ module.exports = {
 						'@babel/plugin-transform-runtime',
 					],
 				},
+			},
+			// Styles from the shared CKEditor package (handles both npm installs and local file: symlinks).
+			{
+				test: isEditorCss,
+				use: ['style-loader', 'css-loader'],
 			},
 			// moment needs to be globally exposed in order to work with fullcalendar
 			{

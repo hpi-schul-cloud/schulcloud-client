@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-classes-per-file */
+import '@hpi-schul-cloud/ckeditor/build/style-legacy.css';
 import { LegacyClassicEditor } from '@hpi-schul-cloud/ckeditor/legacy';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -8,6 +9,7 @@ import {
 } from 'react-sortable-hoc';
 import shortid from 'shortid';
 import ckeditorConfig from './ckeditor/ckeditor-config';
+import createFileBrowserAdapter from './ckeditor/file-browser-adapter';
 import showFallbackImageOnError from './helpers/showFallbackImageOnError';
 import validateInputOnOpeningTag from './helpers/openingTagValidation';
 
@@ -484,9 +486,15 @@ class TopicText extends TopicBlock {
 		const storageContext = this.getStorageContext();
 
 		const editorId = (this.props.content || {}).editorId || this.editorId;
-		ckeditorConfig.filebrowser.browseUrl = `/files/${storageContext}`;
+		const element = document.querySelector(`#${editorId}`);
+		const config = {
+			...ckeditorConfig,
+			filebrowser: {
+				adapter: createFileBrowserAdapter(element, `/files/${storageContext}`),
+			},
+		};
 
-		const editor = await LegacyClassicEditor.create(document.querySelector(`#${editorId}`), ckeditorConfig);
+		const editor = await LegacyClassicEditor.create(element, config);
 
 		editor.on('change:data', () => {
 			this.updateText(editor.getData());
