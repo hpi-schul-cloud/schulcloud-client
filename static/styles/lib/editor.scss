@@ -93,7 +93,7 @@
 	audio,
 	.ckeditor-html5-video,
 	figure.media,
-	oembed {
+	oembed { // NOSONAR: <oembed> is the custom tag CKEditor 5 MediaEmbed renders in the data output, not a standard HTML element
 		max-width: 100%;
 	}
 

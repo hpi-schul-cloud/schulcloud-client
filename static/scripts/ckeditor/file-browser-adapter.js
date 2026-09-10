@@ -43,15 +43,13 @@ async function copyFile(schoolId, parentType, parentId, url) {
 }
 
 async function resolveFileUrl(sourceElement, courseFileUrl) {
-	let parentId = sourceElement.getAttribute('data-parent-id');
-	const parentType = sourceElement.getAttribute('data-parent-type');
-	const schoolId = sourceElement.getAttribute('data-school-id');
-	const homeworkId = sourceElement.getAttribute('data-homework-id');
+	let { parentId } = sourceElement.dataset;
+	const { parentType, schoolId, homeworkId } = sourceElement.dataset;
 
 	if (parentId === '') {
 		parentId = await createParent(parentType);
 
-		sourceElement.setAttribute('data-parent-id', parentId);
+		sourceElement.dataset.parentId = parentId;
 		$('.section-upload').attr('data-parent-id', parentId);
 
 		if (parentType === 'submissions' || parentType === 'gradings') {
