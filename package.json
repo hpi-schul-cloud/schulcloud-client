@@ -70,7 +70,7 @@
 		"video.js": "^7.20.3",
 		"winston": "^3.19.0",
 		"xml2js": "^0.6.2",
-		"@hpi-schul-cloud/ckeditor": "file:../ck5_v42"
+		"@hpi-schul-cloud/ckeditor": "file:./ck/hpi-schul-cloud-ckeditor-3.0.0.tgz"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.29.7",
