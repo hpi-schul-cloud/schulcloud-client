@@ -97,6 +97,10 @@ function createFileBrowserModal(dialogTitle, additionalInput, onSubmit) {
 	document.getElementById('editor-id').value = activeAdapter?.id ?? '';
 
 	const messageHandler = (e) => {
+		if (e.origin !== window.location.origin) {
+			return;
+		}
+
 		document.getElementById('url-input').value = e.data;
 	};
 	window.addEventListener('message', messageHandler);
@@ -113,7 +117,7 @@ function createFileBrowserModal(dialogTitle, additionalInput, onSubmit) {
 
 export default function createFileBrowserAdapter(sourceElement, browseUrl) {
 	const adapter = {
-		id: Math.random().toString(36).substr(2, 9),
+		id: window.crypto.randomUUID(),
 		sourceElement,
 		browseUrl,
 
