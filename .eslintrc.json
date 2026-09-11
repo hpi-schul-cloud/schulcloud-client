@@ -54,6 +54,13 @@
 				"argsIgnorePattern": "req|res|next|options|params"
 			}
 		],
+		"import/no-unresolved": [
+			"error",
+			{
+				// eslint-import-resolver-node doesn't understand this ESM-only package's exports map subpaths.
+				"ignore": ["^@hpi-schul-cloud/ckeditor"]
+			}
+		],
 		"indent": [
 			"error",
 			"tab",
