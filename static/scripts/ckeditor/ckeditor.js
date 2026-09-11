@@ -42,6 +42,14 @@ const initEditor = async (element) => {
 		};
 	}
 
+	const isFileBrowserDisabled = $('.ckeditor').data('disable-file-browser');
+
+	if (isFileBrowserDisabled) {
+		editor.commands.get('imagebrowser').forceDisabled();
+		editor.commands.get('audiobrowser').forceDisabled();
+		editor.commands.get('videobrowser').forceDisabled();
+	}
+
 	showFallbackImageOnError();
 
 	editor.model.document.on('change:data', () => {

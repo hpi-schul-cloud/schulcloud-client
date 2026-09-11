@@ -501,7 +501,10 @@ class TopicText extends TopicBlock {
 		});
 
 		if (!parentId) {
-					}
+			editor.commands.get('imagebrowser').forceDisabled();
+			editor.commands.get('audiobrowser').forceDisabled();
+			editor.commands.get('videobrowser').forceDisabled();
+		}
 
 		showFallbackImageOnError();
 	}
