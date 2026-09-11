@@ -14,6 +14,13 @@
             {{#each fileTree}}
                 {{#if this.isDirectory}}
                     <div class="filetree-folder" style="display: flex; gap: 10px;">
+                        {{#if this.children}}
+                            <button type="button" class="btn-filetree-toggle" aria-expanded="{{#if ../isSubFolder}}false{{else}}true{{/if}}" aria-controls="folder-children-{{this.id}}" aria-label="{{this.name}}" style="background: none; border: none; padding: 0; width: 1rem;">
+                                <i class="fa fa-caret-{{#if ../isSubFolder}}right{{else}}down{{/if}}" aria-hidden="true"></i>
+                            </button>
+                        {{else}}
+                            <span style="width: 1rem;"></span>
+                        {{/if}}
                         <span style="vertical-align: top; width: 1rem;">
                             <input type="checkbox" id="folder-{{this.id}}" class="folder-checkbox" data-file-id="{{this.id}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-parent-id="{{this.parentId}}">
                         </span>
@@ -23,12 +30,13 @@
                         </label>
                     </div>
                     {{#if this.children}}
-                        <div style="margin-left: 2rem; ">
+                        <div id="folder-children-{{this.id}}" class="filetree-children" style="margin-left: 2rem;{{#if ../isSubFolder}} display: none;{{/if}}">
                             {{#embed "teams/partials/filetree" fileTree=this.children teamFiles=true teamId=../_id isSubFolder=true}}{{/embed}}
                         </div>
                     {{/if}}
                 {{else}}
                     <div class="filetree-file" style="display: flex; gap: 10px">
+                        <span style="width: 1rem;"></span>
                         <span style="vertical-align: top; width: 1rem;">
                             <input type="checkbox" id="file-{{this.id}}" class="file-checkbox" data-file-id="{{this.id}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-parent-id="{{this.parentId}}">
                         </span>
