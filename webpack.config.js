@@ -13,8 +13,7 @@ const plugins = [
 	new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de/),
 ];
 
-const isEditorCss = (filePath) => filePath.endsWith('.css')
-	&& (filePath.includes('@hpi-schul-cloud/ckeditor') || filePath.includes(`${path.sep}ck5_v42${path.sep}`));
+const isEditorCss = (filePath) => filePath.endsWith('.css') && filePath.includes('@hpi-schul-cloud/ckeditor');
 
 module.exports = {
 	mode: isDev ? 'development' : 'production',
