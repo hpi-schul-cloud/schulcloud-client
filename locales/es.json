@@ -597,12 +597,18 @@
 	},
 	"ckeditor": {
 		"fileBrowser": {
-			"alternativeText": "Texto alternativo",
-			"audioProperties": "Propiedades del audio",
-			"browseServer": "Explorar servidor",
-			"imageProperties": "Propiedades de la imagen",
-			"url": "URL",
-			"videoProperties": "Propiedades del vídeo"
+			"button": {
+				"browseServer": "Explorar servidor"
+			},
+			"headline": {
+				"audioProperties": "Propiedades del audio",
+				"imageProperties": "Propiedades de la imagen",
+				"videoProperties": "Propiedades del vídeo"
+			},
+			"label": {
+				"alternativeText": "Texto alternativo",
+				"url": "URL"
+			}
 		}
 	},
 	"community": {

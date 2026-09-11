@@ -2336,12 +2336,18 @@
 	},
 	"ckeditor": {
 		"fileBrowser": {
-			"alternativeText": "Альтернативний текст",
-			"audioProperties": "Властивості аудіо",
-			"browseServer": "Переглянути сервер",
-			"imageProperties": "Властивості зображення",
-			"url": "URL",
-			"videoProperties": "Властивості відео"
+			"button": {
+				"browseServer": "Переглянути сервер"
+			},
+			"headline": {
+				"audioProperties": "Властивості аудіо",
+				"imageProperties": "Властивості зображення",
+				"videoProperties": "Властивості відео"
+			},
+			"label": {
+				"alternativeText": "Альтернативний текст",
+				"url": "URL"
+			}
 		}
 	},
 	"community": {

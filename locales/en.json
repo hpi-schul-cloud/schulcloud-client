@@ -597,12 +597,18 @@
 	},
 	"ckeditor": {
 		"fileBrowser": {
-			"alternativeText": "Alternative Text",
-			"audioProperties": "Audio Properties",
-			"browseServer": "Browse Server",
-			"imageProperties": "Image Properties",
-			"url": "URL",
-			"videoProperties": "Video Properties"
+			"button": {
+				"browseServer": "Browse Server"
+			},
+			"headline": {
+				"audioProperties": "Audio Properties",
+				"imageProperties": "Image Properties",
+				"videoProperties": "Video Properties"
+			},
+			"label": {
+				"alternativeText": "Alternative Text",
+				"url": "URL"
+			}
 		}
 	},
 	"community": {
