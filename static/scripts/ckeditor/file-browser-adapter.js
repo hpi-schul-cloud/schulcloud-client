@@ -73,15 +73,17 @@ function createFileBrowserModal(dialogTitle, additionalInput, onSubmit) {
 
 	populateModalForm(ckeditorFilebrowserDialog, {
 		title: dialogTitle,
-		closeLabel: 'Cancel',
-		submitLabel: 'OK',
+		closeLabel: $t('global.button.cancel'),
+		submitLabel: $t('global.button.ok'),
 		submitDataTestId: 'file-browser-modal',
 	});
 
-	const dialogContent = `<label for="url-input" style="display: none">URL:</label>
+	const urlLabel = $t('ckeditor.fileBrowser.url');
+	const browseServerLabel = $t('ckeditor.fileBrowser.browseServer');
+	const dialogContent = `<label for="url-input" style="display: none">${urlLabel}:</label>
 		<input type="hidden" id="url-input">
 		<input type="hidden" id="editor-id">
-		<button type="button" id="browseServerButton">Browse Server</button><br>${additionalInput}`;
+		<button type="button" id="browseServerButton">${browseServerLabel}</button><br>${additionalInput}`;
 
 	ckeditorFilebrowserDialog.find('.modal-body').html(dialogContent);
 	ckeditorFilebrowserDialog.find('.btn-submit').on('click', async () => {
@@ -122,11 +124,12 @@ export default function createFileBrowserAdapter(sourceElement, browseUrl) {
 		async pickImage() {
 			activeAdapter = adapter;
 
-			const additionalInput = `<br><label for="alt-text-input">Alternative Text:</label>
+			const altTextLabel = $t('ckeditor.fileBrowser.alternativeText');
+			const additionalInput = `<br><label for="alt-text-input">${altTextLabel}:</label>
 				<input type="text" id="alt-text-input">`;
 
 			return new Promise((resolve) => {
-				createFileBrowserModal('Image Properties', additionalInput, async () => {
+				createFileBrowserModal($t('ckeditor.fileBrowser.imageProperties'), additionalInput, async () => {
 					const courseFileUrl = document.getElementById('url-input').value;
 					const imageUrl = await resolveFileUrl(adapter.sourceElement, courseFileUrl);
 
@@ -151,7 +154,7 @@ export default function createFileBrowserAdapter(sourceElement, browseUrl) {
 			activeAdapter = adapter;
 
 			return new Promise((resolve) => {
-				createFileBrowserModal('Video Properties', '', async () => {
+				createFileBrowserModal($t('ckeditor.fileBrowser.videoProperties'), '', async () => {
 					const courseFileUrl = document.getElementById('url-input').value;
 					const videoUrl = await resolveFileUrl(adapter.sourceElement, courseFileUrl);
 
@@ -175,7 +178,7 @@ export default function createFileBrowserAdapter(sourceElement, browseUrl) {
 			activeAdapter = adapter;
 
 			return new Promise((resolve) => {
-				createFileBrowserModal('Audio Properties', '', async () => {
+				createFileBrowserModal($t('ckeditor.fileBrowser.audioProperties'), '', async () => {
 					const courseFileUrl = document.getElementById('url-input').value;
 					const audioUrl = await resolveFileUrl(adapter.sourceElement, courseFileUrl);
 

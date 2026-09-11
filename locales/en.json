@@ -595,6 +595,16 @@
 			"videoConferenceDetailsAreLoading": "Loading video conference details..."
 		}
 	},
+	"ckeditor": {
+		"fileBrowser": {
+			"alternativeText": "Alternative Text",
+			"audioProperties": "Audio Properties",
+			"browseServer": "Browse Server",
+			"imageProperties": "Image Properties",
+			"url": "URL",
+			"videoProperties": "Video Properties"
+		}
+	},
 	"community": {
 		"button": {
 			"allOtherSchools": "All other schools",

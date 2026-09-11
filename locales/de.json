@@ -595,6 +595,16 @@
 			"videoConferenceDetailsAreLoading": "Videokonferenzdetails werden geladen..."
 		}
 	},
+	"ckeditor": {
+		"fileBrowser": {
+			"alternativeText": "Alternativer Text",
+			"audioProperties": "Audioeigenschaften",
+			"browseServer": "Server durchsuchen",
+			"imageProperties": "Bildeigenschaften",
+			"url": "URL",
+			"videoProperties": "Videoeigenschaften"
+		}
+	},
 	"community": {
 		"button": {
 			"allOtherSchools": "Alle anderen Schulen",
