@@ -1,0 +1,16 @@
+msgid ""
+msgstr ""
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "Toolbar button tooltip for the math feature."
+msgid "Insert Math"
+msgstr "Formel einfügen"
+
+msgctxt "Label for the TeX formula input field."
+msgid "TeX formula"
+msgstr "TeX-Formel"
+
+msgctxt "Label for the switch toggling display (block) mode of a formula."
+msgid "Display mode"
+msgstr "Abgesetzt darstellen"

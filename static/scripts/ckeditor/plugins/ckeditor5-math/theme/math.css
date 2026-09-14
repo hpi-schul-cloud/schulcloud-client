@@ -1,0 +1,78 @@
+.ck.ck-math-form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--ck-spacing-standard);
+	padding: var(--ck-spacing-standard);
+	box-sizing: border-box;
+	width: min(520px, calc(100vw - 48px));
+	min-width: 320px;
+}
+
+.ck.ck-math-form > .ck-labeled-field-view {
+	width: 100%;
+}
+
+.ck.ck-math-form .ck-input {
+	width: 100%;
+	font-family: monospace;
+}
+
+/* Tall KaTeX layouts need vertical room inside the balloon. */
+.ck.ck-math-preview {
+	display: block;
+	overflow: hidden;
+	box-sizing: border-box;
+	min-height: 72px;
+	padding: 0;
+	border: 1px solid var(--ck-color-base-border);
+	border-radius: var(--ck-border-radius);
+	background: var(--ck-color-base-background);
+}
+
+
+.ck-math-preview__rendered {
+	position: fixed;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	overflow: hidden;
+	pointer-events: none;
+	z-index: calc(var(--ck-z-panel, 999) + 1);
+	padding: calc(var(--ck-spacing-standard, 10px) * 1.5) var(--ck-spacing-large, 16px);
+	text-align: center;
+	line-height: normal;
+}
+
+.ck-math-preview__rendered .katex-display {
+	margin: 0;
+}
+
+.ck-math-preview__rendered .katex {
+	display: inline-block;
+	padding: var(--ck-spacing-small, 6px) 0;
+}
+
+.ck.ck-math-preview:empty::before {
+	content: '';
+	display: inline-block;
+	height: 40px;
+}
+
+.ck.ck-math-form__actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--ck-spacing-small);
+}
+
+.ck-math-tex-inline {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal;
+}
+
+.ck-math-tex-display {
+	display: block;
+	margin: var(--ck-spacing-standard) 0;
+	text-align: center;
+	line-height: normal;
+}
