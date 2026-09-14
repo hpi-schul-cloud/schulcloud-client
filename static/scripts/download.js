@@ -1,37 +1,32 @@
+const appendHiddenInput = (form, name, value) => {
+	const input = document.createElement('input');
+	input.type = 'hidden';
+	input.name = name;
+	input.value = value;
+	form.appendChild(input);
+};
+
 const archiveDownload = (requestBody, selectedFileIds = []) => {
 	const form = document.createElement('form');
-	form.method = 'GET';
+	form.method = 'POST';
 	form.action = '/api/v1/filestorage/files/archive';
 	form.target = '_blank';
+	form.rel = 'noopener';
 
-	const ownerIdInput = document.createElement('input');
-	ownerIdInput.type = 'hidden';
-	ownerIdInput.name = 'ownerId';
-	ownerIdInput.value = requestBody.ownerId;
+	const csrfTokenMetaTag = document.querySelector('meta[name="csrfToken"]');
+	if (csrfTokenMetaTag) {
+		appendHiddenInput(form, '_csrf', csrfTokenMetaTag.getAttribute('content'));
+	}
 
-	const ownerTypeInput = document.createElement('input');
-	ownerTypeInput.type = 'hidden';
-	ownerTypeInput.name = 'ownerType';
-	ownerTypeInput.value = requestBody.ownerType;
-
-	const archiveNameInput = document.createElement('input');
-	archiveNameInput.type = 'hidden';
-	archiveNameInput.name = 'archiveName';
-	archiveNameInput.value = requestBody.archiveName;
+	appendHiddenInput(form, 'ownerId', requestBody.ownerId);
+	appendHiddenInput(form, 'ownerType', requestBody.ownerType);
+	appendHiddenInput(form, 'archiveName', requestBody.archiveName);
 
 	if (selectedFileIds && selectedFileIds.length > 0) {
 		selectedFileIds.forEach((selectedFileId) => {
-			const selectedFilesInput = document.createElement('input');
-			selectedFilesInput.type = 'hidden';
-			selectedFilesInput.name = 'selectedFiles';
-			selectedFilesInput.value = selectedFileId;
-			form.appendChild(selectedFilesInput);
+			appendHiddenInput(form, 'selectedFiles', selectedFileId);
 		});
 	}
-
-	form.appendChild(ownerIdInput);
-	form.appendChild(ownerTypeInput);
-	form.appendChild(archiveNameInput);
 
 	document.body.appendChild(form);
 
