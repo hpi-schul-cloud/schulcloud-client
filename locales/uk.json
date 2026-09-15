@@ -2334,6 +2334,22 @@
 			}
 		}
 	},
+	"ckeditor": {
+		"fileBrowser": {
+			"button": {
+				"browseServer": "Переглянути сервер"
+			},
+			"headline": {
+				"audioProperties": "Властивості аудіо",
+				"imageProperties": "Властивості зображення",
+				"videoProperties": "Властивості відео"
+			},
+			"label": {
+				"alternativeText": "Альтернативний текст",
+				"url": "URL"
+			}
+		}
+	},
 	"community": {
 		"button": {
 			"allOtherSchools": "Усі інші школи",

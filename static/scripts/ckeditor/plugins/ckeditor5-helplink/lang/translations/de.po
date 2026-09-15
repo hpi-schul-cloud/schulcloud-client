@@ -1,8 +1,0 @@
-msgid ""
-msgstr ""
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgctxt "Toolbar button tooltip for the helplink feature."
-msgid "Open Help Page"
-msgstr "Öffne Hilfeseite"
