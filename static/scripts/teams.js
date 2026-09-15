@@ -258,6 +258,19 @@ $(document).ready(() => {
 		updateFilesizeSum();
 	});
 
+	$(document).on('click', '.btn-filetree-toggle', (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+
+		const $toggle = $(e.currentTarget);
+		const $children = $(document.getElementById($toggle.attr('aria-controls')));
+		const isExpanded = $toggle.attr('aria-expanded') === 'true';
+
+		$toggle.attr('aria-expanded', !isExpanded);
+		$toggle.find('i').toggleClass('fa-caret-right', isExpanded).toggleClass('fa-caret-down', !isExpanded);
+		$children.toggle(!isExpanded);
+	});
+
 	$('.btn-file-selective-download-submit').click(() => {
 		const selectedFileIds = getSelectedFileIds();
 		downloadFiles(selectedFileIds);
