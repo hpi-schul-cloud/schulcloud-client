@@ -15,7 +15,7 @@ import { apiV3FileStorageBasePath, getFileDownloadUrl } from '../helpers/storage
 let activeAdapter = null;
 
 async function copyFile(schoolId, parentType, parentId, url) {
-	const urlParams = new URLSearchParams(url.split('?')[1]);
+	const urlParams = new URL(url, window.location.origin).searchParams;
 	const fileId = urlParams.get('file');
 	const fileName = urlParams.get('name');
 
