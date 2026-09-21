@@ -8,6 +8,7 @@ function themeName() {
 }
 
 let staticifyInstance = null;
+let localesStaticifyInstance = null;
 const localesDir = path.join(__dirname, '../locales');
 const buildThemeAssetDir = path.join(__dirname, `../build/${themeName()}`);
 
@@ -29,10 +30,33 @@ const lazyInitialization = () => {
 };
 
 /**
+ * initializes the locales staticify instance lazily
+ */
+const localesLazyInitialization = () => {
+	if (localesStaticifyInstance == null) {
+		localesStaticifyInstance = staticify(localesDir, {
+			sendOptions: {
+				maxAge: Configuration.get('ASSET_CACHING_MAX_AGE_SECONDS') * 1000,
+				etag: false,
+			},
+		});
+	}
+};
+
+/**
  * middleware for static assets may use hashed file names
  */
 const staticAssetsMiddleware = (app) => {
-	app.use('/locales', express.static(localesDir));
+	app.use('/locales', express.static(localesDir, {
+		setHeaders: (res) => res.setHeader('Cache-Control', 'no-cache'),
+	}));
+	app.use('/locales', (req, res, next) => {
+		if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true) {
+			localesLazyInitialization();
+			return localesStaticifyInstance.middleware(req, res, next);
+		}
+		return next();
+	});
 	app.use(express.static(path.join(buildThemeAssetDir)));
 	app.use((req, res, next) => {
 		if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true) {
@@ -64,6 +88,18 @@ const rewriteStaticAssetPaths = (content) => {
 	return content;
 };
 
+/**
+ * generates the path to a locale file, content-hashed when asset caching is enabled
+ * @param {string} lng
+ */
+const getLocalePath = (lng) => {
+	if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true) {
+		localesLazyInitialization();
+		return `/locales${localesStaticifyInstance.getVersionedPath(`/${lng}.json`)}`;
+	}
+	return `/locales/${lng}.json`;
+};
+
 module.exports = {
-	staticAssetsMiddleware, getStaticAssetPath, rewriteStaticAssetPaths, themeName,
+	staticAssetsMiddleware, getStaticAssetPath, rewriteStaticAssetPaths, getLocalePath, themeName,
 };
