@@ -95,7 +95,8 @@ const rewriteStaticAssetPaths = (content) => {
 const getLocalePath = (lng) => {
 	if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true) {
 		localesLazyInitialization();
-		return `/locales${localesStaticifyInstance.getVersionedPath(`/${lng}.json`)}`;
+		const versionedPath = localesStaticifyInstance.getVersionedPath(`/${lng}.json`);
+		return `/locales${versionedPath}`;
 	}
 	return `/locales/${lng}.json`;
 };
