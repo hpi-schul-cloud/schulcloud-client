@@ -2,11 +2,11 @@ import i18next from 'i18next';
 import Fetch from 'i18next-fetch-backend';
 
 const userLanguage = document.querySelector('html').getAttribute('lang');
-const localeVersionsElement = document.getElementById('locale-versions');
-const localeVersions = localeVersionsElement ? JSON.parse(localeVersionsElement.textContent) : {};
 
-// mock method. used until language keys are loaded. (not perfect, but at least it works for now)
-window.$t = (key) => key;
+const resources = {};
+if (window.i18nLocaleData) {
+	resources[userLanguage] = { translation: window.i18nLocaleData };
+}
 
 i18next
 	.use(Fetch)
@@ -14,10 +14,10 @@ i18next
 		initImmediate: false,
 		lng: userLanguage,
 		fallbackLng: ['de', 'en'].filter((lng) => lng !== userLanguage),
+		resources,
 		backend: {
-			loadPath: (lng) => localeVersions[lng] || `/locales/${lng}.json`,
+			loadPath: (lng) => `/locales/${lng}.json`,
 		},
-	})
-	.then(() => {
-		window.$t = (...args) => i18next.t(...args);
 	});
+
+window.$t = (...args) => i18next.t(...args);

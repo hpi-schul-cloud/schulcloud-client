@@ -2,7 +2,7 @@ const moment = require('moment');
 const { stripHtml } = require('string-strip-html');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const Handlebars = require('handlebars');
-const { getStaticAssetPath, getLocalePath } = require('../../../middleware/assets');
+const { getStaticAssetPath, getLocaleScriptPath } = require('../../../middleware/assets');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
 const filesStorage = require('../../files-storage');
@@ -159,9 +159,7 @@ const helpers = () => ({
 	},
 	userIds: (users) => (users || []).map((user) => user._id).join(','),
 	getAssetPath: (assetPath) => getStaticAssetPath(assetPath),
-	getLocaleVersions: () => JSON.stringify(
-		i18n.availableLanguages.reduce((paths, lng) => ({ ...paths, [lng]: getLocalePath(lng) }), {}),
-	),
+	getLocaleScriptPath: (lng) => getLocaleScriptPath(lng),
 	timeFromNow: (date) => timesHelper.fromNow(date),
 	timeFromNowWithRule: (date) => timesHelper.fromNowWithRule(date),
 	datePickerTodayMinus: (years, months, days, format) => {

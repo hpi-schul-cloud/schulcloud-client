@@ -1,6 +1,7 @@
 const staticify = require('staticify');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
 
 function themeName() {
@@ -46,6 +47,25 @@ const localesLazyInitialization = () => {
 /**
  * middleware for static assets may use hashed file names
  */
+const serveLocaleScript = (req, res, next) => {
+	const match = req.path.match(/^\/locales\/([a-z]+)(?:\.[a-z0-9]+)?\.i18n\.js$/i);
+	if (!match) {
+		return next();
+	}
+	const lng = match[1];
+	const filePath = path.join(localesDir, `${lng}.json`);
+	return fs.readFile(filePath, 'utf8', (err, data) => {
+		if (err) {
+			return res.type('application/javascript').send('window.i18nLocaleData = {};');
+		}
+		const cacheControl = Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true
+			? `max-age=${Configuration.get('ASSET_CACHING_MAX_AGE_SECONDS')}`
+			: 'no-cache';
+		res.setHeader('Cache-Control', cacheControl);
+		return res.type('application/javascript').send(`window.i18nLocaleData = ${data};`);
+	});
+};
+
 const staticAssetsMiddleware = (app) => {
 	app.use('/locales', express.static(localesDir, {
 		setHeaders: (res) => res.setHeader('Cache-Control', 'no-cache'),
@@ -57,6 +77,7 @@ const staticAssetsMiddleware = (app) => {
 		}
 		return next();
 	});
+	app.use(serveLocaleScript);
 	app.use(express.static(path.join(buildThemeAssetDir)));
 	app.use((req, res, next) => {
 		if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true) {
@@ -89,7 +110,7 @@ const rewriteStaticAssetPaths = (content) => {
 };
 
 /**
- * generates the path to a locale file, content-hashed when asset caching is enabled
+ * generates the path to a locale JSON file, content-hashed when asset caching is enabled
  * @param {string} lng
  */
 const getLocalePath = (lng) => {
@@ -101,6 +122,17 @@ const getLocalePath = (lng) => {
 	return `/locales/${lng}.json`;
 };
 
+/**
+ * generates the path to a locale JS file (window.i18nLocaleData), content-hashed when asset caching is enabled
+ * @param {string} lng
+ */
+const getLocaleScriptPath = (lng) => getLocalePath(lng).replace('.json', '.i18n.js');
+
 module.exports = {
-	staticAssetsMiddleware, getStaticAssetPath, rewriteStaticAssetPaths, getLocalePath, themeName,
+	staticAssetsMiddleware,
+	getStaticAssetPath,
+	rewriteStaticAssetPaths,
+	getLocalePath,
+	getLocaleScriptPath,
+	themeName,
 };
