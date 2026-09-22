@@ -132,7 +132,6 @@ module.exports = {
 	staticAssetsMiddleware,
 	getStaticAssetPath,
 	rewriteStaticAssetPaths,
-	getLocalePath,
 	getLocaleScriptPath,
 	themeName,
 };
