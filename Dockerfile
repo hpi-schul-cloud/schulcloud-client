@@ -24,6 +24,7 @@ RUN npm ci --ignore-scripts
 
 # Copy application source
 COPY bin ./bin
+COPY build-tools ./build-tools
 COPY config ./config
 COPY controllers ./controllers
 COPY helpers ./helpers
