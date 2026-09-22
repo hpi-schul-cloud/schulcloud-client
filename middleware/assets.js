@@ -1,7 +1,7 @@
 const staticify = require('staticify');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const path = require('path');
-const fs = require('fs');
+const fs = require('node:fs');
 const express = require('express');
 
 function themeName() {
