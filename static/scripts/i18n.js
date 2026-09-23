@@ -18,6 +18,7 @@ i18next
 		backend: {
 			loadPath: (lng) => `/locales/${lng}.json`,
 		},
+	})
+	.then(() => {
+		window.$t = (...args) => i18next.t(...args);
 	});
-
-window.$t = (...args) => i18next.t(...args);
