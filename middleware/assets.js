@@ -2,6 +2,7 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 const path = require('path');
 const fs = require('node:fs');
 const express = require('express');
+const logger = require('../helpers/logger');
 
 function themeName() {
 	return Configuration.get('SC_THEME') || 'default';
@@ -22,6 +23,9 @@ const getAssetManifest = () => {
 			const manifestPath = path.join(buildThemeAssetDir, 'asset-manifest.json');
 			assetManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 		} catch (err) {
+			if (err.code !== 'ENOENT') {
+				logger.error('failed to read asset manifest', err);
+			}
 			assetManifest = {};
 		}
 	}
