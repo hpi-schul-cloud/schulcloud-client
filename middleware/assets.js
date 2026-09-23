@@ -10,11 +10,11 @@ function themeName() {
 const localesDir = path.join(__dirname, '../locales');
 const buildThemeAssetDir = path.join(__dirname, `../build/${themeName()}`);
 let assetManifest = null;
-let revvedPaths = null;
+let hashedPaths = null;
 
 /**
  * reads build/{theme}/asset-manifest.json (written by gulp-rev) once and caches it.
- * maps original relative path (e.g. "images/logo.svg") to its revved relative path.
+ * maps original relative path (e.g. "images/logo.svg") to its hashed relative path.
  */
 const getAssetManifest = () => {
 	if (assetManifest == null) {
@@ -29,13 +29,13 @@ const getAssetManifest = () => {
 };
 
 /**
- * the set of all revved (hashed) relative paths, used to tell them apart from originals for caching
+ * the set of all hashed relative paths, used to tell them apart from originals for caching
  */
-const getRevvedPaths = () => {
-	if (revvedPaths == null) {
-		revvedPaths = new Set(Object.values(getAssetManifest()));
+const getHashedPaths = () => {
+	if (hashedPaths == null) {
+		hashedPaths = new Set(Object.values(getAssetManifest()));
 	}
-	return revvedPaths;
+	return hashedPaths;
 };
 
 const staticAssetsMiddleware = (app) => {
@@ -49,7 +49,7 @@ const staticAssetsMiddleware = (app) => {
 				return;
 			}
 			const relativePath = path.relative(buildThemeAssetDir, filePath).split(path.sep).join('/');
-			const maxAge = getRevvedPaths().has(relativePath)
+			const maxAge = getHashedPaths().has(relativePath)
 				? Configuration.get('ASSET_CACHING_MAX_AGE_SECONDS')
 				: 86400;
 			res.setHeader('Cache-Control', `public, max-age=${maxAge}`);
@@ -58,14 +58,14 @@ const staticAssetsMiddleware = (app) => {
 };
 
 /**
- * generates a file path to a static asset, using its revved (content-hashed) filename when available
+ * generates a file path to a static asset, using its content-hashed filename when available
  * @param {string} staticFilePath
  */
 const getStaticAssetPath = (staticFilePath) => {
 	if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true) {
-		const revved = getAssetManifest()[staticFilePath.replace(/^\//, '')];
-		if (revved) {
-			return `/${revved}`;
+		const hashedFilePath = getAssetManifest()[staticFilePath.replace(/^\//, '')];
+		if (hashedFilePath) {
+			return `/${hashedFilePath}`;
 		}
 	}
 	return staticFilePath;
