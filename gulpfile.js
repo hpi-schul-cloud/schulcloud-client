@@ -23,13 +23,13 @@ const named = require('vinyl-named');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const rev = require('gulp-rev').default;
+const revRewrite = require('gulp-rev-rewrite').default;
 const { themeName } = require('./middleware/assets');
-const { rewriteCssUrls } = require('./build-tools/rewriteCssUrls');
-const { buildLocaleScripts } = require('./build-tools/localeScripts');
 const webpackConfig = require('./webpack.config');
 
 const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
 const ASSET_MANIFEST = 'asset-manifest.json';
+const localesDir = path.resolve(__dirname, 'locales');
 const buildDirFor = (theme) => path.resolve(__dirname, 'build', theme);
 const manifestPathFor = (theme) => path.join(buildDirFor(theme), ASSET_MANIFEST);
 
@@ -265,13 +265,12 @@ gulp.task('rev-assets', () => gulp.src(
 	.pipe(gulp.dest(`./build/${themeName()}`)));
 
 // rewrites CSS url() references (images/fonts) to their revved filenames from the manifest
-gulp.task('rewrite-css-urls', (done) => {
-	const buildDir = `./build/${themeName()}`;
-	const manifest = fs.existsSync(manifestPathFor(themeName()))
-		? JSON.parse(fs.readFileSync(manifestPathFor(themeName()), 'utf8'))
-		: {};
-	rewriteCssUrls(buildDir, manifest);
-	done();
+gulp.task('rewrite-css-urls', () => {
+	const manifestPath = manifestPathFor(themeName());
+	const manifest = fs.existsSync(manifestPath) ? fs.readFileSync(manifestPath) : Buffer.from('{}');
+	return gulp.src(`./build/${themeName()}/styles/**/*.css`, { base: `./build/${themeName()}` })
+		.pipe(revRewrite({ manifest }))
+		.pipe(gulp.dest(`./build/${themeName()}`));
 });
 
 // hashes the (now rewritten) CSS files and merges them into the same manifest
@@ -286,7 +285,15 @@ gulp.task('asset-manifest', gulp.series('rev-assets', 'rewrite-css-urls', 'rev-s
 
 // wraps locales/*.json as window.i18nLocaleData scripts so they're revved like any other asset
 gulp.task('locale-scripts', (done) => {
-	buildLocaleScripts(`./build/${themeName()}`);
+	const outDir = path.join(buildDirFor(themeName()), 'locales');
+	fs.mkdirSync(outDir, { recursive: true });
+	fs.readdirSync(localesDir)
+		.filter((file) => file.endsWith('.json'))
+		.forEach((file) => {
+			const lng = path.basename(file, '.json');
+			const content = fs.readFileSync(path.join(localesDir, file), 'utf8');
+			fs.writeFileSync(path.join(outDir, `${lng}.i18n.js`), `window.i18nLocaleData = ${content};`);
+		});
 	done();
 });
 
