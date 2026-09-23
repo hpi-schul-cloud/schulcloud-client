@@ -10,6 +10,7 @@ function themeName() {
 
 const localesDir = path.join(__dirname, '../locales');
 const buildThemeAssetDir = path.join(__dirname, `../build/${themeName()}`);
+const ASSET_MANIFEST_FILE = 'asset-manifest.json';
 let assetManifest = null;
 let hashedPaths = null;
 
@@ -20,7 +21,7 @@ let hashedPaths = null;
 const getAssetManifest = () => {
 	if (assetManifest == null) {
 		try {
-			const manifestPath = path.join(buildThemeAssetDir, 'asset-manifest.json');
+			const manifestPath = path.join(buildThemeAssetDir, ASSET_MANIFEST_FILE);
 			assetManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
 		} catch (err) {
 			if (err.code !== 'ENOENT') {
