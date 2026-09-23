@@ -6,6 +6,8 @@ const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const api = require('../api');
 const permissionsHelper = require('./permissions');
+const { changeLanguage, getCurrentLanguage } = require('./i18n');
+const handlebarsMiddleware = require('./handlebars/middleware');
 const wordlist = require('../static/other/wordlist');
 
 const logger = require('./logger');
@@ -274,39 +276,47 @@ const restrictSidebar = (req, res) => {
 	});
 };
 
-const authChecker = (req, res, next) => {
-	isAuthenticated(req, res)
-		.then((isAuthenticated2) => {
-			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
+const authChecker = async (req, res, next) => {
+	const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
+	const authenticationSucceeded = await isAuthenticated(req, res);
 
-			if (isAuthenticated2) {
-			// fetch user profile
-				populateCurrentUser(req, res)
-					.then(() => checkSuperhero(req, res))
-					.then(() => checkConsent(req, res))
-					.then(() => restrictSidebar(req, res))
-					.then(() => checkIfUserIsForcedToChangePassword(req, res))
-					.then(() => {
-						next();
-						return null;
-					})
-					.catch((err) => {
-						if (err === 'firstLogin was not completed, redirecting...') {
-							// print message?
-							res.redirect('/firstLogin');
-						} else if (err === 'superhero access forbidden, redirecting...') {
-							res.redirect('/login/superhero');
-						} else if (err === USER_FORCED_TO_CHANGE_PASSWORD_REJECT) {
-							res.redirect('/forcePasswordChange');
-						} else {
-							res.redirect(redirectUrl);
-						}
-					});
-			} else {
-				const encodedRedirectUrl = encodeURIComponent(req.originalUrl);
-				res.redirect(`${redirectUrl}?redirect=${encodedRedirectUrl}`);
-			}
+	if (!authenticationSucceeded) {
+		const encodedRedirectUrl = encodeURIComponent(req.originalUrl);
+		res.redirect(`${redirectUrl}?redirect=${encodedRedirectUrl}`);
+		return;
+	}
+
+	try {
+		await populateCurrentUser(req, res);
+		const currentLanguage = await getCurrentLanguage(req, res);
+		res.locals.userLanguage = currentLanguage;
+		await changeLanguage(currentLanguage);
+		await new Promise((resolve, reject) => {
+			handlebarsMiddleware(req, res, (error) => {
+				if (error) {
+					reject(error);
+					return;
+				}
+				resolve();
+			});
 		});
+		await checkSuperhero(req, res);
+		await checkConsent(req, res);
+		restrictSidebar(req, res);
+		await checkIfUserIsForcedToChangePassword(req, res);
+		next();
+	} catch (err) {
+		if (err === 'firstLogin was not completed, redirecting...') {
+			// print message?
+			res.redirect('/firstLogin');
+		} else if (err === 'superhero access forbidden, redirecting...') {
+			res.redirect('/login/superhero');
+		} else if (err === USER_FORCED_TO_CHANGE_PASSWORD_REJECT) {
+			res.redirect('/forcePasswordChange');
+		} else {
+			res.redirect(redirectUrl);
+		}
+	}
 };
 
 const setLoginCookies = (res, token) => {
