@@ -23,9 +23,21 @@ const resolveCssReference = (cssRelativePath, reference) => {
 const isRewritableReference = (reference) => !/^(data:|[a-z][a-z0-9+.-]*:|\/\/)/i.test(reference);
 
 const rewriteContent = (content, cssRelativePath, manifest) => content.replace(
-	/url\(\s*(['"]?)([^'")]+)\1\s*\)/gi,
-	(match, quote, rawValue) => {
-		if (!isRewritableReference(rawValue)) {
+	/url\(\s*(?:'([^']*)'|"([^"]*)"|([^'")\s]+))\s*\)/gi,
+	(match, singleQuoted, doubleQuoted, unquoted) => {
+		let quote;
+		let rawValue;
+		if (singleQuoted !== undefined) {
+			quote = "'";
+			rawValue = singleQuoted;
+		} else if (doubleQuoted !== undefined) {
+			quote = '"';
+			rawValue = doubleQuoted;
+		} else {
+			quote = '';
+			rawValue = unquoted;
+		}
+		if (!rawValue || !isRewritableReference(rawValue)) {
 			return match;
 		}
 		const splitIndex = rawValue.search(/[?#]/);
