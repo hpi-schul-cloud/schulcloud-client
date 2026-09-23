@@ -56,8 +56,8 @@ const staticAssetsMiddleware = (app) => {
 			const relativePath = path.relative(buildThemeAssetDir, filePath).split(path.sep).join('/');
 			const maxAge = getHashedPaths().has(relativePath)
 				? Configuration.get('ASSET_CACHING_MAX_AGE_SECONDS')
-				: 86400;
-			res.setHeader('Cache-Control', `public, max-age=${maxAge}`);
+				: 0;
+			res.setHeader('Cache-Control', maxAge === 0 ? 'no-cache' : `public, max-age=${maxAge}`);
 		},
 	}));
 };
