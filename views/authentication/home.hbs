@@ -6,9 +6,6 @@
 
     {{#content "scripts" mode="append"}}
         <script src="{{getAssetPath '/scripts/login.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script nonce="{{nonceValue}}">
-            window.production = '{{ @root.production }}';
-        </script>
     {{/content}}
 
     {{#content "page"}}
