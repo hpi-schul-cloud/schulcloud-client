@@ -8,7 +8,6 @@ function themeName() {
 	return Configuration.get('SC_THEME') || 'default';
 }
 
-const localesDir = path.join(__dirname, '../locales');
 const buildThemeAssetDir = path.join(__dirname, `../build/${themeName()}`);
 const ASSET_MANIFEST_FILE = 'asset-manifest.json';
 let assetManifest = null;
@@ -44,22 +43,21 @@ const getHashedPaths = () => {
 };
 
 const staticAssetsMiddleware = (app) => {
-	app.use('/locales', express.static(localesDir, {
-		setHeaders: (res) => res.setHeader('Cache-Control', 'no-cache'),
-	}));
-	app.use(express.static(buildThemeAssetDir, {
-		setHeaders: (res, filePath) => {
-			if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') !== true) {
-				res.setHeader('Cache-Control', 'no-cache');
-				return;
-			}
-			const relativePath = path.relative(buildThemeAssetDir, filePath).split(path.sep).join('/');
-			const maxAge = getHashedPaths().has(relativePath)
-				? Configuration.get('ASSET_CACHING_MAX_AGE_SECONDS')
-				: 0;
-			res.setHeader('Cache-Control', maxAge === 0 ? 'no-cache' : `public, max-age=${maxAge}`);
-		},
-	}));
+	app.use(
+		express.static(buildThemeAssetDir, {
+			setHeaders: (res, filePath) => {
+				if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') !== true) {
+					res.setHeader('Cache-Control', 'no-cache');
+					return;
+				}
+				const relativePath = path.relative(buildThemeAssetDir, filePath).split(path.sep).join('/');
+				const maxAge = getHashedPaths().has(relativePath)
+					? Configuration.get('ASSET_CACHING_MAX_AGE_SECONDS')
+					: 0;
+				res.setHeader('Cache-Control', maxAge === 0 ? 'no-cache' : `public, max-age=${maxAge}`);
+			},
+		}),
+	);
 };
 
 /**
