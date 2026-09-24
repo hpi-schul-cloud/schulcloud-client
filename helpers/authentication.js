@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const passwordGenerator = require('generate-password');
+const { promisify } = require('util');
 
 const { Configuration } = require('@hpi-schul-cloud/commons');
 
@@ -15,6 +16,8 @@ const logger = require('./logger');
 const { setCookie } = require('./cookieHelper');
 const redirectHelper = require('./redirect');
 const renameIdsInSchool = require('./schoolHelper');
+
+const handlebarsMiddlewareAsync = promisify(handlebarsMiddleware);
 
 const rolesDisplayName = {
 	teacher: 'Lehrer',
@@ -290,16 +293,13 @@ const authChecker = async (req, res, next) => {
 		await populateCurrentUser(req, res);
 		const currentLanguage = await getCurrentLanguage(req, res);
 		res.locals.userLanguage = currentLanguage;
-		await changeLanguage(currentLanguage);
-		await new Promise((resolve, reject) => {
-			handlebarsMiddleware(req, res, (error) => {
-				if (error) {
-					reject(error);
-					return;
-				}
-				resolve();
-			});
-		});
+		const previousLanguage = req.cookies.USER_LANG;
+		if (previousLanguage !== currentLanguage) {
+			await changeLanguage(currentLanguage);
+			setCookie(res, 'USER_LANG', currentLanguage);
+			await handlebarsMiddlewareAsync(req, res);
+		}
+
 		await checkSuperhero(req, res);
 		await checkConsent(req, res);
 		restrictSidebar(req, res);
