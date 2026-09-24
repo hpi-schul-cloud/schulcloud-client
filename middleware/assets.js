@@ -47,15 +47,21 @@ const staticAssetsMiddleware = (app) => {
 	app.use(
 		express.static(buildThemeAssetDir, {
 			setHeaders: (res, filePath) => {
-				if (Configuration.get('FEATURE_ASSET_CACHING_ENABLED') !== true) {
+				const isCachingEnabled = Configuration.get('FEATURE_ASSET_CACHING_ENABLED') === true;
+				const maxAge = Configuration.get('ASSET_CACHING_MAX_AGE_SECONDS');
+
+				if (!isCachingEnabled || !maxAge) {
 					res.setHeader('Cache-Control', 'no-cache');
 					return;
 				}
+
 				const relativePath = path.relative(buildThemeAssetDir, filePath).split(path.sep).join('/');
-				const maxAge = getHashedPaths().has(relativePath)
-					? Configuration.get('ASSET_CACHING_MAX_AGE_SECONDS')
-					: 0;
-				res.setHeader('Cache-Control', maxAge === 0 ? 'no-cache' : `public, max-age=${maxAge}`);
+				if (!getHashedPaths().has(relativePath)) {
+					res.setHeader('Cache-Control', 'no-cache');
+					return;
+				}
+
+				res.setHeader('Cache-Control', `public, max-age=${maxAge}`);
 			},
 		}),
 	);
