@@ -1,14 +1,10 @@
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const express = require('express');
-const showdown = require('showdown');
 const _ = require('lodash');
 
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
-const { normalizeDate } = require('../helpers/date');
-const { getCurrentLanguage } = require('../helpers/i18n');
-
-const converter = new showdown.Converter();
+const { renderMarkdown } = require('../helpers/markdown');
 
 const redirectHelper = require('../helpers/redirect');
 
@@ -152,7 +148,7 @@ router.get('/', async (req, res, next) => {
 					version.visualType = res.$t('login.headline.onlyTermsOfUse');
 				}
 			}
-			version.consentHTML = converter.makeHtml(version.consentText);
+			version.consentHTML = renderMarkdown(version.consentText);
 		});
 		submitPageIndex += 1;
 		sections.push('consent_updates');

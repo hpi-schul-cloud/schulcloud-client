@@ -1,11 +1,10 @@
 const express = require('express');
 const moment = require('moment');
-const { Converter } = require('showdown');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
+const { renderMarkdown } = require('../helpers/markdown');
 
 const router = express.Router();
-const converter = new Converter();
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -19,7 +18,7 @@ router.get('/releases', (req, res, next) => {
 		.then((releases) => {
 			// eslint-disable-next-line array-callback-return
 			releases.data.map((release) => {
-				release.body = converter.makeHtml(release.body);
+				release.body = renderMarkdown(release.body);
 				release.publishedAt = moment(release.publishedAt).format('ddd, ll');
 			});
 
