@@ -4,14 +4,15 @@ const fs = require('node:fs');
 const express = require('express');
 const logger = require('../helpers/logger');
 
+const ASSET_MANIFEST_FILE = 'asset-manifest.json';
+let assetManifest = null;
+let hashedPaths = null;
+
 function themeName() {
 	return Configuration.get('SC_THEME') || 'default';
 }
 
 const buildThemeAssetDir = path.join(__dirname, `../build/${themeName()}`);
-const ASSET_MANIFEST_FILE = 'asset-manifest.json';
-let assetManifest = null;
-let hashedPaths = null;
 
 /**
  * reads build/{theme}/asset-manifest.json (written by gulp-rev) once and caches it.
