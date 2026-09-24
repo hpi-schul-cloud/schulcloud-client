@@ -1688,38 +1688,12 @@
 	},
 	"home": {
 		"button": {
-			"register": "Register",
-			"subscribeNewsletter": "Subscribe to the Newsletter"
+			"register": "Register"
 		},
 		"header": {
 			"link": {
-				"blog": "Blog",
-				"faq": "FAQ",
 				"login": "Login"
 			}
-		},
-		"headline": {
-			"allNewsOnHPINewsletter": "All news about the <span style=\"white-space: nowrap;\">HPI school cloud</span> conveniently sent to your mailbox:",
-			"explainationVideo": "Explanatory video about the HPI school cloud",
-			"dBildungscloudBlog": "<span style=\"white-space: nowrap;\">dBildungscloud</span> Blog",
-			"theIdea": "The basic idea of the <span style=\"white-space: nowrap;\">HPI school cloud</span>",
-			"welcomeToHPISchoolCloud": "Welcome to the <span style=\"white-space: nowrap;\">HPI school cloud!</span>"
-		},
-		"img_alt": {
-			"logoBMBF": "Logo BMBF",
-			"logoHPI": "Logo HPI",
-			"logoMINTEC": "Logo MINT-EC"
-		},
-		"link": {
-			"moreArticles": "Show more articles",
-			"openArticle": "Open article"
-		},
-		"text": {
-			"browserDoesNotSupportPlayer": "Your browser does not support this (HTML5) video player.",
-			"downloadFile": "Download file",
-			"moreInformation": "More information:",
-			"technicalReportHPISchoolCloud": "Technical report: \"The HPI School Cloud: Roll-Out of a Cloud Architecture for Schools in Germany\" (.pdf)",
-			"weRecommendUsingModernBrowsers": "We recommend using a current version of the Chrome, Firefox, Edge or Safari browser."
 		}
 	},
 	"homework": {

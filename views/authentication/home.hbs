@@ -6,11 +6,6 @@
 
     {{#content "scripts" mode="append"}}
         <script src="{{getAssetPath '/scripts/login.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script nonce="{{nonceValue}}">
-            window.production = '{{ @root.production }}';
-        </script>
-        <script src="{{getAssetPath '/scripts/sc-blog.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
-        <script src="{{getAssetPath '/scripts/blog-fetch.js'}}" type="text/javascript" nonce="{{nonceValue}}" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -32,94 +27,82 @@
             {{/hasConfig}}
         </div>
 
-        <!-- GHOST (will be replaced by js) -->
-        <div class="sc-blog">
-
-            <div class="content" style="opacity: 0; transition: opacity 0.7s ease-in;"></div>
-            <div class="loading mb-3" style="min-height: 70vh; margin-top: 100px;">
-                <i class="fa fa-spinner fa-spin load-icon spinner" aria-hidden="true" style="font-size: 25px;"></i>
-                <div class="placeholder" style="display: none;">
-                    
-                <div class="container">
-                    <div class="row section-landing flex-container">
-                        <div class="col-sm-6 col-lg-4">
-                            <div class="pull-left">
-                            <h6 class="font-weight-bold">dBildungscloud</h6>
-                                <h1 class="mb-3">Lernen digital<br>unterstützt</h1>
-                            <a class="btn btn-primary mb-3 mb-md-0 hidden-sm-down" href="https://hpi-schul-cloud.de/community/?ref=blog.dbildungscloud.de">Jetzt registrieren</a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-8">
-                            <div class="text-xs-center text-md-right">
-                                <img class="mb-3 mb-md-0" src="https://s3.hidrive.strato.com/cloud-instances/default/images/hero.svg" alt="Hero">
-                            </div>
+        <div>
+            <div class="container">
+                <div class="row section-landing flex-container">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="pull-left">
+                        <h6 class="font-weight-bold">dBildungscloud</h6>
+                            <h1 class="mb-3">Lernen digital<br>unterstützt</h1>
                         </div>
                     </div>
-                </div> 
-                <div class="container">	
-                    <h2 class="mb-3 section-heading">Das macht die dBildungscloud aus</h2>
-                    <div class="row section flex-container section-landing">
-                        <div class="col-sm-12 col-md-6">
-                            <img class="mb-3 mb-md-0" src="https://s3.hidrive.strato.com/cloud-instances/default/images/advantages.svg" alt="">
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="pull-right">
-                                <div class="flex-container mb-1">
-                                    <img class="check" src="https://s3.hidrive.strato.com/cloud-instances/default/images/check-icon-1.svg">
-                                    <p class="ml-1 teaser">Gemeinsam lernen in digitalen Räumen</p>
-                                </div>
-                                <div class="flex-container mb-1">
-                                    <img class="check" src="https://s3.hidrive.strato.com/cloud-instances/default/images/check-icon-1.svg">
-                                    <p class="ml-1 teaser">Lernmaterial, Chat, Aufgaben, Videokonferenzen und mehr</p>
-                                </div>
-                                <div class="flex-container mb-1">
-                                    <img class="check" src="https://s3.hidrive.strato.com/cloud-instances/default/images/check-icon-1.svg">
-                                    <p class="ml-1 teaser">Kostenlos für alle Schulen</p>
-                                </div>
-                            </div>
+                    <div class="col-sm-6 col-lg-8">
+                        <div class="text-xs-center text-md-right">
+                            <img class="mb-3 mb-md-0" src="https://s3.hidrive.strato.com/cloud-instances/default/images/hero.svg" alt="Hero">
                         </div>
                     </div>
-                </div> 
-                <div class="container">
-                    <h2 class="mb-3 section-heading">Vorteile der dBildungscloud</h2>
-                    
-                    <div class="row flex-container mb-3">
-                        <div class="col-sm-12 col-md-4 text-xs-center">
-                            <img class="mb-3 mb-md-0 section-img" src="https://s3.hidrive.strato.com/cloud-instances/default/images/advantage_1.svg" alt="">
-                        </div>
-                        <div class="col-sm-12 col-md-8">
-                            <h5 class="heading font-weight-bold">Gemeinsam mit und für Schulen entwickelt.</h5>
-                            <p class="mb-2">Die dBildungscloud ist auf das optimiert, was Lehrkräfte und Schülerschaft brauchen und kann mit Lernangeboten vieler Anbieter verbunden werden. Gemeinsam mit unseren Nutzer:innen und zahlreichen Partnern in der deutschen Bildungslandschaft entwickeln wir uns weiter!</p>
-                        </div>
+                </div>
+            </div> 
+            <div class="container">	
+                <h2 class="mb-3 section-heading">Das macht die dBildungscloud aus</h2>
+                <div class="row section flex-container section-landing">
+                    <div class="col-sm-12 col-md-6">
+                        <img class="mb-3 mb-md-0" src="https://s3.hidrive.strato.com/cloud-instances/default/images/advantages.svg" alt="">
                     </div>
-
-                    <div class="row flex-container mb-3">
-                        <div class="col-md-4 push-md-8">
-                            <div class="text-xs-center text-md-right">
-                                <img class="mb-3 mb-md-0 section-img" src="https://s3.hidrive.strato.com/cloud-instances/default/images/advantage_2.svg" alt="">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="pull-right">
+                            <div class="flex-container mb-1">
+                                <img class="check" src="https://s3.hidrive.strato.com/cloud-instances/default/images/check-icon-1.svg">
+                                <p class="ml-1 teaser">Gemeinsam lernen in digitalen Räumen</p>
                             </div>
-                        </div>
-                        <div class="col-md-8 pull-md-4">
-                            <h5 class="heading font-weight-bold ">Einfach in der Anwendung –  jederzeit und überall</h5>
-                            <p class="mb-2">Die dBildungscloud ist sicher, transparent und kann ohne lange Einarbeitung genutzt werden – zeitunabhängig und mit dem eigenen Handy, Tablet oder Computer.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="row flex-container mb-3">
-                            <div class="col-sm-12 col-md-4 text-xs-center">
-                                <img class="mb-3 mb-md-0 section-img" src="https://s3.hidrive.strato.com/cloud-instances/default/images/advantage_3.svg" alt="">
+                            <div class="flex-container mb-1">
+                                <img class="check" src="https://s3.hidrive.strato.com/cloud-instances/default/images/check-icon-1.svg">
+                                <p class="ml-1 teaser">Lernmaterial, Chat, Aufgaben, Videokonferenzen und mehr</p>
                             </div>
-                            <div class="col-sm-12 col-md-8">
-                                <h5 class="heading font-weight-bold ">Datenschutzkonform und sicher</h5>
-                                <p class="mb-2">Die dBildungscloud wird in und für Deutschland entwickelt. Datenschutzkonformer Zugriff auf Lernsoftware sowie Datensouveränität sind gesichert. Brandenburgs Landesbeauftragte für den Datenschutz Dagmar Hartge plädiert für ihren Einsatz:</p>
-                                <p class="mb-2">
-                                „Mit der Schul-Cloud Brandenburg besteht 
-                                <a href="https://www.lda.brandenburg.de/lda/de/service/presseinformationen/details-presse/~03-05-2021-landesbeauftragte-veroeffentlicht-taetigkeitsbericht-datenschutz-2020?ref=blog.dbildungscloud.de">eine flächendeckende und datenschutzgerechte Alternative</a> [zu kommerziellen Angeboten]. Ich kann an alle Schulen, die daran noch nicht teilnehmen, nur appellieren, dieses Angebot zu nutzen.”</p>
-                                <a class="font-weight-bold" href="https://blog.dbildungscloud.de/erste-schritte-datenschutz/">Mehr erfahren <i class="fa fa-angle-double-right font-weight-bold"></i></a>
+                            <div class="flex-container mb-1">
+                                <img class="check" src="https://s3.hidrive.strato.com/cloud-instances/default/images/check-icon-1.svg">
+                                <p class="ml-1 teaser">Kostenlos für alle Schulen</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div> 
+            <div class="container">
+                <h2 class="mb-3 section-heading">Vorteile der dBildungscloud</h2>
+                
+                <div class="row flex-container mb-3">
+                    <div class="col-sm-12 col-md-4 text-xs-center">
+                        <img class="mb-3 mb-md-0 section-img" src="https://s3.hidrive.strato.com/cloud-instances/default/images/advantage_1.svg" alt="">
+                    </div>
+                    <div class="col-sm-12 col-md-8">
+                        <h5 class="heading font-weight-bold">Gemeinsam mit und für Schulen entwickelt.</h5>
+                        <p class="mb-2">Die dBildungscloud ist auf das optimiert, was Lehrkräfte und Schülerschaft brauchen und kann mit Lernangeboten vieler Anbieter verbunden werden. Gemeinsam mit unseren Nutzer:innen und zahlreichen Partnern in der deutschen Bildungslandschaft entwickeln wir uns weiter!</p>
+                    </div>
+                </div>
+
+                <div class="row flex-container mb-3">
+                    <div class="col-md-4 push-md-8">
+                        <div class="text-xs-center text-md-right">
+                            <img class="mb-3 mb-md-0 section-img" src="https://s3.hidrive.strato.com/cloud-instances/default/images/advantage_2.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-8 pull-md-4">
+                        <h5 class="heading font-weight-bold ">Einfach in der Anwendung –  jederzeit und überall</h5>
+                        <p class="mb-2">Die dBildungscloud ist sicher, transparent und kann ohne lange Einarbeitung genutzt werden – zeitunabhängig und mit dem eigenen Handy, Tablet oder Computer.</p>
+                    </div>
+                </div>
+                
+                <div class="row flex-container mb-3">
+                        <div class="col-sm-12 col-md-4 text-xs-center">
+                            <img class="mb-3 mb-md-0 section-img" src="https://s3.hidrive.strato.com/cloud-instances/default/images/advantage_3.svg" alt="">
+                        </div>
+                        <div class="col-sm-12 col-md-8">
+                            <h5 class="heading font-weight-bold ">Datenschutzkonform und sicher</h5>
+                            <p class="mb-2">Die dBildungscloud wird in und für Deutschland entwickelt. Datenschutzkonformer Zugriff auf Lernsoftware sowie Datensouveränität sind gesichert. Brandenburgs Landesbeauftragte für den Datenschutz Dagmar Hartge plädiert für ihren Einsatz:</p>
+                            <p class="mb-2">
+                            „Mit der Schul-Cloud Brandenburg besteht eine flächendeckende und datenschutzgerechte Alternative [zu kommerziellen Angeboten]. Ich kann an alle Schulen, die daran noch nicht teilnehmen, nur appellieren, dieses Angebot zu nutzen.”</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
