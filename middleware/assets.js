@@ -79,7 +79,7 @@ const getStaticAssetPath = (staticFilePath) => {
  * generates the path to a locale JS file (window.i18nLocaleData), content-hashed when asset caching is enabled
  * @param {string} lng
  */
-const getLocaleScriptPath = (lng) => getStaticAssetPath(`/locales/${lng}.i18n.js`);
+const getLocaleScriptPath = (language) => getStaticAssetPath(`/locales/${language}.i18n.js`);
 
 module.exports = {
 	staticAssetsMiddleware,
