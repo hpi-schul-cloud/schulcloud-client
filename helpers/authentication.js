@@ -292,9 +292,9 @@ const authChecker = async (req, res, next) => {
 	try {
 		await populateCurrentUser(req, res);
 		const currentLanguage = await getCurrentLanguage(req, res);
-		res.locals.userLanguage = currentLanguage;
 		const previousLanguage = req.cookies.USER_LANG;
 		if (previousLanguage !== currentLanguage) {
+			res.locals.userLanguage = currentLanguage;
 			await changeLanguage(currentLanguage);
 			setCookie(res, 'USER_LANG', currentLanguage);
 			await handlebarsMiddlewareAsync(req, res);
