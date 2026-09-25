@@ -1628,6 +1628,17 @@ router.all('/teams', async (req, res, next) => {
 			Promise.all([classesPromise, usersPromise]).then(([classes, users]) => {
 				const body = data.data.map((item) => {
 					const actions = [
+							{
+							class: 'btn-copy-team-link',
+							icon: 'copy',
+							title: res.$t('administration.controller.link.copyDeepLink'),
+							data: {
+								'team-id': item._id,
+								'original-title': res.$t('administration.controller.link.copyDeepLink'),
+								placement: 'top',
+								toggle: 'tooltip',
+							},
+						},
 						{
 							link: path + item._id,
 							class: 'btn-write-owner',

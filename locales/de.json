@@ -195,6 +195,7 @@
 				"changePassword": "Passwort ändern",
 				"analogueConsent": "Einverständnis manuell erklären",
 				"completeEntry": "Eintrag abschließen",
+				"copyDeepLink": "Deep-Link kopieren",
 				"createANewClass": "Erstelle eine neue Klasse",
 				"deleteClass": "Klasse löschen",
 				"deleteEntry": "Eintrag löschen",
@@ -507,6 +508,7 @@
 				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
 				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 				"legend": "Legende:",
+				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
 				"noSchools": "Keine Schulen",
 				"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
 				"teamHasOwners": "Team hat Eigentümer:in"

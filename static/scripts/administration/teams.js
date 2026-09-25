@@ -63,6 +63,17 @@ $(window).ready(() => {
 		displayModalTeamMembers($t('administration.teams.headline.schools'), teamSchools);
 	});
 
+	$('.btn-copy-team-link').on('click', function copyTeamLink(e) {
+		e.preventDefault();
+
+		const teamId = $(this).attr('data-team-id');
+		const url = `${window.location.origin}/teams/${teamId}`;
+
+		navigator.clipboard.writeText(url).then(() => {
+			$.showNotification($t('administration.teams.text.linkCopiedToClipboard'), 'success', true);
+		});
+	});
+
 	$('.btn-write-owner').on('click', function writeOwner(e) {
 		e.preventDefault();
 		// e.stopPropagation();
