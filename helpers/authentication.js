@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const passwordGenerator = require('generate-password');
-const { promisify } = require('util');
+const { promisify } = require('node:util');
 
 const { Configuration } = require('@hpi-schul-cloud/commons');
 
