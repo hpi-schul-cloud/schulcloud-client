@@ -195,6 +195,7 @@
 				"analogueConsent": "Declare consent manually",
 				"changePassword": "Change Password",
 				"completeEntry": "Complete entry",
+				"copyDeepLink": "Copy deep link",
 				"createANewClass": "Create a new class",
 				"deleteClass": "Delete class",
 				"deleteEntry": "Delete entry",
@@ -507,6 +508,7 @@
 				"functionality": "This functionality is activated system-wide in the central directory and cannot be deactivated.",
 				"includesOutsideSchoolMembers": "Includes members outside the school",
 				"legend": "Legend:",
+				"linkCopiedToClipboard": "The link has been copied to your clipboard",
 				"noSchools": "No schools",
 				"teamFoundedInOwnSchool": "Team founded at own school",
 				"teamHasOwners": "Team has owners"

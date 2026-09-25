@@ -794,6 +794,7 @@
 				"functionality": "Ця функція активована в усій системі в центральному каталозі і не може бути деактивована.",
 				"includesOutsideSchoolMembers": "Включає учасників поза межами школи",
 				"legend": "Легенда:",
+				"linkCopiedToClipboard": "Посилання скопійовано у ваш буфер обміну",
 				"teamFoundedInOwnSchool": "Команда заснована у власній школі",
 				"teamHasOwners": "Команда має власників"
 			},
@@ -889,6 +890,7 @@
 				"addAnotherOwner": "Додати іншого власника",
 				"changePassword": "Змінити пароль",
 				"completeEntry": "Завершити запис",
+				"copyDeepLink": "Скопіювати deep link",
 				"createANewClass": "Створити новий клас",
 				"deleteClass": "Видалити клас",
 				"deleteEntry": "Видалити запис",
