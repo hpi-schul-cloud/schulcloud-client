@@ -282,7 +282,6 @@ const restrictSidebar = (req, res) => {
 const authChecker = async (req, res, next) => {
 	const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
 	const authenticationSucceeded = await isAuthenticated(req, res);
-
 	if (!authenticationSucceeded) {
 		const encodedRedirectUrl = encodeURIComponent(req.originalUrl);
 		res.redirect(`${redirectUrl}?redirect=${encodedRedirectUrl}`);
