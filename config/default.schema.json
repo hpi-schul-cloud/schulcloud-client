@@ -290,18 +290,6 @@
 			"default": "https://status.dbildungscloud.de",
 			"description": "The url of status message provider (should end without a slash)."
 		},
-		"GHOST_API_KEY": {
-			"type": "string",
-			"minLength": 10,
-			"description": "Content API Key of ghost blog"
-		},
-		"GHOST_BASE_URL": {
-			"type": "string",
-			"format": "uri",
-			"default": "https://blog.dbildungscloud.de",
-			"pattern": ".*(?<!/)$",
-			"description": "Base URL of ghost blog (should end without a slash)"
-		},
 		"OAUTH2_LOGOUT_URI": {
 			"type": "string",
 			"format": "uri",

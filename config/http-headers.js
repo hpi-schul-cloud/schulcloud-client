@@ -5,7 +5,7 @@ if (Configuration.has('CORS') !== true) {
 	throw new Error('CORS missing in Configuration');
 }
 
-const sharedSources = '\'self\' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://blog.niedersachsen.cloud https://blog.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org';
+const sharedSources = '\'self\' data: blob: wss://dbildungscloud.de wss://scchat.dbildungscloud.de https://api.dbildungscloud.de https://scchat.dbildungscloud.de https://s3.hidrive.strato.com https://docs.dbildungscloud.de https://etherpad.dbildungscloud.de https://sc-content-resources.hpi-schul-cloud.de https://open.hpi.de https://upload.wikimedia.org';
 const localDevConnectSources = Configuration.get('NODE_ENV') === 'development'
 	? ' http://localhost:9000 http://127.0.0.1:9000'
 	: '';
