@@ -71,6 +71,8 @@ $(window).ready(() => {
 
 		navigator.clipboard.writeText(url).then(() => {
 			$.showNotification($t('administration.teams.text.linkCopiedToClipboard'), 'success', true);
+		}).catch(() => {
+			$.showNotification($t('administration.teams.text.couldNotCopyLink'), 'warn', true);
 		});
 	});
 

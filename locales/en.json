@@ -508,6 +508,7 @@
 				"functionality": "This functionality is activated system-wide in the central directory and cannot be deactivated.",
 				"includesOutsideSchoolMembers": "Includes members outside the school",
 				"legend": "Legend:",
+				"couldNotCopyLink": "Could not copy the link to the clipboard. Please copy it manually:",
 				"linkCopiedToClipboard": "The link has been copied to your clipboard",
 				"noSchools": "No schools",
 				"teamFoundedInOwnSchool": "Team founded at own school",

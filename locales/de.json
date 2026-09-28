@@ -508,6 +508,7 @@
 				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
 				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 				"legend": "Legende:",
+				"couldNotCopyLink": "Der Link konnte nicht in die Zwischenablage kopiert werden. Bitte kopiere ihn manuell:",
 				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
 				"noSchools": "Keine Schulen",
 				"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",

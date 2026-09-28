@@ -508,6 +508,7 @@
 				"functionality": "Esta funcionalidad está activada en todo el sistema en el directorio central y no se puede desactivar.",
 				"includesOutsideSchoolMembers": "Incluye miembros de fuera de la escuela",
 				"legend": "Leyenda:",
+				"couldNotCopyLink": "No se pudo copiar el enlace al portapapeles. Cópialo manualmente:",
 				"linkCopiedToClipboard": "El enlace se ha copiado en tu portapapeles.",
 				"noSchools": "No hay escuelas",
 				"teamFoundedInOwnSchool": "Equipo fundado en la propia escuela",
