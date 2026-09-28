@@ -46,7 +46,7 @@
 			"toCourse": "До курсу",
 			"done": "Готово",
 			"downloadAllFiles": "Завантажити всі файли",
-            "downloadSomeFiles": "Завантажити деякі файли",
+			"downloadSomeFiles": "Завантажити деякі файли",
 			"downloadSelected": "Завантажити вибрані файли",
 			"addDraftTask": "Додайте чернетку",
 			"discard": "Відхилити"
@@ -890,7 +890,7 @@
 				"addAnotherOwner": "Додати іншого власника",
 				"changePassword": "Змінити пароль",
 				"completeEntry": "Завершити запис",
-				"copyDeepLink": "Скопіювати deep link",
+				"copyDeepLink": "Скопіювати посилання",
 				"createANewClass": "Створити новий клас",
 				"deleteClass": "Видалити клас",
 				"deleteEntry": "Видалити запис",
