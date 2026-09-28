@@ -1630,7 +1630,7 @@ router.all('/teams', async (req, res, next) => {
 					const actions = [
 							{
 							class: 'btn-copy-team-link',
-							icon: 'copy',
+							icon: 'link',
 							title: res.$t('administration.controller.link.copyDeepLink'),
 							data: {
 								'team-id': item._id,
