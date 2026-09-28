@@ -278,7 +278,7 @@ const authChecker = (req, res, next) => {
 	isAuthenticated(req, res)
 		.then((isAuthenticated2) => {
 			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
-
+			// refactor
 			if (isAuthenticated2) {
 			// fetch user profile
 				populateCurrentUser(req, res)
