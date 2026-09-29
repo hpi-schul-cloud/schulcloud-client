@@ -26,7 +26,6 @@ const upload = multer({
 const { isUserHidden } = require('../helpers/users');
 const renameIdsInSchool = require('../helpers/schoolHelper');
 const getTeamsInfoBannerTranslateKey = require('../helpers/banner');
-
 const HOST = Configuration.get('HOST');
 const CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS = Configuration.get('CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS');
 
@@ -1764,7 +1763,7 @@ router.all('/teams', async (req, res, next) => {
 					classes,
 					users,
 					pagination,
-					translateKeyTeamsInfoBanner: getTeamsInfoBannerTranslateKey(),
+					translateKeyHelp: getTeamsInfoBannerTranslateKey(),
 					school,
 					limit: true,
 					isTeamCreationByStudentsEnabled,
