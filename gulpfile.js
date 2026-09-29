@@ -22,11 +22,16 @@ const path = require('path');
 const named = require('vinyl-named');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
-const change = require('gulp-change');
-const { rewriteStaticAssetPaths, themeName } = require('./middleware/assets');
+const rev = require('gulp-rev').default;
+const revRewrite = require('gulp-rev-rewrite').default;
+const { themeName } = require('./middleware/assets');
 const webpackConfig = require('./webpack.config');
 
 const browserlist = ['> 0.2%', 'last 10 version', 'not dead'];
+const ASSET_MANIFEST = 'asset-manifest.json';
+const localesDir = path.resolve(__dirname, 'locales');
+const buildDirFor = (theme) => path.resolve(__dirname, 'build', theme);
+const manifestPathFor = (theme) => path.join(buildDirFor(theme), ASSET_MANIFEST);
 
 const baseScripts = [
 	'./node_modules/jquery/dist/jquery.min.js',
@@ -104,7 +109,6 @@ gulp.task('styles', () => {
 			}),
 		]))
 		.pipe(cleanCSS())
-		.pipe(change(rewriteStaticAssetPaths))
 		.pipe(sourcemaps.write('./sourcemaps'))
 		.pipe(gulp.dest(`./build/${themeName()}/styles`));
 });
@@ -246,6 +250,53 @@ gulp.task('clear', () => gulp
 	)
 	.pipe(rimraf()));
 
+// hashes every non-CSS build asset with gulp-rev, keeping the original files alongside the revved copies
+gulp.task('rev-assets', () => gulp.src(
+	[
+		`./build/${themeName()}/**/*`,
+		`!./build/${themeName()}/styles/**`,
+		`!./build/${themeName()}/${ASSET_MANIFEST}`,
+	],
+	{ base: `./build/${themeName()}`, allowEmpty: true },
+)
+	.pipe(rev())
+	.pipe(gulp.dest(`./build/${themeName()}`))
+	.pipe(rev.manifest(manifestPathFor(themeName()), { base: `./build/${themeName()}`, merge: true }))
+	.pipe(gulp.dest(`./build/${themeName()}`)));
+
+// rewrites CSS url() references (images/fonts) to their revved filenames from the manifest
+gulp.task('rewrite-css-urls', () => {
+	const manifestPath = manifestPathFor(themeName());
+	const manifest = fs.existsSync(manifestPath) ? fs.readFileSync(manifestPath) : Buffer.from('{}');
+	return gulp.src(`./build/${themeName()}/styles/**/*.css`, { base: `./build/${themeName()}` })
+		.pipe(revRewrite({ manifest }))
+		.pipe(gulp.dest(`./build/${themeName()}`));
+});
+
+// hashes the (now rewritten) CSS files and merges them into the same manifest
+gulp.task('rev-styles', () => gulp.src(`./build/${themeName()}/styles/**/*.css`, { base: `./build/${themeName()}` })
+	.pipe(rev())
+	.pipe(gulp.dest(`./build/${themeName()}`))
+	.pipe(rev.manifest(manifestPathFor(themeName()), { base: `./build/${themeName()}`, merge: true }))
+	.pipe(gulp.dest(`./build/${themeName()}`)));
+
+// full revisioning pass: rev everything else, rewrite CSS references, then rev the CSS itself
+gulp.task('asset-manifest', gulp.series('rev-assets', 'rewrite-css-urls', 'rev-styles'));
+
+// wraps locales/*.json as window.i18nLocaleData scripts so they're revved like any other asset
+gulp.task('locale-scripts', (done) => {
+	const outDir = path.join(buildDirFor(themeName()), 'locales');
+	fs.mkdirSync(outDir, { recursive: true });
+	fs.readdirSync(localesDir)
+		.filter((file) => file.endsWith('.json'))
+		.forEach((file) => {
+			const lng = path.basename(file, '.json');
+			const content = fs.readFileSync(path.join(localesDir, file), 'utf8');
+			fs.writeFileSync(path.join(outDir, `${lng}.i18n.js`), `window.i18nLocaleData = ${content};`);
+		});
+	done();
+});
+
 // run this if only 'gulp' is run on the commandline with no task specified
 gulp.task('default', gulp.series(
 	'images',
@@ -259,6 +310,8 @@ gulp.task('default', gulp.series(
 	'vendor-scripts',
 	'vendor-assets',
 	'static',
+	'locale-scripts',
+	'asset-manifest',
 ));
 
 // incremental dev watch — do a full build first, then watch for changes
@@ -268,20 +321,22 @@ gulp.task('watch', gulp.series('default', (done) => {
 
 	gulp.watch(
 		withTheme('./static/styles/**/*.{css,sass,scss}'),
-		gulp.series('styles', 'copy-styles'),
+		gulp.series('styles', 'copy-styles', 'asset-manifest'),
 	);
 
 	gulp.watch(
 		withTheme('./static/scripts/**/*.js'),
-		gulp.series('scripts'),
+		gulp.series('scripts', 'asset-manifest'),
 	);
 
 	gulp.watch(
 		withTheme('./static/images/**/*.*'),
-		gulp.series('images'),
+		gulp.series('images', 'asset-manifest'),
 	);
 
-	gulp.watch('./static/*', gulp.series('static'));
+	gulp.watch('./static/*', gulp.series('static', 'asset-manifest'));
+
+	gulp.watch('./locales/*.json', gulp.series('locale-scripts', 'asset-manifest'));
 
 	// signal async completion — watcher runs indefinitely
 	done();
