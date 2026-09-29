@@ -119,7 +119,6 @@
 				"createClass": "You can create classes independent of school year with free names. These classes cannot be <i>moved</i> by the administrator, but must be updated manually.",
 				"inviteTheParentsViaLink": "Invite parents via a link to register their children for your class and submit the electronic declaration of consent.",
 				"inviteViaLink": "If the school obtains or receives the user data via an external system, the above options cannot be used. The changes must then be made accordingly in the source system.<br/><br/>Otherwise, invitations to register can be sent via link from the cloud administration area:<br/><ul><li>Sending registration links to the stored e-mail addresses (also possible directly during import/creation)</li><li>Print registration links as QR print sheets, cut them out and distribute QR slips to students</li><li>Select one or more users, e.g. all students of a class, and then perform the desired action</li><li>Alternatively: Switch to the edit mode of the user profile and retrieve the individual registration link directly in order to send it manually</li></ul>",
-				"linkCopiedToClipboard": "The link has been copied to your clipboard",
 				"manageClass": "Manage class",
 				"manuallyGiveConsentForAllStudent": "Manually declare consent for all students",
 				"nextPageYouWillReceiveConfirmation": "On the next page you will receive a confirmation and you have the opportunity to print out all start passwords together with instructions for your students.",
@@ -195,6 +194,7 @@
 				"analogueConsent": "Declare consent manually",
 				"changePassword": "Change Password",
 				"completeEntry": "Complete entry",
+				"copyDeepLink": "Copy deep link",
 				"createANewClass": "Create a new class",
 				"deleteClass": "Delete class",
 				"deleteEntry": "Delete entry",
@@ -504,6 +504,14 @@
 				"whenFunctionIsActivated": "If this function is activated, students can use the teams function independently and create teams, \n\t\t\t\t\t\t without a teacher having to be involved. Authorized admins can deactivate/activate this function \n\t\t\t\t\t\t centrally for the entire school."
 			},
 			"text": {
+				"bannerTitle": "Teams is no longer supported and can no longer be accessed via the navigation.",
+				"banner0": "If users have not yet fully backed up their data or transferred it to Rooms, you can still grant them access to their Team.",
+				"banner1": "You can find the required direct link in school administration under “Teams management”.",
+				"banner2": "Access is only possible until the end of October. After that, all Teams and their contents will be deleted.",
+				"bannerHelp_dbc": "More information about the direct links can be found on the <a href=\"https://dbildungscloud.de/help/confluence/426313035\">help pages</a>.",
+				"bannerHelp_n21": "More information about the direct links can be found on the <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">help pages</a>.",
+				"bannerHelp_brb": "More information about the direct links can be found on the <a href=\"https://brandenburg.cloud/help/confluence/426313035\">help pages</a>.",
+				"bannerHelp_thr": "More information about the direct links can be found on the <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">help pages</a>.",
 				"functionality": "This functionality is activated system-wide in the central directory and cannot be deactivated.",
 				"includesOutsideSchoolMembers": "Includes members outside the school",
 				"legend": "Legend:",
@@ -1488,6 +1496,7 @@
 			"info": "Note:",
 			"internalProblem": "Oops, we have an internal problem. Try again right away.",
 			"invalidRequest": "Invalid request",
+			"linkCopiedToClipboard": "The link has been copied to your clipboard",
 			"min8characters": "At least 8 characters with upper and lower case, including at least one number and one special character.",
 			"monday": "Monday",
 			"noTasks": "No tasks",
@@ -1495,6 +1504,7 @@
 			"pageMoved": "This page has been moved.",
 			"passwordsAreDifferent": "Passwords do not match.",
 			"containsOpeningTag": "Please insert a space after the less-than sign.",
+			"couldNotCopyLink": "Could not copy the link to the clipboard. Please copy it manually:\n{{ url }}",
 			"hasLowerCase": "Password must contain lowercase letters.",
 			"hasUpperCase": "Password must contain uppercase letters.",
 			"hasNumber": "Password must contain a number.",
@@ -2691,13 +2701,9 @@
 		"text": {
 			"descriptionTeams": "Study group, school band or meeting of class representatives? Create a team to exchange material and news with each other - within your school or across schools.",
 			"roomsInsteadOfTeams": "Creating teams is no longer possible.<br />Would you like to create a new <a href=\"/rooms/new\">room</a> instead?",
-			"title": "Switch to Rooms now – Teams is being shut down",
-			"item0": "Rooms now offer all the tools you need to collaborate even more effectively within and across schools.",
-			"item1": "Teams will be deactivated on 30.09.2026, but can be automatically converted into Rooms by users with the role 'teacher' beforehand. In parallel, any necessary Team files must be backed up or downloaded by then.",
-			"item2_dbc": "More information about the migration can be found on the <a href=\"https://dbildungscloud.de/help/confluence/426313035\">help pages</a>.",
-			"item2_n21": "More information about the migration can be found on the <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">help pages</a>.",
-			"item2_brb": "More information about the migration can be found on the <a href=\"https://brandenburg.cloud/help/confluence/426313035\">help pages</a>.",
-			"item2_thr": "More information about the migration can be found on the <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">help pages</a>."
+			"title": "Teams is no longer supported.",
+			"item0": "Please switch to Rooms.",
+			"item1": "At the end of October, all Teams and their contents will be permanently deleted."
 		},
 		"topics": {
 			"button": {

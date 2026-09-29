@@ -26,7 +26,6 @@ const upload = multer({
 const { isUserHidden } = require('../helpers/users');
 const renameIdsInSchool = require('../helpers/schoolHelper');
 const getTeamsInfoBannerTranslateKey = require('../helpers/banner');
-
 const HOST = Configuration.get('HOST');
 const CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS = Configuration.get('CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS');
 
@@ -1628,6 +1627,17 @@ router.all('/teams', async (req, res, next) => {
 			Promise.all([classesPromise, usersPromise]).then(([classes, users]) => {
 				const body = data.data.map((item) => {
 					const actions = [
+							{
+							class: 'btn-copy-team-link',
+							icon: 'link',
+							title: res.$t('administration.controller.link.copyDeepLink'),
+							data: {
+								'team-id': item._id,
+								'original-title': res.$t('administration.controller.link.copyDeepLink'),
+								placement: 'top',
+								toggle: 'tooltip',
+							},
+						},
 						{
 							link: path + item._id,
 							class: 'btn-write-owner',
@@ -1753,7 +1763,7 @@ router.all('/teams', async (req, res, next) => {
 					classes,
 					users,
 					pagination,
-					translateKeyTeamsInfoBanner: getTeamsInfoBannerTranslateKey(),
+					translateKeyHelp: getTeamsInfoBannerTranslateKey(),
 					school,
 					limit: true,
 					isTeamCreationByStudentsEnabled,
