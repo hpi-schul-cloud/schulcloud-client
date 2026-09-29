@@ -119,7 +119,6 @@
 				"createClass": "Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Admin <i>versetzt</i> werden, sondern müssen manuell aktualisiert werden.",
 				"inviteTheParentsViaLink": "Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.",
 				"inviteViaLink": "Falls die Schule die Daten der Nutzenden über ein externes System bezieht bzw. übermittelt bekommt, sind keine weiteren Schritte in der Cloud notwendig. Die Registrierung erfolgt über das externe System.<br/><br/>Anderenfalls können über den Verwaltungsbereich der Cloud Einladungen zur Registrierung per Link versendet werden:<br/><ul><li>Versand von Registrierungslinks an die hinterlegten E-Mail-Adressen (auch direkt beim Importieren/Anlegen möglich)</li><li>Registrierungslinks als QR-Druckbogen drucken, ausschneiden und QR-Zettel an Schüler:innen verteilen</li><li>Einen oder mehrere Nutzer:innen auswählen, z.B. alle Schüler:innen einer Klasse, und dann die gewünschte Aktion durchführen</li><li>Alternativ möglich: Wechseln in den Bearbeiten-Modus des Nutzerprofils und den individuellen Registrierungslink direkt abrufen, um ihn händisch zu versenden</li></ul>",
-				"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
 				"manageClass": "Klasse verwalten",
 				"manuallyGiveConsentForAllStudent": "Einverständnis manuell für alle Schüler:innen erklären",
 				"nextPageYouWillReceiveConfirmation": "Auf der nächsten Seite erhältst du eine Bestätigung und hast die Möglichkeit, alle Startpasswörter zusammen mit einer Anleitung für deine Schüler:innen auszudrucken.",
@@ -195,6 +194,7 @@
 				"changePassword": "Passwort ändern",
 				"analogueConsent": "Einverständnis manuell erklären",
 				"completeEntry": "Eintrag abschließen",
+				"copyDeepLink": "Deep-Link kopieren",
 				"createANewClass": "Erstelle eine neue Klasse",
 				"deleteClass": "Klasse löschen",
 				"deleteEntry": "Eintrag löschen",
@@ -504,6 +504,14 @@
 				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Weisungsberechtigte Admins können diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktivieren."
 			},
 			"text": {
+				"bannerTitle": "Teams wird nicht mehr unterstützt und kann über die Navigation nicht mehr aufgerufen werden.",
+				"banner0": "Falls Nutzende ihre Daten noch nicht vollständig gesichert oder in Räume übertragen haben, können Sie ihnen weiterhin Zugriff auf ihr Team ermöglichen.",
+				"banner1": "Den dafür benötigten Direktlink finden Sie in der Schulverwaltung unter „Teams-Verwaltung“.",
+				"banner2": "Der Zugriff ist nur noch bis Ende Oktober möglich. Danach werden alle Teams und deren Inhalte gelöscht.",
+				"bannerHelp_dbc": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://dbildungscloud.de/help/confluence/426313035\">Hilfeseiten</a>.",
+				"bannerHelp_n21": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
+				"bannerHelp_brb": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://brandenburg.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
+				"bannerHelp_thr": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">Hilfeseiten</a>.",
 				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
 				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 				"legend": "Legende:",
@@ -1488,6 +1496,7 @@
 			"info": "Hinweis:",
 			"internalProblem": "Ups, da haben wir wohl ein internes Problem. Probiere es gleich nochmal.",
 			"invalidRequest": "Ungültige Anfrage",
+			"linkCopiedToClipboard": "Der Link wurde in deine Zwischenablage kopiert",
 			"min8characters": "Mindestens 8 Zeichen mit Groß- und Kleinschreibung, davon jeweils mindestens eine Zahl und ein Sonderzeichen.",
 			"monday": "Montag",
 			"noTasks": "Keine Aufgaben",
@@ -1495,6 +1504,7 @@
 			"pageMoved": "Diese Seite wurde verschoben.",
 			"passwordsAreDifferent": "Passwörter stimmen nicht überein.",
 			"containsOpeningTag": "Bitte Leerzeichen nach Kleiner-als-Zeichen einfügen.",
+			"couldNotCopyLink": "Der Link konnte nicht in die Zwischenablage kopiert werden. Bitte kopiere ihn manuell:\n{{ url }}",
 			"hasLowerCase": "Passwort muss Kleinbuchstaben enthalten.",
 			"hasUpperCase": "Passwort muss Großbuchstaben enthalten.",
 			"hasNumber": "Passwort muss eine Zahl enthalten.",
@@ -2717,13 +2727,9 @@
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecher:innenversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
 			"roomsInsteadOfTeams":  "Das Anlegen von Teams ist nicht mehr möglich.<br /> Soll stattdessen ein neuer <a href=\"/rooms/new\">Raum erstellt</a> werden?",
-			"title": "Jetzt auf Räume umsteigen – Teams werden abgeschaltet",
-			"item0": "In den Räumen stehen nun alle Möglichkeiten bereit, um noch besser schulintern und -übergreifend zusammenzuarbeiten.",
-			"item1": "Teams werden daher zum 30.09.2026 abgeschaltet, können aber zuvor durch Nutzende mit der Rolle „lernbegleitend“ automatisiert in Räume umgewandelt werden. Parallel dazu müssen die noch benötigten Team-Dateien bis dahin gesichert bzw. heruntergeladen werden.",
-			"item2_dbc": "Weitere Infos zur Migration finden sich auf den <a href=\"https://dbildungscloud.de/help/confluence/426313035\">Hilfeseiten</a>.",
-			"item2_n21": "Weitere Infos zur Migration finden sich auf den <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
-			"item2_brb": "Weitere Infos zur Migration finden sich auf den <a href=\"https://brandenburg.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
-			"item2_thr": "Weitere Infos zur Migration finden sich auf den <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">Hilfeseiten</a>."
+			"title": "Teams wird nicht mehr unterstützt.",
+			"item0": "Bitte wechseln Sie auf Räume.",
+			"item1": "Ende Oktober werden alle Teams und deren Inhalte endgültig gelöscht."
 		},
 		"topics": {
 			"button": {
