@@ -1382,36 +1382,10 @@
 	},
 	"home": {
 		"button": {
-			"subscribeNewsletter": "Підписатися на розсилку",
 			"register": "Зареєструватися"
-		},
-		"headline": {
-			"allNewsOnHPINewsletter": "Усі новини про <span style=\"white-space: nowrap;\">шкільну хмару HPI</span> зручно відправляти на вашу поштову скриньку:",
-			"explainationVideo": "Пояснювальне відео про шкільну хмару HPI",
-			"welcomeToHPISchoolCloud": "Ласкаво просимо до <span style=\"white-space: nowrap;\">Шкільної хмари HPI!</span>",
-			"theIdea": "Основна ідея <span style=\"white-space: nowrap;\">шкільної хмари HPI</span>",
-			"dBildungscloudBlog": "Блог <span style=\"white-space: nowrap;\">dBildungscloud</span>"
-		},
-		"link": {
-			"moreArticles": "Показати більше статей",
-			"openArticle": "Відкрити статтю"
-		},
-		"text": {
-			"moreInformation": "Докладніше:",
-			"technicalReportHPISchoolCloud": "Технічний звіт: «Шкільна хмара HPI: розгортання хмарної архітектури для шкіл у Німеччині» (.pdf)",
-			"weRecommendUsingModernBrowsers": "Ми рекомендуємо використовувати поточну версію браузера Chrome, Firefox, Edge або Safari.",
-			"browserDoesNotSupportPlayer": "Ваш браузер не підтримує цей (HTML5) відеопрогравач.",
-			"downloadFile": "Завантажити файл"
-		},
-		"img_alt": {
-			"logoBMBF": "Логотип BMBF",
-			"logoHPI": "Логотип HPI",
-			"logoMINTEC": "Логотип MINT-EC"
 		},
 		"header": {
 			"link": {
-				"blog": "Блог",
-				"faq": "Поширені запитання",
 				"login": "Увійти в систему"
 			}
 		}

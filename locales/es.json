@@ -1688,38 +1688,12 @@
 	},
 	"home": {
 		"button": {
-			"register": "Registrarse",
-			"subscribeNewsletter": "Suscríbete al boletín de noticias"
+			"register": "Registrarse"
 		},
 		"header": {
 			"link": {
-				"blog": "Blog",
-				"faq": "Preguntas frecuentes",
 				"login": "Iniciar sesión"
 			}
-		},
-		"headline": {
-			"allNewsOnHPINewsletter": "Todas las noticias sobre la <span style=\"white-space: nowrap;\">nube escolar de HPI</span> enviadas cómodamente a tu buzón:",
-			"explainationVideo": "Vídeo explicativo sobre la nube escolar de HPI",
-			"dBildungscloudBlog": "Blog de <span style=\"white-space: nowrap;\">dBildungscloud</span>",
-			"theIdea": "La idea básica de la <span style=\"white-space: nowrap;\">nube escolar de HPI</span>",
-			"welcomeToHPISchoolCloud": "¡Bienvenido a la <span style=\"white-space: nowrap;\">nube escolar de HPI!</span>"
-		},
-		"img_alt": {
-			"logoBMBF": "Logotipo de BMBF",
-			"logoHPI": "Logotipo de HPI",
-			"logoMINTEC": "Logotipo de MINT-EC"
-		},
-		"link": {
-			"moreArticles": "Mostrar más artículos",
-			"openArticle": "Abrir artículo"
-		},
-		"text": {
-			"browserDoesNotSupportPlayer": "Tu navegador no es compatible con este reproductor de vídeo (HTML5).",
-			"downloadFile": "Descargar archivo",
-			"moreInformation": "Más información:",
-			"technicalReportHPISchoolCloud": "Informe técnico: \"The HPI School Cloud: Roll-Out of a Cloud Architecture for Schools in Germany\" (.pdf) [\"Nube escolar de HPI: implementación de una arquitectura en la nube para escuelas en Alemania\"]",
-			"weRecommendUsingModernBrowsers": "Recomendamos utilizar una versión actual del navegador Chrome, Firefox, Edge o Safari."
 		}
 	},
 	"homework": {
