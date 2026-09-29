@@ -279,17 +279,6 @@ const restrictSidebar = (req, res) => {
 	});
 };
 
-const updateUserLanguage = async (req, res) => {
-	const currentLanguage = await getCurrentLanguage(req, res);
-	const previousLanguage = req.cookies.USER_LANG;
-	if (previousLanguage !== currentLanguage) {
-		res.locals.userLanguage = currentLanguage;
-		await changeLanguage(currentLanguage);
-		setCookie(res, 'USER_LANG', currentLanguage);
-		await handlebarsMiddlewareAsync(req, res);
-	}
-};
-
 const authChecker = async (req, res, next) => {
 	const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
 	const authenticationSucceeded = await isAuthenticated(req, res);
@@ -301,7 +290,15 @@ const authChecker = async (req, res, next) => {
 
 	try {
 		await populateCurrentUser(req, res);
-		await updateUserLanguage(req, res);
+		const currentLanguage = await getCurrentLanguage(req, res);
+		const previousLanguage = req.cookies.USER_LANG;
+		if (previousLanguage !== currentLanguage) {
+			res.locals.userLanguage = currentLanguage;
+			await changeLanguage(currentLanguage);
+			setCookie(res, 'USER_LANG', currentLanguage);
+			await handlebarsMiddlewareAsync(req, res);
+		}
+
 		await checkSuperhero(req, res);
 		await checkConsent(req, res);
 		restrictSidebar(req, res);
