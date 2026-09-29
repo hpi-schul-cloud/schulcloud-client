@@ -1496,7 +1496,7 @@
 			"pageMoved": "Esta página se ha movido.",
 			"passwordsAreDifferent": "Las contraseñas no coinciden.",
 			"containsOpeningTag": "Inserte un espacio después del signo menos-que.",
-			"couldNotCopyLink": "No se pudo copiar el enlace al portapapeles. Cópialo manualmente:",
+			"couldNotCopyLink": "No se pudo copiar el enlace al portapapeles. Cópialo manualmente:\n{{ url }}",
 			"hasLowerCase": "El contraseña debe contener letras minúsculas.",
 			"hasUpperCase": "El contraseña debe contener letras mayúsculas.",
 			"hasNumber": "La contraseña debe contener un número.",

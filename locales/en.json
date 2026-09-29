@@ -1496,7 +1496,7 @@
 			"pageMoved": "This page has been moved.",
 			"passwordsAreDifferent": "Passwords do not match.",
 			"containsOpeningTag": "Please insert a space after the less-than sign.",
-			"couldNotCopyLink": "Could not copy the link to the clipboard. Please copy it manually:",
+			"couldNotCopyLink": "Could not copy the link to the clipboard. Please copy it manually:\n{{ url }}",
 			"hasLowerCase": "Password must contain lowercase letters.",
 			"hasUpperCase": "Password must contain uppercase letters.",
 			"hasNumber": "Password must contain a number.",

@@ -72,7 +72,7 @@ $(window).ready(() => {
 		navigator.clipboard.writeText(url).then(() => {
 			$.showNotification($t('global.text.linkCopiedToClipboard'), 'success', true);
 		}).catch(() => {
-			$.showNotification($t('global.text.couldNotCopyLink'), 'warn', true);
+			$.showNotification($t('global.text.couldNotCopyLink', { url }), 'warn', true);
 		});
 	});
 
