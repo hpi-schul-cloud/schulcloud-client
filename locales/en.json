@@ -504,14 +504,14 @@
 				"whenFunctionIsActivated": "If this function is activated, students can use the teams function independently and create teams, \n\t\t\t\t\t\t without a teacher having to be involved. Authorized admins can deactivate/activate this function \n\t\t\t\t\t\t centrally for the entire school."
 			},
 			"text": {
-				"bannerTitle": "Teams is no longer supported and can no longer be accessed via the navigation.",
+				"bannerTitle": "Teams are no longer supported and can no longer be accessed via the navigation menu.",
 				"banner0": "If users have not yet fully backed up their data or transferred it to Rooms, you can still grant them access to their Team.",
-				"banner1": "You can find the required direct link in school administration under “Teams management”.",
+				"banner1": "You can find the direct link required for this under ‘Teams Management’ in the ‘Management’ menu.",
 				"banner2": "Access is only possible until the end of October. After that, all Teams and their contents will be deleted.",
-				"bannerHelp_dbc": "More information about the direct links can be found on the <a href=\"https://dbildungscloud.de/help/confluence/426313035\">help pages</a>.",
-				"bannerHelp_n21": "More information about the direct links can be found on the <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">help pages</a>.",
-				"bannerHelp_brb": "More information about the direct links can be found on the <a href=\"https://brandenburg.cloud/help/confluence/426313035\">help pages</a>.",
-				"bannerHelp_thr": "More information about the direct links can be found on the <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">help pages</a>.",
+				"bannerHelp_dbc": "More information about the direct links can be found on the <a href=\"https://dbildungscloud.de/help/confluence/538017916\">help pages</a>.",
+				"bannerHelp_n21": "More information about the direct links can be found on the <a href=\"https://niedersachsen.cloud/help/confluence/538017916\">help pages</a>.",
+				"bannerHelp_brb": "More information about the direct links can be found on the <a href=\"https://brandenburg.cloud/help/confluence/538017916\">help pages</a>.",
+				"bannerHelp_thr": "More information about the direct links can be found on the <a href=\"https://schulcloud-thueringen.de/help/confluence/538017916\">help pages</a>.",
 				"functionality": "This functionality is activated system-wide in the central directory and cannot be deactivated.",
 				"includesOutsideSchoolMembers": "Includes members outside the school",
 				"legend": "Legend:",
@@ -2727,8 +2727,8 @@
 		"text": {
 			"descriptionTeams": "Study group, school band or meeting of class representatives? Create a team to exchange material and news with each other - within your school or across schools.",
 			"roomsInsteadOfTeams": "Creating teams is no longer possible.<br />Would you like to create a new <a href=\"/rooms/new\">room</a> instead?",
-			"title": "Teams is no longer supported.",
-			"item0": "Please switch to Rooms.",
+			"title": "Teams are no longer supported.",
+			"item0": "Please back up your content and switch to ‘Rooms’.",
 			"item1": "At the end of October, all Teams and their contents will be permanently deleted."
 		},
 		"topics": {

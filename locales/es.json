@@ -504,14 +504,14 @@
 				"whenFunctionIsActivated": "Si esta función está activada, los estudiantes pueden utilizar la función de equipos de forma independiente y crear equipos \n\t\t\t\t\t\t sin que un profesor tenga que estar involucrado. Los administradores autorizados pueden desactivar/activar esta función \n\t\t\t\t\t\t de forma centralizada para toda la escuela."
 			},
 			"text": {
-				"bannerTitle": "Teams ya no es compatible y ya no se puede acceder a través de la navegación.",
-				"banner0": "Si los usuarios aún no han respaldado completamente sus datos o los han transferido a Espacios, aún puede otorgarles acceso a su equipo.",
-				"banner1": "El enlace directo necesario se encuentra en la administración escolar en «Gestión de Teams».",
-				"banner2": "El acceso solo es posible hasta finales de octubre. Después se eliminarán todos los Teams y sus contenidos.",
-				"bannerHelp_dbc": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://dbildungscloud.de/help/confluence/426313035\">páginas de ayuda</a>.",
-				"bannerHelp_n21": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">páginas de ayuda</a>.",
-				"bannerHelp_brb": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://brandenburg.cloud/help/confluence/426313035\">páginas de ayuda</a>.",
-				"bannerHelp_thr": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">páginas de ayuda</a>.",
+				"bannerTitle": "Ya no se ofrece soporte para equipos y ya no se puede acceder a ellos desde el menú de navegación.",
+				"banner0": "Si los usuarios aún no han respaldado completamente sus datos o los han transferido a salas, aún puede otorgarles acceso a su equipo.",
+				"banner1": "Encontrará el enlace directo necesario para ello en la opción de menú «Administración», en «Administración de equipos».",
+				"banner2": "El acceso solo es posible hasta finales de octubre. Después se eliminarán todos los equipos y sus contenidos.",
+				"bannerHelp_dbc": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://dbildungscloud.de/help/confluence/538017916\">páginas de ayuda</a>.",
+				"bannerHelp_n21": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://niedersachsen.cloud/help/confluence/538017916\">páginas de ayuda</a>.",
+				"bannerHelp_brb": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://brandenburg.cloud/help/confluence/538017916\">páginas de ayuda</a>.",
+				"bannerHelp_thr": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://schulcloud-thueringen.de/help/confluence/538017916\">páginas de ayuda</a>.",
 				"functionality": "Esta funcionalidad está activada en todo el sistema en el directorio central y no se puede desactivar.",
 				"includesOutsideSchoolMembers": "Incluye miembros de fuera de la escuela",
 				"legend": "Leyenda:",
@@ -2727,9 +2727,9 @@
 		"text": {
 			"descriptionTeams": "¿Grupo de estudio, equipo escolar o reunión de representantes de la clase? Crea un equipo para que puedan intercambiar material y noticias entre ellos, dentro de tu escuela o entre escuelas.",
 			"roomsInsteadOfTeams": "Ya no es posible crear equipos.<br />¿Desea crear una nueva <a href=\"/rooms/new\">sala</a> en su lugar?",
-			"title": "Teams ya no es compatible.",
-			"item0": "Por favor, cambie a Espacios.",
-			"item1": "A finales de octubre se eliminarán definitivamente todos los Teams y sus contenidos."
+			"title": "Ya no se ofrece soporte para equipos.",
+			"item0": "Por favor, haga una copia de seguridad de sus contenidos y acceda a «salas».",
+			"item1": "A finales de octubre se eliminarán definitivamente todos los equipos y sus contenidos."
 		},
 		"topics": {
 			"button": {
