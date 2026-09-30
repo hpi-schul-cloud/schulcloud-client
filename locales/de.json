@@ -504,14 +504,14 @@
 				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Weisungsberechtigte Admins können diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktivieren."
 			},
 			"text": {
-				"bannerTitle": "Teams wird nicht mehr unterstützt und kann über die Navigation nicht mehr aufgerufen werden.",
+				"bannerTitle": "Teams werden nicht mehr unterstützt und können über die Navigation nicht mehr aufgerufen werden.",
 				"banner0": "Falls Nutzende ihre Daten noch nicht vollständig gesichert oder in Räume übertragen haben, können Sie ihnen weiterhin Zugriff auf ihr Team ermöglichen.",
-				"banner1": "Den dafür benötigten Direktlink finden Sie in der Schulverwaltung unter „Teams-Verwaltung“.",
+				"banner1": "Den dafür benötigten Direktlink finden Sie im Menüpunkt Verwaltung unter „Teams-Verwaltung“.",
 				"banner2": "Der Zugriff ist nur noch bis Ende Oktober möglich. Danach werden alle Teams und deren Inhalte gelöscht.",
-				"bannerHelp_dbc": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://dbildungscloud.de/help/confluence/426313035\">Hilfeseiten</a>.",
-				"bannerHelp_n21": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
-				"bannerHelp_brb": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://brandenburg.cloud/help/confluence/426313035\">Hilfeseiten</a>.",
-				"bannerHelp_thr": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">Hilfeseiten</a>.",
+				"bannerHelp_dbc": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://dbildungscloud.de/help/confluence/538017916\">Hilfeseiten</a>.",
+				"bannerHelp_n21": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://niedersachsen.cloud/help/confluence/538017916\">Hilfeseiten</a>.",
+				"bannerHelp_brb": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://brandenburg.cloud/help/confluence/538017916\">Hilfeseiten</a>.",
+				"bannerHelp_thr": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://schulcloud-thueringen.de/help/confluence/538017916\">Hilfeseiten</a>.",
 				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
 				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
 				"legend": "Legende:",
@@ -2701,8 +2701,8 @@
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecher:innenversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
 			"roomsInsteadOfTeams":  "Das Anlegen von Teams ist nicht mehr möglich.<br /> Soll stattdessen ein neuer <a href=\"/rooms/new\">Raum erstellt</a> werden?",
-			"title": "Teams wird nicht mehr unterstützt.",
-			"item0": "Bitte wechseln Sie auf Räume.",
+			"title": "Teams werden nicht mehr unterstützt.",
+			"item0": "Bitte sichern Sie Ihre Inhalte und wechseln Sie auf Räume.",
 			"item1": "Ende Oktober werden alle Teams und deren Inhalte endgültig gelöscht."
 		},
 		"topics": {
