@@ -119,7 +119,6 @@
 				"createClass": "Puedes crear clases independientes del año escolar con nombres libres. El administrador no puede <i>mover</i> estas clases, pero debe actualizarlas manualmente.",
 				"inviteTheParentsViaLink": "Invitar a los padres a través de un enlace a registrar a sus hijos en tu clase y enviar la declaración electrónica de consentimiento.",
 				"inviteViaLink": "Si la escuela obtiene o recibe los datos de los usuarios a través de un sistema externo, no se pueden utilizar las opciones anteriores. Los cambios deben realizarse en consecuencia en el sistema de origen.<br/><br/>De lo contrario, se pueden enviar invitaciones para registrarse mediante un enlace a través del área de administración de la nube:<br/><ul><li>Envío de enlaces de registro a las direcciones de correo electrónico guardadas (también es posible directamente durante la importación/creación).</li><li>Imprima los enlaces de registro QR como hojas de impresión, recórtelos y distribuya las hojas con el código QR a los alumnos.</li><li>Seleccione uno o varios usuarios, por ejemplo, todos los alumnos de una clase, y realice la acción deseada.</li><li>Alternativamente: Pase al modo de edición del perfil del usuario y recupere el enlace de acceso individual directamente para enviarlo manualmente.</li></ul>",
-				"linkCopiedToClipboard": "El enlace se ha copiado en tu portapapeles.",
 				"manageClass": "Administrar clase",
 				"manuallyGiveConsentForAllStudent": "Declarar manualmente el consentimiento de todos los estudiantes",
 				"nextPageYouWillReceiveConfirmation": "En la página siguiente recibirás una confirmación y tendrás la oportunidad de imprimir todas las contraseñas de inicio junto con las instrucciones para tus alumnos.",
@@ -195,6 +194,7 @@
 				"analogueConsent": "Declara el consentimiento manualmente",
 				"changePassword": "Cambiar contraseña",
 				"completeEntry": "Completar entrada",
+				"copyDeepLink": "Copiar deep link",
 				"createANewClass": "Crea una nueva clase",
 				"deleteClass": "Eliminar clase",
 				"deleteEntry": "Eliminar entrada",
@@ -504,6 +504,14 @@
 				"whenFunctionIsActivated": "Si esta función está activada, los estudiantes pueden utilizar la función de equipos de forma independiente y crear equipos \n\t\t\t\t\t\t sin que un profesor tenga que estar involucrado. Los administradores autorizados pueden desactivar/activar esta función \n\t\t\t\t\t\t de forma centralizada para toda la escuela."
 			},
 			"text": {
+				"bannerTitle": "Ya no se ofrece soporte para equipos y ya no se puede acceder a ellos desde el menú de navegación.",
+				"banner0": "Si los usuarios aún no han respaldado completamente sus datos o los han transferido a salas, aún puede otorgarles acceso a su equipo.",
+				"banner1": "Encontrará el enlace directo necesario para ello en la opción de menú «Administración», en «Administración de equipos».",
+				"banner2": "El acceso solo es posible hasta finales de octubre. Después se eliminarán todos los equipos y sus contenidos.",
+				"bannerHelp_dbc": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://dbildungscloud.de/help/confluence/538017916\">páginas de ayuda</a>.",
+				"bannerHelp_n21": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://niedersachsen.cloud/help/confluence/538017916\">páginas de ayuda</a>.",
+				"bannerHelp_brb": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://brandenburg.cloud/help/confluence/538017916\">páginas de ayuda</a>.",
+				"bannerHelp_thr": "Más información sobre los enlaces directos se puede encontrar en las <a href=\"https://schulcloud-thueringen.de/help/confluence/538017916\">páginas de ayuda</a>.",
 				"functionality": "Esta funcionalidad está activada en todo el sistema en el directorio central y no se puede desactivar.",
 				"includesOutsideSchoolMembers": "Incluye miembros de fuera de la escuela",
 				"legend": "Leyenda:",
@@ -1488,6 +1496,7 @@
 			"info": "Nota:",
 			"internalProblem": "Vaya, tenemos un problema interno. Vuelve a intentarlo ahora mismo.",
 			"invalidRequest": "Solicitud no válida",
+			"linkCopiedToClipboard": "El enlace se ha copiado en tu portapapeles.",
 			"min8characters": "Al menos 8 caracteres con mayúsculas y minúsculas, incluyendo al menos un número y un carácter especial.",
 			"monday": "Lunes",
 			"noTasks": "No hay tareas",
@@ -1495,6 +1504,7 @@
 			"pageMoved": "Esta página se ha movido.",
 			"passwordsAreDifferent": "Las contraseñas no coinciden.",
 			"containsOpeningTag": "Inserte un espacio después del signo menos-que.",
+			"couldNotCopyLink": "No se pudo copiar el enlace al portapapeles. Cópialo manualmente:\n{{ url }}",
 			"hasLowerCase": "El contraseña debe contener letras minúsculas.",
 			"hasUpperCase": "El contraseña debe contener letras mayúsculas.",
 			"hasNumber": "La contraseña debe contener un número.",
@@ -2691,13 +2701,9 @@
 		"text": {
 			"descriptionTeams": "¿Grupo de estudio, equipo escolar o reunión de representantes de la clase? Crea un equipo para que puedan intercambiar material y noticias entre ellos, dentro de tu escuela o entre escuelas.",
 			"roomsInsteadOfTeams": "Ya no es posible crear equipos.<br />¿Desea crear una nueva <a href=\"/rooms/new\">sala</a> en su lugar?",
-			"title": "Cambiar a Espacios ahora: Teams será desactivado",
-			"item0": "Espacios ahora ofrece todas las herramientas que necesitas para colaborar de manera más efectiva dentro y entre escuelas.",
-			"item1": "Los equipos se desactivarán el 30.09.2026, pero los usuarios con el rol de 'profesor' pueden convertirse automáticamente en Espacios antes de esa fecha. Paralelamente, cualquier archivo de Equipos necesario debe ser respaldado o descargado para entonces.",
-			"item2_dbc": "Más información sobre la migración se puede encontrar en <a href=\"https://dbildungscloud.de/help/confluence/426313035\">páginas de ayuda</a>.",
-			"item2_n21": "Más información sobre la migración se puede encontrar en <a href=\"https://niedersachsen.cloud/help/confluence/426313035\">páginas de ayuda</a>.",
-			"item2_brb": "Más información sobre la migración se puede encontrar en <a href=\"https://brandenburg.cloud/help/confluence/426313035\">páginas de ayuda</a>.",
-			"item2_thr": "Más información sobre la migración se puede encontrar en <a href=\"https://schulcloud-thueringen.de/help/confluence/426313035\">páginas de ayuda</a>."
+			"title": "Ya no se ofrece soporte para equipos.",
+			"item0": "Por favor, haga una copia de seguridad de sus contenidos y acceda a «salas».",
+			"item1": "A finales de octubre se eliminarán definitivamente todos los equipos y sus contenidos."
 		},
 		"topics": {
 			"button": {

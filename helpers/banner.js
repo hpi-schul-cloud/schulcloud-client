@@ -5,13 +5,13 @@ const SC_THEME = Configuration.get('SC_THEME');
 const getTeamsInfoBannerTranslateKey = () => {
 	switch (SC_THEME) {
 		case 'n21':
-			return 'teams.text.item2_n21';
+			return 'administration.teams.text.bannerHelp_n21';
 		case 'thr':
-			return 'teams.text.item2_thr';
+			return 'administration.teams.text.bannerHelp_thr';
 		case 'brb':
-			return 'teams.text.item2_brb';
+			return 'administration.teams.text.bannerHelp_brb';
 		default:
-			return 'teams.text.item2_dbc';
+			return 'administration.teams.text.bannerHelp_dbc';
 	}
 };
 
