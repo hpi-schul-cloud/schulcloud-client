@@ -1,11 +1,14 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const passwordGenerator = require('generate-password');
+const { promisify } = require('node:util');
 
 const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const api = require('../api');
 const permissionsHelper = require('./permissions');
+const { changeLanguage, getCurrentLanguage } = require('./i18n');
+const handlebarsMiddleware = require('./handlebars/middleware');
 const wordlist = require('../static/other/wordlist');
 
 const logger = require('./logger');
@@ -13,6 +16,8 @@ const logger = require('./logger');
 const { setCookie } = require('./cookieHelper');
 const redirectHelper = require('./redirect');
 const renameIdsInSchool = require('./schoolHelper');
+
+const handlebarsMiddlewareAsync = promisify(handlebarsMiddleware);
 
 const rolesDisplayName = {
 	teacher: 'Lehrer',
@@ -274,39 +279,46 @@ const restrictSidebar = (req, res) => {
 	});
 };
 
-const authChecker = (req, res, next) => {
-	isAuthenticated(req, res)
-		.then((isAuthenticated2) => {
-			const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
+const updateUserLanguage = async (req, res) => {
+	const currentLanguage = await getCurrentLanguage(req, res);
+	const previousLanguage = req.cookies.USER_LANG;
+	if (previousLanguage !== currentLanguage) {
+		res.locals.userLanguage = currentLanguage;
+		await changeLanguage(currentLanguage);
+		setCookie(res, 'USER_LANG', currentLanguage);
+		await handlebarsMiddlewareAsync(req, res);
+	}
+};
 
-			if (isAuthenticated2) {
-			// fetch user profile
-				populateCurrentUser(req, res)
-					.then(() => checkSuperhero(req, res))
-					.then(() => checkConsent(req, res))
-					.then(() => restrictSidebar(req, res))
-					.then(() => checkIfUserIsForcedToChangePassword(req, res))
-					.then(() => {
-						next();
-						return null;
-					})
-					.catch((err) => {
-						if (err === 'firstLogin was not completed, redirecting...') {
-							// print message?
-							res.redirect('/firstLogin');
-						} else if (err === 'superhero access forbidden, redirecting...') {
-							res.redirect('/login/superhero');
-						} else if (err === USER_FORCED_TO_CHANGE_PASSWORD_REJECT) {
-							res.redirect('/forcePasswordChange');
-						} else {
-							res.redirect(redirectUrl);
-						}
-					});
-			} else {
-				const encodedRedirectUrl = encodeURIComponent(req.originalUrl);
-				res.redirect(`${redirectUrl}?redirect=${encodedRedirectUrl}`);
-			}
-		});
+const authChecker = async (req, res, next) => {
+	const redirectUrl = Configuration.get('NOT_AUTHENTICATED_REDIRECT_URL');
+	const authenticationSucceeded = await isAuthenticated(req, res);
+	if (!authenticationSucceeded) {
+		const encodedRedirectUrl = encodeURIComponent(req.originalUrl);
+		res.redirect(`${redirectUrl}?redirect=${encodedRedirectUrl}`);
+		return;
+	}
+
+	try {
+		await populateCurrentUser(req, res);
+		await updateUserLanguage(req, res);
+		await checkSuperhero(req, res);
+		await checkConsent(req, res);
+		restrictSidebar(req, res);
+		await checkIfUserIsForcedToChangePassword(req, res);
+		next();
+	} catch (err) {
+		if (err === 'firstLogin was not completed, redirecting...') {
+			// print message?
+			res.redirect('/firstLogin');
+		} else if (err === 'superhero access forbidden, redirecting...') {
+			res.redirect('/login/superhero');
+		} else if (err === USER_FORCED_TO_CHANGE_PASSWORD_REJECT) {
+			res.redirect('/forcePasswordChange');
+		} else {
+			res.redirect(redirectUrl);
+		}
+	}
 };
 
 const setLoginCookies = (res, token) => {
