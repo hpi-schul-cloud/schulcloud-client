@@ -70,7 +70,7 @@
                 </div>
                 {{> "lib/components/csrfInput"}}
                 <div class="form-group">
-                    {{#if notification.statusCode}}
+                    {{#if notification.timeToWait}}
                         <input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login-email" data-timeout="{{notification.timeToWait}}" disabled/>
                     {{else}}
                         <input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login" value="{{$t "home.header.link.login"}}" data-testid="submit-login-email" />
@@ -163,7 +163,7 @@
                         </div>
                         {{> "lib/components/csrfInput"}}
                         <div class="form-group">
-                            {{#if notification.statusCode}}
+                            {{#if notification.timeToWait}}
                                 <input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-login-email" data-timeout="{{notification.timeToWait}}" disabled/>
                             {{else}}
                                 <input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-login-email" />
@@ -225,7 +225,7 @@
                         </div>
                         {{> "lib/components/csrfInput"}}
                         <div class="form-group">
-                            {{#if notification.statusCode}}
+                            {{#if notification.timeToWait}}
                                 <input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-ldap" value="{{$t "login.button.ldap"}}" data-testid="submit-login-ldap" data-timeout="{{notification.timeToWait}}" data-active="true" disabled/>
                             {{else}}
                                 <input autofocus aria-label="login" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-ldap" value="{{$t "login.button.ldap"}}" data-testid="submit-login-ldap" data-active="true"/>
