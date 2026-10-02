@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const methodOverride = require('method-override');
-const csurf = require('csurf');
 const handlebars = require('handlebars');
 const layouts = require('handlebars-layouts');
 const handlebarsWax = require('handlebars-wax');
@@ -21,6 +20,7 @@ const {
 	tokenInjector,
 	duplicateTokenHandler,
 	csrfErrorHandler,
+	csrfProtection,
 	logger,
 	sha,
 } = require('./helpers');
@@ -115,7 +115,7 @@ const setupApp = async () => {
 	// CSRF middlewares
 	if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 		app.use(duplicateTokenHandler);
-		app.use(csurf());
+		app.use(csrfProtection);
 		app.use(tokenInjector);
 		// there follows an csrf error handler below...
 	}

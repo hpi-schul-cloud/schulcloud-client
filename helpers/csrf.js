@@ -1,5 +1,14 @@
 /* eslint-disable no-underscore-dangle */
+const { csrfSync } = require('csrf-sync');
 const logger = require('./logger');
+
+// previously the CSRF library csurf was used. As it is deprecated, csrf-sync is now used instead.
+// this mirrors csurf's default lookup order (form field, multipart-form query string, AJAX header)
+const getTokenFromRequest = (req) => (req.body && req.body._csrf)
+	|| (req.query && req.query._csrf)
+	|| req.headers['csrf-token'];
+
+const { csrfSynchronisedProtection: csrfProtection } = csrfSync({ getTokenFromRequest });
 
 const tokenInjector = (req, res, next) => {
 	res.locals.csrfToken = req.csrfToken();
@@ -51,4 +60,5 @@ module.exports = {
 	tokenInjector,
 	duplicateTokenHandler,
 	csrfErrorHandler,
+	csrfProtection,
 };
