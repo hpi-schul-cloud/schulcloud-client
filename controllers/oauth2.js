@@ -1,13 +1,11 @@
 const express = require('express');
 
 const router = express.Router();
-const csrf = require('csurf');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const { stripHtml } = require('string-strip-html');
+const { csrfProtection } = require('../helpers');
 const auth = require('../helpers/authentication');
 const api = require('../api');
-
-const csrfProtection = csrf({ cookie: true });
 
 router.get('/login', csrfProtection, (req, res, next) => api(req, { version: 'v3' })
 	.get(`/oauth2/loginRequest/${req.query.login_challenge}`)
