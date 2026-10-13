@@ -357,6 +357,14 @@ header {
 	.error-header-wrapper button.btn-primary {
 		display: none;
 	}
+
+	> aside.sidebar {
+		display: none;
+	}
+
+	.topbar {
+		display: none;
+	}
 }
 
 .content-min-height {
