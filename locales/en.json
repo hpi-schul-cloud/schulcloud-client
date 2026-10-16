@@ -272,7 +272,7 @@
 		"form_Import": {
 			"label": {
 				"selectCSVFile": "Select CSV file",
-                "fileSizeInfo" : "max file size",
+				"fileSizeInfo": "max file size",
 				"sendRegistrationLinkToUsers": "Send registration links to users immediately after import"
 			},
 			"text": {
@@ -1300,7 +1300,7 @@
 			"discard": "Discard",
 			"done": "Done",
 			"downloadAllFiles": "Download all files",
-            "downloadSomeFiles": "Download some files",
+			"downloadSomeFiles": "Download some files",
 			"downloadSelected": "Download selected files",
 			"edit": "Edit",
 			"editTopic": "Edit topic",
@@ -1901,16 +1901,15 @@
 	},
 	"lib": {
 		"csrf_content": {
+			"headline": {
+				"continueFromHome": "Please open the home page and try again"
+			},
 			"link": {
-				"openThisPageInASeparateWindow": "Open this page in a new tab"
+				"openHomePageInNewTab": "Open home page in a new tab"
 			},
 			"text": {
-				"ifYouDontWantToTakeAnyAction": "If you don't want to take any action, please close this tab in your browser.",
-				"theSchoolCloudWasEmbedded": "The school cloud was embedded in a website. In order to continue using it,",
-				"unfortunatelyTheRequestFailedAgain": "Sorry, the request failed again. To continue using it, please reload the page.",
-				"weCouldNotMakeSureThat": "We could not make sure that this request really came from you. Please click the button below to reload the page.",
-				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "We could not make sure that this request really came from you. Please click the button below to confirm.",
-				"yourRequestCouldNotBeVerified": "Your request could not be verified."
+				"theSchoolCloudWasEmbedded": "This page is embedded in another website. Open the home page in a new tab to continue.",
+				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "We couldn't verify your request. This can happen if the page has been open for a long time. Open the home page to continue. You may need to log in again."
 			}
 		},
 		"error": {
@@ -2064,7 +2063,7 @@
 				"inOrderToShow": "To still see something, you may see outdated content.",
 				"noNotificationsAtTheMoment": "Currently no notifications",
 				"youAreOffline": "You are offline."
-            }
+			}
 		},
 		"table": {
 			"label": {
@@ -2089,8 +2088,8 @@
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>.",
-            "backupFeatures": "The dBildungscloud will be deactivated on September 14, 2026, as the underlying grant project is coming to an end. As of that date, the dBildungscloud will no longer be available for school operations and instruction. Please back up your data by then. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>You can find more information and tips on data backup here</a>."
-        }
+			"backupFeatures": "The dBildungscloud will be deactivated on September 14, 2026, as the underlying grant project is coming to an end. As of that date, the dBildungscloud will no longer be available for school operations and instruction. Please back up your data by then. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>You can find more information and tips on data backup here</a>."
+		}
 	},
 	"login": {
 		"button": {
@@ -2767,7 +2766,8 @@
 			"button": {
 				"etherpad": "Etherpad",
 				"geoGebraWorksheet": "GeoGebra worksheet",
-				"text": "Text"			},
+				"text": "Text"
+			},
 			"input": {
 				"brainstormAboutXYZ": "Brainstorming on the topic XYZ",
 				"createsListInEtherpad": "Creates in the following Etherpad a Pro-Contra list on the topic XYC",

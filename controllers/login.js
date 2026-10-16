@@ -432,6 +432,7 @@ router.get('/login/success', authHelper.authChecker, async (req, res) => {
 
 	return null;
 });
+
 router.get('/logout/', (req, res, next) => {
 	const url = new URL(req.url, 'http://example.com');
 	const autoLogout = url.searchParams.get('auto-logout') === 'true';
@@ -449,6 +450,7 @@ router.get('/logout/', (req, res, next) => {
 
 	const redirectUrl = autoLogout ? '/?auto-logout=true' : '/';
 	res.locals.csrfToken = null;
+	res.locals.currentUser = null;
 
 	return authHelper.clearCookies(req, res, { destroySession: true })
 		.then(() => {
