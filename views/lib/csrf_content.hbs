@@ -1,50 +1,15 @@
 <div class="error-header-wrapper pb-3">
     {{> 'lib/components/svg_error_content' }}
-    <h1 class="h2 error-header-code">CSRF</h1>
+    <h1 class="h2">{{$t "lib.csrf_content.headline.continueFromHome" }}</h1>
     <p class="error-header-text">
-        {{$t "lib.csrf_content.text.yourRequestCouldNotBeVerified" }}
+        {{$t "lib.csrf_content.text.weCouldNotMakeSureThatThisRequestReallyCameFromYou" }}
     </p>
 
     <div class="noiframe">
-        {{#if simpleView}}
-            <p>
-                {{$t "lib.csrf_content.text.weCouldNotMakeSureThat" }}
-            </p>
-            <a href=".">
-                <button class="btn btn-primary">{{$t "global.button.reload" }}</button>
-            </a>
-        {{else}}
-            <p>
-                {{$t "lib.csrf_content.text.weCouldNotMakeSureThatThisRequestReallyCameFromYou" }}
-                <br>
-                {{$t "lib.csrf_content.text.ifYouDontWantToTakeAnyAction" }}
-            </p>
-            {{#if previousError}}
-                <p>
-                    <b>
-                        {{$t "lib.csrf_content.text.unfortunatelyTheRequestFailedAgain" }}
-                    </b>
-                </p>
-                <a href=".">
-                    <button class="btn btn-primary">{{$t "global.button.reload" }}</button>
-                </a>
-            {{else}}
-                <form id="retryform" method="POST">
-                    {{> "lib/components/csrfInput"}}
-                    {{#each values}}
-                        {{#ifneq this.name "_csrf"}}
-                            <input type="hidden" name="{{../this.name}}" value="{{../this.value}}">
-                        {{/ifneq}}
-                    {{/each}}
-                    <a class="btn btn-primary" href="{{baseUrl}}" rel="noopener noreferrer" target="_blank" id="retrybtn">{{$t "global.link.openInNewTab" }}</a>
-                </form>
-            {{/if}}
-        {{/if}}
+        <a class="btn btn-primary" href="/">{{$t "global.link.landing" }}</a>
     </div>
     <div class="hidden iframe">
-        <p>
-            {{$t "lib.csrf_content.text.theSchoolCloudWasEmbedded" }} <a href="{{baseUrl}}"
-                rel="noopener noreferrer" target="_blank">{{$t "lib.csrf_content.link.openThisPageInASeparateWindow" }}</a>.
-        </p>
+        <p>{{$t "lib.csrf_content.text.theSchoolCloudWasEmbedded" }}</p>
+        <a class="btn btn-primary" href="/" target="_blank" rel="noopener noreferrer">{{$t "lib.csrf_content.link.openHomePageInNewTab" }}</a>
     </div>
 </div>

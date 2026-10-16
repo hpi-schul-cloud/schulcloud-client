@@ -272,7 +272,7 @@
 		"form_Import": {
 			"label": {
 				"selectCSVFile": "CSV-Datei auswählen",
-                "fileSizeInfo" : "max. Dateigröße",
+				"fileSizeInfo": "max. Dateigröße",
 				"sendRegistrationLinkToUsers": "Registrierungslinks sofort nach Import an Nutzer:in senden"
 			},
 			"text": {
@@ -579,7 +579,7 @@
 	},
 	"autologout": {
 		"text": {
-            "sessionAlreadyExpired": "Sitzung abgelaufen: Du wurdest ausgeloggt, da deine Sitzung abgelaufen ist.",
+			"sessionAlreadyExpired": "Sitzung abgelaufen: Du wurdest ausgeloggt, da deine Sitzung abgelaufen ist.",
 			"sessionCouldNotBeExtended": "Deine Sitzung konnte nicht verlängert werden! Bitte speichere deine Arbeit und lade die Seite neu.",
 			"sessionExtended": "Sitzung erfolgreich verlängert."
 		}
@@ -1300,8 +1300,8 @@
 			"discard": "Verwerfen",
 			"done": "Fertig",
 			"downloadAllFiles": "Alle Dateien herunterladen",
-            "downloadSomeFiles": "Einige Dateien herunterladen",
-            "downloadSelected": "Ausgewählte Dateien herunterladen",
+			"downloadSomeFiles": "Einige Dateien herunterladen",
+			"downloadSelected": "Ausgewählte Dateien herunterladen",
 			"edit": "Bearbeiten",
 			"editTopic": "Thema bearbeiten",
 			"import": "Importieren",
@@ -1331,7 +1331,7 @@
 			"declarationOfConsent": "Einwilligungserklärung",
 			"delete": "Löschen",
 			"downloadAllFiles": "Alle Dateien herunterladen",
-            "downloadSomeFiles": "Einige Dateien herunterladen",
+			"downloadSomeFiles": "Einige Dateien herunterladen",
 			"entriesPerPage": "Einträge pro Seite",
 			"files": "Dateien",
 			"invitationLinkGenerated": "Einladungslink generiert!",
@@ -1471,7 +1471,7 @@
 			"403": "Sorry, aber das dürfen wir dir wirklich nicht zeigen!",
 			"404": "Ups, diese Seite gibt's wohl nicht.",
 			"408": "Zeitüberschreitung",
-            "allFiles": "Alle Dateien",
+			"allFiles": "Alle Dateien",
 			"areYouSure": "Bist du dir sicher?",
 			"attention": "Achtung:",
 			"dataProtection": "Datenschutzerklärung",
@@ -1488,7 +1488,7 @@
 			"errorWhileLoadingPage": "Diese Seite konnte nicht geladen werden",
 			"filesTooLarge": "Die angehängten Dateien überschreiten die maximal zulässige Gesamtgröße!",
 			"fileTooLarge": "Die angehängte Datei überschreitet die maximal zulässige Größe von {{ maxFileSizeInGb }} GB!",
-            "fileTotalSize": "Gesamtgröße der Dateien",
+			"fileTotalSize": "Gesamtgröße der Dateien",
 			"fileWrongFormat": "'{{filename}}' ist kein Bild, Video oder zulässige Datei!",
 			"forThisWeNeedTheFollowingInformationFromYou": "Dazu benötigen wir folgende Angaben von Ihnen:",
 			"friday": "Freitag",
@@ -1515,7 +1515,7 @@
 			"requestTimeout": "Zeitüberschreitung bei der Anfrage",
 			"saturday": "Samstag",
 			"severalSecurityTokens": "Bei der Anfrage wurden mehrere Sicherheitstokens (CSRF) mitgesendet. Bitte probiere es erneut.",
-            "selectFilesForDownload": "Ausgewählte Dateien werden als gemeinsames ZIP-Archiv heruntergeladen.<br>Sollte es dabei Probleme geben, kann es helfen, weniger Dateien oder größere Dateien einzeln herunterzuladen.<br>Zum Starten des Downloads 'Ausgewählte Dateien herunterladen' am Ende der Liste klicken.",
+			"selectFilesForDownload": "Ausgewählte Dateien werden als gemeinsames ZIP-Archiv heruntergeladen.<br>Sollte es dabei Probleme geben, kann es helfen, weniger Dateien oder größere Dateien einzeln herunterzuladen.<br>Zum Starten des Downloads 'Ausgewählte Dateien herunterladen' am Ende der Liste klicken.",
 			"somethingWentWrong": "Da ist etwas schiefgelaufen!",
 			"specialCharacters": "!§$%&/()=?\\;:,.#+*~-",
 			"sunday": "Sonntag",
@@ -1901,16 +1901,15 @@
 	},
 	"lib": {
 		"csrf_content": {
+			"headline": {
+				"continueFromHome": "Bitte öffne die Startseite und versuche es erneut"
+			},
 			"link": {
-				"openThisPageInASeparateWindow": "Öffne diese Seite in einem neuen Tab"
+				"openHomePageInNewTab": "Startseite in einem neuen Tab öffnen"
 			},
 			"text": {
-				"ifYouDontWantToTakeAnyAction": "Solltest du keine Aktion ausführen wollen, schließe bitte diesen Tab in deinem Browser.",
-				"theSchoolCloudWasEmbedded": "Die HPI Schul-Cloud wurde in eine Webseite eingebettet. Um mit der Nutzung fortzufahren,",
-				"unfortunatelyTheRequestFailedAgain": "Die Anfrage ist leider erneut fehlgeschlagen. Um mit der Nutzung fortzufahren, lade die Seite bitte neu.",
-				"weCouldNotMakeSureThat": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke auf den Button unten zum erneuten Laden der Seite.",
-				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten nicht sicherstellen, ob diese Anfrage wirklich von dir kam. Bitte klicke zum Bestätigen auf den Button unten.",
-				"yourRequestCouldNotBeVerified": "Deine Anfrage konnte nicht verifiziert werden."
+				"theSchoolCloudWasEmbedded": "Diese Seite ist in eine andere Webseite eingebettet. Öffne die Startseite in einem neuen Tab, um fortzufahren.",
+				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten deine Anfrage nicht bestätigen. Das kann passieren, wenn die Seite längere Zeit geöffnet war. Öffne die Startseite, um fortzufahren. Möglicherweise musst du dich erneut anmelden."
 			}
 		},
 		"error": {
@@ -2089,8 +2088,8 @@
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>.",
-            "backupFeatures": "Die dBildungscloud wird zum 14.09.2026 deaktiviert, da das zugrundeliegende Förderprojekt endet. Ab diesem Zeitpunkt steht die dBildungscloud nicht mehr für Schulbetrieb und Unterricht zur Verfügung. Bitte sichern Sie bis dahin Ihre Daten. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Weitere Informationen und Hinweise zur Datensicherung finden Sie hier</a>."
-        }
+			"backupFeatures": "Die dBildungscloud wird zum 14.09.2026 deaktiviert, da das zugrundeliegende Förderprojekt endet. Ab diesem Zeitpunkt steht die dBildungscloud nicht mehr für Schulbetrieb und Unterricht zur Verfügung. Bitte sichern Sie bis dahin Ihre Daten. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Weitere Informationen und Hinweise zur Datensicherung finden Sie hier</a>."
+		}
 	},
 	"login": {
 		"button": {
@@ -2700,7 +2699,7 @@
 		},
 		"text": {
 			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecher:innenversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
-			"roomsInsteadOfTeams":  "Das Anlegen von Teams ist nicht mehr möglich.<br /> Soll stattdessen ein neuer <a href=\"/rooms/new\">Raum erstellt</a> werden?",
+			"roomsInsteadOfTeams": "Das Anlegen von Teams ist nicht mehr möglich.<br /> Soll stattdessen ein neuer <a href=\"/rooms/new\">Raum erstellt</a> werden?",
 			"title": "Teams werden nicht mehr unterstützt.",
 			"item0": "Bitte sichern Sie Ihre Inhalte und wechseln Sie auf Räume.",
 			"item1": "Ende Oktober werden alle Teams und deren Inhalte endgültig gelöscht."
