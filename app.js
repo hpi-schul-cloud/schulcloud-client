@@ -112,6 +112,9 @@ const setupApp = async () => {
 
 	await initializeSessionStorage(app);
 
+	// add res.$t method for i18n with users prefered language
+	app.use(i18nMiddleware);
+
 	// CSRF middlewares
 	if (Configuration.get('FEATURE_CSRF_ENABLED')) {
 		app.use(duplicateTokenHandler);
@@ -164,8 +167,6 @@ const setupApp = async () => {
 		}),
 	);
 
-	// add res.$t method for i18n with users prefered language
-	app.use(i18nMiddleware);
 	app.use(datetimeMiddleware);
 
 	const redirectUrl = Configuration.get('ROOT_URL_REDIRECT');
