@@ -1,11 +1,9 @@
 <div class="error-header-wrapper pb-3">
     {{> 'lib/components/svg_error_content' }}
-    <h1 class="h2">{{$t "lib.csrf_content.headline.continueFromHome" }}</h1>
-    <p class="error-header-text">
-        {{$t "lib.csrf_content.text.weCouldNotMakeSureThatThisRequestReallyCameFromYou" }}
-    </p>
+    <h1 class="h2 error-header-code">{{$t "lib.csrf_content.headline.error" }}</h1>
 
     <div class="noiframe">
+        <p>{{$t "lib.csrf_content.text.weCouldNotMakeSureThatThisRequestReallyCameFromYou" }}</p>
         <a class="btn btn-primary" href="/">{{$t "global.link.landing" }}</a>
     </div>
     <div class="hidden iframe">

@@ -1902,7 +1902,7 @@
 	"lib": {
 		"csrf_content": {
 			"headline": {
-				"continueFromHome": "Abre la página de inicio e inténtalo de nuevo"
+				"error": "Error de CSRF"
 			},
 			"link": {
 				"openHomePageInNewTab": "Abrir la página de inicio en una nueva pestaña"

@@ -1902,14 +1902,14 @@
 	"lib": {
 		"csrf_content": {
 			"headline": {
-				"continueFromHome": "Bitte öffne die Startseite und versuche es erneut"
+				"error": "CSRF-Fehler"
 			},
 			"link": {
 				"openHomePageInNewTab": "Startseite in einem neuen Tab öffnen"
 			},
 			"text": {
 				"theSchoolCloudWasEmbedded": "Diese Seite ist in eine andere Webseite eingebettet. Öffne die Startseite in einem neuen Tab, um fortzufahren.",
-				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten deine Anfrage nicht bestätigen. Das kann passieren, wenn die Seite längere Zeit geöffnet war. Öffne die Startseite, um fortzufahren. Möglicherweise musst du dich erneut anmelden."
+				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten deine Anfrage nicht verifizieren. Das kann passieren, wenn die Seite längere Zeit geöffnet war. Öffne die Startseite, um fortzufahren. Möglicherweise musst du dich erneut anmelden."
 			}
 		},
 		"error": {

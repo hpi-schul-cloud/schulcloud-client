@@ -1902,7 +1902,7 @@
 	"lib": {
 		"csrf_content": {
 			"headline": {
-				"continueFromHome": "Please open the home page and try again"
+				"error": "CSRF error"
 			},
 			"link": {
 				"openHomePageInNewTab": "Open home page in a new tab"
