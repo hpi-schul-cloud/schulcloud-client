@@ -4,14 +4,22 @@ import './pwd';
 
 $(document).ready(() => {
 	if (['/', '/login', '/login/'].includes(window.location.pathname)) {
-		const reloadInterval = 60 * 60 * 1000;
+		// Refresh before the six-hour session expiry makes the form's CSRF token unusable.
+		const reloadInterval = 5 * 60 * 60 * 1000;
 		const loadedAt = Date.now();
 		const reloadIfStale = () => {
 			if (!document.hidden && Date.now() - loadedAt >= reloadInterval) {
+				const credentialFields = document.querySelectorAll(
+					'form.login-form input[name="username"], form.login-form input[name="password"]',
+				);
+				if (Array.from(credentialFields).some((input) => input.value !== '')) {
+					return;
+				}
 				window.location.reload();
 			}
 		};
 		setInterval(reloadIfStale, reloadInterval);
+		// Background tabs can suspend timers, so also check when the user returns.
 		window.addEventListener('focus', reloadIfStale);
 		document.addEventListener('visibilitychange', reloadIfStale);
 	}
