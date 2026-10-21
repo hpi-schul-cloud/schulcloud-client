@@ -1909,7 +1909,7 @@
 			},
 			"text": {
 				"theSchoolCloudWasEmbedded": "Diese Seite ist in eine andere Webseite eingebettet. Öffne die Startseite in einem neuen Tab, um fortzufahren.",
-				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten deine Anfrage nicht verifizieren. Das kann passieren, wenn die Seite längere Zeit geöffnet war. Öffne die Startseite, um fortzufahren. Möglicherweise musst du dich erneut anmelden."
+				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "Wir konnten deine Anfrage nicht verifizieren. Das kann passieren, wenn die Seite längere Zeit geöffnet war. Öffne die Startseite und melde dich erneut an."
 			}
 		},
 		"error": {

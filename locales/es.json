@@ -1909,7 +1909,7 @@
 			},
 			"text": {
 				"theSchoolCloudWasEmbedded": "Esta página está integrada en otro sitio web. Abre la página de inicio en una nueva pestaña para continuar.",
-				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "No hemos podido verificar tu solicitud. Esto puede ocurrir si la página lleva mucho tiempo abierta. Abre la página de inicio para continuar. Es posible que tengas que iniciar sesión de nuevo."
+				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "No hemos podido verificar tu solicitud. Esto puede ocurrir si la página lleva mucho tiempo abierta. Abre la página de inicio e inicia sesión de nuevo."
 			}
 		},
 		"error": {

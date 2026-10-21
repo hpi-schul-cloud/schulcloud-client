@@ -1909,7 +1909,7 @@
 			},
 			"text": {
 				"theSchoolCloudWasEmbedded": "This page is embedded in another website. Open the home page in a new tab to continue.",
-				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "We couldn't verify your request. This can happen if the page has been open for a long time. Open the home page to continue. You may need to log in again."
+				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "We couldn't verify your request. This can happen if the page has been open for a long time. Open the home page and log in again."
 			}
 		},
 		"error": {
