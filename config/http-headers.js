@@ -10,12 +10,22 @@ const localDevConnectSources = Configuration.get('NODE_ENV') === 'development'
 	? ' http://localhost:9000 http://127.0.0.1:9000'
 	: '';
 
+// GitHub hosted release note images - only allowed for images (img-src)
+const releaseNoteImageSources = [
+	// images committed to the release notes repository
+	'https://raw.githubusercontent.com/hpi-schul-cloud/RELEASE-NOTES/',
+	// images added via drag & drop in the GitHub release editor
+	'https://github.com/user-attachments/assets/',
+	// redirect target of user-attachments (CSP ignores paths after redirects, so host only)
+	'https://github-production-user-asset-6210df.s3.amazonaws.com',
+].join(' ');
+
 const config = {
 	enabled: Configuration.get('CORS'),
 	// Settings for HTTP Content-Security-Policy Header
 	/*
 	Use:
-		defaultSrc, fontSrc, styleSrc, scriptSrc, imageSrc,
+		defaultSrc, fontSrc, styleSrc, scriptSrc, imgSrc,
 		connectSrc, mediaSrc, objectSrc, prefetchSrc, childSrc,
 		frameSrc, workerSrc, frameAncestors, formactionSrc, baseuriSrc
 		manifestSrc, sandboxSrc, upgradeInsecureRequestsSrc and blockAllMixedContentSrc
@@ -27,6 +37,7 @@ const config = {
 		// Use 'strict-dynamic' 'nonce-<nonceValue>' (nonceValue auto generated) to create a whitelist
 		corsDefault: {
 			defaultSrc: sharedSources,
+			imgSrc: `${sharedSources} ${releaseNoteImageSources}`,
 			fontSrc: '\'self\' data:',
 			styleSrc: '\'self\' \'unsafe-inline\'',
 			scriptSrc: '\'self\' \'unsafe-eval\'',
@@ -40,7 +51,7 @@ const config = {
 			Content-Security-Policy Header (added to default header) depending on the site
 			site is matched with called website URL and regex key within corsSiteSpecific
 			use * as value for
-			defaultSrc, fontSrc, styleSrc, scriptSrc, imageSrc,
+			defaultSrc, fontSrc, styleSrc, scriptSrc, imgSrc,
 			connectSrc, mediaSrc, objectSrc, prefetchSrc, childSrc,
 			frameSrc, workerSrc, frameAncestors, formactionSrc, baseuriSrc
 			and manifestSrc to ignore corsDefault and allow any external content
