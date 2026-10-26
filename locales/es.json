@@ -272,7 +272,7 @@
 		"form_Import": {
 			"label": {
 				"selectCSVFile": "Seleccionar archivo CSV",
-                "fileSizeInfo" : "tamaño máximo de archivo",
+				"fileSizeInfo": "tamaño máximo de archivo",
 				"sendRegistrationLinkToUsers": "Enviar enlaces de registro a los usuarios inmediatamente después de la importación"
 			},
 			"text": {
@@ -1300,7 +1300,7 @@
 			"discard": "Descartar",
 			"done": "Listo",
 			"downloadAllFiles": "Descargar todos los archivos",
-            "downloadSomeFiles": "Descargar algunos archivos",
+			"downloadSomeFiles": "Descargar algunos archivos",
 			"downloadSelected": "Descarga selectiva",
 			"edit": "Editar",
 			"editTopic": "Editar tema",
@@ -1901,16 +1901,15 @@
 	},
 	"lib": {
 		"csrf_content": {
+			"headline": {
+				"error": "Error de CSRF"
+			},
 			"link": {
-				"openThisPageInASeparateWindow": "Abre esta página en una nueva pestaña"
+				"openHomePageInNewTab": "Abrir la página de inicio en una nueva pestaña"
 			},
 			"text": {
-				"ifYouDontWantToTakeAnyAction": "Si no deseas realizar ninguna acción, cierra esta pestaña en tu navegador.",
-				"theSchoolCloudWasEmbedded": "La nube escolar estaba integrada en un sitio web. Para seguir usándola,",
-				"unfortunatelyTheRequestFailedAgain": "Lo sentimos, la solicitud ha fallado de nuevo. Para seguir usándola, vuelve a cargar la página.",
-				"weCouldNotMakeSureThat": "No hemos podido asegurarnos de que esta solicitud venga realmente de ti. Haz clic en el botón de abajo para volver a cargar la página.",
-				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "No hemos podido asegurarnos de que esta solicitud venga realmente de ti. Haz clic en el botón de abajo para confirmar.",
-				"yourRequestCouldNotBeVerified": "No se ha podido verificar tu solicitud."
+				"theSchoolCloudWasEmbedded": "Esta página está integrada en otro sitio web. Abre la página de inicio en una nueva pestaña para continuar.",
+				"weCouldNotMakeSureThatThisRequestReallyCameFromYou": "No hemos podido verificar tu solicitud. Esto puede ocurrir si la página lleva mucho tiempo abierta. Abre la página de inicio e inicia sesión de nuevo."
 			}
 		},
 		"error": {
@@ -2089,8 +2088,8 @@
 			"schoolYearChangeDbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://dbildungscloud.de/help/confluence/123407337'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeNbc": "Hier finden Sie <a target='_blank' rel='noopener noreferrer' href='https://blog.niedersachsen.cloud/schuljahreswechsel'>Informationen und Hinweise zum Schuljahreswechsel</a>.",
 			"schoolYearChangeThr": "Für Informationen zum Schuljahreswechsel in der Thüringer Schulcloud und dem Thüringer Schulportal schauen Sie einmal auf die folgende <a target='_blank' rel='noopener noreferrer' href='https://www.schulportal-thueringen.de/thueringer_schulcloud/tsc-admins/der_schuljahreswechsel'>Infoseite</a> oder wenden Sie sich bitte an <a href='mailto:schulcloud-support@thillm.de' target='blank' rel='noopener' class='externalLink'>schulcloud-support@thillm.de</a>.",
-            "backupFeatures": "La dBildungscloud se desactivará el 14 de septiembre de 2026, ya que finaliza el proyecto subvencionado en el que se basa. A partir de esa fecha, la dBildungscloud ya no estará disponible para el funcionamiento de los centros educativos ni para la enseñanza. Por favor, haga una copia de seguridad de sus datos antes de esa fecha. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Aquí encontrará más información y consejos sobre cómo realizar copias de seguridad</a>."
-        }
+			"backupFeatures": "La dBildungscloud se desactivará el 14 de septiembre de 2026, ya que finaliza el proyecto subvencionado en el que se basa. A partir de esa fecha, la dBildungscloud ya no estará disponible para el funcionamiento de los centros educativos ni para la enseñanza. Por favor, haga una copia de seguridad de sus datos antes de esa fecha. <a href='https://dbildungscloud.de/help/confluence/485132545' target='_blank' rel='noopener noreferrer'>Aquí encontrará más información y consejos sobre cómo realizar copias de seguridad</a>."
+		}
 	},
 	"login": {
 		"button": {
