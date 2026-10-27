@@ -91,6 +91,35 @@ const getSyncedElements = (
 
 const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 
+const hasAsciiControlChar = (str) => {
+	for (let i = 0; i < str.length; i += 1) {
+		const code = str.charCodeAt(i);
+		if (code <= 0x1F || code === 0x7F) {
+			return true;
+		}
+	}
+	return false;
+};
+
+/**
+ * Trim and validate a course name for persistence.
+ * Does not HTML-encode or strip markup; that belongs at render time.
+ * @param {unknown} name
+ * @returns {string}
+ * @throws {Error} when the name is missing, not a string, blank after trim,
+ * or contains ASCII control characters
+ */
+const normalizeCourseName = (name) => {
+	if (typeof name !== 'string') {
+		throw new Error('Invalid course name');
+	}
+	const trimmed = name.trim();
+	if (!trimmed || hasAsciiControlChar(trimmed)) {
+		throw new Error('Invalid course name');
+	}
+	return trimmed;
+};
+
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
  * startDate {Date} - the date the course is first take place
@@ -531,9 +560,17 @@ router.post('/', (req, res, next) => {
 		delete req.body[feature];
 	});
 
+	let name;
+	try {
+		name = normalizeCourseName(req.body.name);
+	} catch (err) {
+		res.status(400).send(err.message);
+		return;
+	}
+
 	api(req)
 		.post('/courses/', {
-			json: { ...req.body, name: req.body.name.trim() }, // TODO: sanitize
+			json: { ...req.body, name },
 		})
 		.then((course) => {
 			createEventsForCourse(req, res, course).then(() => {
@@ -763,6 +800,17 @@ router.patch('/:courseId', async (req, res, next) => {
 		if (unarchiveCourse) {
 			req.body = { untilDate: req.body.untilDate };
 		}
+
+		let name;
+		if (!unarchiveCourse) {
+			try {
+				name = normalizeCourseName(req.body.name);
+			} catch (err) {
+				res.status(400).send(err.message);
+				return;
+			}
+		}
+
 		const { courseId } = req.params;
 
 		const isAdministrator = res.locals.currentRole === 'Administrator';
@@ -782,7 +830,7 @@ router.patch('/:courseId', async (req, res, next) => {
 
 		const requestBody = unarchiveCourse
 			? req.body
-			: { ...req.body, name: req.body.name.trim() };
+			: { ...req.body, name };
 		await api(req).patch(`/courses/${courseId}`, {
 			json: requestBody,
 		});
