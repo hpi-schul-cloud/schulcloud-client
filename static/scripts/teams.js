@@ -17,7 +17,7 @@ function transformTeamEvent(modal, event) {
 	const teamId = event['x-sc-teamId'];
 	$.getJSON(`/teams/${teamId}/json`, (team) => {
 		const $title = modal.find('.modal-title');
-		$title.html(`${$title.html()}, Team: ${team.team.name}`);
+		$title.text(`${$title.text()}, Team: ${team.team.name}`);
 
 		const $modalForm = modal.find('.modal-form');
 		if (!$modalForm.find('input[name=teamId]').length) {
