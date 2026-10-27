@@ -93,7 +93,7 @@ const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 
 const hasAsciiControlChar = (str) => {
 	for (let i = 0; i < str.length; i += 1) {
-		const code = str.charCodeAt(i);
+		const code = str.codePointAt(i);
 		if (code <= 0x1F || code === 0x7F) {
 			return true;
 		}
@@ -106,12 +106,12 @@ const hasAsciiControlChar = (str) => {
  * Does not HTML-encode or strip markup; that belongs at render time.
  * @param {unknown} name
  * @returns {string}
- * @throws {Error} when the name is missing, not a string, blank after trim,
- * or contains ASCII control characters
+ * @throws {TypeError} when the name is not a string
+ * @throws {Error} when the name is blank after trim or contains ASCII control characters
  */
 const normalizeCourseName = (name) => {
 	if (typeof name !== 'string') {
-		throw new Error('Invalid course name');
+		throw new TypeError('Invalid course name');
 	}
 	const trimmed = name.trim();
 	if (!trimmed || hasAsciiControlChar(trimmed)) {
