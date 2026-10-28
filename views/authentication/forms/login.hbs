@@ -93,7 +93,7 @@
                         {{> "lib/components/csrfInput"}}
                         <div class="oauth-system">
                             <div class="form-group">
-                                <input autofocus aria-label="{{$t "login.aria_label.oauth" (dict "systemName" system.displayName)}}" title="{{$t "login.aria_label.oauth" (dict "systemName" system.displayName)}}" type="submit" class="btn btn-block btn-secondary btn-oauth" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-provider="{{system.oauthConfig.provider}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login-{{system.alias}}"/>
+                                <input autofocus title="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" type="submit" class="btn btn-block btn-secondary btn-oauth" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-provider="{{system.oauthConfig.provider}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login-{{system.alias}}"/>
                             </div>
                         </div>
                     </form>
@@ -109,13 +109,13 @@
             {{!-- Buttons Menu --}}
             <div class="system-buttons">
                 <div class="form-group">
-                    <button autofocus aria-label="{{$t "login.aria_label.email"}}" title="{{$t "login.aria_label.email"}}" type="button" class="btn btn-block btn-secondary btn-cloud" data-testid="submit-cloud-site"/>
+                    <button autofocus title="{{$t "login.button.schoolCloud"}}" type="button" class="btn btn-block btn-secondary btn-cloud" data-testid="submit-cloud-site"/>
                         {{$t "login.button.schoolCloud"}}
                     </button>
                 </div>
                 <div class="cloud-system" hidden>{{ cloudSystem }}</div>
                 <div class="form-group">
-                    <button autofocus aria-label="{{$t "login.aria_label.ldap"}}" title="{{$t "login.aria_label.ldap"}}" type="button" class="btn btn-block btn-secondary btn-ldap" data-testid="submit-ldap-site"/>
+                    <button autofocus title="{{$t "login.button.ldap"}}" type="button" class="btn btn-block btn-secondary btn-ldap" data-testid="submit-ldap-site"/>
                         {{$t "login.button.ldap"}}
                     </button>
                 </div>
@@ -128,7 +128,7 @@
                         {{> "lib/components/csrfInput"}}
                         <div class="oauth-system">
                             <div class="form-group">
-                                <input autofocus aria-label="{{$t "login.aria_label.oauth" (dict "systemName" system.displayName)}}" title="{{$t "login.aria_label.oauth" (dict "systemName" system.displayName)}}" type="submit" class="btn btn-block btn-secondary btn-oauth" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-provider="{{system.oauthConfig.provider}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login-{{system.alias}}"/>
+                                <input autofocus title="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" type="submit" class="btn btn-block btn-secondary btn-oauth" value="{{$t "login.oauth2.headline.loginVia"}} {{system.displayName}}" data-provider="{{system.oauthConfig.provider}}" data-logout="{{system.oauthConfig.logoutEndpoint}}" data-testid="submit-oauth-login-{{system.alias}}"/>
                             </div>
                         </div>
                     </form>
@@ -164,9 +164,9 @@
                         {{> "lib/components/csrfInput"}}
                         <div class="form-group">
                             {{#if notification.statusCode}}
-                                <input autofocus aria-label="{{$t "login.aria_label.email"}}" title="{{$t "login.aria_label.email"}}" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-login-email" data-timeout="{{notification.timeToWait}}" disabled/>
+                                <input autofocus title="{{$t "login.button.schoolCloud"}}" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-login-email" data-timeout="{{notification.timeToWait}}" disabled/>
                             {{else}}
-                                <input autofocus aria-label="{{$t "login.aria_label.email"}}" title="{{$t "login.aria_label.email"}}" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-login-email" />
+                                <input autofocus title="{{$t "login.button.schoolCloud"}}" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-cloud" value="{{$t "login.button.schoolCloud"}}" data-testid="submit-login-email" />
                             {{/if}}
                         </div>
                         <div class="form-group" style="text-align:center">
@@ -226,9 +226,9 @@
                         {{> "lib/components/csrfInput"}}
                         <div class="form-group">
                             {{#if notification.statusCode}}
-                                <input autofocus aria-label="{{$t "login.aria_label.ldap"}}" title="{{$t "login.aria_label.ldap"}}" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-ldap" value="{{$t "login.button.ldap"}}" data-testid="submit-login-ldap" data-timeout="{{notification.timeToWait}}" data-active="true" disabled/>
+                                <input autofocus title="{{$t "login.button.ldap"}}" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-ldap" value="{{$t "login.button.ldap"}}" data-testid="submit-login-ldap" data-timeout="{{notification.timeToWait}}" data-active="true" disabled/>
                             {{else}}
-                                <input autofocus aria-label="{{$t "login.aria_label.ldap"}}" title="{{$t "login.aria_label.ldap"}}" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-ldap" value="{{$t "login.button.ldap"}}" data-testid="submit-login-ldap" data-active="true"/>
+                                <input autofocus title="{{$t "login.button.ldap"}}" type="submit" id="submit-login" class="btn btn-block btn-primary btn-login btn-login-ldap" value="{{$t "login.button.ldap"}}" data-testid="submit-login-ldap" data-active="true"/>
                             {{/if}}
                         </div>
                         <div class="form-group" style="text-align:center">

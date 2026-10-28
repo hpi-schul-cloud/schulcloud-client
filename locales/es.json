@@ -2092,18 +2092,13 @@
 		}
 	},
 	"login": {
-		"aria_label": {
-			"email": "Iniciar sesión con dirección de correo electrónico",
-			"ldap": "Iniciar sesión con el sistema LDAP escolar",
-			"oauth": "Iniciar sesión a través de {{systemName}}"
-		},
 		"button": {
-			"ldap": "Iniciar sesión con LDAP de la escuela",
+			"ldap": "Iniciar sesión con el sistema LDAP escolar",
 			"less": "Menos",
 			"longerLoggedInWhenActivated": "Cuando se activa, permaneces conectado durante más tiempo.",
 			"moreOptions": "Más opciones",
 			"return": "Volver al inicio de sesión",
-			"schoolCloud": "Iniciar sesión con correo electrónico",
+			"schoolCloud": "Iniciar sesión con dirección de correo electrónico",
 			"show_password": "Mostrar contraseña",
 			"submitPrivacyPolicy": "Leer"
 		},

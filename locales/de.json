@@ -2092,18 +2092,13 @@
 		}
 	},
 	"login": {
-		"aria_label": {
-			"email": "Anmeldung mit Mail-Adresse",
-			"ldap": "Anmeldung mit schulischem LDAP-System",
-			"oauth": "Anmeldung über {{systemName}}"
-		},
 		"button": {
-			"ldap": "Login über Schul-LDAP",
+			"ldap": "Anmeldung mit schulischem LDAP-System",
 			"less": "Weniger",
 			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
 			"moreOptions": "Mehr Optionen",
 			"return": "Zurück zur Login-Auswahl",
-			"schoolCloud": "Login mit E-Mail",
+			"schoolCloud": "Anmeldung mit Mail-Adresse",
 			"show_password": "Passwort anzeigen",
 			"submitPrivacyPolicy": "Gelesen"
 		},
@@ -2140,7 +2135,7 @@
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Login mit {{title}}",
-				"loginVia": "Login über"
+				"loginVia": "Anmeldung über"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
