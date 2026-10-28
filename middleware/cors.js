@@ -37,8 +37,7 @@ const cspHeadersForRoute = (path, regexs, corsDefault, nonceValue) => {
 		defaultSrc: `${corsDefault.defaultSrc}`,
 		scriptSrc: `${corsDefault.scriptSrc}`,
 		styleSrc: `${corsDefault.styleSrc}`,
-		// valid CSP directive is "img-src"; "imageSrc" is still accepted as legacy alias
-		imgSrc: `${corsDefault.imgSrc ?? corsDefault.imageSrc}`,
+		imageSrc: `${corsDefault.imageSrc}`,
 		fontSrc: `${corsDefault.fontSrc}`,
 		connectSrc: `${corsDefault.connectSrc}`,
 		mediaSrc: `${corsDefault.mediaSrc}`,
@@ -61,19 +60,11 @@ const cspHeadersForRoute = (path, regexs, corsDefault, nonceValue) => {
 	const corsHeaders = matchingKeys.map((key) => regexs[key]);
 
 	corsHeaders.forEach((matchingHeader) => {
-		const siteHeader = {
-			...matchingHeader,
-			// img-src overrides default-src for images, so route specific defaultSrc
-			// entries are applied to img-src as well (unless imgSrc is given explicitly)
-			imgSrc: matchingHeader.imgSrc
-				?? matchingHeader.imageSrc
-				?? (attributes.imgSrc !== 'undefined' ? matchingHeader.defaultSrc : undefined),
-		};
 		for (const headerAttribute in attributes) {
 			if (Object.prototype.hasOwnProperty.call(attributes, headerAttribute)) {
 				attributes[headerAttribute] = addMatchHeaders(
 					attributes[headerAttribute],
-					siteHeader[headerAttribute],
+					matchingHeader[headerAttribute],
 				);
 			}
 		}
