@@ -756,18 +756,10 @@ router.patch('/:courseId', async (req, res, next) => {
 			time.duration = time.duration * 60 * 1000;
 		});
 
-		if (!req.body.classIds) {
-			req.body.classIds = [];
-		}
-		if (!req.body.groupIds) {
-			req.body.groupIds = [];
-		}
-		if (!req.body.userIds) {
-			req.body.userIds = [];
-		}
-		if (!req.body.substitutionIds) {
-			req.body.substitutionIds = [];
-		}
+		req.body.classIds = req.body.classIds || [];
+		req.body.groupIds = req.body.groupIds || [];
+		req.body.userIds = req.body.userIds || [];
+		req.body.substitutionIds = req.body.substitutionIds || [];
 
 		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds', 'excludeFromSync'];
 		req.body = strToPropsArray(req.body, keys);
