@@ -918,3 +918,4 @@ router.get('/:courseId/edit', editCourseHandler);
 router.get('/:courseId/copy', copyCourseHandler);
 
 module.exports = router;
+module.exports.normalizeCourseName = normalizeCourseName;
