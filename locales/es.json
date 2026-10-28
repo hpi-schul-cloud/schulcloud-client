@@ -2092,6 +2092,11 @@
 		}
 	},
 	"login": {
+		"aria_label": {
+			"email": "Iniciar sesión con dirección de correo electrónico",
+			"ldap": "Iniciar sesión con el sistema LDAP escolar",
+			"oauth": "Iniciar sesión a través de {{systemName}}"
+		},
 		"button": {
 			"ldap": "Iniciar sesión con LDAP de la escuela",
 			"less": "Menos",

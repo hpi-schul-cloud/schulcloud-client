@@ -14,12 +14,12 @@
 {{#embed "lib/header"}}{{/embed}}
 <div class="container">
     <div class="row">
-        <main id="main-content" class="col-md-8">
+        <main id="main-content" class="col-md-8" style="display: flex; flex-direction: column;">
             <div class="hidden-md-up">
                 {{> "authentication/forms/login"}}
             </div>
 
-            <section class="card">
+            <section class="card" style="flex-grow: 1;">
                 <div class="card-block">
                     <h4 class="title">Herzlich willkommen bei der Niedersächsischen Bildungscloud!</h4>
                     <div class="content">
@@ -34,8 +34,10 @@
                                     <p>Die datenschutzkonforme und kostenfreie landesweite Cloudlösung steht allen allgemeinbildenden also auch berufsbildenden Schulen offen, 
                                         wie auch den Schulen in privater oder kirchlicher Trägerschaft.</p>
                                     <p><br><br><strong>Funktionen...</strong><br></p>
-                                    <a href="https://vimeo.com/1014680214" target="_blank">
-                                        <figure><img src="{{getAssetPath '/images/nbc-film.webp'}}" width="100%"></figure> 
+                                    <a href="https://vimeo.com/1014680214" target="_blank" rel="noopener"
+                                        aria-label="Video der Möglichkeiten des Lernmanagementsystems Niedersächsische Bildungscloud für Schulen, Lehrkräfte und Lernende auf Vimeo ansehen {{$t "global.link.openInNewTabWarning"}}">
+                                        <figure><img src="{{getAssetPath '/images/nbc-film.webp'}}" width="100%"
+                                            alt="Video der Möglichkeiten des Lernmanagementsystems Niedersächsische Bildungscloud für Schulen, Lehrkräfte und Lernende"></figure>
                                     </a>
                                     <p>
                                         Das Raumkonzept der NBC ist intuitiv verwendbar und intelligent miteinander verzahnt. Flexibel nutzbare Lehr- und Lernräume 
@@ -43,14 +45,6 @@
                                         sowie digitale Materialien erstellen und austauschen. Besonders die kollaborativen Features ermöglichen das datenschutzkonforme 
                                         Lernen und Arbeiten. Die NBC dient auch als Ergänzung und Öffnung der Schule in die Berufs- und Arbeitswelt und ermöglicht 
                                         schulübergreifende Kollaboration mit landesweiter Vernetzung.</p>
-                                    <p><br><strong>Unterstützung und Support!</strong> <br>
-                                        Bei pädagogischen und technischen Anwendungsfragen wenden Sie sich gerne an das Supportteam: 
-                                        <ul>
-                                            <li>Per E-Mail an <a href="mailto:ticketsystem@niedersachsen.support">ticketsystem@niedersachsen.support</a> erhalten Sie binnen kürzester Zeit qualifizierte Antworten.</li>
-                                            <li>An Schultagen von Montag bis Donnerstag in der Zeit von 14 bis 16 Uhr wird eine Sprechstunde angeboten (<a href="https://cloud.medienberatung.online/index.php/apps/bbb/b/tzLb4fAEydfmKPoG" target="_blank">Videokonferenz</a>). Außerhalb dieser Zeiten lassen sich individuelle <a href="https://cloud.medienberatung.online/index.php/apps/appointments/pub/0c871AM45y11M7V3/form" target="_blank">Termine vereinbaren</a>.</li>
-                                            <li>Die häufigsten Antworten auf Fragen aus der Sicht von Nutzenden sind in den <a href="https://support.nibis.de/help/de-de/27-faq-zur-nbc" target="_blank">FAQ</a> zusammengefasst. In den FAQ finden sich auch Antworten zu weiteren Fachanwendungen (z.B. AIS.chat, Merlin Mediathek, moin.schule).</li>
-                                        </ul>
-                                    </p>
                                     <p>Weitere Informationen zur Niedersächsischen Bildungscloud erhalten Sie im Bildungsportal.</p>
                                 </div>
                             </div>
@@ -59,10 +53,41 @@
                 </div>
             </section>
         </main>
-        <aside class="col-md-4">
+        <aside class="col-md-4" style="display: flex; flex-direction: column;">
             <div class="hidden-sm-down">
                 {{> "authentication/forms/login"}}
             </div>
+
+            <section id="support" class="card">
+                <div class="card-block">
+                    <h4>Unterstützung und Support</h4>
+                    <p>Bei pädagogischen und technischen Anwendungsfragen wenden Sie sich gerne an das Supportteam:</p>
+                    <ul>
+                        <li class="mb-1"><i class="fa fa-envelope" aria-hidden="true"></i> Per E-Mail an
+                            <a href="mailto:ticketsystem@niedersachsen.support" aria-label="E-Mail an den Support: ticketsystem@niedersachsen.support">ticketsystem@niedersachsen.support</a>
+                            erhalten Sie binnen kürzester Zeit qualifizierte Antworten.</li>
+                        <li class="mb-1"><i class="fa fa-video-camera" aria-hidden="true"></i> An Schultagen von Montag bis Donnerstag in der Zeit von 14 bis 16 Uhr wird eine Sprechstunde angeboten
+                            (<a href="https://cloud.medienberatung.online/index.php/apps/bbb/b/tzLb4fAEydfmKPoG" target="_blank" rel="noopener"
+                                aria-label="Videokonferenz der Support-Sprechstunde {{$t "global.link.openInNewTabWarning"}}">Videokonferenz <i class="fa fa-external-link" aria-hidden="true"></i></a>).
+                            Außerhalb dieser Zeiten lassen sich individuelle
+                            <a href="https://cloud.medienberatung.online/index.php/apps/appointments/pub/0c871AM45y11M7V3/form" target="_blank" rel="noopener"
+                                aria-label="Individuelle Support-Termine vereinbaren {{$t "global.link.openInNewTabWarning"}}">Termine vereinbaren <i class="fa fa-external-link" aria-hidden="true"></i></a>.</li>
+                        <li class="mb-1"><i class="fa fa-question-circle" aria-hidden="true"></i> Die häufigsten Antworten auf Fragen aus der Sicht von Nutzenden sind in den
+                            <a href="https://support.nibis.de/help/de-de/27-faq-zur-nbc" target="_blank" rel="noopener"
+                                aria-label="FAQ zur Niedersächsischen Bildungscloud {{$t "global.link.openInNewTabWarning"}}">FAQ <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                            zusammengefasst. In den FAQ finden sich auch Antworten zu weiteren Fachanwendungen (z.B. AIS.chat, Merlin Mediathek, moin.schule).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="funding" class="card" style="flex-grow: 1;">
+                <div class="card-block">
+                    <p class="mb-1" aria-hidden="true">Gefördert durch:</p>
+                    <img src="{{getAssetPath '/images/bmbfsfj-logo.svg'}}" class="img-fluid mb-1"
+                        alt="Gefördert durch Bundesministerium für Bildung, Familie, Senioren, Frauen und Jugend aufgrund eines Beschlusses des Deutschen Bundestages">
+                    <p class="mb-0" aria-hidden="true">aufgrund eines Beschlusses des Deutschen Bundestages</p>
+                </div>
+            </section>
         </aside>
     </div>
 </div>

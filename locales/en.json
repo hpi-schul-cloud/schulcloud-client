@@ -2092,6 +2092,11 @@
 		}
 	},
 	"login": {
+		"aria_label": {
+			"email": "Log in with email address",
+			"ldap": "Log in with school LDAP system",
+			"oauth": "Log in via {{systemName}}"
+		},
 		"button": {
 			"ldap": "Login via school LDAP",
 			"less": "Less",

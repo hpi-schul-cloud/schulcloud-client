@@ -2092,6 +2092,11 @@
 		}
 	},
 	"login": {
+		"aria_label": {
+			"email": "Anmeldung mit Mail-Adresse",
+			"ldap": "Anmeldung mit schulischem LDAP-System",
+			"oauth": "Anmeldung über {{systemName}}"
+		},
 		"button": {
 			"ldap": "Login über Schul-LDAP",
 			"less": "Weniger",
