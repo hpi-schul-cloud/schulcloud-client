@@ -116,42 +116,10 @@ router.get('/consent', csrfProtection, auth.authChecker, (req, res, next) => {
 
 router.post('/consent', auth.authChecker, (r, w) => acceptConsent(r, w, r.query.challenge, r.body.grantScopes, true));
 
-router.get('/username/:pseudonym', async (req, res, next) => {
-	if (req.cookies.jwt) {
-		try {
-			let shortName = '???';
-			let completeName = '???';
-
-			const pseudonymResponse = await api(req, { version: 'v3' })
-				.get(`/pseudonyms/${req.params.pseudonym}`);
-			const userResponse = await api(req)
-				.get('/users', {
-					qs: { _id: pseudonymResponse.userId },
-				});
-			if (userResponse.data.length) {
-				completeName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName}`;
-				shortName = `${userResponse.data[0].firstName} ${userResponse.data[0].lastName.charAt(0)}.`;
-			}
-
-			return res.render('oauth2/username', {
-				depseudonymized: true,
-				completeName,
-				shortName,
-				infoText: res.$t('login.oauth2.text.yourNameIsProtected', {
-					shortTitle: res.locals.theme.short_title,
-				}),
-			});
-		} catch (error) {
-			return next(error);
-		}
-	} else {
-		return res.render('oauth2/username', {
-			depseudonymized: false,
-			completeName: res.$t('login.oauth2.label.showName'),
-			shortName: res.$t('login.oauth2.label.showName'),
-			infoText: '',
-		});
-	}
+// Remove this legacy redirect in the next release after existing iframe URLs have been replaced.
+router.get('/username/:pseudonym', (req, res) => {
+	const pseudonym = encodeURIComponent(req.params.pseudonym);
+	res.redirect(307, `/api/v3/pseudonyms/username/${pseudonym}`);
 });
 
 module.exports = router;
