@@ -2,7 +2,7 @@ const express = require('express');
 const moment = require('moment');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
-const { renderMarkdown } = require('../helpers/markdown');
+const { renderMarkdownWithImages } = require('../helpers/markdown');
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ const router = express.Router();
 router.use(authHelper.authChecker);
 
 router.get('/releases', (req, res, next) => {
-	api(req).get('/releases', {
+	api(req, { version: 'v3' }).get('/releases', {
 		qs: {
 			$sort: '-createdAt',
 		},
@@ -18,7 +18,7 @@ router.get('/releases', (req, res, next) => {
 		.then((releases) => {
 			// eslint-disable-next-line array-callback-return
 			releases.data.map((release) => {
-				release.body = renderMarkdown(release.body);
+				release.body = renderMarkdownWithImages(release.body);
 				release.publishedAt = moment(release.publishedAt).format('ddd, ll');
 			});
 
