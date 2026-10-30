@@ -2,7 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const Handlebars = require('handlebars');
 const { expect } = require('chai');
-const { normalizeCourseName } = require('../../../controllers/courses');
+const { decode } = require('html-entities');
+const {
+	ensureHasNoAsciiControlChar,
+	decodeCourseName,
+} = require('../../../controllers/courses');
 
 const courseTemplate = fs.readFileSync(
 	path.join(__dirname, '../../../views/courses/course.hbs'),
@@ -57,7 +61,7 @@ describe('course template', () => {
 
 	it('should escape normalized course names that contain markup', () => {
 		const raw = '  <script>alert(1)</script> <img src=x onerror=alert(1)>  ';
-		const normalized = normalizeCourseName(raw);
+		const normalized = ensureHasNoAsciiControlChar(raw);
 		const renderedName = renderCourseName(normalized);
 
 		expect(normalized).to.equal(
@@ -68,5 +72,25 @@ describe('course template', () => {
 		expect(renderedName).to.include('&lt;img');
 		expect(renderedName).to.not.include('<script>');
 		expect(renderedName).to.not.include('<img');
+	});
+
+	it('should not double-encode names stored as HTML entities in the database', () => {
+		const fromDatabase = 'Transformation Oil =&gt; Electricity';
+		const decodedName = decodeCourseName(fromDatabase);
+		const renderedName = renderCourseName(decodedName);
+
+		expect(decodedName).to.equal('Transformation Oil => Electricity');
+		expect(renderedName).to.not.include('&amp;gt;');
+		expect(decode(renderedName)).to.include('Transformation Oil => Electricity');
+	});
+
+	it('should not render decoded database names as HTML', () => {
+		const fromDatabase = '&lt;script&gt;alert(1)&lt;/script&gt;';
+		const decodedName = decodeCourseName(fromDatabase);
+		const renderedName = renderCourseName(decodedName);
+
+		expect(decodedName).to.equal('<script>alert(1)</script>');
+		expect(renderedName).to.include('&lt;script&gt;');
+		expect(renderedName).to.not.match(unescapedHtmlTag);
 	});
 });
