@@ -1402,12 +1402,12 @@
 	},
 	"login": {
 		"button": {
-			"ldap": "Вхід через шкільну систему LDAP",
+			"ldap": "Вхід через шкільний LDAP",
 			"less": "Менше",
 			"longerLoggedInWhenActivated": "Після активації ви залишаєтеся в системі довше.",
 			"moreOptions": "Більше варіантів",
 			"return": "Повернутися до вибору входу",
-			"schoolCloud": "Вхід за адресою електронної пошти",
+			"schoolCloud": "Вхід електронною поштою",
 			"submitPrivacyPolicy": "Читати",
 			"show_password": "Показати пароль"
 		},

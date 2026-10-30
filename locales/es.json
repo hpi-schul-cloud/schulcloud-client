@@ -2093,12 +2093,12 @@
 	},
 	"login": {
 		"button": {
-			"ldap": "Iniciar sesión con el sistema LDAP escolar",
+			"ldap": "Iniciar sesión con LDAP de la escuela",
 			"less": "Menos",
 			"longerLoggedInWhenActivated": "Cuando se activa, permaneces conectado durante más tiempo.",
 			"moreOptions": "Más opciones",
 			"return": "Volver al inicio de sesión",
-			"schoolCloud": "Iniciar sesión con dirección de correo electrónico",
+			"schoolCloud": "Iniciar sesión con correo electrónico",
 			"show_password": "Mostrar contraseña",
 			"submitPrivacyPolicy": "Leer"
 		},

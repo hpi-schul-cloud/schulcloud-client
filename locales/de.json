@@ -2093,12 +2093,12 @@
 	},
 	"login": {
 		"button": {
-			"ldap": "Anmeldung mit schulischem LDAP-System",
+			"ldap": "Login über Schul-LDAP",
 			"less": "Weniger",
 			"longerLoggedInWhenActivated": "Bleibe nur auf privaten Geräten länger angemeldet!",
 			"moreOptions": "Mehr Optionen",
 			"return": "Zurück zur Login-Auswahl",
-			"schoolCloud": "Anmeldung mit Mail-Adresse",
+			"schoolCloud": "Login mit E-Mail",
 			"show_password": "Passwort anzeigen",
 			"submitPrivacyPolicy": "Gelesen"
 		},
@@ -2135,7 +2135,7 @@
 		"oauth2": {
 			"headline": {
 				"loginWithSchoolCloud": "Login mit {{title}}",
-				"loginVia": "Anmeldung über"
+				"loginVia": "Login über"
 			},
 			"label": {
 				"email": "deine E-Mail-Adresse",
