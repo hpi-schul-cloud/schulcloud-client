@@ -91,14 +91,21 @@ const getSyncedElements = (
 
 const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 
-const hasAsciiControlChar = (str) => {
-	for (let i = 0; i < str.length; i += 1) {
-		const code = str.codePointAt(i);
-		if (code <= 0x1F || code === 0x7F) {
-			return true;
-		}
+// eslint-disable-next-line no-control-regex
+const hasAsciiControlChar = (str) => /[\x00-\x1F\x7F]/.test(str);
+
+/**
+ * Decode HTML entities from a course name loaded from the database.
+ * Combined with escaped Handlebars output ({{name}}), this prevents XSS
+ * and avoids double-encoding leftover entities such as "&gt;".
+ * @param {unknown} name
+ * @returns {unknown}
+ */
+const decodeCourseName = (name) => {
+	if (typeof name !== 'string') {
+		return name;
 	}
-	return false;
+	return decode(name);
 };
 
 /**
@@ -117,7 +124,7 @@ const ensureHasNoAsciiControlChar = (name) => {
 	if (!trimmed || hasAsciiControlChar(trimmed)) {
 		throw new Error('Invalid course name');
 	}
-	return trimmed;
+	return decodeCourseName(trimmed);
 };
 
 /**
@@ -136,7 +143,7 @@ const createEventsForCourse = (req, res, course) => {
 				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
 				const repeatUntil = timesHelper.fromUTC(course.untilDate);
 				const event = {
-					summary: course.name,
+					summary: decodeCourseName(course.name),
 					location: time.room,
 					description: course.description,
 					startDate: startDate.toISOString(true),
@@ -281,10 +288,7 @@ const editCourseHandler = (req, res, next) => {
 			teachers,
 		);
 
-		// decode course name to display it properly in an input field
-		if (course.name) {
-			course.name = decode(course.name);
-		}
+		course.name = decodeCourseName(course.name);
 
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
@@ -340,7 +344,7 @@ const editCourseHandler = (req, res, next) => {
 		const classAndGroupIdsOfCourse = [...(course.classIds || []), ...(course.groupIds || [])];
 
 		if (syncedGroupId && group) {
-			course.name = group.name;
+			course.name = decodeCourseName(group.name);
 
 			const teacherIds = getUserIdsByRole(group.users, 'teacher');
 			const isTeacherInGroup = teacherIds.some((tid) => tid === res.locals.currentUser._id);
@@ -488,7 +492,7 @@ const copyCourseHandler = (req, res, next) => {
 			'#795548',
 		];
 
-		course.name = `${course.name} - Kopie`;
+		course.name = `${decodeCourseName(course.name)} - Kopie`;
 
 		course.isArchived = false;
 
@@ -515,7 +519,10 @@ router.use(authHelper.authChecker);
 router.get('/getNames', async (req, res, next) => {
 	try {
 		const result = await api(req).get('/courses/');
-		const courseNamesWithId = result.data.map((c) => ({ name: c.name, _id: c._id }));
+		const courseNamesWithId = result.data.map((c) => ({
+			name: decodeCourseName(c.name),
+			_id: c._id,
+		}));
 
 		res.json(courseNamesWithId);
 	} catch (err) {
@@ -562,7 +569,7 @@ router.post('/', (req, res, next) => {
 
 	let name;
 	try {
-		name = normalizeCourseName(req.body.name);
+		name = ensureHasNoAsciiControlChar(req.body.name);
 	} catch (err) {
 		res.status(400).send(err.message);
 		return;
@@ -573,6 +580,7 @@ router.post('/', (req, res, next) => {
 			json: { ...req.body, name },
 		})
 		.then((course) => {
+			course.name = decodeCourseName(course.name);
 			createEventsForCourse(req, res, course).then(() => {
 				res.json({ createdCourse: course });
 			});
@@ -597,7 +605,10 @@ router.get('/:courseId/json', (req, res, next) => {
 			},
 		}),
 	])
-		.then(([course, lessons]) => res.json({ course, lessons }))
+		.then(([course, lessons]) => {
+			course.name = decodeCourseName(course.name);
+			return res.json({ course, lessons });
+		})
 		.catch(next);
 });
 
@@ -612,7 +623,10 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 			},
 		}),
 	])
-		.then(([course]) => res.json({ course }))
+		.then(([course]) => {
+			course.name = decodeCourseName(course.name);
+			return res.json({ course });
+		})
 		.catch(next);
 });
 
@@ -702,6 +716,8 @@ router.get('/:courseId/', async (req, res, next) => {
 		const hasRole = (allowedRoles) => roles.some((role) => (allowedRoles || []).includes(role));
 		const teacher = ['teacher'];
 		const student = ['student'];
+
+		course.name = decodeCourseName(course.name);
 
 		res.render(
 			'courses/course',
@@ -796,7 +812,7 @@ router.patch('/:courseId', async (req, res, next) => {
 		let name;
 		if (!unarchiveCourse) {
 			try {
-				name = normalizeCourseName(req.body.name);
+				name = ensureHasNoAsciiControlChar(req.body.name);
 			} catch (err) {
 				res.status(400).send(err.message);
 				return;
@@ -886,6 +902,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 	api(req)
 		.get(`/courses/${req.params.courseId}?link=${req.query.link}`)
 		.then((course) => {
+			course.name = decodeCourseName(course.name);
 			if (_.includes(course.userIds, currentUser._id)) {
 				req.session.notification = {
 					type: 'danger',
@@ -918,4 +935,5 @@ router.get('/:courseId/edit', editCourseHandler);
 router.get('/:courseId/copy', copyCourseHandler);
 
 module.exports = router;
-module.exports.normalizeCourseName = normalizeCourseName;
+module.exports.ensureHasNoAsciiControlChar = ensureHasNoAsciiControlChar;
+module.exports.decodeCourseName = decodeCourseName;
