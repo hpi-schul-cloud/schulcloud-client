@@ -91,6 +91,42 @@ const getSyncedElements = (
 
 const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 
+// eslint-disable-next-line no-control-regex
+const hasAsciiControlChar = (str) => /[\x00-\x1F\x7F]/.test(str);
+
+/**
+ * Decode HTML entities from a course name loaded from the database.
+ * Combined with escaped Handlebars output ({{name}}), this prevents XSS
+ * and avoids double-encoding leftover entities such as "&gt;".
+ * @param {unknown} name
+ * @returns {string}
+ */
+const decodeCourseName = (name) => {
+	if (typeof name !== 'string') {
+		return '';
+	}
+	return decode(name);
+};
+
+/**
+ * Trim and validate a course name for persistence.
+ * Does not HTML-encode or strip markup; that belongs at render time.
+ * @param {unknown} name
+ * @returns {string}
+ * @throws {TypeError} when the name is not a string
+ * @throws {Error} when the name is blank after trim or contains ASCII control characters
+ */
+const ensureHasNoAsciiControlChar = (name) => {
+	if (typeof name !== 'string') {
+		throw new TypeError('Invalid course name');
+	}
+	const trimmed = name.trim();
+	if (!trimmed || hasAsciiControlChar(trimmed)) {
+		throw new Error('Invalid course name');
+	}
+	return decodeCourseName(trimmed);
+};
+
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
  * startDate {Date} - the date the course is first take place
@@ -107,7 +143,7 @@ const createEventsForCourse = (req, res, course) => {
 				const startDate = timesHelper.fromUTC(course.startDate).add(time.startTime, 'ms');
 				const repeatUntil = timesHelper.fromUTC(course.untilDate);
 				const event = {
-					summary: course.name,
+					summary: decodeCourseName(course.name),
 					location: time.room,
 					description: course.description,
 					startDate: startDate.toISOString(true),
@@ -252,10 +288,7 @@ const editCourseHandler = (req, res, next) => {
 			teachers,
 		);
 
-		// decode course name to display it properly in an input field
-		if (course.name) {
-			course.name = decode(course.name);
-		}
+		course.name = decodeCourseName(course.name);
 
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
@@ -311,7 +344,7 @@ const editCourseHandler = (req, res, next) => {
 		const classAndGroupIdsOfCourse = [...(course.classIds || []), ...(course.groupIds || [])];
 
 		if (syncedGroupId && group) {
-			course.name = group.name;
+			course.name = decodeCourseName(group.name);
 
 			const teacherIds = getUserIdsByRole(group.users, 'teacher');
 			const isTeacherInGroup = teacherIds.some((tid) => tid === res.locals.currentUser._id);
@@ -459,7 +492,7 @@ const copyCourseHandler = (req, res, next) => {
 			'#795548',
 		];
 
-		course.name = `${course.name} - Kopie`;
+		course.name = `${decodeCourseName(course.name)} - Kopie`;
 
 		course.isArchived = false;
 
@@ -486,7 +519,10 @@ router.use(authHelper.authChecker);
 router.get('/getNames', async (req, res, next) => {
 	try {
 		const result = await api(req).get('/courses/');
-		const courseNamesWithId = result.data.map((c) => ({ name: c.name, _id: c._id }));
+		const courseNamesWithId = result.data.map((c) => ({
+			name: decodeCourseName(c.name),
+			_id: c._id,
+		}));
 
 		res.json(courseNamesWithId);
 	} catch (err) {
@@ -531,11 +567,20 @@ router.post('/', (req, res, next) => {
 		delete req.body[feature];
 	});
 
+	let name;
+	try {
+		name = ensureHasNoAsciiControlChar(req.body.name);
+	} catch (err) {
+		res.status(400).send('Invalid course name');
+		return;
+	}
+
 	api(req)
 		.post('/courses/', {
-			json: { ...req.body, name: req.body.name.trim() }, // TODO: sanitize
+			json: { ...req.body, name },
 		})
 		.then((course) => {
+			course.name = decodeCourseName(course.name);
 			createEventsForCourse(req, res, course).then(() => {
 				res.json({ createdCourse: course });
 			});
@@ -560,7 +605,10 @@ router.get('/:courseId/json', (req, res, next) => {
 			},
 		}),
 	])
-		.then(([course, lessons]) => res.json({ course, lessons }))
+		.then(([course, lessons]) => {
+			course.name = decodeCourseName(course.name);
+			return res.json({ course, lessons });
+		})
 		.catch(next);
 });
 
@@ -575,7 +623,10 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 			},
 		}),
 	])
-		.then(([course]) => res.json({ course }))
+		.then(([course]) => {
+			course.name = decodeCourseName(course.name);
+			return res.json({ course });
+		})
 		.catch(next);
 });
 
@@ -666,6 +717,8 @@ router.get('/:courseId/', async (req, res, next) => {
 		const teacher = ['teacher'];
 		const student = ['student'];
 
+		course.name = decodeCourseName(course.name);
+
 		res.render(
 			'courses/course',
 			{
@@ -719,18 +772,10 @@ router.patch('/:courseId', async (req, res, next) => {
 			time.duration = time.duration * 60 * 1000;
 		});
 
-		if (!req.body.classIds) {
-			req.body.classIds = [];
-		}
-		if (!req.body.groupIds) {
-			req.body.groupIds = [];
-		}
-		if (!req.body.userIds) {
-			req.body.userIds = [];
-		}
-		if (!req.body.substitutionIds) {
-			req.body.substitutionIds = [];
-		}
+		req.body.classIds = req.body.classIds || [];
+		req.body.groupIds = req.body.groupIds || [];
+		req.body.userIds = req.body.userIds || [];
+		req.body.substitutionIds = req.body.substitutionIds || [];
 
 		const keys = ['teacherIds', 'substitutionIds', 'classIds', 'userIds', 'excludeFromSync'];
 		req.body = strToPropsArray(req.body, keys);
@@ -763,6 +808,17 @@ router.patch('/:courseId', async (req, res, next) => {
 		if (unarchiveCourse) {
 			req.body = { untilDate: req.body.untilDate };
 		}
+
+		let name;
+		if (!unarchiveCourse) {
+			try {
+				name = ensureHasNoAsciiControlChar(req.body.name);
+			} catch (err) {
+				res.status(400).send('Invalid course name');
+				return;
+			}
+		}
+
 		const { courseId } = req.params;
 
 		const isAdministrator = res.locals.currentRole === 'Administrator';
@@ -782,7 +838,7 @@ router.patch('/:courseId', async (req, res, next) => {
 
 		const requestBody = unarchiveCourse
 			? req.body
-			: { ...req.body, name: req.body.name.trim() };
+			: { ...req.body, name };
 		await api(req).patch(`/courses/${courseId}`, {
 			json: requestBody,
 		});
@@ -846,6 +902,7 @@ router.get('/:courseId/addStudent', (req, res, next) => {
 	api(req)
 		.get(`/courses/${req.params.courseId}?link=${req.query.link}`)
 		.then((course) => {
+			course.name = decodeCourseName(course.name);
 			if (_.includes(course.userIds, currentUser._id)) {
 				req.session.notification = {
 					type: 'danger',
@@ -878,3 +935,5 @@ router.get('/:courseId/edit', editCourseHandler);
 router.get('/:courseId/copy', copyCourseHandler);
 
 module.exports = router;
+module.exports.ensureHasNoAsciiControlChar = ensureHasNoAsciiControlChar;
+module.exports.decodeCourseName = decodeCourseName;

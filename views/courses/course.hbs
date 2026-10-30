@@ -23,14 +23,14 @@
   <button class="btn btn-sm dropdown-toggle btn-course-dropdown" data-testid="edit_course_dropdown" title="{{$t " global.label.more"}}"
     data-toggle="dropdown">
     <h1 style="white-space: normal;" class="h4" id="page-title" class="course-headline">
-      {{{stripOnlyScript ../name}}}
+      {{../name}}
       <i class="fa fa-ellipsis-v i-cog" aria-hidden="true"></i>
       {{#if ../isArchived}}<small class="count-badge" data-badge="Archiv" /></small>{{/if}}
     </h1>
   </button>
   {{else}}
   <h1 class="h4" id="page-title" class="course-headline">
-    {{{stripOnlyScript ../name}}}
+    {{../name}}
     {{#if ../isArchived}}<small class="count-badge" data-badge="Archiv" /></small>{{/if}}
     <h1>
       {{/inArray}}
