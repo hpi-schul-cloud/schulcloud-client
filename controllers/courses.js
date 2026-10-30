@@ -99,11 +99,11 @@ const hasAsciiControlChar = (str) => /[\x00-\x1F\x7F]/.test(str);
  * Combined with escaped Handlebars output ({{name}}), this prevents XSS
  * and avoids double-encoding leftover entities such as "&gt;".
  * @param {unknown} name
- * @returns {unknown}
+ * @returns {string}
  */
 const decodeCourseName = (name) => {
 	if (typeof name !== 'string') {
-		return name;
+		return '';
 	}
 	return decode(name);
 };

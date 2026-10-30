@@ -99,8 +99,9 @@ describe('decodeCourseName', () => {
 		expect(decodeCourseName('Mathe ÄÖÜ (Kurs)!')).to.equal('Mathe ÄÖÜ (Kurs)!');
 	});
 
-	it('should return non-strings unchanged', () => {
-		expect(decodeCourseName(undefined)).to.equal(undefined);
-		expect(decodeCourseName(null)).to.equal(null);
+	it('should return an empty string for non-strings', () => {
+		expect(decodeCourseName(undefined)).to.equal('');
+		expect(decodeCourseName(null)).to.equal('');
+		expect(decodeCourseName({})).to.equal('');
 	});
 });
