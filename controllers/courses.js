@@ -571,7 +571,7 @@ router.post('/', (req, res, next) => {
 	try {
 		name = ensureHasNoAsciiControlChar(req.body.name);
 	} catch (err) {
-		res.status(400).send(err.message);
+		res.status(400).send('Invalid course name');
 		return;
 	}
 
