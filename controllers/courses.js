@@ -109,7 +109,7 @@ const hasAsciiControlChar = (str) => {
  * @throws {TypeError} when the name is not a string
  * @throws {Error} when the name is blank after trim or contains ASCII control characters
  */
-const normalizeCourseName = (name) => {
+const ensureHasNoAsciiControlChar = (name) => {
 	if (typeof name !== 'string') {
 		throw new TypeError('Invalid course name');
 	}
