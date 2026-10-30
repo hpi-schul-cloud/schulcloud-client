@@ -18,6 +18,13 @@ describe('ensureHasNoAsciiControlChar', () => {
 		expect(ensureHasNoAsciiControlChar('Kurs "A" & B')).to.equal('Kurs "A" & B');
 	});
 
+	it('should accept names that contain literal < and > characters', () => {
+		expect(ensureHasNoAsciiControlChar('Abc < Def')).to.equal('Abc < Def');
+		expect(ensureHasNoAsciiControlChar('two > one')).to.equal(
+			'two > one',
+		);
+	});
+
 	it('should decode HTML entities so stored names are not double-encoded later', () => {
 		expect(ensureHasNoAsciiControlChar('Transformation Oil =&gt; Electricity'))
 			.to.equal('Transformation Oil => Electricity');

@@ -29,6 +29,19 @@ describe('edit-course archived headline', () => {
 		expect(html).to.not.include('&amp;gt;');
 	});
 
+	[
+		'Abc < Def',
+		'two > one',
+	].forEach((name) => {
+		it(`should display literal comparison characters in archived headline: ${name}`, () => {
+			const html = renderHeadline(name);
+
+			expect(decode(html)).to.include(name);
+			expect(html).to.not.include('&amp;lt;');
+			expect(html).to.not.include('&amp;gt;');
+		});
+	});
+
 	it('should still escape XSS payloads in interpolated course names', () => {
 		const html = renderHeadline('<script>alert(1)</script>');
 

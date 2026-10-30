@@ -84,6 +84,20 @@ describe('course template', () => {
 		expect(decode(renderedName)).to.include('Transformation Oil => Electricity');
 	});
 
+	[
+		'Abc < Def',
+		'two > one',
+	].forEach((name) => {
+		it(`should render literal comparison characters as text: ${name}`, () => {
+			const renderedName = renderCourseName(name);
+
+			expect(renderedName).to.equal(Handlebars.escapeExpression(name));
+			expect(renderedName).to.not.include('&amp;lt;');
+			expect(renderedName).to.not.include('&amp;gt;');
+			expect(decode(renderedName)).to.equal(name);
+		});
+	});
+
 	it('should not render decoded database names as HTML', () => {
 		const fromDatabase = '&lt;script&gt;alert(1)&lt;/script&gt;';
 		const decodedName = decodeCourseName(fromDatabase);
