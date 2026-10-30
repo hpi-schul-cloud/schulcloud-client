@@ -14,44 +14,56 @@
 {{#embed "lib/header"}}{{/embed}}
 <div class="container">
     <div class="row">
-        <main id="main-content" class="col-md-8">
+        <main id="main-content" class="col-md-8" style="display: flex; flex-direction: column;">
             <div class="hidden-md-up">
                 {{> "authentication/forms/login"}}
             </div>
 
-            <section class="card">
+            <section class="card" style="flex-grow: 1;">
                 <div class="card-block">
-                    <h4 class="title">Herzlich willkommen bei der Niedersächsischen Bildungscloud!</h4>
+                    <h4 class="title">Willkommen bei der Niedersächsischen Bildungscloud!</h4>
                     <div class="content">
-                        <div class="mt-3 mb-3" style="min-height: 75vh;">
+                        <div class="mt-3 mb-3">
                             <div class="placeholder">
                                 <div class="content" style="opacity: 1;">
-                                    <p>Die Niedersächsische Bildungscloud (Cloud) wird im Auftrag des Niedersächsischen Kultusministeriums 
-                                        durch das Niedersächsische Landesinstitut für schulische Qualitätsentwicklung (NLQ) betrieben. 
-                                        Die technische Bereitstellung erfolgt im Rahmen der landeseigenen Bildungsmedieninfrastruktur. 
-                                        Webbasierte Angebote für den Unterricht werden in der NBC über den zentralen Anmeldeservice <b>moin.schule</b> erschlossen.
-                                        Die Weiterentwicklung und der Betrieb erfolgt gemeinsam mit den Bundesländern Brandenburg, Niedersachsen und Thüringen.</p>
-                                    <p>Die datenschutzkonforme und kostenfreie landesweite Cloudlösung steht allen allgemeinbildenden also auch berufsbildenden Schulen offen, 
-                                        wie auch den Schulen in privater oder kirchlicher Trägerschaft.</p>
-                                    <p><br><br><strong>Funktionen...</strong><br></p>
-                                    <a href="https://vimeo.com/1014680214" target="_blank">
-                                        <figure><img src="{{getAssetPath '/images/nbc-film.webp'}}" width="100%"></figure> 
+                                    <p>Die Niedersächsische Bildungscloud ist eine digitale Plattform für Schulen. Das Niedersächsische Kultusministerium
+                                        hat den Auftrag für die Bildungscloud gegeben. Das Niedersächsische Landesinstitut für schulische Qualitätsentwicklung (NLQ)
+                                        betreibt die Bildungscloud. Die Bildungscloud steht offen für alle niedersächsischen Schulen. Die Bildungscloud wird gemeinsam
+                                        von den Bundesländern Niedersachsen, Brandenburg und Thüringen im
+                                        <a href="https://schulcloud-verbund.de" target="_blank" rel="noopener"
+                                            aria-label="Schulcloud-Verbund {{$t "global.link.openInNewTabWarning"}}">Schulcloud-Verbund</a>
+                                        weiterentwickelt.</p>
+                                    <p class="mb-0">Die Nutzung der Bildungscloud ist:</p>
+                                    <ul>
+                                        <li>kostenlos</li>
+                                        <li>sicher</li>
+                                        <li>datenschutzkonform</li>
+                                    </ul>
+                                    <p>Für die Anmeldung gibt es den Dienst
+                                        <a href="https://wiki.moin.schule/de/home/was-ist-moin" target="_blank" rel="noopener"
+                                            aria-label="moin.schule {{$t "global.link.openInNewTabWarning"}}">moin.schule</a>.
+                                        Damit können Nutzerinnen und Nutzer verschiedene Angebote für den Unterricht nutzen.</p>
+
+                                    <h5 class="mt-3">Das kann die Bildungscloud</h5>
+                                    <a href="https://vimeo.com/1014680214" target="_blank" rel="noopener"
+                                        aria-label="Video der Möglichkeiten des Lernmanagementsystems Niedersächsische Bildungscloud für Schulen, Lehrkräfte und Lernende auf Vimeo ansehen {{$t "global.link.openInNewTabWarning"}}">
+                                        <figure><img src="{{getAssetPath '/images/nbc-film.webp'}}" width="100%"
+                                            alt="Video der Möglichkeiten des Lernmanagementsystems Niedersächsische Bildungscloud für Schulen, Lehrkräfte und Lernende"></figure>
                                     </a>
-                                    <p>
-                                        Das Raumkonzept der NBC ist intuitiv verwendbar und intelligent miteinander verzahnt. Flexibel nutzbare Lehr- und Lernräume 
-                                        für die Zukunft bilden den Kern. Darin lässt sich zeit- und ortsunabhängig selbstorganisiert und <b>zusammen arbeiten</b> und lernen
-                                        sowie digitale Materialien erstellen und austauschen. Besonders die kollaborativen Features ermöglichen das datenschutzkonforme 
-                                        Lernen und Arbeiten. Die NBC dient auch als Ergänzung und Öffnung der Schule in die Berufs- und Arbeitswelt und ermöglicht 
-                                        schulübergreifende Kollaboration mit landesweiter Vernetzung.</p>
-                                    <p><br><strong>Unterstützung und Support!</strong> <br>
-                                        Bei pädagogischen und technischen Anwendungsfragen wenden Sie sich gerne an das Supportteam: 
-                                        <ul>
-                                            <li>Per E-Mail an <a href="mailto:ticketsystem@niedersachsen.support">ticketsystem@niedersachsen.support</a> erhalten Sie binnen kürzester Zeit qualifizierte Antworten.</li>
-                                            <li>An Schultagen von Montag bis Donnerstag in der Zeit von 14 bis 16 Uhr wird eine Sprechstunde angeboten (<a href="https://cloud.medienberatung.online/index.php/apps/bbb/b/tzLb4fAEydfmKPoG" target="_blank">Videokonferenz</a>). Außerhalb dieser Zeiten lassen sich individuelle <a href="https://cloud.medienberatung.online/index.php/apps/appointments/pub/0c871AM45y11M7V3/form" target="_blank">Termine vereinbaren</a>.</li>
-                                            <li>Die häufigsten Antworten auf Fragen aus der Sicht von Nutzenden sind in den <a href="https://support.nibis.de/help/de-de/27-faq-zur-nbc" target="_blank">FAQ</a> zusammengefasst. In den FAQ finden sich auch Antworten zu weiteren Fachanwendungen (z.B. AIS.chat, Merlin Mediathek, moin.schule).</li>
-                                        </ul>
-                                    </p>
-                                    <p>Weitere Informationen zur Niedersächsischen Bildungscloud erhalten Sie im Bildungsportal.</p>
+                                    <p class="mb-0">Die Bildungscloud ist einfach zu bedienen. Sie bietet digitale Räume zum Lernen und Arbeiten.</p>
+                                    <p class="mb-0">Dort können Menschen:</p>
+                                    <ul>
+                                        <li>gemeinsam lernen</li>
+                                        <li>gemeinsam arbeiten</li>
+                                        <li>digitale Materialien erstellen</li>
+                                        <li>Materialien mit anderen teilen</li>
+                                    </ul>
+                                    <p>Das ist jederzeit und von jedem Ort aus möglich.</p>
+                                    <p>Die Bildungscloud unterstützt die Zusammenarbeit. Außerdem verbindet sie die Schule mit der Berufs- und Arbeitswelt.
+                                        Schulen können auch mit anderen Schulen zusammenarbeiten und sich in ganz Niedersachsen vernetzen.</p>
+                                    <p>Sie erhalten weitere Informationen zur Niedersächsischen Bildungscloud im
+                                        <a href="https://bildungsportal-niedersachsen.de/digitale-welt/niedersaechsische-bildungscloud-und-moinschule" target="_blank" rel="noopener"
+                                            aria-label="Bildungsportal {{$t "global.link.openInNewTabWarning"}}">Bildungsportal</a>.</p>
                                 </div>
                             </div>
                         </div>
@@ -63,6 +75,31 @@
             <div class="hidden-sm-down">
                 {{> "authentication/forms/login"}}
             </div>
+
+            <section id="support" class="card">
+                <div class="card-block">
+                    <h4>Support und Unterstützung</h4>
+                    <ul>
+                        <li class="mb-1"><i class="fa fa-envelope" aria-hidden="true"></i>
+                            <a href="mailto:ticketsystem@niedersachsen.support" aria-label="E-Mail an ticketsystem@niedersachsen.support">E-Mail</a></li>
+                        <li class="mb-1"><i class="fa fa-user" aria-hidden="true"></i>
+                            <a href="https://niedersachsen.support/" target="_blank" rel="noopener"
+                                aria-label="Support {{$t "global.link.openInNewTabWarning"}}">Support</a></li>
+                        <li class="mb-1"><i class="fa fa-book" aria-hidden="true"></i>
+                            <a href="https://openelec.moodle-nds.de/course/index.php?categoryid=53" target="_blank" rel="noopener"
+                                aria-label="Selbstlernkurse {{$t "global.link.openInNewTabWarning"}}">Selbstlernkurse</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="funding" class="card">
+                <div class="card-block">
+                    <p class="mb-1" aria-hidden="true">Gefördert durch:</p>
+                    <img src="{{getAssetPath '/images/bmbfsfj-logo.svg'}}" class="img-fluid mb-1"
+                        alt="Gefördert durch Bundesministerium für Bildung, Familie, Senioren, Frauen und Jugend aufgrund eines Beschlusses des Deutschen Bundestages">
+                    <p class="mb-0" aria-hidden="true">aufgrund eines Beschlusses des Deutschen Bundestages</p>
+                </div>
+            </section>
         </aside>
     </div>
 </div>
