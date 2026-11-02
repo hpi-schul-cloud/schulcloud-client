@@ -146,7 +146,7 @@ const mapRecurringEvent = (event) => {
 
 /**
  * maps properties of a event to fit calendar, e.g. url and color
- * If any error is accoured then return course or team with default color.
+ * If any error is accoured then return course with default color.
  * @param event
  */
 const mapEventProps = (event, req) => {
@@ -154,29 +154,6 @@ const mapEventProps = (event, req) => {
 		return api(req).get(`/courses/${event['x-sc-courseId']}`).then((course) => {
 			event.url = event['x-sc-courseTimeId'] ? `/rooms/${course._id}` : '';
 			event.color = course.color;
-			return event;
-		}).catch(() => {
-			event.url = '';
-			event.color = '#ff0000';
-			return event;
-		});
-	}
-
-	if (event['x-sc-teamId']) {
-		let id;
-		if (Array.isArray(event['x-sc-teamId'])) {
-			id = event['x-sc-teamId'].find((v) => v.length !== 0);
-		} else {
-			id = event['x-sc-teamId'];
-		}
-		// bad fix for ,<id> error in teams, maybe wrong data, i can not reproduce it
-
-		if (id.substring(0, 1) === ',') {
-			id = id.substr(1);
-		}
-		return api(req).get(`/teams/${id}`).then((team) => {
-			event.url = '';
-			event.color = team.color;
 			return event;
 		}).catch(() => {
 			event.url = '';

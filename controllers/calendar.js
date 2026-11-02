@@ -13,29 +13,24 @@ const timesHelper = require('../helpers/timesHelper');
 router.use(require('../helpers/authentication').authChecker);
 
 router.get('/', (req, res, next) => {
-	const schoolUsesVideoconferencing = (
-		res.locals.currentSchoolData.features || []
-	).includes('videoconference');
-	const showVideoconferenceOption = schoolUsesVideoconferencing;
-
 	res.render('calendar/calendar', {
 		title: res.$t('calendar.headline.calendar'),
 		userId: res.locals.currentUser._id,
-		showVideoconferenceOption,
 	});
 });
 
 router.get('/events/', (req, res, next) => {
-	api(req).get('/calendar/', {
+	return api(req).get('/calendar/', {
 		qs: {
 			all: true,
 			admin: false,
 		},
 	}).then((events) => {
-		Promise.all(events.map((event) => recurringEventsHelper.mapEventProps(event, req))).then((responseEvents) => {
+		const visibleEvents = events.filter((event) => !event['x-sc-teamId'] && !event['x-sc-teamid']);
+		return Promise.all(visibleEvents.map((event) => recurringEventsHelper.mapEventProps(event, req))).then(() => {
 			// TODO: fix next line
 			// eslint-disable-next-line prefer-spread
-			const convertedEvents = [].concat.apply([], events.map(recurringEventsHelper.mapRecurringEvent));
+			const convertedEvents = [].concat.apply([], visibleEvents.map(recurringEventsHelper.mapRecurringEvent));
 			return res.json(convertedEvents);
 		});
 	}).catch(() => {
@@ -44,6 +39,13 @@ router.get('/events/', (req, res, next) => {
 });
 
 router.post('/events/', (req, res, next) => {
+	if (req.body.teamId || req.body['x-sc-teamId'] || req.body['x-sc-teamid']) {
+		return res.sendStatus(404);
+	}
+	delete req.body.teamId;
+	delete req.body['x-sc-teamId'];
+	delete req.body['x-sc-teamid'];
+
 	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = timesHelper.dateTimeStringToMoment(req.body.startDate)
 		.toISOString(true);
@@ -57,13 +59,7 @@ router.post('/events/', (req, res, next) => {
 		delete req.body.courseId;
 	}
 
-	if (req.body.teamId && req.body.teamId !== '') {
-		req.body.scopeId = req.body.teamId;
-	} else {
-		delete req.body.teamId;
-	}
-
-	api(req).post('/calendar/', { json: req.body }).then(() => {
+	return api(req).post('/calendar/', { json: req.body }).then(() => {
 		res.redirect('/calendar');
 	}).catch(next);
 });
