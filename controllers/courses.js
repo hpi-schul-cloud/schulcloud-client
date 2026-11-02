@@ -717,15 +717,15 @@ router.get('/:courseId/', async (req, res, next) => {
 		const teacher = ['teacher'];
 		const student = ['student'];
 
-		course.name = decodeCourseName(course.name);
+		const courseName = decodeCourseName(course.name);
 
 		res.render(
 			'courses/course',
 			{
 				...course,
 				title: course.isArchived
-					? `${course.name} (archiviert)`
-					: course.name,
+					? `${courseName} (archiviert)`
+					: courseName,
 				activeTab: req.query.activeTab,
 				lessons,
 				homeworksCount: (homeworks.filter((task) => !task.private)).length,

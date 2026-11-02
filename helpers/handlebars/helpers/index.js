@@ -2,6 +2,7 @@ const moment = require('moment');
 const { stripHtml } = require('string-strip-html');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 const Handlebars = require('handlebars');
+const { decode } = require('html-entities');
 const { getStaticAssetPath, getLocaleScriptPath } = require('../../../middleware/assets');
 const permissionsHelper = require('../../permissions');
 const i18n = require('../../i18n');
@@ -58,6 +59,7 @@ const helpers = () => ({
 		return opts.inverse(this);
 	},
 	arrayLength: (array) => (array && array.length) || 0,
+	decodeHtmlEntities: (text) => (typeof text === 'string' ? decode(text) : ''),
 	truncate: (text = '', { length = 140 } = {}) => {
 		if (text.length <= length) {
 			return text;

@@ -3,9 +3,9 @@ const path = require('path');
 const Handlebars = require('handlebars');
 const { expect } = require('chai');
 const { decode } = require('html-entities');
+const handlebarsHelpers = require('../../../helpers/handlebars/helpers')();
 const {
 	ensureHasNoAsciiControlChar,
-	decodeCourseName,
 } = require('../../../controllers/courses');
 
 const courseTemplate = fs.readFileSync(
@@ -13,11 +13,12 @@ const courseTemplate = fs.readFileSync(
 	'utf8',
 );
 
+Handlebars.registerHelper('decodeHtmlEntities', handlebarsHelpers.decodeHtmlEntities);
+
 const renderCourseName = (name) => Handlebars.compile(
-	'{{#each values}}{{../name}}{{/each}}',
+	'{{decodeHtmlEntities name}}',
 )({
 	name,
-	values: [true],
 });
 
 const xssPayloads = [
@@ -27,9 +28,9 @@ const xssPayloads = [
 	'"><script>alert(1)</script>',
 ];
 
-const escapedCourseNameExpression = /\{\{\.\.\/name\}\}/;
-const unescapedCourseNameExpression = /\{\{\{\.\.\/name\}\}\}/;
-const allEscapedCourseNameExpressions = /\{\{\.\.\/name\}\}/g;
+const escapedCourseNameExpression = /\{\{decodeHtmlEntities \.\.\/name\}\}/;
+const unescapedCourseNameExpression = /\{\{\{decodeHtmlEntities \.\.\/name\}\}\}/;
+const allEscapedCourseNameExpressions = /\{\{decodeHtmlEntities \.\.\/name\}\}/g;
 const unescapedHtmlTag = /<(script|img|svg|a)\b/i;
 
 describe('course template', () => {
@@ -76,10 +77,8 @@ describe('course template', () => {
 
 	it('should not double-encode names stored as HTML entities in the database', () => {
 		const fromDatabase = 'Transformation Oil =&gt; Electricity';
-		const decodedName = decodeCourseName(fromDatabase);
-		const renderedName = renderCourseName(decodedName);
+		const renderedName = renderCourseName(fromDatabase);
 
-		expect(decodedName).to.equal('Transformation Oil => Electricity');
 		expect(renderedName).to.not.include('&amp;gt;');
 		expect(decode(renderedName)).to.include('Transformation Oil => Electricity');
 	});
@@ -100,10 +99,8 @@ describe('course template', () => {
 
 	it('should not render decoded database names as HTML', () => {
 		const fromDatabase = '&lt;script&gt;alert(1)&lt;/script&gt;';
-		const decodedName = decodeCourseName(fromDatabase);
-		const renderedName = renderCourseName(decodedName);
+		const renderedName = renderCourseName(fromDatabase);
 
-		expect(decodedName).to.equal('<script>alert(1)</script>');
 		expect(renderedName).to.include('&lt;script&gt;');
 		expect(renderedName).to.not.match(unescapedHtmlTag);
 	});
