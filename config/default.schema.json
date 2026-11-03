@@ -518,16 +518,6 @@
 			"default": false,
 			"description": "If enabled school admins can start user migration without specifying an LDAP for the school based on a central LDAP"
 		},
-		"FEATURE_NEXTCLOUD_TEAM_FILES_ENABLED": {
-			"type": "boolean",
-			"default": "false",
-			"description": "Enables button on team file pages to open the nextcloud file storage."
-		},
-		"NEXTCLOUD_REDIRECT_URL": {
-			"type": "string",
-			"default": "",
-			"description": "URL that leads to the nextcloud oauth login"
-		},
 		"FILES_STORAGE": {
 			"type": "object",
 			"description": "Files storage server properties, required always to be defined",
