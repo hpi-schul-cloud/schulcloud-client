@@ -95,7 +95,7 @@ const getDefaultRedirectUrl = (courseId) => `/rooms/${courseId}`;
 const hasAsciiControlChar = (str) => /[\x00-\x1F\x7F]/.test(str);
 
 /**
- * Decode HTML entities from a course name loaded from the database.
+ * Decode HTML entities in a string.
  * Combined with escaped Handlebars output ({{name}}), this prevents XSS
  * and avoids double-encoding leftover entities such as "&gt;".
  * @param {unknown} s
@@ -121,7 +121,10 @@ const ensureHasNoAsciiControlChar = (name) => {
 		throw new TypeError('Invalid course name');
 	}
 	const trimmed = name.trim();
-	if (!trimmed || hasAsciiControlChar(trimmed)) {
+	if (trimmed === '') {
+		throw new Error('Invalid course name');
+	}
+	if (hasAsciiControlChar(trimmed)) {
 		throw new Error('Invalid course name');
 	}
 	return decodeHtmlEntities(trimmed);

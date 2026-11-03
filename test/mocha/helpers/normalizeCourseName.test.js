@@ -6,9 +6,17 @@ const {
 
 describe('ensureHasNoAsciiControlChar', () => {
 	it('should accept a normal name including umlauts and punctuation', () => {
+		expect(ensureHasNoAsciiControlChar('Mathe ÄÖÜ (Kurs)!')).to.equal(
+			'Mathe ÄÖÜ (Kurs)!',
+		);
+	});
+
+	it('should trim leading and trailing whitespace before saving', () => {
 		expect(ensureHasNoAsciiControlChar('  Mathe ÄÖÜ (Kurs)!  ')).to.equal(
 			'Mathe ÄÖÜ (Kurs)!',
 		);
+		expect(ensureHasNoAsciiControlChar(' Mathe')).to.equal('Mathe');
+		expect(ensureHasNoAsciiControlChar('Mathe ')).to.equal('Mathe');
 	});
 
 	it('should accept names that contain HTML markup without encoding them', () => {

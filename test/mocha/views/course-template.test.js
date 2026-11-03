@@ -61,7 +61,7 @@ describe('course template', () => {
 	});
 
 	it('should escape normalized course names that contain markup', () => {
-		const raw = '  <script>alert(1)</script> <img src=x onerror=alert(1)>  ';
+		const raw = '<script>alert(1)</script> <img src=x onerror=alert(1)>';
 		const normalized = ensureHasNoAsciiControlChar(raw);
 		const renderedName = renderCourseName(normalized);
 
