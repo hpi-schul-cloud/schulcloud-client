@@ -259,15 +259,7 @@ const helpers = () => ({
 		if (!opts) {
 			return i18n.getInstance(data.data.local.currentUser)(key);
 		}
-		// Handlebars {{$t}} already HTML-escapes the result. Disabling i18next
-		// interpolation escaping avoids double-encoding (e.g. ">" becoming "&gt;").
-		return i18n.getInstance(opts.data.local.currentUser)(key, {
-			...data,
-			interpolation: {
-				escapeValue: false,
-				...data.interpolation,
-			},
-		});
+		return i18n.getInstance(opts.data.local.currentUser)(key, data);
 	},
 	dict: (...keyValues) => {
 		const dict = {};

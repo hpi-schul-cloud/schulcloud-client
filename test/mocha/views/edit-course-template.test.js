@@ -3,10 +3,12 @@ const { expect } = require('chai');
 const { decode } = require('html-entities');
 const i18n = require('../../../helpers/i18n');
 const helpers = require('../../../helpers/handlebars/helpers')();
-const { decodeCourseName } = require('../../../controllers/courses');
+const { decodeHtmlEntities } = require('../../../controllers/courses');
 
-const archivedHeadlineTemplate = '{{$t "courses._course.edit.headline.courseIsArchieved"'
-	+ ' (dict "coursename" course.name)}}';
+const archivedHeadlineTemplate = '{{decodeHtmlEntities ($t "courses._course.edit.headline.courseIsArchieved"'
+	+ ' (dict "coursename" course.name ))}}';
+const rawTranslationTemplate = '{{{$t "courses._course.edit.headline.courseIsArchieved"'
+	+ ' (dict "coursename" course.name)}}}';
 
 describe('edit-course archived headline', () => {
 	let renderHeadline;
@@ -15,6 +17,7 @@ describe('edit-course archived headline', () => {
 		await i18n.changeLanguage('en');
 		Handlebars.registerHelper('$t', helpers.$t);
 		Handlebars.registerHelper('dict', helpers.dict);
+		Handlebars.registerHelper('decodeHtmlEntities', helpers.decodeHtmlEntities);
 		const template = Handlebars.compile(archivedHeadlineTemplate);
 		renderHeadline = (name) => template(
 			{ course: { name } },
@@ -49,9 +52,20 @@ describe('edit-course archived headline', () => {
 		expect(html).to.not.include('<script>');
 	});
 
+	it('should keep i18next interpolation escaping enabled for other translation uses', () => {
+		const template = Handlebars.compile(rawTranslationTemplate);
+		const html = template(
+			{ course: { name: '<script>alert(1)</script>' } },
+			{ data: { local: { currentUser: {} } } },
+		);
+
+		expect(html).to.include('&lt;script&gt;');
+		expect(html).to.not.include('<script>');
+	});
+
 	it('should not double-encode names stored as HTML entities in the database', () => {
 		const html = renderHeadline(
-			decodeCourseName('Transformation Oil =&gt; Electricity'),
+			decodeHtmlEntities('Transformation Oil =&gt; Electricity'),
 		);
 
 		expect(decode(html)).to.include('Transformation Oil => Electricity');

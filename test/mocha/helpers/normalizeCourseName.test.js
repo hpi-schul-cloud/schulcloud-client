@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const {
 	ensureHasNoAsciiControlChar,
-	decodeCourseName,
+	decodeHtmlEntities,
 } = require('../../../controllers/courses');
 
 describe('ensureHasNoAsciiControlChar', () => {
@@ -81,27 +81,27 @@ describe('ensureHasNoAsciiControlChar', () => {
 	});
 });
 
-describe('decodeCourseName', () => {
+describe('decodeHtmlEntities', () => {
 	it('should decode HTML entities from the database', () => {
-		expect(decodeCourseName('Transformation Oil =&gt; Electricity')).to.equal(
+		expect(decodeHtmlEntities('Transformation Oil =&gt; Electricity')).to.equal(
 			'Transformation Oil => Electricity',
 		);
-		expect(decodeCourseName('&lt;script&gt;alert(1)&lt;/script&gt;')).to.equal(
+		expect(decodeHtmlEntities('&lt;script&gt;alert(1)&lt;/script&gt;')).to.equal(
 			'<script>alert(1)</script>',
 		);
-		expect(decodeCourseName('Kurs "A" &amp; B')).to.equal('Kurs "A" & B');
+		expect(decodeHtmlEntities('Kurs "A" &amp; B')).to.equal('Kurs "A" & B');
 	});
 
 	it('should leave already-decoded names unchanged', () => {
-		expect(decodeCourseName('Transformation Oil => Electricity')).to.equal(
+		expect(decodeHtmlEntities('Transformation Oil => Electricity')).to.equal(
 			'Transformation Oil => Electricity',
 		);
-		expect(decodeCourseName('Mathe ÄÖÜ (Kurs)!')).to.equal('Mathe ÄÖÜ (Kurs)!');
+		expect(decodeHtmlEntities('Mathe ÄÖÜ (Kurs)!')).to.equal('Mathe ÄÖÜ (Kurs)!');
 	});
 
 	it('should return an empty string for non-strings', () => {
-		expect(decodeCourseName(undefined)).to.equal('');
-		expect(decodeCourseName(null)).to.equal('');
-		expect(decodeCourseName({})).to.equal('');
+		expect(decodeHtmlEntities(undefined)).to.equal('');
+		expect(decodeHtmlEntities(null)).to.equal('');
+		expect(decodeHtmlEntities({})).to.equal('');
 	});
 });
