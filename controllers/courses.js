@@ -116,16 +116,18 @@ const decodeHtmlEntities = (s) => {
  * @throws {TypeError} when the name is not a string
  * @throws {Error} when the name is blank after trim or contains ASCII control characters
  */
-const ensureHasNoAsciiControlChar = (name) => {
-	const errorText = 'Invalid course name';
+const checkValidName = (name) => {
 	if (typeof name !== 'string') {
-		throw new TypeError(errorText);
+		throw new TypeError('Name needs to be a string');
 	}
-	const trimmed = name.trim();
-	if (trimmed === '' || hasAsciiControlChar(trimmed)) {
-		throw new Error(errorText);
+	const trimmedName = name.trim();
+	if (trimmedName === '') {
+		throw new Error('Name cannot be empty');
 	}
-	return decodeHtmlEntities(trimmed);
+	if (hasAsciiControlChar(trimmedName)) {
+		throw new Error('Name cannot contain ASCII control characters');
+	}
+	return trimmedName;
 };
 
 /**
@@ -568,9 +570,9 @@ router.post('/', (req, res, next) => {
 		delete req.body[feature];
 	});
 
-	let name;
+	let name = req.body.name || '';
 	try {
-		name = ensureHasNoAsciiControlChar(req.body.name);
+		name = checkValidName(decodeHtmlEntities(name));
 	} catch (err) {
 		res.status(400).send('Invalid course name');
 		return;
@@ -810,10 +812,10 @@ router.patch('/:courseId', async (req, res, next) => {
 			req.body = { untilDate: req.body.untilDate };
 		}
 
-		let name;
+		let name = req.body.name || '';
 		if (!unarchiveCourse) {
 			try {
-				name = ensureHasNoAsciiControlChar(req.body.name);
+				name = checkValidName(decodeHtmlEntities(name));
 			} catch (err) {
 				res.status(400).send('Invalid course name');
 				return;
@@ -936,5 +938,5 @@ router.get('/:courseId/edit', editCourseHandler);
 router.get('/:courseId/copy', copyCourseHandler);
 
 module.exports = router;
-module.exports.ensureHasNoAsciiControlChar = ensureHasNoAsciiControlChar;
+module.exports.checkValidName = checkValidName;
 module.exports.decodeHtmlEntities = decodeHtmlEntities;

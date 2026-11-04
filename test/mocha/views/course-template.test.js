@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const { decode } = require('html-entities');
 const handlebarsHelpers = require('../../../helpers/handlebars/helpers')();
 const {
-	ensureHasNoAsciiControlChar,
+	checkValidName,
 } = require('../../../controllers/courses');
 
 const courseTemplate = fs.readFileSync(
@@ -62,7 +62,7 @@ describe('course template', () => {
 
 	it('should escape normalized course names that contain markup', () => {
 		const raw = '<script>alert(1)</script> <img src=x onerror=alert(1)>';
-		const normalized = ensureHasNoAsciiControlChar(raw);
+		const normalized = checkValidName(raw);
 		const renderedName = renderCourseName(normalized);
 
 		expect(normalized).to.equal(
