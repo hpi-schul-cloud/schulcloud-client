@@ -12,7 +12,7 @@ router.use(authHelper.authChecker);
 router.get('/releases', (req, res, next) => {
 	api(req, { version: 'v3' }).get('/releases', {
 		qs: {
-			$sort: '-createdAt',
+			limit: 30,
 		},
 	})
 		.then((releases) => {
