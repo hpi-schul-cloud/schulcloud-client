@@ -32,7 +32,6 @@ router.use('/welcome', require('./welcome'));
 router.use('/schools/', require('./schools'));
 router.use('/users/', require('./users'));
 router.use('/messenger/', require('./messenger'));
-router.use('/videoconference', require('./videoconference'));
 router.use('/administration/', require('./administration'));
 router.use('/alerts', require('./alerts'));
 router.use('/system/', require('./system'));

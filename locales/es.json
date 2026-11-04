@@ -1892,26 +1892,12 @@
 				"yourSessionCouldntBeExtended": "No se ha podido ampliar tu sesión. Inténtalo de nuevo."
 			}
 		},
-		"form_bbb": {
-			"text": {
-				"refreshStatus": "Para actualizar el estado de nuevo, haz clic en el icono de actualización",
-				"theVideoConferenceHasNotYetStarted": "La videoconferencia aún no ha comenzado.",
-				"youAreNotAuthorisedToAttend": "La videoconferencia aún no ha comenzado o no tienes autorización para participar. Ponte en contacto con el docente responsable para iniciarla o permitir el acceso."
-			}
-		},
 		"form_ChangeLanguage": {
 			"label": {
 				"language": "Idioma"
 			},
 			"placeholder": {
 				"text": "Por favor, selecciona..."
-			}
-		},
-		"form_create_videoConference": {
-			"text": {
-				"allUsersParticipate": "Todos los usuarios participan como moderadores",
-				"approvalByTheModerator": "Aprobación del moderador antes de que se pueda acceder a la sala",
-				"muteParticipants": "Silenciar participantes al entrar"
 			}
 		},
 		"form_poll": {
@@ -2450,13 +2436,7 @@
 		}
 	},
 	"videoconference": {
-		"headline": {
-			"createVideoConferenceRoom": "Crea una sala de videoconferencias {{name}}"
-		},
 		"text": {
-			"thereWasAProblemWithTheVideo": "Ha habido un problema con la videoconferencia. Inténtalo de nuevo.",
-			"theVideoConferenceHasEither": "La videoconferencia aún no ha comenzado o ya ha finalizado.",
-			"youDoNotHaveTheNecessaryAuthorization": "No tienes la autorización necesaria para participar en la videoconferencia.",
 			"videoConferencesNotAllowedBySchool": "Las videoconferencias no están permitidas en tu escuela. Ponte en contacto con el administrador de tu escuela para habilitar esta opción."
 		}
 	}

@@ -1892,26 +1892,12 @@
 				"yourSessionCouldntBeExtended": "Your session could not be extended. Please try again."
 			}
 		},
-		"form_bbb": {
-			"text": {
-				"refreshStatus": "To refresh status again, click the update icon",
-				"theVideoConferenceHasNotYetStarted": "The video conference has not yet started.",
-				"youAreNotAuthorisedToAttend": "The video conference has not started yet or you are not authorized to participate. Contact the responsible teacher to start it or grant access."
-			}
-		},
 		"form_ChangeLanguage": {
 			"label": {
 				"language": "Language"
 			},
 			"placeholder": {
 				"text": "Please select..."
-			}
-		},
-		"form_create_videoConference": {
-			"text": {
-				"allUsersParticipate": "All users participate as moderators",
-				"approvalByTheModerator": "Approval by moderator before the room can be entered",
-				"muteParticipants": "Mute participants when entering"
 			}
 		},
 		"form_poll": {
@@ -2450,13 +2436,7 @@
 		}
 	},
 	"videoconference": {
-		"headline": {
-			"createVideoConferenceRoom": "Create video conference room {{name}}"
-		},
 		"text": {
-			"thereWasAProblemWithTheVideo": "There was a problem with the video conference. Please try again.",
-			"theVideoConferenceHasEither": "The video conference has either not started yet or has already ended.",
-			"youDoNotHaveTheNecessaryAuthorization": "You do not have the necessary authorization to participate in the video conference.",
 			"videoConferencesNotAllowedBySchool": "Video conferences are not allowed at your school. Contact your school administrator to enable this option."
 		}
 	}

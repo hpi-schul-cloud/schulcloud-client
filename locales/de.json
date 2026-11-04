@@ -1892,26 +1892,12 @@
 				"yourSessionCouldntBeExtended": "Deine Sitzung konnte nicht verlängert werden. Bitte versuche es gleich noch einmal."
 			}
 		},
-		"form_bbb": {
-			"text": {
-				"refreshStatus": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
-				"theVideoConferenceHasNotYetStarted": "Die Videokonferenz wurde noch nicht gestartet.",
-				"youAreNotAuthorisedToAttend": "Die Videokonferenz wurde noch nicht gestartet oder du bist nicht berechtigt, an ihr teilzunehmen. Kontaktiere die verantwortliche Lehrkraft zum Start oder zur Freigabe."
-			}
-		},
 		"form_ChangeLanguage": {
 			"label": {
 				"language": "Sprache"
 			},
 			"placeholder": {
 				"text": "Bitte wählen..."
-			}
-		},
-		"form_create_videoConference": {
-			"text": {
-				"allUsersParticipate": "Alle Nutzer:innen nehmen als Moderator:in teil",
-				"approvalByTheModerator": "Freigabe durch Moderator:in, bevor der Raum betreten werden kann",
-				"muteParticipants": "Teilnehmer:innen beim Betreten stummschalten"
 			}
 		},
 		"form_poll": {
@@ -2450,13 +2436,7 @@
 		}
 	},
 	"videoconference": {
-		"headline": {
-			"createVideoConferenceRoom": "Videokonferenzraum {{name}} erstellen"
-		},
 		"text": {
-			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
-			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
-			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen.",
 			"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Admin, um diese Option zu ermöglichen."
 		}
 	}

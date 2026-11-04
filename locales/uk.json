@@ -1872,20 +1872,6 @@
 				"yourSessionCouldntBeExtended": "Ваш сеанс не вдалося продовжити. Спробуйте ще раз."
 			}
 		},
-		"form_bbb": {
-			"text": {
-				"refreshStatus": "Щоб знову оновити статус, натисніть значок оновлення",
-				"theVideoConferenceHasNotYetStarted": "Відеоконференція ще не почалася.",
-				"youAreNotAuthorisedToAttend": "Відеоконференція ще не почалася або у вас немає дозволу приєднатися до неї. Зверніться до відповідального викладача, щоб розпочати її або надати доступ."
-			}
-		},
-		"form_create_videoConference": {
-			"text": {
-				"allUsersParticipate": "Усі користувачі беруть участь як модератори",
-				"approvalByTheModerator": "Схвалення модератором перед тим, як увійти в кімнату",
-				"muteParticipants": "Вимкнути звук учасників під час входу"
-			}
-		},
 		"form_poll": {
 			"global": {
 				"button": {
@@ -2252,13 +2238,7 @@
 		}
 	},
 	"videoconference": {
-		"headline": {
-			"createVideoConferenceRoom": "Створити кімнату для відеоконференцій {{name}}"
-		},
 		"text": {
-			"theVideoConferenceHasEither": "Відеоконференція або ще не розпочалася, або вже закінчилася.",
-			"thereWasAProblemWithTheVideo": "Виникла проблема з відеоконференцією. Спробуйте ще раз.",
-			"youDoNotHaveTheNecessaryAuthorization": "Ви не маєте необхідного дозволу на участь у відеоконференції.",
 			"videoConferencesNotAllowedBySchool": "У вашій школі заборонено проводити відеоконференції. Зверніться до адміністратора школи, щоб увімкнути цей варіант."
 		}
 	},
