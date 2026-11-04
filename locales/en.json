@@ -2140,12 +2140,8 @@
 			"label": {
 				"email": "Your e-mail address",
 				"openId": "a unique string that does not allow to identify your true identity",
-				"showName": "Show name",
 				"weNeedToSendThisData": "In order to work with {{client}}, we must transfer the following to this provider:",
 				"yourName": "Your name"
-			},
-			"text": {
-				"yourNameIsProtected": "The provider of this educational content does not know your real name, as it is retrieved directly from {{shortTitle}}. It is a so-called Iframe that can display pages from other web servers."
 			}
 		},
 		"popup_resetPw": {

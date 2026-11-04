@@ -2140,12 +2140,8 @@
 			"label": {
 				"email": "Tu dirección de correo electrónico",
 				"openId": "una cadena única que no permite identificar tu verdadera identidad",
-				"showName": "Mostrar nombre",
 				"weNeedToSendThisData": "Para trabajar con {{client}}, debemos transferir a este proveedor lo siguiente:",
 				"yourName": "Tu nombre"
-			},
-			"text": {
-				"yourNameIsProtected": "El proveedor de este contenido educativo no conoce tu nombre real, ya que se toma directamente de la nube escolar. Se denomina Iframe y puede mostrar páginas de otros servidores web."
 			}
 		},
 		"popup_resetPw": {
