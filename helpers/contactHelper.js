@@ -53,10 +53,6 @@ const getSortedHelpOtions = (res) => {
 			optionText: res.$t('help.chooseTopicArea.text.pOther'),
 		},
 		{
-			optionValue: 'Teams',
-			optionText: res.$t('help.chooseTopicArea.text.pTeams'),
-		},
-		{
 			optionValue: 'Termine',
 			optionText: res.$t('help.chooseTopicArea.text.pCalendar'),
 		},

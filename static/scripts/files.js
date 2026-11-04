@@ -31,7 +31,7 @@ const getDataValue = (attr) => () => {
 
 window.openFolder = (id) => {
 	const { pathname } = window.location;
-	const reg = new RegExp('/files/(?:my|teams|courses)/(?:.+?)/(.+)');
+	const reg = new RegExp('/files/(?:my|courses)/(?:.+?)/(.+)');
 	let target;
 
 	if (reg.test(pathname)) {
@@ -117,7 +117,6 @@ $(document).ready(() => {
 	const $deleteModal = $('.delete-modal');
 	const $moveModal = $('.move-modal');
 	const $renameModal = $('.rename-modal');
-	const $fileDownloadModal = $('.file-download-modal');
 
 	const isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
 
@@ -382,29 +381,7 @@ $(document).ready(() => {
 		archiveDownload(getDownloadRequestBody());
 	}
 
-	$('.download-archive').click(function () {
-		const useNextcloud = $(this).data('use-nextcloud');
-
-		if (useNextcloud && $fileDownloadModal?.length) {
-			populateModalForm($fileDownloadModal, {
-				title: $t('global.headline.downloadAllFiles'),
-				closeLabel: $t('global.button.cancel'),
-				submitLabel: $t('files.button.download'),
-				submitDataTestId: 'file-download-modal',
-			});
-			$fileDownloadModal.appendTo('body').modal('show');
-		} else {
-			downloadFiles();
-		}
-	});
-
-	$('.file-download-modal form').on('submit', (e) => {
-		e.stopPropagation();
-		e.preventDefault();
-
-		downloadFiles();
-		$('.file-download-modal').modal('hide');
-	});
+	$('.download-archive').click(downloadFiles);
 
 	const returnFileUrl = (fileId, fileName) => {
 		if (window.opener) {
@@ -647,11 +624,6 @@ $(document).ready(() => {
 				const nameMap = {
 					teacher: $t('global.placeholder.Lehrer'),
 					student: $t('global.link.administrationStudents'),
-					teammember: $t('global.role.text.member'),
-					teamexpert: $t('global.role.text.expert'),
-					teamleader: $t('global.role.text.leader'),
-					teamadministrator: $t('global.role.text.administrator'),
-					teamowner: $t('global.role.text.owner'),
 				};
 
 				populateModalForm($permissionModal, {

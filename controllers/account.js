@@ -84,16 +84,6 @@ router.get('/', (req, res, next) => {
 	});
 });
 
-router.get('/teams/', (req, res, next) => {
-	const isDiscoverable = res.locals.currentUser.discoverable;
-
-	res.render('account/teams', {
-		title: res.$t('account.teams.headline.teamSettings'),
-		userId: res.locals.currentUser._id,
-		isDiscoverable,
-	});
-});
-
 router.get('/thirdPartyProviders/', async (req, res, next) => {
 	let session;
 
@@ -134,7 +124,7 @@ router.post('/preferences', (req, res, next) => {
 		.catch(() => res.$t('account.text.preferencesUpdateError'));
 });
 
-router.post('/teamSettings', (req, res) => {
+router.post('/visibility', (req, res) => {
 	let discoverable = null;
 	if (req.body.discoverable === 'true') {
 		discoverable = true;
