@@ -117,15 +117,13 @@ const decodeHtmlEntities = (s) => {
  * @throws {Error} when the name is blank after trim or contains ASCII control characters
  */
 const ensureHasNoAsciiControlChar = (name) => {
+	const errorText = 'Invalid course name'
 	if (typeof name !== 'string') {
-		throw new TypeError('Invalid course name');
+		throw new TypeError(errorText);
 	}
 	const trimmed = name.trim();
-	if (trimmed === '') {
-		throw new Error('Invalid course name');
-	}
-	if (hasAsciiControlChar(trimmed)) {
-		throw new Error('Invalid course name');
+	if (trimmed === '' || hasAsciiControlChar(trimmed)) {
+		throw new Error(errorText);
 	}
 	return decodeHtmlEntities(trimmed);
 };
