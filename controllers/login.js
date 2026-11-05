@@ -167,8 +167,9 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 	}
 
 	const state = shortid.generate();
+	const { codeVerifier, codeChallenge } = authHelper.generatePkcePair();
 
-	const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state, migration, loginHint);
+	const authenticationUrl = authHelper.getAuthenticationUrl(oauthConfig, state, migration, loginHint, codeChallenge);
 
 	req.session.oauth2State = {
 		state,
@@ -178,6 +179,7 @@ const redirectOAuth2Authentication = async (req, res, systemId, migration, redir
 		migration,
 		logoutEndpoint: oauthConfig.logoutEndpoint,
 		provider: oauthConfig.provider,
+		codeVerifier,
 	};
 
 	res.redirect(authenticationUrl.toString());
@@ -233,6 +235,7 @@ router.get('/login/oauth2-callback', async (req, res) => {
 		code,
 		systemId: oauth2State.systemId,
 		redirectUri: authHelper.oauth2RedirectUri,
+		codeVerifier: oauth2State.codeVerifier,
 	};
 
 	let loginResponse;
@@ -332,6 +335,7 @@ const renderLogin = async (req, res) => {
 	const schools = await LoginSchoolsCache.get(req);
 	const redirect = req.query && req.query.redirect ? redirectHelper.getValidRedirect(req.query.redirect) : undefined;
 	const loginHint = req.query.login_hint;
+	const showAutoLogoutMessage = req.query['auto-logout'] === 'true';
 
 	let oauthErrorLogout = false;
 
@@ -359,6 +363,7 @@ const renderLogin = async (req, res) => {
 		idOfSchool,
 		showAlerts: true,
 		showLoginAndRegisterButtons: false,
+		showAutoLogoutMessage,
 		strategyOfSchool,
 	});
 };
@@ -448,7 +453,7 @@ router.get('/logout/', (req, res, next) => {
 			logger.error('can not delete etherpad client sessions', err);
 		});
 
-	const redirectUrl = autoLogout ? '/?auto-logout=true' : '/';
+	const redirectUrl = autoLogout ? '/login?auto-logout=true' : '/';
 	res.locals.csrfToken = null;
 	res.locals.currentUser = null;
 
@@ -468,7 +473,7 @@ router.get('/logout-tab', (req, res, next) => {
 		})
 		.finally(() => {
 			res.statusCode = 307;
-			res.redirect('/?auto-logout=true');
+			res.redirect('/login?auto-logout=true');
 		});
 });
 
