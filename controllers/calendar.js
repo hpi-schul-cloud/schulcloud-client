@@ -3,6 +3,7 @@
  */
 
 const express = require('express');
+const { decode } = require('html-entities');
 
 const router = express.Router();
 const api = require('../api');
@@ -32,6 +33,16 @@ router.get('/events/', (req, res, next) => {
 			admin: false,
 		},
 	}).then((events) => {
+		events.forEach((event) => {
+			if (event['x-sc-courseId']) {
+				['title', 'summary'].forEach((property) => {
+					if (typeof event[property] === 'string') {
+						event[property] = decode(event[property]);
+					}
+				});
+			}
+		});
+
 		Promise.all(events.map((event) => recurringEventsHelper.mapEventProps(event, req))).then((responseEvents) => {
 			// TODO: fix next line
 			// eslint-disable-next-line prefer-spread
