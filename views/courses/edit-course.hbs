@@ -26,7 +26,7 @@
                     {{> 'courses/components/svg_archived_courses'}}
 					<!--<img src="{{getAssetPath '/images/empty-states/archived_courses.svg'}}" alt= "{{$t "courses._course.edit.img_alt.courseIsArchieved"}}" class="image course-empty-content-image" />-->
 
-					<h2 class="h4">{{$t "courses._course.edit.headline.courseIsArchieved" (dict "coursename" course.name )}}</h2>
+					<h2 class="h4">{{decodeHtmlEntities ($t "courses._course.edit.headline.courseIsArchieved" (dict "coursename" course.name ))}}</h2>
 					<p class="text-muted text-center">
 						{{$t "courses._course.edit.text.toEditChangeDate"}}
 					</p>
