@@ -99,7 +99,7 @@ $(document).ready(() => {
 			const courseId = event['x-sc-courseId'];
 			$.getJSON(URI.getSingleCourse(courseId), (course) => {
 				const $title = modal.find('.modal-title');
-				$title.html(`${$title.html()}, Kurs: ${course.course.name}`);
+				$title.text(`${$title.text()}, Kurs: ${course.course.name}`);
 
 				// if not teacher, not allow editing course events
 				if ($('.create-course-event').length <= 0) {
@@ -108,7 +108,7 @@ $(document).ready(() => {
 
 				// set fix course on editing
 				modal.find("input[name='scopeId']").attr('value', event['x-sc-courseId']);
-				modal.find('.modal-form').append(`<input name='courseId' value='${courseId}' type='hidden'>`);
+				modal.find('.modal-form').append($('<input>', { name: 'courseId', type: 'hidden' }).val(courseId));
 				modal.find('.create-course-event').remove();
 			});
 		}
@@ -257,10 +257,20 @@ $(document).ready(() => {
 		$selection.find('option').remove();
 
 		const defaultText = getDefaultText(event);
-		$selection.append(`<option aria-label="${defaultText}" value="" selected hidden>${defaultText}</option>`);
+		const defaultOption = document.createElement('option');
+		defaultOption.textContent = defaultText;
+		defaultOption.value = '';
+		defaultOption.setAttribute('aria-label', defaultText);
+		defaultOption.selected = true;
+		defaultOption.hidden = true;
+		$selection.append(defaultOption);
 
 		data.forEach((d) => {
-			$selection.append(`<option aria-label="${d.name}" value="${d._id}">${d.name}</option>`);
+			const option = document.createElement('option');
+			option.textContent = d.name;
+			option.value = d._id;
+			option.setAttribute('aria-label', d.name);
+			$selection.append(option);
 		});
 	};
 
@@ -280,5 +290,4 @@ $(document).ready(() => {
 			hideAreaByEvent(event);
 		}
 	});
-
 });

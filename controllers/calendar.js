@@ -3,6 +3,7 @@
  */
 
 const express = require('express');
+const { decode } = require('html-entities');
 
 const router = express.Router();
 const api = require('../api');
@@ -19,24 +20,33 @@ router.get('/', (req, res, next) => {
 	});
 });
 
-router.get('/events/', (req, res, next) => {
-	return api(req).get('/calendar/', {
-		qs: {
-			all: true,
-			admin: false,
-		},
-	}).then((events) => {
-		const visibleEvents = events.filter((event) => !event['x-sc-teamId'] && !event['x-sc-teamid']);
-		return Promise.all(visibleEvents.map((event) => recurringEventsHelper.mapEventProps(event, req))).then(() => {
-			// TODO: fix next line
-			// eslint-disable-next-line prefer-spread
-			const convertedEvents = [].concat.apply([], visibleEvents.map(recurringEventsHelper.mapRecurringEvent));
-			return res.json(convertedEvents);
-		});
-	}).catch(() => {
-		res.json([]);
+router.get('/events/', (req, res, next) => api(req).get('/calendar/', {
+	qs: {
+		all: true,
+		admin: false,
+	},
+}).then((events) => {
+	events.forEach((event) => {
+		if (event['x-sc-courseId']) {
+			['title', 'summary'].forEach((property) => {
+				if (typeof event[property] === 'string') {
+					event[property] = decode(event[property]);
+				}
+			});
+		}
 	});
-});
+
+	const visibleEvents = events
+		.filter((event) => !event['x-sc-teamId'] && !event['x-sc-teamid'])
+		.map((event) => recurringEventsHelper.mapEventProps(event, req));
+	return Promise.all(visibleEvents).then(() => {
+		const convertedEvents = visibleEvents.flatMap(recurringEventsHelper.mapRecurringEvent);
+		return res.json(convertedEvents);
+	});
+}).catch(() => {
+	res.json([]);
+})
+);
 
 router.post('/events/', (req, res, next) => {
 	if (req.body.teamId || req.body['x-sc-teamId'] || req.body['x-sc-teamid']) {
