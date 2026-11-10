@@ -15,9 +15,6 @@ router.use('/calendar/', require('./calendar'));
 router.use('/courses/', require('./courses'));
 router.use('/courses/:courseId/topics/', require('./topics'));
 router.use('/courses/:courseId/groups/', require('./coursegroups'));
-// router.use('/teams/', require('./teams'));                       // prepare final removal
-// router.use('/teams/:targetId/news', require('./news'));          // prepare final removal
-// router.use('/teams/:teamId/topics/', require('./topics'));       // prepare final removal
 router.use('/files/', require('./files'));
 router.use('/homework/', require('./homework'));
 router.use('/news/', require('./news'));
@@ -35,7 +32,6 @@ router.use('/welcome', require('./welcome'));
 router.use('/schools/', require('./schools'));
 router.use('/users/', require('./users'));
 router.use('/messenger/', require('./messenger'));
-// router.use('/videoconference', require('./videoconference'));    // prepare final removal
 router.use('/administration/', require('./administration'));
 router.use('/alerts', require('./alerts'));
 router.use('/system/', require('./system'));
