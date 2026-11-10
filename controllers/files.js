@@ -729,19 +729,33 @@ router.get('/classes/:classId{/:folderId}', FileGetter, (req, res, next) => {
 	});
 });
 
-router.post('/permissions/', (req, res) => api(req).get(`/files/${req.body.id}`).then((file) => {
+router.post('/permissions/', (req, res) => Promise.all([
+	api(req).get('/roles', {
+		qs: {
+			name: {
+				$regex: '^team',
+			},
+		},
+	}),
+	api(req).get(`/files/${req.body.id}`),
+]).then(([result, file]) => {
 	if (!file) {
-		return res.json({});
+		res.json({});
+		return;
 	}
 
 	if (file.refOwnerModel === 'teams') {
-		return res.sendStatus(404);
+		res.sendStatus(404);
+		return;
 	}
 
+	const { data: roles } = result;
+
 	file.shareToken = file.shareToken || shortid.generate();
-	return api(req).patch(`/files/${file._id}`, { json: file }).then((patchedFile) => {
+	api(req).patch(`/files/${file._id}`, { json: file }).then((patchedFile) => {
 		patchedFile.permissions = patchedFile.permissions.map((permission) => {
-			permission.roleName = '';
+			const role = roles.find((_role) => _role._id === permission.refId);
+			permission.roleName = role ? role.name : '';
 			return permission;
 		});
 
