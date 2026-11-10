@@ -10,12 +10,12 @@
 {{/content}} {{#content "body"}} {{#embed "lib/header" hideMenu=true}}{{/embed}}
 <div class="container">
 	<div class="row">
-		<main id="main-content" class="col-md-8">
+		<main id="main-content" class="col-md-8" style="display: flex; flex-direction: column;">
 			<div class="hidden-md-up">
 				{{> "authentication/forms/login"}}
 			</div>
 
-			<section class="card">
+			<section class="card" style="flex-grow: 1;">
 				<div class="card-block">
 					<!-- GLOBAL_ANNOUNCEMENT -->
 					{{#hasConfig "GLOBAL_ANNOUNCEMENT"}}
