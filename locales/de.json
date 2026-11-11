@@ -8,7 +8,6 @@
 		"button": {
 			"activateNotifications": "Benachrichtigungen aktivieren",
 			"saveAccountSettings": "Accounteinstellungen speichern",
-			"saveTeamSettings": "Einstellungen für Teams und Räume speichern",
 			"sendTestNotification": "Test-Benachrichtigung senden"
 		},
 		"error": {
@@ -36,25 +35,6 @@
 			"notificationSettings": "Benachrichtigungseinstellungen",
 			"providers": "Anbieter"
 		},
-		"teams": {
-			"button": {
-				"changeTeamSettings": "Teameinstellungen ändern"
-			},
-			"headline": {
-				"teamSettings": "Team Einstellungen",
-				"roomsAndTeamsSetings": "Räume und Teams"
-			},
-			"label": {
-				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled": "Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrkräfte aktiviert und kann nicht deaktiviert werden.",
-				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in": "Sichtbarkeit im zentralen Verzeichnis aktivieren",
-				"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
-			},
-			"text": {
-				"hintVisibility": "Lehrkräfte anderer Schulen können dich über den zentralen Verzeichnisdienst der {{themeTitle}} bequem in ein schulübergreifendes Team einladen oder einem schulübergreifenden Raum hinzufügen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter  <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar.",
-				"visibilityTeamInvitations": "Sichtbarkeit für Einladungen in Teams und Räume",
-				"visibilityTeamInvitationsDisabled": "Sichtbarkeit für Raum- und Teameinladungen ist deaktiviert"
-			}
-		},
 		"testNotification": {
 			"headline": {
 				"newTestNotification": "Neue Test-Benachrichtigung"
@@ -72,6 +52,23 @@
 		"thirdPartyProviders": {
 			"headline": {
 				"thirdPartyProviderLogin": "Drittanbieter-Logins"
+			}
+		},
+		"visibility": {
+			"button": {
+				"save": "Sichtbarkeitseinstellungen speichern"
+			},
+			"headline": {
+				"settings": "Sichtbarkeit für Räume"
+			},
+			"label": {
+				"enabled": "Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrkräfte aktiviert und kann nicht deaktiviert werden.",
+				"optIn": "Sichtbarkeit im zentralen Verzeichnis aktivieren",
+				"optOut": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
+			},
+			"text": {
+				"description": "Sichtbarkeit für Einladungen in Räume",
+				"hint": "Lehrkräfte anderer Schulen können dich über den zentralen Verzeichnisdienst der {{themeTitle}} bequem einem schulübergreifenden Raum hinzufügen. Dein Name ist dabei deiner Schule zugeordnet und in der Verzeichnisstruktur unter  <i>Name deines Bundeslandes &raquo; Name deiner Schule &raquo; dein Name</i> aufrufbar."
 			}
 		}
 	},
@@ -183,11 +180,7 @@
 				"email": "E-Mail",
 				"inactive": "{{alias}} (inaktiv)",
 				"roles": "Rolle(n)",
-				"status": "Status: %1",
-				"teamChatActive": "Chat ist aktiviert",
-				"teamFoundedAtOwnSchool": "An eigener Schule gegründetes Team",
-				"teamHasOwner": "Team hat Eigentümer:in",
-				"teamIncludesExternalMembers": "Beinhaltet Schul-externe Mitglieder"
+				"status": "Status: %1"
 			},
 			"link": {
 				"addAnotherOwner": "Weitere Eigentümer:innen hinzufügen",
@@ -205,12 +198,11 @@
 				"editTeacher": "Lehrkraft bearbeiten",
 				"editUsers": "Nutzer:innen bearbeiten",
 				"manageClass": "Klasse verwalten",
-				"removeMembers": "Mitglieder eigener Schule aus Team entfernen",
 				"resetPassword": "Passwort zurücksetzen",
-				"sendEntryToDevelopmentTeam": "Eintrag an Entwicklungsteam senden",
 				"sendMessageToOwner": "Nachricht an Eigentümer:in senden",
 				"toGiveConsent": "Einverständnis erklären",
-				"transferClassToTheNextSchoolYear": "Klasse in das nächste Schuljahr versetzen"
+				"transferClassToTheNextSchoolYear": "Klasse in das nächste Schuljahr versetzen",
+				"sendEntryToDevelopmentTeam": "Eintrag an Entwicklungsteam senden"
 			},
 			"text": {
 				"active": "Aktiv",
@@ -235,11 +227,9 @@
 				"inTheQueue": "In der Warteschlange",
 				"invitationEmailContent": "Einladung in die {{title}} Hallo {{firstName}} {{lastName}}! \nDu wurdest eingeladen, der {{theme_title}} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: {{shortLink}} \nViel Spaß und einen guten Start wünscht dir dein {{shortTitle}} -Team",
 				"invitationEmailSubject": "Einladung für die Nutzung der {{title}}!",
-				"onlyAllMembers": "Es können nur alle Mitglieder der eigenen Schule aus dem Team entfernt werden",
 				"open": "Offen",
 				"passTheRegistrationLinkDirectly": "Gib den Registrierungslink direkt an deine/n Schüler:in weiter.",
 				"registrationExplanation": "Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schüler:innendaten an und erklären elektronisch ihr Einverständnis. Dein/e Schüler:in ist dann in der {{title}} registriert und du siehst ihn in deiner Klassenliste. Dein/e Schüler:in kann sich mit der E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jede/r Schüler:in das Passwort ändern. Ist dein/e Schüler:in über 14 Jahre alt, muss zusätzlich selbst elektronisch ein Einverständnis erklärt werden, damit die {{title}} genutzt werden kann.",
-				"removeStudentsFromYourOwnSchool": "Schüler:innen der eigenen Schule aus dem Team entfernen. Nur möglich, wenn das Team an einer anderen Schule gegründet wurde und es deshalb nicht möglich ist, sich selbst oder jemand anderem Admin-Rechte für das Team zuzuweisen.",
 				"retrieveFailed": "Fehler beim Abrufen",
 				"schoolYearPercentage": "Schuljahr: %1",
 				"setupFailed": "Einrichtung fehlgeschlagen. Bitte versuche es später noch einmal. ",
@@ -250,18 +240,12 @@
 				"successfullyImportedUsers": "{{amountImported}} von {{amountTotal}} Nutzer:innen erfolgreich importiert ({{amountCreated}} erstellt {{amountUpdated}} aktualisiert).",
 				"thereWasAnError": "Es ist ein Fehler beim Erteilen der Einverständniserklärung aufgetreten. ",
 				"theStepsForTheParentsAreOmitted": "Die Schritte für die Eltern entfallen automatisch.",
-				"theTeamCanOnlyBeDeleted": "Löschen des Teams nur bei Teams der eigenen Schule möglich",
 				"userCreatedErrorSendingTheMail": "Nutzer:in erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. {{errMessage}}",
 				"userCreatedSuccessfully": "Nutzer:in erfolgreich erstellt.",
 				"userCreatedSuccessfullyAndRegistration": "Nutzer:in erfolgreich erstellt und Registrierungslink per E-Mail verschickt.",
 				"whenLoggingInForTheFirstTime": "Beim ersten Login müssen Schüler:innen ihr Passwort ändern. Haben sie eine E-Mail-Adresse angegeben, können sie sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ können Admins im Bereich Verwaltung > Schüler:innen hinter dem Namen auf <i>Bearbeiten</i> klicken und das Passwort erneuern.",
 				"yourStudentsAreAtLeast": "Deine Schüler:innen sind mindestens {{age}} Jahre alt?",
 				"yourStudentsAreUnder": "Deine Schüler:innen sind unter {{age}} Jahre alt?"
-			}
-		},
-		"dashboard": {
-			"headline": {
-				"manageTeams": "Teams verwalten"
 			}
 		},
 		"form_DeleteUser": {
@@ -348,7 +332,6 @@
 				"selectStudent": "Schüler:innen auswählen"
 			},
 			"text": {
-				"areYouSureYouWantToDeleteTheFollowingTeam": "Bist du sicher, dass du folgendes Team löschen möchtest?",
 				"byConnectingToASchoolState": "Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler:innen bereits in der {{shortTitle}} einloggen. Fordere deine Schüler:innen auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.",
 				"chatIsActivated": "Chat ist aktiviert",
 				"errorGeneratingPrintSheet": "Problem beim Erstellen des Druckbogens",
@@ -467,12 +450,12 @@
 			"text": {
 				"fileSelected": "Datei ausgewählt",
 				"fileTooLarge": "PDF Datei ist zu groß. Maximal {{size}}MB",
-				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Team-Admins im jeweiligen Team sowie Lehrkräfte in ihren Kursen die Chatfunktion gezielt freischalten.",
-				"ifMatrixIsActivatedAtYourSchool": "Ist der Matrix Messenger aktiviert, können alle Lehrkräfte dieser Schule Chaträume, private Unterhaltungen oder kurs- und teaminterne Gruppendiskussionen starten. Schüler:innen haben dort anfangs nur Leserechte, können aber über die Kurs- und Teameinstellungen auch Schreibrechte zugewiesen bekommen. Mehr Informationen dazu findest du im ",
+				"ifChatsAreActivatedAtYourSchool": "Sind Chats an deiner Schule aktiviert, können Lehrkräfte die Chatfunktion in ihren Kursen gezielt freischalten.",
 				"messengerSchoolRoom": "Der Ankündigungs-Chatraum ermöglicht Schul-Admins, Nachrichten an die gesamte Schule zu senden.\nSchüler:innen haben in diesem Raum nur Lesezugriff, sehen sich aber gegenseitig und können so private Chats starten.",
-				"messengerStudentRoomCreate": "Ist diese Funktion aktiviert, dürfen Schüler:innen Chaträume, private Unterhaltungen und kurs- und teaminterne Gruppendiskussionen starten. Diese Räume sind für Lehrkräfte nicht einzusehen, wenn diese nicht explizit eingeladen werden.",
 				"onlyPDFSupport": "nur PDF Dateien werden unterstützt",
-				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen."
+				"theNewSchoolYearStartsInThe": "Das neue Schuljahr beginnt in der {{themeTitle}} mit der Vorbereitungszeit eine Woche vor Ende der Sommerferien. Unabhängig davon kannst du jederzeit Änderungen an den Klassen des laufenden, vergangenen und kommenden Schuljahres vornehmen.",
+				"ifMatrixIsActivatedAtYourSchool": "Ist der Matrix Messenger aktiviert, können Lehrkräfte dieser Schule Chaträume, private Unterhaltungen oder kursinterne Gruppendiskussionen starten. Schüler:innen haben dort anfangs nur Leserechte und können über die Kurseinstellungen Schreibrechte erhalten. Mehr Informationen dazu findest du im ",
+				"messengerStudentRoomCreate": "Ist diese Funktion aktiviert, dürfen Schüler:innen Chaträume, private Unterhaltungen und kursinterne Gruppendiskussionen starten. Diese Räume sind für Lehrkräfte nicht einzusehen, wenn diese nicht explizit eingeladen werden."
 			}
 		},
 		"students": {
@@ -483,45 +466,7 @@
 				"forAllStudentsWithoutAFullConsentForm": "Für alle Schüler:innen ohne vollständige Einverständniserklärung:"
 			}
 		},
-		"teams": {
-			"button": {
-				"addAnotherOwner": "Weitere Eigentümer:innen hinzufügen",
-				"appointTeamOwner": "Ernennen",
-				"removeAllMembers": "Alle Mitglieder entfernen"
-			},
-			"headline": {
-				"membersInOwnSchool": "Mitglieder an eigener Schule",
-				"messageToTeamOwners": "Neue Nachricht an den Team-Eigentümer:in senden",
-				"newTeamOwner": "Eine/n zusätzliche/n Team-Eigentümer:in ernennen",
-				"removeSchoolFromTeam": "Schule aus Team entfernen",
-				"schools": "Schulen"
-			},
-			"label": {
-				"canCreateTeam": "Schüler:innen können Teams anlegen.",
-				"cannotCreateTeam": "Schüler:innen können keine Teams anlegen.",
-				"selectAnAdditionalOwner": "Wähle hier eine/n zusätzlichen Eigentümer:in für das Team aus:",
-				"studentsAreAllowedToCreateTeam": "Schüler:innen dürfen Teams anlegen",
-				"whenFunctionIsActivated": "Ist diese Funktion aktiviert, können Schüler:innen selbstständig die Teams-Funktion nutzen und Teams gründen,\n\t\t\t\t\t\tohne dass eine Lehrkraft beteiligt sein muss. Weisungsberechtigte Admins können diese Funktion zentral für die\n\t\t\t\t\t\tgesamte Schule deaktivieren/aktivieren."
-			},
-			"text": {
-				"bannerTitle": "Teams werden nicht mehr unterstützt und können über die Navigation nicht mehr aufgerufen werden.",
-				"banner0": "Falls Nutzende ihre Daten noch nicht vollständig gesichert oder in Räume übertragen haben, können Sie ihnen weiterhin Zugriff auf ihr Team ermöglichen.",
-				"banner1": "Den dafür benötigten Direktlink finden Sie im Menüpunkt Verwaltung unter „Teams-Verwaltung“.",
-				"banner2": "Der Zugriff ist nur noch bis Ende Oktober möglich. Danach werden alle Teams und deren Inhalte gelöscht.",
-				"bannerHelp_dbc": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://dbildungscloud.de/help/confluence/538017916\">Hilfeseiten</a>.",
-				"bannerHelp_n21": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://niedersachsen.cloud/help/confluence/538017916\">Hilfeseiten</a>.",
-				"bannerHelp_brb": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://brandenburg.cloud/help/confluence/538017916\">Hilfeseiten</a>.",
-				"bannerHelp_thr": "Weitere Infos zu den Direktlinks finden sich auf den <a href=\"https://schulcloud-thueringen.de/help/confluence/538017916\">Hilfeseiten</a>.",
-				"functionality": "Diese Funktionalität ist im zentralen Verzeichnis systemweit aktiviert und kann nicht deaktiviert werden.",
-				"includesOutsideSchoolMembers": "Beinhaltet Schul-externe Mitglieder",
-				"legend": "Legende:",
-				"noSchools": "Keine Schulen",
-				"teamFoundedInOwnSchool": "An eigener Schule gegründetes Team",
-				"teamHasOwners": "Team hat Eigentümer:in"
-			}
-		},
 		"text": {
-			"areYouSureYouWantToRemoveAllMembers": "Bist du sicher, dass du alle Mitglieder deiner Schule aus diesem Team entfernen willst?",
 			"moreOptions": "Mehr Optionen",
 			"noEntriesToPrint": "Keine Einträge zu drucken.",
 			"yourClassDoesntFitInto": "Deine Klasse passt nicht ins klassische Schema?"
@@ -561,7 +506,6 @@
 		},
 		"users_skipRegistration": {
 			"text": {
-				"appointTeamOwner": "Ernennen",
 				"forStudentsAged14": "Für Schüler:innen ab 14 Jahren: Einverständnis des Schülers/der Schülerin",
 				"removeAllMembers": "Alle Mitglieder entfernen",
 				"sendMessage": "Absenden",
@@ -956,6 +900,11 @@
 			"noCourseGetInvited": "Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen.",
 			"renameCourse": "Benenne den Kurs um.",
 			"shareTokenNotInUse": "Dieser shareToken scheint nicht in Verwendung zu sein!"
+		},
+		"form_importCourse": {
+			"text": {
+				"aCourseFolderIsAutomaticallyCreated": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schüler:innenbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler:innen hinzu und vergib einen Termin für den Kurs."
+			}
 		}
 	},
 	"dashboard": {
@@ -1036,8 +985,7 @@
 			"search": "Suche",
 			"selectFormat": "Format auswählen",
 			"table": "Tabelle (xlsx)",
-			"textDocument": "Textdokument (docx)",
-			"toTeam": "Zum Team"
+			"textDocument": "Textdokument (docx)"
 		},
 		"headline": {
 			"attention": "Achtung",
@@ -1045,7 +993,6 @@
 			"newFolder": "Neuer Ordner",
 			"personalFiles": "Persönliche Dateien",
 			"courseFiles": "Kurs-Dateien",
-			"teamFiles": "Team-Dateien",
 			"sharedFiles": "Geteilte Dateien"
 		},
 		"img_alt": {
@@ -1072,7 +1019,6 @@
 			"fileName": "Dateiname:",
 			"filesFromMyClasses": "Dateien aus meinen Klassen",
 			"filesFromMyCourse": "Dateien aus meinen Kursen",
-			"filesFromMyTeam": "Dateien aus meinen Teams",
 			"filesOpen": "Dateien öffnen",
 			"filesSharedWithMe": "Mit mir geteilte Dateien",
 			"filesSharedWithMeContent": "Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzer:innen zur Verfügung gestellt worden sind.",
@@ -1098,8 +1044,7 @@
 			"aria_label": {
 				"openCourseFiles": "Öffne meine Kurs-Dateien",
 				"openMyfiles": "Öffne meine persönlichen Dateien",
-				"openSharedFiles": "Öffne mit mir geteilte Dateien",
-				"openTeamFiles": "Öffne meine Team-Dateien"
+				"openSharedFiles": "Öffne mit mir geteilte Dateien"
 			}
 		},
 		"search": {
@@ -1296,7 +1241,6 @@
 			"create": "Erstellen",
 			"createFirstCourse": "Erstelle deinen ersten Kurs",
 			"createFolder": "Ordner erstellen",
-			"deleteTeam": "Team löschen",
 			"discard": "Verwerfen",
 			"done": "Fertig",
 			"downloadAllFiles": "Alle Dateien herunterladen",
@@ -1394,7 +1338,7 @@
 			"courseData": "Meine Kurs-Dateien",
 			"courseDataContent": "Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer:innen des Kurses, also die Lehrkraft und die Schüler:innen, haben auf diese Dateien Zugriff.",
 			"files": "Dateien",
-			"filesContent": "Hier findest du alle Dateien, die in den jeweiligen Teams verwendet werden. Alle Teilnehmer:innen des Teams haben auf diese Dateien Zugriff.",
+			"filesContent": "Hier findest du deine Dateien und die Dateien aus deinen Kursen.",
 			"filesPersonal": "Persönliche Dateien",
 			"filesShared": "Geteilte Dateien",
 			"firstSteps": "Erste Schritte",
@@ -1411,8 +1355,6 @@
 			"register": "Registrieren",
 			"school": "Schule",
 			"tasksDrafts": "Entwürfe",
-			"teamData": "Meine Team-Dateien",
-			"teams": "Teams",
 			"topNavbarSkipLink": "Zur Navigation oben wechseln"
 		},
 		"pagination": {
@@ -1478,7 +1420,6 @@
 			"dataProtectionThr": "Datenschutzhinweise",
 			"dataProtectionFile": "Datenschutzerklärung der Schule",
 			"dataProtectionFileThr": "Datenschutzhinweise der Schule",
-			"downloadHint": "Dateien, die sich im externen Dateibereich (<a href=\"{{nextcloudUrl}}\" target=\"_blank\" rel=\"noopener noreferrer\">nextcloud</a>) befinden, müssen dort in einem separaten Schritt heruntergeladen werden.",
 			"downloadStarted": "Download hat begonnen",
 			"downloadError": "Download fehlgeschlagen",
 			"termsOfUse": "Nutzungsordnung",
@@ -1556,7 +1497,6 @@
 				"pPrivacy": "Datenschutz",
 				"pRooms": "Räume",
 				"pTasks": "Aufgaben",
-				"pTeams": "Teams",
 				"pTools": "Tools"
 			}
 		},
@@ -1648,18 +1588,6 @@
 				"linguisticNote": "Sprachlicher Hinweis",
 				"usageAids": "Nutzungshilfen",
 				"writeUsAnEmail": "Schreib uns eine E-Mail"
-			}
-		},
-		"help_fromInviteExternalMember": {
-			"button": {
-				"externalExperts": "Externe Expert:innen",
-				"teachersFromOtherSchools": "Lehrkräfte anderer Schulen"
-			},
-			"headline": {
-				"whoDoYouWantToInviteTheTeam": "Wen möchtest du ins Team einladen?"
-			},
-			"label": {
-				"pedagogicalExperts": "Verwende für die Einladung von pädagogischem Personal als externe/r Expert:in bitte keine E-Mail-Adressen, die bereits im schulischen Kontext genutzt werden und für deren Registrierung in der Niedersächsischen Bildungscloud benötigt werden."
 			}
 		},
 		"partials": {
@@ -1964,26 +1892,12 @@
 				"yourSessionCouldntBeExtended": "Deine Sitzung konnte nicht verlängert werden. Bitte versuche es gleich noch einmal."
 			}
 		},
-		"form_bbb": {
-			"text": {
-				"refreshStatus": "Um den Status erneut abzufragen, klicke das Aktualisieren-Icon",
-				"theVideoConferenceHasNotYetStarted": "Die Videokonferenz wurde noch nicht gestartet.",
-				"youAreNotAuthorisedToAttend": "Die Videokonferenz wurde noch nicht gestartet oder du bist nicht berechtigt, an ihr teilzunehmen. Kontaktiere zum Start oder zur Freigabe einen Team-Admin."
-			}
-		},
 		"form_ChangeLanguage": {
 			"label": {
 				"language": "Sprache"
 			},
 			"placeholder": {
 				"text": "Bitte wählen..."
-			}
-		},
-		"form_create_videoConference": {
-			"text": {
-				"allUsersParticipate": "Alle Nutzer:innen nehmen als Moderator:in teil",
-				"approvalByTheModerator": "Freigabe durch Moderator:in, bevor der Raum betreten werden kann",
-				"muteParticipants": "Teilnehmer:innen beim Betreten stummschalten"
 			}
 		},
 		"form_poll": {
@@ -2242,9 +2156,6 @@
 			"addNews": "News hinzufügen",
 			"deleteNewsAlt": "Artikel '{{name}}' löschen"
 		},
-		"headline": {
-			"newsTeam": "Neuigkeiten aus dem Team"
-		},
 		"label": {
 			"searchForNews": "Suche nach Neuigkeiten"
 		},
@@ -2461,267 +2372,6 @@
 			"team": "Das HPI Schul-Cloud Team"
 		}
 	},
-	"teams": {
-		"_team": {
-			"button": {
-				"leaveTeam": "Team verlassen"
-			},
-			"dropdown_menu": {
-				"link": {
-					"deleteTeam": "Team löschen",
-					"editTeam": "Team bearbeiten",
-					"leaveTeam": "Team verlassen",
-					"manageMembers": "Teammitglieder verwalten",
-					"seeMembers": "Teammitglieder ansehen"
-				}
-			},
-			"edit": {
-				"label": {
-					"activateBidirectionalMessenger": "Allen Teammitgliedern erlauben im Team Chat Nachrichten zu verfassen.",
-					"activateMessengerForTeam": "Messenger für Team aktivieren",
-					"activateVideoConferences": "Videokonferenzen für Team aktivieren",
-					"teamColor": "Farbe des Teams",
-					"teamDescription": "Beschreibung des Teams (optional)",
-					"teamName": "Name des Teams"
-				},
-				"placeholder": {
-					"teamName": "A-Team"
-				}
-			},
-			"events": {
-				"button": {
-					"addDate": "Termin anlegen"
-				}
-			},
-			"convertTeamsToRoom": {
-				"button": {
-					"convertTeam": "Team umwandeln"
-				},
-				"headline": {
-					"convertTeam": "Team in Raum umwandeln"
-				},
-				"text": {
-					"convertTeam": "Soll das Team „{{teamname}}“ in einen Raum umgewandelt werden?<ul><li>Die Team-Mitglieder sowie Team-Name und -Farbe werden automatisch übernommen. Team-Mitglieder mit der Schulrolle „Administrator“ werden nicht in Räume übertragen.</li><li>Alle Mitglieder erhalten im neuen Raum „{{teamname}}“ automatisch die Raumberechtigung <b>„Lesen“</b>. Anschließend können die Raumberechtigungen individuell angepasst werden.</li><li><b>Dateien und Ordner</b> können im Team über die neue Funktion „Alle Dateien herunterladen“ archiviert und bei Bedarf im Raum an gewünschter Stelle hochgeladen werden.</li></ul>",
-					"convertError": "Es ist ein Fehler aufgetreten."
-				}
-			},
-			"files": {
-				"button": {
-					"changeSharingSettings": "Freigabe-Einstellungen ändern",
-					"deleteFolder": "Ordner löschen",
-					"renameFolder": "Ordner umbenennen",
-					"shareFolder": "Ordner-Freigabe",
-					"toTeamFiles": "Zu den Team-Dateien",
-					"toNextcloud": "Dateibereich öffnen"
-				},
-				"headline": {
-					"changeFilePermissions": "Freigabe-Einstellungen ändern",
-					"fileActions": "Datei-Aktionen",
-					"folders": "Ordner"
-				},
-				"text": {
-					"changedFilePermissionsSuccess": "Standard-Berechtigungen erfolgreich geändert"
-				}
-			},
-			"headline": {
-				"leaveTeam": "Team verlassen",
-				"shareFilesSettings": "Dateifreigabe-Einstellungen"
-			},
-			"label": {
-				"accessToData": "Zugriff auf Dateien",
-				"collaborativeFiles": "Neue Team-Dateien Seite testen",
-				"emailHasBeenSentAlternativeLink": "Die eingeladene Person hat eine E-Mail bekommen. Alternativ kann dieser Link benutzt werden, der/die Nutzer:in muss dafür angemeldet sein:",
-				"leadersAndAdmins": "Leiter:innen und Team-Admins",
-				"members": "Teilnehmer:innen"
-			},
-			"members": {
-				"add": {
-					"button": {
-						"deleteInvitation": "Einladung löschen",
-						"inviteMember": "Teilnehmer:in einladen",
-						"sendInvitation": "Einladung versenden"
-					},
-					"headline": {
-						"deleteInvitation": "Einladung löschen",
-						"inviteExternMember": "Externe/n Teilnehmer:in einladen",
-						"sendInvitationAgain": "Einladung erneut versenden"
-					},
-					"text": {
-						"errorDuringInvitation": "Beim Einladen ist ein Problem aufgetreten. Bitte nötige Voraussetzungen überprüfen oder eingeladene:n Nutzer:in bzw. Admin kontaktieren.",
-						"errorWhileDeletingInvitation": "Problem beim Löschen der Einladung",
-						"errorWhileLoadingSchools": "Problem beim Auslesen der Schulen",
-						"errorWhileLoadingTeachers": "Problem beim Auslesen der Lehrkraft",
-						"errorWhileSendingInvitation": "Problem beim Versenden der Einladung",
-						"invitationSentIfMailInSys": "Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.",
-						"noSchoolForThisFilter": "Für die gewählte Auswahl ist keine Schule vorhanden",
-						"pleaseEnterValidEmail": "Bitte gib eine gültige E-Mail an.",
-						"pleaseReloadThePage": "Bitte lade die Seite neu.",
-						"providerBlockedTryOtherMail": "Der Provider der eingeladenen E-Mail-Adresse ist geblockt! Bitte verwende eine andere Adresse und versuche es dann erneut.",
-						"teacherInvitedSuccess": "Lehrkraft erfolgreich zum Team eingeladen"
-					}
-				},
-				"button": {
-					"addExternMembers": "Externe Teilnehmer:innen einladen",
-					"addInternMembers": "Interne Teilnehmer:innen hinzufügen",
-					"addPerson": "Person hinzufügen",
-					"deleteClass": "Klasse löschen",
-					"deleteMember": "Teilnehmer:in löschen",
-					"editMember": "Teilnehmer:in bearbeiten",
-					"inviteByMail": "Via E-Mail einladen",
-					"selectFromIndex": "Aus Verzeichnis auswählen"
-				},
-				"headline": {
-					"addMember": "Teilnehmer:in hinzufügen",
-					"class": "{{count}} Klasse",
-					"class_plural": "{{count}} Klassen",
-					"deleteClass": "Klasse löschen",
-					"deleteMember": "Teilnehmer:in löschen",
-					"editMember": "Teilnehmer:in bearbeiten",
-					"email": "E-Mail",
-					"invitedOn": "Eingeladen am",
-					"inviteExternExpert": "Externe Expert:innen einladen",
-					"inviteTeacherByEmail": "Lehrkraft per E-Mail einladen",
-					"inviteTeacherFromOtherSchool": "Lehrkräfte anderer Schulen einladen",
-					"member": "{{count}} Teilnehmer:innen",
-					"pendingInvitations": "Ausstehende Einladungen",
-					"requirements": "Voraussetzungen:",
-					"selectAndAddTeacher": "Lehrkräfte auswählen und hinzufügen",
-					"teamMembers": "Team-Teilnehmer:innen"
-				},
-				"label": {
-					"addTeacherStudentsFromSchool": "Füge Lehrkräfte und Schüler:innen deiner Schule zum Team hinzu",
-					"deleteInvitation": "Einladung löschen",
-					"doYouReallyWantToLeaveTeam": "Möchtest du das Team wirklich verlassen?",
-					"doYouReallyWantToReSendEmail": "Möchtest du die Einladung wirklich noch einmal per E-Mail zuschicken?",
-					"editRole": "Rolle bearbeiten",
-					"email": "Einladung an diese E-Mail senden:",
-					"externExpert": "externe/r Expert:in",
-					"externTeacher": "Lehrkraft anderer Schule (Team-Admin)",
-					"federalState": "Bundesland",
-					"insertEmailOfExpertToInvite": "Externe Expert:innen verfügen aus Sicherheitsgründen nur über eingeschränkte Berechtigungen - beispielsweise können sie nicht an Videokonferenzen teilnehmen und keine Kurse anlegen. Um eine/n schulfremde/n Expert:in einzuladen, gib die E-Mail-Adresse ein, an die die Einladung verschickt werden soll:",
-					"insertEmailOfExpertToInviteWithVideoConference": "Externe Expert:innen verfügen aus Sicherheitsgründen nur über eingeschränkte Berechtigungen - beispielsweise können sie keine Kurse anlegen. Um eine/n schulfremde/n Expert:in einzuladen, gib die E-Mail-Adresse ein, an die die Einladung verschickt werden soll:",
-					"leavingTeamRequiresNewOwner": "Das Verlassen des Teams erfordert eine/n andere/n Eigentümer:in",
-					"reallyWantToRmClass": "Möchtest du diese Klasse wirklich entfernen?",
-					"reallyWantToRmInvitation": "Möchtest du die Einladung wirklich zurückziehen?",
-					"reallyWantToRmUser": "Möchtest du diese/n Teilnehmer:in wirklich entfernen?",
-					"removeClass": "Klasse entfernen",
-					"removeUser": "Nutzer:in entfernen",
-					"roleOfInvitedTeacher": "Rolle der eingeladenen Lehrkraft",
-					"selectRoleForMember": "Gib ein, welche Rolle der/die Teilnehmer:in erhalten soll.",
-					"sendInvitationAgain": "Einladung erneut versenden"
-				},
-				"placeholder": {
-					"insertEmail": "Eingabefeld für E-Mail-Adresse",
-					"selectFederalState": "Bundesland auswählen",
-					"selectPersons": "Personen auswählen",
-					"selectRole": "Rolle angeben",
-					"selectSchool": "Schule auswählen",
-					"teamAdmin": "Team-Admin"
-				},
-				"text": {
-					"addedMemberFailure": "Problem beim Hinzufügen der Teilnehmer:innen",
-					"addedMemberSuccess": "Teilnehmer:in erfolgreich zum Team hinzugefügt",
-					"addTeacherOrStudentFromYourSchool": "Füge Lehrkräfte und Schüler:innen aus deiner Schule zum Team hinzu.",
-					"changeRoleOfMember": "Ändere die Rolle des Nutzers/der Nutzerin:",
-					"errorWhileEditingMember": "Problem beim Bearbeiten des Teilnehmers/der Teilnehmerin",
-					"errorWhileRemovingMember": "Problem beim Löschen des Teilnehmers/der Teilnehmerin",
-					"expert": "Externe/r Expert:in",
-					"invitationEmailIsEqualToRegisterEmail": "Die angegebene E-Mail stimmt mit der E-Mail überein, mit der die Lehrkraft in der {{ rootThemeShortTitle }} registriert ist.",
-					"inviteTeachersAndExperts": "Lade Lehrkräfte anderer Schulen ein.",
-					"inviteTeachersAndExpertsByEmail": "Lade Lehrkräfte anderer Schulen und Expert:innen per E-Mail ein.",
-					"member": "Teilnehmer:innen",
-					"pleaseSelectRole": "Bitte wähle eine Rolle aus.",
-					"selectTeacherFromRegister": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus. Nach Beitritt zu deinem Team kann sie Schüler:innen und Lehrkräfte ihrer Schule zum Team hinzufügen.",
-					"selectTeacherFromRegisterOrInvitePerEmail": "Wähle eine Lehrkraft anderer Schulen aus einem zentralen Verzeichnis aus oder gib die E-Mail-Adresse an, mit der sie registriert ist. Nach Beitritt zu deinem Team kann sie Schüler:innen und Lehrkräfte ihrer Schule zum Team hinzufügen.",
-					"teacherIsFromOtherSchool": "Lehrkraft ist an einer anderen Schule",
-					"teachersRegisterProcessFinished": "Registrierung der Lehrkraft in der {{ rootThemeShortTitle }} ist abgeschlossen",
-					"multipleTeachersWithEmail": "Es wurden mehrere Lehrkräfte mit dieser E-Mail gefunden. Bitte wähle die gewollte Lehrkraft aus:"
-				}
-			},
-			"news": {
-				"button": {
-					"addNews": "Neuigkeit anlegen"
-				},
-				"label": {
-					"continueReading": "Weiterlesen"
-				},
-				"link": {
-					"showAllNews": "Alle Neuigkeiten anzeigen..."
-				}
-			},
-			"text": {
-				"errorAcceptingInvitation": "Fehler beim Annehmen einer Einladung; Nutzer:in hat nicht die Rechte oder ist schon Mitglied des Teams.",
-				"invitationSuccessfullyAccepted": "Teameinladung erfolgreich angenommen.",
-				"messengerNotActivatedCourse": "Nicht alle Teammitglieder können am Teamchat teilnehmen. Chatten wurde an den Schulen mancher Teammitglieder noch nicht durch den Admin aktiviert.",
-				"messengerNotActivatedSchool": "Dieses schulübergreifende Team beinhaltet einen Teamchat. Du kannst leider nicht darauf zugreifen, da an deiner Schule Chatten noch nicht durch den Admin aktiviert wurde.",
-				"messengerNotActivatedTitle": "Hinweis",
-				"messengerNotActiveInTeam": "Dieses schulübergreifende Team beinhaltet keinen Teamchat. Im Gegensatz zu deiner Schule ist in der Schule die das Team erstellt hat Chatten noch nicht durch den Admin aktiviert.",
-				"theseSettingsWillBeAppliedToNewFiles": "Folgende Berechtigungen werden für neu hochgeladene/erstellte Ordner und Dateien innerhalb des Teams aktiv:",
-				"youCanChangeSettingsForSingleFilesLater": "Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten.",
-				"allFilesWillBeDeletedWarning": "Alle <b>Dateien</b> des Teams werden <b>unwiderruflich gelöscht</b>!"
-			}
-		},
-		"add": {
-			"headline": {
-				"editTeam": "Team bearbeiten"
-			}
-		},
-		"button": {
-			"createTeam": "Team anlegen",
-			"copyTeam": "Team kopieren",
-			"foundATeam": "Gründe ein Team"
-		},
-		"form_importTopic": {
-			"label": {
-				"insertACodeToImportCourse": "Füge einen Code ein, um Kursinhalte anderer Nutzer:innen zu importieren.",
-				"renameTheCourse": "Benenne den Kurs um."
-			},
-			"text": {
-				"aCourseFolderIsAutomaticallyCreated": "Für den importierten Kurs wird automatisch ein Kursordner angelegt. Schüler:innenbezogene Daten des Originalkurses werden entfernt. Füge anschließend Schüler:innen hinzu und vergib einen Termin für den Kurs."
-			}
-		},
-		"headline": {
-			"copyTeam": "Team kopieren",
-			"invitations": "Einladungen",
-			"membersOfTeam": "Mitglieder des Teams: {{teamName}}",
-			"myTeams": "Meine Teams",
-			"teamsConnectSchools": "Teams vernetzen Schule"
-		},
-		"img_alt": {
-			"teamOfTeachers": "Team von Lehrkräften"
-		},
-		"placeholder": {
-			"searchForTeams": "Suche nach Teams"
-		},
-		"text": {
-			"descriptionTeams": "Arbeitsgemeinschaft, Schul-Band oder Klassensprecher:innenversammlung? Lege ein Team an, um untereinander Material und Neuigkeiten auszutauschen - innerhalb deiner Schule oder schulübergreifend.",
-			"roomsInsteadOfTeams": "Das Anlegen von Teams ist nicht mehr möglich.<br /> Soll stattdessen ein neuer <a href=\"/rooms/new\">Raum erstellt</a> werden?",
-			"title": "Teams werden nicht mehr unterstützt.",
-			"item0": "Bitte sichern Sie Ihre Inhalte und wechseln Sie auf Räume.",
-			"item1": "Ende Oktober werden alle Teams und deren Inhalte endgültig gelöscht."
-		},
-		"topics": {
-			"button": {
-				"addGroup": "Gruppe hinzufügen",
-				"addNewTool": "Neues Tool hinzufügen",
-				"displayTopicAgain": "Thema wieder anzeigen"
-			},
-			"headline": {
-				"collapse/ExpandMyTasks": "Meine Aufgaben ein/ausklappen",
-				"collapse/ExpandStudentGroups": "Schüler:innengruppen ein/ausklappen",
-				"homework": "({{homeworkLength}} Aufgabe{{#ifneq 1 {{homeworkLength}}}}n{{/ifneq}})",
-				"myHomework": "({{myHomeworkLength}} Aufgabe{{#ifneq 1 {{myHomeworkLength}}}}n{{/ifneq}})",
-				"myTasks": "Meine Aufgaben",
-				"show/HideTask": "gestellte Aufgaben ein/ausklappen"
-			},
-			"text": {
-				"group": "({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})",
-				"nextLesson": "Nächste Unterrichtsstunde: {{i18nDateTime nextEvent}}",
-				"noIssues": "Keine Themen.",
-				"schoolGroups": "{{#userHasPermission 'COURSE_EDIT' }}Schülergruppen{{else}}Meine Schülergruppen {{/userHasPermission}}"
-			}
-		}
-	},
 	"topic": {
 		"_topic": {
 			"headline": {
@@ -2782,13 +2432,7 @@
 		}
 	},
 	"videoconference": {
-		"headline": {
-			"createVideoConferenceRoom": "Videokonferenzraum {{name}} erstellen"
-		},
 		"text": {
-			"thereWasAProblemWithTheVideo": "Es gab ein Problem mit der Videokonferenz. Bitte versuche es erneut.",
-			"theVideoConferenceHasEither": "Die Videokonferenz hat entweder noch nicht begonnen oder wurde bereits wieder beendet.",
-			"youDoNotHaveTheNecessaryAuthorization": "Dir fehlt die nötige Berechtigung, um an der Videokonferenz teilzunehmen.",
 			"videoConferencesNotAllowedBySchool": "Videokonferenzen sind an deiner Schule nicht erlaubt. Wende dich an deinen Schul-Admin, um diese Option zu ermöglichen."
 		}
 	}

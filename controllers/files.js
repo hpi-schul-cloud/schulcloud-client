@@ -12,7 +12,6 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const redirectHelper = require('../helpers/redirect');
 const { logger } = require('../helpers');
-const { useNextcloudFilesystem, makeNextcloudFolderName } = require('../helpers/nextcloud');
 
 const router = express.Router();
 
@@ -123,7 +122,7 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = []) => api(req).get(`/files/${
  * generates the correct file's or directory's storage context for further requests
  */
 const getStorageContext = (req, res) => {
-	const key = Object.keys(req.params).find((k) => ['courseId', 'teamId', 'classId'].indexOf(k) > -1);
+	const key = Object.keys(req.params).find((k) => ['courseId', 'classId'].indexOf(k) > -1);
 	return req.params[key] || res.locals.currentUser._id;
 };
 
@@ -251,20 +250,13 @@ const FileGetter = (req, res, next) => {
  */
 const getScopeDirs = (req, res, scope) => {
 	const currentUserId = String(res.locals.currentUser._id);
-	let qs = {
+	const qs = {
 		$or: [
 			{ userIds: currentUserId },
 			{ teacherIds: currentUserId },
 			{ substitutionIds: currentUserId },
 		],
 	};
-	if (scope === 'teams') {
-		qs = {
-			userIds: {
-				$elemMatch: { userId: currentUserId },
-			},
-		};
-	}
 	return api(req).get(`/${scope}/`, { qs }).then((records) => records.data.map((record) => Object.assign(record, {
 		url: `/files/${scope}/${record._id}`,
 	})));
@@ -531,7 +523,6 @@ router.get('/my/{:folderId}{/:subFolderId}', FileGetter, async (req, res, next) 
 		canUploadFile: true,
 		canCreateDir: true,
 		canCreateFile: true,
-		useNextcloud: false,
 		canDownloadArchive: Configuration.get('FEATURE_PERSONAL_FILES_ARCHIVE_DOWNLOAD') && !parentId,
 		showSearch: false,
 		inline: req.query.inline || req.query.CKEditor,
@@ -561,7 +552,7 @@ router.get('/shared/', (req, res) => {
 		let { data } = result;
 		data = data
 			.filter((file) => {
-				if (!file || !Array.isArray(file.permissions)) return false;
+				if (!file || file.refOwnerModel === 'teams' || !Array.isArray(file.permissions)) return false;
 				const permission = file.permissions.find((perm) => perm.refId === userId);
 				return permission ? !permission.write : false;
 			})
@@ -658,7 +649,6 @@ router.get('/courses/:courseId{/:folderId}', FileGetter, async (req, res, next) 
 			canUploadFile: true,
 			canCreateDir: true,
 			canCreateFile,
-			useNextcloud: false,
 			canDownloadArchive,
 			path: res.locals.files.path,
 			inline: req.query.inline || req.query.CKEditor,
@@ -681,91 +671,6 @@ router.get('/courses/:courseId{/:folderId}', FileGetter, async (req, res, next) 
 	} catch (error) {
 		next(error);
 	}
-});
-
-router.get('/teams/', (req, res, next) => {
-	const basePath = '/files/teams/';
-	getScopeDirs(req, res, 'teams').then(async (directories) => {
-		const breadcrumbs = [{
-			title: res.$t('files.label.filesFromMyTeam'),
-			url: basePath,
-			dataTestId: 'navigate-to-my-team-files',
-		}];
-
-		res.render('files/files', {
-			title: res.$t('files.headline.teamFiles'),
-			path: getStorageContext(req, res),
-			breadcrumbs,
-			teamFiles: true,
-			files: [],
-			directories,
-			showSearch: false,
-		});
-	});
-});
-
-router.get('/teams/:teamId{/:folderId}', FileGetter, async (req, res, next) => {
-	const basePath = '/files/teams/';
-	const team = await api(req).get(`/teams/${req.params.teamId}`);
-
-	res.locals.files.files = res.locals.files.files.map(addThumbnails);
-
-	let breadcrumbs = [{
-		title: res.$t('files.label.filesFromMyTeam'),
-		url: basePath,
-		dataTestId: 'navigate-to-my-teams-files',
-	}, {
-		title: team.name,
-		url: basePath + team._id,
-		dataTestId: 'navigate-to-my-files-in-team',
-	}];
-
-	if (req.params.folderId) {
-		const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
-			crumb.url = `${basePath}${team._id}/${crumb.id}`;
-			return crumb;
-		});
-
-		breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
-	}
-
-	res.locals.files.files = getFilesWithSaveName(res.locals.files.files);
-
-	const nextcloudUrl = Configuration.get('NEXTCLOUD_REDIRECT_URL') !== ''
-		? Configuration.get('NEXTCLOUD_REDIRECT_URL')
-		+ encodeURI(makeNextcloudFolderName(req.params.teamId, team.name))
-		: '';
-
-	const useNextcloud = useNextcloudFilesystem(res.locals.currentUser);
-	const canDownloadArchive = Configuration.get('FEATURE_TEAM_ARCHIVE_DOWNLOAD') && !req.params.folderId;
-
-	res.render('files/files', {
-		title: res.$t('files.headline.teamFiles'),
-		nextcloudUrl,
-		useNextcloud,
-		canUploadFile: true,
-		canCreateDir: true,
-		canCreateFile: true,
-		canDownloadArchive,
-		path: res.locals.files.path,
-		inline: req.query.inline || req.query.CKEditor,
-		CKEditor: req.query.CKEditor,
-		teamFiles: true,
-		breadcrumbs,
-		showSearch: false,
-		courseId: req.params.teamId,
-		ownerId: req.params.teamId,
-		canEditPermissions: team.user.permissions.includes('EDIT_ALL_FILES'),
-		toCourseText: res.$t('files.button.toTeam'),
-		courseUrl: `/teams/${req.params.teamId}/`,
-		parentId: req.params.folderId,
-		archive: {
-			ownerId: req.params.teamId,
-			type: 'teams',
-			name: team.name.substring(0, 140),
-		},
-		...res.locals.files,
-	});
 });
 
 router.get('/classes/', (req, res, next) => {
@@ -824,36 +729,39 @@ router.get('/classes/:classId{/:folderId}', FileGetter, (req, res, next) => {
 	});
 });
 
-router.post('/permissions/', (req, res) => {
-	Promise.all([
-		api(req).get('/roles', {
-			qs: {
-				name: {
-					$regex: '^team',
-				},
+router.post('/permissions/', (req, res) => Promise.all([
+	api(req).get('/roles', {
+		qs: {
+			name: {
+				$regex: '^team',
 			},
-		}),
-		api(req).get(`/files/${req.body.id}`),
-	]).then(([result, file]) => {
-		if (!file) {
-			res.json({});
-			return;
-		}
+		},
+	}),
+	api(req).get(`/files/${req.body.id}`),
+]).then(([result, file]) => {
+	if (!file) {
+		res.json({});
+		return;
+	}
 
-		const { data: roles } = result;
+	if (file.refOwnerModel === 'teams') {
+		res.sendStatus(404);
+		return;
+	}
 
-		file.shareToken = file.shareToken || shortid.generate();
-		api(req).patch(`/files/${file._id}`, { json: file }).then((patchedFile) => {
-			patchedFile.permissions = patchedFile.permissions.map((permission) => {
-				const role = roles.find((_role) => _role._id === permission.refId);
-				permission.roleName = role ? role.name : '';
-				return permission;
-			});
+	const { data: roles } = result;
 
-			res.json(patchedFile);
+	file.shareToken = file.shareToken || shortid.generate();
+	api(req).patch(`/files/${file._id}`, { json: file }).then((patchedFile) => {
+		patchedFile.permissions = patchedFile.permissions.map((permission) => {
+			const role = roles.find((_role) => _role._id === permission.refId);
+			permission.roleName = role ? role.name : '';
+			return permission;
 		});
+
+		res.json(patchedFile);
 	});
-});
+}));
 
 router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
 	.then((file) => {
@@ -875,11 +783,12 @@ router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
 
 router.get('/permissions/', (req, res) => {
 	const { file } = req.query;
+	const removedRoles = new Set(['teammember', 'teamexpert', 'teamleader', 'teamadministrator', 'teamowner']);
 
 	return api(req).get('/fileStorage/permission/', {
 		qs: { file },
 	})
-		.then((json) => res.json(json))
+		.then((json) => res.json(Array.isArray(json) ? json.filter((entry) => !removedRoles.has(entry.name)) : json))
 		.catch(() => res.sendStatus(500));
 });
 
@@ -901,7 +810,7 @@ router.get('/search/', (req, res, next) => {
 	api(req).get('/files/', {
 		qs: filterQuery,
 	}).then((result) => {
-		const files = result.data.map(addThumbnails);
+		const files = result.data.filter((file) => file.refOwnerModel !== 'teams').map(addThumbnails);
 		const filterOption = filterOptions(res).filter((f) => f.key === filter)[0];
 
 		res.render('files/search', {
@@ -930,15 +839,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 		children: (await getScopeDirs(req, res, 'courses')).map(extractor),
 	}];
 
-	if (Configuration.get('FEATURE_TEAMS_ENABLED')) {
-		directoryTree.push({
-			name: res.$t('global.link.teamData'),
-			model: 'teams',
-			children: (await getScopeDirs(req, res, 'teams')).map(extractor),
-		});
-	}
-
-	api(req).get('/fileStorage/directories')
+	return api(req).get('/fileStorage/directories')
 		.then((directories) => {
 			if (directories.code === 404) {
 				return Promise.resolve([]);

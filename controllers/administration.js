@@ -25,7 +25,7 @@ const upload = multer({
 
 const { isUserHidden } = require('../helpers/users');
 const renameIdsInSchool = require('../helpers/schoolHelper');
-const getTeamsInfoBannerTranslateKey = require('../helpers/banner');
+
 const HOST = Configuration.get('HOST');
 const CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS = Configuration.get('CONSENT_WITHOUT_PARENTS_MIN_AGE_YEARS');
 
@@ -129,7 +129,7 @@ const mapTimeProps = (req, res, next) => {
 /**
  * creates an event for a created course. following params has to be included in @param data for creating the event:
  * startDate {Date} - the date the course is first take place
- * untilDate {Date} -  the date the course is last take place
+ * untilDate {Date} -  the date the course take place
  * duration {Number} - the duration of a course lesson
  * weekday {Number} - from 0 to 6, the weekday the course take place
  * @param data {object}

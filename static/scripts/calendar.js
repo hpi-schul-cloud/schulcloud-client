@@ -75,10 +75,8 @@ $(document).ready(() => {
 	const $editEventModal = $('.edit-event-modal');
 	const URI = {
 		courseList: '/courses/getNames',
-		teamList: '/teams?json=true',
 		eventList: '/calendar/events',
 		getSingleCourse: (courseId) => `/courses/${courseId}/json`,
-		getSingleTeam: (teamId) => `/teams/${teamId}/json`,
 		getSingleEvent: (eventId) => `/calendar/events/${eventId}`,
 	};
 
@@ -92,11 +90,11 @@ $(document).ready(() => {
 	}
 
 	/**
-	 * Transforms an event modal-form for course/team events
+	 * Transforms an event modal-form for course events
 	 * @param modal {HTMLElement} - the given modal which will be transformed
-	 * @param event {Object} - an event, might be a course/team event
+	 * @param event {Object} - an event, might be a course event
 	 */
-	function transformCourseOrTeamEvent(modal, event) {
+	function transformCourseEvent(modal, event) {
 		if (event['x-sc-courseId']) {
 			const courseId = event['x-sc-courseId'];
 			$.getJSON(URI.getSingleCourse(courseId), (course) => {
@@ -111,24 +109,6 @@ $(document).ready(() => {
 				// set fix course on editing
 				modal.find("input[name='scopeId']").attr('value', event['x-sc-courseId']);
 				modal.find('.modal-form').append($('<input>', { name: 'courseId', type: 'hidden' }).val(courseId));
-				modal.find('.create-course-event').remove();
-				modal.find('.create-team-event').remove();
-			});
-		} else if (event['x-sc-teamId']) {
-			const teamId = event['x-sc-teamId'];
-			$.getJSON(URI.getSingleTeam(teamId), (team) => {
-				const $title = modal.find('.modal-title');
-				$title.text(`${$title.text()}, Team: ${team.team.name}`);
-
-				// if not teacher, don't allow editing team events
-				if ($('.create-team-event').length <= 0) {
-					modal.find('.modal-form :input').attr('disabled', true);
-				}
-
-				// set fix team on editing
-				modal.find("input[name='scopeId']").attr('value', event['x-sc-teamId']);
-				modal.find('.modal-form').append($('<input>', { name: 'teamId', type: 'hidden' }).val(teamId));
-				modal.find('.create-team-event').remove();
 				modal.find('.create-course-event').remove();
 			});
 		}
@@ -184,25 +164,18 @@ $(document).ready(() => {
 				action: URI.getSingleEvent(eventData._id),
 			});
 
-			if (!eventData['x-sc-teamId']) { // course or non-course event
-				transformCourseOrTeamEvent($editEventModal, eventData);
-				$editEventModal.find('.btn-delete').click(() => {
-					$.ajax({
-						url: URI.getSingleEvent(eventData._id),
-						type: 'DELETE',
-						error: showAJAXError,
-						success(result) {
-							window.location.reload();
-						},
-					});
+			transformCourseEvent($editEventModal, eventData);
+			$editEventModal.find('.btn-delete').click(() => {
+				$.ajax({
+					url: URI.getSingleEvent(eventData._id),
+					type: 'DELETE',
+					error: showAJAXError,
+					success(result) {
+						window.location.reload();
+					},
 				});
-				$editEventModal.appendTo('body').modal('show');
-			}
-
-			if (eventData['x-sc-teamId']) { // team event
-				const teamId = eventData['x-sc-teamId'];
-				window.location.assign(`/teams/${teamId}?activeTab=events`);
-			}
+			});
+			$editEventModal.appendTo('body').modal('show');
 
 			return true;
 		},
@@ -242,11 +215,6 @@ $(document).ready(() => {
 		return checked;
 	};
 
-	const TOGGLE = {
-		last: -1,
-		next: 1,
-	};
-
 	const getRefId = (event) => $(event.target).attr('data-Ref');
 	const getDefaultText = (event) => $(event.target).attr('data-defauttext');
 
@@ -263,18 +231,13 @@ $(document).ready(() => {
 	const hideAreaByEvent = (event) => {
 		const refId = getRefId(event);
 		hideArea(refId);
-		$('.create-videoconference').hide();
 	};
 
-	const toggle = (event, relativeTogglePosition) => {
+	const toggle = (event) => {
 		const refId = getRefId(event);
-		const toggleId = Number(refId) + relativeTogglePosition;
 
 		hideArea(2);
-		hideArea(3);
 		hideArea(4);
-		hideArea(5);
-		$(`#toggle${toggleId}`).bootstrapToggle('off');
 
 		showArea(refId);
 	};
@@ -314,26 +277,14 @@ $(document).ready(() => {
 	/**
 	 * important look into calendar.hbs the form-create-event.hbs
 	 * is execute twice and generate invalid html with double usedIds
-	 * see also collapeseIdCourse or collapesedIdTeam
+	 * see also collapseIdCourse
 	 * events are also bind to twice
 	 * */
 	$("input[name='isCourseEvent']").change((event) => {
 		if (isChecked(event)) {
 			$.getJSON(URI.courseList, (courses) => {
-				toggle(event, TOGGLE.next);
+				toggle(event);
 				addOptionsToSelection(event, courses);
-			}).fail(errorHandler);
-		} else {
-			hideAreaByEvent(event);
-		}
-	});
-
-	$("input[name='isTeamEvent']").change((event) => {
-		if (isChecked(event)) {
-			$.getJSON(URI.teamList, (teams) => {
-				toggle(event, TOGGLE.last);
-				addOptionsToSelection(event, teams);
-				$('.create-videoconference').show();
 			}).fail(errorHandler);
 		} else {
 			hideAreaByEvent(event);
