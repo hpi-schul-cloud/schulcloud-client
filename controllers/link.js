@@ -1,4 +1,5 @@
 const express = require('express');
+const { URL } = require('url');
 
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
@@ -13,7 +14,7 @@ router.post('/', (req, res, next) => {
 	const target = `${(req.headers.origin || HOST)}/${req.body.target}`;
 
 	// the only permitted target is a fileModel link, otherwise the user could create a link to any target and use it for phishing
-	if (!target || !/^\/files\/fileModel/.exec(target)) {
+	if (!target || !/^\/files\/fileModel/.exec(new URL(target).pathname)) {
 		const error = new Error('invalid target');
 		error.statusCode = 400;
 		return next(error);
