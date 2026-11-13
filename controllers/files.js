@@ -331,12 +331,14 @@ const getSignedUrl = (req, res, next) => {
 	const {
 		type,
 		parent,
+		owner,
 		action = 'putObject',
 		filename,
 	} = req.body;
 
 	const data = {
 		parent,
+		owner,
 		fileType: (type || 'application/octet-stream'),
 		action,
 		filename,
