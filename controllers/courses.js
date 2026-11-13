@@ -634,7 +634,6 @@ router.get('/:courseId/usersJson', (req, res, next) => {
 });
 
 // EDITOR
-
 router.get('/:courseId/', async (req, res, next) => {
 	const allowedActiveTabs = ['tools', 'groups'];
 	const { activeTab } = req.query;
@@ -651,20 +650,6 @@ router.get('/:courseId/', async (req, res, next) => {
 
 	const promises = [
 		api(req).get(`/courses/${req.params.courseId}`),
-		api(req).get('/lessons/', {
-			qs: {
-				courseId: req.params.courseId,
-				$sort: 'position',
-			},
-		}),
-		api(req).get('/homework/', {
-			qs: {
-				courseId: req.params.courseId,
-				$populate: ['courseId'],
-				archived: { $ne: res.locals.currentUser._id },
-				$sort: 'createdAt',
-			},
-		}),
 		api(req).get('/courseGroups/', {
 			qs: {
 				courseId: req.params.courseId,
@@ -680,27 +665,9 @@ router.get('/:courseId/', async (req, res, next) => {
 	try {
 		const [
 			course,
-			_lessons,
-			_homeworks,
 			_courseGroups,
 			scopedPermissions,
 		] = await Promise.all(promises);
-
-		const lessons = (_lessons.data || []).map((lesson) => Object.assign(lesson, {
-			url: `/courses/${req.params.courseId}/topics/${lesson._id}/`,
-		}));
-
-		const homeworks = (_homeworks.data || []).map((assignment) => {
-			assignment.url = `/homework/${assignment._id}`;
-			return assignment;
-		});
-
-		homeworks.sort((a, b) => {
-			if (a.dueDate > b.dueDate || !a.dueDate) {
-				return 1;
-			}
-			return -1;
-		});
 
 		const baseUrl = req.headers.origin || HOST || 'http://localhost:3100';
 		const courseGroups = permissionHelper.userHasPermission(
@@ -730,15 +697,6 @@ router.get('/:courseId/', async (req, res, next) => {
 					? `${courseName} (archiviert)`
 					: courseName,
 				activeTab: req.query.activeTab,
-				lessons,
-				homeworksCount: (homeworks.filter((task) => !task.private)).length,
-				assignedHomeworks: (hasRole(teacher)
-					? homeworks.filter((task) => !task.private && !task.stats.submissionCount)
-					: homeworks.filter((task) => !task.private && !task.submissions)),
-				homeworksWithSubmission: (hasRole(teacher)
-					? homeworks.filter((task) => !task.private && task.stats.submissionCount)
-					: homeworks.filter((task) => !task.private && task.submissions)),
-				privateHomeworks: homeworks.filter((task) => task.private),
 				courseGroups,
 				baseUrl,
 				breadcrumbs: [
@@ -887,50 +845,6 @@ router.delete('/:courseId', async (req, res, next) => {
 	} catch (error) {
 		next(error);
 	}
-});
-
-router.get('/:courseId/addStudent', (req, res, next) => {
-	const { currentUser } = res.locals;
-	// if currentUser isn't a student don't add to course-students
-	if (currentUser.roles.filter((r) => r.name === 'student').length <= 0) {
-		req.session.notification = {
-			type: 'danger',
-			message: res.$t('courses._course.addStudent.text.youAreNoStudent'),
-		};
-		res.redirect(getDefaultRedirectUrl(req.params.courseId));
-		return;
-	}
-
-	// check if student is already in course
-	api(req)
-		.get(`/courses/${req.params.courseId}?link=${req.query.link}`)
-		.then((course) => {
-			course.name = decodeHtmlEntities(course.name);
-			if (_.includes(course.userIds, currentUser._id)) {
-				req.session.notification = {
-					type: 'danger',
-					message: res.$t('courses._course.text.youAreAlreadyMember', { coursename: course.name }),
-				};
-				res.redirect(getDefaultRedirectUrl(req.params.courseId));
-				return;
-			}
-
-			// add Student to course
-			course.userIds.push(currentUser._id);
-			// eslint-disable-next-line consistent-return
-			return api(req)
-				.patch(`/courses/${course._id}?link=${req.query.link}`, {
-					json: course,
-				})
-				.then(() => {
-					req.session.notification = {
-						type: 'success',
-						message: res.$t('courses._course.text.youHaveBeenAdded', { coursename: course.name }),
-					};
-					res.redirect(getDefaultRedirectUrl(req.params.courseId));
-				});
-		})
-		.catch(next);
 });
 
 router.get('/:courseId/edit', editCourseHandler);
