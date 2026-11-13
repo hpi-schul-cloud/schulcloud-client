@@ -1,4 +1,5 @@
 const express = require('express');
+const { URL } = require('url');
 
 const router = express.Router();
 const { Configuration } = require('@hpi-schul-cloud/commons');
@@ -11,6 +12,13 @@ const HOST = Configuration.get('HOST');
 router.post('/', (req, res, next) => {
 	// check first if target already exists (preventing db to be wasted)
 	const target = `${(req.headers.origin || HOST)}/${req.body.target}`;
+
+	// the only permitted target is a fileModel link, otherwise the user could create a link to any target and use it for phishing
+	if (!target || !/^\/files\/fileModel/.exec(new URL(target).pathname)) {
+		const error = new Error('invalid target');
+		error.statusCode = 400;
+		return next(error);
+	}
 	api(req).get('/link/', { qs: { target } }).then((result) => {
 		const existingLink = result.data[0];
 		if (!existingLink) {
