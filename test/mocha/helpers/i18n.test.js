@@ -49,6 +49,24 @@ describe('i18n helpers test', () => {
 			);
 	});
 
+	describe('validateLanguage', () => {
+		it('returns supported languages unchanged', () => {
+			for (const language of i18n.availableLanguages) {
+				chai.expect(i18n.validateLanguage(language)).to.equal(language);
+			}
+		});
+
+		it('falls back to the default language for invalid values', () => {
+			const invalidValues = [
+				'he', '', ' de ', 'DE', '</script><script>alert(1)</script>',
+				undefined, null, false, 1, ['en'], { language: 'en' },
+			];
+			for (const language of invalidValues) {
+				chai.expect(i18n.validateLanguage(language)).to.equal(config.defaultLanguage);
+			}
+		});
+	});
+
 	it('Check changeLanguage(en)', async () => {
 		await i18n.changeLanguage('en');
 		chai

@@ -15,6 +15,18 @@ const availableLanguages = (Configuration.get('I18N__AVAILABLE_LANGUAGES') || ''
 	.split(',')
 	.map((value) => value.trim());
 
+const isAvailableLanguage = (language) => (
+	typeof language === 'string' && language.length > 0 && availableLanguages.includes(language)
+);
+
+if (!isAvailableLanguage(defaultLanguage)) {
+	throw new Error('I18N__DEFAULT_LANGUAGE must be a non-empty language listed in I18N__AVAILABLE_LANGUAGES');
+}
+
+const validateLanguage = (language) => (
+	isAvailableLanguage(language) ? language : defaultLanguage
+);
+
 const localeDir = path.join(__dirname, '../locales');
 
 i18next
@@ -123,6 +135,7 @@ module.exports = {
 	fallbackLanguage,
 	availableLanguages,
 	getInstance,
+	validateLanguage,
 	changeLanguage,
 	getCurrentLanguage,
 	getBrowserLanguage,
