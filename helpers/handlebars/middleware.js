@@ -253,12 +253,6 @@ module.exports = (req, res, next) => {
 			link: '/administration/groups/classes/',
 		},
 		{
-			name: res.$t('global.link.teams'),
-			testId: 'sidebar-management-teams',
-			icon: 'account-group-outline',
-			link: '/administration/teams/',
-		},
-		{
 			name: res.$t('global.link.school'),
 			testId: 'sidebar-management-school',
 			icon: // eslint-disable-next-line max-len

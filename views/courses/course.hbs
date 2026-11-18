@@ -77,39 +77,6 @@
       </div>
     </div>
   </div>
-
-  {{#embed "lib/components/modal" class="delete-modal" title= ($t "global.text.areYouSure") }}
-  {{#content "body"}}
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary btn-close">
-      {{$t "global.button.cancel"}}
-    </button>
-
-    <button type="submit" class="btn btn-primary btn-submit" data-testid="delete-course-btn" >
-      {{$t "global.headline.delete"}}
-    </button>
-  </div>
-  {{/content}}
-  {{/embed}}
-
-  {{#embed "lib/components/modal-form" class="invitation-modal"}}
-  {{#content "fields"}}
-  {{> "courses/forms/form-invitation"}}
-  {{/content}}
-  {{/embed}}
-
-  {{#embed "lib/components/modal-form" class="share-course-modal"}}
-  {{#content "fields"}}
-  {{> "courses/forms/form-share"}}
-  {{/content}}
-  {{/embed}}
-
-  {{#embed "lib/components/modal-form" class="share-topic-modal"}}
-  {{#content "fields"}}
-  {{> "topic/forms/form-share"}}
-  {{/content}}
-  {{/embed}}
-
 </section>
 {{/content}}
 {{/extend}}

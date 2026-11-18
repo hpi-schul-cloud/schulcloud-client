@@ -216,6 +216,7 @@ $(document).ready(() => {
 							'/files/file',
 							{
 								parent: result._id,
+								owner: getOwnerId(),
 								type: file.type,
 								filename: file.name,
 							},
@@ -234,6 +235,7 @@ $(document).ready(() => {
 					'/files/file',
 					{
 						parent: getCurrentParent(),
+						owner: getOwnerId(),
 						type: file.type,
 						filename: file.name,
 					},

@@ -69,39 +69,6 @@ $(document).ready(() => {
 		}
 	});
 
-	$('.btn-create-invitation').click(function createInvitation(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		const target = `${$(this).attr('data-href')}addStudent`;
-		const $invitationModal = $('.invitation-modal');
-		$.ajax({
-			type: 'POST',
-			url: '/link/',
-			beforeSend(xhr) {
-				// eslint-disable-next-line no-undef
-				xhr.setRequestHeader('Csrf-Token', csrftoken);
-			},
-			data: {
-				target,
-			},
-			success(data) {
-				populateModalForm($invitationModal, {
-					title: $t('global.headline.invitationLinkGenerated'),
-					closeLabel: $t('global.button.cancel'),
-					submitLabel: $t('global.button.save'),
-					fields: { invitation: data.newUrl },
-					submitDataTestId: 'invitation-modal',
-				});
-				$invitationModal.find('.btn-submit').remove();
-				$invitationModal.find('input[name="invitation"]').click(function inputNameInvitation() {
-					$(this).select();
-				});
-
-				$invitationModal.appendTo('body').modal('show');
-			},
-		});
-	});
-
 	$('.move-handle').click((e) => {
 		e.stopPropagation();
 	});
