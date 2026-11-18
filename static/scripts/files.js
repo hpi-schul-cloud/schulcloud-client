@@ -115,7 +115,6 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $editModal = $('.edit-modal');
 	const $deleteModal = $('.delete-modal');
-	const $moveModal = $('.move-modal');
 	const $renameModal = $('.rename-modal');
 	const $fileDownloadModal = $('.file-download-modal');
 
@@ -132,7 +131,6 @@ $(document).ready(() => {
 
 	function showAJAXError(req, textStatus, errorThrown) {
 		$deleteModal.modal('hide');
-		$moveModal.modal('hide');
 		if (textStatus === 'timeout') {
 			$.showNotification($t('global.text.requestTimeout'), 'warn');
 		} else if (errorThrown !== undefined) {
