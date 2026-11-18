@@ -6,6 +6,7 @@ const url = require('url');
 const shortid = require('shortid');
 const lodash = require('lodash');
 const { expect } = require('chai');
+const htmlEntities = require('html-entities');
 
 const loadController = (name, dependencies, fallback) => {
 	const filename = path.resolve(__dirname, '../../../controllers', `${name}.js`);
@@ -14,6 +15,7 @@ const loadController = (name, dependencies, fallback) => {
 		if (Object.prototype.hasOwnProperty.call(dependencies, dependency)) {
 			return dependencies[dependency];
 		}
+		if (dependency === 'html-entities') return htmlEntities;
 		if (fallback) return fallback(dependency);
 		throw new Error(`Unexpected dependency: ${dependency}`);
 	};
