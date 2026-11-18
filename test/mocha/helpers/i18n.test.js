@@ -67,6 +67,37 @@ describe('i18n helpers test', () => {
 		});
 	});
 
+	describe('getCurrentLanguage', () => {
+		const res = {
+			locals: { currentUser: { language: 'en' }, currentSchoolData: { language: 'es' } },
+		};
+
+		it('keeps a supported query language ahead of saved preferences', async () => {
+			const language = await i18n.getCurrentLanguage({ query: { lng: 'uk' } }, res);
+			chai.expect(language).to.equal('uk');
+		});
+
+		it('keeps the user preference when the query language is invalid', async () => {
+			for (const lng of ['unsupported', ['de', 'en']]) {
+				const language = await i18n.getCurrentLanguage({ query: { lng } }, res);
+				chai.expect(language).to.equal('en');
+			}
+		});
+
+		it('skips invalid user, school, and cookie preferences', async () => {
+			const invalidPreferences = {
+				locals: { currentUser: { language: {} }, currentSchoolData: { language: 'unsupported' } },
+			};
+			const fromCookie = await i18n.getCurrentLanguage({ cookies: { USER_LANG: 'uk' } }, invalidPreferences);
+			const fromDefault = await i18n.getCurrentLanguage(
+				{ cookies: { USER_LANG: 'unsupported' } },
+				invalidPreferences,
+			);
+			chai.expect(fromCookie).to.equal('uk');
+			chai.expect(fromDefault).to.equal(config.defaultLanguage);
+		});
+	});
+
 	it('Check changeLanguage(en)', async () => {
 		await i18n.changeLanguage('en');
 		chai

@@ -63,36 +63,36 @@ const getBrowserLanguage = (req) => {
 	const browserLanguage = acceptLanguage
 		.split(',')
 		.map((value) => value.split(';')[0].split('-')[0].trim())
-		.find((value) => availableLanguages.includes(value));
+		.find(isAvailableLanguage);
 
 	return browserLanguage ?? null;
 };
 
 const getCurrentLanguage = async (req, res) => {
-	// get language by query
-	if (req?.query?.lng) {
-		return req.query.lng;
+	const queryLanguage = req?.query?.lng;
+	if (isAvailableLanguage(queryLanguage)) {
+		return queryLanguage;
 	}
 
-	const { currentUser, currentSchoolData } = (res || {}).locals;
+	const { currentUser, currentSchoolData } = res?.locals ?? {};
 
-	// get language by user
-	if (currentUser && currentUser.language) {
-		return currentUser.language;
+	const userLanguage = currentUser?.language;
+	if (isAvailableLanguage(userLanguage)) {
+		return userLanguage;
 	}
 
-	// get language by school
-	if (currentSchoolData && currentSchoolData.language) {
-		return currentSchoolData.language;
+	const schoolLanguage = currentSchoolData?.language;
+	if (isAvailableLanguage(schoolLanguage)) {
+		return schoolLanguage;
 	}
 
-	// get language by cookie
-	if (req && req.cookies && req.cookies.USER_LANG) {
-		return req.cookies.USER_LANG;
+	const cookieLanguage = req?.cookies?.USER_LANG;
+	if (isAvailableLanguage(cookieLanguage)) {
+		return cookieLanguage;
 	}
 
 	// get language by registration school
-	if (req.url.startsWith('/registration/')) {
+	if (req?.url?.startsWith('/registration/')) {
 		const matchSchoolId = req.url.match('/registration/(.*)\\?');
 		return (matchSchoolId || []).length > 1 ? getSchoolLanguage(req, matchSchoolId[1]) : undefined;
 	}
@@ -139,6 +139,7 @@ module.exports = {
 	fallbackLanguage,
 	availableLanguages,
 	getInstance,
+	isAvailableLanguage,
 	validateLanguage,
 	changeLanguage,
 	getCurrentLanguage,
