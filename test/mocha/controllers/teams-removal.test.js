@@ -269,6 +269,31 @@ describe('Teams removal from legacy routing', () => {
 		});
 	});
 
+	it('excludes Teams news in the backend queries before pagination and counting', async () => {
+		const queries = [];
+		let rendered;
+		const router = loadController('news', {
+			express,
+			'../api': () => ({
+				get: (target, options) => {
+					queries.push(options.qs);
+					return Promise.resolve({ total: 0, data: [] });
+				},
+			}),
+			'../helpers/authentication': { authChecker: (req, res, next) => next() },
+			'../helpers/timesHelper': {},
+		});
+		const { route } = router.stack.find((layer) => layer.route?.path === '/');
+		await route.stack[0].handle({ query: {} }, {
+			$t: (key) => key,
+			render: (view, data) => { rendered = data; },
+		}, (error) => { throw error; });
+		expect(queries).to.have.length(2);
+		queries.forEach((qs) => expect(qs.targetModel).to.deep.equal({ $ne: 'teams' }));
+		expect(queries[1].unpublished).to.equal(true);
+		expect(rendered).to.be.an('object');
+	});
+
 	['de', 'en', 'es', 'uk'].forEach((language) => {
 		it(`keeps neutral visibility and group submissions in ${language}`, () => {
 			const localePath = path.resolve(__dirname, `../../../locales/${language}.json`);

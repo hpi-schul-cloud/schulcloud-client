@@ -32,7 +32,10 @@ router.all('/', async (req, res, next) => {
 	const itemsPerPage = 9;
 	const currentPage = parseInt(req.query.p, 10) || 1;
 
+	const excludeTeams = { targetModel: { $ne: 'teams' } };
+
 	const queryObject = {
+		...excludeTeams,
 		limit: itemsPerPage,
 		skip: itemsPerPage * (currentPage - 1),
 	};
@@ -61,6 +64,7 @@ router.all('/', async (req, res, next) => {
 
 		const unpublishedNews = await api(req, { version: VERSION }).get('/news/', {
 			qs: {
+				...excludeTeams,
 				unpublished: true,
 				limit: 100, // TODO PAGINATION
 				skip: 0,
