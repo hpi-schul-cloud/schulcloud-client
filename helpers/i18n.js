@@ -48,25 +48,29 @@ i18next
 const getSchoolLanguage = async (req, schoolId) => {
 	try {
 		const school = await api(req).get(`/registrationSchool/${schoolId}`);
-		return school.language;
+		return validateLanguage(school.language);
 	} catch (e) {
 		return undefined;
 	}
 };
 
 const getBrowserLanguage = (req) => {
-	const headersAcceptLanguages = (((req || {}).headers || {})['accept-language'] || '')
+	const acceptLanguage = req?.headers?.['accept-language'];
+	if (!acceptLanguage) {
+		return null;
+	}
+
+	const browserLanguage = acceptLanguage
 		.split(',')
-		.map((value) => value.split(';').shift())
-		.map((value) => value.split('-').shift())
-		.reduce((unique, item) => (unique.includes(item) ? unique : [...unique, item]), [])
-		.filter((value) => availableLanguages.includes(value));
-	return headersAcceptLanguages.shift() || null;
+		.map((value) => value.split(';')[0].split('-')[0].trim())
+		.find((value) => availableLanguages.includes(value));
+
+	return browserLanguage ?? null;
 };
 
 const getCurrentLanguage = async (req, res) => {
 	// get language by query
-	if (req && req.query && req.query.lng) {
+	if (req?.query?.lng) {
 		return req.query.lng;
 	}
 
@@ -101,7 +105,7 @@ const getInstance = () => (key, options = {}) => i18next.t(key, {
 });
 
 const changeLanguage = (langAttribute) => {
-	if (availableLanguages.includes(langAttribute)) {
+	if (isAvailableLanguage(langAttribute)) {
 		const momentOptions = momentHelper.selectMomentOptions(langAttribute);
 		i18nMoment.locale(langAttribute, momentOptions);
 		if (langAttribute === 'de') {
