@@ -114,7 +114,7 @@ const getInstance = () => (key, options = {}) => i18next.t(key, {
 });
 
 const changeLanguage = (langAttribute) => {
-	if (isAvailableLanguage(langAttribute)) {
+	if (availableLanguages.includes(langAttribute)) {
 		const momentOptions = momentHelper.selectMomentOptions(langAttribute);
 		i18nMoment.locale(langAttribute, momentOptions);
 		if (langAttribute === 'de') {
