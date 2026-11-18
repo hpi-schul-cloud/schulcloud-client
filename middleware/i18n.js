@@ -4,34 +4,21 @@ const {
 	getCurrentLanguage,
 	getBrowserLanguage,
 	availableLanguages,
-	defaultLanguage,
-} = require("../helpers/i18n");
+	validateLanguage,
+} = require('../helpers/i18n');
 
 const middleware = async (req, res, next) => {
 	// TODO: Error handling is missing and throw async error messages
 	// and can not set headers after they are sent to the client
 	res.$t = getInstance();
 	const currentLanguage = await getCurrentLanguage(req, res);
+	const language = validateLanguage(
+		currentLanguage ?? (req.url.startsWith('/login') ? getBrowserLanguage(req) : undefined),
+	);
 
-	res.locals.userLanguage = currentLanguage;
+	res.locals.userLanguage = language;
 	res.locals.availableLanguages = availableLanguages;
-
-	if (currentLanguage) {
-		changeLanguage(currentLanguage);
-
-		return next();
-	}
-
-	// get language by browser on login page
-	if (req.url.startsWith("/login")) {
-		const browserLanguage = getBrowserLanguage(req);
-		if (browserLanguage) {
-			changeLanguage(browserLanguage);
-			return next();
-		}
-	}
-
-	changeLanguage(defaultLanguage);
+	await changeLanguage(language);
 
 	return next();
 };

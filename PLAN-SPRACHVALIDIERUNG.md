@@ -33,6 +33,9 @@ verwendet.
 3. Auch bei fehlendem oder ungültigem Ergebnis der Registrierungs-Schulabfrage
    einen gültigen Rückfall sicherstellen. Dabei die bestehende Fehlerbehandlung
    der API-Abfrage berücksichtigen.
+   Die Schulabfrage liefert nur unterstützte Sprachen und protokolliert
+   API-Fehler. Ohne ermittelte Schulsprache greift der abschließende
+   Standardwert in `getCurrentLanguage`.
 4. Die Aufrufer in `middleware/i18n.js`, `helpers/authentication.js` und
    `controllers/registration.js` prüfen: Nur validierte Werte dürfen als
    `userLanguage`, für die Sprachumschaltung oder im Cookie weitergegeben
@@ -40,10 +43,14 @@ verwendet.
    der Login-Seite prüfen; `getBrowserLanguage` filtert bereits nach
    `availableLanguages`. Eine Änderung der bisherigen Auswahl ist gesondert
    zu entscheiden und zu testen.
+   Die Umsetzung behält den Browser-Header als Rückfall bei, wenn
+   `getCurrentLanguage` auf einer Login-Route keine Sprache liefert.
 5. Zusätzlich prüfen, ob `getLocaleScriptPath` in `middleware/assets.js`
    eigenständig abgesichert werden sollte. Die zentrale Validierung muss
    unabhängig davon alle Script-Pfade schützen, die `userLanguage` verwenden,
    einschließlich beider Datei-Viewer-Templates.
+   Der Locale-Skript-Helper validiert zusätzlich vor der Pfadbildung. Beide
+   Datei-Viewer verwenden weiterhin die zentral validierte Sprache.
 
 ## Tests und Prüfung
 

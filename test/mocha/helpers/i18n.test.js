@@ -1,4 +1,7 @@
 const chai = require('chai');
+const fs = require('node:fs');
+const path = require('node:path');
+const Handlebars = require('handlebars');
 const { Configuration } = require('@hpi-schul-cloud/commons');
 
 const config = {
@@ -17,6 +20,8 @@ Configuration.set('I18N__DEFAULT_LANGUAGE', config.defaultLanguage);
 Configuration.set('I18N__FALLBACK_LANGUAGE', config.fallbackLanguage);
 Configuration.set('I18N__AVAILABLE_LANGUAGES', config.availableLanguages);
 const i18n = require('../../../helpers/i18n');
+const i18nMiddleware = require('../../../middleware/i18n');
+const { getLocaleScriptPath, getStaticAssetPath } = require('../../../middleware/assets');
 
 describe('i18n helpers test', () => {
 	it('Check for defaultLanguage', () => {
@@ -68,18 +73,64 @@ describe('i18n helpers test', () => {
 	});
 
 	describe('getCurrentLanguage', () => {
-		const res = {
+		const preferences = {
 			locals: { currentUser: { language: 'en' }, currentSchoolData: { language: 'es' } },
 		};
 
 		it('keeps a supported query language ahead of saved preferences', async () => {
-			const language = await i18n.getCurrentLanguage({ query: { lng: 'uk' } }, res);
+			const language = await i18n.getCurrentLanguage({ query: { lng: 'uk' } }, preferences);
 			chai.expect(language).to.equal('uk');
+		});
+
+		describe('language selection and script URLs', () => {
+			it('keeps the existing priority on login even when the browser requests another language', async () => {
+				const req = { ...mockReq, url: '/login', cookies: { USER_LANG: 'es' } };
+				const res = { locals: {} };
+				await i18nMiddleware(req, res, () => {
+					chai.expect(res.locals.userLanguage).to.equal('es');
+					chai.expect(i18n.i18next.language).to.equal('es');
+				});
+			});
+
+			it('uses the default locale script when the asset helper receives an unsupported language', () => {
+				const defaultScript = getStaticAssetPath(`/locales/${config.defaultLanguage}.i18n.js`);
+				chai.expect(getLocaleScriptPath('unsupported')).to.equal(defaultScript);
+				chai.expect(getLocaleScriptPath(undefined)).to.equal(defaultScript);
+				chai.expect(getLocaleScriptPath('en')).to.equal(getStaticAssetPath('/locales/en.i18n.js'));
+			});
+
+			it('renders only the selected locale in the layout and both file viewers', async () => {
+				const req = { url: '/files/my/', query: { lng: 'unsupported' }, cookies: { USER_LANG: 'en' } };
+				const res = { locals: {} };
+				await i18nMiddleware(req, res, () => {});
+
+				const handlebars = Handlebars.create();
+				handlebars.registerHelper({
+					getAssetPath: getStaticAssetPath,
+					getLocaleScriptPath,
+					$t: (key) => key,
+					concat: (...args) => args.slice(0, -1).join(''),
+					block(name, options) { return options.fn(this); },
+					embed: () => '',
+				});
+				const render = (file) => {
+					const source = fs.readFileSync(path.resolve(__dirname, '../../../views', file), 'utf8');
+					return handlebars.compile(source)(res.locals);
+				};
+
+				chai.expect(render('lib/default.hbs')).to.include(`src="${getLocaleScriptPath('en')}"`)
+					.and.not.include('unsupported');
+				const videoLocale = getStaticAssetPath('/vendor-optimized/video.js/dist/lang/en.js');
+				for (const file of ['files/file-viewer.hbs', 'lib/components/files-storage/file-viewer.hbs']) {
+					chai.expect(render(file)).to.include(`src="${videoLocale}?v=1.0"`)
+						.and.not.include('unsupported');
+				}
+			});
 		});
 
 		it('keeps the user preference when the query language is invalid', async () => {
 			for (const lng of ['unsupported', ['de', 'en']]) {
-				const language = await i18n.getCurrentLanguage({ query: { lng } }, res);
+				const language = await i18n.getCurrentLanguage({ query: { lng } }, preferences);
 				chai.expect(language).to.equal('en');
 			}
 		});
@@ -95,6 +146,11 @@ describe('i18n helpers test', () => {
 			);
 			chai.expect(fromCookie).to.equal('uk');
 			chai.expect(fromDefault).to.equal(config.defaultLanguage);
+		});
+
+		it('uses the default language when the registration URL has no school ID', async () => {
+			const language = await i18n.getCurrentLanguage({ url: '/registration/' }, { locals: {} });
+			chai.expect(language).to.equal(config.defaultLanguage);
 		});
 	});
 

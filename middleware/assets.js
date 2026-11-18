@@ -83,9 +83,14 @@ const getStaticAssetPath = (staticFilePath) => {
 
 /**
  * generates the path to a locale JS file (window.i18nLocaleData), content-hashed when asset caching is enabled
- * @param {string} lng
+ * @param {string} language
  */
-const getLocaleScriptPath = (language) => getStaticAssetPath(`/locales/${language}.i18n.js`);
+const getLocaleScriptPath = (language) => {
+	// Gulp also imports this module for themeName, without initializing i18n.
+	// eslint-disable-next-line global-require
+	const { validateLanguage } = require('../helpers/i18n');
+	return getStaticAssetPath(`/locales/${validateLanguage(language)}.i18n.js`);
+};
 
 module.exports = {
 	staticAssetsMiddleware,

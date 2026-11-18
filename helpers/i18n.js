@@ -46,12 +46,16 @@ i18next
 	.catch(logger.error);
 
 const getSchoolLanguage = async (req, schoolId) => {
+	let school;
 	try {
-		const school = await api(req).get(`/registrationSchool/${schoolId}`);
-		return validateLanguage(school.language);
-	} catch (e) {
+		school = await api(req).get(`/registrationSchool/${schoolId}`);
+	} catch {
+		logger.warn('Could not load the registration school language');
 		return undefined;
 	}
+
+	const language = school?.language;
+	return isAvailableLanguage(language) ? language : undefined;
 };
 
 const getBrowserLanguage = (req) => {
@@ -91,10 +95,10 @@ const getCurrentLanguage = async (req, res) => {
 		return cookieLanguage;
 	}
 
-	// get language by registration school
-	if (req?.url?.startsWith('/registration/')) {
-		const matchSchoolId = req.url.match('/registration/(.*)\\?');
-		return (matchSchoolId || []).length > 1 ? getSchoolLanguage(req, matchSchoolId[1]) : undefined;
+	const registrationSchoolId = req?.url?.match(/^\/registration\/(.*)\?/)?.[1];
+	const registrationLanguage = registrationSchoolId ? await getSchoolLanguage(req, registrationSchoolId) : undefined;
+	if (registrationLanguage) {
+		return registrationLanguage;
 	}
 
 	return defaultLanguage;
