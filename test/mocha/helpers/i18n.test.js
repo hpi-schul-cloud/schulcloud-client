@@ -187,6 +187,12 @@ describe('i18n helpers test', () => {
 			.to.equal('de', 'The language should be still "de" because "he" is unknown');
 	});
 
+	it('returns undefined when the browser supplies no supported language', () => {
+		for (const req of [{ headers: {} }, { headers: { 'accept-language': 'it,fr' } }]) {
+			chai.expect(i18n.getBrowserLanguage(req)).to.equal(undefined);
+		}
+	});
+
 	it('Check getBrowserLanguage()', () => {
 		const testBrowserLanguage = 'en';
 		const browserLanguage = i18n.getBrowserLanguage(mockReq);

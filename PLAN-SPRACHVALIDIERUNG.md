@@ -45,6 +45,8 @@ verwendet.
    zu entscheiden und zu testen.
    `getCurrentLanguage` berücksichtigt den Browser-Header auf Login-Routen
    nach den übrigen Sprachquellen und vor der Standardsprache.
+   Schul- und Browserabfrage liefern `undefined`, wenn keine unterstützte
+   Sprache ermittelt wird.
 5. Zusätzlich prüfen, ob `getLocaleScriptPath` in `middleware/assets.js`
    eigenständig abgesichert werden sollte. Die zentrale Validierung muss
    unabhängig davon alle Script-Pfade schützen, die `userLanguage` verwenden,

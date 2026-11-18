@@ -61,15 +61,13 @@ const getSchoolLanguage = async (req, schoolId) => {
 const getBrowserLanguage = (req) => {
 	const acceptLanguage = req?.headers?.['accept-language'];
 	if (!acceptLanguage) {
-		return null;
+		return undefined;
 	}
 
-	const browserLanguage = acceptLanguage
+	return acceptLanguage
 		.split(',')
 		.map((value) => value.split(';')[0].split('-')[0].trim())
 		.find(isAvailableLanguage);
-
-	return browserLanguage ?? null;
 };
 
 const getCurrentLanguage = async (req, res) => {
