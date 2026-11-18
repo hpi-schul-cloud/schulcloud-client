@@ -26,7 +26,7 @@ verwendet.
    Query-Parameter `lng`, Nutzereinstellung, `currentSchoolData.language`,
    Cookie `USER_LANG` und das Ergebnis der Registrierungs-Schulabfrage.
    Die bisherige Reihenfolge beibehalten: Query, Nutzer, Schule, Cookie,
-   Registrierungsschule, Standard. Bei einem ungültigen Wert einer vorhandenen
+   Registrierungsschule, Browsersprache auf Login-Routen, Standard. Bei einem ungültigen Wert einer vorhandenen
    Quelle direkt auf die Standardsprache zurückfallen, statt einen Wert aus
    einer Quelle niedrigerer Priorität zu übernehmen. Fehlende Werte weiterhin
    von ungültigen unterscheiden, damit niedrigere Prioritäten nutzbar bleiben.
@@ -43,8 +43,8 @@ verwendet.
    der Login-Seite prüfen; `getBrowserLanguage` filtert bereits nach
    `availableLanguages`. Eine Änderung der bisherigen Auswahl ist gesondert
    zu entscheiden und zu testen.
-   Die Umsetzung behält den Browser-Header als Rückfall bei, wenn
-   `getCurrentLanguage` auf einer Login-Route keine Sprache liefert.
+   `getCurrentLanguage` berücksichtigt den Browser-Header auf Login-Routen
+   nach den übrigen Sprachquellen und vor der Standardsprache.
 5. Zusätzlich prüfen, ob `getLocaleScriptPath` in `middleware/assets.js`
    eigenständig abgesichert werden sollte. Die zentrale Validierung muss
    unabhängig davon alle Script-Pfade schützen, die `userLanguage` verwenden,

@@ -83,6 +83,15 @@ describe('i18n helpers test', () => {
 		});
 
 		describe('language selection and script URLs', () => {
+			it('uses the supported browser language on login when no language preference exists', async () => {
+				const req = { ...mockReq, url: '/login/email' };
+				const res = { locals: {} };
+				await i18nMiddleware(req, res, () => {
+					chai.expect(res.locals.userLanguage).to.equal('en');
+					chai.expect(i18n.i18next.language).to.equal('en');
+				});
+			});
+
 			it('keeps the existing priority on login even when the browser requests another language', async () => {
 				const req = { ...mockReq, url: '/login', cookies: { USER_LANG: 'es' } };
 				const res = { locals: {} };
@@ -90,6 +99,15 @@ describe('i18n helpers test', () => {
 					chai.expect(res.locals.userLanguage).to.equal('es');
 					chai.expect(i18n.i18next.language).to.equal('es');
 				});
+			});
+
+			it('uses the default for unsupported browser languages and outside login', async () => {
+				const unsupported = { url: '/login', headers: { 'accept-language': 'it,fr' } };
+				const outsideLogin = { ...mockReq, url: '/account' };
+				for (const req of [unsupported, outsideLogin]) {
+					const language = await i18n.getCurrentLanguage(req, { locals: {} });
+					chai.expect(language).to.equal(config.defaultLanguage);
+				}
 			});
 
 			it('uses the default locale script when the asset helper receives an unsupported language', () => {

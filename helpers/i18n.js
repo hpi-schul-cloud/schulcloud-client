@@ -101,6 +101,13 @@ const getCurrentLanguage = async (req, res) => {
 		return registrationLanguage;
 	}
 
+	if (req?.url?.startsWith('/login')) {
+		const browserLanguage = getBrowserLanguage(req);
+		if (browserLanguage) {
+			return browserLanguage;
+		}
+	}
+
 	return defaultLanguage;
 };
 
