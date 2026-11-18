@@ -39,8 +39,8 @@ router.get('/events/', (req, res, next) => api(req).get('/calendar/', {
 	const visibleEvents = events
 		.filter((event) => !event['x-sc-teamId'] && !event['x-sc-teamid'])
 		.map((event) => recurringEventsHelper.mapEventProps(event, req));
-	return Promise.all(visibleEvents).then(() => {
-		const convertedEvents = visibleEvents.flatMap(recurringEventsHelper.mapRecurringEvent);
+	return Promise.all(visibleEvents).then((resolvedEvents) => {
+		const convertedEvents = resolvedEvents.flatMap(recurringEventsHelper.mapRecurringEvent);
 		return res.json(convertedEvents);
 	});
 }).catch(() => {
