@@ -323,12 +323,14 @@ const getSignedUrl = (req, res, next) => {
 	const {
 		type,
 		parent,
+		owner,
 		action = 'putObject',
 		filename,
 	} = req.body;
 
 	const data = {
 		parent,
+		owner,
 		fileType: (type || 'application/octet-stream'),
 		action,
 		filename,
@@ -407,29 +409,6 @@ router.get('/file', (req, res, next) => {
 	sharedPromise.then(() => retrieveSignedUrl(req, data).then((signedUrl) => {
 		res.redirect(307, signedUrl.url);
 	})).catch(next);
-});
-
-// move file
-router.post('/file/:id/move', (req, res) => {
-	api(req).patch(`/fileStorage/${req.params.id}`, {
-		json: {
-			parent: req.body.parent,
-		},
-	}).then(() => {
-		req.session.notification = {
-			type: 'success',
-			message: res.$t('files._file.text.fileMoved'),
-		};
-		res.sendStatus(200);
-	}).catch((e) => {
-		req.session.notification = {
-			type: 'danger',
-			message: e.error.message.indexOf('E11000 duplicate key error') >= 0
-				? res.$t('files._file.text.fileAlreadyExists')
-				: e.error.message,
-		};
-		res.send(e);
-	});
 });
 
 // create newFile

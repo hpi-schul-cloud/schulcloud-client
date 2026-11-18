@@ -115,7 +115,6 @@ $(document).ready(() => {
 	const $modals = $('.modal');
 	const $editModal = $('.edit-modal');
 	const $deleteModal = $('.delete-modal');
-	const $moveModal = $('.move-modal');
 	const $renameModal = $('.rename-modal');
 
 	const isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
@@ -131,7 +130,6 @@ $(document).ready(() => {
 
 	function showAJAXError(req, textStatus, errorThrown) {
 		$deleteModal.modal('hide');
-		$moveModal.modal('hide');
 		if (textStatus === 'timeout') {
 			$.showNotification($t('global.text.requestTimeout'), 'warn');
 		} else if (errorThrown !== undefined) {
@@ -217,6 +215,7 @@ $(document).ready(() => {
 							'/files/file',
 							{
 								parent: result._id,
+								owner: getOwnerId(),
 								type: file.type,
 								filename: file.name,
 							},
@@ -235,6 +234,7 @@ $(document).ready(() => {
 					'/files/file',
 					{
 						parent: getCurrentParent(),
+						owner: getOwnerId(),
 						type: file.type,
 						filename: file.name,
 					},
