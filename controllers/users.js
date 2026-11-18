@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 const { setCookie } = require('../helpers/cookieHelper');
+const { isAvailableLanguage } = require('../helpers/i18n');
 const { isUserHidden } = require('../helpers/users');
 const authHelper = require('../helpers/authentication');
 
@@ -70,7 +71,12 @@ router.get('/teachersWithEmail', async (req, res, next) => {
 
 router.patch('/language', async (req, res, next) => {
 	try {
-		const { language } = req.body;
+		const language = req.body?.language;
+		if (!isAvailableLanguage(language)) {
+			const error = new Error(res.$t('global.text.invalidRequest'));
+			error.status = 400;
+			return next(error);
+		}
 
 		await api(req, { version: 'v3' }).patch('/user/language', { json: { language } });
 		setCookie(res, 'USER_LANG', language);

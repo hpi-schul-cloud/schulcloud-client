@@ -15,6 +15,18 @@ const availableLanguages = (Configuration.get('I18N__AVAILABLE_LANGUAGES') || ''
 	.split(',')
 	.map((value) => value.trim());
 
+const isAvailableLanguage = (language) => (
+	typeof language === 'string' && language.length > 0 && availableLanguages.includes(language)
+);
+
+if (!isAvailableLanguage(defaultLanguage)) {
+	throw new Error('I18N__DEFAULT_LANGUAGE must be a non-empty language listed in I18N__AVAILABLE_LANGUAGES');
+}
+
+const validateLanguage = (language) => (
+	isAvailableLanguage(language) ? language : defaultLanguage
+);
+
 const localeDir = path.join(__dirname, '../locales');
 
 i18next
@@ -34,51 +46,64 @@ i18next
 	.catch(logger.error);
 
 const getSchoolLanguage = async (req, schoolId) => {
+	let school;
 	try {
-		const school = await api(req).get(`/registrationSchool/${schoolId}`);
-		return school.language;
-	} catch (e) {
+		school = await api(req).get(`/registrationSchool/${schoolId}`);
+	} catch {
+		logger.warn('Could not load the registration school language');
 		return undefined;
 	}
+
+	const language = school?.language;
+	return isAvailableLanguage(language) ? language : undefined;
 };
 
 const getBrowserLanguage = (req) => {
-	const headersAcceptLanguages = (((req || {}).headers || {})['accept-language'] || '')
+	const acceptLanguage = req?.headers?.['accept-language'];
+	if (!acceptLanguage) {
+		return undefined;
+	}
+
+	return acceptLanguage
 		.split(',')
-		.map((value) => value.split(';').shift())
-		.map((value) => value.split('-').shift())
-		.reduce((unique, item) => (unique.includes(item) ? unique : [...unique, item]), [])
-		.filter((value) => availableLanguages.includes(value));
-	return headersAcceptLanguages.shift() || null;
+		.map((value) => value.split(';')[0].split('-')[0].trim())
+		.find(isAvailableLanguage);
 };
 
 const getCurrentLanguage = async (req, res) => {
-	// get language by query
-	if (req && req.query && req.query.lng) {
-		return req.query.lng;
+	const queryLanguage = req?.query?.lng;
+	if (isAvailableLanguage(queryLanguage)) {
+		return queryLanguage;
 	}
 
-	const { currentUser, currentSchoolData } = (res || {}).locals;
+	const { currentUser, currentSchoolData } = res?.locals ?? {};
 
-	// get language by user
-	if (currentUser && currentUser.language) {
-		return currentUser.language;
+	const userLanguage = currentUser?.language;
+	if (isAvailableLanguage(userLanguage)) {
+		return userLanguage;
 	}
 
-	// get language by school
-	if (currentSchoolData && currentSchoolData.language) {
-		return currentSchoolData.language;
+	const schoolLanguage = currentSchoolData?.language;
+	if (isAvailableLanguage(schoolLanguage)) {
+		return schoolLanguage;
 	}
 
-	// get language by cookie
-	if (req && req.cookies && req.cookies.USER_LANG) {
-		return req.cookies.USER_LANG;
+	const cookieLanguage = req?.cookies?.USER_LANG;
+	if (isAvailableLanguage(cookieLanguage)) {
+		return cookieLanguage;
 	}
 
-	// get language by registration school
-	if (req.url.startsWith('/registration/')) {
-		const matchSchoolId = req.url.match('/registration/(.*)\\?');
-		return (matchSchoolId || []).length > 1 ? getSchoolLanguage(req, matchSchoolId[1]) : undefined;
+	const registrationSchoolId = req?.url?.match(/^\/registration\/(.*)\?/)?.[1];
+	const registrationLanguage = registrationSchoolId ? await getSchoolLanguage(req, registrationSchoolId) : undefined;
+	if (registrationLanguage) {
+		return registrationLanguage;
+	}
+
+	if (req?.url?.startsWith('/login')) {
+		const browserLanguage = getBrowserLanguage(req);
+		if (browserLanguage) {
+			return browserLanguage;
+		}
 	}
 
 	return defaultLanguage;
@@ -123,6 +148,8 @@ module.exports = {
 	fallbackLanguage,
 	availableLanguages,
 	getInstance,
+	isAvailableLanguage,
+	validateLanguage,
 	changeLanguage,
 	getCurrentLanguage,
 	getBrowserLanguage,

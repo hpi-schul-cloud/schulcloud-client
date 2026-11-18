@@ -6,8 +6,7 @@ const api = require('../api');
 
 const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
-const timesHelper = require('../helpers/timesHelper');
-const { getCurrentLanguage } = require('../helpers/i18n');
+const { getCurrentLanguage, isAvailableLanguage } = require('../helpers/i18n');
 const { setCookie } = require('../helpers/cookieHelper');
 const { logger } = require('../helpers');
 
@@ -381,7 +380,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		roleText = res.$t('registration.text.roleExpert');
 	}
 
-	if (!user.language) {
+	if (!isAvailableLanguage(user.language)) {
 		user.language = await getCurrentLanguage(req, res);
 	}
 

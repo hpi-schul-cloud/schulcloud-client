@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('node:fs');
 const express = require('express');
 const logger = require('../helpers/logger');
+const { validateLanguage } = require('../helpers/i18n');
 
 const ASSET_MANIFEST_FILE = 'asset-manifest.json';
 let assetManifest = null;
@@ -83,9 +84,9 @@ const getStaticAssetPath = (staticFilePath) => {
 
 /**
  * generates the path to a locale JS file (window.i18nLocaleData), content-hashed when asset caching is enabled
- * @param {string} lng
+ * @param {string} language
  */
-const getLocaleScriptPath = (language) => getStaticAssetPath(`/locales/${language}.i18n.js`);
+const getLocaleScriptPath = (language) => getStaticAssetPath(`/locales/${validateLanguage(language)}.i18n.js`);
 
 module.exports = {
 	staticAssetsMiddleware,
