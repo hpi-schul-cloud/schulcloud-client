@@ -21,12 +21,12 @@ const editTopicHandler = (req, res, next) => {
 	const referrer = req.params.topicId ? req.query.returnUrl : undefined;
 
 	if (req.params.topicId) {
-		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
+		action = `/${context}/${req.params.courseId}`
 			+ `/topics/${req.params.topicId}${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
 		method = 'patch';
 		lessonPromise = api(req, { version: 'v3' }).get(`/lessons/${req.params.topicId}`);
 	} else {
-		action = `/${context}/${context === 'courses' ? req.params.courseId : req.params.teamId}`
+		action = `/${context}/${req.params.courseId}`
 			+ `/topics${req.query.courseGroup ? `?courseGroup=${req.query.courseGroup}` : ''}`;
 		method = 'post';
 		lessonPromise = Promise.resolve({});
@@ -59,7 +59,6 @@ const editTopicHandler = (req, res, next) => {
 			courseId: req.params.courseId,
 			topicId: req.params.topicId,
 			schoolId,
-			teamId: req.params.teamId,
 			courseGroupId: req.query.courseGroup,
 			etherpadBaseUrl: featureEtherpadEnabled ? Configuration.get('ETHERPAD__PAD_URI') : '',
 			featureEtherpadEnabled,

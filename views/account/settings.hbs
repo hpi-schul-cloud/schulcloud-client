@@ -111,25 +111,25 @@
             {{#unless (userHasRole "student")}}
 				{{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "disabled"}}
 				{{else}}
-                <form method="post" action="/account/teamSettings">
+                <form method="post" action="/account/visibility">
                 <br />
-                <h2 class="h5">{{$t "account.teams.headline.roomsAndTeamsSetings"}}</h2>
+                <h2 class="h5">{{$t "account.visibility.headline.settings"}}</h2>
                     <div class="form-group">
-                        {{$t "account.teams.text.visibilityTeamInvitations" }}
-                        <p class="text-muted">{{{$t "account.teams.text.hintVisibility" (dict "themeTitle" @root.theme.theme_title )}}}</p>
+                        {{$t "account.visibility.text.description" }}
+                        <p class="text-muted">{{{$t "account.visibility.text.hint" (dict "themeTitle" @root.theme.theme_title )}}}</p>
 
-                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_enabled"}}</label>{{/ifConfig}}
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "enabled"}}<label>{{$t "account.visibility.label.enabled"}}</label>{{/ifConfig}}
 
-                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" data-testid="checkbox-show-in-directory" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-in"}}</label>{{/ifConfig}}
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-in"}}<label><input type="checkbox" name="discoverable" value="true" data-testid="checkbox-show-in-directory" {{#ifeq ../../isDiscoverable true}}checked{{/ifeq}}> {{$t "account.visibility.label.optIn"}}</label>{{/ifConfig}}
 
-                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> {{$t "account.teams.label.TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION_opt-out"}}</label>{{/ifConfig}}
+                        {{#ifConfig "TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION" "opt-out"}}<label><input type="checkbox" name="discoverable" value="false" {{#ifeq ../../isDiscoverable false}}checked{{/ifeq}}> {{$t "account.visibility.label.optOut"}}</label>{{/ifConfig}}
                     </div>
 
                     {{> "lib/components/csrfInput"}}
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary" data-testid="submit_visibility_settings_btn">
-                            {{$t "account.button.saveTeamSettings" }}
+                            {{$t "account.visibility.button.save" }}
                         </button>
                     </div>
                 </form>

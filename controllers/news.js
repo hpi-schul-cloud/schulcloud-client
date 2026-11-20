@@ -31,17 +31,14 @@ router.delete('/:id', getDeleteHandler('news'));
 router.all('/', async (req, res, next) => {
 	const itemsPerPage = 9;
 	const currentPage = parseInt(req.query.p, 10) || 1;
-	const context = req.originalUrl.split('/')[1];
+
+	const excludeTeams = { targetModel: { $ne: 'teams' } };
 
 	const queryObject = {
+		...excludeTeams,
 		limit: itemsPerPage,
 		skip: itemsPerPage * (currentPage - 1),
 	};
-
-	if (context === 'teams') {
-		queryObject.targetModel = 'teams';
-		queryObject.target = req.originalUrl.split('/')[2] || {};
-	}
 
 	const decorateNews = (newsItem) => {
 		const isRSS = newsItem.source === 'rss';
@@ -61,10 +58,13 @@ router.all('/', async (req, res, next) => {
 			qs: queryObject,
 		});
 		const totalNews = news.total;
-		const mappedNews = news.data.map((newsItem) => decorateNews(newsItem));
+		const mappedNews = news.data
+			.filter((newsItem) => newsItem.targetModel !== 'teams')
+			.map((newsItem) => decorateNews(newsItem));
 
 		const unpublishedNews = await api(req, { version: VERSION }).get('/news/', {
 			qs: {
+				...excludeTeams,
 				unpublished: true,
 				limit: 100, // TODO PAGINATION
 				skip: 0,
@@ -72,7 +72,9 @@ router.all('/', async (req, res, next) => {
 		});
 		const unpublishedMappedNews = {
 			...unpublishedNews,
-			data: unpublishedNews.data.map((item) => decorateNews(item)),
+			data: unpublishedNews.data
+				.filter((item) => item.targetModel !== 'teams')
+				.map((item) => decorateNews(item)),
 		};
 
 		const pagination = {
@@ -81,14 +83,8 @@ router.all('/', async (req, res, next) => {
 			baseUrl: '/news/?p={{page}}',
 		};
 
-		let title = res.$t('global.headline.news');
-		// ToDo: Hier kommen noch News für Kurse und Klassen rein.
-		if (context === 'teams') {
-			title = res.$t('news.headline.newsTeam');
-		}
-
 		res.render('news/overview', {
-			title,
+			title: res.$t('global.headline.news'),
 			unpublishedNews: unpublishedMappedNews,
 			news: mappedNews,
 			pagination,
@@ -102,9 +98,10 @@ router.all('/', async (req, res, next) => {
 });
 
 router.get('/:newsId', (req, res, next) => {
-	api(req, { version: VERSION })
+	return api(req, { version: VERSION })
 		.get(`/news/${req.params.newsId}`)
 		.then((news) => {
+			if (news.targetModel === 'teams') return res.sendStatus(404);
 			const updatedAtNotEqualCreatedAt = !(news.updatedAt === news.createdAt) && (news.updatedAt !== undefined);
 			res.render('news/article', {
 				title: news.title,
