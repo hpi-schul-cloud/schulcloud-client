@@ -18,6 +18,15 @@ const filesStoragesHelper = require('../helpers/files-storage');
 
 const HOST = Configuration.get('HOST');
 
+const redirectToNuxtTask = (res, assignmentId, suffix = '') => {
+	if (!Configuration.has('FEATURE_TASKS_V3_ENABLED') || Configuration.get('FEATURE_TASKS_V3_ENABLED') !== true) return false;
+	if (assignmentId && !/^[a-f\d]{24}$/i.test(assignmentId)) return false;
+
+	const target = assignmentId ? `/tasks/${encodeURIComponent(assignmentId)}${suffix}` : '/tasks/new';
+	res.redirect(target);
+	return true;
+};
+
 const router = express.Router();
 
 handlebars.registerHelper('ifvalue', (conditional, options) => {
@@ -331,6 +340,8 @@ router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandler('comments', true));
 
 router.get('/new', (req, res, next) => {
+	if (redirectToNuxtTask(res)) return;
+
 	const coursesPromise = getSelectOptions(req, `users/${res.locals.currentUser._id}/courses`, {
 		$limit: false,
 	});
@@ -380,6 +391,8 @@ router.get('/new', (req, res, next) => {
 });
 
 router.get('/:assignmentId/edit', (req, res, next) => {
+	if (redirectToNuxtTask(res, req.params.assignmentId, '/edit')) return;
+
 	api(req).get(`/homework/${req.params.assignmentId}`, {
 		qs: {
 			$populate: ['courseId'],
@@ -459,6 +472,8 @@ router.get('/:assignmentId/edit', (req, res, next) => {
 });
 
 router.get('/:assignmentId', (req, res, next) => {
+	if (req.query.tab !== 'submissions' && redirectToNuxtTask(res, req.params.assignmentId)) return;
+
 	api(req).get(`/homework/${req.params.assignmentId}`, {
 		qs: {
 			$populate: ['courseId'],
@@ -586,6 +601,7 @@ router.get('/:assignmentId', (req, res, next) => {
 					? assignment.name
 					: (`${assignment.courseId.name} - ${assignment.name}`),
 				isTeacher,
+				activeTabId: req.query.tab === 'submissions' ? 'submissions' : 'extended',
 				students,
 				courseGroups,
 				courseGroupSelected,
