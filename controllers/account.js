@@ -125,13 +125,7 @@ router.post('/preferences', (req, res, next) => {
 });
 
 router.post('/visibility', (req, res) => {
-	let discoverable = null;
-	if (req.body.discoverable === 'true') {
-		discoverable = true;
-	}
-	if (req.body.discoverable === 'false') {
-		discoverable = false;
-	}
+	const discoverable = req.body.discoverable === 'true' ? true : null;
 	return api(req).patch(`/users/${res.locals.currentUser._id}`, {
 		json: {
 			discoverable,

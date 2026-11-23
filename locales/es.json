@@ -62,9 +62,7 @@
 				"settings": "Visibilidad para las salas"
 			},
 			"label": {
-				"enabled": "La visibilidad en el directorio central está activada en todo el sistema para todos los profesores y no se puede desactivar.",
-				"optIn": "Activar visibilidad en el directorio central",
-				"optOut": "Desactivar la visibilidad en el directorio central"
+				"optIn": "Activar visibilidad en el directorio central"
 			},
 			"text": {
 				"description": "Visibilidad para invitaciones a salas",

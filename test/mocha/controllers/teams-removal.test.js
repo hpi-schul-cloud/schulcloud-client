@@ -76,7 +76,6 @@ describe('Teams removal from legacy routing', () => {
 
 	[
 		{ discoverable: 'true', expected: true },
-		{ discoverable: 'false', expected: false },
 		{ discoverable: undefined, expected: null },
 	].forEach(({ discoverable, expected }) => {
 		it(`preserves the visibility value ${expected}`, async () => {
@@ -114,6 +113,7 @@ describe('Teams removal from legacy routing', () => {
 		const template = fs.readFileSync(path.resolve(__dirname, '../../../views/account/settings.hbs'), 'utf8');
 		expect(template).to.include('action="/account/visibility"');
 		expect(template).not.to.include('/account/teamSettings');
+		expect(template).not.to.include('TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION');
 	});
 
 	it('keeps independent file routes without Teams or Nextcloud dependencies', () => {
@@ -235,7 +235,6 @@ describe('Teams removal from legacy routing', () => {
 			expect(locale).not.to.have.property('teams');
 			expect(locale.account).not.to.have.property('teams');
 			expect(locale.account.visibility.label.optIn).to.be.a('string');
-			expect(locale.account.visibility.label.optOut).to.be.a('string');
 			expect(locale.courses.form_importCourse.text.aCourseFolderIsAutomaticallyCreated).to.be.a('string');
 			expect(lodash.get(locale, 'homework._task.label.teamSubmission')).to.be.a('string');
 			expect(locale.homework.label.selectTeamMembers).to.be.a('string');

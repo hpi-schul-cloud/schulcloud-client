@@ -62,9 +62,7 @@
 				"settings": "Visibility for rooms"
 			},
 			"label": {
-				"enabled": "The visibility in the central directory is activated system-wide for all teachers and cannot be deactivated.",
-				"optIn": "Activate visibility in the central directory",
-				"optOut": "Deactivate visibility in the central directory"
+				"optIn": "Activate visibility in the central directory"
 			},
 			"text": {
 				"description": "Visibility for room invitations",

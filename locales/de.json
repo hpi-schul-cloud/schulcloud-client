@@ -62,9 +62,7 @@
 				"settings": "Sichtbarkeit für Räume"
 			},
 			"label": {
-				"enabled": "Die Sichtbarkeit im zentralen Verzeichnis ist systemweit für alle Lehrkräfte aktiviert und kann nicht deaktiviert werden.",
-				"optIn": "Sichtbarkeit im zentralen Verzeichnis aktivieren",
-				"optOut": "Sichtbarkeit im zentralen Verzeichnis deaktivieren"
+				"optIn": "Sichtbarkeit im zentralen Verzeichnis aktivieren"
 			},
 			"text": {
 				"description": "Sichtbarkeit für Einladungen in Räume",
