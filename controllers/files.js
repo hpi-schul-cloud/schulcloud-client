@@ -708,35 +708,6 @@ router.get('/classes/:classId{/:folderId}', FileGetter, (req, res, next) => {
 	});
 });
 
-router.post('/permissions/', (req, res) => Promise.all([
-	api(req).get('/roles', {
-		qs: {
-			name: {
-				$regex: '^team',
-			},
-		},
-	}),
-	api(req).get(`/files/${req.body.id}`),
-]).then(([result, file]) => {
-	if (!file) {
-		res.json({});
-		return;
-	}
-
-	const { data: roles } = result;
-
-	file.shareToken = file.shareToken || shortid.generate();
-	api(req).patch(`/files/${file._id}`, { json: file }).then((patchedFile) => {
-		patchedFile.permissions = patchedFile.permissions.map((permission) => {
-			const role = roles.find((_role) => _role._id === permission.refId);
-			permission.roleName = role ? role.name : '';
-			return permission;
-		});
-
-		res.json(patchedFile);
-	});
-}));
-
 router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
 	.then((file) => {
 		const { shareTokens } = file;
