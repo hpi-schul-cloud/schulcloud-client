@@ -20,6 +20,7 @@ const isAvailableLanguage = (language) => (
 );
 
 if (!isAvailableLanguage(defaultLanguage)) {
+	logger.error(`Validation failed: defaultLanguage="${defaultLanguage}" is not available`);
 	throw new Error('I18N__DEFAULT_LANGUAGE must be a non-empty language listed in I18N__AVAILABLE_LANGUAGES');
 }
 
@@ -55,24 +56,38 @@ const getSchoolLanguage = async (req, schoolId) => {
 	}
 
 	const language = school?.language;
-	return isAvailableLanguage(language) ? language : undefined;
+	if (isAvailableLanguage(language)) {
+		logger.debug(`getSchoolLanguage: Found available language="${language}" for schoolId="${schoolId}"`);
+		return language;
+	}
+	logger.debug(`getSchoolLanguage: language="${language}" is not available for schoolId="${schoolId}"`);
+	return undefined;
 };
 
 const getBrowserLanguage = (req) => {
 	const acceptLanguage = req?.headers?.['accept-language'];
 	if (!acceptLanguage) {
+		logger.debug('getBrowserLanguage: acceptLanguage header not found');
 		return undefined;
 	}
 
-	return acceptLanguage
+	const language = acceptLanguage
 		.split(',')
 		.map((value) => value.split(';')[0].split('-')[0].trim())
 		.find(isAvailableLanguage);
+
+	if (language) {
+		logger.debug(`getBrowserLanguage: Found available language="${language}" from acceptLanguage="${acceptLanguage}"`);
+	} else {
+		logger.debug(`getBrowserLanguage: No available language found in acceptLanguage="${acceptLanguage}"`);
+	}
+	return language;
 };
 
 const getCurrentLanguage = async (req, res) => {
 	const queryLanguage = req?.query?.lng;
 	if (isAvailableLanguage(queryLanguage)) {
+		logger.debug(`getCurrentLanguage: Using query parameter language="${queryLanguage}"`);
 		return queryLanguage;
 	}
 
@@ -80,32 +95,39 @@ const getCurrentLanguage = async (req, res) => {
 
 	const userLanguage = currentUser?.language;
 	if (isAvailableLanguage(userLanguage)) {
+		logger.debug(`getCurrentLanguage: Using user language="${userLanguage}"`);
 		return userLanguage;
 	}
 
 	const schoolLanguage = currentSchoolData?.language;
 	if (isAvailableLanguage(schoolLanguage)) {
+		logger.debug(`getCurrentLanguage: Using school language="${schoolLanguage}"`);
 		return schoolLanguage;
 	}
 
 	const cookieLanguage = req?.cookies?.USER_LANG;
 	if (isAvailableLanguage(cookieLanguage)) {
+		logger.debug(`getCurrentLanguage: Using cookie language="${cookieLanguage}"`);
 		return cookieLanguage;
 	}
 
 	const registrationSchoolId = req?.url?.match(/^\/registration\/(.*)\?/)?.[1];
 	const registrationLanguage = registrationSchoolId ? await getSchoolLanguage(req, registrationSchoolId) : undefined;
 	if (registrationLanguage) {
+		logger.debug(`getCurrentLanguage: Using registration school language="${registrationLanguage}" for schoolId="${registrationSchoolId}"`);
 		return registrationLanguage;
 	}
 
 	if (req?.url?.startsWith('/login')) {
+		logger.debug(`getCurrentLanguage: URL starts with /login, checking browser language`);
 		const browserLanguage = getBrowserLanguage(req);
 		if (browserLanguage) {
+			logger.debug(`getCurrentLanguage: Using browser language="${browserLanguage}"`);
 			return browserLanguage;
 		}
 	}
 
+	logger.debug(`getCurrentLanguage: Using default language="${defaultLanguage}"`);
 	return defaultLanguage;
 };
 
@@ -115,9 +137,11 @@ const getInstance = () => (key, options = {}) => i18next.t(key, {
 
 const changeLanguage = (langAttribute) => {
 	if (availableLanguages.includes(langAttribute)) {
+		logger.info(`changeLanguage: Changing to language="${langAttribute}"`);
 		const momentOptions = momentHelper.selectMomentOptions(langAttribute);
 		i18nMoment.locale(langAttribute, momentOptions);
 		if (langAttribute === 'de') {
+			logger.debug(`changeLanguage: Applying German locale customization for language="${langAttribute}"`);
 			i18nMoment.updateLocale('de', {
 				relativeTime: {
 					future: 'in %s',
@@ -139,6 +163,7 @@ const changeLanguage = (langAttribute) => {
 		}
 		return i18next.changeLanguage(langAttribute);
 	}
+	logger.warn(`changeLanguage: language="${langAttribute}" is not available, available languages="${availableLanguages.join(', ')}"`);
 	return false;
 };
 
