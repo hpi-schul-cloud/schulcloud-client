@@ -531,7 +531,7 @@ router.get('/shared/', (req, res) => {
 		let { data } = result;
 		data = data
 			.filter((file) => {
-				if (!file || file.refOwnerModel === 'teams' || !Array.isArray(file.permissions)) return false;
+				if (!file || !Array.isArray(file.permissions)) return false;
 				const permission = file.permissions.find((perm) => perm.refId === userId);
 				return permission ? !permission.write : false;
 			})
@@ -723,11 +723,6 @@ router.post('/permissions/', (req, res) => Promise.all([
 		return;
 	}
 
-	if (file.refOwnerModel === 'teams') {
-		res.sendStatus(404);
-		return;
-	}
-
 	const { data: roles } = result;
 
 	file.shareToken = file.shareToken || shortid.generate();
@@ -762,12 +757,11 @@ router.get('/share/', (req, res) => api(req).get(`/files/${req.query.file}`)
 
 router.get('/permissions/', (req, res) => {
 	const { file } = req.query;
-	const removedRoles = new Set(['teammember', 'teamexpert', 'teamleader', 'teamadministrator', 'teamowner']);
 
 	return api(req).get('/fileStorage/permission/', {
 		qs: { file },
 	})
-		.then((json) => res.json(Array.isArray(json) ? json.filter((entry) => !removedRoles.has(entry.name)) : json))
+		.then((json) => res.json(json))
 		.catch(() => res.sendStatus(500));
 });
 
@@ -789,7 +783,7 @@ router.get('/search/', (req, res, next) => {
 	api(req).get('/files/', {
 		qs: filterQuery,
 	}).then((result) => {
-		const files = result.data.filter((file) => file.refOwnerModel !== 'teams').map(addThumbnails);
+		const files = result.data.map(addThumbnails);
 		const filterOption = filterOptions(res).filter((f) => f.key === filter)[0];
 
 		res.render('files/search', {

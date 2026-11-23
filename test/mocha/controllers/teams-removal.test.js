@@ -201,27 +201,6 @@ describe('Teams removal from legacy routing', () => {
 		expect(response.map((entry) => entry.model)).to.deep.equal(['user', 'course']);
 	});
 
-	it('keeps independent permission entries while hiding Teams roles', async () => {
-		let response;
-		const permissions = [
-			{ name: 'teacher' },
-			{ name: 'student' },
-			{ name: 'teammember' },
-			{ name: 'teamexpert' },
-			{ name: 'teamleader' },
-			{ name: 'teamadministrator' },
-			{ name: 'teamowner' },
-			{ name: 'Another user' },
-		];
-		const router = loadController('files', fileDependencies(() => ({
-			get: () => Promise.resolve(permissions),
-		})));
-		const { route } = router.stack
-			.find((layer) => layer.route?.path === '/permissions/' && layer.route.methods.get);
-		await route.stack[0].handle({ query: { file: 'file' } }, { json: (value) => { response = value; } });
-		expect(response.map((entry) => entry.name)).to.deep.equal(['teacher', 'student', 'Another user']);
-	});
-
 	['course', 'personal'].forEach((kind) => {
 		it(`preserves ${kind} calendar event creation`, async () => {
 			let saved;
@@ -247,51 +226,6 @@ describe('Teams removal from legacy routing', () => {
 			expect(saved).not.to.have.property('teamId');
 			expect(redirect).to.equal('/calendar');
 		});
-	});
-
-	['teams', 'schools', 'courses'].forEach((targetModel) => {
-		it(`handles ${targetModel} news without rendering removed Teams content`, async () => {
-			let status;
-			let view;
-			const router = loadController('news', {
-				express,
-				'../api': () => ({ get: () => Promise.resolve({ targetModel, title: 'News' }) }),
-				'../helpers/authentication': { authChecker: (req, res, next) => next() },
-				'../helpers/timesHelper': {},
-			});
-			const { route } = router.stack.find((layer) => layer.route?.path === '/:newsId');
-			await route.stack[0].handle({ params: { newsId: 'news' } }, {
-				sendStatus: (value) => { status = value; },
-				render: (value) => { view = value; },
-			}, (error) => { throw error; });
-			expect(status).to.equal(targetModel === 'teams' ? 404 : undefined);
-			expect(view).to.equal(targetModel === 'teams' ? undefined : 'news/article');
-		});
-	});
-
-	it('excludes Teams news in the backend queries before pagination and counting', async () => {
-		const queries = [];
-		let rendered;
-		const router = loadController('news', {
-			express,
-			'../api': () => ({
-				get: (target, options) => {
-					queries.push(options.qs);
-					return Promise.resolve({ total: 0, data: [] });
-				},
-			}),
-			'../helpers/authentication': { authChecker: (req, res, next) => next() },
-			'../helpers/timesHelper': {},
-		});
-		const { route } = router.stack.find((layer) => layer.route?.path === '/');
-		await route.stack[0].handle({ query: {} }, {
-			$t: (key) => key,
-			render: (view, data) => { rendered = data; },
-		}, (error) => { throw error; });
-		expect(queries).to.have.length(2);
-		queries.forEach((qs) => expect(qs.targetModel).to.deep.equal({ $ne: 'teams' }));
-		expect(queries[1].unpublished).to.equal(true);
-		expect(rendered).to.be.an('object');
 	});
 
 	['de', 'en', 'es', 'uk'].forEach((language) => {

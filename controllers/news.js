@@ -32,10 +32,7 @@ router.all('/', async (req, res, next) => {
 	const itemsPerPage = 9;
 	const currentPage = parseInt(req.query.p, 10) || 1;
 
-	const excludeTeams = { targetModel: { $ne: 'teams' } };
-
 	const queryObject = {
-		...excludeTeams,
 		limit: itemsPerPage,
 		skip: itemsPerPage * (currentPage - 1),
 	};
@@ -58,13 +55,10 @@ router.all('/', async (req, res, next) => {
 			qs: queryObject,
 		});
 		const totalNews = news.total;
-		const mappedNews = news.data
-			.filter((newsItem) => newsItem.targetModel !== 'teams')
-			.map((newsItem) => decorateNews(newsItem));
+		const mappedNews = news.data.map((newsItem) => decorateNews(newsItem));
 
 		const unpublishedNews = await api(req, { version: VERSION }).get('/news/', {
 			qs: {
-				...excludeTeams,
 				unpublished: true,
 				limit: 100, // TODO PAGINATION
 				skip: 0,
@@ -72,9 +66,7 @@ router.all('/', async (req, res, next) => {
 		});
 		const unpublishedMappedNews = {
 			...unpublishedNews,
-			data: unpublishedNews.data
-				.filter((item) => item.targetModel !== 'teams')
-				.map((item) => decorateNews(item)),
+			data: unpublishedNews.data.map((item) => decorateNews(item)),
 		};
 
 		const pagination = {
@@ -98,10 +90,9 @@ router.all('/', async (req, res, next) => {
 });
 
 router.get('/:newsId', (req, res, next) => {
-	return api(req, { version: VERSION })
+	api(req, { version: VERSION })
 		.get(`/news/${req.params.newsId}`)
 		.then((news) => {
-			if (news.targetModel === 'teams') return res.sendStatus(404);
 			const updatedAtNotEqualCreatedAt = !(news.updatedAt === news.createdAt) && (news.updatedAt !== undefined);
 			res.render('news/article', {
 				title: news.title,
