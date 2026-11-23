@@ -50,16 +50,6 @@
 			"description": "Enables the extensions system in the app, which allows to add features via extensions. Deprecated!",
 			"default": false
 		},
-		"FEATURE_TEAMS_ENABLED": {
-			"type": "boolean",
-			"description": "Enables the teams feature in the app, which allows users to create and manage teams.",
-			"default": true
-		},
-		"FEATURE_TEAM_CREATE_ROOM_ENABLED": {
-			"type": "boolean",
-			"description": "Enables creating a room with the members of the team",
-			"default": false
-		},
 		"SC_DOMAIN": {
 			"type": "string",
 			"description": "The domain of the schulcloud instance, used for cookies and CORS configuration. Should not include protocol or slashes.",
@@ -198,18 +188,6 @@
 				}
 			},
 			"default": {}
-		},
-		"TEACHER_VISIBILITY_FOR_EXTERNAL_TEAM_INVITATION": {
-			"type": "string",
-			"default": "disabled",
-			"enum": ["disabled", "opt-in", "opt-out", "enabled"],
-			"description": "Defines wether external team invitation shows teachers from different schools or not. if enabled system wide there are options general enabled or opt-in/-out by user required."
-		},
-		"STUDENT_TEAM_CREATION": {
-			"type": "string",
-			"default": "opt-out",
-			"enum": ["disabled", "opt-in", "opt-out", "enabled"],
-			"description": "defines wether students may create teams or not. if enabled system wide there are options general enabled or opt-in/-out by school admin required."
 		},
 		"FEATURE_VIDEOCONFERENCE_ENABLED": {
 			"type": "boolean",
@@ -498,20 +476,10 @@
 			"default": false,
 			"description": "Enables Course import"
 		},
-		"FEATURE_LEGACY_TEAM_FILES_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "Enables Files tab in the team-view of Teams menu"
-		},
 		"FEATURE_OAUTH_LOGIN_ENABLED": {
 			"type": "boolean",
 			"default": false,
 			"description": "Enables button Oauth Login feature"
-		},
-		"FEATURE_TEAMS_INVITE_EXTERNAL_ENABLED": {
-			"type": "boolean",
-			"default": true,
-			"description": "Enables button for invitations of external persons within teams"
 		},
 		"FEATURE_USER_MIGRATION_CENTRAL_LDAP": {
 			"type": "boolean",
@@ -582,11 +550,6 @@
 			"type": "boolean",
 			"default": false,
 			"description": "Enables the external system logout feature"
-		},
-		"FEATURE_TEAM_ARCHIVE_DOWNLOAD": {
-			"type": "boolean",
-			"default": true,
-			"description": "Enables the archive download in teams section"
 		},
 		"FEATURE_PERSONAL_FILES_ARCHIVE_DOWNLOAD": {
 			"type": "boolean",
