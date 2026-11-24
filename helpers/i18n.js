@@ -135,7 +135,7 @@ const getInstance = () => (key, options = {}) => i18next.t(key, {
 	...options,
 });
 
-const changeLanguage = (langAttribute) => {
+const changeLanguage = async (langAttribute) => {
 	if (availableLanguages.includes(langAttribute)) {
 		logger.info(`changeLanguage: Changing to language="${langAttribute}"`);
 		const momentOptions = momentHelper.selectMomentOptions(langAttribute);
