@@ -105,11 +105,11 @@ const getCurrentLanguage = async (req, res) => {
 		return schoolLanguage;
 	}
 
-	//const cookieLanguage = req?.cookies?.USER_LANG;
-	//if (isAvailableLanguage(cookieLanguage)) {
-	//	logger.info(`getCurrentLanguage: Using cookie language="${cookieLanguage}"`);
-	//	return cookieLanguage;
-	//}
+	const cookieLanguage = req?.cookies?.USER_LANG;
+	if (isAvailableLanguage(cookieLanguage)) {
+		logger.info(`getCurrentLanguage: Using cookie language="${cookieLanguage}"`);
+		return cookieLanguage;
+	}
 
 	const registrationSchoolId = req?.url?.match(/^\/registration\/(.*)\?/)?.[1];
 	const registrationLanguage = registrationSchoolId ? await getSchoolLanguage(req, registrationSchoolId) : undefined;
@@ -118,14 +118,14 @@ const getCurrentLanguage = async (req, res) => {
 		return registrationLanguage;
 	}
 
-	if (req?.url?.startsWith('/login')) {
-		logger.info(`getCurrentLanguage: URL starts with /login, checking browser language`);
-		const browserLanguage = getBrowserLanguage(req);
-		if (browserLanguage) {
-			logger.info(`getCurrentLanguage: Using browser language="${browserLanguage}"`);
-			return browserLanguage;
-		}
-	}
+	//if (req?.url?.startsWith('/login')) {
+	//	logger.info(`getCurrentLanguage: URL starts with /login, checking browser language`);
+	//	const browserLanguage = getBrowserLanguage(req);
+	//	if (browserLanguage) {
+	//		logger.info(`getCurrentLanguage: Using browser language="${browserLanguage}"`);
+	//		return browserLanguage;
+	//	}
+	//}
 
 	logger.info(`getCurrentLanguage: Using default language="${defaultLanguage}"`);
 	return defaultLanguage;
