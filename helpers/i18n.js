@@ -85,49 +85,49 @@ const getBrowserLanguage = (req) => {
 };
 
 const getCurrentLanguage = async (req, res) => {
-	const queryLanguage = req?.query?.lng;
-	if (isAvailableLanguage(queryLanguage)) {
-		logger.info(`getCurrentLanguage: Using query parameter language="${queryLanguage}"`);
-		return queryLanguage;
-	}
-
-	const { currentUser, currentSchoolData } = res?.locals ?? {};
-
-	const userLanguage = currentUser?.language;
-	if (isAvailableLanguage(userLanguage)) {
-		logger.info(`getCurrentLanguage: Using user language="${userLanguage}"`);
-		return userLanguage;
-	}
-
-	const schoolLanguage = currentSchoolData?.language;
-	if (isAvailableLanguage(schoolLanguage)) {
-		logger.info(`getCurrentLanguage: Using school language="${schoolLanguage}"`);
-		return schoolLanguage;
-	}
-
-	//const cookieLanguage = req?.cookies?.USER_LANG;
-	//if (isAvailableLanguage(cookieLanguage)) {
-	//	logger.info(`getCurrentLanguage: Using cookie language="${cookieLanguage}"`);
-	//	return cookieLanguage;
+	//const queryLanguage = req?.query?.lng;
+	//if (isAvailableLanguage(queryLanguage)) {
+	//	logger.info(`getCurrentLanguage: Using query parameter language="${queryLanguage}"`);
+	//	return queryLanguage;
 	//}
 
-	const registrationSchoolId = req?.url?.match(/^\/registration\/(.*)\?/)?.[1];
-	const registrationLanguage = registrationSchoolId ? await getSchoolLanguage(req, registrationSchoolId) : undefined;
-	if (registrationLanguage) {
-		logger.info(`getCurrentLanguage: Using registration school language="${registrationLanguage}" for schoolId="${registrationSchoolId}"`);
-		return registrationLanguage;
-	}
+	//const { currentUser, currentSchoolData } = res?.locals ?? {};
 
-	if (req?.url?.startsWith('/login')) {
-		logger.info(`getCurrentLanguage: URL starts with /login, checking browser language`);
-		const browserLanguage = getBrowserLanguage(req);
-		if (browserLanguage) {
-			logger.info(`getCurrentLanguage: Using browser language="${browserLanguage}"`);
-			return browserLanguage;
-		}
-	}
+	//const userLanguage = currentUser?.language;
+	//if (isAvailableLanguage(userLanguage)) {
+	//	logger.info(`getCurrentLanguage: Using user language="${userLanguage}"`);
+	//	return userLanguage;
+	//}
 
-	logger.info(`getCurrentLanguage: Using default language="${defaultLanguage}"`);
+	//const schoolLanguage = currentSchoolData?.language;
+	//if (isAvailableLanguage(schoolLanguage)) {
+	//	logger.info(`getCurrentLanguage: Using school language="${schoolLanguage}"`);
+	//	return schoolLanguage;
+	//}
+
+	////const cookieLanguage = req?.cookies?.USER_LANG;
+	////if (isAvailableLanguage(cookieLanguage)) {
+	////	logger.info(`getCurrentLanguage: Using cookie language="${cookieLanguage}"`);
+	////	return cookieLanguage;
+	////}
+
+	//const registrationSchoolId = req?.url?.match(/^\/registration\/(.*)\?/)?.[1];
+	//const registrationLanguage = registrationSchoolId ? await getSchoolLanguage(req, registrationSchoolId) : undefined;
+	//if (registrationLanguage) {
+	//	logger.info(`getCurrentLanguage: Using registration school language="${registrationLanguage}" for schoolId="${registrationSchoolId}"`);
+	//	return registrationLanguage;
+	//}
+
+	//if (req?.url?.startsWith('/login')) {
+	//	logger.info(`getCurrentLanguage: URL starts with /login, checking browser language`);
+	//	const browserLanguage = getBrowserLanguage(req);
+	//	if (browserLanguage) {
+	//		logger.info(`getCurrentLanguage: Using browser language="${browserLanguage}"`);
+	//		return browserLanguage;
+	//	}
+	//}
+
+	//logger.info(`getCurrentLanguage: Using default language="${defaultLanguage}"`);
 	return defaultLanguage;
 };
 
