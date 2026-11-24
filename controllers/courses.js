@@ -782,9 +782,11 @@ router.patch('/:courseId', async (req, res, next) => {
 
 		const { courseId } = req.params;
 
-		const isAdministrator = res.locals.currentRole === 'Administrator';
+		// administrators and superheroes keep access to the course without being one of its teachers
+		const hasAdministrativeAccess = res.locals.currentUser.roles
+			.some((role) => ['administrator', 'superhero'].includes(role.name));
 		const currentUserId = res.locals.currentUser._id;
-		const isRemovingYourself = !isAdministrator
+		const isRemovingYourself = !hasAdministrativeAccess
 			&& req.body.teacherIds
 			&& req.body.substitutionIds
 			&& !req.body.teacherIds.some((id) => id === currentUserId)
