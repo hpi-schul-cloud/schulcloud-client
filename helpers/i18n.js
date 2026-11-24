@@ -100,11 +100,6 @@ const getCurrentLanguage = async (req, res) => {
 		return registrationLanguage;
 	}
 
-	const browserLanguage = getBrowserLanguage(req);
-	if (browserLanguage) {
-		return browserLanguage;
-	}
-
 	return defaultLanguage;
 };
 
