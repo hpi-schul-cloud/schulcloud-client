@@ -20,7 +20,6 @@ const isAvailableLanguage = (language) => (
 );
 
 if (!isAvailableLanguage(defaultLanguage)) {
-	logger.error(`Validation failed: defaultLanguage="${defaultLanguage}" is not available`);
 	throw new Error('I18N__DEFAULT_LANGUAGE must be a non-empty language listed in I18N__AVAILABLE_LANGUAGES');
 }
 
@@ -41,9 +40,6 @@ i18next
 			loadPath: `${localeDir}/{{lng}}.json`,
 		},
 	})
-	.then(() => {
-		logger.info('i18n initialized');
-	})
 	.catch(logger.error);
 
 const getSchoolLanguage = async (req, schoolId) => {
@@ -51,23 +47,19 @@ const getSchoolLanguage = async (req, schoolId) => {
 	try {
 		school = await api(req).get(`/registrationSchool/${schoolId}`);
 	} catch {
-		logger.warn('Could not load the registration school language');
 		return undefined;
 	}
 
 	const language = school?.language;
 	if (isAvailableLanguage(language)) {
-		logger.info(`getSchoolLanguage: Found available language="${language}" for schoolId="${schoolId}"`);
 		return language;
 	}
-	logger.info(`getSchoolLanguage: language="${language}" is not available for schoolId="${schoolId}"`);
 	return undefined;
 };
 
 const getBrowserLanguage = (req) => {
 	const acceptLanguage = req?.headers?.['accept-language'];
 	if (!acceptLanguage) {
-		logger.info('getBrowserLanguage: acceptLanguage header not found');
 		return undefined;
 	}
 
@@ -76,18 +68,12 @@ const getBrowserLanguage = (req) => {
 		.map((value) => value.split(';')[0].split('-')[0].trim())
 		.find(isAvailableLanguage);
 
-	if (language) {
-		logger.info(`getBrowserLanguage: Found available language="${language}" from acceptLanguage="${acceptLanguage}"`);
-	} else {
-		logger.info(`getBrowserLanguage: No available language found in acceptLanguage="${acceptLanguage}"`);
-	}
 	return language;
 };
 
 const getCurrentLanguage = async (req, res) => {
 	const queryLanguage = req?.query?.lng;
 	if (isAvailableLanguage(queryLanguage)) {
-		logger.info(`getCurrentLanguage: Using query parameter language="${queryLanguage}"`);
 		return queryLanguage;
 	}
 
@@ -95,39 +81,30 @@ const getCurrentLanguage = async (req, res) => {
 
 	const userLanguage = currentUser?.language;
 	if (isAvailableLanguage(userLanguage)) {
-		logger.info(`getCurrentLanguage: Using user language="${userLanguage}"`);
 		return userLanguage;
 	}
 
 	const schoolLanguage = currentSchoolData?.language;
 	if (isAvailableLanguage(schoolLanguage)) {
-		logger.info(`getCurrentLanguage: Using school language="${schoolLanguage}"`);
 		return schoolLanguage;
 	}
 
 	const cookieLanguage = req?.cookies?.USER_LANG;
 	if (isAvailableLanguage(cookieLanguage)) {
-		logger.info(`getCurrentLanguage: Using cookie language="${cookieLanguage}"`);
 		return cookieLanguage;
 	}
 
 	const registrationSchoolId = req?.url?.match(/^\/registration\/(.*)\?/)?.[1];
 	const registrationLanguage = registrationSchoolId ? await getSchoolLanguage(req, registrationSchoolId) : undefined;
 	if (registrationLanguage) {
-		logger.info(`getCurrentLanguage: Using registration school language="${registrationLanguage}" for schoolId="${registrationSchoolId}"`);
 		return registrationLanguage;
 	}
 
-	//if (req?.url?.startsWith('/login')) {
-	//	logger.info(`getCurrentLanguage: URL starts with /login, checking browser language`);
-	//	const browserLanguage = getBrowserLanguage(req);
-	//	if (browserLanguage) {
-	//		logger.info(`getCurrentLanguage: Using browser language="${browserLanguage}"`);
-	//		return browserLanguage;
-	//	}
-	//}
+	const browserLanguage = getBrowserLanguage(req);
+	if (browserLanguage) {
+		return browserLanguage;
+	}
 
-	logger.info(`getCurrentLanguage: Using default language="${defaultLanguage}"`);
 	return defaultLanguage;
 };
 
@@ -136,14 +113,10 @@ const getInstance = () => (key, options = {}) => i18next.t(key, {
 });
 
 const changeLanguage = async (langAttribute) => {
-	const caller = new Error().stack?.split('\n')[2]?.trim() || 'unknown caller';
-
 	if (availableLanguages.includes(langAttribute)) {
-		logger.info(`changeLanguage: Changing to language="${langAttribute}", called from ${caller}`);
 		const momentOptions = momentHelper.selectMomentOptions(langAttribute);
 		i18nMoment.locale(langAttribute, momentOptions);
 		if (langAttribute === 'de') {
-			logger.info(`changeLanguage: Applying German locale customization for language="${langAttribute}"`);
 			i18nMoment.updateLocale('de', {
 				relativeTime: {
 					future: 'in %s',
@@ -165,7 +138,6 @@ const changeLanguage = async (langAttribute) => {
 		}
 		return i18next.changeLanguage(langAttribute);
 	}
-	logger.warn(`changeLanguage: language="${langAttribute}" is not available, available languages="${availableLanguages.join(', ')}", called from ${caller}`);
 	return false;
 };
 
