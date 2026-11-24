@@ -42,7 +42,7 @@
 		"handlebars-wax": "^5.1.1",
 		"hbs": "^4.2.1",
 		"html-entities": "^2.6.0",
-		"i18next": "^19.9.2",
+		"i18next": "^26.3.4",
 		"i18next-fs-backend": "^2.6.6",
 		"iovalkey": "^0.3.1",
 		"jquery": "^3.6.0",
