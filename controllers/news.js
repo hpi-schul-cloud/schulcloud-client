@@ -31,17 +31,11 @@ router.delete('/:id', getDeleteHandler('news'));
 router.all('/', async (req, res, next) => {
 	const itemsPerPage = 9;
 	const currentPage = parseInt(req.query.p, 10) || 1;
-	const context = req.originalUrl.split('/')[1];
 
 	const queryObject = {
 		limit: itemsPerPage,
 		skip: itemsPerPage * (currentPage - 1),
 	};
-
-	if (context === 'teams') {
-		queryObject.targetModel = 'teams';
-		queryObject.target = req.originalUrl.split('/')[2] || {};
-	}
 
 	const decorateNews = (newsItem) => {
 		const isRSS = newsItem.source === 'rss';
@@ -81,14 +75,8 @@ router.all('/', async (req, res, next) => {
 			baseUrl: '/news/?p={{page}}',
 		};
 
-		let title = res.$t('global.headline.news');
-		// ToDo: Hier kommen noch News für Kurse und Klassen rein.
-		if (context === 'teams') {
-			title = res.$t('news.headline.newsTeam');
-		}
-
 		res.render('news/overview', {
-			title,
+			title: res.$t('global.headline.news'),
 			unpublishedNews: unpublishedMappedNews,
 			news: mappedNews,
 			pagination,

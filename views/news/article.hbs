@@ -29,9 +29,6 @@
             {{/if}}
         {{/unless}}
         {{#if news.target.name}}
-        {{#ifCond news.targetModel '===' 'teams'}}
-        &nbsp;|&nbsp;{{> 'news/svg_team' }}&nbsp;<a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
-        {{/ifCond}}
         {{#ifCond news.targetModel '===' 'courses'}}
         &nbsp;|&nbsp;<a href="/{{../news.targetModel}}/{{../news.target.id}}">{{../news.target.name}}</a>
         {{/ifCond}}

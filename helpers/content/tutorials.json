@@ -244,16 +244,6 @@
 						"type": "article"
 					},
 					{
-						"id": "154188138",
-						"title": "Teams für Schüler:innen aktivieren",
-						"type": "article"
-					},
-					{
-						"id": "223674916",
-						"title": "Teams bearbeiten und verwalten",
-						"type": "article"
-					},
-					{
 						"id": "113640783",
 						"title": "Moodle-Hinweise für Schulen",
 						"type": "article"
@@ -333,33 +323,6 @@
 				]
 			},
 			{
-				"id": "426313034",
-				"title": "Teams",
-				"type": "category",
-				"articles": [
-					{
-						"id": "426313035",
-						"title": "Teams anlegen, bearbeiten und löschen",
-						"type": "article"
-					},
-					{
-						"id": "426313038",
-						"title": "Teammitglieder einladen",
-						"type": "article"
-					},
-					{
-						"id": "426313051",
-						"title": "Teamrollen und Berechtigungen",
-						"type": "article"
-					},
-					{
-						"id": "426313060",
-						"title": "Teameinladung freigeben",
-						"type": "article"
-					}
-				]
-			},
-			{
 				"id": "17170476",
 				"title": "Hilfreiche Funktionen",
 				"type": "category",
@@ -423,12 +386,6 @@
 			{
 				"id": "123407337",
 				"title": "Schuljahreswechsel",
-				"type": "category",
-				"articles": []
-			},
-			{
-				"id": "214237489",
-				"title": "Dateien in Nextcloud",
 				"type": "category",
 				"articles": []
 			},
