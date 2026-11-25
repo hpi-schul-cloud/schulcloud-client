@@ -17,7 +17,6 @@ Configuration.set('I18N__DEFAULT_LANGUAGE', config.defaultLanguage);
 Configuration.set('I18N__FALLBACK_LANGUAGE', config.fallbackLanguage);
 Configuration.set('I18N__AVAILABLE_LANGUAGES', config.availableLanguages);
 const i18n = require('../../../helpers/i18n');
-const i18nMiddleware = require('../../../middleware/i18n');
 
 describe('i18n helpers test', () => {
 	it('Check for defaultLanguage', () => {

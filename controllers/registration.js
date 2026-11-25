@@ -6,7 +6,7 @@ const api = require('../api');
 
 const setTheme = require('../helpers/theme');
 const authHelper = require('../helpers/authentication');
-const { getCurrentLanguage, isValidLanguage } = require('../helpers/i18n');
+const { getCurrentLanguage } = require('../helpers/i18n');
 const { setCookie } = require('../helpers/cookieHelper');
 const { logger } = require('../helpers');
 
