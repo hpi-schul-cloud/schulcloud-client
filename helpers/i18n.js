@@ -47,14 +47,14 @@ const getSchoolLanguage = async (req, schoolId) => {
 	try {
 		school = await api(req).get(`/registrationSchool/${schoolId}`);
 	} catch {
-		return undefined;
+		return null;
 	}
 
 	const language = school?.language;
 	if (isValidLanguage(language)) {
 		return language;
 	}
-	return undefined;
+	return null;
 };
 
 const getBrowserLanguage = (req) => {

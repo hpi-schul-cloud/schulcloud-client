@@ -380,7 +380,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res) => {
 		roleText = res.$t('registration.text.roleExpert');
 	}
 
-	if (!isValidLanguage(user.language)) {
+	if (!user.language) {
 		user.language = await getCurrentLanguage(req, res);
 	}
 
