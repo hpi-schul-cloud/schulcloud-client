@@ -15,16 +15,16 @@ const availableLanguages = (Configuration.get('I18N__AVAILABLE_LANGUAGES') || ''
 	.split(',')
 	.map((value) => value.trim());
 
-const isAvailableLanguage = (language) => (
+const isValidLanguage = (language) => (
 	typeof language === 'string' && language.length > 0 && availableLanguages.includes(language)
 );
 
-if (!isAvailableLanguage(defaultLanguage)) {
+if (!isValidLanguage(defaultLanguage)) {
 	throw new Error('I18N__DEFAULT_LANGUAGE must be a non-empty language listed in I18N__AVAILABLE_LANGUAGES');
 }
 
 const validateLanguage = (language) => (
-	isAvailableLanguage(language) ? language : defaultLanguage
+	isValidLanguage(language) ? language : defaultLanguage
 );
 
 const localeDir = path.join(__dirname, '../locales');
@@ -40,9 +40,6 @@ i18next
 			loadPath: `${localeDir}/{{lng}}.json`,
 		},
 	})
-	.then(() => {
-		logger.info('i18n initialized');
-	})
 	.catch(logger.error);
 
 const getSchoolLanguage = async (req, schoolId) => {
@@ -54,7 +51,7 @@ const getSchoolLanguage = async (req, schoolId) => {
 	}
 
 	const language = school?.language;
-	if (isAvailableLanguage(language)) {
+	if (isValidLanguage(language)) {
 		return language;
 	}
 	return undefined;
@@ -69,31 +66,31 @@ const getBrowserLanguage = (req) => {
 	const language = acceptLanguage
 		.split(',')
 		.map((value) => value.split(';')[0].split('-')[0].trim())
-		.find(isAvailableLanguage);
+		.find(isValidLanguage);
 
 	return language;
 };
 
 const getCurrentLanguage = async (req, res) => {
 	const queryLanguage = req?.query?.lng;
-	if (isAvailableLanguage(queryLanguage)) {
+	if (isValidLanguage(queryLanguage)) {
 		return queryLanguage;
 	}
 
 	const { currentUser, currentSchoolData } = res?.locals ?? {};
 
 	const userLanguage = currentUser?.language;
-	if (isAvailableLanguage(userLanguage)) {
+	if (isValidLanguage(userLanguage)) {
 		return userLanguage;
 	}
 
 	const schoolLanguage = currentSchoolData?.language;
-	if (isAvailableLanguage(schoolLanguage)) {
+	if (isValidLanguage(schoolLanguage)) {
 		return schoolLanguage;
 	}
 
 	const cookieLanguage = req?.cookies?.USER_LANG;
-	if (isAvailableLanguage(cookieLanguage)) {
+	if (isValidLanguage(cookieLanguage)) {
 		return cookieLanguage;
 	}
 
@@ -145,7 +142,7 @@ module.exports = {
 	fallbackLanguage,
 	availableLanguages,
 	getInstance,
-	isAvailableLanguage,
+	isValidLanguage,
 	validateLanguage,
 	changeLanguage,
 	getCurrentLanguage,
