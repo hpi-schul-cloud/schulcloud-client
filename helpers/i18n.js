@@ -40,6 +40,9 @@ i18next
 			loadPath: `${localeDir}/{{lng}}.json`,
 		},
 	})
+	.then(() => {
+		logger.info('i18n initialized');
+	})
 	.catch(logger.error);
 
 const getSchoolLanguage = async (req, schoolId) => {
