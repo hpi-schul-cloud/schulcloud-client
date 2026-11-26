@@ -133,7 +133,7 @@ const changeLanguage = async (langAttribute) => {
 		}
 		return i18next.changeLanguage(langAttribute);
 	}
-	return Promise.resolve(false);
+	return false;
 };
 
 module.exports = {
