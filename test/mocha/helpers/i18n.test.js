@@ -49,6 +49,60 @@ describe('i18n helpers test', () => {
 			);
 	});
 
+	describe('validateLanguage', () => {
+		it('returns supported languages unchanged', () => {
+			for (const language of i18n.availableLanguages) {
+				chai.expect(i18n.validateLanguage(language)).to.equal(language);
+			}
+		});
+
+		it('falls back to the default language for invalid values', () => {
+			const invalidValues = [
+				'he', '', ' de ', 'DE', '</script><script>alert(1)</script>',
+				undefined, null, false, 1, ['en'], { language: 'en' },
+			];
+			for (const language of invalidValues) {
+				chai.expect(i18n.validateLanguage(language)).to.equal(config.defaultLanguage);
+			}
+		});
+	});
+
+	describe('getCurrentLanguage', () => {
+		const preferences = {
+			locals: { currentUser: { language: 'en' }, currentSchoolData: { language: 'es' } },
+		};
+
+		it('keeps a supported query language ahead of saved preferences', async () => {
+			const language = await i18n.getCurrentLanguage({ query: { lng: 'uk' } }, preferences);
+			chai.expect(language).to.equal('uk');
+		});
+
+		it('keeps the user preference when the query language is invalid', async () => {
+			for (const lng of ['unsupported', ['de', 'en']]) {
+				const language = await i18n.getCurrentLanguage({ query: { lng } }, preferences);
+				chai.expect(language).to.equal('en');
+			}
+		});
+
+		it('skips invalid user, school, and cookie preferences', async () => {
+			const invalidPreferences = {
+				locals: { currentUser: { language: {} }, currentSchoolData: { language: 'unsupported' } },
+			};
+			const fromCookie = await i18n.getCurrentLanguage({ cookies: { USER_LANG: 'uk' } }, invalidPreferences);
+			const fromDefault = await i18n.getCurrentLanguage(
+				{ cookies: { USER_LANG: 'unsupported' } },
+				invalidPreferences,
+			);
+			chai.expect(fromCookie).to.equal('uk');
+			chai.expect(fromDefault).to.equal(config.defaultLanguage);
+		});
+
+		it('uses the default language when the registration URL has no school ID', async () => {
+			const language = await i18n.getCurrentLanguage({ url: '/registration/' }, { locals: {} });
+			chai.expect(language).to.equal(config.defaultLanguage);
+		});
+	});
+
 	it('Check changeLanguage(en)', async () => {
 		await i18n.changeLanguage('en');
 		chai
@@ -62,6 +116,12 @@ describe('i18n helpers test', () => {
 		chai
 			.expect(i18n.i18next.language)
 			.to.equal('de', 'The language should be still "de" because "he" is unknown');
+	});
+
+	it('returns undefined when the browser supplies no supported language', () => {
+		for (const req of [{ headers: {} }, { headers: { 'accept-language': 'it,fr' } }]) {
+			chai.expect(i18n.getBrowserLanguage(req)).to.equal(undefined);
+		}
 	});
 
 	it('Check getBrowserLanguage()', () => {

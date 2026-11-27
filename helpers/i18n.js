@@ -15,6 +15,18 @@ const availableLanguages = (Configuration.get('I18N__AVAILABLE_LANGUAGES') || ''
 	.split(',')
 	.map((value) => value.trim());
 
+const isValidLanguage = (language) => (
+	typeof language === 'string' && language.length > 0 && availableLanguages.includes(language)
+);
+
+if (!isValidLanguage(defaultLanguage)) {
+	throw new Error('I18N__DEFAULT_LANGUAGE must be a non-empty language listed in I18N__AVAILABLE_LANGUAGES');
+}
+
+const validateLanguage = (language) => (
+	isValidLanguage(language) ? language : defaultLanguage
+);
+
 const localeDir = path.join(__dirname, '../locales');
 
 i18next
@@ -28,57 +40,64 @@ i18next
 			loadPath: `${localeDir}/{{lng}}.json`,
 		},
 	})
-	.then(() => {
-		logger.info('i18n initialized');
-	})
 	.catch(logger.error);
 
 const getSchoolLanguage = async (req, schoolId) => {
+	let school;
 	try {
-		const school = await api(req).get(`/registrationSchool/${schoolId}`);
-		return school.language;
-	} catch (e) {
-		return undefined;
+		school = await api(req).get(`/registrationSchool/${schoolId}`);
+	} catch {
+		return null;
 	}
+
+	const language = school?.language;
+	if (isValidLanguage(language)) {
+		return language;
+	}
+	return null;
 };
 
 const getBrowserLanguage = (req) => {
-	const headersAcceptLanguages = (((req || {}).headers || {})['accept-language'] || '')
+	const acceptLanguage = req?.headers?.['accept-language'];
+	if (!acceptLanguage) {
+		return undefined;
+	}
+
+	const language = acceptLanguage
 		.split(',')
-		.map((value) => value.split(';').shift())
-		.map((value) => value.split('-').shift())
-		.reduce((unique, item) => (unique.includes(item) ? unique : [...unique, item]), [])
-		.filter((value) => availableLanguages.includes(value));
-	return headersAcceptLanguages.shift() || null;
+		.map((value) => value.split(';')[0].split('-')[0].trim())
+		.find(isValidLanguage);
+
+	return language;
 };
 
 const getCurrentLanguage = async (req, res) => {
-	// get language by query
-	if (req && req.query && req.query.lng) {
-		return req.query.lng;
+	const queryLanguage = req?.query?.lng;
+	if (isValidLanguage(queryLanguage)) {
+		return queryLanguage;
 	}
 
-	const { currentUser, currentSchoolData } = (res || {}).locals;
+	const { currentUser, currentSchoolData } = res?.locals ?? {};
 
-	// get language by user
-	if (currentUser && currentUser.language) {
-		return currentUser.language;
+	const userLanguage = currentUser?.language;
+	if (isValidLanguage(userLanguage)) {
+		return userLanguage;
 	}
 
-	// get language by school
-	if (currentSchoolData && currentSchoolData.language) {
-		return currentSchoolData.language;
+	const schoolLanguage = currentSchoolData?.language;
+	if (isValidLanguage(schoolLanguage)) {
+		return schoolLanguage;
 	}
 
-	// get language by cookie
-	if (req && req.cookies && req.cookies.USER_LANG) {
-		return req.cookies.USER_LANG;
+	const cookieLanguage = req?.cookies?.USER_LANG;
+	if (isValidLanguage(cookieLanguage)) {
+		return cookieLanguage;
 	}
 
-	// get language by registration school
-	if (req.url.startsWith('/registration/')) {
-		const matchSchoolId = req.url.match('/registration/(.*)\\?');
-		return (matchSchoolId || []).length > 1 ? getSchoolLanguage(req, matchSchoolId[1]) : undefined;
+	const registrationSchoolId = req?.url?.match(/^\/registration\/(.*)\?/)?.[1];
+	const registrationLanguage = registrationSchoolId ? await getSchoolLanguage(req, registrationSchoolId) : undefined;
+	if (registrationLanguage) {
+		return registrationLanguage;
 	}
 
 	return defaultLanguage;
@@ -88,7 +107,7 @@ const getInstance = () => (key, options = {}) => i18next.t(key, {
 	...options,
 });
 
-const changeLanguage = (langAttribute) => {
+const changeLanguage = async (langAttribute) => {
 	if (availableLanguages.includes(langAttribute)) {
 		const momentOptions = momentHelper.selectMomentOptions(langAttribute);
 		i18nMoment.locale(langAttribute, momentOptions);
@@ -123,6 +142,8 @@ module.exports = {
 	fallbackLanguage,
 	availableLanguages,
 	getInstance,
+	isValidLanguage,
+	validateLanguage,
 	changeLanguage,
 	getCurrentLanguage,
 	getBrowserLanguage,
